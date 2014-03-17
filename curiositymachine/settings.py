@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'curiositymachine',
     'cmauth',
     'profiles',
     'challenges',
@@ -51,9 +52,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-# AUTHENTICATION_BACKENDS = (
-#     'cmauth.auth_backends.EmailAuthBackend',
-# )
 
 AUTH_USER_MODEL = 'cmauth.User'
 

@@ -60,9 +60,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _('users')
 
     def get_absolute_url(self):
-        if role == Role.STUDENT:
+        if self.role == Role.STUDENT:
             return "/students/%s/" % urlquote(self.email)
-        elif role == Role.MENTOR:
+        elif self.role == Role.MENTOR:
             return "/mentors/%s/" % urlquote(self.email)
 
     @property
@@ -82,3 +82,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         Sends an email to this User.
         """
         send_mail(subject, message, from_email, [self.email])
+
+    @property
+    def is_mentor(self):
+        return self.role == Role.MENTOR
+
+    @property
+    def is_student(self):
+        return self.role == Role.STUDENT

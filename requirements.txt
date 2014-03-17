@@ -1,4 +1,3 @@
 #framework
 -e git://github.com/django/django@1.7a2#egg=Django
 
-#lck.django==0.8.8
