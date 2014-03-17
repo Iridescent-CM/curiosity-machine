@@ -1,3 +1,10 @@
-
+venv
+staticfiles
+*.log
+*.pot
 *.pyc
-
+.DS_Store
+curiositymachine/local.py
+.coverage
+*.db
+db.sqlite3
