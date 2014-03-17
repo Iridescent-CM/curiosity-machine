@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.contrib import auth
+from django.core.urlresolvers import reverse
 
 def login(request):
     if request.method == 'GET':
@@ -19,4 +20,8 @@ def login(request):
             return render(request, 'login.html', {'message':'Your account is disabled.'})
     else:
         return render(request, 'login.html', {'message':'Invalid email or password.'})
+
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect(reverse('cmauth:login'))
 

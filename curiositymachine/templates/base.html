@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+    {% if request.user.is_authenticated %}
+        <div>
+            <a class="logout" href="/logout">Logout</a>
+            <a class="user-name" href="{{ user.get_absolute_url }}">{{request.user.email}}</a>
+        </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</body>
+
+</html>
