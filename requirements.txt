@@ -1,3 +1,6 @@
 #framework
 -e git://github.com/django/django@1.7a2#egg=Django
 
+#Heroku DATABASE_URL env variable parsing
+dj-database-url==0.2.2
+
