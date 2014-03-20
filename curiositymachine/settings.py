@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'curiositymachine',
-    'cmauth',
     'profiles',
     'challenges',
     'cmmessages',
@@ -71,7 +70,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 
 
-AUTH_USER_MODEL = 'cmauth.User'
+AUTH_USER_MODEL = 'auth.User'
 
 ROOT_URLCONF = 'curiositymachine.urls'
 
