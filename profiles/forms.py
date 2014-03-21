@@ -7,14 +7,14 @@ from datetime import datetime
 import re
 
 class JoinForm(forms.Form):
-    username = forms.CharField(max_length=254,required=True, label="Username")
-    email = forms.EmailField(max_length=254,required=False, label="Email")
-    password = forms.CharField(max_length=128,
+    username = forms.CharField(max_length=30,required=True, label="Username")
+    email = forms.EmailField(max_length=75,required=False, label="Email")
+    password = forms.CharField(required=True, max_length=128,
                                widget=forms.PasswordInput(render_value=False), label="Password")
     confirm_password = forms.CharField(required=True, max_length=128,
                                        widget=forms.PasswordInput(render_value=False), label="Retype password")
     first_name = forms.CharField(required=True, label="First Name")
-    nickname = forms.CharField(label="Nickname", required=False)
+    nickname = forms.CharField(max_length=30, label="Nickname", required=False)
     birthday = forms.CharField(required=True, max_length=8, widget=forms.TextInput(attrs={'placeholder': 'MM/DD/YY'}), label="Date of Birth")
     city = forms.CharField(required=True, label="City")
     parent_first_name = forms.CharField(required=True, label="First Name")
@@ -34,14 +34,14 @@ class JoinForm(forms.Form):
             raise forms.ValidationError("Passwords do not match.")
         return cleaned_data
 
-    def clean_email(self):
-        email = self.cleaned_data['email'].strip().lower()
-        return email
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if re.match("^[\w.@+-]+$", username) is None:
+            raise forms.ValidationError("Username can only include letters, digits and @/./+/-/_")
+        return username
 
     def clean_password(self):
         password = self.cleaned_data['password'].strip()
-        if not password:
-            raise forms.ValidationError("This field is required.")
         if len(password) < 6:
             raise forms.ValidationError('Password must be at least 6 characters long')
         return password

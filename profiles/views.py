@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+from django.db import IntegrityError
+from django.forms.util import ErrorList
 from profiles.models import Profile
 from profiles.forms import JoinForm
 
@@ -20,19 +22,21 @@ def join(request):
             try:
                 user.save()
             except IntegrityError:
-                raise forms.ValidationError('Username has already been used')
-            profile = Profile()
-            profile.is_mentor = False
-            profile.user = user
-            profile.birthday = data['birthday']
-            profile.nickname = data['nickname']
-            profile.city = data['city']
-            profile.parent_first_name = data['parent_first_name']
-            profile.parent_last_name = data['parent_last_name']
-            profile.save()
-            user = auth.authenticate(username=data['username'], password=data['password'])
-            auth.login(request, user)
-            return HttpResponseRedirect(request.user.profile.get_absolute_url())
+                errors = form._errors.setdefault('username', ErrorList())
+                errors.append('Username has already been used')
+            else:
+                profile = Profile()
+                profile.is_mentor = False
+                profile.user = user
+                profile.birthday = data['birthday']
+                profile.nickname = data['nickname']
+                profile.city = data['city']
+                profile.parent_first_name = data['parent_first_name']
+                profile.parent_last_name = data['parent_last_name']
+                profile.save()
+                user = auth.authenticate(username=data['username'], password=data['password'])
+                auth.login(request, user)
+                return HttpResponseRedirect(request.user.profile.get_absolute_url())
     else:
         if request.user.is_authenticated():
             return HttpResponseRedirect(request.user.profile.get_absolute_url())
