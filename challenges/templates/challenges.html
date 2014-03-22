@@ -1,0 +1,9 @@
+{% block content %}
+
+  <ul>
+    {% for challenge in challenges %}
+      <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
