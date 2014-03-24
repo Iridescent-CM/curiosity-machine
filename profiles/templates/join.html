@@ -58,6 +58,7 @@
         {{form.confirm_password}}
         <div class="errors">{{ form.confirm_password.errors }}</div>
       </div>
+      {{ form.non_field_errors }}
     </div>
   </div>
   <button type="submit" class="call-to-action">Save</button>
