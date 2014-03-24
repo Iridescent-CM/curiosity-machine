@@ -45,7 +45,6 @@ INSTALLED_APPS = (
     'curiositymachine',
     'profiles',
     'challenges',
-    'cmmessages',
 )
 
 MIDDLEWARE_CLASSES = (
