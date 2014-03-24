@@ -6,8 +6,9 @@ from django.db import IntegrityError
 from django.forms.util import ErrorList
 from profiles.models import Profile
 from profiles.forms import JoinForm
+from django.db import transaction
 
-
+@transaction.atomic
 def join(request):
     if request.method == 'POST':
         form = JoinForm(request=request, data=request.POST) 
@@ -25,7 +26,7 @@ def join(request):
                 errors = form._errors.setdefault('username', ErrorList())
                 errors.append('Username has already been used')
             else:
-                profile = Profile()
+                profile = user.profile
                 profile.is_mentor = False
                 profile.user = user
                 profile.birthday = data['birthday']
