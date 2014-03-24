@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings 
 from challenges.models import Challenge
-from cmauth.user_role import Role
 # from lck.django.common.models import TimeTrackable
 
 class Conversation(models.Model): # there is only one of these for each pair of users who message one another
@@ -27,13 +26,13 @@ class Message(models.Model):
         '''sets self.conversation and then saves -- self.conversation is always automatically set
            and any manually defined value is discarded in this step. also sets self.conversation to unread for recipient'''
         if not self.id: # if this is a new save, NOT just marking as archived/etc
-            if self.sender.role == Role.STUDENT:
+            if not self.sender.profile.is_mentor:
                 try:                
                     c = Conversation.objects.get(mentor=self.recipient, student=self.sender, challenge=self.challenge)
                 except Conversation.DoesNotExist:
                     c = Conversation(mentor=self.recipient, student=self.sender)
                     c.save()
-            elif self.sender.role == Role.MENTOR:
+            else:
                 try:
                     c = Conversation.objects.get(mentor=self.sender, student=self.recipient, challenge=self.challenge)
                 except Conversation.DoesNotExist:

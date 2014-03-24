@@ -3,9 +3,12 @@
 <body>
     {% if request.user.is_authenticated %}
         <div>
-            <a class="logout" href="/logout">Logout</a>
-            <a class="user-name" href="{{ user.get_absolute_url }}">{{request.user.email}}</a>
+            <a href="{% url 'logout' %}?next={% firstof request.path '/' %}">Logout</a>
+            <a class="user-name" href="{{ request.user.profile.get_absolute_url }}">{{request.user.username}}</a>
         </div>
+    {% else %}
+        <a href="{% url 'login' %}?next={% firstof request.path '/' %}">Login</a>
+        <a href="{% url 'profiles:join' %}">Join</a>
     {% endif %}
 
     {% block content %}{% endblock %}
