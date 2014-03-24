@@ -2,7 +2,7 @@
 
     <p>{{ challenge.name }}</p>
     <p>{{ challenge.description }}</p>
-    <p>{{ challenge.how_to_make_it }}</p>
-    <p>{{ challenge.learn_more }}</p>
+    <p>{{ challenge.how_to_make_it|safe }}</p>
+    <p>{{ challenge.learn_more|safe }}</p>
 
 {% endblock %}
