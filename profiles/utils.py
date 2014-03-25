@@ -1,12 +1,4 @@
-from django.shortcuts import render, get_object_or_404
-from django.contrib import auth
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.db import IntegrityError
-from django.forms.util import ErrorList
-from profiles.models import Profile
-from profiles.forms import JoinForm, ProfileEditForm
-from django.db import transaction
 
 def create_or_edit_user(request, data, user=None):
     new_user = False
