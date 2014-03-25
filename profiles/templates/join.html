@@ -1,65 +1,7 @@
 <form method='post' action="{% url 'profiles:join' %}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">
   {% csrf_token %}
-  <div class="col-wrapper">
-    <div class="column-1 span1-3">
-      <h3>Parent</h3>
-      <div>
-        {{form.parent_first_name.label_tag}}
-        {{form.parent_first_name}}
-        <div class="errors">{{ form.parent_first_name.errors }}</div>
-      </div>
-      <div>
-        {{form.parent_last_name.label_tag}}
-        {{form.parent_last_name}}
-        <div class="errors">{{ form.parent_last_name.errors }}</div>
-      </div>
-    </div>
-    <div class="column-2 span1-3">
-      <h3>Student</h3>
-      <div>
-        {{form.first_name.label_tag}}
-        {{form.first_name}}
-        <div class="errors">{{ form.first_name.errors }}</div>
-      </div>
-      <div>
-        {{form.nickname.label_tag}}
-        {{form.nickname}}
-        <div class="errors">{{ form.nickname.errors }}</div>
-      </div>
-      <div>
-        {{form.birthday.label_tag}}
-        {{form.birthday}}
-        <div class="errors">{{ form.birthday.errors }}</div>
-      </div>
-      <div>
-        {{form.city.label_tag}}
-        {{form.city}}
-        <div class="errors">{{ form.city.errors }}</div>
-      </div>
-    </div>
-    <div class="column-3 span1-3">
-      <div>
-        {{form.email.label_tag}}
-        {{form.email}}
-        <div class="errors">{{ form.email.errors }}</div>
-      </div>
-      <div>
-        {{form.username.label_tag}}
-        {{form.username}}
-        <div class="errors">{{ form.username.errors }}</div>
-      </div>
-      <div>
-        {{form.password.label_tag}}
-        {{form.password}}
-        <div class="errors">{{ form.password.errors }}</div>
-      </div>
-      <div>
-        {{form.confirm_password.label_tag}}
-        {{form.confirm_password}}
-        <div class="errors">{{ form.confirm_password.errors }}</div>
-      </div>
-      {{ form.non_field_errors }}
-    </div>
-  </div>
+  {% with 'join' as page %}
+  {% include "profile_fields.html" %}
+  {% endwith %}
   <button type="submit" class="call-to-action">Save</button>
 </form>
