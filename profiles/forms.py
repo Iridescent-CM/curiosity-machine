@@ -40,7 +40,7 @@ class ProfileFormBase(forms.Form):
         except ValueError:
             raise forms.ValidationError('Birthday needs to be in the form MM/DD/YYYY')
         return birthday
-        
+
 
 class JoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
@@ -48,11 +48,6 @@ class JoinForm(ProfileFormBase):
     def __init__(self, request=None, *args, **kwargs):
         super(JoinForm, self).__init__(*args, **kwargs)
         self._request = request
-
-
-    def clean(self):
-        cleaned_data = super(JoinForm, self).clean()
-        return cleaned_data
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -85,6 +80,3 @@ class ProfileEditForm(ProfileFormBase):
         self.fields['parent_first_name'].initial = self.user.profile.parent_first_name
         self.fields['parent_last_name'].initial = self.user.profile.parent_last_name
 
-    def clean(self):
-        cleaned_data = super(ProfileEditForm, self).clean()
-        return cleaned_data
