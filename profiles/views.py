@@ -5,7 +5,8 @@ from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from profiles.models import Profile
-from profiles.forms import JoinForm
+from profiles.forms import JoinForm, ProfileEditForm
+from profiles.utils import create_or_edit_user
 from django.db import transaction
 
 @transaction.atomic
@@ -14,27 +15,12 @@ def join(request):
         form = JoinForm(request=request, data=request.POST) 
         if form.is_valid():
             data = form.cleaned_data
-            user = User()
-            user.email = data['email']
-            user.username = data['username']
-            user.first_name = data['first_name']
-            user.is_active = True
-            user.set_password(data['password'])
             try:
-                user.save()
+                create_or_edit_user(request, data)
             except IntegrityError:
                 errors = form._errors.setdefault('username', ErrorList())
                 errors.append('Username has already been used')
             else:
-                profile = user.profile
-                profile.is_mentor = False
-                profile.user = user
-                profile.birthday = data['birthday']
-                profile.nickname = data['nickname']
-                profile.city = data['city']
-                profile.parent_first_name = data['parent_first_name']
-                profile.parent_last_name = data['parent_last_name']
-                profile.save()
                 user = auth.authenticate(username=data['username'], password=data['password'])
                 auth.login(request, user)
                 return HttpResponseRedirect(request.user.profile.get_absolute_url())
@@ -56,13 +42,17 @@ def student_profile_details(request, username):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user=user, is_mentor=False)
 
+    if user == request.user:
+        template = 'user_profile.html'
+    else:
+        template = 'profile_details.html'
 
     template_values = {
         'user': user,
         'profile': profile,
     }
 
-    return render(request, 'profile_details.html', template_values)
+    return render(request, template, template_values)
 
 def mentor_profile_details(request, username):
     '''
@@ -71,10 +61,32 @@ def mentor_profile_details(request, username):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user=user, is_mentor=True)
 
+    if user == request.user:
+        template = 'user_profile.html'
+    else:
+        template = 'profile_details.html'
 
     template_values = {
         'user': user,
         'profile': profile,
     }
 
-    return render(request, 'profile_details.html', template_values)
+    return render(request, template, template_values)
+
+def profile_edit(request):
+    if not request.user.is_authenticated():
+        raise Http404
+
+    if request.method == 'POST':
+        form = ProfileEditForm(request=request, data=request.POST) 
+        if form.is_valid():
+            data = form.cleaned_data
+            create_or_edit_user(request, data, request.user)
+            return HttpResponseRedirect(request.user.profile.get_absolute_url())
+    else:
+        form = ProfileEditForm(request)
+    template_values = {
+        'form': form,
+    }
+
+    return render(request, 'profile_edit.html', template_values)
