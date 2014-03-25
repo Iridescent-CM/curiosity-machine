@@ -1,8 +1,12 @@
+{% extends 'base.html' %}
+
 {% block content %}
 
-    <p>{{ challenge.name }}</p>
-    <p>{{ challenge.description }}</p>
-    <p>{{ challenge.how_to_make_it|safe }}</p>
-    <p>{{ challenge.learn_more|safe }}</p>
+  {% include '_challenge_details.html' %}
+
+  <form name="Start Building" action='' method='POST'>
+    {% csrf_token %}
+    <input type="submit" value="Start Building" />
+  </form>
 
 {% endblock %}
