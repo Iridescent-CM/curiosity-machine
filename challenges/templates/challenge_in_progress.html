@@ -6,4 +6,10 @@
 
   <p>... in progress, started {{ progress.started }}</p>
 
+  {# comment list here #}
+
+  <form action="{{ progress.get_absolute_url }}/comments/" method="POST">
+    
+  </form>
+
 {% endblock %}
