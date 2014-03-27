@@ -7,6 +7,7 @@ from django.forms.util import ErrorList
 from profiles.models import Profile
 from profiles.forms import JoinForm, ProfileEditForm
 from profiles.utils import create_or_edit_user
+from challenges.models import Challenge
 from django.db import transaction
 
 @transaction.atomic
@@ -33,6 +34,23 @@ def join(request):
     }
 
     return render(request, 'join.html', template_values)
+
+def home(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/')
+
+    if request.user.profile.is_mentor:
+        challenges = Challenge.objects.filter(mentor=request.user)
+        template = "mentor_home.html"
+    else:
+        challenges = Challenge.objects.filter(students=request.user)
+        template = "student_home.html"
+
+    template_values = {
+        'challenges':challenges,
+    }
+
+    return render(request, template, template_values)
 
 
 def student_profile_details(request, username):

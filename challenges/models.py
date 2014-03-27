@@ -8,6 +8,7 @@ class Challenge(models.Model):
     how_to_make_it = models.TextField() # HTML
     learn_more = models.TextField() # HTML
     students = models.ManyToManyField(User, through='Progress', null=True) #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
+    mentor = models.ForeignKey(User, related_name='mentored_challenges', null=True)
 
 class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)

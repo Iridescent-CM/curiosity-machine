@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>My Challenges:</h1>
+  <ul>
+    {% for challenge in challenges %}
+      <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
