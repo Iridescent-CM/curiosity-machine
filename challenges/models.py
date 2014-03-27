@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+from django.core.urlresolvers import reverse
 
 class Challenge(models.Model):
     name = models.TextField()
@@ -14,3 +15,6 @@ class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)
     student = models.ForeignKey(User)
     started = models.DateTimeField(default=now)
+
+    def get_absolute_url(self):
+        return reverse('challenges:challenge_progress', kwargs={'challenge_id': self.challenge_id, 'username': self.student.username,})
