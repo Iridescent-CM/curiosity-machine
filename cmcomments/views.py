@@ -1,5 +1,9 @@
 from django.shortcuts import render, get_object_or_404
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from challenges.models import Challenge, Progress
+from cmcomments.models import Comment
+from cmcomments.forms import CommentForm
 
 # refactor input into decorators
 # need security on this that only lets a student view his/her own progress
@@ -8,6 +12,21 @@ def comments(request, challenge_id, username):
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
 
     if request.method == "POST":
-        print(request.POST)
-    from django.http import HttpResponse
-    return HttpResponse("comments!")
+        form = CommentForm(data=request.POST) 
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            comment = Comment()
+            comment.user = request.user
+            comment.text = text
+            comment.challenge_progress = progress
+            comment.save()
+        else:
+            template_values = {
+                'challenge': challenge, 
+                'progress': progress, 
+                'comment_form': form,
+            }
+            return render(request, 'challenge_in_progress.html', template_values)
+
+    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username,}))
+    

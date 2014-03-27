@@ -15,10 +15,9 @@ def challenge(request, challenge_id):
         # any POST to this endpoint starts the project, creating a Progress object and adding you to the challenge
         Progress.objects.create(challenge=challenge, student=request.user)
         return HttpResponseRedirect('')
-    try:
-        if Progress.objects.filter(challenge=challenge, student=request.user).exists():
-            return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': request.user.username,}))
-    except Progress.DoesNotExist:
+    if Progress.objects.filter(challenge=challenge, student=request.user).exists():
+        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': request.user.username,}))
+    else:
         return render(request, 'challenge.html', {'challenge': challenge,})
 
 # refactor input into decorators

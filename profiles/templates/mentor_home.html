@@ -5,10 +5,13 @@
 <h1>My Challenges:</h1>
   <ul>
     {% for challenge in challenges %}
-      <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
-      {% for student in challenge.students.all %}
-        <p>{{student.get_full_name}}</p>
-      {% endfor %}
+      <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
+      <ul>
+        {% for student in challenge.students.all %}
+          <li><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=student.username %}">{{student.get_full_name}}</a></li>
+        {% endfor %}
+        </ul>
+      </li>
     {% endfor %}
   </ul>
 
