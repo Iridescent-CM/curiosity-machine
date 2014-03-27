@@ -36,21 +36,13 @@ def join(request):
     return render(request, 'join.html', template_values)
 
 def home(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/')
-
     if request.user.profile.is_mentor:
         challenges = Challenge.objects.filter(mentor=request.user)
-        template = "mentor_home.html"
+        return render(request, "mentor_home.html", {'challenges': challenges,})
     else:
         challenges = Challenge.objects.filter(students=request.user)
-        template = "student_home.html"
+        return render(request, "student_home.html", {'challenges': challenges,})
 
-    template_values = {
-        'challenges':challenges,
-    }
-
-    return render(request, template, template_values)
 
 
 def student_profile_details(request, username):
