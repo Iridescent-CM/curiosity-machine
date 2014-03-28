@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.forms.util import ErrorList
@@ -35,6 +36,7 @@ def join(request):
 
     return render(request, 'join.html', template_values)
 
+@login_required
 def home(request):
     if request.user.profile.is_mentor:
         challenges = Challenge.objects.filter(mentor=request.user)
@@ -42,7 +44,6 @@ def home(request):
     else:
         challenges = Challenge.objects.filter(students=request.user)
         return render(request, "student_home.html", {'challenges': challenges,})
-
 
 
 def student_profile_details(request, username):
@@ -83,10 +84,8 @@ def mentor_profile_details(request, username):
 
     return render(request, template, template_values)
 
+@login_required
 def profile_edit(request):
-    if not request.user.is_authenticated():
-        raise Http404
-
     if request.method == 'POST':
         form = ProfileEditForm(request=request, data=request.POST) 
         if form.is_valid():

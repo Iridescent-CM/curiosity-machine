@@ -76,6 +76,8 @@ ROOT_URLCONF = 'curiositymachine.urls'
 
 WSGI_APPLICATION = 'curiositymachine.wsgi.application'
 
+LOGIN_URL = '/login/'
+
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
