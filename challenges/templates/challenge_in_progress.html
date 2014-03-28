@@ -6,7 +6,10 @@
 
   <p>... in progress, started {{ progress.started }}</p>
 
-  {# comment list here #}
+  {% for comment in progress.comment_set.all %}
+    <h4>{{comment.user.get_full_name}}</h4>
+    <p>{{comment.text}}</p>
+  {% endfor %}
 
   <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
     {% csrf_token %}
