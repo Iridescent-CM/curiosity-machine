@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{{user.username}}
+
+Name: {{user.get_full_name}}
+Nickname: {{user.profile.nickname}}
+Email: {{user.email}}
+Date of Birth: {{user.profile.birthday}}
+Home town: {{profile.city}}
+
+<a href="{% url 'profiles:profile_edit' %}">Edit</a>
+
+{% endblock %}
