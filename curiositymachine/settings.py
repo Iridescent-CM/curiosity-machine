@@ -32,7 +32,6 @@ SECRET_KEY = SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_HOSTS") else []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -68,8 +67,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
 )
 
-
-
 AUTH_USER_MODEL = 'auth.User'
 
 ROOT_URLCONF = 'curiositymachine.urls'
@@ -77,7 +74,6 @@ ROOT_URLCONF = 'curiositymachine.urls'
 WSGI_APPLICATION = 'curiositymachine.wsgi.application'
 
 LOGIN_URL = '/login/'
-
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
@@ -99,11 +95,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = 'staticfiles'
 
 # Import optional local settings.  This must be at the END of this file.
 try:
