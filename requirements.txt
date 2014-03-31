@@ -4,3 +4,5 @@
 #Heroku DATABASE_URL env variable parsing
 dj-database-url==0.2.2
 
+#WSGI statics server
+whitenoise==0.13
