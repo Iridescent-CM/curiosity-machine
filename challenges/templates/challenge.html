@@ -5,10 +5,11 @@
 
   {% include '_challenge_details.html' %}
 
-  <form name="Start Building" action='' method='POST'>
-    {% csrf_token %}
-    <input type="submit" value="Start Building" />
-
-  </form>
+  {% if request.user.is_authenticated and request.user.profile.is_student %}
+      <form name="Start Building" action='' method='POST'>
+        {% csrf_token %}
+        <input type="submit" value="Start Building" />
+      </form>
+  {% endif %}
 
 {% endblock %}

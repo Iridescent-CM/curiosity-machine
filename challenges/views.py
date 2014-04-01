@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
+
 from .models import Challenge, Progress
 from cmcomments.forms import CommentForm
 from curiositymachine.decorators import mentor_or_current_student
@@ -15,14 +17,17 @@ def challenge(request, challenge_id):
 
     if request.method == 'POST':
         # any POST to this endpoint starts the project, creating a Progress object and adding you to the challenge
-        Progress.objects.create(challenge=challenge, student=request.user)
-        return HttpResponseRedirect('')
-    if Progress.objects.filter(challenge=challenge, student=request.user).exists():
+        try:
+            Progress.objects.create(challenge=challenge, student=request.user)
+            return HttpResponseRedirect('')
+        except (ValueError, ValidationError):
+            return HttpResponse("You must be logged in as a student to start a challenge.", status=403)
+    if request.user.is_authenticated() and Progress.objects.filter(challenge=challenge, student=request.user).exists():
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': request.user.username,}))
     else:
         return render(request, 'challenge.html', {'challenge': challenge,})
 
-# refactor input into decorators
+# TODO: refactor input into decorators
 @login_required
 @mentor_or_current_student
 def challenge_progress(request, challenge_id, username):
