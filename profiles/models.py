@@ -21,6 +21,9 @@ class Profile(models.Model):
         else:
             return reverse('profiles:student_profile_details', kwargs={'username': self.user.username})
 
+    @property
+    def is_student(self):
+        return not self.is_mentor
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
