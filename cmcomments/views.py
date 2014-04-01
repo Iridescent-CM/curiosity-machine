@@ -23,4 +23,3 @@ def comments(request, challenge_id, username):
         comment.save()
 
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username,}))
-    
