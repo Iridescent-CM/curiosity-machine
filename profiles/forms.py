@@ -75,7 +75,7 @@ class ProfileEditForm(ProfileFormBase):
         self.fields['email'].initial = self.user.email
         self.fields['first_name'].initial = self.user.first_name
         self.fields['nickname'].initial = self.user.profile.nickname
-        self.fields['birthday'].initial = self.user.profile.birthday.strftime('%m/%d/%Y')
+        self.fields['birthday'].initial = self.user.profile.birthday.strftime('%m/%d/%Y') if self.user.profile.birthday else ''
         self.fields['city'].initial = self.user.profile.city
         self.fields['parent_first_name'].initial = self.user.profile.parent_first_name
         self.fields['parent_last_name'].initial = self.user.profile.parent_last_name
