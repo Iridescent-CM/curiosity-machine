@@ -1,4 +1,51 @@
 
+
+//===============global layout=======================
+//   things on every page menu/footer etc.
+//===================================================
+html,
 body {
-  
+  height: 100%;
 }
+
+
+#main-container {
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100%;
+  background: @bg-color;
+  position: relative;
+  overflow-x: hidden;
+   @media (min-width: @screen-sm-min) {
+    width: @container-sm;
+  }
+  @media (min-width: @screen-md-min) {
+    width: @container-md;
+  }
+  @media (min-width: @screen-lg-min) {
+    width: @container-lg;
+  }
+  > .container {
+    position: absolute;
+    min-height: 100%;
+    width: 100%;
+    margin-left: 0px;
+    padding-top: 60px;
+    .transition(margin-left .5s);
+    &.nav-open {
+      margin-left: @nav-width;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+//////==========================
+/////  

@@ -6,7 +6,7 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('challenges', '__first__'),
+        ('challenges', '0002_auto_20140325_1620'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
