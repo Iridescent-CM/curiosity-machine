@@ -1,13 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from challenges.models import Challenge, Progress
 from cmcomments.models import Comment
 from cmcomments.forms import CommentForm
+from curiositymachine.decorators import mentor_or_current_student
 
 # refactor input into decorators
-# need security on this that only lets a student view his/her own progress
+@login_required
+@mentor_or_current_student
 @require_http_methods(["POST",])
 def comments(request, challenge_id, username):
     challenge = get_object_or_404(Challenge, id=challenge_id)
