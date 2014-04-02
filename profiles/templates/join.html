@@ -3,7 +3,7 @@
   <h1>Get Started. Create an Account.</h1>
 </div>
 <form method='post' action="{% url 'profiles:join' %}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">
-<div class="modal-body">
+<div class="modal-body row clearfix">
   
     {% csrf_token %}
     {% with 'join' as page %}

@@ -6,16 +6,16 @@ module.exports = function(grunt) {
     less: {
         development: {
             options: {
-                paths: ["./curiositymachine/static/less/", "./curiositymachine/static/css/"],
+                paths: ["./less/", "./css/"],
                 compress: true
             },
             files: {
-                "./curiositymachine/static/css/base.css": "./curiositymachine/static/less/cm_bootstrap.less",
+                "./css/base.css": "./less/cm_bootstrap.less",
             }
         }
     },
     watch: {
-        files: ["./curiositymachine/static/less/*","./curiositymachine/static/less/pages/*"],
+        files: ["./less/*","./less/pages/*"],
         tasks: ["less"]
     }
   });
