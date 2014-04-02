@@ -1,51 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  
+  <h1>Plan Your Project</h1>
 
   {% include '_challenge_details.html' %}
 
   <p>... in progress, started {{ progress.started }}</p>
 
   {% for comment in progress.comment_set.all %}
-    <h4>{{comment.user.get_full_name}}</h4>
-    <p>{{comment.text}}</p>
+    {% include "_comment.html" %}
   {% endfor %}
 
   <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
     {% csrf_token %}
-    {{ comment_form }}
-    <input type="submit" value="Submit" />
+    {{ comment_form }}<br>
+    <input type="submit" value="Submit" class="btn btn-primary btn-large" />
   </form>
-
-  <br><br><br><br><br>ddddddddd<br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    almost
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    there?
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    hasdfasdasdfaksdjflasdjfalksjdflaskjdflaksjdflk
 
 {% endblock %}

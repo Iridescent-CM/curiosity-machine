@@ -30,9 +30,10 @@ legend {
 }
 
 label {
-  display: inline-block;
+  display: block;
   margin-bottom: 5px;
-  font-weight: bold;
+  font-size: @font-size-large;
+  color: @text-color-light;
 }
 
 
@@ -41,6 +42,17 @@ label {
 // While most of our form styles require extra classes, some basic normalization
 // is required to ensure optimum display with or without those classes to better
 // address browser inconsistencies.
+
+//global input styles
+input[type="text"],
+input[type="search"],
+input[type="date"],
+input[type="password"] {
+  border: none;
+  .box-shadow( inset 2px 2px 2px 0px rgba(0,0,0,0.2));
+  padding: 10px;
+  border-radius: 4px;
+}
 
 // Override content-box in Normalize (* isn't specific enough)
 input[type="search"] {

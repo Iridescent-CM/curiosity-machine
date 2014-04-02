@@ -1,0 +1,11 @@
+<div class="navbar" role="navigation">
+    <ul class="nav-menu">
+    {% if request.user.is_authenticated %}
+          <li><a href="{% url 'logout' %}?next={% firstof request.path '/' %}">Logout</a></li>
+          <li><a class="user-name" href="{{ request.user.profile.get_absolute_url }}">{{request.user.username}}'s Profile</a></li>
+    {% else %}
+        <li><a data-toggle="modal" href="{% url 'login' %}?next={% firstof request.path '/' %}" data-target="#modal">Login</a></li>
+        <li><a data-toggle="modal" href="{% url 'profiles:join' %}" data-target="#modal">Join</a></li>
+    {% endif %}
+    </ul>
+</div>

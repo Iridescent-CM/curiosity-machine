@@ -12,6 +12,12 @@ $(document).ready(function() {
     }
   });
 
+  //this is so we can reload content into the same modal.
+  //re-initilaizes the modal when hidden
+  $('body').on('hidden.bs.modal', '.modal', function () {
+    $(this).removeData('bs.modal');
+  });
+
 
 });
 

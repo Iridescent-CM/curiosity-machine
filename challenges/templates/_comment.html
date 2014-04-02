@@ -1,0 +1,9 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><a href="{% url 'challenges:challenge' challenge.id %}">{{comment.user.get_full_name}} says:</a></h3>
+  </div>
+  <div class="panel-body">
+    <p>{{comment.text}}</p>
+  </div>
+</div>

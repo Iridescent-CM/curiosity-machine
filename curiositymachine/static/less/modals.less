@@ -47,9 +47,10 @@
 // Actual modal
 .modal-content {
   position: relative;
-  background-color: @modal-content-bg;
-  border: 1px solid @modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
-  border: 1px solid @modal-content-border-color;
+  background-color: @bg-color-dark;
+  border: 4px solid @bg-color;
+  //border: 1px solid @modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
+  //border: 1px solid @modal-content-border-color;
   border-radius: @border-radius-large;
   .box-shadow(0 3px 9px rgba(0,0,0,.5));
   background-clip: padding-box;
@@ -80,7 +81,7 @@
 }
 // Close icon
 .modal-header .close {
-  margin-top: -2px;
+  margin-top: -30px;
 }
 
 // Title text within header
@@ -94,12 +95,15 @@
 .modal-body {
   position: relative;
   padding: @modal-inner-padding;
+  background: @bg-color;
+  border-radius: @border-radius-base;
+  margin: 0 3px;
 }
 
 // Footer (for actions)
 .modal-footer {
-  margin-top: 15px;
-  padding: (@modal-inner-padding - 1) @modal-inner-padding @modal-inner-padding;
+  //padding: (@modal-inner-padding - 1) @modal-inner-padding @modal-inner-padding;
+  padding: 4px;
   text-align: right; // right align buttons
   border-top: 1px solid @modal-footer-border-color;
   &:extend(.clearfix all); // clear it in case folks use .pull-* classes on buttons

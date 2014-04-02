@@ -4,9 +4,22 @@
 {% block content %}
 
   <h1>Challenges:</h1>
-  <ul>
+  <ul class="challenges-list">
     {% for challenge in challenges %}
-      <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
+      <li>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></h3>
+          </div>
+          <div class="image-container">
+            <a href="{% url 'challenges:challenge' challenge.id %}"><img src="http://placekitten.com/300/200"></a>
+          </div>
+          <div class="panel-body">
+            {{ challenge.description }}
+          </div>
+        </div>
+        
+      </li>
     {% endfor %}
   </ul>
   <p>(Devs: create challenges in the admin <a href="/admin/challenges/challenge/add/">here</a>)</p>
