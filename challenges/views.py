@@ -8,8 +8,9 @@ from .models import Challenge, Progress, Theme
 from cmcomments.forms import CommentForm
 from curiositymachine.decorators import mentor_or_current_student
 
-def challenges(request, theme=None):
+def challenges(request):
     challenges = Challenge.objects.all()
+    theme = request.GET.get('theme')
     if theme:
         challenges = challenges.filter(theme__name=theme)
     themes = Theme.objects.all()
