@@ -3,6 +3,13 @@
 
 {% block content %}
 
+  <nav>
+    <a {% if not theme %}class="active"{% endif %} href="{% url 'challenges:challenges' %}">All</a>
+    {% for t in themes %}
+      <a {% if theme == t.name %}class="active"{% endif %} href="{% url 'challenges:challenges' %}?theme={{t.name}}">{{t.name}}</a>
+    {% endfor %}
+  </nav>
+
   <h1>Challenges:</h1>
   <ul class="challenges-list">
     {% for challenge in challenges %}

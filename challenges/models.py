@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.core.urlresolvers import reverse
 
+class Theme(models.Model):
+    name = models.TextField()
+
 class Challenge(models.Model):
     name = models.TextField()
     description = models.TextField()
@@ -10,6 +13,7 @@ class Challenge(models.Model):
     learn_more = models.TextField() # HTML
     students = models.ManyToManyField(User, through='Progress', null=True) #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
     mentor = models.ForeignKey(User, related_name='mentored_challenges', null=True)
+    theme = models.ForeignKey(Theme, null=True)
 
 class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)

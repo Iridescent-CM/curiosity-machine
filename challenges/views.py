@@ -4,13 +4,17 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 
-from .models import Challenge, Progress
+from .models import Challenge, Progress, Theme
 from cmcomments.forms import CommentForm
 from curiositymachine.decorators import mentor_or_current_student
 
 def challenges(request):
     challenges = Challenge.objects.all()
-    return render(request, 'challenges.html', {'challenges': challenges,})
+    theme = request.GET.get('theme')
+    if theme:
+        challenges = challenges.filter(theme__name=theme)
+    themes = Theme.objects.all()
+    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes,})
 
 def challenge(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
