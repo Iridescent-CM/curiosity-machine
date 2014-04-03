@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
-  {% csrf_token %}
-  {% with 'edit' as page %}
-  {% include "profile_fields.html" %}
-  {% endwith %}
-  <a href="{{ request.user.profile.get_absolute_url }}">Cancel</a>
-  <button type="submit" class="call-to-action">Save</button>
-</form>
+  <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
+    {% csrf_token %}
+    {% with 'edit' as page %}
+    {% include "profile_fields.html" %}
+    {% endwith %}
+    <a href="{{ request.user.profile.get_absolute_url }}">Cancel</a>
+    <button type="submit" class="call-to-action">Save</button>
+  </form>
 {% endblock %}
