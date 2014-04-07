@@ -5,5 +5,6 @@
   </div>
   <div class="panel-body">
     <p>{{comment.text}}</p>
+    {% if comment.image %}<p><img src="{{ comment.image }}" /></p>{% endif %}
   </div>
 </div>
