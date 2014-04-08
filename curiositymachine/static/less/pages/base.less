@@ -1,4 +1,8 @@
+//=======wdigets=====
 
+.owl-carousel {
+  padding-top: 30px;
+}
 
 //===============global layout=======================
 //   things on every page menu/footer etc.
@@ -16,21 +20,15 @@ body {
   background: @bg-color;
   position: relative;
   overflow-x: hidden;
-   @media (min-width: @screen-sm-min) {
-    width: @container-sm;
-  }
-  @media (min-width: @screen-md-min) {
-    width: @container-md;
-  }
-  @media (min-width: @screen-lg-min) {
-    width: @container-lg;
-  }
-  > .container {
+  max-width: @container-lg;
+
+  > .container-fluid {
     position: absolute;
     min-height: 100%;
     width: 100%;
     margin-left: 0px;
     padding-top: 120px;
+    padding-bottom: 50px;
     .transition(margin-left .5s);
     &.nav-open {
       margin-left: @nav-width;
@@ -61,17 +59,57 @@ body {
 
 .challenges-list {
   margin: 0;
-  padding: 0;
+  padding-left: 0;
   .clearfix();
   li {
-    float: left;
-    padding-right: 20px;
     list-style-type: none;
-    width: 25%;
+  }
+  .owl-item {
+    width: 450px;
+    padding: 0 10px;
   }
   .image-container {
     img {
       width: 100%;
+    }
+  }
+}
+
+.theme-carousel {
+  position: relative;
+  padding-left: 0;
+  .owl-item {
+    padding: 5px;
+    li {
+      list-style-type: none;
+      border: 2px solid transparent;
+      padding: 2px;
+      border-radius: @border-radius-base + 2;
+      &.active {
+        border: 2px solid @orange;
+      }
+      a {
+        background: @green; 
+        display: block;
+        height: 100px;
+        border-radius: @border-radius-base;
+        color: #fff;
+        position: relative;
+        span {
+          position: absolute;
+          left: 10px;
+          bottom: 10px;
+        }
+        &:before {
+          content: "\e008";
+          font-family: 'Glyphicons Halflings';
+          position: absolute;
+          right: 5px;
+          bottom: 0;
+          font-size: 70px;
+          line-height: 1;
+        }
+      }
     }
   }
 }

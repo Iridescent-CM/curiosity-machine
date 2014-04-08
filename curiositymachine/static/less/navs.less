@@ -74,20 +74,22 @@
 
 // Give the tabs something to sit on
 .nav-tabs {
-  border-bottom: 1px solid @nav-tabs-border-color;
+  border-top: 1px solid @nav-tabs-border-color;
   > li {
     float: left;
-    // Make the list-items overlay the bottom border
-    margin-bottom: -1px;
-
+    text-transform: uppercase;
+    font-size: @font-size-large;
+    background: @bg-color-dark;
     // Actual tabs (as links)
     > a {
       margin-right: 2px;
       line-height: @line-height-base;
-      border: 1px solid transparent;
-      border-radius: @border-radius-base @border-radius-base 0 0;
+      color: #fff;
+      background-color: @blue;
+      .box-shadow(5px 5px 9px rgba(0,0,0,.2));
       &:hover {
-        border-color: @nav-tabs-link-hover-border-color @nav-tabs-link-hover-border-color @nav-tabs-border-color;
+        //?
+        background-color: darken(@blue, 10%);
       }
     }
 
@@ -96,11 +98,11 @@
       &,
       &:hover,
       &:focus {
-        color: @nav-tabs-active-link-hover-color;
-        background-color: @nav-tabs-active-link-hover-bg;
-        border: 1px solid @nav-tabs-active-link-hover-border-color;
-        border-bottom-color: transparent;
+        font-weight: 600;
+        background-color: @green;
         cursor: default;
+        padding-bottom: 15px;
+        z-index: 1;
       }
     }
   }
@@ -109,6 +111,18 @@
     .nav-justified();
     .nav-tabs-justified();
   }
+
+  //drop shadow for top:
+  &:before {
+    content: '';
+    height: 10px;
+    margin-top: -10px;
+    width: 100%;
+    .box-shadow(0px 7px 5px rgba(0,0,0,.2));
+    z-index: 1;
+    position: relative;
+  }
+
 }
 
 
@@ -193,24 +207,24 @@
   > li > a {
     // Override margin from .nav-tabs
     margin-right: 0;
-    border-radius: @border-radius-base;
+    //border-radius: @border-radius-base;
   }
 
   > .active > a,
   > .active > a:hover,
   > .active > a:focus {
-    border: 1px solid @nav-tabs-justified-link-border-color;
+    //border: 1px solid @nav-tabs-justified-link-border-color;
   }
 
   @media (min-width: @screen-sm-min) {
     > li > a {
-      border-bottom: 1px solid @nav-tabs-justified-link-border-color;
-      border-radius: @border-radius-base @border-radius-base 0 0;
+     // border-bottom: 1px solid @nav-tabs-justified-link-border-color;
+     // border-radius: @border-radius-base @border-radius-base 0 0;
     }
     > .active > a,
     > .active > a:hover,
     > .active > a:focus {
-      border-bottom-color: @nav-tabs-justified-active-link-border-color;
+    //  border-bottom-color: @nav-tabs-justified-active-link-border-color;
     }
   }
 }
@@ -221,6 +235,9 @@
 
 // Hide tabbable panes to start, show them when `.active`
 .tab-content {
+  background: @bg-color-dark;
+  padding-right: (@grid-gutter-width / 2);
+  padding-left: (@grid-gutter-width / 2);
   > .tab-pane {
     display: none;
   }

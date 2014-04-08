@@ -3,32 +3,39 @@
 
 {% block content %}
 
-  <nav>
-    <a {% if not theme %}class="active"{% endif %} href="{% url 'challenges:challenges' %}">All</a>
+  <ul class="theme-carousel owl-carousel">
+    <li {% if not theme %}class="active"{% endif %}>
+      <a href="{% url 'challenges:challenges' %}">
+        <span>All</span>
+      </a>
+    </li>
     {% for t in themes %}
-      <a {% if theme == t.name %}class="active"{% endif %} href="{% url 'challenges:challenges' %}?theme={{t.name}}">{{t.name}}</a>
-    {% endfor %}
-  </nav>
-
-  <h1>Challenges:</h1>
-  <ul class="challenges-list">
-    {% for challenge in challenges %}
-      <li>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></h3>
-          </div>
-          <div class="image-container">
-            <a href="{% url 'challenges:challenge' challenge.id %}"><img src="http://placekitten.com/300/200"></a>
-          </div>
-          <div class="panel-body">
-            {{ challenge.description }}
-          </div>
-        </div>
-        
-      </li>
+      <li {% if theme == t.name %}class="active"{% endif %}><a href="{% url 'challenges:challenges' %}?theme={{t.name}}">
+        <span>{{t.name}}</span>
+      </a></li>
     {% endfor %}
   </ul>
+
+  <h1>Challenges:</h1>
+
+<ul class="nav nav-justified nav-tabs">
+  <li class="active"><a href="#challenges" data-toggle="tab">All Challenges</a></li>
+  <li><a href="#bookmarks" data-toggle="tab">Bookmarks</a></li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="challenges">
+    <ul class="challenges-list owl-carousel panel-carousel">
+      {% for challenge in challenges %}
+        {% include "_challenge_item.html" %}
+      {% endfor %}
+    </ul>
+  </div><!-- /#challenges -->
+  <div class="tab-pane fade" id="bookmarks">
+    <h1>No Bookmarks yet!</h1>
+  </div>
+
+</div><!-- /tabs content -->
+  
   <p>(Devs: create challenges in the admin <a href="/admin/challenges/challenge/add/">here</a>)</p>
 
 {% endblock %}
