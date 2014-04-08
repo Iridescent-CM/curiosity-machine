@@ -14,7 +14,7 @@ def challenges(request):
     if theme:
         challenges = challenges.filter(theme__name=theme)
     themes = Theme.objects.all()
-    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes,})
+    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme})
 
 def challenge(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
