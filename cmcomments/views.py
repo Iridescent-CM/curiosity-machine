@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -16,13 +16,10 @@ def comments(request, challenge_id, username):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
 
-    form = CommentForm(data=request.POST) 
+    form = CommentForm(data=request.POST)
     if form.is_valid():
-        text = form.cleaned_data['text']
-        comment = Comment()
-        comment.user = request.user
-        comment.text = text
-        comment.challenge_progress = progress
+        comment = Comment(user=request.user, text=form.cleaned_data['text'], challenge_progress=progress, image=form.cleaned_data['filepicker_url'])
         comment.save()
+    #TODO: add some way to handle form.errors, for instance converting it into a JSON API
 
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username,}))

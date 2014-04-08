@@ -14,6 +14,7 @@
 
   <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
     {% csrf_token %}
+    {{ comment_form.media }}
     {{ comment_form }}<br>
     <input type="submit" value="Submit" class="btn btn-primary btn-large" />
   </form>
