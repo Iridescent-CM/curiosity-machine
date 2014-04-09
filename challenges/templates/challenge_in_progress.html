@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block js %}
+<script src="/static/js/challenges.js"></script>
+{% endblock %}
+
 {% block content %}
   
   <h1>Plan Your Project</h1>
@@ -12,11 +16,20 @@
     {% include "_comment.html" %}
   {% endfor %}
 
-  <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
-    {% csrf_token %}
-    {{ comment_form.media }}
-    {{ comment_form }}<br>
-    <input type="submit" value="Submit" class="btn btn-primary btn-large" />
-  </form>
+  <p>Post an update...</p>
+  <a data-toggle="modal" href="{% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username format='video' %}" data-target="#modal">Video</a>
+  <a data-toggle="modal" href="{% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username format='picture' %}" data-target="#modal">Picture</a>
+  <a class="text_comment_link">Text</a>
+
+  <div class='text_comment' style='display:none'>
+    <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
+      {% csrf_token %}
+      <div>
+        {{comment_form.text}}
+        <div class="errors">{{ comment_form.text.errors }}</div>
+      </div><br>
+      <input type="submit" value="Submit" class="btn btn-primary btn-large" />
+    </form>
+  </div>
 
 {% endblock %}
