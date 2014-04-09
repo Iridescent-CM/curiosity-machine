@@ -7,6 +7,7 @@ from challenges.models import Challenge, Progress
 from cmcomments.models import Comment
 from cmcomments.forms import CommentForm
 from curiositymachine.decorators import mentor_or_current_student
+import django_rq
 
 # refactor input into decorators
 @login_required
@@ -19,7 +20,13 @@ def comments(request, challenge_id, username):
     form = CommentForm(data=request.POST)
     if form.is_valid():
         comment = Comment(user=request.user, text=form.cleaned_data['text'], challenge_progress=progress, image=form.cleaned_data['filepicker_url'])
+        if comment.image:
+            django_rq.enqueue(upload_filepicker_image, comment.image)
         comment.save()
     #TODO: add some way to handle form.errors, for instance converting it into a JSON API
 
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username,}))
+
+def upload_filepicker_image(image_url):
+    print("inside job")
+    print(image_url)
