@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 {% block js %}
 <script src="/static/js/challenges.js"></script>
 {% endblock %}
 
+=======
+>>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
 {% block content %}
@@ -37,7 +40,6 @@
     {% for comment in progress.comment_set.all %}
     {% include "_comment.html" %}
   {% endfor %}
-<<<<<<< HEAD
 
   <p>Post an update...</p>
   <a data-toggle="modal" href="{% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username format='video' %}" data-target="#modal">Video</a>
@@ -54,9 +56,5 @@
       <input type="submit" value="Submit" class="btn btn-primary btn-large" />
     </form>
   </div>
-=======
-  </div>
-</div>
->>>>>>> FETCH_HEAD
 
 {% endblock %}

@@ -16,9 +16,5 @@ class FilePickerURLField(forms.URLField):
 
 class CommentForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
-<<<<<<< HEAD
     video_filepicker_url = FilePickerURLField(mimetypes="video/*", required=False)
     picture_filepicker_url = FilePickerURLField(mimetypes="image/*", required=False)
-=======
-    filepicker_url = FilePickerURLField(required=False)
->>>>>>> FETCH_HEAD
