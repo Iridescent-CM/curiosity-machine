@@ -29,7 +29,11 @@
         {% endblock %}
         </div><!-- /container -->
     </div>
-    {% include "_modal.html" %}
+
+    <!-- global modals -->
+    {% include "join.html" with form=join_form %}
+    {% include "registration/login.html" with form=login_form %}
+    <!-- /global modals -->
 </body>
 
 <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>

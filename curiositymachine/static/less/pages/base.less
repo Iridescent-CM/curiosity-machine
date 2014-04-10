@@ -7,23 +7,42 @@
 //===============global layout=======================
 //   things on every page menu/footer etc.
 //===================================================
-html,
+html {height: 100%;}
 body {
   height: 100%;
+}
+
+
+.paper {
+  background: @bg-color; /* Old browsers */
+  background: @bg-color;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, @bg-color));
+  background: -webkit-linear-gradient(top, #d9eaf3 0%, @bg-color 8%);
+  background: -moz-linear-gradient(top, #d9eaf3 0%, @bg-color 8%);
+  background: -ms-linear-gradient(top, #d9eaf3 0%, @bg-color 8%);
+  background: -o-linear-gradient(top, #d9eaf3 0%, @bg-color 8%);
+  background: linear-gradient(top, #d9eaf3 0%, @bg-color 8%);
+  line-height: 25px;
+  -webkit-background-size: 100% 25px;
+  -moz-background-size: 100% 25px;
+  -ms-background-size: 100% 25px;
+  -o-background-size: 100% 25px;
+  background-size: 100% 25px;
+  padding-top: 26px;
 }
 
 
 #main-container {
   margin-left: auto;
   margin-right: auto;
-  min-height: 100%;
+  height: 100%;
   background: @bg-color;
   position: relative;
   overflow-x: hidden;
   max-width: @container-lg;
 
   > .container-fluid {
-    position: absolute;
+    position: relative;
     min-height: 100%;
     width: 100%;
     margin-left: 0px;
