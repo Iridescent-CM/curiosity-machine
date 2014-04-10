@@ -1,15 +1,9 @@
 {% extends 'base.html' %}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 {% block js %}
 <script src="/static/js/challenges.js"></script>
 {% endblock %}
 
-=======
->>>>>>> FETCH_HEAD
-=======
->>>>>>> FETCH_HEAD
 {% block content %}
   <h1>{{ challenge.name }} <small>By FAke UsEr</small></h1>
 
@@ -19,42 +13,43 @@
     <div class="panel">
       <div class="panel-body">
         <h3>Post your plan as a video, drawing (photo) or text</h3>
+        {{ comment_form.media }}
         <ul>
-          <li><button>video</button></li>
-          <li><button>image</button></li>
-          <li><button>text</button></li>
+          <li><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#video_form">
+            Video
+            </button>
+          </li>
+          <li><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#picture_form">
+            Picture
+            </button>
+          </li>
+          <li><button class="text_comment_link btn btn-primary btn-lg">Text</button></li>
         </ul>
+        {% with 'video' as format %}
+          {% include "_comment_form.html" %}
+        {% endwith %}
+        {% with 'picture' as format %}
+          {% include "_comment_form.html" %}
+        {% endwith %}
       </div>
     </div>
-    <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
-      {% csrf_token %}
-      {{ comment_form.media }}
-      {{ comment_form }}<br>
-      <input type="submit" value="Submit" class="btn btn-primary btn-large" />
-    </form>
   </div>
   <div class="col-md-1">
     <img src="http://placekitten.com/60/80">
   </div>
   <div class="col-md-6">
+    <div class='text_comment' style='display:none'>
+      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
+        {% csrf_token %}
+        <div>
+          {{comment_form.text}}
+          <div class="errors">{{ comment_form.text.errors }}</div>
+        </div><br>
+        <input type="submit" value="Submit" class="btn btn-primary btn-large" />
+      </form>
+    </div>
     {% for comment in progress.comment_set.all %}
     {% include "_comment.html" %}
   {% endfor %}
-
-  <p>Post an update...</p>
-  <a data-toggle="modal" href="{% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username format='video' %}" data-target="#modal">Video</a>
-  <a data-toggle="modal" href="{% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username format='picture' %}" data-target="#modal">Picture</a>
-  <a class="text_comment_link">Text</a>
-
-  <div class='text_comment' style='display:none'>
-    <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
-      {% csrf_token %}
-      <div>
-        {{comment_form.text}}
-        <div class="errors">{{ comment_form.text.errors }}</div>
-      </div><br>
-      <input type="submit" value="Submit" class="btn btn-primary btn-large" />
-    </form>
-  </div>
 
 {% endblock %}
