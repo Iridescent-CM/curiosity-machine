@@ -1,20 +1,43 @@
 {% extends 'base.html' %}
 
+<<<<<<< HEAD
 {% block js %}
 <script src="/static/js/challenges.js"></script>
 {% endblock %}
 
+=======
+>>>>>>> FETCH_HEAD
 {% block content %}
-  
-  <h1>Plan Your Project</h1>
-
-  {% include '_challenge_details.html' %}
+  <h1>{{ challenge.name }} <small>By FAke UsEr</small></h1>
 
   <p>... in progress, started {{ progress.started }}</p>
-
-  {% for comment in progress.comment_set.all %}
+<div class="row">
+  <div class="col-md-5">
+    <div class="panel">
+      <div class="panel-body">
+        <h3>Post your plan as a video, drawing (photo) or text</h3>
+        <ul>
+          <li><button>video</button></li>
+          <li><button>image</button></li>
+          <li><button>text</button></li>
+        </ul>
+      </div>
+    </div>
+    <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
+      {% csrf_token %}
+      {{ comment_form.media }}
+      {{ comment_form }}<br>
+      <input type="submit" value="Submit" class="btn btn-primary btn-large" />
+    </form>
+  </div>
+  <div class="col-md-1">
+    <img src="http://placekitten.com/60/80">
+  </div>
+  <div class="col-md-6">
+    {% for comment in progress.comment_set.all %}
     {% include "_comment.html" %}
   {% endfor %}
+<<<<<<< HEAD
 
   <p>Post an update...</p>
   <a data-toggle="modal" href="{% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username format='video' %}" data-target="#modal">Video</a>
@@ -31,5 +54,9 @@
       <input type="submit" value="Submit" class="btn btn-primary btn-large" />
     </form>
   </div>
+=======
+  </div>
+</div>
+>>>>>>> FETCH_HEAD
 
 {% endblock %}
