@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block js %}
 <script src="/static/js/challenges.js"></script>
@@ -6,7 +7,7 @@
 
 {% block content %}
   <h1>{{ challenge.name }} <small>By FAke UsEr</small></h1>
-
+  {% include "_challenge_nav.html" %}
   <p>... in progress, started {{ progress.started }}</p>
 <div class="row">
   <div class="col-md-5">
