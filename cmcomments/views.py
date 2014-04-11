@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -18,18 +18,17 @@ from boto.s3.key import Key
 # refactor input into decorators
 @login_required
 @mentor_or_current_student
-@require_http_methods(["POST",])
-def comments(request, challenge_id, username):
+def comments(request, challenge_id, username, format=None):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
-
-    form = CommentForm(data=request.POST)
-    if form.is_valid():
-        comment = Comment(user=request.user, text=form.cleaned_data['text'], challenge_progress=progress, image=form.cleaned_data['filepicker_url'])
-        if comment.image:
-            django_rq.enqueue(upload_filepicker_image, comment)
-        comment.save()
-    #TODO: add some way to handle form.errors, for instance converting it into a JSON API
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            comment = Comment(user=request.user, text=form.cleaned_data['text'], challenge_progress=progress, image=form.cleaned_data['picture_filepicker_url'])
+            comment.save()
+            if comment.image:
+                django_rq.enqueue(upload_filepicker_image, comment)
+        #TODO: add some way to handle form.errors, for instance converting it into a JSON API
 
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username,}))
 

@@ -75,6 +75,7 @@
 // Give the tabs something to sit on
 .nav-tabs {
   border-top: 1px solid @nav-tabs-border-color;
+  margin: 0 -(@grid-gutter-width / 2);
   > li {
     float: left;
     text-transform: uppercase;
@@ -119,7 +120,7 @@
     margin-top: -10px;
     width: 100%;
     .box-shadow(0px 7px 5px rgba(0,0,0,.2));
-    z-index: 1;
+    z-index: 2;
     position: relative;
   }
 
@@ -172,7 +173,7 @@
 // -------------------------
 
 .nav-justified {
-  width: 100%;
+  //width: 100%;
 
   > li {
     float: none;
@@ -238,6 +239,7 @@
   background: @bg-color-dark;
   padding-right: (@grid-gutter-width / 2);
   padding-left: (@grid-gutter-width / 2);
+  margin: 0 -(@grid-gutter-width / 2);
   > .tab-pane {
     display: none;
   }

@@ -66,6 +66,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
+    "curiositymachine.context_processors.login_and_join_forms",
 )
 
 AUTH_USER_MODEL = 'auth.User'

@@ -1,22 +1,55 @@
 {% extends 'base.html' %}
 
-{% block content %}
-  
-  <h1>Plan Your Project</h1>
+{% block js %}
+<script src="/static/js/challenges.js"></script>
+{% endblock %}
 
-  {% include '_challenge_details.html' %}
+{% block content %}
+  <h1>{{ challenge.name }} <small>By FAke UsEr</small></h1>
 
   <p>... in progress, started {{ progress.started }}</p>
-
-  {% for comment in progress.comment_set.all %}
+<div class="row">
+  <div class="col-md-5">
+    <div class="panel">
+      <div class="panel-body">
+        <h3>Post your plan as a video, drawing (photo) or text</h3>
+        {{ comment_form.media }}
+        <ul>
+          <li><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#video_form">
+            Video
+            </button>
+          </li>
+          <li><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#picture_form">
+            Picture
+            </button>
+          </li>
+          <li><button class="text_comment_link btn btn-primary btn-lg">Text</button></li>
+        </ul>
+        {% with 'video' as format %}
+          {% include "_comment_form.html" %}
+        {% endwith %}
+        {% with 'picture' as format %}
+          {% include "_comment_form.html" %}
+        {% endwith %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <img src="http://placekitten.com/60/80">
+  </div>
+  <div class="col-md-6">
+    <div class='text_comment' style='display:none'>
+      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
+        {% csrf_token %}
+        <div>
+          {{comment_form.text}}
+          <div class="errors">{{ comment_form.text.errors }}</div>
+        </div><br>
+        <input type="submit" value="Submit" class="btn btn-primary btn-large" />
+      </form>
+    </div>
+    {% for comment in progress.comment_set.all %}
     {% include "_comment.html" %}
   {% endfor %}
-
-  <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
-    {% csrf_token %}
-    {{ comment_form.media }}
-    {{ comment_form }}<br>
-    <input type="submit" value="Submit" class="btn btn-primary btn-large" />
-  </form>
 
 {% endblock %}
