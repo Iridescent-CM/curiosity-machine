@@ -16,3 +16,6 @@ whitenoise==0.13
 #background worker job queueing (redis-backed)
 redis==2.9.1
 django-rq==0.6.1
+
+#interface to S3
+-e git://github.com/boto/boto@py3kport#egg=Boto
