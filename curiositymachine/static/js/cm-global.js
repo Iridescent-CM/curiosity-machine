@@ -73,16 +73,13 @@ $(document).ready(function() {
     $('.challenge-nav.primary .cursor .top').css({'border-color' : 'transparent ' + color + ' transparent transparent'});
     $('.challenge-nav.primary .cursor .bottom').css({'border-color' : 'transparent transparent ' + color + ' transparent'});
     //$('.challenge-nav.primary .cursor .front').css({'border-color' : ('transparent transparent transparent ' + color) });
-  });
-
-  $('.challenge-nav.clipper .cursor').on('transitionend webkitTransitionEnd', function(e){
-      $('.challenge-nav.clipper .btn').textillate({
+  
+    $('.challenge-nav.clipper .btn').textillate({
         autoStart: false,
         'in': {
-          effect : 'wobble',
-          delayScale: 1
+          effect : 'wobble'
         }
-        }).textillate('start');
+      }).textillate('start');
   });
 
   $('.challenge-nav.primary li').eq(1).trigger('click');
