@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'challenges',
     'cmcomments',
     'django_rq',
+    'videos',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -114,6 +115,7 @@ AWS_MEDIA_S3_BUCKET_NAME = AWS_STORAGE_BUCKET_NAME
 
 ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
 ZENCODER_S3_BUCKET = AWS_MEDIA_S3_BUCKET_NAME + '/videos/'
+ZENCODER_NOTIFICATIONS_URL = os.environ.get("ZENCODER_NOTIFICATIONS_URL", "")
 
 #job queues
 RQ_QUEUES = {

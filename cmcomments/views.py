@@ -8,10 +8,11 @@ from challenges.models import Challenge, Progress
 from cmcomments.models import Comment
 from cmcomments.forms import CommentForm
 from curiositymachine.decorators import mentor_or_current_student
+from videos.views import upload_filepicker_video
+from videos.models import Video
 from urllib.request import urlretrieve
 import django_rq
 import uuid
-import os
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
@@ -23,10 +24,15 @@ def comments(request, challenge_id, username, format=None):
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
     form = CommentForm(data=request.POST)
     if form.is_valid():
-        comment = Comment(user=request.user, text=form.cleaned_data['text'], challenge_progress=progress, image=form.cleaned_data['picture_filepicker_url'])
+        video = None
+        if form.cleaned_data['video_filepicker_url']:
+            video = Video.objects.create(video=form.cleaned_data['video_filepicker_url'])
+        comment = Comment(user=request.user, text=form.cleaned_data['text'], challenge_progress=progress, image=form.cleaned_data['picture_filepicker_url'], video=video)
         comment.save()
         if comment.image:
                 django_rq.enqueue(upload_filepicker_image, comment)
+        if comment.video:
+                django_rq.enqueue(upload_filepicker_video, comment)
     #TODO: add some way to handle form.errors, for instance converting it into a JSON API
 
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username,}))

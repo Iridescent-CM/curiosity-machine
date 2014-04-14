@@ -19,3 +19,6 @@ django-rq==0.6.1
 
 #interface to S3
 -e git://github.com/boto/boto@py3kport#egg=Boto
+
+#video encoding service
+zencoder==0.6.5
