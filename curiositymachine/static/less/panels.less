@@ -240,3 +240,27 @@
 .panel-danger {
   .panel-variant(@panel-danger-border; @panel-danger-text; @panel-danger-heading-bg; @panel-danger-border);
 }
+
+.panel-bubble-green {
+  background: lighten(@green, 10%);
+  .panel-body {
+    padding: 30px 50px;
+    h3 {
+      color: #fff;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+  }
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    right: -5px;
+    top: 30px;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 20px 20px 0 0;
+    border-color: lighten(@green, 10%) transparent transparent transparent;
+  }
+}

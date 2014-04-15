@@ -67,6 +67,10 @@
   margin: 0 -(@grid-gutter-width / 2);
   height: 100px;
   position: relative;
+  &.primary {
+    margin-bottom: 20px;
+    box-shadow: 3px 3px 15px 0px rgba(0,0,0, .2);
+  }
   &:before { //stripe
     content: '';
     height: 5px;
@@ -106,6 +110,7 @@
     margin-top: -34px;
     z-index: 3;
     outline: none;
+    box-shadow: none;
     &:before {
       content: '';
       display: block;
@@ -154,7 +159,7 @@
     width: 20%;
     left: 15%;
     .btn {
-      left: 20%;
+      left: 10%;
       color: @blue;
     }
     &:after {
@@ -191,7 +196,7 @@
         background: @orange;
       }
       &:nth-child(2) { //test
-        left: 40%;
+        left: 34%;
       }
       &:last-child { //redesign
         left: auto;
@@ -231,6 +236,7 @@
     width: 15%;
     right: 0;
     .btn {
+      color: @teal;
       left: auto;
       right: 25%;
       &:before,&:after {
@@ -284,9 +290,8 @@
 
   &.clipper {
     width: 100%;
-    margin-top: -100px;
+    margin-top: -120px;
     position: absolute;
-    //clip:rect(0px,700px,100px,100px);
     transition: clip 1s;
     &:before {
       z-index: 2;

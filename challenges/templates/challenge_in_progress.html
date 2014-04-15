@@ -11,20 +11,20 @@
   <p>... in progress, started {{ progress.started }}</p>
 <div class="row">
   <div class="col-md-5">
-    <div class="panel">
+    <div class="panel panel-bubble-green">
       <div class="panel-body">
         <h3>Post your plan as a video, drawing (photo) or text</h3>
         {{ comment_form.media }}
-        <ul>
-          <li><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#video_form">
+        <ul class="action-list">
+          <li><button class="btn btn-lg" data-toggle="modal" data-target="#video_form">
             Video
             </button>
           </li>
-          <li><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#picture_form">
+          <li><button class="btn btn-lg" data-toggle="modal" data-target="#picture_form">
             Picture
             </button>
           </li>
-          <li><button class="text_comment_link btn btn-primary btn-lg">Text</button></li>
+          <li><button class="text_comment_link btn btn-lg">Text</button></li>
         </ul>
         {% with 'video' as format %}
           {% include "_comment_form.html" %}
