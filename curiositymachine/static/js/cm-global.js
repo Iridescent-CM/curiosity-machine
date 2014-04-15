@@ -82,6 +82,10 @@ $(document).ready(function() {
       }).textillate('start');
   });
 
+  $('.challenge-nav.clipper .cursor').on('transitionend webkitTransitionEnd', function(e){
+      
+  });
+
   $('.challenge-nav.primary li').eq(1).trigger('click');
 
 });
