@@ -22,7 +22,7 @@ class VideoAdmin(object):
 
     def __init__(self, count):
         self.count = count
-        self.client = Zencoder("cb28a5f345c9199cdbeed9c90eae169e")
+        self.client = Zencoder(settings.ZENCODER_NOTIFICATIONS_URL)
 
     '''
     looks for video upload jobs that have finished but have not sent a notification to our system
