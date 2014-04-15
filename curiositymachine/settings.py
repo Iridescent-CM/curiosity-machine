@@ -45,6 +45,8 @@ INSTALLED_APPS = (
     'profiles',
     'challenges',
     'cmcomments',
+    'django_rq',
+    'videos',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,6 +110,19 @@ FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "cm_media")
+
+AWS_MEDIA_S3_BUCKET_NAME = AWS_STORAGE_BUCKET_NAME
+
+ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
+ZENCODER_S3_BUCKET = AWS_MEDIA_S3_BUCKET_NAME + '/videos/'
+ZENCODER_NOTIFICATIONS_URL = os.environ.get("ZENCODER_NOTIFICATIONS_URL", "")
+
+#job queues
+RQ_QUEUES = {
+    'default': {
+        'URL': os.getenv('REDIS_URL', 'redis://localhost:6379'),
+        'DB': 0,}
+}
 
 # Import optional local settings.  This must be at the END of this file.
 try:
