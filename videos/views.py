@@ -90,6 +90,13 @@ def handle_output(output, video):
         output_video.audio_codec = output.get('audio_codec', 'None')
         output_video.size = output.get('file_size_in_bytes', 0)
 
+        if 'thumbnails' in output and output['thumbnails']:
+            thumbnail = output['thumbnails'][0]
+            if 'images' in thumbnail and thumbnail['images']:
+                image = thumbnail['images'][0]
+                if 'url' in image and image['url']:
+                    output_video.thumbnail = image['url']
+
         output_video.video = output['url']
         output_video.save()
 

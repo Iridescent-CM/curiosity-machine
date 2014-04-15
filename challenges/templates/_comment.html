@@ -11,6 +11,7 @@
       {% if comment.video.encodings_generated %}
         <video class="video-js vjs-default-skin"
           controls preload="none" width="592" height="333"
+          poster='{{comment.video.output_videos.all.0.thumbnail}}'
           {# data-setup='{"customControlsOnMobile": false}' #}
           id="video-element-{{comment.video.id}}">            
           {% for v in comment.video.output_videos.all %}

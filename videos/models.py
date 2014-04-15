@@ -9,6 +9,7 @@ class Video(models.Model):
 class OutputVideo(models.Model):
     video = models.URLField(max_length=2083, null=True, blank=True)
     base_video = models.ForeignKey(Video, related_name='output_videos')
+    thumbnail = models.URLField(max_length=2083, null=True, blank=True)
     md5_checksum = models.CharField(max_length=32, blank=True)
     output_id = models.IntegerField()
     width = models.IntegerField(default=0)
