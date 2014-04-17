@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
+from videos.models import Video
 
 class Theme(models.Model):
     name = models.TextField()
@@ -15,6 +16,7 @@ class Challenge(models.Model):
     students = models.ManyToManyField(User, through='Progress', null=True) #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
     mentor = models.ForeignKey(User, related_name='mentored_challenges', null=True)
     theme = models.ForeignKey(Theme, null=True)
+    video = models.ForeignKey(Video, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.mentor.profile.is_mentor:
