@@ -2,16 +2,17 @@
 
 {% block content %}
 
-<h1>My Challenges:</h1>
-  <ul class="nav nav-justified nav-tabs">
-  <li class="active"><a href="#challenges" data-toggle="tab">All Challenges</a></li>
+<ul class="nav nav-justified nav-tabs">
+  <li class="active"><a href="#challenges" data-toggle="tab">My Challenges</a></li>
   <li><a href="#bookmarks" data-toggle="tab">Bookmarks</a></li>
 </ul>
 <div class="tab-content">
   <div class="tab-pane fade in active" id="challenges">
     <ul class="challenges-list owl-carousel panel-carousel">
-      {% for challenge in challenges %}
-        {% include "_challenge_item.html" %}
+      {% for progress in progresses %}
+        {% with progress.challenge as challenge %}
+          {% include "_challenge_item.html" %}
+        {% endwith %}
       {% endfor %}
     </ul>
   </div><!-- /#challenges -->

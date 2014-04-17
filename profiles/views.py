@@ -8,7 +8,7 @@ from django.forms.util import ErrorList
 from profiles.models import Profile
 from profiles.forms import JoinForm, ProfileEditForm
 from profiles.utils import create_or_edit_user
-from challenges.models import Challenge
+from challenges.models import Challenge, Progress
 from django.db import transaction
 
 @transaction.atomic
@@ -42,8 +42,8 @@ def home(request):
         challenges = Challenge.objects.filter(mentor=request.user)
         return render(request, "mentor_home.html", {'challenges': challenges,})
     else:
-        challenges = Challenge.objects.filter(students=request.user)
-        return render(request, "student_home.html", {'challenges': challenges,})
+        progresses = Progress.objects.filter(student=request.user)
+        return render(request, "student_home.html", {'progresses': progresses,})
 
 
 def student_profile_details(request, username):

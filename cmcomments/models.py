@@ -11,6 +11,7 @@ class Comment(models.Model):
     image = models.URLField(max_length=2083, null=True, blank=True)
     video = models.ForeignKey(Video, null=True, blank=True)
     created = models.DateTimeField(default=now)
+    read = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-created',)

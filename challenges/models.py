@@ -39,3 +39,11 @@ class Progress(models.Model):
 
     def get_absolute_url(self):
         return reverse('challenges:challenge_progress', kwargs={'challenge_id': self.challenge_id, 'username': self.student.username,})
+
+    def get_unread_comments(self, user):
+        if user == self.challenge.mentor:
+            return self.comment_set.filter(read=False, user=self.student)
+        elif user == self.student:
+            return self.comment_set.filter(read=False, user=self.challenge.mentor)
+        else:
+            return None
