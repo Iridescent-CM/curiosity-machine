@@ -8,17 +8,30 @@
 
 //main side nav
 .navbar {
-  position: fixed;
-  width: @nav-width;
-  background: @gray-dark;
-  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: @container-lg;
+  z-index: 1;
 }
 
 .nav-menu {
-  margin: 15px 15px 15px 0;
+  margin: 0;
+  padding: 0px;
+  position: fixed;
+  z-index: 1;
+  top: 0px;
+  width: 0;
+  overflow: hidden;
+  background: @gray-dark;
+  height: 100%;
+  .transition(width .5s);
+  &.nav-open {
+    width: @nav-width;
+  }
   li {
     list-style-type: none;
     a, button {
+      white-space: nowrap;
       width: 100%;
       text-align: left;
       color: #d3cec5; 
@@ -63,12 +76,35 @@
   }
 }
 
-.challenge-nav {
+.nav-wrapper {
+  position: relative;
   margin: 0 -(@grid-gutter-width / 2);
+  z-index: 1;
+  &.sticky {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      margin: 0;
+      .challenge-nav.primary {
+        max-width: @container-lg;
+        margin: 0 auto;
+      }
+  }
+  .clip-wrapper {
+    position: relative;
+    max-width: @container-lg;
+    margin: 0 auto;
+    margin-top: -100px;
+    height: 100px;
+  }
+}
+
+.challenge-nav {
   height: 100px;
   position: relative;
+  background: @bg-color;
   &.primary {
-    margin-bottom: 20px;
     box-shadow: 3px 3px 15px 0px rgba(0,0,0, .2);
   }
   &:before { //stripe
@@ -89,6 +125,7 @@
   > ul {
     width: 100%;
     padding: 0;
+    margin: 0;
     > li {
       position: absolute;
       height: 100%;
@@ -290,7 +327,6 @@
 
   &.clipper {
     width: 100%;
-    margin-top: -120px;
     position: absolute;
     transition: clip 1s;
     &:before {
