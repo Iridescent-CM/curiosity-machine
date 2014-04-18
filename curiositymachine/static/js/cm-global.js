@@ -1,14 +1,39 @@
 "use strict";
 
+var CM = {};
+
+CM.Navigation = {
+  $navTop: $('.nav-wrapper').length ? $('.nav-wrapper').offset().top : false,
+}
+
 $(document).ready(function() {
+
+
+if (CM.Navigation.$navTop) {
+  $(window).on('scroll', function() {
+    var scrollTop = $(window).scrollTop();
+    console.log(scrollTop);
+    console.log(CM.Navigation.$navTop);
+    if (scrollTop > CM.Navigation.$navTop) {
+      $('.nav-wrapper').addClass('sticky');
+    } else {
+      $('.nav-wrapper').removeClass('sticky');
+    }
+  });
+  $(window).trigger('scroll');
+}
+  
   
   $('.navbar-toggle').on('click', function(e) {
     e.preventDefault();
     var $content = $('.main-content');
+    var $nav = $('.nav-menu');
     if ($content.hasClass('nav-open')) {
       $content.removeClass('nav-open');
+      $nav.removeClass('nav-open');
     } else {
       $content.addClass('nav-open');
+      $nav.addClass('nav-open');
     }
   });
 
@@ -85,8 +110,10 @@ $(document).ready(function() {
   $('.challenge-nav.clipper .cursor').on('transitionend webkitTransitionEnd', function(e){
       
   });
-
+  //start starting position...
   $('.challenge-nav.primary li').eq(1).trigger('click');
+
+
 
 });
 
