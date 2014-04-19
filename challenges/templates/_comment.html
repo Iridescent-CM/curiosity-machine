@@ -1,12 +1,16 @@
 {% load cmtemplatetags %}
 
 {{ comment.created|timesince }}
-<div class="panel panel-default">
+<div class="panel panel-default comment">
   <div class="panel-heading">
     <h3 class="panel-title"><a href="{% url 'challenges:challenge' challenge.id %}">{{comment.user.get_full_name}} says:</a></h3>
   </div>
   <div class="panel-body paper">
-    {% if comment.image %}<p><img src="{{ comment.image }}" /></p>{% endif %}
+    {% if comment.image %}
+    <div class="img-wrapper">
+      <img src="{{ comment.image }}" />
+    </div>
+    {% endif %}
     {% if comment.video %}
       {% if comment.video.encodings_generated %}
         <video class="video-js vjs-default-skin"

@@ -2,6 +2,20 @@
 {% block title %}Challenges{% endblock %}
 
 {% block content %}
+  
+  {% if not request.user.is_authenticated %}
+  <div class="home-hero">
+    <h1>Moar Brains</h1>
+    <h2>CURIOSITY TO LEARN.</h2>
+    <h2>COURAGE TO DO.</h2>
+    <h2>PERSISTENCE TO ACHIEVE.</h2>
+    <ul class="login-buttons">
+      <li><button class="btn btn-large btn-primary" data-toggle="modal" data-target="#join-modal">Get Started</button></li>
+      <li><button class="btn-link" data-toggle="modal"  data-target="#login-modal">Sign In</a></li>
+
+    </ul>
+  </div>
+  {% endif %}
 
   <ul class="theme-carousel owl-carousel">
     <li {% if not theme %}class="active"{% endif %}>

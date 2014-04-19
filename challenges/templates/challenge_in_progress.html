@@ -8,8 +8,8 @@
 {% block content %}
   <h1>{{ challenge.name }} <small>By FAke UsEr</small></h1>
   {% include "_challenge_nav.html" %}
-  <p>... in progress, started {{ progress.started }}</p>
-<div class="row">
+ 
+<div class="row challenge-content">
   <div class="col-md-5">
     <div class="panel panel-bubble-green">
       <div class="panel-body">
@@ -34,7 +34,8 @@
         {% endwith %}
       </div>
     </div>
-  </div>
+     <p>... in progress, started {{ progress.started }}</p>
+  </div><!-- /column 1 -->
   <div class="col-md-1">
     <img src="http://placekitten.com/60/80">
   </div>

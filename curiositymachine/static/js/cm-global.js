@@ -12,8 +12,6 @@ $(document).ready(function() {
 if (CM.Navigation.$navTop) {
   $(window).on('scroll', function() {
     var scrollTop = $(window).scrollTop();
-    console.log(scrollTop);
-    console.log(CM.Navigation.$navTop);
     if (scrollTop > CM.Navigation.$navTop) {
       $('.nav-wrapper').addClass('sticky');
     } else {
@@ -35,6 +33,14 @@ if (CM.Navigation.$navTop) {
       $content.addClass('nav-open');
       $nav.addClass('nav-open');
     }
+  });
+
+  //this adds margin to the images in comments so they always line up with the paper lines.
+  $('.paper img').on('load',function() {
+    var $self = $(this);
+    var lineHeight = parseFloat($self.closest('.paper').css('line-height'));
+    var height = $self.height();
+    $self.css('margin-bottom', (lineHeight - (height % lineHeight)) + 'px' );
   });
 
 
@@ -79,6 +85,7 @@ if (CM.Navigation.$navTop) {
     itemsScaleUp : false
   });
 
+//========cahllenge nav -=======
   $('.challenge-nav.primary li').not(':first-child').on('click', function() {
     var $self = $(this);
     var position = $self.position();
@@ -112,7 +119,7 @@ if (CM.Navigation.$navTop) {
   });
   //start starting position...
   $('.challenge-nav.primary li').eq(1).trigger('click');
-
+//==== end challenge nav
 
 
 });
