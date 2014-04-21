@@ -12,14 +12,14 @@
     </div>
     {% endif %}
     {% if comment.video %}
-      {% if comment.video.encodings_generated %}
+      {% if comment.video.encoded_videos.exists %}
         <video class="video-js vjs-default-skin"
           controls preload="none" width="517" height="333"
-          poster='{{comment.video.output_videos.all.0.thumbnail}}'
+          {# poster='{{comment.video.encoded_video.all.0.thumbnail}}' #}
           {# data-setup='{"customControlsOnMobile": false}' #}
           id="video-element-{{comment.video.id}}">            
-          {% for v in comment.video.output_videos.all %}
-          <source src="{{v.video}}" type='video/mp4' />
+          {% for v in comment.video.encoded_videos.all %}
+            <source src="{{v.url}}" type="{{v.mime_type}}" />
           {% endfor %}
         </video>
       {% else %}

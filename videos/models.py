@@ -16,14 +16,14 @@ class Video(models.Model):
             return self.filepicker_url
 
     @classmethod
-    def from_filepicker_with_job(cls, filepicker_url):
+    def from_filepicker_with_job(cls, source_url):
         from .tasks import encode_video
-        video = cls.objects.create(filepicker_url=filepicker_url)
+        video = cls.objects.create(source_url=source_url)
         django_rq.enqueue(upload_to_s3, video, key_prefix="videos/", queue_after=encode_video)
         return video
 
 class EncodedVideo(models.Model):
-    video = models.ForeignKey(Video)
+    video = models.ForeignKey(Video, related_name="encoded_videos")
     key = models.CharField(max_length=1024)
     width = models.IntegerField()
     height = models.IntegerField()
