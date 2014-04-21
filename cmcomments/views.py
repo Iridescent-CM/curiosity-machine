@@ -10,6 +10,7 @@ from cmcomments.forms import CommentForm
 from curiositymachine.decorators import mentor_or_current_student
 from videos.views import upload_filepicker_video
 from videos.models import Video
+from images.models import Image
 import django_rq
 
 # refactor input into decorators
