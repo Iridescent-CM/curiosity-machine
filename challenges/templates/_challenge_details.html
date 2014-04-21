@@ -1,45 +1,29 @@
 <h1>{{ challenge.name }}</h1>
 <div class="challenge-details-hero">
-  <img src="http://placekitten.com/1025/395">
+  {% if challenge.video %}
+      {% if challenge.video.encodings_generated %}
+        <div class="flowplayer" data-adaptive-ratio="true">
+          <video class="video-js vjs-default-skin"
+            preload="true"
+            poster='{{challenge.video.output_videos.all.0.thumbnail}}'
+            {# data-setup='{"customControlsOnMobile": false}' #}
+            id="video-element-{{challenge.video.id}}">            
+            {% for v in challenge.video.output_videos.all %}
+            <source src="{{v.video}}" type='video/mp4' />
+            {% endfor %}
+          </video>
+        </div>
+      {% endif %}
+  {% elif request.user.is_superuser %}
+    {{ video_form.media }}
+    <form action="{% url "challenges:upload_video" challenge_id=challenge.id %}" method="POST">
+      {% csrf_token %}
+      {{video_form.video_filepicker_url}}
+      <div class="errors">{{ video_form.video_filepicker_url.errors }}</div>
+      <button type="submit" class="call-to-action submit" id="save-product-button">Upload Video</button>
+    </form>
+  {% endif %}
   <div class="details h2">
     <p>{{ challenge.description }}</p>
-    <p>{{ challenge.how_to_make_it|safe }}</p>
-    <p>{{ challenge.learn_more|safe }}</p>
-    {% if challenge.video %}
-        {% if challenge.video.encodings_generated %}
-            <button class="btn btn-lg" data-toggle="modal" data-target="#challenge_video_form">
-            Watch Video
-            </button>
-            <div class="modal fade" id="challenge_video_form" tabindex="-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h1>{{challenge.name}}</h1>
-                  </div>
-                  <div class="modal-body">                  
-                    <video class="video-js vjs-default-skin"
-                      controls preload="none" width="517" height="333"
-                      poster='{{challenge.video.output_videos.all.0.thumbnail}}'
-                      {# data-setup='{"customControlsOnMobile": false}' #}
-                      id="video-element-{{challenge.video.id}}">            
-                      {% for v in challenge.video.output_videos.all %}
-                      <source src="{{v.video}}" type='video/mp4' />
-                      {% endfor %}
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-        {% endif %}
-    {% elif request.user.is_superuser %}
-      {{ video_form.media }}
-      <form action="{% url "challenges:upload_video" challenge_id=challenge.id %}" method="POST">
-        {% csrf_token %}
-        {{video_form.video_filepicker_url}}
-        <div class="errors">{{ video_form.video_filepicker_url.errors }}</div>
-        <button type="submit" class="call-to-action submit" id="save-product-button">Upload Video</button>
-      </form>
-    {% endif %}
   </div>
 </div>
