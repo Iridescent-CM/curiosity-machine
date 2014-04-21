@@ -10,7 +10,6 @@ from .models import Challenge, Progress, Theme
 from cmcomments.forms import CommentForm
 from curiositymachine.decorators import mentor_or_current_student
 from videos.models import Video
-from videos.views import upload_filepicker_video
 from .forms import ChallengeVideoForm
 
 def challenges(request):
@@ -60,6 +59,5 @@ def upload_video(request, challenge_id):
         video = Video.objects.create(video=form.cleaned_data['video_filepicker_url'])
         challenge.video = video
         challenge.save()
-        django_rq.enqueue(upload_filepicker_video, challenge)
     return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge.id,}))
 
