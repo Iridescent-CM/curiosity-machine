@@ -17,8 +17,12 @@ whitenoise==0.13
 redis==2.9.1
 django-rq==0.6.1
 
+#better url handling
+requests==2.2.1
+
 #interface to S3
 -e git://github.com/boto/boto@py3kport#egg=Boto
+tinys3==0.1.9
 
 #video encoding service
 zencoder==0.6.5
