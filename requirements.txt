@@ -27,3 +27,5 @@ tinys3==0.1.9
 
 #video encoding service
 zencoder==0.6.5
+
+djangorestframework==2.3.13
