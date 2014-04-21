@@ -9,13 +9,13 @@ from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from urllib.request import urlretrieve
 from videos.models import Video, OutputVideo
-from cmcomments.output_settings import OUTPUTS
+from .output_settings import OUTPUTS
 
 def upload_filepicker_video(comment):
     video_url = comment.video.video
     path, header = urlretrieve(video_url)
     s3_connection = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-    bucket = s3_connection.create_bucket(settings.AWS_MEDIA_S3_BUCKET_NAME)
+    bucket = s3_connection.create_bucket(settings.AWS_STORAGE_BUCKET_NAME)
     unique_hash = str(uuid.uuid4())
     while bucket.get_key(unique_hash):
         unique_hash = str(uuid.uuid4())
@@ -23,7 +23,7 @@ def upload_filepicker_video(comment):
     k.key = unique_hash
     k.set_contents_from_filename(path)
     k.set_acl('public-read')
-    comment.video.video = 'https://%s.s3.amazonaws.com/%s' % (settings.AWS_MEDIA_S3_BUCKET_NAME, unique_hash)
+    comment.video.video = 'https://%s.s3.amazonaws.com/%s' % (settings.AWS_STORAGE_BUCKET_NAME, unique_hash)
     print(unique_hash)
     comment.video.unique_hash = unique_hash
     comment.video.save()
@@ -37,7 +37,7 @@ def generate_encodings(video):
         output_copy['url'] = 's3://%s%s-%dx%d%s' % (settings.ZENCODER_S3_BUCKET, video.unique_hash, op['width'], op['height'], op['url'])
         output_copy['thumbnails']['base_url'] += '%s/' % video.unique_hash
         outputs.append(output_copy)
-    input_url = 's3://%s/%s' % (settings.AWS_MEDIA_S3_BUCKET_NAME, video.unique_hash)
+    input_url = 's3://%s/%s' % (settings.AWS_STORAGE_BUCKET_NAME, video.unique_hash)
     try:
         response = client.job.create(input_url, outputs=outputs)
     except:
