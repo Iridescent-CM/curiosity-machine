@@ -22,3 +22,5 @@ django-rq==0.6.1
 
 #video encoding service
 zencoder==0.6.5
+
+djangorestframework==2.3.13
