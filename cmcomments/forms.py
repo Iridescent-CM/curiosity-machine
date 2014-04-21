@@ -6,7 +6,7 @@ class FilePickerURLField(forms.URLField):
     widget = FilePickerFileWidget
     default_mimetypes = "*/*"
     default_openTo = 'COMPUTER'
-    default_services = 'WEBCAM,COMPUTER'
+    default_services = ''
 
     def __init__(self, *args, **kwargs):
         self.apikey = kwargs.pop('apikey', settings.FILEPICKER_API_KEY)
