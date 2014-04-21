@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import uuid
+from rest_framework.parsers import JSONParser
 from copy import deepcopy
 from zencoder import Zencoder
 from boto.s3.connection import S3Connection
