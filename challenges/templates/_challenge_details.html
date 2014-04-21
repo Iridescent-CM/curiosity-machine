@@ -13,11 +13,14 @@
             {% endfor %}
           </video>
         </div>
+      {% else %}
+        <p>The video is encoding and should be available shortly.</p>
       {% endif %}
   {% elif request.user.is_superuser %}
     {{ video_form.media }}
     <form action="{% url "challenges:upload_video" challenge_id=challenge.id %}" method="POST">
       {% csrf_token %}
+      <p>No Challenge Video Uploaded</p>
       {{video_form.video_filepicker_url}}
       <div class="errors">{{ video_form.video_filepicker_url.errors }}</div>
       <button type="submit" class="call-to-action submit" id="save-product-button">Upload Video</button>
