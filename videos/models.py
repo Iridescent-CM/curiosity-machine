@@ -1,12 +1,15 @@
 from django.db import models
 from django.conf import settings
 from curiositymachine.tasks import upload_to_s3
+from images.models import Image
 import django_rq
 
 class Video(models.Model):
     source_url = models.URLField(max_length=2048, blank=True)
     md5_hash = models.CharField(max_length=32, blank=True) # this is the hash of the ORIGINAL file, not the encoded file
     key = models.CharField(max_length=1024, blank=True) # this is the filename of the ORIGINAL file, not the encoded file
+    thumbnails = models.ManyToManyField(Image, null=True)
+    raw_job_details = models.TextField()
 
     @property
     def url(self):
@@ -16,11 +19,14 @@ class Video(models.Model):
             return self.source_url
 
     @classmethod
-    def from_filepicker_with_job(cls, source_url):
+    def from_source_with_job(cls, source_url):
         from .tasks import encode_video
         video = cls.objects.create(source_url=source_url)
         django_rq.enqueue(upload_to_s3, video, key_prefix="videos/", queue_after=encode_video)
         return video
+
+    def __str__(self):
+        return "Video: id={}, url={}".format(self.id, self.url)
 
 class EncodedVideo(models.Model):
     video = models.ForeignKey(Video, related_name="encoded_videos")
@@ -33,3 +39,9 @@ class EncodedVideo(models.Model):
     @property
     def url(self):
         return "{base}/{bucket}/{key}".format(base=settings.S3_URL_BASE, bucket=settings.AWS_STORAGE_BUCKET_NAME, key=self.key)
+
+    def __str__(self):
+        return "EncodedVideo: id={}, video={}, url={}".format(self.id, self.video_id, self.url)
+
+    class Meta:
+        unique_together = (("video", "width", "height", "mime_type"),)

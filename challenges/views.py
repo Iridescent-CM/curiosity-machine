@@ -49,15 +49,3 @@ def challenge_progress(request, challenge_id, username):
         comment.save()
 
     return render(request, 'challenge_in_progress.html', {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm()})
-
-@login_required
-@require_http_methods(["POST",])
-def upload_video(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-    form = ChallengeVideoForm(data=request.POST)
-    if form.is_valid():
-        video = Video.objects.create(video=form.cleaned_data['video_filepicker_url'])
-        challenge.video = video
-        challenge.save()
-    return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge.id,}))
-

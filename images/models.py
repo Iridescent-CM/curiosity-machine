@@ -16,7 +16,10 @@ class Image(models.Model):
             return self.source_url
 
     @classmethod
-    def from_filepicker_with_job(cls, source_url):
+    def from_source_with_job(cls, source_url):
         image = cls.objects.create(source_url=source_url)
         django_rq.enqueue(upload_to_s3, image, key_prefix='images/')
         return image
+
+    def __str__(self):
+        return "Image: id={}, url={}".format(self.id, self.url)
