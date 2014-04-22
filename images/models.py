@@ -17,6 +17,6 @@ class Image(models.Model):
 
     @classmethod
     def from_filepicker_with_job(cls, filepicker_url):
-        image = cls.objects.create(filepicker_url=filepicker_url)
+        image, created = cls.objects.get_or_create(filepicker_url=filepicker_url)
         django_rq.enqueue(upload_filepicker_image, image)
         return image

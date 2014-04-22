@@ -22,7 +22,7 @@ class ImageAdmin(admin.ModelAdmin):
             return super(ImageAdmin, self).get_form(request, obj, **kwargs)
 
     def save_model(self, request, obj, form, change):
-        django_rq.enqueue(upload_filepicker_image, obj)
         obj.save()
+        Image.from_filepicker_with_job(obj.filepicker_url)
 
 admin.site.register(Image, ImageAdmin)
