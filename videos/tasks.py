@@ -47,7 +47,7 @@ def handle_finished_video_output(video, output):
     output_format = output['format'] if output['format'] != "mpeg4" else "mp4" 
     mime_type = "video/{}".format(output_format)
     height, width = output['height'], output['width']
-    if EncodedVideo.objects.filter(video_id=video.id, height=height, width=width, mime_type=mime_type):
+    if EncodedVideo.objects.filter(video_id=video.id, height=height, width=width, mime_type=mime_type).exists():
         return # if this combination already exists, do nothing successfully
 
     response = requests.get(output['url'])
