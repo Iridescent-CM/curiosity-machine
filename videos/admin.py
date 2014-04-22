@@ -1,5 +1,5 @@
 from django.contrib import admin
-from videos.models import Video, OutputVideo
+from videos.models import Video, EncodedVideo
 
 admin.site.register(Video)
-admin.site.register(OutputVideo)
+admin.site.register(EncodedVideo)

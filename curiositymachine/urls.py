@@ -10,6 +10,5 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', name="logout"),
     url(r'^', include('profiles.urls', namespace='profiles', app_name='profiles')),
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
-    url(r'^videos/', include('videos.urls', namespace='videos', app_name='videos')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
 )

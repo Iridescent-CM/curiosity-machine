@@ -1,25 +1,47 @@
 from django.db import models
+from django.conf import settings
+from curiositymachine.tasks import upload_to_s3
+from images.models import Image
+import django_rq
 
 class Video(models.Model):
-    video = models.URLField(max_length=2083, null=True, blank=True)
-    unique_hash = models.CharField(max_length=40)
-    encoding_id = models.IntegerField(null=True, blank=True)
-    encodings_generated = models.BooleanField(default=False)
+    source_url = models.URLField(max_length=2048, blank=True)
+    md5_hash = models.CharField(max_length=32, blank=True) # this is the hash of the ORIGINAL file, not the encoded file
+    key = models.CharField(max_length=1024, blank=True) # this is the filename of the ORIGINAL file, not the encoded file
+    thumbnails = models.ManyToManyField(Image, null=True)
+    raw_job_details = models.TextField()
 
-class OutputVideo(models.Model):
-    video = models.URLField(max_length=2083, null=True, blank=True)
-    base_video = models.ForeignKey(Video, related_name='output_videos')
-    thumbnail = models.URLField(max_length=2083, null=True, blank=True)
-    md5_checksum = models.CharField(max_length=32, blank=True)
-    output_id = models.IntegerField()
-    width = models.IntegerField(default=0)
-    height = models.IntegerField(default=0)
-    frame_rate = models.IntegerField(default=0)
-    duration_in_ms = models.IntegerField(default=0)
-    video_codec = models.CharField(max_length=10, blank=True)
-    format = models.CharField(max_length=10, blank=True)
-    audio_codec = models.CharField(max_length=10, blank=True)
-    size = models.IntegerField(default=0)
-    video_bitrate_in_kbps = models.IntegerField(default=0)
-    audio_bitrate_in_kbps = models.IntegerField(default=0)
-    total_bitrate_in_kbps = models.IntegerField(default=0)
+    @property
+    def url(self):
+        if self.key:
+            return "{base}/{bucket}/{key}".format(base=settings.S3_URL_BASE, bucket=settings.AWS_STORAGE_BUCKET_NAME, key=self.key)
+        else:
+            return self.source_url
+
+    @classmethod
+    def from_source_with_job(cls, source_url):
+        from .tasks import encode_video
+        video = cls.objects.create(source_url=source_url)
+        django_rq.enqueue(upload_to_s3, video, key_prefix="videos/", queue_after=encode_video)
+        return video
+
+    def __str__(self):
+        return "Video: id={}, url={}".format(self.id, self.url)
+
+class EncodedVideo(models.Model):
+    video = models.ForeignKey(Video, related_name="encoded_videos")
+    key = models.CharField(max_length=1024)
+    width = models.IntegerField()
+    height = models.IntegerField()
+    mime_type = models.CharField(max_length=255) # generally video/mp4, video/webm or video/ogg
+    raw_encoding_details = models.TextField()
+
+    @property
+    def url(self):
+        return "{base}/{bucket}/{key}".format(base=settings.S3_URL_BASE, bucket=settings.AWS_STORAGE_BUCKET_NAME, key=self.key)
+
+    def __str__(self):
+        return "EncodedVideo: id={}, video={}, url={}".format(self.id, self.video_id, self.url)
+
+    class Meta:
+        unique_together = (("video", "width", "height", "mime_type"),)
