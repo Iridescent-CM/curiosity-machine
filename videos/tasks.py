@@ -34,7 +34,6 @@ def check_video_job_progress(video, job_id): # repeats itself every TIME_BETWEEN
         elif output['state'] not in ["failed", "cancelled", "no input"]:
             unfinished = True
 
-
     if unfinished:
         scheduler = django_rq.get_scheduler()
         scheduler.enqueue_in(TIME_BETWEEN_STATUS_CHECKS, check_video_job_progress, video, job_id)
