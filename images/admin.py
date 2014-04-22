@@ -2,7 +2,6 @@ from django.contrib import admin
 from django import forms
 from .models import Image
 from cmcomments.forms import FilePickerURLField
-from images.tasks import upload_filepicker_image
 import django_rq
 
 class ImageAdminForm(forms.ModelForm):
@@ -11,7 +10,7 @@ class ImageAdminForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(ImageAdminForm, self).__init__(*args, **kwargs)
-        self.fields['filepicker_url'] = FilePickerURLField(mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
+        self.fields['source_url'] = FilePickerURLField(mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
         
 
 class ImageAdmin(admin.ModelAdmin):
@@ -23,6 +22,6 @@ class ImageAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.save()
-        Image.from_filepicker_with_job(obj.filepicker_url)
+        Image.from_source_with_job(obj.source_url)
 
 admin.site.register(Image, ImageAdmin)
