@@ -13,7 +13,7 @@ class Video(models.Model):
         if self.key:
             return "{base}/{bucket}/{key}".format(base=settings.S3_URL_BASE, bucket=settings.AWS_STORAGE_BUCKET_NAME, key=self.key)
         else:
-            return self.filepicker_url
+            return self.source_url
 
     @classmethod
     def from_filepicker_with_job(cls, source_url):
