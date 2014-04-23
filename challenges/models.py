@@ -24,6 +24,9 @@ class Challenge(models.Model):
         else:
             super(Challenge, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return "Challenge: id={}, name={}".format(self.id, self.name)
+
 class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)
     student = models.ForeignKey(User)
@@ -47,3 +50,6 @@ class Progress(models.Model):
             return self.comment_set.filter(read=False, user=self.challenge.mentor)
         else:
             return None
+
+    def __str__(self):
+        return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
