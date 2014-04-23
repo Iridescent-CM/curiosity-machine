@@ -15,7 +15,6 @@ class VideoAdminForm(forms.ModelForm):
 
 class VideoAdmin(admin.ModelAdmin):
     fields = ('source_url',)
-    # readonly_fields = ('md5_hash', 'key', 'thumbnails', 'raw_job_details')
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             return VideoAdminForm
