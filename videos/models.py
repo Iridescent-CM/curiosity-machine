@@ -8,8 +8,8 @@ class Video(models.Model):
     source_url = models.URLField(max_length=2048, blank=True)
     md5_hash = models.CharField(max_length=32, blank=True) # this is the hash of the ORIGINAL file, not the encoded file
     key = models.CharField(max_length=1024, blank=True) # this is the filename of the ORIGINAL file, not the encoded file
-    thumbnails = models.ManyToManyField(Image, null=True)
-    raw_job_details = models.TextField()
+    thumbnails = models.ManyToManyField(Image, null=True, blank=True)
+    raw_job_details = models.TextField(blank=True)
 
     @property
     def url(self):
@@ -20,10 +20,14 @@ class Video(models.Model):
 
     @classmethod
     def from_source_with_job(cls, source_url):
-        from .tasks import encode_video
         video = cls.objects.create(source_url=source_url)
-        django_rq.enqueue(upload_to_s3, video, key_prefix="videos/", queue_after=encode_video)
+        video.fetch_from_source()
         return video
+
+    def fetch_from_source(self):
+        from .tasks import encode_video
+        if not self.key:
+            django_rq.enqueue(upload_to_s3, self, key_prefix="videos/", queue_after=encode_video)
 
     def __str__(self):
         return "Video: id={}, url={}".format(self.id, self.url)
