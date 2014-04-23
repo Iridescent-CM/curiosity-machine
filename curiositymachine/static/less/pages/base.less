@@ -3,10 +3,12 @@
 //===============global layout=======================
 //   things on every page menu/footer etc.
 //===================================================
-html,
+html {height: 100%;}
 body {
   height: 100%;
 }
+
+.menu-img {width: 100%;}
 
 
 #main-container {
@@ -16,17 +18,9 @@ body {
   background: @bg-color;
   position: relative;
   overflow-x: hidden;
-   @media (min-width: @screen-sm-min) {
-    width: @container-sm;
-  }
-  @media (min-width: @screen-md-min) {
-    width: @container-md;
-  }
-  @media (min-width: @screen-lg-min) {
-    width: @container-lg;
-  }
-  > .container {
-    position: absolute;
+  max-width: @container-lg;
+  > .container-fluid {
+    position: relative;
     min-height: 100%;
     width: 100%;
     margin-left: 0px;
@@ -50,10 +44,78 @@ body {
 }
 
 
+/* widgets? */
+@paper-line-height: 25px;
+.paper {
+  background: @bg-color; /* Old browsers */
+  background: @bg-color;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, @bg-color));
+  background: -webkit-linear-gradient(top, #d9eaf3 0%, @bg-color 8%);
+  background: -moz-linear-gradient(top, #d9eaf3 0%, @bg-color 8%);
+  background: -ms-linear-gradient(top, #d9eaf3 0%, @bg-color 8%);
+  background: -o-linear-gradient(top, #d9eaf3 0%, @bg-color 8%);
+  background: linear-gradient(top, #d9eaf3 0%, @bg-color 8%);
+  line-height: @paper-line-height;
+  -webkit-background-size: 100% 25px;
+  -moz-background-size: 100% 25px;
+  -ms-background-size: 100% 25px;
+  -o-background-size: 100% 25px;
+  background-size: 100% @paper-line-height;
+  padding-top: @paper-line-height + 1;
+}
 
+.owl-carousel {
+  padding-top: 30px;
+}
 
+.comment {
+  .img-wrapper {
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+}
 
+////========================
+//// home pge
 
+.home-hero {
+  margin: 0 -(@grid-gutter-width / 2);
+  margin-top: -120px;
+  height: 550px;
+  padding: 120px 0 0 65px;
+  background: url('../images/collage2.png') 440px 0px no-repeat, -moz-linear-gradient(top,  rgba(214,227,223,0) 0%, rgba(214,227,223,0) 25%, rgba(214,227,223,1) 100%); /* FF3.6+ */
+  background: url('../images/collage2.png') 440px 0px no-repeat, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(214,227,223,0)), color-stop(25%,rgba(214,227,223,0)), color-stop(100%,rgba(214,227,223,1))); /* Chrome,Safari4+ */
+  background: url('../images/collage2.png') 440px 0px no-repeat, -webkit-linear-gradient(top,  rgba(214,227,223,0) 0%,rgba(214,227,223,0) 25%,rgba(214,227,223,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: url('../images/collage2.png') 440px 0px no-repeat, -o-linear-gradient(top,  rgba(214,227,223,0) 0%,rgba(214,227,223,0) 25%,rgba(214,227,223,1) 100%); /* Opera 11.10+ */
+  background: url('../images/collage2.png') 440px 0px no-repeat, -ms-linear-gradient(top,  rgba(214,227,223,0) 0%,rgba(214,227,223,0) 25%,rgba(214,227,223,1) 100%); /* IE10+ */
+  background: url('../images/collage2.png') 440px 0px no-repeat, linear-gradient(to bottom,  rgba(214,227,223,0) 0%,rgba(214,227,223,0) 25%,rgba(214,227,223,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00d6e3df', endColorstr='#d6e3df',GradientType=0 ); /* IE6-9 */
+  h1 {
+    font-size: 70px;
+    font-weight: 300;
+  }
+  h2 {
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 0;
+    &:nth-child(3) {color: @blue;}
+    &:nth-child(4) {color: @green;}
+  }
+  .login-buttons {
+    padding: 0;
+    margin-top: 30px;
+    li {
+      list-style-type: none;
+      float: left;
+      margin-right: 20px;
+      .btn, .btn-link {
+        font-size: 20px;
+      }
+    }
+  }
+}
 
 
 //////==========================
@@ -61,17 +123,57 @@ body {
 
 .challenges-list {
   margin: 0;
-  padding: 0;
+  padding-left: 0;
   .clearfix();
   li {
-    float: left;
-    padding-right: 20px;
     list-style-type: none;
-    width: 25%;
+  }
+  .owl-item {
+    width: 450px;
+    padding: 0 10px;
   }
   .image-container {
     img {
       width: 100%;
+    }
+  }
+}
+
+.theme-carousel {
+  position: relative;
+  padding-left: 0;
+  .owl-item {
+    padding: 5px;
+    li {
+      list-style-type: none;
+      border: 2px solid transparent;
+      padding: 2px;
+      border-radius: @border-radius-base + 2;
+      &.active {
+        border: 2px solid @orange;
+      }
+      a {
+        background: @green; 
+        display: block;
+        height: 100px;
+        border-radius: @border-radius-base;
+        color: #fff;
+        position: relative;
+        span {
+          position: absolute;
+          left: 10px;
+          bottom: 10px;
+        }
+        &:before {
+          content: "\e008";
+          font-family: 'Glyphicons Halflings';
+          position: absolute;
+          right: 5px;
+          bottom: 0;
+          font-size: 70px;
+          line-height: 1;
+        }
+      }
     }
   }
 }
@@ -82,9 +184,8 @@ body {
 
 .challenge-details-hero {
   position: relative;
-  img {
-    width: 100%;
-  }
+  margin: 0 -(@grid-gutter-width / 2);
+  min-height: 200px;
   .details {
     color: #fff;
     text-shadow: 2px 1px 2px rgba(0, 0, 0, 1);
@@ -100,4 +201,25 @@ body {
     float: right;
     margin: -70px 50px 0 0;
   }
+}
+
+//============================
+//    Challenges page
+
+.action-list {
+  padding: 0;
+  li {
+    float: left;
+    width: 33%;
+    padding: 0 5px;
+    list-style-type: none;
+    .btn {
+      background: @green;
+      color: #fff;
+    }
+  }
+}
+
+.challenge-content {
+  margin-top: 120px;
 }

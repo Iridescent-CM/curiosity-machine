@@ -45,6 +45,9 @@ INSTALLED_APPS = (
     'profiles',
     'challenges',
     'cmcomments',
+    'videos',
+    'images',
+    'django_rq',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,6 +68,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
+    "curiositymachine.context_processors.login_and_join_forms",
 )
 
 AUTH_USER_MODEL = 'auth.User'
@@ -101,6 +105,23 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = 'staticfiles'
+
+FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "curiositymachine")
+
+ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
+
+S3_URL_BASE = "http://s3.amazonaws.com"
+
+#job queues
+RQ_QUEUES = {
+    'default': {
+        'URL': os.getenv('REDIS_URL', 'redis://localhost:6379'),
+        'DB': 0,}
+}
 
 # Import optional local settings.  This must be at the END of this file.
 try:

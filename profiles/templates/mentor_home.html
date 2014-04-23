@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load unread_count %}
 
 {% block content %}
 
@@ -7,8 +8,8 @@
     {% for challenge in challenges %}
       <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
       <ul>
-        {% for student in challenge.students.all %}
-          <li><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=student.username %}">{{student.get_full_name}}</a></li>
+        {% for progress in challenge.progress_set.all %}
+          <li><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username %}">{{progress.student.get_full_name}}{% if progress|unread_count:request.user %} ({{progress|unread_count:request.user}}){% endif %}</a></li>
         {% endfor %}
         </ul>
       </li>
