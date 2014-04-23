@@ -39,8 +39,12 @@ def join(request):
 @login_required
 def home(request):
     if request.user.profile.is_mentor:
-        challenges = Challenge.objects.filter(mentor=request.user)
-        return render(request, "mentor_home.html", {'challenges': challenges,})
+        progresses = Progress.objects.filter(mentor=request.user)
+        challenges = []
+        for progress in progresses:
+            if not progress.challenge in challenges:
+                challenges.append(progress.challenge)
+        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,})
     else:
         progresses = Progress.objects.filter(student=request.user)
         return render(request, "student_home.html", {'progresses': progresses,})

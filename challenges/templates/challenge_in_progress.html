@@ -50,7 +50,7 @@
         <input type="submit" value="Submit" class="btn btn-primary btn-large" />
       </form>
     </div>
-    {% for comment in progress.comment_set.all %}
+    {% for comment in progress.comments.all %}
     {% include "_comment.html" %}
   {% endfor %}
 

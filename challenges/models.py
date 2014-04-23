@@ -13,16 +13,9 @@ class Challenge(models.Model):
     description = models.TextField()
     how_to_make_it = models.TextField() # HTML
     learn_more = models.TextField() # HTML
-    students = models.ManyToManyField(User, through='Progress', null=True) #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
-    mentor = models.ForeignKey(User, related_name='mentored_challenges', null=True)
+    students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True) #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
     theme = models.ForeignKey(Theme, null=True)
     video = models.ForeignKey(Video, null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        if not self.mentor.profile.is_mentor:
-            raise ValidationError("The mentor of a challenge can not be a student")
-        else:
-            super(Challenge, self).save(*args, **kwargs)
 
     def __str__(self):
         return "Challenge: id={}, name={}".format(self.id, self.name)
@@ -31,23 +24,26 @@ class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)
     student = models.ForeignKey(User)
     started = models.DateTimeField(default=now)
+    mentor = models.ForeignKey(User, related_name='mentored_progresses', null=True)
 
     def save(self, *args, **kwargs):
-        if Progress.objects.filter(challenge=self.challenge, student=self.student).exists():
+        if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
         elif self.student.profile.is_mentor:
             raise ValidationError("Mentors can not start a challenge")
+        if not self.mentor.profile.is_mentor:
+            raise ValidationError("The mentor of a challenge can not be a student")
         else:
             super(Progress, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('challenges:challenge_progress', kwargs={'challenge_id': self.challenge_id, 'username': self.student.username,})
 
-    def get_unread_comments(self, user):
-        if user == self.challenge.mentor:
-            return self.comment_set.filter(read=False, user=self.student)
+    def get_unread_comments_for_user(self, user):
+        if user == self.mentor:
+            return self.comments.filter(read=False, user=self.student)
         elif user == self.student:
-            return self.comment_set.filter(read=False, user=self.challenge.mentor)
+            return self.comments.filter(read=False, user=self.mentor)
         else:
             return None
 
