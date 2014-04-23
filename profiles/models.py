@@ -26,7 +26,7 @@ class Profile(models.Model):
         return not self.is_mentor
 
     def __str__(self):
-        return "Profile: id={}, user={}".format(self.id, self.user.username)
+        return "Profile: id={}, user_id={}".format(self.id, self.user_id)
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

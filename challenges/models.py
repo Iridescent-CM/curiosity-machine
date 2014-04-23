@@ -52,4 +52,4 @@ class Progress(models.Model):
             return None
 
     def __str__(self):
-        return "Progress: id={}, challenge={}, student={}".format(self.id, self.challenge, self.student.username)
+        return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
