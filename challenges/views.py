@@ -35,7 +35,6 @@ def challenge(request, challenge_id):
     else:
         return render(request, 'challenge.html', {'challenge': challenge, 'video_form': ChallengeVideoForm()})
 
-# TODO: refactor input into decorators
 @login_required
 @mentor_or_current_student
 def challenge_progress(request, challenge_id, username):
