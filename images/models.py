@@ -17,9 +17,13 @@ class Image(models.Model):
 
     @classmethod
     def from_source_with_job(cls, source_url):
-        image, created = cls.objects.get_or_create(source_url=source_url)
-        django_rq.enqueue(upload_to_s3, image, key_prefix='images/')
+        image = cls.objects.create(source_url=source_url)
+        image.fetch_from_source()
         return image
+
+    def fetch_from_source(self):
+        if not self.key:
+           django_rq.enqueue(upload_to_s3, self, key_prefix='images/')
 
     def __str__(self):
         return "Image: id={}, url={}".format(self.id, self.url)
