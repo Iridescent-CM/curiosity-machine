@@ -40,11 +40,10 @@ def challenge(request, challenge_id):
 def challenge_progress(request, challenge_id, username):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
-
-    unread_comments = progress.get_unread_comments(request.user)
-
-    for comment in unread_comments:
-        comment.read = True
-        comment.save()
+    
+    try:
+        progress.get_unread_comments_for_user(request.user).update(read=True)
+    except AttributeError:
+        pass
 
     return render(request, 'challenge_in_progress.html', {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm()})

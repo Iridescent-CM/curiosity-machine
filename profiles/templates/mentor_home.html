@@ -8,8 +8,10 @@
     {% for challenge in challenges %}
       <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
       <ul>
-        {% for progress in challenge.progress_set.all %}
-          <li><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username %}">{{progress.student.get_full_name}}{% if progress|unread_count:request.user %} ({{progress|unread_count:request.user}}){% endif %}</a></li>
+        {% for progress in progresses %}
+          {% if progress.challenge == challenge %}
+            <li><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username %}">{{progress.student.get_full_name}}{% if progress|unread_count:request.user %} ({{progress|unread_count:request.user}}){% endif %}</a></li>
+          {% endif %}
         {% endfor %}
         </ul>
       </li>
