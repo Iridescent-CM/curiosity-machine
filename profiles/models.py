@@ -25,6 +25,9 @@ class Profile(models.Model):
     def is_student(self):
         return not self.is_mentor
 
+    def __str__(self):
+        return "Profile: id={}, user={}".format(self.id, self.user.username)
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
