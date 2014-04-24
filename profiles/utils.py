@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-def create_or_edit_user(request, data, user=None):
+def create_or_edit_user(data, user=None):
     new_user = False
     if not user:
         user = User()

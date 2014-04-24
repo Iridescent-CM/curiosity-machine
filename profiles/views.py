@@ -18,7 +18,7 @@ def join(request):
         if form.is_valid():
             data = form.cleaned_data
             try:
-                create_or_edit_user(request, data)
+                create_or_edit_user(data)
             except IntegrityError:
                 errors = form._errors.setdefault('username', ErrorList())
                 errors.append('Username has already been used')
@@ -94,7 +94,7 @@ def profile_edit(request):
         form = ProfileEditForm(request=request, data=request.POST) 
         if form.is_valid():
             data = form.cleaned_data
-            create_or_edit_user(request, data, request.user)
+            create_or_edit_user(data, request.user)
             return HttpResponseRedirect(request.user.profile.get_absolute_url())
     else:
         form = ProfileEditForm(request)
