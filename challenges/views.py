@@ -40,11 +40,8 @@ def challenge(request, challenge_id):
 def challenge_progress(request, challenge_id, username, stage="plan"): # stage will be one of None, "plan", "build". "build" encompasses the reflection stage
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
-    
-    try:
-        progress.get_unread_comments_for_user(request.user).update(read=True)
-    except AttributeError:
-        pass
+
+    progress.get_unread_comments_for_user(request.user).update(read=True)
 
     return render(request, "challenge_plan.html" if stage == "plan" else "challenge_build.html",
                   {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm()})

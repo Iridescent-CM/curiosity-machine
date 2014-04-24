@@ -48,7 +48,7 @@ class Progress(models.Model):
         elif user == self.student:
             return self.comments.filter(read=False, user=self.mentor)
         else:
-            return None
+            return self.comments.none()
 
     def __str__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
