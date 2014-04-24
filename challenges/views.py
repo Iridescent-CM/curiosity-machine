@@ -40,7 +40,7 @@ def challenge(request, challenge_id):
 def challenge_progress(request, challenge_id, username):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
-    
+
     try:
         progress.get_unread_comments_for_user(request.user).update(read=True)
     except AttributeError:
