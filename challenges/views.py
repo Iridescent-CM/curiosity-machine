@@ -37,7 +37,7 @@ def challenge(request, challenge_id):
 
 @login_required
 @mentor_or_current_student
-def challenge_progress(request, challenge_id, username):
+def challenge_progress(request, challenge_id, username, stage="plan"): # stage will be one of None, "plan", "build". "build" encompasses the reflection stage
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
     
@@ -46,4 +46,5 @@ def challenge_progress(request, challenge_id, username):
     except AttributeError:
         pass
 
-    return render(request, 'challenge_in_progress.html', {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm()})
+    return render(request, "challenge_plan.html" if stage == "plan" else "challenge_build.html",
+                  {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm()})

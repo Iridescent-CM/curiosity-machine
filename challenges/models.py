@@ -8,13 +8,16 @@ from videos.models import Video
 class Theme(models.Model):
     name = models.TextField()
 
+    def __str__(self):
+        return "Theme: name={}".format(self.name)
+
 class Challenge(models.Model):
     name = models.TextField()
     description = models.TextField()
     how_to_make_it = models.TextField() # HTML
     learn_more = models.TextField() # HTML
     students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True) #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
-    theme = models.ForeignKey(Theme, null=True)
+    theme = models.ForeignKey(Theme, null=True, blank=True)
     video = models.ForeignKey(Video, null=True, blank=True)
 
     def __str__(self):
@@ -22,16 +25,16 @@ class Challenge(models.Model):
 
 class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)
-    student = models.ForeignKey(User)
+    student = models.ForeignKey(User, related_name='progresses')
     started = models.DateTimeField(default=now)
-    mentor = models.ForeignKey(User, related_name='mentored_progresses', null=True)
+    mentor = models.ForeignKey(User, related_name='mentored_progresses', null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
-        elif self.student.profile.is_mentor:
+        if self.student.profile.is_mentor:
             raise ValidationError("Mentors can not start a challenge")
-        if not self.mentor.profile.is_mentor:
+        if self.mentor and not self.mentor.profile.is_mentor:
             raise ValidationError("The mentor of a challenge can not be a student")
         else:
             super(Progress, self).save(*args, **kwargs)
