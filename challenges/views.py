@@ -25,12 +25,11 @@ def challenge(request, challenge_id):
 
     if request.method == 'POST':
         # any POST to this endpoint starts the project, creating a Progress object and adding you to the challenge
-        try:
-            Progress.objects.create(challenge=challenge, student=request.user)
-            return HttpResponseRedirect('')
-        except (ValueError, ValidationError):
-            return HttpResponse("You must be logged in as a student to start a challenge.", status=403)
-    if request.user.is_authenticated() and Progress.objects.filter(challenge=challenge, student=request.user).exists():
+        if not Progress.objects.filter(challenge=challenge, student=request.user).exists():
+            try:
+                Progress.objects.create(challenge=challenge, student=request.user)
+            except (ValueError, ValidationError):
+                return HttpResponse("You must be logged in as a student to start a challenge.", status=403)
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': request.user.username,}))
     else:
         return render(request, 'challenge.html', {'challenge': challenge, 'video_form': ChallengeVideoForm()})
