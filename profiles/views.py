@@ -14,7 +14,7 @@ from django.db import transaction
 @transaction.atomic
 def join(request):
     if request.method == 'POST':
-        form = JoinForm(request=request, data=request.POST) 
+        form = JoinForm(request=request, data=request.POST)
         if form.is_valid():
             data = form.cleaned_data
             try:
@@ -30,11 +30,8 @@ def join(request):
         if request.user.is_authenticated():
             return HttpResponseRedirect(request.user.profile.get_absolute_url())
         form = JoinForm()
-    template_values = {
-        'form': form,
-    }
 
-    return render(request, 'join.html', template_values)
+    return render(request, 'join.html', {'form': form,})
 
 @login_required
 def home(request):
@@ -49,10 +46,9 @@ def home(request):
         progresses = Progress.objects.filter(student=request.user)
         return render(request, "student_home.html", {'progresses': progresses,})
 
-
 def student_profile_details(request, username):
     '''
-    Page for viewing a users profile
+    Page for viewing a student's profile
     '''
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user=user, is_mentor=False)
@@ -62,16 +58,11 @@ def student_profile_details(request, username):
     else:
         template = 'profile_details.html'
 
-    template_values = {
-        'user': user,
-        'profile': profile,
-    }
-
-    return render(request, template, template_values)
+    return render(request, template, {'user': user, 'profile': profile,})
 
 def mentor_profile_details(request, username):
     '''
-    Page for viewing a users profile
+    Page for viewing a mentor's profile
     '''
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user=user, is_mentor=True)
@@ -81,12 +72,7 @@ def mentor_profile_details(request, username):
     else:
         template = 'profile_details.html'
 
-    template_values = {
-        'user': user,
-        'profile': profile,
-    }
-
-    return render(request, template, template_values)
+    return render(request, template, {'user': user, 'profile': profile,})
 
 @login_required
 def profile_edit(request):
@@ -98,8 +84,5 @@ def profile_edit(request):
             return HttpResponseRedirect(request.user.profile.get_absolute_url())
     else:
         form = ProfileEditForm(request)
-    template_values = {
-        'form': form,
-    }
 
-    return render(request, 'profile_edit.html', template_values)
+    return render(request, 'profile_edit.html', {'form': form,})
