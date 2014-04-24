@@ -13,6 +13,11 @@ waitress==0.8.8
 #WSGI statics process
 whitenoise==0.13
 
+#better testing
+pretend==1.0.7
+pytest-django==2.6
+coverage
+
 #background worker job queueing (redis-backed)
 redis==2.9.1
 django-rq==0.6.1
