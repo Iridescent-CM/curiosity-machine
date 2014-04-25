@@ -36,43 +36,21 @@ def join(request):
 @login_required
 def home(request):
     if request.user.profile.is_mentor:
-        progresses = Progress.objects.filter(mentor=request.user)
-        challenges = []
-        for progress in progresses:
-            if not progress.challenge in challenges:
-                challenges.append(progress.challenge)
+        progresses = Progress.objects.filter(mentor=request.user).select_related("challenge")
+        challenges = {progress.challenge for progress in progresses}
         return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,})
     else:
-        progresses = Progress.objects.filter(student=request.user)
+        progresses = Progress.objects.filter(student=request.user).select_related("challenge")
         return render(request, "student_home.html", {'progresses': progresses,})
 
-def student_profile_details(request, username):
+def profile_details(request, username, mentor=False):
     '''
-    Page for viewing a student's profile
-    '''
-    user = get_object_or_404(User, username=username)
-    profile = get_object_or_404(Profile, user=user, is_mentor=False)
-
-    if user == request.user:
-        template = 'user_profile.html'
-    else:
-        template = 'profile_details.html'
-
-    return render(request, template, {'user': user, 'profile': profile,})
-
-def mentor_profile_details(request, username):
-    '''
-    Page for viewing a mentor's profile
+    Page for viewing a student or mentor's profile
     '''
     user = get_object_or_404(User, username=username)
-    profile = get_object_or_404(Profile, user=user, is_mentor=True)
+    profile = get_object_or_404(Profile, user=user, is_mentor=mentor)
 
-    if user == request.user:
-        template = 'user_profile.html'
-    else:
-        template = 'profile_details.html'
-
-    return render(request, template, {'user': user, 'profile': profile,})
+    return render(request, "profile_details.html", {'user': user, 'profile': profile,})
 
 @login_required
 def profile_edit(request):

@@ -11,7 +11,7 @@ def challenge():
 
 @pytest.mark.django_db
 def test_challenges_response_code(rf, challenge, student):
-    request = rf.get('/challenges')
+    request = rf.get('/challenges/')
     response = challenges(request)
     assert response.status_code == 200
 
@@ -22,7 +22,7 @@ def test_challenge_response_code(rf, challenge, student):
     response = challenge_view(request, challenge.id)
     assert response.status_code == 200
 
-    request = rf.get('/challenges')
+    request = rf.get('/challenges/1/')
     request.user = student
     response = challenge_view(request, challenge.id)
     assert response.status_code == 200

@@ -79,4 +79,3 @@ class ProfileEditForm(ProfileFormBase):
         self.fields['city'].initial = self.user.profile.city
         self.fields['parent_first_name'].initial = self.user.profile.parent_first_name
         self.fields['parent_last_name'].initial = self.user.profile.parent_last_name
-

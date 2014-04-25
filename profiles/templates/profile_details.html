@@ -2,10 +2,14 @@
 
 {% block content %}
 
-{{user.get_full_name}}
+{{user.username}}
 
 About {{user.first_name}}
 Occupation: {% if profile.title %}{{profile.title}}{% else %}Student{% endif %}
 Home town: {{profile.city}}
+
+{% if user == request.user %}
+    <a data-toggle="modal" data-target="#modal" href="{% url 'profiles:profile_edit' %}">Edit</a>
+{% endif %}
 
 {% endblock %}
