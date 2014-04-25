@@ -4,6 +4,7 @@ from django.utils.timezone import now
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from videos.models import Video
+from images.models import Image
 
 class Theme(models.Model):
     name = models.TextField()
@@ -20,6 +21,7 @@ class Challenge(models.Model):
     students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True) #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
     theme = models.ForeignKey(Theme, null=True, blank=True)
     video = models.ForeignKey(Video, null=True, blank=True)
+    image = models.ForeignKey(Image, null=True, blank=True)
 
     def __str__(self):
         return "Challenge: id={}, name={}".format(self.id, self.name)
