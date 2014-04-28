@@ -48,7 +48,12 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
         # if user hasn't started the challenge, redirect to Inspiration page
         return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge.id,}))
 
-    stage = Stage[stage] if stage else get_stage_for_progress(progress)
+    try:
+        stage = Stage[stage]
+    except KeyError: # if stage is None or any invalid input, redirect to the stage with most recent progress
+        stage = get_stage_for_progress(progress)
+        stage_string = stage.name if stage == Stage.plan else Stage.build.name # there may be other valid stages, but right now we only support plan or build as redirect destinations
+        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username, 'stage': stage_string}))
 
     if stage in [Stage.build, Stage.test]:
         comments = Comment.objects.filter(challenge_progress=progress, stage__in=[Stage.build, Stage.test])
