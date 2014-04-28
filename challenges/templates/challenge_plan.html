@@ -26,11 +26,13 @@
           </li>
           <li><button class="text_comment_link btn btn-lg">Text</button></li>
         </ul>
-        {% with 'video' as format %}
-          {% include "_comment_form.html" %}
-        {% endwith %}
-        {% with 'picture' as format %}
-          {% include "_comment_form.html" %}
+        {% with 'plan' as stage %}
+          {% with 'video' as format %}
+            {% include "_comment_form.html" %}
+          {% endwith %}
+          {% with 'picture' as format %}
+            {% include "_comment_form.html" %}
+          {% endwith %}
         {% endwith %}
       </div>
     </div>
@@ -47,10 +49,11 @@
           {{comment_form.text}}
           <div class="errors">{{ comment_form.text.errors }}</div>
         </div><br>
+        <input type="hidden" name="stage" value="plan">
         <input type="submit" value="Submit" class="btn btn-primary btn-large" />
       </form>
     </div>
-    {% for comment in progress.comments.all %}
+    {% for comment in comments %}
     {% include "_comment.html" %}
   {% endfor %}
 

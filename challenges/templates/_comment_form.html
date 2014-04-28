@@ -23,6 +23,7 @@
           {{comment_form.text}}
           <div class="errors">{{ comment_form.text.errors }}</div>
         </div>
+        <input type="hidden" name="stage" value="{{stage}}">
       </div>
       <div class="modal-footer">
         <input type="submit" value="Submit" class="btn btn-primary btn-large" />

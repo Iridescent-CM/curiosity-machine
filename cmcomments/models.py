@@ -14,5 +14,15 @@ class Comment(models.Model):
     created = models.DateTimeField(default=now)
     read = models.BooleanField(default=False)
 
+    PLAN = 1
+    BUILD = 2
+    TEST = 3
+    STAGE_CHOICES = (
+        (PLAN, 'plan'),
+        (BUILD, 'build'),
+        (TEST, 'test'),
+    )
+    stage = models.SmallIntegerField(choices=STAGE_CHOICES, default=BUILD)
+
     class Meta:
         ordering = ('-created',)
