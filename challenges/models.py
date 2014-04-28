@@ -5,6 +5,12 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from videos.models import Video
 from images.models import Image
+from enum import Enum
+
+class Stage(Enum): # this is used in challenge views and challenge and comment models
+    plan = 1
+    build = 2
+    test = 3
 
 class Theme(models.Model):
     name = models.TextField()
