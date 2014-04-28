@@ -26,14 +26,8 @@
           </li>
           <li><button class="text_comment_link btn btn-lg">Text</button></li>
         </ul>
-        {% with 'plan' as stage %}
-          {% with 'video' as format %}
-            {% include "_comment_form.html" %}
-          {% endwith %}
-          {% with 'picture' as format %}
-            {% include "_comment_form.html" %}
-          {% endwith %}
-        {% endwith %}
+        {% include "_comment_form.html" with stage="plan" format="video" %}
+        {% include "_comment_form.html" with stage="plan" format="picture" %}
       </div>
     </div>
      <p>... in progress, started {{ progress.started }}</p>
