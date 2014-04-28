@@ -13,7 +13,7 @@
   <div class="col-md-5">
     <div class="panel panel-bubble-green">
       <div class="panel-body">
-        <h3>Post your plan as a video, drawing (photo) or text</h3>
+        <h3>...post an update about your</h3>
         {{ comment_form.media }}
         <ul class="action-list">
           <li><button class="btn btn-lg" data-toggle="modal" data-target="#video_form">
@@ -26,12 +26,8 @@
           </li>
           <li><button class="text_comment_link btn btn-lg">Text</button></li>
         </ul>
-        {% with 'video' as format %}
-          {% include "_comment_form.html" %}
-        {% endwith %}
-        {% with 'picture' as format %}
-          {% include "_comment_form.html" %}
-        {% endwith %}
+        {% include "_comment_form.html" with stage="build" format="video" %}
+        {% include "_comment_form.html" with stage="build" format="picture" %}
       </div>
     </div>
      <p>... in progress, started {{ progress.started }}</p>
@@ -41,7 +37,7 @@
   </div>
   <div class="col-md-6">
     <div class='text_comment' style='display:none'>
-      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
+      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' %}" method="POST">
         {% csrf_token %}
         <div>
           {{comment_form.text}}
@@ -50,7 +46,7 @@
         <input type="submit" value="Submit" class="btn btn-primary btn-large" />
       </form>
     </div>
-    {% for comment in progress.comments.all %}
+    {% for comment in comments %}
     {% include "_comment.html" %}
   {% endfor %}
 

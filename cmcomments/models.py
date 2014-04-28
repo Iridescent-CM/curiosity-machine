@@ -1,5 +1,5 @@
 from django.db import models
-from challenges.models import Progress
+from challenges.models import Progress, Stage
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 from videos.models import Video
@@ -13,6 +13,8 @@ class Comment(models.Model):
     video = models.ForeignKey(Video, null=True, blank=True)
     created = models.DateTimeField(default=now)
     read = models.BooleanField(default=False)
+
+    stage = models.SmallIntegerField(choices=[(stage.value, stage.name) for stage in Stage], default=Stage.build.value)
 
     class Meta:
         ordering = ('-created',)
