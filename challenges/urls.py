@@ -5,5 +5,5 @@ urlpatterns = patterns('challenges.views',
     url(r'^(?P<challenge_id>\d+)/$', 'challenge', name='challenge'),
     url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/$', 'challenge_progress', name='challenge_progress'),
     url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/(?P<stage>plan|build)/$', 'challenge_progress', name='challenge_progress'),
-    url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/comments/', include('cmcomments.urls', namespace='comments', app_name='comments')),
+    url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/(?P<stage>plan|build|test)/comments/', include('cmcomments.urls', namespace='comments', app_name='comments')),
 )

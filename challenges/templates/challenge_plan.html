@@ -26,14 +26,8 @@
           </li>
           <li><button class="text_comment_link btn btn-lg">Text</button></li>
         </ul>
-        {% with 'plan' as stage %}
-          {% with 'video' as format %}
-            {% include "_comment_form.html" %}
-          {% endwith %}
-          {% with 'picture' as format %}
-            {% include "_comment_form.html" %}
-          {% endwith %}
-        {% endwith %}
+        {% include "_comment_form.html" with stage="plan" format="video" %}
+        {% include "_comment_form.html" with stage="plan" format="picture" %}
       </div>
     </div>
      <p>... in progress, started {{ progress.started }}</p>
@@ -43,13 +37,12 @@
   </div>
   <div class="col-md-6">
     <div class='text_comment' style='display:none'>
-      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
+      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='plan' %}" method="POST">
         {% csrf_token %}
         <div>
           {{comment_form.text}}
           <div class="errors">{{ comment_form.text.errors }}</div>
         </div><br>
-        <input type="hidden" name="stage" value="plan">
         <input type="submit" value="Submit" class="btn btn-primary btn-large" />
       </form>
     </div>

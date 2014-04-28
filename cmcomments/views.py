@@ -15,14 +15,13 @@ import django_rq
 # refactor input into decorators
 @login_required
 @mentor_or_current_student
-def comments(request, challenge_id, username):
+def comments(request, challenge_id, username, stage):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
     form = CommentForm(data=request.POST)
     if form.is_valid():
         video = Video.from_source_with_job(form.cleaned_data['video_filepicker_url']) if form.cleaned_data['video_filepicker_url'] else None
         image = Image.from_source_with_job(form.cleaned_data['picture_filepicker_url']) if form.cleaned_data['picture_filepicker_url'] else None
-        stage = request.POST['stage']
         if stage == 'plan':
             comment_stage = Comment.PLAN
         elif stage == 'build':
