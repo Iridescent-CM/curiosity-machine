@@ -37,13 +37,12 @@
   </div>
   <div class="col-md-6">
     <div class='text_comment' style='display:none'>
-      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username %}" method="POST">
+      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' %}" method="POST">
         {% csrf_token %}
         <div>
           {{comment_form.text}}
           <div class="errors">{{ comment_form.text.errors }}</div>
         </div><br>
-        <input type="hidden" name="stage" value="build">
         <input type="submit" value="Submit" class="btn btn-primary btn-large" />
       </form>
     </div>
