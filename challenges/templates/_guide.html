@@ -1,0 +1,30 @@
+{% extends "_modal.html" %}
+{% block id %}guide-modal{% endblock %}
+{% block classes %}{% endblock %}
+{% block inner-classes %}modal-lg{% endblock %}
+
+{% block content %}
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h1>About This Challenge</h1>
+</div>
+<ul class="nav nav-tabs upwards">
+  <li class="active"><a href="#guide-how-to" data-toggle="tab">How To Make It</a></li>
+  <li><a href="#guide-more-info" data-toggle="tab">Learn More</a></li>
+</ul>
+<div class="modal-body row clearfix">
+<div class="tab-pane fade in active" id="guide-how-to">
+  <p>{{ challenge.how_to_make_it|safe }}</p>
+</div>
+<div class="tab-pane fade in active" id="guide-more-info">
+  <p>{{ challenge.learn_more|safe }}</p>
+</div>
+
+
+  
+</div>
+<div class="modal-footer">
+  <a href="{% url 'challenges:challenge' challenge.id %}" class="btn btn-primary btn-lg">Start Building</a>
+</div>
+
+{% endblock %}

@@ -13,7 +13,13 @@
   <div class="col-md-5">
     <div class="panel panel-bubble-green">
       <div class="panel-body">
+<<<<<<< HEAD
+        <h3>Post an update about your...</h3>
+        <label for="buildSelector">Build</label><input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
+        <label for="testSelector">Test</label><input type="radio" name="stepSelector" id="testSelector" value="test">
+=======
         <h3>...post an update about your</h3>
+>>>>>>> b1168d0ab907070ac3d78acda28fd809b947393e
         {{ comment_form.media }}
         <ul class="action-list">
           <li><button class="btn btn-lg" data-toggle="modal" data-target="#video_form">
@@ -49,5 +55,10 @@
     {% for comment in comments %}
     {% include "_comment.html" %}
   {% endfor %}
+</div><!-- /col 2 -->
+
+</div><!-- row -->
+    {% include "_guide.html" %}
+</div><!-- content -->
 
 {% endblock %}

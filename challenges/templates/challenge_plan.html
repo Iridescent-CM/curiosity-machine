@@ -8,8 +8,10 @@
 {% block content %}
   <h1>{{ challenge.name }} <small>By FAke UsEr</small></h1>
   {% include "_challenge_nav.html" %}
- 
-<div class="row challenge-content">
+  
+<div class="challenge-content">
+  <h2>Plan Your Project</h2>
+<div class="row">
   <div class="col-md-5">
     <div class="panel panel-bubble-green">
       <div class="panel-body">
@@ -32,10 +34,21 @@
     </div>
      <p>... in progress, started {{ progress.started }}</p>
   </div><!-- /column 1 -->
+
   <div class="col-md-1">
     <img src="http://placekitten.com/60/80">
   </div>
+
   <div class="col-md-6">
+    <div class="materials-list panel">
+    <div class="panel-heading">
+      <h3 class="panel-title">Material list</h3>
+    </div>
+    <div class="panel-body">
+      {{ challenge.materials_list|safe }}
+    </div>
+  </div><!-- materials-list -->
+    
     <div class='text_comment' style='display:none'>
       <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='plan' %}" method="POST">
         {% csrf_token %}
@@ -49,5 +62,11 @@
     {% for comment in comments %}
     {% include "_comment.html" %}
   {% endfor %}
+  <a class="btn btn-large btn-primary start-link" href="#"> START BUILDING</a>
+</div><!-- /col 2 -->
+
+</div><!-- row -->
+    {% include "_guide.html" %}
+</div><!-- content -->
 
 {% endblock %}

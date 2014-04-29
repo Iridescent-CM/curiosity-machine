@@ -126,6 +126,29 @@
 
 }
 
+.nav-tabs.upwards {
+  border: none;
+  margin: 0 0 0 3px;
+  > li {
+    > a {
+      background: @gray-lighter;
+      color: @text-color;
+      box-shadow: none;
+    }
+   &.active > a { 
+    &,
+    &:hover,
+    &:focus {
+      background: @bg-color;
+      padding: 10px 15px;
+    }
+   }
+  }
+  &:before {
+    content: none;
+  }
+}
+
 
 // Pills
 // -------------------------

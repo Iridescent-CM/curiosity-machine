@@ -14,7 +14,7 @@
           </video>
         </div>
       {% else %}
-        <p>The video is encoding and should be available shortly.</p>
+        <h3><em>The video is encoding and should be available shortly.</em></h3>
       {% endif %}
   {% elif request.user.is_superuser %}
     {{ video_form.media }}
