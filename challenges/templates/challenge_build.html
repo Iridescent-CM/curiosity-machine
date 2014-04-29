@@ -13,7 +13,9 @@
   <div class="col-md-5">
     <div class="panel panel-bubble-green">
       <div class="panel-body">
-        <h3>Post your plan as a video, drawing (photo) or text</h3>
+        <h3>Post an update about your...</h3>
+        <label for="buildSelector">Build</label><input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
+        <label for="testSelector">Test</label><input type="radio" name="stepSelector" id="testSelector" value="test">
         {{ comment_form.media }}
         <ul class="action-list">
           <li><button class="btn btn-lg" data-toggle="modal" data-target="#video_form">
@@ -53,5 +55,10 @@
     {% for comment in progress.comments.all %}
     {% include "_comment.html" %}
   {% endfor %}
+</div><!-- /col 2 -->
+
+</div><!-- row -->
+    {% include "_guide.html" %}
+</div><!-- content -->
 
 {% endblock %}
