@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ challenge.name }} <small>By FAke UsEr</small></h1>
+  <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
   {% include "_challenge_nav.html" with stage="plan" %}
   
 <div class="challenge-content">
@@ -63,7 +63,7 @@
     {% for comment in comments %}
     {% include "_comment.html" %}
   {% endfor %}
-  <a class="btn btn-large btn-primary start-link" href="#"> START BUILDING</a>
+  <a class="btn btn-large btn-primary start-link" href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}"> START BUILDING</a>
 </div><!-- /col 2 -->
 
 </div><!-- row -->

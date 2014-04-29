@@ -192,10 +192,10 @@
   }
   .guide {
     width: 15%;
-    background: @gray-light;
+    background-color: @gray-light;
     color: #fff;
     &:after {
-      content: none;
+      content: '';
       width: 0px;
       height: 0px;
       border-style: solid;
@@ -204,7 +204,7 @@
       position: absolute;
       top: 0px;
       right: -15px;
-      z-index: 1;
+      z-index: 3;
     }
     &:before {
       content: none;
@@ -348,6 +348,27 @@
 
     .selected {
       background: url(../images/nav-mask2.png) top right no-repeat;
+    .arrows {
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        left: -13px;
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        transition: border-color 1s;
+      }
+      &:before {
+        top: 0px;
+        border-width: 0 15px 50px 0;
+        border-color: transparent @blue transparent transparent;
+      }
+      &:after {
+        bottom: 0px;
+        border-width: 0 0 50px 15px;
+        border-color: transparent transparent @blue transparent;
+      }
+    }
     .btn {
       font-size: 17px;
       color: #fff;
@@ -369,6 +390,7 @@
       }
     }
     &.inspiration {
+      z-index: 4;
       background-color: @blue;
       &:after {
         background-color: @blue;
@@ -376,9 +398,13 @@
     }
     &.plan {
       background-color: @green;
+      .arrows:before {border-color: transparent @green transparent transparent;}
+      .arrows:after {border-color: transparent transparent @green transparent;}
     }
     &.build {
       background-color: @orange;
+      .arrows:before {border-color: transparent @orange transparent transparent;}
+      .arrows:after {border-color: transparent transparent @orange transparent;}
       .btn {
         &:before {
           top: -26px;

@@ -11,11 +11,13 @@
         <a href="{% url 'challenges:challenge' challenge_id=challenge.id %}">
         <span class="btn">Inspiration</span>
         </a>
+        <span class="arrows"></span>
       </li>
       <li class="plan {% if stage == 'plan' %}selected{% endif %}">
         {% if stage == 'build' %}<a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='plan' %}">{% endif %}
         <span class="btn">Plan</span>
         {% if stage == 'build' %}</a>{% endif %}
+        <span class="arrows"></span>
       </li>
       <li class="build {% if stage == 'build' %}selected{% endif %}">
         {% if stage == 'plan' %}<a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}">{% endif %}
@@ -23,10 +25,11 @@
           <span class="btn">Build</span><span class="btn test">Test</span><span class="btn redesign">Redesign</span>
         </div>
         {% if stage == 'plan' %}</a>{% endif %}
-        
+        <span class="arrows"></span>
       </li>
       <li class="reflect">
         <span class="btn">Reflect</span>
+        <span class="arrows"></span>
       </li>
     </ul>
   </nav>
