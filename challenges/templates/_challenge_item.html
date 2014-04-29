@@ -3,10 +3,10 @@
 <li>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title"><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>{% if progress|unread_count:request.user %} ({{progress|unread_count:request.user}}){% endif %}</h3>
+      <h3 class="panel-title"><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a>{% if progress|unread_count:request.user %} ({{progress|unread_count:request.user}}){% endif %}</h3>
     </div>
     <div class="image-container">
-      <a href="{% url 'challenges:challenge' challenge.id %}"><img src="http://placekitten.com/300/200"></a>
+      <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}"><img src="http://placekitten.com/300/200"></a>
     </div>
     <div class="panel-body">
       {{ challenge.description }}
