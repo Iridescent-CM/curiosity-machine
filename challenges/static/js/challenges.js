@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
-  $('.text_comment_link').on('click', function(e) {
-    $('.text_comment').show();
+  //change the comment form action url from build to test
+  $('.stage-switch input').on('change', function(e) {
+    var url = $('.stage-switch input:checked').parent().find('.url').val();
+    $('.comment-form').attr('action', url);
   });
-
 });

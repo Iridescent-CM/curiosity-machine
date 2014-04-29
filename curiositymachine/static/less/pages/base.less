@@ -77,6 +77,46 @@ body {
   }
 }
 
+.switch {
+  float: left;
+  margin: 0 0 20px 0; 
+  padding: 1px;
+  border-radius: 5px;
+  background: darken(@green, 5%);
+  box-shadow: inset 2px 2px 0 rgba(0,0,0,.1);
+  li {
+    list-style-type: none;
+    float: left;
+    line-height: 1;
+  }
+  input {
+    display: none;
+    &:checked + label {
+      background: @green;
+      color: #fff;
+      box-shadow: 2px 2px 0 rgba(0,0,0,.1);
+    }
+  }
+  label {
+    float: left;
+    border-radius: 3px;
+    line-height: 1;
+    margin: 0;
+    color: lighten(@green, 5%);
+    font-weight: 600;
+    padding: 6px 50px;
+    cursor: pointer;
+  }
+}
+
+.comment-date {
+  display: block;
+  font-size: @font-size-small;
+  text-align: right;
+  color: @gray-light;
+}
+
+
 ////========================
 //// home pge
 
@@ -208,6 +248,7 @@ body {
 
 .action-list {
   padding: 0;
+  clear: both;
   li {
     float: left;
     width: 33%;

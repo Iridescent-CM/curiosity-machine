@@ -7,19 +7,24 @@
 
 {% block content %}
   <h1>{{ challenge.name }} <small>By FAke UsEr</small></h1>
-  {% include "_challenge_nav.html" %}
+  {% include "_challenge_nav.html" with stage="build" %}
  
 <div class="row challenge-content">
   <div class="col-md-5">
     <div class="panel panel-bubble-green">
       <div class="panel-body">
-<<<<<<< HEAD
         <h3>Post an update about your...</h3>
-        <label for="buildSelector">Build</label><input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
-        <label for="testSelector">Test</label><input type="radio" name="stepSelector" id="testSelector" value="test">
-=======
-        <h3>...post an update about your</h3>
->>>>>>> b1168d0ab907070ac3d78acda28fd809b947393e
+
+        <ul class="switch stage-switch">
+          <li>
+            <input type="radio" name="stepSelector" id="buildSelector" value="build" checked><label for="buildSelector">Build</label>
+            <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' %}" class="build-url url">
+          </li>
+          <li>
+            <input type="radio" name="stepSelector" id="testSelector" value="test"><label for="testSelector">Test</label>
+            <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='test' %}" class="test-url url">
+          </li>
+        </ul>
         {{ comment_form.media }}
         <ul class="action-list">
           <li><button class="btn btn-lg" data-toggle="modal" data-target="#video_form">
@@ -30,10 +35,11 @@
             Picture
             </button>
           </li>
-          <li><button class="text_comment_link btn btn-lg">Text</button></li>
+          <li><button class="btn btn-lg" data-toggle="modal" data-target="#text_form">Text</button></li>
         </ul>
         {% include "_comment_form.html" with stage="build" format="video" %}
         {% include "_comment_form.html" with stage="build" format="picture" %}
+        {% include "_comment_form.html" with stage="build" format="text" %}
       </div>
     </div>
      <p>... in progress, started {{ progress.started }}</p>
@@ -42,16 +48,6 @@
     <img src="http://placekitten.com/60/80">
   </div>
   <div class="col-md-6">
-    <div class='text_comment' style='display:none'>
-      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' %}" method="POST">
-        {% csrf_token %}
-        <div>
-          {{comment_form.text}}
-          <div class="errors">{{ comment_form.text.errors }}</div>
-        </div><br>
-        <input type="submit" value="Submit" class="btn btn-primary btn-large" />
-      </form>
-    </div>
     {% for comment in comments %}
     {% include "_comment.html" %}
   {% endfor %}

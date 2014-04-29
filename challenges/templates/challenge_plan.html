@@ -7,7 +7,7 @@
 
 {% block content %}
   <h1>{{ challenge.name }} <small>By FAke UsEr</small></h1>
-  {% include "_challenge_nav.html" %}
+  {% include "_challenge_nav.html" with stage="plan" %}
   
 <div class="challenge-content">
   <h2>Plan Your Project</h2>
@@ -26,10 +26,11 @@
             Picture
             </button>
           </li>
-          <li><button class="text_comment_link btn btn-lg">Text</button></li>
+          <li><button class="text_comment_link btn btn-lg" data-toggle="modal" data-target="#text_form">Text</button></li>
         </ul>
         {% include "_comment_form.html" with stage="plan" format="video" %}
         {% include "_comment_form.html" with stage="plan" format="picture" %}
+        {% include "_comment_form.html" with stage="plan" format="text" %}
       </div>
     </div>
      <p>... in progress, started {{ progress.started }}</p>

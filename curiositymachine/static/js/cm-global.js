@@ -86,39 +86,39 @@ if (CM.Navigation.$navTop) {
   });
 
 //========cahllenge nav -=======
-  $('.challenge-nav.primary li').not(':first-child').on('click', function() {
-    var $self = $(this);
-    var position = $self.position();
-    var width = $self.width();
-    var color = $('button', this).css('color');
+  // $('.challenge-nav.primary li').not(':first-child').on('click', function() {
+  //   var $self = $(this);
+  //   var position = $self.position();
+  //   var width = $self.width();
+  //   var color = $('button', this).css('color');
 
-    $('.challenge-nav.clipper').css('clip', 'rect(0px,' +(position.left + width) + 'px,100px,' + position.left +'px)');
-    $('.challenge-nav.clipper .cursor').css({
-      'left' : (position.left - 2) + 'px',
-      'width' : (width + 4) + 'px',
-      'background-color' : color
-    });
-    $('.challenge-nav.primary .cursor').css({
-      'left' : (position.left - 2) + 'px',
-      'width' : (width + 4) + 'px'
-    });
-    $('.challenge-nav.primary .cursor .top').css({'border-color' : 'transparent ' + color + ' transparent transparent'});
-    $('.challenge-nav.primary .cursor .bottom').css({'border-color' : 'transparent transparent ' + color + ' transparent'});
-    //$('.challenge-nav.primary .cursor .front').css({'border-color' : ('transparent transparent transparent ' + color) });
+  //   $('.challenge-nav.clipper').css('clip', 'rect(0px,' +(position.left + width) + 'px,100px,' + position.left +'px)');
+  //   $('.challenge-nav.clipper .cursor').css({
+  //     'left' : (position.left - 2) + 'px',
+  //     'width' : (width + 4) + 'px',
+  //     'background-color' : color
+  //   });
+  //   $('.challenge-nav.primary .cursor').css({
+  //     'left' : (position.left - 2) + 'px',
+  //     'width' : (width + 4) + 'px'
+  //   });
+  //   $('.challenge-nav.primary .cursor .top').css({'border-color' : 'transparent ' + color + ' transparent transparent'});
+  //   $('.challenge-nav.primary .cursor .bottom').css({'border-color' : 'transparent transparent ' + color + ' transparent'});
+  //   //$('.challenge-nav.primary .cursor .front').css({'border-color' : ('transparent transparent transparent ' + color) });
   
-    $('.challenge-nav.clipper .btn').textillate({
-        autoStart: false,
-        'in': {
-          effect : 'wobble'
-        }
-      }).textillate('start');
-  });
+  //   $('.challenge-nav.clipper .btn').textillate({
+  //       autoStart: false,
+  //       'in': {
+  //         effect : 'wobble'
+  //       }
+  //     }).textillate('start');
+  // });
 
-  $('.challenge-nav.clipper .cursor').on('transitionend webkitTransitionEnd', function(e){
+  // $('.challenge-nav.clipper .cursor').on('transitionend webkitTransitionEnd', function(e){
       
-  });
-  //start starting position...
-  $('.challenge-nav.primary li').eq(1).trigger('click');
+  // });
+  // //start starting position...
+  // $('.challenge-nav.primary li').eq(1).trigger('click');
 //==== end challenge nav
 
 

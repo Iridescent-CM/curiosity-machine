@@ -3,6 +3,8 @@
 
 {% block content %}
 <div class="challenge-details">
+  {% include "_challenge_nav.html" with stage="inspiration" %}
+
   {% include '_challenge_details.html' %}
 
   {% if request.user.is_authenticated and request.user.profile.is_student %}
