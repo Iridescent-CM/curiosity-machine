@@ -30,6 +30,7 @@ class Challenge(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True)
     plan_call_to_action = models.TextField(help_text="HTML")
     build_call_to_action = models.TextField(help_text="HTML")
+    reflect_question = models.TextField(help_text="HTML")
 
     def __str__(self):
         return "Challenge: id={}, name={}".format(self.id, self.name)
@@ -39,6 +40,7 @@ class Progress(models.Model):
     student = models.ForeignKey(User, related_name='progresses')
     started = models.DateTimeField(default=now)
     mentor = models.ForeignKey(User, related_name='mentored_progresses', null=True, blank=True)
+    approved = models.BooleanField(default=False, help_text="true when the mentor has approved a completed challenge and moved it to the reflect stage")
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
