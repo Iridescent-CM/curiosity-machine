@@ -241,10 +241,11 @@
   .panel-variant(@panel-danger-border; @panel-danger-text; @panel-danger-heading-bg; @panel-danger-border);
 }
 
-.panel-bubble-green {
+.panel-bubble {
   background: lighten(@green, 10%);
+  font-size: @font-size-large;
   .panel-body {
-    padding: 30px 50px;
+    padding: 20px 50px;
     h3 {
       color: #fff;
       text-align: center;
@@ -256,7 +257,7 @@
     display: block;
     position: absolute;
     right: -5px;
-    top: 30px;
+    margin-top: 30px;
     width: 0px;
     height: 0px;
     border-style: solid;
@@ -265,9 +266,34 @@
   }
 }
 
+.panel-bubble.right {
+  &:before {
+    border-width: 20px 20px 0;
+    right: auto;
+    left: -5px;
+    border-color: lighten(@green, 10%) transparent transparent transparent;
+  }
+}
+
+.panel-bubble.blue {
+  background: @blue;
+  color: #fff;
+  &:before {border-color: @blue transparent transparent transparent;}
+}
+
 .panel-comment {
   .panel-variant(@panel-default-border; #fff; @green; @panel-default-border;);
   .panel-heading {
     text-transform: uppercase;
   }
+}
+
+.panel-bubble.teal {
+  background: @teal;
+  color: #fff;
+  h1 {
+    color: #fff;
+    font-size: @font-size-h1 * 1.5;
+  }
+  &:before {border-color: @teal transparent transparent transparent;}
 }

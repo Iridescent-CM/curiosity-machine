@@ -19,7 +19,7 @@
         {% if stage == 'build' %}</a>{% endif %}
         <span class="arrows"></span>
       </li>
-      <li class="build {% if stage == 'build' %}selected{% endif %}">
+      <li class="build {% if stage == 'build' and not progress.approved %}selected{% endif %}">
         {% if stage == 'plan' %}<a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}">{% endif %}
         <div>
           <span class="btn">Build</span><span class="btn test">Test</span><span class="btn redesign">Redesign</span>
@@ -27,8 +27,10 @@
         {% if stage == 'plan' %}</a>{% endif %}
         <span class="arrows"></span>
       </li>
-      <li class="reflect">
+      <li class="reflect {%  if stage == 'build' and progress.approved %}selected{% endif %}">
+        {% if stage == 'plan' %}<a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}">{% endif %}
         <span class="btn">Reflect</span>
+        {% if stage == 'plan' %}</a>{% endif %}
         <span class="arrows"></span>
       </li>
     </ul>

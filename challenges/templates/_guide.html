@@ -12,11 +12,11 @@
   <li class="active"><a href="#guide-how-to" data-toggle="tab">How To Make It</a></li>
   <li><a href="#guide-more-info" data-toggle="tab">Learn More</a></li>
 </ul>
-<div class="modal-body row clearfix">
+<div class="modal-body row clearfix tab-content">
 <div class="tab-pane fade in active" id="guide-how-to">
   <p>{{ challenge.how_to_make_it|safe }}</p>
 </div>
-<div class="tab-pane fade in active" id="guide-more-info">
+<div class="tab-pane fade" id="guide-more-info">
   <p>{{ challenge.learn_more|safe }}</p>
 </div>
 
@@ -24,7 +24,12 @@
   
 </div>
 <div class="modal-footer">
-  <a href="{% url 'challenges:challenge' challenge.id %}" class="btn btn-primary btn-lg">Start Building</a>
+  {% if request.user.is_authenticated and request.user.profile.is_student %}
+      <form name="Start Building" action='' method='POST'>
+        {% csrf_token %}
+        <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />
+      </form>
+  {% endif %}
 </div>
 
 {% endblock %}
