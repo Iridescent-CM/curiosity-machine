@@ -297,3 +297,30 @@
   }
   &:before {border-color: @teal transparent transparent transparent;}
 }
+
+.panel-bubble.outline {
+  background: transparent;
+  box-shadow: none;
+  border: 2px dashed @gray-light;
+  h3 {
+    color: @teal;
+  }
+  &:before {
+    display: block;
+    border: none;
+    border-top: 2px dashed @gray-light;
+    width: 22px;
+    height: 30px;
+    background: @bg-color;
+  }
+  &:after {
+    content: '';
+    display: block;
+    width: 25px;
+    border-top: 2px dashed @gray-light;
+    top: 46px;
+    margin-left: -22px;
+    position: absolute;
+    .rotate(45deg)
+  }
+}
