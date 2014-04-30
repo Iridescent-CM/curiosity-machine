@@ -11,6 +11,7 @@ class Stage(Enum): # this is used in challenge views and challenge and comment m
     plan = 1
     build = 2
     test = 3
+    reflect = 4
 
 class Theme(models.Model):
     name = models.TextField()

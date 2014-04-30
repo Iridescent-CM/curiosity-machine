@@ -13,8 +13,8 @@ class Comment(models.Model):
     video = models.ForeignKey(Video, null=True, blank=True)
     created = models.DateTimeField(default=now)
     read = models.BooleanField(default=False)
-
     stage = models.SmallIntegerField(choices=[(stage.value, stage.name) for stage in Stage], default=Stage.build.value)
+    question_text = models.TextField(help_text="If the comment is in direct reply to a question, this will contain the full text of the question.")
 
     class Meta:
         ordering = ('-created',)
