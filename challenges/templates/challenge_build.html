@@ -31,13 +31,23 @@
   </div>
   <div class="col-md-6">
     {% if progress.approved %}
+    {{ comment_form.media }}
       <div class="panel panel-bubble teal right reflect-question">
       <div class="panel-body">
         <h1>Reflect</h1>
-        <p>{{challenge.reflect_question}}</p>
-        <textarea>
-        </textarea>
-        <button class="btn btn-lg btn-primary">SAVE</button>
+          <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
+          <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' %}" method="POST" class="comment-form">
+            {% csrf_token %}
+
+            {{comment_form.picture_filepicker_url}}
+          <div class="errors">{{ comment_form.picture_filepicker_url.errors }}</div>
+
+          <p>{{challenge.reflect_question}}</p>
+          {{comment_form.text.label_tag}}
+          {{comment_form.text}}
+          <div class="errors">{{ comment_form.text.errors }}</div>
+          <button class="btn btn-lg btn-primary btn-reflect">SAVE</button>
+        </form>
       </div>
       </div>
     {% else %}

@@ -16,7 +16,7 @@ class FilePickerURLField(forms.URLField):
         super().__init__(*args, **kwargs)
 
     def widget_attrs(self, widget):
-        return {'data-fp-apikey': self.apikey, 'data-fp-mimetypes': self.mimetypes, 'data-fp-openTo': self.openTo, 'data-fp-services': self.services}
+        return {'data-fp-apikey': self.apikey, 'data-fp-mimetypes': self.mimetypes, 'data-fp-openTo': self.openTo, 'data-fp-services': self.services, 'data-fp-button-class': 'btn btn-lg btn-primary'}
 
 class CommentForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
