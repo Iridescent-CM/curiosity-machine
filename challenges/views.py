@@ -58,7 +58,7 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
     if stage in [Stage.build, Stage.test, Stage.reflect]:
         comments = progress.comments.filter(stage__in=[Stage.build.value, Stage.test.value, Stage.reflect.value])
     else:
-        comments = progress.comments.fitler(stage=stage.value)
+        comments = progress.comments.filter(stage=stage.value)
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
 
