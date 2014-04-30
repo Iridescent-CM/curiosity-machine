@@ -55,10 +55,10 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
         stage_string = stage.name if stage == Stage.plan else Stage.build.name # there may be other valid stages, but right now we only support plan or build as redirect destinations
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username, 'stage': stage_string}))
 
-    if stage in [Stage.build, Stage.test]:
-        comments = Comment.objects.filter(challenge_progress=progress, stage__in=[Stage.build.value, Stage.test.value])
+    if stage in [Stage.build, Stage.test, Stage.reflect]:
+        comments = progress.comments.filter(stage__in=[Stage.build.value, Stage.test.value, Stage.reflect.value])
     else:
-        comments = Comment.objects.filter(challenge_progress=progress, stage=stage.value)
+        comments = progress.comments.fitler(stage=stage.value)
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
 
