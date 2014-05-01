@@ -64,3 +64,20 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
 
     return render(request, "challenge_plan.html" if stage == Stage.plan else "challenge_build.html",
                   {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm(), 'comments': comments})
+
+# Any POST to this by the assigned mentor moves a challenge progress into the reflect stage (marks approve=True); any DELETE reverses that
+@require_http_methods(["POST", "DELETE"])
+@login_required
+def challenge_progress_approve(request, challenge_id, username):
+    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
+
+    #Only the mentor assigned to the progress can approve/un-approve it
+    if not request.user == progress.mentor:
+        return HttpResponse("Only the assigned mentor can approve a student's challenge progress", status=403)
+
+    if request.method == "POST":
+        Progress.objects.filter(id=progress.id).update(approved=True)
+    elif request.method == "DELETE":
+        Progress.objects.filter(id=progress.id).update(approved=False)
+
+    return HttpResponse(status=204)
