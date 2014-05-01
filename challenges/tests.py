@@ -1,6 +1,6 @@
 import pytest
 from .models import Challenge, Progress
-from .views import challenges
+from .views import challenges, challenge_progress_approve
 from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
 from profiles.tests import student, mentor
 from django.contrib.auth.models import AnonymousUser
@@ -42,3 +42,29 @@ def test_user_has_started_challenge(progress, challenge2):
     challenge = progress.challenge
     assert user_has_started_challenge(student, challenge)
     assert not user_has_started_challenge(student, challenge2)
+
+@pytest.mark.django_db
+def test_mentor_can_approve(rf, progress):
+    assert not progress.approved
+
+    request = rf.post('/challenges/1/approve')
+    request.user = progress.mentor
+    response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
+    assert response.status_code == 204
+    assert Progress.objects.get(id=progress.id).approved
+
+    request = rf.delete('/challenges/1/approve')
+    request.user = progress.mentor
+    response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
+    assert response.status_code == 204
+    assert not Progress.objects.get(id=progress.id).approved
+
+@pytest.mark.django_db
+def test_student_cannot_approve(rf, progress):
+    assert not progress.approved
+
+    request = rf.post('/challenges/1/approve')
+    request.user = progress.student
+    response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
+    assert response.status_code == 403
+    assert not Progress.objects.get(id=progress.id).approved
