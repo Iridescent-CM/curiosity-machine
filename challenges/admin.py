@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import Challenge, Theme, Progress
+from .models import Challenge, Theme, Progress, Question
 from videos.models import Video
 from images.models import Image
 
 class ChallengeAdmin(admin.ModelAdmin):
+    filter_horizontal = ('reflect_questions',)
+
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj
         return super(ChallengeAdmin, self).get_form(request, obj, **kwargs)
@@ -35,3 +37,4 @@ class ProgressAdmin(admin.ModelAdmin):
 admin.site.register(Challenge, ChallengeAdmin)
 admin.site.register(Progress, ProgressAdmin)
 admin.site.register(Theme)
+admin.site.register(Question)
