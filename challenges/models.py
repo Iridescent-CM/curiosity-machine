@@ -19,6 +19,12 @@ class Theme(models.Model):
     def __str__(self):
         return "Theme: name={}".format(self.name)
 
+class Question(models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text[:95] + "..." if len(self.text) > 100 else self.text
+
 class Challenge(models.Model):
     name = models.TextField()
     description = models.TextField()
@@ -26,12 +32,12 @@ class Challenge(models.Model):
     learn_more = models.TextField(help_text="HTML")
     materials_list = models.TextField(help_text="HTML")
     students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True) #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
-    theme = models.ForeignKey(Theme, null=True, blank=True)
-    video = models.ForeignKey(Video, null=True, blank=True)
-    image = models.ForeignKey(Image, null=True, blank=True)
+    theme = models.ForeignKey(Theme, null=True, blank=True, on_delete=models.SET_NULL)
+    video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
+    image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     plan_call_to_action = models.TextField(help_text="HTML")
     build_call_to_action = models.TextField(help_text="HTML")
-    reflect_question = models.TextField(help_text="HTML")
+    reflect_questions = models.ManyToManyField(Question, null=True)
 
     def __str__(self):
         return "Challenge: id={}, name={}".format(self.id, self.name)
@@ -40,7 +46,7 @@ class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)
     student = models.ForeignKey(User, related_name='progresses')
     started = models.DateTimeField(default=now)
-    mentor = models.ForeignKey(User, related_name='mentored_progresses', null=True, blank=True)
+    mentor = models.ForeignKey(User, related_name='mentored_progresses', null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.BooleanField(default=False, help_text="true when the mentor has approved a completed challenge and moved it to the reflect stage")
 
     def save(self, *args, **kwargs):
