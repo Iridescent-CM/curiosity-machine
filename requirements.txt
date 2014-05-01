@@ -35,3 +35,6 @@ zencoder==0.6.5
 
 #backport of enum from 3.4
 enum34
+
+#writing to excel doc
+xlwt-future

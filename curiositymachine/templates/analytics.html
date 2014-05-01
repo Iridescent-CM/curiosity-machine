@@ -1,0 +1,39 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-analytics{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'analytics' %}">Analytics</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <form method='post' action="{% url 'analytics' %}" enctype="multipart/form-data" id="analytics-form" class="default-form clearfix">
+    {% csrf_token %}
+    <div>
+      {{analytics_form.start_date.label_tag}}
+      {{analytics_form.start_date}}
+      <div class="errors">{{ analytics_form.start_date.errors }}</div>
+    </div>
+    <div>
+      {{analytics_form.end_date.label_tag}}
+      {{analytics_form.end_date}}
+      <div class="errors">{{ analytics_form.end_date.errors }}</div>
+    </div>
+    <div>
+      {{analytics_form.actions.label_tag}}
+      {{analytics_form.actions}}
+      <div class="errors">{{ analytics_form.actions.errors }}</div>
+    </div>
+    <button type="submit" class="btn">Generate File</button>
+  </form>
+</div>
+{% endblock %}
