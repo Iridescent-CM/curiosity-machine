@@ -70,5 +70,8 @@ class Progress(models.Model):
         else:
             return self.comments.none()
 
+    def get_student_images(self):
+        return Image.objects.filter(comment__user=self.student, comment__challenge_progress=self)
+
     def __str__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
