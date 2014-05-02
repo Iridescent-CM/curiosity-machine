@@ -10,6 +10,8 @@ from profiles.forms import JoinForm, ProfileEditForm
 from profiles.utils import create_or_edit_user
 from challenges.models import Challenge, Progress
 from django.db import transaction
+import password_reset.views
+import password_reset.forms
 
 @transaction.atomic
 def join(request):
@@ -64,3 +66,11 @@ def profile_edit(request):
         form = ProfileEditForm(request)
 
     return render(request, 'profile_edit.html', {'form': form,})
+
+
+### password recovery
+
+class Recover(password_reset.views.Recover):
+    search_fields = ['username'] # search only on username, not on email. this is important because email is not a unique field in this app!
+
+recover = Recover.as_view()
