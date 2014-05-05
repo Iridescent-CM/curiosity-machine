@@ -133,6 +133,30 @@ EMAIL_HOST_PASSWORD = os.environ.get("POSTMARK_API_KEY", "")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console':{
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['console',],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
+
 # Import optional local settings.  This must be at the END of this file.
 try:
     from .local import *
