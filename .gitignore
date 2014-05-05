@@ -9,3 +9,4 @@ curiositymachine/static/node_modules
 .coverage
 *.db
 db.sqlite3
+heroku.env
