@@ -5,8 +5,8 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from django.db.models import Q
+from django.utils.timezone import now
 import django_rq
-import datetime
 
 from .models import Challenge, Progress, Theme, Stage
 from cmcomments.forms import CommentForm
@@ -77,7 +77,7 @@ def challenge_progress_approve(request, challenge_id, username):
         return HttpResponse("Only the assigned mentor can approve a student's challenge progress", status=403)
 
     if request.method == "POST":
-        Progress.objects.filter(id=progress.id).update(approved=datetime.datetime.now())
+        Progress.objects.filter(id=progress.id).update(approved=now())
     elif request.method == "DELETE":
         Progress.objects.filter(id=progress.id).update(approved=None)
 
