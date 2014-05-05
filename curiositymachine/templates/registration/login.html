@@ -4,41 +4,28 @@
 {% block inner-classes %}modal-lg{% endblock %}
 
 {% block content %}
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-  <h1>Login.</h1>
-</div>
-<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
-<div class="modal-body">
-  {% if form.errors %}
-  <p class="error">Your username and password didn't match. Please try again.</p>
-  {% endif %}
-
-  
-  {% csrf_token %}
- 
- 
- {{ form.username.label_tag }}
- {{ form.username }}
- 
- 
- {{ form.password.label_tag }}
- {{ form.password }}
-
-
-  
-  
-</div>
-<div class="modal-footer">
-  <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
-  <input type="submit" value="login" class="btn btn-primary btn-lg" />
-  {% if next %}
-      <input type="hidden" name="next" value="{{ next }}" />
-  {% else %}
-      <input type="hidden" name="next" value="/home/" />
-  {% endif %}
-</div>
-
-</form>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h1>Login.</h1>
+  </div>
+  <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+    <div class="modal-body">
+      {% if form.errors %}
+        <p class="error">Your username and password didn't match. Please try again.</p>
+      {% endif %}
+      {% csrf_token %}
+      {{ form.username.label_tag }}{{ form.username }}
+      {{ form.password.label_tag }}{{ form.password }}
+    </div>
+    <div class="modal-footer">
+      <a href="{% url "password_reset_recover" %}">Forgot your password?</a>
+      <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
+      <input type="submit" value="login" class="btn btn-primary btn-lg" />
+      {% if next %}
+          <input type="hidden" name="next" value="{{ next }}" />
+      {% else %}
+          <input type="hidden" name="next" value="/home/" />
+      {% endif %}
+    </div>
+  </form>
 {% endblock %}
-
