@@ -41,18 +41,10 @@ def generate_analytics(start_date, end_date):
     for progress in progresses:
         comments.extend(progress.comments.filter(created__gte=start_date, created__lte=end_date))
     for comment in comments:
-        if comment.video:
-            writer.writerow([comment.user_id, comment.user.username, "mentor" if comment.user.profile.is_mentor else "learner", 
-                "video", Stage(comment.stage).name, comment.created.strftime('%Y-%m-%d %H:%M:%S'), comment.challenge_progress.challenge_id, comment.challenge_progress.student_id, 
-                comment.challenge_progress.mentor_id, comment.text, comment.video.url])
-        elif comment.image:
-            writer.writerow([comment.user_id, comment.user.username, "mentor" if comment.user.profile.is_mentor else "learner", 
-                "image", Stage(comment.stage).name, comment.created.strftime('%Y-%m-%d %H:%M:%S'), comment.challenge_progress.challenge_id, comment.challenge_progress.student_id, 
-                comment.challenge_progress.mentor_id, comment.text, comment.image.url])
-        else:
-            writer.writerow([comment.user_id, comment.user.username, "mentor" if comment.user.profile.is_mentor else "learner", 
-                "text", Stage(comment.stage).name, comment.created.strftime('%Y-%m-%d %H:%M:%S'), comment.challenge_progress.challenge_id, comment.challenge_progress.student_id, 
-                comment.challenge_progress.mentor_id, comment.text])
+        writer.writerow([comment.user_id, comment.user.username, "mentor" if comment.user.profile.is_mentor else "learner", 
+            "video" if comment.video else ("image" if comment.image else "text"), Stage(comment.stage).name, comment.created.strftime('%Y-%m-%d %H:%M:%S'), 
+            comment.challenge_progress.challenge_id, comment.challenge_progress.student_id, comment.challenge_progress.mentor_id, comment.text, 
+            comment.video.url if comment.video else (comment.image.url if comment.image else "")])
 
     f.seek(0)
     response = HttpResponse(f, content_type='text/csv')
