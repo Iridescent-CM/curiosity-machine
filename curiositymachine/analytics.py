@@ -29,14 +29,12 @@ def generate_analytics(start_date, end_date):
     for progress in started:
         writer.writerow([progress.student_id, progress.student.username, "learner", "start building", "", progress.started.strftime('%Y-%m-%d %H:%M:%S'), progress.challenge_id, 
             progress.student_id, progress.mentor_id, "", ""])
-        print('Started: user_id %s, challenge_id %s' % (progress.student_id, progress.challenge_id))
 
     # Set to Reflection
     approved = progresses.filter(approved__gte=start_date, approved__lte=end_date)
     for progress in approved:
         writer.writerow([progress.student_id, progress.student.username, "learner", "sent to reflection", "", progress.approved.strftime('%Y-%m-%d %H:%M:%S'), progress.challenge_id, 
             progress.student_id, progress.mentor_id, "", ""])
-        print('Approved: user_id %s, challenge_id %s' % (progress.student_id, progress.challenge_id))
 
     # Comments
     comments = []
@@ -55,7 +53,6 @@ def generate_analytics(start_date, end_date):
             writer.writerow([comment.user_id, comment.user.username, "mentor" if comment.user.profile.is_mentor else "learner", 
                 "text", Stage(comment.stage).name, comment.created.strftime('%Y-%m-%d %H:%M:%S'), comment.challenge_progress.challenge_id, comment.challenge_progress.student_id, 
                 comment.challenge_progress.mentor_id, comment.text])
-        print('Comment: user_id %s, challenge_id %s' % (comment.user_id, comment.challenge_progress.challenge_id))
 
     f.seek(0)
     response = HttpResponse(f, content_type='text/csv')
