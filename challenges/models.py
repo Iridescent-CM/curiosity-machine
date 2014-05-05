@@ -47,8 +47,8 @@ class Progress(models.Model):
     student = models.ForeignKey(User, related_name='progresses')
     started = models.DateTimeField(default=now)
     mentor = models.ForeignKey(User, related_name='mentored_progresses', null=True, blank=True, on_delete=models.SET_NULL)
-    approved = models.BooleanField(default=False, help_text="true when the mentor has approved a completed challenge and moved it to the reflect stage")
-
+    approved = models.DateTimeField(null=True, blank=True)
+    
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
