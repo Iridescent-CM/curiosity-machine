@@ -27,7 +27,6 @@ rq-scheduler==0.5.0
 requests==2.2.1
 
 #interface to S3
--e git://github.com/boto/boto@py3kport#egg=Boto
 tinys3==0.1.9
 
 #video encoding service
