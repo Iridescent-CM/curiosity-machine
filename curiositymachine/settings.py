@@ -27,11 +27,6 @@ DEBUG = process_false_string(os.environ.get('DEBUG', False)) # debug saves a LOT
 
 TEMPLATE_DEBUG = DEBUG
 
-SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-TEMPLATE_DIRS = (
-    os.path.join(SITE_ROOT, "curiositymachine", "templates"),
-)
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m2c165xpbn9^#z_a%kgwrs')
 
