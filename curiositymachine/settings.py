@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'videos',
     'images',
     'django_rq',
+    'password_reset',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -127,6 +128,15 @@ RQ_QUEUES = {
         'URL': os.getenv('REDIS_URL', 'redis://localhost:6379'),
         'DB': 0,}
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = os.environ.get("POSTMARK_SMTP_SERVER", "")
+EMAIL_PORT = 25
+EMAIL_HOST_USER = os.environ.get("POSTMARK_API_KEY", "")
+EMAIL_HOST_PASSWORD = os.environ.get("POSTMARK_API_KEY", "")
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True
 
 # Import optional local settings.  This must be at the END of this file.
 try:
