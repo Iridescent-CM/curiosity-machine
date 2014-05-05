@@ -5,13 +5,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('challenges', '0014_auto_20140501_1501'),
+        ('challenges', '0015_remove_progress_approved'),
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.AddField(
             model_name='progress',
             name='approved',
             field=models.DateTimeField(null=True, blank=True),
+            preserve_default=True,
         ),
     ]
