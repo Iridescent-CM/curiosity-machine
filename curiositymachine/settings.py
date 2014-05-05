@@ -131,7 +131,7 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = os.environ.get("POSTMARK_API_KEY", "")
 EMAIL_HOST_PASSWORD = os.environ.get("POSTMARK_API_KEY", "")
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = True
+EMAIL_USE_SSL = False
 
 # Import optional local settings.  This must be at the END of this file.
 try:
