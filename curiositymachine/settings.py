@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'images',
     'django_rq',
     'password_reset',
+    'pages',
 )
 
 MIDDLEWARE_CLASSES = (
