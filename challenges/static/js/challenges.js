@@ -6,7 +6,7 @@ $(document).ready(function() {
     $('.comment-form').attr('action', url);
   });
 
-/*
+
   $('.challenge-progress-form').on('submit', function(e) {
     e.preventDefault();
     var $self = $(this);
@@ -23,5 +23,5 @@ $(document).ready(function() {
     })
 
   });
-*/
+
 });
