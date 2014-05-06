@@ -1,0 +1,23 @@
+{% if comment.image %}
+<div class="img-wrapper">
+  <img src="{{ comment.image.url }}" />
+</div>
+{% endif %}
+{% if comment.video %}
+  {% if comment.video.encoded_videos.exists %}
+    <div class="flowplayer" data-adaptive-ratio="true">
+      <video
+        preload="true"
+        poster='{{comment.video.thumbnails.first.url}}'
+        data-setup='{"customControlsOnMobile": false}'
+        id="video-element-{{comment.video.id}}">            
+        {% for v in comment.video.encoded_videos.all %}
+          <source src="{{v.url}}" type="{{v.mime_type}}" />
+        {% endfor %}
+      </video>
+    </div>
+  {% else %}
+    <p><i>Video is uploading and will be displayed shortly</i></p>
+  {% endif %}
+{% endif %}
+<p>{{comment.text}}</p>

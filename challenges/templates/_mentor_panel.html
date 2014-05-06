@@ -1,0 +1,40 @@
+<div class="col-md-5">
+
+<div class="mentor-panel-wrapper sticky">
+  <div class="mentor-panel row">
+    <div class="col-md-5 mentor-panel-content">
+
+      <h3>{{progress.student.username}}</h3>
+
+
+      <img src="http://placekitten.com/50/50"><br><br>
+      
+      <div class="panel panel-bubble bottom gray-light">
+        <div class="panel-body">
+          <h3>Give Feedback</h3>
+          <ul class="action-list">
+            <li><button class="btn btn-lg" data-toggle="modal" data-target="#video_form">
+              Video
+              </button>
+            </li>
+            <li><button class="btn btn-lg" data-toggle="modal" data-target="#picture_form">
+              Picture
+              </button>
+            </li>
+            <li><button class="btn btn-lg" data-toggle="modal" data-target="#text_form">Text</button></li>
+          </ul>
+        </div>
+      </div>
+
+      
+      
+      <form class="challenge-progress-form" action="{% url "challenges:challenge_progress_approve" challenge_id=challenge.id username=progress.student.username %}" method="{% if progress.approved %}DELETE{% else %}POST{% endif %}">
+      {% csrf_token %}
+      <button class="btn btn-lg btn-primary" type="submit">Move to {% if progress.approved %}Build{% else %}Reflect{% endif %} Stage</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+</div>

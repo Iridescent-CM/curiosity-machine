@@ -1,33 +1,27 @@
 {% load cmtemplatetags %}
 
+
+
+{% if comment.user.profile.is_mentor %}
+<span class="mentor-comment">MENTOR MESSAGE</span>
+<span class="comment-date">{{ comment.created|timesince }}</span>
+<div class="mentor-info comment">
+    <img src="http://placekitten.com/50/50">
+    <p>{{comment.user.username}}<br><strong>Mentor</strong></p>
+  </div>
+<div class="panel panel-bubble blue comment">
+  <div class="panel-body">
+    {% include "_comment_content.html" %}
+  </div>
+</div>
+{% else %}
 <span class="comment-date">{{ comment.created|timesince }}</span>
 <div class="panel panel-comment comment">
   <div class="panel-heading">
     <h3 class="panel-title">{{ comment.get_stage_display}}ing <!--<a href="{% url 'challenges:challenge' challenge.id %}">{{comment.user.get_full_name}} says:</a> --></h3>
   </div>
   <div class="panel-body paper">
-    {% if comment.image %}
-    <div class="img-wrapper">
-      <img src="{{ comment.image.url }}" />
-    </div>
-    {% endif %}
-    {% if comment.video %}
-      {% if comment.video.encoded_videos.exists %}
-        <div class="flowplayer" data-adaptive-ratio="true">
-          <video
-            preload="true"
-            poster='{{comment.video.thumbnails.first.url}}'
-            data-setup='{"customControlsOnMobile": false}'
-            id="video-element-{{comment.video.id}}">            
-            {% for v in comment.video.encoded_videos.all %}
-              <source src="{{v.url}}" type="{{v.mime_type}}" />
-            {% endfor %}
-          </video>
-        </div>
-      {% else %}
-        <p><i>Video is uploading and will be displayed shortly</i></p>
-      {% endif %}
-    {% endif %}
-    <p>{{comment.text}}</p>
+    {% include "_comment_content.html" %}
   </div>
 </div>
+{% endif %}

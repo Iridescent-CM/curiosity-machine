@@ -244,6 +244,7 @@
 .panel-bubble {
   background: lighten(@green, 10%);
   font-size: @font-size-large;
+  position: relative;
   .panel-body {
     padding: 20px 50px;
     h3 {
@@ -256,7 +257,7 @@
     content: '';
     display: block;
     position: absolute;
-    right: -5px;
+    right: -20px;
     margin-top: 30px;
     width: 0px;
     height: 0px;
@@ -270,8 +271,19 @@
   &:before {
     border-width: 20px 20px 0;
     right: auto;
-    left: -5px;
+    left: -20px;
     border-color: lighten(@green, 10%) transparent transparent transparent;
+  }
+}
+
+.panel-bubble.bottom {
+  &:before {
+    border-width: 20px 0 0 20px;
+    margin-top: 0;
+    right: auto;
+    top: -20px;
+    left: 60px;
+    border-color: transparent transparent transparent lighten(@green, 10%);
   }
 }
 
@@ -279,6 +291,13 @@
   background: @blue;
   color: #fff;
   &:before {border-color: @blue transparent transparent transparent;}
+}
+
+.panel-bubble.gray-light {
+  background: @gray-light;
+  color: #fff;
+  &:before {border-color: @gray-light transparent transparent transparent;}
+  &.bottom:before {border-color: transparent transparent transparent @gray-light;}
 }
 
 .panel-comment {
@@ -289,13 +308,13 @@
 }
 
 .panel-bubble.teal {
-  background: @teal;
+  background: lighten(@teal, 5%);
   color: #fff;
   h1 {
     color: #fff;
     font-size: @font-size-h1 * 1.5;
   }
-  &:before {border-color: @teal transparent transparent transparent;}
+  &:before {border-color: lighten(@teal, 5%) transparent transparent transparent;}
 }
 
 .panel-bubble.outline {

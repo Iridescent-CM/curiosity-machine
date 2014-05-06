@@ -10,16 +10,22 @@
   {% include "_challenge_nav.html" with stage="plan" %}
   
 <div class="challenge-content">
+{% if not request.user.profile.is_mentor %}
  <header class="challenge-header">
     <h1>Plan your project</h1>
     <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
   </header>
+{% endif %}
 <div class="row">
+  
+  {% if request.user.profile.is_mentor %}
+    {% include "_mentor_panel.html" %}
+  {% else %}
   <div class="col-md-5">
     <div class="panel panel-bubble">
       <div class="panel-body">
         <h3>Post your plan as a video, drawing (photo) or text</h3>
-        {{ comment_form.media }}
+        
         <ul class="action-list">
           <li><button class="btn btn-lg" data-toggle="modal" data-target="#video_form">
             Video
@@ -31,26 +37,30 @@
           </li>
           <li><button class="text_comment_link btn btn-lg" data-toggle="modal" data-target="#text_form">Text</button></li>
         </ul>
-        {% include "_comment_form.html" with stage="plan" format="video" %}
-        {% include "_comment_form.html" with stage="plan" format="picture" %}
-        {% include "_comment_form.html" with stage="plan" format="text" %}
+        
       </div>
     </div>
 
+    {% if challenge.plan_call_to_action %}
     <div class="panel panel-bubble blue right">
       <div class="panel-body">
             {{challenge.plan_call_to_action}}
       </div>
     </div>
+    {% endif %}
+    </div><!-- /column 1 -->
+  {% endif %}
 
-  </div><!-- /column 1 -->
+  
 
   <div class="col-md-1">
     <img src="http://placekitten.com/60/80">
   </div>
 
   <div class="col-md-6">
-    
+    {% if request.user.profile.is_mentor %}
+      <h1>{{progress.student.username}}'s plan</h1>
+    {% else %}
     <div class="panel panel-bubble outline right">
       <a href="#" data-toggle="modal" data-target="#text_form">
       <div class="panel-body">
@@ -58,6 +68,7 @@
       </div>
       </a>
     </div>
+    {% endif %}
 
     <div class="materials-list panel">
     <div class="panel-heading">
@@ -86,6 +97,11 @@
 
 </div><!-- row -->
     {% include "_guide.html" %}
+
+    {{ comment_form.media }}
+    {% include "_comment_form.html" with stage="plan" format="video" %}
+    {% include "_comment_form.html" with stage="plan" format="picture" %}
+    {% include "_comment_form.html" with stage="plan" format="text" %}
 </div><!-- content -->
 
 {% endblock %}

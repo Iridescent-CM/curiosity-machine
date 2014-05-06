@@ -9,12 +9,23 @@
   <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
   {% include "_challenge_nav.html" with stage="build" %}
   <div class="challenge-content">
+    {% if not request.user.profile.is_mentor %}
     <header class="challenge-header">
       <h1>Share your progress</h1>
       <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
     </header>
+    {% endif %}
 <div class="row">
+  {% if request.user.profile.is_mentor %}
+    {% include "_mentor_panel.html" %}
+  {% else %}
   <div class="col-md-5">
+
+    
+    
+    
+
+    {% if challenge.build_call_to_action or progress.approved %}
     <div class="panel panel-bubble blue right">
       <div class="panel-body">
         {% if progress.approved %}
@@ -25,13 +36,20 @@
         {% endif %}
       </div>
     </div>
+    {% endif %}
+
   </div><!-- /column 1 -->
+  {% endif %}
+
   <div class="col-md-1">
     <img src="http://placekitten.com/60/80">
   </div>
+
   <div class="col-md-6">
+    {% if request.user.profile.is_mentor %}
+      <h1>{{progress.student.username}}'s progress</h1>
+    {% else %}
     {% if progress.approved %}
-    {{ comment_form.media }}
       <div class="panel panel-bubble teal right reflect-question">
       <div class="panel-body">
         <h1>Reflect</h1>
@@ -65,7 +83,7 @@
             <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='test' %}" class="test-url url">
           </li>
         </ul>
-        {{ comment_form.media }}
+       
         <ul class="action-list">
           <li><button class="btn btn-lg" data-toggle="modal" data-target="#video_form">
             Video
@@ -77,11 +95,10 @@
           </li>
           <li><button class="btn btn-lg" data-toggle="modal" data-target="#text_form">Text</button></li>
         </ul>
-        {% include "_comment_form.html" with stage="build" format="video" %}
-        {% include "_comment_form.html" with stage="build" format="picture" %}
-        {% include "_comment_form.html" with stage="build" format="text" %}
+        
       </div>
     </div>
+    {% endif %}
     {% endif %}
 
     {% for comment in comments %}
@@ -91,6 +108,12 @@
 
 </div><!-- row -->
     {% include "_guide.html" %}
+
+     {{ comment_form.media }}
+      {% include "_comment_form.html" with stage="build" format="video" %}
+      {% include "_comment_form.html" with stage="build" format="picture" %}
+      {% include "_comment_form.html" with stage="build" format="text" %}
+
 </div><!-- content -->
 
 {% endblock %}
