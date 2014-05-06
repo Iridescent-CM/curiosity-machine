@@ -27,11 +27,12 @@
       </div>
 
       
-      
+      {% if request.user == progress.mentor %}
       <form class="challenge-progress-form" action="{% url "challenges:challenge_progress_approve" challenge_id=challenge.id username=progress.student.username %}" method="{% if progress.approved %}DELETE{% else %}POST{% endif %}">
       {% csrf_token %}
       <button class="btn btn-lg btn-primary" type="submit">Move to {% if progress.approved %}Build{% else %}Reflect{% endif %} Stage</button>
       </form>
+      {% endif %}
 
     </div>
   </div>
