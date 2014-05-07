@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from images.models import Image
 
 def create_or_edit_user(data, user=None):
     new_user = False
@@ -25,4 +26,6 @@ def create_or_edit_user(data, user=None):
         profile.parent_first_name = data['parent_first_name']
     if data['parent_last_name']:
         profile.parent_last_name = data['parent_last_name']
+    if data['picture_filepicker_url']:
+        profile.image = Image.from_source_with_job(data['picture_filepicker_url'])
     profile.save()

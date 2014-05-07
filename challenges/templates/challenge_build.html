@@ -41,8 +41,12 @@
   </div><!-- /column 1 -->
   {% endif %}
 
-  <div class="col-md-1">
-    <img src="http://placekitten.com/60/80">
+  <div class="col-md-1 student-image">
+    {% if progress.student.profile.image %}
+      <img src="{{ progress.student.profile.image.url }}" />
+    {% else %}
+      <img src="http://placekitten.com/60/80">
+    {% endif %}   
   </div>
 
   <div class="col-md-6">
