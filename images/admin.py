@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from .models import Image
-from cmcomments.forms import FilePickerURLField
+from curiositymachine.forms import FilePickerURLField
 from django.conf import settings
 
 class ImageAdminForm(forms.ModelForm):
