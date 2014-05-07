@@ -37,3 +37,6 @@ enum34
 
 #password reset functionality
 django-password-reset==0.7
+
+#image resizing proxy and cdn
+cloudinary==1.0.17
