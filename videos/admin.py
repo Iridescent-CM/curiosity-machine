@@ -5,6 +5,8 @@ from curiositymachine.forms import FilePickerURLField
 from django.conf import settings
 
 class VideoAdminForm(forms.ModelForm):
+    fields = ('source_url',)
+    
     class Meta:
         model = Video
     
