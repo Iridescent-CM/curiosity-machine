@@ -16,6 +16,11 @@
   <h3>Student</h3>
   {% endif %}
   <div>
+    {{form.picture_filepicker_url.label_tag}}
+    {{form.picture_filepicker_url}}
+    <div class="errors">{{ form.picture_filepicker_url.errors }}</div>
+  </div>
+  <div>
     {{form.first_name.label_tag}}
     {{form.first_name}}
     <div class="errors">{{ form.first_name.errors }}</div>

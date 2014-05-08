@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from datetime import datetime
+from curiositymachine.forms import FilePickerURLField
 
 import re
 
@@ -18,6 +19,7 @@ class ProfileFormBase(forms.Form):
     city = forms.CharField(required=True, label="City")
     parent_first_name = forms.CharField(required=True, label="First Name")
     parent_last_name = forms.CharField(required=True, label="Last Name")
+    picture_filepicker_url = FilePickerURLField(label="Photo", mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
 
     def clean(self):
         cleaned_data = super(ProfileFormBase, self).clean()
