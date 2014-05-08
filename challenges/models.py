@@ -31,7 +31,7 @@ class Challenge(models.Model):
     how_to_make_it = models.TextField(help_text="HTML")
     learn_more = models.TextField(help_text="HTML")
     materials_list = models.TextField(help_text="HTML")
-    students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True) #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
+    students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True, related_name="challenges") #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
     theme = models.ForeignKey(Theme, null=True, blank=True, on_delete=models.SET_NULL)
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
