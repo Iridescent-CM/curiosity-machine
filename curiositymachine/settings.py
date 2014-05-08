@@ -160,6 +160,8 @@ LOGGING = {
     },
 }
 
+# CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
+
 # Import optional local settings.  This must be at the END of this file.
 try:
     from .local import *
