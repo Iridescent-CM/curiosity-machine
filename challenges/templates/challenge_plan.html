@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load resized %}
 
 {% block js %}
 <script src="/static/js/challenges.js"></script>
@@ -53,12 +54,8 @@
 
   
 
-  <div class="col-md-1 student-image">
-    {% if progress.student.profile.image %}
-      <img src="{{ progress.student.profile.image.url }}" />
-    {% else %}
-      <img src="http://placekitten.com/60/80">
-    {% endif %} 
+  <div class="col-md-1">
+    <img src="{% resized progress.student.profile.get_user_image_url width=60 height=80 crop='fit' %}" />
   </div>
 
   <div class="col-md-6">
