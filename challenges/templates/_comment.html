@@ -1,14 +1,11 @@
 {% load cmtemplatetags %}
+{% load resized %}
 
 {% if comment.user.profile.is_mentor %}
   <span class="mentor-comment">MENTOR MESSAGE</span>
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">
-    {% if comment.user.profile.image %}
-      <img src="{{ comment.user.profile.image.url }}" />
-    {% else %}
-      <img src="http://placekitten.com/50/50">
-    {% endif %}
+    <img src="{% resized comment.user.profile.get_user_image_url width=50 height=50 crop='fit' %}" />
     <p>{{comment.user.username}}<br><strong>Mentor</strong></p>
   </div>
   <div class="panel panel-bubble blue comment">
