@@ -1,6 +1,6 @@
 import pytest
 from .models import Challenge, Progress
-from .views import challenges, challenge_progress_approve
+from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress
 from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
 from profiles.tests import student, mentor
 from django.contrib.auth.models import AnonymousUser
@@ -17,6 +17,10 @@ def challenge2():
 @pytest.fixture
 def progress(student, mentor, challenge):
     return Progress.objects.create(student=student, mentor=mentor, challenge=challenge)
+
+@pytest.fixture
+def unclaimed_progress(student, challenge):
+    return Progress.objects.create(student=student, challenge=challenge)
 
 @pytest.mark.django_db
 def test_challenges_response_code(rf, challenge, student):
@@ -68,3 +72,35 @@ def test_student_cannot_approve(rf, progress):
     response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
     assert response.status_code == 403
     assert not Progress.objects.get(id=progress.id).approved
+
+@pytest.mark.django_db
+def test_unclaimed_progresses_response_code(rf, mentor, unclaimed_progress):
+    request = rf.get('/challenges/unclaimed/')
+    request.user = mentor
+    response = unclaimed_progresses(request)
+    assert response.status_code == 200
+
+    request = rf.get('/challenges/unclaimed/')
+    request.user = unclaimed_progress.student
+    response = unclaimed_progresses(request)
+    assert response.status_code == 403
+
+@pytest.mark.django_db
+def test_claim_progress(rf, mentor, unclaimed_progress):
+    assert not unclaimed_progress.mentor
+
+    request = rf.post('/challenges/unclaimed/1')
+    request.user = mentor
+    response = claim_progress(request, unclaimed_progress.id)
+    assert response.status_code == 204
+    assert Progress.objects.get(id=unclaimed_progress.id).mentor == mentor
+
+@pytest.mark.django_db
+def test_student_cannot_claim_progress(rf, unclaimed_progress):
+    assert not unclaimed_progress.mentor
+
+    request = rf.post('/challenges/unclaimed/1')
+    request.user = unclaimed_progress.student
+    response = claim_progress(request, unclaimed_progress.id)
+    assert response.status_code == 403
+    assert not Progress.objects.get(id=unclaimed_progress.id).mentor

@@ -11,7 +11,7 @@ import django_rq
 from .models import Challenge, Progress, Theme, Stage
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
-from curiositymachine.decorators import mentor_or_current_student
+from curiositymachine.decorators import mentor_or_current_student, mentor_only
 from videos.models import Video
 from .forms import ChallengeVideoForm
 from .utils import get_stage_for_progress
@@ -80,5 +80,23 @@ def challenge_progress_approve(request, challenge_id, username):
         Progress.objects.filter(id=progress.id).update(approved=now())
     elif request.method == "DELETE":
         Progress.objects.filter(id=progress.id).update(approved=None)
+
+    return HttpResponse(status=204)
+
+@mentor_only
+def unclaimed_progresses(request):
+    progresses = Progress.objects.filter(mentor__isnull=True)
+
+    return render(request, "unclaimed_progresses.html", {"progresses": progresses})
+
+# Any POST to this assigns the current user to a progress as a mentor
+# currently there is no security to stop a mentor from claiming a progress already claimed by another mentor by manually POSTing
+@require_http_methods(["POST"])
+@mentor_only
+def claim_progress(request, progress_id):
+    progress = get_object_or_404(Progress, id=progress_id)
+
+    progress.mentor = request.user
+    progress.save(update_fields=["mentor"])
 
     return HttpResponse(status=204)
