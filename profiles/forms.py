@@ -17,8 +17,6 @@ class ProfileFormBase(forms.Form):
     nickname = forms.CharField(max_length=30, label="Nickname", required=False)
     birthday = forms.CharField(required=True, max_length=10, widget=forms.TextInput(attrs={'placeholder': 'MM/DD/YYYY'}), label="Date of Birth")
     city = forms.CharField(required=True, label="City")
-    parent_first_name = forms.CharField(required=True, label="First Name")
-    parent_last_name = forms.CharField(required=True, label="Last Name")
     picture_filepicker_url = FilePickerURLField(label="Photo", mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
 
     def clean(self):
@@ -46,6 +44,8 @@ class ProfileFormBase(forms.Form):
 
 class JoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
+    parent_first_name = forms.CharField(required=True, label="First Name")
+    parent_last_name = forms.CharField(required=True, label="Last Name")
 
     def __init__(self, request=None, *args, **kwargs):
         super(JoinForm, self).__init__(*args, **kwargs)
@@ -58,18 +58,17 @@ class JoinForm(ProfileFormBase):
         return username
 
 
-class ProfileEditForm(ProfileFormBase):
+class StudentProfileEditForm(ProfileFormBase):
+    parent_first_name = forms.CharField(required=True, label="First Name")
+    parent_last_name = forms.CharField(required=True, label="Last Name")
 
     def __init__(self, request, *args, **kwargs):
         post = len(args) > 0
-        super(ProfileEditForm, self).__init__(*args, **kwargs)
+        super(StudentProfileEditForm, self).__init__(*args, **kwargs)
         self._request = request
         self.user = request.user
         self.fields['password'].required = False
         self.fields['confirm_password'].required = False
-        if request.user.profile.is_mentor:
-            self.fields['parent_first_name'].required = False
-            self.fields['parent_last_name'].required = False
         if not post:
             self._initial_values()
 
@@ -81,3 +80,31 @@ class ProfileEditForm(ProfileFormBase):
         self.fields['city'].initial = self.user.profile.city
         self.fields['parent_first_name'].initial = self.user.profile.parent_first_name
         self.fields['parent_last_name'].initial = self.user.profile.parent_last_name
+
+class MentorProfileEditForm(ProfileFormBase):
+    title = forms.CharField(required=True, label="What Is My Profession")
+    employer = forms.CharField(required=True, label="Where Do I Work?")
+    about_me = forms.CharField(required=True, label="About Me")
+    about_research = forms.CharField(required=True, label="About My Research")
+
+    def __init__(self, request, *args, **kwargs):
+        post = len(args) > 0
+        super(MentorProfileEditForm, self).__init__(*args, **kwargs)
+        self._request = request
+        self.user = request.user
+        self.fields['password'].required = False
+        self.fields['confirm_password'].required = False
+        if not post:
+            self._initial_values()
+
+    def _initial_values(self):
+        self.fields['email'].initial = self.user.email
+        self.fields['first_name'].initial = self.user.first_name
+        self.fields['nickname'].initial = self.user.profile.nickname
+        self.fields['birthday'].initial = self.user.profile.birthday.strftime('%m/%d/%Y') if self.user.profile.birthday else ''
+        self.fields['city'].initial = self.user.profile.city
+        self.fields['title'].initial = self.user.profile.title
+        self.fields['employer'].initial = self.user.profile.employer
+        self.fields['about_me'].initial = self.user.profile.about_me
+        self.fields['about_research'].initial = self.user.profile.about_research
+

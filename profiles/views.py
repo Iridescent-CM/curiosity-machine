@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from profiles.models import Profile
-from profiles.forms import JoinForm, ProfileEditForm
+from profiles.forms import JoinForm, MentorProfileEditForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
 from challenges.models import Challenge, Progress
 from django.db import transaction
@@ -45,25 +45,38 @@ def home(request):
         progresses = Progress.objects.filter(student=request.user).select_related("challenge")
         return render(request, "student_home.html", {'progresses': progresses,})
 
-def profile_details(request, username, mentor=False):
+def mentors(request):
     '''
-    Page for viewing a student or mentor's profile
+    List of current mentors
+    '''
+    mentors = Profile.objects.filter(is_mentor=True)
+    return render(request, "mentors.html", {'mentors': mentors,})
+
+def mentor_profile(request, username):
+    '''
+    Page for viewing a mentor's profile
     '''
     user = get_object_or_404(User, username=username)
-    profile = get_object_or_404(Profile, user=user, is_mentor=mentor)
+    profile = get_object_or_404(Profile, user=user, is_mentor=True)
 
-    return render(request, "profile_details.html", {'user': user, 'profile': profile,})
+    return render(request, "mentor_profile.html", {'user': user, 'profile': profile,})
 
 @login_required
 def profile_edit(request):
     if request.method == 'POST':
-        form = ProfileEditForm(request=request, data=request.POST) 
+        if request.user.profile.is_mentor:
+            form = MentorProfileEditForm(request=request, data=request.POST)
+        else:
+            form = StudentProfileEditForm(request=request, data=request.POST)
         if form.is_valid():
             data = form.cleaned_data
             create_or_edit_user(data, request.user)
-            return HttpResponseRedirect(request.user.profile.get_absolute_url())
+            return HttpResponseRedirect('/')
     else:
-        form = ProfileEditForm(request)
+        if request.user.profile.is_mentor:
+            form = MentorProfileEditForm(request)
+        else:
+            form = StudentProfileEditForm(request)
 
     return render(request, 'profile_edit.html', {'form': form,})
 

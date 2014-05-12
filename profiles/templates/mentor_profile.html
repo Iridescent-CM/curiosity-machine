@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{user.username}}</h1>
+
+What is my profession?: {{profile.title}}<br>
+Where do I work?: {{profile.employer}}<br>
+About me: {{profile.about_me}}<br>
+About my research: {{profile.about_research}}
+
+{% endblock %}

@@ -14,14 +14,11 @@ class Profile(models.Model):
     nickname = models.CharField(max_length=30, blank=True)
     parent_first_name = models.TextField(blank=True)
     parent_last_name = models.TextField(blank=True)
-    title = models.TextField(blank=True)
+    title = models.TextField(blank=True, help_text="This is a mentor only field.")
+    employer = models.TextField(blank=True, null=True, help_text="This is a mentor only field.")
+    about_me = models.TextField(blank=True, null=True, help_text="This is a mentor only field.")
+    about_research = models.TextField(blank=True, null=True, help_text="This is a mentor only field.")
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
-
-    def get_absolute_url(self):
-        if self.is_mentor:
-            return reverse('profiles:mentor_profile_details', kwargs={'username': self.user.username})
-        else:
-            return reverse('profiles:student_profile_details', kwargs={'username': self.user.username})
 
     @property
     def is_student(self):
