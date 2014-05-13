@@ -15,9 +15,9 @@ class Profile(models.Model):
     parent_first_name = models.TextField(blank=True)
     parent_last_name = models.TextField(blank=True)
     title = models.TextField(blank=True, help_text="This is a mentor only field.")
-    employer = models.TextField(blank=True, null=True, help_text="This is a mentor only field.")
-    about_me = models.TextField(blank=True, null=True, help_text="This is a mentor only field.")
-    about_research = models.TextField(blank=True, null=True, help_text="This is a mentor only field.")
+    employer = models.TextField(blank=True, help_text="This is a mentor only field.")
+    about_me = models.TextField(blank=True, help_text="This is a mentor only field.")
+    about_research = models.TextField(blank=True, help_text="This is a mentor only field.")
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
 
     @property

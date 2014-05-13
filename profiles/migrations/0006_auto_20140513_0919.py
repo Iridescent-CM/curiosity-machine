@@ -12,20 +12,20 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='profile',
             name='about_research',
-            field=models.TextField(null=True, help_text='This is a mentor only field.', blank=True),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='about_me',
-            field=models.TextField(null=True, help_text='This is a mentor only field.', blank=True),
-            preserve_default=True,
+            field=models.TextField(default='', help_text='This is a mentor only field.', blank=True),
+            preserve_default=False,
         ),
         migrations.AddField(
             model_name='profile',
             name='employer',
-            field=models.TextField(null=True, help_text='This is a mentor only field.', blank=True),
-            preserve_default=True,
+            field=models.TextField(default='', help_text='This is a mentor only field.', blank=True),
+            preserve_default=False,
+        ),
+        migrations.AddField(
+            model_name='profile',
+            name='about_me',
+            field=models.TextField(default='', help_text='This is a mentor only field.', blank=True),
+            preserve_default=False,
         ),
         migrations.AlterField(
             model_name='profile',
