@@ -33,6 +33,10 @@
 
     {% include '_user_nav.html' %}
     
+    <div id="message-bar">
+      <div class="layout-inner text"></div>
+    </div>
+
     <div id="main-container">
 
     <div class="container-fluid main-content">
@@ -65,5 +69,23 @@
 <script type="text/javascript" src="{% static 'js/libs/jquery.textillate.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
 {% block js %}{% endblock %}
+
+{% if messages %}
+{% for message in messages %}
+  {% if message.tags and message.tags == 'error' %}
+    <script type="text/javascript">
+      $(function() {
+        CM.userError('{{ message }}');
+      });
+    </script>
+  {% else %}
+    <script type="text/javascript">
+      $(function() {
+        CM.userSuccess('{{ message }}');
+      });
+    </script>
+  {% endif %}
+{% endfor %}
+{% endif %}
 
 </html>

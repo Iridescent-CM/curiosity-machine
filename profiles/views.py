@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -71,7 +71,9 @@ def profile_edit(request):
         if form.is_valid():
             data = form.cleaned_data
             create_or_edit_user(data, request.user)
-            return HttpResponseRedirect('/')
+            messages.success(request, 'Profile has been updated.')
+        else:
+            messages.error(request, 'Correct errors below.')
     else:
         if request.user.profile.is_mentor:
             form = MentorProfileEditForm(request)

@@ -8,6 +8,22 @@ CM.Navigation = {
   $mentorNavWrapper: $('.mentor-panel-wrapper')
 }
 
+CM.userError = function(message) {
+  $('#message-bar').removeClass().addClass('error');
+  $('#message-bar').addClass('active').find('.text').text(message);
+  var timer = setTimeout(function() {
+    $('#message-bar').removeClass('active');
+  }, 3000)
+}
+
+CM.userSuccess = function(message) {
+  $('#message-bar').removeClass().addClass('success');
+  $('#message-bar').addClass('active').find('.text').text(message);
+  var timer = setTimeout(function() {
+    $('#message-bar').removeClass('active');
+  }, 3000);
+}
+
 $(document).ready(function() {
 
 
