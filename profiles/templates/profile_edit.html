@@ -1,17 +1,9 @@
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-  <h1>Edit Account Info</h1>
-</div>
+{% extends "base.html" %}
 
-<form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
-  <div class="modal-body row clearfix">
+{% block content %}
+  <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
     {% csrf_token %}
-    {% with 'edit' as page %}
-    {% include "profile_fields.html" %}
-    {% endwith %}
-  </div>
-  <div class="modal-footer">
-    <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
-    <button type="submit" class="btn btn-primary btn-lg">Save</button>
-  </div>
-</form>
+    {% include "profile_fields.html" with page='edit' %}
+    <button type="submit" class="call-to-action">Save</button>
+  </form>
+{% endblock %}

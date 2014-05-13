@@ -66,4 +66,28 @@
     <div class="errors">{{ form.confirm_password.errors }}</div>
   </div>
 </div>
+{% if request.user.profile.is_mentor %}
+  <div class="col-md-4">
+    <div>
+      {{form.title.label_tag}}
+      {{form.title}}
+      <div class="errors">{{ form.title.errors }}</div>
+    </div>
+    <div>
+      {{form.employer.label_tag}}
+      {{form.employer}}
+      <div class="errors">{{ form.employer.errors }}</div>
+    </div>
+    <div>
+      {{form.about_me.label_tag}}
+      {{form.about_me}}
+      <div class="errors">{{ form.about_me.errors }}</div>
+    </div>
+    <div>
+      {{form.about_research.label_tag}}
+      {{form.about_research}}
+      <div class="errors">{{ form.about_research.errors }}</div>
+    </div>
+  </div>
+{% endif %}
 {{ form.non_field_errors }}
