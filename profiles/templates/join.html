@@ -13,6 +13,7 @@
   
     {% csrf_token %}
     {% with 'join' as page %}
+    {{ form.media }}
     {% include "profile_fields.html" %}
     {% endwith %}
     
