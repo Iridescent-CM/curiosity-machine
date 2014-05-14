@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Module {{ module.id }}: {{ module.title }}{% endblock %}
+
+{% block content %}
+
+    <h1>Mentor Training Module {{ module.id }}: {{ module.title }}</h1>
+
+    {{ module.text }}
+
+{% endblock %}
