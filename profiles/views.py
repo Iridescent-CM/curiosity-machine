@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.forms.util import ErrorList
+from django.core.urlresolvers import reverse
 from profiles.models import Profile
 from profiles.forms import JoinForm, MentorProfileEditForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
@@ -27,10 +28,10 @@ def join(request):
             else:
                 user = auth.authenticate(username=data['username'], password=data['password'])
                 auth.login(request, user)
-                return HttpResponseRedirect(request.user.profile.get_absolute_url())
+                return HttpResponseRedirect('/')
     else:
         if request.user.is_authenticated():
-            return HttpResponseRedirect(request.user.profile.get_absolute_url())
+            return HttpResponseRedirect(reverse('profiles:home'))
         form = JoinForm()
 
     return render(request, 'join.html', {'form': form,})
