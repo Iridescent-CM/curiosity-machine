@@ -1,4 +1,3 @@
-{% load resized %}
 
 <div class="col-md-5">
 
@@ -7,8 +6,8 @@
     <div class="col-md-5 mentor-panel-content">
 
       <h3>{{progress.student.username}}</h3>
-
-      <img src="{% resized request.user.profile.get_user_image_url width=50 height=50 crop='fit' %}" /><br><br>
+      {% include "_avatar.html" with profile=request.user.profile width=50 height=50 crop='fit' %}
+      <br><br>
       
       <div class="panel panel-bubble bottom gray-light">
         <div class="panel-body">

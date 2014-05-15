@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h1>My Challenges:</h1>
+<h1>Welcome back {{user.username}}</h1>
   <ul>
     {% for challenge in challenges %}
       <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>

@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% load resized %}
 
 {% block js %}
 <script src="/static/js/challenges.js"></script>
@@ -43,7 +42,7 @@
   {% endif %}
 
   <div class="col-md-1">
-    <img src="{% resized progress.student.profile.get_user_image_url width=60 height=80 crop='fit' %}" />
+    {% include "_avatar.html" with profile=progress.student.profile width=60 height=80 crop='fit' %}
   </div>
 
   <div class="col-md-6">
