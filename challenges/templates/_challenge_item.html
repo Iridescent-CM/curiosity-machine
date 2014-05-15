@@ -17,7 +17,11 @@
       {% else %}
         <a href="{% url 'challenges:challenge' challenge.id %}">
       {% endif %}
-        <img src="http://placekitten.com/300/200">
+      {% if challenge.image %}
+        <img src="{{ challenge.image.url }}">
+      {% elif challenge.video.encodings_generated %}
+        {{ challenge.video.output_videos.all.0.thumbnail }}
+      {% endif %}
       </a>
     </div>
     <div class="panel-body">

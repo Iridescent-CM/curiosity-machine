@@ -51,17 +51,34 @@
       <h1>{{progress.student.username}}'s progress</h1>
     {% else %}
     {% if progress.approved %}
-      <div class="panel panel-bubble teal right reflect-question">
+      <div class="panel panel-bubble teal right reflect-box">
       <div class="panel-body">
         <h1>Reflect</h1>
           <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
           <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' %}" method="POST" class="comment-form">
             {% csrf_token %}
 
-            {{comment_form.picture_filepicker_url}}
+            <input type="hidden" id="{{comment_form.picture_filepicker_url.id_for_label }}" name="{{comment_form.picture_filepicker_url.html_name }}">
+            {{comment_form.question_text}}
+
           <div class="errors">{{ comment_form.picture_filepicker_url.errors }}</div>
 
-          <p>{{challenge.reflect_question}}</p>
+          <ul class="challenge-reflect-questions" style="display: none;">
+            {% for question in challenge.reflect_questions.all %}
+              <li>{{ question }}</li>
+            {% endfor %}
+          </ul>
+
+          <div id="reflect-images">
+            <div class="img-wrapper">
+            </div>
+            <a data-toggle="modal" data-target="#reflect-images-modal" class="btn btn-primary">Choose an image</a>
+          </div>
+
+          <div class="reflect-question">
+            <h3 class="question"></h3>
+            <p class="refresh" title="answer a different question"><span class="glyphicon glyphicon-refresh"></span> Try another question.</p>
+          </div>
           {{comment_form.text.label_tag}}
           {{comment_form.text}}
           <div class="errors">{{ comment_form.text.errors }}</div>
@@ -69,6 +86,7 @@
         </form>
       </div>
       </div>
+      {% include "_challenge_reflect_images_modal.html" %}
     {% else %}
     <div class="panel panel-bubble right">
       <div class="panel-body">
