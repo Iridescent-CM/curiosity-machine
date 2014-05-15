@@ -20,6 +20,8 @@ def create_or_edit_user(data, user=None):
     if new_user:
         profile.is_mentor = False
     profile.birthday = data['birthday']
+    if profile.age >= 13:
+        profile.approved = True
     profile.nickname = data['nickname']
     profile.city = data['city']
     if new_user or user.profile.is_student:

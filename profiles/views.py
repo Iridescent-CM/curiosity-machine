@@ -81,6 +81,8 @@ def profile_edit(request):
 
     return render(request, 'profile_edit.html', {'form': form,})
 
+def underage_student(request):
+    return render(request, 'underage_student.html')
 
 ### password recovery
 
