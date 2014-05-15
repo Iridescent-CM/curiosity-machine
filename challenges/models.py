@@ -75,10 +75,8 @@ class Progress(models.Model):
 
     @property
     def completed(self):
-        for comment in self.comments.all():
-            if comment.stage == Stage.reflect.value:
-                return True
-        return False
+        # a progress is complete once a comment has been made on the Reflect stage
+        return self.comments.filter(stage=Stage.reflect.value).exists()
 
     def __str__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
