@@ -43,8 +43,16 @@ def home(request):
         challenges = {progress.challenge for progress in progresses}
         return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,})
     else:
+        filter = request.GET.get('filter')
         progresses = Progress.objects.filter(student=request.user).select_related("challenge")
-        return render(request, "student_home.html", {'progresses': progresses,})
+        active_progresses = []
+        completed_progresses = []
+        for progress in progresses:
+            if progress.completed:
+                completed_progresses.append(progress)
+            else:
+                active_progresses.append(progress)
+        return render(request, "student_home.html", {'active_progresses': active_progresses, 'completed_progresses': completed_progresses, 'progresses': progresses, 'filter': filter})
 
 def mentors(request):
     '''
