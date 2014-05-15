@@ -3,17 +3,28 @@
 {% block content %}
 
 <ul class="nav nav-justified nav-tabs">
-  <li class="active"><a href="#challenges" data-toggle="tab">My Challenges</a></li>
+  <li class="active"><a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a></li>
   <li><a href="#bookmarks" data-toggle="tab">Bookmarks</a></li>
 </ul>
 <div class="tab-content">
   <div class="tab-pane fade in active" id="challenges">
+    <a href="{% url 'profiles:home' %}?filter=active" {% if not filter or filter == 'active' %}class="active"{% endif %}>Active ({{active_progresses|length}})</a>     |      
+    <a href="{% url 'profiles:home' %}?filter=completed" {% if filter == 'completed' %}class="active"{% endif %}>Completed ({{completed_progresses|length}})</a>     |      
+    <a href="{% url 'profiles:home' %}?filter=all" {% if filter == 'all' %}class="active"{% endif %}>View All</a>
     <ul class="challenges-list owl-carousel panel-carousel">
-      {% for progress in progresses %}
-        {% with progress.challenge as challenge %}
-          {% include "_challenge_item.html" %}
-        {% endwith %}
-      {% endfor %}
+      {% if filter == 'all' %}
+        {% for progress in progresses %}
+          {% include "_challenge_item.html" with challenge=progress.challenge %}
+        {% endfor %}
+      {% elif filter == 'completed' %}
+        {% for progress in completed_progresses %}
+          {% include "_challenge_item.html" with challenge=progress.challenge %}
+        {% endfor %}
+      {% else %}
+        {% for progress in active_progresses %}
+          {% include "_challenge_item.html" with challenge=progress.challenge %}
+        {% endfor %}
+      {% endif %}
     </ul>
   </div><!-- /#challenges -->
   <div class="tab-pane fade" id="bookmarks">
