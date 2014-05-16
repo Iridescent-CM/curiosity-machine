@@ -4,20 +4,33 @@
 {% block content %}
 
 <h1>Welcome back {{user.username}}</h1>
-  <ul>
-    {% for challenge in challenges %}
-      <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
-      <ul>
-        {% for progress in progresses %}
-          {% if progress.challenge == challenge %}
-            <li><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username %}">{{progress.student.get_full_name}}{% if progress|unread_count:request.user %} ({{progress|unread_count:request.user}}){% endif %}</a></li>
-          {% endif %}
-        {% endfor %}
-        </ul>
-      </li>
-    {% endfor %}
-  </ul>
+  {% include "_avatar.html" with profile=user.profile width=250 height=250 crop='fit' %}
 
-<a href="{% url 'challenges:unclaimed_progresses' %}">Claim More Challenges</a>
+
+  <h2>Student Challenges in Progress</h2>
+  <ul class="nav nav-justified nav-tabs"></ul>
+  <div class="tab-content">
+  <ul class="challenges-list owl-carousel panel-carousel">
+      
+        {% for progress in progresses %}
+          {% include "_challenge_item_progress.html" %}
+        {% empty %}
+        <h3>You have no student challenges in progress</h3>
+        {% endfor %}
+    
+  </ul>
+  </div>
+
+
+<h2>Unclaimed Student Challenges</h2>
+<ul class="challenges-list owl-carousel panel-carousel">
+{% for progress in unclaimed_progresses %}
+  {% include "_challenge_item_progress.html" %}
+{% empty %}
+<h3>There are currently no unclaimed student challenges</h3>
+{% endfor %}
+</ul>
+
+<!-- <a href="{% url 'challenges:unclaimed_progresses' %}">Claim More Challenges</a> -->
 
 {% endblock %}

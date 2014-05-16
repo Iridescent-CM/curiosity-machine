@@ -8,6 +8,12 @@
 
 <div class="challenge-content">
   {% include '_challenge_details.html' %}
+  {% if request.user.is_authenticated and request.user.profile.is_student %}
+      <form name="Start Building" action='' method='POST'>
+        {% csrf_token %}
+        <input type="submit" value="Start Building" class="btn btn-primary btn-large" />
+      </form>
+  {% endif %}
 </div>
 
 </div>

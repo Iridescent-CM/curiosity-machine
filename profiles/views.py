@@ -40,8 +40,9 @@ def join(request):
 def home(request):
     if request.user.profile.is_mentor:
         progresses = Progress.objects.filter(mentor=request.user).select_related("challenge")
+        unclaimed_progresses = Progress.objects.filter(mentor__isnull=True)
         challenges = {progress.challenge for progress in progresses}
-        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,})
+        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_progresses': unclaimed_progresses})
     else:
         filter = request.GET.get('filter')
         progresses = Progress.objects.filter(student=request.user).select_related("challenge")
