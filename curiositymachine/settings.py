@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'django_rq',
     'password_reset',
     'pages',
+    'django_summernote',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -136,6 +137,19 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "")
+
+SUMMERNOTE_CONFIG = {
+    # Change editor size
+    'width': '100%',
+    'height': '350',
+
+    # Customize toolbar buttons
+    'toolbar': [
+        ['style', ['bold', 'italic', 'underline', 'strike']],
+        ['style', ['color']],
+        ['para', ['ul', 'ol']],
+    ],
+}
 
 LOGGING = {
     'version': 1,

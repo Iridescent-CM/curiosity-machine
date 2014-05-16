@@ -83,6 +83,12 @@ $(document).ready(function() {
     })
 
   });
+  $('.materials-form').css("display", "none");
+
+  $('.edit-materials').on('click', function(e) {
+    $(this).parent().hide()
+    $('.materials-form').show()
+  });
 
   //reflect pickers
   CM.Challenge.Reflect.init();

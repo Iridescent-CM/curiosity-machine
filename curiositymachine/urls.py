@@ -22,4 +22,5 @@ urlpatterns = patterns('',
     url(r'^password/reset/done/$', 'password_reset.views.reset_done', name='password_reset_done'),
     url(r'^password/reset/(?P<token>[\w:-]+)/$', 'password_reset.views.reset',
         name='password_reset_reset'),
+    url(r'^summernote/', include('django_summernote.urls')),
 )
