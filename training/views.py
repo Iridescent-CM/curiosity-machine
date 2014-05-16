@@ -3,7 +3,7 @@ from curiositymachine.decorators import mentor_only
 from .models import Module
 
 @mentor_only
-def module(module_id):
+def module(request, module_id):
     module = get_object_or_404(Module, id=module_id)
     # if the user is not approved, only show that user's thread
     if not request.user.profile.approved:
