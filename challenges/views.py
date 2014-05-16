@@ -99,4 +99,5 @@ def claim_progress(request, progress_id):
     progress.mentor = request.user
     progress.save(update_fields=["mentor"])
 
-    return HttpResponse(status=204)
+    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.student.username,}))
+    #return HttpResponse(status=204)

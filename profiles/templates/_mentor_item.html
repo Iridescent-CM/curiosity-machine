@@ -1,5 +1,4 @@
 {% load unread_count %}
-{% load resized %}
 
 <li>
   <div class="panel panel-default">
@@ -9,7 +8,9 @@
       </h3>
     </div>
     <div class="image-container">
-      <a href="{% url 'profiles:mentor_profile' mentor.user.username %}"><img src="{% resized mentor.get_user_image_url width=300 height=250 crop='fill' %}"></a>
+      <a href="{% url 'profiles:mentor_profile' mentor.user.username %}">
+        {% include "_avatar.html" with profile=mentor width=300 height=250 crop='fill' %}        
+      </a>
     </div>
     <div class="panel-body">
       {% if mentor.title %}{{ mentor.title }},{% endif %} {% if mentor.employer %}{{ mentor.employer }}{% endif %}

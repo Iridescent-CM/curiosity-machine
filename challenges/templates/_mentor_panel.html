@@ -1,4 +1,3 @@
-{% load resized %}
 
 <div class="col-md-5">
 
@@ -7,8 +6,9 @@
     <div class="col-md-5 mentor-panel-content">
 
       <h3>{{progress.student.username}}</h3>
-
-      <img src="{% resized request.user.profile.get_user_image_url width=50 height=50 crop='fit' %}" /><br><br>
+      {% if not progress.mentor %}<h4>This challenge is unclaimed</h4>{% endif %}
+      {% include "_avatar.html" with profile=request.user.profile width=50 height=50 crop='fit' %}
+      <br><br>
       
       <div class="panel panel-bubble bottom gray-light">
         <div class="panel-body">
@@ -27,6 +27,12 @@
         </div>
       </div>
 
+      {% if not progress.mentor %}
+        <form class="challenge-progress-form" action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
+          {% csrf_token %}
+          <button class="btn btn-lg btn-primary" type="submit">Claim this Challenge</button>
+        </form>
+      {% endif %}
       
       {% if request.user == progress.mentor %}
         <form class="challenge-progress-form" action="{% url "challenges:challenge_progress_approve" challenge_id=challenge.id username=progress.student.username %}" method="{% if progress.approved %}DELETE{% else %}POST{% endif %}">

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.forms.util import ErrorList
+from django.core.urlresolvers import reverse
 from profiles.models import Profile
 from profiles.forms import JoinForm, MentorProfileEditForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
@@ -27,10 +28,10 @@ def join(request):
             else:
                 user = auth.authenticate(username=data['username'], password=data['password'])
                 auth.login(request, user)
-                return HttpResponseRedirect(request.user.profile.get_absolute_url())
+                return HttpResponseRedirect('/')
     else:
         if request.user.is_authenticated():
-            return HttpResponseRedirect(request.user.profile.get_absolute_url())
+            return HttpResponseRedirect(reverse('profiles:home'))
         form = JoinForm()
 
     return render(request, 'join.html', {'form': form,})
@@ -39,11 +40,15 @@ def join(request):
 def home(request):
     if request.user.profile.is_mentor:
         progresses = Progress.objects.filter(mentor=request.user).select_related("challenge")
+        unclaimed_progresses = Progress.objects.filter(mentor__isnull=True)
         challenges = {progress.challenge for progress in progresses}
-        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,})
+        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_progresses': unclaimed_progresses})
     else:
+        filter = request.GET.get('filter')
         progresses = Progress.objects.filter(student=request.user).select_related("challenge")
-        return render(request, "student_home.html", {'progresses': progresses,})
+        completed_progresses = [progress for progress in progresses if progress.completed]
+        active_progresses = [progress for progress in progresses if not progress.completed]
+        return render(request, "student_home.html", {'active_progresses': active_progresses, 'completed_progresses': completed_progresses, 'progresses': progresses, 'filter': filter})
 
 def mentors(request):
     '''
@@ -80,6 +85,8 @@ def profile_edit(request):
 
     return render(request, 'profile_edit.html', {'form': form,})
 
+def underage_student(request):
+    return render(request, 'underage_student.html')
 
 ### password recovery
 

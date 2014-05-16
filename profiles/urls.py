@@ -6,4 +6,5 @@ urlpatterns = patterns('profiles.views',
     url(r'^profile-edit/$', 'profile_edit', name='profile_edit'),
     url(r'^mentors/$', 'mentors', name='mentors'),
     url(r'^mentors/(?P<username>[^/]+)/$', 'mentor_profile', name='mentor_profile'),
+    url(r'^underage/$', 'underage_student', name='underage_student'),
 )

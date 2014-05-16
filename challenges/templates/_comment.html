@@ -1,11 +1,10 @@
 {% load cmtemplatetags %}
-{% load resized %}
 
 {% if comment.user.profile.is_mentor %}
   <span class="mentor-comment">MENTOR MESSAGE</span>
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">
-    <img src="{% resized comment.user.profile.get_user_image_url width=50 height=50 crop='fit' %}" />
+    {% include "_avatar.html" with profile=comment.user.profile width=50 height=50 crop='fit' %}
     <p>{{comment.user.username}}<br><strong>Mentor</strong></p>
   </div>
   <div class="panel panel-bubble blue comment">
