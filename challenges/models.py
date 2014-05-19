@@ -73,5 +73,10 @@ class Progress(models.Model):
     def get_student_images(self):
         return Image.objects.filter(comment__user=self.student, comment__challenge_progress=self)
 
+    @property
+    def completed(self):
+        # a progress is complete once a comment has been made on the Reflect stage
+        return self.comments.filter(stage=Stage.reflect.value).exists()
+
     def __str__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)

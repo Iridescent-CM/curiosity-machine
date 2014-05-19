@@ -63,14 +63,12 @@ class StudentProfileEditForm(ProfileFormBase):
     parent_last_name = forms.CharField(required=True, label="Last Name")
 
     def __init__(self, request, *args, **kwargs):
-        post = len(args) > 0
         super(StudentProfileEditForm, self).__init__(*args, **kwargs)
         self._request = request
         self.user = request.user
         self.fields['password'].required = False
         self.fields['confirm_password'].required = False
-        if not post:
-            self._initial_values()
+        self._initial_values()
 
     def _initial_values(self):
         self.fields['email'].initial = self.user.email
@@ -88,14 +86,12 @@ class MentorProfileEditForm(ProfileFormBase):
     about_research = forms.CharField(required=True, label="About My Research")
 
     def __init__(self, request, *args, **kwargs):
-        post = len(args) > 0
         super(MentorProfileEditForm, self).__init__(*args, **kwargs)
         self._request = request
         self.user = request.user
         self.fields['password'].required = False
         self.fields['confirm_password'].required = False
-        if not post:
-            self._initial_values()
+        self._initial_values()
 
     def _initial_values(self):
         self.fields['email'].initial = self.user.email
