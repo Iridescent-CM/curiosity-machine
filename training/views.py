@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST, HttpResponse
+from django.views.decorators.http import require_POST
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from curiositymachine.decorators import mentor_only
 from .models import Module, Comment
 from .forms import CommentForm
@@ -15,7 +17,7 @@ def module(request, module_id):
     # if the user is already approved, go ahead and show all threads that belong to non-approved users
     else:
         threads = module.comments.filter(user__profile__approved=False, thread__isnull=True)
-    return render(request, "training.html", {"module": module, "threads": threads})
+    return render(request, "training.html", {"module": module, "threads": threads, "form": CommentForm(),})
 
 @require_POST
 @login_required
@@ -29,4 +31,4 @@ def comments(request, module_id, thread_id=None):
         comment = Comment(user=request.user, text=form.cleaned_data['text'], module=module, thread=thread)
         comment.save()
 
-    return HttpResponse(status=204)
+    return HttpResponseRedirect(reverse('training:module', args=[str(module_id),]))

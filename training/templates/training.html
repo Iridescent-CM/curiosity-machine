@@ -8,4 +8,30 @@
 
     {{ module.text }}
 
+    <ul>
+        {% for thread in threads %}
+            <li>
+                {{ thread }}
+                <ul>
+                    {% for reply in thread.replies.all %}
+                        <li>{{ reply }}</li>
+                    {% endfor %}
+                </ul>
+                <p>Leave a thread reply:</p>
+                <form action="{% url "training:comments" module.id thread.id %}" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Submit"/>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p>Leave a top-level comment:</p>
+    <form action="{% url "training:comments" module.id %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit"/>
+    </form>
+
 {% endblock %}

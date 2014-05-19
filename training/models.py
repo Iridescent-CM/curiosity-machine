@@ -12,7 +12,7 @@ class Module(models.Model):
         ordering = ('id',)
 
     def get_absolute_url(self):
-        return reverse('training.views.module', args=[str(self.id)])
+        return reverse('training:module', args=[str(self.id)])
 
     def __str__(self):
         return "Module {}: {}".format(self.id, self.title)
@@ -25,7 +25,7 @@ class Comment(models.Model):
     created = models.DateTimeField(default=now)
 
     class Meta:
-        ordering = ('-created',)
+        ordering = ('created',)
 
     def __str__(self):
         return "Comment: id={id}, user_id={user_id}, module_id={module_id}, text={text}".format(id=self.id, user_id=self.user_id, module_id=self.module_id, text=self.text[:45] + "..." if len(self.text) > 50 else self.text)

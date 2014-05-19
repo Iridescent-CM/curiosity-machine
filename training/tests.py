@@ -43,7 +43,7 @@ def test_comments_top_level(rf, student, mentor, module):
     request = rf.post('/training/1/comments/', {'text': 'test_text'})
     request.user = mentor
     response = comments(request, module.id)
-    assert response.status_code == 204
+    assert response.status_code == 302
     assert Comment.objects.count() == 1
     comment = Comment.objects.first()
     assert comment.text == 'test_text'
@@ -55,7 +55,7 @@ def test_comments_with_thread_id(rf, student, mentor, module, training_comment):
     request = rf.post('/training/1/comments/1/', {'text': 'test_text'})
     request.user = mentor
     response = comments(request, module.id, training_comment.id)
-    assert response.status_code == 204
+    assert response.status_code == 302
     assert Comment.objects.count() == 2
     comment = Comment.objects.first()
     assert comment.text == 'test_text'
