@@ -422,3 +422,33 @@ body {
     }
   }
 }
+
+//notification messages
+#message-bar{
+  position: fixed;
+  top: 0;
+  opacity: 0;
+  display: none;
+  pointer-events: none;
+  width: 100%;
+  min-height: 56px;
+  padding: 23px 0 23px 23px;
+  line-height: 24px;
+  background: rgba(222, 135, 158, 0.9);
+  border-bottom: 1px solid #de879e;
+  letter-spacing: 1px;
+  text-transform: uppercase;color: white;
+  z-index: 99999;
+  &.success{
+    background: rgba(147, 184, 104, 0.9);
+    border-bottom: 1px solid #93b868;
+  }
+  &.active{
+    opacity: 1;
+    display: block;
+  }
+  &.error{
+    background: rgba(204, 71, 72, 0.9);
+    border-bottom: 1px solid #cc4748;
+  }
+}
