@@ -2,10 +2,13 @@ from django import forms
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
+from django.forms.extras.widgets import SelectDateWidget
 from datetime import datetime
 from curiositymachine.forms import FilePickerURLField
 
 import re
+
+BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 
 class ProfileFormBase(forms.Form):
     email = forms.EmailField(max_length=75,required=False, label="Email")
@@ -15,7 +18,7 @@ class ProfileFormBase(forms.Form):
                                        widget=forms.PasswordInput(render_value=False), label="Retype password")
     first_name = forms.CharField(required=True, label="First Name")
     nickname = forms.CharField(max_length=30, label="Nickname", required=False)
-    birthday = forms.CharField(required=True, max_length=10, widget=forms.TextInput(attrs={'placeholder': 'MM/DD/YYYY'}), label="Date of Birth")
+    birthday = forms.DateField(required=True, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
     city = forms.CharField(required=True, label="City")
     picture_filepicker_url = FilePickerURLField(label="Photo", mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
 
@@ -32,14 +35,6 @@ class ProfileFormBase(forms.Form):
         if password and len(password) < 6:
             raise forms.ValidationError('Password must be at least 6 characters long')
         return password
-
-    def clean_birthday(self):
-        birthday = self.cleaned_data['birthday']
-        try:
-            birthday = datetime.strptime(birthday, "%m/%d/%Y").date()
-        except ValueError:
-            raise forms.ValidationError('Birthday needs to be in the form MM/DD/YYYY')
-        return birthday
 
 
 class JoinForm(ProfileFormBase):
@@ -74,7 +69,7 @@ class StudentProfileEditForm(ProfileFormBase):
         self.fields['email'].initial = self.user.email
         self.fields['first_name'].initial = self.user.first_name
         self.fields['nickname'].initial = self.user.profile.nickname
-        self.fields['birthday'].initial = self.user.profile.birthday.strftime('%m/%d/%Y') if self.user.profile.birthday else ''
+        self.fields['birthday'].initial = self.user.profile.birthday
         self.fields['city'].initial = self.user.profile.city
         self.fields['parent_first_name'].initial = self.user.profile.parent_first_name
         self.fields['parent_last_name'].initial = self.user.profile.parent_last_name
@@ -97,7 +92,7 @@ class MentorProfileEditForm(ProfileFormBase):
         self.fields['email'].initial = self.user.email
         self.fields['first_name'].initial = self.user.first_name
         self.fields['nickname'].initial = self.user.profile.nickname
-        self.fields['birthday'].initial = self.user.profile.birthday.strftime('%m/%d/%Y') if self.user.profile.birthday else ''
+        self.fields['birthday'].initial = self.user.profile.birthday
         self.fields['city'].initial = self.user.profile.city
         self.fields['title'].initial = self.user.profile.title
         self.fields['employer'].initial = self.user.profile.employer

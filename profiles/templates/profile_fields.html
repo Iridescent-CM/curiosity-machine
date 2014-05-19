@@ -1,18 +1,5 @@
-<div class="col-md-4">
-{% if page == 'join' or not request.user.profile.is_mentor %}
-  <h3>Parent</h3>
-  <div>
-    {{form.parent_first_name.label_tag}}
-    {{form.parent_first_name}}
-    <div class="errors">{{ form.parent_first_name.errors }}</div>
-  </div>
-  <div>
-    {{form.parent_last_name.label_tag}}
-    {{form.parent_last_name}}
-    <div class="errors">{{ form.parent_last_name.errors }}</div>
-  </div>
-</div>
-<div class="col-md-4">
+<div class="col-md-4 profile-column">
+  {% if page == 'join' or not request.user.profile.is_mentor %}
   <h3>Student</h3>
   {% endif %}
   <div>
@@ -30,7 +17,7 @@
     {{form.nickname}}
     <div class="errors">{{ form.nickname.errors }}</div>
   </div>
-  <div>
+  <div class="birthday-field">
     {{form.birthday.label_tag}}
     {{form.birthday}}
     <div class="errors">{{ form.birthday.errors }}</div>
@@ -41,7 +28,7 @@
     <div class="errors">{{ form.city.errors }}</div>
   </div>
 </div>
-<div class="col-md-4">
+<div class="col-md-4 profile-column">
   <h3>&nbsp;</h3>
   <div>
     {{form.email.label_tag}}
@@ -68,6 +55,7 @@
 </div>
 {% if request.user.profile.is_mentor %}
   <div class="col-md-4">
+    <h3>&nbsp;</h3>
     <div>
       {{form.title.label_tag}}
       {{form.title}}
@@ -89,5 +77,19 @@
       <div class="errors">{{ form.about_research.errors }}</div>
     </div>
   </div>
-{% endif %}
+  {% else %}
+  <div class="col-md-4 parent-info" {% if page != 'join' and request.user.profile.age >= 13 %} style="display:none" {% endif %} >
+    <h3>Parent</h3>
+    <div>
+      {{form.parent_first_name.label_tag}}
+      {{form.parent_first_name}}
+      <div class="errors">{{ form.parent_first_name.errors }}</div>
+    </div>
+    <div>
+      {{form.parent_last_name.label_tag}}
+      {{form.parent_last_name}}
+      <div class="errors">{{ form.parent_last_name.errors }}</div>
+    </div>
+  </div>
+  {% endif %}
 {{ form.non_field_errors }}
