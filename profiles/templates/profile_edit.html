@@ -4,6 +4,6 @@
   <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
     {% csrf_token %}
     {% include "profile_fields.html" with page='edit' %}
-    <button type="submit" class="call-to-action">Save</button>
+    <button type="submit" class="call-to-action btn btn-primary btn-lg">Save</button>
   </form>
 {% endblock %}
