@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Claim a challenge{% endblock %}
+
+{% block content %}
+  <ul>
+    {% for progress in progresses %}
+      <li>{{ progress }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

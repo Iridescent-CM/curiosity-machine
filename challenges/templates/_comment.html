@@ -1,11 +1,10 @@
 {% load cmtemplatetags %}
-{% load resized %}
 
 {% if comment.user.profile.is_mentor %}
   <span class="mentor-comment">MENTOR MESSAGE</span>
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">
-    <img src="{% resized comment.user.profile.get_user_image_url width=50 height=50 crop='fit' %}" />
+    {% include "_avatar.html" with profile=comment.user.profile width=50 height=50 crop='fit' %}
     <p>{{comment.user.username}}<br><strong>Mentor</strong></p>
   </div>
   <div class="panel panel-bubble blue comment">
@@ -17,7 +16,7 @@
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="panel panel-comment comment">
     <div class="panel-heading">
-      <h3 class="panel-title">{{ comment.get_stage_display}}ing <!--<a href="{% url 'challenges:challenge' challenge.id %}">{{comment.user.get_full_name}} says:</a> --></h3>
+      <h3 class="panel-title">{{ comment.get_stage_display}} <!--<a href="{% url 'challenges:challenge' challenge.id %}">{{comment.user.get_full_name}} says:</a> --></h3>
     </div>
     <div class="panel-body paper">
       {% include "_comment_content.html" %}

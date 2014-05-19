@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% load resized %}
 
 {% block js %}
 <script src="/static/js/challenges.js"></script>
@@ -12,8 +11,8 @@
   <div class="challenge-content">
     {% if not request.user.profile.is_mentor %}
     <header class="challenge-header">
-      <h1>Share your progress</h1>
-      <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <h1>Document your design process</h1>
+      <p> Tell us more about your design! Document the stages while you Build and Test it. Work with a scientists or engineer mentor to improve it.</p>
     </header>
     {% endif %}
 <div class="row">
@@ -43,7 +42,7 @@
   {% endif %}
 
   <div class="col-md-1">
-    <img src="{% resized progress.student.profile.get_user_image_url width=60 height=80 crop='fit' %}" />
+    {% include "_avatar.html" with profile=progress.student.profile width=60 height=80 crop='fit' %}
   </div>
 
   <div class="col-md-6">
@@ -51,17 +50,34 @@
       <h1>{{progress.student.username}}'s progress</h1>
     {% else %}
     {% if progress.approved %}
-      <div class="panel panel-bubble teal right reflect-question">
+      <div class="panel panel-bubble teal right reflect-box">
       <div class="panel-body">
         <h1>Reflect</h1>
           <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
           <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' %}" method="POST" class="comment-form">
             {% csrf_token %}
 
-            {{comment_form.picture_filepicker_url}}
+            <input type="hidden" id="{{comment_form.picture_filepicker_url.id_for_label }}" name="{{comment_form.picture_filepicker_url.html_name }}">
+            {{comment_form.question_text}}
+
           <div class="errors">{{ comment_form.picture_filepicker_url.errors }}</div>
 
-          <p>{{challenge.reflect_question}}</p>
+          <ul class="challenge-reflect-questions" style="display: none;">
+            {% for question in challenge.reflect_questions.all %}
+              <li>{{ question }}</li>
+            {% endfor %}
+          </ul>
+
+          <div id="reflect-images">
+            <div class="img-wrapper">
+            </div>
+            <a data-toggle="modal" data-target="#reflect-images-modal" class="btn btn-primary">Choose an image</a>
+          </div>
+
+          <div class="reflect-question">
+            <h3 class="question"></h3>
+            <p class="refresh" title="answer a different question"><span class="glyphicon glyphicon-refresh"></span> Try another question.</p>
+          </div>
           {{comment_form.text.label_tag}}
           {{comment_form.text}}
           <div class="errors">{{ comment_form.text.errors }}</div>
@@ -69,10 +85,11 @@
         </form>
       </div>
       </div>
+      {% include "_challenge_reflect_images_modal.html" %}
     {% else %}
     <div class="panel panel-bubble right">
       <div class="panel-body">
-        <h3>Post an update about your...</h3>
+        <h3>Document your design process while you build and test it!</h3>
 
         <ul class="switch stage-switch">
           <li>
@@ -110,7 +127,6 @@
 </div><!-- row -->
     {% include "_guide.html" %}
 
-     {{ comment_form.media }}
       {% include "_comment_form.html" with stage="build" format="video" %}
       {% include "_comment_form.html" with stage="build" format="picture" %}
       {% include "_comment_form.html" with stage="build" format="text" %}

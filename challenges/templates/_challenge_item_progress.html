@@ -1,0 +1,31 @@
+{% load unread_count %}
+
+<li>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{progress.student.get_full_name}}{% if progress|unread_count:request.user %} <span title="unread messages" class="unread">({{progress|unread_count:request.user}})</span>{% endif %} </a>
+      </h3>
+    </div>
+    <div class="image-container">
+      <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">
+      {% if progress.challenge.image %}
+        <img src="{{ progress.challenge.image.url }}">
+      {% elif progress.challenge.video.encodings_generated %}
+        {{ challenge.video.output_videos.all.0.thumbnail }}
+      {% endif %}
+
+      </a>
+    </div>
+    <div class="panel-body">
+      <h4>{{ progress.challenge.name }}</h4>
+      <p>Started: {{ progress.started }}</p>
+      {% if not progress.mentor %}
+        <form class="challenge-progress-form" action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
+          {% csrf_token %}
+          <button class="btn btn-primary" type="submit">Claim</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+</li>

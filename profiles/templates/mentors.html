@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Curiosity Machine Mentors</h1>
+
+<ul class="challenges-list owl-carousel panel-carousel">
+    {% for mentor in mentors %}
+        {% include '_mentor_item.html' %}
+    {% endfor %}
+</ul>
+
+{% endblock %}

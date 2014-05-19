@@ -3,7 +3,7 @@
     {% if request.user.is_authenticated %}
           <li><a href="{% url 'logout' %}?next=/">Logout</a></li>
           <li><a href="{% url 'profiles:home' %}">Home</a></li>
-          <li><a class="user-name" href="{{ request.user.profile.get_absolute_url }}">{{request.user.username}}'s Profile</a></li>
+          <li><a href="{% url 'profiles:profile_edit' %}">Edit My Profile</a></li>
     {% else %}
         <li><button class="btn-link" data-toggle="modal"  data-target="#login-modal">Login</a></li>
         <li><button class="btn-link" data-toggle="modal" data-target="#join-modal">Join</button></li>

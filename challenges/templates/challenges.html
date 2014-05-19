@@ -5,10 +5,11 @@
   
   {% if not request.user.is_authenticated %}
   <div class="home-hero">
-    <h1>Moar Brains</h1>
-    <h2>CURIOSITY TO LEARN.</h2>
-    <h2>COURAGE TO DO.</h2>
-    <h2>PERSISTENCE TO ACHIEVE.</h2>
+    <h1>Imagine, Invent,</h1>
+    <h1>Engineer</h1>
+    <h2>A COMMUNITY OF</h2>
+    <h2>SCIENTISTS, ENGINEERS &amp; CHILDREN</h2>
+    <h2>CREATING TOGETHER.</h2> 
     <ul class="login-buttons">
       <li><button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#join-modal">Get Started</button></li>
       <li><button class="btn-link" data-toggle="modal"  data-target="#login-modal">Sign In</a></li>
@@ -34,7 +35,7 @@
 
 <ul class="nav nav-justified nav-tabs">
   <li class="active"><a href="#challenges" data-toggle="tab">All Challenges</a></li>
-  <li><a href="#bookmarks" data-toggle="tab">Bookmarks</a></li>
+  <!-- <li><a href="#bookmarks" data-toggle="tab">Bookmarks</a></li> -->
 </ul>
 <div class="tab-content">
   <div class="tab-pane fade in active" id="challenges">
@@ -49,7 +50,5 @@
   </div>
 
 </div><!-- /tabs content -->
-  
-  <p>(Devs: create challenges in the admin <a href="/admin/challenges/challenge/add/">here</a>)</p>
 
 {% endblock %}

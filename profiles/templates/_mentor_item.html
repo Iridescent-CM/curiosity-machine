@@ -1,0 +1,19 @@
+{% load unread_count %}
+
+<li>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a href="{% url 'profiles:mentor_profile' mentor.user.username %}">{{ mentor.user.username }}</a>
+      </h3>
+    </div>
+    <div class="image-container">
+      <a href="{% url 'profiles:mentor_profile' mentor.user.username %}">
+        {% include "_avatar.html" with profile=mentor width=300 height=250 crop='fill' %}        
+      </a>
+    </div>
+    <div class="panel-body">
+      {% if mentor.title %}{{ mentor.title }},{% endif %} {% if mentor.employer %}{{ mentor.employer }}{% endif %}
+    </div>
+  </div>
+</li>

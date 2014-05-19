@@ -48,7 +48,7 @@ class Progress(models.Model):
     started = models.DateTimeField(default=now)
     mentor = models.ForeignKey(User, related_name='mentored_progresses', null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.DateTimeField(null=True, blank=True)
-    
+
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
@@ -72,6 +72,11 @@ class Progress(models.Model):
 
     def get_student_images(self):
         return Image.objects.filter(comment__user=self.student, comment__challenge_progress=self)
+
+    @property
+    def completed(self):
+        # a progress is complete once a comment has been made on the Reflect stage
+        return self.comments.filter(stage=Stage.reflect.value).exists()
 
     def __str__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
