@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+from django.core.urlresolvers import reverse
 
 class Module(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -9,6 +10,9 @@ class Module(models.Model):
 
     class Meta:
         ordering = ('id',)
+
+    def get_absolute_url(self):
+        return reverse('training.views.module', args=[str(self.id)])
 
     def __str__(self):
         return "Module {}: {}".format(self.id, self.title)
