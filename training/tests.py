@@ -9,6 +9,10 @@ def module():
     return Module.objects.create(id=1)
 
 @pytest.fixture
+def module2():
+    return Module.objects.create(id=2)
+
+@pytest.fixture
 def training_comment(module, mentor):
     return module.comments.create(user=mentor)
 
