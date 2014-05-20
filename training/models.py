@@ -12,12 +12,12 @@ class Module(models.Model):
     class Meta:
         ordering = ('id',)
 
-    def accessible_by_mentor(self, mentor):
+    def is_accessible_by_mentor(self, mentor):
         if mentor.profile.approved: # mentors who are approved can access any module, so that they can comment
             return True
         else:
             # they can only access if this is the next one by ID that they haven't finished, or lower (so, they can access older modules they have finished, and if they somehow skip one they can access that too)
-            last_completed_module = mentor.completed.modules.order_by('id').last()
+            last_completed_module = mentor.completed_modules.order_by('id').last()
             if not last_completed_module:
                 return self.id == Module.objects.order_by('id').first().id
             else:
@@ -26,13 +26,13 @@ class Module(models.Model):
                     return self.id <= next_module.id
                 # else fall through and return None, but this shouldn't happen -- if there are no more modules to complete, then the mentor should already be approved
 
-    def finished_by_mentor(self, mentor):
+    def is_finished_by_mentor(self, mentor):
         return self.mentors_done.filter(id=mentor.id).exists()
 
     # add mentor to the done list, and also approve the mentor if this is the final module
     def mark_mentor_as_done(self, mentor):
         self.mentors_done.add(mentor)
-        if self.id == Modules.objects.order_by('id').last().id:
+        if self.id == Module.objects.order_by('id').last().id:
             mentor.profile.approve_and_save()
             return True
 
