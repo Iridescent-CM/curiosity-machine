@@ -1,8 +1,12 @@
 from django import forms
-from django_summernote.widgets import SummernoteWidget
+from django_bleach.forms import BleachField
+from django.conf import settings
 
 class MaterialsForm(forms.Form):
-    materials = forms.CharField(required=True, widget=SummernoteWidget())
+    materials = BleachField(required=True,
+                        allowed_tags=settings.BLEACH_ALLOWED_TAGS,
+                        allowed_attributes=settings.BLEACH_LIB_ATTRIBUTES,
+                        allowed_styles=settings.BLEACH_ALLOWED_STYLES)
 
     def __init__(self, *args, **kwargs):
         progress = kwargs.pop('progress')
