@@ -1,3 +1,4 @@
+<div class="profile-fields">
 <div class="col-md-4">
 {% if page == 'join' or not request.user.profile.is_mentor %}
   <h3>Parent</h3>
@@ -15,11 +16,6 @@
 <div class="col-md-4">
   <h3>Student</h3>
   {% endif %}
-  <div>
-    {{form.picture_filepicker_url.label_tag}}
-    {{form.picture_filepicker_url}}
-    <div class="errors">{{ form.picture_filepicker_url.errors }}</div>
-  </div>
   <div>
     {{form.first_name.label_tag}}
     {{form.first_name}}
@@ -40,9 +36,44 @@
     {{form.city}}
     <div class="errors">{{ form.city.errors }}</div>
   </div>
+   <div>
+    {{form.picture_filepicker_url.label_tag}}
+    {% if page != 'join' %}
+      {% include "_avatar.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
+    {% endif %}
+    {{form.picture_filepicker_url}}
+    <div class="errors">{{ form.picture_filepicker_url.errors }}</div>
+  </div>
 </div>
+{% if request.user.profile.is_mentor %}
+  <div class="col-md-4">
+    <div>
+      {{form.title.label_tag}}
+      {{form.title}}
+      <div class="errors">{{ form.title.errors }}</div>
+    </div>
+    <div>
+      {{form.employer.label_tag}}
+      {{form.employer}}
+      <div class="errors">{{ form.employer.errors }}</div>
+    </div>
+    <div>
+      {{form.about_me.label_tag}}
+      <textarea id="{{form.about_me.id_for_label}}" name="{{form.about_me.html_name}}">{{ form.about_me.value }}</textarea>
+      <div class="errors">{{ form.about_me.errors }}</div>
+    </div>
+    <div>
+      {{form.about_research.label_tag}}
+      
+      <textarea id="{{form.about_research.id_for_label}}" name="{{form.about_research.html_name}}">{{ form.about_research.value }}</textarea>
+      <div class="errors">{{ form.about_research.errors }}</div>
+    </div>
+  </div>
+{% endif %}
 <div class="col-md-4">
+  {% if page == 'join' %}
   <h3>&nbsp;</h3>
+  {% endif %}
   <div>
     {{form.email.label_tag}}
     {{form.email}}
@@ -66,28 +97,7 @@
     <div class="errors">{{ form.confirm_password.errors }}</div>
   </div>
 </div>
-{% if request.user.profile.is_mentor %}
-  <div class="col-md-4">
-    <div>
-      {{form.title.label_tag}}
-      {{form.title}}
-      <div class="errors">{{ form.title.errors }}</div>
-    </div>
-    <div>
-      {{form.employer.label_tag}}
-      {{form.employer}}
-      <div class="errors">{{ form.employer.errors }}</div>
-    </div>
-    <div>
-      {{form.about_me.label_tag}}
-      {{form.about_me}}
-      <div class="errors">{{ form.about_me.errors }}</div>
-    </div>
-    <div>
-      {{form.about_research.label_tag}}
-      {{form.about_research}}
-      <div class="errors">{{ form.about_research.errors }}</div>
-    </div>
-  </div>
-{% endif %}
+
 {{ form.non_field_errors }}
+
+</div>

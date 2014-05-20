@@ -4,7 +4,7 @@
 {% block content %}
 
 <h1>Welcome back {{user.username}}</h1>
-  {% include "_avatar.html" with profile=user.profile width=250 height=250 crop='fit' %}
+{% include "_mentor_profile_info.html" with profile=user.profile %}
 
 
   <h2>Student Challenges in Progress</h2>
