@@ -26,6 +26,5 @@ class VideoAdmin(admin.ModelAdmin):
         obj.save()
         obj.fetch_from_source()
 
-if settings.DEBUG:
-    admin.site.register(Video, VideoAdmin)
-    admin.site.register(EncodedVideo)
+admin.site.register(Video, VideoAdmin)
+admin.site.register(EncodedVideo)
