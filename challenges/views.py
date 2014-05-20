@@ -109,7 +109,7 @@ def change_materials(request, progress_id):
 
     form = MaterialsForm(request.POST, progress=progress)
     if form.is_valid():
-        progress.materials_list = form.cleaned_data['materials']
-        progress.save(update_fields=["materials_list"])
+        progress._materials_list = form.cleaned_data['materials']
+        progress.save(update_fields=["_materials_list"])
 
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.student.username, 'stage': 'plan'}))

@@ -7,5 +7,5 @@ class MaterialsForm(forms.Form):
     def __init__(self, *args, **kwargs):
         progress = kwargs.pop('progress')
         super(MaterialsForm, self).__init__(*args, **kwargs)
-        self.fields['materials'].initial = progress.get_materials_list()
+        self.fields['materials'].initial = progress.materials_list
         

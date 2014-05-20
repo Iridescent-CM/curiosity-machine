@@ -77,7 +77,7 @@
       </div>
       <div class="panel-body">
         <div class="current-materials">
-          {{ progress.get_materials_list|safe }}<br>
+          {{ progress.materials_list|safe }}<br>
           <button class="edit-materials btn btn-primary">Edit Materials</Button>
         </div>
         <form class="materials-form" action="{% url "challenges:change_materials" progress_id=progress.id %}" method="POST">

@@ -48,7 +48,7 @@ class Progress(models.Model):
     started = models.DateTimeField(default=now)
     mentor = models.ForeignKey(User, related_name='mentored_progresses', null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.DateTimeField(null=True, blank=True)
-    materials_list = models.TextField(help_text="HTML", blank=True)
+    _materials_list = models.TextField(help_text="HTML", blank=True, db_column="materials_list")
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
@@ -74,11 +74,9 @@ class Progress(models.Model):
     def get_student_images(self):
         return Image.objects.filter(comment__user=self.student, comment__challenge_progress=self)
 
-    def get_materials_list(self):
-        if self.materials_list:
-            return self.materials_list
-        else:
-            return self.challenge.materials_list
+    @property
+    def materials_list(self):
+        return self._materials_list if self._materials_list else self.challenge.materials_list
 
     @property
     def completed(self):
