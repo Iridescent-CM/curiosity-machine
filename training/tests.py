@@ -61,6 +61,6 @@ def test_comments_with_thread_id(rf, student, mentor, module, training_comment):
     response = comments(request, module.id, training_comment.id)
     assert response.status_code == 302
     assert Comment.objects.count() == 2
-    comment = Comment.objects.first()
+    comment = Comment.objects.last()
     assert comment.text == 'test_text'
     assert comment.thread_id == training_comment.id
