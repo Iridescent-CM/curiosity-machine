@@ -92,7 +92,7 @@ def test_claim_progress(rf, mentor, unclaimed_progress):
     request = rf.post('/challenges/unclaimed/1')
     request.user = mentor
     response = claim_progress(request, unclaimed_progress.id)
-    assert response.status_code == 204
+    assert response.status_code == 302
     assert Progress.objects.get(id=unclaimed_progress.id).mentor == mentor
 
 @pytest.mark.django_db

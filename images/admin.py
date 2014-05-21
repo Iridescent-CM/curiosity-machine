@@ -26,5 +26,4 @@ class ImageAdmin(admin.ModelAdmin):
         obj.save()
         obj.fetch_from_source()
 
-if settings.DEBUG:
-    admin.site.register(Image, ImageAdmin)
+admin.site.register(Image, ImageAdmin)

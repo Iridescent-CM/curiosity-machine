@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^', include('profiles.urls', namespace='profiles', app_name='profiles')),
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
+    url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
     url(r'^about/', 'pages.views.static_page', {'page_id': StaticPage.about.value,}, name='about'),
 
     # password reset URLs -- the "recover" one is modified and so resides in the profiles app

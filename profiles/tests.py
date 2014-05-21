@@ -8,12 +8,16 @@ MENTOR_EMAIL = "mentor@example.com"
 
 @pytest.fixture
 def student():
-    return User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
+    student = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
+    student.profile.approved = True
+    student.profile.save()
+    return student
 
 @pytest.fixture
 def mentor():
     mentor = User.objects.create(username=MENTOR_USERNAME, email=MENTOR_EMAIL)
     mentor.profile.is_mentor = True
+    mentor.profile.approved = True
     mentor.profile.save()
     return mentor
 

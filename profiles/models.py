@@ -34,6 +34,11 @@ class Profile(models.Model):
     def __str__(self):
         return "Profile: id={}, user_id={}".format(self.id, self.user_id)
 
+    # marks as approved and saves immediately, updating only the approved field
+    def approve_and_save(self):
+        self.approved = True
+        self.save(update_fields=['approved'])
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)

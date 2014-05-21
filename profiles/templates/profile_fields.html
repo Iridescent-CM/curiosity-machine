@@ -1,25 +1,9 @@
-<div class="col-md-4">
-{% if page == 'join' or not request.user.profile.is_mentor %}
-  <h3>Parent</h3>
-  <div>
-    {{form.parent_first_name.label_tag}}
-    {{form.parent_first_name}}
-    <div class="errors">{{ form.parent_first_name.errors }}</div>
-  </div>
-  <div>
-    {{form.parent_last_name.label_tag}}
-    {{form.parent_last_name}}
-    <div class="errors">{{ form.parent_last_name.errors }}</div>
-  </div>
-</div>
-<div class="col-md-4">
+<div class="profile-fields">
+<div class="col-md-4 profile-column">
+  {% if page == 'join' or not request.user.profile.is_mentor %}
+
   <h3>Student</h3>
   {% endif %}
-  <div>
-    {{form.picture_filepicker_url.label_tag}}
-    {{form.picture_filepicker_url}}
-    <div class="errors">{{ form.picture_filepicker_url.errors }}</div>
-  </div>
   <div>
     {{form.first_name.label_tag}}
     {{form.first_name}}
@@ -30,7 +14,7 @@
     {{form.nickname}}
     <div class="errors">{{ form.nickname.errors }}</div>
   </div>
-  <div>
+  <div class="birthday-field">
     {{form.birthday.label_tag}}
     {{form.birthday}}
     <div class="errors">{{ form.birthday.errors }}</div>
@@ -40,9 +24,21 @@
     {{form.city}}
     <div class="errors">{{ form.city.errors }}</div>
   </div>
+   <div>
+    {{form.picture_filepicker_url.label_tag}}
+    {% if page != 'join' %}
+      {% include "_avatar.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
+    {% endif %}
+    {{form.picture_filepicker_url}}
+    <div class="errors">{{ form.picture_filepicker_url.errors }}</div>
+  </div>
 </div>
-<div class="col-md-4">
+
+<div class="col-md-4 profile-column">
+
+{% if page == 'join' %}
   <h3>&nbsp;</h3>
+  {% endif %}
   <div>
     {{form.email.label_tag}}
     {{form.email}}
@@ -66,6 +62,7 @@
     <div class="errors">{{ form.confirm_password.errors }}</div>
   </div>
 </div>
+
 {% if request.user.profile.is_mentor %}
   <div class="col-md-4">
     <div>
@@ -80,14 +77,36 @@
     </div>
     <div>
       {{form.about_me.label_tag}}
-      {{form.about_me}}
+      <textarea id="{{form.about_me.id_for_label}}" name="{{form.about_me.html_name}}">{{ form.about_me.value }}</textarea>
       <div class="errors">{{ form.about_me.errors }}</div>
     </div>
     <div>
       {{form.about_research.label_tag}}
-      {{form.about_research}}
+      
+      <textarea id="{{form.about_research.id_for_label}}" name="{{form.about_research.html_name}}">{{ form.about_research.value }}</textarea>
       <div class="errors">{{ form.about_research.errors }}</div>
     </div>
   </div>
-{% endif %}
+  {% else %}
+  <div class="col-md-4 parent-info" {% if page != 'join' and request.user.profile.age >= 13 %} style="display:none" {% endif %} >
+    <h3>Parent</h3>
+    <div>
+      {{form.parent_first_name.label_tag}}
+      {{form.parent_first_name}}
+      <div class="errors">{{ form.parent_first_name.errors }}</div>
+    </div>
+    <div>
+      {{form.parent_last_name.label_tag}}
+      {{form.parent_last_name}}
+      <div class="errors">{{ form.parent_last_name.errors }}</div>
+    </div>
+  </div>
+  {% endif %}
 {{ form.non_field_errors }}
+
+</div>
+
+
+
+
+

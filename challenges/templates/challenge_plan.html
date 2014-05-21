@@ -65,7 +65,7 @@
     <div class="panel panel-bubble outline right">
       <a href="#" data-toggle="modal" data-target="#text_form">
       <div class="panel-body">
-          <h3>Stuck?<br> Ask a question.</h3>
+          <h3>Stuck?<br> Ask a question to a science<br>or engineering mentor.</h3>
       </div>
       </a>
     </div>
@@ -81,13 +81,13 @@
   </div><!-- materials-list -->
     
     <div class='text_comment' style='display:none'>
-      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='plan' %}" method="POST">
+      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='plan' %}" method="POST" class="comment-form">
         {% csrf_token %}
         <div>
           {{comment_form.text}}
           <div class="errors">{{ comment_form.text.errors }}</div>
         </div><br>
-        <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
+        <input type="submit" value="Submit" class="btn btn-primary btn-lg" disabled='disabled'/>
       </form>
     </div>
     {% for comment in comments %}

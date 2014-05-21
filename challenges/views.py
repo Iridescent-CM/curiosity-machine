@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from django.db.models import Q
 from django.utils.timezone import now
@@ -98,6 +99,8 @@ def claim_progress(request, progress_id):
 
     progress.mentor = request.user
     progress.save(update_fields=["mentor"])
+
+    messages.success(request, 'You have successfully claimed this challenge.')
 
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.student.username,}))
     #return HttpResponse(status=204)

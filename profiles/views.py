@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from profiles.models import Profile
 from profiles.forms import JoinForm, MentorProfileEditForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
+from training.models import Module
 from challenges.models import Challenge, Progress
 from django.db import transaction
 import password_reset.views
@@ -39,10 +40,11 @@ def join(request):
 @login_required
 def home(request):
     if request.user.profile.is_mentor:
+        training_modules = Module.objects.all()
         progresses = Progress.objects.filter(mentor=request.user).select_related("challenge")
         unclaimed_progresses = Progress.objects.filter(mentor__isnull=True)
         challenges = {progress.challenge for progress in progresses}
-        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_progresses': unclaimed_progresses})
+        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_progresses': unclaimed_progresses, 'training_modules': training_modules})
     else:
         filter = request.GET.get('filter')
         progresses = Progress.objects.filter(student=request.user).select_related("challenge")
@@ -76,7 +78,9 @@ def profile_edit(request):
         if form.is_valid():
             data = form.cleaned_data
             create_or_edit_user(data, request.user)
-            return HttpResponseRedirect('/')
+            messages.success(request, 'Profile has been updated.')
+        else:
+            messages.error(request, 'Correct errors below.')
     else:
         if request.user.profile.is_mentor:
             form = MentorProfileEditForm(request)
