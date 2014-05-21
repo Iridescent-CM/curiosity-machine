@@ -34,12 +34,6 @@ class Profile(models.Model):
     def __str__(self):
         return "Profile: id={}, user_id={}".format(self.id, self.user_id)
 
-    def get_user_image_url(self):
-        if self.image:
-            return self.image.url
-        else:
-            return "http://placekitten.com/60/80" #TODO: Add a real placeholder instead of using placekittens
-
     # marks as approved and saves immediately, updating only the approved field
     def approve_and_save(self):
         self.approved = True
