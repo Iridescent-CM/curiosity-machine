@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.forms.extras.widgets import SelectDateWidget
 from datetime import datetime
 from curiositymachine.forms import FilePickerURLField
+from datetime import date
 
 import re
 
@@ -37,14 +38,29 @@ class ProfileFormBase(forms.Form):
         return password
 
 
+def clean_parent_fields(self):
+    parent_first_name = self.cleaned_data['parent_first_name']
+    parent_last_name = self.cleaned_data['parent_last_name']
+    birthday = self.cleaned_data['birthday']
+    today = date.today()
+    age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day)) #subtract a year if birthday hasn't occurred yet
+    if age < 13 and not parent_last_name:
+        self.add_error('parent_last_name', "This field is required.")
+    if age < 13 and not parent_first_name:
+        self.add_error('parent_first_name', "This field is required.")
+
 class JoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
-    parent_first_name = forms.CharField(required=True, label="First Name")
-    parent_last_name = forms.CharField(required=True, label="Last Name")
+    parent_first_name = forms.CharField(required=False, label="First Name")
+    parent_last_name = forms.CharField(required=False, label="Last Name")
 
     def __init__(self, request=None, *args, **kwargs):
         super(JoinForm, self).__init__(*args, **kwargs)
         self._request = request
+
+    def clean(self):
+        cleaned_data = super(JoinForm, self).clean()
+        clean_parent_fields(self)
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -52,10 +68,9 @@ class JoinForm(ProfileFormBase):
             raise forms.ValidationError("Username can only include letters, digits and @/./+/-/_")
         return username
 
-
 class StudentProfileEditForm(ProfileFormBase):
-    parent_first_name = forms.CharField(required=True, label="First Name")
-    parent_last_name = forms.CharField(required=True, label="Last Name")
+    parent_first_name = forms.CharField(required=False, label="First Name")
+    parent_last_name = forms.CharField(required=False, label="Last Name")
 
     def __init__(self, request, *args, **kwargs):
         super(StudentProfileEditForm, self).__init__(*args, **kwargs)
@@ -64,6 +79,10 @@ class StudentProfileEditForm(ProfileFormBase):
         self.fields['password'].required = False
         self.fields['confirm_password'].required = False
         self._initial_values()
+
+    def clean(self):
+        cleaned_data = super(StudentProfileEditForm, self).clean()
+        clean_parent_fields(self)
 
     def _initial_values(self):
         self.fields['email'].initial = self.user.email

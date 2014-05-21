@@ -24,6 +24,36 @@ CM.userSuccess = function(message) {
   }, 3000);
 }
 
+CM.Profile = {
+  init : function() {
+    this.show_or_hide_parent_fields();
+    this.bind();
+  },
+  bind : function() {
+    var self = this
+    $('.birthday-field').find('select').on('change', function(e) {
+      self.show_or_hide_parent_fields();
+    });
+  },
+  show_or_hide_parent_fields : function() {
+    var day = $('#id_birthday_day').val();
+    var month = $('#id_birthday_month').val() - 1;
+    var year = $('#id_birthday_year').val();
+    var today = new Date();
+    var age = today.getFullYear() - year;
+    if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
+      age--; //birthday hasn't happened this year
+    }
+    if (age < 13) {
+      $('.parent-info').show();
+      $('.profile-column').removeClass('col-md-6').addClass('col-md-4');
+    } else {
+      $('.parent-info').hide();
+      $('.profile-column').removeClass('col-md-4').addClass('col-md-6');
+    }
+  },
+}
+
 $(document).ready(function() {
 
 
@@ -63,24 +93,7 @@ if (CM.Navigation.$navTop) {
     $self.css('margin-bottom', (lineHeight - (height % lineHeight)) + 'px' );
   });
 
-  $('.birthday-field').find('select').on('change', function(e) {
-    var day = $('#id_birthday_day').val();
-    var month = $('#id_birthday_month').val() - 1;
-    var year = $('#id_birthday_year').val();
-    var today = new Date();
-    var age = today.getFullYear() - year;
-    if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
-      age--; //birthday hasn't happened this year
-    }
-    if (age < 13) {
-      $('.parent-info').show();
-      $('.profile-column').removeClass('col-md-6').addClass('col-md-4');
-    } else {
-      $('.parent-info').hide();
-      $('.profile-column').removeClass('col-md-4').addClass('col-md-6');
-    }
-
-  });
+  CM.Profile.init();
 
 
 //=======================
