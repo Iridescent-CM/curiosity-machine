@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'django_rq',
     'password_reset',
     'pages',
+    'training',
 )
 
 MIDDLEWARE_CLASSES = (
