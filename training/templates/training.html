@@ -28,7 +28,7 @@
     </ul>
 
     {# in order for this form to show, you must both NOT be approved and NOT have already made a thread #}
-    {% if not threads and not request.user.profile.approved %}
+    {% if show_thread_form %}
         <p>Leave a top-level comment:</p>
         <form action="{% url "training:comments" module.id %}" method="POST">
             {% csrf_token %}

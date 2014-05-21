@@ -11,13 +11,19 @@ from .forms import CommentForm
 @mentor_only
 def module(request, module_id):
     module = get_object_or_404(Module, id=module_id)
+
     # if the user is not approved, only show that user's thread
     if not request.user.profile.approved:
         threads = module.comments.filter(user=request.user, thread__isnull=True)
     # if the user is already approved, go ahead and show all threads that belong to non-approved users
     else:
         threads = module.comments.filter(user__profile__approved=False, thread__isnull=True)
-    return render(request, "training.html", {"module": module, "threads": threads, "form": CommentForm(),})
+
+    # no need to serve a 403 to users who somehow cheat and skip ahead, but don't show the form for creating a new thread either
+    # otherwise, show the form if you are not approved and you have not already started a thread on this module
+    show_thread_form = module.is_accessible_by_mentor(request.user) and not threads and not request.user.profile.approved
+
+    return render(request, "training.html", {"module": module, "threads": threads, "form": CommentForm(), "show_thread_form": show_thread_form,})
 
 @require_POST
 @login_required
