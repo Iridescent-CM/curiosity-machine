@@ -11,5 +11,12 @@ class ProfileInline(admin.StackedInline):
 class ProfileAdmin(UserAdmin):
     inlines = [ ProfileInline, ]
 
+    def get_formsets(self, request, obj=None):
+        for inline in self.get_inline_instances(request, obj):
+            # hide ProfileInline in the add view
+            if isinstance(inline, ProfileInline) and obj is None:
+                continue
+            yield inline.get_formset(request, obj)
+
 
 admin.site.register(User, ProfileAdmin)

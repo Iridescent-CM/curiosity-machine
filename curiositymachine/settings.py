@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'pages',
     'django_summernote',
     'django_bleach',
+    'training',
 )
 
 MIDDLEWARE_CLASSES = (
