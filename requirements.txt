@@ -22,6 +22,7 @@ coverage
 redis==2.9.1
 django-rq==0.6.1
 rq-scheduler==0.5.0
+rq==0.3.13 # rq 0.4.5 will not work with django-rq 0.6.1 -- don't upgrade to 0.4.x until https://github.com/nvie/rq/pull/355 is merged upstream
 
 #better url handling
 requests==2.2.1
