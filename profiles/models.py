@@ -34,12 +34,6 @@ class Profile(models.Model):
     def __str__(self):
         return "Profile: id={}, user_id={}".format(self.id, self.user_id)
 
-    def get_user_image_url(self):
-        if self.image:
-            return self.image.url
-        else:
-            return "http://placekitten.com/60/80" #TODO: Add a real placeholder instead of using placekittens
-
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
