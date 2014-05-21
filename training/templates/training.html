@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Module {{ module.id }}: {{ module.title }}{% endblock %}
+
+{% block content %}
+
+    <h1>Mentor Training Module {{ module.id }}: {{ module.title }}</h1>
+
+    {{ module.text }}
+
+    <ul>
+        {% for thread in threads %}
+            <li>
+                {{ thread }}
+                <ul>
+                    {% for reply in thread.replies.all %}
+                        <li>{{ reply }}</li>
+                    {% endfor %}
+                </ul>
+                <p>Leave a thread reply:</p>
+                <form action="{% url "training:comments" module.id thread.id %}" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Submit"/>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {# in order for this form to show, you must both NOT be approved and NOT have already made a thread #}
+    {% if show_thread_form %}
+        <p>Leave a top-level comment:</p>
+        <form action="{% url "training:comments" module.id %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit"/>
+        </form>
+    {% endif %}
+
+{% endblock %}

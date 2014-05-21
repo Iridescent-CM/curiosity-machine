@@ -6,31 +6,32 @@
 <h1>Welcome back {{user.username}}</h1>
 {% include "_mentor_profile_info.html" with profile=user.profile %}
 
+  <h2>Mentor training</h2>
+  <ul>
+    {% for module in training_modules %}<li><a href="{{ module.get_absolute_url }}">{{ module }}</a></li>{% endfor %}
+  </ul>
 
   <h2>Student Challenges in Progress</h2>
   <ul class="nav nav-justified nav-tabs"></ul>
   <div class="tab-content">
   <ul class="challenges-list owl-carousel panel-carousel">
-      
+
         {% for progress in progresses %}
           {% include "_challenge_item_progress.html" %}
         {% empty %}
         <h3>You have no student challenges in progress</h3>
         {% endfor %}
-    
+
   </ul>
   </div>
 
-
-<h2>Unclaimed Student Challenges</h2>
-<ul class="challenges-list owl-carousel panel-carousel">
-{% for progress in unclaimed_progresses %}
-  {% include "_challenge_item_progress.html" %}
-{% empty %}
-<h3>There are currently no unclaimed student challenges</h3>
-{% endfor %}
-</ul>
-
-<!-- <a href="{% url 'challenges:unclaimed_progresses' %}">Claim More Challenges</a> -->
+  <h2>Unclaimed Student Challenges</h2>
+  <ul class="challenges-list owl-carousel panel-carousel">
+    {% for progress in unclaimed_progresses %}
+      {% include "_challenge_item_progress.html" %}
+    {% empty %}
+  <h3>There are currently no unclaimed student challenges</h3>
+    {% endfor %}
+  </ul>
 
 {% endblock %}
