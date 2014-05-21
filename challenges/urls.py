@@ -9,5 +9,5 @@ urlpatterns = patterns('challenges.views',
     url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/(?P<stage>plan|build|test|reflect)/comments/', include('cmcomments.urls', namespace='comments', app_name='comments')),
     url(r'^unclaimed/$', 'unclaimed_progresses', name='unclaimed_progresses'),
     url(r'^unclaimed/(?P<progress_id>\d+)$', 'claim_progress', name='claim_progress'),
-    url(r'^materials/(?P<progress_id>\d+)$', 'change_materials', name='change_materials')
+    url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/materials/$', 'change_materials', name='change_materials')
 )

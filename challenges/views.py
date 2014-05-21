@@ -107,8 +107,8 @@ def claim_progress(request, progress_id):
 
 # Any POST to this changes the materials list for that progress
 @require_http_methods(["POST"])
-def change_materials(request, progress_id):
-    progress = get_object_or_404(Progress, id=progress_id)
+def change_materials(request, challenge_id, username):
+    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
 
     form = MaterialsForm(request.POST, progress=progress)
     if form.is_valid():
