@@ -41,3 +41,9 @@ django-password-reset==0.7
 
 #image resizing proxy and cdn
 cloudinary==1.0.17
+
+#WYSIWYG editor
+django-summernote==0.5.8
+
+#scrubbing system
+django-bleach==0.2.0

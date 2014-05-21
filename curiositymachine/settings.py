@@ -50,6 +50,8 @@ INSTALLED_APPS = (
     'django_rq',
     'password_reset',
     'pages',
+    'django_summernote',
+    'django_bleach',
     'training',
 )
 
@@ -137,6 +139,46 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "")
+
+# Which HTML tags are allowed
+BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'br', 'strike', 'li', 'ul', 'div', 'ol', 'span', 'blockquote', 'pre', 'img']
+
+# Which HTML attributes are allowed
+BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'class']
+
+BLEACH_LIB_ATTRIBUTES = {
+                            '*': ['title', 'style'],
+                            'a': ['id', 'href', 'fpfilekey', 'rel', 'class', 'number', 'data-height', 'data-width'],
+                            'img': ['src', 'alt', 'width', 'height', 'data-height', 'data-width', 'data-upload', 'class', 'id', 'data-original', 'data-key'],
+                            'div' : ['class']
+                        }
+
+# Which CSS properties are allowed in 'style' attributes (assuming
+# style is an allowed attribute)
+BLEACH_ALLOWED_STYLES = ['font-family', 'font-weight', 'text-decoration', 'font-variant']
+
+# Strip unknown tags if True, replace with HTML escaped characters if
+# False
+BLEACH_STRIP_TAGS = True
+
+# Strip comments, or leave them in.
+BLEACH_STRIP_COMMENTS = True
+
+# Use the SummernoteWidget for bleached HTML fields
+BLEACH_DEFAULT_WIDGET = 'django_summernote.widgets.SummernoteWidget'
+
+SUMMERNOTE_CONFIG = {
+    # Change editor size
+    'width': '100%',
+    'height': '350',
+
+    # Customize toolbar buttons
+    'toolbar': [
+        ['style', ['bold', 'italic', 'underline', 'strike']],
+        ['style', ['color']],
+        ['para', ['ul', 'ol']],
+    ],
+}
 
 LOGGING = {
     'version': 1,
