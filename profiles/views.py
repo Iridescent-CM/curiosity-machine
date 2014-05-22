@@ -30,12 +30,14 @@ def join(request):
                 user = auth.authenticate(username=data['username'], password=data['password'])
                 auth.login(request, user)
                 return HttpResponseRedirect('/')
+        else:
+            return render(request, 'join.html', {'form': form,})
     else:
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('profiles:home'))
         form = JoinForm()
 
-    return render(request, 'join.html', {'form': form,})
+    return render(request, 'join_modal.html', {'form': form,})
 
 @login_required
 def home(request):
