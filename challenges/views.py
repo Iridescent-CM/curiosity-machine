@@ -14,8 +14,8 @@ from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine.decorators import mentor_or_current_student, mentor_only
 from videos.models import Video
-from .forms import ChallengeVideoForm
 from .utils import get_stage_for_progress
+from .forms import MaterialsForm
 
 def challenges(request):
     challenges = Challenge.objects.all()
@@ -37,7 +37,7 @@ def challenge(request, challenge_id):
                 return HttpResponse("You must be logged in as a student to start a challenge.", status=403)
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': request.user.username,}))
     else:
-        return render(request, 'challenge.html', {'challenge': challenge, 'video_form': ChallengeVideoForm()})
+        return render(request, 'challenge.html', {'challenge': challenge,})
 
 @login_required
 @mentor_or_current_student
@@ -65,7 +65,7 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
     progress.get_unread_comments_for_user(request.user).update(read=True)
 
     return render(request, "challenge_plan.html" if stage == Stage.plan else "challenge_build.html",
-                  {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm(), 'comments': comments})
+                  {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm(), 'comments': comments, 'materials_form': MaterialsForm(progress=progress)})
 
 # Any POST to this by the assigned mentor moves a challenge progress into the reflect stage (marks approve=True); any DELETE reverses that
 @require_http_methods(["POST", "DELETE"])
@@ -104,3 +104,15 @@ def claim_progress(request, progress_id):
 
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.student.username,}))
     #return HttpResponse(status=204)
+
+# Any POST to this changes the materials list for that progress
+@require_http_methods(["POST"])
+def change_materials(request, challenge_id, username):
+    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
+
+    form = MaterialsForm(request.POST, progress=progress)
+    if form.is_valid():
+        progress._materials_list = form.cleaned_data['materials']
+        progress.save(update_fields=["_materials_list"])
+
+    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.student.username, 'stage': 'plan'}))

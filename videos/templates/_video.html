@@ -1,0 +1,15 @@
+{% if video.encoded_videos.exists %}
+  <div class="flowplayer" data-adaptive-ratio="true">
+    <video
+      preload="true"
+      poster='{% if poster_url %}{{ poster_url }}{% else %}{{video.thumbnails.first.url}}{% endif %}'
+      data-setup='{"customControlsOnMobile": false}'
+      id="video-element-{{video.id}}">            
+      {% for v in video.encoded_videos.all %}
+        <source src="{{v.url}}" type="{{v.mime_type}}" />
+      {% endfor %}
+    </video>
+  </div>
+{% else %}
+  <p><i>Video is uploading and will be displayed shortly</i></p>
+{% endif %}

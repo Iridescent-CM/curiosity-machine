@@ -83,6 +83,12 @@ $(document).ready(function() {
     })
 
   });
+  $('.materials-form').css("display", "none");
+
+  $('.edit-materials').on('click', function(e) {
+    $(this).parent().hide()
+    $('.materials-form').show()
+  });
 
   $('.comment-form').find('input[type=filepicker-dragdrop]').on('change', function(e) {
     disable_submit_until_filled(this);
