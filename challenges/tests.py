@@ -5,6 +5,7 @@ from .views import challenge as challenge_view # avoid conflict with appropriate
 from profiles.tests import student, mentor
 from django.contrib.auth.models import AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
+from django.contrib.messages.storage.fallback import FallbackStorage
 
 @pytest.fixture
 def challenge():
@@ -91,6 +92,8 @@ def test_claim_progress(rf, mentor, unclaimed_progress):
 
     request = rf.post('/challenges/unclaimed/1')
     request.user = mentor
+    request.session = 'session'
+    request._messages = FallbackStorage(request)
     response = claim_progress(request, unclaimed_progress.id)
     assert response.status_code == 302
     assert Progress.objects.get(id=unclaimed_progress.id).mentor == mentor
