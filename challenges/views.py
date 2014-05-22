@@ -16,6 +16,7 @@ from curiositymachine.decorators import mentor_or_current_student, mentor_only
 from videos.models import Video
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
+from django.core.exceptions import PermissionDenied
 
 def challenges(request):
     challenges = Challenge.objects.all()
@@ -34,7 +35,7 @@ def challenge(request, challenge_id):
             try:
                 Progress.objects.create(challenge=challenge, student=request.user)
             except (ValueError, ValidationError):
-                return HttpResponse("You must be logged in as a student to start a challenge.", status=403)
+                raise PermissionDenied
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': request.user.username,}))
     else:
         return render(request, 'challenge.html', {'challenge': challenge,})
@@ -75,7 +76,7 @@ def challenge_progress_approve(request, challenge_id, username):
 
     #Only the mentor assigned to the progress can approve/un-approve it
     if not request.user == progress.mentor:
-        return HttpResponse("Only the assigned mentor can approve a student's challenge progress", status=403)
+        raise PermissionDenied
 
     if request.method == "POST":
         Progress.objects.filter(id=progress.id).update(approved=now())

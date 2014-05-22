@@ -5,10 +5,11 @@ import datetime
 import tempfile
 from challenges.models import Progress, Stage
 from .forms import AnalyticsForm
+from django.core.exceptions import PermissionDenied
 
 def analytics(request):
     if not request.user.has_perms(['auth.change_user', 'cmcomments.change_comment', 'challenges.change_progress']):
-        return HttpResponse("You cannot view this page.", status=403)
+        raise PermissionDenied
     if request.GET:
         form = AnalyticsForm(data=request.GET)
         if form.is_valid():
