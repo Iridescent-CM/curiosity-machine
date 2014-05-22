@@ -5,9 +5,7 @@
 <h1>Get Started. Create an Account.</h1>
 <form method='post' action="{% url 'profiles:join' %}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">  
   {% csrf_token %}
-  {% with 'join' as page %}
-  {% include "profile_fields.html" %}
-  {% endwith %}
+  {% include "profile_fields.html" with page='join' %}
   <button type="submit" class="btn btn-primary btn-lg">Save</button>
 </form>
 
