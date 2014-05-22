@@ -1,22 +1,8 @@
 <div class="challenge-details-hero">
   {% if challenge.video %}
-      {% if challenge.video.encodings_generated %}
-        <div class="flowplayer" data-adaptive-ratio="true">
-          <video class="video-js vjs-default-skin"
-            preload="true"
-            poster='{{challenge.video.output_videos.all.0.thumbnail}}'
-            {# data-setup='{"customControlsOnMobile": false}' #}
-            id="video-element-{{challenge.video.id}}">            
-            {% for v in challenge.video.output_videos.all %}
-            <source src="{{v.video}}" type='video/mp4' />
-            {% endfor %}
-          </video>
-        </div>
-      {% else %}
-        <h3><em>The video is encoding and should be available shortly.</em></h3>
-      {% endif %}
-  {% elif request.user.is_superuser %}
-      <p>No Challenge Video Uploaded</p>
+    {% include "_video.html" with video=challenge.video poster_url=challenge.image.url %}
+  {% elif challenge.image %}
+    <img src={{ challenge.image.url }} />
   {% endif %}
   <div class="details h2">
     <p>{{ challenge.description }}</p>
