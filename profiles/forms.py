@@ -28,7 +28,7 @@ class ProfileFormBase(forms.Form):
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
         if password != confirm_password:
-            raise forms.ValidationError("Passwords do not match.")
+            self.add_error('password', "Passwords do not match.")
         return cleaned_data
 
     def clean_password(self):
