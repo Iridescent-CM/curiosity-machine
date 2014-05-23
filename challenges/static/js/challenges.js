@@ -83,6 +83,7 @@ $(document).ready(function() {
     })
 
   });
+  
   $('.materials-form').css("display", "none");
 
   $('.edit-materials').on('click', function(e) {

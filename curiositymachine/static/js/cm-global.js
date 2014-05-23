@@ -105,6 +105,11 @@ if (CM.Navigation.$navTop) {
     $(this).removeData('bs.modal');
   });
 
+  //focus on the first input element in modals
+  $('body').on('shown.bs.modal', '.modal:visible', function () {
+    $(this).find('input:visible:first').focus();
+  });
+
   //actiavate tabs
   $('body').on('click', '.nav-tabs a', function(e) {
       e.preventDefault();
