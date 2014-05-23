@@ -6,23 +6,31 @@
 
     <h1>Mentor Training Module {{ module.id }}: {{ module.title }}</h1>
 
-    {{ module.text }}
+    {{ module.text|safe }}
 
     <ul>
         {% for thread in threads %}
             <li>
-                {{ thread }}
+                <b>{{ thread.user.username }} on {{ reply.created }}</b>: {{ thread.text }}
                 <ul>
                     {% for reply in thread.replies.all %}
-                        <li>{{ reply }}</li>
+                        <li><b>{{ reply.user.username }}</b> on {{ reply.created }}: {{ reply.text }}</li>
                     {% endfor %}
                 </ul>
-                <p>Leave a thread reply:</p>
-                <form action="{% url "training:comments" module.id thread.id %}" method="POST">
-                    {% csrf_token %}
-                    {{ form }}
-                    <input type="submit" value="Submit"/>
-                </form>
+                {% if not finished or request.user.profile.approved %}{% if not finished or thread.user != request.user %}
+                    <p>Leave a thread reply:</p>
+                    <form action="{% url "training:comments" module.id thread.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ form }}
+                        <input type="submit" value="Submit"/>
+                    </form>
+                {% endif %}{% endif %}
+                {% if perms.profiles.edit_profile and thread.user != request.user %}
+                    <form action="{% url "training:approve_module_progress" module.id thread.user.username %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Approve {{ thread.user.username }}'s progress on this module">
+                    </form>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

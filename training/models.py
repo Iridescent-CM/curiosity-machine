@@ -7,13 +7,15 @@ class Module(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=70)
     text = models.TextField()
-    mentors_done = models.ManyToManyField(User, null=True, related_name='completed_modules') # mentors listed here have completed the module
+    mentors_done = models.ManyToManyField(User, null=True, blank=True, related_name='completed_modules') # mentors listed here have completed the module
 
     class Meta:
         ordering = ('id',)
 
     def is_accessible_by_mentor(self, mentor):
         if mentor.profile.approved: # mentors who are approved can access any module, so that they can comment
+            return True
+        elif mentor.is_staff: # staff members also get a free pass
             return True
         else:
             # they can only access if this is the next one by ID that they haven't finished, or lower (so, they can access older modules they have finished, and if they somehow skip one they can access that too)
