@@ -6,6 +6,7 @@ from profiles.tests import student, mentor
 from django.contrib.auth.models import AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
 from django.contrib.messages.storage.fallback import FallbackStorage
+from django.core.exceptions import PermissionDenied
 
 @pytest.fixture
 def challenge():
@@ -70,8 +71,8 @@ def test_student_cannot_approve(rf, progress):
 
     request = rf.post('/challenges/1/approve')
     request.user = progress.student
-    response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
-    assert response.status_code == 403
+    with pytest.raises(PermissionDenied):
+        response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
     assert not Progress.objects.get(id=progress.id).approved
 
 @pytest.mark.django_db
@@ -83,8 +84,8 @@ def test_unclaimed_progresses_response_code(rf, mentor, unclaimed_progress):
 
     request = rf.get('/challenges/unclaimed/')
     request.user = unclaimed_progress.student
-    response = unclaimed_progresses(request)
-    assert response.status_code == 403
+    with pytest.raises(PermissionDenied):
+        response = unclaimed_progresses(request)
 
 @pytest.mark.django_db
 def test_claim_progress(rf, mentor, unclaimed_progress):
@@ -104,6 +105,6 @@ def test_student_cannot_claim_progress(rf, unclaimed_progress):
 
     request = rf.post('/challenges/unclaimed/1')
     request.user = unclaimed_progress.student
-    response = claim_progress(request, unclaimed_progress.id)
-    assert response.status_code == 403
+    with pytest.raises(PermissionDenied):
+        response = claim_progress(request, unclaimed_progress.id)
     assert not Progress.objects.get(id=unclaimed_progress.id).mentor
