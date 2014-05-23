@@ -5,7 +5,8 @@
     <div class="panel-heading">
       <h3 class="panel-title">
         {% if challenge in request.user.challenges.all %}
-          <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a>{% if progress|unread_count:request.user %} ({{progress|unread_count:request.user}}){% endif %}
+          {% if progress|unread_count:request.user %} <span title="{{progress|unread_count:request.user}} unread messages" class="unread">{{progress|unread_count:request.user}}</span>{% endif %}
+          <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a>
         {% else %}
           <a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
         {% endif %}
