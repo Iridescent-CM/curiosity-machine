@@ -198,8 +198,19 @@
       .btn {
         margin: 0;
         top: auto;
-        bottom: 20px;
+        bottom: 15px;
         right: 25px;
+        &:before {
+          content: '\e043';
+          .glyphicon;
+          color: #fff;
+          background: none;
+          position: absolute;
+          text-align: center;
+          width: 100%;
+          font-size: 30px;
+          top: -35px;
+        }
       }
     }
     &:after {
@@ -217,7 +228,7 @@
     &:before {
       content: none;
     }
-    .btn:after, .btn:before {content: none;}
+    .btn:after {content: none;}
   }
   .inspiration {
     width: 20%;
