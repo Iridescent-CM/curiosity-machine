@@ -87,7 +87,7 @@ body {
   }
 }
 
-.switch {
+.switch { //radio button for build/test
   float: left;
   margin: 0 0 20px 0; 
   padding: 1px;
@@ -156,6 +156,31 @@ body {
   }
 }
 
+//unread messages... we can subclass this ore rename it specific if unread is too broad.
+.unread {
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  color: #fff;
+  line-height: 1;
+  padding: 8px 10px;
+  background: @orange;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+  &:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 8px 0 0;
+    border-color: @orange transparent transparent transparent;
+    position: absolute;
+    bottom: -10px;
+    left: 5px;
+  }
+}
+
 
 ////========================
 //// home pge
@@ -210,7 +235,7 @@ body {
   }
   .owl-item {
     width: 450px;
-    padding: 0 10px;
+    padding: 3px 10px 0 10px;
   }
   .image-container {
     img {

@@ -4,7 +4,8 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{progress.student.get_full_name}}{% if progress|unread_count:request.user %} <span title="unread messages" class="unread">({{progress|unread_count:request.user}})</span>{% endif %} </a>
+        {% if progress|unread_count:request.user %} <span title="{{progress|unread_count:request.user}} unread messages" class="unread">{{progress|unread_count:request.user}}</span>{% endif %}
+        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{progress.student.get_full_name}}</a>
       </h3>
     </div>
     <div class="image-container">
