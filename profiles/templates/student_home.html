@@ -9,9 +9,17 @@
 <div class="tab-content">
   <div class="tab-pane fade in active" id="challenges">
     
-    <a href="{% url 'profiles:home' %}?filter=active" {% if not filter or filter == 'active' %}class="active"{% endif %}>Active ({{active_progresses|length}})</a>     |      
-    <a href="{% url 'profiles:home' %}?filter=completed" {% if filter == 'completed' %}class="active"{% endif %}>Completed ({{completed_progresses|length}})</a>     |      
-    <a href="{% url 'profiles:home' %}?filter=all" {% if filter == 'all' %}class="active"{% endif %}>View All</a>
+    <ul class="pipe-nav">
+      <li>
+        <a href="{% url 'profiles:home' %}?filter=active" {% if not filter or filter == 'active' %}class="active"{% endif %}>Active ({{active_progresses|length}})</a>
+      </li>
+      <li>
+        <a href="{% url 'profiles:home' %}?filter=completed" {% if filter == 'completed' %}class="active"{% endif %}>Completed ({{completed_progresses|length}})</a>
+      </li>
+      <li>
+        <a href="{% url 'profiles:home' %}?filter=all" {% if filter == 'all' %}class="active"{% endif %}>View All</a>
+      </li>
+    </ul>
 
     <ul class="challenges-list owl-carousel panel-carousel">
       {% if filter == 'all' %}
