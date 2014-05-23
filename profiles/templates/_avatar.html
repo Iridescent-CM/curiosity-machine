@@ -1,3 +1,8 @@
 {% load resized %}
-  <img src="{% resized profile.image.url width=width height=height crop=crop %}" />
+{% load staticfiles %}
 
+{% if profile.image.url %}
+  <img src="{% resized profile.image.url width=width height=height crop=crop %}" />
+{% else %}
+  <img src="{% static 'images/placeholder.png' %}" />
+{% endif %}
