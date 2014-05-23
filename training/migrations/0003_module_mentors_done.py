@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='module',
             name='mentors_done',
-            field=models.ManyToManyField(null=True, to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(null=True, blank=True, to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]
