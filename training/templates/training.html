@@ -11,7 +11,7 @@
     <ul>
         {% for thread in threads %}
             <li>
-                <b>{{ thread.user.username }} on {{ reply.created }}</b>: {{ thread.text }}
+                <b>{{ thread.user.username }} on {{ thread.created }}</b>: {{ thread.text }}
                 <ul>
                     {% for reply in thread.replies.all %}
                         <li><b>{{ reply.user.username }}</b> on {{ reply.created }}: {{ reply.text }}</li>
