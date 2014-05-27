@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from .models import Challenge, Theme, Progress, Question
 from videos.models import Video
 from images.models import Image
+from django import forms
+from django.db import models
 
 class ChallengeAdmin(admin.ModelAdmin):
     filter_horizontal = ('reflect_questions',)
@@ -36,5 +38,11 @@ class ProgressAdmin(admin.ModelAdmin):
 
 admin.site.register(Challenge, ChallengeAdmin)
 admin.site.register(Progress, ProgressAdmin)
-admin.site.register(Theme)
+
+class ThemeAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.TextField: {'widget': forms.TextInput},
+    }
+
+admin.site.register(Theme, ThemeAdmin)
 admin.site.register(Question)
