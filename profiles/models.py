@@ -39,6 +39,16 @@ class Profile(models.Model):
         self.approved = True
         self.save(update_fields=['approved'])
 
+    def get_unread_comment_count(self):
+        comments = 0
+        if self.is_mentor:
+            for progress in self.user.mentored_progresses.all():
+                comments = comments + len(progress.get_unread_comments_for_user(self.user))
+        else:
+            for progress in self.user.progresses.all():
+                comments = comments + len(progress.get_unread_comments_for_user(self.user))
+        return comments
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
