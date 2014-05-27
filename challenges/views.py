@@ -58,6 +58,9 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
         stage_string = stage.name if stage == Stage.plan else Stage.build.name # there may be other valid stages, but right now we only support plan or build as redirect destinations
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username, 'stage': stage_string}))
 
+    if stage == Stage.inspiration:
+        return render(request, 'challenge.html', {'challenge': challenge, 'progress': progress})
+
     if stage in [Stage.build, Stage.test, Stage.reflect]:
         comments = progress.comments.filter(stage__in=[Stage.build.value, Stage.test.value, Stage.reflect.value])
     else:

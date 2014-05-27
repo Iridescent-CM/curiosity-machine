@@ -8,10 +8,11 @@ from images.models import Image
 from enum import Enum
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
-    plan = 1
-    build = 2
-    test = 3
-    reflect = 4
+    inspiration = 1
+    plan = 2
+    build = 3
+    test = 4
+    reflect = 5
 
 class Theme(models.Model):
     name = models.TextField()
