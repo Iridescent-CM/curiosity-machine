@@ -13,7 +13,7 @@
       {% if progress.challenge.image %}
         <img src="{{ progress.challenge.image.url }}">
       {% elif progress.challenge.video.encodings_generated %}
-        {{ challenge.video.output_videos.all.0.thumbnail }}
+        <img src="{{ progress.challenge.video.thumbnails.first.url }}">
       {% endif %}
 
       </a>

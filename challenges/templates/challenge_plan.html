@@ -14,7 +14,7 @@
 {% if not request.user.profile.is_mentor %}
  <header class="challenge-header">
     <h1>Plan your project</h1>
-    <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+    <p>{{ challenge.plan_subheader }}</p>
   </header>
 {% endif %}
 <div class="row">

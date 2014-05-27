@@ -27,16 +27,19 @@ class Question(models.Model):
 
 class Challenge(models.Model):
     name = models.TextField()
-    description = models.TextField()
-    how_to_make_it = models.TextField(help_text="HTML")
-    learn_more = models.TextField(help_text="HTML")
+    description = models.TextField(help_text="One line of plain text, shown on the inspiration page")
+    how_to_make_it = models.TextField(help_text="HTML, shown in the guide")
+    learn_more = models.TextField(help_text="HTML, shown in the guide")
     materials_list = models.TextField(help_text="HTML")
-    students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True, related_name="challenges") #null=True here is a workaround to an apparent bug in makemigrations 2014-03-25
+    students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True, related_name="challenges")
     theme = models.ForeignKey(Theme, null=True, blank=True, on_delete=models.SET_NULL)
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
-    plan_call_to_action = models.TextField(help_text="HTML")
-    build_call_to_action = models.TextField(help_text="HTML")
+    plan_call_to_action = models.TextField(help_text="HTML, shown in the left column of the plan stage")
+    build_call_to_action = models.TextField(help_text="HTML, shown in the left column of the build stage")
+    plan_subheader = models.TextField(help_text="One line of plain text, shown below the plan stage header")
+    build_subheader = models.TextField(help_text="One line of plain text, shown below the build stage header")
+    reflect_subheader = models.TextField(help_text="One line of plain text, shown below the reflect stage header")
     reflect_questions = models.ManyToManyField(Question, null=True)
 
     def __str__(self):
