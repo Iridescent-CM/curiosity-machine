@@ -8,6 +8,7 @@ from images.models import Image
 from enum import Enum
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
+    inspiration = 0
     plan = 1
     build = 2
     test = 3

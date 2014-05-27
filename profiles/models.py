@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from images.models import Image
 from datetime import date
+from cmcomments.models import Comment
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
@@ -38,6 +39,12 @@ class Profile(models.Model):
     def approve_and_save(self):
         self.approved = True
         self.save(update_fields=['approved'])
+
+    def get_unread_comment_count(self):
+        if self.is_mentor:
+            return Comment.objects.exclude(user=self.user).filter(challenge_progress__mentor=self.user, read=False).count()
+        else:
+            return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
