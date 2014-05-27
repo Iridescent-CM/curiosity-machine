@@ -47,3 +47,6 @@ django-summernote==0.5.8
 
 #scrubbing system
 django-bleach==0.2.0
+
+#performance monitoring
+newrelic
