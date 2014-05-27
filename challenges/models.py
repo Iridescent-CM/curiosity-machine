@@ -16,6 +16,8 @@ class Stage(Enum): # this is used in challenge views and challenge and comment m
 
 class Theme(models.Model):
     name = models.TextField()
+    icon = models.CharField(max_length=64, default="icon-neuroscience", help_text="icon class name")
+    color = models.CharField(max_length=64, default="#84af49", help_text="color hex code or keyword")
 
     def __str__(self):
         return "Theme: name={}".format(self.name)
