@@ -27,8 +27,8 @@ while True:
     try:
         time.sleep(wait_length) # starting the scheduler fails if another one is running, so give it time for the old one's connection to break cleanly
         scheduler = get_scheduler(name='default', interval=10)
-        scheduler.run()
         print("Starting scheduler")
+        scheduler.run()
     except ValueError:
         print("Scheduler failed to start, will retry")
         wait_length = 120
