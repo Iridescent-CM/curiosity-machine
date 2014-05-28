@@ -60,6 +60,9 @@ class Progress(models.Model):
     approved = models.DateTimeField(null=True, blank=True)
     _materials_list = models.TextField(help_text="HTML", blank=True, db_column="materials_list")
 
+    class Meta:
+        verbose_name_plural = "progresses"
+
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
