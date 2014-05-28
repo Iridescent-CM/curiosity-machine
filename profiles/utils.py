@@ -17,11 +17,11 @@ def create_or_edit_user(data, user=None):
     user.save()
 
     profile = user.profile
+    profile.birthday = data['birthday']
     if new_user:
         profile.is_mentor = False
         if profile.age >= 13:
             profile.approved = True
-    profile.birthday = data['birthday']
     profile.nickname = data['nickname']
     profile.city = data['city']
     if new_user or user.profile.is_student:
