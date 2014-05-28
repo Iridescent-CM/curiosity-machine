@@ -44,10 +44,11 @@ def home(request):
     if request.user.profile.is_mentor:
         training_modules = Module.objects.all()
         accessible_modules = [module for module in training_modules if module.is_accessible_by_mentor(request.user)]
+        completed_modules = [module for module in training_modules if module.is_finished_by_mentor(request.user)]
         progresses = Progress.objects.filter(mentor=request.user).select_related("challenge")
         unclaimed_progresses = Progress.objects.filter(mentor__isnull=True)
         challenges = {progress.challenge for progress in progresses}
-        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_progresses': unclaimed_progresses, 'training_modules': training_modules, 'accessible_modules': accessible_modules})
+        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_progresses': unclaimed_progresses, 'training_modules': training_modules, 'accessible_modules': accessible_modules, 'completed_modules': completed_modules})
     else:
         filter = request.GET.get('filter')
         progresses = Progress.objects.filter(student=request.user).select_related("challenge")
