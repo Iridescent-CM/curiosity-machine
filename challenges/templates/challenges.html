@@ -21,12 +21,13 @@
   <ul class="theme-carousel owl-carousel">
     <li {% if not theme %}class="active"{% endif %}>
       <a href="{% url 'challenges:challenges' %}">
-        <span>All</span>
+        <span class="theme-name">All</span>
       </a>
     </li>
     {% for t in themes %}
-      <li {% if theme == t.name %}class="active"{% endif %}><a href="{% url 'challenges:challenges' %}?theme={{t.name}}">
-        <span>{{t.name}}</span>
+      <li {% if theme == t.name %}class="active"{% endif %}><a href="{% url 'challenges:challenges' %}?theme={{t.name}}" style="background: {{ t.color }}">
+        <span class="theme-icon {{ t.icon }}"></span>
+        <span class="theme-name">{{t.name}}</span>
       </a></li>
     {% endfor %}
   </ul>

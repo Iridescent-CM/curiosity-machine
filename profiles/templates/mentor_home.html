@@ -9,13 +9,13 @@
   <h2>Mentor training</h2>
   <ul>
     {% for module in training_modules %}
-      <li>
+      
         {% if module in accessible_modules %}
-          <a href="{{ module.get_absolute_url }}">{{ module }}</a>
+          <li><a href="{{ module.get_absolute_url }}">{{ module }}</a></li>
         {% else %}
-          {{ module }}
+          <li>{{ module }}</li>
         {% endif %}
-       </li>
+       
     {% endfor %}
   </ul>
 
