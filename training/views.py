@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import User
 from .models import Module, Comment
 from .forms import CommentForm
+from videos.models import Video
+from images.models import Image
 
 @login_required
 @mentor_only
@@ -39,7 +41,9 @@ def comments(request, module_id, thread_id=None):
 
     form = CommentForm(data=request.POST)
     if form.is_valid():
-        Comment.objects.create(user=request.user, text=form.cleaned_data['text'], module=module, thread=thread)
+        video = Video.from_source_with_job(form.cleaned_data['video_filepicker_url']) if form.cleaned_data['video_filepicker_url'] else None
+        image = Image.from_source_with_job(form.cleaned_data['picture_filepicker_url']) if form.cleaned_data['picture_filepicker_url'] else None
+        Comment.objects.create(user=request.user, text=form.cleaned_data['text'], module=module, thread=thread, image=image, video=video)
 
     return HttpResponseRedirect(reverse('training:module', args=[str(module_id),]))
 
