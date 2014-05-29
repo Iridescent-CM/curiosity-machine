@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.core.urlresolvers import reverse
+from videos.models import Video
+from images.models import Image
 
 class Module(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -50,6 +52,8 @@ class Comment(models.Model):
     user = models.ForeignKey(User, related_name='mentor_training_comments')
     text = models.TextField()
     created = models.DateTimeField(default=now)
+    image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="mentor_training_comments")
+    video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="mentor_training_comments")
 
     class Meta:
         ordering = ('created',)
