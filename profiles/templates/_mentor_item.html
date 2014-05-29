@@ -5,6 +5,7 @@
     <div class="panel-heading">
       <h3 class="panel-title">
         <a href="{% url 'profiles:mentor_profile' mentor.user.username %}">{{ mentor.user.username }}</a>
+        <div class="join-date">Joined {{mentor.user.date_joined|date:"F Y"}}</div>
       </h3>
     </div>
     <div class="image-container">
