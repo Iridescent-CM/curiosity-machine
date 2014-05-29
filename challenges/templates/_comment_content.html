@@ -6,4 +6,4 @@
 {% if comment.video %}
   {% include "_video.html" with video=comment.video %}
 {% endif %}
-<p>{{comment.text}}</p>
+<p>{{comment.text|linebreaksbr}}</p>
