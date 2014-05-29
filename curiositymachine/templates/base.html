@@ -48,10 +48,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    <div class="user-avatar">
+    {% if user.is_authenticated %}
+      <div class="user-avatar">
         {% if user.profile.get_unread_comment_count %} <span title="{{user.profile.get_unread_comment_count}} unread messages" class="unread">{{user.profile.get_unread_comment_count}}</span>{% endif %}
         <a href="{% url 'profiles:home' %}">{% include "_avatar.html" with profile=request.user.profile width=70 height=70 crop='fit' %}</a>
-    </div>
+      </div>
+    {% endif %}
         
         {% block content %}
 
