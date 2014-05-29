@@ -525,6 +525,25 @@ body {
   }
 }
 
+.training-module {
+  .image-container {
+    height: 130px;
+    background: @teal;
+    .placeholder {
+      color: #fff;
+      font-size: 100px;
+      position: absolute;
+      left: 50%;
+      display: block;
+      margin: 10px 0 0 -50px;
+    }
+    &:hover {background: @blue}
+    &.disabled {
+      background: @gray-lighter;
+    }
+  }
+}
+
 //student home 
 
 #challenges {
@@ -540,4 +559,26 @@ body {
   position: absolute;
   right: 20px;
   top: 20px;
+}
+
+//////  mentor-training
+
+#mentor-training {
+  .panel-comment {
+    position: relative;
+  }
+  .replies {
+    //margin-left: 50px;
+    background:@bg-color-dark;
+    padding: 25px 25px 25px 50px;
+    margin-top: -20px;
+    .border-bottom-radius(@border-radius-large);
+  }
+  section {
+    margin-bottom: 40px;
+  }
+  form textarea {
+    width: 100%;
+    height: 170px;
+  }
 }

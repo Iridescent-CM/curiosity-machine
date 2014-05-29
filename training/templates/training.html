@@ -1,48 +1,82 @@
 {% extends "base.html" %}
-
+{% load cmtemplatetags %}
 {% block title %}Module {{ module.id }}: {{ module.title }}{% endblock %}
 
 {% block content %}
 
     <h1>Mentor Training Module {{ module.id }}: {{ module.title }}</h1>
 
-    {{ module.text|safe }}
-
-    <ul>
+<div class="row" id="mentor-training">
+    <div class="col-md-5">
+        {{ module.text|safe }}
+    </div>
+    
+    <div class="col-md-7">
         {% for thread in threads %}
-            <li>
-                <b>{{ thread.user.username }} on {{ thread.created }}</b>: {{ thread.text }}
-                <ul>
+            <section> 
+                <span class="comment-date">{{ thread.created|timesince }}</span>
+                <div class="panel panel-comment comment">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">{{ thread.user.username }} Says:</h2>
+                    </div>
+                    <div class="panel-body">    
+                    {{ thread.text }}
+                    </div>
+                </div><!-- top thread -->
+
+                <div class="replies">
                     {% for reply in thread.replies.all %}
-                        <li><b>{{ reply.user.username }}</b> on {{ reply.created }}: {{ reply.text }}</li>
+                    {% if not reply.user == thread.user %}
+                    <span class="mentor-comment">MENTOR MESSAGE</span>
+                    {% endif %}
+                    <span class="comment-date">{{ reply.created|timesince }}</span>
+                    <div class="mentor-info comment">
+                        {% include "_avatar.html" with profile=reply.user.profile width=50 height=50 crop='fit' %}
+                        <p>{{reply.user.username}}<br>
+                            {% if reply.user == thread.user %}
+                                <strong>Thread Author</strong>
+                            {% else %}
+                                <strong>Mentor</strong>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="panel panel-bubble {% if reply.user == thread.user %}gray-light{% else %}blue{% endif %} comment">
+                        <div class="panel-body">
+                            {{ reply.text }}
+                        </div>
+                    </div>
                     {% endfor %}
-                </ul>
+
                 {% if not finished or request.user.profile.approved %}{% if not finished or thread.user != request.user %}
-                    <p>Leave a thread reply:</p>
-                    <form action="{% url "training:comments" module.id thread.id %}" method="POST">
+                    <h3>Reply:</h3>
+                    <form action="{% url "training:comments" module.id thread.id %}" method="POST" class="clearfix">
                         {% csrf_token %}
-                        {{ form }}
-                        <input type="submit" value="Submit"/>
+                        <div>
+                        {{ form.text }}
+                        </div>
+                        <input type="submit" value="Submit" class="btn btn-primary pull-right" />
                     </form>
                 {% endif %}{% endif %}
                 {% if perms.profiles.edit_profile and thread.user != request.user %}
                     <form action="{% url "training:approve_module_progress" module.id thread.user.username %}" method="POST">
                         {% csrf_token %}
-                        <input type="submit" value="Approve {{ thread.user.username }}'s progress on this module">
+                        <input type="submit" value="Approve {{ thread.user.username }}'s progress on this module" class="btn btn-primary pull-right">
                     </form>
                 {% endif %}
-            </li>
+                </div><!-- replies -->
+            </section>
         {% endfor %}
-    </ul>
 
     {# in order for this form to show, you must both NOT be approved and NOT have already made a thread #}
     {% if show_thread_form %}
-        <p>Leave a top-level comment:</p>
+        <h3>Reply</h3>
         <form action="{% url "training:comments" module.id %}" method="POST">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Submit" class="btn btn-primary pull-right" />
         </form>
     {% endif %}
+    </div><!-- col-md-6 2nd col -->
 
+</div><!-- row -->
 {% endblock %}

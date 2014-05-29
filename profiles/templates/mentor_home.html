@@ -6,16 +6,10 @@
 <h1>Welcome back {{user.username}}</h1>
 {% include "_mentor_profile_info.html" with profile=user.profile %}
 
-  <h2>Mentor training</h2>
-  <ul>
+  <h2>Mentor Training Modules</h2>
+  <ul class="challenges-list owl-carousel panel-carousel">
     {% for module in training_modules %}
-      
-        {% if module in accessible_modules %}
-          <li><a href="{{ module.get_absolute_url }}">{{ module }}</a></li>
-        {% else %}
-          <li>{{ module }}</li>
-        {% endif %}
-       
+       {% include "_training_item.html" %}
     {% endfor %}
   </ul>
 

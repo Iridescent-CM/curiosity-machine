@@ -1,16 +1,16 @@
 <div class="row mentor-info">
-  <div class="col-md-3 image-wrapper">
+  <div class="col-md-3 col-sm-3 col-xs-5 image-wrapper">
     {% include "_avatar.html" with profile=profile width=260 height=260 crop='fit' %}
   </div>
-  <div class="col-md-9">
+  <div class="col-md-9 col-sm-9 col-xs-7">
     <p><strong>My Profession:</strong> {{profile.title}}
     <br><strong>My Employer:</strong> {{profile.employer}}</p>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-6">
         <h4>About me</h4>
         <p>{{profile.about_me}}</p>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-6">
         <h4>About my Research</h4>
         <p>{{profile.about_research}}</p>
       </div>
