@@ -20,7 +20,7 @@
                         <h2 class="panel-title">{{ thread.user.username }} Says:</h2>
                     </div>
                     <div class="panel-body">    
-                    {{ thread.text }}
+                    {{ thread.text|linebreaksbr }}
                     </div>
                 </div><!-- top thread -->
 
@@ -42,7 +42,7 @@
                     </div>
                     <div class="panel panel-bubble {% if reply.user == thread.user %}gray-light{% else %}blue{% endif %} comment">
                         <div class="panel-body">
-                            {{ reply.text }}
+                            {{ reply.text|linebreaksbr }}
                         </div>
                     </div>
                     {% endfor %}
