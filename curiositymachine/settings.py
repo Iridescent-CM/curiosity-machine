@@ -125,6 +125,8 @@ ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
 
 S3_URL_BASE = "http://s3.amazonaws.com"
 
+MEDIA_URL = S3_URL_BASE + '/' + AWS_STORAGE_BUCKET_NAME + '/'
+
 #job queues
 RQ_QUEUES = {
     'default': {
