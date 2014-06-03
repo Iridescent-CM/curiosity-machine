@@ -116,7 +116,7 @@ if (CM.Navigation.$navTop) {
 
   //focus on the first input element in modals
   $('body').on('shown.bs.modal', '.modal:visible', function () {
-    $(this).find('input:visible:first').focus();
+    $(this).find('input:visible,textarea:visible').first().focus();
   });
 
   //actiavate tabs
