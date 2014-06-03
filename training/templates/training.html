@@ -75,6 +75,10 @@
                 {% endif %}
                 </div><!-- replies -->
             </section>
+        {% empty %}
+        {% if perms.profiles.edit_profile %}
+            <h3><strong>There are No Pending Mentor Threads at This Time</strong></h3>
+        {% endif %}
         {% endfor %}
 
     {# in order for this form to show, you must both NOT be approved and NOT have already made a thread #}
