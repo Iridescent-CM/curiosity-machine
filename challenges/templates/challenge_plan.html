@@ -99,10 +99,10 @@
 
 </div><!-- row -->
     {% include "_guide.html" %}
-
-    {% include "_comment_form.html" with stage="plan" format="video" %}
-    {% include "_comment_form.html" with stage="plan" format="picture" %}
-    {% include "_comment_form.html" with stage="plan" format="text" %}
+    {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
+    {% include "_comment_form.html" with stage="plan" format="video" url=comment_url %}
+    {% include "_comment_form.html" with stage="plan" format="picture" url=comment_url %}
+    {% include "_comment_form.html" with stage="plan" format="text" url=comment_url %}
 </div><!-- content -->
 
 {% endblock %}

@@ -14,6 +14,9 @@
     <div class="col-md-7">
         {% for thread in threads %}
             <section> 
+                {% if finished or request.user.profile.approved %}{% if thread.user == request.user %}
+                    <h3><strong>You Have Completed This Training Module</strong></h3>
+                {% endif %}{% endif %}
                 <span class="comment-date">{{ thread.created|timesince }}</span>
                 <div class="panel panel-comment comment">
                     <div class="panel-heading">
@@ -48,19 +51,26 @@
                     {% endfor %}
 
                 {% if not finished or request.user.profile.approved %}{% if not finished or thread.user != request.user %}
-                    <h3>Reply:</h3>
-                    <form action="{% url "training:comments" module.id thread.id %}" method="POST" class="clearfix">
-                        {% csrf_token %}
-                        <div>
-                        {{ form.text }}
+
+                    <div class="clearfix mentor-training-comment">
+                        <div class="panel panel-bubble right">
+                        <div class="panel-body">
+                            <h3>Reply:</h3>
+                        {% include "_comment_action_list.html" %}
                         </div>
-                        <input type="submit" value="Submit" class="btn btn-primary pull-right" />
-                    </form>
+                        </div>
+                    </div>
+
+                    {% url "training:comments" module.id thread.id as comment_url %}
+                        {% include "_comment_form.html" with comment_form=form stage="plan" format="video" url=comment_url %}
+                        {% include "_comment_form.html" with comment_form=form stage="plan" format="picture" url=comment_url %}
+                        {% include "_comment_form.html" with comment_form=form stage="plan" format="text" url=comment_url %}
+
                 {% endif %}{% endif %}
                 {% if perms.profiles.edit_profile and thread.user != request.user %}
-                    <form action="{% url "training:approve_module_progress" module.id thread.user.username %}" method="POST">
+                    <form action="{% url "training:approve_module_progress" module.id thread.user.username %}" method="POST" class="clearfix">
                         {% csrf_token %}
-                        <input type="submit" value="Approve {{ thread.user.username }}'s progress on this module" class="btn btn-primary pull-right">
+                        <input type="submit" value="Approve {{ thread.user.username }}'s progress on this module" class="btn-approve btn btn-lg btn-primary">
                     </form>
                 {% endif %}
                 </div><!-- replies -->
@@ -69,12 +79,19 @@
 
     {# in order for this form to show, you must both NOT be approved and NOT have already made a thread #}
     {% if show_thread_form %}
-        <h3>Reply</h3>
-        <form action="{% url "training:comments" module.id %}" method="POST">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Submit" class="btn btn-primary pull-right" />
-        </form>
+        <div class="panel panel-bubble right">
+            <div class="panel-body">
+              <h3>Give Feedback</h3>
+
+              {% include "_comment_action_list.html" %}
+            </div>
+        </div>
+
+        {% url "training:comments" module.id as comment_url %}
+            {% include "_comment_form.html" with comment_form=form stage="plan" format="video" url=comment_url %}
+            {% include "_comment_form.html" with comment_form=form stage="plan" format="picture" url=comment_url %}
+            {% include "_comment_form.html" with comment_form=form stage="plan" format="text" url=comment_url %}
+
     {% endif %}
     </div><!-- col-md-6 2nd col -->
 

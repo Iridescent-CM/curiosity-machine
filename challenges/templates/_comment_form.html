@@ -7,7 +7,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h1>Post {{format}}</h1>
       </div>
-      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage=stage %}" method="POST" class="comment-form">
+      <form action="{{ url }}" method="POST" class="comment-form">
       <div class="modal-body">
         {% csrf_token %}
         
