@@ -93,13 +93,21 @@ if (CM.Navigation.$navTop) {
     $self.css('margin-bottom', (lineHeight - (height % lineHeight)) + 'px' );
   });
 
-  //make sure text fields have stuff before you submit
-  $('.comment-form').find('input[type=filepicker-dragdrop]').on('change', function(e) {
-    disable_submit_until_filled(this);
+
+  $('#text_form textarea').on('keyup', function(e) {
+    if ($(this).val() == '') {
+      $(this.form).find('input[type=submit]').attr('disabled', 'disabled');
+    } else {
+      $(this.form).find('input[type=submit]').removeAttr('disabled');
+    }
   });
 
-  $('.comment-form textarea').on('keyup', function(e) {
-    disable_submit_until_filled(this);
+  $('#video_form, #picture_form').find('input[type=filepicker-dragdrop]').on('change', function(e) {
+    if ($(this).val() == '') {
+      $(this.form).find('input[type=submit]').attr('disabled', 'disabled');
+    } else {
+      $(this.form).find('input[type=submit]').removeAttr('disabled');
+    }
   });
 
   CM.Profile.init();
@@ -190,18 +198,4 @@ if (CM.Navigation.$navTop) {
 
 });
 
-function disable_submit_until_filled(element) {
-  var empty = false;
-  var form = element.form;
-  $(form).find(':input').each(function() {
-      if ((this.type == 'text'|| this.type == 'textarea') && $(this).val() == '') {
-          empty = true;
-      }
-  });
-  if (empty) {
-      $(form).find('input[type=submit]').attr('disabled', 'disabled');
-  } else {
-      $(form).find('input[type=submit]').removeAttr('disabled');
-  }
-}
 
