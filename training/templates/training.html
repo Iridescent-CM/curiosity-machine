@@ -22,8 +22,8 @@
                     <div class="panel-heading">
                         <h2 class="panel-title">{{ thread.user.username }} Says:</h2>
                     </div>
-                    <div class="panel-body">    
-                    {{ thread.text|linebreaksbr }}
+                    <div class="panel-body">
+                        {% include "_comment_content.html" with comment=thread %}
                     </div>
                 </div><!-- top thread -->
 
@@ -45,7 +45,7 @@
                     </div>
                     <div class="panel panel-bubble {% if reply.user == thread.user %}gray-light{% else %}blue{% endif %} comment">
                         <div class="panel-body">
-                            {{ reply.text|linebreaksbr }}
+                            {% include "_comment_content.html" with comment=reply %}
                         </div>
                     </div>
                     {% endfor %}
