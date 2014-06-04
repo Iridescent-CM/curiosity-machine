@@ -37,13 +37,22 @@ class ProfileFormBase(forms.Form):
             raise forms.ValidationError('Password must be at least 6 characters long')
         return password
 
+    def clean_birthday(self):
+        birthday = self.cleaned_data['birthday']
+        if birthday == date(date.today().year, 1, 1):
+            # birthday hasn't been set
+            raise forms.ValidationError('Please set your birthday.')
+        return birthday
+
 
 def clean_parent_fields(self):
     parent_first_name = self.cleaned_data['parent_first_name']
     parent_last_name = self.cleaned_data['parent_last_name']
-    birthday = self.cleaned_data['birthday']
+    birth_year = int(self.data['birthday_year'])
+    birth_month = int(self.data['birthday_month'])
+    birth_day = int(self.data['birthday_day'])
     today = date.today()
-    age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day)) #subtract a year if birthday hasn't occurred yet
+    age = today.year - birth_year - ((today.month, today.day) < (birth_month, birth_day)) #subtract a year if birthday hasn't occurred yet
     if age < 13 and not parent_last_name:
         self.add_error('parent_last_name', "This field is required.")
     if age < 13 and not parent_first_name:
