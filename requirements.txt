@@ -50,3 +50,6 @@ django-bleach==0.2.0
 
 #performance monitoring
 newrelic
+
+#captcha
+django-recaptcha==1.0

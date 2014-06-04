@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'django_summernote',
     'django_bleach',
     'training',
+    'captcha'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -126,6 +127,9 @@ ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
 S3_URL_BASE = "http://s3.amazonaws.com"
 
 MEDIA_URL = S3_URL_BASE + '/' + AWS_STORAGE_BUCKET_NAME + '/'
+
+RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY", '6LfluPQSAAAAADlEDDiKEwo6k8lu5SIvAY_BrCbh')
+RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY", '6LfluPQSAAAAALSRaiav3IrE-EnMmY1wyBTSFpdc')
 
 #job queues
 RQ_QUEUES = {
