@@ -46,10 +46,10 @@ CM.Profile = {
     }
     if (age < 13) {
       $('.parent-info').show();
-      $('.profile-column').removeClass('col-md-6').addClass('col-md-4');
+      $('.student-column').removeClass('col-md-6').addClass('col-md-4');
     } else {
       $('.parent-info').hide();
-      $('.profile-column').removeClass('col-md-4').addClass('col-md-6');
+      $('.student-column').removeClass('col-md-4').addClass('col-md-6');
     }
   },
 }
