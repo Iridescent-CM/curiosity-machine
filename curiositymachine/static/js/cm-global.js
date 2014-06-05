@@ -77,7 +77,7 @@ CM.FilePicker = {
         function(data) {
           //success
           $self.val(data.url);
-
+          $modal.find('input[type=submit]').removeAttr('disabled');
           $('#filepickerframe').remove();
           if ($self.attr('id') === "id_picture_filepicker_url") {
             $self.before('<div class="upload-success image-wrapper"><img src="' + data.url + '" ></div>' );
@@ -143,14 +143,6 @@ if (CM.Navigation.$navTop) {
 
 
   $('#text_form textarea').on('keyup', function(e) {
-    if ($(this).val() == '') {
-      $(this.form).find('input[type=submit]').attr('disabled', 'disabled');
-    } else {
-      $(this.form).find('input[type=submit]').removeAttr('disabled');
-    }
-  });
-
-  $('#video_form, #picture_form').find('input[type=filepicker-dragdrop]').on('change', function(e) {
     if ($(this).val() == '') {
       $(this.form).find('input[type=submit]').attr('disabled', 'disabled');
     } else {
