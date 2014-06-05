@@ -68,7 +68,9 @@
       <div class="panel-body">
         <div class="current-materials">
           {{ progress.materials_list|safe }}<br>
-          <button class="edit-materials btn btn-primary">Edit Materials</Button>
+          {% if request.user == progress.student %}
+            <button class="edit-materials btn btn-primary">Edit Materials</Button>
+          {% endif %}
         </div>
         <form class="materials-form" action="{% url "challenges:change_materials" challenge_id=challenge.id username=progress.student.username %}" method="POST">
           {% csrf_token %}

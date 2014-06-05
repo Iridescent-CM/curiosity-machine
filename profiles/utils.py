@@ -8,7 +8,6 @@ def create_or_edit_user(data, user=None):
         new_user = True
 
     user.email = data['email']
-    user.first_name = data['first_name']
     if new_user:
         user.username = data['username']
         user.is_active = True
@@ -22,7 +21,6 @@ def create_or_edit_user(data, user=None):
         profile.is_mentor = False
         if profile.age >= 13:
             profile.approved = True
-    profile.nickname = data['nickname']
     profile.city = data['city']
     if new_user or user.profile.is_student:
         profile.parent_first_name = data['parent_first_name']

@@ -26,6 +26,7 @@ def join(request):
             except IntegrityError:
                 errors = form._errors.setdefault('username', ErrorList())
                 errors.append('Username has already been used')
+                return render(request, 'join.html', {'form': form,})
             else:
                 user = auth.authenticate(username=data['username'], password=data['password'])
                 auth.login(request, user)
