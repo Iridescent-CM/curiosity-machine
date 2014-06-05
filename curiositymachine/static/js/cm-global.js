@@ -60,37 +60,39 @@ CM.FilePicker = {
     var $modal = $(parent);
     var self = this;
 
-    $('input[type=filepicker-custom]', $modal).first().each(function() {
-      var $self = $(this);
-      filepicker.setKey($self.data('fpApikey'));
+    if ($('.comment-form', $modal).length) {
+      $('input[type=filepicker-custom]', $modal).first().each(function() {
+        var $self = $(this);
+        filepicker.setKey($self.data('fpApikey'));
 
-      //create iframe
-      $self.before('<iframe id="filepickerframe"></iframe>');
+        //create iframe
+        $self.before('<iframe id="filepickerframe"></iframe>');
 
-      filepicker.pick({
-      mimetypes: $self.data('fpMimetypes').split(','),
-      container: 'filepickerframe',
-      services: $self.data('fpServices').split(','),
-      openTo: $self.data('fpOpento').split(',')
-      },
-      function(data) {
-        //success
-        $self.val(data.url);
+        filepicker.pick({
+        mimetypes: $self.data('fpMimetypes').split(','),
+        container: 'filepickerframe',
+        services: $self.data('fpServices').split(','),
+        openTo: $self.data('fpOpento').split(',')
+        },
+        function(data) {
+          //success
+          $self.val(data.url);
 
-        $('#filepickerframe').remove();
-        if ($self.attr('id') === "id_picture_filepicker_url") {
-          $self.before('<div class="upload-success image-wrapper"><img src="' + data.url + '" ></div>' );
-        } else {
-          $self.before('<p class="upload-success">File [' + data.filename + '] has been successfully uploaded and is being processed.</p>')
+          $('#filepickerframe').remove();
+          if ($self.attr('id') === "id_picture_filepicker_url") {
+            $self.before('<div class="upload-success image-wrapper"><img src="' + data.url + '" ></div>' );
+          } else {
+            $self.before('<p class="upload-success">File [' + data.filename + '] has been successfully uploaded and is being processed.</p>')
+          }
+        },
+        function(error) {
+          //failure
+          CM.userError(error.toString());
         }
-      },
-      function(error) {
-        //failure
-        CM.userError(error.toString());
-      }
-      );
+        );
 
-    });
+      });
+    }
   },
   destroy : function() {
     //reset the modal in case they want to try again.
