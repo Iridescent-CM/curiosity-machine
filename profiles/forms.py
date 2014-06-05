@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.forms.extras.widgets import SelectDateWidget
+from django.conf import settings
 from datetime import datetime
 from curiositymachine.forms import FilePickerURLField
 from datetime import date
@@ -58,6 +59,8 @@ class JoinForm(ProfileFormBase):
 
     def __init__(self, request=None, *args, **kwargs):
         super(JoinForm, self).__init__(*args, **kwargs)
+        if settings.RECAPTCHA_PRIVATE_KEY == '' or settings.RECAPTCHA_PUBLIC_KEY == '':
+            self.fields.pop('captcha')
         self._request = request
 
     def clean(self):
