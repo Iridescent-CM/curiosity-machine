@@ -59,7 +59,7 @@ class JoinForm(ProfileFormBase):
 
     def __init__(self, request=None, *args, **kwargs):
         super(JoinForm, self).__init__(*args, **kwargs)
-        if settings.RECAPTCHA_PRIVATE_KEY == '' or settings.RECAPTCHA_PUBLIC_KEY == '':
+        if not settings.RECAPTCHA_PRIVATE_KEY or not settings.RECAPTCHA_PUBLIC_KEY:
             self.fields.pop('captcha')
         self._request = request
 
