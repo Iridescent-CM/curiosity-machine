@@ -93,6 +93,12 @@
     </div>
   </div>
   {% endif %}
+  {% if page == 'join' %}
+    <div class="col-md-6 captcha">
+      {{form.captcha}}
+      <div class="errors">{{form.captcha.errors}}</div>
+    </div>
+  {% endif %}
 {{ form.non_field_errors }}
 
 </div>
