@@ -63,6 +63,7 @@ CM.FilePicker = {
     if ($('.comment-form', $modal).length) {
       $('input[type=filepicker-custom]', $modal).first().each(function() {
         var $self = $(this);
+        $modal.find('input[type=submit]').attr('disabled', 'disabled');
         filepicker.setKey($self.data('fpApikey'));
 
         //create iframe
@@ -94,11 +95,13 @@ CM.FilePicker = {
       });
     }
   },
-  destroy : function() {
+  destroy : function(parent) {
     //reset the modal in case they want to try again.
-    $('#filepickerframe').remove();
-    $('.upload-success').remove();
-    $('input[type=filepicker-custom]').val('');
+    if ($('input[type=filepicker-custom]', parent).length) {
+      $('#filepickerframe', parent).remove();
+      $('.upload-success', parent).remove();
+      $('input[type=filepicker-custom]', parent).val('');
+    }
   }
 }
 
@@ -162,7 +165,7 @@ if (CM.Navigation.$navTop) {
   //re-initilaizes the modal when hidden
   $('body').on('hidden.bs.modal', '.modal', function () {
     $(this).removeData('bs.modal');
-    CM.FilePicker.destroy();
+    CM.FilePicker.destroy(this);
   });
 
   //focus on the first input element in modals
