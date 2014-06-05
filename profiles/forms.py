@@ -19,8 +19,6 @@ class ProfileFormBase(forms.Form):
                                widget=forms.PasswordInput(render_value=False), label="Password")
     confirm_password = forms.CharField(required=True, max_length=128,
                                        widget=forms.PasswordInput(render_value=False), label="Retype password")
-    first_name = forms.CharField(required=True, label="First Name")
-    nickname = forms.CharField(max_length=30, label="Nickname", required=False)
     birthday = forms.DateField(required=True, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
     city = forms.CharField(required=True, label="City")
     picture_filepicker_url = FilePickerURLField(label="Photo", mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
@@ -91,8 +89,6 @@ class StudentProfileEditForm(ProfileFormBase):
 
     def _initial_values(self):
         self.fields['email'].initial = self.user.email
-        self.fields['first_name'].initial = self.user.first_name
-        self.fields['nickname'].initial = self.user.profile.nickname
         self.fields['birthday'].initial = self.user.profile.birthday
         self.fields['city'].initial = self.user.profile.city
         self.fields['parent_first_name'].initial = self.user.profile.parent_first_name
@@ -114,8 +110,6 @@ class MentorProfileEditForm(ProfileFormBase):
 
     def _initial_values(self):
         self.fields['email'].initial = self.user.email
-        self.fields['first_name'].initial = self.user.first_name
-        self.fields['nickname'].initial = self.user.profile.nickname
         self.fields['birthday'].initial = self.user.profile.birthday
         self.fields['city'].initial = self.user.profile.city
         self.fields['title'].initial = self.user.profile.title

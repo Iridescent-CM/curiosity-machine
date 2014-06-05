@@ -13,7 +13,6 @@ class Profile(models.Model):
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
     city = models.TextField(blank=True)
-    nickname = models.CharField(max_length=30, blank=True)
     parent_first_name = models.TextField(blank=True)
     parent_last_name = models.TextField(blank=True)
     title = models.TextField(blank=True, help_text="This is a mentor only field.")

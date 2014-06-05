@@ -46,12 +46,63 @@ CM.Profile = {
     }
     if (age < 13) {
       $('.parent-info').show();
-      $('.profile-column').removeClass('col-md-6').addClass('col-md-4');
+      $('.student-column').removeClass('col-md-6').addClass('col-md-4');
     } else {
       $('.parent-info').hide();
-      $('.profile-column').removeClass('col-md-4').addClass('col-md-6');
+      $('.student-column').removeClass('col-md-4').addClass('col-md-6');
     }
   },
+}
+
+CM.FilePicker = {
+  config : {},
+  init : function(parent) {
+    var $modal = $(parent);
+    var self = this;
+
+    if ($('.comment-form', $modal).length) {
+      $('input[type=filepicker-custom]', $modal).first().each(function() {
+        var $self = $(this);
+        $modal.find('input[type=submit]').attr('disabled', 'disabled');
+        filepicker.setKey($self.data('fpApikey'));
+
+        //create iframe
+        $self.before('<iframe id="filepickerframe"></iframe>');
+
+        filepicker.pick({
+        mimetypes: $self.data('fpMimetypes').split(','),
+        container: 'filepickerframe',
+        services: $self.data('fpServices').split(','),
+        openTo: $self.data('fpOpento').split(',')
+        },
+        function(data) {
+          //success
+          $self.val(data.url);
+          $modal.find('input[type=submit]').removeAttr('disabled');
+          $('#filepickerframe').remove();
+          if ($self.attr('id') === "id_picture_filepicker_url") {
+            $self.before('<div class="upload-success image-wrapper"><img src="' + data.url + '" ></div>' );
+          } else {
+            $self.before('<p class="upload-success">File [' + data.filename + '] has been successfully uploaded and is being processed.</p>')
+          }
+        },
+        function(error) {
+          //failure
+          CM.userError(error.toString());
+        }
+        );
+
+      });
+    }
+  },
+  destroy : function(parent) {
+    //reset the modal in case they want to try again.
+    if ($('input[type=filepicker-custom]', parent).length) {
+      $('#filepickerframe', parent).remove();
+      $('.upload-success', parent).remove();
+      $('input[type=filepicker-custom]', parent).val('');
+    }
+  }
 }
 
 $(document).ready(function() {
@@ -93,14 +144,16 @@ if (CM.Navigation.$navTop) {
     $self.css('margin-bottom', (lineHeight - (height % lineHeight)) + 'px' );
   });
 
-  //make sure text fields have stuff before you submit
-  $('.comment-form').find('input[type=filepicker-dragdrop]').on('change', function(e) {
-    disable_submit_until_filled(this);
+
+  $('#text_form textarea').on('keyup', function(e) {
+    if ($(this).val() == '') {
+      $(this.form).find('input[type=submit]').attr('disabled', 'disabled');
+    } else {
+      $(this.form).find('input[type=submit]').removeAttr('disabled');
+    }
   });
 
-  $('.comment-form textarea').on('keyup', function(e) {
-    disable_submit_until_filled(this);
-  });
+/////PROFILE!
 
   CM.Profile.init();
 
@@ -112,11 +165,15 @@ if (CM.Navigation.$navTop) {
   //re-initilaizes the modal when hidden
   $('body').on('hidden.bs.modal', '.modal', function () {
     $(this).removeData('bs.modal');
+    CM.FilePicker.destroy(this);
   });
 
   //focus on the first input element in modals
+  //and other stuff when the modal opens like firelpicker
   $('body').on('shown.bs.modal', '.modal:visible', function () {
     $(this).find('input:visible,textarea:visible').first().focus();
+    //fielpicker
+    CM.FilePicker.init(this);
   });
 
   //actiavate tabs
@@ -190,18 +247,4 @@ if (CM.Navigation.$navTop) {
 
 });
 
-function disable_submit_until_filled(element) {
-  var empty = false;
-  var form = element.form;
-  $(form).find(':input').each(function() {
-      if ((this.type == 'text'|| this.type == 'textarea') && $(this).val() == '') {
-          empty = true;
-      }
-  });
-  if (empty) {
-      $(form).find('input[type=submit]').attr('disabled', 'disabled');
-  } else {
-      $(form).find('input[type=submit]').removeAttr('disabled');
-  }
-}
 
