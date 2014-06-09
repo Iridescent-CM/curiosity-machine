@@ -11,3 +11,8 @@ class FilePickerFileWidget(widgets.Input):
 
     class Media:
         js = (JS_URL,)
+
+
+class FilePickerDragDropWidget(widgets.Input):
+    input_type = "filepicker-dragdrop"
+    needs_multipart_form = False

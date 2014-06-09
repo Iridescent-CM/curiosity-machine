@@ -1,10 +1,9 @@
 from django import forms
 from django.conf import settings
 from django.forms.extras.widgets import SelectDateWidget
-from curiositymachine.widgets import FilePickerFileWidget
+from curiositymachine.widgets import FilePickerFileWidget, FilePickerDragDropWidget
 
-class FilePickerURLField(forms.URLField):
-    widget = FilePickerFileWidget
+class FilePickerField(forms.URLField):
     default_mimetypes = "*/*"
     default_openTo = 'COMPUTER'
     default_services = ''
@@ -19,6 +18,12 @@ class FilePickerURLField(forms.URLField):
     def widget_attrs(self, widget):
         return {'data-fp-apikey': self.apikey, 'data-fp-mimetypes': self.mimetypes, 'data-fp-openTo': self.openTo, 'data-fp-services': self.services, 'data-fp-button-class': 'btn btn-primary'}
 
+class FilePickerURLField(FilePickerField):
+    widget = FilePickerFileWidget
+    
+class FilePickerDragDropField(FilePickerField):
+    widget = FilePickerDragDropWidget
+    
 class AnalyticsForm(forms.Form):
     start_date = forms.DateField(widget=SelectDateWidget())
     end_date = forms.DateField(widget=SelectDateWidget())
