@@ -47,9 +47,11 @@ CM.Profile = {
     if (age < 13) {
       $('.parent-info').show();
       $('.student-column').removeClass('col-md-6').addClass('col-md-4');
+      $("label[for='id_email']").text('Parent Email:');
     } else {
       $('.parent-info').hide();
       $('.student-column').removeClass('col-md-4').addClass('col-md-6');
+      $("label[for='id_email']").text('Email:');
     }
   },
 }
