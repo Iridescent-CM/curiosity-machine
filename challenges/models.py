@@ -85,7 +85,7 @@ class Progress(models.Model):
             return self.comments.none()
 
     def get_student_images(self):
-        return Image.objects.filter(comment__user=self.student, comment__challenge_progress=self)
+        return Image.objects.filter(comments__user=self.student, comments__challenge_progress=self)
 
     @property
     def materials_list(self):
