@@ -83,6 +83,7 @@ def challenge_progress_approve(request, challenge_id, username):
 
     if request.method == "POST":
         Progress.objects.filter(id=progress.id).update(approved=now())
+        messages.success(request, 'Learner was progressed to Reflection')
     elif request.method == "DELETE":
         Progress.objects.filter(id=progress.id).update(approved=None)
 

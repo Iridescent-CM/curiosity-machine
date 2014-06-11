@@ -96,7 +96,7 @@
     {% for comment in comments %}
     {% include "_comment.html" %}
   {% endfor %}
-  <a class="btn btn-lg btn-primary start-link" href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}"> START BUILDING</a>
+  <a class="btn btn-lg btn-primary start-link" href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}">Ready to Build</a>
 </div><!-- /col 2 -->
 
 </div><!-- row -->
