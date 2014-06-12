@@ -22,6 +22,8 @@
     <meta name="msapplication-TileImage" content="{% static 'images/favicons/mstile-144x144.png' %}">
 
     <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600' rel='stylesheet' type='text/css'>
+    {% block css %}{% endblock %}
+
     <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}" />
     <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.carousel.css' %}">
     <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.theme.css' %}">
@@ -55,6 +57,7 @@
         <div class="top-avatar">
             <div class="image-wrapper">
                 <a href="{% url 'profiles:home' %}">{% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' %}</a>
+                <span>{{request.user.username}}</span>
             </div>
         </div>
       </div>

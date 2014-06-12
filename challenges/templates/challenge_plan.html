@@ -33,7 +33,7 @@
     </div>
 
     {% if challenge.plan_call_to_action %}
-    <div class="panel panel-bubble blue right">
+    <div class="panel blue">
       <div class="panel-body">
             {{challenge.plan_call_to_action}}
       </div>
@@ -101,7 +101,7 @@
 
 </div><!-- row -->
     {% include "_guide.html" %}
-    {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
+    {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='plan' as comment_url %}
     {% include "_comment_form.html" with stage="plan" format="video" url=comment_url %}
     {% include "_comment_form.html" with stage="plan" format="picture" url=comment_url %}
     {% include "_comment_form.html" with stage="plan" format="text" url=comment_url %}
