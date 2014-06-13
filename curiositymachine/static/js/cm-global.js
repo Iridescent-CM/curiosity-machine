@@ -219,10 +219,8 @@ if (CM.Navigation.$navTop) {
     
   });
 
-  $('.challenge-details-hero .flowplayer:first').on('play', function() {
-    if(!$(this).data('flowplayer').engine == 'flash') {
+  $('.challenge-details-hero .flowplayer:first').on('resume', function() {
       $('.challenge-details .btn-primary').css('position', 'static').css('z-index', 0);
-    }
   });
 
 //========cahllenge nav -=======
