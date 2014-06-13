@@ -7,7 +7,7 @@ from django.conf import settings
 
 def upload_to_s3(obj, key_prefix='', queue_after=None): # key_prefix should include the trailing / if necessary
     response = requests.get(obj.source_url)
-    conn = tinys3.Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY, tls=True)
+    conn = tinys3.Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY, tls=True, stream=True)
 
     with tempfile.TemporaryFile() as fd:
         for chunk in response.iter_content(1024*1024): # write with 1MB chunks -- not sure if there is any significant performance impact here though
