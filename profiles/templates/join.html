@@ -5,8 +5,9 @@
 <h1>Get Started. Create an Account.</h1>
 <form method='post' action="{% url 'profiles:join' %}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">  
   {% csrf_token %}
-  {% include "profile_fields.html" with page='join' %}
-  <button type="submit" class="btn btn-primary btn-lg">Save</button>
+  <div class="clearfix">{% include "profile_fields.html" with page='join' %}</div>
+  By clicking Save, you confirm that you accept the <a target="_blank" href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">Privacy Policy</a>.
+  <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
 </form>
 
 {% endblock %}
