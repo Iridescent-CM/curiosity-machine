@@ -27,7 +27,7 @@ class Video(models.Model):
     def fetch_from_source(self):
         from .tasks import encode_video
         if not self.key:
-            django_rq.get_queue(default_timeout=1200).enqueue(upload_to_s3, self, key_prefix="videos/", queue_after=encode_video) # extremely long timeout so that large files can be handled
+            django_rq.get_queue(default_timeout=1800).enqueue(upload_to_s3, self, key_prefix="videos/", queue_after=encode_video) # extremely long timeout so that large files can be handled
 
     def __str__(self):
         return "Video: id={}, url={}".format(self.id, self.url)
