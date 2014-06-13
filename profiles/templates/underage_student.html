@@ -2,8 +2,10 @@
 
 {% block content %}
 
-    <p>Students under 13 must contact the site administrators and submit proof of parental consent before proceeding.</p>
-
+    <p>We care about protecting the privacy of our youth and fully support the <a href="http://en.wikipedia.org/wiki/Children's_Online_Privacy_Protection_Act">Children's Online Privacy Protection Act</a> (COPPA). Therefore, we must receive permission from a parent or legal guardian before we can grant children access to the site.</p>
+    <p>Accounts of users under 13 years old can be activated only when we receive a consent form signed by a parent or legal guardian. Please download instructions <a href="   
+https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">here</a>.</p>
+    <p>If you would like to browse the site as a not-logged-in user, please use the Logout button below.</p>
     <a href="{% url 'logout' %}?next=/" class="btn btn-primary btn-lg">Logout</a>
 
 {% endblock %}
