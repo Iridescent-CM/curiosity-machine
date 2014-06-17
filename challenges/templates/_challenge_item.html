@@ -26,7 +26,9 @@
       </a>
     </div>
     <div class="panel-body">
-      {{ challenge.description }}
+      <div class="description">
+        {{ challenge.description | truncatechars:200 }}
+      </div>
     </div>
   </div>
 </li>

@@ -11,6 +11,7 @@ module.exports = function(grunt) {
             },
             files: {
                 "./css/base.css": "./less/cm_bootstrap.less",
+                "./css/filepicker.css": "./less/pages/filepicker.less",
             }
         }
     },

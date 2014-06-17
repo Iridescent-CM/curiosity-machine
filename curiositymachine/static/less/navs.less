@@ -20,6 +20,7 @@
       position: relative;
       display: block;
       padding: @nav-link-padding;
+      font-weight: 600;
       &:hover,
       &:focus {
         text-decoration: none;
@@ -75,7 +76,7 @@
 // Give the tabs something to sit on
 .nav-tabs {
   border-top: 1px solid @nav-tabs-border-color;
-  margin: 0 -(@grid-gutter-width / 2);
+  margin: 0 -(@grid-side-gutters);
   > li {
     float: left;
     text-transform: uppercase;
@@ -89,8 +90,9 @@
       background-color: @blue;
       .box-shadow(5px 5px 9px rgba(0,0,0,.2));
       &:hover {
-        //?
-        background-color: darken(@blue, 10%);
+        //?we're going to ignore it's a link until it actually is tabs.
+        background-color: @blue;
+        cursor: default;
       }
     }
 
@@ -102,7 +104,7 @@
         font-weight: 600;
         background-color: @green;
         cursor: default;
-        padding-bottom: 15px;
+        //padding-bottom: 15px;
         z-index: 1;
       }
     }
@@ -131,16 +133,17 @@
   margin: 0 0 0 3px;
   > li {
     > a {
-      background: @gray-lighter;
+      background: none;
       color: @text-color;
       box-shadow: none;
+      cursor: pointer;
     }
    &.active > a { 
     &,
     &:hover,
     &:focus {
       background: @bg-color;
-      padding: 10px 15px;
+      //padding: 10px 15px;
     }
    }
   }
@@ -262,7 +265,7 @@
   background: @bg-color-dark;
   padding-right: (@grid-gutter-width / 2);
   padding-left: (@grid-gutter-width / 2);
-  margin: 0 -(@grid-gutter-width / 2) 20px -(@grid-gutter-width / 2);
+  margin: 0 -(@grid-side-gutters) 20px -(@grid-side-gutters);
   > .tab-pane {
     display: none;
   }

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from .models import Image
-from curiositymachine.forms import FilePickerURLField
+from curiositymachine.forms import FilePickerDragDropField
 from django.conf import settings
 
 class ImageAdminForm(forms.ModelForm):
@@ -11,7 +11,7 @@ class ImageAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ImageAdminForm, self).__init__(*args, **kwargs)
-        self.fields['source_url'] = FilePickerURLField(mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER')
+        self.fields['source_url'] = FilePickerDragDropField(mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER')
 
 class ImageAdmin(admin.ModelAdmin):
     fields = ('source_url',)

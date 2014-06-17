@@ -20,7 +20,7 @@
 
 // Optional heading
 .panel-heading {
-  padding: 7px 10px;
+  padding: 12px 10px;
   border-bottom: 1px solid transparent;
   .border-top-radius((@panel-border-radius - 1));
 
@@ -287,8 +287,9 @@
   }
 }
 
-.panel-bubble.blue {
+.panel.blue {
   background: @blue;
+  border-radius: @border-radius-large;
   color: #fff;
   &:before {border-color: @blue transparent transparent transparent;}
 }

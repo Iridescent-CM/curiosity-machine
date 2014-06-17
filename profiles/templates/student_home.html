@@ -2,8 +2,10 @@
 
 {% block content %}
 
+<h1>Welcome {{ request.user.username}}</h1>
+
 <ul class="nav nav-justified nav-tabs">
-  <li class="active"><a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a></li>
+  <li class=""><a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a></li>
   <!-- <li><a href="#bookmarks" data-toggle="tab">Bookmarks</a></li> -->
 </ul>
 <div class="tab-content">

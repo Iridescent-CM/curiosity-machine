@@ -3,10 +3,10 @@
 
 {% block content %}
 
-<h1>Welcome back {{user.username}}</h1>
+<h1>Welcome {{user.username}}</h1>
 {% include "_mentor_profile_info.html" with profile=user.profile %}
 
-  <h2>Mentor Training Modules</h2>
+  <h2>Training Modules</h2>
   <ul class="challenges-list owl-carousel panel-carousel">
     {% for module in training_modules %}
        {% include "_training_item.html" %}

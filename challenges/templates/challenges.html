@@ -4,20 +4,26 @@
 {% block content %}
   
   {% if not request.user.is_authenticated %}
+    {% block css %}{# dotted font we only need on this page. #}
+      <link href='http://fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
+    {% endblock %}
   <div class="home-hero">
-    <h1>Imagine, Invent,</h1>
-    <h1>Engineer</h1>
+    <h1>Imagine, Invent, <br>Engineer</h1>
     <h2>A COMMUNITY OF</h2>
     <h2>SCIENTISTS, ENGINEERS &amp; CHILDREN</h2>
     <h2>CREATING TOGETHER.</h2> 
     <ul class="login-buttons">
       <li><button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#join-modal">Get Started</button></li>
-      <li><button class="btn-link" data-toggle="modal"  data-target="#login-modal">Sign In</a></li>
+      <li><button class="btn-link btn-lg" data-toggle="modal"  data-target="#login-modal">Sign In</a></li>
 
     </ul>
   </div>
+  {% else %}
+    <div class="challenge-browser">
+      <h1>Welcome {{request.user.username}}</h1>
+    </div>
   {% endif %}
-
+<div class="no-gutters theme-wrapper">
   <ul class="theme-carousel owl-carousel">
     <li {% if not theme %}class="active"{% endif %}>
       <a href="{% url 'challenges:challenges' %}">
@@ -31,11 +37,10 @@
       </a></li>
     {% endfor %}
   </ul>
-
-  <h1>Challenges:</h1>
+</div>
 
 <ul class="nav nav-justified nav-tabs">
-  <li class="active"><a href="#challenges" data-toggle="tab">All Challenges</a></li>
+  <li class=""><a href="#challenges" data-toggle="tab">All Challenges</a></li>
   <!-- <li><a href="#bookmarks" data-toggle="tab">Bookmarks</a></li> -->
 </ul>
 <div class="tab-content">

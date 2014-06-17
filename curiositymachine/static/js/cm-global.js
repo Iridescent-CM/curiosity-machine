@@ -210,6 +210,19 @@ if (CM.Navigation.$navTop) {
     itemsScaleUp : false
   });
 
+  $('.challenge-details-hero .flowplayer:first').on('pause', function() {
+    if($(this).data('flowplayer').engine == 'flash') {
+       $('.challenge-details .btn-primary').css('margin-top', '10px')
+    } else {
+      $('.challenge-details .btn-primary').css('position', 'relative').css('z-index', 2);
+    }
+    
+  });
+
+  $('.challenge-details-hero .flowplayer:first').on('resume', function() {
+      $('.challenge-details .btn-primary').css('position', 'static').css('z-index', 0);
+  });
+
 //========cahllenge nav -=======
   // $('.challenge-nav.primary li').not(':first-child').on('click', function() {
   //   var $self = $(this);
