@@ -34,6 +34,12 @@ SECRET_KEY = SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_HOSTS") else []
 
+# SSL settings
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = CSRF_COOKIE_SECURE = process_false_string(os.getenv("SSL_ONLY", False))
+SSLIFY_DISABLE = not process_false_string(os.getenv("SSL_ONLY", False))
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -59,6 +65,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'sslify.middleware.SSLifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
