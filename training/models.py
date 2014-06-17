@@ -57,7 +57,7 @@ class Task(models.Model):
         return "Task {} order {} of module {} order {}: {}".format(self.id, self.order, self.module.id, self.module.order, self.name)
 
 class Comment(models.Model):
-    module = models.ForeignKey(Module, related_name='comments')
+    task = models.ForeignKey(Task, related_name='comments')
     thread = models.ForeignKey("Comment", related_name='replies', null=True, blank=True) # if this is null, the comment is the start of a new thread; otherwise this foreign key must point to another comment that is the start of a new thread
     user = models.ForeignKey(User, related_name='mentor_training_comments')
     text = models.TextField()
