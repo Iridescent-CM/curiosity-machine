@@ -40,6 +40,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = CSRF_COOKIE_SECURE = process_false_string(os.getenv("SSL_ONLY", False))
 SSLIFY_DISABLE = not process_false_string(os.getenv("SSL_ONLY", False))
 
+# Canonical domain -- if this is set, all requests not to this domain will be forwarded to this domain
+# this should be a bare domain -- no scheme or route! For instance, www.example.com and not http://www.example.com
+CANONICAL_DOMAIN = os.getenv("CANONICAL_DOMAIN", None)
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -65,6 +69,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'curiositymachine.middleware.CanonicalDomainMiddleware', # this MUST come before the SSLify middleware or else non-canonical domains that do not have SSL endpoints will not work!
     'sslify.middleware.SSLifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

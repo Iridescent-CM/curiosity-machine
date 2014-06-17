@@ -1,5 +1,14 @@
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.conf import settings
+
+class CanonicalDomainMiddleware:
+    """
+    Redirects to CANONICAL_DOMAIN from other domains if set
+    """
+    def process_request(self, request):
+        if settings.CANONICAL_DOMAIN and not request.META['HTTP_HOST'] == settings.CANONICAL_DOMAIN:
+            return HttpResponseRedirect('http://{}/{}'.format(settings.CANONICAL_DOMAIN, request.get_full_path())) # might as well redirect to http as sslify will then catch requests if appropriate
 
 class UnderageStudentSandboxMiddleware:
     """
