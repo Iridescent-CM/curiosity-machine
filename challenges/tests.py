@@ -55,12 +55,16 @@ def test_mentor_can_approve(rf, progress):
 
     request = rf.post('/challenges/1/approve')
     request.user = progress.mentor
+    request.session = 'session'
+    request._messages = FallbackStorage(request)
     response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
     assert response.status_code == 204
     assert Progress.objects.get(id=progress.id).approved
 
     request = rf.delete('/challenges/1/approve')
     request.user = progress.mentor
+    request.session = 'session'
+    request._messages = FallbackStorage(request)
     response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
     assert response.status_code == 204
     assert not Progress.objects.get(id=progress.id).approved
