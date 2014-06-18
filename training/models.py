@@ -29,14 +29,19 @@ class Module(models.Model):
     def is_finished_by_mentor(self, mentor):
         return not self.tasks.exclude(mentors_done=mentor).exists() # return True iff all of the tasks have been completed by the mentor
 
+    def get_absolute_url(self):
+        return reverse('training:module', args=[self.order])
+
     def __str__(self):
-        return "Module {} order {}: {}".format(self.id, self.order, self.name)
+        return "Module {}: {}".format(self.order, self.name)
+
+
 
 class Task(models.Model):
     module = models.ForeignKey(Module, related_name="tasks")
     order = models.PositiveSmallIntegerField(help_text="The order, starting from 1, in which this module will be displayed. The URL to the task page is based on this number, so changing it will also change the URL. The numbers must be unique within a single module. The numbers should also be sequential within a single module.")
     name = models.CharField(max_length=70)
-    text = models.TextField()
+    text = models.TextField(help_text="HTML")
     mentors_done = models.ManyToManyField(User, null=True, blank=True, related_name='completed_tasks') # mentors listed here have completed the task
 
     class Meta:
@@ -53,8 +58,11 @@ class Task(models.Model):
             mentor.profile.approve_and_save()
             return True
 
+    def get_absolute_url(self):
+        return reverse('training:task', args=[self.module.order, self.order])
+
     def __str__(self):
-        return "Task {} order {} of module {} order {}: {}".format(self.id, self.order, self.module.id, self.module.order, self.name)
+        return "Task {} of module {}: {}".format(self.order, self.module.order, self.name)
 
 class Comment(models.Model):
     task = models.ForeignKey(Task, related_name='comments')
@@ -69,4 +77,4 @@ class Comment(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return "Comment: id={id}, user_id={user_id}, module_id={module_id}, text={text}".format(id=self.id, user_id=self.user_id, module_id=self.module_id, text=self.text[:45] + "..." if len(self.text) > 50 else self.text)
+        return "Comment: id={id}, user_id={user_id}, task_id={task_id}, text={text}".format(id=self.id, user_id=self.user_id, task_id=self.task_id, text=self.text[:45] + "..." if len(self.text) > 50 else self.text)

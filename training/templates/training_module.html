@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load cmtemplatetags %}
+{% block title %}Module {{ module.order }}: {{ module.name }}{% endblock %}
+
+{% block content %}
+
+  <h1>Mentor Training Module {{ module.order }}: {{ module.name }}</h1>
+
+  <ul class="challenges-list owl-carousel panel-carousel" >
+    {% for task in module.tasks.all %}
+      <li>
+        <div class="panel panel-default training-module">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              {% if accessible %}
+                <a href="{{ task.get_absolute_url }}">
+                  Task {{ task.order }}
+                </a>
+              {% else %}
+                Task {{ task.order }}
+              {% endif %}
+            </h3>
+          </div>
+          {% if accessible %}
+            <a href="{{ task.get_absolute_url }}">
+          {% endif %}
+            <div class="image-container {% if task in finished_tasks %}disabled{% endif %}">
+              <span class="placeholder icon-engineer"></span>
+            </div>
+          {% if accessible %}
+            </a>
+          {% endif %}
+          <div class="panel-body">
+            <h4>{{ task.name }}</h4>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

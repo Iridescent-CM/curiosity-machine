@@ -19,7 +19,8 @@ def module(request, module_order):
 
     # no need to serve a 403 to users who somehow cheat and skip ahead
 
-    return render(request, "training_module.html", {"module": module, "finished": module.is_finished_by_mentor(request.user),})
+    return render(request, "training_module.html", {"module": module, "accessible": module.is_accessible_by_mentor(request.user), "finished": module.is_finished_by_mentor(request.user),
+                                                    "finished_tasks": module.tasks.filter(mentors_done=request.user) if not request.user.profile.approved else []})
 
 @login_required
 @mentor_only
@@ -40,7 +41,7 @@ def task(request, module_order, task_order):
     show_thread_form = module.is_accessible_by_mentor(request.user) and not threads and not request.user.profile.approved
 
     return render(request, "training_task.html", {"module": module, "task": task, "threads": threads, "form": CommentForm(),
-                  "show_thread_form": show_thread_form, "finished": module.is_finished_by_mentor(request.user),})
+                  "show_thread_form": show_thread_form, "finished": task.is_finished_by_mentor(request.user),})
 
 @require_POST
 @login_required
@@ -58,17 +59,18 @@ def comments(request, module_order, task_order, thread_id=None):
 
     return HttpResponseRedirect(reverse('training:task', args=[str(module_order), str(task_order),]))
 
-# @require_POST
-# @login_required
-# @permission_required('profiles.change_profile', raise_exception=True)
-# def approve_module_progress(request, module_id, username):
-#     module = get_object_or_404(Module, id=module_id)
-#     mentor = get_object_or_404(User, username=username, profile__is_mentor=True)
+@require_POST
+@login_required
+@permission_required('profiles.change_profile', raise_exception=True)
+def approve_task_progress(request, module_order, task_order, username):
+    module = get_object_or_404(Module, order=module_order)
+    task = get_object_or_404(Task, order=task_order, module=module)
+    mentor = get_object_or_404(User, username=username, profile__is_mentor=True)
 
-#     module.mark_mentor_as_done(mentor)
-#     if User.objects.get(id=mentor.id).profile.approved:
-#         messages.success(request, 'Mentor {} has completed the final module and is now approved.'.format(mentor.username))
-#     else:
-#         messages.success(request, 'Mentor {} has completed module {}.'.format(mentor.username, module.title))
+    task.mark_mentor_as_done(mentor)
+    if User.objects.get(id=mentor.id).profile.approved:
+        messages.success(request, 'Mentor {} has completed task {}, module {}, and is now approved.'.format(mentor.username, task.name, module.name))
+    else:
+        messages.success(request, 'Mentor {} has completed task {}, module {}.'.format(mentor.username, task.name, module.name))
 
-#     return HttpResponseRedirect(reverse('training:module', args=[str(module_id),]))
+    return HttpResponseRedirect(reverse('training:task', args=[str(module_order), str(task_order),]))
