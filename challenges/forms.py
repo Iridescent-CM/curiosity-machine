@@ -12,4 +12,3 @@ class MaterialsForm(forms.Form):
         progress = kwargs.pop('progress')
         super(MaterialsForm, self).__init__(*args, **kwargs)
         self.fields['materials'].initial = progress.materials_list
-        

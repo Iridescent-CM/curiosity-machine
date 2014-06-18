@@ -4,25 +4,25 @@
       <h3 class="panel-title">
         {% if module in accessible_modules %}
           <a href="{{ module.get_absolute_url }}">
-            Module {{ forloop.counter }}
+            Module {{ module.order }}
           </a>
         {% else %}
-          Module {{ forloop.counter }}
+          Module {{ module.order }}
         {% endif %}
       </h3>
     </div>
     {% if module in accessible_modules %}
-    <a href="{{ module.get_absolute_url }}">
+      <a href="{{ module.get_absolute_url }}">
     {% endif %}
     <div class="image-container {% if not module in accessible_modules %}disabled{% endif %}">
       <span class="placeholder icon-engineer"></span>
     </div>
     {% if module in accessible_modules %}
-    </a>
+      </a>
     {% endif %}
     <div class="panel-body">
       
-      <h4>{{ module }}</h4>
+      <h4>{{ module.name }}</h4>
         
     </div>
   </div>

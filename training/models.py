@@ -6,48 +6,66 @@ from videos.models import Video
 from images.models import Image
 
 class Module(models.Model):
-    id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=70)
-    text = models.TextField()
-    mentors_done = models.ManyToManyField(User, null=True, blank=True, related_name='completed_modules') # mentors listed here have completed the module
+    order = models.PositiveSmallIntegerField(unique=True, help_text="The order, starting from 1, in which this module will be displayed. The URL to the module page and all of the module's task pages are based on this number, so changing it will also change the URLs. This also affects trainee progression -- for instance, the first module is always available to trainees, and a trainee who completes all tasks in the lastly-ordered module is promoted to mentor ('approved'). The numbers should be sequential.")
+    name = models.CharField(max_length=70)
 
     class Meta:
-        ordering = ('id',)
+        ordering = ('order',)
 
     def is_accessible_by_mentor(self, mentor):
         if mentor.profile.approved: # mentors who are approved can access any module, so that they can comment
             return True
-        elif mentor.is_staff: # staff members also get a free pass
+        elif mentor.is_staff: # staff members also get a free pass regardless of approval status
+            return True
+        elif Module.objects.order_by('order').first() == self: # accessible if this is the first module (order_by is explicit here because the "previous module" check below could potentially crash if "class Meta" ordering unexpectedly changes)
+            return True
+        elif self.is_finished_by_mentor(mentor): # accessible if this module is complete
+            return True
+        elif Module.objects.filter(order__lt=self.order).order_by('order').last().is_finished_by_mentor(mentor): # accessible if the previous module in the ordering is complete
             return True
         else:
-            # they can only access if this is the next one by ID that they haven't finished, or lower (so, they can access older modules they have finished, and if they somehow skip one they can access that too)
-            last_completed_module = mentor.completed_modules.order_by('id').last()
-            if not last_completed_module:
-                return self.id == Module.objects.order_by('id').first().id
-            else:
-                next_module = Module.objects.order_by('id').filter(id__gt=last_completed_module.id).first()
-                if next_module:
-                    return self.id <= next_module.id
-                # else fall through and return None, but this shouldn't happen -- if there are no more modules to complete, then the mentor should already be approved
+            return False
+
+    def is_finished_by_mentor(self, mentor):
+        return not self.tasks.exclude(mentors_done=mentor).exists() # return True iff all of the tasks have been completed by the mentor
+
+    def get_absolute_url(self):
+        return reverse('training:module', args=[self.order])
+
+    def __str__(self):
+        return "Module {}: {}".format(self.order, self.name)
+
+
+
+class Task(models.Model):
+    module = models.ForeignKey(Module, related_name="tasks")
+    order = models.PositiveSmallIntegerField(help_text="The order, starting from 1, in which this module will be displayed. The URL to the task page is based on this number, so changing it will also change the URL. The numbers must be unique within a single module. The numbers should also be sequential within a single module.")
+    name = models.CharField(max_length=70)
+    text = models.TextField(help_text="HTML")
+    mentors_done = models.ManyToManyField(User, null=True, blank=True, related_name='completed_tasks') # mentors listed here have completed the task
+
+    class Meta:
+        ordering = ('module', 'order',)
+        unique_together= (['module', 'order'],)
 
     def is_finished_by_mentor(self, mentor):
         return self.mentors_done.filter(id=mentor.id).exists()
 
-    # add mentor to the done list, and also approve the mentor if this is the final module
+    # add mentor to the done list, and also approve the mentor if completion of this task constitutes completion of the final module
     def mark_mentor_as_done(self, mentor):
         self.mentors_done.add(mentor)
-        if self.id == Module.objects.order_by('id').last().id:
+        if self.module == Module.objects.last() and not self.module.tasks.exclude(mentors_done=mentor).exists():
             mentor.profile.approve_and_save()
             return True
 
     def get_absolute_url(self):
-        return reverse('training:module', args=[str(self.id)])
+        return reverse('training:task', args=[self.module.order, self.order])
 
     def __str__(self):
-        return "Module {}: {}".format(self.id, self.title)
+        return "Task {} of module {}: {}".format(self.order, self.module.order, self.name)
 
 class Comment(models.Model):
-    module = models.ForeignKey(Module, related_name='comments')
+    task = models.ForeignKey(Task, related_name='comments')
     thread = models.ForeignKey("Comment", related_name='replies', null=True, blank=True) # if this is null, the comment is the start of a new thread; otherwise this foreign key must point to another comment that is the start of a new thread
     user = models.ForeignKey(User, related_name='mentor_training_comments')
     text = models.TextField()
@@ -59,4 +77,4 @@ class Comment(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return "Comment: id={id}, user_id={user_id}, module_id={module_id}, text={text}".format(id=self.id, user_id=self.user_id, module_id=self.module_id, text=self.text[:45] + "..." if len(self.text) > 50 else self.text)
+        return "Comment: id={id}, user_id={user_id}, task_id={task_id}, text={text}".format(id=self.id, user_id=self.user_id, task_id=self.task_id, text=self.text[:45] + "..." if len(self.text) > 50 else self.text)

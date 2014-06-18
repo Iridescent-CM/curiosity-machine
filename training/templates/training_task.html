@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load cmtemplatetags %}
+{% block title %}Task {{ task.name }}{% endblock %}
+
+{% block content %}
+
+  <h1>{{ task.name }}</h1>
+
+  <div class="row" id="mentor-training">
+    <div class="col-md-5">
+      {{ task.text|safe }}
+    </div>
+
+    <div class="col-md-7">
+      {% for thread in threads %}
+        <section> 
+          {% if finished or request.user.profile.approved %}{% if thread.user == request.user %}
+            <h3><strong>You have completed this training task</strong></h3>
+          {% endif %}{% endif %}
+        <span class="comment-date">{{ thread.created|timesince }}</span>
+        <div class="panel panel-comment comment">
+          <div class="panel-heading">
+            <h2 class="panel-title">{{ thread.user.username }} Says:</h2>
+          </div>
+          <div class="panel-body">
+            {% include "_comment_content.html" with comment=thread %}
+          </div>
+        </div><!-- top thread -->
+
+        <div class="replies">
+          {% for reply in thread.replies.all %}
+            {% if not reply.user == thread.user %}
+              <span class="mentor-comment">MENTOR MESSAGE</span>
+            {% endif %}
+            <span class="comment-date">{{ reply.created|timesince }}</span>
+            <div class="mentor-info comment">
+              {% include "_avatar.html" with profile=reply.user.profile width=50 height=50 crop='fit' %}
+              <p>{{reply.user.username}}<br>
+                {% if reply.user == thread.user %}
+                  <strong>Thread Author</strong>
+                {% else %}
+                  <strong>Mentor</strong>
+                {% endif %}
+              </p>
+            </div>
+            <div class="panel panel-bubble {% if reply.user == thread.user %}gray-light{% else %}blue{% endif %} comment">
+              <div class="panel-body">
+                {% include "_comment_content.html" with comment=reply %}
+              </div>
+            </div>
+          {% endfor %}
+
+          {% if not finished or request.user.profile.approved %}{% if not finished or thread.user != request.user %}
+
+            <div class="clearfix mentor-training-comment">
+              <div class="panel panel-bubble right">
+                <div class="panel-body">
+                  <h3>Reply:</h3>
+                  {% include "_comment_action_list.html" %}
+                </div>
+              </div>
+            </div>
+
+            {% url "training:comments" module.order task.order thread.id as comment_url %}
+            {% include "_comment_form.html" with comment_form=form stage="plan" format="video" url=comment_url %}
+            {% include "_comment_form.html" with comment_form=form stage="plan" format="picture" url=comment_url %}
+            {% include "_comment_form.html" with comment_form=form stage="plan" format="text" url=comment_url %}
+
+          {% endif %}{% endif %}
+          {% if perms.profiles.edit_profile and thread.user != request.user %}
+            <form action="{% url "training:approve_task_progress" module.order task.order thread.user.username %}" method="POST" class="clearfix">
+              {% csrf_token %}
+              <input type="submit" value="Approve {{ thread.user.username }}'s progress on this task" class="btn-approve btn btn-lg btn-primary">
+            </form>
+          {% endif %}
+        </div><!-- replies -->
+      </section>
+      {% empty %}
+        {% if perms.profiles.edit_profile %}
+          <h3><strong>There are are no pending mentor threads at this time</strong></h3>
+        {% endif %}
+      {% endfor %}
+
+      {# in order for this form to show, you must both NOT be approved and NOT have already made a thread #}
+      {% if show_thread_form %}
+        <div class="panel panel-bubble right">
+          <div class="panel-body">
+            <h3>Give feedback</h3>
+            {% include "_comment_action_list.html" %}
+          </div>
+        </div>
+
+        {% url "training:comments" module.order task.order as comment_url %}
+        {% include "_comment_form.html" with comment_form=form stage="plan" format="video" url=comment_url %}
+        {% include "_comment_form.html" with comment_form=form stage="plan" format="picture" url=comment_url %}
+        {% include "_comment_form.html" with comment_form=form stage="plan" format="text" url=comment_url %}
+
+      {% endif %}
+    </div><!-- col-md-6 2nd col -->
+  </div><!-- row -->
+{% endblock %}
