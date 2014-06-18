@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load resized %}
 
 {% block js %}
 <script src="/static/js/challenges.js"></script>
@@ -122,6 +123,38 @@
 </div><!-- /col 2 -->
 
 </div><!-- row -->
+
+<div class="tab-content">
+  <div class="tab-pane fade in active">
+    <h3 class="carousel-header">Check out what other kids built</h3>
+    <ul class="challenges-list owl-carousel panel-carousel">
+      {% for i in "123456" %}
+        <li>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                [[StudentName]]
+              </h3>
+            </div>
+            <div class="image-container">
+              <img src="{% resized MEDIA_URL|add:'images/placeholder.png' width=320 height=200 crop='fit' %}" />
+            </div>
+            <div class="panel-body">
+              <div class="description">
+                
+              </div>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div><!-- /#challenges -->
+  <div class="tab-pane fade" id="bookmarks">
+    <h1>No Bookmarks yet!</h1>
+  </div>
+
+</div><!-- /tabs content -->
+
     {% include "_guide.html" %}
       {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
       {% include "_comment_form.html" with stage="build" format="video" url=comment_url %}
