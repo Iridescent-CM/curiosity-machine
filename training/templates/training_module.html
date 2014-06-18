@@ -24,9 +24,13 @@
           {% if accessible %}
             <a href="{{ task.get_absolute_url }}">
           {% endif %}
-            <div class="image-container {% if task in finished_tasks %}disabled{% endif %}">
+          <div class="image-container {% if task in finished_tasks %}disabled{% endif %}">
+            {% if task.image %}
+              <img src="{{ task.image.url }}">
+            {% else %}
               <span class="placeholder icon-engineer"></span>
-            </div>
+            {% endif %}
+          </div>
           {% if accessible %}
             </a>
           {% endif %}

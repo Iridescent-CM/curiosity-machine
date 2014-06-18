@@ -18,5 +18,4 @@ class ProfileAdmin(UserAdmin):
                 continue
             yield inline.get_formset(request, obj)
 
-
 admin.site.register(User, ProfileAdmin)

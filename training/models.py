@@ -8,6 +8,7 @@ from images.models import Image
 class Module(models.Model):
     order = models.PositiveSmallIntegerField(unique=True, help_text="The order, starting from 1, in which this module will be displayed. The URL to the module page and all of the module's task pages are based on this number, so changing it will also change the URLs. This also affects trainee progression -- for instance, the first module is always available to trainees, and a trainee who completes all tasks in the lastly-ordered module is promoted to mentor ('approved'). The numbers should be sequential.")
     name = models.CharField(max_length=70)
+    image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="modules")
 
     class Meta:
         ordering = ('order',)
@@ -35,12 +36,11 @@ class Module(models.Model):
     def __str__(self):
         return "Module {}: {}".format(self.order, self.name)
 
-
-
 class Task(models.Model):
     module = models.ForeignKey(Module, related_name="tasks")
     order = models.PositiveSmallIntegerField(help_text="The order, starting from 1, in which this module will be displayed. The URL to the task page is based on this number, so changing it will also change the URL. The numbers must be unique within a single module. The numbers should also be sequential within a single module.")
     name = models.CharField(max_length=70)
+    image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="tasks")
     text = models.TextField(help_text="HTML")
     mentors_done = models.ManyToManyField(User, null=True, blank=True, related_name='completed_tasks') # mentors listed here have completed the task
 

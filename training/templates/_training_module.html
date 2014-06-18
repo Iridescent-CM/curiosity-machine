@@ -15,7 +15,11 @@
       <a href="{{ module.get_absolute_url }}">
     {% endif %}
     <div class="image-container {% if not module in accessible_modules %}disabled{% endif %}">
-      <span class="placeholder icon-engineer"></span>
+      {% if module.image %}
+        <img src="{{ module.image.url }}">
+      {% else %}
+        <span class="placeholder icon-engineer"></span>
+      {% endif %}
     </div>
     {% if module in accessible_modules %}
       </a>
