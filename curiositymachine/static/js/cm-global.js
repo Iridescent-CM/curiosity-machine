@@ -186,6 +186,8 @@ if (CM.Navigation.$navTop) {
 //======= end bootstrappy stuff
 
 
+  //===== carousel setup
+
   $(".panel-carousel").owlCarousel({
     items : 4,
     itemsCustom : false,
@@ -210,6 +212,22 @@ if (CM.Navigation.$navTop) {
     itemsScaleUp : false
   });
 
+  //====== end carousel setup
+
+  $('.image-gallery .image-container').on('click', function() {
+    var image = $(this).clone();
+    var modalContent = $('#galleryModal .modal-content');
+    var header = '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h2>&nbsp;</h2></div>';
+    console.log(header);
+    modalContent.empty();
+    
+    modalContent.append(header);
+    modalContent.append(image);
+    image.wrap('<div class="modal-body"></div>');
+    
+  });
+
+  //this shows or hides the button on challenge details page depending on if the video is playing
   $('.challenge-details-hero .flowplayer:first').on('pause', function() {
     if($(this).data('flowplayer').engine == 'flash') {
        $('.challenge-details .btn-primary').css('margin-top', '10px')
@@ -223,43 +241,6 @@ if (CM.Navigation.$navTop) {
       $('.challenge-details .btn-primary').css('position', 'static').css('z-index', 0);
   });
 
-//========cahllenge nav -=======
-  // $('.challenge-nav.primary li').not(':first-child').on('click', function() {
-  //   var $self = $(this);
-  //   var position = $self.position();
-  //   var width = $self.width();
-  //   var color = $('button', this).css('color');
-
-  //   $('.challenge-nav.clipper').css('clip', 'rect(0px,' +(position.left + width) + 'px,100px,' + position.left +'px)');
-  //   $('.challenge-nav.clipper .cursor').css({
-  //     'left' : (position.left - 2) + 'px',
-  //     'width' : (width + 4) + 'px',
-  //     'background-color' : color
-  //   });
-  //   $('.challenge-nav.primary .cursor').css({
-  //     'left' : (position.left - 2) + 'px',
-  //     'width' : (width + 4) + 'px'
-  //   });
-  //   $('.challenge-nav.primary .cursor .top').css({'border-color' : 'transparent ' + color + ' transparent transparent'});
-  //   $('.challenge-nav.primary .cursor .bottom').css({'border-color' : 'transparent transparent ' + color + ' transparent'});
-  //   //$('.challenge-nav.primary .cursor .front').css({'border-color' : ('transparent transparent transparent ' + color) });
-  
-  //   $('.challenge-nav.clipper .btn').textillate({
-  //       autoStart: false,
-  //       'in': {
-  //         effect : 'wobble'
-  //       }
-  //     }).textillate('start');
-  // });
-
-  // $('.challenge-nav.clipper .cursor').on('transitionend webkitTransitionEnd', function(e){
-      
-  // });
-  // //start starting position...
-  // $('.challenge-nav.primary li').eq(1).trigger('click');
-//==== end challenge nav
-
-
-});
+}); //end dom ready
 
 

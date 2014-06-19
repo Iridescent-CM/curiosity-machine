@@ -1,5 +1,5 @@
-<div class="modal fade {% block classes %}{% endblock %}" id="{% block id %}{% endblock %}" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-  <div class="modal-dialog {% block inner-classes %}{% endblock %}">
+<div class="modal fade {% block classes %}{% endblock %}{{ classes }}" id="{% block id %}{% endblock %}{{ id }}" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+  <div class="modal-dialog {% block inner-classes %}{% endblock %} {{ inner_classes }}">
     <div class="modal-content">
       {% block content %}
       
