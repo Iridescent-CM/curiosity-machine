@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Module, Comment, Task
 from django.contrib.auth.models import User
-from videos.models import Video
 from images.models import Image
 from cmcomments.admin import CommentAdmin
 
