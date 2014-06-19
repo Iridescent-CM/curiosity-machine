@@ -1,3 +1,4 @@
+{% load resized %}
 <li>
   <div class="panel panel-default training-module">
     <div class="panel-heading">
@@ -16,7 +17,7 @@
     {% endif %}
     <div class="image-container {% if not module in accessible_modules %}disabled{% endif %}">
       {% if module.image %}
-        <img src="{{ module.image.url }}">
+        <img src="{% resized module.image.url width=300 height=200 crop='fit' %}">
       {% else %}
         <span class="placeholder icon-engineer"></span>
       {% endif %}
