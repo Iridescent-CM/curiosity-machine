@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load cmtemplatetags %}
+{% load resized %}
 {% block title %}Module {{ module.order }}: {{ module.name }}{% endblock %}
 
 {% block content %}
@@ -26,7 +27,7 @@
           {% endif %}
           <div class="image-container {% if task in finished_tasks %}disabled{% endif %}">
             {% if task.image %}
-              <img src="{{ task.image.url }}">
+              <img src="{% resized task.image.url width=300 height=200 crop='fit' %}">
             {% else %}
               <span class="placeholder icon-engineer"></span>
             {% endif %}
