@@ -31,7 +31,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
     <script type="text/javascript" src="{% static 'js/libs/modernizr.custom.05723.js' %}"></script>
+    <!--[if (gte IE 6)&(lte IE 8)]>
     <script type="text/javascript" src="{% static 'js/libs/webshim-gh-pages/js-webshim/minified/polyfiller.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/respond/src/respond.js' %}"></script>
+    <![endif]-->
 </head>
 <body>
 
@@ -85,6 +88,9 @@
 <script type="text/javascript" src="{% static 'js/libs/jquery.textillate.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
 <script src="//api.filepicker.io/v1/filepicker.js"></script>
+<!--[if (gte IE 6)&(lte IE 8)]>
+    <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
+<![endif]-->
 {% block js %}{% endblock %}
 
 {% if messages %}
