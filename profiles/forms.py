@@ -7,7 +7,6 @@ from django.conf import settings
 from datetime import datetime
 from curiositymachine.forms import FilePickerURLField, FilePickerDragDropField
 from datetime import date
-from captcha.fields import ReCaptchaField
 
 import re
 
@@ -62,12 +61,9 @@ class JoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
     parent_first_name = forms.CharField(required=False, label="First Name")
     parent_last_name = forms.CharField(required=False, label="Last Name")
-    captcha = ReCaptchaField(attrs={'theme' : 'clean'})
 
     def __init__(self, request=None, *args, **kwargs):
         super(JoinForm, self).__init__(*args, **kwargs)
-        if not settings.RECAPTCHA_PRIVATE_KEY or not settings.RECAPTCHA_PUBLIC_KEY:
-            self.fields.pop('captcha')
         self._request = request
 
     def clean(self):

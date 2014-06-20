@@ -45,7 +45,7 @@ class ProgressAdmin(admin.ModelAdmin):
             kwargs["queryset"] = User.objects.filter(profile__is_mentor=False)
         elif db_field.name == "mentor":
             kwargs["queryset"] = User.objects.filter(profile__is_mentor=True)
-        return super(ProgressAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 admin.site.register(Module, ModuleAdmin)
 admin.site.register(Task, TaskAdmin)
