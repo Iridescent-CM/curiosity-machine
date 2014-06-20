@@ -39,7 +39,6 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = CSRF_COOKIE_SECURE = process_false_string(os.getenv("SSL_ONLY", False))
 SSLIFY_DISABLE = not process_false_string(os.getenv("SSL_ONLY", False))
-RECAPTCHA_USE_SSL = True
 
 # Canonical domain -- if this is set, all requests not to this domain will be forwarded to this domain
 # this should be a bare domain -- no scheme or route! For instance, www.example.com and not http://www.example.com
@@ -66,7 +65,6 @@ INSTALLED_APPS = (
     'django_summernote',
     'django_bleach',
     'training',
-    'captcha'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -140,9 +138,6 @@ ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
 S3_URL_BASE = "http://s3.amazonaws.com"
 
 MEDIA_URL = S3_URL_BASE + '/' + AWS_STORAGE_BUCKET_NAME + '/'
-
-RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY", '')
-RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY", '')
 
 #job queues
 RQ_QUEUES = {
