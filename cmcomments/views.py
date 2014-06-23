@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_http_methods
 from django.conf import settings
 from challenges.models import Challenge, Progress, Stage, Example
 from django.contrib import messages
@@ -37,19 +37,21 @@ def comments(request, challenge_id, username, stage):
 # Any POST to this features a student's progress in the "see what other kids built" section on the inspiration page.
 # Only one comment from a student for a specific challenge can be featured at a time; multiple POSTs will override previous selections.
 # This only really makes sense if the comment has either an image or a video, but there's nothing stopping a forged POST request for a comment without either of those.
-@require_POST
+@require_http_methods(["POST", "DELETE"])
 @mentor_only
 def feature_as_example(request, challenge_id, username, stage, comment_id): # "stage" is only used for the redirect
     progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
     comment = get_object_or_404(progress.comments, id=comment_id)
 
-    if Example.objects.filter(progress=progress, image=comment.image, video=comment.video):
-        messages.error(request, "This media was already featured, so nothing was changed.")
-    elif Example.objects.filter(progress=progress).exists():
+    if request.method == "POST":
+        if Example.objects.filter(progress=progress).exists():
+            Example.objects.filter(progress=progress).delete()
+            messages.success(request, "{}'s previously featured media was replaced.".format(progress.student))
+        else:
+            messages.success(request, "{}'s uploaded media was featured on the inspiration page.".format(progress.student))
+        Example.objects.create(challenge=progress.challenge, progress=progress, image=comment.image, video=comment.video)
+    elif request.method == "DELETE":
         Example.objects.filter(progress=progress).delete()
-        messages.success(request, "{}'s previously featured media was replaced.".format(progress.student))
-    else:
-        messages.success(request, "{}'s uploaded media was featured on the inspiration page.".format(progress.student))
-    Example.objects.create(challenge=progress.challenge, progress=progress, image=comment.image, video=comment.video)
+        messages.error(request, "{}'s previously featured example was un-featured.".format(progress.student))
 
-    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge_id, 'username': username, 'stage': stage}))
+    return HttpResponse(status=204)
