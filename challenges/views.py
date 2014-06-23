@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.utils.timezone import now
 import django_rq
 
-from .models import Challenge, Progress, Theme, Stage
+from .models import Challenge, Progress, Theme, Stage, Example
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine.decorators import mentor_or_current_student, mentor_only
@@ -38,7 +38,7 @@ def challenge(request, challenge_id):
                 raise PermissionDenied
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': request.user.username,}))
     else:
-        return render(request, 'challenge.html', {'challenge': challenge,})
+        return render(request, 'challenge.html', {'challenge': challenge, 'examples': Example.objects.filter(challenge=challenge),})
 
 @login_required
 @mentor_or_current_student
@@ -59,9 +59,8 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username, 'stage': stage_string}))
 
     if stage == Stage.inspiration:
-        return render(request, 'challenge.html', {'challenge': challenge, 'progress': progress})
-
-    if stage in [Stage.build, Stage.test, Stage.reflect]:
+        return render(request, 'challenge.html', {'challenge': challenge, 'progress': progress, 'examples': Example.objects.filter(challenge=challenge),})
+    elif stage in [Stage.build, Stage.test, Stage.reflect]:
         comments = progress.comments.filter(stage__in=[Stage.build.value, Stage.test.value, Stage.reflect.value])
     else:
         comments = progress.comments.filter(stage=stage.value)
