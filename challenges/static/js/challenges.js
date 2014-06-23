@@ -67,7 +67,7 @@ $(document).ready(function() {
   });
 
 
-  $('.challenge-progress-form').on('submit', function(e) {
+  $('.ajax-and-refresh-form').on('submit', function(e) {
     e.preventDefault();
     var $self = $(this);
     var data = {
@@ -79,7 +79,7 @@ $(document).ready(function() {
       location.reload();
     }).fail(function(data) {
       console.log(data);
-      alert( "There was an error switching progress. try again later" );
+      alert( "There was an error; please try again later" );
     })
 
   });

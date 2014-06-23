@@ -23,7 +23,7 @@
       <h4>{{ progress.challenge.name }}</h4>
       <p>Started: {{ progress.started }}</p>
       {% if not progress.mentor %}
-        <form class="challenge-progress-form" action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
+        <form class="ajax-and-refresh-form" action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
           {% csrf_token %}
           <button class="btn btn-primary" type="submit">Claim</button>
         </form>

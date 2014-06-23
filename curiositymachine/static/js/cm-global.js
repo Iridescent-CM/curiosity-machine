@@ -10,7 +10,7 @@ CM.Navigation = {
 
 CM.userError = function(message) {
   $('#message-bar').removeClass().addClass('error');
-  $('#message-bar').addClass('active').find('.text').text(message);
+  $('#message-bar').addClass('active').find('.text').append(message);
   var timer = setTimeout(function() {
     $('#message-bar').removeClass('active');
   }, 3000)
@@ -18,7 +18,7 @@ CM.userError = function(message) {
 
 CM.userSuccess = function(message) {
   $('#message-bar').removeClass().addClass('success');
-  $('#message-bar').addClass('active').find('.text').text(message);
+  $('#message-bar').addClass('active').find('.text').append(message);
   var timer = setTimeout(function() {
     $('#message-bar').removeClass('active');
   }, 3000);

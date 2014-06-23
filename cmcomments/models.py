@@ -1,5 +1,5 @@
 from django.db import models
-from challenges.models import Progress, Stage
+from challenges.models import Progress, Stage, Example
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 from videos.models import Video
@@ -15,6 +15,9 @@ class Comment(models.Model):
     read = models.BooleanField(default=False, db_index=True)
     stage = models.SmallIntegerField(choices=[(stage.value, stage.name) for stage in Stage], default=Stage.build.value)
     question_text = models.TextField(help_text="If the comment is in direct reply to a question, this will contain the full text of the question.")
+
+    def is_featured_as_example(self):
+        return Example.objects.filter(progress=self.challenge_progress, image=self.image, video=self.video).exists()
 
     class Meta:
         ordering = ('-created',)
