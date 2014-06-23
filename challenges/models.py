@@ -98,3 +98,16 @@ class Progress(models.Model):
 
     def __str__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
+
+class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
+    challenge = models.ForeignKey(Challenge)
+    progress = models.ForeignKey(Progress, null=True, blank=True, on_delete=models.SET_NULL, help_text="An optional association with a specific student's progress on a challenge.")
+    _name = models.TextField(blank=True, verbose_name="name", db_column="name", help_text="The student's username in plain text. This can be left blank if a progress is set, in which case the progress's student username will be automatically used instead.")
+    image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, help_text="An image to display in the gallery. If a video is also set, this will be the thumbnail. Each example must have an image or a video, or both, to be displayed correctly.")
+    video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, help_text="Each example must have an image or a video, or both, to be displayed correctly.")
+
+    @property
+    def name(self):
+        if self._name: return self._name
+        elif self.progress: return self.progress.student.username
+        else: return ""
