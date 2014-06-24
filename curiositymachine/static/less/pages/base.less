@@ -307,6 +307,10 @@ body {
   background: url('../images/collage3.png') 440px 0px no-repeat, -ms-linear-gradient(top,  rgba(214,227,223,0) 0%,rgba(214,227,223,0) 25%,rgba(214,227,223,1) 100%); /* IE10+ */
   background: url('../images/collage3.png') 440px 0px no-repeat, linear-gradient(to bottom,  rgba(214,227,223,0) 0%,rgba(214,227,223,0) 25%,rgba(214,227,223,1) 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00d6e3df', endColorstr='#d6e3df',GradientType=0 ); /* IE6-9 */
+
+  .no-cssgradients & {
+    background: url('../images/collage3.png') 440px 0px no-repeat;
+  }
   h1 {
     font-size: 70px;
     font-weight: 300;
@@ -359,6 +363,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  &.free-height .panel {height: auto;}
 }
 
 .theme-wrapper {
@@ -708,4 +713,21 @@ body {
   float: right;
   font-size: @font-size-small;
   padding-top: 3px;
+}
+
+.mentor-list {
+  padding: 0 0 0 0;
+  margin: 0;
+  > li {
+    padding-right: 20px;
+    list-style-type: none;
+    width: 25%;
+    float: left;
+    .image-container img {
+      width: 100%;
+    }
+  }
+  > li:nth-child(4n+1) {
+    clear: both;
+  }
 }

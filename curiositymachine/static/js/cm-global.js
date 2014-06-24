@@ -228,18 +228,15 @@ if (CM.Navigation.$navTop) {
   });
 
   //this shows or hides the button on challenge details page depending on if the video is playing
-  $('.challenge-details-hero .flowplayer:first').on('pause', function() {
-    if($(this).data('flowplayer').engine == 'flash') {
-       $('.challenge-details .btn-primary').css('margin-top', '10px')
-    } else {
+
+  $('.challenge-details-hero .mejs-player').on('pause', function() {
       $('.challenge-details .btn-primary').css('position', 'relative').css('z-index', 2);
-    }
-    
   });
 
-  $('.challenge-details-hero .flowplayer:first').on('resume', function() {
+  $('.challenge-details-hero .mejs-player').on('play', function() {
       $('.challenge-details .btn-primary').css('position', 'static').css('z-index', 0);
   });
+  
 
 }); //end dom ready
 

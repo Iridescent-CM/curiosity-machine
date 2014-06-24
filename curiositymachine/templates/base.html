@@ -27,9 +27,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}" />
     <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.carousel.css' %}">
     <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.theme.css' %}">
-    <link rel="stylesheet" href="//releases.flowplayer.org/5.4.6/skin/minimalist.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'js/libs/mediaelement/mediaelementplayer.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+
+
     <script type="text/javascript" src="{% static 'js/libs/modernizr.custom.05723.js' %}"></script>
     <!--[if (gte IE 6)&(lte IE 8)]>
     <script type="text/javascript" src="{% static 'js/libs/webshim-gh-pages/js-webshim/minified/polyfiller.js' %}"></script>
@@ -47,7 +49,7 @@
     <div id="main-container">
 
     <div class="container-fluid main-content">
-    <a href="/" class="logo">Curiosity Machine</a>
+    <a href="{% url 'challenges:challenges' %}" class="logo">Curiosity Machine</a>
     <button type="button" class="navbar-toggle">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
@@ -82,8 +84,8 @@
 <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="{% static 'js/libs/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
-<script src="//releases.flowplayer.org/5.4.6/flowplayer.min.js"></script>
 <script type="text/javascript" src="{% static 'js/libs/owl-carousel/owl.carousel.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/libs/mediaelement/mediaelement-and-player.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/libs/jquery.lettering.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/libs/jquery.textillate.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
