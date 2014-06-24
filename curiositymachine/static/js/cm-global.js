@@ -231,10 +231,12 @@ if (CM.Navigation.$navTop) {
 
   $('.challenge-details-hero .mejs-player').on('pause', function() {
       $('.challenge-details .btn-primary').css('position', 'relative').css('z-index', 2);
+      $('.challenge-details-hero .details').show();
   });
 
   $('.challenge-details-hero .mejs-player').on('play', function() {
       $('.challenge-details .btn-primary').css('position', 'static').css('z-index', 0);
+      $('.challenge-details-hero .details').hide();
   });
   
 
