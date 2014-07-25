@@ -1,0 +1,23 @@
+Hi  {{ mentor.username }}!
+
+Thanks for joining our mentor community on the Curiosity Machine! We want to have a stellar 
+
+community of scientists and engineers advising students, and so we ask all of our mentors to 
+
+complete a short training course. The training is made up of three main learning exercises. You 
+
+can complete these at your own pace, however, we do ask that you finish the full training within 
+
+a week. 
+
+Get started by filling out your mentor profile and introducing yourself to the community in Task 
+
+#1 [link https://www.curiositymachine.org/training/2/1/]! We will give you comments at each task 
+
+stage and approve your account once you finish the training. Thank you for supporting the next 
+
+generation of scientists and engineers!
+
+Best regards,
+
+Curiosity Machine Team

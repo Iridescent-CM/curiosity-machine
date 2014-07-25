@@ -1,0 +1,25 @@
+{% extends "email_base.html" %}
+{% block content %}
+
+<p>
+Hi {{ mentor.first_name | default:mentor.user.username }}!
+</p>
+
+<p>
+Your student {{ student.first_name | default:student.user.username }} just responded to the feedback you gave on their design challenge! Looks like they’re ready for you to see their new design! 
+</p>
+
+<p>
+Have a moment now? Let’s give them the ideas and encouragement they need to achieve the challenge goal!
+</p>
+
+<p>
+Once you think they’re finished, make sure to move them to the Reflect Stage so that they can answer the reflect questions &nbsp; share their project with others!
+</p>
+
+<a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=student.user.username %}">Give {{ mentor.first_name | default:mentor.user.username }} Feedback!</a>
+<p>
+Best regards,
+Curiosity Machine Team
+</p>
+{% endblock %}

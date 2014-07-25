@@ -1,0 +1,20 @@
+{% extends "email_base.html" %}
+{% block content %}
+
+<p>
+Hi {{ mentor.first_name | default:mentor.user.username }}!
+</p>
+
+<p>
+We noticed you’ve been gone for awhile! Our students building at home and in Curiosity Courses are hoping to connect with mentors like you and receive feedback on their design challenges. 
+</p>
+<p>
+Have a moment now? Visit the Curiosity Machine [<a href="{{ site_url }}">{{ site_url }}</a>] to see what our amazing students are building and how you can give them the support to succeed!
+</p>
+
+<a href="{{ site_url }}{% url 'profiles:home' %}">Claim a Student Project!</a>
+<p>
+Best regards, <br>
+Curiosity Machine Team
+</p>
+{% endblock %}

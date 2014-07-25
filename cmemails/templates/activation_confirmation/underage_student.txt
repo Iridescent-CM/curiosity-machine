@@ -1,0 +1,12 @@
+Welcome to Curiosity Machine! 
+
+Your child’s account (user name: {{ student.user.username }}) has been activated, and now you can start building together! 
+
+With <a href="{{ site_url }}">Curiosity Machine</a>, you and your child will be able to:
+
+Get Inspired by videos of scientists and engineers solving real-world problems
+Design and Build your own engineering solutions with low-cost, easy-to-find supplies
+Interact online with Curiosity Machine engineering mentors, who can help you make your design even better and answer questions when you get stuck
+Share pictures and videos of your design with the Curiosity Machine community
+
+(Click here to explore design challenges and start inventing!)* button

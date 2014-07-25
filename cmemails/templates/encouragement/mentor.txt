@@ -1,0 +1,10 @@
+Hi {{ mentor.first_name | default:mentor.user.username }}!
+
+We noticed you’ve been gone for awhile! Our students building at home and in Curiosity Courses are hoping to connect with mentors like you and receive feedback on their design challenges. 
+
+Have a moment now? Visit the Curiosity Machine [link https://www.curiositymachine.org] to see what our amazing students are building and how you can give them the support to succeed!
+
+(Claim a Student Project!) *button 
+
+Best regards,
+Curiosity Machine Team

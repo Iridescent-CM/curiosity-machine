@@ -1,0 +1,22 @@
+{% extends "email_base.html" %}
+{% block content %}
+
+<p>
+Your child’s account is active (user name: {{ student.first_name | default:student.user.username }}); now you can start building together! 
+</p>
+<p>
+As a reminder, here are some of features you’ll find at Curiosity Machine: 
+</p>
+
+<ul>
+	<li>Get Inspired by videos of scientists and engineers solving real-world problems</li>
+	<li>Design and Build your own engineering solutions with low-cost, easy-to-find supplies</li>
+	<li>Interact online with Curiosity Machine engineering mentors, who can help you make your design even better and answer questions when you get stuck</li>
+	<li>Share pictures and videos of your design with the Curiosity Machine community</li>
+</ul>
+<p>
+Looking for some inspiration? Check out what others are building in our Inspiration gallery, then try a project of your own! 
+</p>
+
+<a href="{{ site_url }}{% url 'challenges:challenges' %}">Click here to start inventing!</a>
+{% endblock %}

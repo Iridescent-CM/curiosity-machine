@@ -1,0 +1,14 @@
+{% extends "email_base.html" %}
+{% block content %}
+
+<p>
+Great work! Your child’s project is ready to be finished up and shared with our Curiosity Machine community. 
+</p>
+
+<p>
+Ask your child to log on to <a href="{{ site_url }}">Curiosity Machine</a> as {{ student.first_name | default:student.user.username }} to respond to the reflection questions and publish the project in the 
+<a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=student.user.username stage=stage %}">Curiosity Machine Inspiration gallery</a>.
+</p>
+
+<a href="{{ site_url }}">Take me to Curiosity Machine</a>
+{% endblock %}

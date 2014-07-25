@@ -1,0 +1,14 @@
+{% extends "email_base.html" %}
+{% block content %}
+
+<p>
+Your child, {{ student.first_name | default:student.user.username }}, has submitted a project to Curiosity Machine!
+</p>
+<p>
+Our science and engineer mentors are checking out his/her awesome design now. Check back tomorrow to see their feedback and encourage your child to keep working on the project
+</p>
+<p>
+In the meantime, you and your child can get started on another design challenge! <br/>
+<a href="{{ site_url }}{% url 'challenges:challenges' %}">Keep inventing here</a>
+</p>
+{% endblock %}

@@ -1,0 +1,5 @@
+Great work, {{ student.first_name | default:student.user.username }}! Your mentor thinks you’re ready to finish your project and share it with the world! 
+
+Head to Curiosity Machine to respond to the reflect questions and publish your project in the Curiosity Machine Inspiration gallery(link). 
+
+(Take me to Curiosity Machine!)* button

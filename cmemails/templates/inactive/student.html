@@ -1,0 +1,16 @@
+{% extends "email_base.html" %}
+{% block content %}
+
+<p>
+Hi {{ student.first_name | default:student.user.username }}, 
+</p>
+<p>
+Looking for some inspiration? 
+</p>
+<p>
+Check out what others are building in our Inspiration gallery, then try a project of your own! 
+</p>
+
+<a href="{{ site_url }}{% url 'challenges:challenges' %}">Click here to start inventing!</a>
+
+{% endblock %}

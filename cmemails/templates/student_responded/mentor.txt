@@ -1,0 +1,12 @@
+Hi {{ mentor.first_name | default:mentor.user.username }}!
+
+Your student [student’s first name or username] just responded to the feedback you gave on their design challenge! Looks like they’re ready for you to see their new design! 
+
+Have a moment now? Let’s give them the ideas and encouragement they need to achieve the challenge goal!
+
+Once you think they’re finished, make sure to move them to the Reflect Stage so that they can answer the reflect questions & share their project with others!
+
+(Give [student’s first name or username] Feedback!) *button 
+
+Best regards,
+Curiosity Machine Team
