@@ -96,8 +96,14 @@ class Progress(models.Model):
         # a progress is complete once a comment has been made on the Reflect stage
         return self.comments.filter(stage=Stage.reflect.value).exists()
 
+    def student_username(self):
+        return self.student.username
+
+    def challenge_name(self):
+        return self.challenge.name
+
     def __str__(self):
-        return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
+        return "Progress: id={}".format(self.id)
 
 class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
     challenge = models.ForeignKey(Challenge)

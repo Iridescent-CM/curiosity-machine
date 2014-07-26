@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from .models import Challenge, Theme, Progress, Question, Example
+from cmcomments.models import Comment
 from videos.models import Video
 from images.models import Image
 from django import forms
@@ -28,7 +29,31 @@ class ChallengeAdmin(admin.ModelAdmin):
                     kwargs["queryset"] = Image.objects.none()
         return super(ChallengeAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)        
 
+
+class CommentInline(admin.StackedInline):
+    model = Comment
+    fields = ('user','text', 'stage')
+    readonly_fields = ('user','text', 'stage')
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if request.method == 'GET':
+            if db_field.name == 'comments':
+                kwargs["queryset"] = self.current_object(kwargs['request'], Comment)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def current_object(self, request, model):
+        object_id = request.META['PATH_INFO'].strip('/').split('/')[-1]
+        try:
+            object_id = int(object_id)
+        except ValueError:
+            return None
+        return model.objects.get(challenge_progress_id=object_id)
+
 class ProgressAdmin(admin.ModelAdmin):
+    list_display = ('__str__','challenge_name','student_username')
+    inlines = [
+      CommentInline
+    ]
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "student":
             kwargs["queryset"] = User.objects.filter(profile__is_mentor=False)
