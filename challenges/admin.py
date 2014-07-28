@@ -50,7 +50,7 @@ class CommentInline(admin.StackedInline):
         return model.objects.get(challenge_progress_id=object_id)
 
 class ProgressAdmin(admin.ModelAdmin):
-    list_display = ('__str__','challenge_name','student_username')
+    list_display = ('__str__','challenge_name','student_username','mentor_username',)
     inlines = [
       CommentInline
     ]
