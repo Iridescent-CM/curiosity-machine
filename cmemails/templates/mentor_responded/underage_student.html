@@ -2,10 +2,10 @@
 {% block content %}
 
 <p>
-One of our science and engineering mentors left comments on your child’s project! Your child can log on to <a href="{{ site_url }}">Curiosity Machine</a> as {{ student.first_name | default:student.user.username }} to review the feedback and respond to the mentor. 
+One of our science and engineering mentors left comments on your child’s project! Your child can log on to <a href="{{ site_url }}">Curiosity Machine</a> as {{ profile.first_name | default:profile.user.username }} to review the feedback and respond to the mentor. 
 </p>
 <p>
 Then, you can help your child incorporate the mentor feedback as s/he continue to redesign the project! 
 </p>
-<a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=student.user.username %}">Respond to mentor feedback and keep designing on Curiosity Machine!</a>
+<a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=profile.user.username %}">Respond to mentor feedback and keep designing on Curiosity Machine!</a>
 {% endblock %}

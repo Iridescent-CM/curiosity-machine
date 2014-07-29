@@ -12,10 +12,6 @@ from django.core.mail import EmailMessage
 
 CM_EMAILS_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-templates_path = '../templates'
-template_extensions = ('html', 'txt')
-
-
 #check this out: http://code.activestate.com/recipes/473810-send-an-html-email-with-embedded-image-and-plain-t/
 class EmailTemplate(object):
 	def __init__(self, recipients, subject, template_name, context={}, sender=settings.DEFAULT_FROM_EMAIL):
@@ -27,12 +23,8 @@ class EmailTemplate(object):
 		self.template_name = template_name
 		self.recipients = recipients
 
-	def render_body_content(self, type='txt'):
-		try:
-			return render_to_string("%s/%s.%s" % (templates_path, self.template_name, type), self.context)
-		except Exception as e:
-			print(str(e))
-			return None
+	def render_body_content(self, content_type='html'):
+		return render_to_string("%s.%s" % (self.template_name, content_type), self.context)
 
 	def render_html_body(self):
 		html_part = MIMEMultipart(_subtype='related')

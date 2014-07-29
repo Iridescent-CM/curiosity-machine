@@ -31,6 +31,9 @@ class Profile(models.Model):
         today = date.today()
         return today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day)) #subtract a year if birthday hasn't occurred yet
 
+    def is_underage(self):
+        return self.age <= 13
+
     def __str__(self):
         return "Profile: id={}, user_id={}".format(self.id, self.user_id)
 

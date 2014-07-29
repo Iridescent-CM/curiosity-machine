@@ -2,7 +2,7 @@
 {% block content %}
 
 <p>
-Hi {{ mentor.first_name | default:mentor.user.username }}!
+Hi {{ profile.first_name | default:profile.user.username }}!
 </p>
 
 <p>
@@ -17,7 +17,7 @@ Have a moment now? Let’s give them the ideas and encouragement they need to ac
 Once you think they’re finished, make sure to move them to the Reflect Stage so that they can answer the reflect questions &nbsp; share their project with others!
 </p>
 
-<a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=student.user.username %}">Give {{ mentor.first_name | default:mentor.user.username }} Feedback!</a>
+<a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=student.user.username %}">Give {{ student.first_name | default:student.user.username }} Feedback!</a>
 <p>
 Best regards,
 Curiosity Machine Team

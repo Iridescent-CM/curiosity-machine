@@ -1,7 +1,7 @@
 {% extends "email_base.html" %}
 {% block content %}
 <p>
-Welcome to Curiosity Machine,  {{ student.first_name | default:student.user.username }}!
+Welcome to Curiosity Machine,  {{ profile.first_name | default:profile.user.username }}!
 </p>
 
 <p>
