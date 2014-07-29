@@ -1,6 +1,0 @@
-Your child, {{ student.first_name | default:student.user.username }}, has submitted a project to Curiosity Machine!
-
-Our science and engineer mentors are checking out his/her awesome design now. Check back tomorrow to see their feedback and encourage your child to keep working on the project
-
-In the meantime, you and your child can get started on another design challenge! 
-(Keep inventing here.)* button

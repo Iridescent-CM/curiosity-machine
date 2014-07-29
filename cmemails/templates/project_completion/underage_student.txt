@@ -1,5 +1,0 @@
-Great work! Your child’s project is ready to be finished up and shared with our Curiosity Machine community. 
-
-Ask your child to log on to Curiosity Machine(link) as {{ student.first_name | default:student.user.username }} to respond to the reflection questions and publish the project in the Curiosity Machine Inspiration gallery(link). 
-
-(Take me to Curiosity Machine!)* button

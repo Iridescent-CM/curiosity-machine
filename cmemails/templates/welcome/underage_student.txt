@@ -1,7 +1,0 @@
-Give your child permission to imagine, invent, and engineer! 
-
-Your child has requested the user name ({{ student.user.username }}) on Curiosity Machine, where s/he will be able to explore design challenges, build projects with easy-to-find materials, and get feedback from real scientists and engineers. 
-
-To activate your child’s account, complete the parental consent form(link), and email it to curiosity@iridescentlearning.org. 
-
-We’ll let you know when your child’s account is activated, and you can start inventing together!
