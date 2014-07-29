@@ -17,7 +17,9 @@ urlpatterns = patterns('',
     url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
     url(r'^about/', 'pages.views.static_page', {'page_id': StaticPage.about.value,}, name='about'),
     url(r'^privacy/', 'pages.views.static_page', {'page_id': StaticPage.privacy.value,}, name='privacy'),
-
+    url(r'^educator/', 'pages.views.static_page', {'page_id': StaticPage.educator.value,}, name='educator'),
+    url(r'^mentor/', 'pages.views.static_page', {'page_id': StaticPage.mentor.value,}, name='mentor'),
+    url(r'^parents/', 'pages.views.static_page', {'page_id': StaticPage.parents.value,}, name='parents'),
     # password reset URLs -- the "recover" one is modified and so resides in the profiles app
     url(r'^password/recover/(?P<signature>.+)/$', 'password_reset.views.recover_done',
         name='password_reset_sent'),
