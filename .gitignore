@@ -10,3 +10,4 @@ curiositymachine/static/node_modules
 *.db
 db.sqlite3
 heroku.env
+*.notes
