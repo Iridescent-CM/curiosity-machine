@@ -5,8 +5,6 @@
   {% else %}
   <div class="col-md-4">
   {% endif %}
-  {% if page == 'join' or request.user.profile.is_student %}
-  {% endif %}
     <div class="birthday-field">
       {{form.birthday.label_tag}}
       {{form.birthday}}
