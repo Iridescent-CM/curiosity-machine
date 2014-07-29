@@ -1,0 +1,6 @@
+
+<ul class="challenges-list owl-carousel panel-carousel">
+  {% for favorite in favorite_challenges %}
+    {% include "ajax/_challenge_item.html"  with challenge=favorite.challenge %}
+  {% endfor %}
+</ul>

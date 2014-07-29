@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.utils.timezone import now
 import django_rq
 
-from .models import Challenge, Progress, Theme, Stage, Example
+from .models import Challenge, Progress, Theme, Stage, Example, Favorite
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine.decorators import mentor_or_current_student, mentor_only
@@ -120,3 +120,29 @@ def change_materials(request, challenge_id, username):
         progress.save(update_fields=["_materials_list"])
 
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.student.username, 'stage': 'plan'}))
+
+@login_required
+def set_favorite(request, challenge_id, mode='favorite'):
+    content_type="application/json"
+    user = request.user
+    
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+    try:
+        if mode == 'favorite':
+            Favorite.objects.create(challenge=challenge, student=request.user)
+        elif mode == 'unfavorite':
+            favorite = Favorite.objects.filter(challenge=challenge, student=request.user)
+            favorite.delete()
+    except ValidationError as e:
+        return JsonResponse({'success': False, 'errors': e.messages}, content_type=content_type)
+    except ValueError as e:
+        errors = [str(e)]
+        return JsonResponse({'success': False, 'errors': errors}, content_type=content_type)
+    return JsonResponse({'success': True, 'message': 'Success'}, content_type=content_type)
+
+@login_required
+def favorite_challenges(request):
+    favorite_challenges = []
+    if request.user.is_authenticated():
+        favorite_challenges = Favorite.objects.filter(student=request.user)
+    return render(request, 'ajax/favorites.html', {'favorite_challenges': favorite_challenges})
