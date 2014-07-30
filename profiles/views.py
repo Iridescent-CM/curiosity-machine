@@ -30,6 +30,7 @@ def join(request):
             else:
                 user = auth.authenticate(username=data['username'], password=data['password'])
                 auth.login(request, user)
+                user.profile.deliver_welcome_email()
                 return HttpResponseRedirect('/')
         else:
             return render(request, 'join.html', {'form': form,})

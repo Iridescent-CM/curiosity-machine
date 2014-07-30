@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from images.models import Image
 from datetime import date
 from cmcomments.models import Comment
+from cmemails import deliver_email
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
@@ -47,6 +48,9 @@ class Profile(models.Model):
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__mentor=self.user, read=False).count()
         else:
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
+
+    def deliver_welcome_email(self):
+        deliver_email('welcome', self)
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
