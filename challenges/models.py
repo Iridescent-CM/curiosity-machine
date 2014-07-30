@@ -7,6 +7,9 @@ from videos.models import Video
 from images.models import Image
 from enum import Enum
 from django.utils.safestring import mark_safe
+from django.db.models.signals import post_save
+from cmemails import deliver_email
+
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
     inspiration = 0
@@ -63,6 +66,14 @@ class Progress(models.Model):
     class Meta:
         verbose_name_plural = "progresses"
 
+    def is_first_project(self):
+        return self.student.progresses.count() == 1
+
+    def approve(self):
+        self.approved=now()
+        self.student.profile.deliver_project_completion_email(self)
+        self.save()
+
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
@@ -98,6 +109,12 @@ class Progress(models.Model):
 
     def __str__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
+
+def create_progress(sender, instance, created, **kwargs):
+    if created:
+        if instance.is_first_project():
+            deliver_email('first_project', instance.student.profile)
+
 
 class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
     challenge = models.ForeignKey(Challenge)

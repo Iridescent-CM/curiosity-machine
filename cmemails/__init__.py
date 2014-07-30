@@ -8,7 +8,6 @@ def template_path(name, user_type):
     return '%s/%s' % (name, user_type)
 
 def email_dict(tmpl, user_type, subject):
-    print({'template': template_path(tmpl, user_type), 'subject': subject})
     return {'template': template_path(tmpl, user_type), 'subject': subject}
 
 def email(recipients, subject, context, template):
