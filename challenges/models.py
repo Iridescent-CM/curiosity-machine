@@ -110,6 +110,13 @@ class Progress(models.Model):
     def __str__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
 
+    def email_mentor_responded(self):
+        if self.mentor:
+            deliver_email('mentor_responded', self.student.profile, progress=self, mentor=self.mentor)
+
+    def email_student_responded(self):
+        deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student)
+
 def create_progress(sender, instance, created, **kwargs):
     if created:
         if instance.is_first_project():
@@ -128,3 +135,12 @@ class Example(models.Model): # media that a mentor has selected to be featured o
         if self._name: return self._name
         elif self.progress: return self.progress.student.username
         else: return ""
+
+def create_example(sender, instance, created, **kwargs):
+    if created:
+        progress = instance.progress
+        if progress.is_first_project():
+            progress.student.profile.deliver_publish_email()
+            deliver_email('publish', progress.student.profile, progress=progress)
+
+post_save.connect(create_example, sender=Example)
