@@ -79,6 +79,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "curiositymachine.middleware.UnderageStudentSandboxMiddleware",
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
+    'curiositymachine.middleware.LastActiveMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
