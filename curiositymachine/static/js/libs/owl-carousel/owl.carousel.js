@@ -322,13 +322,24 @@ if (typeof Object.create !== "function") {
         },
 
         appendWrapperSizes : function () {
-            var base = this,
-                width = base.$owlItems.length * base.itemWidth;
-
-            base.$owlWrapper.css({
-                "width": width * 2,
-                "left": 0
+            if (matchMedia) {
+                var mq = window.matchMedia("(min-width: 800px)");
+            }
+            var base = this, width = base.$owlItems.length * base.itemWidth;
+ 
+            if (mq.matches){
+                var base = this, width = base.$owlItems.length * base.itemWidth;
+                base.$owlWrapper.css({
+                    "width": ( width < 1140 ? width : 1140 ),
+                    "left": 0
             });
+            } else {
+                var base = this, width = base.$owlItems.length * base.itemWidth;
+                base.$owlWrapper.css({
+                    "width": width * 2,
+                    "left": 0
+                });
+             }
             base.appendItemsSizes();
         },
 
@@ -439,14 +450,19 @@ if (typeof Object.create !== "function") {
             var base = this;
 
             base.paginationWrapper = $("<div class=\"owl-pagination\"/>");
-            base.owlControls.append(base.paginationWrapper);
-
-            base.paginationWrapper.on("touchend.owlControls mouseup.owlControls", ".owl-page", function (event) {
-                event.preventDefault();
-                if (Number($(this).data("owl-page")) !== base.currentItem) {
-                    base.goTo(Number($(this).data("owl-page")), true);
-                }
-            });
+            if (matchMedia) {
+                var mq = window.matchMedia("(min-width: 800px)");
+            }
+            
+            if (!mq.matches){
+                base.owlControls.append(base.paginationWrapper);
+                base.paginationWrapper.on("touchend.owlControls mouseup.owlControls", ".owl-page", function (event) {
+                    event.preventDefault();
+                    if (Number($(this).data("owl-page")) !== base.currentItem) {
+                        base.goTo(Number($(this).data("owl-page")), true);
+                    }
+                });
+            }
         },
 
         updatePagination : function () {
