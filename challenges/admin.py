@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from .models import Challenge, Theme, Progress, Question, Example
+from cmcomments.models import Comment
 from videos.models import Video
 from images.models import Image
 from django import forms
@@ -28,7 +29,18 @@ class ChallengeAdmin(admin.ModelAdmin):
                     kwargs["queryset"] = Image.objects.none()
         return super(ChallengeAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)        
 
+
+class CommentInline(admin.StackedInline):
+    model = Comment
+    fields = ('user','text', 'stage')
+    readonly_fields = ('user','text', 'stage')
+
+
 class ProgressAdmin(admin.ModelAdmin):
+    list_display = ('__str__','challenge_name','student_username','mentor_username',)
+    inlines = [
+      CommentInline
+    ]
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "student":
             kwargs["queryset"] = User.objects.filter(profile__is_mentor=False)
