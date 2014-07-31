@@ -5,11 +5,12 @@
   {% else %}
   <div class="col-md-4">
   {% endif %}
-    <div>
-      {{form.email.label_tag}}
-      {{form.email}}
-      <div class="errors">{{ form.email.errors }}</div>
+    <div class="birthday-field">
+      {{form.birthday.label_tag}}
+      {{form.birthday}}
+      <div class="errors">{{ form.birthday.errors }}</div>
     </div>
+    
     {% if page == 'join' %}
     <div>
       {{form.username.label_tag}}
@@ -30,14 +31,11 @@
   </div>
 
   <div class="col-md-4 {% if page == 'join' or request.user.profile.is_student %}student-column{% endif %}">
-
-  {% if page == 'join' or request.user.profile.is_student %}
-    <h3>&nbsp;</h3>
-  {% endif %}
-    <div class="birthday-field">
-      {{form.birthday.label_tag}}
-      {{form.birthday}}
-      <div class="errors">{{ form.birthday.errors }}</div>
+<h3>&nbsp;</h3>
+  <div>
+      {{form.email.label_tag}}
+      {{form.email}}
+      <div class="errors">{{ form.email.errors }}</div>
     </div>
     <div>
       {{form.city.label_tag}}
@@ -96,8 +94,3 @@
 {{ form.non_field_errors }}
 
 </div>
-
-
-
-
-

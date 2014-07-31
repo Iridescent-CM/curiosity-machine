@@ -108,8 +108,20 @@ class Progress(models.Model):
         # a progress is complete once a comment has been made on the Reflect stage
         return self.comments.filter(stage=Stage.reflect.value).exists()
 
-    def __str__(self):
+    def student_username(self):
+        return self.student.username
+
+    def challenge_name(self):
+        return self.challenge.name
+
+    def mentor_username(self):
+        return self.mentor.username
+
+    def __repr__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
+
+    def __str__(self):
+        return "Progress: id={}".format(self.id)
 
     def email_mentor_responded(self):
         if self.mentor:
@@ -122,7 +134,6 @@ def create_progress(sender, instance, created, **kwargs):
     if created:
         if instance.is_first_project():
             deliver_email('first_project', instance.student.profile)
-
 
 class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
     challenge = models.ForeignKey(Challenge)
