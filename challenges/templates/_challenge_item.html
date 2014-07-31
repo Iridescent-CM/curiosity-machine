@@ -1,6 +1,5 @@
 {% load unread_count %}
 {% load resized %}
-{% load staticfiles %}
 
 <li>
   <div class="panel panel-default">
@@ -13,18 +12,19 @@
           <a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
         {% endif %}
       </h3>
-
-      <div class="image-container">
-        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}"> 
-          {% if progress.student.profile.image %}
-          <img src="{% resized progress.student.profile.image.url  width=300 height=200 crop='fit' %}" />
-          {% elif progress.challenge.image %}
-          <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fit' %}">
-          {% elif progress.challenge.video.encodings_generated %}
-          <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fit' %}">
-          {% endif %}
-        </a>
-      </div>
+    </div>
+    <div class="image-container">
+      {% if challenge in request.user.challenges.all %}
+        <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">
+      {% else %}
+        <a href="{% url 'challenges:challenge' challenge.id %}">
+      {% endif %}
+      {% if challenge.image %}
+        <img src="{% resized challenge.image.url width=300 height=200 crop='fit' %}">
+      {% elif challenge.video.encodings_generated %}
+        {{ challenge.video.output_videos.all.0.thumbnail }}
+      {% endif %}
+      </a>
     </div>
     <div class="panel-body">
       <div class="description">
