@@ -5,6 +5,6 @@ class Command(BaseCommand):
     help = 'Send out email notifications for inactive users'
 
     def handle(self, *args, **options):
-        profiles = Profile.inactive_users()
+        profiles = Profile.inactive_students()
         for profile in profiles:
             profile.deliver_inactive_email()

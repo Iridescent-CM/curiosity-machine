@@ -67,6 +67,9 @@ class Profile(models.Model):
     def deliver_inactive_email(self):
         deliver_email('inactive', self)
 
+    def deliver_publish_email(self, progress):
+        deliver_email('publish', self, progress=progress)
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)

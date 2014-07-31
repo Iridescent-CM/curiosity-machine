@@ -71,7 +71,8 @@ class Progress(models.Model):
 
     def approve(self):
         self.approved=now()
-        deliver_email('project_completion', self.student.profile, progress=self)
+        if self.student.profile.birthday:
+            deliver_email('project_completion', self.student.profile, progress=self)
         self.save()
 
     def save(self, *args, **kwargs):
@@ -140,7 +141,6 @@ def create_example(sender, instance, created, **kwargs):
     if created:
         progress = instance.progress
         if progress.is_first_project():
-            progress.student.profile.deliver_publish_email()
-            deliver_email('publish', progress.student.profile, progress=progress)
+            progress.student.profile.deliver_publish_email(progress)
 
 post_save.connect(create_example, sender=Example)
