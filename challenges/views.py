@@ -17,6 +17,7 @@ from videos.models import Video
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
+from profiles.models import Profile
 
 def challenges(request):
     challenges = Challenge.objects.all()
