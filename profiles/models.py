@@ -25,6 +25,18 @@ class Profile(models.Model):
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
 
+    @classmethod
+    def inactive_mentors(cls):
+         startdate = now()
+         enddate = startdate + timedelta(days=7)
+         return cls.objects.filter(last_active_on__gt=enddate,is_mentor=True)
+
+    @classmethod
+    def inactive_students(cls):
+         startdate = now()
+         enddate = startdate + timedelta(days=14)
+         return cls.objects.filter(last_active_on__gt=enddate,is_mentor=False)
+
     @property
     def is_student(self):
         return not self.is_mentor
@@ -33,12 +45,6 @@ class Profile(models.Model):
     def age(self):
         today = date.today()
         return today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day)) #subtract a year if birthday hasn't occurred yet
-
-    @classmethod
-    def inactive_students(cls):
-         startdate = now()
-         enddate = startdate + timedelta(days=14)
-         return cls.objects.filter(last_active_on__gt=enddate,is_mentor=False)
 
     def is_underage(self):
         return self.age <= 13
@@ -66,6 +72,9 @@ class Profile(models.Model):
 
     def deliver_inactive_email(self):
         deliver_email('inactive', self)
+
+    def deliver_encouragement_email(self):
+        deliver_email('encouragement', self)
 
     def deliver_publish_email(self, progress):
         deliver_email('publish', self, progress=progress)

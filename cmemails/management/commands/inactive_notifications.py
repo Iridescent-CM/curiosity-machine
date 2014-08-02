@@ -8,3 +8,7 @@ class Command(BaseCommand):
         profiles = Profile.inactive_students()
         for profile in profiles:
             profile.deliver_inactive_email()
+
+        profiles = Profile.inactive_mentors()
+        for profile in profiles:
+            profile.deliver_encouragement_email()
