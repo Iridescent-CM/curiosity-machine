@@ -44,9 +44,8 @@
 </div>
 
 <ul class="nav nav-justified nav-tabs">
-  <li class="active"><a href="#challenges" data-toggle="tab">All Challenges</a></li>
-  <!-- <li><a href="#bookmarks" data-toggle="tab">Bookmarks</a></li> -->
-  {% if request.user.is_authenticated %}
+  <li class="active"><a data-target="#challenges" href="{% url 'challenges:ajax_challenges' %}{% if theme %}?theme={{theme}}{% endif %}" data-toggle="tabajax">All {% if theme %}{{ theme }} {% endif %} Challenges</a></li>
+  {% if request.user.is_authenticated and request.user.profile.is_student %}
   <li><a data-target="#favorites" href="{% url 'challenges:favorite_challenges' %}" data-toggle="tabajax">Favorites</a></li>
   {% endif %}
 </ul>
@@ -58,7 +57,7 @@
       {% endfor %}
     </ul>
   </div><!-- /#challenges -->
-  {% if request.user.is_authenticated %}
+  {% if request.user.is_authenticated and request.user.profile.is_student %}
   <div class="tab-pane fade" id="favorites" >
     <ul class="challenges-list owl-carousel panel-carousel" id="favorites-scroll">
       {% for favorite in favorite_challenges %}

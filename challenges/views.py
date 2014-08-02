@@ -146,3 +146,11 @@ def favorite_challenges(request):
     if request.user.is_authenticated():
         favorite_challenges = Favorite.objects.filter(student=request.user)
     return render(request, 'ajax/favorites.html', {'favorite_challenges': favorite_challenges})
+
+@login_required
+def ajax_challenges(request):
+    challenges = Challenge.objects.all()
+    theme = request.GET.get('theme')
+    if theme:
+        challenges = challenges.filter(theme__name=theme)
+    return render(request, 'ajax/challenges.html', {'challenges': challenges, 'theme': theme})

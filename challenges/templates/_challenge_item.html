@@ -12,7 +12,7 @@
         {% else %}
           <a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
         {% endif %}
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and request.user.profile.is_student %}
         <span class="favorite-badge-backfold{% if challenge|is_favorite:request.user %} active{% endif %}"></span>
         <span class="favorite-badge">
           <a href="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"  data-challenge-id="{{ challenge.id }}" class="favorite{% if challenge|is_favorite:request.user %} favorited{% endif %}">

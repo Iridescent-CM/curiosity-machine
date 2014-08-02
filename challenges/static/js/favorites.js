@@ -65,7 +65,7 @@ CM.Favorite.Handlers =  {
 
 			$.get(loadurl, function(data) {
 			    $(targ).html(data);
-			    $("#favorites").children().owlCarousel();
+			    $(targ).children().owlCarousel();
 			});
 		});
 	}
