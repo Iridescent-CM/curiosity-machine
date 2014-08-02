@@ -9,5 +9,5 @@ Great work, {{ profile.first_name | default:profile.user.username }}! Your mento
 Head to Curiosity Machine to respond to the reflect questions and publish your project in the <a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=profile.user.username stage=stage %}">Curiosity Machine Inspiration gallery</a>. 
 </p>
 
-<a href="{{ site_url }}">Take me to Curiosity Machine</a>
+<a href="{{ site_url }}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Take me to Curiosity Machine</button></a>
 {% endblock %}

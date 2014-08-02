@@ -27,9 +27,12 @@ class Comment(models.Model):
     def __str__(self):
         return "Comment: id={id}, user_id={user_id}, text={text}".format(id=self.id, user_id=self.user_id, text=self.text[:45] + "..." if len(self.text) > 50 else self.text)
 
+    def email_student_completed(self):
+        return deliver_email('mentor_student_completed', self.challenge_progress.mentor.profile)
+
 def create_comment(sender, instance, created, **kwargs):
     if created:
         if instance.stage == Stage.reflect.value:
-            deliver_email('mentor_student_completed', instance.challenge_progress.mentor.profile)
+            instance.email_student_completed()
 
 post_save.connect(create_comment, sender=Comment)

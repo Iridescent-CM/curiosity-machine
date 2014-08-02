@@ -71,9 +71,9 @@ class Progress(models.Model):
 
     def approve(self):
         self.approved=now()
+        self.save()
         if self.student.profile.birthday:
             deliver_email('project_completion', self.student.profile, progress=self)
-        self.save()
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
@@ -125,15 +125,18 @@ class Progress(models.Model):
 
     def email_mentor_responded(self):
         if self.mentor:
-            deliver_email('mentor_responded', self.student.profile, progress=self, mentor=self.mentor)
+            deliver_email('mentor_responded', self.student.profile, progress=self, mentor=self.mentor.profile)
 
     def email_student_responded(self):
-        deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student)
+        deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student.profile)
+
+    def email_first_project(self):
+        if self.is_first_project():
+            deliver_email('first_project', self.student.profile)
 
 def create_progress(sender, instance, created, **kwargs):
     if created:
-        if instance.is_first_project():
-            deliver_email('first_project', instance.student.profile)
+        instance.email_first_project()
 
 class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
     challenge = models.ForeignKey(Challenge)
