@@ -100,9 +100,22 @@ class Progress(models.Model):
         # a progress is complete once a comment has been made on the Reflect stage
         return self.comments.filter(stage=Stage.reflect.value).exists()
 
-    def __str__(self):
+    def student_username(self):
+        return self.student.username
+
+    def challenge_name(self):
+        return self.challenge.name
+
+    def mentor_username(self):
+        return self.mentor.username
+
+    def __repr__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
 
+    def __str__(self):
+        return "Progress: id={}".format(self.id)
+
+        
 class Favorite(models.Model):
     challenge = models.ForeignKey(Challenge)
     student = models.ForeignKey(User, related_name='favorites')
