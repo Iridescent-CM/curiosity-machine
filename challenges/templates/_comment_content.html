@@ -6,4 +6,5 @@
 {% if comment.video %}
   {% include "_video.html" with video=comment.video %}
 {% endif %}
+<p style="color:#84af49;">{{comment.question_text}}</p>
 <p>{{comment.text|linebreaksbr}}</p>
