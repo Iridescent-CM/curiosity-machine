@@ -41,6 +41,9 @@ class ProgressAdmin(admin.ModelAdmin):
     inlines = [
       CommentInline
     ]
+
+    search_fields = ('challenge__name', 'mentor__username', 'student__username', 'comments__text')
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "student":
             kwargs["queryset"] = User.objects.filter(profile__is_mentor=False)
