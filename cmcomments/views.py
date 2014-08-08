@@ -33,7 +33,7 @@ def comments(request, challenge_id, username, stage):
         if stage.value != Stage.reflect.value:
             if profile.is_mentor:
                 progress.email_mentor_responded()
-            else:
+            elif progress.mentor:
                 progress.email_student_responded()
         comment.save()
     #TODO: add some way to handle form.errors, for instance converting it into a JSON API
