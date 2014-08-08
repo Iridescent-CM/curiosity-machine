@@ -21,7 +21,7 @@ email_info = {
     'underage_student_welcome': email_dict('welcome', UNDERAGE_STUDENT, 'Activate Your Child’s Curiosity Machine Account'),
 
     #activation
-    'underage_student_activation': email_dict('activation', UNDERAGE_STUDENT, 'Your Child’s Curiosity Machine Account Is Now Active'),
+    'underage_student_activation_confirmation': email_dict('activation_confirmation', UNDERAGE_STUDENT, 'Your Child’s Curiosity Machine Account Is Now Active'),
 
     #encouragement
     'mentor_encouragement': email_dict('encouragement', MENTOR, 'New Students Projects on Curiosity Machine!'),
