@@ -1,5 +1,6 @@
 {% load unread_count %}
 {% load resized %}
+{% load staticfiles %}
 
 <li>
   <div class="panel panel-default">
@@ -8,19 +9,21 @@
         {% if progress|unread_count:request.user %} <span title="{{progress|unread_count:request.user}} unread messages" class="unread">{{progress|unread_count:request.user}}</span>{% endif %}
         <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{progress.student.get_full_name}}</a>
       </h3>
-    </div>
-    <div class="image-container">
-      <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">
-      {% if progress.challenge.image %}
-        <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fit' %}">
-      {% elif progress.challenge.video.encodings_generated %}
-        <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fit' %}">
-      {% endif %}
+      <div class="image-container">
+        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}"> 
+        {% if progress.student.profile.image %}
+          <img src="{% resized progress.student.profile.image.url  width=300 height=200 crop='fit' %}" />
+        {% elif progress.challenge.image %}
+          <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fit' %}">
+        {% elif progress.challenge.video.encodings_generated %}
+          <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fit' %}">
+        {% endif %}
 
       </a>
     </div>
+    </div>
     <div class="panel-body">
-      <h4>{{ progress.challenge.name }}</h4>
+      <h4><a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{ progress.challenge.name }}</a></h4>
       <p>Started: {{ progress.started }}</p>
       {% if not progress.mentor %}
         <form class="ajax-and-refresh-form" action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
