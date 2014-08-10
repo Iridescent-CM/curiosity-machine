@@ -124,12 +124,11 @@ class Progress(models.Model):
         return "Progress: id={}".format(self.id)
 
     def email_mentor_responded(self):
-        if self.student.profile.birthday and self.mentor:
+        if self.mentor:
             deliver_email('mentor_responded', self.student.profile, progress=self, mentor=self.mentor.profile)
 
     def email_student_responded(self):
-        if self.mentor:
-            deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student.profile)
+        deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student.profile)
 
     def email_first_project(self):
         if self.is_first_project():
