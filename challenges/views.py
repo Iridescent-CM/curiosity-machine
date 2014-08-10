@@ -83,10 +83,10 @@ def challenge_progress_approve(request, challenge_id, username):
     if request.method == "POST":
         progress.approve()
         messages.success(request, 'Learner was progressed to Reflection')
+        return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': progress.challenge.id, 'username': progress.student.username,}))
     elif request.method == "DELETE":
         Progress.objects.filter(id=progress.id).update(approved=None)
-
-    return HttpResponse(status=204)
+        return HttpResponse(status=204)
 
 @mentor_only
 def unclaimed_progresses(request):
