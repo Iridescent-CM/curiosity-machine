@@ -56,12 +56,13 @@ email_info = {
     'mentor_student_responded': email_dict('student_responded', MENTOR, 'Your Student Responded!'),
 }
 
-def deliver_email(event_name, profile, progress=None, student=None, mentor=None):
+def deliver_email(event_name, profile, progress=None, student=None, mentor=None,stage=None):
     context = {
         'profile': profile,
         'student': student,
         'mentor': mentor,
-        'progress': progress
+        'progress': progress,
+        'stage': stage
     }
 
     user_type = None

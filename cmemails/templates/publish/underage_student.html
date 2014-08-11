@@ -2,7 +2,7 @@
 {% block content %}
 
 <p>
-Congratulations! Your child’s project has been published to the <a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=profile.user.username stage=stage %}">Inspiration gallery</a>  for other Curiosity Machine users to see. 
+Congratulations! Your child’s project has been published to the <a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=profile.user.username stage='build' %}">Inspiration gallery</a>  for other Curiosity Machine users to see. 
 </p>
 <p>
 What will your child build next?
