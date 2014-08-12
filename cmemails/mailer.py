@@ -75,5 +75,5 @@ def deliver_email(event_name, profile, progress=None, student=None, mentor=None,
     key = "_".join([user_type, event_name])
     info = email_info[key]
     #return email(['devpopol@gmail.com'],info['subject'],context, info['template'])
-    return email([profile.user.email, 'devpopol@gmail.com'],info['subject'],context, info['template'])
+    return email([profile.user.email],info['subject'],context, info['template'])
 
