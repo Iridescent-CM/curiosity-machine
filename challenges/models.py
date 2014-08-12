@@ -103,7 +103,7 @@ class Progress(models.Model):
         return self.challenge.name
 
     def mentor_username(self):
-        return self.mentor.username
+        return self.mentor.username if self.mentor else ''
 
     def __repr__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
