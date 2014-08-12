@@ -1,0 +1,109 @@
+.favorite-badge
+{
+	position: absolute;
+	color: #fff;
+	top: 4px;
+	right: 15px;
+	z-index: 100;
+}
+
+.favorite-badge-backfold
+{
+    position: absolute;
+    top: 0px;
+    right: 16px;
+    z-index: -1;
+    background-color: rgb(40, 113, 148);
+    width: 17px;
+    height: 38px;
+    font-size: 12px;
+    line-height: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 7px;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.favorite-badge-backfold.active
+{
+    position: absolute;
+    top: 0px;
+    right: 16px;
+    z-index: -1;
+    background-color: #f16243;
+    width: 17px;
+    height: 38px;
+    font-size: 12px;
+    line-height: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 7px;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.challenges-list .owl-item
+{
+    padding: 6px 10px 0 10px !important;
+}
+
+.favorite-badge .favorite-badge-content
+{
+    background-color: #44b1f5;
+    width: 38px;
+    height: 38px;
+    font-size: 12px;
+    line-height: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 7px;
+
+    -webkit-border-top-right-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    border-radius-topright: 3px;
+
+    -webkit-box-shadow: -3px 4px 3px 0px rgba(51,51,51,0.64);
+    -moz-box-shadow: -3px 4px 3px 0px rgba(51,51,51,0.64);
+    box-shadow: -3px 4px 3px 0px rgba(51,51,51,0.64);
+}
+
+.favorite-badge .favorite-badge-content.active
+{
+    background-color: #f16243;
+    width: 38px;
+    height: 38px;
+    font-size: 12px;
+    line-height: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 7px;
+
+    -webkit-border-top-right-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    border-radius-topright: 3px;
+
+    -webkit-box-shadow: -3px 4px 3px 0px rgba(51,51,51,0.64);
+    -moz-box-shadow: -3px 4px 3px 0px rgba(51,51,51,0.64);
+    box-shadow: -3px 4px 3px 0px rgba(51,51,51,0.64);
+}
+
+.favorite-badge-icon-plus
+{
+    position: absolute;
+    color: #fff;
+    left: 4px;
+    top: 6px;
+}
+/*
+.favorite-badge .favorite-badge-arrow
+{
+    border-left: 21px solid transparent;
+    border-right: 21px solid transparent;
+    border-top: 9px solid #fe0f0f;
+}
+*/
