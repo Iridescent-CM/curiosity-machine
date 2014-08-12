@@ -5,6 +5,7 @@ import hashlib
 import django_rq
 from django.conf import settings
 
+
 def sum_for_fd(fd):
     md5 = hashlib.md5()
     for chunk in iter(lambda: fd.read(128 * md5.block_size), b''):
@@ -29,3 +30,4 @@ def upload_to_s3(obj, key_prefix='', queue_after=None): # key_prefix should incl
 
     if queue_after:
         django_rq.enqueue(queue_after, obj)
+

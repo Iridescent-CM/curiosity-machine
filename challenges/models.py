@@ -7,6 +7,9 @@ from videos.models import Video
 from images.models import Image
 from enum import Enum
 from django.utils.safestring import mark_safe
+from django.db.models.signals import post_save
+from cmemails import deliver_email
+
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
     inspiration = 0
@@ -63,6 +66,15 @@ class Progress(models.Model):
     class Meta:
         verbose_name_plural = "progresses"
 
+    def is_first_project(self):
+        return self.student.progresses.count() == 1
+
+    def approve(self):
+        self.approved=now()
+        self.save()
+        if self.student.profile.birthday:
+            deliver_email('project_completion', self.student.profile, progress=self)
+
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
@@ -111,6 +123,21 @@ class Progress(models.Model):
     def __str__(self):
         return "Progress: id={}".format(self.id)
 
+    def email_mentor_responded(self):
+        if self.mentor:
+            deliver_email('mentor_responded', self.student.profile, progress=self, mentor=self.mentor.profile)
+
+    def email_student_responded(self):
+        deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student.profile)
+
+    def email_first_project(self):
+        if self.is_first_project():
+            deliver_email('first_project', self.student.profile)
+
+def create_progress(sender, instance, created, **kwargs):
+    if created:
+        instance.email_first_project()
+
 class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
     challenge = models.ForeignKey(Challenge)
     progress = models.ForeignKey(Progress, null=True, blank=True, on_delete=models.SET_NULL, help_text="An optional association with a specific student's progress on a challenge.")
@@ -123,3 +150,11 @@ class Example(models.Model): # media that a mentor has selected to be featured o
         if self._name: return self._name
         elif self.progress: return self.progress.student.username
         else: return ""
+
+def create_example(sender, instance, created, **kwargs):
+    if created:
+        progress = instance.progress
+        if progress.is_first_project():
+            progress.student.profile.deliver_publish_email(progress)
+
+post_save.connect(create_example, sender=Example)
