@@ -63,6 +63,16 @@ class Progress(models.Model):
     class Meta:
         verbose_name_plural = "progresses"
 
+    @classmethod
+    def unclaimed(cls):
+        query = """
+        select challenges_progress.* from challenges_progress 
+        left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id 
+        where cmcomments_comment.challenge_progress_id NOT NULL
+        and challenges_progress.mentor_id IS NULL
+        """
+        return cls.objects.raw(query)
+
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
