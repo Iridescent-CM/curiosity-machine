@@ -48,7 +48,11 @@ class Challenge(models.Model):
     build_subheader = models.TextField(help_text="One line of plain text, shown below the build stage header")
     reflect_subheader = models.TextField(help_text="One line of plain text, shown below the reflect stage header")
     reflect_questions = models.ManyToManyField(Question, null=True)
-
+    favorited = models.ManyToManyField(User, through='Favorite', through_fields=('challenge', 'student'), null=True, related_name="favorite_challenges")
+    
+    def is_favorite(self, student):
+        return Favorite.objects.filter(challenge=self, student=student).exists()
+        
     def __str__(self):
         return "Challenge: id={}, name={}".format(self.id, self.name)
 
@@ -62,6 +66,16 @@ class Progress(models.Model):
 
     class Meta:
         verbose_name_plural = "progresses"
+
+    @classmethod
+    def unclaimed(cls):
+        query = """
+        select challenges_progress.* from challenges_progress 
+        left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id 
+        where cmcomments_comment.challenge_progress_id IS NOT NULL
+        and challenges_progress.mentor_id IS NULL
+        """
+        return cls.objects.raw(query)
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
@@ -110,6 +124,22 @@ class Progress(models.Model):
 
     def __str__(self):
         return "Progress: id={}".format(self.id)
+
+        
+class Favorite(models.Model):
+    challenge = models.ForeignKey(Challenge)
+    student = models.ForeignKey(User, related_name='favorites')
+
+    class Meta:
+        verbose_name_plural = "Favorites"
+
+    def save(self, *args, **kwargs):
+        if Favorite.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
+            raise ValidationError("This challenge is already on your favorites")
+        if self.student.profile.is_mentor:
+            raise ValidationError("Mentors can not favorite a challenge")
+        else:
+            super(Favorite, self).save(*args, **kwargs)
 
 class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
     challenge = models.ForeignKey(Challenge)

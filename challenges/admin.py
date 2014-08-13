@@ -44,6 +44,7 @@ class ProgressAdmin(admin.ModelAdmin):
     ]
 
     actions = ['unclaim']
+    search_fields = ('challenge__name', 'mentor__username', 'student__username', 'comments__text')
 
     def unclaim(self, request, queryset):
         rows_updated = queryset.update(mentor_id=None)
@@ -53,7 +54,6 @@ class ProgressAdmin(admin.ModelAdmin):
             message_bit = "%s progresses were" % rows_updated
         self.message_user(request, "%s successfully unclaimed." % message_bit)
     unclaim.short_description = """Remove/Unclaim the mentor from this Project"""
-
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "student":
