@@ -28,3 +28,12 @@ class UnapprovedMentorSandboxMiddleware:
         if request.user.is_authenticated() and not request.user.is_staff and request.user.profile.is_mentor and not request.user.profile.approved:
             if request.path_info not in ['/logout', '/logout/', reverse('profiles:home'), reverse('profiles:profile_edit')] and not request.path_info.startswith('/training'):
                 return HttpResponseRedirect(reverse('profiles:home'))
+
+class LastActiveMiddleware:
+    """
+    Middleware that updates the last_active_on(or last seen) field of a profile
+    """
+    def process_request(self, request):
+        if request.user.is_authenticated():
+            request.user.profile.update_last_active_on_and_save()
+        return None

@@ -10,7 +10,7 @@ from profiles.models import Profile
 from profiles.forms import JoinForm, MentorProfileEditForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
 from training.models import Module
-from challenges.models import Challenge, Progress
+from challenges.models import Challenge, Progress, Favorite
 from django.db import transaction
 import password_reset.views
 import password_reset.forms
@@ -46,16 +46,19 @@ def home(request):
         training_modules = Module.objects.all()
         accessible_modules = [module for module in training_modules if module.is_accessible_by_mentor(request.user)]
         completed_modules = [module for module in training_modules if module.is_finished_by_mentor(request.user)]
+        uncompleted_modules = [module for module in training_modules if not module.is_finished_by_mentor(request.user)]
         progresses = Progress.objects.filter(mentor=request.user).select_related("challenge")
-        unclaimed_progresses = Progress.objects.filter(mentor__isnull=True)
+        unclaimed_progresses = Progress.unclaimed()
         challenges = {progress.challenge for progress in progresses}
-        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_progresses': unclaimed_progresses, 'training_modules': training_modules, 'accessible_modules': accessible_modules, 'completed_modules': completed_modules})
+        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_progresses': unclaimed_progresses, 'training_modules': training_modules, 'accessible_modules': accessible_modules, 'completed_modules': completed_modules, 'uncompleted_modules': uncompleted_modules})
     else:
         filter = request.GET.get('filter')
+        my_challenges_filters = [ 'active', 'completed', 'all' ]
+        favorite_challenges = Favorite.objects.filter(student=request.user)
         progresses = Progress.objects.filter(student=request.user).select_related("challenge")
         completed_progresses = [progress for progress in progresses if progress.completed]
         active_progresses = [progress for progress in progresses if not progress.completed]
-        return render(request, "student_home.html", {'active_progresses': active_progresses, 'completed_progresses': completed_progresses, 'progresses': progresses, 'filter': filter})
+        return render(request, "student_home.html", {'active_progresses': active_progresses, 'completed_progresses': completed_progresses, 'progresses': progresses, 'filter': filter, 'my_challenges_filters': my_challenges_filters, 'favorite_challenges': favorite_challenges})
 
 def mentors(request):
     '''
