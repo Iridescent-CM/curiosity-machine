@@ -9,5 +9,8 @@ urlpatterns = patterns('challenges.views',
     url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/(?P<stage>plan|build|test|reflect)/comments/', include('cmcomments.urls', namespace='comments', app_name='comments')),
     url(r'^unclaimed/$', 'unclaimed_progresses', name='unclaimed_progresses'),
     url(r'^unclaimed/(?P<progress_id>\d+)$', 'claim_progress', name='claim_progress'),
-    url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/materials/$', 'change_materials', name='change_materials')
+    url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/materials/$', 'change_materials', name='change_materials'),
+    url(r'^(?P<challenge_id>\d+)/(?P<mode>favorite|unfavorite)$', 'set_favorite', name='set_favorite'),
+    url(r'^favorite_challenges$', 'favorite_challenges', name='favorite_challenges'),
+    url(r'^ajax_challenges$', 'ajax_challenges', name='ajax_challenges'),
 )
