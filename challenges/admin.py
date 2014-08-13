@@ -36,13 +36,24 @@ class CommentInline(admin.StackedInline):
     readonly_fields = ('user','text', 'stage')
 
 
+
 class ProgressAdmin(admin.ModelAdmin):
     list_display = ('__str__','challenge_name','student_username','mentor_username',)
     inlines = [
       CommentInline
     ]
 
+    actions = ['unclaim']
     search_fields = ('challenge__name', 'mentor__username', 'student__username', 'comments__text')
+
+    def unclaim(self, request, queryset):
+        rows_updated = queryset.update(mentor_id=None)
+        if rows_updated == 1:
+            message_bit = "1 progress was"
+        else:
+            message_bit = "%s progresses were" % rows_updated
+        self.message_user(request, "%s successfully unclaimed." % message_bit)
+    unclaim.short_description = """Remove/Unclaim the mentor from this Project"""
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "student":
