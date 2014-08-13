@@ -4,6 +4,9 @@ from enum import Enum
 class StaticPage(Enum):
     about = 1
     privacy = 2
+    educator = 3
+    mentor = 4
+    parents = 5
 
 class Page(models.Model):
     id = models.IntegerField(choices=[(page.value, page.name) for page in StaticPage], primary_key=True)

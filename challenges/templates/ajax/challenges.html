@@ -1,0 +1,6 @@
+
+<ul class="challenges-list owl-carousel panel-carousel">
+  {% for challenge in challenges %}
+    {% include "ajax/_challenge_item.html"  with challenge=challenge %}
+  {% endfor %}
+</ul>

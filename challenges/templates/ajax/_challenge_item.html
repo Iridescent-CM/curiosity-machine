@@ -1,7 +1,5 @@
 {% load unread_count %}
-{% load resized %}
 {% load is_favorite %}
-
 <li>
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -12,8 +10,8 @@
         {% else %}
           <a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
         {% endif %}
-        {% if request.user.is_authenticated and request.user.profile.is_student %}
-        <span class="favorite-badge-backfold{% if challenge|is_favorite:request.user %} active{% endif %}"></span>
+        {%  if request.user.is_authenticated and request.user.profile.is_student %}
+        <span class="favorite-badge-backfold"></span>
         <span class="favorite-badge">
           <a href="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"  data-challenge-id="{{ challenge.id }}" class="favorite{% if challenge|is_favorite:request.user %} favorited{% endif %}">
             <span class="favorite-badge-content{% if challenge|is_favorite:request.user %} active{% endif %}">
@@ -33,16 +31,14 @@
         <a href="{% url 'challenges:challenge' challenge.id %}">
       {% endif %}
       {% if challenge.image %}
-        <img src="{% resized challenge.image.url width=300 height=200 crop='fit' %}">
+        <img src="{{ challenge.image.url }}">
       {% elif challenge.video.encodings_generated %}
         {{ challenge.video.output_videos.all.0.thumbnail }}
       {% endif %}
       </a>
     </div>
     <div class="panel-body">
-      <div class="description">
-        {{ challenge.description | truncatechars:200 }}
-      </div>
+      {{ challenge.description }}
     </div>
   </div>
 </li>
