@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from .models import Challenge, Theme, Progress, Question, Example
+from cmcomments.models import Comment
 from videos.models import Video
 from images.models import Image
 from django import forms
@@ -28,7 +29,32 @@ class ChallengeAdmin(admin.ModelAdmin):
                     kwargs["queryset"] = Image.objects.none()
         return super(ChallengeAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)        
 
+
+class CommentInline(admin.StackedInline):
+    model = Comment
+    fields = ('user','text', 'stage')
+    readonly_fields = ('user','text', 'stage')
+
+
+
 class ProgressAdmin(admin.ModelAdmin):
+    list_display = ('__str__','challenge_name','student_username','mentor_username',)
+    inlines = [
+      CommentInline
+    ]
+
+    actions = ['unclaim']
+    search_fields = ('challenge__name', 'mentor__username', 'student__username', 'comments__text')
+
+    def unclaim(self, request, queryset):
+        rows_updated = queryset.update(mentor_id=None)
+        if rows_updated == 1:
+            message_bit = "1 progress was"
+        else:
+            message_bit = "%s progresses were" % rows_updated
+        self.message_user(request, "%s successfully unclaimed." % message_bit)
+    unclaim.short_description = """Remove/Unclaim the mentor from this Project"""
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "student":
             kwargs["queryset"] = User.objects.filter(profile__is_mentor=False)
