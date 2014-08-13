@@ -91,6 +91,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
     "curiositymachine.context_processors.login_and_join_forms",
+    "curiositymachine.context_processors.google_analytics"
 )
 
 AUTH_USER_MODEL = 'auth.User'
@@ -221,6 +222,8 @@ LOGGING = {
         },
     },
 }
+
+GA_CODE = os.environ.get("GA_CODE", None)
 
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 

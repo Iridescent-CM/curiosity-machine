@@ -1,12 +1,18 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/favorites.js' %}"></script>
+{% endblock %}
+
 
 {% block content %}
 
 <h1>Welcome {{ request.user.username}}</h1>
 
 <ul class="nav nav-justified nav-tabs">
-  <li class="active"><a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a></li>
-  <!-- <li><a href="#bookmarks" data-toggle="tab">Bookmarks</a></li> -->
+  <li {% if filter == 'favorites' %}class="active"{% endif %}><a data-target="#favorites" href="{% url 'challenges:favorite_challenges' %}" data-toggle="tabajax">Favorites</a></li>
+  <li {% if filter in my_challenges_filters or filter != 'favorites' %}class="active"{% endif %}><a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a></li>
 </ul>
 <div class="tab-content">
   <div class="tab-pane fade in active" id="challenges">
@@ -39,9 +45,16 @@
       {% endif %}
     </ul>
   </div><!-- /#challenges -->
-  <div class="tab-pane fade" id="bookmarks">
-    <h1>No Bookmarks yet!</h1>
-  </div>
+
+   <div class="tab-pane fade" id="favorites">
+    
+    <ul class="challenges-list owl-carousel panel-carousel">
+      {% for favorite in favorite_challenges %}
+        {% include "_challenge_item.html" with challenge=favorite.challenge %}
+      {% endfor %}
+    </ul>
+  </div><!-- /#favorites -->
+ 
 
 </div><!-- /tabs content -->
 
