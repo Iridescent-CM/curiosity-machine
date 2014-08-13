@@ -30,8 +30,8 @@ class Question(models.Model):
     text = models.TextField()
 
     def __str__(self):
-        return self.text[:95] + "..." if len(self.text) > 100 else self.text
-
+        return self.text[:297] + "..." if len(self.text) > 300 else self.text
+        
 class Challenge(models.Model):
     name = models.TextField()
     description = models.TextField(help_text="One line of plain text, shown on the inspiration page")
