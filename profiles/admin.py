@@ -24,12 +24,14 @@ class UserAdminWithProfile(UserAdmin):
     inlines = [ ProfileInline, ]
 
     def save_related(self, request, form, formsets, change):
-        profile = formsets[0].instance.profile
-        old_profile = Profile.objects.get(pk=profile.id)
-        super(UserAdminWithProfile, self).save_related(request, form, formsets, change)
-        if change and not old_profile.approved and profile.approved:
-            if profile.is_student() and profile.is_underage():
-                deliver_email('underage_student_activation', profile)
+        if len(formsets):
+            profile = formsets[0].instance.profile
+            if change:
+                old_profile = Profile.objects.get(pk=profile.id)
+                super(UserAdminWithProfile, self).save_related(request, form, formsets, change)
+                if not old_profile.approved and profile.approved:
+                    if profile.is_student and profile.birthday and profile.is_underage():
+                        deliver_email('activation_confirmation', profile)
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj

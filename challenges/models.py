@@ -73,7 +73,7 @@ class Progress(models.Model):
         self.approved=now()
         self.save()
         if self.student.profile.birthday:
-            deliver_email('project_completion', self.student.profile, progress=self)
+            deliver_email('project_completion', self.student.profile, progress=self, stage=Stage.reflect.name)
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
@@ -128,7 +128,8 @@ class Progress(models.Model):
             deliver_email('mentor_responded', self.student.profile, progress=self, mentor=self.mentor.profile)
 
     def email_student_responded(self):
-        deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student.profile)
+        if self.mentor:
+            deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student.profile)
 
     def email_first_project(self):
         if self.is_first_project():

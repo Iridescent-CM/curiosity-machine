@@ -21,7 +21,7 @@ email_info = {
     'underage_student_welcome': email_dict('welcome', UNDERAGE_STUDENT, 'Activate Your Child’s Curiosity Machine Account'),
 
     #activation
-    'underage_student_activation': email_dict('activation', UNDERAGE_STUDENT, 'Your Child’s Curiosity Machine Account Is Now Active'),
+    'underage_student_activation_confirmation': email_dict('activation_confirmation', UNDERAGE_STUDENT, 'Your Child’s Curiosity Machine Account Is Now Active'),
 
     #encouragement
     'mentor_encouragement': email_dict('encouragement', MENTOR, 'New Students Projects on Curiosity Machine!'),
@@ -56,12 +56,13 @@ email_info = {
     'mentor_student_responded': email_dict('student_responded', MENTOR, 'Your Student Responded!'),
 }
 
-def deliver_email(event_name, profile, progress=None, student=None, mentor=None):
+def deliver_email(event_name, profile, progress=None, student=None, mentor=None,stage=None):
     context = {
         'profile': profile,
         'student': student,
         'mentor': mentor,
-        'progress': progress
+        'progress': progress,
+        'stage': stage
     }
 
     user_type = None
@@ -73,6 +74,6 @@ def deliver_email(event_name, profile, progress=None, student=None, mentor=None)
         user_type = STUDENT
     key = "_".join([user_type, event_name])
     info = email_info[key]
-    return email(['devpopol@gmail.com'],info['subject'],context, info['template'])
-    #return email([profile.user.email, 'devpopol@gmail.com'],info['subject'],context, info['template'])
+    #return email(['devpopol@gmail.com'],info['subject'],context, info['template'])
+    return email([profile.user.email],info['subject'],context, info['template'])
 

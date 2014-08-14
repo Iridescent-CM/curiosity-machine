@@ -6,15 +6,15 @@ Hi {{ profile.first_name | default:profile.user.username }}!
 </p>
 
 <p>
-Fantastic news! Thanks to your feedback, [student’s first name or username] successfully finished their design challenge! Make sure to send them a congratulations and keep an eye out for their next design challenge. 
+Fantastic news! Thanks to your feedback, {{ student.first_name | default:student.user.username}} successfully finished a design challenge! Make sure to send the child a congratulations and keep an eye out for her next design challenge. 
 </p>
 <p>
-We have more students ready to receive mentor feedback so please take a moment to claim another project!
+We have more children ready to receive mentor feedback so please take a moment to claim another project!
 </p>
 
 <a href="{{ site_url }}{% url 'profiles:home' %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Claim a Student Project!</button></a>
 <p>
-Best regards,
+Best regards,<br />
 Curiosity Machine Team
 </p>
 {% endblock %}

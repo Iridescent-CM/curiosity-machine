@@ -39,6 +39,8 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = CSRF_COOKIE_SECURE = process_false_string(os.getenv("SSL_ONLY", False))
 SSLIFY_DISABLE = not process_false_string(os.getenv("SSL_ONLY", False))
+site_url = 'http' if SSLIFY_DISABLE else 'https'
+SITE_URL = os.getenv('SITE_URL', '')
 
 # Canonical domain -- if this is set, all requests not to this domain will be forwarded to this domain
 # this should be a bare domain -- no scheme or route! For instance, www.example.com and not http://www.example.com
