@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from images.models import Image
 from datetime import date
 from cmcomments.models import Comment
+from django.utils.timezone import now
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
@@ -21,6 +22,7 @@ class Profile(models.Model):
     about_research = models.TextField(blank=True, help_text="This is a mentor only field.")
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.BooleanField(default=False)
+    last_active_on = models.DateTimeField(default=now)
 
     @property
     def is_student(self):
@@ -30,6 +32,10 @@ class Profile(models.Model):
     def age(self):
         today = date.today()
         return today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day)) #subtract a year if birthday hasn't occurred yet
+
+    def update_last_active_on_and_save(self):
+        self.last_active_on = now()
+        return self.save(update_fields=['last_active_on'])
 
     def __str__(self):
         return "Profile: id={}, user_id={}".format(self.id, self.user_id)
