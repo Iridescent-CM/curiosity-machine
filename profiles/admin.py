@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from images.models import Image
+from cmemails import deliver_email
 
 from .models import Profile
 
@@ -21,6 +22,16 @@ class ProfileInline(admin.StackedInline):
 
 class UserAdminWithProfile(UserAdmin):
     inlines = [ ProfileInline, ]
+
+    def save_related(self, request, form, formsets, change):
+        if len(formsets):
+            profile = formsets[0].instance.profile
+            if change:
+                old_profile = Profile.objects.get(pk=profile.id)
+                super(UserAdminWithProfile, self).save_related(request, form, formsets, change)
+                if not old_profile.approved and profile.approved:
+                    if profile.is_student and profile.birthday and profile.is_underage():
+                        deliver_email('activation_confirmation', profile)
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj

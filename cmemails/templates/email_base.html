@@ -1,0 +1,118 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block title %}Curiosity Machine{% endblock %}</title>
+<style media="all" type="text/css">
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+* {
+    font-family: 'Raleway';
+    font-size: 14pt;
+    color: black;
+    font-style: normal;
+    text-align: left;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-compsci:before {
+	content: "\e60e";
+}
+.icon-satellite:before {
+	content: "\e600";
+}
+.icon-robotics:before {
+	content: "\e601";
+}
+.icon-ocean:before {
+	content: "\e602";
+}
+.icon-neuroscience:before {
+	content: "\e603";
+}
+.icon-inventor:before {
+	content: "\e604";
+}
+.icon-food:before {
+	content: "\e605";
+}
+.icon-engineer:before {
+	content: "\e606";
+}
+.icon-electrical:before {
+	content: "\e607";
+}
+.icon-civil:before {
+	content: "\e608";
+}
+.icon-builder:before {
+	content: "\e609";
+}
+.icon-biomimicry:before {
+	content: "\e60a";
+}
+.icon-biomechanics:before {
+	content: "\e60b";
+}
+.icon-art:before {
+	content: "\e60c";
+}
+.icon-aerospace:before {
+	content: "\e60d";
+}
+
+         {% block css %}{% endblock %}
+    </style>
+</head>
+<body>
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td class="navbar navbar-inverse" align="left">
+                <!-- This setup makes the nav background stretch the whole width of the screen. -->
+                <table width="650px" cellspacing="0" cellpadding="0" class="container">
+                    <tr class="navbar navbar-inverse">
+                        <td colspan="4"><a class="brand" href="http://curiositymachine.org"><title>Curiosity Machine</title></a></td>
+                        <td><a href="http://curiositymachine.org"><img src="cid:banner" width="850" align="center"></a></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" align="center">
+                <table width="650px" cellspacing="0" cellpadding="0" class="container" style="font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif; color: black;">
+                    <tr style="font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif; color: black;">
+                        <td>
+                        {% block content %}
+						{% endblock %}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" align="center">
+                <table width="650px" cellspacing="0" cellpadding="0" class="container">
+                    <tr>
+                        <td>
+                            <hr>
+                            <p>&copy; Iridescent</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+

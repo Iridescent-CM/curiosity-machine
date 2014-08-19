@@ -81,7 +81,7 @@ def challenge_progress_approve(request, challenge_id, username):
         raise PermissionDenied
 
     if request.method == "POST":
-        Progress.objects.filter(id=progress.id).update(approved=now())
+        progress.approve()
         messages.success(request, 'Learner was progressed to Reflection')
     elif request.method == "DELETE":
         Progress.objects.filter(id=progress.id).update(approved=None)

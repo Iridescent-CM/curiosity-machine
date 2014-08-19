@@ -4,6 +4,8 @@ from django.utils.timezone import now
 from django.contrib.auth.models import User
 from videos.models import Video
 from images.models import Image
+from django.db.models.signals import post_save
+from cmemails import deliver_email
 
 class Comment(models.Model):
     challenge_progress = models.ForeignKey(Progress, related_name='comments')
@@ -24,3 +26,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return "Comment: id={id}, user_id={user_id}, text={text}".format(id=self.id, user_id=self.user_id, text=self.text[:45] + "..." if len(self.text) > 50 else self.text)
+
+    def email_student_completed(self):
+        if self.challenge_progress.mentor:
+            return deliver_email('student_completed', self.challenge_progress.mentor.profile, student=self.challenge_progress.student.profile)
+
+def create_comment(sender, instance, created, **kwargs):
+    if created:
+        if instance.stage == Stage.reflect.value:
+            instance.email_student_completed()
+
+post_save.connect(create_comment, sender=Comment)
