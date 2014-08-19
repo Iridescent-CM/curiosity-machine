@@ -45,7 +45,7 @@ def join(request):
 def home(request):
     if request.user.profile.is_mentor:
         training_modules = Module.objects.all()
-        accessible_modules = [module for module in training_modules if module.is_accessible_by_mentor(request.user)]
+        accessible_modules = training_modules
         completed_modules = [module for module in training_modules if module.is_finished_by_mentor(request.user)]
         uncompleted_modules = [module for module in training_modules if not module.is_finished_by_mentor(request.user)]
         progresses = Progress.objects.filter(mentor=request.user).select_related("challenge")

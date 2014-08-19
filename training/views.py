@@ -19,7 +19,7 @@ def module(request, module_order):
 
     # no need to serve a 403 to users who somehow cheat and skip ahead
 
-    return render(request, "training_module.html", {"module": module, "accessible": module.is_accessible_by_mentor(request.user), "finished": module.is_finished_by_mentor(request.user),
+    return render(request, "training_module.html", {"module": module, "accessible": True, "finished": module.is_finished_by_mentor(request.user),
                                                     "finished_tasks": module.tasks.filter(mentors_done=request.user) if not request.user.profile.approved else []})
 
 @login_required
