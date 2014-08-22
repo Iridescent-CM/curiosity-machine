@@ -65,7 +65,6 @@ CM.Favorite.Handlers =  {
 
 			$.get(loadurl, function(data) {
 			    $(targ).html(data);
-			    //$(targ).children().owlCarousel();
 			    $(targ).children().owlCarousel({
 				    items : 4,
 				    itemsCustom : false,
