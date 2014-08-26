@@ -29,11 +29,11 @@ def task(request, module_order, task_order):
     task = get_object_or_404(Task, order=task_order, module=module)
 
     # if the user is not approved, only show that user's thread
-    if not request.user.profile.approved:
-        threads = task.comments.filter(user=request.user, thread__isnull=True)
+    #if not request.user.profile.approved:
+    threads = task.comments.filter(thread__isnull=True)
     # if the user is already approved, go ahead and show all threads that belong to unfinished (plus threads that belong to self)
-    else:
-        threads = task.comments.exclude(user__in=task.mentors_done.all()).filter(thread__isnull=True) | task.comments.filter(user=request.user, thread__isnull=True)
+    # else:
+    #     threads = task.comments.exclude(user__in=task.mentors_done.all()).filter(thread__isnull=True) | task.comments.filter(user=request.user, thread__isnull=True)
 
     # no need to serve a 403 to users who somehow cheat and skip ahead, but don't show the form for creating a new thread either
     # otherwise, show the form if you are not approved and you have not already started a thread on this module

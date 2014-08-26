@@ -67,11 +67,13 @@
             {% include "_comment_form.html" with comment_form=form stage="plan" format="text" url=comment_url %}
 
           {% endif %}{% endif %}
-          {% if perms.profiles.edit_profile and thread.user != request.user %}
-            <form action="{% url "training:approve_task_progress" module.order task.order thread.user.username %}" method="POST" class="clearfix">
-              {% csrf_token %}
-              <input type="submit" value="Approve {{ thread.user.username }}'s progress on this task" class="btn-approve btn btn-lg btn-primary">
-            </form>
+          {% if not finished and not thread.user.user.profile.approved %}
+            {% if perms.profiles.edit_profile and thread.user != request.user %}
+              <form action="{% url "training:approve_task_progress" module.order task.order thread.user.username %}" method="POST" class="clearfix">
+                {% csrf_token %}
+                <input type="submit" value="Approve {{ thread.user.username }}'s progress on this task" class="btn-approve btn btn-lg btn-primary">
+              </form>
+            {% endif %}
           {% endif %}
         </div><!-- replies -->
       </section>
