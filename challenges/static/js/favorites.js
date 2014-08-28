@@ -65,7 +65,17 @@ CM.Favorite.Handlers =  {
 
 			$.get(loadurl, function(data) {
 			    $(targ).html(data);
-			    $(targ).children().owlCarousel();
+			    $(targ).children().owlCarousel({
+				    items : 4,
+				    itemsCustom : false,
+				    itemsDesktop : [1199,3],
+				    itemsDesktopSmall : [980,3],
+				    itemsTablet: [768,2],
+				    itemsTabletSmall: false,
+				    itemsMobile : [479,1],
+				    singleItem : false,
+				    itemsScaleUp : false
+				});
 			});
 		});
 	}
