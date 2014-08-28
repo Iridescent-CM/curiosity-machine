@@ -7,7 +7,7 @@ from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.models import Profile
-from profiles.forms import JoinForm, MentorProfileEditForm, StudentProfileEditForm
+from profiles.forms import JoinForm, MentorJoinForm, MentorProfileEditForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
 from training.models import Module
 from challenges.models import Challenge, Progress, Favorite
@@ -40,6 +40,34 @@ def join(request):
         form = JoinForm()
 
     return render(request, 'join_modal.html', {'form': form,})
+
+@transaction.atomic
+def join_as_mentor(request):
+    if request.method == 'POST':
+        form = MentorJoinForm(request=request, data=request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            data['is_mentor'] = True
+            try:
+                create_or_edit_user(data)
+            except IntegrityError:
+                errors = form._errors.setdefault('username', ErrorList())
+                errors.append('Username has already been used')
+                return render(request, 'join.html', {'form': form,})
+            else:
+                user = auth.authenticate(username=data['username'], password=data['password'])
+                auth.login(request, user)
+                user.profile.deliver_welcome_email()
+                messages.success(request, 'Thanks for your interest in joining the Curiosity Machine mentor community! You will receive an email shortly with more information on how to get started.')
+                return HttpResponseRedirect('/')
+        else:
+            return render(request, 'mentor_join.html', {'form': form,})
+    else:
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('profiles:home'))
+        form = MentorJoinForm()
+
+    return render(request, 'mentor_join_modal.html', {'form': form,})
 
 @login_required
 def home(request):
