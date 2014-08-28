@@ -73,7 +73,7 @@ class Progress(models.Model):
     @classmethod
     def unclaimed(cls):
         query = """
-        select challenges_progress.* from challenges_progress 
+        select distinct challenges_progress.* from challenges_progress 
         left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id 
         where cmcomments_comment.challenge_progress_id IS NOT NULL
         and challenges_progress.mentor_id IS NULL
