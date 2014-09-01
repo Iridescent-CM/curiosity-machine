@@ -97,15 +97,15 @@
     {% else %}
     <div class="panel panel-bubble right">
       <div class="panel-body">
-        <h3>Document your design process while you build and test it!</h3>
+        <h3>Are you on</h3>
 
         <ul class="switch stage-switch">
           <li>
-            <input type="radio" name="stepSelector" id="buildSelector" value="build" checked><label for="buildSelector">Build</label>
+            <input type="radio" name="stepSelector" id="buildSelector" value="build" checked><label for="buildSelector">Building?</label>
             <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' %}" class="build-url url">
           </li>
           <li>
-            <input type="radio" name="stepSelector" id="testSelector" value="test"><label for="testSelector">Test</label>
+            <input type="radio" name="stepSelector" id="testSelector" value="test"><label for="testSelector">Testing?</label>
             <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='test' %}" class="test-url url">
           </li>
         </ul><div></div><!-- magical switch clearing div -->
