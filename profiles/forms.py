@@ -76,6 +76,35 @@ class JoinForm(ProfileFormBase):
             raise forms.ValidationError("Username can only include letters, digits and @/./+/-/_")
         return username
 
+class MentorJoinForm(ProfileFormBase):
+    username = forms.CharField(max_length=30,required=True, label="Username")
+    first_name = forms.CharField(required=False, label="First Name")
+    last_name = forms.CharField(required=False, label="Last Name")
+    city = forms.CharField(required=False, label="City")
+    birthday = forms.DateField(required=False, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
+
+    title = forms.CharField(required=False, label="What Is My Profession")
+    employer = forms.CharField(required=False, label="Where Do I Work?")
+    about_me = forms.CharField(required=False, label="About Me")
+    about_research = forms.CharField(required=False, label="About My Research")
+
+    def __init__(self, request=None, *args, **kwargs):
+        super(MentorJoinForm, self).__init__(*args, **kwargs)
+        self._request = request
+
+    def clean(self):
+        cleaned_data = super(MentorJoinForm, self).clean()
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if re.match("^[\w.@+-]+$", username) is None:
+            raise forms.ValidationError("Username can only include letters, digits and @/./+/-/_")
+        return username
+
+    def clean_birthday(self):
+        #override the default behaviour that requires the birthday
+        return self.cleaned_data['birthday']
+
 class StudentProfileEditForm(ProfileFormBase):
     parent_first_name = forms.CharField(required=False, label="First Name")
     parent_last_name = forms.CharField(required=False, label="Last Name")
