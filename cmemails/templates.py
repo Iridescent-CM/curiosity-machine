@@ -3,12 +3,12 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.template import Context, TemplateDoesNotExist
 import os.path
-from django.core.mail import EmailMessage
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from django.core.mail import EmailMessage
 
+from .tasks import deliver_email
+import django_rq
 
 CM_EMAILS_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -50,7 +50,5 @@ class EmailTemplate(object):
 		subject, from_email, to = self.render_subject(), self.sender, self.recipients
 		text_content = self.render_body_content()
 		html_part = self.render_html_body()
-		msg = EmailMessage(subject, '', from_email, to)
-		msg.attach(html_part)
-		msg.send()
+		django_rq.enqueue(deliver_email, subject, from_email, to, text_content, html_part)
 		
