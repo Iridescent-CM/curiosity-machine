@@ -4,43 +4,6 @@
 
 {% block js %}
 <script type="text/javascript" src="{% static 'js/favorites.js' %}"></script>
-<script type="text/javascript"> 
-player = new YT.Player('player', {
-            height: ( $player.height() - 40 ), // space for social buttons
-            width: ( $player.height() * (16/9) - 60), // space for close button to the side
-            videoId: $target.data("yt-id"),
-            playerVars: {
-                'autoplay': autoplay,
-                'iv_load_policy': 3  // disables annotations
-            },
-            events: {
-                'onReady': function() {
-
-                },
-                'onStateChange': function(e){
-                    if(e.data === YT.PlayerState.ENDED) {
-                        // Handle video conclusion
-
-                        // Main video
-                        player.destroy();
-                        PLAYING = false;
-                        $player.removeClass("is-active");
-
-                        if ($player.attr("id") === "ycla-player-main") {
-                            $('html, body').animate({
-                                scrollTop: $('.ycla-section-join').offset().top
-                            }, 1000);
-                        }
-
-                        // Secondary
-
-                        //player.destroy();
-                        //PLAYING = false;
-                        //$player.removeClass("is-active");
-                    }
-                }
-            }
-        });</script>
 {% endblock %}
 
 {% block content %}
@@ -49,15 +12,13 @@ player = new YT.Player('player', {
     {% block css %}{# dotted font we only need on this page. #}
       <link href='//fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
     {% endblock %}
-    <div class="youtube-trailer" id="video1Box" style="display:none;">
-    <iframe class="youtube-player" type="text/html" src="http://www.youtube.com/embed/MeFYVncIxJg?version=3&enablejsapi=1" height="550px" width="100%" allowfullscreen frameborder="0"></iframe>
-</div>
   <div class="home-hero" id="home-hero-none">
     <h1>Imagine, Invent, <br>Engineer</h1>
     <h2>A COMMUNITY OF</h2>
     <h2>SCIENTISTS, ENGINEERS &amp; CHILDREN</h2>
-    <h2>CREATING TOGETHER. <a href="https://www.youtube.com/watch?v=MeFYVncIxJg&feature=youtu.be"><button class="btn-link btn-lg">Watch us!</button></a></h2> 
+    <h2>CREATING TOGETHER. <a href="https://www.youtube.com/watch?v=MeFYVncIxJg&feature=youtu.be" target="_blank"><button class="btn-link btn-watch"><i class="glyphicon glyphicon-play"></i> Watch us!</button></a> </h2> 
     <ul class="login-buttons">
+
       <li><button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#join-modal">Get Started</button></li>
       <li><button class="btn-link btn-lg" data-toggle="modal"  data-target="#login-modal">Sign In</button></li>
     </ul>
