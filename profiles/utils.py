@@ -18,7 +18,10 @@ def create_or_edit_user(data, user=None):
 
     profile = user.profile
     profile.birthday = data['birthday']
-    profile.is_mentor = data.get('is_mentor', False)
+    if data.get('is_mentor') is not None:
+        profile.is_mentor = data.get('is_mentor')
+    else:
+        profile.is_mentor = profile.is_mentor or False
     if new_user and not profile.is_mentor:
         if profile.age >= 13:
             profile.approved = True
