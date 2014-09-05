@@ -93,7 +93,7 @@ def mentors(request):
     '''
     List of current mentors
     '''
-    mentors = Profile.objects.filter(is_mentor=True)
+    mentors = Profile.objects.filter(is_mentor=True, approved=True)
     return render(request, "mentors.html", {'mentors': mentors,})
 
 def mentor_profile(request, username):
