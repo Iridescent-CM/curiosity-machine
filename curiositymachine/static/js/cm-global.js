@@ -13,7 +13,7 @@ CM.userError = function(message) {
   $('#message-bar').addClass('active').find('.text').append(message);
   var timer = setTimeout(function() {
     $('#message-bar').removeClass('active');
-  }, 3000)
+  }, 6 * 1000);
 }
 
 CM.userSuccess = function(message) {
@@ -21,7 +21,7 @@ CM.userSuccess = function(message) {
   $('#message-bar').addClass('active').find('.text').append(message);
   var timer = setTimeout(function() {
     $('#message-bar').removeClass('active');
-  }, 3000);
+  }, 6 * 1000);
 }
 
 CM.Profile = {
