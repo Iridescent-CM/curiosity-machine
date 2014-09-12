@@ -28,13 +28,13 @@ class Profile(models.Model):
     @classmethod
     def inactive_mentors(cls):
          startdate = now()
-         enddate = startdate + timedelta(days=7)
+         enddate = startdate - timedelta(days=7)
          return cls.objects.filter(last_active_on__lt=enddate,is_mentor=True)
 
     @classmethod
     def inactive_students(cls):
          startdate = now()
-         enddate = startdate + timedelta(days=14)
+         enddate = startdate - timedelta(days=14)
          return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False)
 
     @property
