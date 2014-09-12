@@ -34,11 +34,11 @@ def task(request, module_order, task_order):
     # if the user is already approved, go ahead and show all threads that belong to unfinished (plus threads that belong to self)
     # else:
     #     threads = task.comments.exclude(user__in=task.mentors_done.all()).filter(thread__isnull=True) | task.comments.filter(user=request.user, thread__isnull=True)
-
+    user_threads = task.comments.filter(user=request.user, thread__isnull=True)
     # no need to serve a 403 to users who somehow cheat and skip ahead, but don't show the form for creating a new thread either
     # otherwise, show the form if you are not approved and you have not already started a thread on this module
     # no exception is made for admins who are not mentors here; if they wish to leave comments they must mark themselves as mentors
-    show_thread_form = module.is_accessible_by_mentor(request.user) and not threads and not request.user.profile.approved
+    show_thread_form = module.is_accessible_by_mentor(request.user) and not user_threads and not request.user.profile.approved
 
     return render(request, "training_task.html", {"module": module, "task": task, "threads": threads, "form": CommentForm(),
                   "show_thread_form": show_thread_form, "finished": task.is_finished_by_mentor(request.user),})
