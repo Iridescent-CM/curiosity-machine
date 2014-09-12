@@ -29,13 +29,13 @@ class Profile(models.Model):
     def inactive_mentors(cls):
          startdate = now()
          enddate = startdate + timedelta(days=7)
-         return cls.objects.filter(last_active_on__gt=enddate,is_mentor=True)
+         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=True)
 
     @classmethod
     def inactive_students(cls):
          startdate = now()
          enddate = startdate + timedelta(days=14)
-         return cls.objects.filter(last_active_on__gt=enddate,is_mentor=False)
+         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False)
 
     @property
     def is_student(self):
@@ -71,7 +71,8 @@ class Profile(models.Model):
         deliver_email('welcome', self)
 
     def deliver_inactive_email(self):
-        deliver_email('inactive', self)
+        if self.birthday:
+            deliver_email('inactive', self)
 
     def deliver_encouragement_email(self):
         deliver_email('encouragement', self)
