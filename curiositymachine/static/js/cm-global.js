@@ -154,6 +154,14 @@ if (CM.Navigation.$navTop) {
       $(this.form).find('input[type=submit]').removeAttr('disabled');
     }
   });
+  $('.text_form textarea').on('keyup', function(e) {
+    if ($(this).val() == '') {
+      $(this.form).find('input[type=submit]').attr('disabled', 'disabled');
+    } else {
+      $(this.form).find('input[type=submit]').removeAttr('disabled');
+    }
+  });
+
 
 /////PROFILE!
 

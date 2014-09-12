@@ -67,20 +67,19 @@
           {% endfor %}
 
           {% if not task|is_finished_by_mentor:thread.user %}{% if perms.profiles.edit_profile or thread.user == request.user %}
-
             <div class="clearfix mentor-training-comment">
               <div class="panel panel-bubble right">
                 <div class="panel-body">
                   <h3>Reply:</h3>
-                  {% include "_comment_action_list.html" %}
+                  {% include "_task_comment_action_list.html" with target_id=thread.id %}
                 </div>
               </div>
             </div>
 
             {% url "training:comments" module.order task.order thread.id as comment_url %}
-            {% include "_comment_form.html" with comment_form=form stage="plan" format="video" url=comment_url %}
-            {% include "_comment_form.html" with comment_form=form stage="plan" format="picture" url=comment_url %}
-            {% include "_comment_form.html" with comment_form=form stage="plan" format="text" url=comment_url %}
+            {% include "_task_comment_form.html" with comment_form=form stage="plan" format="video" url=comment_url target_id=thread.id %}
+            {% include "_task_comment_form.html" with comment_form=form stage="plan" format="picture" url=comment_url target_id=thread.id %}
+            {% include "_task_comment_form.html" with comment_form=form stage="plan" format="text" url=comment_url target_id=thread.id %}
 
           {% endif %}{% endif %}
 
