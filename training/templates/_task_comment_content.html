@@ -1,0 +1,12 @@
+{% if comment.image %}
+  <div class="img-wrapper">
+    <img src="{{ comment.image.url }}" />
+  </div>
+{% endif %}
+{% if comment.video %}
+  {% include "_video.html" with video=comment.video %}
+{% endif %}
+<div class="reflect-question">
+  <p>{{comment.question_text}}</p>
+</div>
+<p>{{comment.text | truncatechars:150 |linebreaksbr}}</p>

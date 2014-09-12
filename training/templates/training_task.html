@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load cmtemplatetags %}
-{% load is_finished_by_mentor%}
+{% load is_finished_by_mentor %}
+{% load is_greater_length %}
 {% block title %}Task {{ task.name }}{% endblock %}
 
 {% block content %}
@@ -28,8 +29,8 @@
         {% include "_comment_form.html" with comment_form=form stage="plan" format="text" url=comment_url %}
 
       {% endif %}
-      {% for thread in threads %}
-        <section> 
+      {% for thread in unfinished_threads %}
+      <section id="thread-{{thread.id}}"> 
           {% if finished or request.user.profile.approved %}{% if thread.user == request.user %}
             <h3><strong>You have completed this training task</strong></h3>
           {% endif %}{% endif %}
@@ -97,6 +98,26 @@
         {% if perms.profiles.edit_profile %}
           <h3><strong>There are are no pending mentor threads at this time</strong></h3>
         {% endif %}
+      {% endfor %}
+
+      {% for thread in finished_threads %}
+      <section id="thread-{{thread.id}}"> 
+          {% if finished or request.user.profile.approved %}{% if thread.user == request.user %}
+            <h3><strong>You have completed this training task</strong></h3>
+          {% endif %}{% endif %}
+        <span class="comment-date">{{ thread.created|timesince }}</span>
+        <div class="panel panel-comment comment">
+          <div class="panel-heading">
+            <h2 class="panel-title">{{ thread.user.username }} Says:</h2>
+          </div>
+          <div class="panel-body">
+            {% include "_task_comment_content.html" with comment=thread %}
+            {% if thread.replies.count > 0 or thread.text|is_greater_length:150 %}
+             <a data-remote-replace="true" data-target="#thread-{{thread.id}}" href="{% url 'training:thread' module.order task.order thread.id%}" >See more...</a>
+            {% endif %}
+          </div>
+        </div><!-- top thread -->
+      </section>
       {% endfor %}
 
       

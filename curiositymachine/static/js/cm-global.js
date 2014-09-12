@@ -161,6 +161,15 @@ if (CM.Navigation.$navTop) {
       $(this.form).find('input[type=submit]').removeAttr('disabled');
     }
   });
+  $('a[data-remote-replace=true]').click(function (e) {
+    e.preventDefault();
+    var me = $(this);
+    var targetSelector= me.data('target');
+    var url = me.attr('href');
+    $.ajax(url).success(function (data) {
+      $(targetSelector).replaceWith(data);
+    });
+  });
 
 
 /////PROFILE!

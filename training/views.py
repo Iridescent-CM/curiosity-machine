@@ -11,6 +11,7 @@ from .models import Module, Comment, Task
 from .forms import CommentForm
 from videos.models import Video
 from images.models import Image
+from itertools import chain
 
 @login_required
 @mentor_only
@@ -28,19 +29,18 @@ def task(request, module_order, task_order):
     module = get_object_or_404(Module, order=module_order)
     task = get_object_or_404(Task, order=task_order, module=module)
 
-    # if the user is not approved, only show that user's thread
-    #if not request.user.profile.approved:
-    threads = task.comments.filter(thread__isnull=True)
-    # if the user is already approved, go ahead and show all threads that belong to unfinished (plus threads that belong to self)
-    # else:
-    #     threads = task.comments.exclude(user__in=task.mentors_done.all()).filter(thread__isnull=True) | task.comments.filter(user=request.user, thread__isnull=True)
+    
+    done = task.mentors_done.all()
+    finished_threads = task.comments.filter(user__in=done, thread__isnull=True)
+    unfinished_threads = task.comments.exclude(user__in=done).filter(thread__isnull=True)
+    
     user_threads = task.comments.filter(user=request.user, thread__isnull=True)
     # no need to serve a 403 to users who somehow cheat and skip ahead, but don't show the form for creating a new thread either
     # otherwise, show the form if you are not approved and you have not already started a thread on this module
     # no exception is made for admins who are not mentors here; if they wish to leave comments they must mark themselves as mentors
     show_thread_form = module.is_accessible_by_mentor(request.user) and not user_threads and not request.user.profile.approved
 
-    return render(request, "training_task.html", {"module": module, "task": task, "threads": threads, "form": CommentForm(),
+    return render(request, "training_task.html", {"module": module, "task": task, 'finished_threads':finished_threads, 'unfinished_threads': unfinished_threads, "form": CommentForm(),
                   "show_thread_form": show_thread_form, "finished": task.is_finished_by_mentor(request.user),})
 
 @require_POST
@@ -74,3 +74,13 @@ def approve_task_progress(request, module_order, task_order, username):
         messages.success(request, 'Mentor {} has completed task {}, module {}.'.format(mentor.username, task.name, module.name))
 
     return HttpResponseRedirect(reverse('training:task', args=[str(module_order), str(task_order),]))
+
+
+@login_required
+@mentor_only
+def thread(request, module_order, task_order, thread_id):
+    module = get_object_or_404(Module, order=module_order)
+    task = get_object_or_404(Task, order=task_order, module=module)
+    thread = get_object_or_404(task.comments, id=thread_id)
+
+    return render(request, 'ajax/thread.html',{"module": module, "task": task, 'thread': thread})
