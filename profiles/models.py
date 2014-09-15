@@ -68,7 +68,10 @@ class Profile(models.Model):
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
 
     def deliver_welcome_email(self):
-        deliver_email('welcome', self)
+        if self.is_mentor:
+            deliver_email('welcome', self, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
+        else:
+            deliver_email('welcome', self)
 
     def deliver_inactive_email(self):
         if self.birthday:
