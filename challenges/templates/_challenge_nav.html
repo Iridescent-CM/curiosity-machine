@@ -13,26 +13,40 @@
         </a>
         <span class="arrows"></span>
       </li>
+
+
+
       <li class="plan {% if stage == 'plan' %}selected{% endif %}">
-        {% if stage == 'build' or stage == 'inspiration' and progress %}<a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='plan' %}">{% endif %}
+        {% if stage == 'inspiration' and not progress %}<a href="{% url 'challenges:plan_guest' challenge_id=challenge.id %}">{% else %}<a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='plan' %}">{% endif %}
         <span class="btn">Plan</span>
-        {% if stage == 'build' or stage == 'inspiration' and progress %}</a>{% endif %}
+        </a>
         <span class="arrows"></span>
       </li>
+      
+
+
+
       <li class="build {% if stage == 'build' and not progress.approved %}selected{% endif %}">
-        {% if stage == 'plan' or stage == 'inspiration' and progress %}<a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}">{% endif %}
+        {% if stage == 'inspiration' and not progress %}<a href="{% url 'challenges:build_guest' challenge_id=challenge.id %}">{% else %}<a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}">{% endif %}
         <div>
           <span class="btn">Build</span><span class="btn test">Test</span><span class="btn redesign">Redesign</span>
         </div>
-        {% if stage == 'plan' or stage == 'inspiration' and progress %}</a>{% endif %}
+        </a>
         <span class="arrows"></span>
       </li>
+      
+
+
+
       <li class="reflect {%  if stage == 'build' and progress.approved %}selected{% endif %}">
         {% if stage == 'plan' or stage == 'inspiration' and progress %}<a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}">{% endif %}
         <span class="btn">Reflect</span>
         {% if stage == 'plan' or stage == 'inspiration' and progress %}</a>{% endif %}
         <span class="arrows"></span>
       </li>
+    
+
+
     </ul>
   </nav>
 

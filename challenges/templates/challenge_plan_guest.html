@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block js %}
+<script src="/static/js/challenges.js"></script>
+{% endblock %}
+
+{% block content %}
+  <h1>{{ challenge.name }} </h1>
+  {% include "_challenge_nav.html" with stage="plan" %}
+  
+<div class="challenge-content">
+ <header class="challenge-header">
+    <h1>Plan your project</h1>
+    <p>{{ challenge.plan_subheader }}</p>
+  </header>
+{% endif %}
+<div class="row">
+  
+  <div class="col-md-5">
+    <div class="panel panel-bubble">
+      <div class="panel-body">
+        <h3>Post your plan as a video, drawing (photo) or text</h3>
+        
+        {% include "_comment_action_list.html" %}
+        
+      </div>
+    </div>
+
+    {% if challenge.plan_call_to_action %}
+    <div class="panel blue">
+      <div class="panel-body">
+            {{challenge.plan_call_to_action}}
+      </div>
+    </div>
+    {% endif %}
+    </div><!-- /column 1 -->
+
+
+  
+<!-- 
+  <div class="col-md-1">
+    {% include "_avatar.html" with profile=progress.student.profile width=60 height=80 crop='fit' %}
+  </div> -->
+
+  <div class="col-md-6">
+    <div class="panel panel-bubble outline right">
+      <a href="#" data-toggle="modal" data-target="#text_form">
+      <div class="panel-body">
+          <h3>Stuck?<br> Ask a question to a science<br>or engineering mentor.</h3>
+      </div>
+      </a>
+    </div>
+    <div class="materials-list panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Suggested list of materials</h3>
+      </div>
+      <div class="panel-body">
+        <div class="current-materials">
+            <button class="edit-materials btn btn-primary">Edit Materials</Button>
+          </div>
+       <!--  <form class="materials-form" action="{% url "challenges:change_materials" challenge_id=challenge.id username=progress.student.username %}" method="POST"> -->
+       <!--    <div>
+            {{materials_form.materials}}
+            <div class="errors">{{ materials_form.materials.errors }}</div>
+          </div>
+          <input type="submit" value="Submit" class="btn btn-primary" />
+       -->  <!-- </form> -->
+      </div>
+    </div><!-- materials-list -->
+    
+    <div class='text_comment' style='display:none'>
+    <!--   <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='plan' %}" method="POST" class="comment-form"> -->
+    <!-- <br>
+        <input type="submit" value="Submit" class="btn btn-primary btn-lg" disabled='disabled'/>
+      </form>
+    </div> -->
+   <!-- <a class="btn btn-lg btn-primary start-link" href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}">Ready to Build</a> -->
+</div><!-- /col 2 -->
+
+</div><!-- row -->
+</div><!-- content -->
+
+{% endblock %}

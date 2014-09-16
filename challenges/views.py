@@ -40,6 +40,14 @@ def challenge(request, challenge_id):
     else:
         return render(request, 'challenge.html', {'challenge': challenge, 'examples': Example.objects.filter(challenge=challenge),})
 
+def plan_guest(request, challenge_id):
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+    return render(request, 'challenge_plan_guest.html', {'challenge': challenge})
+
+def build_guest(request, challenge_id):
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+    return render(request, 'challenge_build_guest.html', {'challenge': challenge})
+
 @login_required
 @mentor_or_current_student
 def challenge_progress(request, challenge_id, username, stage=None): # stage will be one of None, "plan", "build". "build" encompasses the reflection stage
