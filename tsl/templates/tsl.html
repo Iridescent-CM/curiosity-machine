@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load resolve %}
+
+{% block title %}TSL{% endblock %}
+
+{% block content %}
+    <h5>Curiosity Course Reflection</h5>
+
+<form action="{% url 'tsl:course_reflection' %}" method="POST">
+{% csrf_token %}
+{{ formset.management_form }}
+<ul>
+  {% for form in formset %}
+  {% resolve questions forloop.counter0 as question %}
+    <li>
+    	<div class='question'>
+    	{{ question.question_text }}
+    	</div> 
+    	{{ form.question_id }}
+    	{{ form.answer_text }}
+    </li>
+  {% endfor %}
+</ul>
+<input type="submit" value="Save" data-dismiss="modal" class="btn btn-primary btn-lg" />
+</form>
+{% endblock %}
