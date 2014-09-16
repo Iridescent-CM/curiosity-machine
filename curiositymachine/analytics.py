@@ -6,6 +6,7 @@ import tempfile
 from challenges.models import Progress, Stage
 from .forms import AnalyticsForm
 from django.core.exceptions import PermissionDenied
+from tsl.models import Answer
 
 def analytics(request):
     if not request.user.has_perms(['auth.change_user', 'cmcomments.change_comment', 'challenges.change_progress']):
@@ -46,6 +47,26 @@ def generate_analytics(start_date, end_date):
                 "video" if comment.video else ("image" if comment.image else "text"), Stage(comment.stage).name, comment.created.strftime('%Y-%m-%d %H:%M:%S'), 
                 comment.challenge_progress.challenge_id, comment.challenge_progress.student_id, comment.challenge_progress.mentor_id, comment.text, 
                 comment.video.url if comment.video else (comment.image.url if comment.image else "")])
+
+        # TSL Answers
+        answers = Answer.objects.filter(created__gte=start_date, created__lte=end_date)
+        for answer in answers:
+            array = [
+                answer.user_id, 
+                answer.user.username, 
+                "mentor" if answer.user.profile.is_mentor else "learner",
+                "tsl video" if answer.video else ("tsl image" if answer.image else "tsl text"),
+                None,
+                answer.created.strftime('%Y-%m-%d %H:%M:%S'),
+                answer.question.id,
+                answer.user_id,
+                None,
+                answer.answer_text,
+                answer.video.url if answer.video else (answer.image.url if answer.image else "")
+            ]
+            #array.extend()
+            writer.writerow(array)
+
 
         fp.seek(0)
         response = HttpResponse(fp, content_type='text/csv')
