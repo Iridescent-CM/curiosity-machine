@@ -4,12 +4,12 @@
 {% block title %}TSL{% endblock %}
 
 {% block content %}
-    <h5>Curiosity Course Reflection</h5>
+    <h1>Curiosity Course Reflection</h1>
 
 <form action="{% url 'tsl:course_reflection' %}" method="POST">
 {% csrf_token %}
 {{ formset.management_form }}
-<ul>
+<ul class="questions-tsl">
   {% for form in formset %}
   {% resolve questions forloop.counter0 as question %}
     <li>
@@ -17,10 +17,23 @@
     	{{ question.question_text }}
     	</div> 
     	{{ form.question_id }}
+      <div class="answer-options">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="panel panel-bubble">
+              <div class="panel-body">
+                <h3>How would you like to answer the question?</h3>
+                {% include "_answer_action_list.html" %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     	{{ form.answer_text }}
     </li>
   {% endfor %}
 </ul>
-<input type="submit" value="Save" data-dismiss="modal" class="btn btn-primary btn-lg" />
+<input type="submit" value="SEND" data-dismiss="modal" class="btn btn-primary btn-lg send-btn" />
 </form>
 {% endblock %}
+
