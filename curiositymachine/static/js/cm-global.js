@@ -62,7 +62,7 @@ CM.FilePicker = {
     var $modal = $(parent);
     var self = this;
 
-    if ($('.comment-form', $modal).length) {
+    if ($('form', $modal).length) {
       $('input[type=filepicker-custom]', $modal).first().each(function() {
         var $self = $(this);
         $modal.find('input[type=submit]').attr('disabled', 'disabled');
@@ -148,6 +148,14 @@ if (CM.Navigation.$navTop) {
 
 
   $('#text_form textarea').on('keyup', function(e) {
+    if ($(this).val() == '') {
+      $(this.form).find('input[type=submit]').attr('disabled', 'disabled');
+    } else {
+      $(this.form).find('input[type=submit]').removeAttr('disabled');
+    }
+  });
+
+  $('.text_form input[type=text]').on('keyup', function(e) {
     if ($(this).val() == '') {
       $(this.form).find('input[type=submit]').attr('disabled', 'disabled');
     } else {

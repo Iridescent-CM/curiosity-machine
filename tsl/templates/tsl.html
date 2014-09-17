@@ -4,16 +4,13 @@
 {% block title %}TSL{% endblock %}
 
 {% block content %}
-    <h1>Curiosity Course Reflection</h1>
+<h1>Curiosity Course Reflection</h1>
 
-<form action="{% url 'tsl:course_reflection' %}" method="POST">
-{% csrf_token %}
-{{ formset.management_form }}
 <ul class="questions-tsl">
-  {% for form in formset %}
+  {% for form in forms %}
   {% resolve questions forloop.counter0 as question %}
     <li>
-    	<div class='question'>
+      <div>
     	{{ question.question_text }}
     	</div> 
     	{{ form.question_id }}
@@ -23,17 +20,21 @@
             <div class="panel panel-bubble">
               <div class="panel-body">
                 <h3>How would you like to answer the question?</h3>
-                {% include "_answer_action_list.html" %}
+                {% include "_answer_action_list.html" with target_id=question.id %}
               </div>
             </div>
           </div>
         </div>
       </div>
-    	{{ form.answer_text }}
     </li>
   {% endfor %}
 </ul>
-<input type="submit" value="SEND" data-dismiss="modal" class="btn btn-primary btn-lg send-btn" />
-</form>
-{% endblock %}
 
+{% url 'tsl:course_reflection' as course_reflection_url %}
+{% for form in forms %}
+  {% resolve questions forloop.counter0 as question %}
+  {% include "_answer_form.html" with form=form format="video" url=course_reflection_url target_id=question.id %}
+  {% include "_answer_form.html" with form=form format="picture" url=course_reflection_url target_id=question.id %}
+  {% include "_answer_form.html" with form=form format="text" url=course_reflection_url target_id=question.id %}
+{% endfor %}
+{% endblock %}
