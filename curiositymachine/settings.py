@@ -33,7 +33,7 @@ ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMIN
 SECRET_KEY = SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m2c165xpbn9^#z_a%kgwrs')
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_HOSTS") else []
-
+MENTOR_RELATIONSHIP_MANAGERS = os.getenv("MENTOR_RELATIONSHIP_MANAGERS", '').split(',') if os.getenv("MENTOR_RELATIONSHIP_MANAGERS") else []
 # SSL settings
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

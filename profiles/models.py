@@ -28,14 +28,14 @@ class Profile(models.Model):
     @classmethod
     def inactive_mentors(cls):
          startdate = now()
-         enddate = startdate + timedelta(days=7)
-         return cls.objects.filter(last_active_on__gt=enddate,is_mentor=True)
+         enddate = startdate - timedelta(days=7)
+         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=True)
 
     @classmethod
     def inactive_students(cls):
          startdate = now()
-         enddate = startdate + timedelta(days=14)
-         return cls.objects.filter(last_active_on__gt=enddate,is_mentor=False)
+         enddate = startdate - timedelta(days=14)
+         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False)
 
     @property
     def is_student(self):
@@ -68,10 +68,14 @@ class Profile(models.Model):
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
 
     def deliver_welcome_email(self):
-        deliver_email('welcome', self)
+        if self.is_mentor:
+            deliver_email('welcome', self, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
+        else:
+            deliver_email('welcome', self)
 
     def deliver_inactive_email(self):
-        deliver_email('inactive', self)
+        if self.birthday:
+            deliver_email('inactive', self)
 
     def deliver_encouragement_email(self):
         deliver_email('encouragement', self)

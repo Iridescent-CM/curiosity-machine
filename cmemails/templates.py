@@ -14,7 +14,7 @@ CM_EMAILS_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 #check this out: http://code.activestate.com/recipes/473810-send-an-html-email-with-embedded-image-and-plain-t/
 class EmailTemplate(object):
-	def __init__(self, recipients, subject, template_name, context={}, sender=settings.DEFAULT_FROM_EMAIL):
+	def __init__(self, recipients, subject, template_name,context={}, sender=settings.DEFAULT_FROM_EMAIL, cc_recipients=None):
 		ctx = {'site_url': settings.SITE_URL}
 		ctx.update(context)
 		self.context = Context(ctx, autoescape=False)
@@ -22,6 +22,7 @@ class EmailTemplate(object):
 		self.subject = subject
 		self.template_name = template_name
 		self.recipients = recipients
+		self.cc_recipients = cc_recipients
 
 	def render_body_content(self, content_type='html'):
 		return render_to_string("%s.%s" % (self.template_name, content_type), self.context)
@@ -46,9 +47,13 @@ class EmailTemplate(object):
 	def render_recipients(self):
 		return self.recipients
 
+	def render_cc_recipients(self):
+		return self.cc_recipients
+
 	def deliver(self):
 		subject, from_email, to = self.render_subject(), self.sender, self.recipients
 		text_content = self.render_body_content()
 		html_part = self.render_html_body()
-		django_rq.enqueue(deliver_email, subject, from_email, to, text_content, html_part)
+		cc = self.render_cc_recipients()
+		django_rq.enqueue(deliver_email, subject, from_email, to, text_content, html_part, cc)
 		
