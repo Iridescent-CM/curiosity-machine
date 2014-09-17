@@ -12,7 +12,7 @@
   {% resolve answers forloop.counter0 as answer %}
     <li>
       <div>
-    	{{ question.question_text }}
+    	{{ question.question_text | safe }}
     	</div> 
     	{{ form.question_id }}
       {% if answer.id %}
