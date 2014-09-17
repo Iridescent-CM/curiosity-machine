@@ -5,7 +5,10 @@
 
 {% block content %}
 <h1>Curiosity Course Reflection</h1>
-
+<div class="subheader-tsl">
+<p>Answer these questions on the last day of your Curiosity Course.</p>
+<p><b>The Curiosity Machine and the Design Challenges were intended to encourage Curiosity, Creativity, and Persistence.</b></p>
+</div>
 <ul class="questions-tsl">
   {% for form in forms %}
   {% resolve questions forloop.counter0 as question %}
@@ -16,11 +19,12 @@
     	</div> 
     	{{ form.question_id }}
       {% if answer.id %}
-      <div class="answer-display">
+      <div class="answer-display well">
       <h4>Anwser:</h4>
         {% include "_answer_details.html" with answer=answer%}
       </div>
       {% endif %}
+
        {% if not answer.id %}
       <div class="answer-options">
         <div class="row">
