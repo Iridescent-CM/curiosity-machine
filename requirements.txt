@@ -43,7 +43,7 @@ django-password-reset==0.7
 cloudinary==1.0.17
 
 #WYSIWYG editor
-django-summernote==0.5.12
+django-summernote==0.5.8
 
 #scrubbing system
 django-bleach==0.2.0
