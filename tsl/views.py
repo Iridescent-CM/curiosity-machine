@@ -27,7 +27,6 @@ def course_reflection(request):
             if video: answer.video = video
             if form.cleaned_data['answer']: answer.answer_text = form.cleaned_data['answer']
             answer.save()
-    #else:
-    #    formset = AnswerFormSet(initial=[{'question_id': q.id, 'answer': Answer.get_or_build(request.user, q.id).answer_text} for q in questions])
-    forms = [AnswerForm(initial={'question_id': q.id, 'answer': Answer.get_or_build(request.user, q.id).answer_text}) for q in questions]
-    return render(request, 'tsl.html', {'questions': questions, 'forms': forms})
+    answers = [Answer.get_or_build(request.user, q.id) for q in questions]
+    forms = [AnswerForm(initial={'question_id': a.question_id, 'answer': a.answer_text}) for a in answers]
+    return render(request, 'tsl.html', {'questions': questions, 'forms': forms, 'answers': answers})

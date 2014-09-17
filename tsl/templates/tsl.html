@@ -9,11 +9,25 @@
 <ul class="questions-tsl">
   {% for form in forms %}
   {% resolve questions forloop.counter0 as question %}
+  {% resolve answers forloop.counter0 as answer %}
     <li>
       <div>
     	{{ question.question_text }}
     	</div> 
     	{{ form.question_id }}
+      {% if answer.id %}
+      <div class="answer-options">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="panel">
+              <div class="panel-body">
+                {% include "_answer_details.html" with answer=answer%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
       <div class="answer-options">
         <div class="row">
           <div class="col-md-8">
