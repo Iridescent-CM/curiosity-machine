@@ -8,14 +8,14 @@
 
 {% block content %}
   <h1>{{ challenge.name }} </h1>
-  {% include "_challenge_nav.html" with stage="plan" %}
+  {% include "_challenge_nav_guest.html" with stage="plan" %}
   
 <div class="challenge-content">
  <header class="challenge-header">
     <h1>Plan your project</h1>
     <p>{{ challenge.plan_subheader }}</p>
   </header>
-{% endif %}
+
 <div class="row">
   
   <div class="col-md-5">
@@ -38,11 +38,7 @@
     </div><!-- /column 1 -->
 
 
-  
-<!-- 
-  <div class="col-md-1">
-    {% include "_avatar.html" with profile=progress.student.profile width=60 height=80 crop='fit' %}
-  </div> -->
+
 
   <div class="col-md-6">
     <div class="panel panel-bubble outline right">
@@ -60,23 +56,12 @@
         <div class="current-materials">
             <button class="edit-materials btn btn-primary">Edit Materials</Button>
           </div>
-       <!--  <form class="materials-form" action="{% url "challenges:change_materials" challenge_id=challenge.id username=progress.student.username %}" method="POST"> -->
-       <!--    <div>
-            {{materials_form.materials}}
-            <div class="errors">{{ materials_form.materials.errors }}</div>
-          </div>
-          <input type="submit" value="Submit" class="btn btn-primary" />
-       -->  <!-- </form> -->
+       
       </div>
     </div><!-- materials-list -->
     
     <div class='text_comment' style='display:none'>
-    <!--   <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='plan' %}" method="POST" class="comment-form"> -->
-    <!-- <br>
-        <input type="submit" value="Submit" class="btn btn-primary btn-lg" disabled='disabled'/>
-      </form>
-    </div> -->
-   <!-- <a class="btn btn-lg btn-primary start-link" href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}">Ready to Build</a> -->
+   
 </div><!-- /col 2 -->
 
 </div><!-- row -->

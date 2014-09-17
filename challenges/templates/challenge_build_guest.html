@@ -8,7 +8,7 @@
 
 {% block content %}
   <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
-  {% include "_challenge_nav.html" with stage="build" %}
+  {% include "_challenge_nav_guest.html" with stage="build" %}
   <div class="challenge-content">
     {% if not request.user.profile.is_mentor %}
     <header class="challenge-header">
@@ -102,11 +102,15 @@
         <ul class="switch stage-switch">
           <li>
             <input type="radio" name="stepSelector" id="buildSelector" value="build" checked><label for="buildSelector">Build</label>
+            {% comment %}
             <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' %}" class="build-url url">
+            {% endcomment %}
           </li>
           <li>
             <input type="radio" name="stepSelector" id="testSelector" value="test"><label for="testSelector">Test</label>
+            {% comment %}
             <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='test' %}" class="test-url url">
+            {% endcomment %}
           </li>
         </ul><div></div><!-- magical switch clearing div -->
 
