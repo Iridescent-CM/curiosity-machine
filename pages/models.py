@@ -7,6 +7,7 @@ class StaticPage(Enum):
     educator = 3
     mentor = 4
     parents = 5
+    faq = 6
 
 class Page(models.Model):
     id = models.IntegerField(choices=[(page.value, page.name) for page in StaticPage], primary_key=True)
