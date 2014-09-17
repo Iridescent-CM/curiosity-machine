@@ -109,7 +109,23 @@ CM.FilePicker = {
 
 $(document).ready(function() {
 
+  $('.ajax-and-refresh-form').on('submit', function(e) {
+    e.preventDefault();
+    var $self = $(this);
+    var data = {
+      url: $self.attr('action'), 
+      type:$self.attr('method'), data: $self.serialize()
+    }
+    console.log(data);
+    $.ajax(data).done(function(data) {
+      location.reload();
+    }).fail(function(data) {
+      console.log(data);
+      alert( "There was an error; please try again later" );
+    })
 
+  });
+  
 if (CM.Navigation.$navTop) {
   $(window).on('scroll', function() {
     var scrollTop = $(window).scrollTop();

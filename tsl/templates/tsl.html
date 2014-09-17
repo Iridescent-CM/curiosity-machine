@@ -9,6 +9,7 @@
 <p>Answer these questions on the last day of your Curiosity Course.</p>
 <p><b>The Curiosity Machine and the Design Challenges were intended to encourage Curiosity, Creativity, and Persistence.</b></p>
 </div>
+{% url 'tsl:course_reflection' as course_reflection_url %}
 <ul class="questions-tsl">
   {% for form in forms %}
   {% resolve questions forloop.counter0 as question %}
@@ -22,7 +23,13 @@
       <div class="answer-display well">
       <h4>Anwser:</h4>
         {% include "_answer_details.html" with answer=answer%}
+
       </div>
+      <form class="ajax-and-refresh-form" action="{% url "tsl:course_reflection" %}" method="DELETE">
+        {% csrf_token %}
+        {{ form.question_id }}
+         <button class="btn btn-lg btn-primary" type="submit">DELETE</button>
+      </form>
       {% endif %}
 
        {% if not answer.id %}
@@ -43,7 +50,6 @@
   {% endfor %}
 </ul>
 
-{% url 'tsl:course_reflection' as course_reflection_url %}
 {% for form in forms %}
   {% resolve questions forloop.counter0 as question %}
   {% include "_answer_form.html" with form=form format="video" url=course_reflection_url target_id=question.id %}

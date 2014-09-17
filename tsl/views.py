@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.views.decorators.http import require_http_methods
+from django.http import QueryDict, HttpResponse
 from .models import Question, Answer
 from .forms import AnswerForm
 from videos.models import Video 
@@ -9,10 +11,18 @@ from images.models import Image
 # Create your views here.
 
 @login_required
+@require_http_methods(["GET","POST", "DELETE"])
 @transaction.atomic
 def course_reflection(request):
     questions = Question.objects.order_by('id')
-    if request.POST:
+    if request.method == "DELETE":
+        form = AnswerForm(data=QueryDict(request.body))
+        form.is_valid()
+        answer = Answer.objects.get(user_id=request.user.id, question_id=form.cleaned_data['question_id'])
+        answer.delete()
+        return HttpResponse(status=204)
+
+    if request.method == "POST":
         form = AnswerForm(data=request.POST)
 
         print(request.POST)
@@ -30,3 +40,4 @@ def course_reflection(request):
     answers = [Answer.get_or_build(request.user, q.id) for q in questions]
     forms = [AnswerForm(initial={'question_id': a.question_id, 'answer': a.answer_text}) for a in answers]
     return render(request, 'tsl.html', {'questions': questions, 'forms': forms, 'answers': answers})
+
