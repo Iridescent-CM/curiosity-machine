@@ -112,12 +112,37 @@
           </div>
           <div class="panel-body">
             {% include "_task_comment_content.html" with comment=thread %}
-            {% if thread.replies.count > 0 or thread.text|is_greater_length:150 %}
+            {% if thread.replies.count > 0 or thread.text|is_greater_length:240 %}
              <a data-remote-replace="true" data-target="#thread-{{thread.id}}" href="{% url 'training:thread' module.order task.order thread.id%}" >See more...</a>
             {% endif %}
           </div>
         </div><!-- top thread -->
+        <div class="replies">
+          {% for reply in thread.replies.all %}
+            {% if not reply.user == thread.user %}
+              <span class="mentor-comment">MENTOR MESSAGE</span>
+            {% endif %}
+            <span class="comment-date">{{ reply.created|timesince }}</span>
+            <div class="mentor-info comment">
+              {% include "_avatar.html" with profile=reply.user.profile width=50 height=50 crop='fit' %}
+              <p>{{reply.user.username}}<br>
+                {% if reply.user == thread.user %}
+                  <strong>Thread Author</strong>
+                {% else %}
+                  <strong>Mentor</strong>
+                {% endif %}
+              </p>
+            </div>
+            <div class="panel panel-bubble {% if reply.user == thread.user %}gray-light{% else %}blue{% endif %} comment">
+              <div class="panel-body">
+                {% include "_comment_content.html" with comment=reply %}
+              </div>
+            </div>
+          {% endfor %}
+
+        </div><!-- replies -->
       </section>
+
       {% endfor %}
 
       
