@@ -23,7 +23,7 @@
       <div class="panel-body">
         <h3>Post your plan as a video, drawing (photo) or text</h3>
         
-        {% include "_comment_action_list.html" %}
+        {% include "_comment_action_list_guest.html" %}
         
       </div>
     </div>
@@ -36,9 +36,7 @@
     </div>
     {% endif %}
     </div><!-- /column 1 -->
-<!-- 
-http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_80,w_80/http://s3.amazonaws.com/curiositymachine/images/placeholder.png
- -->
+
   <div class="col-md-1">
     <img src="http://s3.amazonaws.com/curiositymachine/images/placeholder.png" width="60" height="80">  
   </div>
@@ -58,7 +56,7 @@ http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_80,w_80/http://s3.amazon
       </div>
       <div class="panel-body">
         <div class="current-materials">
-            <button class="btn btn-primary">Edit Materials</Button>
+            <button class="btn btn-primary" onClick="alert('Create an account to interact with the Curiosity Machine community!')">Edit Materials</Button>
           </div>
        
       </div>
