@@ -8,7 +8,11 @@
 
 {% block content %}
   <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
+  {% if user.is_authenticated %}
   {% include "_challenge_nav.html" with stage="build" %}
+  {% else %}
+  {% include "_challenge_nav_guest.html" with stage="build" %}
+  {% endif %}
   <div class="challenge-content">
     {% if not request.user.profile.is_mentor %}
     <header class="challenge-header">

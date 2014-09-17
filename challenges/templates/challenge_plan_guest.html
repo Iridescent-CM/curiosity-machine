@@ -7,21 +7,17 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
-  {% include "_challenge_nav.html" with stage="plan" %}
+  <h1>{{ challenge.name }} </h1>
+  {% include "_challenge_nav_guest.html" with stage="plan" %}
   
 <div class="challenge-content">
-{% if not request.user.profile.is_mentor %}
  <header class="challenge-header">
     <h1>Plan your project</h1>
     <p>{{ challenge.plan_subheader }}</p>
   </header>
-{% endif %}
+
 <div class="row">
   
-  {% if request.user.profile.is_mentor %}
-    {% include "_mentor_panel.html" %}
-  {% else %}
   <div class="col-md-5">
     <div class="panel panel-bubble">
       <div class="panel-body">
@@ -40,18 +36,11 @@
     </div>
     {% endif %}
     </div><!-- /column 1 -->
-  {% endif %}
 
-  
 
-  <div class="col-md-1">
-    {% include "_avatar.html" with profile=progress.student.profile width=60 height=80 crop='fit' %}
-  </div>
+
 
   <div class="col-md-6">
-    {% if request.user.profile.is_mentor %}
-      <h1>{{progress.student.username}}'s plan</h1>
-    {% else %}
     <div class="panel panel-bubble outline right">
       <a href="#" data-toggle="modal" data-target="#text_form">
       <div class="panel-body">
@@ -59,52 +48,23 @@
       </div>
       </a>
     </div>
-    {% endif %}
-
     <div class="materials-list panel">
       <div class="panel-heading">
         <h3 class="panel-title">Suggested list of materials</h3>
       </div>
       <div class="panel-body">
         <div class="current-materials">
-          {{ progress.materials_list|safe }}<br>
-          {% if request.user == progress.student %}
             <button class="edit-materials btn btn-primary">Edit Materials</Button>
-          {% endif %}
-        </div>
-        <form class="materials-form" action="{% url "challenges:change_materials" challenge_id=challenge.id username=progress.student.username %}" method="POST">
-          {% csrf_token %}
-          <div>
-            {{materials_form.materials}}
-            <div class="errors">{{ materials_form.materials.errors }}</div>
           </div>
-          <input type="submit" value="Submit" class="btn btn-primary" />
-        </form>
+       
       </div>
     </div><!-- materials-list -->
     
     <div class='text_comment' style='display:none'>
-      <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='plan' %}" method="POST" class="comment-form">
-        {% csrf_token %}
-        <div>
-          {{comment_form.text}}
-          <div class="errors">{{ comment_form.text.errors }}</div>
-        </div><br>
-        <input type="submit" value="Submit" class="btn btn-primary btn-lg" disabled='disabled'/>
-      </form>
-    </div>
-    {% for comment in comments %}
-    {% include "_comment.html" %}
-  {% endfor %}
-  <a class="btn btn-lg btn-primary start-link" href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}">Ready to Build</a>
+   
 </div><!-- /col 2 -->
 
 </div><!-- row -->
-    {% include "_guide.html" %}
-    {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='plan' as comment_url %}
-    {% include "_comment_form.html" with stage="plan" format="video" url=comment_url %}
-    {% include "_comment_form.html" with stage="plan" format="picture" url=comment_url %}
-    {% include "_comment_form.html" with stage="plan" format="text" url=comment_url %}
 </div><!-- content -->
 
 {% endblock %}
