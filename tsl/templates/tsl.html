@@ -16,16 +16,9 @@
     	</div> 
     	{{ form.question_id }}
       {% if answer.id %}
-      <div class="answer-options">
-        <div class="row">
-          <div class="col-md-8">
-            <div class="panel">
-              <div class="panel-body">
-                {% include "_answer_details.html" with answer=answer%}
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="answer-display">
+      <h4>Anwser:</h4>
+        {% include "_answer_details.html" with answer=answer%}
       </div>
       {% endif %}
       <div class="answer-options">
