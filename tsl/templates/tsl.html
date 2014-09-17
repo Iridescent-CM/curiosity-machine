@@ -21,6 +21,7 @@
         {% include "_answer_details.html" with answer=answer%}
       </div>
       {% endif %}
+       {% if not answer.id %}
       <div class="answer-options">
         <div class="row">
           <div class="col-md-8">
@@ -33,6 +34,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
     </li>
   {% endfor %}
 </ul>
