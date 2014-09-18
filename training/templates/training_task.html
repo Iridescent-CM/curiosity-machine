@@ -118,8 +118,8 @@
         </div><!-- top thread -->
         <div class="replies" id="replies-{{thread.id}}">
           {% if thread.replies_count  > 3 %}
-            <div>
-            <a data-remote-replace="true" data-target="#replies-{{thread.id}}" href="{% url 'training:replies' module.order task.order thread.id%}" >Show earlier comments</a>
+            <div class="alert alert-info" role="alert">
+            <a data-remote-replace="true" data-target="#replies-{{thread.id}}" href="{% url 'training:replies' module.order task.order thread.id%}" class="alert-link">Show earlier comments</a>
             </div>
           {% endif %}
           {% for reply in thread.recent_replies %}
