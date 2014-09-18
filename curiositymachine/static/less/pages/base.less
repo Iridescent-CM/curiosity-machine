@@ -473,12 +473,14 @@ body {
   } 
 }
 
+
+
 .action-list {
   padding: 0;
   clear: both;
   li {
     float: left;
-    width: 50%;
+    width: 33%;
     padding: 0 5px;
     list-style-type: none;
     text-align: center;
@@ -496,6 +498,34 @@ body {
     }
   }
 }
+
+.action-list-tsl {
+  padding: 0;
+  clear: both;
+  margin-left: 100px;
+  li {
+    float: left;
+    width: 33%;
+    padding: 0 5px;
+    list-style-type: none;
+    text-align: center;
+    .btn {
+      background: @green;
+      color: #fff;
+      font-size: 30px;
+      width: 75px;
+      height: 75px;
+      line-height: 1;
+      padding: 15px;
+      .gray-light & {
+        background: @gray-light;
+      }
+    }
+  }
+}
+
+
+
 
 .challenge-content {
   margin-top: 120px;
