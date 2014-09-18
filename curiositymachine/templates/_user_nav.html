@@ -14,5 +14,9 @@
     <li>&nbsp;</li>
     <li><a href="{% url 'about' %}">About Us</a></li>
     <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+    <li>&nbsp;</li>
+    {% if request.user.is_authenticated %}
+    <li><a href="{% url 'tsl:course_reflection' %}">CCR</a></li>
+    {% endif %}
   </ul>
 </div>
