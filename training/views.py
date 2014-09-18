@@ -75,12 +75,18 @@ def approve_task_progress(request, module_order, task_order, username):
 
     return HttpResponseRedirect(reverse('training:task', args=[str(module_order), str(task_order),]))
 
+@login_required
+@mentor_only
+def thread_starter(request, module_order, task_order, thread_id):
+    return render(request, 'ajax/thread_starter.html',thread_assigns(request, module_order, task_order, thread_id))
 
 @login_required
 @mentor_only
-def thread(request, module_order, task_order, thread_id):
+def replies(request, module_order, task_order, thread_id):
+    return render(request, 'ajax/replies.html', thread_assigns(request, module_order, task_order, thread_id))
+
+def thread_assigns(request, module_order, task_order, thread_id):
     module = get_object_or_404(Module, order=module_order)
     task = get_object_or_404(Task, order=task_order, module=module)
     thread = get_object_or_404(task.comments, id=thread_id)
-
-    return render(request, 'ajax/thread.html',{"module": module, "task": task, 'thread': thread})
+    return {"module": module, "task": task, 'thread': thread}

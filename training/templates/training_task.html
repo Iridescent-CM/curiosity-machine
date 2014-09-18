@@ -14,6 +14,7 @@
     </div>
 
     <div class="col-md-7">
+      FORM
       {# in order for this form to show, you must both NOT be approved and NOT have already made a thread #}
       {% if show_thread_form %}
         <div class="panel panel-bubble right">
@@ -29,11 +30,9 @@
         {% include "_comment_form.html" with comment_form=form stage="plan" format="text" url=comment_url %}
 
       {% endif %}
+      UNFINISHED
       {% for thread in unfinished_threads %}
       <section id="thread-{{thread.id}}"> 
-          {% if finished or request.user.profile.approved %}{% if thread.user == request.user %}
-            <h3><strong>You have completed this training task</strong></h3>
-          {% endif %}{% endif %}
         <span class="comment-date">{{ thread.created|timesince }}</span>
         <div class="panel panel-comment comment">
           <div class="panel-heading">
@@ -99,26 +98,31 @@
           <h3><strong>There are are no pending mentor threads at this time</strong></h3>
         {% endif %}
       {% endfor %}
-
+      FINISHED
       {% for thread in finished_threads %}
       <section id="thread-{{thread.id}}"> 
           {% if finished or request.user.profile.approved %}{% if thread.user == request.user %}
             <h3><strong>You have completed this training task</strong></h3>
           {% endif %}{% endif %}
         <span class="comment-date">{{ thread.created|timesince }}</span>
-        <div class="panel panel-comment comment">
+        <div class="panel panel-comment comment" id="thread-starter-{{thread.id}}">
           <div class="panel-heading">
             <h2 class="panel-title">{{ thread.user.username }} Says:</h2>
           </div>
           <div class="panel-body">
             {% include "_task_comment_content.html" with comment=thread %}
             {% if thread.replies.count > 0 or thread.text|is_greater_length:240 %}
-             <a data-remote-replace="true" data-target="#thread-{{thread.id}}" href="{% url 'training:thread' module.order task.order thread.id%}" >See more...</a>
+             <a data-remote-replace="true" data-target="#thread-starter-{{thread.id}}" href="{% url 'training:thread_starter' module.order task.order thread.id%}" >See more...</a>
             {% endif %}
           </div>
         </div><!-- top thread -->
-        <div class="replies">
-          {% for reply in thread.replies.all %}
+        <div class="replies" id="replies-{{thread.id}}">
+          {% if thread.replies_count  > 3 %}
+            <div>
+            <a data-remote-replace="true" data-target="#replies-{{thread.id}}" href="{% url 'training:replies' module.order task.order thread.id%}" >Show earlier comments</a>
+            </div>
+          {% endif %}
+          {% for reply in thread.recent_replies %}
             {% if not reply.user == thread.user %}
               <span class="mentor-comment">MENTOR MESSAGE</span>
             {% endif %}

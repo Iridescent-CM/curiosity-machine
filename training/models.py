@@ -79,3 +79,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return "Comment: id={id}, user_id={user_id}, task_id={task_id}, text={text}".format(id=self.id, user_id=self.user_id, task_id=self.task_id, text=self.text[:45] + "..." if len(self.text) > 50 else self.text)
+
+    def replies_count(self):
+        return self.replies.count()
+
+    def recent_replies(self, limit=3):
+        return self.replies.all().order_by('-created')[:limit][::-1]
