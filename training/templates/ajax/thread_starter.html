@@ -1,0 +1,8 @@
+<div class="panel panel-comment comment" id="thread-starter-{{thread.id}}">
+  <div class="panel-heading">
+    <h2 class="panel-title">{{ thread.user.username }} Says:</h2>
+  </div>
+  <div class="panel-body">
+    {% include "_comment_content.html" with comment=thread %}
+  </div>
+</div><!-- top thread -->

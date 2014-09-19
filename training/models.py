@@ -14,18 +14,19 @@ class Module(models.Model):
         ordering = ('order',)
 
     def is_accessible_by_mentor(self, mentor):
-        if mentor.profile.approved: # mentors who are approved can access any module, so that they can comment
-            return True
-        elif mentor.is_staff: # staff members also get a free pass regardless of approval status
-            return True
-        elif Module.objects.order_by('order').first() == self: # accessible if this is the first module (order_by is explicit here because the "previous module" check below could potentially crash if "class Meta" ordering unexpectedly changes)
-            return True
-        elif self.is_finished_by_mentor(mentor): # accessible if this module is complete
-            return True
-        elif Module.objects.filter(order__lt=self.order).order_by('order').last().is_finished_by_mentor(mentor): # accessible if the previous module in the ordering is complete
-            return True
-        else:
-            return False
+        return True
+        # if mentor.profile.approved: # mentors who are approved can access any module, so that they can comment
+        #     return True
+        # elif mentor.is_staff: # staff members also get a free pass regardless of approval status
+        #     return True
+        # elif Module.objects.order_by('order').first() == self: # accessible if this is the first module (order_by is explicit here because the "previous module" check below could potentially crash if "class Meta" ordering unexpectedly changes)
+        #     return True
+        # elif self.is_finished_by_mentor(mentor): # accessible if this module is complete
+        #     return True
+        # elif Module.objects.filter(order__lt=self.order).order_by('order').last().is_finished_by_mentor(mentor): # accessible if the previous module in the ordering is complete
+        #     return True
+        # else:
+        #     return False
 
     def is_finished_by_mentor(self, mentor):
         return not self.tasks.exclude(mentors_done=mentor).exists() # return True iff all of the tasks have been completed by the mentor
@@ -78,3 +79,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return "Comment: id={id}, user_id={user_id}, task_id={task_id}, text={text}".format(id=self.id, user_id=self.user_id, task_id=self.task_id, text=self.text[:45] + "..." if len(self.text) > 50 else self.text)
+
+    def replies_count(self):
+        return self.replies.count()
+
+    def recent_replies(self, limit=3):
+        return self.replies.all().order_by('-created')[:limit][::-1]

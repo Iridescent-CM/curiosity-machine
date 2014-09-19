@@ -128,7 +128,7 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
     assert not module2.is_finished_by_mentor(new_mentor)
 
     assert module.is_accessible_by_mentor(new_mentor)
-    assert not module2.is_accessible_by_mentor(new_mentor)
+    assert module2.is_accessible_by_mentor(new_mentor)
 
     task.mark_mentor_as_done(new_mentor)
     assert not new_mentor.profile.approved
@@ -139,7 +139,7 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
     assert not module.is_finished_by_mentor(new_mentor)
     assert not module2.is_finished_by_mentor(new_mentor)
     assert module.is_accessible_by_mentor(new_mentor)
-    assert not module2.is_accessible_by_mentor(new_mentor)
+    assert module2.is_accessible_by_mentor(new_mentor)
 
     # hit task 3 out of order to make sure you have to finish ALL tasks in the module before progressing
     task3.mark_mentor_as_done(new_mentor)
@@ -151,7 +151,7 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
     assert not module.is_finished_by_mentor(new_mentor)
     assert not module2.is_finished_by_mentor(new_mentor)
     assert module.is_accessible_by_mentor(new_mentor)
-    assert not module2.is_accessible_by_mentor(new_mentor)
+    assert module2.is_accessible_by_mentor(new_mentor)
 
     task2.mark_mentor_as_done(new_mentor)
     assert not new_mentor.profile.approved
