@@ -4,5 +4,8 @@
 <p>
 You have feedback waiting for you! Your mentor left comments on your project to help you build an even better design.
 </p>
-<a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=profile.user.username %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Respond to your mentor and continue redesigning on Curiosity Machine!</button></a>
+<p>
+Respond to your mentor and continue redesigning on Curiosity Machine.
+</p>
+<a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=profile.user.username %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Click here to respond!</button></a>
 {% endblock %}

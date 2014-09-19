@@ -150,8 +150,10 @@ class Progress(models.Model):
             deliver_email('first_project', self.student.profile)
 
 def create_progress(sender, instance, created, **kwargs):
-    if created:
+    if created and instance.is_first_project():
         instance.email_first_project()
+
+post_save.connect(create_progress, sender=Progress)
 
 class Favorite(models.Model):
     challenge = models.ForeignKey(Challenge)
@@ -184,7 +186,6 @@ class Example(models.Model): # media that a mentor has selected to be featured o
 def create_example(sender, instance, created, **kwargs):
     if created:
         progress = instance.progress
-        if progress.is_first_project():
-            progress.student.profile.deliver_publish_email(progress)
+        progress.student.profile.deliver_publish_email(progress)
 
 post_save.connect(create_example, sender=Example)

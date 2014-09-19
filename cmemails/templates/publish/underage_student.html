@@ -2,11 +2,11 @@
 {% block content %}
 
 <p>
-Congratulations! Your child’s project has been published to the <a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=profile.user.username stage='build' %}">Inspiration gallery</a>  for other Curiosity Machine users to see. 
+Congratulations! Your child's project has been published to the <a href="{{ site_url }}{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=profile.user.username stage='build' %}">Inspiration gallery</a>  for other Curiosity Machine users to see. 
 </p>
 <p>
 What will your child build next?
 </p>
 
-<a href="{{ site_url }}{% url 'challenges:challenges' %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Click here to explore more design challenges!</button></a>
+<a href="{{ site_url }}{% url 'challenges:challenges' %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Explore design challenges!</button></a>
 {% endblock %}
