@@ -16,10 +16,8 @@
       <p>{% if not progress.approved %}{{ challenge.build_subheader }}{% else %}{{ challenge.reflect_subheader }}{% endif %}</p>
     </header>
     {% endif %}
+
 <div class="row">
-  {% if request.user.profile.is_mentor %}
-    {% include "_mentor_panel.html" %}
-  {% else %}
   <div class="col-md-5">
 
     
@@ -40,16 +38,13 @@
     {% endif %}
 
   </div><!-- /column 1 -->
-  {% endif %}
-
+  
   <div class="col-md-1">
   <img src="http://s3.amazonaws.com/curiositymachine/images/placeholder.png" width="60" height="80">  
   </div>
 
   <div class="col-md-6">
-    {% if request.user.profile.is_mentor %}
-      <h1>{{progress.student.username}}'s progress</h1>
-    {% else %}
+    
     {% if progress.approved %}
       <div class="panel panel-bubble teal right reflect-box">
       <div class="panel-body">
@@ -119,7 +114,7 @@
       </div>
     </div>
     {% endif %}
-    {% endif %}
+    
 
     {% for comment in comments %}
       {% include "_comment.html" %}
