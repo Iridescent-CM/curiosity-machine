@@ -8,11 +8,7 @@
 
 {% block content %}
   <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
-  {% if user.is_authenticated %}
-  {% include "_challenge_nav.html" with stage="build" %}
-  {% else %}
   {% include "_challenge_nav_guest.html" with stage="build" %}
-  {% endif %}
   <div class="challenge-content">
     {% if not request.user.profile.is_mentor %}
     <header class="challenge-header">
@@ -47,7 +43,7 @@
   {% endif %}
 
   <div class="col-md-1">
-    {% include "_avatar.html" with profile=progress.student.profile width=60 height=80 crop='fit' %}
+  <img src="http://s3.amazonaws.com/curiositymachine/images/placeholder.png" width="60" height="80">  
   </div>
 
   <div class="col-md-6">
@@ -101,20 +97,24 @@
     {% else %}
     <div class="panel panel-bubble right">
       <div class="panel-body">
-        <h3>Are you on</h3>
+        <h3>Document your design process while you build and test it!</h3>
 
         <ul class="switch stage-switch">
           <li>
-            <input type="radio" name="stepSelector" id="buildSelector" value="build" checked><label for="buildSelector">Building?</label>
+            <input type="radio" name="stepSelector" id="buildSelector" value="build" checked><label for="buildSelector">Build</label>
+            {% comment %}
             <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' %}" class="build-url url">
+            {% endcomment %}
           </li>
           <li>
-            <input type="radio" name="stepSelector" id="testSelector" value="test"><label for="testSelector">Testing?</label>
+            <input type="radio" name="stepSelector" id="testSelector" value="test"><label for="testSelector">Test</label>
+            {% comment %}
             <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='test' %}" class="test-url url">
+            {% endcomment %}
           </li>
         </ul><div></div><!-- magical switch clearing div -->
 
-        {% include "_comment_action_list.html" %}
+        {% include "_comment_action_list_guest.html" %}
         
       </div>
     </div>

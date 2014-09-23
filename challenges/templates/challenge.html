@@ -10,7 +10,11 @@
       <p><small>{{ challenge.description }}</small></p>
     </div>
   </div>
+  {% if user.is_authenticated %}
   {% include "_challenge_nav.html" with stage="inspiration" %}
+  {% else %}
+  {% include "_challenge_nav_guest.html" with stage="inspiration" %}
+  {% endif %}
 
 <div class="challenge-content">
   {% include '_challenge_details.html' %}

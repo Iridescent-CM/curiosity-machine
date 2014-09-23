@@ -1,0 +1,21 @@
+{% extends "_modal.html" %}
+{% block id %}guest-modal{% endblock %}
+{% block classes %}{% endblock %}
+{% block inner-classes %}modal-lg{% endblock %}
+
+{% block content %}
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h1>Get started!</h1>
+</div>
+<div class="modal-body row clearfix">
+ <p id="guest-modal-subheader">Create an account or sign in to interact with the Curiosity Machine community:</p>
+ <div class="guest-buttons">
+ <button  class="btn btn-primary btn-lg btn-guest-modal" data-toggle="modal" data-dismiss="modal" data-target="#join-modal">Register</button>
+ <button class="btn btn-primary btn-lg btn-guest-modal" data-toggle="modal" data-dismiss="modal" data-target="#login-modal">SIGN IN</button>
+ </div>
+  </div>
+  <div class="modal-footer">
+  </div>
+    
+{% endblock %}

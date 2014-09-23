@@ -10,8 +10,8 @@ def template_path(name, user_type):
 def email_dict(tmpl, user_type, subject):
     return {'template': template_path(tmpl, user_type), 'subject': subject}
 
-def email(recipients, subject, context, template):
-    email = EmailTemplate(recipients, subject, template, context)
+def email(recipients, subject, context, template, cc_recipients=None):
+    email = EmailTemplate(recipients, subject, template, context, cc_recipients=cc_recipients)
     return email.deliver()
 
 email_info = {
@@ -56,7 +56,7 @@ email_info = {
     'mentor_student_responded': email_dict('student_responded', MENTOR, 'Your Student Responded!'),
 }
 
-def deliver_email(event_name, profile, progress=None, student=None, mentor=None,stage=None):
+def deliver_email(event_name, profile, progress=None, student=None, mentor=None,stage=None, cc=None):
     context = {
         'profile': profile,
         'student': student,
@@ -75,5 +75,5 @@ def deliver_email(event_name, profile, progress=None, student=None, mentor=None,
     key = "_".join([user_type, event_name])
     info = email_info[key]
     #return email(['devpopol@gmail.com'],info['subject'],context, info['template'])
-    return email([profile.user.email],info['subject'],context, info['template'])
+    return email([profile.user.email],info['subject'],context, info['template'], cc)
 

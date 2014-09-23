@@ -7,9 +7,9 @@
 {% include "_mentor_profile_info.html" with profile=user.profile %}
   
   {% if request.user.profile.approved %}
-    <h2>Student Challenges in Progress</h2>
-    <ul class="nav nav-justified nav-tabs"></ul>
-    <div class="tab-content">
+  <h2>Student Challenges in Progress</h2>
+  <ul class="nav nav-justified nav-tabs"></ul>
+  <div class="tab-content">
     <ul class="challenges-list owl-carousel panel-carousel">
 
           {% for progress in progresses %}

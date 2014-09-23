@@ -1,0 +1,49 @@
+<div class="nav-wrapper {{stage}}-selected">
+  <nav class="challenge-nav primary">
+    <!--<div class="cursor"><span class="top"></span><span class="bottom"></span><span class="front"></span></div>-->
+    <ul>
+      <li class="guide">
+        <a data-toggle="modal"  data-target="#guide-modal" href="#">
+          <span class="btn" >Guide</span>
+        </a>
+      </li>
+      <li class="inspiration {% if stage == 'inspiration' %}selected{% endif %}">
+        <a href="{% url 'challenges:challenge' challenge_id=challenge.id %}">
+        <span class="btn">Inspiration</span>
+        </a>
+        <span class="arrows"></span>
+      </li>
+      <li class="plan {% if stage == 'plan' %}selected{% endif %}">
+        {% if stage == 'build' or stage == 'inspiration' %}<a href="{% url 'challenges:plan_guest' challenge_id=challenge.id %}">{% endif %}
+        <span class="btn">Plan</span>
+        {% if stage == 'build' or stage == 'inspiration' %}</a>{% endif %}
+        <span class="arrows"></span>
+      </li>
+      <li class="build {% if stage == 'build' and not progress.approved %}selected{% endif %}">
+        {% if stage == 'plan' or stage == 'inspiration' %}<a href="{% url 'challenges:build_guest' challenge_id=challenge.id %}">{% endif %}
+        <div>
+          <span class="btn">Build</span><span class="btn test">Test</span><span class="btn redesign">Redesign</span>
+        </div>
+        {% if stage == 'plan' or stage == 'inspiration' %}</a>{% endif %}
+        <span class="arrows"></span>
+      </li>
+      <li class="reflect">
+        <span class="btn">Reflect</span>
+        <span class="arrows"></span>
+      </li>
+    </ul>
+  </nav>
+
+<!--   <div class="clip-wrapper">
+  <nav class="challenge-nav clipper" aria-hidden="true">
+    <div class="cursor"></div>
+    <ul>
+      <li class="guide"><button class="btn">Guide</button></li>
+      <li class="inspiration"><button class="btn">Inspiration</button></li>
+      <li class="plan"><button class="btn">Plan</button></li>
+      <li class="build"><div><button class="btn">Build</button><button class="btn test">Test</button><button class="btn redesign">Redesign</button></div></li>
+      <li class="reflect"><button class="btn">Reflect</button></li>
+    </ul>
+  </nav>
+  </div> -->
+</div>
