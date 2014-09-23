@@ -49,13 +49,13 @@ CANONICAL_DOMAIN = os.getenv("CANONICAL_DOMAIN", None)
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'curiositymachine',
+    'django.contrib.admin',
     'profiles',
     'challenges',
     'cmcomments',
@@ -67,7 +67,7 @@ INSTALLED_APPS = (
     'django_summernote',
     'django_bleach',
     'training',
-    'cmemails'
+    'cmemails',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -225,6 +225,12 @@ LOGGING = {
         },
     },
 }
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    'apptemplates.Loader',
+)
 
 GA_CODE = os.environ.get("GA_CODE", None)
 
