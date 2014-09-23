@@ -68,10 +68,14 @@ def deliver_email(event_name, profile, progress=None, student=None, mentor=None,
     user_type = None
     if profile.is_mentor:
         user_type = MENTOR
-    elif profile.is_underage():
-        user_type = UNDERAGE_STUDENT
-    else:
-        user_type = STUDENT
+    elif profile.birthday:
+        if profile.is_underage():
+            user_type = UNDERAGE_STUDENT
+        else:
+            user_type = STUDENT
+
+    if user_type is None:
+        return None
     key = "_".join([user_type, event_name])
     info = email_info[key]
     #return email(['devpopol@gmail.com'],info['subject'],context, info['template'])
