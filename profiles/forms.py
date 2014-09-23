@@ -21,6 +21,8 @@ class ProfileFormBase(forms.Form):
     birthday = forms.DateField(required=True, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
     city = forms.CharField(required=True, label="City")
     picture_filepicker_url = FilePickerDragDropField(label="Photo", mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
+    first_name = forms.CharField(required=False, label="First Name")
+    last_name = forms.CharField(required=False, label="Last Name")
 
     def clean(self):
         cleaned_data = super(ProfileFormBase, self).clean()
@@ -61,6 +63,7 @@ class JoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
     parent_first_name = forms.CharField(required=False, label="First Name")
     parent_last_name = forms.CharField(required=False, label="Last Name")
+    
 
     def __init__(self, request=None, *args, **kwargs):
         super(JoinForm, self).__init__(*args, **kwargs)
@@ -78,8 +81,6 @@ class JoinForm(ProfileFormBase):
 
 class MentorJoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
-    first_name = forms.CharField(required=False, label="First Name")
-    last_name = forms.CharField(required=False, label="Last Name")
     city = forms.CharField(required=False, label="City")
     birthday = forms.DateField(required=False, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
 
