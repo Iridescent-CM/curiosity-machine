@@ -35,6 +35,7 @@
       <section id="thread-{{thread.id}}"> 
         <span class="comment-date">{{ thread.created|timesince }}</span>
         <div class="panel panel-comment comment">
+          <a href="{% url 'profiles:mentor_profile' thread.user.username %}">{% include "_avatar.html" with profile=thread.user.profile width=40 height=40 crop='fit' %}</a>
           <div class="panel-heading">
             <h2 class="panel-title">{{ thread.user.username }} Says:</h2>
           </div>
@@ -104,8 +105,14 @@
           {% if finished or request.user.profile.approved %}{% if thread.user == request.user %}
             <h3><strong>You have completed this training task</strong></h3>
           {% endif %}{% endif %}
+          <div class="starter-info">
+        </div>
         <span class="comment-date">{{ thread.created|timesince }}</span>
+        
         <div class="panel panel-comment comment" id="thread-starter-{{thread.id}}">
+           <div class="starter-info">
+        <a href="{% url 'profiles:mentor_profile' thread.user.username %}">{% include "_avatar.html" with profile=thread.user.profile width=40 height=40 crop='fit' %}</a>
+        </div>
           <div class="panel-heading">
             <h2 class="panel-title">{{ thread.user.username }} Says:</h2>
           </div>
