@@ -1,0 +1,14 @@
+{% load unread_count %}
+{% load resized %}
+{% load staticfiles %}
+
+<li>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      {{aggregate.0}}
+    </div>
+    <div class="panel-body">
+      {{aggregate.1}} unclaimed
+    </div>
+  </div>
+</li>

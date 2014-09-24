@@ -9,6 +9,7 @@ from enum import Enum
 from django.utils.safestring import mark_safe
 from django.db.models.signals import post_save
 from cmemails import deliver_email
+from django.db import connection
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
@@ -79,6 +80,21 @@ class Progress(models.Model):
         and challenges_progress.mentor_id IS NULL
         """
         return cls.objects.raw(query)
+
+    @classmethod
+    def unclaimed_days(cls):
+        query = """
+        select distinct DATE(challenges_progress.started) as started, count(challenges_progress.*) as count from challenges_progress 
+        left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id 
+        where cmcomments_comment.challenge_progress_id IS NOT NULL
+        and challenges_progress.mentor_id IS NULL
+        group by DATE(challenges_progress.started)
+        order by started
+        """
+        cursor = connection.cursor()
+        cursor.execute(query)
+        return cursor.fetchall()
+
 
     def is_first_project(self):
         return self.student.progresses.count() == 1
