@@ -7,8 +7,10 @@
     <div class="panel-heading">
       {{aggregate.0}}
     </div>
-    <div class="panel-body">
-      {{aggregate.1}} unclaimed
+    <div class="panel-body text-center">
+
+      <h2><a href="{% url 'profiles:unclaimed_progresses' year=aggregate.0.year month=aggregate.0.month day=aggregate.0.day %}">{{aggregate.1}}</a></h2>
+      <p>Unclaimed</p>
     </div>
   </div>
 </li>

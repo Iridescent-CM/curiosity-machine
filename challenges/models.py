@@ -72,19 +72,26 @@ class Progress(models.Model):
         verbose_name_plural = "progresses"
 
     @classmethod
-    def unclaimed(cls):
+    def unclaimed(cls, started_date=None):
+        date_clause = ""
+        if started_date:
+            started_date = "%d-%d-%d" % (started_date.year, started_date.month, started_date.day)
+            date_clause = "and DATE(challenges_progress.started) = DATE('%s')" % started_date
         query = """
         select distinct challenges_progress.* from challenges_progress 
         left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id 
         where cmcomments_comment.challenge_progress_id IS NOT NULL
+        %s
         and challenges_progress.mentor_id IS NULL
-        """
+        """ % date_clause
         return cls.objects.raw(query)
+
+
 
     @classmethod
     def unclaimed_days(cls):
         query = """
-        select distinct DATE(challenges_progress.started) as started, count(challenges_progress.*) as count from challenges_progress 
+        select distinct DATE(challenges_progress.started) as started, count(distinct challenges_progress.id) as count from challenges_progress 
         left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id 
         where cmcomments_comment.challenge_progress_id IS NOT NULL
         and challenges_progress.mentor_id IS NULL

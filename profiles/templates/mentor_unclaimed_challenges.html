@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if request.user.profile.approved %}
+  <h2>Unclaimed Student Challenges for {{date}}</h2>
+  <ul class="nav nav-justified nav-tabs"></ul>
+  <div class="tab-content">
+    <ul class="challenges-list owl-carousel panel-carousel">
+      {% for progress in progresses %}
+        {% include "_challenge_item_progress.html" with progress=progress %}
+      {% empty %}
+    <h3>There are currently no unclaimed student challenges for {{date}}</h3>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+{% endblock %}
