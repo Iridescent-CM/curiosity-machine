@@ -1,11 +1,8 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 import csv
-import datetime
 import tempfile
 from django.contrib.auth.models import User
 from django.utils.timezone import now
-from .forms import AnalyticsForm
 from django.core.exceptions import PermissionDenied
 
 def export_users(request):
