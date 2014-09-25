@@ -46,6 +46,17 @@ class Profile(models.Model):
         today = date.today()
         return today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day)) #subtract a year if birthday hasn't occurred yet
 
+    @property
+    def user_type(self):
+        if self.user.is_superuser:
+                user_type = 'admin'
+        elif self.is_mentor:
+            user_type = 'mentor'
+        elif self.birthday and self.is_underage:
+            user_type = 'underage student'
+        else:
+            user_type = 'student'
+
     def is_underage(self):
         return self.age <= 13
 
