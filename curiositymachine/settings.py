@@ -68,6 +68,7 @@ INSTALLED_APPS = (
     'django_bleach',
     'training',
     'cmemails',
+    'tsl',
 )
 
 MIDDLEWARE_CLASSES = (

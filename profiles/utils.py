@@ -14,6 +14,11 @@ def create_or_edit_user(data, user=None):
         user.is_active = True
     if new_user or data['password']:
         user.set_password(data['password'])
+
+    if data['first_name']:
+        user.first_name = data['first_name']
+    if data['last_name']:
+        user.last_name = data['last_name']
     user.save()
 
     profile = user.profile
