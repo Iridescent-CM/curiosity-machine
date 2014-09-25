@@ -20,7 +20,7 @@ class StudentFilter(admin.SimpleListFilter):
         in the right sidebar.
         """
         return (
-            ('13plus', _('above thirteen')),
+            ('14plus', _('above thirteen')),
             ('underage', _('below thirteen')),
         )
 
@@ -36,6 +36,6 @@ class StudentFilter(admin.SimpleListFilter):
         thirteen_years_ago = date(n.year - 13, n.month, n.day)
         queryset.filter(profile__birthday__isnull=False)
         if self.value() == 'underage':
-            return queryset.filter(profile__birthday__gte=thirteen_years_ago)
-        if self.value() == '13plus':
-            return queryset.filter(profile__birthday__lt=thirteen_years_ago)
+            return queryset.filter(profile__birthday__gt=thirteen_years_ago)
+        if self.value() == '14plus':
+            return queryset.filter(profile__birthday__lte=thirteen_years_ago)
