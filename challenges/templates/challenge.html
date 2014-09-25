@@ -10,7 +10,7 @@
       <p><small>{{ challenge.description }}</small></p>
     </div>
   </div>
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and request.user.profile.is_student %}
   {% include "_challenge_nav.html" with stage="inspiration" %}
   {% else %}
   {% include "_challenge_nav_guest.html" with stage="inspiration" %}

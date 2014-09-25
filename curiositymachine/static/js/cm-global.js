@@ -62,7 +62,7 @@ CM.FilePicker = {
     var $modal = $(parent);
     var self = this;
 
-    if ($('.comment-form', $modal).length) {
+    if ($('form', $modal).length) {
       $('input[type=filepicker-custom]', $modal).first().each(function() {
         var $self = $(this);
         $modal.find('input[type=submit]').attr('disabled', 'disabled');
@@ -109,7 +109,23 @@ CM.FilePicker = {
 
 $(document).ready(function() {
 
+  $('.ajax-and-refresh-form').on('submit', function(e) {
+    e.preventDefault();
+    var $self = $(this);
+    var data = {
+      url: $self.attr('action'), 
+      type:$self.attr('method'), data: $self.serialize()
+    }
+    console.log(data);
+    $.ajax(data).done(function(data) {
+      location.reload();
+    }).fail(function(data) {
+      console.log(data);
+      alert( "There was an error; please try again later" );
+    })
 
+  });
+  
 if (CM.Navigation.$navTop) {
   $(window).on('scroll', function() {
     var scrollTop = $(window).scrollTop();
@@ -171,6 +187,14 @@ if (CM.Navigation.$navTop) {
     });
   });
 
+
+  $('.text_form input[type=text]').on('keyup', function(e) {
+    if ($(this).val() == '') {
+      $(this.form).find('input[type=submit]').attr('disabled', 'disabled');
+    } else {
+      $(this.form).find('input[type=submit]').removeAttr('disabled');
+    }
+  });
 
 /////PROFILE!
 
