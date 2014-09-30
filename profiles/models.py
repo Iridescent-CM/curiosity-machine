@@ -49,13 +49,13 @@ class Profile(models.Model):
     @property
     def user_type(self):
         if self.user.is_superuser:
-                user_type = 'admin'
+            return 'admin'
         elif self.is_mentor:
-            user_type = 'mentor'
+            return 'mentor'
         elif self.birthday and self.is_underage:
-            user_type = 'underage student'
+            return 'underage student'
         else:
-            user_type = 'student'
+            return 'student'
 
     def is_underage(self):
         return self.age <= 13
