@@ -8,7 +8,18 @@
       {{aggregate.0}}
     </div>
     <div class="panel-body text-center">
+      <div class="image-container">
+        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}"> 
+          {% if progress.challenge.image %}
+            <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}">
+          {% elif progress.challenge.video.encodings_generated %}
+            <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}">
+          {% elif progress.student.profile.image %}
+            <img src="{% resized progress.student.profile.image.url  width=300 height=200 crop='fill' %}" />
+          {% endif %}
 
+        </a>
+    </div>
       <h2><a href="{% url 'profiles:unclaimed_progresses' year=aggregate.0.year month=aggregate.0.month day=aggregate.0.day %}">{{aggregate.1}}</a></h2>
       <p>Unclaimed</p>
     </div>
