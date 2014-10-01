@@ -9,13 +9,19 @@
   <h1>Get started!</h1>
 </div>
 <div class="modal-body row clearfix">
- <p id="guest-modal-subheader">Create an account or sign in to interact with the Curiosity Machine community:</p>
- <div class="guest-buttons">
- <button  class="btn btn-primary btn-lg btn-guest-modal" data-toggle="modal" data-dismiss="modal" data-target="#join-modal">Register</button>
- <button class="btn btn-primary btn-lg btn-guest-modal" data-toggle="modal" data-dismiss="modal" data-target="#login-modal">SIGN IN</button>
- </div>
-  </div>
-  <div class="modal-footer">
-  </div>
+	{% if request.user.profile.is_mentor %}
+	<p id="guest-modal-subheader">This is an interaction for learners. Claim a challenge to Interact with them!</p>
+	{% else %}
+	<p id="guest-modal-subheader">Create an account or sign in to interact with the Curiosity Machine community:</p>
+	<div class="guest-buttons">
+		<button  class="btn btn-primary btn-lg btn-guest-modal" data-toggle="modal" data-dismiss="modal" data-target="#join-modal">Register</button>
+		<button class="btn btn-primary btn-lg btn-guest-modal" data-toggle="modal" data-dismiss="modal" data-target="#login-modal">SIGN IN</button>
+	</div>
+	{% endif %}
+	
+</div>
+
+<div class="modal-footer">
+</div>
     
 {% endblock %}
