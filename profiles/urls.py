@@ -8,4 +8,5 @@ urlpatterns = patterns('profiles.views',
     url(r'^mentors/$', 'mentors', name='mentors'),
     url(r'^mentors/(?P<username>[^/]+)/$', 'mentor_profile', name='mentor_profile'),
     url(r'^underage/$', 'underage_student', name='underage_student'),
+    url(r'^unclaimed_progresses/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})$', 'unclaimed_progresses', name='unclaimed_progresses'),
 )

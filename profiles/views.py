@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from curiositymachine.decorators import mentor_only
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.forms.util import ErrorList
@@ -14,6 +15,7 @@ from challenges.models import Challenge, Progress, Favorite
 from django.db import transaction
 import password_reset.views
 import password_reset.forms
+from datetime import date
 
 @transaction.atomic
 def join(request):
@@ -77,9 +79,9 @@ def home(request):
         completed_modules = [module for module in training_modules if module.is_finished_by_mentor(request.user)]
         uncompleted_modules = [module for module in training_modules if not module.is_finished_by_mentor(request.user)]
         progresses = Progress.objects.filter(mentor=request.user).select_related("challenge")
-        unclaimed_progresses = Progress.unclaimed()
+        unclaimed_days = Progress.unclaimed_days()
         challenges = {progress.challenge for progress in progresses}
-        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_progresses': unclaimed_progresses, 'training_modules': training_modules, 'accessible_modules': accessible_modules, 'completed_modules': completed_modules, 'uncompleted_modules': uncompleted_modules})
+        return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_days': unclaimed_days, 'training_modules': training_modules, 'accessible_modules': accessible_modules, 'completed_modules': completed_modules, 'uncompleted_modules': uncompleted_modules})
     else:
         filter = request.GET.get('filter')
         my_challenges_filters = [ 'active', 'completed', 'all' ]
@@ -88,6 +90,13 @@ def home(request):
         completed_progresses = [progress for progress in progresses if progress.completed]
         active_progresses = [progress for progress in progresses if not progress.completed]
         return render(request, "student_home.html", {'active_progresses': active_progresses, 'completed_progresses': completed_progresses, 'progresses': progresses, 'filter': filter, 'my_challenges_filters': my_challenges_filters, 'favorite_challenges': favorite_challenges})
+
+@login_required
+@mentor_only
+def unclaimed_progresses(request, year, month, day):
+    selected_date = date(int(year), int(month), int(day))
+    progresses = Progress.unclaimed(selected_date)
+    return render(request, 'mentor_unclaimed_challenges.html', {'date': selected_date, 'progresses': progresses})
 
 def mentors(request):
     '''
