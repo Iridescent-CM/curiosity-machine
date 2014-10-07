@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from images.models import Image
+from .admin_utils import StudentFilter
 from cmemails import deliver_email
 
 from .models import Profile
@@ -22,6 +23,7 @@ class ProfileInline(admin.StackedInline):
 
 class UserAdminWithProfile(UserAdmin):
     inlines = [ ProfileInline, ]
+    list_filter = ('is_superuser','is_staff','profile__is_mentor', StudentFilter)
 
     def save_related(self, request, form, formsets, change):
         if len(formsets):
