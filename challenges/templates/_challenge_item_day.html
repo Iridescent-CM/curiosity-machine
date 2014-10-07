@@ -2,15 +2,17 @@
 {% load resized %}
 {% load staticfiles %}
 
+{% url 'profiles:unclaimed_progresses' year=aggregate.0.year month=aggregate.0.month day=aggregate.0.day as unclaimed_day_url %}
 <li>
   <div class="panel panel-default">
     <div class="panel-heading">
-      {{aggregate.0}}
+      <div class="panel-title">
+        <a href="{{ unclaimed_day_url }}">{{aggregate.0}}</a>
+      </div>
     </div>
     <div class="panel-body text-center">
-      {% comment %}
       <div class="image-container">
-        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}"> 
+        <a href="{{ unclaimed_day_url }}"> 
           {% if progress.challenge.image %}
             <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}">
           {% elif progress.challenge.video.encodings_generated %}
@@ -20,10 +22,8 @@
           {% endif %}
 
         </a>
-      }
       </div>
-      {% endcomment %}
-      <h2><a href="{% url 'profiles:unclaimed_progresses' year=aggregate.0.year month=aggregate.0.month day=aggregate.0.day %}">{{aggregate.1}}</a></h2>
+      <h2><a href="{{ unclaimed_day_url }}">{{aggregate.1}}</a></h2>
       <p>Unclaimed</p>
     </div>
   </div>
