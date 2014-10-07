@@ -51,15 +51,7 @@
   <div class="col-md-6">
     {% if request.user.profile.is_mentor %}
       <h1>{{progress.student.username}}'s plan</h1>
-    {% else %}
-    <div class="panel panel-bubble outline right">
-      <a href="#" data-toggle="modal" data-target="#text_form">
-      <div class="panel-body">
-          <h3>Stuck?<br> Ask a question to a science<br>or engineering mentor.</h3>
-      </div>
-      </a>
-    </div>
-    {% endif %}
+   {% endif %}
 
     <div class="materials-list panel">
       <div class="panel-heading">
