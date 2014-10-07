@@ -1,5 +1,6 @@
 import pytest
-from .models import Challenge, Progress
+from .models import Challenge, Progress, Theme, Favorite, Stage
+from cmcomments.models import Comment
 from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress
 from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
 from profiles.tests import student, mentor
@@ -7,6 +8,14 @@ from django.contrib.auth.models import AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
+
+@pytest.fixture
+def student_comment(student, progress):
+    return Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
+
+@pytest.fixture
+def theme():
+    return Theme.objects.create(name="MyTheme")
 
 @pytest.fixture
 def challenge():
@@ -23,6 +32,10 @@ def progress(student, mentor, challenge):
 @pytest.fixture
 def unclaimed_progress(student, challenge):
     return Progress.objects.create(student=student, challenge=challenge)
+
+@pytest.mark.django_db
+def test_theme_str(theme):
+    assert theme.__str__() == "Theme: name=MyTheme"
 
 @pytest.mark.django_db
 def test_challenges_response_code(rf, challenge, student):
@@ -112,3 +125,22 @@ def test_student_cannot_claim_progress(rf, unclaimed_progress):
     with pytest.raises(PermissionDenied):
         response = claim_progress(request, unclaimed_progress.id)
     assert not Progress.objects.get(id=unclaimed_progress.id).mentor
+
+@pytest.mark.django_db
+def test_is_favorited(challenge, student):
+    assert challenge.is_favorite(student) == False
+    Favorite.objects.create(challenge=challenge, student=student)
+    assert challenge.is_favorite(student) == True
+
+@pytest.mark.django_db
+def test_unclaimed_progress(mentor, unclaimed_progress):
+    assert not unclaimed_progress.mentor
+    unclaimed = Progress.unclaimed()
+    assert sum(1 for s in unclaimed) == 0
+    unclaimed_progress.stage = Stage.plan
+    unclaimed_progress.save()
+    student_comment(unclaimed_progress.student, unclaimed_progress)
+    unclaimed = Progress.unclaimed()
+    assert sum(1 for s in unclaimed) == 1
+
+    
