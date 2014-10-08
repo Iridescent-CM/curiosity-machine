@@ -14,7 +14,6 @@
     </div>
 
     <div class="col-md-7">
-      FORM
       {# in order for this form to show, you must both NOT be approved and NOT have already made a thread #}
       {% if show_thread_form %}
         <div class="panel panel-bubble right">
@@ -30,7 +29,6 @@
         {% include "_comment_form.html" with comment_form=form stage="plan" format="text" url=comment_url %}
 
       {% endif %}
-      UNFINISHED
       {% for thread in unfinished_threads %}
       <section id="thread-{{thread.id}}"> 
         <span class="comment-date">{{ thread.created|timesince }}</span>
@@ -99,7 +97,6 @@
           <h3><strong>There are are no pending mentor threads at this time</strong></h3>
         {% endif %}
       {% endfor %}
-      FINISHED
       {% for thread in finished_threads %}
       <section id="thread-{{thread.id}}"> 
           {% if finished or request.user.profile.approved %}{% if thread.user == request.user %}
