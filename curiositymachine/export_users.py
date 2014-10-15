@@ -14,7 +14,7 @@ def export_users(request):
 def generate_export_users():
     with tempfile.TemporaryFile(mode='w+') as fp:
         writer = csv.writer(fp)
-        writer.writerow(["User Id", "First name", "Last Name", "Location", "Role", "Approved"])
+        writer.writerow(["User Id", "First name", "Last Name", "Location", "Role", "Approved","Date Joined y-m-d"])
 
         users = User.objects.all()
         for user in users:
@@ -24,7 +24,8 @@ def generate_export_users():
                 user.last_name,
                 user.profile.city,
                 user.profile.user_type,
-                str(True) if user.is_superuser else str(user.profile.approved)
+                str(True) if user.is_superuser else str(user.profile.approved),
+                user.date_joined.strftime('%Y-%m-%d')
             ])
 
         fp.seek(0)
