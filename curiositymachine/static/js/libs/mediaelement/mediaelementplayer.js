@@ -1246,6 +1246,7 @@ if (typeof jQuery != 'undefined') {
 	// PLAY/pause BUTTON
 	$.extend(MediaElementPlayer.prototype, {
 		buildplaypause: function(player, controls, layers, media) {
+			console.log("buildplaypause")
 			var 
 				t = this,
 				play = 

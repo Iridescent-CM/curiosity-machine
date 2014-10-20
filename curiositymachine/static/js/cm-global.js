@@ -279,6 +279,13 @@ if (CM.Navigation.$navTop) {
       $('.challenge-details .btn-primary').css('position', 'static').css('z-index', 0);
       $('.challenge-details-hero .details').hide();
   });
+
+  $(document).ready(function() {
+    // auto enable using JSON attribute
+    $('.cm-mejs-player').mediaelementplayer({
+      features: ['playpause','progress','current','duration','tracks','volume','fullscreen','googleanalytics']
+    });
+  });
   
 
 }); //end dom ready

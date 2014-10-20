@@ -18,34 +18,37 @@ $.extend(mejs.MepDefaults, {
 
 $.extend(MediaElementPlayer.prototype, {
   buildgoogleanalytics: function(player, controls, layers, media) {
-      
     media.addEventListener('play', function() {
-      if (typeof _gaq != 'undefined') {
-        _gaq.push(['_trackEvent', 
+      if (typeof ga != 'undefined') {
+        ga('send', 'event', 
           player.options.googleAnalyticsCategory, 
           player.options.googleAnalyticsEventPlay, 
-          (player.options.googleAnalyticsTitle === '') ? player.currentSrc : player.options.googleAnalyticsTitle
-        ]);
+          // (player.options.googleAnalyticsTitle === '') ? player.currentSrc : player.options.googleAnalyticsTitle
+          (player.options.googleAnalyticsTitle === '') ? player.node.baseURI : player.options.googleAnalyticsTitle
+        );
+        
       }
     }, false);
     
     media.addEventListener('pause', function() {
-      if (typeof _gaq != 'undefined') {
-        _gaq.push(['_trackEvent', 
+      if (typeof ga != 'undefined') {
+        ga('send', 'event', 
           player.options.googleAnalyticsCategory, 
           player.options.googleAnalyticsEventPause, 
-          (player.options.googleAnalyticsTitle === '') ? player.currentSrc : player.options.googleAnalyticsTitle
-        ]);
+          // (player.options.googleAnalyticsTitle === '') ? player.currentSrc : player.options.googleAnalyticsTitle
+          (player.options.googleAnalyticsTitle === '') ? player.node.baseURI : player.options.googleAnalyticsTitle
+        );
       }
     }, false);  
     
     media.addEventListener('ended', function() {
-      if (typeof _gaq != 'undefined') {
-        _gaq.push(['_trackEvent', 
+      if (typeof ga != 'undefined') {
+        ga('send', 'event', 
           player.options.googleAnalyticsCategory, 
           player.options.googleAnalyticsEventEnded, 
-          (player.options.googleAnalyticsTitle === '') ? player.currentSrc : player.options.googleAnalyticsTitle
-        ]);
+          // (player.options.googleAnalyticsTitle === '') ? player.currentSrc : player.options.googleAnalyticsTitle
+          (player.options.googleAnalyticsTitle === '') ? player.node.baseURI : player.options.googleAnalyticsTitle
+        );
       }
     }, false);
     
