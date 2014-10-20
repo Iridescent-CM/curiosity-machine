@@ -13,6 +13,7 @@ from videos.models import Video
 from images.models import Image
 from itertools import chain
 
+
 @login_required
 @mentor_only
 def module(request, module_order):
