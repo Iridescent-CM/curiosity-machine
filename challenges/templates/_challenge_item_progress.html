@@ -27,7 +27,7 @@
       <h4><a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{ progress.challenge.name }}</a></h4>
       <p>Started: {{ progress.started }}</p>
       {% if not progress.mentor %}
-        <form class="ajax-and-refresh-form" action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
+        <form action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
           {% csrf_token %}
           <button class="btn btn-primary" type="submit">Claim</button>
         </form>
