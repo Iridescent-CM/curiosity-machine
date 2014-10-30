@@ -51,6 +51,22 @@ You can see more about the queues and jobs at `http://localhost:8000/django-rq/`
 It looks like some video-related job can be scheduled. I don't know exactly what it is yet,
 so for now I don't run the scheduler.
 
+### Filepicker
+
+The app uses [filepicker] for image uploads. For development purposes you should be able to create a free
+account and use the API key and generate a secret on your own. Set `FILEPICKER_API_KEY` and `FILEPICKER_API_SECRET`
+in your environment as appropriate.
+
+The app tries to upload filepicker images to s3 in a worker which fails without s3 configured, in which case the
+image will continue to come from filepicker.
+
+[filepicker]: https://www.filepicker.io/
+
+### Cloudinary
+
+Cloudinary is totally optional. It resizes and caches images stored at another location, but if not
+installed the app will simply use the original image.
+
 ## Tests
 
 Run `make test` to run tests.
