@@ -4,18 +4,23 @@
 
 Using `virtualenv` and `virtualenvwrapper`:
 
-```shell
+```sh
 git clone git@github.com:Iridescent-CM/curiosity-machine.git
 cd curiosity-machine
 mkvirtualenv -a . -r ./requirements.txt -p /path/to/python3 cm
-python manage.py migrate
-DEBUG=1 python manage.py runserver
+cp sample.local.py curiositymachine/local.py
 ```
 
-This gets you partially operational. The site won't be terribly intersting with an empty database,
-and things like sending email after signup will explode.
+Edit the new `local.py` as appropriate, and
 
-### Database
+```sh
+python manage.py migrate
+python manage.py runserver
+```
+
+This gets you basically operational. The site won't be terribly intersting with an empty database though.
+
+### Data
 
 One quick way to get going is to clone the Heroku staging database to your local machine and use that, assuming you're
 a contributor to the project on Heroku. This can be achieved with the [Heroku Toolbelt](https://toolbelt.heroku.com/) and
@@ -28,19 +33,16 @@ database name (or export `DATABASE_URL` to your environment).
 DATABASE_URL=postgres://user:password@localhost:5432/db_name DEBUG=1 python manage.py runserver
 ```
 
-At this point you'll have content, but be lacking many images. Also, signup will still explode.
+At this point you'll have content, but be lacking many images. (At least 
+until [#87](https://github.com/Iridescent-CM/curiosity-machine/issues/87) gets addressed.)
 
-### Sign-up Email
+### Job Queues
 
 Jobs like sending email are handled with [django_rq]. Run redis, then run the following command to launch a worker.
 
 ```shell
 python manage.py rqworker
 ```
-
-Now signup should proceed locally, though you won't get a signup email and the logs will probably show
-that sending the email exploded with `smtplib.SMTPServerDisconnected: please run connect() first`. But that's
-better than the app crashing.
 
 You can see more about the queues and jobs at `http://localhost:8000/django-rq/` if you log in as an admin.
 
@@ -50,22 +52,6 @@ You can see more about the queues and jobs at `http://localhost:8000/django-rq/`
 
 It looks like some video-related job can be scheduled. I don't know exactly what it is yet,
 so for now I don't run the scheduler.
-
-### Filepicker
-
-The app uses [filepicker] for image uploads. For development purposes you should be able to create a free
-account and use the API key and generate a secret on your own. Set `FILEPICKER_API_KEY` and `FILEPICKER_API_SECRET`
-in your environment as appropriate.
-
-The app tries to upload filepicker images to s3 in a worker which fails without s3 configured, in which case the
-image will continue to come from filepicker.
-
-[filepicker]: https://www.filepicker.io/
-
-### Cloudinary
-
-Cloudinary is totally optional. It resizes and caches images stored at another location, but if not
-installed the app will simply use the original image.
 
 ## Tests
 
