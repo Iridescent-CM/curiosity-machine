@@ -29,7 +29,7 @@ the `heroku pg` and `heroku pg:pull` commands.
 To use your cloned Postgres database run the app with the following command, substituting in the appropriate user, password, and
 database name (or export `DATABASE_URL` to your environment).
 
-```shell
+```sh
 DATABASE_URL=postgres://user:password@localhost:5432/db_name DEBUG=1 python manage.py runserver
 ```
 
@@ -38,9 +38,10 @@ until [#87](https://github.com/Iridescent-CM/curiosity-machine/issues/87) gets a
 
 ### Job Queues
 
-Jobs like sending email are handled with [django_rq]. Run redis, then run the following command to launch a worker.
+Jobs like sending email are handled with [django_rq]. 
+Run redis, then run the following command to launch a worker.
 
-```shell
+```sh
 python manage.py rqworker
 ```
 
@@ -50,8 +51,14 @@ You can see more about the queues and jobs at `http://localhost:8000/django-rq/`
 
 ### Scheduled Jobs
 
-It looks like some video-related job can be scheduled. I don't know exactly what it is yet,
-so for now I don't run the scheduler.
+Video encoding runs as a scheduled job with [rq-scheduler]. With redis running, you can run the following
+command to launch the scheduler and kick off scheduled jobs.
+
+```sh
+python manage.py rqscheduler
+```
+
+[rq-scheduler]: https://github.com/ui/rq-scheduler
 
 ## Tests
 
