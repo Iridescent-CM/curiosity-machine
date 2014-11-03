@@ -2,7 +2,7 @@ import dj_database_url
 
 #
 # This file provides a fairly complete sample configuration file for
-# local development, with sensible defaults provided where appropriate. 
+# local development, with sensible defaults provided where appropriate.
 #
 # To use it, copy it to curiositymachine/local.py and edit as needed for
 # your setup.
@@ -16,7 +16,7 @@ TEMPLATE_DEBUG = True
 SITE_URL = 'http://localhost:8000'
 
 ## Database
-# Change <user> and <dbname> as appropriate, or you can 
+# Change <user> and <dbname> as appropriate, or you can
 # change DATABASE_URL entirely
 DATABASE_URL = 'postgres://<user>@localhost:5432/<dbname>'
 DATABASES = {
@@ -25,8 +25,8 @@ DATABASES = {
 
 ## Email
 # You can send email through a properly configured gmail account, or use
-# a tool like FakeSMTP to keep it all local. Comment/uncomment the following
-# sections as appropriate for your approach.
+# a tool like FakeSMTP (http://nilhcem.github.io/FakeSMTP/) to keep it all local.
+# Comment/uncomment the following sections as appropriate for your approach.
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Example FakeSMTP setup
