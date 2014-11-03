@@ -23,6 +23,7 @@ class ProfileInline(admin.StackedInline):
 
 class UserAdminWithProfile(UserAdmin):
     inlines = [ ProfileInline, ]
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'date_joined')
     list_filter = ('is_superuser','is_staff','profile__is_mentor', StudentFilter)
 
     def save_related(self, request, form, formsets, change):
