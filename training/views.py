@@ -13,6 +13,7 @@ from videos.models import Video
 from images.models import Image
 from itertools import chain
 
+
 @login_required
 @mentor_only
 def module(request, module_order):
@@ -31,10 +32,10 @@ def task(request, module_order, task_order):
 
     
     done = task.mentors_done.all()
-    finished_threads = task.comments.filter(user__in=done, thread__isnull=True)
-    unfinished_threads = task.comments.exclude(user__in=done).filter(thread__isnull=True)
+    finished_threads = task.comments.order_by('-created').filter(user__in=done, thread__isnull=True)
+    unfinished_threads = task.comments.order_by('-created').exclude(user__in=done).filter(thread__isnull=True)
     
-    user_threads = task.comments.filter(user=request.user, thread__isnull=True)
+    user_threads = task.comments.order_by('-created').filter(user=request.user, thread__isnull=True)
     # no need to serve a 403 to users who somehow cheat and skip ahead, but don't show the form for creating a new thread either
     # otherwise, show the form if you are not approved and you have not already started a thread on this module
     # no exception is made for admins who are not mentors here; if they wish to leave comments they must mark themselves as mentors

@@ -24,8 +24,8 @@
     <ul class="nav nav-justified nav-tabs"></ul>
   <div class="tab-content">
     <ul class="challenges-list owl-carousel panel-carousel">
-      {% for progress in unclaimed_progresses %}
-        {% include "_challenge_item_progress.html" %}
+      {% for day_with_progress in unclaimed_days %}
+        {% include "_challenge_item_day.html" with aggregate=day_with_progress.0 progress=day_with_progress.1 %}
       {% empty %}
     <h3>There are currently no unclaimed student challenges</h3>
       {% endfor %}

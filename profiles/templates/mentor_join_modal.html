@@ -10,6 +10,8 @@
 </div>
 <form method='post' action="{% url 'profiles:join_as_mentor' %}" enctype="multipart/form-data" id="join-modal-form" class="default-form clearfix">
 <div class="modal-body row clearfix">
+  <h5>*Please only register as a mentor if you if are a STEM professional or are in school training to become one</h5>
+
     {% csrf_token %}
     {% include "mentor_fields.html" %}
 </div>

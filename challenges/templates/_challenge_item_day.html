@@ -1,0 +1,30 @@
+{% load unread_count %}
+{% load resized %}
+{% load staticfiles %}
+
+{% url 'profiles:unclaimed_progresses' year=aggregate.0.year month=aggregate.0.month day=aggregate.0.day as unclaimed_day_url %}
+<li>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">
+        <a href="{{ unclaimed_day_url }}">{{aggregate.0}}</a>
+      </div>
+    </div>
+    <div class="panel-body text-center">
+      <div class="image-container">
+        <a href="{{ unclaimed_day_url }}"> 
+          {% if progress.challenge.image %}
+            <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}">
+          {% elif progress.challenge.video.encodings_generated %}
+            <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}">
+          {% elif progress.student.profile.image %}
+            <img src="{% resized progress.student.profile.image.url  width=300 height=200 crop='fill' %}" />
+          {% endif %}
+
+        </a>
+      </div>
+      <h2><a href="{{ unclaimed_day_url }}">{{aggregate.1}}</a></h2>
+      <p>Unclaimed</p>
+    </div>
+  </div>
+</li>
