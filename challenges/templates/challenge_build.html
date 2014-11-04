@@ -55,7 +55,7 @@
       <h1>{{progress.student.username}}'s progress</h1>
     {% else %}
     {% if progress.approved %}
-      <div class="panel panel-bubble teal right reflect-box">
+    <div class="panel panel-bubble teal right reflect-box">
       <div class="panel-body">
         <h1>Reflect</h1>
           <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
@@ -79,9 +79,16 @@
           {{comment_form.text}}
 
           <input type="hidden" id="{{comment_form.picture_filepicker_url.id_for_label }}" name="{{comment_form.picture_filepicker_url.html_name }}">
-
+</div>
+</div>
+<br />
+<div class="panel panel-bubble teal right reflect-box">
+  <div class="panel-body">
           <div id="reflect-images">
             <div class="img-wrapper">
+            </div>
+            <div class="reflect-image">
+            <h3>Feature Image</h3>
             </div>
             <a data-toggle="modal" data-target="#reflect-images-modal" title="choose an image">
               <span class="btn btn-primary"><span class="glyphicon glyphicon-camera" title="Post Picture"></span></span>
@@ -93,12 +100,14 @@
           
           
           <div class="errors">{{ comment_form.text.errors }}</div>
-          <input type="submit" value="Publish to The Gallery" class="btn btn-lg btn-primary btn-reflect" disabled='disabled' />
+          <input type="submit" value="Share in the Inspiration Gallery!" class="btn btn-lg btn-primary btn-reflect left" disabled='disabled' />
         </form>
       </div>
-      </div>
+    </div>
       {% include "_challenge_reflect_images_modal.html" %}
     {% else %}
+
+
     <div class="panel panel-bubble right">
       <div class="panel-body">
         <h3>Are you on</h3>
