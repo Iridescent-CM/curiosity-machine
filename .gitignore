@@ -11,5 +11,6 @@ htmlcov
 *.db
 db.sqlite3
 heroku.env
+*.env
 *.notes
 dump.rdb
