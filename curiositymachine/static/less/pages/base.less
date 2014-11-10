@@ -11,10 +11,14 @@ body {
 .menu-img {width: 100%;}
 
 #main-container {
-  margin-left: auto;
-  margin-right: auto;
   min-height: 100%;
   background: @bg-color;
+
+}
+
+.main-column {
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
   overflow-x: hidden;
   max-width: @container-lg;
@@ -60,16 +64,22 @@ body {
   }
 }
 
-.p-left {
-  float:left;
-  margin-right: 100px;
-  margin-top:3px;
-}
-
-.footer-new {
-  margin-left: 265px;
-  font-size: 15px;
-  color: white;
+footer {
+  > .responsive-footer {
+    font-size: 14px;
+    color: white;
+    background: #333;
+    position: relative;
+    min-height: 100%;
+    width: 100%;
+    padding-left: 0px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    &.nav-open {
+      margin-left: @nav-width;
+      width: 83% !important;
+    }
+  }
 }
 
 .become-mentor-link {

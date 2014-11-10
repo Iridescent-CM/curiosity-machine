@@ -143,7 +143,7 @@ if (CM.Navigation.$navTop) {
   
   $('.navbar-toggle').on('click', function(e) {
     e.preventDefault();
-    var $content = $('.main-content');
+    var $content = $('.container-fluid ');
     var $nav = $('.nav-menu');
     if ($content.hasClass('nav-open')) {
       $content.removeClass('nav-open');
