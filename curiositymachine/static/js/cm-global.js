@@ -270,14 +270,21 @@ if (CM.Navigation.$navTop) {
 
   //this shows or hides the button on challenge details page depending on if the video is playing
 
-  $('.challenge-details-hero .mejs-player').on('pause', function() {
+  $('.challenge-details-hero .cm-mejs-player').on('pause', function() {
       $('.challenge-details .btn-primary').css('position', 'relative').css('z-index', 2);
       $('.challenge-details-hero .details').show();
   });
 
-  $('.challenge-details-hero .mejs-player').on('play', function() {
+  $('.challenge-details-hero .cm-mejs-player').on('play', function() {
       $('.challenge-details .btn-primary').css('position', 'static').css('z-index', 0);
       $('.challenge-details-hero .details').hide();
+  });
+
+  $(document).ready(function() {
+    // auto enable using JSON attribute
+    $('.cm-mejs-player').mediaelementplayer({
+      features: ['playpause','progress','current','duration','tracks','volume','fullscreen','googleanalytics']
+    });
   });
   
 
