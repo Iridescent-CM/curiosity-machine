@@ -3,139 +3,143 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}Curiosity Machine{% endblock %}</title>
-    <!-- favicons -->
-    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicons/apple-touch-icon-57x57.png' %}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicons/apple-touch-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicons/apple-touch-icon-72x72.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicons/apple-touch-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicons/apple-touch-icon-60x60.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicons/apple-touch-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicons/apple-touch-icon-76x76.png' %}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicons/apple-touch-icon-152x152.png' %}">
-    <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-196x196.png' %}" sizes="196x196">
-    <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-160x160.png' %}" sizes="160x160">
-    <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-96x96.png' %}" sizes="96x96">
-    <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-16x16.png' %}" sizes="16x16">
-    <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-32x32.png' %}" sizes="32x32">
-    <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="msapplication-TileImage" content="{% static 'images/favicons/mstile-144x144.png' %}">
+  <title>{% block title %}Curiosity Machine{% endblock %}</title>
+  <!-- favicons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicons/apple-touch-icon-57x57.png' %}">
+  <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicons/apple-touch-icon-114x114.png' %}">
+  <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicons/apple-touch-icon-72x72.png' %}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicons/apple-touch-icon-144x144.png' %}">
+  <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicons/apple-touch-icon-60x60.png' %}">
+  <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicons/apple-touch-icon-120x120.png' %}">
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicons/apple-touch-icon-76x76.png' %}">
+  <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicons/apple-touch-icon-152x152.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-196x196.png' %}" sizes="196x196">
+  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-160x160.png' %}" sizes="160x160">
+  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-96x96.png' %}" sizes="96x96">
+  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-16x16.png' %}" sizes="16x16">
+  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-32x32.png' %}" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="{% static 'images/favicons/mstile-144x144.png' %}">
 
-    <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600' rel='stylesheet' type='text/css'>
-    {% block css %}{% endblock %}
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600' rel='stylesheet' type='text/css'>
+  {% block css %}{% endblock %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}" />
-    <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.carousel.css' %}">
-    <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.theme.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'js/libs/mediaelement/mediaelementplayer.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}" />
+  <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.theme.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'js/libs/mediaelement/mediaelementplayer.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
 
 
-    <script type="text/javascript" src="{% static 'js/libs/modernizr.custom.05723.js' %}"></script>
-    <!--[if (gte IE 6)&(lte IE 8)]>
-    <script type="text/javascript" src="{% static 'js/libs/webshim-gh-pages/js-webshim/minified/polyfiller.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libs/respond/src/respond.js' %}"></script>
-    <![endif]-->
-    {% if ga_code %}
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script type="text/javascript" src="{% static 'js/libs/modernizr.custom.05723.js' %}"></script>
+  <!--[if (gte IE 6)&(lte IE 8)]>
+  <script type="text/javascript" src="{% static 'js/libs/webshim-gh-pages/js-webshim/minified/polyfiller.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/libs/respond/src/respond.js' %}"></script>
+  <![endif]-->
+  {% if ga_code %}
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', '{{ga_code}}', 'auto');
-      ga('send', 'pageview');
-    </script>
-    {% endif %}
+    ga('create', '{{ga_code}}', 'auto');
+    ga('send', 'pageview');
+  </script>
+  {% endif %}
 </head>
 <body>
 
-    {% include '_user_nav.html' %}
-    
-    <div id="message-bar">
-      <div class="layout-inner text"></div>
-    </div>
+  {% include '_user_nav.html' %}
 
-    <div id="main-container" class="main-column">
+  <div id="message-bar">
+    <div class="layout-inner text"></div>
+  </div>
+
+  <div id="main-container" class="main-column">
 
     <div class="container-fluid main-content">
-    <a href="{% url 'challenges:challenges' %}" class="logo">Curiosity Machine</a>
-    <button type="button" class="navbar-toggle">
+      <a href="{% url 'challenges:challenges' %}" class="logo">Curiosity Machine</a>
+      <button type="button" class="navbar-toggle">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-    </button>
-    {% if request.user.is_authenticated %}
-      <div class="user-avatar">
-        {% if request.user.profile.get_unread_comment_count %} <span title="{{request.user.profile.get_unread_comment_count}} unread messages" class="unread">{{request.user.profile.get_unread_comment_count}}</span>{% endif %}
+      </button>
+      {% if request.user.is_authenticated %}
+        <div class="user-avatar">
+          {% if request.user.profile.get_unread_comment_count %}
+            <span title="{{request.user.profile.get_unread_comment_count}} unread messages" class="unread">
+              {{request.user.profile.get_unread_comment_count}}
+            </span>
+          {% endif %}
 
-        <div class="top-avatar">
+          <div class="top-avatar">
             <div class="image-wrapper">
-                <a href="{% url 'profiles:home' %}">{% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' %}</a>
-                <span>{{request.user.username}}</span>
+              <a href="{% url 'profiles:home' %}">
+                {% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' %}
+              </a>
+              <span>{{request.user.username}}</span>
             </div>
+          </div>
         </div>
-      </div>
-    {% endif %}
-        
-        {% block content %}
+      {% endif %}
 
-        {% endblock %}
-        </div><!-- /container -->
+      {% block content %}
+      {% endblock %}
     </div>
 
-    <!-- global modals -->
-    {% include "join_modal.html" with form=join_form %}
-    {% include "mentor_join_modal.html" with form=mentor_join_form %}
-    {% include "guest_modal.html" %}
-    {% include "registration/_login_modal.html" with form=login_form %}
-    <!-- /global modals -->
-</body>
-<footer class="main-column">
+  </div>
+
+  <!-- global modals -->
+  {% include "join_modal.html" with form=join_form %}
+  {% include "mentor_join_modal.html" with form=mentor_join_form %}
+  {% include "guest_modal.html" %}
+  {% include "registration/_login_modal.html" with form=login_form %}
+  <!-- /global modals -->
+
+  <footer class="main-column">
     <div class="container-fluid footer-content">
-        <p>
-          Need help? <a href="http://www.curiositymachine.org/faq/">FAQ</a>
-          | Email: <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>
-          | Powered by Iridescent, a 501c3 nonprofit organization in the United States. Follow us:
-            <a href="https://twitter.com/Curious_Machine"><img src="/static/images/twitter-4-32.png"></a>
-            <a href="https://www.facebook.com/curiositymachine"><img src="/static/images/facebook-4-32.png"></a>
-        </p>
+      <p>
+        Need help? <a href="http://www.curiositymachine.org/faq/">FAQ</a>
+        | Email: <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>
+        | Powered by Iridescent, a 501c3 nonprofit organization in the United States. Follow us:
+          <a href="https://twitter.com/Curious_Machine"><img src="/static/images/twitter-4-32.png"></a>
+          <a href="https://www.facebook.com/curiositymachine"><img src="/static/images/facebook-4-32.png"></a>
+      </p>
     </div>
-</footer>
-<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-<script type="text/javascript" src="{% static 'js/libs/bootstrap.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/libs/owl-carousel/owl.carousel.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/libs/mediaelement/mediaelement-and-player.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/libs/mediaelement/mep-feature-googleanalytics.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/libs/jquery.lettering.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/libs/jquery.textillate.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
-<script src="//api.filepicker.io/v1/filepicker.js"></script>
-<!--[if (gte IE 6)&(lte IE 8)]>
-    <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
-<![endif]-->
-{% block js %}{% endblock %}
+  </footer>
 
-{% if messages %}
-{% for message in messages %}
-  {% if message.tags and message.tags == 'error' %}
-    <script type="text/javascript">
-      $(function() {
-        CM.userError('{{ message }}');
-      });
-    </script>
-  {% else %}
-    <script type="text/javascript">
-      $(function() {
-        CM.userSuccess('{{ message }}');
-      });
-    </script>
-  {% endif %}
-{% endfor %}
-{% endif %}
+  <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/libs/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/libs/owl-carousel/owl.carousel.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/libs/mediaelement/mediaelement-and-player.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/libs/mediaelement/mep-feature-googleanalytics.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/libs/jquery.lettering.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/libs/jquery.textillate.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
+  <script src="//api.filepicker.io/v1/filepicker.js"></script>
+  <!--[if (gte IE 6)&(lte IE 8)]>
+      <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
+  <![endif]-->
+  {% block js %}{% endblock %}
 
-
+  {% if messages %}{% for message in messages %}
+    {% if message.tags and message.tags == 'error' %}
+      <script type="text/javascript">
+        $(function() {
+          CM.userError('{{ message }}');
+        });
+      </script>
+    {% else %}
+      <script type="text/javascript">
+        $(function() {
+          CM.userSuccess('{{ message }}');
+        });
+      </script>
+    {% endif %}
+  {% endfor %}{% endif %}
+</body>
 </html>
