@@ -4,6 +4,8 @@ from curiositymachine.tasks import upload_to_s3
 from images.models import Image
 import django_rq
 
+
+
 class Video(models.Model):
     source_url = models.URLField(max_length=2048, blank=True)
     md5_hash = models.CharField(max_length=32, blank=True) # this is the hash of the ORIGINAL file, not the encoded file
@@ -28,6 +30,12 @@ class Video(models.Model):
         from .tasks import encode_video
         if not self.key:
             django_rq.get_queue(default_timeout=1800).enqueue(upload_to_s3, self, key_prefix="videos/", queue_after=encode_video) # extremely long timeout so that large files can be handled
+
+    def url_with_extension(self, ext='mp4'):
+        if self.key:
+            return '%s.%s' % ("{base}/{bucket}/videos/{key}".format(base=settings.S3_URL_BASE, bucket=settings.AWS_STORAGE_BUCKET_NAME, key=self.key), ext)
+        else:
+            return self.url
 
     def __str__(self):
         return "Video: id={}, url={}".format(self.id, self.url)
