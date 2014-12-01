@@ -59,9 +59,8 @@
       <div class="panel-body">
         <h1>Reflect</h1>
           <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
-          <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' %}" method="POST" class="comment-form" id="text_form">
-            {% csrf_token %}
-
+<!--             {% csrf_token %}
+ -->
           <div class="errors">{{ comment_form.picture_filepicker_url.errors }}</div>
 
           <ul class="challenge-reflect-questions" style="display: none;">
@@ -76,7 +75,14 @@
           </div>
 
           {{comment_form.question_text}}
-          {{comment_form.text}}
+          
+          <div class="panel panel-bubble">
+              <div class="panel-body">
+                <h3>Anwser using a video, drawing or text</h3>
+                {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' as comment_url %}
+                {% include "_comment_action_list.html" %}
+              </div>
+            </div>
 
           <input type="hidden" id="{{comment_form.picture_filepicker_url.id_for_label }}" name="{{comment_form.picture_filepicker_url.html_name }}">
 </div>
@@ -101,7 +107,7 @@
           
           <div class="errors">{{ comment_form.text.errors }}</div>
           <input type="submit" value="Share in the Inspiration Gallery!" class="btn btn-lg btn-primary btn-reflect left" disabled='disabled' />
-        </form>
+    <!--     </form> -->
       </div>
     </div>
       {% include "_challenge_reflect_images_modal.html" %}
