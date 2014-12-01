@@ -46,7 +46,7 @@ def generate_analytics(start_date, end_date):
             writer.writerow([comment.user_id, comment.user.username, "mentor" if comment.user.profile.is_mentor else "learner", 
                 "video" if comment.video else ("image" if comment.image else "text"), Stage(comment.stage).name, comment.created.strftime('%Y-%m-%d %H:%M:%S'), 
                 comment.challenge_progress.challenge_id, comment.challenge_progress.student_id, comment.challenge_progress.mentor_id, comment.text, 
-                comment.video.url_with_extension() if comment.video else (comment.image.url if comment.image else "")])
+                comment.video.url_for_analytics() if comment.video else (comment.image.url if comment.image else "")])
 
         # TSL Answers
         answers = Answer.objects.filter(created__gte=start_date, created__lte=end_date)

@@ -34,7 +34,7 @@ class Video(models.Model):
         if not self.key:
             django_rq.get_queue(default_timeout=1800).enqueue(upload_to_s3, self, key_prefix="videos/", queue_after=encode_video) # extremely long timeout so that large files can be handled
 
-    def url_with_extension(self, mime=Mime.mp4):
+    def url_for_analytics(self, mime=Mime.mp4):
         if self.encoded_videos.filter(mime_type=mime.value).exists():
             return self.encoded_videos.filter(mime_type=mime.value).first().url
         else:
