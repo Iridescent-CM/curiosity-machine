@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load compress %}
 {% load future %} {# suppresses deprecation warnings for firstof tag #}
 <!DOCTYPE html>
 <html>
@@ -24,12 +25,14 @@
   <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600' rel='stylesheet' type='text/css'>
   {% block css %}{% endblock %}
 
+  {% compress css %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}" />
   <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.carousel.css' %}">
   <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.theme.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'js/libs/mediaelement/mediaelementplayer.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+  {% endcompress %}
 
 
   <script type="text/javascript" src="{% static 'js/libs/modernizr.custom.05723.js' %}"></script>
@@ -112,6 +115,7 @@
   </footer>
 
   <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+  {% compress js %}
   <script type="text/javascript" src="{% static 'js/libs/bootstrap.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/libs/owl-carousel/owl.carousel.min.js' %}"></script>
@@ -120,6 +124,7 @@
   <script type="text/javascript" src="{% static 'js/libs/jquery.lettering.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/libs/jquery.textillate.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
+  {% endcompress %}
   <script src="//api.filepicker.io/v1/filepicker.js"></script>
   <!--[if (gte IE 6)&(lte IE 8)]>
       <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>

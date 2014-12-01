@@ -69,6 +69,7 @@ INSTALLED_APPS = (
     'training',
     'cmemails',
     'tsl',
+    'compressor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -132,6 +133,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = 'staticfiles'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
 
 FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 
