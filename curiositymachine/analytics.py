@@ -38,15 +38,28 @@ def generate_analytics(start_date, end_date):
             writer.writerow([progress.student_id, progress.student.username, "learner", "sent to reflection", "", progress.approved.strftime('%Y-%m-%d %H:%M:%S'), progress.challenge_id, 
                 progress.student_id, progress.mentor_id, "", ""])
 
+        
+        def video_or_image_for(comment):
+            if comment.video:
+                return comment.video.url_for_analytics() if comment.video.url_for_analytics() else comment.video.url
+            else:
+                return comment.image.url if comment.image else ""
         # Comments
         comments = []
         for progress in progresses:
             comments.extend(progress.comments.filter(created__gte=start_date, created__lte=end_date))
         for comment in comments:
-            writer.writerow([comment.user_id, comment.user.username, "mentor" if comment.user.profile.is_mentor else "learner", 
-                "video" if comment.video else ("image" if comment.image else "text"), Stage(comment.stage).name, comment.created.strftime('%Y-%m-%d %H:%M:%S'), 
-                comment.challenge_progress.challenge_id, comment.challenge_progress.student_id, comment.challenge_progress.mentor_id, comment.text, 
-                comment.video.url_with_extension() if comment.video else (comment.image.url if comment.image else "")])
+            writer.writerow([
+                comment.user_id, 
+                comment.user.username, "mentor" if comment.user.profile.is_mentor else "learner", 
+                "video" if comment.video else ("image" if comment.image else "text"), 
+                Stage(comment.stage).name, 
+                comment.created.strftime('%Y-%m-%d %H:%M:%S'), 
+                comment.challenge_progress.challenge_id, 
+                comment.challenge_progress.student_id, 
+                comment.challenge_progress.mentor_id, comment.text, 
+                video_or_image_for(comment)
+            ])
 
         # TSL Answers
         answers = Answer.objects.filter(created__gte=start_date, created__lte=end_date)
