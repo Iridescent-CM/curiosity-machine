@@ -6,12 +6,12 @@
 <script type="text/javascript" src="{% static 'js/favorites.js' %}"></script>
 {% endblock %}
 
+{% block css %}
+<link href='//fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
+{% endblock %}
+
 {% block content %}
-  
   {% if not request.user.is_authenticated %}
-    {% block css %}{# dotted font we only need on this page. #}
-      <link href='//fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
-    {% endblock %}
   <div class="home-hero" id="home-hero-none">
     <h1>Imagine, Invent, <br>Engineer</h1>
     <h2>A COMMUNITY OF</h2>
