@@ -1,8 +1,13 @@
 from django.db import models
 from django.conf import settings
+from enum import Enum
 from curiositymachine.tasks import upload_to_s3
 from images.models import Image
 import django_rq
+
+class Mime(Enum):
+    mp4 = 'video/mp4'
+    ogg = 'video/ogg'
 
 class Video(models.Model):
     source_url = models.URLField(max_length=2048, blank=True)
@@ -28,6 +33,12 @@ class Video(models.Model):
         from .tasks import encode_video
         if not self.key:
             django_rq.get_queue(default_timeout=1800).enqueue(upload_to_s3, self, key_prefix="videos/", queue_after=encode_video) # extremely long timeout so that large files can be handled
+
+    def url_for_analytics(self, mime=Mime.mp4):
+        if self.encoded_videos.filter(mime_type=mime.value).exists():
+            return self.encoded_videos.filter(mime_type=mime.value).first().url
+        else:
+            return self.url
 
     def __str__(self):
         return "Video: id={}, url={}".format(self.id, self.url)
