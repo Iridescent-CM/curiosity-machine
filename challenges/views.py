@@ -19,7 +19,7 @@ from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 
 def challenges(request):
-    challenges = Challenge.objects.all()
+    challenges = Challenge.objects.filter(draft=False)
     theme = request.GET.get('theme')
     if theme:
         challenges = challenges.filter(theme__name=theme)
@@ -157,7 +157,7 @@ def favorite_challenges(request):
 
 @login_required
 def ajax_challenges(request):
-    challenges = Challenge.objects.all()
+    challenges = Challenge.objects.filter(draft=False)
     theme = request.GET.get('theme')
     if theme:
         challenges = challenges.filter(theme__name=theme)
