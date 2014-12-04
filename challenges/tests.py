@@ -4,10 +4,18 @@ from cmcomments.models import Comment
 from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress
 from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
 from profiles.tests import student, mentor
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import User, AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
+
+@pytest.fixture
+def loggedInStudent(client):
+    student = User.objects.create_user(username='student', email='student@example.com', password='password')
+    student.profile.approved = True
+    student.profile.save()
+    client.login(username='student', password='password')
+    return student
 
 @pytest.fixture
 def student_comment(student, progress):
@@ -42,6 +50,44 @@ def test_challenges_response_code(rf, challenge, student):
     request = rf.get('/challenges/')
     response = challenges(request)
     assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_challenges_render_challenges(client, challenge, student):
+    response = client.get('/challenges/', follow=True)
+    assert response.status_code == 200
+    assert response.context['challenges'][0] == challenge
+
+@pytest.mark.django_db
+def test_challenges_filters_by_name(client, challenge, challenge2, theme, student):
+    challenge.theme = theme
+    challenge.save()
+
+    response = client.get('/challenges/')
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 2
+
+    response = client.get('/challenges/', {'theme': theme.name}, follow=True)
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 1
+
+@pytest.mark.django_db
+def test_ajax_challenges(client, loggedInStudent, challenge):
+    response = client.get('/challenges/ajax_challenges', follow=True)
+    assert response.status_code == 200
+    assert response.context['challenges'][0] == challenge
+
+@pytest.mark.django_db
+def test_ajax_challenges_filters_by_name(client, loggedInStudent, challenge, challenge2, theme):
+    challenge.theme = theme
+    challenge.save()
+
+    response = client.get('/challenges/ajax_challenges')
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 2
+
+    response = client.get('/challenges/ajax_challenges', {'theme': theme.name}, follow=True)
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 1
 
 @pytest.mark.django_db
 def test_challenge_response_code(rf, challenge, student):
