@@ -4,9 +4,7 @@ from django.db import models, migrations
 
 def make_non_draft(apps, schema_editor):
     Challenge = apps.get_model("challenges", "Challenge")
-    for challenge in Challenge.objects.all():
-        challenge.draft = False
-        challenge.save()
+    Challenge.objects.all().update(draft=False)
 
 def noop(apps, schema_editor):
     return
