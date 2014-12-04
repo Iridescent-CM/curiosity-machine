@@ -61,7 +61,6 @@
   </div>
 
   <div id="main-container" class="main-column">
-
     <div class="container-fluid main-content">
       <a href="{% url 'challenges:challenges' %}" class="logo">Curiosity Machine</a>
       <button type="button" class="navbar-toggle">
@@ -99,6 +98,7 @@
   {% include "join_modal.html" with form=join_form %}
   {% include "mentor_join_modal.html" with form=mentor_join_form %}
   {% include "guest_modal.html" %}
+  {% include "introduction_modal.html" %}
   {% include "registration/_login_modal.html" with form=login_form %}
   <!-- /global modals -->
 
@@ -130,6 +130,14 @@
   <!--[if (gte IE 6)&(lte IE 8)]>
       <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
   <![endif]-->
+
+  {% if request.user.date_joined.date == request.user.last_login.date %}
+    <script type="text/javascript">
+      $(function(){
+       $('#introduction-modal').modal('show'); 
+      });
+    </script>
+  {% endif %}
 
   {% if messages %}{% for message in messages %}
     {% if message.tags and message.tags == 'error' %}
