@@ -53,10 +53,21 @@ class Challenge(models.Model):
     reflect_subheader = models.TextField(help_text="One line of plain text, shown below the reflect stage header")
     reflect_questions = models.ManyToManyField(Question, null=True)
     favorited = models.ManyToManyField(User, through='Favorite', through_fields=('challenge', 'student'), null=True, related_name="favorite_challenges")
+
     
     def is_favorite(self, student):
         return Favorite.objects.filter(challenge=self, student=student).exists()
-        
+
+    def tag_with(self, name=None, id=None, tag=None):
+        if not tag:
+            if name:
+                tag = ChallengeTag.objects.get(name=name)
+            else:
+                tag = ChallengeTag.objects.get(id=id)
+
+        ChallengeClassification.objects.create(challenge=self, tag=tag)
+
+
     def __str__(self):
         return "Challenge: id={}, name={}".format(self.id, self.name)
 
@@ -112,6 +123,7 @@ class Progress(models.Model):
         self.save()
         if self.student.profile.birthday:
             deliver_email('project_completion', self.student.profile, progress=self, stage=Stage.reflect.name)
+
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
@@ -213,3 +225,27 @@ def create_example(sender, instance, created, **kwargs):
         progress.student.profile.deliver_publish_email(progress)
 
 post_save.connect(create_example, sender=Example)
+
+
+class ChallengeTag(models.Model):
+    name = models.TextField(blank=False, null=False, help_text="name of the filter")
+    challenges = models.ManyToManyField(Challenge,through='ChallengeClassification', related_name='tags')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Filter'
+
+    def __str__(self):
+        return "Filter: id={}, name={}".format(self.id, self.name)
+
+    def __repr__(self):
+        return "Filter: id={}, name={}".format(self.id, self.name)    
+
+
+class ChallengeClassification(models.Model):
+    tag = models.ForeignKey(ChallengeTag)
+    challenge = models.ForeignKey(Challenge)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
