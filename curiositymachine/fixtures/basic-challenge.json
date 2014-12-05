@@ -16,11 +16,11 @@
         "plan_subheader": "Plan the thing.",
         "name": "Challenge 1",
         "reflect_subheader": "Reflect on the thing.",
-        "build_call_to_action": "<strong>Build it!</strong>",
+        "build_call_to_action": "Build it!",
         "video": null,
         "theme": null,
         "image": 1,
-        "plan_call_to_action": "<strong>Plan it!</strong>",
+        "plan_call_to_action": "Plan it!",
         "description": "This is the description for challenge 1!",
         "build_subheader": "Build the thing.",
         "reflect_questions": [
