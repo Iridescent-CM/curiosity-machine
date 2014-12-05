@@ -1,0 +1,133 @@
+[
+{
+    "fields": {
+        "text": "What is your favorite color?"
+    },
+    "model": "challenges.question",
+    "pk": 1
+},
+{
+    "fields": {
+        "reflect_questions": [
+            1
+        ],
+        "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+        "learn_more": "Learn <strong>more</strong> about challenge 1!",
+        "reflect_subheader": "Reflect on the thing.",
+        "theme": null,
+        "build_call_to_action": "Build it!",
+        "description": "This is the description for challenge 1!",
+        "plan_subheader": "Plan the thing.",
+        "plan_call_to_action": "Plan it!",
+        "video": null,
+        "name": "Challenge 1",
+        "how_to_make_it": "<p>This is how to make challenge 1.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
+        "build_subheader": "Build the thing.",
+        "image": 1
+    },
+    "model": "challenges.challenge",
+    "pk": 1
+},
+{
+    "fields": {
+        "reflect_questions": [
+            1
+        ],
+        "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+        "learn_more": "Learn <strong>more</strong> about challenge 2!",
+        "reflect_subheader": "Reflect on the thing.",
+        "theme": null,
+        "build_call_to_action": "Build it!",
+        "description": "This is the description for challenge 1!",
+        "plan_subheader": "Plan the thing.",
+        "plan_call_to_action": "Plan it!",
+        "video": null,
+        "name": "Challenge 2",
+        "how_to_make_it": "<p>This is how to make challenge 2.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
+        "build_subheader": "Build the thing.",
+        "image": 1
+    },
+    "model": "challenges.challenge",
+    "pk": 2
+},
+{
+    "fields": {
+        "reflect_questions": [
+            1
+        ],
+        "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+        "learn_more": "Learn <strong>more</strong> about challenge 3!",
+        "reflect_subheader": "Reflect on the thing.",
+        "theme": null,
+        "build_call_to_action": "Build it!",
+        "description": "This is the description for challenge 3!",
+        "plan_subheader": "Plan the thing.",
+        "plan_call_to_action": "Plan it!",
+        "video": null,
+        "name": "Challenge 3",
+        "how_to_make_it": "<p>This is how to make challenge 3.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
+        "build_subheader": "Build the thing.",
+        "image": 1
+    },
+    "model": "challenges.challenge",
+    "pk": 3
+},
+{
+    "fields": {
+        "reflect_questions": [
+            1
+        ],
+        "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+        "learn_more": "Learn <strong>more</strong> about challenge 4!",
+        "reflect_subheader": "Reflect on the thing.",
+        "theme": null,
+        "build_call_to_action": "Build it!",
+        "description": "This is the description for challenge 4!",
+        "plan_subheader": "Plan the thing.",
+        "plan_call_to_action": "Plan it!",
+        "video": null,
+        "name": "Challenge 4",
+        "how_to_make_it": "<p>This is how to make challenge 4.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
+        "build_subheader": "Build the thing.",
+        "image": 1
+    },
+    "model": "challenges.challenge",
+    "pk": 4
+},
+{
+    "fields": {
+        "approved": null,
+        "student": 2,
+        "_materials_list": "",
+        "mentor": null,
+        "challenge": 2,
+        "started": "2014-12-05T22:18:17.154Z"
+    },
+    "model": "challenges.progress",
+    "pk": 1
+},
+{
+    "fields": {
+        "approved": null,
+        "student": 2,
+        "_materials_list": "",
+        "mentor": 4,
+        "challenge": 3,
+        "started": "2014-12-05T22:19:19.016Z"
+    },
+    "model": "challenges.progress",
+    "pk": 2
+},
+{
+    "fields": {
+        "approved": "2014-12-05T22:21:55.692Z",
+        "student": 2,
+        "_materials_list": "",
+        "mentor": 4,
+        "challenge": 4,
+        "started": "2014-12-05T22:20:07.583Z"
+    },
+    "model": "challenges.progress",
+    "pk": 3
+}
+]
