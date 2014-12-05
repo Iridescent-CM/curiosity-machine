@@ -1,33 +1,40 @@
 [
-    {
-        "fields": {
-            "key": "images/41a3b1aaa8bb905bc2d35c3dff44d919",
-            "md5_hash": "41a3b1aaa8bb905bc2d35c3dff44d919",
-            "source_url": "https://www.filepicker.io/api/file/zeHq9X5ZSomN9BRrPLeQ"
-        },
-        "model": "images.image",
-        "pk": 1
+{
+    "pk": 1,
+    "fields": {
+        "md5_hash": "41a3b1aaa8bb905bc2d35c3dff44d919",
+        "key": "images/41a3b1aaa8bb905bc2d35c3dff44d919",
+        "source_url": "https://www.filepicker.io/api/file/zeHq9X5ZSomN9BRrPLeQ"
     },
-    {
-        "fields": {
-            "build_call_to_action": "<strong>Build it!</strong>",
-            "build_subheader": "Build the thing.",
-            "description": "This is the description for challenge 1!",
-            "how_to_make_it": "<p>This is how to make challenge 1.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
-            "image": 1,
-            "learn_more": "Learn <strong>more</strong> about challenge 1!",
-            "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
-            "name": "Challenge 1",
-            "plan_call_to_action": "<strong>Plan it!</strong>",
-            "plan_subheader": "Plan the thing.",
-            "reflect_questions": [
-                1
-            ],
-            "reflect_subheader": "Reflect on the thing.",
-            "theme": null,
-            "video": null
-        },
-        "model": "challenges.challenge",
-        "pk": 1
-    }
+    "model": "images.image"
+},
+{
+    "pk": 1,
+    "fields": {
+        "learn_more": "Learn <strong>more</strong> about challenge 1!",
+        "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+        "plan_subheader": "Plan the thing.",
+        "name": "Challenge 1",
+        "reflect_subheader": "Reflect on the thing.",
+        "build_call_to_action": "<strong>Build it!</strong>",
+        "video": null,
+        "theme": null,
+        "image": 1,
+        "plan_call_to_action": "<strong>Plan it!</strong>",
+        "description": "This is the description for challenge 1!",
+        "build_subheader": "Build the thing.",
+        "reflect_questions": [
+            1
+        ],
+        "how_to_make_it": "<p>This is how to make challenge 1.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>"
+    },
+    "model": "challenges.challenge"
+},
+{
+    "pk": 1,
+    "fields": {
+        "text": "What is your favorite color?"
+    },
+    "model": "challenges.question"
+}
 ]
