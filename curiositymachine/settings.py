@@ -27,6 +27,8 @@ DEBUG = process_false_string(os.environ.get('DEBUG', False)) # debug saves a LOT
 
 TEMPLATE_DEBUG = DEBUG
 
+COMPRESS_ENABLED = process_false_string(os.environ.get('COMPRESS_ENABLED', False)) # no compression by default for now
+
 ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMINS", '').split(',')])
 
 # SECURITY WARNING: keep the secret key used in production secret!
