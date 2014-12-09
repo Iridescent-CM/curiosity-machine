@@ -241,6 +241,7 @@ TEMPLATE_LOADERS = (
 )
 
 GA_CODE = os.environ.get("GA_CODE", None)
+PROGRESS_MONTH_ACTIVE_LIMIT = os.environ.get("PROGRESS_MONTH_ACTIVE_LIMIT", 2)
 
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 
