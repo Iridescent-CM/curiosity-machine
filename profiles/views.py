@@ -15,7 +15,8 @@ from challenges.models import Challenge, Progress, Favorite
 from django.db import transaction
 import password_reset.views
 import password_reset.forms
-from datetime import date, timedelta
+from datetime import date
+from dateutil.relativedelta import relativedelta
 from django.utils.timezone import now
 
 from django.conf import settings
@@ -84,8 +85,7 @@ def home(request):
         completed_modules = [module for module in training_modules if module.is_finished_by_mentor(request.user)]
         uncompleted_modules = [module for module in training_modules if not module.is_finished_by_mentor(request.user)]
         
-        startdate = now()
-        startdate = startdate.replace(month=startdate.month - int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
+        startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
         
         progresses = Progress.objects.filter(mentor=request.user, started__gt=startdate).order_by('-started').select_related("challenge")
         unclaimed_days = [(day, Progress.unclaimed(day[0])[0]) for day in Progress.unclaimed_days()]
