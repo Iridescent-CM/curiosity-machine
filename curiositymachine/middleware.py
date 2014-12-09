@@ -41,5 +41,5 @@ class LastActiveMiddleware:
     """
     def process_request(self, request):
         if request.user.is_authenticated():
-            request.user.profile.update_last_active_on_and_save()
+            request.user.profile.set_active()
         return None
