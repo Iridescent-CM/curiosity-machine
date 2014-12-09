@@ -1,0 +1,128 @@
+[
+{
+    "pk": 1,
+    "model": "challenges.progress",
+    "fields": {
+        "mentor": null,
+        "_materials_list": "",
+        "student": 2,
+        "started": "2014-12-08T18:11:39.939Z",
+        "challenge": 2,
+        "approved": null
+    }
+},
+{
+    "pk": 2,
+    "model": "challenges.progress",
+    "fields": {
+        "mentor": 4,
+        "_materials_list": "",
+        "student": 2,
+        "started": "2014-12-08T18:12:10.892Z",
+        "challenge": 3,
+        "approved": null
+    }
+},
+{
+    "pk": 3,
+    "model": "challenges.progress",
+    "fields": {
+        "mentor": 4,
+        "_materials_list": "",
+        "student": 2,
+        "started": "2014-12-08T18:12:41.538Z",
+        "challenge": 4,
+        "approved": "2014-12-08T18:20:47.556Z"
+    }
+},
+{
+    "pk": 1,
+    "model": "cmcomments.comment",
+    "fields": {
+        "read": true,
+        "text": "I have planned it.",
+        "created": "2014-12-08T18:12:22.988Z",
+        "stage": 1,
+        "image": null,
+        "user": 2,
+        "video": null,
+        "challenge_progress": 2,
+        "question_text": ""
+    }
+},
+{
+    "pk": 2,
+    "model": "cmcomments.comment",
+    "fields": {
+        "read": true,
+        "text": "I am building it.",
+        "created": "2014-12-08T18:12:32.736Z",
+        "stage": 2,
+        "image": null,
+        "user": 2,
+        "video": null,
+        "challenge_progress": 2,
+        "question_text": ""
+    }
+},
+{
+    "pk": 3,
+    "model": "cmcomments.comment",
+    "fields": {
+        "read": true,
+        "text": "I have planned it.",
+        "created": "2014-12-08T18:12:49.401Z",
+        "stage": 1,
+        "image": null,
+        "user": 2,
+        "video": null,
+        "challenge_progress": 3,
+        "question_text": ""
+    }
+},
+{
+    "pk": 4,
+    "model": "cmcomments.comment",
+    "fields": {
+        "read": true,
+        "text": "I have built it.",
+        "created": "2014-12-08T18:12:56.239Z",
+        "stage": 2,
+        "image": null,
+        "user": 2,
+        "video": null,
+        "challenge_progress": 3,
+        "question_text": ""
+    }
+},
+{
+    "pk": 5,
+    "model": "cmcomments.comment",
+    "fields": {
+        "read": false,
+        "text": "Cool beans.",
+        "created": "2014-12-08T18:20:30.584Z",
+        "stage": 2,
+        "image": null,
+        "user": 4,
+        "video": null,
+        "challenge_progress": 2,
+        "question_text": ""
+    }
+},
+{
+    "pk": 6,
+    "model": "cmcomments.comment",
+    "fields": {
+        "read": false,
+        "text": "Reflect on it!",
+        "created": "2014-12-08T18:20:46.390Z",
+        "stage": 2,
+        "image": null,
+        "user": 4,
+        "video": null,
+        "challenge_progress": 3,
+        "question_text": ""
+    }
+}
+]
