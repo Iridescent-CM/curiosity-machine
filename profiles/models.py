@@ -25,19 +25,21 @@ class Profile(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
+    
+    #this field will be cleared once the user becomes active
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True)
 
     @classmethod
     def inactive_mentors(cls):
          startdate = now()
-         enddate = startdate - timedelta(days=7)
-         return cls.objects.filter(last_active_on__lt=enddate, is_mentor=True).filter(Q(last_active_on__gt=F('last_inactive_email_sent_on')) | Q(last_inactive_email_sent_on=None))
+         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
+         return cls.objects.filter(last_active_on__lt=enddate, is_mentor=True, last_inactive_email_sent_on=None)
 
     @classmethod
     def inactive_students(cls):
          startdate = now()
-         enddate = startdate - timedelta(days=14)
-         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False).filter(Q(last_active_on__gt=F('last_inactive_email_sent_on')) | Q(last_inactive_email_sent_on=None))
+         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
+         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False, last_inactive_email_sent_on=None)
 
     @property
     def is_student(self):
@@ -62,7 +64,14 @@ class Profile(models.Model):
     def is_underage(self):
         return self.age <= 13
 
+
+    def set_active(self):
+        self.last_active_on = now()
+        self.last_inactive_email_sent_on = None
+        return self.save(update_fields=['last_active_on', 'last_inactive_email_sent_on'])
+
     def update_inactive_email_sent_on_and_save(self):
+
         self.last_inactive_email_sent_on = now()
         self.save(update_fields=['last_inactive_email_sent_on'])
 
@@ -89,8 +98,6 @@ class Profile(models.Model):
     def deliver_inactive_email(self):
         if self.birthday:
             deliver_email('inactive', self)
-
-
 
     def deliver_encouragement_email(self):
         deliver_email('encouragement', self)

@@ -61,7 +61,7 @@ def test_student_inactive_for_with_lt_last_inactive_email_sent_on(student):
     profile.last_active_on = enddate
     profile.last_inactive_email_sent_on = last_sent_on
     profile.save()
-    assert Profile.inactive_students().count() == 1
+    assert Profile.inactive_students().count() == 0
 
 
 @pytest.mark.django_db
@@ -75,7 +75,7 @@ def test_mentor_inactive_for_with_no_last_inactive_email_sent_on(mentor):
     assert Profile.inactive_mentors().count() == 1
 
 @pytest.mark.django_db
-def test_mentor_inactive_for_with_gt_last_inactive_email_sent_on(mentor):
+def test_mentor_inactive_for_with_last_inactive_email_sent_on(mentor):
     profile = mentor.profile
     startdate = now()
     enddate = startdate - timedelta(days=8)
@@ -84,32 +84,3 @@ def test_mentor_inactive_for_with_gt_last_inactive_email_sent_on(mentor):
     profile.last_inactive_email_sent_on = last_sent_on
     profile.save()
     assert Profile.inactive_mentors().count() == 0
-
-@pytest.mark.django_db
-def test_mentor_inactive_for_with_lt_last_inactive_email_sent_on(mentor):
-    profile = mentor.profile
-    startdate = now()
-    enddate = startdate - timedelta(days=8)
-    last_sent_on = startdate - timedelta(days=9)
-    profile.last_active_on = enddate
-    profile.last_inactive_email_sent_on = last_sent_on
-    profile.save()
-    assert Profile.inactive_mentors().count() == 1
-
-@pytest.mark.django_db
-def test_active_mentor(mentor):
-    profile = mentor.profile
-    startdate = now()
-    enddate = startdate - timedelta(days=3)
-    profile.last_active_on = enddate
-    profile.save()
-    assert Profile.inactive_mentors().count() == 0
-
-@pytest.mark.django_db
-def test_active_student(student):
-    profile = student.profile
-    startdate = now()
-    enddate = startdate - timedelta(days=3)
-    profile.last_active_on = enddate
-    profile.save()
-    assert Profile.inactive_students().count() == 0
