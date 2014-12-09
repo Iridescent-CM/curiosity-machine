@@ -66,8 +66,7 @@ class Profile(models.Model):
 
     def set_active(self):
         self.last_active_on = now()
-        self.last_inactive_email_sent_on = None
-        return self.save(update_fields=['last_active_on', 'last_inactive_email_sent_on'])
+        return self.save(update_fields=['last_active_on'])
 
     def update_inactive_email_sent_on_and_save(self):
 
