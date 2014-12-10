@@ -26,7 +26,7 @@ class Profile(models.Model):
     last_active_on = models.DateTimeField(default=now)
     
     #this field will be cleared once the user becomes active
-    last_inactive_email_sent_on = models.DateTimeField(default=None, null=True)
+    last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
 
     @classmethod
     def inactive_mentors(cls):
