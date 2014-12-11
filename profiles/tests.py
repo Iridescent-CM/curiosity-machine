@@ -3,6 +3,7 @@ from .views import home
 from django.contrib.auth.models import User
 from challenges.models import Challenge, Progress
 from django.utils.timezone import now
+from dateutil.relativedelta import relativedelta
 from django.conf import settings
 
 STUDENT_USERNAME = "student"
@@ -51,8 +52,7 @@ def test_new_user_has_default_student_profile():
 
 @pytest.mark.django_db
 def test_old_progress_dont_show(client, loggedInMentor, progress):
-    startdate = now()
-    startdate = startdate.replace(month=startdate.month - int(settings.PROGRESS_MONTH_ACTIVE_LIMIT + 1))
+    startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
     progress.started = startdate
     progress.mentor = loggedInMentor
     progress.save()
@@ -64,7 +64,6 @@ def test_old_progress_dont_show(client, loggedInMentor, progress):
 @pytest.mark.django_db
 def test_new_progress_will_show(client, loggedInMentor, progress):
     startdate = now()
-    startdate = startdate.replace(month=startdate.month - int(settings.PROGRESS_MONTH_ACTIVE_LIMIT - 1))
     progress.started = startdate
     progress.mentor = loggedInMentor
     progress.save()
