@@ -1,5 +1,5 @@
 import pytest
-from .models import Challenge, Progress, Theme, Favorite, Stage, ChallengeTag, ChallengeClassification
+from .models import Challenge, Progress, Theme, Favorite, Stage, Filter
 from cmcomments.models import Comment
 from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress
 from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
@@ -30,12 +30,8 @@ def challenge():
     return Challenge.objects.create(name="Test Challenge")
 
 @pytest.fixture
-def tag():
-    return ChallengeTag.objects.create(name="MyTag")
-
-@pytest.fixture
-def classification(tag, challenge):
-    return ChallengeClassification.objects.create(tag=tag, challenge=challenge)
+def filter():
+    return Filter.objects.create(name="My Filter")
 
 @pytest.fixture
 def challenge2():
@@ -198,19 +194,7 @@ def test_unclaimed_progress(mentor, unclaimed_progress):
     assert sum(1 for s in unclaimed) == 1
 
 @pytest.mark.django_db
-def test_classify_with_id(tag, challenge):
-    challenge.tag_with(id=tag.id)
-    assert(ChallengeClassification.objects.filter(tag=tag, challenge=challenge).exists())
-    assert(challenge.tags.exists() == 1)
+def test_classify_with_id(filter, challenge):
+    challenge.filters.add(filter)
+    assert(challenge.filters.exists() == 1)
 
-@pytest.mark.django_db
-def test_classify_with_name(tag, challenge):
-    challenge.tag_with(name=tag.name)
-    assert(ChallengeClassification.objects.filter(tag=tag, challenge=challenge).exists())
-    assert(challenge.tags.exists() == 1)
-
-@pytest.mark.django_db
-def test_classify_with_model(tag, challenge):
-    challenge.tag_with(tag=tag)
-    assert(ChallengeClassification.objects.filter(tag=tag, challenge=challenge).exists())
-    assert(challenge.tags.exists() == 1)
