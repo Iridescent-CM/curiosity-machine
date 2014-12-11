@@ -9,11 +9,11 @@
   <h1>{{ task.name }}</h1>
 
   <div class="row" id="mentor-training">
-    <div class="col-md-5">
+    <div class="col-md-11">
       {{ task.text|safe }}
     </div>
 
-    <div class="col-md-7">
+    <div class="col-md-11">
       {# in order for this form to show, you must both NOT be approved and NOT have already made a thread #}
       {% if show_thread_form %}
         <div class="panel panel-bubble right">
