@@ -109,6 +109,8 @@ WSGI_APPLICATION = 'curiositymachine.wsgi.application'
 
 LOGIN_URL = '/login/'
 
+CSRF_FAILURE_VIEW = 'curiositymachine.views.csrf_failure_handler'
+
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
