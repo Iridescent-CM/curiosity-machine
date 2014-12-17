@@ -24,6 +24,7 @@ class Profile(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
+    intro_video_played = False
 
     @classmethod
     def inactive_mentors(cls):
@@ -77,6 +78,15 @@ class Profile(models.Model):
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__mentor=self.user, read=False).count()
         else:
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
+
+    def intro_video_not_played(self):
+        if intro_video_played:
+            return False
+        else:
+            return True
+
+    def intro_video_was_played(self):
+        intro_video_played = True
 
     def deliver_welcome_email(self):
         if self.is_mentor:
