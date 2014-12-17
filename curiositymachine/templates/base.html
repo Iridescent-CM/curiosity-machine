@@ -99,7 +99,6 @@
   {% include "join_modal.html" with form=join_form %}
   {% include "mentor_join_modal.html" with form=mentor_join_form %}
   {% include "guest_modal.html" %}
-  {% include "introduction_modal.html" %}
   {% include "registration/_login_modal.html" with form=login_form %}
   <!-- /global modals -->
 
@@ -133,6 +132,7 @@
   <![endif]-->
   
   {% if request.user.date_joined.date == request.user.last_login.date and request.user.profile.intro_video_not_played %}
+    {% include "introduction_modal.html" %}
     <script type="text/javascript">
       $(function(){
        $('#introduction-modal').modal('show'); 
