@@ -25,18 +25,20 @@ class Profile(models.Model):
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
     intro_video_played = False
+    #this field will be cleared once the user becomes active
+    last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
 
     @classmethod
     def inactive_mentors(cls):
          startdate = now()
-         enddate = startdate - timedelta(days=7)
-         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=True)
+         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
+         return cls.objects.filter(last_active_on__lt=enddate, is_mentor=True, last_inactive_email_sent_on=None)
 
     @classmethod
     def inactive_students(cls):
          startdate = now()
-         enddate = startdate - timedelta(days=14)
-         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False)
+         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
+         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False, last_inactive_email_sent_on=None)
 
     @property
     def is_student(self):
@@ -61,9 +63,15 @@ class Profile(models.Model):
     def is_underage(self):
         return self.age <= 13
 
-    def update_last_active_on_and_save(self):
+
+    def set_active(self):
         self.last_active_on = now()
         return self.save(update_fields=['last_active_on'])
+
+    def update_inactive_email_sent_on_and_save(self):
+
+        self.last_inactive_email_sent_on = now()
+        self.save(update_fields=['last_inactive_email_sent_on'])
 
     def __str__(self):
         return "Profile: id={}, user_id={}".format(self.id, self.user_id)
