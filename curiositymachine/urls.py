@@ -6,7 +6,6 @@ from .views import root_redirect
 import profiles.urls
 
 urlpatterns = patterns('',
-    #url(r'^csrf$', 'curiositymachine.views.csrf_failure_handler'),
     url(r'^$', root_redirect, name='root'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/analytics/$', 'curiositymachine.analytics.analytics', name="analytics"),

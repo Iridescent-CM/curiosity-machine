@@ -5,7 +5,10 @@
 {% block content %}
 <h1>{{ main }}</h1>
 <div>
-   Your session has already expired. Please go back to the previous page and submit again.
+   Your session has expired. Please go back to the previous page and try again. 
+</div>
+<div>
+   Need Help? Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
 </div>
 {% if DEBUG %}
 <div id="info">
