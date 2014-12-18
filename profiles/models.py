@@ -11,8 +11,8 @@ from django.utils.timezone import now
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
-    is_student = models.BooleanField(default=False)
-    is_mentor = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False, verbose_name="Student access")
+    is_mentor = models.BooleanField(default=False, verbose_name="Mentor access")
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
     city = models.TextField(blank=True)
