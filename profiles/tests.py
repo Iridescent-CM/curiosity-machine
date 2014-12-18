@@ -14,6 +14,7 @@ MENTOR_EMAIL = "mentor@example.com"
 def student():
     student = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
     student.profile.approved = True
+    student.profile.is_student = True
     student.profile.save()
     return student
 
@@ -26,7 +27,7 @@ def mentor():
     return mentor
 
 @pytest.mark.django_db
-def test_new_user_has_default_typeless():
+def test_new_user_has_default_typeless_profile():
     user = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
     assert user.profile
     assert not user.profile.is_student

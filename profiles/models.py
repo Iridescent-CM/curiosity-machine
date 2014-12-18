@@ -39,7 +39,7 @@ class Profile(models.Model):
     def inactive_students(cls):
          startdate = now()
          enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
-         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False, last_inactive_email_sent_on=None)
+         return cls.objects.filter(last_active_on__lt=enddate,is_student=True, last_inactive_email_sent_on=None)
 
     @property
     def age(self):
