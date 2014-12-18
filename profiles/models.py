@@ -11,6 +11,7 @@ from django.utils.timezone import now
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
+    is_student = models.BooleanField(default=False)
     is_mentor = models.BooleanField(default=False)
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
@@ -39,10 +40,6 @@ class Profile(models.Model):
          startdate = now()
          enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
          return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False, last_inactive_email_sent_on=None)
-
-    @property
-    def is_student(self):
-        return not self.is_mentor
 
     @property
     def age(self):

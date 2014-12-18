@@ -23,6 +23,10 @@ def create_or_edit_user(data, user=None):
 
     profile = user.profile
     profile.birthday = data['birthday']
+    if data.get('is_student') is not None:
+        profile.is_student = data.get('is_student')
+    else:
+        profile.is_student = profile.is_student or False
     if data.get('is_mentor') is not None:
         profile.is_mentor = data.get('is_mentor')
     else:
