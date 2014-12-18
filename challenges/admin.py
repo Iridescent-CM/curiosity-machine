@@ -57,7 +57,7 @@ class ProgressAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "student":
-            kwargs["queryset"] = User.objects.filter(profile__is_mentor=False)
+            kwargs["queryset"] = User.objects.filter(profile__is_student=True)
         elif db_field.name == "mentor":
             kwargs["queryset"] = User.objects.filter(profile__is_mentor=True)
         return super(ProgressAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
