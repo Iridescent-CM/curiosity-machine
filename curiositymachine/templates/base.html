@@ -131,7 +131,7 @@
       <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
   <![endif]-->
   
-  {% if request.user.date_joined.date == request.user.last_login.date and request.user.profile.intro_video_not_played %}
+  {% if request.user.profile.intro_video_not_played %}
     {% include "introduction_modal.html" %}
     <script type="text/javascript">
       $(function(){
