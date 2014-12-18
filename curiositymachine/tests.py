@@ -7,7 +7,7 @@ from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandbo
 
 def test_underage_student_middleware_redirects_request(rf):
     user = User()
-    profile = Profile(user=user)
+    profile = Profile(user=user, is_student=True)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user

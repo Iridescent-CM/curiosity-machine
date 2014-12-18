@@ -26,10 +26,10 @@ def mentor():
     return mentor
 
 @pytest.mark.django_db
-def test_new_user_has_default_student_profile():
+def test_new_user_has_default_typeless():
     user = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
     assert user.profile
-    assert user.profile.is_student
+    assert not user.profile.is_student
     assert not user.profile.is_mentor
 
 @pytest.mark.django_db
