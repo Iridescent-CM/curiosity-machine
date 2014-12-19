@@ -87,12 +87,6 @@ class Profile(models.Model):
         else:
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
 
-    def intro_video_not_played(self):
-        if self.shown_intro:
-            return False
-        else:
-            return True
-
     def intro_video_was_played(self):
         self.shown_intro = True
 

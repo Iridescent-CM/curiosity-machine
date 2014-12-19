@@ -131,7 +131,7 @@
       <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
   <![endif]-->
   
-  {% if request.user.profile.intro_video_not_played %}
+  {% if not request.user.profile.shown_intro %}
     {% include "introduction_modal.html" %}
     <script type="text/javascript">
       $(function(){
