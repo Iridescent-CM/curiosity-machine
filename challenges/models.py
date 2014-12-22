@@ -222,6 +222,7 @@ class Filter(models.Model):
     challenges = models.ManyToManyField(Challenge, related_name='filters')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    visible = models.BooleanField(default=False, null=False, db_index=True)
 
     
     def __str__(self):

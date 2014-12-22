@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.utils.timezone import now
 import django_rq
 
-from .models import Challenge, Progress, Theme, Stage, Example, Favorite
+from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine.decorators import mentor_or_current_student, mentor_only
@@ -21,10 +21,11 @@ from django.core.exceptions import PermissionDenied
 def challenges(request):
     challenges = Challenge.objects.all()
     theme = request.GET.get('theme')
+    filters = Filter.objects.filter(visible=True)
     if theme:
         challenges = challenges.filter(theme__name=theme)
     themes = Theme.objects.all()
-    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme})
+    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme, 'filters': filters})
 
 def challenge(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
@@ -162,3 +163,8 @@ def ajax_challenges(request):
     if theme:
         challenges = challenges.filter(theme__name=theme)
     return render(request, 'ajax/challenges.html', {'challenges': challenges, 'theme': theme})
+
+@login_required
+def filtered_challenges(request, filter_id):
+    challenges = Filter.objects.get(pk=filter_id).challenges.all
+    return render(request, 'ajax/challenges.html', {'challenges': challenges})
