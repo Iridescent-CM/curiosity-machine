@@ -1,20 +1,22 @@
 # encoding: utf8
-from django.conf import settings
 from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('challenges', '__first__'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Unit',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
-                ('name', models.TextField()),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('name', models.TextField(help_text='name of the unit')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('challenges', models.ManyToManyField(to='challenges.Challenge')),
             ],
             options={
             },

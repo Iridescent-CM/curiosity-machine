@@ -1,0 +1,21 @@
+{% load resized %}
+<li>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a href="{% url 'units:unit' unit.id %}">{{ unit.name }}</a>
+      </h3>
+    </div>
+    <!-- <div class="image-container">
+    </div> -->
+    <div class="panel-body">
+      <div class="description">
+      	<ul>
+          {% for challenge in unit.challenges.all %}
+            <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</li>

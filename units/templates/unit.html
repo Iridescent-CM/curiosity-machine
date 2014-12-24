@@ -1,12 +1,19 @@
 {% extends "base.html" %}
 
 
-{% block title %}Units Info{% endblock %}
+{% block title %}Unit Info{% endblock %}
 
 {% block content %}
-<h1>Unit</h1>
-
 <div>
   <h1>{{ unit.name }}</h1>
+  {% if unit.description%}
+  <p>{{ unit.description }}</p>
+  {% endif %}
+  <h5>Engineering design challenges your student will complete</h5>
+  	<ul>
+	  {% for challenge in challenges %}
+	    <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
+	  {% endfor %}
+	</ul>
 </div>
 {% endblock %}
