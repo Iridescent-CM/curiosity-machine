@@ -22,7 +22,7 @@
     <div class="panel-body paper">
       {% include "_comment_content.html" %}
 
-      <form name="deletecomment" class="ajax-and-refresh-form" action="{% url "challenges:comments:delete_comment" challenge_id=challenge.id username=progress.student.username comment_id=comment.id %}" method="DELETE">
+      <form name="deletecomment" class="ajax-and-refresh-form" action="{% url "challenges:comments:delete_comment" challenge_id=challenge.id username=progress.student.username comment_id=comment.id stage=stage.name %}" method="DELETE">
           {% csrf_token %}
           <input type="submit" value="Delete" class="btn pull-right btn-xs">
       </form>

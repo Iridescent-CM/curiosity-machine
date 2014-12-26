@@ -63,7 +63,7 @@ def feature_as_example(request, challenge_id, username, stage, comment_id): # "s
     return HttpResponse(status=204)
 
 @require_http_methods(["POST", "DELETE"])
-def delete_comment(request, challenge_id, username, comment_id): # "stage" is only used for the redirect
+def delete_comment(request, challenge_id, username, comment_id, stage=None): # "stage" is only used for the redirect
     progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
     comment = get_object_or_404(progress.comments, id=comment_id)
     if request.method == "DELETE":
