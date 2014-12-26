@@ -4,7 +4,7 @@
 {% block title %}Unit Info{% endblock %}
 
 {% block content %}
-<div>
+<div class="unit-info">
   <h2>{{ unit.name }}</h2>
   {% if unit.description%}
   <p>{{ unit.description }}</p>
@@ -18,6 +18,13 @@
   {% if unit.overview %}
   <h3>Unit Overview</h3>
   <p>{{ unit.overview }}</p>
+  {% endif %}
+
+  {% if unit.standards_alignment_image %}
+  <h3>NGSS Standards Alignment</h3>
+  <div class="image-wrapper">
+    <img src="{{ unit.standards_alignment_image.url }}" >
+  </div>
   {% endif %}
 </div>
 {% endblock %}

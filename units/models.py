@@ -1,4 +1,5 @@
 from django.db import models
+from images.models import Image
 from challenges.models import Challenge
 
 
@@ -9,6 +10,7 @@ class Unit(models.Model):
     challenges = models.ManyToManyField(Challenge, related_name='units')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    standards_alignment_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="unit")
 
     def __str__(self):
         return "Unit: id={}, name={}".format(self.id, self.name)
