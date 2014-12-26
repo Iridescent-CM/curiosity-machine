@@ -67,7 +67,7 @@ def delete_comment(request, challenge_id, username, comment_id, stage=None): # "
     progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
     comment = get_object_or_404(progress.comments, id=comment_id)
     if request.method == "DELETE":
-        Comment.objects.filter(comment=comment).delete()
+        comment.delete()
         messages.error(request, "{}'s previously featured example was un-featured.".format(progress.student))
 
     return HttpResponse(status=204)
