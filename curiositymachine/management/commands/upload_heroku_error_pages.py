@@ -28,12 +28,14 @@ class Command(BaseCommand):
         upload_file_names = []
         for (path, dirs, files) in os.walk(base_path, followlinks=True):
             for filename in files:
-                destpath = os.path.join(path.replace(base_path + "/", ''), filename)
+                destpath = os.path.join(path.replace(base_path,''), filename)
                 sourcepath = os.path.join(path, filename)
+
                 k = boto.s3.key.Key(bucket)
                 k.key = destpath
-                print("Uploading {0}...".format(destpath))
-                print("URL: {0}\n".format(k.generate_url(expires_in=0, query_auth=False)))
+                if destpath in ["maintenance.html", "error.html"]:
+                    print("Uploading {0}...".format(destpath))
+                    print("URL: {0}\n".format(k.generate_url(expires_in=0, query_auth=False)))
                 k.set_contents_from_filename(sourcepath)
                 bucket.set_acl('public-read', destpath)
         
