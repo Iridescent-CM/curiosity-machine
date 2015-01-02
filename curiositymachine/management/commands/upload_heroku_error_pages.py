@@ -33,11 +33,13 @@ class Command(BaseCommand):
                 k = boto.s3.key.Key(bucket)
                 k.key = destpath
                 print("Uploading {0}...".format(destpath))
+                print("URL: {0}\n".format(k.generate_url(expires_in=0, query_auth=False)))
                 k.set_contents_from_filename(sourcepath)
+                bucket.set_acl('public-read', destpath)
         
     def handle(self, *args, **options):
         connection = self.create_connection()
         bucket = self.create_bucket(connection)
-        bucket.set_acl('public-read') #set the bucket to be publicly-readable
         self.upload_directory(bucket, SYSTEM_PATH)
+        bucket.set_acl('public-read') #set the bucket to be publicly-readable
 
