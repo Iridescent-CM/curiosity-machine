@@ -147,7 +147,7 @@ FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "curiositymachine")
-AWS_ERROR_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "curiositymachine_error_pages")
+AWS_ERROR_STORAGE_BUCKET_NAME = os.getenv("AWS_ERROR_STORAGE_BUCKET_NAME", "curiositymachine_error_pages")
 
 ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
 
