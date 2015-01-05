@@ -64,16 +64,25 @@
       {{form.employer}}
       <div class="errors">{{ form.employer.errors }}</div>
     </div>
+
+    <div>
+      {{form.about_me_filepicker_url.label_tag}}
+      {{form.about_me_filepicker_url}}
+    </div>
     <div>
       {{form.about_me.label_tag}}
       <textarea id="{{form.about_me.id_for_label}}" name="{{form.about_me.html_name}}">{{ form.about_me.value }}</textarea>
       <div class="errors">{{ form.about_me.errors }}</div>
     </div>
     <div>
-      {{form.about_research.label_tag}}
-      
+      {{form.about_research_filepicker_url.label_tag}}
+      {{form.about_research_filepicker_url}}
+    </div>
+    <div>
+      {{form.about_research.label_tag}}      
       <textarea id="{{form.about_research.id_for_label}}" name="{{form.about_research.html_name}}">{{ form.about_research.value }}</textarea>
       <div class="errors">{{ form.about_research.errors }}</div>
+      
     </div>
   </div>
   {% else %}

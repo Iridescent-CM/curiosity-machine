@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.forms.extras.widgets import SelectDateWidget
 from django.conf import settings
 from datetime import datetime
-from curiositymachine.forms import FilePickerURLField, FilePickerDragDropField
+from curiositymachine.forms import FilePickerURLField, FilePickerDefaultField, FilePickerDragDropField, FilePickerField
 from datetime import date
 
 import re
@@ -133,7 +133,10 @@ class MentorProfileEditForm(ProfileFormBase):
     title = forms.CharField(required=True, label="What Is My Profession")
     employer = forms.CharField(required=True, label="Where Do I Work?")
     about_me = forms.CharField(required=True, label="About Me")
+    about_me_filepicker_url = FilePickerDefaultField(label="About Me Photo or Video", mimetypes="video/*,image/*", openTo='WEBCAM', services='VIDEO,WEBCAM,COMPUTER', required=False)
+    
     about_research = forms.CharField(required=True, label="About My Research")
+    about_research_filepicker_url = FilePickerDefaultField(label="About My Research Photo or Video", mimetypes="video/*,image/*", openTo='WEBCAM', services='VIDEO,WEBCAM,COMPUTER', required=False)
 
     def __init__(self, request, *args, **kwargs):
         super(MentorProfileEditForm, self).__init__(*args, **kwargs)
