@@ -33,20 +33,6 @@
     <div class="panel-body paper">
       {% include "_comment_content.html" %}
 
-     
-
-   <!--  {% if comment.text %} 
-      <button class="btn pull-right btn-xs" data-toggle="modal" data-target="#edit_text_modal">
-      <span title="Edit text">EDIT</span>
-      <span class="sr-only">Edit</span>
-      </button>
-    {% endif %} -->
-      <!-- <form name="editcomment" class="ajax-and-refresh-form" action="{% url "challenges:comments:edit_comment" challenge_id=challenge.id username=progress.student.username comment_id=comment.id stage=stage.name %}" method="EDIT">
-          {% csrf_token %}
-          <input type="submit" value="Edit" class="btn pull-right btn-xs">
-      </form>
- -->
-
       {% if request.user.profile.is_mentor and comment.get_stage_display == 'reflect'%}{% if comment.image or comment.video %}
       {% if comment.is_featured_as_example %}
         <form name="unfeature" class="ajax-and-refresh-form" action="{% url "challenges:comments:feature_as_example" challenge_id=challenge.id username=progress.student.username stage='build' comment_id=comment.id %}" method="DELETE">
