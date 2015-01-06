@@ -17,6 +17,7 @@ MENTOR_EMAIL = "mentor@example.com"
 def student():
     student = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
     student.profile.approved = True
+    student.profile.is_student = True
     student.profile.save()
     return student
 
@@ -46,10 +47,10 @@ def loggedInMentor(client):
     return mentor
 
 @pytest.mark.django_db
-def test_new_user_has_default_student_profile():
+def test_new_user_has_default_typeless_profile():
     user = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
     assert user.profile
-    assert user.profile.is_student
+    assert not user.profile.is_student
     assert not user.profile.is_mentor
 
 @pytest.mark.django_db

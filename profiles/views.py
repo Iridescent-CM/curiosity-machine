@@ -29,6 +29,7 @@ def join(request):
         form = JoinForm(request=request, data=request.POST)
         if form.is_valid():
             data = form.cleaned_data
+            data['is_student'] = True
             try:
                 create_or_edit_user(data)
             except IntegrityError:
