@@ -74,9 +74,9 @@ class Progress(models.Model):
     @classmethod
     def unclaimed(cls, started_date=None):
         date_clause = ""
-        if started_date:
-            started_date = "%d-%d-%d" % (started_date.year, started_date.month, started_date.day)
-            date_clause = "and DATE(challenges_progress.started) = DATE('%s')" % started_date
+        # if started_date:
+        #     started_date = "%d-%d-%d" % (started_date.year, started_date.month, started_date.day)
+        #     date_clause = "and DATE(challenges_progress.started) = DATE('%s')" % started_date
         query = """
         select distinct challenges_progress.* from challenges_progress 
         left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id 

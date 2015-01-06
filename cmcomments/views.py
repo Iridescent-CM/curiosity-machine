@@ -71,3 +71,13 @@ def delete_comment(request, challenge_id, username, comment_id, stage=None): # "
         messages.error(request, "{}'s previously featured example was un-featured.".format(progress.student))
 
     return HttpResponse(status=204)
+
+@require_http_methods(["POST", "EDIT"])
+def edit_comment(request, challenge_id, username, comment_id, stage=None): # "stage" is only used for the redirect
+    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
+    comment = get_object_or_404(progress.comments, id=comment_id)
+    if request.method == "EDIT":
+        comment.save()
+        messages.error(request, "{}'s previously featured example was un-featured.".format(progress.student))
+
+    return HttpResponse(status=204)

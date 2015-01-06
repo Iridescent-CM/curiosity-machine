@@ -1,0 +1,4 @@
+<form name="editcomment" class="ajax-and-refresh-form" action="{% url "challenges:comments:edit_comment" challenge_id=challenge.id username=progress.student.username comment_id=comment.id stage=stage.name %}" method="EDIT">
+          {% csrf_token %}
+          <input type="submit" value="Edit" class="btn pull-right btn-xs">
+      </form>
