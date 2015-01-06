@@ -104,9 +104,12 @@ class FilterItemInline(admin.TabularInline):
     extra = 1
 
 class FilterAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.TextField: {'widget': forms.TextInput},
+    }
     name = "Filters"
-    fields = ('name', 'visible',)
-    list_display = ('id','name','visible',)
+    fields = ('name', 'visible', 'color',)
+    list_display = ('id','name','visible', 'color',)
     inlines = [
         FilterItemInline
     ]

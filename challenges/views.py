@@ -156,7 +156,7 @@ def favorite_challenges(request):
         favorite_challenges = Favorite.objects.filter(student=request.user)
     return render(request, 'ajax/favorites.html', {'favorite_challenges': favorite_challenges})
 
-@login_required
+
 def ajax_challenges(request):
     challenges = Challenge.objects.all()
     theme = request.GET.get('theme')
@@ -164,7 +164,6 @@ def ajax_challenges(request):
         challenges = challenges.filter(theme__name=theme)
     return render(request, 'ajax/challenges.html', {'challenges': challenges, 'theme': theme})
 
-@login_required
 def filtered_challenges(request, filter_id):
     challenges = Filter.objects.get(pk=filter_id).challenges.all
     return render(request, 'ajax/challenges.html', {'challenges': challenges})
