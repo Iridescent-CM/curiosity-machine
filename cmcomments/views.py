@@ -80,6 +80,6 @@ def edit_comment(request, challenge_id, username, comment_id, stage=None): # "st
         comment = get_object_or_404(progress.comments, id=comment_id)
         comment.text = form.cleaned_data['text']
         comment.save()
-        messages.success(request, "Comment edited.".format(progress.student))
+        messages.success(request, "{}'s comment edited.".format(progress.student))
 
     return HttpResponse(status=204)
