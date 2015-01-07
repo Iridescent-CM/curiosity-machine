@@ -145,7 +145,7 @@
             "gender": "",
             "image": null,
             "is_mentor": true,
-            "is_sutdent": false,
+            "is_student": false,
             "last_active_on": "2014-12-04T17:41:20Z",
             "parent_first_name": "",
             "parent_last_name": "",
