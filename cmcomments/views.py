@@ -72,12 +72,14 @@ def delete_comment(request, challenge_id, username, comment_id, stage=None): # "
 
     return HttpResponse(status=204)
 
-@require_http_methods(["POST", "EDIT"])
+@require_http_methods(["POST"])
 def edit_comment(request, challenge_id, username, comment_id, stage=None): # "stage" is only used for the redirect
-    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
-    comment = get_object_or_404(progress.comments, id=comment_id)
-    if request.method == "EDIT":
+    form = CommentForm(data=request.POST)
+    if form.is_valid():
+        progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
+        comment = get_object_or_404(progress.comments, id=comment_id)
+        comment.text = form.cleaned_data['text']
         comment.save()
-        messages.error(request, "{}'s previously featured example was un-featured.".format(progress.student))
+        messages.success(request, "Comment edited.".format(progress.student))
 
     return HttpResponse(status=204)

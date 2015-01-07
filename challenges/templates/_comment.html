@@ -19,20 +19,22 @@
        <form name="deletecomment" class="ajax-and-refresh-form" action="{% url "challenges:comments:delete_comment" challenge_id=challenge.id username=progress.student.username comment_id=comment.id stage=stage.name %}" method="DELETE">
           {% csrf_token %}
       
-      <h3 class="panel-title">
+        <h3 class="panel-title">
         {{ comment.get_stage_display }}  
-        <button type="submit" value="" class="btn btn-comment-heading pull-right glyphicon glyphicon-trash" ></button> 
-        </form>
-         {% if comment.text %} 
-      <button class="btn pull-right margin-r-8 glyphicon glyphicon-edit" data-toggle="modal" data-target="#edit_text_modal">
-      </button>
-    {% endif %}
         </h3>
+        <button type="submit" value="" class="btn btn-comment-heading pull-right glyphicon glyphicon-trash" ></button> 
+      </form>
+         {% if comment.text %} 
+      <button class="btn pull-right margin-r-8 glyphicon glyphicon-edit" data-toggle="modal" data-target="#edit_text_modal{{comment.id}}">
+      </button>
+      {% url "challenges:comments:edit_comment" challenge_id=challenge.id username=progress.student.username comment_id=comment.id stage=stage.name as url %}
+      {% include "_edit_text_modal.html" with url=url id=comment.id %}
+    {% endif %}
+    
        
     </div>
     <div class="panel-body paper">
       {% include "_comment_content.html" %}
-
       {% if request.user.profile.is_mentor and comment.get_stage_display == 'reflect'%}{% if comment.image or comment.video %}
       {% if comment.is_featured_as_example %}
         <form name="unfeature" class="ajax-and-refresh-form" action="{% url "challenges:comments:feature_as_example" challenge_id=challenge.id username=progress.student.username stage='build' comment_id=comment.id %}" method="DELETE">

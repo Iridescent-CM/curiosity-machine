@@ -1,5 +1,5 @@
 {% extends "_modal.html" %} 
-{% block id %}{{id}}edit_text_modal{% endblock %} 
+{% block id %}edit_text_modal{% endblock %} 
 {% block classes %}edit_text_form{% endblock %}
 {% block inner-classes %}modal-lg{% endblock %} 
 
@@ -9,7 +9,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h1>Edit comment</h1>
       </div>
-      <form action="{{ url }}" method="POST" class="comment-form">
+      <form action="{{ url }}" method="POST" class="comment-form ajax-and-refresh-form">
       <div class="modal-body">
         {% csrf_token %}
         {% if format == 'video' %}
