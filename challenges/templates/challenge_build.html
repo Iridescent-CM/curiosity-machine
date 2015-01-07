@@ -59,10 +59,7 @@
       <div class="panel-body">
         <h1>Reflect</h1>
           <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
-<!--             {% csrf_token %}
- -->
           <div class="errors">{{ comment_form.picture_filepicker_url.errors }}</div>
-
           <ul class="challenge-reflect-questions" style="display: none;">
             {% for question in challenge.reflect_questions.all %}
               <li>{{ question }}</li>
@@ -85,8 +82,8 @@
             </div>
 
           <input type="hidden" id="{{comment_form.picture_filepicker_url.id_for_label }}" name="{{comment_form.picture_filepicker_url.html_name }}">
-</div>
-</div>
+      </div>
+  </div>
 <br />
 <div class="panel panel-bubble teal right reflect-box">
   <div class="panel-body">
@@ -101,18 +98,12 @@
               Pick a Photo
             </a>
           </div>
-
-          
-          
-          
           <div class="errors">{{ comment_form.text.errors }}</div>
           <input type="submit" value="Share in the Inspiration Gallery!" class="btn btn-lg btn-primary btn-reflect left" disabled='disabled' />
-    <!--     </form> -->
       </div>
     </div>
       {% include "_challenge_reflect_images_modal.html" %}
     {% else %}
-
 
     <div class="panel panel-bubble right">
       <div class="panel-body">
