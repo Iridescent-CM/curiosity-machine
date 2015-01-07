@@ -57,3 +57,9 @@ django-recaptcha==1.0
 
 #ssl only
 django-sslify>=0.2
+
+
+#asset compression
+django-compressor==1.4
+
+python-dateutil==2.3

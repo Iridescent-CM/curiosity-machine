@@ -1,0 +1,182 @@
+[
+{
+    "fields": {
+        "text": "What is your favorite color?"
+    },
+    "pk": 1,
+    "model": "challenges.question"
+},
+{
+    "fields": {
+        "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+        "plan_subheader": "Plan the thing.",
+        "image": 1,
+        "video": 1,
+        "plan_call_to_action": "Plan it!",
+        "theme": null,
+        "build_call_to_action": "Build it!",
+        "name": "Challenge 1",
+        "build_subheader": "Build the thing.",
+        "how_to_make_it": "<p>This is how to make challenge 1.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
+        "learn_more": "Learn <strong>more</strong> about challenge 1!",
+        "reflect_subheader": "Reflect on the thing.",
+        "description": "This is the description for challenge 1!",
+        "reflect_questions": [
+            1
+        ]
+    },
+    "pk": 1,
+    "model": "challenges.challenge"
+},
+{
+    "fields": {
+        "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+        "plan_subheader": "Plan the thing.",
+        "image": 1,
+        "video": null,
+        "plan_call_to_action": "Plan it!",
+        "theme": null,
+        "build_call_to_action": "Build it!",
+        "name": "Challenge 2",
+        "build_subheader": "Build the thing.",
+        "how_to_make_it": "<p>This is how to make challenge 2.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
+        "learn_more": "Learn <strong>more</strong> about challenge 2!",
+        "reflect_subheader": "Reflect on the thing.",
+        "description": "This is the description for challenge 2!",
+        "reflect_questions": [
+            1
+        ]
+    },
+    "pk": 2,
+    "model": "challenges.challenge"
+},
+{
+    "fields": {
+        "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+        "plan_subheader": "Plan the thing.",
+        "image": 1,
+        "video": null,
+        "plan_call_to_action": "Plan it!",
+        "theme": null,
+        "build_call_to_action": "Build it!",
+        "name": "Challenge 3",
+        "build_subheader": "Build the thing.",
+        "how_to_make_it": "<p>This is how to make challenge 3.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
+        "learn_more": "Learn <strong>more</strong> about challenge 3!",
+        "reflect_subheader": "Reflect on the thing.",
+        "description": "This is the description for challenge 3!",
+        "reflect_questions": [
+            1
+        ]
+    },
+    "pk": 3,
+    "model": "challenges.challenge"
+},
+{
+    "fields": {
+        "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+        "plan_subheader": "Plan the thing.",
+        "image": 1,
+        "video": null,
+        "plan_call_to_action": "Plan it!",
+        "theme": null,
+        "build_call_to_action": "Build it!",
+        "name": "Challenge 4",
+        "build_subheader": "Build the thing.",
+        "how_to_make_it": "<p>This is how to make challenge 4.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
+        "learn_more": "Learn <strong>more</strong> about challenge 4!",
+        "reflect_subheader": "Reflect on the thing.",
+        "description": "This is the description for challenge 4!",
+        "reflect_questions": [
+            1
+        ]
+    },
+    "pk": 4,
+    "model": "challenges.challenge"
+},
+{
+    "fields": {
+        "key": "videos/81976df78883dc77a6ecf0f239a2e47e",
+        "md5_hash": "81976df78883dc77a6ecf0f239a2e47e",
+        "thumbnails": [
+            2,
+            3,
+            4,
+            5
+        ],
+        "source_url": "https://www.filepicker.io/api/file/o8vrfPJGQaKvrOShA0Oe",
+        "raw_job_details": "{'job': {'pass_through': None, 'output_media_files': [{'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/o/20141208/1f1bc3f6bc05057cc5a3e86106273819/06378d8a87b0e6d89334458311bb9e48.mp4?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=DqLBPcNb4GfXnEYvUBMFx1XBEog%3D&Expires=1418134851', 'error_class': None, 'audio_bitrate_in_kbps': 45, 'total_bitrate_in_kbps': 199, 'updated_at': '2014-12-08T14:20:51Z', 'created_at': '2014-12-08T14:20:29Z', 'md5_checksum': None, 'test': True, 'format': 'mpeg4', 'privacy': False, 'channels': '1', 'video_codec': 'h264', 'label': None, 'height': 348, 'error_message': None, 'file_size_bytes': 131367, 'width': 474, 'audio_sample_rate': 44100, 'duration_in_ms': 5000, 'finished_at': '2014-12-08T14:20:51Z', 'video_bitrate_in_kbps': 154, 'frame_rate': 10.0, 'id': 386775161, 'audio_codec': 'aac', 'state': 'finished'}, {'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/o/20141208/bb78dd5cd1d22200c8322c0cd6ab513c/263262725336546b5150bb3542e5a570.ogg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=v9vOvf8zeI8ihPqjVnZCra5ioAc%3D&Expires=1418134841', 'error_class': None, 'audio_bitrate_in_kbps': 62, 'total_bitrate_in_kbps': 230, 'updated_at': '2014-12-08T14:20:42Z', 'created_at': '2014-12-08T14:20:29Z', 'md5_checksum': None, 'test': True, 'format': 'ogg', 'privacy': False, 'channels': '1', 'video_codec': 'theora', 'label': None, 'height': 348, 'error_message': None, 'file_size_bytes': 150985, 'width': 474, 'audio_sample_rate': 44100, 'duration_in_ms': 5000, 'finished_at': '2014-12-08T14:20:41Z', 'video_bitrate_in_kbps': 168, 'frame_rate': 10.0, 'id': 386775162, 'audio_codec': 'vorbis', 'state': 'finished'}], 'created_at': '2014-12-08T14:20:29Z', 'test': True, 'thumbnails': [{'format': 'jpg', 'height': 348, 'width': 474, 'updated_at': '2014-12-08T14:20:51Z', 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20141208/49d2af10fe9b80ce32de884c679019ee/frame_0003.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=K9UVe4xmR1REp923UT7U6v4lt8g%3D&Expires=1418134851', 'group_label': 'thumbnail', 'id': 939255719, 'created_at': '2014-12-08T14:20:51Z', 'file_size_bytes': 8518}, {'format': 'jpg', 'height': 348, 'width': 474, 'updated_at': '2014-12-08T14:20:51Z', 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20141208/49d2af10fe9b80ce32de884c679019ee/frame_0002.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=M2yrpLUi%2FkdvZgFnzIBa4jou%2Bpc%3D&Expires=1418134851', 'group_label': 'thumbnail', 'id': 939255718, 'created_at': '2014-12-08T14:20:51Z', 'file_size_bytes': 15673}, {'format': 'jpg', 'height': 348, 'width': 474, 'updated_at': '2014-12-08T14:20:51Z', 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20141208/49d2af10fe9b80ce32de884c679019ee/frame_0001.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=aKkYx8t1sfOy%2BE09uIdgYVoGOJ8%3D&Expires=1418134851', 'group_label': 'thumbnail', 'id': 939255717, 'created_at': '2014-12-08T14:20:51Z', 'file_size_bytes': 16859}, {'format': 'jpg', 'height': 348, 'width': 474, 'updated_at': '2014-12-08T14:20:51Z', 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20141208/49d2af10fe9b80ce32de884c679019ee/frame_0000.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=QC1U%2B13tGonw82zCThNVc6ibf6I%3D&Expires=1418134851', 'group_label': 'thumbnail', 'id': 939255716, 'created_at': '2014-12-08T14:20:51Z', 'file_size_bytes': 15440}], 'input_media_file': {'url': 'http://s3.amazonaws.com/devcuriositymachine/videos/81976df78883dc77a6ecf0f239a2e47e', 'error_class': None, 'audio_bitrate_in_kbps': 74, 'total_bitrate_in_kbps': 209, 'created_at': '2014-12-08T14:20:29Z', 'md5_checksum': None, 'test': True, 'format': 'mpeg4', 'privacy': False, 'channels': '1', 'video_codec': 'h264', 'updated_at': '2014-12-08T14:20:51Z', 'height': 348, 'error_message': None, 'audio_codec': 'aac', 'file_size_bytes': 178631, 'width': 474, 'duration_in_ms': 7000, 'audio_tracks': None, 'finished_at': '2014-12-08T14:20:33Z', 'video_bitrate_in_kbps': 135, 'frame_rate': 10.0, 'id': 130524948, 'audio_sample_rate': 44100, 'state': 'finished'}, 'privacy': False, 'finished_at': '2014-12-08T14:20:51Z', 'submitted_at': '2014-12-08T14:20:29Z', 'id': 130553999, 'updated_at': '2014-12-08T14:20:51Z', 'state': 'finished'}}"
+    },
+    "pk": 1,
+    "model": "videos.video"
+},
+{
+    "fields": {
+        "key": "videos/videos/81976df78883dc77a6ecf0f239a2e47e.mp4",
+        "width": 474,
+        "video": 1,
+        "raw_encoding_details": "{'height': 348, 'width': 474, 'audio_bitrate_in_kbps': 45, 'total_bitrate_in_kbps': 199, 'updated_at': '2014-12-08T14:20:51Z', 'error_class': None, 'md5_checksum': None, 'created_at': '2014-12-08T14:20:29Z', 'format': 'mpeg4', 'privacy': False, 'channels': '1', 'test': True, 'video_codec': 'h264', 'label': None, 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/o/20141208/1f1bc3f6bc05057cc5a3e86106273819/06378d8a87b0e6d89334458311bb9e48.mp4?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=DqLBPcNb4GfXnEYvUBMFx1XBEog%3D&Expires=1418134851', 'error_message': None, 'audio_codec': 'aac', 'file_size_bytes': 131367, 'duration_in_ms': 5000, 'finished_at': '2014-12-08T14:20:51Z', 'video_bitrate_in_kbps': 154, 'frame_rate': 10.0, 'id': 386775161, 'audio_sample_rate': 44100, 'state': 'finished'}",
+        "mime_type": "video/mp4",
+        "height": 348
+    },
+    "pk": 1,
+    "model": "videos.encodedvideo"
+},
+{
+    "fields": {
+        "key": "videos/videos/81976df78883dc77a6ecf0f239a2e47e.ogg",
+        "width": 474,
+        "video": 1,
+        "raw_encoding_details": "{'height': 348, 'width': 474, 'audio_bitrate_in_kbps': 62, 'total_bitrate_in_kbps': 230, 'updated_at': '2014-12-08T14:20:42Z', 'error_class': None, 'md5_checksum': None, 'created_at': '2014-12-08T14:20:29Z', 'format': 'ogg', 'privacy': False, 'channels': '1', 'test': True, 'video_codec': 'theora', 'label': None, 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/o/20141208/bb78dd5cd1d22200c8322c0cd6ab513c/263262725336546b5150bb3542e5a570.ogg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=v9vOvf8zeI8ihPqjVnZCra5ioAc%3D&Expires=1418134841', 'error_message': None, 'audio_codec': 'vorbis', 'file_size_bytes': 150985, 'duration_in_ms': 5000, 'finished_at': '2014-12-08T14:20:41Z', 'video_bitrate_in_kbps': 168, 'frame_rate': 10.0, 'id': 386775162, 'audio_sample_rate': 44100, 'state': 'finished'}",
+        "mime_type": "video/ogg",
+        "height": 348
+    },
+    "pk": 2,
+    "model": "videos.encodedvideo"
+},
+{
+    "fields": {
+        "key": "images/41a3b1aaa8bb905bc2d35c3dff44d919",
+        "md5_hash": "41a3b1aaa8bb905bc2d35c3dff44d919",
+        "source_url": "https://www.filepicker.io/api/file/zeHq9X5ZSomN9BRrPLeQ"
+    },
+    "pk": 1,
+    "model": "images.image"
+},
+{
+    "fields": {
+        "key": "images/5863379e5a8d8fc268a16d5593196e3f",
+        "md5_hash": "5863379e5a8d8fc268a16d5593196e3f",
+        "source_url": "https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20141208/49d2af10fe9b80ce32de884c679019ee/frame_0003.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=K9UVe4xmR1REp923UT7U6v4lt8g%3D&Expires=1418134851"
+    },
+    "pk": 2,
+    "model": "images.image"
+},
+{
+    "fields": {
+        "key": "images/9d2faa3eea7d3ad37b39b96a2586dfb6",
+        "md5_hash": "9d2faa3eea7d3ad37b39b96a2586dfb6",
+        "source_url": "https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20141208/49d2af10fe9b80ce32de884c679019ee/frame_0002.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=M2yrpLUi%2FkdvZgFnzIBa4jou%2Bpc%3D&Expires=1418134851"
+    },
+    "pk": 3,
+    "model": "images.image"
+},
+{
+    "fields": {
+        "key": "images/e69215bea06d8c07b569e62eb59a5c69",
+        "md5_hash": "e69215bea06d8c07b569e62eb59a5c69",
+        "source_url": "https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20141208/49d2af10fe9b80ce32de884c679019ee/frame_0001.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=aKkYx8t1sfOy%2BE09uIdgYVoGOJ8%3D&Expires=1418134851"
+    },
+    "pk": 4,
+    "model": "images.image"
+},
+{
+    "fields": {
+        "key": "images/49146bded99e5212066b94adc9a476f6",
+        "md5_hash": "49146bded99e5212066b94adc9a476f6",
+        "source_url": "https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20141208/49d2af10fe9b80ce32de884c679019ee/frame_0000.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=QC1U%2B13tGonw82zCThNVc6ibf6I%3D&Expires=1418134851"
+    },
+    "pk": 5,
+    "model": "images.image"
+}
+]

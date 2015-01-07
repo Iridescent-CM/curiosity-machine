@@ -120,7 +120,7 @@ class Progress(models.Model):
         if self.student.profile.is_mentor:
             raise ValidationError("Mentors can not start a challenge")
         if self.mentor and not self.mentor.profile.is_mentor:
-            raise ValidationError("The mentor of a challenge can not be a student")
+            raise ValidationError("The mentor of a challenge must be a mentor")
         else:
             super(Progress, self).save(*args, **kwargs)
 
