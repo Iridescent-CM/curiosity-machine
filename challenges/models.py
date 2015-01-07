@@ -55,6 +55,11 @@ class Challenge(models.Model):
     favorited = models.ManyToManyField(User, through='Favorite', through_fields=('challenge', 'student'), null=True, related_name="favorite_challenges")
     draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown to users")
     
+    def get_absolute_url(self):
+        return reverse('challenges:challenge', kwargs={
+            'challenge_id': self.id,
+        })
+
     def is_favorite(self, student):
         return Favorite.objects.filter(challenge=self, student=student).exists()
         
