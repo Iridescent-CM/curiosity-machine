@@ -3,7 +3,6 @@ from images.models import Image
 from challenges.models import Challenge
 from files.models import File
 
-
 class Unit(models.Model):
     name = models.TextField(blank=False, null=False, help_text="name of the unit")
     description = models.TextField(blank=True, null=True, help_text="blurb for the unit")
