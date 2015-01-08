@@ -73,6 +73,7 @@ INSTALLED_APPS = (
     'tsl',
     'compressor',
     'units',
+    'files',
 )
 
 MIDDLEWARE_CLASSES = (
