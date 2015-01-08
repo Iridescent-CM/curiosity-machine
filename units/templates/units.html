@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block title %}Units{% endblock %}
+
+{% block content %}
+<h1>Units</h1>
+<p>
+  To make Curiosity Machine an even better resource for you, we have grouped our engineering design into educator-friendly units!
+</p>
+<p>
+  Check our units below for teacher lesson plans, student workbooks, NGSS Standards Alignment and online support structures.
+</p>
+<hr />
+<h4>Curiosity Machine Engineering Design Units</h4>
+<ul class="challenges-list owl-carousel panel-carousel">
+  {% for unit in units %}
+   {% include "_unit_item.html" with unit=unit %}
+  {% endfor %}
+</ul>
+
+{% endblock %}

@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'cmemails',
     'tsl',
     'compressor',
+    'units',
 )
 
 MIDDLEWARE_CLASSES = (
