@@ -8,7 +8,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('images', '__first__'),
         ('challenges', '__first__'),
-        ('files', '__first__'),
     ]
 
     operations = [
@@ -28,5 +27,4 @@ class Migration(migrations.Migration):
             },
             bases=(models.Model,),
         ),
-        
     ]
