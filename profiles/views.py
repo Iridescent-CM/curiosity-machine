@@ -117,6 +117,7 @@ def mentor_profile(request, username):
 @login_required
 def profile_edit(request):
     if request.method == 'POST':
+        print(request.POST)
         if request.user.profile.is_mentor:
             form = MentorProfileEditForm(request=request, data=request.POST)
         else:

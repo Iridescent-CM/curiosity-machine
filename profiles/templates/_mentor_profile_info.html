@@ -1,3 +1,6 @@
+{% load resized %}
+{% load staticfiles %}
+
 <div class="row mentor-info">
   <div class="col-md-3 col-sm-3 col-xs-5 image-wrapper">
     {% include "_avatar.html" with profile=profile width=260 height=260 crop='fit' %}
@@ -9,10 +12,20 @@
       <div class="col-md-6 col-sm-6">
         <h4>About me!</h4>
         <p>{{profile.about_me}}</p>
+        {% if profile.about_me_video %}
+          {% include "_video.html" with video=profile.about_me_video %}
+        {% elif profile.about_me_image %}
+          <img src="{% resized profile.about_me_image.url width=width height=height crop=crop %}" />
+        {% endif %}
       </div>
       <div class="col-md-6 col-sm-6">
         <h4>I'm curious about</h4>
         <p>{{profile.about_research}}</p>
+        {% if profile.about_research_video %}
+          {% include "_video.html" with video=profile.about_research_video %}
+        {% elif profile.about_research_image %}
+          <img src="{% resized profile.about_research_image.url width=width height=height crop=crop %}" />
+        {% endif %}
       </div>
     </div><!-- row -->
     {% if request.user == profile.user %}

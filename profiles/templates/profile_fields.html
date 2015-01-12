@@ -67,6 +67,7 @@
 
     <div>
       {{form.about_me_filepicker_url.label_tag}}
+      {% include "_about_me.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
       {{form.about_me_filepicker_url}}
     </div>
     <div>
@@ -76,6 +77,7 @@
     </div>
     <div>
       {{form.about_research_filepicker_url.label_tag}}
+      {% include "_about_my_research.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
       {{form.about_research_filepicker_url}}
     </div>
     <div>
