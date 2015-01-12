@@ -89,6 +89,7 @@ class Profile(models.Model):
 
     def intro_video_was_played(self):
         self.shown_intro = True
+        self.save(update_fields=['shown_intro'])
 
     def deliver_welcome_email(self):
         if self.is_mentor:
