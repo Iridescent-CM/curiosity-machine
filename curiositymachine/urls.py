@@ -31,4 +31,5 @@ urlpatterns = patterns('',
         name='password_reset_reset'),
     url(r'^summernote/', include('django_summernote.urls')),
     url(r'^tsl/$', include('tsl.urls', namespace='tsl', app_name='tsl'), name='tsl'),
+    url(r'^units/', include('units.urls', namespace='units', app_name='units'), name='units'),
 )

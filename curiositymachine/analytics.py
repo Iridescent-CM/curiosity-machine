@@ -62,7 +62,7 @@ def generate_analytics(start_date, end_date):
                 answer.user_id,
                 None,
                 answer.answer_text,
-                answer.video.url if answer.video else (answer.image.url if answer.image else "")
+                answer.video.url_for_analytics() if answer.video else (answer.image.url if answer.image else "")
             ]
             #array.extend()
             writer.writerow(array)

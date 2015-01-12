@@ -27,6 +27,8 @@ DEBUG = process_false_string(os.environ.get('DEBUG', False)) # debug saves a LOT
 
 TEMPLATE_DEBUG = DEBUG
 
+COMPRESS_ENABLED = process_false_string(os.environ.get('COMPRESS_ENABLED', False)) # no compression by default for now
+
 ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMINS", '').split(',')])
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -70,6 +72,7 @@ INSTALLED_APPS = (
     'cmemails',
     'tsl',
     'compressor',
+    'units',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -106,6 +109,8 @@ ROOT_URLCONF = 'curiositymachine.urls'
 WSGI_APPLICATION = 'curiositymachine.wsgi.application'
 
 LOGIN_URL = '/login/'
+
+CSRF_FAILURE_VIEW = 'curiositymachine.views.csrf_failure_handler'
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
@@ -240,7 +245,11 @@ TEMPLATE_LOADERS = (
     'apptemplates.Loader',
 )
 
+EMAIL_INACTIVE_DAYS_MENTOR = os.environ.get("EMAIL_INACTIVE_DAYS_MENTOR", 7)
+EMAIL_INACTIVE_DAYS_STUDENT = os.environ.get("EMAIL_INACTIVE_DAYS_STUDENT", 14)
 GA_CODE = os.environ.get("GA_CODE", None)
+PROGRESS_MONTH_ACTIVE_LIMIT = os.environ.get("PROGRESS_MONTH_ACTIVE_LIMIT", 2)
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", None)
 
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 

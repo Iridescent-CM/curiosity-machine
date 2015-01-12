@@ -8,14 +8,14 @@ from challenges.models import Challenge, Progress, Stage, Example
 from django.contrib import messages
 from cmcomments.models import Comment
 from cmcomments.forms import CommentForm
-from curiositymachine.decorators import mentor_or_current_student, mentor_only
+from curiositymachine.decorators import mentor_or_current_user, mentor_only
 from videos.models import Video
 from images.models import Image
 import django_rq
 
 @require_POST
 @login_required
-@mentor_or_current_student
+@mentor_or_current_user
 def comments(request, challenge_id, username, stage):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)

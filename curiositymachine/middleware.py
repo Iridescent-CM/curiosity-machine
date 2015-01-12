@@ -17,7 +17,7 @@ class UnderageStudentSandboxMiddleware:
     def process_request(self, request):
         if (request.user.is_authenticated()
                 and not request.user.is_staff
-                and not request.user.profile.is_mentor
+                and request.user.profile.is_student
                 and not request.user.profile.approved):
             if request.path_info not in ['/logout', '/logout/', reverse('profiles:underage_student')]:
                 return HttpResponseRedirect(reverse('profiles:underage_student'))
@@ -41,5 +41,5 @@ class LastActiveMiddleware:
     """
     def process_request(self, request):
         if request.user.is_authenticated():
-            request.user.profile.update_last_active_on_and_save()
+            request.user.profile.set_active()
         return None
