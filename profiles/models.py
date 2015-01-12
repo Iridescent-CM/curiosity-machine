@@ -11,7 +11,8 @@ from django.utils.timezone import now
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
-    is_mentor = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False, verbose_name="Student access")
+    is_mentor = models.BooleanField(default=False, verbose_name="Mentor access")
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
     city = models.TextField(blank=True)
@@ -24,22 +25,21 @@ class Profile(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
+    
+    #this field will be cleared once the user becomes active
+    last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
 
     @classmethod
     def inactive_mentors(cls):
          startdate = now()
-         enddate = startdate - timedelta(days=7)
-         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=True)
+         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
+         return cls.objects.filter(last_active_on__lt=enddate, is_mentor=True, last_inactive_email_sent_on=None)
 
     @classmethod
     def inactive_students(cls):
          startdate = now()
-         enddate = startdate - timedelta(days=14)
-         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False)
-
-    @property
-    def is_student(self):
-        return not self.is_mentor
+         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
+         return cls.objects.filter(last_active_on__lt=enddate,is_student=True, last_inactive_email_sent_on=None)
 
     @property
     def age(self):
@@ -60,9 +60,15 @@ class Profile(models.Model):
     def is_underage(self):
         return self.age <= 13
 
-    def update_last_active_on_and_save(self):
+
+    def set_active(self):
         self.last_active_on = now()
         return self.save(update_fields=['last_active_on'])
+
+    def update_inactive_email_sent_on_and_save(self):
+
+        self.last_inactive_email_sent_on = now()
+        self.save(update_fields=['last_inactive_email_sent_on'])
 
     def __str__(self):
         return "Profile: id={}, user_id={}".format(self.id, self.user_id)

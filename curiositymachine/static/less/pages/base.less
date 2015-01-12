@@ -12,19 +12,18 @@ body {
 
 #main-container {
   background: @bg-color;
+  min-height: 100%;
 }
 
 .main-column {
   margin-left: auto;
   margin-right: auto;
-  min-height: 100%;
   position: relative;
   overflow-x: hidden;
   max-width: @container-lg;
 }
 .container-fluid {
   position: relative;
-  min-height: 100%;
   width: 100%;
   margin-left: 0px;
   padding-left: @grid-side-gutters;
@@ -637,15 +636,6 @@ margin-left: auto;
   }
 }
 
-.reflect-image {
-  .panel-bubble & h3 {
-    text-align: left;
-    margin-bottom: 0;
-    font-weight: 600;
-    padding-bottom: 20px;
-  }
-}
-
 #reflect-images {
   img {
     width: 100%;
@@ -853,4 +843,21 @@ margin-left: auto;
 .guest-buttons {
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+// units
+.unit-info {
+  .image-wrapper {
+      padding: 13px 5px 5px 5px;
+      .border-bottom-radius(7px);
+      img {
+        width: 50%;
+        height: 50%;
+      }
+      span {
+        display: block;
+        text-align: center;
+        font-weight: 600;
+      }
+    }
 }

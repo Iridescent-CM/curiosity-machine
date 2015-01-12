@@ -16,6 +16,12 @@ from django.db import transaction
 import password_reset.views
 import password_reset.forms
 from datetime import date
+from dateutil.relativedelta import relativedelta
+from django.utils.timezone import now
+
+from django.conf import settings
+
+
 
 @transaction.atomic
 def join(request):
@@ -23,6 +29,7 @@ def join(request):
         form = JoinForm(request=request, data=request.POST)
         if form.is_valid():
             data = form.cleaned_data
+            data['is_student'] = True
             try:
                 create_or_edit_user(data)
             except IntegrityError:
@@ -78,7 +85,10 @@ def home(request):
         accessible_modules = training_modules
         completed_modules = [module for module in training_modules if module.is_finished_by_mentor(request.user)]
         uncompleted_modules = [module for module in training_modules if not module.is_finished_by_mentor(request.user)]
-        progresses = Progress.objects.filter(mentor=request.user).order_by('-started').select_related("challenge")
+        
+        startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
+        
+        progresses = Progress.objects.filter(mentor=request.user, started__gt=startdate).order_by('-started').select_related("challenge")
         unclaimed_days = [(day, Progress.unclaimed(day[0])[0]) for day in Progress.unclaimed_days()]
         challenges = {progress.challenge for progress in progresses}
         return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_days': unclaimed_days, 'training_modules': training_modules, 'accessible_modules': accessible_modules, 'completed_modules': completed_modules, 'uncompleted_modules': uncompleted_modules})
