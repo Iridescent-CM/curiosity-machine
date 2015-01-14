@@ -11,6 +11,9 @@
 <ul class="nav nav-tabs upwards">
   <li class="active"><a href="#guide-how-to" data-toggle="tab">How To Make It</a></li>
   <li><a href="#guide-more-info" data-toggle="tab">Learn More</a></li>
+  {% if request.user.is_authenticated and request.user.profile.is_mentor and challenge.mentor_feedback %}
+  <li><a href="#mentor-guide" data-toggle="tab">Mentor Feedback</a></li>
+  {% endif %}
 </ul>
 <div class="modal-body row clearfix tab-content">
 <div class="tab-pane fade in active" id="guide-how-to">
@@ -19,7 +22,11 @@
 <div class="tab-pane fade" id="guide-more-info">
   <p>{{ challenge.learn_more|safe }}</p>
 </div>
-
+{% if request.user.is_authenticated and request.user.profile.is_mentor and challenge.mentor_feedback %}
+<div class="tab-pane fade" id="mentor-guide">
+  <p>{{ challenge.mentor_feedback|safe }}</p>
+</div>
+{% endif %}
 
   
 </div>
