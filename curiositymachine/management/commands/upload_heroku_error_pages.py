@@ -8,7 +8,6 @@ from django.conf import settings
 AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
 AWS_STORAGE_BUCKET_NAME = settings.AWS_ERROR_STORAGE_BUCKET_NAME
-CHUNK_SIZE = 52428800
 
 APP_PATH = os.path.abspath(os.path.dirname(__file__) + '/../../')
 SYSTEM_PATH = os.path.join(APP_PATH, 'static', 'system')
