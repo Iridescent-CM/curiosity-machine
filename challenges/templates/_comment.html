@@ -5,7 +5,7 @@
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">
     <a href="{% url 'profiles:mentor_profile' comment.user.username %}">{% include "_avatar.html" with profile=comment.user.profile width=50 height=50 crop='fit' %}</a>
-    <a href="{% url 'profiles:mentor_profile' comment.user.username %}"><p>{{comment.user.username}}</a><br><strong>Mentor</strong></p>
+    <p><a href="{% url 'profiles:mentor_profile' comment.user.username %}">{{comment.user.username}}</a><br><strong>Mentor</strong></p>
   </div>
   <div class="panel panel-bubble blue comment">
     <div class="panel-body">
