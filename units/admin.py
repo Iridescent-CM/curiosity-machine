@@ -9,7 +9,7 @@ class UnitItemInline(admin.TabularInline):
 class UnitAdmin(admin.ModelAdmin):
     model = Unit
     list_display = ('id','name','description',)
-    fields = ('name', 'description', 'standards_alignment_image', )
+    fields = ('name', 'description', 'image', 'standards_alignment_image', )
     inlines = [
         UnitItemInline
     ]
@@ -23,6 +23,11 @@ class UnitAdmin(admin.ModelAdmin):
             if db_field.name == 'standards_alignment_image':
                 if request._obj_ is not None and request._obj_.standards_alignment_image is not None:
                     kwargs["queryset"] = Image.objects.filter(source_url = request._obj_.standards_alignment_image.source_url)
+                else:
+                    kwargs["queryset"] = Image.objects.none()
+            if db_field.name == 'image':
+                if request._obj_ is not None and request._obj_.image is not None:
+                    kwargs["queryset"] = Image.objects.filter(source_url = request._obj_.image.source_url)
                 else:
                     kwargs["queryset"] = Image.objects.none()
         return super(UnitAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
