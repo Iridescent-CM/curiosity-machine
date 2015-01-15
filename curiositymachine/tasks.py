@@ -4,7 +4,11 @@ import tempfile
 import hashlib
 import django_rq
 from django.conf import settings
+import json
 
+#FIXME: refactor, this is already existing in another pull request
+def filepicker_meta(url):
+    return json.loads(requests.get("/".join([url, 'metadata'])).text)
 
 def sum_for_fd(fd):
     md5 = hashlib.md5()
@@ -13,6 +17,7 @@ def sum_for_fd(fd):
     return md5.hexdigest()
 
 def upload_to_s3(obj, key_prefix='', queue_after=None): # key_prefix should include the trailing / if necessary
+    meta = filepicker_meta(obj.source_url)
     response = requests.get(obj.source_url, stream=True)
     conn = tinys3.Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY, tls=True)
 
@@ -23,7 +28,7 @@ def upload_to_s3(obj, key_prefix='', queue_after=None): # key_prefix should incl
         obj.md5_hash = sum_for_fd(fd) # get md5 hash and write to model
         fd.seek(0) # reset again, this time to prepare to upload
         key = key_prefix + obj.md5_hash
-        conn.upload(key, fd, settings.AWS_STORAGE_BUCKET_NAME, public=True) # upload to AWS_STORAGE_BUCKET_NAME with the hash as the key
+        conn.upload(key, fd, settings.AWS_STORAGE_BUCKET_NAME, public=True, headers={'Content-Disposition': 'inline;filename={}'.format(meta['filename']), 'Content-Type': meta['mimetype']}) # upload to AWS_STORAGE_BUCKET_NAME with the hash as the key
         obj.key = key # now that it's uploaded, set the filename to the model too
 
     obj.save()

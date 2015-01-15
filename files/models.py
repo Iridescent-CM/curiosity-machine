@@ -4,6 +4,7 @@ from curiositymachine.tasks import upload_to_s3
 import django_rq
 
 class File(models.Model):
+    name = models.TextField(blank=False, null=False, help_text="name of the file")
     source_url = models.URLField(max_length=2048, blank=True)
     md5_hash = models.CharField(max_length=32, blank=True)
     key = models.CharField(max_length=1024, blank=True)

@@ -19,6 +19,6 @@ class Unit(models.Model):
         return "Unit: id={}, name={}".format(self.id, self.name)
 
 class Resource(models.Model):
-    name = models.TextField(blank=False, null=False, help_text="name of the unit")
+    name = models.TextField(blank=False, null=False, help_text="name of the resource")
     file = models.ForeignKey(File, null=True, blank=True, on_delete=models.SET_NULL)
     unit = models.ForeignKey(Unit, blank=False, null=False, related_name="resources")
