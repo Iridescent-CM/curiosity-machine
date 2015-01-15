@@ -13,11 +13,7 @@
     </div>
     <div class="panel-body">
       <div class="description">
-      	<!-- <ul>
-          {% for challenge in unit.challenges.all %}
-            <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
-          {% endfor %}
-        </ul> -->
+        {{ unit.description }}
       </div>
     </div>
   </div>
