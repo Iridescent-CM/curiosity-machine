@@ -17,7 +17,7 @@
 	</ul>
   {% if unit.overview %}
   <h3>Unit Overview</h3>
-  <p>{{ unit.overview }}</p>
+  <p>{{ unit.overview|safe }}</p>
   {% endif %}
 
   {% if unit.standards_alignment_image %}
