@@ -41,7 +41,7 @@ class Challenge(models.Model):
     description = models.TextField(help_text="One line of plain text, shown on the inspiration page")
     how_to_make_it = models.TextField(help_text="HTML, shown in the guide")
     learn_more = models.TextField(help_text="HTML, shown in the guide")
-    mentor_feedback = models.TextField(help_text="HTML, shown in the mentor feedback guide", null=True)
+    mentor_guide = models.TextField(help_text="HTML, shown in the mentor guide", null=True)
     materials_list = models.TextField(help_text="HTML")
     students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True, related_name="challenges")
     theme = models.ForeignKey(Theme, null=True, blank=True, on_delete=models.SET_NULL)

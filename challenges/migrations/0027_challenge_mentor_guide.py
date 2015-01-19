@@ -11,8 +11,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='challenge',
-            name='mentor_feedback',
-            field=models.TextField(null=True, help_text='HTML, shown in the mentor feedback guide'),
+            name='mentor_guide',
+            field=models.TextField(null=True, help_text='HTML, shown in the mentor guide'),
             preserve_default=True,
         ),
     ]
