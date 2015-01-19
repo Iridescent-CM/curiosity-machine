@@ -72,11 +72,13 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
         comments = progress.comments.filter(stage__in=[Stage.build.value, Stage.test.value, Stage.reflect.value])
     else:
         comments = progress.comments.filter(stage=stage.value)
-
+    comment_forms = {}
+    for comment in comments:
+        comment_forms[comment.id] = CommentForm(initial={'text': comment.text})
     progress.get_unread_comments_for_user(request.user).update(read=True)
 
     return render(request, "challenge_plan.html" if stage == Stage.plan else "challenge_build.html",
-                  {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm(), 'comments': comments, 'materials_form': MaterialsForm(progress=progress), 'stage': stage})
+                  {'challenge': challenge, 'progress': progress, 'comment_forms': comment_forms, 'comment_form': CommentForm(), 'comments': comments, 'materials_form': MaterialsForm(progress=progress), 'stage': stage})
 
 # Any POST to this by the assigned mentor moves a challenge progress into the reflect stage (marks approve=True); any DELETE reverses that
 @require_http_methods(["POST", "DELETE"])
