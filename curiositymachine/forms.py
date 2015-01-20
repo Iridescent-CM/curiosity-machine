@@ -2,6 +2,7 @@ from django import forms
 from django.conf import settings
 from django.forms.extras.widgets import SelectDateWidget
 from curiositymachine.widgets import FilePickerInlineWidget, FilePickerDragDropWidget
+from django.utils.timezone import now
 
 MIMETYPE_SCRIPT = """
     evt = arguments[0];
@@ -41,5 +42,6 @@ class FilePickerDragDropField(FilePickerField):
     widget = FilePickerDragDropWidget
 
 class AnalyticsForm(forms.Form):
-    start_date = forms.DateField(widget=SelectDateWidget())
-    end_date = forms.DateField(widget=SelectDateWidget())
+    today = now()
+    start_date = forms.DateField(widget=SelectDateWidget(years=range(2014, today.year + 1)))
+    end_date = forms.DateField(widget=SelectDateWidget(years=range(2014, today.year + 1)))
