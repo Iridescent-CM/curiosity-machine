@@ -25,6 +25,7 @@ class Profile(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
+    expertise = models.TextField(blank=True, null=True, help_text="This is a mentor only field.")
     
     #this field will be cleared once the user becomes active
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)

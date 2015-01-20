@@ -3,8 +3,14 @@
     {% include "_avatar.html" with profile=profile width=260 height=260 crop='fit' %}
   </div>
   <div class="col-md-9 col-sm-9 col-xs-7">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
     <p><strong>I am a </strong> {{profile.title}}
     <br><strong>I work at </strong> {{profile.employer}}</p>
+    </div>
+    <div class="col-md-6 col-sm-6">
+    <p><div class="orange-font">Expert In:</div> {{profile.expertise}}<br><br></p>
+    </div>
     <div class="row">
       <div class="col-md-6 col-sm-6">
         <h4>About me!</h4>
