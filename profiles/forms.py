@@ -130,7 +130,7 @@ class StudentProfileEditForm(ProfileFormBase):
 class MentorProfileEditForm(ProfileFormBase):
     title = forms.CharField(required=True, label="What Is My Profession")
     employer = forms.CharField(required=True, label="Where Do I Work?")
-    about_me = forms.CharField(required=True, label="About Me")
+    about_me = forms.CharField(required=False, label="About Me")
     about_me_filepicker_mimetype_widget = forms.HiddenInput(attrs={"id":"about_me_mimetype"})
     about_me_filepicker_url = FilePickerDragDropField(
         label="About Me Photo or Video",
@@ -145,7 +145,7 @@ class MentorProfileEditForm(ProfileFormBase):
         widget=about_me_filepicker_mimetype_widget
     )
 
-    about_research = forms.CharField(required=True, label="About My Research")
+    about_research = forms.CharField(required=False, label="About My Research")
     about_research_filepicker_mimetype_widget = forms.HiddenInput(attrs={"id":"about_research_mimetype"})
     about_research_filepicker_url = FilePickerDragDropField(
         label="About My Research Photo or Video",

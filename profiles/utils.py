@@ -44,10 +44,12 @@ def create_or_edit_user(data, user=None):
     if user.profile.is_mentor:
         profile.title = data['title']
         profile.employer = data['employer']
-        profile.about_me = data['about_me']
-        profile.about_research = data['about_research']
+        if 'about_me' in data:
+            profile.about_me = data['about_me']
+        if 'about_research' in data:
+            profile.about_research = data['about_research']
 
-        if data['about_me_filepicker_url'] and data['about_me_filepicker_mimetype']:
+        if 'about_me_filepicker_url' in data and 'about_me_filepicker_mimetype' in data:
             if data['about_me_filepicker_mimetype'].startswith('image'):
                 image = Image.from_source_with_job(data['about_me_filepicker_url'])
                 profile.about_me_image_id = image.id
@@ -58,7 +60,7 @@ def create_or_edit_user(data, user=None):
                 profile.about_me_image_id = None
                 profile.about_me_video_id = video.id
 
-        if data['about_research_filepicker_url'] and data['about_research_filepicker_mimetype']:
+        if 'about_research_filepicker_url' in data and 'about_research_filepicker_mimetype' in data:
             if data['about_research_filepicker_mimetype'].startswith('image'):
                 image = Image.from_source_with_job(data['about_research_filepicker_url'])
                 profile.about_research_image_id = image.id
