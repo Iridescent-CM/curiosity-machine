@@ -22,6 +22,7 @@ class Profile(models.Model):
     employer = models.TextField(blank=True, help_text="This is a mentor only field.")
     about_me = models.TextField(blank=True, help_text="This is a mentor only field.")
     about_research = models.TextField(blank=True, help_text="This is a mentor only field.")
+    expertise = models.TextField(blank=True, help_text="This is a mentor only field.")
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)

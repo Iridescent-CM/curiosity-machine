@@ -43,6 +43,7 @@ def create_or_edit_user(data, user=None):
         profile.employer = data['employer']
         profile.about_me = data['about_me']
         profile.about_research = data['about_research']
+        profile.expertise = data['expertise']
     if data['picture_filepicker_url']:
         profile.image = Image.from_source_with_job(data['picture_filepicker_url'])
     profile.save()

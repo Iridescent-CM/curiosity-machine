@@ -88,6 +88,7 @@ class MentorJoinForm(ProfileFormBase):
     employer = forms.CharField(required=False, label="Where Do I Work?")
     about_me = forms.CharField(required=False, label="About Me")
     about_research = forms.CharField(required=False, label="About My Research")
+    expertise = forms.CharField(required=False, label="Expertise In")
 
     def __init__(self, request=None, *args, **kwargs):
         super(MentorJoinForm, self).__init__(*args, **kwargs)
@@ -134,6 +135,7 @@ class MentorProfileEditForm(ProfileFormBase):
     employer = forms.CharField(required=True, label="Where Do I Work?")
     about_me = forms.CharField(required=True, label="About Me")
     about_research = forms.CharField(required=True, label="About My Research")
+    expertise = forms.CharField(required=False, label="Expertise In", widget=forms.Textarea)
 
     def __init__(self, request, *args, **kwargs):
         super(MentorProfileEditForm, self).__init__(*args, **kwargs)
