@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.forms.extras.widgets import SelectDateWidget
 from django.conf import settings
 from datetime import datetime
-from curiositymachine.forms import FilePickerURLField, FilePickerDefaultField, FilePickerDragDropField, FilePickerField
+from curiositymachine.forms import FilePickerDragDropField
 from datetime import date
 
 import re
@@ -63,7 +63,7 @@ class JoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
     parent_first_name = forms.CharField(required=False, label="First Name")
     parent_last_name = forms.CharField(required=False, label="Last Name")
-    
+
 
     def __init__(self, request=None, *args, **kwargs):
         super(JoinForm, self).__init__(*args, **kwargs)
@@ -86,8 +86,6 @@ class MentorJoinForm(ProfileFormBase):
 
     title = forms.CharField(required=False, label="What Is My Profession")
     employer = forms.CharField(required=False, label="Where Do I Work?")
-    about_me = forms.CharField(required=False, label="About Me")
-    about_research = forms.CharField(required=False, label="About My Research")
 
     def __init__(self, request=None, *args, **kwargs):
         super(MentorJoinForm, self).__init__(*args, **kwargs)
@@ -133,10 +131,34 @@ class MentorProfileEditForm(ProfileFormBase):
     title = forms.CharField(required=True, label="What Is My Profession")
     employer = forms.CharField(required=True, label="Where Do I Work?")
     about_me = forms.CharField(required=True, label="About Me")
-    about_me_filepicker_url = FilePickerDefaultField(label="About Me Photo or Video", mimetypes="video/*,image/*", openTo='WEBCAM', services='VIDEO,WEBCAM,COMPUTER', required=False)
-    
+    about_me_filepicker_mimetype_widget = forms.HiddenInput(attrs={"id":"about_me_mimetype"})
+    about_me_filepicker_url = FilePickerDragDropField(
+        label="About Me Photo or Video",
+        mimetypes="video/*,image/*",
+        openTo='WEBCAM',
+        services='VIDEO,WEBCAM,COMPUTER',
+        required=False,
+        mimetype_widget=about_me_filepicker_mimetype_widget
+    )
+    about_me_filepicker_mimetype = forms.CharField(
+        required=False, 
+        widget=about_me_filepicker_mimetype_widget
+    )
+
     about_research = forms.CharField(required=True, label="About My Research")
-    about_research_filepicker_url = FilePickerDefaultField(label="About My Research Photo or Video", mimetypes="video/*,image/*", openTo='WEBCAM', services='VIDEO,WEBCAM,COMPUTER', required=False)
+    about_research_filepicker_mimetype_widget = forms.HiddenInput(attrs={"id":"about_research_mimetype"})
+    about_research_filepicker_url = FilePickerDragDropField(
+        label="About My Research Photo or Video",
+        mimetypes="video/*,image/*",
+        openTo='WEBCAM',
+        services='VIDEO,WEBCAM,COMPUTER',
+        required=False,
+        mimetype_widget=about_research_filepicker_mimetype_widget
+    )
+    about_research_filepicker_mimetype = forms.CharField(
+        required=False, 
+        widget=about_research_filepicker_mimetype_widget
+    )
 
     def __init__(self, request, *args, **kwargs):
         super(MentorProfileEditForm, self).__init__(*args, **kwargs)

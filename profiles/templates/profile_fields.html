@@ -69,6 +69,7 @@
       {{form.about_me_filepicker_url.label_tag}}
       {% include "_about_me.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
       {{form.about_me_filepicker_url}}
+      {{form.about_me_filepicker_mimetype}}
     </div>
     <div>
       {{form.about_me.label_tag}}

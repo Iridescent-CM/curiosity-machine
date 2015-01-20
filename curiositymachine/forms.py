@@ -1,7 +1,13 @@
 from django import forms
 from django.conf import settings
 from django.forms.extras.widgets import SelectDateWidget
-from curiositymachine.widgets import FilePickerInlineWidget, FilePickerDragDropWidget, FilePickerDefault
+from curiositymachine.widgets import FilePickerInlineWidget, FilePickerDragDropWidget
+
+MIMETYPE_SCRIPT = """
+    evt = arguments[0];
+    if (evt.fpfile)
+        $('#{}').val(evt.fpfile.mimetype);
+"""
 
 class FilePickerField(forms.URLField):
     default_mimetypes = "*/*"
@@ -13,26 +19,20 @@ class FilePickerField(forms.URLField):
         self.mimetypes = kwargs.pop('mimetypes', self.default_mimetypes)
         self.openTo = kwargs.pop('openTo', self.default_openTo)
         self.services = kwargs.pop('services', self.default_services)
+        self.mimetype_widget = kwargs.pop('mimetype_widget', None)
         super().__init__(*args, **kwargs)
 
     def widget_attrs(self, widget):
-        return {'data-fp-apikey': self.apikey, 'data-fp-mimetypes': self.mimetypes, 'data-fp-openTo': self.openTo, 'data-fp-services': self.services, 'data-fp-button-class': 'btn btn-primary'}
-
-class FilePickerDefaultField(forms.URLField):
-    widget = FilePickerDefault
-    default_mimetypes = "*/*"
-    default_openTo = 'COMPUTER'
-    default_services = ''
-
-    def __init__(self, *args, **kwargs):
-        self.apikey = kwargs.pop('apikey', settings.FILEPICKER_API_KEY)
-        self.mimetypes = kwargs.pop('mimetypes', self.default_mimetypes)
-        self.openTo = kwargs.pop('openTo', self.default_openTo)
-        self.services = kwargs.pop('services', self.default_services)
-        super().__init__(*args, **kwargs)
-
-    def widget_attrs(self, widget):
-        return {'type': 'filepicker', 'data-fp-apikey': self.apikey, 'data-fp-mimetypes': self.mimetypes, 'data-fp-openTo': self.openTo, 'data-fp-services': self.services, 'data-fp-button-class': 'btn btn-primary'}
+        attrs = {
+            'data-fp-apikey': self.apikey, 
+            'data-fp-mimetypes': self.mimetypes, 
+            'data-fp-openTo': self.openTo, 
+            'data-fp-services': self.services, 
+            'data-fp-button-class': 'btn btn-primary'
+        }
+        if self.mimetype_widget:
+            attrs['onchange'] = MIMETYPE_SCRIPT.format(self.mimetype_widget.attrs.get('id'))
+        return attrs
 
 class FilePickerURLField(FilePickerField):
     widget = FilePickerInlineWidget

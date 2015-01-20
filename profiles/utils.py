@@ -4,19 +4,6 @@ from videos.models import Video
 import requests
 import json
 
-def filepicker_meta(url):
-    return json.loads(requests.get("/".join([url, 'metadata'])).text)
-
-def type_from_filepicker(url):
-    meta = filepicker_meta(url)
-    print(meta)
-    if "image" in meta['mimetype']:
-        return 'image'
-    elif "video" in meta['mimetype']:
-        return 'video'
-    else:
-        return None
-
 def create_or_edit_user(data, user=None):
     new_user = False
     if not user:
@@ -56,32 +43,27 @@ def create_or_edit_user(data, user=None):
         profile.about_me = data['about_me']
         profile.about_research = data['about_research']
 
-        if data['about_me_filepicker_url']:
-            print(type_from_filepicker(data['about_me_filepicker_url']))
-            if type_from_filepicker(data['about_me_filepicker_url']) == 'image':
-                if data['about_me_filepicker_url']:
-                    image = Image.from_source_with_job(data['about_me_filepicker_url'])
-                    profile.about_me_image_id = image.id
-                    profile.about_me_video_id = None
+        if data['about_me_filepicker_url'] and data['about_me_filepicker_mimetype']:
+            if data['about_me_filepicker_mimetype'].startswith('image'):
+                image = Image.from_source_with_job(data['about_me_filepicker_url'])
+                profile.about_me_image_id = image.id
+                profile.about_me_video_id = None
 
-            elif type_from_filepicker(data['about_me_filepicker_url']) == 'video':
-                if data['about_me_filepicker_url']:
-                    video = Video.from_source_with_job(data['about_me_filepicker_url']) if data['about_me_filepicker_url'] else None
-                    profile.about_me_image_id = None
-                    profile.about_me_video_id = video.id
+            elif data['about_me_filepicker_mimetype'].startswith('video'):
+                video = Video.from_source_with_job(data['about_me_filepicker_url'])
+                profile.about_me_image_id = None
+                profile.about_me_video_id = video.id
 
-        if data['about_research_filepicker_url']:
-            if type_from_filepicker(data['about_research_filepicker_url']) == 'image':
-                if data['about_research_filepicker_url']:
-                    image = Image.from_source_with_job(data['about_research_filepicker_url'])
-                    profile.about_research_image_id = image.id
-                    profile.about_research_video_id = None
+        if data['about_research_filepicker_url'] and data['about_research_filepicker_mimetype']:
+            if data['about_research_filepicker_mimetype'].startswith('image'):
+                image = Image.from_source_with_job(data['about_research_filepicker_url'])
+                profile.about_research_image_id = image.id
+                profile.about_research_video_id = None
 
-            elif type_from_filepicker(data['about_research_filepicker_url']) == 'video':
-                if data['about_research_filepicker_url']:
-                    video = Video.from_source_with_job(data['about_research_filepicker_url']) if data['about_research_filepicker_url'] else None
-                    profile.about_research_image_id = None
-                    profile.about_research_video_id = video.id
+            elif data['about_research_filepicker_mimetype'].startswith('video'):
+                video = Video.from_source_with_job(data['about_research_filepicker_url'])
+                profile.about_research_image_id = None
+                profile.about_research_video_id = video.id
 
     if data['picture_filepicker_url']:
         profile.image = Image.from_source_with_job(data['picture_filepicker_url'])
