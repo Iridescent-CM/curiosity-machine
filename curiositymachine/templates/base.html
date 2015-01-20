@@ -130,17 +130,17 @@
   <!--[if (gte IE 6)&(lte IE 8)]>
       <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
   <![endif]-->
-  
-  {% if not request.user.profile.shown_intro %}
-    {% include "introduction_modal.html" %}
-    <script type="text/javascript">
-      $(function(){
-       $('#introduction-modal').modal('show'); 
-      });
-    </script>
-    {{ request.user.profile.intro_video_was_played }}
+  {% if request.user.is_authenticated %}
+    {% if not request.user.profile.shown_intro %}
+      {% include "introduction_modal.html" %}
+      <script type="text/javascript">
+        $(function(){
+         $('#introduction-modal').modal('show'); 
+        });
+      </script>
+      {{ request.user.profile.intro_video_was_played }}
+    {% endif %}
   {% endif %}
-
   {% if messages %}{% for message in messages %}
     {% if message.tags and message.tags == 'error' %}
       <script type="text/javascript">
