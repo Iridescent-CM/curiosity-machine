@@ -8,7 +8,9 @@
     </div>
     <div class="image-container">
       <a href="{% url 'units:unit' unit.id %}">
-        {% include "_unit_image.html" with unit=unit width=300 height=250 crop='fill' %}        
+        {% if unit.image %}
+          <img src="{% resized unit.image.url width=300 height=250 crop='fill' %}" />
+        {% endif %}
       </a>
     </div>
     <div class="panel-body">
