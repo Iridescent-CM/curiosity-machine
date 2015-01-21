@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Server Error - 500{% endblock %}
+
+{% block content %}
+<h1>Server Error - 500</h1>
+<div>
+   The application has encountered an unexpected error. Please go back to the previous page and try again.
+</div>
+<div>
+   Need Help? Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+</div>
+{% endblock %}

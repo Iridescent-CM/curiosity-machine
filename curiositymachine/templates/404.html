@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found - 404{% endblock %}
+
+{% block content %}
+<h1>Page Not Found</h1>
+<div>
+   The page you are looking for cannot be found. Please go back to the previous page and try again. 
+</div>
+<div>
+   Need Help? Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+</div>
+{% endblock %}
