@@ -67,6 +67,9 @@ $(document).ready(function() {
   });
 
 
+  $(".confirmation-delete-window").on("click", null, function(){
+    return confirm("This will delete your post. Are you sure?");
+  });
 
   
   $('.materials-form').css("display", "none");
