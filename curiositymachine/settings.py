@@ -154,8 +154,8 @@ AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "curiositymachine
 
 S3DIRECT_REGION = 'us-east-1'
 S3DIRECT_DESTINATIONS = {
-    's3direct-test': (
-        'uploads/files',
+    'unit-resources': (
+        'units/resources',
         lambda u: u.is_staff,
     )
 }
