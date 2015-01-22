@@ -26,14 +26,21 @@
   <h2>Engineering design challenges your student will complete</h2>
   <div class="row">
     {% for challenge in challenges %}
-      <div class="col-md-2">
-	<div class="thumbnail">
-	  <a href="{% url 'challenges:challenge' challenge.id %}">
-	    <img src="{{ challenge.image.url }}">
-	    <div class="caption">
-	      {{ challenge.name }}
-	    </div>
-	  </a>
+      <div class="col-xs-12 col-sm-4 col-md-2">
+	<div class="thumbnail panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">
+	      <a href="{% url 'challenges:challenge' challenge.id %}">
+		{{ challenge.name }}
+	      </a>
+	    </h3>
+	  </div>
+	  <div class="image-container">
+	    <a href="{% url 'challenges:challenge' challenge.id %}">
+	      <img src="{{ challenge.image.url }}">
+	    </a>
+	  </div>
+	  <div class="panel-body"></div>
 	</div>
       </div>
     {% endfor %}
