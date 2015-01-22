@@ -1,30 +1,29 @@
 {% extends "base.html" %}
 
 
-{% block title %}Unit Info{% endblock %}
+{% block title %}Curiosity Machine Units: {{ unit.name }}{% endblock %}
 
 {% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li><a href="{% url 'units:units' %}">Units</a></li>
+  <li>{{ unit.name }}</li>
+</ol>
 <div class="unit-info">
-  <h2>{{ unit.name }}</h2>
-  {% if unit.description%}
-  <p>{{ unit.description }}</p>
-  {% endif %}
+  <h1>{{ unit.name }}</h1>
+
   <h3>Engineering design challenges your student will complete</h3>
-  	<ul>
-	  {% for challenge in challenges %}
-	    <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
-	  {% endfor %}
-	</ul>
-  {% if unit.overview %}
-  <h3>Unit Overview</h3>
-  <p>{{ unit.overview }}</p>
-  {% endif %}
+    <ul>
+      {% for challenge in challenges %}
+	<li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
+      {% endfor %}
+    </ul>
 
   {% if unit.standards_alignment_image %}
-  <h3>NGSS Standards Alignment</h3>
-  <div class="image-wrapper">
-    <img src="{{ unit.standards_alignment_image.url }}" >
-  </div>
+    <h3>NGSS Standards Alignment</h3>
+    <div class="image-wrapper">
+      <img src="{{ unit.standards_alignment_image.url }}" >
+    </div>
   {% endif %}
 </div>
 {% endblock %}
