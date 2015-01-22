@@ -18,8 +18,9 @@
 
   <h2>Resources</h2>
   <ul>
-    <li><a href="{{ unit.lesson_plan }}" target="_blank">Lesson plan</a></li>
-    <li><a href="{{ unit.workbook }}" target="_blank">Student workbook</a></li>
+  {% for resource in resources %}
+    <li><a href="{{ resource.file }}" target="_blank">{{resource.link_text}}</a></li>
+  {% endfor %}
   </ul>
 
   <h2>Engineering design challenges your student will complete</h2>

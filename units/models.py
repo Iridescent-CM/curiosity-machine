@@ -15,12 +15,14 @@ class Unit(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="image")
     standards_alignment_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="unit")
-    workbook = S3DirectField(blank=True, null=True, dest='s3direct-test', help_text="Uploads will overwrite files of the same name")
-    lesson_plan = S3DirectField(blank=True, null=True, dest='s3direct-test', help_text="Uploads will overwrite files of the same name")
-
 
     def __str__(self):
         return "Unit: id={}, name={}".format(self.id, self.name)
 
     def __repr__(self):
         return "Unit: id={}, name={}".format(self.id, self.name)
+
+class Resource(models.Model):
+    unit = models.ForeignKey(Unit, related_name="resources")
+    link_text = models.CharField(max_length=128)
+    file = S3DirectField(blank=True, null=True, dest='s3direct-test', help_text="Uploads will overwrite files of the same name")

@@ -1,4 +1,4 @@
-from .models import Unit
+from .models import Unit, Resource
 from images.models import Image
 from django.contrib import admin
 
@@ -6,13 +6,17 @@ class UnitItemInline(admin.TabularInline):
     model = Unit.challenges.through
     extra = 1
 
+class ResourceInline(admin.StackedInline):
+    model = Resource
+    extra = 1
+
 class UnitAdmin(admin.ModelAdmin):
     model = Unit
     list_display = ('id','name','description',)
     list_display_links = ('id', 'name',)
-    fields = ('name', 'description', 'overview', 'image', 'standards_alignment_image', 'workbook', 'lesson_plan',)
+    fields = ('name', 'description', 'overview', 'image', 'standards_alignment_image')
     inlines = [
-        UnitItemInline
+        UnitItemInline, ResourceInline
     ]
 
     def get_form(self, request, obj=None, **kwargs):

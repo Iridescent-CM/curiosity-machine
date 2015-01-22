@@ -8,4 +8,9 @@ def units(request):
 def unit(request, unit_id):
 	unit = Unit.objects.get(pk=unit_id)
 	challenges = unit.challenges.all()
-	return render(request, 'unit.html', {'unit': unit, 'challenges': challenges})
+	resources = unit.resources.all()
+	return render(request, 'unit.html', {
+		'unit': unit,
+		'challenges': challenges,
+		'resources': resources
+	})
