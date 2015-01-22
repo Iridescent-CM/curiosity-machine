@@ -63,19 +63,21 @@ def feature_as_example(request, challenge_id, username, stage, comment_id): # "s
     return HttpResponse(status=204)
 
 @require_http_methods(["POST", "DELETE"])
+@login_required
 def delete_comment(request, challenge_id, username, comment_id, stage=None): # "stage" is only used for the redirect
     progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
     comment = get_object_or_404(progress.comments, id=comment_id)
     if request.method == "DELETE":
         if request.user.is_authenticated():
             if request.user == progress.student: #only the student that made the comment can delete
-                if not Example.objects.filter(progress=progress).exists(): #when it features as example it's not deletable anymore
+                if not comment.is_read_only():
                     comment.delete()
                     messages.success(request, "{}'s comment deleted.".format(progress.student))
 
     return HttpResponse(status=204)
 
 @require_http_methods(["POST"])
+@login_required
 def edit_comment(request, challenge_id, username, comment_id, stage=None): # "stage" is only used for the redirect
     form = CommentForm(data=request.POST)
     if form.is_valid():
@@ -83,7 +85,7 @@ def edit_comment(request, challenge_id, username, comment_id, stage=None): # "st
         comment = get_object_or_404(progress.comments, id=comment_id)
         if request.user.is_authenticated():
             if request.user == progress.student: #only the student that made the comment can edit
-                if not Example.objects.filter(progress=progress).exists(): #when it features as example it's not editable anymore
+                if not comment.is_read_only():
                     comment.text = form.cleaned_data['text']
                     comment.save()
                     messages.success(request, "{}'s comment edited.".format(progress.student))
