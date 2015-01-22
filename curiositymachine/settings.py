@@ -73,6 +73,7 @@ INSTALLED_APPS = (
     'tsl',
     'compressor',
     'units',
+    's3direct',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -150,6 +151,14 @@ FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "curiositymachine")
+
+S3DIRECT_REGION = 'us-east-1'
+S3DIRECT_DESTINATIONS = {
+    's3direct-test': (
+        'uploads/files',
+        lambda u: u.is_staff,
+    )
+}
 
 ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
 

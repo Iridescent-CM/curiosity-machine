@@ -1,6 +1,9 @@
+import os
+
 from django.db import models
 from images.models import Image
 from challenges.models import Challenge
+from s3direct.fields import S3DirectField
 
 
 class Unit(models.Model):
@@ -12,6 +15,8 @@ class Unit(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="image")
     standards_alignment_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="unit")
+    workbook = S3DirectField(blank=True, null=True, dest='s3direct-test')
+    lesson_plan = S3DirectField(blank=True, null=True, dest='s3direct-test')
 
 
     def __str__(self):
