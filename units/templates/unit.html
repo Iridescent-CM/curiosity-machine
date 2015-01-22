@@ -25,5 +25,20 @@
       <img src="{{ unit.standards_alignment_image.url }}" >
     </div>
   {% endif %}
+
+  {% if resources %}
+  <h3>Resources</h3>
+  <div class="image-wrapper">
+    <ul>
+    {% for resource in resources %}
+      <li>
+        <div class="resource">
+          <a href="{{resource.file.url}}">{{resource.name}}</a>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}
