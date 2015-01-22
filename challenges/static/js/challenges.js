@@ -66,11 +66,10 @@ $(document).ready(function() {
     $('.comment-form').attr('action', url);
   });
 
-
-  $(".confirmation-delete-window").on("click", null, function(){
-    return confirm("This will delete your post. Are you sure?");
+  $("button[data-confirm]").on('click', function () {
+    var message = $(this).data('confirm');
+    return confirm(message);
   });
-
   
   $('.materials-form').css("display", "none");
 
