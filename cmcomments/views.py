@@ -68,11 +68,10 @@ def delete_comment(request, challenge_id, username, comment_id, stage=None): # "
     progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
     comment = get_object_or_404(progress.comments, id=comment_id)
     if request.method == "DELETE":
-        if request.user.is_authenticated():
-            if request.user == progress.student: #only the student that made the comment can delete
-                if not comment.is_read_only():
-                    comment.delete()
-                    messages.success(request, "{}'s comment deleted.".format(progress.student))
+        if request.user == progress.student: #only the student that made the comment can delete
+            if not comment.is_read_only():
+                comment.delete()
+                messages.success(request, "{}'s comment deleted.".format(progress.student))
 
     return HttpResponse(status=204)
 
@@ -83,11 +82,10 @@ def edit_comment(request, challenge_id, username, comment_id, stage=None): # "st
     if form.is_valid():
         progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
         comment = get_object_or_404(progress.comments, id=comment_id)
-        if request.user.is_authenticated():
-            if request.user == progress.student: #only the student that made the comment can edit
-                if not comment.is_read_only():
-                    comment.text = form.cleaned_data['text']
-                    comment.save()
-                    messages.success(request, "{}'s comment edited.".format(progress.student))
+        if request.user == progress.student: #only the student that made the comment can edit
+            if not comment.is_read_only():
+                comment.text = form.cleaned_data['text']
+                comment.save()
+                messages.success(request, "{}'s comment edited.".format(progress.student))
 
     return HttpResponse(status=204)
