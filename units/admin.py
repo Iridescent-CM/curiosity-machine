@@ -9,6 +9,7 @@ class UnitItemInline(admin.TabularInline):
 class UnitAdmin(admin.ModelAdmin):
     model = Unit
     list_display = ('id','name','description',)
+    list_display_links = ('id', 'name',)
     fields = ('name', 'description', 'overview', 'image', 'standards_alignment_image', 'workbook', 'lesson_plan',)
     inlines = [
         UnitItemInline

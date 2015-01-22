@@ -12,7 +12,17 @@
 <div class="unit-info">
   <h1>{{ unit.name }}</h1>
 
-  <h3>Engineering design challenges your student will complete</h3>
+  {% if unit.overview %}
+    <p>{{ unit.overview|safe }}</p>
+  {% endif %}
+
+  <h2>Resources</h2>
+  <ul>
+    <li><a href="{{ unit.lesson_plan }}" target="_blank">Lesson plan</a></li>
+    <li><a href="{{ unit.workbook }}" target="_blank">Student workbook</a></li>
+  </ul>
+
+  <h2>Engineering design challenges your student will complete</h2>
     <ul>
       {% for challenge in challenges %}
 	<li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
@@ -20,7 +30,7 @@
     </ul>
 
   {% if unit.standards_alignment_image %}
-    <h3>NGSS Standards Alignment</h3>
+    <h2>NGSS Standards Alignment</h2>
     <div class="image-wrapper">
       <img src="{{ unit.standards_alignment_image.url }}" >
     </div>
