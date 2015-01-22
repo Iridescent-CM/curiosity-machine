@@ -1,3 +1,5 @@
+import os
+
 from .models import Unit, Resource
 from images.models import Image
 from django.contrib import admin
@@ -25,8 +27,11 @@ class UnitAdmin(admin.ModelAdmin):
 
 class ResourceAdmin(admin.ModelAdmin):
     model = Resource
-    list_display = ('id', 'file', 'link_text',)
-    list_display_links = ('id', 'file',)
+    list_display = ('id', 'filename', 'link_text',)
+    list_display_links = ('id', 'filename',)
+
+    def filename(self, obj):
+        return os.path.basename(obj.file)
 
 admin.site.register(Unit, UnitAdmin)
 admin.site.register(Resource, ResourceAdmin)

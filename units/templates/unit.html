@@ -24,11 +24,20 @@
   </ul>
 
   <h2>Engineering design challenges your student will complete</h2>
-    <ul>
-      {% for challenge in challenges %}
-	<li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
-      {% endfor %}
-    </ul>
+  <div class="row">
+    {% for challenge in challenges %}
+      <div class="col-md-2">
+	<div class="thumbnail">
+	  <a href="{% url 'challenges:challenge' challenge.id %}">
+	    <img src="{{ challenge.image.url }}">
+	    <div class="caption">
+	      {{ challenge.name }}
+	    </div>
+	  </a>
+	</div>
+      </div>
+    {% endfor %}
+  </div>
 
   {% if unit.standards_alignment_image %}
     <h2>NGSS Standards Alignment</h2>
