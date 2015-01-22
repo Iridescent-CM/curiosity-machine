@@ -7,7 +7,7 @@ class UnitItemInline(admin.TabularInline):
     extra = 1
 
 class ResourceInline(admin.StackedInline):
-    model = Resource
+    model = Resource.units.through
     extra = 1
 
 class UnitAdmin(admin.ModelAdmin):
@@ -23,4 +23,10 @@ class UnitAdmin(admin.ModelAdmin):
         request._obj_ = obj
         return super(UnitAdmin, self).get_form(request, obj, **kwargs)
 
+class ResourceAdmin(admin.ModelAdmin):
+    model = Resource
+    list_display = ('id', 'file', 'link_text',)
+    list_display_links = ('id', 'file',)
+
 admin.site.register(Unit, UnitAdmin)
+admin.site.register(Resource, ResourceAdmin)

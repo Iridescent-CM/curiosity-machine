@@ -23,6 +23,9 @@ class Unit(models.Model):
         return "Unit: id={}, name={}".format(self.id, self.name)
 
 class Resource(models.Model):
-    unit = models.ForeignKey(Unit, related_name="resources")
+    units = models.ManyToManyField(Unit, related_name="resources")
     link_text = models.CharField(max_length=128)
     file = S3DirectField(blank=True, null=True, dest='s3direct-test', help_text="Uploads will overwrite files of the same name")
+
+    def __str__(self):
+        return "Resource: id={}, text={}, file={}".format(self.id, self.link_text, os.path.basename(self.file))
