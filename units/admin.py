@@ -21,10 +21,6 @@ class UnitAdmin(admin.ModelAdmin):
         UnitItemInline, ResourceInline
     ]
 
-    def get_form(self, request, obj=None, **kwargs):
-        request._obj_ = obj
-        return super(UnitAdmin, self).get_form(request, obj, **kwargs)
-
 class ResourceAdmin(admin.ModelAdmin):
     model = Resource
     list_display = ('id', 'filename', 'link_text',)
