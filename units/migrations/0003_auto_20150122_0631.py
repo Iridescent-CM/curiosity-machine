@@ -6,7 +6,7 @@ import s3direct.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('units', '0001_initial'),
+        ('units', '0002_unit_image'),
     ]
 
     operations = [
