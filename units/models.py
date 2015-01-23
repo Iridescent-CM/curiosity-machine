@@ -10,7 +10,7 @@ class Unit(models.Model):
     name = models.TextField(blank=False, null=False, help_text="name of the unit")
     description = models.TextField(blank=True, null=True, help_text="blurb for the unit")
     overview = models.TextField(blank=True, null=True, help_text="overview for the unit")
-    challenges = models.ManyToManyField(Challenge, related_name='units')
+    challenges = models.ManyToManyField(Challenge, through='UnitChallenge', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="image")
@@ -21,6 +21,11 @@ class Unit(models.Model):
 
     def __repr__(self):
         return "Unit: id={}, name={}".format(self.id, self.name)
+
+class UnitChallenge(models.Model):
+    unit = models.ForeignKey(Unit)
+    challenge = models.ForeignKey(Challenge)
+    display_order = models.PositiveIntegerField()
 
 class Resource(models.Model):
     units = models.ManyToManyField(Unit, related_name="resources", null=True, blank=True)

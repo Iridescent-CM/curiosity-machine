@@ -7,7 +7,7 @@ def units(request):
 
 def unit(request, unit_id):
 	unit = Unit.objects.get(pk=unit_id)
-	challenges = unit.challenges.all()
+	challenges = unit.challenges.all().order_by('unitchallenge__display_order')
 	resources = unit.resources.all()
 	return render(request, 'unit.html', {
 		'unit': unit,
