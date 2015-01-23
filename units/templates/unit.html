@@ -12,15 +12,42 @@
 <div class="unit-info">
   <h1>{{ unit.name }}</h1>
 
-  <h3>Engineering design challenges your student will complete</h3>
-    <ul>
-      {% for challenge in challenges %}
-	<li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
-      {% endfor %}
-    </ul>
+  {% if unit.overview %}
+    <p>{{ unit.overview|safe }}</p>
+  {% endif %}
+
+  <h2>Resources</h2>
+  <ul>
+  {% for resource in resources %}
+    <li><a href="{{ resource.file }}" target="_blank">{{resource.link_text}}</a></li>
+  {% endfor %}
+  </ul>
+
+  <h2>Engineering design challenges your student will complete</h2>
+  <div class="row">
+    {% for challenge in challenges %}
+      <div class="col-xs-12 col-sm-4 col-md-2">
+	<div class="thumbnail panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">
+	      <a href="{% url 'challenges:challenge' challenge.id %}">
+		{{ challenge.name }}
+	      </a>
+	    </h3>
+	  </div>
+	  <div class="image-container">
+	    <a href="{% url 'challenges:challenge' challenge.id %}">
+	      <img src="{{ challenge.image.url }}">
+	    </a>
+	  </div>
+	  <div class="panel-body"></div>
+	</div>
+      </div>
+    {% endfor %}
+  </div>
 
   {% if unit.standards_alignment_image %}
-    <h3>NGSS Standards Alignment</h3>
+    <h2>NGSS Standards Alignment</h2>
     <div class="image-wrapper">
       <img src="{{ unit.standards_alignment_image.url }}" >
     </div>

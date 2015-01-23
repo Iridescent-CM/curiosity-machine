@@ -8,7 +8,7 @@
   <li><a href="{% url 'root' %}">Home</a></li>
   <li>Units</li>
 </ol>
-<h1>Units</h1>
+<h1>Engineering Design Units</h1>
 <p>
   To make Curiosity Machine an even better resource for you, we have grouped our engineering design into educator-friendly units!
 </p>
@@ -16,7 +16,6 @@
   Check our units below for teacher lesson plans, student workbooks, NGSS Standards Alignment and online support structures.
 </p>
 <hr />
-<h4>Curiosity Machine Engineering Design Units</h4>
 <ul class="challenges-list owl-carousel panel-carousel">
   {% for unit in units %}
    {% include "_unit_item.html" with unit=unit %}
@@ -24,10 +23,11 @@
 </ul>
 
 <hr />
-<h4>More about these units</h4>
+<h3>How to use these units</h3>
 <p>
   Each unit has a series of Curiosity Machine’s engineering design challenges scaffolded together to teach the engineering design process in a classroom setting. We have created supporting tools for each unit to help you bring this hands-on, project based learning to your students!
 </p>
+
 <p>
   The basics about each unit:
 </p>
@@ -37,6 +37,7 @@
   <li>Contains a Student Workbook with worksheets that support each lesson.</li>
   <li>Every engineering design challenge in the units is posted and supported on CuriosityMachine.org for you to reference at anytime.</li>
 </ul>
+
 <p>
   Curiosity Machine provides you with free access to engineering design challenges developed by scientists and engineers and tested by educators.
 </p>
@@ -45,6 +46,11 @@
   <li>By documenting their building process online, students get the chance to iterate on their inventions with the support of a trained scientist or engineer mentor. This support is a unique structure for providing highly individualized feedback to each student.</li>
 </ul>
 <p>
-  <a href="https://www.youtube.com/watch?v=XBAE46x2qio">Explore how your students can use Curiosity Machine!</a>
+  <a href="https://www.youtube.com/watch?v=XBAE46x2qio" target="_blank">Explore how your students can use Curiosity Machine!</a>
 </p>
+
+<p>
+  Questions about how to integrate Curiosity Machine into your learning environment? Email us at <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>. We’d love to support you in bringing hands on engineering design process activities to your students!
+</p>
+
 {% endblock %}
