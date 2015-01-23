@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
                 ('unit', models.ForeignKey(to_field='id', to='units.Unit')),
                 ('challenge', models.ForeignKey(to_field='id', to='challenges.Challenge')),
-                ('order', models.PositiveIntegerField()),
+                ('display_order', models.PositiveIntegerField()),
             ],
             options={
             },
