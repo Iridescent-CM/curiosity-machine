@@ -25,7 +25,7 @@ class Unit(models.Model):
 class UnitChallenge(models.Model):
     unit = models.ForeignKey(Unit)
     challenge = models.ForeignKey(Challenge)
-    order = models.PositiveIntegerField()
+    display_order = models.PositiveIntegerField()
 
 class Resource(models.Model):
     units = models.ManyToManyField(Unit, related_name="resources", null=True, blank=True)
