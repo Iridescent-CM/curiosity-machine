@@ -6,6 +6,7 @@ from django.contrib import admin
 
 class UnitItemInline(admin.TabularInline):
     model = Unit.challenges.through
+    ordering = ('order',)
     extra = 1
 
 class ResourceInline(admin.StackedInline):
