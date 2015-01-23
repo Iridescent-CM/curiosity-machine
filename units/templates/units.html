@@ -10,21 +10,6 @@
 </ol>
 <h1>Engineering Design Units</h1>
 <p>
-  To make Curiosity Machine an even better resource for you, we have grouped our engineering design into educator-friendly units!
-</p>
-<p>
-  Check our units below for teacher lesson plans, student workbooks, NGSS Standards Alignment and online support structures.
-</p>
-<hr />
-<ul class="challenges-list owl-carousel panel-carousel">
-  {% for unit in units %}
-   {% include "_unit_item.html" with unit=unit %}
-  {% endfor %}
-</ul>
-
-<hr />
-<h3>How to use these units</h3>
-<p>
   The following units were developed to inspire students to be curious, creative, and persistent learners. Lessons are project-based, providing a rich and engaging learning experience. Each lesson is also aligned to Next Generation Science Standards in Engineering Design, grades 6-8.
 </p>
 <p>
@@ -47,5 +32,11 @@
 <p>
 Please email us any time with any questions at <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>. We'd love to hear from you!
 </p>
+
+<ul class="challenges-list owl-carousel panel-carousel">
+  {% for unit in units %}
+   {% include "_unit_item.html" with unit=unit %}
+  {% endfor %}
+</ul>
 
 {% endblock %}
