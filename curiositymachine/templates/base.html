@@ -49,7 +49,11 @@
 
     
     {% if request.user.is_authenticated %}
-    ga('create', '{{ga_code}}', 'auto', {'userId': '{{request.user.id}}'});
+    ga('create', '{{ga_code}}', 'auto', {'userId': '{{ request.user.id }}'});
+    ga('set', {
+      'dimension0': 'username',
+      'metric0': '{{ request.user.id }}'
+    });
     {% else %}
     ga('create', '{{ga_code}}', 'auto');
     {% endif %}
