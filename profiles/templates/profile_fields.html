@@ -67,7 +67,7 @@
 
     <div>
       {{form.about_me_filepicker_url.label_tag}}
-      {% include "_about_me.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
+      {% include "_img_or_video.html" with video=request.user.profile.about_me_video image=request.user.profile.about_me_image crop='fit' width=317 %}
       {{form.about_me_filepicker_url}}
       {{form.about_me_filepicker_mimetype}}
     </div>
@@ -78,7 +78,7 @@
     </div>
     <div>
       {{form.about_research_filepicker_url.label_tag}}
-      {% include "_about_my_research.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
+      {% include "_img_or_video.html" with video=request.user.profile.about_research_video image=request.user.profile.about_research_image crop='fit' width=317 %}
       {{form.about_research_filepicker_url}}
     </div>
     <div>
