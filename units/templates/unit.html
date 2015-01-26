@@ -16,35 +16,43 @@
     <p>{{ unit.overview|safe }}</p>
   {% endif %}
 
-  <h2>Resources</h2>
-  <ul>
-  {% for resource in resources %}
-    <li><a href="{{ resource.file }}" target="_blank">{{resource.link_text}}</a></li>
-  {% endfor %}
-  </ul>
-
-  <h2>Engineering design challenges your student will complete</h2>
-  <div class="row">
-    {% for challenge in challenges %}
-      <div class="col-xs-12 col-sm-4 col-md-2">
-	<div class="thumbnail panel panel-default">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">
-	      <a href="{% url 'challenges:challenge' challenge.id %}">
-		{{ challenge.name }}
-	      </a>
-	    </h3>
-	  </div>
-	  <div class="image-container">
-	    <a href="{% url 'challenges:challenge' challenge.id %}">
-	      <img src="{{ challenge.image.url }}">
-	    </a>
-	  </div>
-	  <div class="panel-body"></div>
-	</div>
-      </div>
+  {% if resources|length %}
+    <h2>Resources</h2>
+    <ul>
+    {% for resource in resources %}
+      <li><a href="{{ resource.file }}" target="_blank">{{resource.link_text}}</a></li>
     {% endfor %}
-  </div>
+    </ul>
+  {% endif %}
+
+  {% if challenges|length %}
+    <h2>Engineering design challenges your student will complete</h2>
+    <div class="challenges-list">
+      <div class="row">
+        {% for challenge in challenges %}
+          <div class="col-xs-6 col-sm-6 col-md-4">
+    	      <div class="panel panel-default">
+    	        <div class="panel-heading">
+    	          <h3 class="panel-title">
+    	            <a href="{% url 'challenges:challenge' challenge.id %}">
+    		            {{ challenge.name }}
+    	            </a>
+    	          </h3>
+    	        </div>
+    	        <div class="image-container">
+    	          <a href="{% url 'challenges:challenge' challenge.id %}">
+    	            <img src="{{ challenge.image.url }}">
+    	          </a>
+    	        </div>
+    	        <div class="panel-body">
+                {{ challenge.description }}
+              </div>
+    	      </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
 
   {% if unit.standards_alignment_image %}
     <h2>NGSS Standards Alignment</h2>
