@@ -8,49 +8,31 @@
   <li><a href="{% url 'root' %}">Home</a></li>
   <li>Units</li>
 </ol>
-<h1>Engineering Design Units</h1>
+<h1 class="full-width">
+  Engineering Design Units<br/>
+  <small>Inspire your students to be curious, creative, and persistent learners!</small>
+</h1>
 <p>
-  To make Curiosity Machine an even better resource for you, we have grouped our engineering design into educator-friendly units!
+  Curiosity Machine units are project-based and provide a hands-on, engaging learning experience for your students.
 </p>
 <p>
-  Check our units below for teacher lesson plans, student workbooks, NGSS Standards Alignment and online support structures.
+  Each unit is supported by:
 </p>
-<hr />
+<ul>
+  <li>An Educator Lesson Guide with 5 lesson plans and Frequently Asked Questions section.</li>
+  <li>A Student Workbook with worksheets that support each lesson.</li>
+  <li>Next Generation Science Standards alignment for students in grades 6-8.</li>
+  <li>Individual mentorship for students who use Curiosity Machine.</li>
+  <li>Individual student design portfolios on Curiosity Machine.</li>
+</ul>
+<p>
+  Learn more about Curiosity Machine <a href="/about" target="_blank">here</a>, or send inquiries about training for educators to use these resources to <a href="mailto:curiosity@iridescentlearning.org?subject=Units Training" target="_top">curiosity@iridescentlearning.org</a>
+</p>
+
 <ul class="challenges-list owl-carousel panel-carousel">
   {% for unit in units %}
    {% include "_unit_item.html" with unit=unit %}
   {% endfor %}
 </ul>
-
-<hr />
-<h3>How to use these units</h3>
-<p>
-  Each unit has a series of Curiosity Machine’s engineering design challenges scaffolded together to teach the engineering design process in a classroom setting. We have created supporting tools for each unit to help you bring this hands-on, project based learning to your students!
-</p>
-
-<p>
-  The basics about each unit:
-</p>
-<ul>
-  <li>Aligned to the Next Generation Science Standards, with a focus on 6-8th grade Middle School Engineering Design standards, but can be adapted for use into any classroom.</li>
-  <li>Contains an Educator Resource Book with five hands-on lesson plans, Frequently Asked Questions and appendix sections.</li>
-  <li>Contains a Student Workbook with worksheets that support each lesson.</li>
-  <li>Every engineering design challenge in the units is posted and supported on CuriosityMachine.org for you to reference at anytime.</li>
-</ul>
-
-<p>
-  Curiosity Machine provides you with free access to engineering design challenges developed by scientists and engineers and tested by educators.
-</p>
-<ul>
-  <li>Each challenge guides a student through the steps of the engineering design process, from planning to reflection.</li>
-  <li>By documenting their building process online, students get the chance to iterate on their inventions with the support of a trained scientist or engineer mentor. This support is a unique structure for providing highly individualized feedback to each student.</li>
-</ul>
-<p>
-  <a href="https://www.youtube.com/watch?v=XBAE46x2qio" target="_blank">Explore how your students can use Curiosity Machine!</a>
-</p>
-
-<p>
-  Questions about how to integrate Curiosity Machine into your learning environment? Email us at <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>. We’d love to support you in bringing hands on engineering design process activities to your students!
-</p>
 
 {% endblock %}
