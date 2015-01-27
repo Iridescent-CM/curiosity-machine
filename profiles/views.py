@@ -3,7 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from curiositymachine.decorators import mentor_only
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseServerError
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
@@ -126,11 +126,16 @@ def mentor_profile(request, username):
 
 @login_required
 def profile_edit(request):
+    if request.user.profile.is_mentor:
+        return mentor_profile_edit(request)
+    elif request.user.profile.is_student:
+        return student_profile_edit(request)
+    else:
+        return HttpResponseServerError("Unexpected profile type")
+
+def mentor_profile_edit(request):
     if request.method == 'POST':
-        if request.user.profile.is_mentor:
-            form = MentorProfileEditForm(request=request, data=request.POST)
-        else:
-            form = StudentProfileEditForm(request=request, data=request.POST)
+        form = MentorProfileEditForm(request=request, data=request.POST)
         if form.is_valid():
             data = form.cleaned_data
             create_or_edit_user(data, request.user)
@@ -138,10 +143,21 @@ def profile_edit(request):
         else:
             messages.error(request, 'Correct errors below.')
     else:
-        if request.user.profile.is_mentor:
-            form = MentorProfileEditForm(request)
+        form = MentorProfileEditForm(request)
+
+    return render(request, 'profiles/mentor/profile_edit.html', {'form': form,})
+
+def student_profile_edit(request):
+    if request.method == 'POST':
+        form = StudentProfileEditForm(request=request, data=request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            create_or_edit_user(data, request.user)
+            messages.success(request, 'Profile has been updated.')
         else:
-            form = StudentProfileEditForm(request)
+            messages.error(request, 'Correct errors below.')
+    else:
+        form = StudentProfileEditForm(request)
 
     return render(request, 'profile_edit.html', {'form': form,})
 
