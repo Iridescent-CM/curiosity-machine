@@ -70,13 +70,13 @@ def join_as_mentor(request):
                 messages.success(request, 'Thanks for your interest in joining the Curiosity Machine mentor community! You will receive an email shortly with more information on how to get started.')
                 return HttpResponseRedirect('/')
         else:
-            return render(request, 'mentor_join.html', {'form': form,})
+            return render(request, 'profiles/mentor/join.html', {'form': form,})
     else:
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('profiles:home'))
         form = MentorJoinForm()
 
-    return render(request, 'mentor_join_modal.html', {'form': form,})
+    return render(request, 'profiles/mentor/join_modal.html', {'form': form,})
 
 @login_required
 def home(request):

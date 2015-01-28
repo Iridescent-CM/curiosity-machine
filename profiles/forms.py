@@ -81,9 +81,7 @@ class JoinForm(ProfileFormBase):
 
 class MentorJoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
-    city = forms.CharField(required=False, label="City")
     birthday = forms.DateField(required=False, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
-
     title = forms.CharField(required=False, label="What Is My Profession")
     employer = forms.CharField(required=False, label="Where Do I Work?")
 
@@ -128,8 +126,9 @@ class StudentProfileEditForm(ProfileFormBase):
         self.fields['parent_last_name'].initial = self.user.profile.parent_last_name
 
 class MentorProfileEditForm(ProfileFormBase):
-    title = forms.CharField(required=True, label="What Is My Profession")
-    employer = forms.CharField(required=True, label="Where Do I Work?")
+    title = forms.CharField(required=False, label="What Is My Profession")
+    employer = forms.CharField(required=False, label="Where Do I Work?")
+    birthday = forms.DateField(required=False, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
     about_me = forms.CharField(required=False, label="About Me")
     about_me_filepicker_mimetype_widget = forms.HiddenInput(attrs={"id":"about_me_mimetype"})
     about_me_filepicker_url = FilePickerDragDropField(
