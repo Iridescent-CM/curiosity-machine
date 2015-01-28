@@ -65,12 +65,12 @@ class ProgressAdmin(admin.ModelAdmin):
 admin.site.register(Challenge, ChallengeAdmin)
 admin.site.register(Progress, ProgressAdmin)
 
-class ThemeAdmin(admin.ModelAdmin):
-    formfield_overrides = {
-        models.TextField: {'widget': forms.TextInput},
-    }
+# class ThemeAdmin(admin.ModelAdmin):
+#     formfield_overrides = {
+#         models.TextField: {'widget': forms.TextInput},
+#     }
 
-admin.site.register(Theme, ThemeAdmin)
+admin.site.register(Theme) #, ThemeAdmin)
 admin.site.register(Question)
 
 class ExampleAdmin(admin.ModelAdmin):
