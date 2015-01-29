@@ -21,6 +21,7 @@ class Profile(models.Model):
     parent_last_name = models.TextField(blank=True)
     title = models.TextField(blank=True, help_text="This is a mentor only field.")
     employer = models.TextField(blank=True, help_text="This is a mentor only field.")
+    expertise = models.TextField(blank=True, help_text="This is a mentor only field.")
     about_me = models.TextField(blank=True, help_text="This is a mentor only field.")
     about_me_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_me_image")
     about_me_video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_me_video")

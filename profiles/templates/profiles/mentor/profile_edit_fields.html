@@ -49,6 +49,11 @@
       {{form.employer}}
       <div class="errors">{{ form.employer.errors }}</div>
     </div>
+    <div>
+      {{form.expertise.label_tag}}
+      {{form.expertise}}
+      <div class="errors">{{ form.expertise.errors }}</div>
+    </div>
      <div>
       {{form.picture_filepicker_url.label_tag}}
       {% include "_avatar.html" with profile=request.user.profile width=150 height=150 crop='fit' %}

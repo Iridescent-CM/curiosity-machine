@@ -129,6 +129,7 @@ class StudentProfileEditForm(ProfileFormBase):
 class MentorProfileEditForm(ProfileFormBase):
     title = forms.CharField(required=False, label="What Is My Profession")
     employer = forms.CharField(required=False, label="Where Do I Work?")
+    expertise = forms.CharField(required=False, label="Expertise In", widget=forms.Textarea)
     birthday = forms.DateField(required=False, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
     about_me = forms.CharField(required=False, label="About Me")
     about_me_filepicker_mimetype_widget = forms.HiddenInput(attrs={"id":"about_me_mimetype"})

@@ -44,6 +44,7 @@ def create_or_edit_user(data, user=None):
     if user.profile.is_mentor:
         profile.title = data['title']
         profile.employer = data['employer']
+        profile.expertise = data['expertise']
         if 'about_me' in data:
             profile.about_me = data['about_me']
         if 'about_research' in data:
