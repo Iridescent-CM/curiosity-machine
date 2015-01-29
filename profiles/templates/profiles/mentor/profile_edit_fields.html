@@ -56,7 +56,7 @@
     </div>
      <div>
       {{form.picture_filepicker_url.label_tag}}
-      {% include "_avatar.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
+      {% include "_avatar.html" with profile=request.user.profile width=327 height=327 crop='fit' %}
       {{form.picture_filepicker_url}}
       <div class="errors">{{ form.picture_filepicker_url.errors }}</div>
     </div>
