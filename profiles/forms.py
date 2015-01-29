@@ -87,6 +87,7 @@ class MentorJoinForm(ProfileFormBase):
 
     def __init__(self, request=None, *args, **kwargs):
         super(MentorJoinForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = True
         self._request = request
 
     def clean(self):
@@ -163,6 +164,7 @@ class MentorProfileEditForm(ProfileFormBase):
         super(MentorProfileEditForm, self).__init__(*args, **kwargs)
         self._request = request
         self.user = request.user
+        self.fields['email'].required = True
         self.fields['password'].required = False
         self.fields['confirm_password'].required = False
         self._initial_values()
