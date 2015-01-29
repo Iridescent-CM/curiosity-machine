@@ -43,7 +43,7 @@ class Challenge(models.Model):
     learn_more = models.TextField(help_text="HTML, shown in the guide")
     materials_list = models.TextField(help_text="HTML")
     students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True, related_name="challenges")
-    theme = models.ForeignKey(Theme, null=True, blank=True, on_delete=models.SET_NULL, related_name='challenge_theme')
+    # theme = models.ForeignKey(Theme, null=True, blank=True, on_delete=models.SET_NULL, related_name='challenge_theme')
     categories = models.ManyToManyField(Theme, null=True, blank=True)
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
