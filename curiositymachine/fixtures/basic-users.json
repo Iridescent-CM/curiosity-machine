@@ -139,7 +139,7 @@
             "about_me": "",
             "about_research": "",
             "approved": true,
-            "birthday": "",
+            "birthday": null,
             "city": "Curiosityville",
             "employer": "",
             "gender": "",
