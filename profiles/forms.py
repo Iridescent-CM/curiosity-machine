@@ -178,4 +178,5 @@ class MentorProfileEditForm(ProfileFormBase):
         self.fields['employer'].initial = self.user.profile.employer
         self.fields['about_me'].initial = self.user.profile.about_me
         self.fields['about_research'].initial = self.user.profile.about_research
+        self.fields['expertise'].initial = self.user.profile.expertise
 
