@@ -31,14 +31,14 @@ CM.Profile = {
   },
   bind : function() {
     var self = this
-    $('.birthday-field').find('select').on('change', function(e) {
+    $('.student-column .birthday-field').find('select').on('change', function(e) {
       self.show_or_hide_parent_fields();
     });
   },
   show_or_hide_parent_fields : function() {
-    var day = $('#id_birthday_day').val();
-    var month = $('#id_birthday_month').val() - 1;
-    var year = $('#id_birthday_year').val();
+    var day = $('.student-column #id_birthday_day').val();
+    var month = $('.student-column #id_birthday_month').val() - 1;
+    var year = $('.student-column #id_birthday_year').val();
     var today = new Date();
     var age = today.getFullYear() - year;
     if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
@@ -47,11 +47,11 @@ CM.Profile = {
     if (age < 13) {
       $('.parent-info').show();
       $('.student-column').removeClass('col-md-6').addClass('col-md-4');
-      $("label[for='id_email']").text('Parent Email:');
+      $(".student-column label[for='id_email']").text('Parent Email:');
     } else {
       $('.parent-info').hide();
       $('.student-column').removeClass('col-md-4').addClass('col-md-6');
-      $("label[for='id_email']").text('Email:');
+      $(".student-column label[for='id_email']").text('Email:');
     }
   },
 }
