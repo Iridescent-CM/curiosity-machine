@@ -3,7 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from curiositymachine.decorators import mentor_only
-from django.http import HttpResponseRedirect, HttpResponseServerError
+from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
@@ -20,8 +20,6 @@ from dateutil.relativedelta import relativedelta
 from django.utils.timezone import now
 
 from django.conf import settings
-
-
 
 @transaction.atomic
 def join(request):
