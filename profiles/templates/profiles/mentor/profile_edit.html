@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{request.user.username }}'s Profile</h1>
+  <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
+    {% csrf_token %}
+    <div class="clearfix">
+    {% include "profiles/mentor/profile_edit_fields.html" with page='edit' %}
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
+  </form>
+{% endblock %}

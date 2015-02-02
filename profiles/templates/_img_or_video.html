@@ -1,0 +1,8 @@
+{% load resized %}
+{% load staticfiles %}
+
+{% if video %}
+  {% include "_video.html" with video=video %}
+{% elif image %}
+  <img src="{% resized image.url width=width height=height crop=crop %}" class="img-responsive" />
+{% endif %}

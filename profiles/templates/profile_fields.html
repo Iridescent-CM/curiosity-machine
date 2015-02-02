@@ -52,31 +52,6 @@
     </div>
   </div>
 
-{% if request.user.profile.is_mentor %}
-  <div class="col-md-4">
-    <div>
-      {{form.title.label_tag}}
-      {{form.title}}
-      <div class="errors">{{ form.title.errors }}</div>
-    </div>
-    <div>
-      {{form.employer.label_tag}}
-      {{form.employer}}
-      <div class="errors">{{ form.employer.errors }}</div>
-    </div>
-    <div>
-      {{form.about_me.label_tag}}
-      <textarea id="{{form.about_me.id_for_label}}" name="{{form.about_me.html_name}}">{{ form.about_me.value }}</textarea>
-      <div class="errors">{{ form.about_me.errors }}</div>
-    </div>
-    <div>
-      {{form.about_research.label_tag}}
-      
-      <textarea id="{{form.about_research.id_for_label}}" name="{{form.about_research.html_name}}">{{ form.about_research.value }}</textarea>
-      <div class="errors">{{ form.about_research.errors }}</div>
-    </div>
-  </div>
-  {% else %}
   <div class="col-md-4 parent-info" {% if page != 'join' and request.user.profile.age >= 13 %} style="display:none" {% endif %} >
     <h3>Parent</h3>
     <div>
@@ -90,7 +65,6 @@
       <div class="errors">{{ form.parent_last_name.errors }}</div>
     </div>
   </div>
-  {% endif %}
 {{ form.non_field_errors }}
 
 </div>
