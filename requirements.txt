@@ -31,6 +31,9 @@ requests==2.2.1
 #interface to S3
 tinys3==0.1.9
 
+#admin upload to s3
+django-s3direct==0.3.9
+
 #video encoding service
 zencoder==0.6.5
 
@@ -58,5 +61,8 @@ django-recaptcha==1.0
 #ssl only
 django-sslify>=0.2
 
+
 #asset compression
 django-compressor==1.4
+
+python-dateutil==2.3

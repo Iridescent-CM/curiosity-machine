@@ -12,7 +12,7 @@ import django_rq
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
-from curiositymachine.decorators import mentor_or_current_student, mentor_only
+from curiositymachine.decorators import mentor_or_current_user, mentor_only
 from videos.models import Video
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
@@ -50,7 +50,7 @@ def build_guest(request, challenge_id):
     return render(request, 'challenge_build_guest.html', {'challenge': challenge})
 
 @login_required
-@mentor_or_current_student
+@mentor_or_current_user
 def challenge_progress(request, challenge_id, username, stage=None): # stage will be one of None, "plan", "build". "build" encompasses the reflection stage
     challenge = get_object_or_404(Challenge, id=challenge_id)
 

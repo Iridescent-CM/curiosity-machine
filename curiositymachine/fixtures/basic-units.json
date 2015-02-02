@@ -1,0 +1,82 @@
+[
+    {
+        "fields": {
+            "materials_list": "<ol>\r\n<li>water</li>\r\n<li>sand</li>\r\n<li>mud</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+            "plan_subheader": "Plan the whole thing.",
+            "image": 1,
+            "video": null,
+            "plan_call_to_action": "Plan it!",
+            "theme": null,
+            "build_call_to_action": "Build it!",
+            "name": "Challenge 5",
+            "build_subheader": "Build the thing.",
+            "how_to_make_it": "<p>This is how to make challenge 5.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
+            "learn_more": "Learn <strong>more</strong> about challenge 4!",
+            "reflect_subheader": "Reflect on the thing.",
+            "description": "This is the description for challenge 5!",
+            "reflect_questions": [
+                1
+            ]
+        },
+        "pk": 5,
+        "model": "challenges.challenge"
+    },
+    {
+        "fields": {
+            "key": "images/41a3b1aaa8bb905bc2d35c3dff44d919",
+            "md5_hash": "41a3b1aaa8bb905bc2d35c3dff44d919",
+            "source_url": "https://www.filepicker.io/api/file/zeHq9X5ZSomN9BRrPLeQ"
+        },
+        "pk": 6,
+        "model": "images.image"
+    },
+    {
+        "fields": {
+            "key": "images/41a3b1aaa8bb905bc2d35c3dff44d919",
+            "md5_hash": "41a3b1aaa8bb905bc2d35c3dff44d919",
+            "source_url": "https://www.filepicker.io/api/file/zeHq9X5ZSomN9BRrPLeQ"
+        },
+        "pk": 7,
+        "model": "images.image"
+    },
+    {
+        "fields": {
+            "name": "unit 1",
+            "description": "unit 1 description",
+            "overview": "unit 1 overview",
+            "created_at": "2014-12-04T17:32:47.197Z",
+            "updated_at": "2014-12-04T17:32:47.197Z",
+            "standards_alignment_image": 6,
+            "image": 6,
+            "challenges": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ]
+        },
+        "model": "units.unit",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "name": "unit 2",
+            "description": "unit 2 description",
+            "overview": "unit 2 overview",
+            "created_at": "2014-12-04T17:32:47.197Z",
+            "updated_at": "2014-12-04T17:32:47.197Z",
+            "standards_alignment_image": 7,
+            "image": 7,
+            "challenges": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ]
+        },
+        "model": "units.unit",
+        "pk": 2
+    }
+]

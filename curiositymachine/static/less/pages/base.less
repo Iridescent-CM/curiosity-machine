@@ -12,19 +12,18 @@ body {
 
 #main-container {
   background: @bg-color;
+  min-height: 100%;
 }
 
 .main-column {
   margin-left: auto;
   margin-right: auto;
-  min-height: 100%;
   position: relative;
   overflow-x: hidden;
   max-width: @container-lg;
 }
 .container-fluid {
   position: relative;
-  min-height: 100%;
   width: 100%;
   margin-left: 0px;
   padding-left: @grid-side-gutters;
@@ -469,6 +468,9 @@ body {
   & > h1 {
     margin: -10px 200px 30px 0px;
   }
+  & > h1.full-width {
+    margin: -10px 0px 30px 0px;
+  }
 }
 
 .footer-content {
@@ -633,15 +635,6 @@ margin-left: auto;
    position: relative;
    top: 3px;
    font-size: @font-size-small;
-  }
-}
-
-.reflect-image {
-  .panel-bubble & h3 {
-    text-align: left;
-    margin-bottom: 0;
-    font-weight: 600;
-    padding-bottom: 20px;
   }
 }
 
@@ -853,3 +846,24 @@ margin-left: auto;
   margin-top: 40px;
   margin-bottom: 40px;
 }
+
+// units
+.unit-info {
+  .image-wrapper {
+      padding: 13px 5px 5px 5px;
+      .border-bottom-radius(7px);
+      img {
+        width: 100%;
+      }
+      span {
+        display: block;
+        text-align: center;
+        font-weight: 600;
+      }
+    }
+
+  .challenges-list {
+    margin-top: 20px;
+  }
+}
+

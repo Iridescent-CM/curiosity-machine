@@ -38,7 +38,8 @@
     </div><!-- /column 1 -->
 
   <div class="col-md-1">
-    <img src="http://s3.amazonaws.com/curiositymachine/images/placeholder.png" width="60" height="80">  
+    <img src="{% resized MEDIA_URL|add:'images/placeholder.png' width=60 height=80 %}"
+      width=60 height=80 />
   </div>
 
 

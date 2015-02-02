@@ -41,6 +41,7 @@ class Challenge(models.Model):
     description = models.TextField(help_text="One line of plain text, shown on the inspiration page")
     how_to_make_it = models.TextField(help_text="HTML, shown in the guide")
     learn_more = models.TextField(help_text="HTML, shown in the guide")
+    mentor_guide = models.TextField(help_text="HTML, shown in the mentor guide", null=True)
     materials_list = models.TextField(help_text="HTML")
     students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True, related_name="challenges")
     theme = models.ForeignKey(Theme, null=True, blank=True, on_delete=models.SET_NULL)
@@ -121,7 +122,7 @@ class Progress(models.Model):
         if self.student.profile.is_mentor:
             raise ValidationError("Mentors can not start a challenge")
         if self.mentor and not self.mentor.profile.is_mentor:
-            raise ValidationError("The mentor of a challenge can not be a student")
+            raise ValidationError("The mentor of a challenge must be a mentor")
         else:
             super(Progress, self).save(*args, **kwargs)
 

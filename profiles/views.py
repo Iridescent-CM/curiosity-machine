@@ -3,7 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from curiositymachine.decorators import mentor_only
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseServerError
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
@@ -16,6 +16,12 @@ from django.db import transaction
 import password_reset.views
 import password_reset.forms
 from datetime import date
+from dateutil.relativedelta import relativedelta
+from django.utils.timezone import now
+
+from django.conf import settings
+
+
 
 @transaction.atomic
 def join(request):
@@ -23,6 +29,7 @@ def join(request):
         form = JoinForm(request=request, data=request.POST)
         if form.is_valid():
             data = form.cleaned_data
+            data['is_student'] = True
             try:
                 create_or_edit_user(data)
             except IntegrityError:
@@ -63,13 +70,13 @@ def join_as_mentor(request):
                 messages.success(request, 'Thanks for your interest in joining the Curiosity Machine mentor community! You will receive an email shortly with more information on how to get started.')
                 return HttpResponseRedirect('/')
         else:
-            return render(request, 'mentor_join.html', {'form': form,})
+            return render(request, 'profiles/mentor/join.html', {'form': form,})
     else:
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('profiles:home'))
         form = MentorJoinForm()
 
-    return render(request, 'mentor_join_modal.html', {'form': form,})
+    return render(request, 'profiles/mentor/join_modal.html', {'form': form,})
 
 @login_required
 def home(request):
@@ -78,7 +85,10 @@ def home(request):
         accessible_modules = training_modules
         completed_modules = [module for module in training_modules if module.is_finished_by_mentor(request.user)]
         uncompleted_modules = [module for module in training_modules if not module.is_finished_by_mentor(request.user)]
-        progresses = Progress.objects.filter(mentor=request.user).order_by('-started').select_related("challenge")
+        
+        startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
+        
+        progresses = Progress.objects.filter(mentor=request.user, started__gt=startdate).order_by('-started').select_related("challenge")
         unclaimed_days = [(day, Progress.unclaimed(day[0])[0]) for day in Progress.unclaimed_days()]
         challenges = {progress.challenge for progress in progresses}
         return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_days': unclaimed_days, 'training_modules': training_modules, 'accessible_modules': accessible_modules, 'completed_modules': completed_modules, 'uncompleted_modules': uncompleted_modules})
@@ -116,11 +126,16 @@ def mentor_profile(request, username):
 
 @login_required
 def profile_edit(request):
+    if request.user.profile.is_mentor:
+        return mentor_profile_edit(request)
+    elif request.user.profile.is_student:
+        return student_profile_edit(request)
+    else:
+        return HttpResponseServerError("Unexpected profile type")
+
+def mentor_profile_edit(request):
     if request.method == 'POST':
-        if request.user.profile.is_mentor:
-            form = MentorProfileEditForm(request=request, data=request.POST)
-        else:
-            form = StudentProfileEditForm(request=request, data=request.POST)
+        form = MentorProfileEditForm(request=request, data=request.POST)
         if form.is_valid():
             data = form.cleaned_data
             create_or_edit_user(data, request.user)
@@ -128,10 +143,21 @@ def profile_edit(request):
         else:
             messages.error(request, 'Correct errors below.')
     else:
-        if request.user.profile.is_mentor:
-            form = MentorProfileEditForm(request)
+        form = MentorProfileEditForm(request)
+
+    return render(request, 'profiles/mentor/profile_edit.html', {'form': form,})
+
+def student_profile_edit(request):
+    if request.method == 'POST':
+        form = StudentProfileEditForm(request=request, data=request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            create_or_edit_user(data, request.user)
+            messages.success(request, 'Profile has been updated.')
         else:
-            form = StudentProfileEditForm(request)
+            messages.error(request, 'Correct errors below.')
+    else:
+        form = StudentProfileEditForm(request)
 
     return render(request, 'profile_edit.html', {'form': form,})
 

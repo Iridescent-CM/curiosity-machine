@@ -1,0 +1,158 @@
+[
+    {
+        "fields": {
+            "date_joined": "2014-12-04T17:32:31.974Z",
+            "email": "cmadmin@mailinator.com",
+            "first_name": "",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": true,
+            "last_login": "2014-12-04T17:32:47.197Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$12000$V3RRRxcO8N4b$6XnZOwnvEl4J1mlMqKfFpNF92wENLz57+rDb5tT9rlc=",
+            "user_permissions": [],
+            "username": "admin"
+        },
+        "model": "auth.user",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "date_joined": "2014-12-04T17:37:18Z",
+            "email": "childsmith@mailinator.com",
+            "first_name": "Child",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": "2014-12-04T17:37:18Z",
+            "last_name": "Smith",
+            "password": "pbkdf2_sha256$12000$Y7FwrJ9I419X$gzXZ/zx6aaSbIPdLmpATGC9RD0pEnSg9CH0OT3oY4/Y=",
+            "user_permissions": [],
+            "username": "child"
+        },
+        "model": "auth.user",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "date_joined": "2014-12-04T17:39:29Z",
+            "email": "teenjones@mailinator.com",
+            "first_name": "Teen",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": "2014-12-04T17:39:29Z",
+            "last_name": "Jones",
+            "password": "pbkdf2_sha256$12000$fPogydFeXznh$iA7JnX2CFFulUMzuFLpT0OoZITWzImriLc3xzrW1DP8=",
+            "user_permissions": [],
+            "username": "teen"
+        },
+        "model": "auth.user",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "date_joined": "2014-12-04T17:41:20Z",
+            "email": "mentorwilliams@mailinator.com",
+            "first_name": "Mentor",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": "2014-12-04T17:41:20Z",
+            "last_name": "Williams",
+            "password": "pbkdf2_sha256$12000$bIqjtZOcl4k7$NXPGC5WkmFiEPFskBjWadNO0k1FXBjpqM4NqIKZmarE=",
+            "user_permissions": [],
+            "username": "mentor"
+        },
+        "model": "auth.user",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "about_me": "",
+            "about_research": "",
+            "approved": false,
+            "birthday": null,
+            "city": "",
+            "employer": "",
+            "gender": "",
+            "image": null,
+            "is_mentor": false,
+            "is_student": false,
+            "last_active_on": "2014-12-04T17:42:35.666Z",
+            "parent_first_name": "",
+            "parent_last_name": "",
+            "title": "",
+            "user": 1
+        },
+        "model": "profiles.profile",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "about_me": "",
+            "about_research": "",
+            "approved": true,
+            "birthday": "2013-12-01",
+            "city": "",
+            "employer": "",
+            "gender": "",
+            "image": null,
+            "is_mentor": false,
+            "is_student": true,
+            "last_active_on": "2014-12-04T17:37:18Z",
+            "parent_first_name": "",
+            "parent_last_name": "",
+            "title": "",
+            "user": 2
+        },
+        "model": "profiles.profile",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "about_me": "",
+            "about_research": "",
+            "approved": true,
+            "birthday": "1999-12-04",
+            "city": "",
+            "employer": "",
+            "gender": "",
+            "image": null,
+            "is_mentor": false,
+            "is_student": true,
+            "last_active_on": "2014-12-04T17:39:29Z",
+            "parent_first_name": "",
+            "parent_last_name": "",
+            "title": "",
+            "user": 3
+        },
+        "model": "profiles.profile",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "about_me": "",
+            "about_research": "",
+            "approved": true,
+            "birthday": null,
+            "city": "Curiosityville",
+            "employer": "",
+            "gender": "",
+            "image": null,
+            "is_mentor": true,
+            "is_student": false,
+            "last_active_on": "2014-12-04T17:41:20Z",
+            "parent_first_name": "",
+            "parent_last_name": "",
+            "title": "",
+            "user": 4
+        },
+        "model": "profiles.profile",
+        "pk": 4
+    }
+]

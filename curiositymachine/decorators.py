@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 
-def mentor_or_current_student(view):
+def mentor_or_current_user(view):
     @wraps(view)
     def inner(request, challenge_id, username, *args, **kwargs):
         if request.user.profile.is_mentor or request.user.username == username: 

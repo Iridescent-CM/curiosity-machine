@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.forms.extras.widgets import SelectDateWidget
 from django.conf import settings
 from datetime import datetime
-from curiositymachine.forms import FilePickerURLField, FilePickerDragDropField
+from curiositymachine.forms import FilePickerDragDropField
 from datetime import date
 
 import re
@@ -63,7 +63,7 @@ class JoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
     parent_first_name = forms.CharField(required=False, label="First Name")
     parent_last_name = forms.CharField(required=False, label="Last Name")
-    
+
 
     def __init__(self, request=None, *args, **kwargs):
         super(JoinForm, self).__init__(*args, **kwargs)
@@ -81,16 +81,13 @@ class JoinForm(ProfileFormBase):
 
 class MentorJoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
-    city = forms.CharField(required=False, label="City")
     birthday = forms.DateField(required=False, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
-
     title = forms.CharField(required=False, label="What Is My Profession")
     employer = forms.CharField(required=False, label="Where Do I Work?")
-    about_me = forms.CharField(required=False, label="About Me")
-    about_research = forms.CharField(required=False, label="About My Research")
 
     def __init__(self, request=None, *args, **kwargs):
         super(MentorJoinForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = True
         self._request = request
 
     def clean(self):
@@ -130,15 +127,45 @@ class StudentProfileEditForm(ProfileFormBase):
         self.fields['parent_last_name'].initial = self.user.profile.parent_last_name
 
 class MentorProfileEditForm(ProfileFormBase):
-    title = forms.CharField(required=True, label="What Is My Profession")
-    employer = forms.CharField(required=True, label="Where Do I Work?")
-    about_me = forms.CharField(required=True, label="About Me")
-    about_research = forms.CharField(required=True, label="About My Research")
+    title = forms.CharField(required=False, label="What Is My Profession")
+    employer = forms.CharField(required=False, label="Where Do I Work?")
+    expertise = forms.CharField(required=False, label="Expertise In", widget=forms.Textarea)
+    birthday = forms.DateField(required=False, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
+    about_me = forms.CharField(required=False, label="About Me")
+    about_me_filepicker_mimetype_widget = forms.HiddenInput(attrs={"id":"about_me_mimetype"})
+    about_me_filepicker_url = FilePickerDragDropField(
+        label="About Me Photo or Video",
+        mimetypes="video/*,image/*",
+        openTo='WEBCAM',
+        services='VIDEO,WEBCAM,COMPUTER',
+        required=False,
+        mimetype_widget=about_me_filepicker_mimetype_widget
+    )
+    about_me_filepicker_mimetype = forms.CharField(
+        required=False, 
+        widget=about_me_filepicker_mimetype_widget
+    )
+
+    about_research = forms.CharField(required=False, label="About My Research")
+    about_research_filepicker_mimetype_widget = forms.HiddenInput(attrs={"id":"about_research_mimetype"})
+    about_research_filepicker_url = FilePickerDragDropField(
+        label="About My Research Photo or Video",
+        mimetypes="video/*,image/*",
+        openTo='WEBCAM',
+        services='VIDEO,WEBCAM,COMPUTER',
+        required=False,
+        mimetype_widget=about_research_filepicker_mimetype_widget
+    )
+    about_research_filepicker_mimetype = forms.CharField(
+        required=False, 
+        widget=about_research_filepicker_mimetype_widget
+    )
 
     def __init__(self, request, *args, **kwargs):
         super(MentorProfileEditForm, self).__init__(*args, **kwargs)
         self._request = request
         self.user = request.user
+        self.fields['email'].required = True
         self.fields['password'].required = False
         self.fields['confirm_password'].required = False
         self._initial_values()
@@ -151,4 +178,5 @@ class MentorProfileEditForm(ProfileFormBase):
         self.fields['employer'].initial = self.user.profile.employer
         self.fields['about_me'].initial = self.user.profile.about_me
         self.fields['about_research'].initial = self.user.profile.about_research
+        self.fields['expertise'].initial = self.user.profile.expertise
 

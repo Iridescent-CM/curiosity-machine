@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block title %}Curiosity Machine Units{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li>Units</li>
+</ol>
+<h1 class="full-width">
+  Engineering Design Units<br/>
+  <small>Inspire your students to be curious, creative, and persistent learners!</small>
+</h1>
+<p>
+  Curiosity Machine units are project-based and provide a hands-on, engaging learning experience for your students.
+</p>
+<p>
+  Each unit is supported by:
+</p>
+<ul>
+  <li>An Educator Lesson Guide with 5 lesson plans and Frequently Asked Questions section.</li>
+  <li>A Student Workbook with worksheets that support each lesson.</li>
+  <li>Next Generation Science Standards alignment for students in grades 6-8.</li>
+  <li>Individual mentorship for students who use Curiosity Machine.</li>
+  <li>Individual student design portfolios on Curiosity Machine.</li>
+</ul>
+<p>
+  Learn more about Curiosity Machine <a href="/about" target="_blank">here</a>, or send inquiries about training for educators to use these resources to <a href="mailto:curiosity@iridescentlearning.org?subject=Units Training" target="_top">curiosity@iridescentlearning.org</a>
+</p>
+
+<ul class="challenges-list owl-carousel panel-carousel">
+  {% for unit in units %}
+   {% include "_unit_item.html" with unit=unit %}
+  {% endfor %}
+</ul>
+
+{% endblock %}
