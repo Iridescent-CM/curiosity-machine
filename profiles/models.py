@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from images.models import Image
+from videos.models import Video
 from datetime import date, timedelta
 from cmcomments.models import Comment
 from cmemails import deliver_email
@@ -11,7 +12,8 @@ from django.utils.timezone import now
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
-    is_mentor = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False, verbose_name="Student access")
+    is_mentor = models.BooleanField(default=False, verbose_name="Mentor access")
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
     city = models.TextField(blank=True)
@@ -19,8 +21,15 @@ class Profile(models.Model):
     parent_last_name = models.TextField(blank=True)
     title = models.TextField(blank=True, help_text="This is a mentor only field.")
     employer = models.TextField(blank=True, help_text="This is a mentor only field.")
+    expertise = models.TextField(blank=True, help_text="This is a mentor only field.")
     about_me = models.TextField(blank=True, help_text="This is a mentor only field.")
+    about_me_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_me_image")
+    about_me_video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_me_video")
+
     about_research = models.TextField(blank=True, help_text="This is a mentor only field.")
+    about_research_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_research_image")
+    about_research_video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_research_video")
+
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
@@ -38,11 +47,7 @@ class Profile(models.Model):
     def inactive_students(cls):
          startdate = now()
          enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
-         return cls.objects.filter(last_active_on__lt=enddate,is_mentor=False, last_inactive_email_sent_on=None)
-
-    @property
-    def is_student(self):
-        return not self.is_mentor
+         return cls.objects.filter(last_active_on__lt=enddate,is_student=True, last_inactive_email_sent_on=None)
 
     @property
     def age(self):

@@ -72,6 +72,8 @@ INSTALLED_APPS = (
     'cmemails',
     'tsl',
     'compressor',
+    'units',
+    's3direct',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,6 +110,8 @@ ROOT_URLCONF = 'curiositymachine.urls'
 WSGI_APPLICATION = 'curiositymachine.wsgi.application'
 
 LOGIN_URL = '/login/'
+
+CSRF_FAILURE_VIEW = 'curiositymachine.views.csrf_failure_handler'
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
@@ -147,6 +151,14 @@ FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "curiositymachine")
+
+S3DIRECT_REGION = os.getenv("S3DIRECT_REGION", "us-east-1")
+S3DIRECT_DESTINATIONS = {
+    'unit-resources': (
+        'units/resources',
+        lambda u: u.is_staff,
+    )
+}
 
 ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
 
@@ -245,6 +257,8 @@ TEMPLATE_LOADERS = (
 EMAIL_INACTIVE_DAYS_MENTOR = os.environ.get("EMAIL_INACTIVE_DAYS_MENTOR", 7)
 EMAIL_INACTIVE_DAYS_STUDENT = os.environ.get("EMAIL_INACTIVE_DAYS_STUDENT", 14)
 GA_CODE = os.environ.get("GA_CODE", None)
+PROGRESS_MONTH_ACTIVE_LIMIT = os.environ.get("PROGRESS_MONTH_ACTIVE_LIMIT", 2)
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", None)
 
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 
