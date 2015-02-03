@@ -1,6 +1,5 @@
 import pytest
 import mock
-from .views import home
 from django.contrib.auth.models import User
 from profiles.models import Profile
 from challenges.models import Challenge, Progress
