@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from .models import Challenge, Theme, Progress, Question, Example, Filter
+from .forms import ThemeForm, FilterForm
 from cmcomments.models import Comment
 from videos.models import Video
 from images.models import Image
@@ -65,10 +66,9 @@ class ProgressAdmin(admin.ModelAdmin):
 admin.site.register(Challenge, ChallengeAdmin)
 admin.site.register(Progress, ProgressAdmin)
 
+
 class ThemeAdmin(admin.ModelAdmin):
-    formfield_overrides = {
-        models.TextField: {'widget': forms.TextInput},
-    }
+    form = ThemeForm
 
 admin.site.register(Theme, ThemeAdmin)
 admin.site.register(Question)
@@ -104,9 +104,7 @@ class FilterItemInline(admin.TabularInline):
     extra = 1
 
 class FilterAdmin(admin.ModelAdmin):
-    formfield_overrides = {
-        models.TextField: {'widget': forms.TextInput},
-    }
+    form = FilterForm
     name = "Filters"
     fields = ('name', 'visible', 'color',)
     list_display = ('id','name','visible', 'color',)

@@ -220,7 +220,7 @@ post_save.connect(create_example, sender=Example)
 
 class Filter(models.Model):
     name = models.TextField(blank=False, null=False, help_text="name of the filter")
-    color = models.TextField(blank=True, null=True, help_text="a hex color like 44b1cc")
+    color = models.TextField(blank=True, null=True, help_text="a hex color like #44b1cc")
     challenges = models.ManyToManyField(Challenge, related_name='filters')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
