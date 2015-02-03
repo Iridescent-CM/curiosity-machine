@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from challenges.models import Challenge
 from django.db import models, migrations
 import django.db.models.deletion
 from django.conf import settings
 
+def theme2categories(apps, schema_editor):
+   for challenge in Challenge.objects.all():
+        challenge.categories = challenge.theme
+        challenge.save()
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('challenges', '0026_auto_20140630_0708'),
+        ('challenges', '0027_challenge_mentor_guide'),
     ]
 
     operations = [
@@ -21,28 +25,26 @@ class Migration(migrations.Migration):
             name='theme',
             options={'ordering': ['name']},
         ),
+        migrations.RemoveField(
+            model_name='challenge',
+            name='theme',
+        ),
         migrations.AddField(
             model_name='challenge',
             name='categories',
-            field=models.ManyToManyField(null=True, to='challenges.Theme', blank=True),
+            field=models.ManyToManyField(to='challenges.Theme', blank=True, null=True),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='challenge',
             name='favorited',
-            field=models.ManyToManyField(null=True, related_name='favorite_challenges', to=settings.AUTH_USER_MODEL, through='challenges.Favorite'),
+            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, null=True, related_name='favorite_challenges', through='challenges.Favorite'),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='challenge',
             name='students',
-            field=models.ManyToManyField(null=True, related_name='challenges', to=settings.AUTH_USER_MODEL, through='challenges.Progress'),
-            preserve_default=True,
-        ),
-        migrations.AlterField(
-            model_name='challenge',
-            name='theme',
-            field=models.ForeignKey(to='challenges.Theme', related_name='challenge_theme', blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL),
+            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, null=True, related_name='challenges', through='challenges.Progress'),
             preserve_default=True,
         ),
         migrations.AlterField(
@@ -54,7 +56,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='progress',
             name='mentor',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='mentored_progresses', blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=django.db.models.deletion.SET_NULL, related_name='mentored_progresses', blank=True, null=True),
             preserve_default=True,
         ),
         migrations.AlterField(
