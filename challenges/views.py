@@ -165,5 +165,9 @@ def ajax_challenges(request):
     return render(request, 'ajax/challenges.html', {'challenges': challenges, 'theme': theme})
 
 def filtered_challenges(request, filter_id):
-    challenges = Filter.objects.get(pk=filter_id).challenges.all
+    theme_id = request.GET.get('theme_id')
+    if theme_id:
+        challenges = Filter.objects.get(pk=filter_id).challenges.filter(theme__id=theme_id)
+    else:
+        challenges = Filter.objects.get(pk=filter_id).challenges.all
     return render(request, 'ajax/challenges.html', {'challenges': challenges})
