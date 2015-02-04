@@ -16,6 +16,7 @@ whitenoise==0.13
 #better testing
 pretend==1.0.7
 pytest-django==2.6
+mock==1.0.1
 coverage
 
 #background worker job queueing (redis-backed)
