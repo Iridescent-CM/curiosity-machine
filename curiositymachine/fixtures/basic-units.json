@@ -47,17 +47,60 @@
             "created_at": "2014-12-04T17:32:47.197Z",
             "updated_at": "2014-12-04T17:32:47.197Z",
             "standards_alignment_image": 6,
-            "image": 6,
-            "challenges": [
-                1,
-                2,
-                3,
-                4,
-                5
-            ]
+            "image": 6
         },
         "model": "units.unit",
         "pk": 1
+    },
+    {
+        "fields": {
+            "id": 1,
+            "challenge": 1,
+            "unit": 1,
+            "display_order": 1
+        },
+        "model": "units.unitChallenge",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "id": 2,
+            "challenge": 2,
+            "unit": 1,
+            "display_order": 2
+        },
+        "model": "units.unitChallenge",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "id": 3,
+            "challenge": 3,
+            "unit": 1,
+            "display_order": 3
+        },
+        "model": "units.unitChallenge",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "id": 4,
+            "challenge": 4,
+            "unit": 1,
+            "display_order": 4
+        },
+        "model": "units.unitChallenge",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "id": 5,
+            "challenge": 5,
+            "unit": 1,
+            "display_order": 5
+        },
+        "model": "units.unitChallenge",
+        "pk": 5
     },
     {
         "fields": {
@@ -67,16 +110,59 @@
             "created_at": "2014-12-04T17:32:47.197Z",
             "updated_at": "2014-12-04T17:32:47.197Z",
             "standards_alignment_image": 7,
-            "image": 7,
-            "challenges": [
-                1,
-                2,
-                3,
-                4,
-                5
-            ]
+            "image": 7
         },
         "model": "units.unit",
         "pk": 2
+    },
+    {
+        "fields": {
+            "id": 6,
+            "challenge": 1,
+            "unit": 2,
+            "display_order": 6
+        },
+        "model": "units.unitChallenge",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "id": 7,
+            "challenge": 2,
+            "unit": 2,
+            "display_order": 7
+        },
+        "model": "units.unitChallenge",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "id": 8,
+            "challenge": 3,
+            "unit": 2,
+            "display_order": 8
+        },
+        "model": "units.unitChallenge",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "id": 9,
+            "challenge": 4,
+            "unit": 2,
+            "display_order": 9
+        },
+        "model": "units.unitChallenge",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "id": 10,
+            "challenge": 5,
+            "unit": 2,
+            "display_order": 10
+        },
+        "model": "units.unitChallenge",
+        "pk": 10
     }
 ]
