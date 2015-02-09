@@ -6,6 +6,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('profiles', '0013_auto_20141216_1041'),
+        ('videos', '__first__'),
     ]
 
     operations = [
