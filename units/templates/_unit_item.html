@@ -6,15 +6,16 @@
         <a href="{% url 'units:unit' unit.id %}">{{ unit.name }}</a>
       </h3>
     </div>
-    <!-- <div class="image-container">
-    </div> -->
+    <div class="image-container">
+      <a href="{% url 'units:unit' unit.id %}">
+        {% if unit.image %}
+          <img src="{% resized unit.image.url width=300 height=250 crop='fill' %}" />
+        {% endif %}
+      </a>
+    </div>
     <div class="panel-body">
       <div class="description">
-      	<ul>
-          {% for challenge in unit.challenges.all %}
-            <li><a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a></li>
-          {% endfor %}
-        </ul>
+        {{ unit.description }}
       </div>
     </div>
   </div>

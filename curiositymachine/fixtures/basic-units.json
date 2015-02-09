@@ -1,0 +1,168 @@
+[
+    {
+        "fields": {
+            "materials_list": "<ol>\r\n<li>water</li>\r\n<li>sand</li>\r\n<li>mud</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
+            "plan_subheader": "Plan the whole thing.",
+            "image": 1,
+            "video": null,
+            "plan_call_to_action": "Plan it!",
+            "theme": null,
+            "build_call_to_action": "Build it!",
+            "name": "Challenge 5",
+            "build_subheader": "Build the thing.",
+            "how_to_make_it": "<p>This is how to make challenge 5.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
+            "learn_more": "Learn <strong>more</strong> about challenge 4!",
+            "reflect_subheader": "Reflect on the thing.",
+            "description": "This is the description for challenge 5!",
+            "reflect_questions": [
+                1
+            ]
+        },
+        "pk": 5,
+        "model": "challenges.challenge"
+    },
+    {
+        "fields": {
+            "key": "images/41a3b1aaa8bb905bc2d35c3dff44d919",
+            "md5_hash": "41a3b1aaa8bb905bc2d35c3dff44d919",
+            "source_url": "https://www.filepicker.io/api/file/zeHq9X5ZSomN9BRrPLeQ"
+        },
+        "pk": 6,
+        "model": "images.image"
+    },
+    {
+        "fields": {
+            "key": "images/41a3b1aaa8bb905bc2d35c3dff44d919",
+            "md5_hash": "41a3b1aaa8bb905bc2d35c3dff44d919",
+            "source_url": "https://www.filepicker.io/api/file/zeHq9X5ZSomN9BRrPLeQ"
+        },
+        "pk": 7,
+        "model": "images.image"
+    },
+    {
+        "fields": {
+            "name": "unit 1",
+            "description": "unit 1 description",
+            "overview": "unit 1 overview",
+            "created_at": "2014-12-04T17:32:47.197Z",
+            "updated_at": "2014-12-04T17:32:47.197Z",
+            "standards_alignment_image": 6,
+            "image": 6
+        },
+        "model": "units.unit",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "id": 1,
+            "challenge": 1,
+            "unit": 1,
+            "display_order": 1
+        },
+        "model": "units.unitChallenge",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "id": 2,
+            "challenge": 2,
+            "unit": 1,
+            "display_order": 2
+        },
+        "model": "units.unitChallenge",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "id": 3,
+            "challenge": 3,
+            "unit": 1,
+            "display_order": 3
+        },
+        "model": "units.unitChallenge",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "id": 4,
+            "challenge": 4,
+            "unit": 1,
+            "display_order": 4
+        },
+        "model": "units.unitChallenge",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "id": 5,
+            "challenge": 5,
+            "unit": 1,
+            "display_order": 5
+        },
+        "model": "units.unitChallenge",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "name": "unit 2",
+            "description": "unit 2 description",
+            "overview": "unit 2 overview",
+            "created_at": "2014-12-04T17:32:47.197Z",
+            "updated_at": "2014-12-04T17:32:47.197Z",
+            "standards_alignment_image": 7,
+            "image": 7
+        },
+        "model": "units.unit",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "id": 6,
+            "challenge": 1,
+            "unit": 2,
+            "display_order": 6
+        },
+        "model": "units.unitChallenge",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "id": 7,
+            "challenge": 2,
+            "unit": 2,
+            "display_order": 7
+        },
+        "model": "units.unitChallenge",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "id": 8,
+            "challenge": 3,
+            "unit": 2,
+            "display_order": 8
+        },
+        "model": "units.unitChallenge",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "id": 9,
+            "challenge": 4,
+            "unit": 2,
+            "display_order": 9
+        },
+        "model": "units.unitChallenge",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "id": 10,
+            "challenge": 5,
+            "unit": 2,
+            "display_order": 10
+        },
+        "model": "units.unitChallenge",
+        "pk": 10
+    }
+]
