@@ -131,8 +131,9 @@ class ProfileChangeForm(forms.ModelForm):
         return False
 
     def clean(self):
-        self.stached_data = {}
+        super(ProfileChangeForm, self).clean()
 
+        self.stached_data = {}
         if 'image_url' in self.cleaned_data:
             self.stached_data['image_url'] = self.cleaned_data['image_url']
             del self.cleaned_data['image_url']
