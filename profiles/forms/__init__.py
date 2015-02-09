@@ -181,18 +181,3 @@ class MentorProfileEditForm(ProfileFormBase):
         self.fields['about_me'].initial = self.user.profile.about_me
         self.fields['about_research'].initial = self.user.profile.about_research
         self.fields['expertise'].initial = self.user.profile.expertise
-
-class UserCreationForm(forms.ModelForm):
-    confirm_password = forms.CharField(
-        required=True,
-        max_length=128,
-        widget=forms.PasswordInput(render_value=False),
-        label="Retype password"
-    )
-
-    def __init__(self, *args, **kwargs):
-        super(UserCreationForm, self).__init__(*args, **kwargs)
-        self.fields['email'].required = True
-
-    class Meta:
-        model = User
