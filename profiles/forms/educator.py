@@ -145,11 +145,12 @@ class ProfileChangeForm(forms.ModelForm):
 
         if 'image_url' in self.stached_data:
             image = Image(source_url=self.stached_data['image_url'])
+            if commit: 
+                image.save()
+                image.fetch_from_source()
             profile.image = image
 
         if commit:
-            profile.image.save()
-            profile.image.fetch_from_source()
             profile.save()
 
         return profile
