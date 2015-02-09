@@ -64,5 +64,6 @@ django-sslify>=0.2
 
 #asset compression
 django-compressor==1.4
+cssmin==0.2.0
 
 python-dateutil==2.3
