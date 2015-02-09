@@ -140,6 +140,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = 'staticfiles'
+COMPRESS_ROOT = ''
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -165,6 +166,7 @@ COMPRESS_PRECOMPILERS = (
 )
 
 COMPRESS_OUTPUT_DIR = ''
+COMPRESS_ROOT = BASE_DIR + '/' + 'staticfiles'
 
 
 FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
