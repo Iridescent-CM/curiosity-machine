@@ -10,6 +10,8 @@ from datetime import date
 
 import re
 
+from . import educator
+
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 
 class ProfileFormBase(forms.Form):
@@ -142,7 +144,7 @@ class MentorProfileEditForm(ProfileFormBase):
         mimetype_widget=about_me_filepicker_mimetype_widget
     )
     about_me_filepicker_mimetype = forms.CharField(
-        required=False, 
+        required=False,
         widget=about_me_filepicker_mimetype_widget
     )
 
@@ -157,7 +159,7 @@ class MentorProfileEditForm(ProfileFormBase):
         mimetype_widget=about_research_filepicker_mimetype_widget
     )
     about_research_filepicker_mimetype = forms.CharField(
-        required=False, 
+        required=False,
         widget=about_research_filepicker_mimetype_widget
     )
 
@@ -180,3 +182,17 @@ class MentorProfileEditForm(ProfileFormBase):
         self.fields['about_research'].initial = self.user.profile.about_research
         self.fields['expertise'].initial = self.user.profile.expertise
 
+class UserCreationForm(forms.ModelForm):
+    confirm_password = forms.CharField(
+        required=True,
+        max_length=128,
+        widget=forms.PasswordInput(render_value=False),
+        label="Retype password"
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = True
+
+    class Meta:
+        model = User
