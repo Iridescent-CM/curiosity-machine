@@ -53,7 +53,7 @@
   </li>
   {% endfor %}
   {% if request.user.is_authenticated and request.user.profile.is_student %}
-  <li><a data-target="#favorites" href="{% url 'challenges:favorite_challenges' %}" data-toggle="tabajax">Favorites</a></li>
+  <li><a class="favorites" data-target="#favorites" href="{% url 'challenges:favorite_challenges' %}" data-toggle="tabajax">Favorites</a></li>
   {% endif %}
 </ul>
 <div class="tab-content">
