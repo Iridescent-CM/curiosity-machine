@@ -14,7 +14,8 @@ def analytics(request):
     if request.GET:
         form = AnalyticsForm(data=request.GET)
         if form.is_valid():
-            return generate_analytics(form.cleaned_data['start_date'], form.cleaned_data['end_date'])
+            #return generate_analytics(form.cleaned_data['start_date'], form.cleaned_data['end_date'])
+            generate_analytics(form.cleaned_data['start_date'], form.cleaned_data['end_date'])
     else:
         form = AnalyticsForm()
     return render(request, 'analytics.html', {'analytics_form': form})
