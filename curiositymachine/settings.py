@@ -154,6 +154,7 @@ STATICFILES_DIRS = (
 
 COMPRESS_CSS_FILTERS = [
     # CSS minimizer.
+    'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.CSSMinFilter'
 ]
 
