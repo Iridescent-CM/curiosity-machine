@@ -154,7 +154,11 @@ def set_favorite(request, challenge_id, mode='favorite'):
 def favorite_challenges(request):
     favorite_challenges = []
     if request.user.is_authenticated():
-        favorite_challenges = Favorite.objects.filter(student=request.user)
+        theme_id = request.GET.get('theme_id')
+        if theme_id:
+            favorite_challenges = Favorite.objects.filter(student=request.user, challenge__theme_id=theme_id)
+        else:
+            favorite_challenges = Favorite.objects.filter(student=request.user)
     return render(request, 'ajax/favorites.html', {'favorite_challenges': favorite_challenges})
 
 
