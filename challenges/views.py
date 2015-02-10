@@ -22,7 +22,7 @@ def challenges(request):
     challenges = Challenge.objects.all()
     theme = request.GET.get('theme')
     if theme:
-        challenges = challenges.filter(theme__name=theme)
+        challenges = challenges.filter(categories__name=theme)
     themes = Theme.objects.all()
     return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme})
 
@@ -160,5 +160,5 @@ def ajax_challenges(request):
     challenges = Challenge.objects.all()
     theme = request.GET.get('theme')
     if theme:
-        challenges = challenges.filter(theme__name=theme)
+        challenges = challenges.filter(categories__name=theme)
     return render(request, 'ajax/challenges.html', {'challenges': challenges, 'theme': theme})
