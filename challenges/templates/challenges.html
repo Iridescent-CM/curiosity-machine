@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load theme_id_from_name %}
 {% block title %}Curiosity Machine{% endblock %}
 
 {% block js %}
@@ -37,7 +36,7 @@
       </a>
     </li>
     {% for t in themes %}
-      <li {% if theme == t.name %}class="active"{% endif %}><a href="{% url 'challenges:challenges' %}?theme={{t.name}}" style="background: {{ t.color }}">
+      <li {% if theme == t.name %}class="active"{% endif %}><a href="{% url 'challenges:challenges' %}?theme={{t.name}}&theme_id={{t.id}}" style="background: {{ t.color }}">
         <span class="theme-icon {{ t.icon }}"></span>
         <span class="theme-name">{{t.name}}</span>
       </a></li>
@@ -49,7 +48,7 @@
   <li class="active"><a data-target="#challenges" href="{% url 'challenges:ajax_challenges' %}{% if theme %}?theme={{theme}}{% endif %}" data-toggle="tabajax">All {% if theme %}{{ theme }} {% endif %} Challenges</a></li>
   {% for filter in filters %}
      <li>
-      <a {% if filter.color %}style="background-color: {{filter.color}}"{% endif %} data-target="#filter_{{filter.id}}" href="{% url 'challenges:filtered_challenges' filter_id=filter.id %}?{% if theme %}theme_id={{theme|theme_id_from_name}}{% endif %}" data-toggle="tabajax">{{ filter.name }}</a>
+      <a {% if filter.color %}style="background-color: {{filter.color}}"{% endif %} data-target="#filter_{{filter.id}}" href="{% url 'challenges:filtered_challenges' filter_id=filter.id %}?{% if theme %}theme_id={{theme_id}}{% endif %}" data-toggle="tabajax">{{ filter.name }}</a>
   </li>
   {% endfor %}
   {% if request.user.is_authenticated and request.user.profile.is_student %}

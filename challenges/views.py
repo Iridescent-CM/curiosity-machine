@@ -21,11 +21,12 @@ from django.core.exceptions import PermissionDenied
 def challenges(request):
     challenges = Challenge.objects.all()
     theme = request.GET.get('theme')
+    theme_id = request.GET.get('theme_id')
     filters = Filter.objects.filter(visible=True)
     if theme:
         challenges = challenges.filter(theme__name=theme)
     themes = Theme.objects.all()
-    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme, 'filters': filters})
+    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme, 'theme_id': theme_id, 'filters': filters})
 
 def challenge(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
