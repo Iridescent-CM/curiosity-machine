@@ -4,6 +4,7 @@ import csv
 import datetime
 import tempfile
 from challenges.models import Progress, Stage
+from cmcomments.models import Comment
 from .forms import AnalyticsForm
 from django.core.exceptions import PermissionDenied
 from tsl.models import Answer
@@ -14,8 +15,7 @@ def analytics(request):
     if request.GET:
         form = AnalyticsForm(data=request.GET)
         if form.is_valid():
-            #return generate_analytics(form.cleaned_data['start_date'], form.cleaned_data['end_date'])
-            generate_analytics(form.cleaned_data['start_date'], form.cleaned_data['end_date'])
+            return generate_analytics(form.cleaned_data['start_date'], form.cleaned_data['end_date'])
     else:
         form = AnalyticsForm()
     return render(request, 'analytics.html', {'analytics_form': form})
@@ -25,7 +25,7 @@ def generate_analytics(start_date, end_date):
         writer = csv.writer(fp)
         writer.writerow(["User Id", "Username", "User Type", "Action Type", "Stage", "Timestamp", "Challenge Id", "Challenge Learner Id", "Challenge Mentor Id", "Text", "Video/Image"])
 
-        progresses = Progress.objects.all()
+        progresses = Progress.objects.select_related('student')
 
         # Start Building
         started = progresses.filter(started__gte=start_date, started__lte=end_date)
@@ -40,9 +40,8 @@ def generate_analytics(start_date, end_date):
                 progress.student_id, progress.mentor_id, "", ""])
 
         # Comments
-        comments = []
-        for progress in progresses:
-            comments.extend(progress.comments.filter(created__gte=start_date, created__lte=end_date))
+        comments = Comment.objects.filter(created__gte=start_date, created__lte=end_date, challenge_progress=progresses).all().select_related('image', 'video', 'user__profile', 'challenge_progress').prefetch_related('video__encoded_videos')
+
         for comment in comments:
             writer.writerow([comment.user_id, comment.user.username, "mentor" if comment.user.profile.is_mentor else "learner", 
                 "video" if comment.video else ("image" if comment.image else "text"), Stage(comment.stage).name, comment.created.strftime('%Y-%m-%d %H:%M:%S'), 
@@ -50,7 +49,7 @@ def generate_analytics(start_date, end_date):
                 comment.video.url_for_analytics() if comment.video else (comment.image.url if comment.image else "")])
 
         # TSL Answers
-        answers = Answer.objects.filter(created__gte=start_date, created__lte=end_date)
+        answers = Answer.objects.select_related('student','video','image','question').filter(created__gte=start_date, created__lte=end_date)
         for answer in answers:
             array = [
                 answer.user_id, 
@@ -65,7 +64,6 @@ def generate_analytics(start_date, end_date):
                 answer.answer_text,
                 answer.video.url_for_analytics() if answer.video else (answer.image.url if answer.image else "")
             ]
-            #array.extend()
             writer.writerow(array)
 
 
