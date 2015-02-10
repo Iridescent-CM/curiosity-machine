@@ -285,8 +285,17 @@ if (CM.Navigation.$navTop) {
     $('.cm-mejs-player').mediaelementplayer({
       features: ['playpause','progress','current','duration','tracks','volume','fullscreen','googleanalytics']
     });
+
+    $(".close").click(function() {
+      $("#introduction-modal").modal("hide");
+      $("#intro-video")[0].pause();
+      return false;                   
+    });  
+
+
+
   });
-  
+
 
 }); //end dom ready
 
