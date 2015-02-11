@@ -64,6 +64,11 @@ class UserCreationForm(forms.ModelForm):
             'first_name',
             'last_name'
         ]
+        error_messages = {
+            'username': {
+                'invalid': "Username can only include letters, digits and @/./+/-/_"
+            }
+        }
 
 
 class UserChangeForm(forms.ModelForm):

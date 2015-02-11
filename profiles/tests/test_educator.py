@@ -1,5 +1,6 @@
 import pytest
-from profiles import forms, models
+import mock
+from profiles import forms, models, views
 from images.models import Image
 from django.contrib.auth.models import User
 
@@ -36,6 +37,13 @@ def test_educator_user_creation_checks_password_confirmation():
     }).errors.as_data()
     assert 'password' in errors.keys()
     assert 'do not match' in str(errors['password'])
+
+def test_educator_user_creation_validates_username():
+    f = forms.educator.UserCreationForm({
+        'username': 'user!'
+    })
+    assert 'username' in f.errors.as_data().keys()
+    assert "can only include" in str(f.errors['username'])
 
 @pytest.mark.django_db
 def test_educator_user_creation_checks_username_uniqueness():
@@ -173,3 +181,16 @@ def test_educator_profile_change_form_creates_image_from_image_url():
     p = f.save(commit=False)
     assert type(p.image) == Image
     assert p.image.source_url == 'http://example.com/'
+
+@pytest.mark.django_db
+def test_join(rf):
+    request = rf.post('/join_as_educator', data={
+        'user-username': 'user',
+        'user-email': 'email@example.com',
+        'user-password': '123123',
+        'user-confirm_password': '123123'
+    })
+    request.session = mock.MagicMock()
+    response = views.educator.join(request)
+    assert response.status_code == 302
+    assert User.objects.filter(username='user').count() == 1
