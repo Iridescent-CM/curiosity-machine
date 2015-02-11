@@ -5,13 +5,19 @@ import password_reset.forms
 
 from . import student
 from . import mentor
+from . import educator
 
 @login_required
 def dispatch(request, action):
     if request.user.profile.is_mentor:
         module = mentor
-    else:
+    elif request.user.profile.is_student:
         module = student
+    elif request.user.profile.is_educator:
+        module = educator
+    else:
+        raise Http404()
+
     fn = getattr(module, action, None)
     if fn:
         return fn(request)
