@@ -1,7 +1,6 @@
 from django.db import models
 from profiles.models import Profile
 from enum import Enum
-from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import pre_save
 from django.template.defaultfilters import slugify #use slugify for now
 
@@ -10,13 +9,9 @@ class Role(Enum):
     student = 1
 
 class Group(models.Model):
-    name = models.CharField(_('name'), max_length=80, unique=True, null=True, blank=False)
-    code = models.CharField(_('code'), max_length=20, unique=True, null=True, blank=False)
+    name = models.CharField('name', max_length=80, unique=True, null=True, blank=False)
+    code = models.CharField('code', max_length=20, unique=True, null=True, blank=False)
     members = models.ManyToManyField(Profile, through='Membership', through_fields=('group', 'profile'), related_name="groups")
-
-    class Meta:
-        verbose_name = _('group')
-        verbose_name_plural = _('groups')
 
     def educators(self):
         return self.with_role(Role.educator.value)
@@ -35,7 +30,8 @@ class Group(models.Model):
 
 
 def create_slug(sender, instance, **kwargs):
-    instance.code = slugify(instance.name)
+    #probably going to replace how to generate the code
+    instance.code = slugify(instance.name)[:20]
 
 pre_save.connect(create_slug, sender=Group)
 
@@ -43,10 +39,6 @@ class Membership(models.Model):
     group = models.ForeignKey(Group)
     profile = models.ForeignKey(Profile)
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in Role], default=Role.educator.value)
-
-    class Meta:
-        verbose_name = _('membership')
-        verbose_name_plural = _('membership')
 
     def __str__(self):
         return "Group={} Profile={}".format(self.group, self.profile)
