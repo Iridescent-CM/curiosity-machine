@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ group.name }}{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li><a href="{% url 'groups:groups' %}">Groups</a></li>
+  <li>{{ group.name }}</li>
+</ol>
+<h1 class="full-width">
+  {{group.name}}
+</h1>
+
+<h3 class="full-width">
+  Educators
+</h3>
+
+<ul>
+  {% for profile in group.educators %}
+  <li>{{profile.user.username}}</li>
+  {% empty %}
+  <li>No educators at this time</li>
+  {% endfor %}
+</ul>
+
+<h3 class="full-width">
+  Students
+</h3>
+
+<ul>
+  {% for profile in group.students %}
+  <li>{{profile.user.username}}</li>
+  {% empty %}
+  <li>No students at this time</li>
+  {% endfor %}
+</ul>
+{% endblock %}

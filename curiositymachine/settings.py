@@ -74,6 +74,7 @@ INSTALLED_APPS = (
     'compressor',
     'units',
     's3direct',
+    'groups',
 )
 
 MIDDLEWARE_CLASSES = (
