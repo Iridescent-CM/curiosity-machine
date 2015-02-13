@@ -9,7 +9,7 @@ def groups(request):
 
 def group(request, group_id): 
 	group = get_object_or_404(Group, id=group_id)
-	return render(request, 'group.html', {'group': group, 'members': members})
+	return render(request, 'group.html', {'group': group})
 
 
 # @login_required
