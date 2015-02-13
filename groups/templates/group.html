@@ -17,8 +17,11 @@
 </h3>
 
 <ul>
-  {% for profile in group.educators %}
-  <li>{{profile.user.username}}</li>
+  {% for user in group.educators %}
+  <li>
+  {{ user.username }}
+  </li>
+
   {% empty %}
   <li>No educators at this time</li>
   {% endfor %}
@@ -29,8 +32,16 @@
 </h3>
 
 <ul>
-  {% for profile in group.students %}
-  <li>{{profile.user.username}}</li>
+  {% for user in group.students %}
+  <li>{{ user.username }}
+  <br />
+  Challenges: 
+    <ul>
+      {% for progress in user.progresses.all %}
+        <li>{{ progress.challenge.name }}</li>
+      {% endfor %}
+    </ul>
+  </li>
   {% empty %}
   <li>No students at this time</li>
   {% endfor %}

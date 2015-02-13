@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
-from .models import Group
+from .models import Group, Role
 
 def groups(request):
 	groups = Group.objects.all()
@@ -9,7 +9,8 @@ def groups(request):
 
 def group(request, group_id): 
 	group = get_object_or_404(Group, id=group_id)
-	return render(request, 'group.html', {'group': group})
+	members = [] #Membership.objects.filter(group=group, role=Role.student.value).prefetch_related('profile__challenges')
+	return render(request, 'group.html', {'group': group, 'members': members})
 
 
 # @login_required

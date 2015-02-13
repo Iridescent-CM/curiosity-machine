@@ -1,5 +1,5 @@
 from django.db import models
-from profiles.models import Profile
+from django.contrib.auth.models import User
 from enum import Enum
 from django.db.models.signals import pre_save
 from django.template.defaultfilters import slugify #use slugify for now
@@ -11,7 +11,7 @@ class Role(Enum):
 class Group(models.Model):
     name = models.CharField('name', max_length=80, unique=True, null=True, blank=False)
     code = models.CharField('code', max_length=20, unique=True, null=True, blank=False)
-    members = models.ManyToManyField(Profile, through='Membership', through_fields=('group', 'profile'), related_name="groups")
+    members = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
 
     def educators(self):
         return self.with_role(Role.educator.value)
@@ -20,7 +20,7 @@ class Group(models.Model):
         return self.with_role(Role.student.value)
 
     def with_role(self,role=Role.educator.value):
-       return map(lambda x:x.profile, Membership.objects.select_related('profile').filter(group=self,role=role).all()) 
+       return map(lambda x:x.user, Membership.objects.prefetch_related('user__progresses__challenge').filter(group=self,role=role).all())
 
     def __str__(self):
         return "Group={}".format(self.name)
@@ -37,11 +37,11 @@ pre_save.connect(create_slug, sender=Group)
 
 class Membership(models.Model):
     group = models.ForeignKey(Group)
-    profile = models.ForeignKey(Profile)
+    user = models.ForeignKey(User)
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in Role], default=Role.educator.value)
 
     def __str__(self):
-        return "Group={} Profile={}".format(self.group, self.profile)
+        return "Group={} User={}".format(self.group, self.user)
 
     def __repr__(self):
-        return "Group={} Profile={}".format(self.group, self.profile)
+        return "Group={} User={}".format(self.group, self.user)
