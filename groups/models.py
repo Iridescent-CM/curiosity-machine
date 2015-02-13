@@ -35,7 +35,7 @@ pre_save.connect(create_slug, sender=Group)
 class Membership(models.Model):
     group = models.ForeignKey(Group, related_name="memberships")
     user = models.ForeignKey(User, related_name="memberships")
-    role = models.SmallIntegerField(choices=[(role.value, role.name) for role in Role], default=Role.educator.value)
+    role = models.SmallIntegerField(choices=[(role.value, role.name.capitalize()) for role in Role], default=Role.educator.value)
 
     def __str__(self):
         return "Group={} User={}".format(self.group, self.user)

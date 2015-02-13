@@ -6,8 +6,8 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('groups', '0002_membership'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('groups', '0002_membership'),
     ]
 
     operations = [
