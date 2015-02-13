@@ -9,7 +9,6 @@ def groups(request):
 
 def group(request, group_id): 
 	group = get_object_or_404(Group, id=group_id)
-	members = [] #Membership.objects.filter(group=group, role=Role.student.value).prefetch_related('profile__challenges')
 	return render(request, 'group.html', {'group': group, 'members': members})
 
 

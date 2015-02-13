@@ -14,13 +14,10 @@ class Group(models.Model):
     members = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
 
     def educators(self):
-        return self.with_role(Role.educator.value)
+        return User.objects.filter(cm_groups=self, memberships__role=Role.educator.value)
 
-    def students(self):
-        return self.with_role(Role.student.value)
-
-    def with_role(self,role=Role.educator.value):
-       return map(lambda x:x.user, Membership.objects.prefetch_related('user__progresses__challenge').filter(group=self,role=role).all())
+    def students(self): 
+        return User.objects.filter(cm_groups=self, memberships__role=Role.student.value).prefetch_related('progresses__challenge')
 
     def __str__(self):
         return "Group={}".format(self.name)
@@ -36,8 +33,8 @@ def create_slug(sender, instance, **kwargs):
 pre_save.connect(create_slug, sender=Group)
 
 class Membership(models.Model):
-    group = models.ForeignKey(Group)
-    user = models.ForeignKey(User)
+    group = models.ForeignKey(Group, related_name="memberships")
+    user = models.ForeignKey(User, related_name="memberships")
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in Role], default=Role.educator.value)
 
     def __str__(self):
