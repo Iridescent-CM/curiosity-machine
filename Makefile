@@ -11,3 +11,6 @@ htmlcov:
 
 clean:
 	rm -rf htmlcov
+
+fixtures:
+	python manage.py loaddata basic-users basic-challenges progress-basic-challenges basic-filters basic-units
