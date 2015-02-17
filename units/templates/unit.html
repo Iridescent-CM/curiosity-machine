@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+
+{% block title %}Curiosity Machine Units: {{ unit.name }}{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li><a href="{% url 'units:units' %}">Units</a></li>
+  <li>{{ unit.name }}</li>
+</ol>
+<div class="unit-info">
+  <h1>{{ unit.name }}</h1>
+
+  {% if unit.overview %}
+    <p>{{ unit.overview|safe }}</p>
+  {% endif %}
+
+  {% if resources|length %}
+    <h2>Resources</h2>
+    <ul>
+    {% for resource in resources %}
+      <li><a href="{{ resource.file }}" target="_blank">{{resource.link_text}}</a></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if challenges|length %}
+    <h2>Engineering design challenges your student will complete</h2>
+    <div class="challenges-list">
+      <div class="row">
+        {% for challenge in challenges %}
+          <div class="col-xs-6 col-sm-6 col-md-4">
+    	      <div class="panel panel-default">
+    	        <div class="panel-heading">
+    	          <h3 class="panel-title">
+    	            <a href="{% url 'challenges:challenge' challenge.id %}">
+    		            {{ challenge.name }}
+    	            </a>
+    	          </h3>
+    	        </div>
+    	        <div class="image-container">
+    	          <a href="{% url 'challenges:challenge' challenge.id %}">
+    	            <img src="{{ challenge.image.url }}">
+    	          </a>
+    	        </div>
+    	        <div class="panel-body">
+                {{ challenge.description }}
+              </div>
+    	      </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if unit.standards_alignment_image %}
+    <h2>NGSS Standards Alignment</h2>
+    <div class="image-wrapper">
+      <img src="{{ unit.standards_alignment_image.url }}" >
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

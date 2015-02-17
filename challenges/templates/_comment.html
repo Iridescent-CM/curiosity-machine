@@ -4,8 +4,8 @@
   <span class="mentor-comment">MENTOR MESSAGE</span>
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">
-    {% include "_avatar.html" with profile=comment.user.profile width=50 height=50 crop='fit' %}
-    <p>{{comment.user.username}}<br><strong>Mentor</strong></p>
+    <a href="{% url 'profiles:mentor_profile' comment.user.username %}">{% include "_avatar.html" with profile=comment.user.profile width=50 height=50 crop='fit' %}</a>
+    <p><a href="{% url 'profiles:mentor_profile' comment.user.username %}">{{comment.user.username}}</a><br><strong>Mentor</strong></p>
   </div>
   <div class="panel panel-bubble blue comment">
     <div class="panel-body">
