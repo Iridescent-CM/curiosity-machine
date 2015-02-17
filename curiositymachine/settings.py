@@ -28,6 +28,7 @@ DEBUG = process_false_string(os.environ.get('DEBUG', False)) # debug saves a LOT
 TEMPLATE_DEBUG = DEBUG
 
 COMPRESS_ENABLED = process_false_string(os.environ.get('COMPRESS_ENABLED', False)) # no compression by default for now
+COMPRESS_OFFLINE = process_false_string(os.environ.get('COMPRESS_OFFLINE', False))
 
 ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMINS", '').split(',')])
 
@@ -139,6 +140,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = 'staticfiles'
+COMPRESS_ROOT = ''
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -146,11 +148,34 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'curiositymachine' ,'static'),
+)
+
+COMPRESS_CSS_FILTERS = [
+    # CSS minimizer.
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter'
+]
+
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter'
+]
+
+COMPRESS_PRECOMPILERS = (
+    ('text/less','lib.lessabsolutefilter.LessFilter'),
+)
+
+COMPRESS_OUTPUT_DIR = ''
+COMPRESS_ROOT = BASE_DIR + '/' + 'staticfiles'
+
+
 FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "curiositymachine")
+
 
 S3DIRECT_REGION = os.getenv("S3DIRECT_REGION", "us-east-1")
 S3DIRECT_DESTINATIONS = {
