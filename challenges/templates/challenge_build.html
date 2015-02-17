@@ -53,8 +53,6 @@
               <div class="panel-body">
                 <h1>Reflect</h1>
                 <p>You've finished your challenge. Upload a key photo or video and describe what makes your challenge unique.</p>
-                <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' %}" method="POST" class="comment-url url">
-                {% csrf_token %}
                 <ul class="challenge-reflect-questions" style="display: none;">
                   {% for question in challenge.reflect_questions.all %}
                     <li>{{ question }}</li>
@@ -65,13 +63,22 @@
                   <h3 class="question"></h3>
                   <p class="refresh" title="answer a different question"><span class="glyphicon glyphicon-refresh"></span> Try another question.</p>
                 </div>
+                <div class="reflect-comment">
+               <!--  {{comment_form.question_text}}
+                --> <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' %}" class="comment-url url">
                 <div class="panel panel-bubble">
                   <div class="panel-body">
                     <h3>Anwser using a video, drawing or text</h3>
                      {% include "_comment_action_list.html" %}
                   </div>
                 </div>
+                {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage="reflect" as comment_url %}
+             {% include "_comment_form.html" with stage="reflect" format="video" url=comment_url question_text=True %}
+             {% include "_comment_form.html" with stage="reflect" format="picture" url=comment_url question_text=True %}
+             {% include "_comment_form.html" with stage="reflect" format="text" url=comment_url question_text=True %}
+
                 <input type="hidden" id="{{comment_form.picture_filepicker_url.id_for_label }}" name="{{comment_form.picture_filepicker_url.html_name }}">
+              </div>
               </div>
             </div>
             <br />
@@ -85,7 +92,6 @@
                   </a>
                 </div>
                 <input type="submit" value="Publish to The Gallery" class="btn btn-lg btn-primary btn-reflect" disabled='disabled' />
-                </form>
               </div>
             </div>
             {% include "_challenge_reflect_images_modal.html" %}

@@ -28,6 +28,10 @@
           {{comment_form.text}}
           <div class="errors">{{ comment_form.text.errors }}</div>
         </div>
+
+        {% if question_text %}
+          <input type="hidden" name="question_text" id="comment_question_text" />
+        {% endif%}
       </div>
       <div class="modal-footer">
         <input type="submit" value="Submit" class="btn btn-primary btn-lg" disabled='disabled'/>

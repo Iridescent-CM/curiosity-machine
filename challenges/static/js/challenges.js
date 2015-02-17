@@ -25,7 +25,11 @@ CM.Challenge.Reflect = {
 
     $('#reflect-images-modal .btn-primary').on('click', function() {
       self.saveImage($('#reflect-images-selector .selected'));
-    })
+    });
+
+    $('.reflect-comment button').on('click', function() {
+      $("#comment_question_text").val(this.config.currentQuestion);
+    });
 
   },
   updateQuestion : function(isFirst) {
@@ -56,7 +60,12 @@ CM.Challenge.Reflect = {
       //close modal
     }
   }
+
 };
+
+question = getSelectedQuestion();
+$("#comment_question_text").val(question);
+
 
 $(document).ready(function() {
 
