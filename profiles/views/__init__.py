@@ -6,6 +6,7 @@ import password_reset.forms
 from . import student
 from . import mentor
 from . import educator
+from . import staff
 
 @login_required
 def dispatch(request, action):
@@ -15,6 +16,8 @@ def dispatch(request, action):
         module = student
     elif request.user.profile.is_educator:
         module = educator
+    elif request.user.is_staff:
+        module = staff
     else:
         raise Http404()
 
