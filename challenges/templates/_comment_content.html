@@ -1,3 +1,6 @@
+<div class="reflect-question">
+  <p>{{comment.question_text}}</p>
+</div>
 {% if comment.image %}
   <div class="img-wrapper">
     <img src="{{ comment.image.url }}" />
@@ -6,7 +9,4 @@
 {% if comment.video %}
   {% include "_video.html" with video=comment.video %}
 {% endif %}
-<div class="reflect-question">
-  <p>{{comment.question_text}}</p>
-</div>
 <p>{{comment.text|linebreaksbr}}</p>
