@@ -74,10 +74,9 @@
             </div>
 
             {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage="reflect" as comment_url %}
-            {% include "_comment_form.html" with stage="reflect" format="text" url=comment_url  %}
-            {% include "_comment_form.html" with stage="reflect" format="video" url=comment_url %}
-            {% include "_comment_form.html" with stage="reflect" format="picture" url=comment_url %}
-            
+            {% include "_comment_form.html" with stage="reflect" format="text" url=comment_url question_text=True %}
+            {% include "_comment_form.html" with stage="reflect" format="video" url=comment_url question_text=True %}
+            {% include "_comment_form.html" with stage="reflect" format="picture" url=comment_url question_text=True %}
             <br />
             <div class="panel panel-bubble teal right reflect-box">
               <div class="panel-body">

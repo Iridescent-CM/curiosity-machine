@@ -13,9 +13,9 @@
       <form action="{{ url }}" method="POST" class="comment-form">
       <div class="modal-body">
         {% csrf_token %}
-        
-        {{comment_form.question_text}}
-        
+        {%  if question_text %}
+          {{comment_form.question_text}}
+        {%  endif %}
         {% if format == 'video' %}
           {{comment_form.video_filepicker_url}}
           <div class="errors">{{ comment_form.video_filepicker_url.errors }}</div>
