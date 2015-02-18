@@ -14,7 +14,8 @@
       <div class="modal-body">
         {% csrf_token %}
         
-
+        {{comment_form.question_text}}
+        
         {% if format == 'video' %}
           {{comment_form.video_filepicker_url}}
           <div class="errors">{{ comment_form.video_filepicker_url.errors }}</div>
@@ -29,9 +30,7 @@
           <div class="errors">{{ comment_form.text.errors }}</div>
         </div>
 
-        {% if question_text %}
-          <input type="hidden" name="question_text" id="comment_question_text" />
-        {% endif%}
+        
       </div>
       <div class="modal-footer">
         <input type="submit" value="Submit" class="btn btn-primary btn-lg" disabled='disabled'/>

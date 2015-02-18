@@ -7,7 +7,6 @@
   {% include "_video.html" with video=comment.video %}
 {% endif %}
 <div class="reflect-question">
-  
+  <p>{{comment.question_text}}</p>
 </div>
-<p>{{comment.question_text}}</p>
 <p>{{comment.text|linebreaksbr}}</p>
