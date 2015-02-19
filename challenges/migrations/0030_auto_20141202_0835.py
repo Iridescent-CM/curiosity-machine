@@ -12,7 +12,7 @@ def noop(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('challenges', '0027_challenge_draft'),
+        ('challenges', '0029_challenge_draft'),
     ]
 
     operations = [
