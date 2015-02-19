@@ -2,6 +2,7 @@ import pytest
 import mock
 from profiles import forms, models, views
 from images.models import Image
+from django.http import Http404
 from django.contrib.auth.models import User
 
 def test_educator_user_creation_form_fields():
@@ -183,6 +184,20 @@ def test_educator_profile_change_form_creates_image_from_image_url():
     assert p.image.source_url == 'http://example.com/'
 
 @pytest.mark.django_db
+def test_join_with_feature_flag(rf):
+    with mock.patch.dict('os.environ', {'ENABLE_EDUCATORS': '1'}):
+        request = rf.post('/join_as_educator', data={
+            'user-username': 'user',
+            'user-email': 'email@example.com',
+            'user-password': '123123',
+            'user-confirm_password': '123123'
+        })
+        request.session = mock.MagicMock()
+        response = views.educator.join(request)
+        assert response.status_code == 302
+        assert User.objects.filter(username='user').count() == 1
+
+@pytest.mark.django_db
 def test_join(rf):
     request = rf.post('/join_as_educator', data={
         'user-username': 'user',
@@ -191,6 +206,5 @@ def test_join(rf):
         'user-confirm_password': '123123'
     })
     request.session = mock.MagicMock()
-    response = views.educator.join(request)
-    assert response.status_code == 302
-    assert User.objects.filter(username='user').count() == 1
+    with pytest.raises(Http404):
+        views.educator.join(request)

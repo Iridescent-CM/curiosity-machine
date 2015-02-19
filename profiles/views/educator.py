@@ -4,7 +4,9 @@ from django.db import transaction
 from django.contrib import auth
 from django.core.urlresolvers import reverse
 from profiles.forms import educator as forms
+from curiositymachine.decorators import feature_flag
 
+@feature_flag('enable_educators')
 @transaction.atomic
 def join(request):
     if request.method == 'POST':
