@@ -6,20 +6,20 @@
 {% block content %}
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-  <h1>Get Started. Create an Account.</h1>
+  <h1>Get started! Create an account!</h1>
 </div>
-<form method='post' action="{% url 'profiles:join' %}" enctype="multipart/form-data" id="join-modal-form" class="default-form clearfix">
 <div class="modal-body row clearfix">
-  
-    {% csrf_token %}
-    {% include "profile_fields.html" with page='join' %}
-
+    <p id="guest-modal-subheader">Join Curiosity Machine as:</p>
+    <!-- <div class="guest-buttons"> -->
+      <button  class="btn btn-primary btn-xlg" data-toggle="modal" data-dismiss="modal" data-target="#student-join-modal">Inventor</button>
+      <a href="{% url 'profiles:join_as_educator' %}"><button class="btn btn-primary btn-xlg">Educator</button></a>
+      <button class="btn btn-primary btn-xlg" data-toggle="modal" data-dismiss="modal" data-target="#mentor-join-modal">Mentor</button>
+    <!-- </div> -->
 </div>
-<div class="modal-footer">
-    <a class="btn btn-link" data-toggle="modal" data-dismiss="modal" data-target="#join-modal-mentor">Become a mentor</a>
-    By clicking Save, you confirm that you accept the <a target="_blank" href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">Privacy Policy</a>.
-  <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
-  <button type="submit" class="btn btn-primary btn-lg">Save</button>
-</div>
-</form>
+  </div>
+  <div class="modal-footer">
+  </div>
+    
 {% endblock %}
+
+
