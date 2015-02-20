@@ -48,11 +48,11 @@
   <li class="active"><a data-target="#challenges" href="{% url 'challenges:ajax_challenges' %}{% if theme %}?theme={{theme}}{% endif %}" data-toggle="tabajax">All {% if theme %}{{ theme }} {% endif %} Challenges</a></li>
   {% for filter in filters %}
      <li>
-      <a {% if filter.color %}style="background-color: {{filter.color}}"{% endif %} data-target="#filter_{{filter.id}}" href="{% url 'challenges:filtered_challenges' filter_id=filter.id %}?{% if theme %}theme_id={{theme_id}}{% endif %}" data-toggle="tabajax">{{ filter.name }}</a>
+      <a {% if filter.color %}style="background-color: {{filter.color}}"{% endif %} data-target="#filter_{{filter.id}}" href="{% url 'challenges:filtered_challenges' filter_id=filter.id %}?{% if theme_id %}theme_id={{theme_id}}{% endif %}" data-toggle="tabajax">{{ filter.name }}</a>
   </li>
   {% endfor %}
   {% if request.user.is_authenticated and request.user.profile.is_student %}
-  <li><a class="favorites" data-target="#favorites" href="{% url 'challenges:favorite_challenges' %}?{% if theme %}theme_id={{theme_id}}{% endif %}" data-toggle="tabajax">Favorites</a></li>
+  <li><a class="favorites" data-target="#favorites" href="{% url 'challenges:favorite_challenges' %}?{% if theme_id %}theme_id={{theme_id}}{% endif %}" data-toggle="tabajax">Favorites</a></li>
   {% endif %}
 </ul>
 <div class="tab-content">
