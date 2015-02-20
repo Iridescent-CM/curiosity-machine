@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Get Started. Create an Account.</h1>
+<form method='post' action="{% url 'profiles:join_as_educator' %}"
+    enctype="multipart/form-data" id="join-form"
+    class="default-form profile-fields">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Educator</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      {% include "profiles/formfield.html" with field=userForm.username %}
+      {% include "profiles/formfield.html" with field=userForm.email %}
+      {% include "profiles/formfield.html" with field=userForm.password %}
+      {% include "profiles/formfield.html" with field=userForm.confirm_password %}
+    </div>
+    <div class="col-md-4">
+      {% include "profiles/formfield.html" with field=userForm.first_name %}
+      {% include "profiles/formfield.html" with field=userForm.last_name %}
+      {% include "profiles/formfield.html" with field=profileForm.image_url %}
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      {{ userForm.non_field_errors }}
+      {{ profileForm.non_field_errors }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      By clicking Save, you confirm that you accept the <a target="_blank" href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">Privacy Policy</a>.
+      <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

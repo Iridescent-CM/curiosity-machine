@@ -1,6 +1,7 @@
+import os
 from functools import wraps
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.core.exceptions import PermissionDenied
 
 def mentor_or_current_user(view):
@@ -21,3 +22,15 @@ def mentor_only(view):
         else:
             raise PermissionDenied
     return inner
+
+def feature_flag(flag):
+    flag = flag.upper()
+    def decorator(view):
+        @wraps(view)
+        def inner(request, *args, **kwargs):
+            if os.getenv(flag):
+                return view(request, *args, **kwargs)
+            else:
+                raise Http404
+        return inner
+    return decorator

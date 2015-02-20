@@ -10,6 +10,8 @@ from datetime import date
 
 import re
 
+from . import educator
+
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 
 class ProfileFormBase(forms.Form):
@@ -142,7 +144,7 @@ class MentorProfileEditForm(ProfileFormBase):
         mimetype_widget=about_me_filepicker_mimetype_widget
     )
     about_me_filepicker_mimetype = forms.CharField(
-        required=False, 
+        required=False,
         widget=about_me_filepicker_mimetype_widget
     )
 
@@ -157,7 +159,7 @@ class MentorProfileEditForm(ProfileFormBase):
         mimetype_widget=about_research_filepicker_mimetype_widget
     )
     about_research_filepicker_mimetype = forms.CharField(
-        required=False, 
+        required=False,
         widget=about_research_filepicker_mimetype_widget
     )
 
@@ -179,4 +181,3 @@ class MentorProfileEditForm(ProfileFormBase):
         self.fields['about_me'].initial = self.user.profile.about_me
         self.fields['about_research'].initial = self.user.profile.about_research
         self.fields['expertise'].initial = self.user.profile.expertise
-
