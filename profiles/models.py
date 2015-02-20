@@ -14,6 +14,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
     is_student = models.BooleanField(default=False, verbose_name="Student access")
     is_mentor = models.BooleanField(default=False, verbose_name="Mentor access")
+    is_educator = models.BooleanField(default=False, verbose_name="Educator access")
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
     city = models.TextField(blank=True)
