@@ -6,15 +6,15 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('groups', '0002_membership'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
             model_name='group',
             name='members',
-            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, through='groups.Membership'),
+            field=models.ManyToManyField(through='groups.Membership', to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]

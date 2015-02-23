@@ -14,10 +14,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Membership',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
-                ('group', models.ForeignKey(to='groups.Group', to_field='id')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, to_field='id')),
-                ('role', models.SmallIntegerField(default=0, choices=[(0, 'Educator'), (1, 'Student')])),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('group', models.ForeignKey(to_field='id', to='groups.Group')),
+                ('user', models.ForeignKey(to_field='id', to=settings.AUTH_USER_MODEL)),
+                ('role', models.SmallIntegerField(choices=[(0, 'Educator'), (1, 'Student')], default=0)),
             ],
             options={
             },

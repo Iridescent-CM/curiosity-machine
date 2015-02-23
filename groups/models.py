@@ -9,7 +9,7 @@ class Role(Enum):
     student = 1
 
 class Group(models.Model):
-    name = models.CharField('name', max_length=80, unique=True, null=True, blank=False)
+    name = models.CharField('name', max_length=80, null=True, blank=False)
     code = models.CharField('code', max_length=20, unique=True, null=True, blank=False)
     members = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
 
