@@ -4,7 +4,6 @@ from django.views.generic.base import RedirectView
 from pages.models import StaticPage
 from .views import root_redirect
 import profiles.urls
-from django.conf import settings
 
 urlpatterns = patterns('',
     url(r'^$', root_redirect, name='root'),
@@ -35,12 +34,3 @@ urlpatterns = patterns('',
     url(r'^units/', include('units.urls', namespace='units', app_name='units'), name='units'),
     url(r'^s3direct/', include('s3direct.urls')),
 )
-
-if settings.DEBUG:
-    try:
-        import debug_toolbar
-        urlpatterns += patterns('',
-            url(r'^__debug__/', include(debug_toolbar.urls)),
-        )
-    except ImportError:
-        pass
