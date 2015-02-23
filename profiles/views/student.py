@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
@@ -11,7 +12,6 @@ from profiles.utils import create_or_edit_user
 from groups.forms import GroupJoinForm
 from challenges.models import Progress, Favorite
 from django.db import transaction
-from django.conf import settings
 
 @transaction.atomic
 def join(request):
@@ -49,7 +49,8 @@ def home(request):
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
     ctx = {}
-    if settings.ENABLE_GROUPS:
+    ENABLE_GROUPS = os.environ.get('ENABLE_GROUPS', False)
+    if ENABLE_GROUPS:
         ctx.update({
             'group_form': GroupJoinForm(),
             'groups': request.user.cm_groups.all(),
@@ -62,7 +63,7 @@ def home(request):
         'filter': filter, 
         'my_challenges_filters': my_challenges_filters, 
         'favorite_challenges': favorite_challenges,
-        'enable_groups': settings.ENABLE_GROUPS,
+        'enable_groups': ENABLE_GROUPS,
     })
     return render(request, "student_home.html", ctx)
 
