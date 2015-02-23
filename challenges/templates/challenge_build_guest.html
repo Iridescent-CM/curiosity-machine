@@ -7,7 +7,10 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
+  <h1>{{ challenge.name }}</h1>
+  {% if challenge.draft %}
+    <h2><small>We're improving this challenge. Keep an eye out for changes.</small></h2>
+  {% endif %}
   {% include "_challenge_nav_guest.html" with stage="build" %}
   <div class="challenge-content">
     {% if not request.user.profile.is_mentor %}
