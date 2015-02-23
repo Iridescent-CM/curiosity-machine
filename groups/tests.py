@@ -1,4 +1,5 @@
 import pytest
+import mock
 from django.contrib.auth.models import User
 from .models import Group, Membership, Role
 
@@ -41,13 +42,15 @@ def test_code_slug():
 
 @pytest.mark.django_db
 def test_groups(client, group):
-    response = client.get('/groups/')
-    assert response.status_code == 200
-    assert len(response.context['groups']) == 1
+    with mock.patch.dict('os.environ', {'ENABLE_GROUPS': '1'}):
+        response = client.get('/groups/')
+        assert response.status_code == 200
+        assert len(response.context['groups']) == 1
 
 
 @pytest.mark.django_db
 def test_group(client, group):
-    response = client.get('/groups/%s/' % str(group.id))
-    assert response.status_code == 200
-    assert response.context['group'].id == group.id
+    with mock.patch.dict('os.environ', {'ENABLE_GROUPS': '1'}):
+        response = client.get('/groups/%s/' % str(group.id))
+        assert response.status_code == 200
+        assert response.context['group'].id == group.id
