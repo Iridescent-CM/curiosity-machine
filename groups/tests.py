@@ -36,11 +36,6 @@ def test_educators(group, mentor): #mentor for now, should change to is_educator
     assert len(group.students()) == 0
 
 @pytest.mark.django_db
-def test_code_slug():
-    group = Group.objects.create(name='Group 1')
-    assert group.code == 'group-1'
-
-@pytest.mark.django_db
 def test_groups(client, group):
     with mock.patch.dict('os.environ', {'ENABLE_GROUPS': '1'}):
         response = client.get('/groups/')

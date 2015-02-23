@@ -2,7 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from enum import Enum
 from django.db.models.signals import pre_save
-from django.template.defaultfilters import slugify #use slugify for now
+from curiositymachine.helpers import random_string
+
+
 
 class Role(Enum):
     educator = 0
@@ -26,11 +28,17 @@ class Group(models.Model):
         return "Group={}".format(self.name)
 
 
-def create_slug(sender, instance, **kwargs):
-    #probably going to replace how to generate the code
-    instance.code = slugify(instance.name)[:20]
+def create_code(sender, instance, **kwargs):
+    def unique_slug(length=5, lists_num=1):
+        string = random_string()
+        if Group.objects.filter(code=string).exists():
+            return unique_slug(length + 1, lists_num + 1)
+        else:
+            return string
 
-pre_save.connect(create_slug, sender=Group)
+    instance.code = unique_slug()
+
+pre_save.connect(create_code, sender=Group)
 
 class Membership(models.Model):
     group = models.ForeignKey(Group, related_name="memberships")
