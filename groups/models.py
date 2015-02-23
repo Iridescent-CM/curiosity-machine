@@ -21,6 +21,12 @@ class Group(models.Model):
     def students(self): 
         return User.objects.filter(cm_groups=self, memberships__role=Role.student.value).prefetch_related('progresses__challenge')
 
+    def add_student(self, user):
+        if not Membership.objects.filter(group=self, user=user, role=Role.student.value).exists():
+            Membership.objects.create(group=self, user=user, role=Role.student.value)
+            return True
+        return False
+
     def __str__(self):
         return "Group={}".format(self.name)
 

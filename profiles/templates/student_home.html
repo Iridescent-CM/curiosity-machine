@@ -57,5 +57,11 @@
  
 
 </div><!-- /tabs content -->
+{% if enable_groups %}
+{% include "profiles/student/_groups.html" with group_form=group_form groups=groups %}
+
+{% endif %}
+
+
 
 {% endblock %}

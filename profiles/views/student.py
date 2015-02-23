@@ -8,8 +8,10 @@ from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.forms import JoinForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
+from groups.forms import GroupJoinForm
 from challenges.models import Progress, Favorite
 from django.db import transaction
+from django.conf import settings
 
 @transaction.atomic
 def join(request):
@@ -46,7 +48,23 @@ def home(request):
     progresses = Progress.objects.filter(student=request.user).select_related("challenge")
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
-    return render(request, "student_home.html", {'active_progresses': active_progresses, 'completed_progresses': completed_progresses, 'progresses': progresses, 'filter': filter, 'my_challenges_filters': my_challenges_filters, 'favorite_challenges': favorite_challenges})
+    ctx = {}
+    if settings.ENABLE_GROUPS:
+        ctx.update({
+            'group_form': GroupJoinForm(),
+            'groups': request.user.cm_groups.all(),
+        })
+    print(request.user.cm_groups.all())
+    ctx.update({
+        'active_progresses': active_progresses, 
+        'completed_progresses': completed_progresses, 
+        'progresses': progresses, 
+        'filter': filter, 
+        'my_challenges_filters': my_challenges_filters, 
+        'favorite_challenges': favorite_challenges,
+        'enable_groups': settings.ENABLE_GROUPS,
+    })
+    return render(request, "student_home.html", ctx)
 
 @login_required
 def profile_edit(request):
