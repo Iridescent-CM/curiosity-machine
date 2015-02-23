@@ -54,8 +54,13 @@ class Challenge(models.Model):
     reflect_subheader = models.TextField(help_text="One line of plain text, shown below the reflect stage header")
     reflect_questions = models.ManyToManyField(Question, null=True)
     favorited = models.ManyToManyField(User, through='Favorite', through_fields=('challenge', 'student'), null=True, related_name="favorite_challenges")
-
+    draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown to users")
     
+    def get_absolute_url(self):
+        return reverse('challenges:challenge', kwargs={
+            'challenge_id': self.id,
+        })
+
     def is_favorite(self, student):
         return Favorite.objects.filter(challenge=self, student=student).exists()
 

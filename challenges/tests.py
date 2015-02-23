@@ -27,7 +27,7 @@ def theme():
 
 @pytest.fixture
 def challenge():
-    return Challenge.objects.create(name="Test Challenge")
+    return Challenge.objects.create(name="Test Challenge", draft=False)
 
 @pytest.fixture
 def filter():
@@ -35,7 +35,7 @@ def filter():
 
 @pytest.fixture
 def challenge2():
-    return Challenge.objects.create(name="Test Challenge 2")
+    return Challenge.objects.create(name="Test Challenge 2", draft=False)
 
 @pytest.fixture
 def progress(student, mentor, challenge):
@@ -75,6 +75,19 @@ def test_challenges_filters_by_name(client, challenge, challenge2, theme, studen
     assert len(response.context['challenges']) == 1
 
 @pytest.mark.django_db
+def test_challenges_filters_drafts(client, challenge, challenge2, student):
+    response = client.get('/challenges/')
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 2
+
+    challenge.draft = True
+    challenge.save()
+
+    response = client.get('/challenges/')
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 1
+
+@pytest.mark.django_db
 def test_ajax_challenges(client, loggedInStudent, challenge):
     response = client.get('/challenges/ajax_challenges', follow=True)
     assert response.status_code == 200
@@ -90,6 +103,19 @@ def test_ajax_challenges_filters_by_name(client, loggedInStudent, challenge, cha
     assert len(response.context['challenges']) == 2
 
     response = client.get('/challenges/ajax_challenges', {'theme': theme.name}, follow=True)
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 1
+
+@pytest.mark.django_db
+def test_ajax_challenges_filters_drafts(client, loggedInStudent, challenge, challenge2):
+    response = client.get('/challenges/ajax_challenges')
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 2
+
+    challenge.draft = True
+    challenge.save()
+
+    response = client.get('/challenges/ajax_challenges')
     assert response.status_code == 200
     assert len(response.context['challenges']) == 1
 
