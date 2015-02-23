@@ -1,52 +1,13 @@
 import pytest
 import mock
-from .views import home
 from django.contrib.auth.models import User
 from profiles.models import Profile
-from challenges.models import Challenge, Progress
 from django.utils.timezone import now
 from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from profiles import forms
-
-STUDENT_USERNAME = "student"
-STUDENT_EMAIL = "student@example.com"
-MENTOR_USERNAME = "mentor"
-MENTOR_EMAIL = "mentor@example.com"
-
-@pytest.fixture
-def student():
-    student = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
-    student.profile.approved = True
-    student.profile.is_student = True
-    student.profile.save()
-    return student
-
-@pytest.fixture
-def mentor():
-    mentor = User.objects.create(username=MENTOR_USERNAME, email=MENTOR_EMAIL)
-    mentor.profile.is_mentor = True
-    mentor.profile.approved = True
-    mentor.profile.save()
-    return mentor
-
-@pytest.fixture
-def challenge():
-    return Challenge.objects.create(name="Test Challenge")
-
-@pytest.fixture
-def progress(student, mentor, challenge):
-    return Progress.objects.create(student=student, mentor=mentor, challenge=challenge)
-
-@pytest.fixture
-def loggedInMentor(client):
-    mentor = User.objects.create_user(username='mentor2', email='mentor@example.com', password='password')
-    mentor.profile.approved = True
-    mentor.profile.is_mentor = True
-    mentor.profile.save()
-    client.login(username='mentor2', password='password')
-    return mentor
+from profiles.tests import student, mentor, progress, challenge, loggedInMentor, STUDENT_USERNAME, STUDENT_EMAIL
 
 @pytest.mark.django_db
 def test_new_user_has_default_typeless_profile():
@@ -227,3 +188,4 @@ def test_mentor_edit_form_required_fields(rf):
     assert not f.fields['about_me_filepicker_url'].required
     assert not f.fields['about_research'].required
     assert not f.fields['about_research_filepicker_url'].required
+
