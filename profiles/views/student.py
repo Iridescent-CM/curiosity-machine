@@ -9,7 +9,7 @@ from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.forms import JoinForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
-from groups.forms import GroupJoinForm
+from groups.forms import GroupJoinForm, GroupLeaveForm
 from challenges.models import Progress, Favorite
 from django.db import transaction
 
@@ -53,9 +53,9 @@ def home(request):
     if ENABLE_GROUPS:
         ctx.update({
             'group_form': GroupJoinForm(),
-            'groups': request.user.cm_groups.all(),
+            'groups': [(group, GroupLeaveForm(initial={'id': group.id})) for group in request.user.cm_groups.all()],
         })
-    print(request.user.cm_groups.all())
+
     ctx.update({
         'active_progresses': active_progresses, 
         'completed_progresses': completed_progresses, 

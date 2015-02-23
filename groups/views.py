@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from .models import Group, Role, Membership
-from .forms import GroupJoinForm
+from .forms import GroupJoinForm, GroupLeaveForm
 from curiositymachine.decorators import feature_flag
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
@@ -31,8 +31,20 @@ def join_group(request):
 	else:
 		messages.error(request, 'Already subscribed to %s group' % group.name)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-	#groups = Group.objects.all()
-	#return render(request, 'groups.html', {'groups': groups})
+
+@login_required
+@feature_flag('enable_groups')
+@require_http_methods(["POST"])
+def leave_group(request):
+	group_form = GroupLeaveForm(data=request.POST)
+	group_form.is_valid()
+	group = get_object_or_404(Group, id=group_form.cleaned_data['id'])
+	result = group.delete_student(request.user)
+	if result:
+		messages.success(request, 'Successfully unsubscribed to the %s group' % group.name)
+	else:
+		messages.error(request, 'Already unsubscribed to %s group' % group.name)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 # @login_required
 # def user_group(request, group_id): 

@@ -2,7 +2,8 @@
 {% if groups|length %}
 <ul>
 	{% for group in groups %}
-	<li>{{ group.name}}</li>
+	<li>{{ group.0.name}} <form action="{% url "groups:leave_group"  %}" method="POST">{% csrf_token %}{{ group.1.id}}<button class="btn btn-primary" type="submit">LEAVE</button></form>
+	</li>
 	{% endfor %}
 <ul>
 {% endif %}

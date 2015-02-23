@@ -4,8 +4,6 @@ from enum import Enum
 from django.db.models.signals import pre_save
 from curiositymachine.helpers import random_string
 
-
-
 class Role(Enum):
     educator = 0
     student = 1
@@ -24,6 +22,12 @@ class Group(models.Model):
     def add_student(self, user):
         if not Membership.objects.filter(group=self, user=user, role=Role.student.value).exists():
             Membership.objects.create(group=self, user=user, role=Role.student.value)
+            return True
+        return False
+
+    def delete_student(self, user):
+        if Membership.objects.filter(group=self, user=user, role=Role.student.value).exists():
+            Membership.objects.get(group=self, user=user, role=Role.student.value).delete()
             return True
         return False
 
