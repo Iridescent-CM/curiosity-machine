@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='challenge',
             name='draft',
-            field=models.BooleanField(default=True, help_text='Drafts are not shown to users'),
+            field=models.BooleanField(default=True, help_text='Drafts are not shown in the main challenge list'),
             preserve_default=True,
         ),
     ]
