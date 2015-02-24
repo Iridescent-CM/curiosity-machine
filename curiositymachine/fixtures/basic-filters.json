@@ -1,0 +1,32 @@
+[
+    {
+        "fields": {
+            "challenges": [
+                1,
+                3
+            ],
+            "color": "#f16243",
+            "created_at": "2015-02-10T19:58:06.529Z",
+            "name": "Odd Challenges",
+            "updated_at": "2015-02-10T19:58:06.529Z",
+            "visible": true
+        },
+        "model": "challenges.filter",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "challenges": [
+                2,
+                4
+            ],
+            "color": "#1bb2c4",
+            "created_at": "2015-02-10T19:58:25.985Z",
+            "name": "Even Challenges",
+            "updated_at": "2015-02-10T19:58:25.985Z",
+            "visible": true
+        },
+        "model": "challenges.filter",
+        "pk": 2
+    }
+]

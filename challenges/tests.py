@@ -1,5 +1,5 @@
 import pytest
-from .models import Challenge, Progress, Theme, Favorite, Stage
+from .models import Challenge, Progress, Theme, Favorite, Stage, Filter
 from cmcomments.models import Comment
 from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress
 from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
@@ -28,6 +28,10 @@ def theme():
 @pytest.fixture
 def challenge():
     return Challenge.objects.create(name="Test Challenge", draft=False)
+
+@pytest.fixture
+def filter():
+    return Filter.objects.create(name="My Filter")
 
 @pytest.fixture
 def challenge2():
@@ -215,4 +219,8 @@ def test_unclaimed_progress(mentor, unclaimed_progress):
     unclaimed = Progress.unclaimed()
     assert sum(1 for s in unclaimed) == 1
 
-    
+@pytest.mark.django_db
+def test_classify_with_id(filter, challenge):
+    challenge.filters.add(filter)
+    assert(challenge.filters.exists() == 1)
+

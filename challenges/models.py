@@ -10,6 +10,7 @@ from django.utils.safestring import mark_safe
 from django.db.models.signals import post_save
 from cmemails import deliver_email
 from django.db import connection
+from .validators import validate_color
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
@@ -22,7 +23,7 @@ class Stage(Enum): # this is used in challenge views and challenge and comment m
 class Theme(models.Model):
     name = models.TextField()
     icon = models.TextField(max_length=64, default="icon-neuroscience", help_text=mark_safe("This determines the icon that displays on the theme. Choose and icon by entering one of the following icon classes:<br><strong>icon-satellite icon-robotics icon-ocean icon-neuroscience icon-inventor icon-food icon-engineer icon-electrical icon-civil icon-builder icon-biomimicry icon-biomechanics icon-art icon-aerospace icon-compsci</strong><br /><br />Additionally available are the set of icons located here: <a href='http://getbootstrap.com/components/'>Bootstrap Glyphicons</a>. Enter both class names separated with a space. for example \"glyphicon glyphicon-film\" without quotes."))
-    color = models.TextField(max_length=64, default="#84af49", help_text=mark_safe("Enter the background color in hex format. for example: #ffffff<br><br>Here are the brand colors for reference:<br> Blue: <strong>#44b1f5</strong> Green: <strong>#84af49</strong> Orange: <strong>#f16243</strong> Teal: <strong>#1bb2c4</strong> Yellow: <strong>#f1ac43</strong><br>gray-darker: <strong>#222222</strong> gray-dark: <Strong>#333333</strong> gray: <strong>#555555</strong> gray-light: <strong>#999999</strong> gray-lighter: <strong>#eee</strong>"))
+    color = models.TextField(max_length=64, default="#84af49", validators=[validate_color], help_text=mark_safe("Enter the background color in hex format. for example: #ffffff<br><br>Here are the brand colors for reference:<br> Blue: <strong>#44b1f5</strong> Green: <strong>#84af49</strong> Orange: <strong>#f16243</strong> Teal: <strong>#1bb2c4</strong> Yellow: <strong>#f1ac43</strong><br>gray-darker: <strong>#222222</strong> gray-dark: <Strong>#333333</strong> gray: <strong>#555555</strong> gray-light: <strong>#999999</strong> gray-lighter: <strong>#eee</strong>"))
 
     class Meta:
         ordering = ['name']
@@ -63,7 +64,7 @@ class Challenge(models.Model):
 
     def is_favorite(self, student):
         return Favorite.objects.filter(challenge=self, student=student).exists()
-        
+
     def __str__(self):
         return "Challenge: id={}, name={}".format(self.id, self.name)
 
@@ -119,6 +120,7 @@ class Progress(models.Model):
         self.save()
         if self.student.profile.birthday:
             deliver_email('project_completion', self.student.profile, progress=self, stage=Stage.reflect.name)
+
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
@@ -220,3 +222,20 @@ def create_example(sender, instance, created, **kwargs):
         progress.student.profile.deliver_publish_email(progress)
 
 post_save.connect(create_example, sender=Example)
+
+
+class Filter(models.Model):
+    name = models.CharField(max_length=50, blank=False, null=False, help_text="name of the filter")
+    color = models.CharField(max_length=7, blank=True, null=True, validators=[validate_color], help_text="Enter the background color in hex format. for example: #ffffff<br><br>Here are the brand colors for reference:<br> Blue: <strong>#44b1f5</strong> Green: <strong>#84af49</strong> Orange: <strong>#f16243</strong> Teal: <strong>#1bb2c4</strong> Yellow: <strong>#f1ac43</strong><br>gray-darker: <strong>#222222</strong> gray-dark: <Strong>#333333</strong> gray: <strong>#555555</strong> gray-light: <strong>#999999</strong> gray-lighter: <strong>#eee</strong>")
+    challenges = models.ManyToManyField(Challenge, related_name='filters')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    visible = models.BooleanField(default=False, null=False, db_index=True)
+
+    
+    def __str__(self):
+        return "Filter: id={}, name={}".format(self.id, self.name)
+
+    def __repr__(self):
+        return "Filter: id={}, name={}".format(self.id, self.name)    
+
