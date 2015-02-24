@@ -10,6 +10,7 @@ from django.utils.safestring import mark_safe
 from django.db.models.signals import post_save
 from cmemails import deliver_email
 from django.db import connection
+from .validators import validate_color
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
@@ -224,8 +225,8 @@ post_save.connect(create_example, sender=Example)
 
 
 class Filter(models.Model):
-    name = models.TextField(blank=False, null=False, help_text="name of the filter")
-    color = models.TextField(blank=True, null=True, help_text="a hex color like #44b1cc")
+    name = models.CharField(max_length=50, blank=False, null=False, help_text="name of the filter")
+    color = models.CharField(max_length=7, blank=True, null=True, validators=[validate_color], help_text="Enter the background color in hex format. for example: #ffffff<br><br>Here are the brand colors for reference:<br> Blue: <strong>#44b1f5</strong> Green: <strong>#84af49</strong> Orange: <strong>#f16243</strong> Teal: <strong>#1bb2c4</strong> Yellow: <strong>#f1ac43</strong><br>gray-darker: <strong>#222222</strong> gray-dark: <Strong>#333333</strong> gray: <strong>#555555</strong> gray-light: <strong>#999999</strong> gray-lighter: <strong>#eee</strong>")
     challenges = models.ManyToManyField(Challenge, related_name='filters')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
