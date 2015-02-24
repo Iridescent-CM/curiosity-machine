@@ -9,7 +9,7 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('profiles', '0016_profile_expertise'),
+        ('profiles', '0017_profile_is_educator'),
     ]
 
     operations = [
