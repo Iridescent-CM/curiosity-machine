@@ -8,9 +8,14 @@
   <li><a href="{% url 'groups:groups' %}">Groups</a></li>
   <li>{{ group.name }}</li>
 </ol>
-<h1 class="full-width">
-  {{group.name}}
-</h1>
+
+<p>
+  <h1 class="full-width">
+    {{group.name}} 
+  </h1>
+  code: {{group.code}}
+</p>
+
 
 <h3 class="full-width">
   Educators
