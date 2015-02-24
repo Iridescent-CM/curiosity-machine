@@ -61,13 +61,15 @@ class Group(models.Model):
 
 def create_code(sender, instance, **kwargs):
     def unique_slug(length=5, lists_num=1):
-        string = random_string()
+        string = random_string(length, lists_num)
         if Group.objects.filter(code=string).exists():
             return unique_slug(length + 1, lists_num + 1)
         else:
             return string
 
-    instance.code = unique_slug()
+    #check that this model hasn't been created yet
+    if not instance.id:
+        instance.code = unique_slug()
 
 pre_save.connect(create_code, sender=Group)
 

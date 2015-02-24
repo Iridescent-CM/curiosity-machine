@@ -8,7 +8,8 @@ class UserInline(admin.TabularInline):
 
 class GroupAdmin(admin.ModelAdmin):
     model = Group
-    list_display = ('name',)
+    list_display = ('name', 'code',)
+    fields = ('name',)
     inlines = (UserInline,)
 
 admin.site.register(Group, GroupAdmin)
