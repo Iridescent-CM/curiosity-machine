@@ -45,7 +45,7 @@ class Challenge(models.Model):
     mentor_guide = models.TextField(help_text="HTML, shown in the mentor guide", null=True, blank=True)
     materials_list = models.TextField(help_text="HTML")
     students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True, related_name="challenges")
-    theme = models.ForeignKey(Theme, null=True, blank=True, on_delete=models.SET_NULL)
+    themes = models.ManyToManyField(Theme, null=True, blank=True)
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     plan_call_to_action = models.TextField(help_text="HTML, shown in the left column of the plan stage")
