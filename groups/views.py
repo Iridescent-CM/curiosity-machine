@@ -14,6 +14,7 @@ def groups(request):
 	return render(request, 'groups.html', {'groups': groups})
 
 @feature_flag('enable_groups')
+@educator_only
 def group(request, group_id): 
 	invite_form = GroupInviteForm(data=request.POST)
 	group = get_object_or_404(Group, id=group_id)
