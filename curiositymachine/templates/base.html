@@ -1,4 +1,4 @@
-{% load staticfiles %}
+ {% load staticfiles %}
 {% load compress %}
 {% load future %} {# suppresses deprecation warnings for firstof tag #}
 <!DOCTYPE html>
@@ -40,6 +40,7 @@
   <script type="text/javascript" src="{% static 'js/libs/webshim-gh-pages/js-webshim/minified/polyfiller.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/libs/respond/src/respond.js' %}"></script>
   <![endif]-->
+
   {% if ga_code %}
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -61,7 +62,6 @@
   </div>
 
   <div id="main-container" class="main-column">
-
     <div class="container-fluid main-content">
       <a href="{% url 'challenges:challenges' %}" class="logo">Curiosity Machine</a>
       <button type="button" class="navbar-toggle">
@@ -130,7 +130,17 @@
   <!--[if (gte IE 6)&(lte IE 8)]>
       <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
   <![endif]-->
-
+  {% if request.user.is_authenticated %}
+    {% if not request.user.profile.shown_intro %}
+      {% include "introduction_modal.html" %}
+      <script type="text/javascript">
+        $(function(){
+         $('#introduction-modal').modal('show'); 
+        });
+      </script>
+      {{ request.user.profile.intro_video_was_played }}
+    {% endif %}
+  {% endif %}
   {% if messages %}{% for message in messages %}
     {% if message.tags and message.tags == 'error' %}
       <script type="text/javascript">

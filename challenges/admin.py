@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import Challenge, Theme, Progress, Question, Example
+from .models import Challenge, Theme, Progress, Question, Example, Filter
+from .forms import ThemeForm, FilterForm
 from cmcomments.models import Comment
 from videos.models import Video
 from images.models import Image
@@ -92,3 +93,18 @@ class ExampleAdmin(admin.ModelAdmin):
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 admin.site.register(Example, ExampleAdmin)
+
+class FilterItemInline(admin.TabularInline):
+    model = Filter.challenges.through
+    extra = 1
+
+class FilterAdmin(admin.ModelAdmin):
+    form = FilterForm
+    name = "Filters"
+    fields = ('name', 'visible', 'color',)
+    list_display = ('id','name','visible', 'color',)
+    inlines = [
+        FilterItemInline
+    ]
+
+admin.site.register(Filter, FilterAdmin)
