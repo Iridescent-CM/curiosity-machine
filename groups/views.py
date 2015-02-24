@@ -2,7 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from .models import Group, Role, Membership
-from .forms import GroupJoinForm, GroupLeaveForm
+from django.contrib.auth.models import User
+from .forms import GroupJoinForm, GroupLeaveForm, GroupInviteForm
 from curiositymachine.decorators import feature_flag
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
@@ -14,8 +15,9 @@ def groups(request):
 
 @feature_flag('enable_groups')
 def group(request, group_id): 
+	invite_form = GroupInviteForm(data=request.POST)
 	group = get_object_or_404(Group, id=group_id)
-	return render(request, 'group.html', {'group': group})
+	return render(request, 'group.html', {'group': group, 'invite_form': invite_form})
 
 
 @login_required
@@ -45,6 +47,33 @@ def leave_group(request):
 	else:
 		messages.error(request, 'Already unsubscribed to %s group' % group.name)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+@feature_flag('enable_groups')
+@require_http_methods(["POST"])
+def invite_to_group(request, group_id):
+	invite_form = GroupInviteForm(data=request.POST)
+	invite_form.is_valid()
+	group = get_object_or_404(Group, id=group_id)
+	user = get_object_or_404(User, email=invite_form.cleaned_data['email'])
+	result = group.invite_student(user)
+	if result:
+		messages.success(request, 'Successfully invited %s to %s group' % (invite_form.cleaned_data['email'],group.name,))
+	else:
+		messages.error(request, 'Already invited %s to %s group' % (invite_form.cleaned_data['email'], group.name,))
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@feature_flag('enable_groups')
+def accept_invitation(request, group_id, token):
+	group = get_object_or_404(Group, id=group_id)
+	try:
+		user = group.accept_invitation(token)
+	except User.DoesNotExist:
+		raise Http404("User not found for specified token. This invitation might have expired.")
+	
+	return HttpResponseRedirect(reverse('profiles:home'))
 
 # @login_required
 # def user_group(request, group_id): 

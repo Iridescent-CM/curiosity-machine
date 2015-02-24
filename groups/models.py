@@ -1,14 +1,22 @@
+import time
+import django_rq
 from django.db import models
 from django.contrib.auth.models import User
 from enum import Enum
 from django.db.models.signals import pre_save
 from curiositymachine.helpers import random_string
+from cmemails import deliver_email
+
+
+INVITATIONS_NS = "curiositymachine:invitations:{group_id}:{token}"
+EXPIRY = 48 * 1000 * 1000 #two days
 
 class Role(Enum):
     educator = 0
     student = 1
 
 class Group(models.Model):
+    redis = django_rq.get_connection()
     name = models.CharField('name', max_length=80, null=True, blank=False)
     code = models.CharField('code', max_length=20, unique=True, null=True, blank=False)
     members = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
@@ -30,6 +38,19 @@ class Group(models.Model):
             Membership.objects.get(group=self, user=user, role=Role.student.value).delete()
             return True
         return False
+
+    def invite_student(self, user):
+        token = str(int(time.time())) + random_string(40, 100)
+        self.redis.setex(INVITATIONS_NS.format(group_id=str(self.id), token=token), user.id, EXPIRY)
+        #send an email
+        deliver_email('group_invite', user.profile, group=self, token=token)
+        return True
+
+    def accept_invitation(self, token):
+        user_id = self.redis.get(INVITATIONS_NS.format(group_id=str(self.id), token=token))
+        user = User.objects.get(pk=int(user_id))
+        self.add_student(user)
+        return user
 
     def __str__(self):
         return "Group={}".format(self.name)

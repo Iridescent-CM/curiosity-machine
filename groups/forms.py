@@ -6,3 +6,6 @@ class GroupJoinForm(forms.Form):
 
 class GroupLeaveForm(forms.Form):
     id = forms.CharField(widget=forms.HiddenInput, required=True)
+
+class GroupInviteForm(forms.Form):
+    email = forms.CharField(widget=forms.TextInput, required=True)

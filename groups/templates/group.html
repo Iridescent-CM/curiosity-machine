@@ -45,4 +45,12 @@
   <li>No students at this time</li>
   {% endfor %}
 </ul>
+
+
+<h4>Invite Learners</h4>
+<form action="{% url "groups:invite_to_group" group_id=group.id %}" method="POST">
+  {% csrf_token %}
+  {{ invite_form.email }}
+  <button class="btn btn-primary" type="submit">INVITE</button>
+</form>
 {% endblock %}
