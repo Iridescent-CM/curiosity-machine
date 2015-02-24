@@ -3,8 +3,8 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from .models import Group, Role, Membership
 from django.contrib.auth.models import User
-from .forms import GroupJoinForm, GroupLeaveForm, GroupInviteForm
-from curiositymachine.decorators import feature_flag
+from .forms import GroupJoinForm, GroupLeaveForm, GroupInviteForm, GroupForm
+from curiositymachine.decorators import feature_flag, educator_only
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 
@@ -19,7 +19,18 @@ def group(request, group_id):
 	group = get_object_or_404(Group, id=group_id)
 	return render(request, 'group.html', {'group': group, 'invite_form': invite_form})
 
-
+@feature_flag('enable_groups')
+@feature_flag('enable_educators')
+@require_http_methods(["POST"])
+@educator_only
+def create(request):
+	form = GroupForm(data=request.POST)
+	if form.is_valid():
+		group = Group.objects.create(name=form.cleaned_data['name'])
+		group.add_educator(request.user)
+		messages.success(request, 'Successfully created the %s group' % group.name)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+	
 @login_required
 @feature_flag('enable_groups')
 @require_http_methods(["POST"])

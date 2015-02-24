@@ -1,6 +1,9 @@
 from django import forms
 from django.conf import settings
 
+class GroupForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput, required=True)
+
 class GroupJoinForm(forms.Form):
     code = forms.CharField(widget=forms.TextInput, required=True)
 

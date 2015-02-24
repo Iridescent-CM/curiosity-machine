@@ -13,6 +13,16 @@ def mentor_or_current_user(view):
             return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge_id}))
     return inner
 
+#also permits staff
+def educator_only(view):
+    @wraps(view)
+    def inner(request, *args, **kwargs):
+        if request.user.is_staff or request.user.profile.is_educator:
+            return view(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+    return inner
+
 # also permits staff
 def mentor_only(view):
     @wraps(view)

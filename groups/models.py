@@ -33,6 +33,12 @@ class Group(models.Model):
             return True
         return False
 
+    def add_educator(self, user):
+        if not Membership.objects.filter(group=self, user=user, role=Role.educator.value).exists():
+            Membership.objects.create(group=self, user=user, role=Role.educator.value)
+            return True
+        return False
+
     def delete_student(self, user):
         if Membership.objects.filter(group=self, user=user, role=Role.student.value).exists():
             Membership.objects.get(group=self, user=user, role=Role.student.value).delete()
