@@ -8,6 +8,9 @@
 
 {% block content %}
   <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
+  {% if challenge.draft %}
+    <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
+  {% endif %}
   {% if user.is_authenticated %}
     {% include "_challenge_nav.html" with stage="build" %}
   {% else %}

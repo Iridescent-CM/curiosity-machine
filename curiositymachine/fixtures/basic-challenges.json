@@ -23,7 +23,8 @@
         "description": "This is the description for challenge 1!",
         "reflect_questions": [
             1
-        ]
+        ],
+        "draft": false
     },
     "pk": 1,
     "model": "challenges.challenge"
@@ -45,7 +46,8 @@
         "description": "This is the description for challenge 2!",
         "reflect_questions": [
             1
-        ]
+        ],
+        "draft": false
     },
     "pk": 2,
     "model": "challenges.challenge"
@@ -67,7 +69,8 @@
         "description": "This is the description for challenge 3!",
         "reflect_questions": [
             1
-        ]
+        ],
+        "draft": false
     },
     "pk": 3,
     "model": "challenges.challenge"
@@ -89,7 +92,8 @@
         "description": "This is the description for challenge 4!",
         "reflect_questions": [
             1
-        ]
+        ],
+        "draft": false
     },
     "pk": 4,
     "model": "challenges.challenge"

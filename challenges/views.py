@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.utils.timezone import now
 import django_rq
 
-from .models import Challenge, Progress, Theme, Stage, Example, Favorite
+from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine.decorators import mentor_or_current_user, mentor_only
@@ -19,12 +19,14 @@ from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 
 def challenges(request):
-    challenges = Challenge.objects.all()
+    challenges = Challenge.objects.filter(draft=False)
     theme = request.GET.get('theme')
+    theme_id = request.GET.get('theme_id')
+    filters = Filter.objects.filter(visible=True)
     if theme:
         challenges = challenges.filter(theme__name=theme)
     themes = Theme.objects.all()
-    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme})
+    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme, 'theme_id': theme_id, 'filters': filters})
 
 def challenge(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
@@ -152,13 +154,25 @@ def set_favorite(request, challenge_id, mode='favorite'):
 def favorite_challenges(request):
     favorite_challenges = []
     if request.user.is_authenticated():
-        favorite_challenges = Favorite.objects.filter(student=request.user)
+        theme_id = request.GET.get('theme_id')
+        if theme_id:
+            favorite_challenges = Favorite.objects.filter(student=request.user, challenge__theme_id=theme_id)
+        else:
+            favorite_challenges = Favorite.objects.filter(student=request.user)
     return render(request, 'ajax/favorites.html', {'favorite_challenges': favorite_challenges})
 
-@login_required
+
 def ajax_challenges(request):
-    challenges = Challenge.objects.all()
+    challenges = Challenge.objects.filter(draft=False)
     theme = request.GET.get('theme')
     if theme:
         challenges = challenges.filter(theme__name=theme)
     return render(request, 'ajax/challenges.html', {'challenges': challenges, 'theme': theme})
+
+def filtered_challenges(request, filter_id):
+    theme_id = request.GET.get('theme_id')
+    if theme_id:
+        challenges = Filter.objects.get(pk=filter_id).challenges.filter(theme__id=theme_id)
+    else:
+        challenges = Filter.objects.get(pk=filter_id).challenges.all
+    return render(request, 'ajax/challenges.html', {'challenges': challenges})
