@@ -78,9 +78,6 @@ INSTALLED_APPS = (
     's3direct',
 )
 
-if DEBUG and DEBUG_TOOLBAR:
-    INSTALLED_APPS += ('debug_toolbar',)
-
 MIDDLEWARE_CLASSES = (
     'curiositymachine.middleware.CanonicalDomainMiddleware', # this MUST come before the SSLify middleware or else non-canonical domains that do not have SSL endpoints will not work!
     'sslify.middleware.SSLifyMiddleware',
@@ -267,8 +264,13 @@ CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", None)
 
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 
-# Import optional local settings.  This must be at the END of this file.
+# Import optional local settings.  This must come after config you want to be able to override.
 try:
     from .local import *
 except ImportError:
     pass
+
+# Conditionally install the debug toolbar
+if DEBUG and DEBUG_TOOLBAR:
+    INSTALLED_APPS += ('debug_toolbar',)
+
