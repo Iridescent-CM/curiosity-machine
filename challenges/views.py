@@ -156,7 +156,7 @@ def favorite_challenges(request):
     if request.user.is_authenticated():
         theme_id = request.GET.get('theme_id')
         if theme_id:
-            favorite_challenges = Favorite.objects.filter(student=request.user, challenge__theme_id=theme_id)
+            favorite_challenges = Favorite.objects.filter(student=request.user, challenge__themes__id=theme_id)
         else:
             favorite_challenges = Favorite.objects.filter(student=request.user)
     return render(request, 'ajax/favorites.html', {'favorite_challenges': favorite_challenges})
