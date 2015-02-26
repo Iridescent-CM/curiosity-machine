@@ -13,7 +13,6 @@
         "image": 1,
         "video": 1,
         "plan_call_to_action": "Plan it!",
-        "theme": null,
         "build_call_to_action": "Build it!",
         "name": "Challenge 1",
         "build_subheader": "Build the thing.",
@@ -23,7 +22,8 @@
         "description": "This is the description for challenge 1!",
         "reflect_questions": [
             1
-        ]
+        ],
+        "draft": false
     },
     "pk": 1,
     "model": "challenges.challenge"
@@ -35,7 +35,6 @@
         "image": 1,
         "video": null,
         "plan_call_to_action": "Plan it!",
-        "theme": null,
         "build_call_to_action": "Build it!",
         "name": "Challenge 2",
         "build_subheader": "Build the thing.",
@@ -45,7 +44,8 @@
         "description": "This is the description for challenge 2!",
         "reflect_questions": [
             1
-        ]
+        ],
+        "draft": false
     },
     "pk": 2,
     "model": "challenges.challenge"
@@ -57,7 +57,6 @@
         "image": 1,
         "video": null,
         "plan_call_to_action": "Plan it!",
-        "theme": null,
         "build_call_to_action": "Build it!",
         "name": "Challenge 3",
         "build_subheader": "Build the thing.",
@@ -67,7 +66,8 @@
         "description": "This is the description for challenge 3!",
         "reflect_questions": [
             1
-        ]
+        ],
+        "draft": false
     },
     "pk": 3,
     "model": "challenges.challenge"
@@ -79,7 +79,6 @@
         "image": 1,
         "video": null,
         "plan_call_to_action": "Plan it!",
-        "theme": null,
         "build_call_to_action": "Build it!",
         "name": "Challenge 4",
         "build_subheader": "Build the thing.",
@@ -89,7 +88,8 @@
         "description": "This is the description for challenge 4!",
         "reflect_questions": [
             1
-        ]
+        ],
+        "draft": false
     },
     "pk": 4,
     "model": "challenges.challenge"
