@@ -24,7 +24,7 @@ def challenges(request):
     theme_id = request.GET.get('theme_id')
     filters = Filter.objects.filter(visible=True)
     if theme:
-        challenges = challenges.filter(theme__name=theme)
+        challenges = challenges.filter(themes__name=theme)
     themes = Theme.objects.all()
     return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme, 'theme_id': theme_id, 'filters': filters})
 
@@ -156,7 +156,7 @@ def favorite_challenges(request):
     if request.user.is_authenticated():
         theme_id = request.GET.get('theme_id')
         if theme_id:
-            favorite_challenges = Favorite.objects.filter(student=request.user, challenge__theme_id=theme_id)
+            favorite_challenges = Favorite.objects.filter(student=request.user, challenge__themes__id=theme_id)
         else:
             favorite_challenges = Favorite.objects.filter(student=request.user)
     return render(request, 'ajax/favorites.html', {'favorite_challenges': favorite_challenges})
@@ -166,13 +166,13 @@ def ajax_challenges(request):
     challenges = Challenge.objects.filter(draft=False)
     theme = request.GET.get('theme')
     if theme:
-        challenges = challenges.filter(theme__name=theme)
+        challenges = challenges.filter(themes__name=theme)
     return render(request, 'ajax/challenges.html', {'challenges': challenges, 'theme': theme})
 
 def filtered_challenges(request, filter_id):
     theme_id = request.GET.get('theme_id')
     if theme_id:
-        challenges = Filter.objects.get(pk=filter_id).challenges.filter(theme__id=theme_id)
+        challenges = Filter.objects.get(pk=filter_id).challenges.filter(themes__id=theme_id)
     else:
         challenges = Filter.objects.get(pk=filter_id).challenges.all
     return render(request, 'ajax/challenges.html', {'challenges': challenges})
