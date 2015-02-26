@@ -8,18 +8,19 @@ Welcome to Curiosity Machine!
 Your child’s account (user name: {{ profile.user.username }}) has been activated, and now you can start building together! 
 </p>
 <p>Watch this video and learn how to get started:</p>
-<video
-        id="intro-video"
+<div class="video_holder">
+  <p>Video Div</p>
+    <video id="intro-video"
         class="cm-mejs-player" 
         preload="none"
         controls
         autoplay
         data-mejsoptions='{}'
-        width="100%"
-        height="100%">           
+        width="320" height="176" controls>
         <source src="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.mp4" type="video/mp4">
         <source src="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.ogg" type="video/ogg">
-      </video>
+    </video>
+</div>
 <p>
 With Curiosity Machine, you and your child will be able to:
 <ul>
