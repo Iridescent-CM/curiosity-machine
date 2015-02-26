@@ -288,7 +288,6 @@ if (CM.Navigation.$navTop) {
 
 $('#introduction-modal').on('hidden.bs.modal', function (){
   $("#intro-video")[0].pause();
-  return false;                   
 });  
 
 
