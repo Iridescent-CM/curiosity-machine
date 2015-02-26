@@ -65,3 +65,9 @@ def profile_edit(request):
 
 def underage(request):
     return render(request, 'underage_student.html')
+
+
+def consent_form(request):
+    #get the token from the invite email
+    
+    return render(request, 'consent_form.html')

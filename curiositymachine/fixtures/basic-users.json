@@ -73,6 +73,24 @@
     },
     {
         "fields": {
+            "date_joined": "2014-12-04T17:37:18Z",
+            "email": "underagesmith@mailinator.com",
+            "first_name": "underage",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": "2014-12-04T17:37:18Z",
+            "last_name": "Smith",
+            "password": "pbkdf2_sha256$12000$Y7FwrJ9I419X$gzXZ/zx6aaSbIPdLmpATGC9RD0pEnSg9CH0OT3oY4/Y=",
+            "user_permissions": [],
+            "username": "underage"
+        },
+        "model": "auth.user",
+        "pk": 5
+    },
+    {
+        "fields": {
             "about_me": "",
             "about_research": "",
             "approved": false,
@@ -154,5 +172,26 @@
         },
         "model": "profiles.profile",
         "pk": 4
+    },
+    {
+        "fields": {
+            "about_me": "",
+            "about_research": "",
+            "approved": false,
+            "birthday": "2013-12-01",
+            "city": "",
+            "employer": "",
+            "gender": "",
+            "image": null,
+            "is_mentor": false,
+            "is_student": true,
+            "last_active_on": "2014-12-04T17:37:18Z",
+            "parent_first_name": "",
+            "parent_last_name": "",
+            "title": "",
+            "user": 5
+        },
+        "model": "profiles.profile",
+        "pk": 5
     }
 ]
