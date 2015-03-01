@@ -260,6 +260,7 @@ EMAIL_INACTIVE_DAYS_STUDENT = os.environ.get("EMAIL_INACTIVE_DAYS_STUDENT", 14)
 GA_CODE = os.environ.get("GA_CODE", None)
 PROGRESS_MONTH_ACTIVE_LIMIT = os.environ.get("PROGRESS_MONTH_ACTIVE_LIMIT", 2)
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", None)
+GROUP_INVITATION_INACTIVE_DAYS = os.environ.get("GROUP_INVITATION_INACTIVE_DAYS", 2)
 
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 

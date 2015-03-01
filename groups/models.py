@@ -6,10 +6,11 @@ from enum import Enum
 from django.db.models.signals import pre_save
 from curiositymachine.helpers import random_string
 from cmemails import deliver_email
+from django.conf import settings
 
 
 INVITATIONS_NS = "curiositymachine:invitations:{group_id}:{token}"
-EXPIRY = 48 * 1000 * 1000 #two days
+EXPIRY = int(settings.GROUP_INVITATION_INACTIVE_DAYS) * 1000 * 1000
 
 class Role(Enum):
     educator = 0
@@ -66,10 +67,10 @@ class Group(models.Model):
 
 
 def create_code(sender, instance, **kwargs):
-    def unique_slug(length=5, lists_num=1):
-        string = random_string(length, lists_num)
+    def unique_slug(length=5):
+        string = random_string(length)
         if Group.objects.filter(code=string).exists():
-            return unique_slug(length + 1, lists_num + 1)
+            return unique_slug(length + 1)
         else:
             return string
 
