@@ -57,17 +57,12 @@ email_info = {
 
     #mentor's training task done
     'mentor_training_task_done': email_dict('training_task_done', MENTOR, 'You Completed Task!'),
+
+    'consent_form': email_dict('consent_form', UNDERAGE_STUDENT, 'Please sign consent form!'),    
 }
 
-def deliver_email(event_name, profile, progress=None, student=None, mentor=None, stage=None, cc=None, task=None, subject=None):
-    context = {
-        'profile': profile,
-        'student': student,
-        'mentor': mentor,
-        'progress': progress,
-        'stage': stage,
-        'task': task
-    }
+def deliver_email(event_name, profile, **context):
+    context.update({'profile': profile})
 
     user_type = None
     if profile.is_mentor:
@@ -82,6 +77,4 @@ def deliver_email(event_name, profile, progress=None, student=None, mentor=None,
         return None
     key = "_".join([user_type, event_name])
     info = email_info[key]
-    #return email(['devpopol@gmail.com'],info['subject'],context, info['template'])
-    return email([profile.user.email], subject or info['subject'],context, info['template'], cc)
-
+    return email([profile.user.email], info['subject'], context, info['template'], context.get('cc', None))

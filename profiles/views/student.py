@@ -2,14 +2,16 @@ from django.shortcuts import render
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.forms import JoinForm, StudentProfileEditForm
+from profiles.forms.student import ConsentForm
 from profiles.utils import create_or_edit_user
 from challenges.models import Progress, Favorite
 from django.db import transaction
+from django.contrib import messages
 
 @transaction.atomic
 def join(request):
@@ -67,7 +69,22 @@ def underage(request):
     return render(request, 'underage_student.html')
 
 
-def consent_form(request):
+def consent_form(request, token):
     #get the token from the invite email
-    
-    return render(request, 'consent_form.html')
+    ctx = {
+        'token': token
+    }
+    if request.method == 'POST':
+        form = ConsentForm(data=request.POST)
+        form.is_valid()
+        #store data
+        ctx['form'] = ConsentForm()
+        return render(request, 'consent_form.html', ctx)
+    else:
+        ctx['form'] = ConsentForm()
+        return render(request, 'consent_form.html', ctx)
+
+def resend_consent_form_email(request):
+    request.user.profile.deliver_welcome_email()
+    messages.success(request, 'Activation Consent form was resent')
+    return HttpResponseRedirect(reverse('profiles:home'))

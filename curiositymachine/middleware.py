@@ -19,8 +19,13 @@ class UnderageStudentSandboxMiddleware:
                 and not request.user.is_staff
                 and request.user.profile.is_student
                 and not request.user.profile.approved):
-            if request.path_info not in ['/logout', '/logout/', reverse('profiles:underage_student'), reverse('profiles:consent_form')]:
-                return HttpResponseRedirect(reverse('profiles:underage_student'))
+            if request.path_info not in [
+                    '/logout',
+                    '/logout/',
+                    reverse('profiles:underage_student'),
+                    reverse('profiles:resend_consent_form_email')]:
+                if not request.path_info.startswith('/consent_form'):
+                    return HttpResponseRedirect(reverse('profiles:underage_student'))
 
 class UnapprovedMentorSandboxMiddleware:
     """

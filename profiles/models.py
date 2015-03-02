@@ -9,6 +9,12 @@ from datetime import date, timedelta
 from cmcomments.models import Comment
 from cmemails import deliver_email
 from django.utils.timezone import now
+from curiositymachine.helpers import random_string
+from django_simple_redis import redis
+import time
+
+INVITATIONS_NS = "curiositymachine:consent_forms:{token}"
+EXPIRY = int(settings.CONSENT_FORM_INVITATION_INACTIVE_DAYS) * 1000 * 1000
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
@@ -69,13 +75,11 @@ class Profile(models.Model):
     def is_underage(self):
         return self.age <= 13
 
-
     def set_active(self):
         self.last_active_on = now()
         return self.save(update_fields=['last_active_on'])
 
     def update_inactive_email_sent_on_and_save(self):
-
         self.last_inactive_email_sent_on = now()
         self.save(update_fields=['last_inactive_email_sent_on'])
 
@@ -101,7 +105,9 @@ class Profile(models.Model):
         if self.is_mentor:
             deliver_email('welcome', self, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
         else:
-            deliver_email('welcome', self)
+            token = str(int(time.time())) + random_string(40)
+            redis.setex(INVITATIONS_NS.format(token=token), self.id, EXPIRY)
+            deliver_email('welcome', self, token=token)
 
     def deliver_inactive_email(self):
         if self.birthday:

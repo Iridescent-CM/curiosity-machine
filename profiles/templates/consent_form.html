@@ -8,6 +8,12 @@
 
 {% block content %}
 
-<p>We care about protecting the privacy of our youth</p>
+This serves as a digital consent form, sign your name and press submit.
+<form action={% url 'profiles:consent_form' token=token %} method="POST">
+  {% csrf_token %}
+  {{ form.signature }}
+
+  <input type="submit">
+</form>
 
 {% endblock %}
