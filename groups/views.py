@@ -7,6 +7,7 @@ from .forms import GroupJoinForm, GroupLeaveForm, GroupInviteForm, GroupForm
 from curiositymachine.decorators import feature_flag, educator_only
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 @feature_flag('enable_groups')
 def groups(request):
