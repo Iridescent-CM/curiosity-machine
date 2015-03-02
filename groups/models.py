@@ -7,6 +7,7 @@ from django.db.models.signals import pre_save
 from curiositymachine.helpers import random_string
 from cmemails import deliver_email
 from django.conf import settings
+from django_simple_redis import redis
 
 
 INVITATIONS_NS = "curiositymachine:invitations:{group_id}:{token}"
@@ -17,7 +18,6 @@ class Role(Enum):
     student = 1
 
 class Group(models.Model):
-    redis = django_rq.get_connection()
     name = models.CharField('name', max_length=80, null=True, blank=False)
     code = models.CharField('code', max_length=20, unique=True, null=True, blank=False)
     members = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
@@ -47,14 +47,14 @@ class Group(models.Model):
         return False
 
     def invite_student(self, user):
-        token = str(int(time.time())) + random_string(40, 100)
-        self.redis.setex(INVITATIONS_NS.format(group_id=str(self.id), token=token), user.id, EXPIRY)
+        token = str(int(time.time())) + random_string(40)
+        redis.setex(INVITATIONS_NS.format(group_id=str(self.id), token=token), user.id, EXPIRY)
         #send an email
         deliver_email('group_invite', user.profile, group=self, token=token)
         return True
 
     def accept_invitation(self, token):
-        user_id = self.redis.get(INVITATIONS_NS.format(group_id=str(self.id), token=token))
+        user_id = redis.get(INVITATIONS_NS.format(group_id=str(self.id), token=token))
         user = User.objects.get(pk=int(user_id))
         self.add_student(user)
         return user
