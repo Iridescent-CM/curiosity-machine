@@ -8,6 +8,7 @@ from curiositymachine.decorators import feature_flag, educator_only
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 
 @feature_flag('enable_groups')
 def groups(request):
@@ -69,7 +70,7 @@ def invite_to_group(request, group_id):
 	invite_form = GroupInviteForm(data=request.POST)
 	invite_form.is_valid()
 	group = get_object_or_404(Group, id=group_id)
-	user = get_object_or_404(User, email=invite_form.cleaned_data['email'])
+	user = get_object_or_404(User, Q(email=invite_form.cleaned_data['email']) | Q(username=invite_form.cleaned_data['email']))
 	result = group.invite_student(user)
 	if result:
 		messages.success(request, 'Successfully invited %s to %s group' % (invite_form.cleaned_data['email'],group.name,))
