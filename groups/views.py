@@ -83,10 +83,14 @@ def accept_invitation(request, group_id, token):
 	group = get_object_or_404(Group, id=group_id)
 	try:
 		user = group.accept_invitation(token)
+		messages.success(request, 'Successfully joined %s group' % (group.name,))
 	except User.DoesNotExist:
 		raise Http404("User not found for specified token. This invitation might have expired.")
 	
-	return HttpResponseRedirect(reverse('profiles:home'))
+	if request.user.is_authenticated():
+		return HttpResponseRedirect(reverse('profiles:home'))
+	else:
+		return HttpResponseRedirect(reverse('challenges:challenges'))
 
 # @login_required
 # def user_group(request, group_id): 
