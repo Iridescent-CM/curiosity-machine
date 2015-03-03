@@ -26,6 +26,10 @@ class Profile(models.Model):
     city = models.TextField(blank=True)
     parent_first_name = models.TextField(blank=True)
     parent_last_name = models.TextField(blank=True)
+
+    consent_signature = models.TextField(blank=True, null=True)
+    consented_at = models.DateTimeField(default=None, blank=True, null=True)
+
     title = models.TextField(blank=True, help_text="This is a mentor only field.")
     employer = models.TextField(blank=True, help_text="This is a mentor only field.")
     expertise = models.TextField(blank=True, help_text="This is a mentor only field.")
@@ -46,15 +50,28 @@ class Profile(models.Model):
 
     @classmethod
     def inactive_mentors(cls):
-         startdate = now()
-         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
-         return cls.objects.filter(last_active_on__lt=enddate, is_mentor=True, last_inactive_email_sent_on=None)
+        startdate = now()
+        enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
+        return cls.objects.filter(last_active_on__lt=enddate, is_mentor=True, last_inactive_email_sent_on=None)
 
     @classmethod
     def inactive_students(cls):
-         startdate = now()
-         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
-         return cls.objects.filter(last_active_on__lt=enddate,is_student=True, last_inactive_email_sent_on=None)
+        startdate = now()
+        enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
+        return cls.objects.filter(last_active_on__lt=enddate,is_student=True, last_inactive_email_sent_on=None)
+
+    @classmethod
+    def consent_student(cls, token, signature):
+        key = INVITATIONS_NS.format(token=token)
+        id = redis.get(key)
+        profile = cls.objects.get(pk=int(id))
+        profile.consent_signature = signature
+        profile.consented_at = now()
+        profile.approved = True
+        profile.save(update_fields=['consent_signature', 'consented_at', 'approved'])
+        deliver_email('activation_confirmation', profile, digitally_signed=True)
+        redis.delete(key)
+        return profile
 
     @property
     def age(self):

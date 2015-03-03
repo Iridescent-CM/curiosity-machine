@@ -12,6 +12,8 @@ from profiles.utils import create_or_edit_user
 from challenges.models import Progress, Favorite
 from django.db import transaction
 from django.contrib import messages
+from profiles.models import Profile, INVITATIONS_NS
+from django_simple_redis import redis
 
 @transaction.atomic
 def join(request):
@@ -68,6 +70,10 @@ def profile_edit(request):
 def underage(request):
     return render(request, 'underage_student.html')
 
+def signed_consent_form(request, profile_id):
+    print(profile_id)
+    profile = Profile.objects.get(pk=int(profile_id))
+    return render(request, 'signed_consent_form.html', {'profile': profile})
 
 def consent_form(request, token):
     #get the token from the invite email
@@ -76,13 +82,17 @@ def consent_form(request, token):
     }
     if request.method == 'POST':
         form = ConsentForm(data=request.POST)
-        form.is_valid()
-        #store data
-        ctx['form'] = ConsentForm()
-        return render(request, 'consent_form.html', ctx)
+        if form.is_valid():
+            student = Profile.consent_student(token, form.cleaned_data['signature'])
+            messages.success(request, 'Your consent form for Curiosity Machine was successfully signed and {username} account is now active!.'.format(username=student.user.username))
+            return HttpResponseRedirect(reverse('profiles:home'))
     else:
-        ctx['form'] = ConsentForm()
-        return render(request, 'consent_form.html', ctx)
+        if redis.get(INVITATIONS_NS.format(token=token)):
+            ctx['form'] = ConsentForm()
+            return render(request, 'consent_form.html', ctx)
+        else:
+            messages.error(request, 'Consent form was not found')
+            return HttpResponseRedirect(reverse('profiles:home'))
 
 def resend_consent_form_email(request):
     request.user.profile.deliver_welcome_email()
