@@ -8,6 +8,7 @@ from curiositymachine.helpers import random_string
 from cmemails import deliver_email
 from django.conf import settings
 from django_simple_redis import redis
+from uuid import uuid4
 
 
 INVITATIONS_NS = "curiositymachine:invitations:{group_id}:{token}"
@@ -47,7 +48,7 @@ class Group(models.Model):
         return False
 
     def invite_student(self, user):
-        token = str(int(time.time())) + random_string(40)
+        token = str(uuid4())
         redis.setex(INVITATIONS_NS.format(group_id=str(self.id), token=token), user.id, EXPIRY)
         #send an email
         deliver_email('group_invite', user.profile, group=self, token=token)
