@@ -9,7 +9,7 @@ from datetime import date, timedelta
 from cmcomments.models import Comment
 from cmemails import deliver_email
 from django.utils.timezone import now
-from curiositymachine.helpers import random_string
+from uuid import uuid4
 from django_simple_redis import redis
 import time
 
@@ -122,7 +122,7 @@ class Profile(models.Model):
         if self.is_mentor:
             deliver_email('welcome', self, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
         else:
-            token = str(int(time.time())) + random_string(40)
+            token = str(uuid4())
             redis.setex(INVITATIONS_NS.format(token=token), self.id, EXPIRY)
             deliver_email('welcome', self, token=token)
 
