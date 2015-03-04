@@ -63,7 +63,7 @@ def test_challenges_render_challenges(client, challenge, student):
 
 @pytest.mark.django_db
 def test_challenges_filters_by_name(client, challenge, challenge2, theme, student):
-    challenge.theme = theme
+    challenge.themes.add(theme)
     challenge.save()
 
     response = client.get('/challenges/')
@@ -95,7 +95,7 @@ def test_ajax_challenges(client, loggedInStudent, challenge):
 
 @pytest.mark.django_db
 def test_ajax_challenges_filters_by_name(client, loggedInStudent, challenge, challenge2, theme):
-    challenge.theme = theme
+    challenge.themes.add(theme)
     challenge.save()
 
     response = client.get('/challenges/ajax_challenges')
