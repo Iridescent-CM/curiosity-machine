@@ -15,4 +15,5 @@ urlpatterns = patterns('challenges.views',
     url(r'^(?P<challenge_id>\d+)/(?P<mode>favorite|unfavorite)$', 'set_favorite', name='set_favorite'),
     url(r'^favorite_challenges$', 'favorite_challenges', name='favorite_challenges'),
     url(r'^ajax_challenges$', 'ajax_challenges', name='ajax_challenges'),
+    url(r'^filtered_challenges/(?P<filter_id>\d+)$', 'filtered_challenges', name='filtered_challenges'),
 )

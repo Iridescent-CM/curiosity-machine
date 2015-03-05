@@ -1,0 +1,5 @@
+# requirements.dev.txt contains all the basics...
+-r ./requirements.txt
+
+# and some development-only extras
+django-debug-toolbar==1.2.2

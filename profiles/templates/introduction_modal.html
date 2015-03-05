@@ -1,0 +1,30 @@
+{% extends "_modal.html" %}
+{% block id %}introduction-modal{% endblock %}
+{% block classes %}{% endblock %}
+{% block inner-classes %}modal-lg{% endblock %}
+
+{% block content %}
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h1>Learn how to use Curiosity Machine!</h1>
+</div>
+<div class="modal-body row clearfix">
+  <div class="introvideocontent">
+      <video
+        id="intro-video"
+        class="cm-mejs-player" 
+        preload="none"
+        controls
+        autoplay
+        data-mejsoptions='{}'
+        width="100%"
+        height="100%">           
+        <source src="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.mp4" type="video/mp4">
+        <source src="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.ogg" type="video/ogg">
+      </video>
+  </div>
+</div>
+<div class="modal-footer">
+</div>
+    
+{% endblock %}

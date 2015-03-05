@@ -1,5 +1,5 @@
 import pytest
-from .models import Challenge, Progress, Theme, Favorite, Stage
+from .models import Challenge, Progress, Theme, Favorite, Stage, Filter
 from cmcomments.models import Comment
 from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress
 from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
@@ -27,11 +27,15 @@ def theme():
 
 @pytest.fixture
 def challenge():
-    return Challenge.objects.create(name="Test Challenge")
+    return Challenge.objects.create(name="Test Challenge", draft=False)
+
+@pytest.fixture
+def filter():
+    return Filter.objects.create(name="My Filter")
 
 @pytest.fixture
 def challenge2():
-    return Challenge.objects.create(name="Test Challenge 2")
+    return Challenge.objects.create(name="Test Challenge 2", draft=False)
 
 @pytest.fixture
 def progress(student, mentor, challenge):
@@ -59,7 +63,7 @@ def test_challenges_render_challenges(client, challenge, student):
 
 @pytest.mark.django_db
 def test_challenges_filters_by_name(client, challenge, challenge2, theme, student):
-    challenge.theme = theme
+    challenge.themes.add(theme)
     challenge.save()
 
     response = client.get('/challenges/')
@@ -71,6 +75,19 @@ def test_challenges_filters_by_name(client, challenge, challenge2, theme, studen
     assert len(response.context['challenges']) == 1
 
 @pytest.mark.django_db
+def test_challenges_filters_drafts(client, challenge, challenge2, student):
+    response = client.get('/challenges/')
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 2
+
+    challenge.draft = True
+    challenge.save()
+
+    response = client.get('/challenges/')
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 1
+
+@pytest.mark.django_db
 def test_ajax_challenges(client, loggedInStudent, challenge):
     response = client.get('/challenges/ajax_challenges', follow=True)
     assert response.status_code == 200
@@ -78,7 +95,7 @@ def test_ajax_challenges(client, loggedInStudent, challenge):
 
 @pytest.mark.django_db
 def test_ajax_challenges_filters_by_name(client, loggedInStudent, challenge, challenge2, theme):
-    challenge.theme = theme
+    challenge.themes.add(theme)
     challenge.save()
 
     response = client.get('/challenges/ajax_challenges')
@@ -86,6 +103,19 @@ def test_ajax_challenges_filters_by_name(client, loggedInStudent, challenge, cha
     assert len(response.context['challenges']) == 2
 
     response = client.get('/challenges/ajax_challenges', {'theme': theme.name}, follow=True)
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 1
+
+@pytest.mark.django_db
+def test_ajax_challenges_filters_drafts(client, loggedInStudent, challenge, challenge2):
+    response = client.get('/challenges/ajax_challenges')
+    assert response.status_code == 200
+    assert len(response.context['challenges']) == 2
+
+    challenge.draft = True
+    challenge.save()
+
+    response = client.get('/challenges/ajax_challenges')
     assert response.status_code == 200
     assert len(response.context['challenges']) == 1
 
@@ -189,4 +219,8 @@ def test_unclaimed_progress(mentor, unclaimed_progress):
     unclaimed = Progress.unclaimed()
     assert sum(1 for s in unclaimed) == 1
 
-    
+@pytest.mark.django_db
+def test_classify_with_id(filter, challenge):
+    challenge.filters.add(filter)
+    assert(challenge.filters.exists() == 1)
+

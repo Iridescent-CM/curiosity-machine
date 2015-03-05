@@ -14,6 +14,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
     is_student = models.BooleanField(default=False, verbose_name="Student access")
     is_mentor = models.BooleanField(default=False, verbose_name="Mentor access")
+    is_educator = models.BooleanField(default=False, verbose_name="Educator access")
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
     city = models.TextField(blank=True)
@@ -33,9 +34,9 @@ class Profile(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
-    
     #this field will be cleared once the user becomes active
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
+    shown_intro = models.BooleanField(default=False)
 
     @classmethod
     def inactive_mentors(cls):
@@ -91,6 +92,10 @@ class Profile(models.Model):
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__mentor=self.user, read=False).count()
         else:
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
+
+    def intro_video_was_played(self):
+        self.shown_intro = True
+        self.save(update_fields=['shown_intro'])
 
     def deliver_welcome_email(self):
         if self.is_mentor:
