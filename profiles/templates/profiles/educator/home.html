@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Curiosity Machine - Home{% endblock %}
+
+{% block css %}
+<style>
+  .owl-item > li {
+    list-style: none;
+  }
+  .owl-carousel {
+    padding-left: 0;
+  }
+  #group-carousel .panel {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .carousel-section {
+    background: #e5e1d9;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: 0 -65px 20px -65px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <h1>Welcome {{user.username}}</h1>
+  <h2>My Clubs</h2>
+  <div class="carousel-section">
+    <ul id="group-carousel" class="owl-carousel">
+      <li>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <a href="#">Create new club</a>
+          </div>
+        </div>
+      </li>
+      {% for group in groups %}
+        <li>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <a href="#">Group name</a>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script>
+    $(function(){
+      $('#group-carousel').owlCarousel({
+        items: 4,
+        itemsCustom : false,
+        itemsDesktop : [1199,3],
+        itemsDesktopSmall : [980,3],
+        itemsTablet: [768,2],
+        itemsTabletSmall: false,
+        itemsMobile : [479,1],
+        singleItem : false,
+        itemsScaleUp : false
+      });
+    });
+  </script>
+{% endblock %}
