@@ -94,7 +94,7 @@
               </div>
             </div>
             {% include "_challenge_reflect_images_modal.html" %}
-          {% else %}
+          {% else %} <!--progress.approved-->
             <div class="panel panel-bubble right">
               <div class="panel-body">
                 <h3>Are you on</h3>
@@ -109,14 +109,14 @@
                   </li>
                 </ul><div></div><!-- magical switch clearing div -->
                 {% include "_comment_action_list.html" %}
-                {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
-                {% include "_comment_form.html" with stage="build" format="video" url=comment_url %}
-                {% include "_comment_form.html" with stage="build" format="picture" url=comment_url %}
-                {% include "_comment_form.html" with stage="build" format="text" url=comment_url %}
-
+                
               </div>
             </div>
-          {% endif %}
+          {% endif %} <!-- progress.approved -->
+          {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
+          {% include "_comment_form.html" with stage="build" format="video" url=comment_url %}
+          {% include "_comment_form.html" with stage="build" format="picture" url=comment_url %}
+          {% include "_comment_form.html" with stage="build" format="text" url=comment_url %}
         {% endif %} <!-- if mentor -->
         {% for comment in comments %}
           {% include "_comment.html" %}
@@ -125,7 +125,8 @@
     </div><!-- row -->
 
     {% include "_guide.html" %}
-   
+  
+
   </div><!-- content -->
 
 {% endblock %}
