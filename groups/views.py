@@ -45,7 +45,7 @@ def join_group(request):
 	if result:
 		messages.success(request, 'Successfully subscribed to the %s group' % group.name)
 	else:
-		messages.error(request, 'Already subscribed to %s group' % group.name)
+		messages.error(request, 'You are already a member of %s' % group.name)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
