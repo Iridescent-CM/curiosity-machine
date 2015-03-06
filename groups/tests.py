@@ -145,3 +145,11 @@ def test_accept_invitation(client, group, loggedInStudent):
         response = client.get(reverse('groups:accept_invitation', kwargs={'group_id': group.id, 'token': token}), HTTP_REFERER='/')
         assert len(group.members()) == 1
         assert response.status_code == 302
+
+@pytest.mark.django_db
+def test_create(client, loggedInEducator):
+    with mock.patch.dict('os.environ', {'ENABLE_GROUPS': '1', 'ENABLE_EDUCATORS': '1'}):
+        response = client.post(reverse('groups:create'), {'name': "group1"},HTTP_REFERER='/')
+        group = Group.objects.get(name='group1')
+        assert len(group.owners()) == 1
+        assert response.status_code == 302
