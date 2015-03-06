@@ -14,8 +14,8 @@ INVITATIONS_NS = "curiositymachine:invitations:{group_id}:{token}"
 EXPIRY = int(settings.GROUP_INVITATION_INACTIVE_DAYS) * 1000 * 1000
 
 class Role(Enum):
-    educator = 0
-    student = 1
+    owner = 0
+    member = 1
 
 class Group(models.Model):
     name = models.CharField('name', max_length=80, null=True, blank=False)
@@ -23,26 +23,26 @@ class Group(models.Model):
     members = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
 
     def educators(self):
-        return User.objects.filter(cm_groups=self, memberships__role=Role.educator.value)
+        return User.objects.filter(cm_groups=self, memberships__role=Role.owner.value)
 
     def students(self): 
-        return User.objects.filter(cm_groups=self, memberships__role=Role.student.value).prefetch_related('progresses__challenge')
+        return User.objects.filter(cm_groups=self, memberships__role=Role.member.value).prefetch_related('progresses__challenge')
 
     def add_student(self, user):
-        if not Membership.objects.filter(group=self, user=user, role=Role.student.value).exists():
-            Membership.objects.create(group=self, user=user, role=Role.student.value)
+        if not Membership.objects.filter(group=self, user=user, role=Role.member.value).exists():
+            Membership.objects.create(group=self, user=user, role=Role.member.value)
             return True
         return False
 
     def add_educator(self, user):
-        if not Membership.objects.filter(group=self, user=user, role=Role.educator.value).exists():
-            Membership.objects.create(group=self, user=user, role=Role.educator.value)
+        if not Membership.objects.filter(group=self, user=user, role=Role.owner.value).exists():
+            Membership.objects.create(group=self, user=user, role=Role.owner.value)
             return True
         return False
 
     def delete_student(self, user):
-        if Membership.objects.filter(group=self, user=user, role=Role.student.value).exists():
-            Membership.objects.get(group=self, user=user, role=Role.student.value).delete()
+        if Membership.objects.filter(group=self, user=user, role=Role.member.value).exists():
+            Membership.objects.get(group=self, user=user, role=Role.member.value).delete()
             return True
         return False
 
@@ -83,7 +83,7 @@ pre_save.connect(create_code, sender=Group)
 class Membership(models.Model):
     group = models.ForeignKey(Group, related_name="memberships")
     user = models.ForeignKey(User, related_name="memberships")
-    role = models.SmallIntegerField(choices=[(role.value, role.name.capitalize()) for role in Role], default=Role.educator.value)
+    role = models.SmallIntegerField(choices=[(role.value, role.name.capitalize()) for role in Role], default=Role.owner.value)
 
     def __str__(self):
         return "Group={} User={}".format(self.group, self.user)

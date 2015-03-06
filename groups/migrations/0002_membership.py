@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('group', models.ForeignKey(to_field='id', to='groups.Group')),
                 ('user', models.ForeignKey(to_field='id', to=settings.AUTH_USER_MODEL)),
-                ('role', models.SmallIntegerField(choices=[(0, 'Educator'), (1, 'Student')], default=0)),
+                ('role', models.SmallIntegerField(choices=[(0, 'Owner'), (1, 'Member')], default=0)),
             ],
             options={
             },
