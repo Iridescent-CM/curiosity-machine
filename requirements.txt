@@ -21,7 +21,7 @@ coverage
 
 #background worker job queueing (redis-backed)
 redis==2.9.1
-django-simple-redis==0.0.1
+-e git://github.com/devpopol/django-simple-redis@0.0.1#egg=django-simple-redis
 django-rq==0.6.2
 rq-scheduler==0.5.0
 rq==0.4.6
