@@ -20,33 +20,33 @@ class Role(Enum):
 class Group(models.Model):
     name = models.CharField('name', max_length=80, null=True, blank=False)
     code = models.CharField('code', max_length=20, unique=True, null=True, blank=False)
-    members = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
+    member_users = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
 
-    def educators(self):
+    def owners(self):
         return User.objects.filter(cm_groups=self, memberships__role=Role.owner.value)
 
-    def students(self): 
+    def members(self): 
         return User.objects.filter(cm_groups=self, memberships__role=Role.member.value).prefetch_related('progresses__challenge')
 
-    def add_student(self, user):
+    def add_member(self, user):
         if not Membership.objects.filter(group=self, user=user, role=Role.member.value).exists():
             Membership.objects.create(group=self, user=user, role=Role.member.value)
             return True
         return False
 
-    def add_educator(self, user):
+    def add_owner(self, user):
         if not Membership.objects.filter(group=self, user=user, role=Role.owner.value).exists():
             Membership.objects.create(group=self, user=user, role=Role.owner.value)
             return True
         return False
 
-    def delete_student(self, user):
+    def delete_member(self, user):
         if Membership.objects.filter(group=self, user=user, role=Role.member.value).exists():
             Membership.objects.get(group=self, user=user, role=Role.member.value).delete()
             return True
         return False
 
-    def invite_student(self, user):
+    def invite_member(self, user):
         token = str(uuid4())
         redis.setex(INVITATIONS_NS.format(group_id=str(self.id), token=token), user.id, EXPIRY)
         #send an email
@@ -56,7 +56,7 @@ class Group(models.Model):
     def accept_invitation(self, token):
         user_id = redis.get(INVITATIONS_NS.format(group_id=str(self.id), token=token))
         user = User.objects.get(pk=int(user_id))
-        self.add_student(user)
+        self.add_member(user)
         return user
 
     def __str__(self):

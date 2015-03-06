@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Group
 
 class UserInline(admin.TabularInline):
-    model = Group.members.through
+    model = Group.member_users.through
     extra = 1
 
 class GroupAdmin(admin.ModelAdmin):

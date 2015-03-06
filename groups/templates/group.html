@@ -22,7 +22,7 @@
 </h3>
 
 <ul>
-  {% for user in group.educators %}
+  {% for user in group.owners %}
   <li>
   {{ user.username }}
   </li>
@@ -36,7 +36,7 @@
 </h3>
 
 <ul>
-  {% for user in group.students %}
+  {% for user in group.members %}
   <li>{{ user.username }}
   <br />
   Challenges: 

@@ -4,9 +4,8 @@ test:
 coverage:
 	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.settings coverage run --source . -m py.test && coverage report
 
-cov:	htmlcov
-
-htmlcov:
+cov:
+	rm -rf htmlcov
 	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.settings coverage run --source . -m py.test && coverage html
 
 clean:

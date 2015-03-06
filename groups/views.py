@@ -30,7 +30,7 @@ def create(request):
 	form = GroupForm(data=request.POST)
 	if form.is_valid():
 		group = Group.objects.create(name=form.cleaned_data['name'])
-		group.add_educator(request.user)
+		group.add_owner(request.user)
 		messages.success(request, 'Successfully created the %s group' % group.name)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 	
@@ -41,7 +41,7 @@ def join_group(request):
 	group_form = GroupJoinForm(data=request.POST)
 	group_form.is_valid()
 	group = get_object_or_404(Group, code=group_form.cleaned_data['code'])
-	result = group.add_student(request.user)
+	result = group.add_member(request.user)
 	if result:
 		messages.success(request, 'Successfully subscribed to the %s group' % group.name)
 	else:
@@ -55,7 +55,7 @@ def leave_group(request):
 	group_form = GroupLeaveForm(data=request.POST)
 	group_form.is_valid()
 	group = get_object_or_404(Group, id=group_form.cleaned_data['id'])
-	result = group.delete_student(request.user)
+	result = group.delete_member(request.user)
 	if result:
 		messages.success(request, 'Successfully unsubscribed to the %s group' % group.name)
 	else:
@@ -72,7 +72,7 @@ def invite_to_group(request, group_id):
 	group = get_object_or_404(Group, id=group_id)
 	try:
 		user = User.objects.get(Q(email=invite_form.cleaned_data['email']) | Q(username=invite_form.cleaned_data['email']))
-		group.invite_student(user)
+		group.invite_member(user)
 		messages.success(request, 'Successfully invited %s to %s group' % (invite_form.cleaned_data['email'],group.name,))
 	except User.DoesNotExist:
 		messages.error(request, 'User %s not found' % (invite_form.cleaned_data['email'],))

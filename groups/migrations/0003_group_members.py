@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='group',
-            name='members',
+            name='member_users',
             field=models.ManyToManyField(through='groups.Membership', to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
