@@ -48,24 +48,16 @@ def home(request):
     progresses = Progress.objects.filter(student=request.user).select_related("challenge")
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
-    ctx = {}
-    ENABLE_GROUPS = os.environ.get('ENABLE_GROUPS', False)
-    if ENABLE_GROUPS:
-        ctx.update({
-            'group_form': GroupJoinForm(),
-            'groups': [(group, GroupLeaveForm(initial={'id': group.id})) for group in request.user.cm_groups.all()],
-        })
-
-    ctx.update({
+    return render(request, "student_home.html", {
         'active_progresses': active_progresses, 
         'completed_progresses': completed_progresses, 
         'progresses': progresses, 
         'filter': filter, 
         'my_challenges_filters': my_challenges_filters, 
         'favorite_challenges': favorite_challenges,
-        'enable_groups': ENABLE_GROUPS,
+        'group_form': GroupJoinForm(),
+        'groups': [(group, GroupLeaveForm(initial={'id': group.id})) for group in request.user.cm_groups.all()],
     })
-    return render(request, "student_home.html", ctx)
 
 @login_required
 def profile_edit(request):
