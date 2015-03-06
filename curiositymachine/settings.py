@@ -168,10 +168,11 @@ S3_URL_BASE = "http://s3.amazonaws.com"
 
 MEDIA_URL = S3_URL_BASE + '/' + AWS_STORAGE_BUCKET_NAME + '/'
 
+REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
 #job queues
 RQ_QUEUES = {
     'default': {
-        'URL': os.getenv('REDIS_URL', 'redis://localhost:6379'),
+        'URL': REDIS_URL,
         'DB': 0,}
 }
 
