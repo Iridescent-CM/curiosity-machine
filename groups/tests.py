@@ -4,6 +4,7 @@ from mock import patch
 from django.contrib.auth.models import User
 from .models import Group, Membership, Role, INVITATIONS_NS
 from django_simple_redis import redis
+from django.core.urlresolvers import reverse
 
 @pytest.fixture
 def student():
@@ -14,6 +15,14 @@ def student():
     return student
 
 @pytest.fixture
+def educator():
+    educator = User.objects.create_user(username='educator', email='educator@example.com', password='password')
+    educator.profile.approved = True
+    educator.profile.is_educator = True
+    educator.profile.save()
+    return educator
+
+@pytest.fixture
 def mentor():
     mentor = User.objects.create_user(username='mentor', email='mentor@example.com', password='password')
     mentor.profile.approved = True
@@ -22,13 +31,14 @@ def mentor():
     return mentor
 
 @pytest.fixture
-def loggedInEducator(client):
-    educator = User.objects.create_user(username='educator', email='educator@example.com', password='password')
-    educator.profile.approved = True
-    educator.profile.is_educator = True
-    educator.profile.save()
-    client.login(username='educator', password='password')
+def loggedInEducator(client, educator):
+    client.login(username=educator.username, password='password')
     return educator
+
+@pytest.fixture
+def loggedInStudent(client, student):
+    client.login(username=student.username, password='password')
+    return student
 
 @pytest.fixture
 def group():
@@ -101,3 +111,37 @@ def test_group(client, group, loggedInEducator):
         assert response.status_code == 200
         assert response.context['group'].id == group.id
 
+@pytest.mark.django_db
+def test_join_group(client, group, loggedInStudent):
+    with mock.patch.dict('os.environ', {'ENABLE_GROUPS': '1', 'ENABLE_EDUCATORS': '1'}):
+        response = client.post(reverse('groups:join_group'), {'code': group.code}, HTTP_REFERER='/')
+        assert len(group.members()) == 1
+        assert response.status_code == 302
+
+@pytest.mark.django_db
+def test_leave_group(client, group, loggedInStudent):
+    group.add_member(loggedInStudent)
+    with mock.patch.dict('os.environ', {'ENABLE_GROUPS': '1', 'ENABLE_EDUCATORS': '1'}):
+        response = client.post(reverse('groups:leave_group'), {'id': group.id}, HTTP_REFERER='/')
+        assert len(group.members()) == 0
+        assert response.status_code == 302
+
+@pytest.mark.django_db
+@pytest.mark.redis
+def test_invite_to_group(client, group, student, loggedInEducator):
+    redis.flushall()
+    with mock.patch.dict('os.environ', {'ENABLE_GROUPS': '1', 'ENABLE_EDUCATORS': '1'}):
+        response = client.post(reverse('groups:invite_to_group', kwargs={'group_id': group.id}), {'email': student.email}, HTTP_REFERER='/')
+        keys = redis.keys(INVITATIONS_NS.format(group_id=str(group.id), token="*"))
+        assert len(keys) == 1
+        assert response.status_code == 302
+
+@pytest.mark.django_db
+@pytest.mark.redis
+def test_accept_invitation(client, group, loggedInStudent):
+    redis.flushall()
+    token = group.invite_member(loggedInStudent)
+    with mock.patch.dict('os.environ', {'ENABLE_GROUPS': '1', 'ENABLE_EDUCATORS': '1'}):
+        response = client.get(reverse('groups:accept_invitation', kwargs={'group_id': group.id, 'token': token}), HTTP_REFERER='/')
+        assert len(group.members()) == 1
+        assert response.status_code == 302

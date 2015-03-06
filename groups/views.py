@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Group, Role, Membership
 from django.contrib.auth.models import User
 from .forms import GroupJoinForm, GroupLeaveForm, GroupInviteForm, GroupForm
-from curiositymachine.decorators import feature_flag, educator_only
+from curiositymachine.decorators import feature_flag, educator_only, student_only
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -37,6 +37,7 @@ def create(request):
 @login_required
 @feature_flag('enable_groups')
 @require_http_methods(["POST"])
+@student_only
 def join_group(request):
 	group_form = GroupJoinForm(data=request.POST)
 	group_form.is_valid()
@@ -51,6 +52,7 @@ def join_group(request):
 @login_required
 @feature_flag('enable_groups')
 @require_http_methods(["POST"])
+@student_only
 def leave_group(request):
 	group_form = GroupLeaveForm(data=request.POST)
 	group_form.is_valid()
@@ -65,7 +67,9 @@ def leave_group(request):
 
 @login_required
 @feature_flag('enable_groups')
+@feature_flag('enable_educators')
 @require_http_methods(["POST"])
+@educator_only
 def invite_to_group(request, group_id):
 	invite_form = GroupInviteForm(data=request.POST)
 	invite_form.is_valid()
@@ -78,8 +82,8 @@ def invite_to_group(request, group_id):
 		messages.error(request, 'User %s not found' % (invite_form.cleaned_data['email'],))
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-
 @feature_flag('enable_groups')
+@student_only
 def accept_invitation(request, group_id, token):
 	group = get_object_or_404(Group, id=group_id)
 	try:
@@ -92,9 +96,3 @@ def accept_invitation(request, group_id, token):
 		return HttpResponseRedirect(reverse('profiles:home'))
 	else:
 		return HttpResponseRedirect(reverse('challenges:challenges'))
-
-# @login_required
-# def user_group(request, group_id): 
-# 	group = request.user.profile.groups.filter(id=group_id).first()
-# 	if not group: return Http404("No group for given query")
-# 	return render(request, 'group.html', {'group': group})

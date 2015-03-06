@@ -23,6 +23,15 @@ def educator_only(view):
             raise PermissionDenied
     return inner
 
+def student_only(view):
+    @wraps(view)
+    def inner(request, *args, **kwargs):
+        if request.user.is_staff or request.user.profile.is_student:
+            return view(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+    return inner
+
 # also permits staff
 def mentor_only(view):
     @wraps(view)

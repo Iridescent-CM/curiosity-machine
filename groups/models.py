@@ -51,7 +51,7 @@ class Group(models.Model):
         redis.setex(INVITATIONS_NS.format(group_id=str(self.id), token=token), user.id, EXPIRY)
         #send an email
         deliver_email('group_invite', user.profile, group=self, token=token)
-        return True
+        return token
 
     def accept_invitation(self, token):
         user_id = redis.get(INVITATIONS_NS.format(group_id=str(self.id), token=token))
