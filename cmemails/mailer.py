@@ -80,4 +80,4 @@ def deliver_email(event_name, profile, **context):
         return None
     key = "_".join([user_type, event_name])
     info = email_info[key]
-    return email([profile.user.email], info['subject'], context, info['template'], context.get('cc', None))
+    return email([profile.user.email], context['subject'] or info['subject'], context, info['template'], context.get('cc', None))
