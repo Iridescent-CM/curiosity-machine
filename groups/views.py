@@ -70,12 +70,12 @@ def invite_to_group(request, group_id):
 	invite_form = GroupInviteForm(data=request.POST)
 	invite_form.is_valid()
 	group = get_object_or_404(Group, id=group_id)
-	user = get_object_or_404(User, Q(email=invite_form.cleaned_data['email']) | Q(username=invite_form.cleaned_data['email']))
-	result = group.invite_student(user)
-	if result:
+	try:
+		user = User.objects.get(Q(email=invite_form.cleaned_data['email']) | Q(username=invite_form.cleaned_data['email']))
+		group.invite_student(user)
 		messages.success(request, 'Successfully invited %s to %s group' % (invite_form.cleaned_data['email'],group.name,))
-	else:
-		messages.error(request, 'Already invited %s to %s group' % (invite_form.cleaned_data['email'], group.name,))
+	except User.DoesNotExist:
+		messages.error(request, 'User %s not found' % (invite_form.cleaned_data['email'],))
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
