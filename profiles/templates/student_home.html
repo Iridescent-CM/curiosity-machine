@@ -11,8 +11,10 @@
 <h1>Welcome {{ request.user.username}}</h1>
 
 <ul class="nav nav-justified nav-tabs">
-  <li {% if filter == 'favorites' %}class="active"{% endif %}><a data-target="#favorites" href="{% url 'challenges:favorite_challenges' %}" data-toggle="tabajax">Favorites</a></li>
   <li {% if filter in my_challenges_filters or filter != 'favorites' %}class="active"{% endif %}><a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a></li>
+  <li {% if filter == 'favorites' %}class="active"{% endif %}>
+    <a data-target="#favorites" class="favorites" href="{% url 'challenges:favorite_challenges' %}" data-toggle="tabajax">Favorites</a>
+  </li>
 </ul>
 <div class="tab-content">
   <div class="tab-pane fade in active" id="challenges">

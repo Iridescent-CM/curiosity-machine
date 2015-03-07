@@ -5,14 +5,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('challenges', '0028_auto_20150203_1451'),
+        ('challenges', '0032_auto_20150224_1219'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='challenge',
-            name='draft',
-            field=models.BooleanField(default=True, help_text='Drafts are not shown in the main challenge list'),
+            name='themes',
+            field=models.ManyToManyField(to='challenges.Theme', blank=True, null=True),
             preserve_default=True,
         ),
     ]

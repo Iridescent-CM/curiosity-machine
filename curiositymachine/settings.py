@@ -27,6 +27,8 @@ DEBUG = process_false_string(os.environ.get('DEBUG', False)) # debug saves a LOT
 
 TEMPLATE_DEBUG = DEBUG
 
+DEBUG_TOOLBAR = os.environ.get('DEBUG_TOOLBAR', False)
+
 COMPRESS_ENABLED = process_false_string(os.environ.get('COMPRESS_ENABLED', False)) # no compression by default for now
 
 ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMINS", '').split(',')])
@@ -180,7 +182,6 @@ RQ_QUEUES = {
     'default': {
         'URL': redis,
         'DB': int(REDIS_DB),}
-}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
@@ -272,8 +273,13 @@ GROUP_INVITATION_INACTIVE_DAYS = os.environ.get("GROUP_INVITATION_INACTIVE_DAYS"
 
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 
-# Import optional local settings.  This must be at the END of this file.
+# Import optional local settings.  This must come after config you want to be able to override.
 try:
     from .local import *
 except ImportError:
     pass
+
+# Conditionally install the debug toolbar
+if DEBUG and DEBUG_TOOLBAR:
+    INSTALLED_APPS += ('debug_toolbar',)
+
