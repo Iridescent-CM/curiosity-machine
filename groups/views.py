@@ -40,13 +40,15 @@ def create(request):
 @student_only
 def join_group(request):
 	group_form = GroupJoinForm(data=request.POST)
-	group_form.is_valid()
-	group = get_object_or_404(Group, code=group_form.cleaned_data['code'])
-	result = group.add_member(request.user)
-	if result:
-		messages.success(request, 'Successfully subscribed to the %s group' % group.name)
+	if group_form.is_valid():
+		group = get_object_or_404(Group, code=group_form.cleaned_data['code'])
+		result = group.add_member(request.user)
+		if result:
+			messages.success(request, 'Successfully subscribed to the %s group' % group.name)
+		else:
+			messages.error(request, 'You are already a member of %s' % group.name)
 	else:
-		messages.error(request, 'You are already a member of %s' % group.name)
+		messages.error(request, 'Invalid code')
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
@@ -72,14 +74,16 @@ def leave_group(request):
 @educator_only
 def invite_to_group(request, group_id):
 	invite_form = GroupInviteForm(data=request.POST)
-	invite_form.is_valid()
-	group = get_object_or_404(Group, id=group_id)
-	try:
-		user = User.objects.get(Q(email=invite_form.cleaned_data['email']) | Q(username=invite_form.cleaned_data['email']))
-		group.invite_member(user)
-		messages.success(request, 'Successfully invited %s to %s group' % (invite_form.cleaned_data['email'],group.name,))
-	except User.DoesNotExist:
-		messages.error(request, 'User %s not found' % (invite_form.cleaned_data['email'],))
+	if invite_form.is_valid():
+		group = get_object_or_404(Group, id=group_id)
+		try:
+			user = User.objects.get(Q(email=invite_form.cleaned_data['email']) | Q(username=invite_form.cleaned_data['email']))
+			group.invite_member(user)
+			messages.success(request, 'Successfully invited %s to %s group' % (invite_form.cleaned_data['email'],group.name,))
+		except User.DoesNotExist:
+			messages.error(request, 'User %s not found' % (invite_form.cleaned_data['email'],))
+	else:
+		messages.error(request, 'Invalid invitation username or email')
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @feature_flag('enable_groups')

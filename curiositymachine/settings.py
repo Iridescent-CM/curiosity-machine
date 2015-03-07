@@ -167,12 +167,14 @@ S3_URL_BASE = "http://s3.amazonaws.com"
 
 MEDIA_URL = S3_URL_BASE + '/' + AWS_STORAGE_BUCKET_NAME + '/'
 
-REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
+redis = os.getenv('REDIS_URL', 'redis://localhost:6379')
+REDIS_DB = os.getenv('REDIS_DB', 0)
+REDIS_URL = "/".join([redis, str(REDIS_DB)])
 #job queues
 RQ_QUEUES = {
     'default': {
-        'URL': REDIS_URL,
-        'DB': 0,}
+        'URL': redis,
+        'DB': int(REDIS_DB),}
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

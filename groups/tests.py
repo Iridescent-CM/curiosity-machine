@@ -53,7 +53,7 @@ def test_group_add_member(group, student):
 @pytest.mark.django_db
 @pytest.mark.redis
 def test_group_invite_member(group, student):
-    redis.flushall()
+    redis.flushdb()
     keys = redis.keys(INVITATIONS_NS.format(group_id=str(group.id), token="*"))
     assert len(keys) == 0
     group.invite_member(student)
@@ -63,7 +63,7 @@ def test_group_invite_member(group, student):
 @pytest.mark.django_db
 @pytest.mark.redis
 def test_group_accept_invitation(group, student):
-    redis.flushall()
+    redis.flushdb()
     group.invite_member(student)
     keys = redis.keys(INVITATIONS_NS.format(group_id=str(group.id), token="*"))
     assert len(keys) == 1
@@ -129,7 +129,7 @@ def test_leave_group(client, group, loggedInStudent):
 @pytest.mark.django_db
 @pytest.mark.redis
 def test_invite_to_group(client, group, student, loggedInEducator):
-    redis.flushall()
+    redis.flushdb()
     with mock.patch.dict('os.environ', {'ENABLE_GROUPS': '1', 'ENABLE_EDUCATORS': '1'}):
         response = client.post(reverse('groups:invite_to_group', kwargs={'group_id': group.id}), {'email': student.email}, HTTP_REFERER='/')
         keys = redis.keys(INVITATIONS_NS.format(group_id=str(group.id), token="*"))
@@ -139,7 +139,7 @@ def test_invite_to_group(client, group, student, loggedInEducator):
 @pytest.mark.django_db
 @pytest.mark.redis
 def test_accept_invitation(client, group, loggedInStudent):
-    redis.flushall()
+    redis.flushdb()
     token = group.invite_member(loggedInStudent)
     with mock.patch.dict('os.environ', {'ENABLE_GROUPS': '1', 'ENABLE_EDUCATORS': '1'}):
         response = client.get(reverse('groups:accept_invitation', kwargs={'group_id': group.id, 'token': token}), HTTP_REFERER='/')

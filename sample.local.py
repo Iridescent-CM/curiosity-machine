@@ -26,13 +26,16 @@ DATABASES = {
 ## Django RQ and redis
 # For development mode, usually redis is on 6379 on localhost
 # so there may be nothing to change here
-REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
+redis = os.getenv('REDIS_URL', 'redis://localhost:6379')
+REDIS_DB = os.getenv('REDIS_DB', 0)
+REDIS_URL = "/".join([redis, str(REDIS_DB)])
 #job queues
 RQ_QUEUES = {
     'default': {
-        'URL': REDIS_URL,
-        'DB': 0,}
+        'URL': redis,
+        'DB': int(REDIS_DB),}
 }
+
 
 ## Email
 # You can send email through a properly configured gmail account, or use
