@@ -10,7 +10,7 @@
 
 <h1>Welcome {{ request.user.username}}</h1>
 
-{% if enable_groups %}
+{% if flags.enable_groups %}
 {% include "profiles/educator/_groups.html" with form=form groups=groups %}
 
 {% endif %}

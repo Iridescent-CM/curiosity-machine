@@ -23,19 +23,17 @@ DATABASES = {
     "default": dj_database_url.config(default=DATABASE_URL),
 }
 
-## Django RQ and redis
+## Django RQ and Redis
 # For development mode, usually redis is on 6379 on localhost
-# so there may be nothing to change here
+# so there may be nothing to change here. The Django RQ configuration 
+# uses REDIS_URL; the configuration in settings.py should be sufficient
+# without modification.
+#
+# !!! WARNING: Running tests or the flushdb management command will FLUSH ALL data in your redis db, so
+# do not reuse an instance with data you're not willing to lose.
 redis = os.getenv('REDIS_URL', 'redis://localhost:6379')
 REDIS_DB = os.getenv('REDIS_DB', 0)
 REDIS_URL = "/".join([redis, str(REDIS_DB)])
-#job queues
-RQ_QUEUES = {
-    'default': {
-        'URL': redis,
-        'DB': int(REDIS_DB),}
-}
-
 
 ## Email
 # You can send email through a properly configured gmail account, or use
