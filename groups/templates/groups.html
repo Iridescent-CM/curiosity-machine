@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block title %}My Groups{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li>Groups</li>
+</ol>
+<h1 class="full-width">
+  Groups
+</h1>
+
+
+<ul>
+  {% for group in groups %}
+  <li><a href="{% url 'groups:group' group_id=group.id%}">{{group.name}}</a></li>
+  {% empty %}
+  <li>No groups at this time</li>
+  {% endfor %}
+</ul>
+
+<!-- <ul class="challenges-list owl-carousel panel-carousel">
+  {% for unit in units %}
+   {% include "_unit_item.html" with unit=unit %}
+  {% endfor %}
+</ul> -->
+
+{% endblock %}

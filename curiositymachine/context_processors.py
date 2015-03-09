@@ -8,3 +8,6 @@ def login_and_join_forms(request):
 
 def google_analytics(request):
 	return {'ga_code': settings.GA_CODE }
+
+def feature_flags(request):
+    return { 'flags': settings.FEATURE_FLAGS }

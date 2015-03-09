@@ -23,6 +23,22 @@ DATABASES = {
     "default": dj_database_url.config(default=DATABASE_URL),
 }
 
+## Django RQ and Redis
+# For development mode, usually redis is on 6379 on localhost
+# so there may be nothing to change here. The Django RQ configuration 
+# uses REDIS_URL as well. Uncomment the lines below to change if desired.
+# REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
+# RQ_QUEUES = {
+#     'default': {
+#         'URL': REDIS_URL,
+#         'DB': None # take from REDIS_URL instead
+#     }
+# }
+# 
+# Tests will flush the Redis database, so you can use the config below
+# to point it at a different instance or db.
+REDIS_TEST_URL = os.getenv('REDIS_TEST_URL', 'redis://localhost:6379/1')
+
 ## Email
 # You can send email through a properly configured gmail account, or use
 # a tool like FakeSMTP (http://nilhcem.github.io/FakeSMTP/) to keep it all local.
