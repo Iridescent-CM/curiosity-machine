@@ -4,7 +4,7 @@ from django.conf import settings
 import redis as r
 
 class Command(BaseCommand):
-    help = 'Flush all Redis keys'
+    help = 'Flush Redis keys in db'
     option_list = BaseCommand.option_list + (
         make_option('--dry-run',
             action='store_true',
@@ -21,6 +21,6 @@ class Command(BaseCommand):
         if len(keys) > 0:
             self.stdout.write('Flushing %d keys.' % len(keys))
             if not options['dry-run']:
-                redis.flushall()
+                redis.flushdb()
         else:
             self.stdout.write('0 keys.')

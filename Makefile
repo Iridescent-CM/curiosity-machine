@@ -1,12 +1,12 @@
 test:
-	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.settings REDIS_DB=1 py.test 
+	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.test_settings py.test 
 
 coverage:
-	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.settings REDIS_DB=1 coverage run --source . -m py.test && coverage report
+	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.test_settings coverage run --source . -m py.test && coverage report
 
 cov:
 	rm -rf htmlcov
-	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.settings REDIS_DB=1 coverage run --source . -m py.test && coverage html
+	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.test_settings coverage run --source . -m py.test && coverage html
 
 clean:
 	rm -rf htmlcov
