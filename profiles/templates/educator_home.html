@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/favorites.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Welcome {{ request.user.username}}</h1>
+
+{% if flags.enable_groups %}
+{% include "profiles/educator/_groups.html" with form=form groups=groups %}
+
+{% endif %}
+
+
+
+{% endblock %}

@@ -59,6 +59,10 @@ email_info = {
     'mentor_training_task_done': email_dict('training_task_done', MENTOR, 'You Completed Task!'),
 
     'consent_form': email_dict('consent_form', UNDERAGE_STUDENT, 'Please sign consent form!'),    
+    'mentor_training_task_done': email_dict('training_task_done', MENTOR, 'You Completed Task!'),
+    #group invite
+    'student_group_invite': email_dict('group_invite', STUDENT, 'You have been invited to join a group!'), 
+    'underage_student_group_invite': email_dict('group_invite', UNDERAGE_STUDENT, 'You have been invited to join a group!'),
 }
 
 def deliver_email(event_name, profile, **context):
@@ -77,4 +81,4 @@ def deliver_email(event_name, profile, **context):
         return None
     key = "_".join([user_type, event_name])
     info = email_info[key]
-    return email([profile.user.email], info['subject'], context, info['template'], context.get('cc', None))
+    return email([profile.user.email], context.get('subject', info['subject']), context, info['template'], context.get('cc', None))

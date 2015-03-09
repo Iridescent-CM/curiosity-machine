@@ -76,6 +76,7 @@ INSTALLED_APPS = (
     'compressor',
     'units',
     's3direct',
+    'groups',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,8 +103,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
     "curiositymachine.context_processors.login_and_join_forms",
-    "curiositymachine.context_processors.google_analytics"
+    "curiositymachine.context_processors.google_analytics",
+    "curiositymachine.context_processors.feature_flags"
 )
+
+# Any environment variable beginning with ENABLE_ will end up in template contexts
+# as flags.enable_ and can be used in the feature_flag() decorator.
+FEATURE_FLAGS = {k.lower(): process_false_string(v) for k, v in os.environ.items() if k.startswith('ENABLE_')}
 
 AUTH_USER_MODEL = 'auth.User'
 
@@ -168,12 +174,12 @@ S3_URL_BASE = "http://s3.amazonaws.com"
 
 MEDIA_URL = S3_URL_BASE + '/' + AWS_STORAGE_BUCKET_NAME + '/'
 
-REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
-#job queues
+REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
 RQ_QUEUES = {
     'default': {
         'URL': REDIS_URL,
-        'DB': 0,}
+        'DB': None # take from REDIS_URL instead
+    }
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -263,6 +269,7 @@ GA_CODE = os.environ.get("GA_CODE", None)
 PROGRESS_MONTH_ACTIVE_LIMIT = os.environ.get("PROGRESS_MONTH_ACTIVE_LIMIT", 2)
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", None)
 CONSENT_FORM_INVITATION_INACTIVE_DAYS = os.environ.get("CONSENT_FORM_INVITATION_INACTIVE_DAYS", 7)
+GROUP_INVITATION_INACTIVE_DAYS = os.environ.get("GROUP_INVITATION_INACTIVE_DAYS", 2)
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 
 # Import optional local settings.  This must come after config you want to be able to override.

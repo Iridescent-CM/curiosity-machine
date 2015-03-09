@@ -1,10 +1,13 @@
+import os
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.db import transaction
 from django.contrib import auth
 from django.core.urlresolvers import reverse
 from profiles.forms import educator as forms
-from curiositymachine.decorators import feature_flag
+from curiositymachine.decorators import feature_flag, educator_only
+from django.contrib.auth.decorators import login_required
+from groups.forms import GroupForm
 
 @feature_flag('enable_educators')
 @transaction.atomic
@@ -41,3 +44,11 @@ def join(request):
                 'profileForm': profileForm
             })
 
+@feature_flag('enable_educators')
+@educator_only
+@login_required
+def home(request):
+    return render(request, "educator_home.html", {
+        'form': GroupForm(),
+        'groups': request.user.cm_groups.all(),
+    })

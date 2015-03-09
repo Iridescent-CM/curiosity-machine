@@ -1,0 +1,12 @@
+{% extends "email_base.html" %}
+{% block content %}
+
+<p>
+Hi {{ profile.first_name | default:profile.user.username }}, 
+</p>
+<p>
+You have been invited to join the group {{ group.name }}. Please go to: {{ site_url }}{% url 'groups:accept_invitation' group_id=group.id token=token %} to join.
+</p>
+
+
+{% endblock %}

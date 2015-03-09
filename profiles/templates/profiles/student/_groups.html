@@ -1,0 +1,17 @@
+<h2>Groups</h2>
+{% if groups|length %}
+<ul>
+	{% for group in groups %}
+	<li>{{ group.0.name}} <form action="{% url "groups:leave_group"  %}" method="POST">{% csrf_token %}{{ group.1.id}}<button class="btn btn-primary" type="submit">LEAVE</button></form>
+	</li>
+	{% endfor %}
+<ul>
+{% endif %}
+<hr />
+<h3> Join A Group</h3>
+
+<form action="{% url "groups:join_group"  %}" method="POST">
+  {% csrf_token %}
+  {{ group_form.code }}
+  <button class="btn btn-primary" type="submit">JOIN</button>
+</form>
