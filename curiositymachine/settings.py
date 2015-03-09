@@ -181,7 +181,9 @@ REDIS_URL = "/".join([redis, str(REDIS_DB)])
 RQ_QUEUES = {
     'default': {
         'URL': redis,
-        'DB': int(REDIS_DB),}
+        'DB': int(REDIS_DB),
+    }
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
