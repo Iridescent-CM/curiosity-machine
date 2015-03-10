@@ -9,10 +9,6 @@ from django.conf import settings
 from django_simple_redis import redis
 from uuid import uuid4
 
-
-INVITATIONS_NS = "curiositymachine:invitations:{group_id}:{token}"
-EXPIRY = int(settings.GROUP_INVITATION_INACTIVE_DAYS) * 1000 * 1000
-
 class Role(Enum):
     owner = 0
     member = 1
@@ -47,16 +43,13 @@ class Group(models.Model):
         return False
 
     def invite_member(self, user):
-        token = str(uuid4())
-        redis.setex(INVITATIONS_NS.format(group_id=str(self.id), token=token), user.id, EXPIRY)
-        #send an email
-        deliver_email('group_invite', user.profile, group=self, token=token)
-        return token
+        invitation = Invitation.objects.create(group=self, user=user, role=Role.member.value)
+        deliver_email('group_invite', user.profile, group=self)
 
-    def accept_invitation(self, token):
-        user_id = redis.get(INVITATIONS_NS.format(group_id=str(self.id), token=token))
-        user = User.objects.get(pk=int(user_id))
-        self.add_member(user)
+    def accept_invitation(self, invitation):
+        self.add_member(invitation.user)
+        user = invitation.user
+        invitation.delete()
         return user
 
     def __str__(self):
@@ -90,3 +83,15 @@ class Membership(models.Model):
 
     def __repr__(self):
         return "Group={} User={}".format(self.group, self.user)
+
+class Invitation(models.Model):
+    group = models.ForeignKey(Group, related_name="invitations")
+    user = models.ForeignKey(User, related_name="invitations")
+    role = models.SmallIntegerField(choices=[(role.value, role.name.capitalize()) for role in Role], default=Role.owner.value)
+
+    def __str__(self):
+        return "Group={} User={}".format(self.group, self.user)
+
+    def __repr__(self):
+        return "Group={} User={}".format(self.group, self.user)
+
