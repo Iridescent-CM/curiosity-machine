@@ -11,7 +11,7 @@ admin.site.unregister(User)
 
 class ProfileInline(admin.StackedInline):
     model = Profile
-
+    readonly_fields = ('consented_at', 'consent_signature',)
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if request.method == 'GET':
             if db_field.name == 'image':
