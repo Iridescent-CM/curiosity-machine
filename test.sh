@@ -1,1 +1,1 @@
-PYTHONPATH=. DJANGO_SETTINGS_MODULE=test_curiositymachine.settings py.test "$@"
+PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.test_settings py.test "$@"
