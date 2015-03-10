@@ -5,7 +5,7 @@
 Welcome to Curiosity Machine! 
 </p>
 <p>
-Your consent form for Curiosity Machine was successfully signed and {{ profile.user.username }}’s account is now active! and now you can start building together! 
+Your <a href="{{ site_url }}{% url 'profiles:signed_consent_form' profile_id=profile.id %}">consent form</a> for Curiosity Machine was successfully signed and {{ profile.user.username }}’s account is now active! and now you can start building together! 
 </p>
 
 <p>

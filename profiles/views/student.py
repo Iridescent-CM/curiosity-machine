@@ -81,7 +81,6 @@ def underage(request):
     return render(request, 'underage_student.html')
 
 def signed_consent_form(request, profile_id):
-    print(profile_id)
     profile = Profile.objects.get(pk=int(profile_id))
     return render(request, 'signed_consent_form.html', {'profile': profile})
 
