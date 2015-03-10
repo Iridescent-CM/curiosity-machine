@@ -13,7 +13,6 @@ from profiles.utils import create_or_edit_user
 from groups.forms import GroupJoinForm, GroupLeaveForm
 from challenges.models import Progress, Favorite
 from django.db import transaction
-from django.contrib import messages
 from profiles.models import Profile, INVITATIONS_NS
 from django_simple_redis import redis
 
