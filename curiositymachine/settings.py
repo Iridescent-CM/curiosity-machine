@@ -190,8 +190,8 @@ EMAIL_HOST_USER = os.environ.get("POSTMARK_API_KEY", "")
 EMAIL_HOST_PASSWORD = os.environ.get("POSTMARK_API_KEY", "")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "")
+USE_ASYNC_EMAIL = process_false_string(os.environ.get('USE_ASYNC_EMAIL', True))
 
 # Which HTML tags are allowed
 BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'br', 'strike', 'li', 'ul', 'div', 'ol', 'span', 'blockquote', 'pre', 'img']

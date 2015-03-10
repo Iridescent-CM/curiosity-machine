@@ -55,5 +55,8 @@ class EmailTemplate(object):
 		text_content = self.render_body_content()
 		html_part = self.render_html_body()
 		cc = self.render_cc_recipients()
-		django_rq.enqueue(deliver_email, subject, from_email, to, text_content, html_part, cc)
+		if settings.USE_ASYNC_EMAIL:
+			django_rq.enqueue(deliver_email, subject, from_email, to, text_content, html_part, cc)
+		else:
+			deliver_email(subject, from_email, to, text_content, html_part, cc)
 		
