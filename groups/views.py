@@ -90,7 +90,7 @@ def invite_to_group(request, group_id):
 @student_only
 def accept_invitation(request, group_id):
 	group = get_object_or_404(Group, id=group_id)
-	invitation = Invitation.objects.get(user=request.user, group=group)
+	invitation = Invitation.objects.filter(user=request.user, group=group).first()
 	try:
 		user = group.accept_invitation(invitation)
 		messages.success(request, 'Successfully joined %s group' % (group.name,))
