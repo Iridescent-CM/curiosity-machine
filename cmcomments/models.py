@@ -31,6 +31,9 @@ class Comment(models.Model):
         if self.challenge_progress.mentor:
             return deliver_email('student_completed', self.challenge_progress.mentor.profile, student=self.challenge_progress.student.profile, progress=self.challenge_progress)
 
+    def is_read_only(self):
+        return Example.objects.filter(progress=self).exists()
+
 def create_comment(sender, instance, created, **kwargs):
     if created:
         if instance.stage == Stage.reflect.value and instance.image:

@@ -1,4 +1,5 @@
 {% load cmtemplatetags %}
+{% load array %}
 
 {% if comment.user.profile.is_mentor %}
   <span class="mentor-comment">MENTOR MESSAGE</span>
@@ -16,11 +17,28 @@
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="panel panel-comment comment">
     <div class="panel-heading">
-      <h3 class="panel-title">{{ comment.get_stage_display }}</h3>
+       <h3 class="panel-title">
+        {{ comment.get_stage_display }}  
+        </h3>        
     </div>
+    {% if request.user == comment.user %}
+      {% if not comment.is_featured_as_example %}
+        <form name="deletecomment" class="ajax-and-refresh-form" action="{% url "challenges:comments:delete_comment" challenge_id=challenge.id username=progress.student.username comment_id=comment.id stage=stage.name %}" method="DELETE">
+        {% csrf_token %}
+        <button type="submit" value="" class="btn btn-comment-heading pull-right glyphicon glyphicon-trash" data-confirm="This will delete your post. Are you sure?"></button> 
+        </form>
+        
+        {% if comment.text %} 
+          <button class="btn pull-right btn-comment-heading margin-r-55 glyphicon glyphicon-edit" data-toggle="modal" data-target="#edit_text_modal{{comment.id}}">
+          </button>
+          {% url "challenges:comments:edit_comment" challenge_id=challenge.id username=progress.student.username comment_id=comment.id stage=stage.name as url %}
+          {% include "_edit_text_modal.html" with url=url id=comment.id comment_form=comment_forms|element_by_index:comment.id %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+   
     <div class="panel-body paper">
       {% include "_comment_content.html" %}
-
       {% if request.user.profile.is_mentor and comment.get_stage_display == 'reflect'%}{% if comment.image or comment.video %}
       {% if comment.is_featured_as_example %}
         <form name="unfeature" class="ajax-and-refresh-form" action="{% url "challenges:comments:feature_as_example" challenge_id=challenge.id username=progress.student.username stage='build' comment_id=comment.id %}" method="DELETE">

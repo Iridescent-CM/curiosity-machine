@@ -66,8 +66,10 @@ $(document).ready(function() {
     $('.comment-form').attr('action', url);
   });
 
-
-
+  $("button[data-confirm]").on('click', function () {
+    var message = $(this).data('confirm');
+    return confirm(message);
+  });
   
   $('.materials-form').css("display", "none");
 
