@@ -26,24 +26,7 @@
   <h1>Welcome {{user.username}}</h1>
   <h2>My Clubs</h2>
   <div class="carousel-section">
-    <ul id="group-carousel" class="owl-carousel">
-      <li>
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <a href="#">Create new club</a>
-          </div>
-        </div>
-      </li>
-      {% for group in groups %}
-        <li>
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <a href="#">Group name</a>
-            </div>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
+    {% include "groups/_home_carousel.html" %}
   </div>
 {% endblock %}
 
