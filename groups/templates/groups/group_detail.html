@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li><a href="{% url 'groups:groups' %}">Groups</a></li>
+  <li>{{ object.name }}</li>
+</ol>
+
+<div class="row">
+  <div class="col-sm-3">
+    <div class="well">
+      <h1>{{object.name}}</h1>
+      <p>Code: {{object.code}}</p>
+      <p>Owner{% if object.owners|length > 1 %}s{% endif %}: {{ object.owners|join:", " }}</p>
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <h1>Students</h1>
+    <div class="row">
+      {% for user in object.members %}
+      <div class="col-xs-6 col-sm-4 col-md-3">
+        <div class="thumbnail">
+          {% include "_avatar.html" with profile=reply.user.profile width=50 height=50 crop='fit' %}
+          <div class="caption">
+            <p>{{ user.username }}</p>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-sm-12">No students at this time</div>
+      {% endfor %}
+    </div>
+
+    <h1>Pending invitations</h1>
+    <ul>
+      {% for invite in NOTHING %}
+      <li>nothing</li>
+      {% empty %}
+      <li>All invitations have been accepted</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}
