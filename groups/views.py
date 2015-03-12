@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from .models import Group, Role, Membership
+from .models import Group, Role, Membership, Invitation
 from django.contrib.auth.models import User
 from .forms import GroupJoinForm, GroupLeaveForm, GroupInviteForm, GroupForm
 from curiositymachine.decorators import feature_flag, educator_only, student_only
@@ -88,10 +88,11 @@ def invite_to_group(request, group_id):
 
 @feature_flag('enable_groups')
 @student_only
-def accept_invitation(request, group_id, token):
+def accept_invitation(request, group_id):
 	group = get_object_or_404(Group, id=group_id)
+	invitation = Invitation.objects.filter(user=request.user, group=group).first()
 	try:
-		user = group.accept_invitation(token)
+		user = group.accept_invitation(invitation)
 		messages.success(request, 'Successfully joined %s group' % (group.name,))
 	except User.DoesNotExist:
 		raise Http404("User not found for specified token. This invitation might have expired.")

@@ -2,7 +2,7 @@ import pytest
 import mock
 from mock import patch
 from django.contrib.auth.models import User
-from .models import Group, Membership, Role, INVITATIONS_NS
+from .models import Group, Membership, Role, Invitation
 from django_simple_redis import redis
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -52,24 +52,15 @@ def test_group_add_member(group, student):
     assert len(group.members()) == 1
 
 @pytest.mark.django_db
-@pytest.mark.redis
 def test_group_invite_member(group, student):
-    redis.flushdb()
-    keys = redis.keys(INVITATIONS_NS.format(group_id=str(group.id), token="*"))
-    assert len(keys) == 0
     group.invite_member(student)
-    keys = redis.keys(INVITATIONS_NS.format(group_id=str(group.id), token="*"))
-    assert len(keys) == 1
+    assert Invitation.objects.count() == 1
 
 @pytest.mark.django_db
-@pytest.mark.redis
 def test_group_accept_invitation(group, student):
-    redis.flushdb()
     group.invite_member(student)
-    keys = redis.keys(INVITATIONS_NS.format(group_id=str(group.id), token="*"))
-    assert len(keys) == 1
-    token = keys[0].decode("utf-8").split(":")[-1]
-    group.accept_invitation(token)
+    invitation = Invitation.objects.first()
+    group.accept_invitation(invitation)
     assert len(group.members()) == 1
 
 @pytest.mark.django_db
@@ -142,20 +133,18 @@ def test_invite_to_group(client, group, student, loggedInEducator):
         'enable_educators': True
     }):
         response = client.post(reverse('groups:invite_to_group', kwargs={'group_id': group.id}), {'email': student.email}, HTTP_REFERER='/')
-        keys = redis.keys(INVITATIONS_NS.format(group_id=str(group.id), token="*"))
-        assert len(keys) == 1
+        #keys = redis.keys(INVITATIONS_NS.format(group_id=str(group.id), token="*"))
+        #assert len(keys) == 1
         assert response.status_code == 302
 
 @pytest.mark.django_db
-@pytest.mark.redis
 def test_accept_invitation(client, group, loggedInStudent):
-    redis.flushdb()
-    token = group.invite_member(loggedInStudent)
+    group.invite_member(loggedInStudent)
     with mock.patch.dict(settings.FEATURE_FLAGS, {
         'enable_groups': True,
         'enable_educators': True
     }):
-        response = client.get(reverse('groups:accept_invitation', kwargs={'group_id': group.id, 'token': token}), HTTP_REFERER='/')
+        response = client.get(reverse('groups:accept_invitation', kwargs={'group_id': group.id}), HTTP_REFERER='/')
         assert len(group.members()) == 1
         assert response.status_code == 302
 
