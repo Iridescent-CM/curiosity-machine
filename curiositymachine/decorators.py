@@ -1,4 +1,3 @@
-import os
 from functools import wraps
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
