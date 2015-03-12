@@ -24,8 +24,7 @@ class GroupListView(ListView):
 		return super(GroupListView, self).dispatch(*args, **kwargs)
 
 	def get_queryset(self):
-		user = self.request.user
-		return Group.objects.filter(memberships__role=Role.owner.value, memberships__user=user).all()
+		return self.request.user.cm_groups.all()
 
 class GroupDetailView(DetailView):
 	model = Group
@@ -39,12 +38,17 @@ class GroupDetailView(DetailView):
 class GroupCreateView(CreateView):
 	model = Group
 	form_class = GroupForm
-	success_url = '/challenges'
+	success_url = '/groups/%(id)s'
 
 	@method_decorator(login_required)
 	@method_decorator(educator_only)
 	def dispatch(self, *args, **kwargs):
 		return super(GroupCreateView, self).dispatch(*args, **kwargs)
+
+	def form_valid(self, form):
+		self.object = form.save()
+		self.object.add_owner(self.request.user)
+		return HttpResponseRedirect(self.get_success_url())
 
 @feature_flag('enable_groups')
 @educator_only
