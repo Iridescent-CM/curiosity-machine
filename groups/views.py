@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from .models import Group, Role, Membership, Invitation
 from django.contrib.auth.models import User
 from .forms import GroupJoinForm, GroupLeaveForm, GroupInviteForm, GroupForm
@@ -133,25 +134,3 @@ def accept_invitation(request, group_id):
 		return HttpResponseRedirect(reverse('profiles:home'))
 	else:
 		return HttpResponseRedirect(reverse('challenges:challenges'))
-
-from django.views.generic.edit import CreateView
-from groups.models import Group
-
-class GroupCreate(CreateView):
-	model = Group
-	fields = ['name']
-
-	def dispatch(self, request, *args, **kwargs):
-		redirect_to = request.POST.get('next', request.GET.get('next', request.META.get('HTTP_REFERER')))
-		if not is_safe_url(url=redirect_to, host=request.get_host()):
-			redirect_to = resolve_url('/')
-		self.redirect_to = redirect_to
-		return super(GroupCreate, self).dispatch(request, args, kwargs)
-
-	def get_context_data(self, **kwargs):
-		data = super(GroupCreate, self).get_context_data(**kwargs)
-		data.update({'redirect_to': self.redirect_to})
-		return data
-
-	def get_success_url(self, *args, **kwargs):
-		return self.redirect_to
