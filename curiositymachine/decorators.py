@@ -17,7 +17,7 @@ def mentor_or_current_user(view):
 def educator_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        if request.user.is_staff or request.user.profile.is_educator:
+        if request.user.is_authenticated() and (request.user.is_staff or request.user.profile.is_educator):
             return view(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -26,7 +26,7 @@ def educator_only(view):
 def student_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        if request.user.is_staff or request.user.profile.is_student:
+        if request.user.is_authenticated() and (request.user.is_staff or request.user.profile.is_student):
             return view(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -36,7 +36,7 @@ def student_only(view):
 def mentor_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        if request.user.is_staff or request.user.profile.is_mentor:
+        if request.user.is_authenticated() and (request.user.is_staff or request.user.profile.is_mentor):
             return view(request, *args, **kwargs)
         else:
             raise PermissionDenied
