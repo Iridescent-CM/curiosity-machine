@@ -23,6 +23,10 @@ class GroupListView(ListView):
 	def dispatch(self, *args, **kwargs):
 		return super(GroupListView, self).dispatch(*args, **kwargs)
 
+	def get_queryset(self):
+		user = self.request.user
+		return Group.objects.filter(memberships__role=Role.owner.value, memberships__user=user).all()
+
 class GroupDetailView(DetailView):
 	model = Group
 	pk_url_kwarg = 'group_id'
