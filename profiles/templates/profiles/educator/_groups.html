@@ -2,7 +2,7 @@
 {% if groups|length %}
 <ul>
 	{% for group in groups %}
-	<li><a href="{% url 'groups:group' group_id=group.id %}">{{ group.name}}</a>
+	<li><a href="{% url 'groups:group' group_id=group.id %}">{{ group.name}} </a>
 	</li>
 	{% endfor %}
 <ul>

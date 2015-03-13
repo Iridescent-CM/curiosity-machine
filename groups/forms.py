@@ -13,4 +13,7 @@ class GroupLeaveForm(forms.Form):
     id = forms.CharField(widget=forms.HiddenInput, required=True)
 
 class GroupInviteForm(forms.Form):
-    email = forms.CharField(widget=forms.TextInput, required=True)
+    email_or_username = forms.CharField(widget=forms.TextInput, required=True)
+
+class ResetInviteForm(forms.Form):
+    email_or_username = forms.CharField(widget=forms.HiddenInput, required=True)
