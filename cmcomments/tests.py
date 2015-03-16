@@ -75,6 +75,18 @@ def test_feature_as_example(client, student_comment, loggedInMentor):
     assert response.status_code == 204
 
 @pytest.mark.django_db
+def test_feature_as_example_override(client, student_comment, loggedInMentor):
+    progress = student_comment.challenge_progress
+    progress.mentor = loggedInMentor
+    progress.stage = Stage.reflect.value
+    progress.save()
+    assert Example.objects.count() == 0
+    response = client.post(reverse('challenges:comments:feature_as_example', kwargs={'challenge_id':progress.challenge.id, 'username': progress.student.username, 'stage':'reflect', 'comment_id': student_comment.id}))
+    response = client.post(reverse('challenges:comments:feature_as_example', kwargs={'challenge_id':progress.challenge.id, 'username': progress.student.username, 'stage':'reflect', 'comment_id': student_comment.id}))
+    assert Example.objects.count() == 1
+    assert response.status_code == 204
+
+@pytest.mark.django_db
 def test_delete_feature_as_example(client, student_comment, loggedInMentor):
     progress = student_comment.challenge_progress
     progress.mentor = loggedInMentor
