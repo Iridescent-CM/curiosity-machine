@@ -1,5 +1,6 @@
 import pytest
 import mock
+from django.conf import settings
 from profiles import forms, models, views
 from images.models import Image
 from django.http import Http404
@@ -185,7 +186,7 @@ def test_educator_profile_change_form_creates_image_from_image_url():
 
 @pytest.mark.django_db
 def test_join_with_feature_flag(rf):
-    with mock.patch.dict('os.environ', {'ENABLE_EDUCATORS': '1'}):
+    with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_educators': True}):
         request = rf.post('/join_as_educator', data={
             'user-username': 'user',
             'user-email': 'email@example.com',

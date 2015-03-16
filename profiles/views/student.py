@@ -8,6 +8,7 @@ from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.forms import JoinForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
+from groups.forms import GroupJoinForm, GroupLeaveForm
 from challenges.models import Progress, Favorite
 from django.db import transaction
 
@@ -46,7 +47,16 @@ def home(request):
     progresses = Progress.objects.filter(student=request.user).select_related("challenge")
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
-    return render(request, "student_home.html", {'active_progresses': active_progresses, 'completed_progresses': completed_progresses, 'progresses': progresses, 'filter': filter, 'my_challenges_filters': my_challenges_filters, 'favorite_challenges': favorite_challenges})
+    return render(request, "student_home.html", {
+        'active_progresses': active_progresses, 
+        'completed_progresses': completed_progresses, 
+        'progresses': progresses, 
+        'filter': filter, 
+        'my_challenges_filters': my_challenges_filters, 
+        'favorite_challenges': favorite_challenges,
+        'group_form': GroupJoinForm(),
+        'groups': [(group, GroupLeaveForm(initial={'id': group.id})) for group in request.user.cm_groups.all()],
+    })
 
 @login_required
 def profile_edit(request):

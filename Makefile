@@ -1,16 +1,15 @@
 test:
-	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.settings py.test 
+	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.test_settings py.test 
 
 coverage:
-	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.settings coverage run --source . -m py.test && coverage report
+	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.test_settings coverage run --source . -m py.test && coverage report
 
-cov:	htmlcov
-
-htmlcov:
-	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.settings coverage run --source . -m py.test && coverage html
+cov:
+	rm -rf htmlcov
+	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.test_settings coverage run --source . -m py.test && coverage html
 
 clean:
 	rm -rf htmlcov
 
 fixtures:
-	python manage.py loaddata basic-users basic-challenges progress-basic-challenges basic-filters basic-units
+	python manage.py loaddata basic-users basic-challenges progress-basic-challenges basic-filters basic-units basic-groups

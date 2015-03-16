@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ group.name }}{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li><a href="{% url 'groups:groups' %}">Groups</a></li>
+  <li>{{ group.name }}</li>
+</ol>
+
+<p>
+  <h1 class="full-width">
+    {{group.name}} 
+  </h1>
+  code: {{group.code}}
+</p>
+
+
+<h3 class="full-width">
+  Educators
+</h3>
+
+<ul>
+  {% for user in group.owners %}
+  <li>
+  {{ user.username }}
+  </li>
+  {% empty %}
+  <li>No educators at this time</li>
+  {% endfor %}
+</ul>
+
+<h3 class="full-width">
+  Students
+</h3>
+
+<ul>
+  {% for user in group.members %}
+  <li>{{ user.username }}
+  <br />
+  Challenges: 
+    <ul>
+      {% for progress in user.progresses.all %}
+        <li>{{ progress.challenge.name }}</li>
+      {% endfor %}
+    </ul>
+  </li>
+  {% empty %}
+  <li>No students at this time</li>
+  {% endfor %}
+</ul>
+
+
+<h4>Invite Learners</h4>
+<form action="{% url "groups:invite_to_group" group_id=group.id %}" method="POST">
+  {% csrf_token %}
+  {{ invite_form.email }}
+  <button class="btn btn-primary" type="submit">INVITE</button>
+</form>
+{% endblock %}

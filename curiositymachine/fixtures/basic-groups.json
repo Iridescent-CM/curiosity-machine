@@ -1,0 +1,54 @@
+[
+    {
+        "fields": {
+            "name": "Group 1",
+            "code": "group-1"
+        },
+        "pk": 1,
+        "model": "groups.group"
+    },
+    {
+        "fields": {
+            "name": "Group 2",
+            "code": "group-2"
+        },
+        "pk": 2,
+        "model": "groups.group"
+    },
+    {
+        "fields": {
+            "group": 1,
+            "user": 2,
+            "role": 1
+        },
+        "pk": 1,
+        "model": "groups.membership"
+    },
+    {
+        "fields": {
+            "group": 1,
+            "user": 3,
+            "role": 1
+        },
+        "pk": 2,
+        "model": "groups.membership"
+    },
+    {
+        "fields": {
+            "group": 1,
+            "user": 2,
+            "role": 1
+        },
+        "pk": 3,
+        "model": "groups.membership"
+    },
+    {
+        "fields": {
+            "group": 1,
+            "user": 5,
+            "role": 0
+        },
+        "pk": 4,
+        "model": "groups.membership"
+    }
+]
