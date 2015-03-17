@@ -13,10 +13,12 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import DeleteView
+from django.views.generic import View
 from django.utils.decorators import method_decorator
 
 class GroupListView(ListView):
 	model = Group
+	context_object_name = 'groups'
 
 	@method_decorator(login_required)
 	@method_decorator(educator_only)
