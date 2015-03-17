@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .forms import GroupJoinForm, GroupLeaveForm, GroupInviteForm, GroupForm
 from . import forms
 from curiositymachine.decorators import feature_flag, educator_only, student_only
+from .decorators import owners_only
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -34,7 +35,7 @@ class GroupDetailView(DetailView):
 	pk_url_kwarg = 'group_id'
 
 	@method_decorator(login_required)
-	@method_decorator(educator_only)
+	@method_decorator(owners_only)
 	def dispatch(self, *args, **kwargs):
 		return super(GroupDetailView, self).dispatch(*args, **kwargs)
 
