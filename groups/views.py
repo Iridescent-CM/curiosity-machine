@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Group, Role, Membership, Invitation
 from django.contrib.auth.models import User
 from .forms import GroupJoinForm, GroupLeaveForm, GroupInviteForm, GroupForm
+from . import forms
 from curiositymachine.decorators import feature_flag, educator_only, student_only
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
@@ -11,7 +12,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, FormView
 from django.views.generic.edit import DeleteView
 from django.views.generic import View
 from django.utils.decorators import method_decorator
@@ -51,6 +52,27 @@ class GroupCreateView(CreateView):
 		self.object = form.save()
 		self.object.add_owner(self.request.user)
 		return HttpResponseRedirect(self.get_success_url())
+
+class InvitationCreateView(FormView):
+	form_class = forms.MultiInvitationForm
+	template_name = 'groups/invitation_form.html'
+
+	@method_decorator(login_required)
+	@method_decorator(educator_only)
+	def dispatch(self, *args, **kwargs):
+		return super(InvitationCreateView, self).dispatch(*args, **kwargs)
+
+	def form_valid(self, form):
+		group = get_object_or_404(Group, id=self.kwargs['group_id'])
+		recipients = form.cleaned_data['recipients']
+		for user in User.objects.filter(username__in=recipients):
+			group.invite_member(user)
+		return super(InvitationCreateView, self).form_valid(form)
+
+	def get_success_url(self):
+		return reverse('groups:group', kwargs={'group_id': self.kwargs['group_id']})
+
+
 
 @feature_flag('enable_groups')
 @educator_only
