@@ -153,6 +153,7 @@ def invite_to_group(request, group_id):
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @feature_flag('enable_groups')
+@login_required
 @student_only
 def accept_invitation(request, group_id):
 	group = get_object_or_404(Group, id=group_id)
