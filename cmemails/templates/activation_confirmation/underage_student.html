@@ -5,8 +5,14 @@
 Welcome to Curiosity Machine! 
 </p>
 <p>
-Your <a href="{{ site_url }}{% url 'profiles:signed_consent_form' profile_id=profile.id %}">consent form</a> for Curiosity Machine was successfully signed and {{ profile.user.username }}’s account is now active! and now you can start building together! 
+Your consent form for Curiosity Machine was successfully signed and {{ profile.user.username }}’s account is now active!
 </p>
+
+{% if digitally_signed %}
+<p>
+You may view the signed document and print a copy for your records at the following link: <a href="{{ site_url }}{% url 'profiles:signed_consent_form' profile_id=profile.id %}">{{ site_url }}{% url 'profiles:signed_consent_form' profile_id=profile.id %}</a>
+</p>
+{% endif %}
 
 <p>
 With Curiosity Machine, you and your child will be able to:
@@ -19,7 +25,3 @@ With Curiosity Machine, you and your child will be able to:
 </p>
 <a href="{{ site_url }}{% url 'challenges:challenges' %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Click here to explore design challenges and start inventing!</button></a>
 {% endblock %}
-
-{% if digitally_signed %}
-You may view the signed document and print a copy for your records at the following link: {% url "profiles:signed_consent_form" profile_id=profile.id %}
-{% endif %}
