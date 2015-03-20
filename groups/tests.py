@@ -213,3 +213,12 @@ def test_invite_member_resends_one_email(group, student):
         Invitation.objects.count() == 1
         assert deliver_email.called
         assert deliver_email.call_count == 2
+
+@pytest.mark.django_db
+def test_users_share_any_group(student, educator, group):
+    group.add_owner(educator)
+    group.add_member(student)
+    assert Group.users_share_any_group(educator.username, Role.owner, student.username, Role.member)
+    assert not Group.users_share_any_group(educator.username, Role.member, student.username, Role.member)
+    assert not Group.users_share_any_group(educator.username, Role.owner, student.username, Role.owner)
+    assert not Group.users_share_any_group(educator.username, Role.owner, 'nope', Role.member)

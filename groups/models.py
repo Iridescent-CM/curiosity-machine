@@ -55,6 +55,13 @@ class Group(models.Model):
         Invitation.objects.filter(user=user, group=self).delete()
         return user
 
+    def users_share_any_group(username1, role1, username2, role2):
+        return Membership.objects.filter(
+            user__username=username1, role=role1.value,
+            group__memberships__user__username=username2,
+            group__memberships__role=role2.value
+        ).exists()
+
     def __str__(self):
         return "Group={}".format(self.name)
 
