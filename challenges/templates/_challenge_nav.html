@@ -35,12 +35,12 @@
         </div>
         </a>
         {% else %}
-        <span class="btn">Build</span>
+        <span class="btn">Build</span><span class="btn test">Test</span><span class="btn redesign">Redesign</span>
         {% endif %}
         <span class="arrows"></span>
       </li>
       <li class="reflect {% if stage == 'reflect' %}selected{% endif %}">
-        {% if stage == 'plan' or stage == 'inspiration' or stage == 'build' and progress and progress.approved %}
+        {% if stage in not_reflect_stages and progress and progress.approved %}
         <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='reflect' %}">
         <span class="btn">Reflect</span>
         </a>

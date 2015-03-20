@@ -11,7 +11,7 @@
     </div>
   </div>
   {% if user.is_authenticated and request.user.profile.is_student %}
-  {% include "_challenge_nav.html" with stage="inspiration" %}
+  {% include "_challenge_nav.html" with stage="inspiration" not_reflect_stages=not_reflect_stages%}
   {% else %}
   {% include "_challenge_nav_guest.html" with stage="inspiration" %}
   {% endif %}

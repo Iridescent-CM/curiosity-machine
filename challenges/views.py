@@ -18,6 +18,8 @@ from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 
+NOT_REFLECT_STAGES = ['plan', 'inspiration', 'build']
+
 def challenges(request):
     challenges = Challenge.objects.filter(draft=False)
     theme = request.GET.get('theme')
@@ -40,7 +42,7 @@ def challenge(request, challenge_id):
                 raise PermissionDenied
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': request.user.username,}))
     else:
-        return render(request, 'challenge.html', {'challenge': challenge, 'examples': Example.objects.filter(challenge=challenge),})
+        return render(request, 'challenge.html', {'challenge': challenge, 'examples': Example.objects.filter(challenge=challenge), 'not_reflect_stages': NOT_REFLECT_STAGES})
 
 def plan_guest(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
@@ -68,29 +70,23 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
     except KeyError: # if stage is None or any invalid input, redirect to the stage with most recent progress
         stage = get_stage_for_progress(progress)
         stage_string = stage.name if stage == Stage.plan else Stage.build.name # there may be other valid stages, but right now we only support plan or build as redirect destinations
+        if progress.approved:
+            stage_string = Stage.reflect.name
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username, 'stage': stage_string}))
 
-
     if stage == Stage.inspiration:
-        return render(request, 'challenge.html', {'challenge': challenge, 'progress': progress, 'examples': Example.objects.filter(challenge=challenge),})
+        return render(request, 'challenge.html', {'challenge': challenge, 'progress': progress, 'examples': Example.objects.filter(challenge=challenge), 'not_reflect_stages': NOT_REFLECT_STAGES})
     elif stage in [Stage.plan, Stage.build, Stage.test, Stage.reflect]:
         comments = progress.comments.filter(stage__in=[Stage.plan.value, Stage.build.value, Stage.test.value, Stage.reflect.value])
-    else:
-        comments = progress.comments.filter(stage=stage.value)
     progress.get_unread_comments_for_user(request.user).update(read=True)
 
-    stage_string = None
-    for k,v in {
-        'plan': [Stage.plan],
-        'build': [Stage.build, Stage.test],
-        'reflect': [Stage.reflect]
-    }.items():
-        if stage in v:
-            print(k)
-            stage_string = k
-
-    return render(request, "challenge_%s.html" % stage_string,
-                  {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm(), 'comments': comments, 'materials_form': MaterialsForm(progress=progress)})
+    template_suffix = ({                                           
+        Stage.plan: 'plan',                                        
+        Stage.build: 'build',                                      
+        Stage.test: 'build',
+        Stage.reflect: 'reflect'
+    }).get(stage)                                                  
+    return render(request, "challenge_%s.html" % template_suffix, {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm(), 'comments': comments, 'materials_form': MaterialsForm(progress=progress)})
 
 # Any POST to this by the assigned mentor moves a challenge progress into the reflect stage (marks approve=True); any DELETE reverses that
 @require_http_methods(["POST", "DELETE"])
