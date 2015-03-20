@@ -18,7 +18,7 @@ from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 
-NOT_REFLECT_STAGES = ['plan', 'inspiration', 'build']
+NOT_REFLECT_STAGES = [Stage.plan.name, Stage.inspiration.name, Stage.build.name]
 
 def challenges(request):
     challenges = Challenge.objects.filter(draft=False)
@@ -75,7 +75,7 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username, 'stage': stage_string}))
 
     if stage == Stage.inspiration:
-        return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge.id,}))
+        return render(request, 'challenge.html', {'challenge': challenge, 'examples': Example.objects.filter(challenge=challenge), 'not_reflect_stages': NOT_REFLECT_STAGES})
     elif stage in [Stage.plan, Stage.build, Stage.test, Stage.reflect]:
         comments = progress.comments.filter(stage__in=[Stage.plan.value, Stage.build.value, Stage.test.value, Stage.reflect.value])
     progress.get_unread_comments_for_user(request.user).update(read=True)
