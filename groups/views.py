@@ -61,17 +61,22 @@ class InvitationCreateView(FormView):
 	@method_decorator(login_required)
 	@method_decorator(educator_only)
 	def dispatch(self, *args, **kwargs):
+		self.group = get_object_or_404(Group, id=self.kwargs['group_id'])
 		return super(InvitationCreateView, self).dispatch(*args, **kwargs)
 
 	def form_valid(self, form):
-		group = get_object_or_404(Group, id=self.kwargs['group_id'])
 		recipients = form.cleaned_data['recipients']
 		for user in User.objects.filter(username__in=recipients):
-			group.invite_member(user)
+			self.group.invite_member(user)
 		return super(InvitationCreateView, self).form_valid(form)
 
 	def get_success_url(self):
 		return reverse('groups:group', kwargs={'group_id': self.kwargs['group_id']})
+
+	def get_context_data(self, **kwargs):
+		context = super(InvitationCreateView, self).get_context_data(**kwargs)
+		context.update({'group': self.group})
+		return context
 
 
 
