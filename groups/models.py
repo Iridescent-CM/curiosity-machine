@@ -22,7 +22,7 @@ class Group(models.Model):
     def owners(self):
         return User.objects.filter(cm_groups=self, memberships__role=Role.owner.value)
 
-    def members(self): 
+    def members(self):
         return User.objects.filter(cm_groups=self, memberships__role=Role.member.value).prefetch_related('progresses__challenge')
 
     def add_member(self, user):
@@ -46,7 +46,8 @@ class Group(models.Model):
     def invite_member(self, user):
         if Invitation.objects.filter(group=self, user=user).count() < 1:
             invitation = Invitation.objects.create(group=self, user=user)
-        deliver_email('group_invite', user.profile, group=self)
+        else:
+            deliver_email('group_invite', user.profile, group=self)
 
     def accept_invitation(self, invitation):
         self.add_member(invitation.user)
