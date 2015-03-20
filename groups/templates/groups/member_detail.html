@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ member.username }}{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li><a href="{% url 'groups:group' group_id=group.id %}">{{ group.name }}</a></li>
+  <li>{{ member.username }}</li>
+</ol>
+
+<div class="row">
+  <div class="col-sm-3">
+    <div class="well">
+      <h1>{{group.name}}</h1>
+      <p>Code: {{group.code}}</p>
+      <p>Owner{% if group.owners|length > 1 %}s{% endif %}: {{ group.owners|join:", " }}</p>
+    </div>
+    <h3>Members</h3>
+    <div class="list-group">
+      {% for user in group.members %}
+      <a class="list-group-item {% ifequal user.id member.id %}active{% endifequal %}" 
+        href="{% url 'groups:member' group.id user.id %}">{{ user.username }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <h1>Challenges</h1>
+    <div class="row">
+      {% for progress in member.progresses.all %}
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ progress.challenge.name }}</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-unstyled">
+              <li>Started: {{ progress.started }}</li>
+              <li>Mentor: {{ progress.mentor.username }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-md-12">No progress</div>
+      {% endfor %}
+  </div>
+</div>
+{% endblock %}

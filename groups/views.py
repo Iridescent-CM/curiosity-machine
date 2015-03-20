@@ -78,6 +78,22 @@ class InvitationCreateView(FormView):
 		context.update({'group': self.group})
 		return context
 
+class GroupMemberDetailView(DetailView):
+	model = User
+	pk_url_kwarg = 'user_id'
+	template_name = 'groups/member_detail.html'
+	context_object_name = 'member'
+
+	@method_decorator(login_required)
+	@method_decorator(owners_only)
+	def dispatch(self, *args, **kwargs):
+		self.group = get_object_or_404(Group, id=self.kwargs['group_id'])
+		return super(GroupMemberDetailView, self).dispatch(*args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		context = super(GroupMemberDetailView, self).get_context_data(**kwargs)
+		context.update({'group': self.group})
+		return context
 
 
 @feature_flag('enable_groups')

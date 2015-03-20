@@ -8,5 +8,6 @@ urlpatterns = patterns('groups.views',
     url(r'^leave_group$', 'leave_group', name='leave_group'),
     url(r'^accept_invitation/(?P<group_id>\d+)/$', 'accept_invitation', name='accept_invitation'),
     url(r'^(?P<group_id>\d+)/invite/$', views.InvitationCreateView.as_view(), name='invite_to_group'),
-    url(r'^(?P<group_id>\d+)/$', views.GroupDetailView.as_view(), name='group')
+    url(r'^(?P<group_id>\d+)/$', views.GroupDetailView.as_view(), name='group'),
+    url(r'^(?P<group_id>\d+)/member/(?P<user_id>[\w.@+-]+)/$', views.GroupMemberDetailView.as_view(), name='member'),
 )

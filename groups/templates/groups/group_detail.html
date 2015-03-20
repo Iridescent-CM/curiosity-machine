@@ -16,6 +16,12 @@
       <p>Owner{% if group.owners|length > 1 %}s{% endif %}: {{ group.owners|join:", " }}</p>
       <a class="btn btn-default" href="{% url 'groups:invite_to_group' group.id %}">Invite members</a>
     </div>
+    <h3>Members</h3>
+    <div class="list-group">
+      {% for user in group.members %}
+      <a class="list-group-item" href="{% url 'groups:member' group.id user.id %}">{{ user.username }}</a>
+      {% endfor %}
+    </div>
   </div>
   <div class="col-sm-9">
     <h1>Students</h1>
