@@ -75,7 +75,7 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username, 'stage': stage_string}))
 
     if stage == Stage.inspiration:
-        return render(request, 'challenge.html', {'challenge': challenge, 'progress': progress, 'examples': Example.objects.filter(challenge=challenge), 'not_reflect_stages': NOT_REFLECT_STAGES})
+        return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge.id,}))
     elif stage in [Stage.plan, Stage.build, Stage.test, Stage.reflect]:
         comments = progress.comments.filter(stage__in=[Stage.plan.value, Stage.build.value, Stage.test.value, Stage.reflect.value])
     progress.get_unread_comments_for_user(request.user).update(read=True)
