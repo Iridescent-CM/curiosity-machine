@@ -1,4 +1,3 @@
-import os
 from django.shortcuts import render
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
