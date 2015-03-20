@@ -6,6 +6,7 @@ from profiles.models import Profile
 from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware
 from .views import root_redirect
 from challenges.models import Progress, Challenge
+from .helpers import random_string
 
 def test_underage_student_middleware_redirects_request(rf):
     user = User()
@@ -116,3 +117,8 @@ def test_root_redirect_redirects_student_with_progress_to_home(rf):
     response = root_redirect(request)
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == reverse('profiles:home')
+
+def test_random_string():
+    assert len(random_string()) == 5
+    assert len(random_string(length=2)) == 2
+    assert type(random_string()) is str
