@@ -19,7 +19,7 @@
     <h3>Members</h3>
     <div class="list-group">
       {% for user in group.members %}
-      <a class="list-group-item {% ifequal user.id member.id %}active{% endifequal %}" 
+      <a class="list-group-item {% ifequal user.id member.id %}active{% endifequal %}"
         href="{% url 'groups:member' group.id user.id %}">{{ user.username }}</a>
       {% endfor %}
     </div>
@@ -37,6 +37,9 @@
             <ul class="list-unstyled">
               <li>Started: {{ progress.started }}</li>
               <li>Mentor: {{ progress.mentor.username }}</li>
+              <a class="btn btn-default"
+                href="{% url 'challenges:challenge_progress' progress.challenge.id member.username %}"
+                role="button">View Challenge</a>
             </ul>
           </div>
         </div>
