@@ -87,12 +87,12 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
         comments = progress.comments.filter(stage__in=[Stage.plan.value, Stage.build.value, Stage.test.value, Stage.reflect.value])
     progress.get_unread_comments_for_user(request.user).update(read=True)
 
-    template_suffix = ({                                           
-        Stage.plan: 'plan',                                        
-        Stage.build: 'build',                                      
+    template_suffix = ({
+        Stage.plan: 'plan',
+        Stage.build: 'build',
         Stage.test: 'build',
         Stage.reflect: 'reflect'
-    }).get(stage)                                                  
+    }).get(stage)
     return render(request, "challenge_%s.html" % template_suffix, {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm(), 'comments': comments, 'materials_form': MaterialsForm(progress=progress)})
 
 # Any POST to this by the assigned mentor moves a challenge progress into the reflect stage (marks approve=True); any DELETE reverses that
