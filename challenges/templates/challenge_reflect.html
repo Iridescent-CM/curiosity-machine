@@ -11,16 +11,12 @@
   {% if challenge.draft %}
     <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
   {% endif %}
-  {% if user.is_authenticated %}
-  {% include "_challenge_nav.html" with stage="reflect" %}
-  {% else %}
-  {% include "_challenge_nav_guest.html" with stage="build" %}
-  {% endif %}
+  {% include "_challenge_reflect_nav.html" with stage="reflect" %}
   <div class="challenge-content">
     {% if not request.user.profile.is_mentor %}
     <header class="challenge-header">
       <h1>Document your design process</h1>
-      <p>{% if not progress.approved %}{{ challenge.build_subheader }}{% else %}{{ challenge.reflect_subheader }}{% endif %}</p>
+      <p>{{ challenge.reflect_subheader }}</p>
     </header>
     {% endif %}
 <div class="row">
@@ -28,18 +24,12 @@
     {% include "_mentor_panel.html" %}
   {% else %}
   <div class="col-md-5">
-    {% if challenge.build_call_to_action or progress.approved %}
     <div class="panel blue">
       <div class="panel-body">
-        {% if progress.approved %}
-          <p>You've made great progress on this challenge. I think you are ready to move on to the next step.</p>
-          <p><strong>Reflect on your design.</strong></p>
-        {% else %}
-            {{challenge.build_call_to_action}}
-        {% endif %}
+        <p>You've made great progress on this challenge. I think you are ready to move on to the next step.</p>
+        <p><strong>Reflect on your design.</strong></p>
       </div>
     </div>
-    {% endif %}
   </div><!-- /column 1 -->
   {% endif %}
 
@@ -51,7 +41,6 @@
     {% if request.user.profile.is_mentor %}
       <h1>{{progress.student.username}}'s progress</h1>
     {% else %}
-    {% if progress.approved %}
       <div class="panel panel-bubble teal right reflect-box">
       <div class="panel-body">
         <h1>Reflect</h1>
@@ -85,37 +74,12 @@
               Pick a Photo
             </a>
           </div>
-
-          
-          
-          
           <div class="errors">{{ comment_form.text.errors }}</div>
           <input type="submit" value="Publish to The Gallery" class="btn btn-lg btn-primary btn-reflect" disabled='disabled' />
         </form>
       </div>
       </div>
       {% include "_challenge_reflect_images_modal.html" %}
-    {% else %}
-    <div class="panel panel-bubble right">
-      <div class="panel-body">
-        <h3>Are you on</h3>
-
-        <ul class="switch stage-switch">
-          <li>
-            <input type="radio" name="stepSelector" id="buildSelector" value="build" checked><label for="buildSelector">Building?</label>
-            <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' %}" class="build-url url">
-          </li>
-          <li>
-            <input type="radio" name="stepSelector" id="testSelector" value="test"><label for="testSelector">Testing?</label>
-            <input type="hidden" value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='test' %}" class="test-url url">
-          </li>
-        </ul><div></div><!-- magical switch clearing div -->
-
-        {% include "_comment_action_list.html" %}
-        
-      </div>
-    </div>
-    {% endif %}
     {% endif %}
 
     {% for comment in comments %}

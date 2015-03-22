@@ -12,7 +12,11 @@
     <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
   {% endif %}
   {% if user.is_authenticated %}
-  {% include "_challenge_nav.html" with stage="build" %}
+    {% if progress and progress.approved %}
+    {% include "_challenge_reflect_nav.html" with stage="build" %}
+    {% else %}
+    {% include "_challenge_nav.html" with stage="build" %}
+    {% endif %}
   {% else %}
   {% include "_challenge_nav_guest.html" with stage="build" %}
   {% endif %}
