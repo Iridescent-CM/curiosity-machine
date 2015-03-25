@@ -44,6 +44,7 @@ To activate the account of your child under 13 years old, please sign below. You
 
   {% csrf_token %}
   {{ form.signature }}
+  <div class="errors">{{ form.signature.errors }}</div>
 
   <input type="submit">
 </form>
