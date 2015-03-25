@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
@@ -94,13 +94,15 @@ def consent_form(request, token):
             student = Profile.consent_student(token, form.cleaned_data['signature'])
             messages.success(request, 'Your consent form for Curiosity Machine was successfully signed and {username} account is now active!.'.format(username=student.user.username))
             return HttpResponseRedirect(reverse('profiles:home'))
+        else:
+            ctx['form'] = form
+            return render(request, 'consent_form.html', ctx)
     else:
         if redis.get(INVITATIONS_NS.format(token=token)):
             ctx['form'] = ConsentForm()
             return render(request, 'consent_form.html', ctx)
         else:
-            messages.error(request, 'Consent form was not found')
-            return HttpResponseRedirect(reverse('profiles:home'))
+            raise Http404
 
 def resend_consent_form_email(request):
     request.user.profile.deliver_welcome_email()
