@@ -7,7 +7,8 @@ Welcome to Curiosity Machine!
 <p>
 Your child’s account (user name: {{ profile.user.username }}) has been activated, and now you can start building together! 
 </p>
-
+<p>Watch this video and learn how to get started:</p>
+<a href="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.mp4"><button style="color: #fff; background-color:##44b1f5; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Introduction Video</button></a>
 <p>
 With Curiosity Machine, you and your child will be able to:
 <ul>
@@ -17,5 +18,5 @@ With Curiosity Machine, you and your child will be able to:
   <li>Share pictures and videos of your design with the Curiosity Machine community</li>
 </ul>
 </p>
-<a href="{{ site_url }}{% url 'challenges:challenges' %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Click here to explore design challenges and start inventing!</button></a>
+<a href="{{ site_url }}/parents"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Click here to start inventing!</button></a>
 {% endblock %}
