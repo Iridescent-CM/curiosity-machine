@@ -19,8 +19,6 @@ from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 
 class InvalidStage(Exception): pass
-class InspirationStage(Exception): pass
-
 
 NOT_REFLECT_STAGES = [Stage.plan.name, Stage.inspiration.name, Stage.build.name]
 STAGES_MAP = {
