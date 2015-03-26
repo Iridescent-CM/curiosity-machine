@@ -4,9 +4,11 @@ from mock import patch
 from django.contrib.auth.models import User, AnonymousUser
 from .models import Group, Membership, Role, Invitation
 from . import views
+from . import decorators
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from profiles.models import Profile
+from django.core.exceptions import PermissionDenied
 
 @pytest.fixture
 def student():
@@ -210,7 +212,27 @@ def test_invite_member_resends_one_email(group, student):
 def test_users_share_any_group(student, educator, group):
     group.add_owner(educator)
     group.add_member(student)
-    assert Group.users_share_any_group(educator.username, Role.owner, student.username, Role.member)
-    assert not Group.users_share_any_group(educator.username, Role.member, student.username, Role.member)
-    assert not Group.users_share_any_group(educator.username, Role.owner, student.username, Role.owner)
-    assert not Group.users_share_any_group(educator.username, Role.owner, 'nope', Role.member)
+    assert Membership.users_share_any_group(educator.username, Role.owner, student.username, Role.member)
+    assert not Membership.users_share_any_group(educator.username, Role.member, student.username, Role.member)
+    assert not Membership.users_share_any_group(educator.username, Role.owner, student.username, Role.owner)
+    assert not Membership.users_share_any_group(educator.username, Role.owner, 'nope', Role.member)
+
+@pytest.mark.django_db
+def test_owners_only_decorator(rf, group, student):
+    group.add_owner(student)
+    request = rf.get('/path')
+    request.user = student
+    view = mock.Mock()
+    response = decorators.owners_only(view)(request, group_id=group.id)
+    assert view.called
+
+@pytest.mark.django_db
+def test_owners_only_decorator_rejects_non_owners(rf, group, student):
+    group.add_member(student)
+    request = rf.get('/path')
+    request.user = student
+    view = mock.Mock()
+    with pytest.raises(PermissionDenied):
+        response = decorators.owners_only(view)(request, group_id=group.id)
+    assert not view.called
+

@@ -6,7 +6,7 @@ def owners_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
         group_id = kwargs['group_id']
-        if request.user.is_authenticated() and Membership.objects.filter(group__id=group_id, user=request.user).exists():
+        if (request.user.is_authenticated() and Membership.user_owns_group(request.user, group_id)):
             return view(request, *args, **kwargs)
         else:
             raise PermissionDenied
