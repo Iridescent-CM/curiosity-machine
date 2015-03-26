@@ -135,7 +135,7 @@ def test_invite_to_group(client, group, student, loggedInEducator):
     }):
         group.add_owner(loggedInEducator)
         response = client.post(
-            reverse('groups:invite_to_group', kwargs={'group_id': group.id}), 
+            reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
             {'recipients': student.username}
         )
         assert Invitation.objects.filter(user=student, group=group).exists()
@@ -153,12 +153,26 @@ def test_invite_multiple_to_group(client, group, student, loggedInEducator):
         otherstudent.profile.is_student = True
         otherstudent.profile.save()
         response = client.post(
-            reverse('groups:invite_to_group', kwargs={'group_id': group.id}), 
+            reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
             {'recipients': ", ".join([student.username, otherstudent.username])}
         )
         assert Invitation.objects.filter(user=otherstudent, group=group).exists()
         assert Invitation.objects.filter(user=student, group=group).exists()
         assert response.status_code == 302
+
+@pytest.mark.django_db
+def test_invite_nonstudent_to_group(client, group, mentor, loggedInEducator):
+    with mock.patch.dict(settings.FEATURE_FLAGS, {
+        'enable_groups': True,
+        'enable_educators': True
+    }):
+        group.add_owner(loggedInEducator)
+        response = client.post(
+            reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
+            {'recipients': ", ".join([mentor.username])}
+        )
+        assert response.status_code == 200
+        assert 'recipients' in response.context['form'].errors.keys()
 
 @pytest.mark.django_db
 def test_invite_nonexistant_to_group(client, group, student, loggedInEducator):
@@ -168,7 +182,7 @@ def test_invite_nonexistant_to_group(client, group, student, loggedInEducator):
     }):
         group.add_owner(loggedInEducator)
         response = client.post(
-            reverse('groups:invite_to_group', kwargs={'group_id': group.id}), 
+            reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
             {'recipients': ", ".join([student.username, 'nonexistant'])}
         )
         assert response.status_code == 200

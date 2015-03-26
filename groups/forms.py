@@ -30,7 +30,10 @@ class MultiInvitationForm(forms.Form):
 
     def clean_recipients(self):
         recipients = self.cleaned_data['recipients']
-        existing = User.objects.filter(username__in=recipients).values_list('username', flat=True)
+        existing = User.objects.filter(
+            username__in=recipients,
+            profile__is_student=True
+        ).values_list('username', flat=True)
         nonexisting = list(set(recipients) - set(existing))
         if nonexisting:
             raise forms.ValidationError(
