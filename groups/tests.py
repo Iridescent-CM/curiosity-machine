@@ -90,14 +90,6 @@ def test_educators(group, mentor):
     assert len(group.members()) == 0
 
 @pytest.mark.django_db
-def test_groups(client, group, loggedInEducator):
-    with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_groups': True}):
-        group.add_owner(loggedInEducator)
-        response = client.get('/groups/')
-        assert response.status_code == 200
-        assert len(response.context['groups']) == 1
-
-@pytest.mark.django_db
 def test_group(client, group, loggedInEducator):
     with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_groups': True}):
         group.add_owner(loggedInEducator)

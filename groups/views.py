@@ -9,22 +9,9 @@ from .decorators import owners_only
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView
 from django.utils.decorators import method_decorator
-
-class GroupListView(ListView):
-	model = Group
-	context_object_name = 'groups'
-
-	@method_decorator(login_required)
-	@method_decorator(educator_only)
-	def dispatch(self, *args, **kwargs):
-		return super(GroupListView, self).dispatch(*args, **kwargs)
-
-	def get_queryset(self):
-		return self.request.user.cm_groups.all()
 
 class GroupDetailView(DetailView):
 	model = Group
@@ -32,6 +19,7 @@ class GroupDetailView(DetailView):
 
 	@method_decorator(login_required)
 	@method_decorator(owners_only)
+	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		return super(GroupDetailView, self).dispatch(*args, **kwargs)
 
@@ -42,6 +30,7 @@ class GroupCreateView(CreateView):
 
 	@method_decorator(login_required)
 	@method_decorator(educator_only)
+	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		return super(GroupCreateView, self).dispatch(*args, **kwargs)
 
@@ -56,6 +45,7 @@ class InvitationCreateView(FormView):
 
 	@method_decorator(login_required)
 	@method_decorator(educator_only)
+	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		self.group = get_object_or_404(Group, id=self.kwargs['group_id'])
 		return super(InvitationCreateView, self).dispatch(*args, **kwargs)
@@ -82,6 +72,7 @@ class GroupMemberDetailView(DetailView):
 
 	@method_decorator(login_required)
 	@method_decorator(owners_only)
+	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		self.group = get_object_or_404(Group, id=self.kwargs['group_id'])
 		return super(GroupMemberDetailView, self).dispatch(*args, **kwargs)
