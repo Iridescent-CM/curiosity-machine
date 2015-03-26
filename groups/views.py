@@ -89,14 +89,17 @@ class GroupMemberDetailView(DetailView):
 def join_group(request):
 	group_form = forms.GroupJoinForm(data=request.POST)
 	if group_form.is_valid():
-		group = get_object_or_404(Group, code=group_form.cleaned_data['code'])
-		result = group.add_member(request.user)
-		if result:
-			messages.success(request, 'Successfully subscribed to the %s group' % group.name)
+		group = Group.objects.filter(code=group_form.cleaned_data['code']).first()
+		if not group:
+			messages.error(request, 'Invalid group code')
 		else:
-			messages.error(request, 'You are already a member of %s' % group.name)
+			result = group.add_member(request.user)
+			if result:
+				messages.success(request, 'Successfully subscribed to the %s group' % group.name)
+			else:
+				messages.error(request, 'You are already a member of %s' % group.name)
 	else:
-		messages.error(request, 'Invalid code')
+		messages.error(request, 'Invalid group code')
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
