@@ -44,10 +44,11 @@ class Group(models.Model):
         return False
 
     def invite_member(self, user):
-        if Invitation.objects.filter(group=self, user=user).count() < 1:
-            invitation = Invitation.objects.create(group=self, user=user)
-        else:
-            deliver_email('group_invite', user.profile, group=self)
+        if not self.member_users.filter(pk=user.id).exists():
+            if Invitation.objects.filter(group=self, user=user).count() < 1:
+                invitation = Invitation.objects.create(group=self, user=user)
+            else:
+                deliver_email('group_invite', user.profile, group=self)
 
     def __str__(self):
         return "Group={}".format(self.name)

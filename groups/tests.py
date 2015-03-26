@@ -60,6 +60,14 @@ def test_group_invite_member(group, student):
     assert Invitation.objects.count() == 1
 
 @pytest.mark.django_db
+def test_group_invite_member_skips_existing_member(group, student):
+    group.invite_member(student)
+    assert Invitation.objects.count() == 1
+    Invitation.objects.first().accept()
+    group.invite_member(student)
+    assert Invitation.objects.count() == 0
+
+@pytest.mark.django_db
 def test_group_accept_invitation(group, student):
     group.invite_member(student)
     invitation = Invitation.objects.first()
