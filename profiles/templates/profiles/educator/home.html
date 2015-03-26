@@ -24,9 +24,21 @@
 
 {% block content %}
   <h1>Welcome {{user.username}}</h1>
+
   <h2>My Clubs</h2>
-  <div class="carousel-section">
-    {% include "groups/_home_carousel.html" %}
+  <div class="tab-content">
+    <ul id="group-carousel" class="owl-carousel">
+      <li>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <a class="btn btn-primary" href="{% url 'groups:create' %}">Create new club</a>
+          </div>
+        </div>
+      </li>
+      {% for group in groups %}
+      <li>{% include "groups/_group_panel.html" %}</li>
+      {% endfor %}
+    </ul>
   </div>
 {% endblock %}
 
