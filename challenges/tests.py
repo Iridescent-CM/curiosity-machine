@@ -1,7 +1,7 @@
 import pytest
 from .models import Challenge, Progress, Theme, Favorite, Stage, Filter
 from cmcomments.models import Comment
-from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress
+from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress, challenge_progress
 from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
 from profiles.tests import student, mentor
 from django.contrib.auth.models import User, AnonymousUser
@@ -129,6 +129,98 @@ def test_challenge_response_code(rf, challenge, student):
     request = rf.get('/challenges/1/')
     request.user = student
     response = challenge_view(request, challenge.id)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_challenge_response_code_invalid_progress(rf, challenge, student):
+    request = rf.get('/challenges/1/student')
+    request.user = student
+    response = challenge_progress(request, challenge.id, student.username, 'Stage(student_comment.stage).name')
+    assert response.status_code == 302
+
+@pytest.mark.django_db
+def test_challenge_response_code_invalid_plan_progress(rf, student_comment, student):
+    student_comment.stage = Stage.plan.value
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = student
+    progress.save()
+    request = rf.get('/challenges/1/student/invalid')
+    request.user = student
+    response = challenge_progress(request, progress.challenge.id, student.username, 'Stage(student_comment.stage).name')
+    assert response.status_code == 302
+
+@pytest.mark.django_db
+def test_challenge_response_code_invalid_build_progress(rf, student_comment, student):
+    student_comment.stage = Stage.build.value
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = student
+    progress.save()
+    request = rf.get('/challenges/1/student/invalid')
+    request.user = student
+    response = challenge_progress(request, progress.challenge.id, student.username, 'Stage(student_comment.stage).name')
+    assert response.status_code == 302
+
+@pytest.mark.django_db
+def test_challenge_response_code_inspiration_progress(rf, student_comment, student):
+    student_comment.stage = Stage.inspiration.value
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = student
+    progress.save()
+    request = rf.get('/challenges/1/student/inspiration')
+    request.user = student
+    response = challenge_progress(request, progress.challenge.id, student.username, Stage(student_comment.stage).name)
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_challenge_response_code_build_progress(rf, student_comment, student):
+    student_comment.stage = Stage.build.value
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = student
+    progress.save()
+    request = rf.get('/challenges/1/student/build')
+    request.user = student
+    response = challenge_progress(request, progress.challenge.id, student.username, Stage(student_comment.stage).name)
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_challenge_response_code_plan_progress(rf, student_comment, student):
+    student_comment.stage = Stage.plan.value
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = student
+    progress.save()
+    request = rf.get('/challenges/1/student/plan')
+    request.user = student
+    response = challenge_progress(request, progress.challenge.id, student.username, Stage(student_comment.stage).name)
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_challenge_response_code_test_progress(rf, student_comment, student):
+    student_comment.stage = Stage.test.value
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = student
+    progress.save()
+    request = rf.get('/challenges/1/student/test')
+    request.user = student
+    response = challenge_progress(request, progress.challenge.id, student.username, Stage(student_comment.stage).name)
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_challenge_response_code_reflect_progress(rf, student_comment, student):
+    student_comment.stage = Stage.reflect.value
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = student
+    progress.save()
+    request = rf.get('/challenges/1/student/reflect')
+    request.user = student
+    response = challenge_progress(request, progress.challenge.id, student.username, Stage(student_comment.stage).name)
     assert response.status_code == 200
 
 @pytest.mark.django_db
