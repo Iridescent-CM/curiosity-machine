@@ -1,33 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Curiosity Machine - Home{% endblock %}
 
-{% block css %}
-<style>
-  .owl-item > li {
-    list-style: none;
-  }
-  .owl-carousel {
-    padding-left: 0;
-  }
-  #group-carousel .panel {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-  .carousel-section {
-    background: #e5e1d9;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin: 0 -65px 20px -65px;
-  }
-</style>
-{% endblock %}
-
 {% block content %}
   <h1>Welcome {{user.username}}</h1>
 
   <h2>My Clubs</h2>
   <div class="tab-content">
-    <ul id="group-carousel" class="owl-carousel">
+    <ul id="group-carousel" class="groups-list owl-carousel">
       <li>
         <div class="panel panel-default">
           <div class="panel-body">
