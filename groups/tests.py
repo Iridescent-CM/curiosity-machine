@@ -63,8 +63,9 @@ def test_group_invite_member(group, student):
 def test_group_accept_invitation(group, student):
     group.invite_member(student)
     invitation = Invitation.objects.first()
-    group.accept_invitation(invitation)
+    invitation.accept()
     assert len(group.members()) == 1
+    assert Invitation.objects.count() == 0
 
 @pytest.mark.django_db
 def test_group_delete_member(group, student):
@@ -132,6 +133,7 @@ def test_invite_to_group(client, group, student, loggedInEducator):
         'enable_groups': True,
         'enable_educators': True
     }):
+        group.add_owner(loggedInEducator)
         response = client.post(
             reverse('groups:invite_to_group', kwargs={'group_id': group.id}), 
             {'recipients': student.username}
@@ -145,6 +147,7 @@ def test_invite_multiple_to_group(client, group, student, loggedInEducator):
         'enable_groups': True,
         'enable_educators': True
     }):
+        group.add_owner(loggedInEducator)
         otherstudent = User.objects.create_user(username='otherstudent', email='student@example.com', password='password')
         otherstudent.profile.approved = True
         otherstudent.profile.is_student = True
@@ -163,6 +166,7 @@ def test_invite_nonexistant_to_group(client, group, student, loggedInEducator):
         'enable_groups': True,
         'enable_educators': True
     }):
+        group.add_owner(loggedInEducator)
         response = client.post(
             reverse('groups:invite_to_group', kwargs={'group_id': group.id}), 
             {'recipients': ", ".join([student.username, 'nonexistant'])}

@@ -44,7 +44,7 @@ class InvitationCreateView(FormView):
 	template_name = 'groups/invitation_form.html'
 
 	@method_decorator(login_required)
-	@method_decorator(educator_only)
+	@method_decorator(owners_only)
 	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		self.group = get_object_or_404(Group, id=self.kwargs['group_id'])
@@ -120,13 +120,8 @@ def leave_group(request):
 def accept_invitation(request, group_id):
 	group = get_object_or_404(Group, id=group_id)
 	invitation = Invitation.objects.filter(user=request.user, group=group).first()
-	try:
-		user = group.accept_invitation(invitation)
-		messages.success(request, 'Successfully joined %s group' % (group.name,))
-	except User.DoesNotExist:
+	if not invitation:
 		raise Http404("User not found for specified token. This invitation might have expired.")
-	
-	if request.user.is_authenticated():
-		return HttpResponseRedirect(reverse('profiles:home'))
-	else:
-		return HttpResponseRedirect(reverse('challenges:challenges'))
+	invitation.accept()
+	messages.success(request, 'Successfully joined %s group' % (group.name,))
+	return HttpResponseRedirect(reverse('profiles:home'))

@@ -49,12 +49,6 @@ class Group(models.Model):
         else:
             deliver_email('group_invite', user.profile, group=self)
 
-    def accept_invitation(self, invitation):
-        self.add_member(invitation.user)
-        user = invitation.user
-        Invitation.objects.filter(user=user, group=self).delete()
-        return user
-
     def __str__(self):
         return "Group={}".format(self.name)
 
@@ -109,6 +103,11 @@ class Invitation(models.Model):
 
     class Meta:
         unique_together = ('group', 'user')
+
+    def accept(self):
+        self.group.add_member(self.user)
+        self.delete()
+        return self
 
     def __str__(self):
         return "Group={} User={}".format(self.group, self.user)
