@@ -51,11 +51,31 @@
   {% endfor %}
 </ul>
 
+{% if request.user.profile.is_educator %}
+<h3 class="full-width">
+  Pending Invitations
+</h3>
+
+<ul>
+  {% for invitation in invitations %}
+  <li>{{ invitation.0.user.username }}
+  <form action="{% url "groups:invite_to_group" group_id=group.id %}" method="POST">
+  {% csrf_token %}
+  {{ invitation.1.email_or_username }}
+  <button class="btn btn-primary" type="submit">RESEND INVITE</button>
+</form>
+</form>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
 
 <h4>Invite Learners</h4>
 <form action="{% url "groups:invite_to_group" group_id=group.id %}" method="POST">
   {% csrf_token %}
-  {{ invite_form.email }}
+  {{ invite_form.email_or_username }}
   <button class="btn btn-primary" type="submit">INVITE</button>
 </form>
+
+
 {% endblock %}
