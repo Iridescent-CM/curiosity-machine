@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, QueryDict
 from django.shortcuts import get_object_or_404
 from .models import Group, Invitation
 from django.contrib.auth.models import User
@@ -47,6 +47,8 @@ class InvitationCreateView(FormView):
 	@method_decorator(owners_only)
 	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
+		query = QueryDict(self.request.META.get('QUERY_STRING'))
+		self.is_resend = ('resend' in query)
 		self.group = get_object_or_404(Group, id=self.kwargs['group_id'])
 		return super(InvitationCreateView, self).dispatch(*args, **kwargs)
 
@@ -54,6 +56,10 @@ class InvitationCreateView(FormView):
 		recipients = form.cleaned_data['recipients']
 		for user in User.objects.filter(username__in=recipients):
 			self.group.invite_member(user)
+		if self.is_resend:
+			messages.success(self.request,
+				'Resent invitation to %s' % ", ".join(form.cleaned_data['recipients'])
+			)
 		return super(InvitationCreateView, self).form_valid(form)
 
 	def get_success_url(self):
