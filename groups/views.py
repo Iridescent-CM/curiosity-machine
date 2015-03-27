@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect, QueryDict
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from .models import Group, Invitation
 from django.contrib.auth.models import User
 from . import forms
@@ -125,12 +125,11 @@ def leave_group(request):
 
 @feature_flag('enable_groups')
 @login_required
-@student_only
 def accept_invitation(request, group_id):
 	group = get_object_or_404(Group, id=group_id)
 	invitation = Invitation.objects.filter(user=request.user, group=group).first()
 	if not invitation:
-		raise Http404("User not found for specified token. This invitation might have expired.")
+		return render(request, 'groups/invitation_404.html', status=404)
 	invitation.accept()
 	messages.success(request, 'Successfully joined %s group' % (group.name,))
 	return HttpResponseRedirect(reverse('profiles:home'))
