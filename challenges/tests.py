@@ -1,20 +1,22 @@
 import pytest
 from .models import Challenge, Progress, Theme, Favorite, Stage, Filter
 from cmcomments.models import Comment
-from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress
+from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress, challenge_progress
 from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
 from profiles.tests import student, mentor
 from django.contrib.auth.models import User, AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse
+from django.utils.timezone import now
 
 @pytest.fixture
 def loggedInStudent(client):
-    student = User.objects.create_user(username='student', email='student@example.com', password='password')
+    student = User.objects.create_user(username='loggedinstudent', email='loggedinstudent@example.com', password='password')
     student.profile.approved = True
     student.profile.save()
-    client.login(username='student', password='password')
+    client.login(username='loggedinstudent', password='password')
     return student
 
 @pytest.fixture
@@ -27,7 +29,7 @@ def theme():
 
 @pytest.fixture
 def challenge():
-    return Challenge.objects.create(name="Test Challenge", draft=False)
+    return Challenge.objects.create(name="Test Challenge", draft=False, reflect_subheader='test_reflect_subheader', build_subheader='test_build_subheader')
 
 @pytest.fixture
 def filter():
@@ -120,7 +122,7 @@ def test_ajax_challenges_filters_drafts(client, loggedInStudent, challenge, chal
     assert len(response.context['challenges']) == 1
 
 @pytest.mark.django_db
-def test_challenge_response_code(rf, challenge, student):
+def test_challenge(rf, challenge, student):
     request = rf.get('/challenges/1/')
     request.user = AnonymousUser()
     response = challenge_view(request, challenge.id)
@@ -130,6 +132,88 @@ def test_challenge_response_code(rf, challenge, student):
     request.user = student
     response = challenge_view(request, challenge.id)
     assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_challenge_progress_redirect_to_plan(client, student_comment, loggedInStudent):
+    student_comment.stage = Stage.plan.value
+    student_comment.user = loggedInStudent
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = loggedInStudent
+    progress.save()
+    url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username})
+    response = client.get(url)
+    assert response.status_code == 302
+    assert reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username': loggedInStudent.username, 'stage': Stage.plan.name}) in response.url
+
+@pytest.mark.django_db
+def test_challenge_progress_redirect_to_build(client, student_comment, loggedInStudent):
+    student_comment.stage = Stage.build.value
+    student_comment.user = loggedInStudent
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = loggedInStudent
+    progress.save()
+    url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username})
+    response = client.get(url)
+    assert response.status_code == 302
+    assert reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username': loggedInStudent.username, 'stage': Stage.build.name}) in response.url
+
+@pytest.mark.django_db
+def test_challenge_inspiration_progress(client, student_comment, loggedInStudent):
+    student_comment.stage = Stage.inspiration.value
+    student_comment.user = loggedInStudent
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = loggedInStudent
+    progress.save()
+    url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.inspiration.name})
+    response = client.get(url)
+    assert 'challenge.html' in [tmpl.name for tmpl in response.templates]
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_challenge_plan_progress(client, student_comment, loggedInStudent):
+    student_comment.stage = Stage.plan.value
+    student_comment.user = loggedInStudent
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = loggedInStudent
+    progress.save()
+    url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.plan.name})
+    response = client.get(url)
+    assert 'challenge_plan.html' in [tmpl.name for tmpl in response.templates]
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_challenge_build_progress(client, student_comment, loggedInStudent):
+    student_comment.stage = Stage.build.value
+    student_comment.user = loggedInStudent
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = loggedInStudent
+    progress.approved = None
+    progress.save()
+    url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.build.name})
+    response = client.get(url)
+    assert 'challenge_build.html' in [tmpl.name for tmpl in response.templates]
+    assert response.status_code == 200
+    assert progress.challenge.build_subheader in str(response.content)
+
+@pytest.mark.django_db
+def test_challenge_reflect_progress(client, student_comment, loggedInStudent):
+    student_comment.stage = Stage.build.value
+    student_comment.user = loggedInStudent
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = loggedInStudent
+    progress.approved = now()
+    progress.save()
+    url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.build.name})
+    response = client.get(url)
+    assert 'challenge_reflect.html' in [tmpl.name for tmpl in response.templates]
+    assert response.status_code == 200
+    assert progress.challenge.reflect_subheader in str(response.content)
 
 @pytest.mark.django_db
 def test_user_has_started_challenge(progress, challenge2):
