@@ -7,6 +7,7 @@ from profiles.models import Profile
 from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware
 from .views import root_redirect
 from challenges.models import Progress, Challenge
+from .helpers import random_string
 from curiositymachine import decorators
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
@@ -120,6 +121,11 @@ def test_root_redirect_redirects_student_with_progress_to_home(rf):
     response = root_redirect(request)
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == reverse('profiles:home')
+
+def test_random_string():
+    assert len(random_string()) == 5
+    assert len(random_string(length=2)) == 2
+    assert type(random_string()) is str
 
 def test_mentor_only_denies_view_for_anonymous_user(rf):
     user = AnonymousUser()

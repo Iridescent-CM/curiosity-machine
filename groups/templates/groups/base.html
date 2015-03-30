@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load compress %}
+
+{% block css %}
+{% compress css %}
+  <style>
+    .thumbnail.group-member {
+      background-color: white;
+    }
+  </style>
+{% endcompress %}
+{% endblock %}
