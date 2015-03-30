@@ -1,6 +1,8 @@
 import string
 import random
 
+# no vowels to avoid accidental word generation
+CHARS = list('bcdfghjklmnpqrstvwxzBCDFGHJKLMNPQRSTVWXZ0123456789')
+
 def random_string(length=5):
-    char_list = list(map(lambda x: str(x).upper(), list(string.ascii_lowercase) + list(range(0,10))))
-    return "".join(random.choice(char_list) for _ in range(length))
+    return "".join(random.choice(CHARS) for _ in range(length))

@@ -11,3 +11,8 @@ RQ_QUEUES = {
         'DB': None # take from REDIS_URL instead
     }
 }
+
+# For tests, force no feature flags and override in actual test with e.g.
+#       with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_whatever': True}):
+#               ...
+FEATURE_FLAGS={}
