@@ -1,15 +1,15 @@
 <ul class="action-list">
-  <li><button class="btn btn-lg" data-toggle="modal" data-target="#video_form">
+  <li><button class="btn btn-lg" data-toggle="modal" data-target="#video_form" {% if disable %}disabled="disabled"{% endif %}>
     <span class="glyphicon glyphicon-facetime-video" title="Post Video"></span>
     <span class="sr-only">Video</span>
     </button>
   </li>
-  <li><button class="btn btn-lg" data-toggle="modal" data-target="#picture_form">
+  <li><button class="btn btn-lg" data-toggle="modal" data-target="#picture_form" {% if disable %}disabled="disabled"{% endif %}>
     <span class="glyphicon glyphicon-camera" title="Post Picture"></span>
     <span class="sr-only">Picture</span>
     </button>
   </li>
-  <li><button class="text_comment_link btn btn-lg" data-toggle="modal" data-target="#text_form">
+  <li><button class="text_comment_link btn btn-lg" data-toggle="modal" data-target="#text_form" {% if disable %}disabled="disabled"{% endif %}>
     <span class="glyphicon glyphicon-pencil" title="Post Text"></span>
     <span class="sr-only">Text</span>
   </button></li>
