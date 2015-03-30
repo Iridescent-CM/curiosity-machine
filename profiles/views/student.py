@@ -12,8 +12,7 @@ from profiles.utils import create_or_edit_user
 from groups.forms import GroupJoinForm, GroupLeaveForm
 from challenges.models import Progress, Favorite
 from django.db import transaction
-from profiles.models import Profile, INVITATIONS_NS
-from django_simple_redis import redis
+from profiles.models import Profile, ConsentInvitation
 
 @transaction.atomic
 def join(request):
@@ -76,13 +75,17 @@ def profile_edit(request):
 
     return render(request, 'profile_edit.html', {'form': form,})
 
+@login_required
 def underage(request):
     return render(request, 'underage_student.html')
 
+@login_required
 def signed_consent_form(request, profile_id):
     profile = Profile.objects.get(pk=int(profile_id))
-    return render(request, 'signed_consent_form.html', {'profile': profile})
+    consent = profile.consent
+    return render(request, 'signed_consent_form.html', {'profile': profile, 'consent': consent,})
 
+@login_required
 def consent_form(request, token):
     #get the token from the invite email
     ctx = {
@@ -98,12 +101,13 @@ def consent_form(request, token):
             ctx['form'] = form
             return render(request, 'consent_form.html', ctx)
     else:
-        if redis.get(INVITATIONS_NS.format(token=token)):
+        if ConsentInvitation.objects.filter(code=token).exists():
             ctx['form'] = ConsentForm()
             return render(request, 'consent_form.html', ctx)
         else:
             raise Http404
 
+@login_required
 def resend_consent_form_email(request):
     request.user.profile.deliver_welcome_email()
     messages.success(request, 'Activation Consent form was resent')

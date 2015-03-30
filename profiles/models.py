@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from images.models import Image
@@ -10,11 +10,7 @@ from cmcomments.models import Comment
 from cmemails import deliver_email
 from django.utils.timezone import now
 from uuid import uuid4
-from django_simple_redis import redis
 import time
-
-INVITATIONS_NS = "curiositymachine:consent_forms:{token}"
-EXPIRY = int(settings.CONSENT_FORM_INVITATION_INACTIVE_DAYS) * 1000 * 1000
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
@@ -26,9 +22,6 @@ class Profile(models.Model):
     city = models.TextField(blank=True)
     parent_first_name = models.TextField(blank=True)
     parent_last_name = models.TextField(blank=True)
-
-    consent_signature = models.TextField(blank=True, null=True)
-    consented_at = models.DateTimeField(default=None, blank=True, null=True)
 
     title = models.TextField(blank=True, help_text="This is a mentor only field.")
     employer = models.TextField(blank=True, help_text="This is a mentor only field.")
@@ -62,15 +55,13 @@ class Profile(models.Model):
 
     @classmethod
     def consent_student(cls, token, signature):
-        key = INVITATIONS_NS.format(token=token)
-        id = redis.get(key)
-        profile = cls.objects.get(pk=int(id))
-        profile.consent_signature = signature
-        profile.consented_at = now()
+        invitation = ConsentInvitation.objects.get(code=token)
+        profile = invitation.user.profile
+        UnderageConsent.objects.create(signature=signature, profile=profile)
         profile.approved = True
-        profile.save(update_fields=['consent_signature', 'consented_at', 'approved'])
+        profile.save(update_fields=['approved'])
         deliver_email('activation_confirmation', profile, digitally_signed=True)
-        redis.delete(key)
+        invitation.delete()
         return profile
 
     @property
@@ -121,10 +112,14 @@ class Profile(models.Model):
     def deliver_welcome_email(self):
         if self.is_mentor:
             deliver_email('welcome', self, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
+        elif self.is_student and self.is_underage:
+            if not ConsentInvitation.objects.filter(user=self.user).exists():
+                invitation = ConsentInvitation.objects.create(user=self.user)
+            else:
+                invitation = self.user.consent_invitation
+            invitation.send_welcome_invitation()
         else:
-            token = str(uuid4())
-            redis.setex(INVITATIONS_NS.format(token=token), self.id, EXPIRY)
-            deliver_email('welcome', self, token=token)
+            deliver_email('welcome', self)
 
     def deliver_inactive_email(self):
         if self.birthday:
@@ -141,3 +136,42 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
+
+class UnderageConsent(models.Model):
+    profile = models.OneToOneField(Profile, null=False, blank=False, related_name="consent")
+    signature = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Consent: id={}, profile={}".format(self.id, self.profile_id)
+    def __repr__(self):
+        return "Consent: id={}, profile={}".format(self.id, self.profile_id)
+
+#just a description of an invitation, used in a welcome email for underage students
+class ConsentInvitation(models.Model):
+    user = models.OneToOneField(User, related_name="consent_invitation")
+    code = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Code={} User={}".format(self.code, self.user)
+
+    def __repr__(self):
+        return "Code={} User={}".format(self.code, self.user)
+
+    def send_welcome_invitation(self):
+        deliver_email('welcome', self.user.profile, token=self.code)
+
+def create_code(sender, instance, **kwargs):
+    def unique_slug():
+        string = uuid4()
+        if ConsentInvitation.objects.filter(code=string).exists():
+            return unique_slug()
+        else:
+            return string
+
+    #check that this model hasn't been created yet
+    if not instance.id:
+        instance.code = unique_slug()
+
+pre_save.connect(create_code, sender=ConsentInvitation)

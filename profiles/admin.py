@@ -5,13 +5,12 @@ from images.models import Image
 from .admin_utils import StudentFilter
 from cmemails import deliver_email
 
-from .models import Profile
+from .models import Profile, ConsentInvitation, UnderageConsent
 
 admin.site.unregister(User)
 
 class ProfileInline(admin.StackedInline):
     model = Profile
-    readonly_fields = ('consented_at', 'consent_signature',)
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if request.method == 'GET':
             if db_field.name == 'image':
@@ -47,4 +46,22 @@ class UserAdminWithProfile(UserAdmin):
                 continue
             yield inline.get_formset(request, obj)
 
+class ConsentInvitationAdmin(admin.ModelAdmin):
+    model = ConsentInvitation
+    list_display = ('user', 'code', 'created_at')
+    fields = ('user','code',)
+    readonly_fields = ('code',)
+
+    def has_add_permission(self, request): return False
+
+class UnderageConsentAdmin(admin.ModelAdmin):
+    model = UnderageConsent
+    list_display = ('profile', 'signature', 'created_at')
+    fields = ('profile','signature',)
+    readonly_fields = ('signature',)
+
+    def has_add_permission(self, request): return False
+
 admin.site.register(User, UserAdminWithProfile)
+admin.site.register(ConsentInvitation, ConsentInvitationAdmin)
+admin.site.register(UnderageConsent, UnderageConsentAdmin)

@@ -6,7 +6,6 @@ from django.db.models.signals import pre_save, post_save
 from curiositymachine.helpers import random_string
 from cmemails import deliver_email
 from django.conf import settings
-from django_simple_redis import redis
 from uuid import uuid4
 
 class Role(Enum):

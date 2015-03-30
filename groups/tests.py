@@ -3,7 +3,6 @@ import mock
 from mock import patch
 from django.contrib.auth.models import User
 from .models import Group, Membership, Role, Invitation
-from django_simple_redis import redis
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
@@ -125,16 +124,12 @@ def test_leave_group(client, group, loggedInStudent):
         assert response.status_code == 302
 
 @pytest.mark.django_db
-@pytest.mark.redis
 def test_invite_to_group(client, group, student, loggedInEducator):
-    redis.flushdb()
     with mock.patch.dict(settings.FEATURE_FLAGS, {
         'enable_groups': True,
         'enable_educators': True
     }):
         response = client.post(reverse('groups:invite_to_group', kwargs={'group_id': group.id}), {'email': student.email}, HTTP_REFERER='/')
-        #keys = redis.keys(INVITATIONS_NS.format(group_id=str(group.id), token="*"))
-        #assert len(keys) == 1
         assert response.status_code == 302
 
 @pytest.mark.django_db

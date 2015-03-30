@@ -3,7 +3,8 @@
 {% block content %}
 	
 	<hr />
-	Electronic Signature on file at {{ profile.consented_at }} with signature "{{ profile.consent_signature }}"
+
+	Electronic Signature on file at {{ consent.created_at }} with signature "{{ consent.signature }}"
 	<hr />
 
     <p>Dear parents,</p>
