@@ -1,0 +1,63 @@
+{% extends "groups/base.html" %}
+
+{% block title %}{{ group.name }}{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li>{{ group.name }}</li>
+</ol>
+
+<div class="row">
+  <div class="col-sm-3">
+    <div class="well">
+      <h1>{{group.name}}</h1>
+      <p>Code: {{group.code}}</p>
+      <p>Owner{% if group.owners|length > 1 %}s{% endif %}: {{ group.owners|join:", " }}</p>
+      <a class="btn btn-default" href="{% url 'groups:invite_to_group' group.id %}">Invite members</a>
+    </div>
+    <h3>Members</h3>
+    <div class="list-group">
+      {% for user in group.members %}
+      <a class="list-group-item" href="{% url 'groups:member' group.id user.id %}">{{ user.username }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <h1>Students</h1>
+    <div class="row">
+      {% for user in group.members %}
+      <div class="col-xs-6 col-sm-4 col-md-3">
+        <div class="thumbnail group-member">
+          <a class="" href="{% url 'groups:member' group.id user.id %}">
+            {% include "_avatar.html" with profile=user.profile width=240 height=240 crop='fill' %}
+          </a>
+          <div class="caption">
+            <h3>{{ user.username }}</h3>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-sm-12">No students at this time</div>
+      {% endfor %}
+    </div>
+
+    <h1>Pending invitations</h1>
+    <table class="table">
+      {% for invite in group.group_invitations.all %}
+      <tr>
+        <td>
+          {{ invite.user.username }}
+        </td>
+        <td>
+          <a class="btn btn-default btn-xs" href="#" role="button">Resend</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td>All invitations have been accepted</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+{% endblock %}
