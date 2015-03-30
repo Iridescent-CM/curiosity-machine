@@ -25,9 +25,8 @@ CM.Challenge.Reflect = {
 
     $('#reflect-images-modal .btn-primary').on('click', function() {
       self.saveImage($('#reflect-images-selector .selected'));
-    })
-
-  },
+    });
+},
   updateQuestion : function(isFirst) {
     var self = this;
     var currentIndex = self.config.currentQuestion.index()
@@ -39,7 +38,7 @@ CM.Challenge.Reflect = {
   },
   updateFields : function(question) {
     $('.reflect-question .question').text(question.text());
-    $('#id_question_text').val(question.text());
+    $('[name="question_text"]').val(question.text());
     this.config.currentQuestion = question;
   },
   selectImage : function(li) {
@@ -56,6 +55,7 @@ CM.Challenge.Reflect = {
       //close modal
     }
   }
+
 };
 
 $(document).ready(function() {

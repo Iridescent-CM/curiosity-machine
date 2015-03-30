@@ -1,21 +1,13 @@
 import pytest
-from .models import Challenge, Progress, Theme, Favorite, Stage, Filter
+from .models import Challenge, Progress, Theme, Favorite, Stage, Filter, Example
 from cmcomments.models import Comment
 from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress
 from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
-from profiles.tests import student, mentor
+from profiles.tests import student, mentor, loggedInStudent
 from django.contrib.auth.models import User, AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
-
-@pytest.fixture
-def loggedInStudent(client):
-    student = User.objects.create_user(username='student', email='student@example.com', password='password')
-    student.profile.approved = True
-    student.profile.save()
-    client.login(username='student', password='password')
-    return student
 
 @pytest.fixture
 def student_comment(student, progress):
@@ -40,6 +32,10 @@ def challenge2():
 @pytest.fixture
 def progress(student, mentor, challenge):
     return Progress.objects.create(student=student, mentor=mentor, challenge=challenge)
+
+@pytest.fixture
+def example(progress):
+    return Example.objects.create(progress=progress, challenge=progress.challenge)
 
 @pytest.fixture
 def unclaimed_progress(student, challenge):

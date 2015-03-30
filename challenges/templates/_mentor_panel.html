@@ -8,7 +8,7 @@
       <h3>{{progress.student.username}}</h3>
       {% if not progress.mentor %}
         <h4 style="font-size: 17px;">This challenge is unclaimed. Claim it to provide feedback!</h4>
-        <form class="ajax-and-refresh-form" action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
+        <form class="ajax-and-refresh-form" action="{% url 'challenges:claim_progress' progress_id=progress.id %}" method="POST">
           {% csrf_token %}
           <button class="btn btn-lg btn-primary" type="submit">Claim this Challenge</button>
         </form>
@@ -26,7 +26,7 @@
       {% endif %}
       
       {% if request.user == progress.mentor %}
-        <form class="ajax-and-refresh-form" action="{% url "challenges:challenge_progress_approve" challenge_id=challenge.id username=progress.student.username %}" method="{% if progress.approved %}DELETE{% else %}POST{% endif %}">
+        <form class="ajax-and-refresh-form" action="{% url 'challenges:challenge_progress_approve' challenge_id=challenge.id username=progress.student.username %}" method="{% if progress.approved %}DELETE{% else %}POST{% endif %}">
           {% csrf_token %}
           <button class="btn btn-lg btn-primary" type="submit">Move to {% if progress.approved %}Build{% else %}Reflect{% endif %} Stage</button>
         </form>
