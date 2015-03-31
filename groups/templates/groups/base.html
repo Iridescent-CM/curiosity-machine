@@ -22,6 +22,7 @@
           <p>Code: {{group.code}}</p>
           <p>Owner{% if group.owners|length > 1 %}s{% endif %}: {{ group.owners|join:", " }}</p>
           <a class="btn btn-default" href="{% url 'groups:invite_to_group' group.id %}">Invite members</a>
+          <a class="btn btn-default" href="{% url 'groups:update' group.id %}">Edit</a>
         </div>
         <h3>Members</h3>
         <div class="list-group">
