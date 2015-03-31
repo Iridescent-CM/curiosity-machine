@@ -6,7 +6,7 @@ CM.Navigation = {
   $navTop: $('.nav-wrapper').length ? $('.nav-wrapper').offset().top : false,
   $navWrapper: $('.nav-wrapper'),
   $mentorNavWrapper: $('.mentor-panel-wrapper')
-}
+};
 
 CM.userError = function(message) {
   $('#message-bar').removeClass().addClass('error');
@@ -14,7 +14,7 @@ CM.userError = function(message) {
   var timer = setTimeout(function() {
     $('#message-bar').removeClass('active');
   }, 6 * 1000);
-}
+};
 
 CM.userSuccess = function(message) {
   $('#message-bar').removeClass().addClass('success');
@@ -22,7 +22,7 @@ CM.userSuccess = function(message) {
   var timer = setTimeout(function() {
     $('#message-bar').removeClass('active');
   }, 6 * 1000);
-}
+};
 
 CM.Profile = {
   init : function() {
@@ -54,7 +54,7 @@ CM.Profile = {
       $(".student-column label[for='id_email']").text('Email:');
     }
   },
-}
+};
 
 CM.FilePicker = {
   config : {},
@@ -105,7 +105,7 @@ CM.FilePicker = {
       $('input[type=filepicker-custom]', parent).val('');
     }
   }
-}
+};
 
 $(document).ready(function() {
 
@@ -126,19 +126,19 @@ $(document).ready(function() {
 
   });
   
-if (CM.Navigation.$navTop) {
-  $(window).on('scroll', function() {
-    var scrollTop = $(window).scrollTop();
-    if (scrollTop > CM.Navigation.$navTop) {
-      CM.Navigation.$navWrapper.addClass('sticky');
-      CM.Navigation.$mentorNavWrapper.css('top', 100);
-    } else {
-      CM.Navigation.$navWrapper.removeClass('sticky');
-      CM.Navigation.$mentorNavWrapper.css('top', CM.Navigation.$navTop - scrollTop + 100);
-    }
-  });
-  $(window).trigger('scroll'); //if you refresh a scrolled page
-}
+  if (CM.Navigation.$navTop) {
+    $(window).on('scroll', function() {
+      var scrollTop = $(window).scrollTop();
+      if (scrollTop > CM.Navigation.$navTop) {
+        CM.Navigation.$navWrapper.addClass('sticky');
+        CM.Navigation.$mentorNavWrapper.css('top', 100);
+      } else {
+        CM.Navigation.$navWrapper.removeClass('sticky');
+        CM.Navigation.$mentorNavWrapper.css('top', CM.Navigation.$navTop - scrollTop + 100);
+      }
+    });
+    $(window).trigger('scroll'); //if you refresh a scrolled page
+  }
   
   
   $('.navbar-toggle').on('click', function(e) {
@@ -196,14 +196,15 @@ if (CM.Navigation.$navTop) {
     }
   });
 
-/////PROFILE!
+  /////PROFILE!
 
   CM.Profile.init();
 
 
-//=======================
-//bootstrapy stuff
-//====================
+  //=======================
+  //bootstrapy stuff
+  //====================
+
   //this is so we can reload content into the same modal.
   //re-initilaizes the modal when hidden
   $('body').on('hidden.bs.modal', '.modal', function () {
@@ -224,7 +225,7 @@ if (CM.Navigation.$navTop) {
       e.preventDefault();
       $(this).tab('show');
   });
-//======= end bootstrappy stuff
+  //======= end bootstrappy stuff
 
 
   //===== carousel setup
@@ -280,21 +281,29 @@ if (CM.Navigation.$navTop) {
       $('.challenge-details-hero .details').hide();
   });
 
-  $(document).ready(function() {
-    // auto enable using JSON attribute
-    $('.cm-mejs-player').mediaelementplayer({
-      features: ['playpause','progress','current','duration','tracks','volume','fullscreen','googleanalytics']
-    });
-
-$('#introduction-modal').on('hidden.bs.modal', function (){
-  $("#intro-video")[0].pause();
-});  
-
-
-
+  // auto enable using JSON attribute
+  $('.cm-mejs-player').mediaelementplayer({
+    features: ['playpause','progress','current','duration','tracks','volume','fullscreen','googleanalytics']
   });
 
+  $('#introduction-modal').on('hidden.bs.modal', function (){
+    $("#intro-video")[0].pause();
+  });  
 
 }); //end dom ready
 
-
+$.fn.extend({
+  initPanelCarousel: function() {
+    return this.owlCarousel({
+      items : 4,
+      itemsCustom : false,
+      itemsDesktop : [1199,3],
+      itemsDesktopSmall : [980,3],
+      itemsTablet: [768,2],
+      itemsTabletSmall: false,
+      itemsMobile : [479,1],
+      singleItem : false,
+      itemsScaleUp : false
+    });
+  }
+});

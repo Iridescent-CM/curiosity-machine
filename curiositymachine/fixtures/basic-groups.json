@@ -36,19 +36,10 @@
     {
         "fields": {
             "group": 1,
-            "user": 2,
-            "role": 1
-        },
-        "pk": 3,
-        "model": "groups.membership"
-    },
-    {
-        "fields": {
-            "group": 1,
             "user": 5,
             "role": 0
         },
-        "pk": 4,
+        "pk": 3,
         "model": "groups.membership"
     }
 ]
