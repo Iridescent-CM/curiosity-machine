@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from profiles.forms import JoinForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
 from groups.forms import GroupJoinForm, GroupLeaveForm
+from groups.models import Invitation
 from challenges.models import Progress, Favorite
 from django.db import transaction
 
@@ -56,6 +57,7 @@ def home(request):
         'favorite_challenges': favorite_challenges,
         'group_form': GroupJoinForm(),
         'groups': [{"object":group, "form":GroupLeaveForm(initial={'id': group.id})} for group in request.user.cm_groups.all()],
+        'invitations': Invitation.objects.filter(user=request.user).all()
     })
 
 @login_required

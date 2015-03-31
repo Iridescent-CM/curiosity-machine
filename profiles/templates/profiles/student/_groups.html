@@ -1,7 +1,6 @@
-<h2>Groups</h2>
 <div class="row">
   <div class="col-md-6">
-    {% if groups|length %}
+    <h2>Groups</h2>
     <table class="table">
       <thead><tr>
 	<th>Name</th>
@@ -22,7 +21,25 @@
 	</tr>
       {% endfor %}
     </table>
-    {% endif %}
+  </div>
+  <div class="col-md-6">
+    <h2>Invitations</h2>
+    <table class="table">
+      <thead><tr>
+	<th>Name</th>
+	<th>Owner</th>
+	<th></th>
+      </tr></thead>
+      {% for invite in invitations %}
+	<tr>
+	  <td>{{ invite.group.name}}</td>
+	  <td>{{ invite.group.owners|join:", " }}</td>
+	  <td>
+	    <a href="{% url 'groups:accept_invitation' group_id=invite.group.id %}" class="btn btn-default btn-xs">Accept</a>
+	  </td>
+	</tr>
+      {% endfor %}
+    </table>
   </div>
 </div>
 <h3> Join A Group</h3>
