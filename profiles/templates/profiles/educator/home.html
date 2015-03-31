@@ -19,12 +19,24 @@
       {% endfor %}
     </ul>
   </div>
+
+  <h2>Engineering Design Challenges</h2>
+  <div class="tab-content">
+    <ul id="unit-carousel" class="challenges-list owl-carousel">
+      {% for unit in units %}
+        {% include "units/_unit_item.html" with unit=unit %}
+      {% empty %}
+        <li>Nope</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}
 
 {% block js %}
   <script>
     $(document).ready(function () {
       $('#group-carousel').initPanelCarousel();
+      $('#unit-carousel').initPanelCarousel();
     });
   </script>
 {% endblock %}
