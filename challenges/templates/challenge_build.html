@@ -92,10 +92,12 @@
 
                   <div id="reflect-images">
                     <div class="img-wrapper"></div>
-                    <a data-toggle="modal" data-target="#reflect-images-modal" title="choose an image">
+                    <button type="button" class="btn btn-link" 
+                      data-toggle="modal" data-target="#reflect-images-modal" title="choose an image"
+                    >
                       <span class="btn btn-primary"><span class="glyphicon glyphicon-camera" title="Post Picture"></span></span>
                       Pick a Photo
-                    </a>
+                    </button>
                   </div>
 
                   <div class="errors">{{ comment_form.text.errors }}</div>
