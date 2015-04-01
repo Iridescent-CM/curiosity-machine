@@ -57,10 +57,7 @@
                 <h1>Reflect</h1>
                 <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
                 <form
-                  action="{% url "challenges:comments:comments"
-                    challenge_id=challenge.id
-                    username=progress.student.username
-                    stage='reflect' %}"
+                  action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' %}"
                   method="POST"
                   class="comment-form"
                   id="text_form"
