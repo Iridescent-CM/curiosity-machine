@@ -305,5 +305,16 @@ $.fn.extend({
       singleItem : false,
       itemsScaleUp : false
     });
+  },
+
+  disableEmptySubmit: function() {
+    return $(this).find("textarea, input[type=text]").on('keyup', function(e) {
+      var widget = this;
+      if ($(widget).val() == '') {
+        $(widget.form).find('input[type=submit]').attr('disabled', 'disabled');
+      } else {
+        $(widget.form).find('input[type=submit]').removeAttr('disabled');
+      }
+    });
   }
 });
