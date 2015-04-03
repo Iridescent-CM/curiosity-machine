@@ -26,7 +26,7 @@ class ListField(forms.Field):
         return list(val for val in re.split("[\s;,]+", value) if val)
 
 class MultiInvitationForm(forms.Form):
-    recipients = ListField(required=True, help_text="Add usernames to invite members to your club. Note: usernames are case sensitive.")
+    recipients = ListField(required=True, help_text="Note: usernames are case sensitive.")
 
     def clean_recipients(self):
         recipients = self.cleaned_data['recipients']
