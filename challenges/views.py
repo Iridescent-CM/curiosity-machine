@@ -91,6 +91,8 @@ def challenge_progress(request, challenge_id, username, stage): # stage will be 
             if request.GET.get('view'):
                 stage_view = Stage[request.GET.get('view')]
                 template_suffix = STAGES_MAP.get(stage_view)
+        elif stage == Stage.reflect: #get_stage_for_progress to make sure no one is using reflect stage even if not finished            
+            template_suffix = STAGES_MAP.get(get_stage_for_progress(progress))
         else:
             template_suffix = STAGES_MAP.get(stage)
 
