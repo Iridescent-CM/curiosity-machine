@@ -70,6 +70,11 @@ class InvitationRejectView(DeleteView):
 	slug_url_kwarg = 'group_id'
 	success_url = '/home'
 
+	@method_decorator(login_required)
+	@method_decorator(feature_flag('enable_groups'))
+	def dispatch(self, *args, **kwargs):
+		return super(InvitationRejectView, self).dispatch(*args, **kwargs)
+
 	def get_queryset(self):
 		return Invitation.objects.filter(user=self.request.user)
 
