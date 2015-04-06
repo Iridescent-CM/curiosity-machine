@@ -36,6 +36,7 @@
 	  <td>{{ invite.group.owners|join:", " }}</td>
 	  <td>
 	    <a href="{% url 'groups:accept_invitation' group_id=invite.group.id %}" class="btn btn-default btn-xs">Accept</a>
+	    <a href="{% url 'groups:reject_invitation' group_id=invite.group.id %}" class="btn btn-link btn-xs">Reject</a>
 	  </td>
 	</tr>
       {% endfor %}
