@@ -2,7 +2,7 @@
 {% block content %}
 
 <p>
-Welcome to Curiosity Machine! 
+Welcome to Curiosity Machine!
 </p>
 <p>
 Your consent form for Curiosity Machine was successfully signed and {{ profile.user.username }}’s account is now active!
@@ -15,7 +15,7 @@ You may view the signed document and print a copy for your records at the follow
 {% endif %}
 
 <p>
-With Curiosity Machine, you and your child will be able to:
+With <a href="{{ site_url }}>Curiosity Machine</a>, you and your child will be able to:
 <ul>
   <li>Get Inspired by videos of scientists and engineers solving real-world problems</li>
   <li>Design and Build your own engineering solutions with low-cost, easy-to-find supplies</li>
@@ -23,5 +23,5 @@ With Curiosity Machine, you and your child will be able to:
   <li>Share pictures and videos of your design with the Curiosity Machine community</li>
 </ul>
 </p>
-<a href="{{ site_url }}{% url 'challenges:challenges' %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Click here to explore design challenges and start inventing!</button></a>
+<a href="{{ site_url }}{% url 'parents' %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Click here to explore design challenges and start inventing!</button></a>
 {% endblock %}
