@@ -150,6 +150,24 @@ def test_invite_to_group(client, group, student, loggedInEducator):
         assert response.status_code == 302
 
 @pytest.mark.django_db
+def test_resend_invite_to_group(client, group, student, loggedInEducator):
+    with mock.patch.dict(settings.FEATURE_FLAGS, {
+        'enable_groups': True,
+        'enable_educators': True
+    }):
+        qs = '?resend=1'
+        group.add_owner(loggedInEducator)
+        response = client.post(
+            reverse('groups:invite_to_group', kwargs={'group_id': group.id}) + qs,
+            {'recipients': student.username},
+            follow=True
+        )
+        assert Invitation.objects.filter(user=student, group=group).exists()
+        messages = list(response.context['messages'])
+        assert len(messages) == 1
+        assert "Resent" in str(messages[0])
+
+@pytest.mark.django_db
 def test_invite_multiple_to_group(client, group, student, loggedInEducator):
     with mock.patch.dict(settings.FEATURE_FLAGS, {
         'enable_groups': True,
@@ -208,6 +226,20 @@ def test_accept_invitation(client, group, loggedInStudent):
         assert response.status_code == 302
 
 @pytest.mark.django_db
+def test_reject_invitation(client, group, loggedInStudent):
+    group.invite_member(loggedInStudent)
+    with mock.patch.dict(settings.FEATURE_FLAGS, {
+        'enable_groups': True,
+        'enable_educators': True
+    }):
+        response = client.get(reverse('groups:reject_invitation', kwargs={'group_id': group.id}))
+        assert Invitation.objects.count() == 1
+        assert response.status_code == 200
+        response = client.post(reverse('groups:reject_invitation', kwargs={'group_id': group.id}))
+        assert Invitation.objects.count() == 0
+        assert response.status_code == 302
+
+@pytest.mark.django_db
 def test_create(client, loggedInEducator):
     with mock.patch.dict(settings.FEATURE_FLAGS, {
         'enable_groups': True,
@@ -230,7 +262,7 @@ def test_invite_member_resends_one_email(group, student):
     with mock.patch('groups.models.deliver_email') as deliver_email:
         group.invite_member(student)
         group.invite_member(student)
-        Invitation.objects.count() == 1
+        assert Invitation.objects.count() == 1
         assert deliver_email.called
         assert deliver_email.call_count == 2
 

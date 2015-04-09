@@ -8,6 +8,7 @@ from profiles.forms import educator as forms
 from curiositymachine.decorators import feature_flag, educator_only
 from django.contrib.auth.decorators import login_required
 from groups.forms import GroupForm
+from units.models import Unit
 
 @feature_flag('enable_educators')
 @transaction.atomic
@@ -51,4 +52,5 @@ def home(request):
     return render(request, "profiles/educator/home.html", {
         'form': GroupForm(),
         'groups': request.user.cm_groups.all(),
+        'units': Unit.objects.all().order_by('id'),
     })
