@@ -137,6 +137,7 @@ def test_educator_user_change_saves():
 def test_educator_profile_change_form_fields():
     f = forms.educator.ProfileChangeForm({})
 
+    assert f.fields['city'].required
     assert not f.fields['image_url'].required
 
 def test_educator_profile_change_form_sets_permissions():
@@ -169,7 +170,8 @@ def test_educator_profile_change_form_saves():
         password='mypassword'
     )
     f = forms.educator.ProfileChangeForm({
-        'image_url': "http://example.com/"
+        'image_url': "http://example.com/",
+        'city': 'some city'
     }, instance = user.profile)
     p = f.save()
     assert models.Profile.objects.count() == 1
@@ -178,7 +180,8 @@ def test_educator_profile_change_form_saves():
 
 def test_educator_profile_change_form_creates_image_from_image_url():
     f = forms.educator.ProfileChangeForm({
-        'image_url': "http://example.com/"
+        'image_url': "http://example.com/",
+        'city': "some city"
     })
     p = f.save(commit=False)
     assert type(p.image) == Image
@@ -191,7 +194,8 @@ def test_join_with_feature_flag(rf):
             'user-username': 'user',
             'user-email': 'email@example.com',
             'user-password': '123123',
-            'user-confirm_password': '123123'
+            'user-confirm_password': '123123',
+            'profile-city': 'city'
         })
         request.session = mock.MagicMock()
         response = views.educator.join(request)

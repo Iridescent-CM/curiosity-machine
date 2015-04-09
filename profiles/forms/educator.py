@@ -160,6 +160,14 @@ class ProfileChangeForm(forms.ModelForm):
 
         return profile
 
+    def __init__(self, *args, **kwargs):
+        super(ProfileChangeForm, self).__init__(*args, **kwargs)
+
+        self.fields['city'].required = True
+
     class Meta:
         model = Profile
-        fields = ['image', 'is_educator']
+        fields = ['image', 'is_educator', 'city']
+        widgets = {
+            'city': forms.TextInput
+        }

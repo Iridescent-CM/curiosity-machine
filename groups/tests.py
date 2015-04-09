@@ -150,6 +150,24 @@ def test_invite_to_group(client, group, student, loggedInEducator):
         assert response.status_code == 302
 
 @pytest.mark.django_db
+def test_resend_invite_to_group(client, group, student, loggedInEducator):
+    with mock.patch.dict(settings.FEATURE_FLAGS, {
+        'enable_groups': True,
+        'enable_educators': True
+    }):
+        qs = '?resend=1'
+        group.add_owner(loggedInEducator)
+        response = client.post(
+            reverse('groups:invite_to_group', kwargs={'group_id': group.id}) + qs,
+            {'recipients': student.username},
+            follow=True
+        )
+        assert Invitation.objects.filter(user=student, group=group).exists()
+        messages = list(response.context['messages'])
+        assert len(messages) == 1
+        assert "Resent" in str(messages[0])
+
+@pytest.mark.django_db
 def test_invite_multiple_to_group(client, group, student, loggedInEducator):
     with mock.patch.dict(settings.FEATURE_FLAGS, {
         'enable_groups': True,
