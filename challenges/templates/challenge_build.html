@@ -4,13 +4,6 @@
 
 {% block js %}
   <script src="/static/js/challenges.js"></script>
-  {% if request.user.profile.is_student %}
-    <script>
-      $(function(){
-        $('#reflection-form').disableEmptySubmit();
-      });
-    </script>
-  {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -75,7 +68,7 @@
               </ul>
               <div></div><!-- magical switch clearing div -->
 
-              {% include "_comment_action_list.html" %}
+              {% include "_comment_action_list.html" with disable=request.user.profile.is_educator %}
             </div>
           </div>
         {% endif %}

@@ -3,7 +3,14 @@
 {% load resized %}
 
 {% block js %}
-<script src="/static/js/challenges.js"></script>
+  <script src="/static/js/challenges.js"></script>
+  {% if request.user.profile.is_student %}
+    <script>
+      $(function(){
+        $('#reflection-form').disableEmptySubmit();
+      });
+    </script>
+  {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -45,7 +52,7 @@
       <div class="panel-body">
         <h1>Reflect</h1>
           <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
-          <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' %}" method="POST" class="comment-form" id="text_form">
+          <form action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' %}" method="POST" class="comment-form" id="reflection-form">
             {% csrf_token %}
 
           <div class="errors">{{ comment_form.picture_filepicker_url.errors }}</div>
@@ -69,10 +76,13 @@
           <div id="reflect-images">
             <div class="img-wrapper">
             </div>
-            <a data-toggle="modal" data-target="#reflect-images-modal" title="choose an image">
+            <button class="btn btn-link"
+              data-toggle="modal" data-target="#reflect-images-modal" title="choose an image"
+              {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}
+            >
               <span class="btn btn-primary"><span class="glyphicon glyphicon-camera" title="Post Picture"></span></span>
               Pick a Photo
-            </a>
+            </button>
           </div>
           <div class="errors">{{ comment_form.text.errors }}</div>
           <input type="submit" value="Publish to The Gallery" class="btn btn-lg btn-primary btn-reflect" disabled='disabled' />
