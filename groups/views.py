@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.http import Http404, HttpResponseRedirect, QueryDict
+from django.shortcuts import get_object_or_404, render
 from .models import Group, Invitation
 from django.contrib.auth.models import User
 from . import forms
@@ -10,7 +10,7 @@ from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, FormView, DeleteView
 from django.utils.decorators import method_decorator
 
 class GroupDetailView(DetailView):
@@ -47,6 +47,8 @@ class InvitationCreateView(FormView):
 	@method_decorator(owners_only)
 	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
+		query = QueryDict(self.request.META.get('QUERY_STRING'))
+		self.is_resend = ('resend' in query)
 		self.group = get_object_or_404(Group, id=self.kwargs['group_id'])
 		return super(InvitationCreateView, self).dispatch(*args, **kwargs)
 
@@ -54,6 +56,10 @@ class InvitationCreateView(FormView):
 		recipients = form.cleaned_data['recipients']
 		for user in User.objects.filter(username__in=recipients):
 			self.group.invite_member(user)
+		if self.is_resend:
+			messages.success(self.request,
+				'Resent invitation to %s' % ", ".join(form.cleaned_data['recipients'])
+			)
 		return super(InvitationCreateView, self).form_valid(form)
 
 	def get_success_url(self):
@@ -63,6 +69,20 @@ class InvitationCreateView(FormView):
 		context = super(InvitationCreateView, self).get_context_data(**kwargs)
 		context.update({'group': self.group})
 		return context
+
+class InvitationRejectView(DeleteView):
+	model = Invitation
+	slug_field = 'group__id'
+	slug_url_kwarg = 'group_id'
+	success_url = '/home'
+
+	@method_decorator(login_required)
+	@method_decorator(feature_flag('enable_groups'))
+	def dispatch(self, *args, **kwargs):
+		return super(InvitationRejectView, self).dispatch(*args, **kwargs)
+
+	def get_queryset(self):
+		return Invitation.objects.filter(user=self.request.user)
 
 class GroupMemberDetailView(DetailView):
 	model = User
@@ -119,12 +139,11 @@ def leave_group(request):
 
 @feature_flag('enable_groups')
 @login_required
-@student_only
 def accept_invitation(request, group_id):
 	group = get_object_or_404(Group, id=group_id)
 	invitation = Invitation.objects.filter(user=request.user, group=group).first()
 	if not invitation:
-		raise Http404("User not found for specified token. This invitation might have expired.")
+		return render(request, 'groups/invitation_404.html', status=404)
 	invitation.accept()
 	messages.success(request, 'Successfully joined %s group' % (group.name,))
 	return HttpResponseRedirect(reverse('profiles:home'))
