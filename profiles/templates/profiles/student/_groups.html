@@ -1,15 +1,50 @@
-<h2>Groups</h2>
-{% if groups|length %}
-<ul>
-	{% for group in groups %}
-	<li>{{ group.0.name}} <form action="{% url "groups:leave_group"  %}" method="POST">{% csrf_token %}{{ group.1.id}}<button class="btn btn-primary" type="submit">LEAVE</button></form>
-	</li>
-	{% endfor %}
-<ul>
-{% endif %}
-<hr />
+<div class="row">
+  <div class="col-md-6">
+    <h2>Groups</h2>
+    <table class="table">
+      <thead><tr>
+	<th>Name</th>
+	<th>Owner</th>
+	<th></th>
+      </tr></thead>
+      {% for group in groups %}
+	<tr>
+	  <td>{{ group.object.name}}</td>
+	  <td>{{ group.object.owners|join:", " }}</td>
+	  <td>
+	    <form action="{% url "groups:leave_group"  %}" method="POST">
+	      {% csrf_token %}
+	      {{ group.form.id}}
+	      <button class="btn btn-default btn-xs" type="submit">LEAVE</button>
+	    </form>
+	  </td>
+	</tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="col-md-6">
+    <h2>Invitations</h2>
+    <table class="table">
+      <thead><tr>
+	<th>Name</th>
+	<th>Owner</th>
+	<th></th>
+      </tr></thead>
+      {% for invite in invitations %}
+	<tr>
+	  <td>{{ invite.group.name}}</td>
+	  <td>{{ invite.group.owners|join:", " }}</td>
+	  <td>
+	    <a href="{% url 'groups:accept_invitation' group_id=invite.group.id %}" class="btn btn-default btn-xs">Accept</a>
+	    <a href="{% url 'groups:reject_invitation' group_id=invite.group.id %}" class="btn btn-link btn-xs">Reject</a>
+	  </td>
+	</tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
 <h3> Join A Group</h3>
-
+<p>Enter a group code to join. You can request the code from the group owner.</p>
 <form action="{% url "groups:join_group"  %}" method="POST">
   {% csrf_token %}
   {{ group_form.code }}

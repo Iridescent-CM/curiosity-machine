@@ -10,7 +10,7 @@ from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, FormView, DeleteView
 from django.utils.decorators import method_decorator
 
 class GroupDetailView(DetailView):
@@ -69,6 +69,20 @@ class InvitationCreateView(FormView):
 		context = super(InvitationCreateView, self).get_context_data(**kwargs)
 		context.update({'group': self.group})
 		return context
+
+class InvitationRejectView(DeleteView):
+	model = Invitation
+	slug_field = 'group__id'
+	slug_url_kwarg = 'group_id'
+	success_url = '/home'
+
+	@method_decorator(login_required)
+	@method_decorator(feature_flag('enable_groups'))
+	def dispatch(self, *args, **kwargs):
+		return super(InvitationRejectView, self).dispatch(*args, **kwargs)
+
+	def get_queryset(self):
+		return Invitation.objects.filter(user=self.request.user)
 
 class GroupMemberDetailView(DetailView):
 	model = User

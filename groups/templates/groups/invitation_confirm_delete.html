@@ -1,0 +1,26 @@
+{% extends "groups/base.html" %}
+
+{% block title %}Reject Invitation{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li>Reject Invitation</li>
+</ol>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1>Reject Invitation</h1>
+    <form action="" method="post">{% csrf_token %}
+      <p>
+        Are you sure you want to reject your invitation from {{ object.group.owners|join:", " }}
+        to join <strong>{{ object.group.name }}</strong>?
+      </p>
+      <ul class="list-inline">
+        <li><input type="submit" value="Confirm" /></li>
+        <li><a href="{% url 'root' %}">Cancel</a></li>
+      </ul>
+    </form>
+  </div>
+</div>
+{% endblock %}
