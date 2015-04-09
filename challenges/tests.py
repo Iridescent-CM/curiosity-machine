@@ -229,7 +229,7 @@ def test_challenge_progress_renders_reflect(client, student_comment, loggedInStu
     assert progress.challenge.reflect_subheader in str(response.content)
 
 @pytest.mark.django_db
-def test_challenge_progress_renders_build_test_reflect_comments_together(client, progress, loggedInStudent):
+def test_challenge_progress_renders_all_comments_together(client, progress, loggedInStudent):
     Comment.objects.bulk_create([
         Comment(challenge_progress=progress, text="build comment", user=loggedInStudent, stage=Stage.build.value),
         Comment(challenge_progress=progress, text="test comment", user=loggedInStudent, stage=Stage.test.value),
@@ -241,22 +241,12 @@ def test_challenge_progress_renders_build_test_reflect_comments_together(client,
     url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.build.name})
     response = client.get(url)
     assert response.status_code == 200
-    assert set(response.context['comments'].all()) == set(Comment.objects.filter(user=loggedInStudent).exclude(stage=Stage.plan.value).all())
+    assert set(response.context['comments'].all()) == set(Comment.objects.filter(user=loggedInStudent))
 
-@pytest.mark.django_db
-def test_challenge_progress_renders_plan_comments_alone(client, progress, loggedInStudent):
-    Comment.objects.bulk_create([
-        Comment(challenge_progress=progress, text="build comment", user=loggedInStudent, stage=Stage.build.value),
-        Comment(challenge_progress=progress, text="test comment", user=loggedInStudent, stage=Stage.test.value),
-        Comment(challenge_progress=progress, text="reflect comment", user=loggedInStudent, stage=Stage.reflect.value),
-        Comment(challenge_progress=progress, text="plan comment", user=loggedInStudent, stage=Stage.plan.value)
-    ])
-    progress.student = loggedInStudent
-    progress.save()
     url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.plan.name})
     response = client.get(url)
     assert response.status_code == 200
-    assert set(response.context['comments'].all()) == set(Comment.objects.filter(user=loggedInStudent, stage=Stage.plan.value).all())
+    assert set(response.context['comments'].all()) == set(Comment.objects.filter(user=loggedInStudent))
 
 @pytest.mark.django_db
 def test_user_has_started_challenge(progress, challenge2):
