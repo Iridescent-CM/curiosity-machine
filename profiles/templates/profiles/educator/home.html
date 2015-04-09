@@ -17,12 +17,41 @@
       {% endfor %}
     </ul>
   </div>
+
+  <h2>Design Challenge Units</h2>
+  <p>
+    Curiosity Machine units are project-based and provide a hands-on, engaging learning experience for your students.
+  </p>
+  <p>
+    Each unit is supported by:
+  </p>
+  <ul>
+    <li>An Educator Lesson Guide with 5 lesson plans and Frequently Asked Questions section.</li>
+    <li>A Student Workbook with worksheets that support each lesson.</li>
+    <li>Next Generation Science Standards alignment for students in grades 6-8.</li>
+    <li>Individual mentorship for students who use Curiosity Machine.</li>
+    <li>Individual student design portfolios on Curiosity Machine.</li>
+  </ul>
+  <p>
+    Learn more about Curiosity Machine <a href="/about" target="_blank">here</a>, or send inquiries about training for educators to
+    use these resources to <a href="mailto:curiosity@iridescentlearning.org?subject=Units Training" target="_top">curiosity@iridescentlearning.org</a>
+  </p>
+  <div class="tab-content">
+    <ul id="unit-carousel" class="challenges-list owl-carousel">
+      {% for unit in units %}
+        {% include "units/_unit_item.html" with unit=unit %}
+      {% empty %}
+        <li><h3>No units</h3></li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}
 
 {% block js %}
   <script>
     $(document).ready(function () {
       $('#group-carousel').initPanelCarousel();
+      $('#unit-carousel').initPanelCarousel();
     });
   </script>
 {% endblock %}
