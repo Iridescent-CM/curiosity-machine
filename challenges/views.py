@@ -56,6 +56,7 @@ def build_guest(request, challenge_id):
 @login_required
 @mentor_or_educator_or_current_user
 def challenge_progress(request, challenge_id, username, stage=None):
+    requestedStage = stage
     challenge = get_object_or_404(Challenge, id=challenge_id)
 
     try:
@@ -63,31 +64,41 @@ def challenge_progress(request, challenge_id, username, stage=None):
     except Progress.DoesNotExist:
         return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge.id,}))
 
-    if stage == None:
+    if requestedStage == None:
         if progress.approved:
-            stage = Stage.reflect
+            stageToShow = Stage.reflect
         else:
-            stage = get_stage_for_progress(progress)
+            latestStage = Stage(progress.comments.order_by("-created")[0].stage)
+            if not progress.approved and latestStage == Stage.reflect:
+                stageToShow = Stage.build
+            else:
+                stageToShow = latestStage
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
             'challenge_id': challenge.id,
             'username': username,
-            'stage': stage.name
+            'stage': stageToShow.name
         }))
 
     try:
-        stage = Stage[stage]
+        stageToShow = Stage[requestedStage]
     except KeyError:
         raise Http404("Stage does not exist")
 
-    if stage == Stage.inspiration:
+    if stageToShow == Stage.inspiration:
         return render(request, 'challenges/progress/inspiration.html', {
             'challenge': challenge,
             'progress': progress,
             'examples': Example.objects.filter(challenge=challenge),
         })
+    elif stageToShow == Stage.reflect and not progress.approved:
+        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
+            'challenge_id': challenge.id,
+            'username': username,
+            'stage': Stage.build.name
+        }))
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
-    return render(request, "challenges/progress/%s.html" % stage.name, {
+    return render(request, "challenges/progress/%s.html" % stageToShow.name, {
         'challenge': challenge,
         'progress': progress,
         'comment_form': CommentForm(),
