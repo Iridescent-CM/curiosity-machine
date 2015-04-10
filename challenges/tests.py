@@ -229,6 +229,17 @@ def test_challenge_progress_renders_reflect(client, student_comment, loggedInStu
     assert progress.challenge.reflect_subheader in str(response.content)
 
 @pytest.mark.django_db
+def test_challenge_progress_shows_reflect_unapproved_message(client, student_comment, loggedInStudent):
+    progress = student_comment.challenge_progress
+    progress.student = loggedInStudent
+    progress.save()
+    url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.reflect.name})
+    response = client.get(url, follow=True)
+    messages = list(response.context['messages'])
+    assert len(messages) == 1
+    assert "mentor needs to approve" in str(messages[0])
+
+@pytest.mark.django_db
 def test_challenge_progress_renders_all_comments_together(client, progress, loggedInStudent):
     Comment.objects.bulk_create([
         Comment(challenge_progress=progress, text="build comment", user=loggedInStudent, stage=Stage.build.value),
