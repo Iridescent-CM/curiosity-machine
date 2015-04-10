@@ -15,11 +15,13 @@
   {% elif request.user.profile.is_educator %}
     <p class="guest-modal-subheader">This is an interaction for students. Add students to your club to see their submissions!</p>
   {% elif request.user.profile.is_student %}
-    <p class="guest-modal-subheader">Use the button below to start building this challenge!</p>
-    <form name="Start Building" action="{% url 'challenges:challenge' challenge_id=challenge.id %}" method='POST'>
-      {% csrf_token %}
-      <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />
-    </form>
+    <p class="guest-modal-subheader">Use the button below to start building this challenge:</p>
+    <div class="guest-buttons">
+      <form name="Start Building" action="{% url 'challenges:challenge' challenge_id=challenge.id %}" method='POST'>
+        {% csrf_token %}
+        <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />
+      </form>
+    </div>
   {% else %}
     <p class="guest-modal-subheader">Create an account or sign in to interact with the Curiosity Machine community:</p>
     <div class="guest-buttons">
