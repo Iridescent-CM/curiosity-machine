@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block js %}
+  <script src="/static/js/challenges.js"></script>
+{% endblock %}
+
+{% block content %}
+  <h1>{{ challenge.name }}</h1>
+  {% if challenge.draft %}
+    <h2><small>We're improving this challenge. Keep an eye out for changes.</small></h2>
+  {% endif %}
+  {% include "challenges/preview/_nav.html" with stage="build" %}
+  <div class="challenge-content">
+    <header class="challenge-header">
+      <h1>Document your design process</h1>
+      <p>{{ challenge.build_subheader }}</p>
+    </header>
+
+    <div class="row">
+      <div class="col-md-5">
+        <div class="panel blue">
+          <div class="panel-body">
+            {{challenge.build_call_to_action}}
+          </div>
+        </div>
+      </div><!-- /column 1 -->
+
+      <div class="col-md-1">
+        <img src="{% resized MEDIA_URL|add:'images/placeholder.png' width=60 height=80 %}"
+          width=60 height=80 />
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-bubble right">
+          <div class="panel-body">
+            <h3>Document your design process while you build and test it!</h3>
+
+            <ul class="switch stage-switch">
+              <li>
+                <input type="radio" name="stepSelector" id="buildSelector" value="build" checked><label for="buildSelector">Build</label>
+              </li>
+              <li>
+                <input type="radio" name="stepSelector" id="testSelector" value="test"><label for="testSelector">Test</label>
+              </li>
+            </ul>
+            <div></div><!-- magical switch clearing div -->
+            {% include "_comment_action_list_guest.html" %}
+          </div>
+        </div>
+      </div><!-- /col 2 -->
+    </div><!-- row -->
+
+    {% include "_guide.html" %}
+    {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
+    {% include "_comment_form.html" with stage="build" format="video" url=comment_url %}
+    {% include "_comment_form.html" with stage="build" format="picture" url=comment_url %}
+    {% include "_comment_form.html" with stage="build" format="text" url=comment_url %}
+
+  </div><!-- content -->
+
+{% endblock %}

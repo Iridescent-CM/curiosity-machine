@@ -192,7 +192,7 @@ def test_challenge_progress_inspiration_renders_challenge(client, student_commen
     progress.save()
     url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.inspiration.name})
     response = client.get(url)
-    assert 'challenge.html' in [tmpl.name for tmpl in response.templates]
+    assert 'challenges/progress/inspiration.html' in [tmpl.name for tmpl in response.templates]
     assert response.status_code == 200
 
 @pytest.mark.django_db
@@ -202,7 +202,7 @@ def test_challenge_progress_renders_plan(client, student_comment, loggedInStuden
     progress.save()
     url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.plan.name})
     response = client.get(url)
-    assert 'challenge_plan.html' in [tmpl.name for tmpl in response.templates]
+    assert 'challenges/progress/plan.html' in [tmpl.name for tmpl in response.templates]
     assert response.status_code == 200
 
 @pytest.mark.django_db
@@ -212,7 +212,7 @@ def test_challenge_progress_renders_build(client, student_comment, loggedInStude
     progress.save()
     url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.build.name})
     response = client.get(url)
-    assert 'challenge_build.html' in [tmpl.name for tmpl in response.templates]
+    assert 'challenges/progress/build.html' in [tmpl.name for tmpl in response.templates]
     assert response.status_code == 200
     assert progress.challenge.reflect_subheader not in str(response.content)
 
@@ -224,7 +224,7 @@ def test_challenge_progress_renders_reflect(client, student_comment, loggedInStu
     progress.save()
     url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.build.name})
     response = client.get(url)
-    assert 'challenge_build.html' in [tmpl.name for tmpl in response.templates]
+    assert 'challenges/progress/build.html' in [tmpl.name for tmpl in response.templates]
     assert response.status_code == 200
     assert progress.challenge.reflect_subheader in str(response.content)
 

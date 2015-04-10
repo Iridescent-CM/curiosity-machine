@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block js %}
+  <script src="/static/js/challenges.js"></script>
+  {% if request.user.profile.is_student %}
+    <script>
+      $(function(){
+        $('#reflection-form').disableEmptySubmit();
+      });
+    </script>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
+  {% if challenge.draft %}
+    <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
+  {% endif %}
+  {% include "challenges/progress/_nav.html" with stage="build" %}
+  <div class="challenge-content">
+    {% if not request.user.profile.is_mentor %}
+      <header class="challenge-header">
+        <h1>Document your design process</h1>
+        <p>{{ challenge.build_subheader }}</p>
+      </header>
+    {% endif %}
+    <div class="row">
+      {% if request.user.profile.is_mentor %}
+        {% include "_mentor_panel.html" %}
+      {% else %}
+        <div class="col-md-5">
+          <div class="panel blue">
+            <div class="panel-body">
+              {{challenge.build_call_to_action}}
+            </div>
+          </div>
+        </div><!-- /column 1 -->
+      {% endif %}
+
+      <div class="col-md-1">
+        {% include "_avatar.html" with profile=progress.student.profile width=60 height=80 crop='fit' %}
+      </div>
+
+      <div class="col-md-6">
+        {% if request.user.profile.is_mentor %}
+          <h1>{{progress.student.username}}'s progress</h1>
+        {% else %}
+          <div class="panel panel-bubble right">
+            <div class="panel-body">
+              <h3>Are you on</h3>
+
+              <ul class="switch stage-switch">
+                <li>
+                  <input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
+                  <label for="buildSelector">Building?</label>
+                  <input
+                    type="hidden"
+                    value="{% url "challenges:comments:comments"
+                      challenge_id=challenge.id
+                      username=progress.student.username
+                      stage='build' %}"
+                    class="build-url url"
+                  >
+                </li>
+                <li>
+                  <input type="radio" name="stepSelector" id="testSelector" value="test">
+                  <label for="testSelector">Testing?</label>
+                  <input
+                    type="hidden"
+                    value="{% url "challenges:comments:comments"
+                      challenge_id=challenge.id
+                      username=progress.student.username
+                      stage='test' %}"
+                    class="test-url url"
+                  >
+                </li>
+              </ul>
+              <div></div><!-- magical switch clearing div -->
+
+              {% include "_comment_action_list.html" with disable=request.user.profile.is_educator %}
+
+            </div>
+          </div>
+        {% endif %}
+
+        {% for comment in comments %}
+          {% include "_comment.html" %}
+        {% endfor %}
+      </div><!-- /col 2 -->
+
+    </div><!-- row -->
+
+    {% include "_guide.html" %}
+    {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
+    {% include "_comment_form.html" with stage="build" format="video" url=comment_url %}
+    {% include "_comment_form.html" with stage="build" format="picture" url=comment_url %}
+    {% include "_comment_form.html" with stage="build" format="text" url=comment_url %}
+
+  </div><!-- content -->
+
+{% endblock %}
