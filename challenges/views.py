@@ -53,6 +53,15 @@ def build_guest(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     return render(request, 'challenges/preview/build.html', {'challenge': challenge})
 
+def reflect_guest(request, challenge_id):
+    messages.warning(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
+    return HttpResponseRedirect(request.META.get(
+        'HTTP_REFERER',
+        reverse('challenges:challenge', kwargs={
+            'challenge_id': challenge_id,
+        })
+    ))
+
 @login_required
 @mentor_or_educator_or_current_user
 def challenge_progress(request, challenge_id, username, stage=None):
@@ -68,7 +77,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         if progress.approved:
             stageToShow = Stage.reflect
         else:
-            latestStage = Stage(progress.comments.order_by("-created")[0].stage)
+            latestStage = get_stage_for_progress(progress)
             if not progress.approved and latestStage == Stage.reflect:
                 stageToShow = Stage.build
             else:
@@ -91,11 +100,15 @@ def challenge_progress(request, challenge_id, username, stage=None):
             'examples': Example.objects.filter(challenge=challenge),
         })
     elif stageToShow == Stage.reflect and not progress.approved:
-        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
-            'challenge_id': challenge.id,
-            'username': username,
-            'stage': Stage.build.name
-        }))
+        messages.warning(request, 'Not yet! Your mentor needs to approve your challenge for the Reflect stage.')
+        return HttpResponseRedirect(request.META.get(
+            'HTTP_REFERER',
+            reverse('challenges:challenge_progress', kwargs={
+                'challenge_id': challenge.id,
+                'username': username,
+                'stage': Stage.inspiration.name
+            })
+        ))
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
     return render(request, "challenges/progress/%s.html" % stageToShow.name, {

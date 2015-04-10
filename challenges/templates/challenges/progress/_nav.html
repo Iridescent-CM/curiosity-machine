@@ -27,15 +27,9 @@
         <span class="arrows"></span>
       </li>
       <li class="reflect {%  if stage == 'reflect' %}selected{% endif %}">
-        {% if progress.approved %}
           <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='reflect' %}">
             <span class="btn">Reflect</span>
           </a>
-        {% else %}
-          <a href="#">
-            <span class="btn">Reflect</span>
-          </a>
-        {% endif %}
         <span class="arrows"></span>
       </li>
     </ul>
