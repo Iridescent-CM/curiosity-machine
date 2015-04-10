@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'challenges/preview/base.html' %}
 {% load staticfiles %}
 {% load resized %}
 
@@ -61,4 +61,6 @@
       </div><!-- /col 2 -->
     </div><!-- row -->
   </div><!-- content -->
+
+  {{ block.super }}
 {% endblock %}
