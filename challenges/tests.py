@@ -222,9 +222,9 @@ def test_challenge_progress_renders_reflect(client, student_comment, loggedInStu
     progress.student = loggedInStudent
     progress.approved = now()
     progress.save()
-    url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.build.name})
+    url = reverse('challenges:challenge_progress', kwargs={'challenge_id':progress.challenge.id, 'username':loggedInStudent.username, 'stage': Stage.reflect.name})
     response = client.get(url)
-    assert 'challenges/progress/build.html' in [tmpl.name for tmpl in response.templates]
+    assert 'challenges/progress/reflect.html' in [tmpl.name for tmpl in response.templates]
     assert response.status_code == 200
     assert progress.challenge.reflect_subheader in str(response.content)
 
