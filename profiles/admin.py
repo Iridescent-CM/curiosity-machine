@@ -53,14 +53,16 @@ class ConsentInvitationAdmin(admin.ModelAdmin):
     readonly_fields = ('code',)
 
     def has_add_permission(self, request): return False
+    def has_delete_permission(self, request, obj=None): return False
 
 class UnderageConsentAdmin(admin.ModelAdmin):
     model = UnderageConsent
-    list_display = ('profile', 'signature', 'created_at')
-    fields = ('profile','signature',)
-    readonly_fields = ('signature',)
+    list_display = ('username', 'signature', 'created_at')
+    fields = ('username','signature', 'created_at',)
+    readonly_fields = ('username','signature', 'created_at', )
 
     def has_add_permission(self, request): return False
+    def has_delete_permission(self, request, obj=None): return False
 
 admin.site.register(User, UserAdminWithProfile)
 admin.site.register(ConsentInvitation, ConsentInvitationAdmin)

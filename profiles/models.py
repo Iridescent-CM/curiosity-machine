@@ -147,6 +147,9 @@ class UnderageConsent(models.Model):
     def __repr__(self):
         return "Consent: id={}, profile={}".format(self.id, self.profile_id)
 
+    def username(self):
+        return self.profile.user.username
+
 #just a description of an invitation, used in a welcome email for underage students
 class ConsentInvitation(models.Model):
     user = models.OneToOneField(User, related_name="consent_invitation")
