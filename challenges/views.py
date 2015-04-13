@@ -91,7 +91,7 @@ def challenge_progress(request, challenge_id, username, stage): # stage will be 
             if request.GET.get('view'):
                 stage_view = Stage[request.GET.get('view')]
                 template_suffix = STAGES_MAP.get(stage_view)
-        elif stage == Stage.reflect: #get_stage_for_progress to make sure no one is using reflect stage even if not finished            
+        elif stage == Stage.reflect: #get_stage_for_progress to make sure no one is using reflect stage even if not finished
             template_suffix = STAGES_MAP.get(get_stage_for_progress(progress))
         else:
             template_suffix = STAGES_MAP.get(stage)
@@ -153,7 +153,7 @@ def change_materials(request, challenge_id, username):
 def set_favorite(request, challenge_id, mode='favorite'):
     content_type="application/json"
     user = request.user
-    
+
     challenge = get_object_or_404(Challenge, id=challenge_id)
     try:
         if mode == 'favorite':

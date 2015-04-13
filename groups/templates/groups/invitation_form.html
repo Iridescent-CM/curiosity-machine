@@ -2,13 +2,15 @@
 
 {% block title %}Group Invitations{% endblock %}
 
-{% block content %}
+{% block breadcrumb %}
 <ol class="breadcrumb">
   <li><a href="{% url 'root' %}">Home</a></li>
   <li><a href="{% url 'groups:group' group_id=group.id %}">{{ group.name }}</a></li>
   <li>Invite members</li>
 </ol>
+{% endblock %}
 
+{% block pagecontent %}
 <div class="row">
   <div class="col-md-12">
     <h1>Invite Members</h1>
