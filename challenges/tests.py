@@ -136,6 +136,43 @@ def test_challenge(rf, challenge, student):
     assert response.status_code == 200
 
 @pytest.mark.django_db
+def test_challenge_renders_inspiration_preview(client, challenge):
+    url = reverse('challenges:challenge', kwargs={
+        'challenge_id': challenge.id
+    })
+    response = client.get(url)
+    assert 'challenges/preview/inspiration.html' in [tmpl.name for tmpl in response.templates]
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_plan_guest_renders_plan_preview(client, challenge):
+    url = reverse('challenges:plan_guest', kwargs={
+        'challenge_id': challenge.id
+    })
+    response = client.get(url)
+    assert 'challenges/preview/plan.html' in [tmpl.name for tmpl in response.templates]
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_build_guest_renders_build_preview(client, challenge):
+    url = reverse('challenges:build_guest', kwargs={
+        'challenge_id': challenge.id
+    })
+    response = client.get(url)
+    assert 'challenges/preview/build.html' in [tmpl.name for tmpl in response.templates]
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_reflect_guest_redirects_with_reflect_message(client, challenge):
+    url = reverse('challenges:reflect_guest', kwargs={
+        'challenge_id': challenge.id
+    })
+    response = client.get(url, follow=True)
+    messages = list(response.context['messages'])
+    assert len(messages) == 1
+    assert "your mentor will approve" in str(messages[0])
+
+@pytest.mark.django_db
 def test_challenge_progress_with_no_progress_redirects_to_preview(client, loggedInStudent, challenge):
     url = reverse('challenges:challenge_progress', kwargs={
         'challenge_id':challenge.id,
