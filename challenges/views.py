@@ -18,6 +18,14 @@ from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 
+NOT_REFLECT_STAGES = [Stage.plan.name, Stage.inspiration.name, Stage.build.name]
+STAGES_MAP = {
+    Stage.plan: 'plan',
+    Stage.build: 'build',
+    Stage.test: 'build',
+    Stage.reflect: 'reflect',
+}
+
 def challenges(request):
     challenges = Challenge.objects.filter(draft=False)
     theme = request.GET.get('theme')
@@ -40,7 +48,12 @@ def challenge(request, challenge_id):
                 raise PermissionDenied
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': request.user.username,}))
     else:
-        return render(request, 'challenge.html', {'challenge': challenge, 'examples': Example.objects.filter(challenge=challenge),})
+        ctx = {'challenge': challenge, 'examples': Example.objects.filter(challenge=challenge), 'not_reflect_stages': NOT_REFLECT_STAGES}
+        try:
+            ctx['progress'] = Progress.objects.get(challenge=challenge, student__username=request.user.username)
+        except Progress.DoesNotExist:
+            pass #silently ignore DoesNotExist error
+        return render(request, 'challenge.html', ctx)
 
 def plan_guest(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
@@ -52,29 +65,38 @@ def build_guest(request, challenge_id):
 
 @login_required
 @mentor_or_educator_or_current_user
-def challenge_progress(request, challenge_id, username, stage=None): # stage will be one of None, "plan", "build". "build" encompasses the reflection stage
+def challenge_progress_without_stage(request, challenge_id, username):
     challenge = get_object_or_404(Challenge, id=challenge_id)
+    progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
+    stage = STAGES_MAP.get(get_stage_for_progress(progress))
+    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username, 'stage': stage}))
 
+@login_required
+@mentor_or_educator_or_current_user
+def challenge_progress(request, challenge_id, username, stage): # stage will be one of None, "plan", "build". "build" encompasses the reflection stage
+    challenge = get_object_or_404(Challenge, id=challenge_id)
     try:
         progress = Progress.objects.get(challenge=challenge, student__username=username)
-    except Progress.DoesNotExist:
-        # if user hasn't started the challenge, redirect to Inspiration page
+    except Progress.DoesNotExist: # if user hasn't started the challenge, redirect to Inspiration page
         return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge.id,}))
-
-    try:
+    else:
         stage = Stage[stage]
-    except KeyError: # if stage is None or any invalid input, redirect to the stage with most recent progress
-        stage = get_stage_for_progress(progress)
-        stage_string = stage.name if stage == Stage.plan else Stage.build.name # there may be other valid stages, but right now we only support plan or build as redirect destinations
-        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username, 'stage': stage_string}))
+        if stage == Stage.inspiration:
+            return render(request, 'challenge.html', {'challenge': challenge, 'examples': Example.objects.filter(challenge=challenge), 'not_reflect_stages': NOT_REFLECT_STAGES, 'progress': progress,})
+        comments = progress.comments.filter(stage__in=[Stage.plan.value, Stage.build.value, Stage.test.value, Stage.reflect.value])
+        progress.get_unread_comments_for_user(request.user).update(read=True)
 
-    if stage == Stage.inspiration:
-        return render(request, 'challenge.html', {'challenge': challenge, 'progress': progress, 'examples': Example.objects.filter(challenge=challenge),})
+        if progress.approved:
+            template_suffix = STAGES_MAP.get(Stage.reflect)
+            if request.GET.get('view'):
+                stage_view = Stage[request.GET.get('view')]
+                template_suffix = STAGES_MAP.get(stage_view)
+        elif stage == Stage.reflect: #get_stage_for_progress to make sure no one is using reflect stage even if not finished
+            template_suffix = STAGES_MAP.get(get_stage_for_progress(progress))
+        else:
+            template_suffix = STAGES_MAP.get(stage)
 
-    progress.get_unread_comments_for_user(request.user).update(read=True)
-
-    return render(request, "challenge_plan.html" if stage == Stage.plan else "challenge_build.html",
-                  {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm(), 'comments': progress.comments.all(), 'materials_form': MaterialsForm(progress=progress)})
+        return render(request, "challenge_%s.html" % template_suffix, {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm(), 'comments': comments, 'materials_form': MaterialsForm(progress=progress)})
 
 # Any POST to this by the assigned mentor moves a challenge progress into the reflect stage (marks approve=True); any DELETE reverses that
 @require_http_methods(["POST", "DELETE"])
@@ -131,7 +153,7 @@ def change_materials(request, challenge_id, username):
 def set_favorite(request, challenge_id, mode='favorite'):
     content_type="application/json"
     user = request.user
-    
+
     challenge = get_object_or_404(Challenge, id=challenge_id)
     try:
         if mode == 'favorite':

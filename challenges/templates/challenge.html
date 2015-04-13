@@ -10,8 +10,10 @@
       <p><small>{{ challenge.description }}</small></p>
     </div>
   </div>
-  {% if user.is_authenticated and request.user.profile.is_student %}
-  {% include "_challenge_nav.html" with stage="inspiration" %}
+  {% if user.is_authenticated and request.user.profile.is_student and progress and progress.approved %}
+  {% include "_challenge_reflect_nav.html" with stage="inspiration" not_reflect_stages=not_reflect_stages %}
+  {% elif user.is_authenticated and request.user.profile.is_student %}
+  {% include "_challenge_nav.html" with stage="inspiration" not_reflect_stages=not_reflect_stages %}
   {% else %}
   {% include "_challenge_nav_guest.html" with stage="inspiration" %}
   {% endif %}
@@ -19,7 +21,7 @@
 <div class="challenge-content">
   {% include '_challenge_details.html' %}
   {% if request.user.is_authenticated and request.user.profile.is_student %}
-      <form name="Start Building" action='' method='POST'>
+      <form name="Start Building" action='{% url 'challenges:challenge' challenge_id=challenge.id %}' method='POST'>
         {% csrf_token %}
         <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />
       </form>
