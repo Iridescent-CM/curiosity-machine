@@ -80,10 +80,13 @@ def underage(request):
     return render(request, 'underage_student.html')
 
 @login_required
-def signed_consent_form(request, profile_id):
-    profile = Profile.objects.get(pk=int(profile_id))
-    consent = profile.consent
-    return render(request, 'signed_consent_form.html', {'profile': profile, 'consent': consent,})
+def signed_consent_form(request, user_id):
+    if request.user == User.objects.get(id=user_id):
+        consent = request.user.consent
+        return render(request, 'signed_consent_form.html', {'consent': consent,})
+    else:
+        messages.error(request, "Unable to find consent form.")
+        return HttpResponseRedirect(reverse('root'))
 
 @login_required
 def consent_form(request, token):

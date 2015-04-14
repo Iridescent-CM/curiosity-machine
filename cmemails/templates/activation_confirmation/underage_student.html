@@ -7,7 +7,7 @@ Your consent form for Curiosity Machine was successfully signed and {{ profile.u
 
 {% if digitally_signed %}
 <p>
-You may view the signed document and print a copy for your records at the following link: <a href="{{ site_url }}{% url 'profiles:signed_consent_form' profile_id=profile.id %}">{{ site_url }}{% url 'profiles:signed_consent_form' profile_id=profile.id %}</a>
+You may view the signed document and print a copy for your records at the following link: <a href="{{ site_url }}{% url 'profiles:signed_consent_form' user_id=profile.user.id %}">{{ site_url }}{% url 'profiles:signed_consent_form' user_id=profile.user.id %}</a>
 </p>
 {% endif %}
 
