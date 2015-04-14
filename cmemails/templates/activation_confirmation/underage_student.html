@@ -2,10 +2,7 @@
 {% block content %}
 
 <p>
-Welcome to Curiosity Machine!
-</p>
-<p>
-Your consent form for Curiosity Machine was successfully signed and {{ profile.user.username }}’s account is now active!
+Your consent form for Curiosity Machine was successfully signed and {{ profile.user.username }}'s account is now active!
 </p>
 
 {% if digitally_signed %}
@@ -14,13 +11,15 @@ You may view the signed document and print a copy for your records at the follow
 </p>
 {% endif %}
 
+<p>Now you and your child are ready to build! Watch this video and learn how to get started:</p>
+
 <p>
-With <a href="{{ site_url }}>Curiosity Machine</a>, you and your child will be able to:
+With <a href="{{ site_url }}">Curiosity Machine</a>, you and your child will be able to:
 <ul>
-  <li>Get Inspired by videos of scientists and engineers solving real-world problems</li>
-  <li>Design and Build your own engineering solutions with low-cost, easy-to-find supplies</li>
-  <li>Interact online with Curiosity Machine engineering mentors, who can help you make your design even better and answer questions when you get stuck</li>
-  <li>Share pictures and videos of your design with the Curiosity Machine community</li>
+  <li><strong>Get Inspired</strong> by videos of scientists and engineers solving real-world problems</li>
+  <li><strong>Design and Build</strong> your own engineering solutions with low-cost, easy-to-find supplies</li>
+  <li><strong>Interact</strong> online with Curiosity Machine engineering mentors, who can help you make your design even better and answer questions when you get stuck</li>
+  <li><strong>Share</strong> pictures and videos of your design with the Curiosity Machine community</li>
 </ul>
 </p>
 <a href="{{ site_url }}{% url 'parents' %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Click here to explore design challenges and start inventing!</button></a>
