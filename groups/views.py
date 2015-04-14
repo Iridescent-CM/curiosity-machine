@@ -10,7 +10,7 @@ from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView, DeleteView
+from django.views.generic.edit import CreateView, FormView, DeleteView, UpdateView
 from django.utils.decorators import method_decorator
 
 class GroupDetailView(DetailView):
@@ -38,6 +38,24 @@ class GroupCreateView(CreateView):
 		self.object = form.save()
 		self.object.add_owner(self.request.user)
 		return HttpResponseRedirect(self.get_success_url())
+
+class GroupUpdateView(UpdateView):
+	model = Group
+	pk_url_kwarg = 'group_id'
+	form_class = forms.GroupForm
+	success_url = '/groups/%(id)s'
+
+	@method_decorator(login_required)
+	@method_decorator(educator_only)
+	@method_decorator(feature_flag('enable_groups'))
+	def dispatch(self, *args, **kwargs):
+		return super(GroupUpdateView, self).dispatch(*args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		context = super(GroupUpdateView, self).get_context_data(**kwargs)
+		context['update'] = True
+		return context
+
 
 class InvitationCreateView(FormView):
 	form_class = forms.MultiInvitationForm

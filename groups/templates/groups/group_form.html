@@ -1,18 +1,20 @@
 {% extends "groups/base.html" %}
 
-{% block title %}Create group{% endblock %}
+{% block title %}
+  {% if update %}Update{% else %}Create{% endif %} group
+{% endblock %}
 
 {% block breadcrumb %}
 <ol class="breadcrumb">
   <li><a href="{% url 'root' %}">Home</a></li>
-  <li>Create group</li>
+  <li>{% if update %}Update{% else %}Create{% endif%} group</li>
 </ol>
 {% endblock %}
 
 {% block pagecontent %}
 <div class="row">
   <div class="col-md-12">
-    <h1>Create Group</h1>
+    <h1>{% if update %}Update{% else %}Create{% endif%} Group</h1>
     <form action="" method="POST">
       {% csrf_token %}
       {% for field in form %}
@@ -22,7 +24,7 @@
         <div class="errors">{{ field.errors }}</div>
       </div>
       {% endfor %}
-      <button class="btn btn-primary" type="submit">Create</button>
+      <button class="btn btn-primary" type="submit">Submit</button>
     </form>
   </div>
 </div>
