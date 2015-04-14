@@ -141,19 +141,11 @@
     {% endif %}
   {% endif %}
   {% if messages %}{% for message in messages %}
-    {% if message.tags and message.tags == 'error' %}
-      <script type="text/javascript">
-        $(function() {
-          CM.userError('{{ message }}');
-        });
-      </script>
-    {% else %}
-      <script type="text/javascript">
-        $(function() {
-          CM.userSuccess('{{ message }}');
-        });
-      </script>
-    {% endif %}
+    <script type="text/javascript">
+      $(function() {
+        CM.showMessage('{{ message }}', '{{ message.tags }}');
+      });
+    </script>
   {% endfor %}{% endif %}
 </body>
 </html>

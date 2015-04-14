@@ -54,7 +54,7 @@ def build_guest(request, challenge_id):
     return render(request, 'challenges/preview/build.html', {'challenge': challenge})
 
 def reflect_guest(request, challenge_id):
-    messages.warning(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
+    messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
     return HttpResponseRedirect(request.META.get(
         'HTTP_REFERER',
         reverse('challenges:challenge', kwargs={
@@ -100,7 +100,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
             'examples': Example.objects.filter(challenge=challenge),
         })
     elif stageToShow == Stage.reflect and not progress.approved:
-        messages.warning(request, 'Not yet! Your mentor needs to approve your challenge for the Reflect stage.')
+        messages.info(request, 'Not yet! Your mentor needs to approve your challenge for the Reflect stage.')
         return HttpResponseRedirect(request.META.get(
             'HTTP_REFERER',
             reverse('challenges:challenge_progress', kwargs={
