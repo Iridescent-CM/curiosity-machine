@@ -50,11 +50,11 @@ def home(request):
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
     return render(request, "student_home.html", {
-        'active_progresses': active_progresses, 
-        'completed_progresses': completed_progresses, 
-        'progresses': progresses, 
-        'filter': filter, 
-        'my_challenges_filters': my_challenges_filters, 
+        'active_progresses': active_progresses,
+        'completed_progresses': completed_progresses,
+        'progresses': progresses,
+        'filter': filter,
+        'my_challenges_filters': my_challenges_filters,
         'favorite_challenges': favorite_challenges,
         'group_form': GroupJoinForm(),
         'groups': [(group, GroupLeaveForm(initial={'id': group.id})) for group in request.user.cm_groups.all()],
@@ -91,21 +91,22 @@ def consent_form(request, token):
     ctx = {
         'token': token
     }
-    if request.method == 'POST':
-        form = ConsentForm(data=request.POST)
-        if form.is_valid():
-            student = Profile.consent_student(token, form.cleaned_data['signature'])
-            messages.success(request, 'Your consent form for Curiosity Machine was successfully signed and {username} account is now active!.'.format(username=student.user.username))
-            return HttpResponseRedirect(reverse('profiles:home'))
+    if ConsentInvitation.objects.filter(user=request.user, code=token).exists():
+        if request.method == 'POST':
+            form = ConsentForm(data=request.POST)
+            if form.is_valid():
+                student = Profile.consent_student(token, form.cleaned_data['signature'])
+                messages.success(request, 'Your consent form for Curiosity Machine was successfully signed and {username} account is now active!.'.format(username=student.user.username))
+                return HttpResponseRedirect(reverse('profiles:home'))
+            else:
+                ctx['form'] = form
+                return render(request, 'consent_form.html', ctx)
         else:
-            ctx['form'] = form
-            return render(request, 'consent_form.html', ctx)
-    else:
-        if ConsentInvitation.objects.filter(code=token).exists():
             ctx['form'] = ConsentForm()
             return render(request, 'consent_form.html', ctx)
-        else:
-            raise Http404
+    else:
+        messages.error(request, "Your invitation is invalid. Are you sure this invitation was for you?")
+        return HttpResponseRedirect(reverse('root'))
 
 @login_required
 def resend_consent_form_email(request):
