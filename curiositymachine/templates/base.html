@@ -96,8 +96,10 @@
   </div>
 
   <!-- global modals -->
-  {% include "join_modal.html" with form=join_form %}
+  {% include "profiles/join_modal.html" %}
+  {% include "profiles/student/join_modal.html" with form=join_form %}
   {% include "profiles/mentor/join_modal.html" with form=mentor_join_form %}
+  {% include "profiles/educator/join_modal.html" with userForm=educator_join_forms.userForm profileForm=educator_join_forms.profileForm %}
   {% include "guest_modal.html" %}
   {% include "registration/_login_modal.html" with form=login_form %}
   <!-- /global modals -->

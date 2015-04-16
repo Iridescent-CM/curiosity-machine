@@ -1,0 +1,37 @@
+{% extends "_modal.html" %}
+{% block id %}join-modal-educator{% endblock %}
+{% block classes %}{% endblock %}
+{% block inner-classes %}modal-lg{% endblock %}
+
+{% block content %}
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h1>Create an account as an educator.</h1>
+</div>
+
+<form method='post' action="{% url 'profiles:join_as_educator' %}" enctype="multipart/form-data" 
+  id="join-modal-form" class="default-form"
+>
+  <div class="modal-body clearfix">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-4 profile-fields">
+	{% include "profiles/formfield.html" with field=userForm.username %}
+	{% include "profiles/formfield.html" with field=userForm.email %}
+	{% include "profiles/formfield.html" with field=userForm.password %}
+	{% include "profiles/formfield.html" with field=userForm.confirm_password %}
+      </div>
+      <div class="col-md-4 profile-fields">
+	{% include "profiles/formfield.html" with field=userForm.first_name %}
+	{% include "profiles/formfield.html" with field=userForm.last_name %}
+	{% include "profiles/formfield.html" with field=profileForm.city %}
+	{% include "profiles/formfield.html" with field=profileForm.image_url %}
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
+    <button type="submit" class="btn btn-primary btn-lg">Save</button>
+  </div>
+</form>
+{% endblock %}
