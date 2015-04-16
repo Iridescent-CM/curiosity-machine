@@ -57,10 +57,7 @@
                   <label for="buildSelector">Building?</label>
                   <input
                     type="hidden"
-                    value="{% url "challenges:comments:comments"
-                      challenge_id=challenge.id
-                      username=progress.student.username
-                      stage='build' %}"
+                    value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' %}"
                     class="build-url url"
                   >
                 </li>
@@ -69,10 +66,7 @@
                   <label for="testSelector">Testing?</label>
                   <input
                     type="hidden"
-                    value="{% url "challenges:comments:comments"
-                      challenge_id=challenge.id
-                      username=progress.student.username
-                      stage='test' %}"
+                    value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='test' %}"
                     class="test-url url"
                   >
                 </li>
