@@ -54,6 +54,7 @@ def build_guest(request, challenge_id):
     return render(request, 'challenges/preview/build.html', {'challenge': challenge})
 
 def reflect_guest(request, challenge_id):
+    challenge = get_object_or_404(Challenge, id=challenge_id)
     messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
     return HttpResponseRedirect(request.META.get(
         'HTTP_REFERER',
