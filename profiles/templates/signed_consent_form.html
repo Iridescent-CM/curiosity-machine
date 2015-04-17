@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
+{% block avatar %}{% endblock %}
 {% block content %}
 
-	<hr />
-	Electronic Signature on file at {{ consent.created_at }} with signature "{{ consent.signature }}"
-	<hr />
+<hr />
+Electronic Signature on file at {{ consent.created_at }} with signature "{{ consent.signature }}"
+<hr />
 
 
-    <p>Dear Parent,</p>
-	<p> Thank you for registering your child on Curiosity Machine!</p>
+<p>Dear Parent,</p>
+<p> Thank you for registering your child on Curiosity Machine!</p>
 
 <p>By becoming a part of the Curiosity Machine community, your child will learn that science and engineering, like art, is a creative process. It requires practice, feedback, and often guidance. On Curiosity Machine, your child will have the opportunity to receive constructive feedback from real scientists and engineers, who will encourage them to be a creative, curious, and persistent innovator. To receive this feedback, your child will have to submit pictures, video, and/or text to describe their designs and ask for help.</p>
 
@@ -19,6 +20,5 @@ or guardian to provide consent for a child under the age of 13 to use Curiosity 
 </p>
 
 <hr />
-
 {% include '_privacy_policy.html' %}
 {% endblock %}
