@@ -55,13 +55,19 @@ def build_guest(request, challenge_id):
 
 def reflect_guest(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
-    return HttpResponseRedirect(request.META.get(
-        'HTTP_REFERER',
-        reverse('challenges:challenge', kwargs={
-            'challenge_id': challenge_id,
+    if request.user.is_authenticated() and request.user.profile.is_student:
+        messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
+        return HttpResponseRedirect(request.META.get(
+            'HTTP_REFERER',
+            reverse('challenges:challenge', kwargs={
+                'challenge_id': challenge_id,
+            })
+        ))
+    else:
+        return render(request, 'challenges/preview/reflect.html', {
+            'challenge': challenge,
+            'comment_form': CommentForm(),
         })
-    ))
 
 @login_required
 @mentor_or_educator_or_current_user
@@ -81,7 +87,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
             latestStage = get_stage_for_progress(progress)
             if latestStage == Stage.test:
                 stageToShow = Stage.build
-            elif latestStage == Stage.reflect and not progress.approved:
+            elif latestStage == Stage.reflect and request.user.profile.is_student and not progress.approved:
                 stageToShow = Stage.build
             else:
                 stageToShow = latestStage
@@ -102,7 +108,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
             'progress': progress,
             'examples': Example.objects.filter(challenge=challenge),
         })
-    elif stageToShow == Stage.reflect and not progress.approved:
+    elif stageToShow == Stage.reflect and request.user.profile.is_student and not progress.approved:
         messages.info(request, 'Not yet! Your mentor needs to approve your challenge for the Reflect stage.')
         return HttpResponseRedirect(request.META.get(
             'HTTP_REFERER',

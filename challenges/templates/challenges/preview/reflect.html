@@ -1,0 +1,81 @@
+{% extends 'challenges/preview/base.html' %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block js %}
+  <script src="/static/js/challenges.js"></script>
+{% endblock %}
+
+{% block content %}
+  <h1>{{ challenge.name }}</h1>
+  {% if challenge.draft %}
+    <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
+  {% endif %}
+  {% include "challenges/preview/_nav.html" with stage="reflect" %}
+  <div class="challenge-content">
+    <header class="challenge-header">
+      <h1>Document your design process</h1>
+      <p>{{ challenge.reflect_subheader }}</p>
+    </header>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="panel blue">
+          <div class="panel-body">
+            <p>You've made great progress on this challenge. I think you are ready to move on to the next step.</p>
+            <p><strong>Reflect on your design.</strong></p>
+          </div>
+        </div>
+      </div><!-- /column 1 -->
+
+      <div class="col-md-1">
+        <img src="{% resized MEDIA_URL|add:'images/placeholder.png' width=60 height=80 %}"
+          width=60 height=80 />
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-bubble teal right reflect-box">
+          <div class="panel-body">
+            <h1>Reflect</h1>
+            <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
+            <ul class="challenge-reflect-questions" style="display: none;">
+              {% for question in challenge.reflect_questions.all %}
+                <li>{{ question }}</li>
+              {% endfor %}
+            </ul>
+
+            <div class="reflect-question">
+              <h3 class="question"></h3>
+              <p class="refresh" title="answer a different question">
+                <span class="glyphicon glyphicon-refresh"></span> Try another question.
+              </p>
+            </div>
+
+            {{comment_form.question_text}}
+            {{comment_form.text}}
+
+            <div id="reflect-images">
+              <div class="img-wrapper"></div>
+              <button type="button" class="btn btn-link"
+                data-toggle="modal" data-target="#reflect-images-modal" title="choose an image"
+                disabled="disabled"
+              >
+                <span class="btn btn-primary"><span class="glyphicon glyphicon-camera" title="Post Picture"></span></span>
+                Pick a Photo
+              </button>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-reflect" data-toggle="modal" data-target="#guest-modal">
+              Publish to The Gallery
+            </button>
+          </div>
+        </div>
+        {% include "_challenge_reflect_images_modal.html" %}
+      </div><!-- /col 2 -->
+
+    </div><!-- row -->
+
+    {% include "_guide.html" %}
+
+  </div><!-- content -->
+  {{ block.super }}
+{% endblock %}
