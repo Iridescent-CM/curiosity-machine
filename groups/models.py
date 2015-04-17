@@ -2,7 +2,7 @@ import time
 from django.db import models
 from django.contrib.auth.models import User
 from enum import Enum
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save, post_save, post_delete
 from curiositymachine.helpers import random_string
 from cmemails import deliver_email
 from django.conf import settings
@@ -70,6 +70,12 @@ def create_code(sender, instance, **kwargs):
         instance.code = unique_slug()
 
 pre_save.connect(create_code, sender=Group)
+
+def delete_invitations_and_members(sender, instance, **kwargs):
+    for model_klass in [Membership, Invitation]:
+        model_klass.objects.filter(group=instance).delete()
+
+post_delete.connect(delete_invitations_and_members, sender=Group)
 
 class Membership(models.Model):
     group = models.ForeignKey(Group, related_name="memberships")
