@@ -78,7 +78,9 @@ def challenge_progress(request, challenge_id, username, stage=None):
             stageToShow = Stage.reflect
         else:
             latestStage = get_stage_for_progress(progress)
-            if not progress.approved and latestStage == Stage.reflect:
+            if latestStage == Stage.test:
+                stageToShow = Stage.build
+            elif latestStage == Stage.reflect and not progress.approved:
                 stageToShow = Stage.build
             else:
                 stageToShow = latestStage
