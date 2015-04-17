@@ -120,7 +120,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
     })
 
 # Any POST to this by the assigned mentor moves a challenge progress into the reflect stage (marks approve=True); any DELETE reverses that
-@require_http_methods(["POST", "DELETE"])
+@require_http_methods(["POST"])
 @login_required
 def challenge_progress_approve(request, challenge_id, username):
     progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
@@ -129,13 +129,21 @@ def challenge_progress_approve(request, challenge_id, username):
     if not request.user == progress.mentor:
         raise PermissionDenied
 
-    if request.method == "POST":
+    if request.POST.get("approve", False):
         progress.approve()
         messages.success(request, 'Learner was progressed to Reflection')
-    elif request.method == "DELETE":
+        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
+            'challenge_id': challenge_id,
+            'username': username,
+            'stage': Stage.reflect.name
+        }))
+    else:
         Progress.objects.filter(id=progress.id).update(approved=None)
-
-    return HttpResponse(status=204)
+        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
+            'challenge_id': challenge_id,
+            'username': username,
+            'stage': Stage.build.name
+        }))
 
 @mentor_only
 def unclaimed_progresses(request):
