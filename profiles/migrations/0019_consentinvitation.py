@@ -14,9 +14,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ConsentInvitation',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
-                ('user', models.OneToOneField(to_field='id', to=settings.AUTH_USER_MODEL)),
-                ('code', models.TextField(null=True, blank=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, to_field='id')),
+                ('code', models.TextField(null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
             options={

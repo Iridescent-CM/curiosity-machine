@@ -12,7 +12,7 @@ from profiles.utils import create_or_edit_user
 from groups.forms import GroupJoinForm, GroupLeaveForm
 from challenges.models import Progress, Favorite
 from django.db import transaction
-from profiles.models import Profile, ConsentInvitation
+from profiles.models import Profile, ConsentInvitation, UnderageConsent
 
 @transaction.atomic
 def join(request):
@@ -79,22 +79,20 @@ def profile_edit(request):
 def underage(request):
     return render(request, 'underage_student.html')
 
-@login_required
-def signed_consent_form(request, user_id):
-    if request.user == User.objects.get(id=user_id):
-        consent = request.user.consent
+def signed_consent_form(request, token):
+    if UnderageConsent.objects.filter(code=token).exists():
+        consent = UnderageConsent.objects.get(code=token)
         return render(request, 'signed_consent_form.html', {'consent': consent,})
     else:
         messages.error(request, "Unable to find consent form.")
         return HttpResponseRedirect(reverse('root'))
 
-@login_required
 def consent_form(request, token):
     #get the token from the invite email
     ctx = {
         'token': token
     }
-    if ConsentInvitation.objects.filter(user=request.user, code=token).exists():
+    if ConsentInvitation.objects.filter(code=token).exists():
         if request.method == 'POST':
             form = ConsentForm(data=request.POST)
             if form.is_valid():

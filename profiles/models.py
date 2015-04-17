@@ -57,10 +57,10 @@ class Profile(models.Model):
     def consent_student(cls, token, signature):
         invitation = ConsentInvitation.objects.get(code=token)
         profile = invitation.user.profile
-        UnderageConsent.objects.create(signature=signature, user=invitation.user)
+        consent = UnderageConsent.objects.create(signature=signature, user=invitation.user, code=token)
         profile.approved = True
         profile.save(update_fields=['approved'])
-        deliver_email('activation_confirmation', profile, digitally_signed=True)
+        deliver_email('activation_confirmation', profile, digitally_signed=True, consent=consent)
         invitation.delete()
         return profile
 
@@ -141,6 +141,7 @@ class UnderageConsent(models.Model):
     user = models.OneToOneField(User, null=False, blank=False, related_name="consent")
     signature = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    code = models.TextField(blank=False, null=True)
 
     def __str__(self):
         return "Consent: id={}, user={}".format(self.id, self.user)
@@ -153,7 +154,7 @@ class UnderageConsent(models.Model):
 #just a description of an invitation, used in a welcome email for underage students
 class ConsentInvitation(models.Model):
     user = models.OneToOneField(User, related_name="consent_invitation")
-    code = models.TextField(blank=True, null=True)
+    code = models.TextField(blank=False, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
