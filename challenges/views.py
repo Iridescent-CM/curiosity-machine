@@ -55,7 +55,7 @@ def build_guest(request, challenge_id):
 
 def reflect_guest(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    if request.user.is_authenticated() and request.user.profile.is_student:
+    if not request.user.is_authenticated() or request.user.profile.is_student:
         messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
         return HttpResponseRedirect(request.META.get(
             'HTTP_REFERER',
