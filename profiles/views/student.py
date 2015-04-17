@@ -98,7 +98,7 @@ def consent_form(request, token):
             if form.is_valid():
                 student = Profile.consent_student(token, form.cleaned_data['signature'])
                 messages.success(request, 'Your consent form for Curiosity Machine was successfully signed and {username} account is now active!.'.format(username=student.user.username))
-                return HttpResponseRedirect(reverse('profiles:home'))
+                return HttpResponseRedirect(reverse('profiles:signed_consent_form', kwargs={'token': student.user.consent.code}))
             else:
                 ctx['form'] = form
                 return render(request, 'consent_form.html', ctx)

@@ -11,7 +11,7 @@ admin.site.unregister(User)
 
 class UnderageConsentInline(admin.StackedInline):
     model = UnderageConsent
-    readonly_fields = ('signature', 'created_at',)
+    readonly_fields = ('signature', 'created_at', 'code',)
     def has_add_permission(self, request): return False
     def has_delete_permission(self, request, obj=None): return False
 
@@ -61,15 +61,6 @@ class ConsentInvitationAdmin(admin.ModelAdmin):
     def has_add_permission(self, request): return False
     def has_delete_permission(self, request, obj=None): return False
 
-class UnderageConsentAdmin(admin.ModelAdmin):
-    model = UnderageConsent
-    list_display = ('username', 'signature', 'created_at')
-    fields = ('username','signature', 'created_at',)
-    readonly_fields = ('username','signature', 'created_at', )
-
-    def has_add_permission(self, request): return False
-    def has_delete_permission(self, request, obj=None): return False
 
 admin.site.register(User, UserAdminWithProfile)
 admin.site.register(ConsentInvitation, ConsentInvitationAdmin)
-admin.site.register(UnderageConsent, UnderageConsentAdmin)
