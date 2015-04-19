@@ -12,20 +12,26 @@
         <br><strong>I work at </strong> {{profile.employer}}</p>
       </div>
       <div class="col-md-6 col-sm-6">
+        {% if profile.expertise %}
         <h4>Expert in</h4>
         <p>{{profile.expertise}}</p>
+        {% endif %}
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6">
+        {% if profile.about_me %}
         <h4>About me!</h4>
         <p>{{profile.about_me}}</p>
         {% include "_img_or_video.html" with video=profile.about_me_video image=profile.about_me_image crop='fit' width=372 %}
+        {% endif %}
       </div>
       <div class="col-md-6 col-sm-6">
+        {% if profile.about.research %}
         <h4>I'm curious about</h4>
         <p>{{profile.about_research}}</p>
         {% include "_img_or_video.html" with video=profile.about_research_video image=profile.about_research_image crop='fit' width=372 %}
+        {% endif %}  
       </div>
     </div><!-- row -->
     {% if request.user == profile.user %}
