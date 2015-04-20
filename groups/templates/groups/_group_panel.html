@@ -1,0 +1,12 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <a href="{% url 'groups:group' group_id=group.id%}">{{group.name}}</a>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <a href="{% url 'groups:group' group_id=group.id%}" class="btn btn-primary pull-right">View</a>
+    <p>Members: {{ group.members.count }}</p>
+    <p>Pending: {{ group.group_invitations.count }}
+  </div>
+</div>

@@ -1,0 +1,37 @@
+{% extends "groups/base.html" %}
+
+{% block title %}{{ member.username }}{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li><a href="{% url 'groups:group' group_id=group.id %}">{{ group.name }}</a></li>
+  <li>{{ member.username }}</li>
+</ol>
+{% endblock %}
+
+{% block columncontent %}
+  <h1>Challenges</h1>
+  <div class="row">
+    {% for progress in member.progresses.all %}
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ progress.challenge.name }}</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <li>Started: {{ progress.started }}</li>
+            <li>Mentor: {{ progress.mentor.username }}</li>
+            <a class="btn btn-default"
+              href="{% url 'challenges:challenge_progress' progress.challenge.id member.username %}"
+              role="button">View Challenge</a>
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-md-12">No progress</div>
+    {% endfor %}
+  </div>
+{% endblock %}

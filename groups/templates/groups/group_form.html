@@ -1,0 +1,29 @@
+{% extends "groups/base.html" %}
+
+{% block title %}Create group{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li>Create group</li>
+</ol>
+{% endblock %}
+
+{% block pagecontent %}
+<div class="row">
+  <div class="col-md-12">
+    <h1>Create Group</h1>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        <div class="errors">{{ field.errors }}</div>
+      </div>
+      {% endfor %}
+      <button class="btn btn-primary" type="submit">Create</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

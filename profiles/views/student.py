@@ -1,4 +1,3 @@
-import os
 from django.shortcuts import render
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
@@ -10,6 +9,7 @@ from django.core.urlresolvers import reverse
 from profiles.forms import JoinForm, StudentProfileEditForm
 from profiles.utils import create_or_edit_user
 from groups.forms import GroupJoinForm, GroupLeaveForm
+from groups.models import Invitation
 from challenges.models import Progress, Favorite
 from django.db import transaction
 
@@ -56,7 +56,8 @@ def home(request):
         'my_challenges_filters': my_challenges_filters, 
         'favorite_challenges': favorite_challenges,
         'group_form': GroupJoinForm(),
-        'groups': [(group, GroupLeaveForm(initial={'id': group.id})) for group in request.user.cm_groups.all()],
+        'groups': [{"object":group, "form":GroupLeaveForm(initial={'id': group.id})} for group in request.user.cm_groups.all()],
+        'invitations': Invitation.objects.filter(user=request.user).all()
     })
 
 @login_required

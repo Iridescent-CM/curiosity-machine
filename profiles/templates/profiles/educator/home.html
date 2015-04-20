@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Curiosity Machine - Home{% endblock %}
+
+{% block content %}
+  <h1>Welcome {{user.username}}</h1>
+
+  <h2>
+    My Clubs
+    <a class="btn btn-default btn-xs" href="{% url 'groups:create' %}">Create club</a>
+  </h2>
+  <div class="tab-content">
+    <ul id="group-carousel" class="groups-list owl-carousel">
+      {% for group in groups %}
+      <li>{% include "groups/_group_panel.html" %}</li>
+      {% empty %}
+      <li><h3>Use the button above to create your first club.</h3></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <h2>Design Challenge Units</h2>
+  <p>
+    Get your Curiosity Machine course started! Choose one of the units below.
+  </p>
+  <div class="tab-content">
+    <ul id="unit-carousel" class="challenges-list owl-carousel">
+      {% for unit in units %}
+        {% include "units/_unit_item.html" with unit=unit %}
+      {% empty %}
+        <li><h3>No units</h3></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <p>
+    We connect your group to dedicated engineers and scientists who provide students with individualized feedback.
+    <a href="/mentor">Learn more.</a>
+  </p>
+  <p>
+    For questions or training inquiry, email
+    <a href="mailto:curiosity@iridescentlearning.org?subject=Units Training" target="_top">curiosity@iridescentlearning.org</a>.
+  </p>
+{% endblock %}
+
+{% block js %}
+  <script>
+    $(document).ready(function () {
+      $('#group-carousel').initPanelCarousel();
+      $('#unit-carousel').initPanelCarousel();
+    });
+  </script>
+{% endblock %}

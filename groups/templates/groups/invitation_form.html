@@ -1,0 +1,48 @@
+{% extends "groups/base.html" %}
+
+{% block title %}Group Invitations{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li><a href="{% url 'groups:group' group_id=group.id %}">{{ group.name }}</a></li>
+  <li>Invite members</li>
+</ol>
+{% endblock %}
+
+{% block pagecontent %}
+<div class="row">
+  <div class="col-md-12">
+    <h1>Invite Members</h1>
+    <p class="lead">Enter your students' Curiosity Machine usernames to invite them to your club.</p>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-md-6">
+          {% for field in form %}
+          <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            <p class="help-block">{{ field.help_text }}</p>
+            <div class="errors">{{ field.errors }}</div>
+          </div>
+          {% endfor %}
+          <ul class="list-inline">
+            <li><button class="btn btn-primary" type="submit">Invite</button></li>
+            <li><a href="{% url 'groups:group' group_id=group.id %}">Cancel</a></li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h3>Or Share Your Class Code</h3>
+          <p>Your students need to:</p>
+          <ol>
+            <li>Sign up at <a href="{% url "root" %}">curiositymachine.org</a> (or sign in using their existing account)</li>
+            <li>Find "Groups" at the bottom of their home page</li>
+            <li>In the "Join A Group" box, enter the class code <strong>{{group.code}}</strong></li>
+          </ol>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

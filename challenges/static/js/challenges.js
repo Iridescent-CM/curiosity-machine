@@ -1,4 +1,3 @@
-
 CM.Challenge = {};
 
 CM.Challenge.Reflect = {
