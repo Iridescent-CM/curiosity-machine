@@ -9,14 +9,10 @@
       </tr></thead>
       {% for group in groups %}
 	<tr>
-	  <td>{{ group.object.name}}</td>
-	  <td>{{ group.object.owners|join:", " }}</td>
+	  <td>{{ group.name}}</td>
+	  <td>{{ group.owners|join:", " }}</td>
 	  <td>
-	    <form action="{% url "groups:leave_group"  %}" method="POST">
-	      {% csrf_token %}
-	      {{ group.form.id}}
-	      <button class="btn btn-default btn-xs" type="submit">LEAVE</button>
-	    </form>
+	    <a href="{% url "groups:leave" group_id=group.id %}">LEAVE</a>
 	  </td>
 	</tr>
       {% endfor %}
