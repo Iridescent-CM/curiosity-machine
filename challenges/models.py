@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.core.urlresolvers import reverse
@@ -154,6 +155,10 @@ class Progress(models.Model):
     def completed(self):
         # a progress is complete once a comment has been made on the Reflect stage
         return self.comments.filter(stage=Stage.reflect.value).exists()
+
+    @property
+    def most_recent(self):
+        return self.comments.order_by('-created').first()
 
     def student_username(self):
         return self.student.username
