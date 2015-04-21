@@ -152,3 +152,26 @@ def accept_invitation(request, group_id):
 	invitation.accept()
 	messages.success(request, 'Successfully joined %s group' % (group.name,))
 	return HttpResponseRedirect(reverse('profiles:home'))
+
+class UpdateInvitationsView(UpdateView):
+	model = Group
+	form_class = forms.ManageInvitationsForm
+	template_name = "groups/manage_invitations.html"
+	pk_url_kwarg = 'group_id'
+	success_url = '/yay'
+
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+		return super(UpdateInvitationsView, self).dispatch(*args, **kwargs)
+
+class UpdateMembersView(UpdateView):
+	model = Group
+	form_class = forms.ManageMembersForm
+	template_name = "groups/manage_members.html"
+	pk_url_kwarg = 'group_id'
+	success_url = '/yay'
+
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+		return super(UpdateMembersView, self).dispatch(*args, **kwargs)
+
