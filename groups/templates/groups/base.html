@@ -24,12 +24,12 @@
           <h1 class="section-box-header">{{group.name}}</h1>
           <p>Code: {{group.code}}</p>
           <p>Owner{% if group.owners|length > 1 %}s{% endif %}: {{ group.owners|join:", " }}</p>
-          <a class="btn btn-default" href="{% url 'groups:invite_to_group' group.id %}">Invite members</a>
+          <a class="btn btn-default" href="{% url 'groups:invite_to_group' group.id %}">Invite Students</a>
         </div>
         {% if REQUEST_A_MENTOR_LINK %}
           <a class="btn btn-primary" target="_blank" href="{{REQUEST_A_MENTOR_LINK}}">Request a mentor</a>
         {% endif %}
-        <h3>Members</h3>
+        <h3>Students</h3>
         <div class="list-group">
           {% for user in group.members %}
           <a class="list-group-item {% ifequal user.id member.id %}active{% endifequal %}"

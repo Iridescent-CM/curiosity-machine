@@ -6,15 +6,15 @@
 <ol class="breadcrumb">
   <li><a href="{% url 'root' %}">Home</a></li>
   <li><a href="{% url 'groups:group' group_id=group.id %}">{{ group.name }}</a></li>
-  <li>Invite Members</li>
+  <li>Invite Students</li>
 </ol>
 {% endblock %}
 
 {% block pagecontent %}
 <div class="row">
   <div class="col-md-12">
-    <h1>Invite Members</h1>
-    <p class="lead">Enter your students' Curiosity Machine usernames to invite them to your club.</p>
+    <h1>Invite Students</h1>
+    <p class="lead">Enter your students' Curiosity Machine usernames to invite them to your group.</p>
     <form action="" method="POST">
       {% csrf_token %}
       <div class="row">
@@ -33,12 +33,12 @@
           </ul>
         </div>
         <div class="col-md-6">
-          <h3>Or Share Your Class Code</h3>
+          <h3>Or Share Your Group Code</h3>
           <p>Your students need to:</p>
           <ol>
             <li>Sign up at <a href="{% url "root" %}">curiositymachine.org</a> (or sign in using their existing account)</li>
             <li>Find "Groups" at the bottom of their home page</li>
-            <li>In the "Join A Group" box, enter the class code <strong>{{group.code}}</strong></li>
+            <li>In the "Join A Group" box, enter the group code <strong>{{group.code}}</strong></li>
           </ol>
         </div>
       </div>

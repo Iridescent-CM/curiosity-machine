@@ -11,9 +11,9 @@
 <div class="modal-body row clearfix">
 
   {% if request.user.profile.is_mentor %}
-    <p class="guest-modal-subheader">This is an interaction for learners. Claim a challenge to Interact with them!</p>
+    <p class="guest-modal-subheader">This is an interaction for students. Claim a challenge to interact with them!</p>
   {% elif request.user.profile.is_educator %}
-    <p class="guest-modal-subheader">This is an interaction for students. Add students to your club to see their submissions!</p>
+    <p class="guest-modal-subheader">This is an interaction for students. Add students to your group to see their submissions!</p>
   {% elif request.user.profile.is_student %}
     <p class="guest-modal-subheader">Use the button below to start building this challenge:</p>
     <div class="guest-buttons">

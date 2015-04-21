@@ -13,6 +13,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Create Group</h1>
+    <p class="lead">Choose a name and create your group. Next, you'll invite your students.</p>
     <form action="" method="POST">
       {% csrf_token %}
       {% for field in form %}
@@ -23,7 +24,10 @@
         <div class="errors">{{ field.errors }}</div>
       </div>
       {% endfor %}
-      <button class="btn btn-primary" type="submit">Create</button>
+      <ul class="list-inline">
+        <li><button class="btn btn-primary" type="submit">Create</button></li>
+        <li><a href="{% url 'root' %}">Cancel</a></li>
+      </ul>
     </form>
   </div>
 </div>

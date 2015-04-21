@@ -78,6 +78,7 @@ class ListField(forms.Field):
 
 class MultiInvitationForm(forms.Form):
     recipients = ListField(
+        label="Usernames",
         required=True,
         help_text="Enter one or more usernames separated by commas. Usernames are case sensitive."
     )
