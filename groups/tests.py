@@ -131,7 +131,7 @@ def test_leave_group(client, group, loggedInStudent):
         'enable_groups': True,
         'enable_educators': True
     }):
-        response = client.post(reverse('groups:leave_group'), {'id': group.id}, HTTP_REFERER='/')
+        response = client.post(reverse('groups:leave', kwargs={'group_id': group.id}))
         assert len(group.members()) == 0
         assert response.status_code == 302
 
