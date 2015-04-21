@@ -117,9 +117,9 @@ class GroupLeaveView(UpdateView):
 	def form_valid(self, form):
 		result = self.object.delete_member(self.request.user)
 		if result:
-			messages.success(self.request, 'Successfully unsubscribed to the %s group' % self.object.name)
+			messages.success(self.request, 'You left %s' % self.object.name)
 		else:
-			messages.error(self.request, 'Already unsubscribed to %s group' % self.object.name)
+			messages.error(self.request, 'You already left %s' % self.object.name)
 		return super(GroupLeaveView, self).form_valid(form)
 
 @login_required
@@ -131,15 +131,15 @@ def join_group(request):
 	if group_form.is_valid():
 		group = Group.objects.filter(code=group_form.cleaned_data['code']).first()
 		if not group:
-			messages.error(request, 'Invalid group code')
+			messages.error(request, 'There are no groups with code %s' % group_form.cleaned_data['code'])
 		else:
 			result = group.add_member(request.user)
 			if result:
-				messages.success(request, 'Successfully subscribed to the %s group' % group.name)
+				messages.success(request, 'You joined %s' % group.name)
 			else:
 				messages.error(request, 'You are already a member of %s' % group.name)
 	else:
-		messages.error(request, 'Invalid group code')
+		messages.error(request, 'An error occurred, please try again')
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @feature_flag('enable_groups')
@@ -150,7 +150,7 @@ def accept_invitation(request, group_id):
 	if not invitation:
 		return render(request, 'groups/invitation_404.html', status=404)
 	invitation.accept()
-	messages.success(request, 'Successfully joined %s group' % (group.name,))
+	messages.success(request, 'You joined %s' % (group.name,))
 	return HttpResponseRedirect(reverse('profiles:home'))
 
 class UpdateInvitationsView(UpdateView):

@@ -6,7 +6,7 @@
   </div>
   <div class="panel-body">
     <a href="{% url 'groups:group' group_id=group.id%}" class="btn btn-primary pull-right">View</a>
-    <p>Members: {{ group.members.count }}</p>
+    <p>Students: {{ group.members.count }}</p>
     <p>Pending: {{ group.group_invitations.count }}
   </div>
 </div>
