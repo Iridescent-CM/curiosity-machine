@@ -6,7 +6,7 @@
 {% block content %}
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-  <h1>Get Started. Create an Account.</h1>
+  <h1>Create an account as a student.</h1>
 </div>
 <form method='post' action="{% url 'profiles:join' %}" enctype="multipart/form-data" id="join-modal-form" class="default-form clearfix">
 <div class="modal-body row clearfix">
@@ -16,7 +16,6 @@
 
 </div>
 <div class="modal-footer">
-    <a class="btn btn-link" data-toggle="modal" data-dismiss="modal" data-target="#join-modal-mentor">Become a mentor</a>
     By clicking Save, you confirm that you accept the <a target="_blank" href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">Privacy Policy</a>.
   <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
   <button type="submit" class="btn btn-primary btn-lg">Save</button>
