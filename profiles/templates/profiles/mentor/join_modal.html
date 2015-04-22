@@ -16,7 +16,7 @@
     {% include "profiles/mentor/fields.html" %}
 </div>
 <div class="modal-footer">
-  By clicking Save, you confirm that you accept the <a target="_blank" href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">Privacy Policy</a>.
+  By clicking Save, you confirm that you accept the <a target="_blank" href="{% url 'privacy' %}">Privacy Policy</a>.
   <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
   <button type="submit" class="btn btn-primary btn-lg">Save</button>
 </div>
