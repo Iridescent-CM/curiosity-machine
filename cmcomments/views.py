@@ -16,7 +16,7 @@ import django_rq
 @require_POST
 @login_required
 @mentor_or_current_user
-def comments(request, challenge_id, username, stage):
+def comments(request, challenge_id, username, stage, format='html'):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
     try:
