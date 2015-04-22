@@ -2,14 +2,16 @@ import pytest
 from django.contrib.auth.models import User
 from challenges.models import Challenge, Progress
 
+
 STUDENT_USERNAME = "student"
 STUDENT_EMAIL = "student@example.com"
 MENTOR_USERNAME = "mentor"
 MENTOR_EMAIL = "mentor@example.com"
+USER_PASSWORD = 'password'
 
 @pytest.fixture
 def student():
-    student = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
+    student = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL, password=USER_PASSWORD)
     student.profile.approved = True
     student.profile.is_student = True
     student.profile.save()
