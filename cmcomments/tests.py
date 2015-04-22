@@ -24,7 +24,7 @@ def test_unread_comment_count_for_mentors(mentor, student, mentor_comment):
     assert student.profile.get_unread_comment_count() == 0
 
 @pytest.mark.django_db
-def test_unread_comment_count_for_mentors(mentor, student, student_comment):
+def test_unread_comment_count_for_students(mentor, student, student_comment):
     assert not student_comment.read
     assert mentor.profile.get_unread_comment_count() == 1
     assert student.profile.get_unread_comment_count() == 0
