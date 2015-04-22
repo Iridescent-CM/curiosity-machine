@@ -32,3 +32,4 @@ def test_unread_comment_count_for_mentors(mentor, student, student_comment):
     student_comment.read = True
     student_comment.save()
     assert mentor.profile.get_unread_comment_count() == 0
+
