@@ -37,6 +37,12 @@ class Group(models.Model):
             return True
         return False
 
+    def delete_owner(self, user):
+        if Membership.objects.filter(group=self, user=user, role=Role.owner.value).exists():
+            Membership.objects.get(group=self, user=user, role=Role.owner.value).delete()
+            return True
+        return False
+
     def delete_member(self, user):
         if Membership.objects.filter(group=self, user=user, role=Role.member.value).exists():
             Membership.objects.get(group=self, user=user, role=Role.member.value).delete()
@@ -103,6 +109,13 @@ class Membership(models.Model):
             group__memberships__user__username=username2,
             group__memberships__role=role2.value
         ).exists()
+
+def delete_when_group_is_orphaned(sender, instance, **kwargs):
+    group = Group.objects.filter(id=instance.group_id).first()
+    if group and len(group.owners()) < 1:
+        group.delete()
+
+post_delete.connect(delete_when_group_is_orphaned, sender=Membership)
 
 class Invitation(models.Model):
     group = models.ForeignKey(Group, related_name="group_invitations")
