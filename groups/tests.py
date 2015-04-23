@@ -313,16 +313,12 @@ def test_cascading_delete_for_invited_members(student, educator, group):
 def test_orphan_groups(student, educator, mentor, group):
     group.add_owner(educator)
     group.add_owner(mentor)
-
     group.add_member(student)
-
     assert Membership.objects.count() == 3
 
     group.delete_owner(mentor)
-
     assert Membership.objects.count() == 2
     assert Group.objects.count() == 1
-
 
     group.delete_owner(educator)
     assert Group.objects.count() == 0
