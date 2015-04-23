@@ -23,7 +23,7 @@ class ManageMembersForm(forms.ModelForm):
         fields = []
 
     remove_members = forms.ModelMultipleChoiceField(
-        required=False,
+        required=True,
         queryset=User.objects.none(),
         widget = forms.CheckboxSelectMultiple
     )
