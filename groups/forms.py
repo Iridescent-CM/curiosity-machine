@@ -49,7 +49,7 @@ class ManageInvitationsForm(forms.ModelForm):
         fields = []
 
     remove_invitations_for = forms.ModelMultipleChoiceField(
-        required=False,
+        required=True,
         queryset=User.objects.none(),
         widget = forms.CheckboxSelectMultiple
     )
