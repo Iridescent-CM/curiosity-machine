@@ -17,6 +17,7 @@ from django.utils.timezone import now
 @pytest.fixture
 def loggedInStudent(client):
     student = User.objects.create_user(username='loggedinstudent', email='loggedinstudent@example.com', password='password')
+    student.profile.is_student = True
     student.profile.approved = True
     student.profile.save()
     client.login(username='loggedinstudent', password='password')
