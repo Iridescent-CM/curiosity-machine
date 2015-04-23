@@ -158,7 +158,7 @@ class UpdateInvitationsView(UpdateView):
 	form_class = forms.ManageInvitationsForm
 	template_name = "groups/manage_invitations.html"
 	pk_url_kwarg = 'group_id'
-	success_url = '/yay'
+	success_url = '/groups/%(id)s'
 
 	@method_decorator(login_required)
 	def dispatch(self, *args, **kwargs):
@@ -167,11 +167,28 @@ class UpdateInvitationsView(UpdateView):
 class UpdateMembersView(UpdateView):
 	model = Group
 	form_class = forms.ManageMembersForm
-	template_name = "groups/manage_members.html"
 	pk_url_kwarg = 'group_id'
-	success_url = '/yay'
+	success_url = '/groups/%(id)s'
+	show_confirm = False
 
 	@method_decorator(login_required)
 	def dispatch(self, *args, **kwargs):
 		return super(UpdateMembersView, self).dispatch(*args, **kwargs)
 
+	def form_confirmed(self):
+		return "confirmed" in self.request.POST
+
+	def form_valid(self, form):
+		if self.form_confirmed():
+			return super(UpdateMembersView, self).form_valid(form)
+		else:
+			self.show_confirm = True
+			removal_ids = self.request.POST.getlist('remove_members')
+			removals = form.fields['remove_members'].queryset.filter(id__in=removal_ids)
+			return self.render_to_response(self.get_context_data(form=form, removals=removals))
+
+	def get_template_names(self):
+		if self.show_confirm:
+			return ["groups/manage_members_confirmation.html"]
+		else:
+			return ["groups/manage_members.html"]
