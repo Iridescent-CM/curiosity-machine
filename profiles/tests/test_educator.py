@@ -188,6 +188,24 @@ def test_educator_profile_change_form_creates_image_from_image_url():
     assert p.image.source_url == 'http://example.com/'
 
 @pytest.mark.django_db
+def test_join_sends_welcome_email(rf):
+    with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_educators': True}):
+        with mock.patch('profiles.models.deliver_email') as deliver_email:
+            request = rf.post('/join_as_educator', data={
+                'user-username': 'user',
+                'user-email': 'email@example.com',
+                'user-password': '123123',
+                'user-confirm_password': '123123',
+                'profile-city': 'city'
+            })
+            request.session = mock.MagicMock()
+            response = views.educator.join(request)
+            assert deliver_email.called
+            assert deliver_email.call_count == 1
+            assert deliver_email.call_args[0][0] == "welcome"
+            assert deliver_email.call_args[0][1].user.email == "email@example.com"
+
+@pytest.mark.django_db
 def test_join_with_feature_flag(rf):
     with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_educators': True}):
         request = rf.post('/join_as_educator', data={
