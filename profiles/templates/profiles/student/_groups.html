@@ -42,7 +42,7 @@
   </div>
 {% endif %}
 <h3> Join A Group</h3>
-<p>Enter a group code to join. You can request the code from the group owner.</p>
+<p>Enter a group code to join. You can request the code from your teacher or group leader.</p>
 <form action="{% url "groups:join_group"  %}" method="POST">
   {% csrf_token %}
   {{ group_form.code }}
