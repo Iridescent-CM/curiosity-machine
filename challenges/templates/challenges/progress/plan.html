@@ -11,8 +11,8 @@
   {% if challenge.draft %}
     <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
   {% endif %}
-  {% include "_challenge_nav.html" with stage="plan" %}
-  
+  {% include "challenges/progress/_nav.html" with stage="plan" %}
+
   <div class="challenge-content">
     {% if not request.user.profile.is_mentor %}
       <header class="challenge-header">
@@ -21,7 +21,7 @@
       </header>
     {% endif %}
     <div class="row">
-  
+
       {% if request.user.profile.is_mentor %}
         {% include "_mentor_panel.html" %}
       {% else %}
@@ -76,7 +76,7 @@
             </form>
           </div>
         </div><!-- materials-list -->
-    
+
         <div class='text_comment' style='display:none'>
           <form
             action="{% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username stage='plan' %}"
