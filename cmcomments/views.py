@@ -38,7 +38,12 @@ def comments(request, challenge_id, username, stage):
         comment.save()
     #TODO: add some way to handle form.errors, for instance converting it into a JSON API
 
-    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username}))
+    return HttpResponseRedirect(
+        request.META.get(
+            'HTTP_REFERER',
+            reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username})
+        )
+    )
 
 # Any POST to this features a student's progress in the "see what other kids built" section on the inspiration page.
 # Only one comment from a student for a specific challenge can be featured at a time; multiple POSTs will override previous selections.

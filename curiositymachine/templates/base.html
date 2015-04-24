@@ -100,7 +100,6 @@
   {% include "profiles/student/join_modal.html" with form=join_form %}
   {% include "profiles/mentor/join_modal.html" with form=mentor_join_form %}
   {% include "profiles/educator/join_modal.html" with userForm=educator_join_forms.userForm profileForm=educator_join_forms.profileForm %}
-  {% include "guest_modal.html" %}
   {% include "registration/_login_modal.html" with form=login_form %}
   <!-- /global modals -->
 
@@ -144,19 +143,11 @@
     {% endif %}
   {% endif %}
   {% if messages %}{% for message in messages %}
-    {% if message.tags and message.tags == 'error' %}
-      <script type="text/javascript">
-        $(function() {
-          CM.userError('{{ message }}');
-        });
-      </script>
-    {% else %}
-      <script type="text/javascript">
-        $(function() {
-          CM.userSuccess('{{ message }}');
-        });
-      </script>
-    {% endif %}
+    <script type="text/javascript">
+      $(function() {
+        CM.showMessage('{{ message }}', '{{ message.tags }}');
+      });
+    </script>
   {% endfor %}{% endif %}
 </body>
 </html>
