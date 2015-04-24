@@ -7,6 +7,9 @@ class GroupForm(forms.ModelForm):
     class Meta:
         model = models.Group
         fields = ['name']
+        help_texts = {
+            "name": "This is the group name your students will see."
+        }
 
 class GroupJoinForm(forms.Form):
     code = forms.CharField(widget=forms.TextInput, required=True)
