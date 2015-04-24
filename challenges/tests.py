@@ -16,6 +16,7 @@ from django.utils.timezone import now
 @pytest.fixture
 def loggedInStudent(client):
     student = User.objects.create_user(username='loggedinstudent', email='loggedinstudent@example.com', password='password')
+    student.profile.is_student = True
     student.profile.approved = True
     student.profile.save()
     client.login(username='loggedinstudent', password='password')
@@ -207,6 +208,26 @@ def test_challenge_progress_furthest_progress_plan_redirects_to_plan(client, stu
 @pytest.mark.django_db
 def test_challenge_progress_furthest_progress_build_redirects_to_build(client, student_comment, loggedInStudent):
     student_comment.stage = Stage.build.value
+    student_comment.user = loggedInStudent
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = loggedInStudent
+    progress.save()
+    url = reverse('challenges:challenge_progress', kwargs={
+        'challenge_id':progress.challenge.id,
+        'username':loggedInStudent.username
+    })
+    response = client.get(url)
+    assert response.status_code == 302
+    assert reverse('challenges:challenge_progress', kwargs={
+        'challenge_id':progress.challenge.id,
+        'username': loggedInStudent.username,
+        'stage': Stage.build.name
+    }) in response.url
+
+@pytest.mark.django_db
+def test_challenge_progress_furthest_progress_test_redirects_to_build(client, student_comment, loggedInStudent):
+    student_comment.stage = Stage.test.value
     student_comment.user = loggedInStudent
     student_comment.save()
     progress = student_comment.challenge_progress
