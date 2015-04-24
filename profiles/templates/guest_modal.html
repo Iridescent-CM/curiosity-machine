@@ -11,9 +11,9 @@
 <div class="modal-body row clearfix">
 
   {% if request.user.profile.is_mentor %}
-    <p class="guest-modal-subheader">This is an interaction for learners. Claim a challenge to Interact with them!</p>
+    <p class="guest-modal-subheader">This is an interaction for students. Claim a challenge to interact with them!</p>
   {% elif request.user.profile.is_educator %}
-    <p class="guest-modal-subheader">This is an interaction for students. Add students to your club to see their submissions!</p>
+    <p class="guest-modal-subheader">This is an interaction for students. Add students to your group to see their submissions!</p>
   {% elif request.user.profile.is_student %}
     <p class="guest-modal-subheader">Use the button below to start building this challenge:</p>
     <div class="guest-buttons">
@@ -26,7 +26,7 @@
     <p class="guest-modal-subheader">Create an account or sign in to interact with the Curiosity Machine community:</p>
     <div class="guest-buttons">
       <button  class="btn btn-primary btn-lg btn-guest-modal"
-        data-toggle="modal" data-dismiss="modal" data-target="#join-modal">Register</button>
+        data-toggle="modal" data-dismiss="modal" data-target="#join-modal-student">Register</button>
       <button class="btn btn-primary btn-lg btn-guest-modal"
         data-toggle="modal" data-dismiss="modal" data-target="#login-modal">SIGN IN</button>
     </div>

@@ -8,6 +8,7 @@ from profiles.tests import student, mentor
 from django.contrib.auth.models import User, AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
 from curiositymachine.decorators import mentor_or_educator_or_current_user
+from .templatetags.activity_count import activity_count
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
@@ -471,3 +472,26 @@ def test_classify_with_id(filter, challenge):
     challenge.filters.add(filter)
     assert(challenge.filters.exists() == 1)
 
+@pytest.mark.django_db
+def test_activity_count(student, mentor, progress):
+    assert activity_count(progress) == 0
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=mentor)
+    assert activity_count(progress) == 2
+
+@pytest.mark.django_db
+def test_activity_count_by_user(student, mentor, progress):
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=mentor)
+    assert activity_count(progress, student) == 2
+    assert activity_count(progress, mentor) == 1
+
+@pytest.mark.django_db
+def test_activity_count_by_stage(student, mentor, progress):
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=student, stage=Stage.plan.value)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=student, stage=Stage.build.value)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=mentor, stage=Stage.build.value)
+    assert activity_count(progress, None, Stage.plan.name) == 1
+    assert activity_count(progress, None, Stage.build.name) == 2
+    assert activity_count(progress, None, Stage.plan.name, Stage.build.name) == 3

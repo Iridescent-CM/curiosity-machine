@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
+from django.views.generic import TemplateView
 from pages.models import StaticPage
 from .views import root_redirect
 import profiles.urls
@@ -17,8 +18,8 @@ urlpatterns = patterns('',
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
     url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
     url(r'^about/', 'pages.views.static_page', {'page_id': StaticPage.about.value,}, name='about'),
-    url(r'^privacy/', 'pages.views.static_page', {'page_id': StaticPage.privacy.value,}, name='privacy'),
-    url(r'^educator/', 'pages.views.static_page', {'page_id': StaticPage.educator.value,}, name='educator'),
+    url(r'^privacy/', TemplateView.as_view(template_name="static/privacy_policy.html"), name='privacy'),
+    url(r'^educator/', TemplateView.as_view(template_name="static/educator.html"), name='educator'),
     url(r'^mentor/', 'pages.views.static_page', {'page_id': StaticPage.mentor.value,}, name='mentor'),
     url(r'^parents/', 'pages.views.static_page', {'page_id': StaticPage.parents.value,}, name='parents'),
     url(r'^faq/', 'pages.views.static_page', {'page_id': StaticPage.faq.value,}, name='faq'),

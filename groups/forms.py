@@ -17,6 +17,54 @@ class GroupLeaveForm(forms.Form):
 class GroupInviteForm(forms.Form):
     email = forms.CharField(widget=forms.TextInput, required=True)
 
+class ManageMembersForm(forms.ModelForm):
+    class Meta:
+        model = models.Group
+        fields = []
+
+    remove_members = forms.ModelMultipleChoiceField(
+        required=True,
+        queryset=User.objects.none(),
+        widget = forms.CheckboxSelectMultiple
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(ManageMembersForm, self).__init__(*args, **kwargs)
+        if self.instance:
+            self.fields["remove_members"].queryset = self.instance.members()
+
+    def save(self, commit=True):
+        if self.cleaned_data['remove_members']:
+            removals = models.Membership.objects.filter(
+                group=self.instance,
+                user__in=self.cleaned_data['remove_members'],
+                role=models.Role.member.value
+            )
+            removals.delete()
+        return self.instance
+
+class ManageInvitationsForm(forms.ModelForm):
+    class Meta:
+        model = models.Group
+        fields = []
+
+    remove_invitations_for = forms.ModelMultipleChoiceField(
+        required=True,
+        queryset=User.objects.none(),
+        widget = forms.CheckboxSelectMultiple
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(ManageInvitationsForm, self).__init__(*args, **kwargs)
+        if self.instance:
+            self.fields["remove_invitations_for"].queryset = self.instance.invited_users
+
+    def save(self, commit=True):
+        if self.cleaned_data['remove_invitations_for']:
+            invites = models.Invitation.objects.filter(group=self.instance, user__in=self.cleaned_data['remove_invitations_for'])
+            invites.delete()
+        return self.instance
+
 class ListField(forms.Field):
     widget = forms.Textarea
 
@@ -26,7 +74,11 @@ class ListField(forms.Field):
         return list(val for val in re.split("[\s;,]+", value) if val)
 
 class MultiInvitationForm(forms.Form):
-    recipients = ListField(required=True, help_text="Note: usernames are case sensitive.")
+    recipients = ListField(
+        label="Usernames",
+        required=True,
+        help_text="Enter one or more usernames separated by commas. Usernames are case sensitive."
+    )
 
     def clean_recipients(self):
         recipients = self.cleaned_data['recipients']

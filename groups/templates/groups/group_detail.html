@@ -2,6 +2,19 @@
 
 {% block title %}{{ group.name }}{% endblock %}
 
+{% block css %}
+  <style>
+    header h1 {
+      display: inline-block;
+    }
+    header .nav-link {
+      display: inline-block;
+      margin-left: 3em;
+    }
+  </style>
+  {{ block.super }}
+{% endblock %}
+
 {% block breadcrumb %}
 <ol class="breadcrumb">
   <li><a href="{% url 'root' %}">Home</a></li>
@@ -10,7 +23,10 @@
 {% endblock %}
 
 {% block columncontent %}
-  <h1>Students</h1>
+  <header>
+    <h1>Students</h1>
+    <a class="nav-link text-muted" href="{% url "groups:manage_members" group_id=group.id %}">Edit</a>
+  </header>
   <div class="row">
     {% for user in group.members %}
     <div class="col-xs-6 col-sm-4 col-md-3">
@@ -24,11 +40,14 @@
       </div>
     </div>
     {% empty %}
-    <div class="col-sm-12">No students at this time</div>
+    <div class="col-sm-12">Invite students to add them to this group</div>
     {% endfor %}
   </div>
 
-  <h1>Pending invitations</h1>
+  <header>
+    <h1>Pending invitations</h1>
+    <a class="nav-link text-muted" href="{% url "groups:manage_invitations" group_id=group.id %}">Edit</a>
+  </header>
   <table class="table">
     {% for invite in group.group_invitations.all %}
     <tr>
@@ -44,7 +63,7 @@
       </td>
     </tr>
     {% empty %}
-    <tr><td>All invitations have been accepted</td></tr>
+    <tr><td>No pending invitations</td></tr>
     {% endfor %}
   </table>
 {% endblock %}
