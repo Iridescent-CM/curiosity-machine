@@ -1,0 +1,38 @@
+<div class="nav-wrapper {{stage}}-selected">
+  <nav class="challenge-nav primary">
+    <!--<div class="cursor"><span class="top"></span><span class="bottom"></span><span class="front"></span></div>-->
+    <ul>
+      <li class="guide">
+        <a data-toggle="modal"  data-target="#guide-modal" href="#">
+          <span class="btn" >Guide</span>
+        </a>
+      </li>
+      <li class="inspiration {% if stage == 'inspiration' %}selected{% endif %}">
+        <a href="{% url 'challenges:challenge' challenge_id=challenge.id %}">
+          <span class="btn">Inspiration</span>
+        </a>
+        <span class="arrows"></span>
+      </li>
+      <li class="plan {% if stage == 'plan' %}selected{% endif %}">
+        <a href="{% url 'challenges:plan_guest' challenge_id=challenge.id %}">
+          <span class="btn">Plan</span>
+        </a>
+        <span class="arrows"></span>
+      </li>
+      <li class="build {% if stage == 'build' and not progress.approved %}selected{% endif %}">
+        <a href="{% url 'challenges:build_guest' challenge_id=challenge.id %}">
+          <div>
+            <span class="btn">Build</span><span class="btn test">Test</span><span class="btn redesign">Redesign</span>
+          </div>
+        </a>
+        <span class="arrows"></span>
+      </li>
+      <li class="reflect">
+        <a href="{% url 'challenges:reflect_guest' challenge_id=challenge.id %}">
+          <span class="btn">Reflect</span>
+        </a>
+        <span class="arrows"></span>
+      </li>
+    </ul>
+  </nav>
+</div>

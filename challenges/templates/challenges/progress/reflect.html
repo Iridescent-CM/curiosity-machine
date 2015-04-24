@@ -18,11 +18,7 @@
   {% if challenge.draft %}
     <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
   {% endif %}
-  {% if user.is_authenticated %}
-    {% include "_challenge_nav.html" with stage="build" %}
-  {% else %}
-    {% include "_challenge_nav_guest.html" with stage="build" %}
-  {% endif %}
+  {% include "challenges/progress/_nav.html" with stage="reflect" %}
   <div class="challenge-content">
     {% if not request.user.profile.is_mentor %}
       <header class="challenge-header">
@@ -94,7 +90,7 @@
 
                   <div id="reflect-images">
                     <div class="img-wrapper"></div>
-                    <button type="button" class="btn btn-link" 
+                    <button type="button" class="btn btn-link"
                       data-toggle="modal" data-target="#reflect-images-modal" title="choose an image"
                       {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}
                     >
@@ -143,7 +139,7 @@
                 <div></div><!-- magical switch clearing div -->
 
                 {% include "_comment_action_list.html" with disable=request.user.profile.is_educator %}
-        
+
               </div>
             </div>
           {% endif %}

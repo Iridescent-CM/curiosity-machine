@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'challenges/preview/base.html' %}
 {% load staticfiles %}
 {% load resized %}
 
@@ -7,12 +7,12 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ challenge.name }} </h1>
+  <h1>{{ challenge.name }}</h1>
   {% if challenge.draft %}
     <h2><small>We're improving this challenge. Keep an eye out for changes.</small></h2>
   {% endif %}
-  {% include "_challenge_nav_guest.html" with stage="plan" %}
-  
+  {% include "challenges/preview/_nav.html" with stage="plan" %}
+
   <div class="challenge-content">
     <header class="challenge-header">
       <h1>Plan your project</h1>
@@ -27,6 +27,7 @@
             {% include "_comment_action_list_guest.html" %}
           </div>
         </div>
+
         {% if challenge.plan_call_to_action %}
           <div class="panel blue">
             <div class="panel-body">
@@ -60,4 +61,6 @@
       </div><!-- /col 2 -->
     </div><!-- row -->
   </div><!-- content -->
+
+  {{ block.super }}
 {% endblock %}
