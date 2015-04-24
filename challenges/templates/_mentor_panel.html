@@ -26,9 +26,17 @@
       {% endif %}
       
       {% if request.user == progress.mentor %}
-        <form class="ajax-and-refresh-form" action="{% url "challenges:challenge_progress_approve" challenge_id=challenge.id username=progress.student.username %}" method="{% if progress.approved %}DELETE{% else %}POST{% endif %}">
+        <form 
+          action="{% url "challenges:challenge_progress_approve" challenge_id=challenge.id username=progress.student.username %}"
+          method="POST"
+        >
           {% csrf_token %}
-          <button class="btn btn-lg btn-primary" type="submit">Move to {% if progress.approved %}Build{% else %}Reflect{% endif %} Stage</button>
+          {% if not progress.approved %}
+            <input type="hidden" name="approve" value="true" />
+          {% endif %}
+          <button class="btn btn-lg btn-primary" type="submit">
+            Move to {% if progress.approved %}Build{% else %}Reflect{% endif %} Stage
+          </button>
         </form>
       {% endif %}
 

@@ -8,16 +8,8 @@ CM.Navigation = {
   $mentorNavWrapper: $('.mentor-panel-wrapper')
 };
 
-CM.userError = function(message) {
-  $('#message-bar').removeClass().addClass('error');
-  $('#message-bar').addClass('active').find('.text').append(message);
-  var timer = setTimeout(function() {
-    $('#message-bar').removeClass('active');
-  }, 6 * 1000);
-};
-
-CM.userSuccess = function(message) {
-  $('#message-bar').removeClass().addClass('success');
+CM.showMessage = function(message, classes) {
+  $('#message-bar').removeClass().addClass(classes);
   $('#message-bar').addClass('active').find('.text').append(message);
   var timer = setTimeout(function() {
     $('#message-bar').removeClass('active');
@@ -90,7 +82,7 @@ CM.FilePicker = {
         },
         function(error) {
           //failure
-          CM.userError(error.toString());
+          CM.showMessage(error.toString(), "error");
         }
         );
 

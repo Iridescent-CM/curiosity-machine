@@ -12,6 +12,12 @@ from curiositymachine import decorators
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
 
+def force_true(*args):
+    return True
+
+def force_false(*args):
+    return False
+
 def test_underage_student_middleware_redirects_request(rf):
     user = User()
     profile = Profile(user=user, is_student=True)
@@ -266,3 +272,46 @@ def test_feature_flag_calls_view_if_flag_true(rf):
     with mock.patch.dict(settings.FEATURE_FLAGS, {'test_flag': True}):
         response = wrapped(request)
         assert view.called
+
+def test_mentor_or_educator_or_current_user_allows_any_mentor(rf):
+    mentor = User()
+    profile = Profile(user=mentor, is_mentor=True)
+    view = mock.MagicMock()
+    request = rf.get('/some/path')
+    request.user = mentor
+    wrapped = decorators.mentor_or_educator_or_current_user(view)
+    response = wrapped(request, 1, 'student')
+    assert view.called
+
+def test_mentor_or_educator_or_current_user_allows_named_user(rf):
+    user = User(username='named')
+    profile = Profile(user=user)
+    view = mock.MagicMock()
+    request = rf.get('/some/path')
+    request.user = user
+    wrapped = decorators.mentor_or_educator_or_current_user(view)
+    response = wrapped(request, 1, 'named')
+    assert view.called
+
+@mock.patch('curiositymachine.decorators.Membership.users_share_any_group', force_true)
+def test_mentor_or_educator_or_current_user_allows_connected_group_owners(rf):
+    user = User()
+    profile = Profile(user=user)
+    view = mock.MagicMock()
+    request = rf.get('/some/path')
+    request.user = user
+    wrapped = decorators.mentor_or_educator_or_current_user(view)
+    response = wrapped(request, 1, 'student')
+    assert view.called
+
+@mock.patch('curiositymachine.decorators.Membership.users_share_any_group', force_false)
+def test_mentor_or_educator_or_current_user_redirects_other(rf):
+    user = User(username='other')
+    profile = Profile(user=user, is_student=True)
+    view = mock.MagicMock()
+    request = rf.get('/some/path')
+    request.user = user
+    wrapped = decorators.mentor_or_educator_or_current_user(view)
+    response = wrapped(request, 1, 'named')
+    assert not view.called
+    assert response.status_code == 302
