@@ -91,6 +91,7 @@ MIDDLEWARE_CLASSES = (
     "curiositymachine.middleware.UnderageStudentSandboxMiddleware",
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
     'curiositymachine.middleware.LastActiveMiddleware',
+    'curiositymachine.middleware.ViewExceptionMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

@@ -1,6 +1,8 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 from django.conf import settings
+
+class ViewException(Exception): pass
 
 class CanonicalDomainMiddleware:
     """
@@ -43,3 +45,26 @@ class LastActiveMiddleware:
         if request.user.is_authenticated():
             request.user.profile.set_active()
         return None
+
+
+class ViewExceptionMiddleware(object):
+    def process_exception(self, request, exception):
+        if not isinstance(exception, ViewException):
+            return None
+
+        format, message, code = exception.args
+        if format == 'html':
+            types = {
+                400: http.HttpResponseBadRequest,
+                404: http.HttpResponseNotFound,
+                500: http.HttpResponseServerError,
+            }
+            response_type = types.get(code, http.HttpResponse)
+            return response_type(render_to_string(
+                '%s.html' % code,
+                {'error': message},
+                request=request
+            ))
+
+        return JsonResponse({'success': False, 'error': message, 'code': code}, status=code,content_type="application/json")
+
