@@ -104,7 +104,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "curiositymachine.context_processors.login_and_join_forms",
     "curiositymachine.context_processors.google_analytics",
-    "curiositymachine.context_processors.feature_flags"
+    "curiositymachine.context_processors.feature_flags",
+    "curiositymachine.context_processors.template_globals",
 )
 
 # Any environment variable beginning with ENABLE_ will end up in template contexts
@@ -268,6 +269,7 @@ EMAIL_INACTIVE_DAYS_STUDENT = os.environ.get("EMAIL_INACTIVE_DAYS_STUDENT", 14)
 GA_CODE = os.environ.get("GA_CODE", None)
 PROGRESS_MONTH_ACTIVE_LIMIT = os.environ.get("PROGRESS_MONTH_ACTIVE_LIMIT", 2)
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", None)
+REQUEST_A_MENTOR_LINK = os.environ.get("REQUEST_A_MENTOR_LINK", None)
 
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 
