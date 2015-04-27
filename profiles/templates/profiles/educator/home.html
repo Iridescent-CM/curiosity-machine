@@ -44,7 +44,9 @@
 {% block js %}
   <script>
     $(document).ready(function () {
-      $('#group-carousel').initPanelCarousel();
+      $('#group-carousel').initPanelCarousel({
+        {% if not groups %}singleItem: true{% endif %}
+      });
       $('#unit-carousel').initPanelCarousel();
     });
   </script>
