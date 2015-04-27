@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from challenges.models import Example
 from .models import Comment, Stage
+import json
 
 @pytest.fixture
 def student():
@@ -89,6 +90,42 @@ def test_regular_mentor_comment(client, loggedInMentor, mentor, mentor_comment, 
     assert Comment.objects.count() == 2
 
     assert reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': student.username}) in response.url
+
+
+@pytest.mark.django_db
+def test_regular_mentor_json_comment(client, loggedInMentor, mentor, mentor_comment, student):
+    progress = mentor_comment.challenge_progress
+    progress.student = student
+    progress.mentor = mentor
+    progress.save()
+
+    post_data = {'text': 'test comment'}
+    assert Comment.objects.count() == 1
+    response = client.post(
+        reverse('challenges:comments:comments', kwargs={'challenge_id': progress.challenge.id, 'username': student.username, 'stage': 'build', 'fmt': 'json'}),
+        post_data
+    )
+    assert response.status_code == 200
+    assert Comment.objects.count() == 2
+
+    assert json.loads(response.content.decode())['success']
+
+@pytest.mark.django_db
+def test_regular_mentor_json_comment_notexist(client, loggedInMentor, mentor, mentor_comment, student):
+    progress = mentor_comment.challenge_progress
+    progress.student = student
+    progress.mentor = mentor
+    progress.save()
+
+    post_data = {'text': 'test comment'}
+    assert Comment.objects.count() == 1
+    response = client.post(
+        reverse('challenges:comments:comments', kwargs={'challenge_id': 999999, 'username': 'nonexisting', 'stage': 'build', 'fmt': 'json'}),
+        post_data
+    )
+    assert response.status_code == 404
+    assert not json.loads(response.content.decode())['success']
+
 
 @pytest.mark.django_db
 def test_feature_as_example_post(client, loggedInMentor, student, student_comment):
