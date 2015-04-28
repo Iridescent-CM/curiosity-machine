@@ -152,3 +152,61 @@ def accept_invitation(request, group_id):
 	invitation.accept()
 	messages.success(request, 'Successfully joined %s group' % (group.name,))
 	return HttpResponseRedirect(reverse('profiles:home'))
+
+class UpdateInvitationsView(UpdateView):
+	model = Group
+	form_class = forms.ManageInvitationsForm
+	pk_url_kwarg = 'group_id'
+	success_url = '/groups/%(id)s'
+	show_confirm = False
+
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+		return super(UpdateInvitationsView, self).dispatch(*args, **kwargs)
+
+	def form_confirmed(self):
+		return "confirmed" in self.request.POST
+
+	def form_valid(self, form):
+		if self.form_confirmed():
+			return super(UpdateInvitationsView, self).form_valid(form)
+		else:
+			self.show_confirm = True
+			removal_ids = self.request.POST.getlist('remove_invitations_for')
+			removals = form.fields['remove_invitations_for'].queryset.filter(id__in=removal_ids)
+			return self.render_to_response(self.get_context_data(form=form, removals=removals))
+
+	def get_template_names(self):
+		if self.show_confirm:
+			return ["groups/manage_invitations_confirmation.html"]
+		else:
+			return ["groups/manage_invitations.html"]
+
+class UpdateMembersView(UpdateView):
+	model = Group
+	form_class = forms.ManageMembersForm
+	pk_url_kwarg = 'group_id'
+	success_url = '/groups/%(id)s'
+	show_confirm = False
+
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+		return super(UpdateMembersView, self).dispatch(*args, **kwargs)
+
+	def form_confirmed(self):
+		return "confirmed" in self.request.POST
+
+	def form_valid(self, form):
+		if self.form_confirmed():
+			return super(UpdateMembersView, self).form_valid(form)
+		else:
+			self.show_confirm = True
+			removal_ids = self.request.POST.getlist('remove_members')
+			removals = form.fields['remove_members'].queryset.filter(id__in=removal_ids)
+			return self.render_to_response(self.get_context_data(form=form, removals=removals))
+
+	def get_template_names(self):
+		if self.show_confirm:
+			return ["groups/manage_members_confirmation.html"]
+		else:
+			return ["groups/manage_members.html"]
