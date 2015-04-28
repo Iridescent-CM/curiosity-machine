@@ -1,7 +1,7 @@
-from curiositymachine.shortcuts import get_object_or_404
+from curiositymachine.shortcuts import get_object_or_404, json_response
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
-from django.http import Http404, HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_http_methods
 from django.conf import settings
@@ -12,7 +12,7 @@ from cmcomments.forms import CommentForm
 from curiositymachine.decorators import mentor_or_current_user, mentor_only
 from videos.models import Video
 from images.models import Image
-from .utils import create_comment
+from .utils import create_comment, StageDoesNotExist
 import django_rq
 
 @require_POST
@@ -22,12 +22,20 @@ def comments(request, challenge_id, username, stage, fmt='html'):
     challenge = get_object_or_404(Challenge, id=challenge_id, format=fmt)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username, format=fmt)
 
-    create_comment(challenge=challenge, progress=progress, username=username, stage=stage, data=request.POST, user=request.user)
-
+    try:
+        (success, msgs) = create_comment(challenge=challenge, progress=progress, username=username, stage=stage, data=request.POST, user=request.user)
+    except StageDoesNotExist as e:
+        from curiositymachine.middleware import ViewException
+        raise ViewException(format, str(e), 404)
+    redirect = reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username})
     if fmt == 'html':
-        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': username}))
+        if success:
+            messages.success(request, "".join(msgs))
+        else:
+            messages.error(request, "\n".join(msgs))
+        return HttpResponseRedirect(redirect)
     else:
-        return JsonResponse({'success': True, 'message': 'Success'}, content_type="application/json")
+        return json_response(success, msgs, redirect=redirect)
 
 # Any POST to this features a student's progress in the "see what other kids built" section on the inspiration page.
 # Only one comment from a student for a specific challenge can be featured at a time; multiple POSTs will override previous selections.

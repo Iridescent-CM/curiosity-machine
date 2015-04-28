@@ -1,22 +1,16 @@
-from django.shortcuts import render, get_object_or_404
-from django.core.urlresolvers import reverse
-from django.http import Http404, HttpResponseRedirect, HttpResponse, JsonResponse
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST, require_http_methods
-from django.conf import settings
 from challenges.models import Challenge, Progress, Stage, Example
-from django.contrib import messages
 from cmcomments.models import Comment
 from cmcomments.forms import CommentForm
 from videos.models import Video
 from images.models import Image
 
+class StageDoesNotExist(Exception): pass
 
 def create_comment(user, challenge, progress, username, stage, data):
     try:
         stage = Stage[stage]
     except KeyError:
-        raise Http404
+        raise StageDoesNotExist("Invalid stage")
 
     form = CommentForm(data=data)
     if form.is_valid():
@@ -30,3 +24,6 @@ def create_comment(user, challenge, progress, username, stage, data):
             elif progress.mentor:
                 progress.email_student_responded()
         comment.save()
+        return (True, ["Successfully created comment"])
+    else:
+        return (False, map(lambda x: str(x), form.errors.as_data()) )

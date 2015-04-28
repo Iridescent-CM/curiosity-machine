@@ -65,6 +65,7 @@ class ViewExceptionMiddleware(object):
                 {'error': message},
                 request=request
             ))
-
-        return JsonResponse({'success': False, 'error': message, 'code': code}, status=code,content_type="application/json")
+        if not message:
+            message = "An error has occurred."
+        return JsonResponse({'success': False, 'errors': [message], 'code': code}, status=code,content_type="application/json")
 

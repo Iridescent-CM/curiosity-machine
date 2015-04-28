@@ -67,7 +67,29 @@ $(document).ready(function() {
 
 
 
-  
+  $('.comment-form').submit(function (ev) {
+    var frm = $(this);
+    $.ajax({
+      type: frm.attr('method'),
+      url: frm.attr('action') + 'json',
+      data: frm.serialize(),
+      success: function (data) {
+          if (data.success) {
+            CM.userSuccess(data.messages.join("<br />"));
+            window.location.replace(data.redirect);
+          }
+      },
+      error: function (xhr) {
+          var data = xhr.responseJSON;
+          if (!data.success) {
+            CM.userError(data.errors.join("<br />"));
+          }
+      }
+    });
+
+    ev.preventDefault();
+  });
+
   $('.materials-form').css("display", "none");
 
   $('.edit-materials').on('click', function(e) {
