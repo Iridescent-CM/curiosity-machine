@@ -58,3 +58,35 @@ def feature_as_example(request, challenge_id, username, stage, comment_id): # "s
         messages.error(request, "{}'s previously featured example was un-featured.".format(progress.student))
 
     return HttpResponse(status=204)
+
+@require_http_methods(["POST"])
+@login_required
+def delete_comment(request, challenge_id, username, comment_id, stage=None):
+    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
+    comment = get_object_or_404(progress.comments, id=comment_id)
+
+    if request.user == comment.user: #only the owner that made the comment can delete
+        if not comment.is_read_only():
+            comment.delete()
+            messages.success(request, "{}'s comment deleted.".format(comment.user))
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@require_http_methods(["POST"])
+@login_required
+def edit_comment(request, challenge_id, username, comment_id, stage=None, fmt='html'):
+    form = CommentForm(data=request.POST)
+
+    if form.is_valid():
+        progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
+        comment = get_object_or_404(progress.comments, id=comment_id)
+        message = "{}'s comment edited.".format(comment.user)
+        if request.user == comment.user: #only the student that made the comment can edit
+            if not comment.is_read_only():
+                comment.text = form.cleaned_data['text']
+                comment.save()
+                messages.success(request, message)
+        if fmt == 'html':
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else:
+            return json_response(True, [message], redirect=request.META.get('HTTP_REFERER'))

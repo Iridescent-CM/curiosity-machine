@@ -66,28 +66,30 @@ $(document).ready(function() {
   });
 
 
-
   $('.comment-form').submit(function (ev) {
     var frm = $(this);
-    $.ajax({
-      type: frm.attr('method'),
-      url: frm.attr('action') + 'json',
-      data: frm.serialize(),
-      success: function (data) {
-          if (data.success) {
-            CM.userSuccess(data.messages.join("<br />"));
-            window.location.replace(data.redirect);
-          }
-      },
-      error: function (xhr) {
-          var data = xhr.responseJSON;
-          if (!data.success) {
-            CM.userError(data.errors.join("<br />"));
-          }
-      }
-    });
+    if (frm.data('remote') === 'true'){
+      $.ajax({
+        type: frm.attr('method'),
+        url: frm.attr('action') + 'json',
+        data: frm.serialize(),
+        success: function (data) {
+            if (data.success) {
+              CM.userSuccess(data.messages.join("<br />"));
+              window.location.replace(data.redirect);
+            }
+        },
+        error: function (xhr) {
+            var data = xhr.responseJSON;
+            if (!data.success) {
+              CM.userError(data.errors.join("<br />"));
+            }
+        }
+      });
 
     ev.preventDefault();
+    }
+
   });
 
   $('.materials-form').css("display", "none");
@@ -97,6 +99,10 @@ $(document).ready(function() {
     $('.materials-form').show()
   });
 
+  $("button[data-confirm]").on('click', function () {
+    var message = $(this).data('confirm');
+    return confirm(message);
+  });
     //reflect pickers
   CM.Challenge.Reflect.init();
 

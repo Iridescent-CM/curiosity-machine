@@ -72,9 +72,13 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
         return render(request, 'challenge.html', {'challenge': challenge, 'progress': progress, 'examples': Example.objects.filter(challenge=challenge),})
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
+    comments = progress.comments.all()
+    comment_forms = {}
+    for comment in comments:
+        comment_forms[comment.id] = CommentForm(initial={'text': comment.text})
 
     return render(request, "challenge_plan.html" if stage == Stage.plan else "challenge_build.html",
-                  {'challenge': challenge, 'progress': progress, 'comment_form': CommentForm(), 'comments': progress.comments.all(), 'materials_form': MaterialsForm(progress=progress)})
+                  {'challenge': challenge, 'progress': progress, 'comment_forms': comment_forms, 'comment_form': CommentForm(), 'comments': comments, 'materials_form': MaterialsForm(progress=progress)})
 
 # Any POST to this by the assigned mentor moves a challenge progress into the reflect stage (marks approve=True); any DELETE reverses that
 @require_http_methods(["POST", "DELETE"])
@@ -131,7 +135,7 @@ def change_materials(request, challenge_id, username):
 def set_favorite(request, challenge_id, mode='favorite'):
     content_type="application/json"
     user = request.user
-    
+
     challenge = get_object_or_404(Challenge, id=challenge_id)
     try:
         if mode == 'favorite':

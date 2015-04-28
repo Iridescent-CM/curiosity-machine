@@ -27,6 +27,9 @@ class Comment(models.Model):
     def __str__(self):
         return "Comment: id={id}, user_id={user_id}, text={text}".format(id=self.id, user_id=self.user_id, text=self.text[:45] + "..." if len(self.text) > 50 else self.text)
 
+    def is_read_only(self):
+        return Example.objects.filter(progress=self).exists()
+
     def email_student_completed(self):
         if self.challenge_progress.mentor:
             return deliver_email('student_completed', self.challenge_progress.mentor.profile, student=self.challenge_progress.student.profile, progress=self.challenge_progress)
