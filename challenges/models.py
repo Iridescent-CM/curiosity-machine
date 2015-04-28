@@ -155,6 +155,10 @@ class Progress(models.Model):
         # a progress is complete once a comment has been made on the Reflect stage
         return self.comments.filter(stage=Stage.reflect.value).exists()
 
+    @property
+    def most_recent(self):
+        return self.comments.order_by('-created').first()
+
     def student_username(self):
         return self.student.username
 
