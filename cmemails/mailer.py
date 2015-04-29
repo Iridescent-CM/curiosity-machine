@@ -66,18 +66,23 @@ email_info = {
     'underage_student_group_invite': email_dict('group_invite', UNDERAGE_STUDENT, 'You have been invited to join a group!'),
 }
 
-def deliver_email(event_name, profile, **context):
-    context.update({'profile': profile})
-
+def determine_user_type(profile):
     user_type = None
     if profile.is_mentor:
         user_type = MENTOR
+    elif profile.is_educator:
+        user_type = EDUCATOR
     elif profile.birthday:
         if profile.is_underage():
             user_type = UNDERAGE_STUDENT
         else:
             user_type = STUDENT
+    return user_type
 
+def deliver_email(event_name, profile, **context):
+    context.update({'profile': profile})
+
+    user_type = determine_user_type(profile)
     if user_type is None:
         return None
     key = "_".join([user_type, event_name])

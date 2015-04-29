@@ -45,6 +45,30 @@ def test_deliver_email_looks_up_config_and_calls_email_if_it_can_determine_user_
         assert positional[2]['profile'] == profile
         assert positional[3] == 'template.html'
 
+def test_determine_user_type_mentor():
+    user = User(email='foo@example.com')
+    profile = Profile(is_mentor=True)
+    profile.user = user
+    assert mailer.determine_user_type(profile) == mailer.MENTOR
+
+def test_determine_user_type_student():
+    user = User(email='foo@example.com')
+    profile = Profile(is_student=True, birthday=date(1900, 1, 1))
+    profile.user = user
+    assert mailer.determine_user_type(profile) == mailer.STUDENT
+
+def test_determine_user_type_underage():
+    user = User(email='foo@example.com')
+    profile = Profile(is_student=True, birthday=date.today())
+    profile.user = user
+    assert mailer.determine_user_type(profile) == mailer.UNDERAGE_STUDENT
+
+def test_determine_user_type_educator():
+    user = User(email='foo@example.com')
+    profile = Profile(is_educator=True)
+    profile.user = user
+    assert mailer.determine_user_type(profile) == mailer.EDUCATOR
+
 def test_deliver_email_can_override_subject_from_config():
     user = User(email='foo@example.com')
     profile = Profile(is_mentor=True)
