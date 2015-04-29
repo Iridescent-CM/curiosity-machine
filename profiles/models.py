@@ -114,7 +114,7 @@ class Profile(models.Model):
         deliver_email('publish', self, progress=progress)
 
 def create_user_profile(sender, instance, created, **kwargs):
-    if created:
+    if created and not kwargs.get('raw'):
         Profile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
