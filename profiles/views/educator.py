@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
 from django.db import transaction
 from django.contrib import auth
@@ -45,6 +46,27 @@ def join(request):
                 'userForm': userForm,
                 'profileForm': profileForm
             })
+
+@login_required
+@transaction.atomic
+def profile_edit(request):
+    if request.method == 'POST':
+        userForm = forms.UserChangeForm(request.POST, instance=request.user, prefix='user')
+        profileForm = forms.ProfileChangeForm(request.POST, instance=request.user.profile, prefix='profile')
+        if profileForm.is_valid() and userForm.is_valid():
+            userForm.save();
+            profileForm.save();
+            messages.success(request, 'Profile has been updated.')
+        else:
+            messages.error(request, 'Correct errors below.')
+    else:
+        userForm = forms.UserChangeForm(instance=request.user, prefix='user')
+        profileForm = forms.ProfileChangeForm(instance=request.user.profile, prefix='profile')
+
+    return render(request, 'profiles/educator/profile_edit.html', {
+        'userForm': userForm,
+        'profileForm': profileForm
+    })
 
 @feature_flag('enable_educators')
 @educator_only
