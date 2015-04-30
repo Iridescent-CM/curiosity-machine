@@ -56,7 +56,7 @@
       </td>
       <td>
         <form action="{% url 'groups:invite_to_group' group.id %}?resend=1" method="POST">
-          <button class="btn btn-default btn-xs" type="submit">Resend</button>
+          <button class="btn btn-primary btn-xs" type="submit">Resend</button>
           {% csrf_token %}
           <input type="hidden" name="recipients" value="{{ invite.user.username }}" />
         </form>
