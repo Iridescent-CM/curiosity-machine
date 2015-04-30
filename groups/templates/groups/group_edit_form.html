@@ -26,8 +26,8 @@
       {% endfor %}
       <ul class="list-inline">
         <li><button class="btn btn-primary" type="submit">Edit</button></li>
-        <li><a href="{% url 'root' %}">Cancel</a></li>
-        <li><a href="{% url 'groups:delete' group_id=group.id %}" class="btn btn-danger">Delete</a></li>
+        <li><a href="{% url 'groups:group' group.id %}">Cancel</a></li>
+        <li><a href="{% url 'groups:delete' group.id %}" class="btn btn-danger">Delete</a></li>
       </ul>
     </form>
   </div>
