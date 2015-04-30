@@ -39,6 +39,30 @@ class GroupCreateView(CreateView):
 		self.object.add_owner(self.request.user)
 		return HttpResponseRedirect(self.get_success_url())
 
+class GroupEditView(UpdateView):
+	model = Group
+	pk_url_kwarg = 'group_id'
+	form_class = forms.GroupForm
+	template_name = 'groups/group_edit_form.html'
+	success_url = '/groups/%(id)s'
+
+	@method_decorator(login_required)
+	@method_decorator(owners_only)
+	@method_decorator(feature_flag('enable_groups'))
+	def dispatch(self, *args, **kwargs):
+		return super(GroupEditView, self).dispatch(*args, **kwargs)
+
+class GroupDeleteView(DeleteView):
+	model = Group
+	pk_url_kwarg = 'group_id'
+	success_url = '/home'
+
+	@method_decorator(login_required)
+	@method_decorator(owners_only)
+	@method_decorator(feature_flag('enable_groups'))
+	def dispatch(self, *args, **kwargs):
+		return super(GroupDeleteView, self).dispatch(*args, **kwargs)
+
 class InvitationCreateView(FormView):
 	form_class = forms.MultiInvitationForm
 	template_name = 'groups/invitation_form.html'

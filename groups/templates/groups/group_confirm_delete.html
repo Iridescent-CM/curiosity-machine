@@ -1,0 +1,28 @@
+{% extends "groups/base.html" %}
+
+{% block title %}Delete Group{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li><a href="{% url 'groups:group' group_id=group.id %}">{{ group.name }}</a></li>
+  <li>Delete Group</li>
+</ol>
+{% endblock %}
+
+{% block pagecontent %}
+<div class="row">
+  <div class="col-md-12">
+    <h1>Delete Group</h1>
+    <form action="" method="post">{% csrf_token %}
+      <p>
+        Are you sure you want to delete group {{ group.name }}?
+      </p>
+      <ul class="list-inline">
+        <li><input class="btn btn-primary" type="submit" value="Confirm" /></li>
+        <li><a href="{% url 'groups:group' group_id=group.id %}">Cancel</a></li>
+      </ul>
+    </form>
+  </div>
+</div>
+{% endblock %}
