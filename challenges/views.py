@@ -140,7 +140,7 @@ def challenge_progress_approve(request, challenge_id, username):
 
     if request.POST.get("approve", False):
         progress.approve()
-        messages.success(request, 'Learner was progressed to Reflection')
+        messages.success(request, 'Student was moved to Reflect')
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
             'challenge_id': challenge_id,
             'username': username,
