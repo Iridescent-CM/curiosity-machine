@@ -25,6 +25,7 @@
           <p>Code: {{group.code}}</p>
           <p>Owner{% if group.owners|length > 1 %}s{% endif %}: {{ group.owners|join:", " }}</p>
           <a class="btn btn-default" href="{% url 'groups:invite_to_group' group.id %}">Invite Students</a>
+          <a class="btn btn-default" href="{% url 'groups:edit' group.id %}">Edit Group</a>
         </div>
         {% if REQUEST_A_MENTOR_LINK %}
           <a class="btn btn-primary" target="_blank" href="{{REQUEST_A_MENTOR_LINK}}">Request a mentor</a>
