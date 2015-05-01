@@ -5,7 +5,7 @@
 {% block breadcrumb %}
 <ol class="breadcrumb">
   <li><a href="{% url 'root' %}">Home</a></li>
-  <li>Create group</li>
+  <li>Create Group</li>
 </ol>
 {% endblock %}
 
@@ -19,6 +19,7 @@
       <div class="form-group">
         {{ field.label_tag }}
         {{ field }}
+        <p class="help-block">{{ field.help_text }}</p>
         <div class="errors">{{ field.errors }}</div>
       </div>
       {% endfor %}

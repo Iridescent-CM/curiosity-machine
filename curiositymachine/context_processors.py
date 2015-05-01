@@ -19,3 +19,8 @@ def google_analytics(request):
 
 def feature_flags(request):
     return { 'flags': settings.FEATURE_FLAGS }
+
+def template_globals(request):
+    return {
+	"REQUEST_A_MENTOR_LINK": settings.REQUEST_A_MENTOR_LINK
+    }

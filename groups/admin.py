@@ -12,10 +12,21 @@ class UserInline(admin.TabularInline):
 
 class GroupAdmin(admin.ModelAdmin):
     model = models.Group
-    list_display = ('name', 'code',)
+    list_display = ('name', 'code', 'owners', 'cities')
     fields = ('name','code',)
     readonly_fields = ('code',)
     inlines = (UserInline, InvitedInline, )
+    search_fields = ['name', 'code']
+
+    def owners(self, obj):
+        return ", ".join(str(owner) for owner in obj.owners())
+
+    def cities(self, obj):
+        return ", ".join(owner.profile.city for owner in obj.owners())
+
+class InvitationAdmin(admin.ModelAdmin):
+    model = models.Invitation
+    list_display = ['id', 'group', 'user']
 
 admin.site.register(models.Group, GroupAdmin)
-admin.site.register(models.Invitation)
+admin.site.register(models.Invitation, InvitationAdmin)
