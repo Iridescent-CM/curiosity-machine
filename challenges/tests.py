@@ -7,6 +7,7 @@ from .views import challenge as challenge_view # avoid conflict with appropriate
 from profiles.tests import student, mentor
 from django.contrib.auth.models import User, AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
+from .templatetags.activity_count import activity_count
 from curiositymachine.decorators import mentor_or_educator_or_current_user
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
@@ -16,6 +17,7 @@ from django.utils.timezone import now
 @pytest.fixture
 def loggedInStudent(client):
     student = User.objects.create_user(username='loggedinstudent', email='loggedinstudent@example.com', password='password')
+    student.profile.is_student = True
     student.profile.approved = True
     student.profile.save()
     client.login(username='loggedinstudent', password='password')
@@ -207,6 +209,26 @@ def test_challenge_progress_furthest_progress_plan_redirects_to_plan(client, stu
 @pytest.mark.django_db
 def test_challenge_progress_furthest_progress_build_redirects_to_build(client, student_comment, loggedInStudent):
     student_comment.stage = Stage.build.value
+    student_comment.user = loggedInStudent
+    student_comment.save()
+    progress = student_comment.challenge_progress
+    progress.student = loggedInStudent
+    progress.save()
+    url = reverse('challenges:challenge_progress', kwargs={
+        'challenge_id':progress.challenge.id,
+        'username':loggedInStudent.username
+    })
+    response = client.get(url)
+    assert response.status_code == 302
+    assert reverse('challenges:challenge_progress', kwargs={
+        'challenge_id':progress.challenge.id,
+        'username': loggedInStudent.username,
+        'stage': Stage.build.name
+    }) in response.url
+
+@pytest.mark.django_db
+def test_challenge_progress_furthest_progress_test_redirects_to_build(client, student_comment, loggedInStudent):
+    student_comment.stage = Stage.test.value
     student_comment.user = loggedInStudent
     student_comment.save()
     progress = student_comment.challenge_progress
@@ -450,3 +472,26 @@ def test_classify_with_id(filter, challenge):
     challenge.filters.add(filter)
     assert(challenge.filters.exists() == 1)
 
+@pytest.mark.django_db
+def test_activity_count(student, mentor, progress):
+    assert activity_count(progress) == 0
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=mentor)
+    assert activity_count(progress) == 2
+
+@pytest.mark.django_db
+def test_activity_count_by_user(student, mentor, progress):
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=mentor)
+    assert activity_count(progress, student) == 2
+    assert activity_count(progress, mentor) == 1
+
+@pytest.mark.django_db
+def test_activity_count_by_stage(student, mentor, progress):
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=student, stage=Stage.plan.value)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=student, stage=Stage.build.value)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=mentor, stage=Stage.build.value)
+    assert activity_count(progress, None, Stage.plan.name) == 1
+    assert activity_count(progress, None, Stage.build.name) == 2
+    assert activity_count(progress, None, Stage.plan.name, Stage.build.name) == 3

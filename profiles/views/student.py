@@ -38,7 +38,7 @@ def join(request):
             return HttpResponseRedirect(reverse('profiles:home'))
         form = JoinForm()
 
-    return render(request, 'join_modal.html', {'form': form,})
+    return render(request, 'profiles/student/join_modal.html', {'form': form,})
 
 @login_required
 def home(request):
