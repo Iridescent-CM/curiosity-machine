@@ -17,14 +17,17 @@ def login_and_join_forms(request):
 def google_analytics(request):
     if not request.user.is_authenticated():
         usertype = "Anonymous"
-    elif request.user.profile.is_student:
-        usertype = "Student"
-    elif request.user.profile.is_mentor:
-        usertype = "Mentor"
-    elif request.user.profile.is_educator:
-        usertype = "Educator"
     else:
-        usertype = "Other"
+        usertype = ""
+        if request.user.profile.is_student:
+            usertype += "Student"
+        if request.user.profile.is_mentor:
+            usertype += "Mentor"
+        if request.user.profile.is_educator:
+            usertype += "Educator"
+
+        if not usertype:
+            usertype = "Other"
 
     return {
         'ga_code': settings.GA_CODE,
