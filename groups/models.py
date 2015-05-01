@@ -111,10 +111,10 @@ class Invitation(models.Model):
         return self
 
     def __str__(self):
-        return "Group={} User={}".format(self.group, self.user)
+        return "{} User={}".format(self.group, self.user)
 
     def __repr__(self):
-        return "Group={} User={}".format(self.group, self.user)
+        return "{} User={}".format(self.group, self.user)
 
 def send_email(sender, instance, created, **kwargs):
     if created:

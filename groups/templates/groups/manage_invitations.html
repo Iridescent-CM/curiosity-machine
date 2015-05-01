@@ -1,18 +1,19 @@
 {% extends "groups/base.html" %}
 
-{% block title %}Create group{% endblock %}
+{% block title %}Group Invitations{% endblock %}
 
 {% block breadcrumb %}
 <ol class="breadcrumb">
   <li><a href="{% url 'root' %}">Home</a></li>
-  <li>Create Group</li>
+  <li><a href="{% url 'groups:group' group_id=group.id %}">{{ group.name }}</a></li>
+  <li>Edit invitations</li>
 </ol>
 {% endblock %}
 
 {% block pagecontent %}
 <div class="row">
   <div class="col-md-12">
-    <h1>Create Group</h1>
+    <h1>Edit Invitations</h1>
     <form action="" method="POST">
       {% csrf_token %}
       {% for field in form %}
@@ -23,7 +24,10 @@
         <div class="errors">{{ field.errors }}</div>
       </div>
       {% endfor %}
-      <button class="btn btn-primary" type="submit">Create</button>
+      <ul class="list-inline">
+        <li><button class="btn btn-primary" type="submit">Remove</button></li>
+        <li><a href="{% url 'groups:group' group_id=group.id %}">Cancel</a></li>
+      </ul>
     </form>
   </div>
 </div>

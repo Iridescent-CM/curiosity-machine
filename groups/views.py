@@ -10,7 +10,7 @@ from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView, DeleteView
+from django.views.generic.edit import CreateView, FormView, DeleteView, UpdateView
 from django.utils.decorators import method_decorator
 
 class GroupDetailView(DetailView):
@@ -102,6 +102,26 @@ class GroupMemberDetailView(DetailView):
 		context.update({'group': self.group})
 		return context
 
+class GroupLeaveView(UpdateView):
+	model = Group
+	fields = []
+	template_name_suffix = '_leave_form'
+	pk_url_kwarg = 'group_id'
+	success_url = '/home'
+
+	@method_decorator(login_required)
+	@method_decorator(student_only)
+	def dispatch(self, *args, **kwargs):
+		return super(GroupLeaveView, self).dispatch(*args, **kwargs)
+
+	def form_valid(self, form):
+		result = self.object.delete_member(self.request.user)
+		if result:
+			messages.success(self.request, 'Successfully unsubscribed to the %s group' % self.object.name)
+		else:
+			messages.error(self.request, 'Already unsubscribed to %s group' % self.object.name)
+		return super(GroupLeaveView, self).form_valid(form)
+
 @login_required
 @feature_flag('enable_groups')
 @require_http_methods(["POST"])
@@ -122,21 +142,6 @@ def join_group(request):
 		messages.error(request, 'Invalid group code')
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-@login_required
-@feature_flag('enable_groups')
-@require_http_methods(["POST"])
-@student_only
-def leave_group(request):
-	group_form = forms.GroupLeaveForm(data=request.POST)
-	group_form.is_valid()
-	group = get_object_or_404(Group, id=group_form.cleaned_data['id'])
-	result = group.delete_member(request.user)
-	if result:
-		messages.success(request, 'Successfully unsubscribed to the %s group' % group.name)
-	else:
-		messages.error(request, 'Already unsubscribed to %s group' % group.name)
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
 @feature_flag('enable_groups')
 @login_required
 def accept_invitation(request, group_id):
@@ -147,3 +152,61 @@ def accept_invitation(request, group_id):
 	invitation.accept()
 	messages.success(request, 'Successfully joined %s group' % (group.name,))
 	return HttpResponseRedirect(reverse('profiles:home'))
+
+class UpdateInvitationsView(UpdateView):
+	model = Group
+	form_class = forms.ManageInvitationsForm
+	pk_url_kwarg = 'group_id'
+	success_url = '/groups/%(id)s'
+	show_confirm = False
+
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+		return super(UpdateInvitationsView, self).dispatch(*args, **kwargs)
+
+	def form_confirmed(self):
+		return "confirmed" in self.request.POST
+
+	def form_valid(self, form):
+		if self.form_confirmed():
+			return super(UpdateInvitationsView, self).form_valid(form)
+		else:
+			self.show_confirm = True
+			removal_ids = self.request.POST.getlist('remove_invitations_for')
+			removals = form.fields['remove_invitations_for'].queryset.filter(id__in=removal_ids)
+			return self.render_to_response(self.get_context_data(form=form, removals=removals))
+
+	def get_template_names(self):
+		if self.show_confirm:
+			return ["groups/manage_invitations_confirmation.html"]
+		else:
+			return ["groups/manage_invitations.html"]
+
+class UpdateMembersView(UpdateView):
+	model = Group
+	form_class = forms.ManageMembersForm
+	pk_url_kwarg = 'group_id'
+	success_url = '/groups/%(id)s'
+	show_confirm = False
+
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+		return super(UpdateMembersView, self).dispatch(*args, **kwargs)
+
+	def form_confirmed(self):
+		return "confirmed" in self.request.POST
+
+	def form_valid(self, form):
+		if self.form_confirmed():
+			return super(UpdateMembersView, self).form_valid(form)
+		else:
+			self.show_confirm = True
+			removal_ids = self.request.POST.getlist('remove_members')
+			removals = form.fields['remove_members'].queryset.filter(id__in=removal_ids)
+			return self.render_to_response(self.get_context_data(form=form, removals=removals))
+
+	def get_template_names(self):
+		if self.show_confirm:
+			return ["groups/manage_members_confirmation.html"]
+		else:
+			return ["groups/manage_members.html"]

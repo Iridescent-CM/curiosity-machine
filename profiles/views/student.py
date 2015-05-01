@@ -38,7 +38,7 @@ def join(request):
             return HttpResponseRedirect(reverse('profiles:home'))
         form = JoinForm()
 
-    return render(request, 'join_modal.html', {'form': form,})
+    return render(request, 'profiles/student/join_modal.html', {'form': form,})
 
 @login_required
 def home(request):
@@ -56,7 +56,7 @@ def home(request):
         'my_challenges_filters': my_challenges_filters, 
         'favorite_challenges': favorite_challenges,
         'group_form': GroupJoinForm(),
-        'groups': [{"object":group, "form":GroupLeaveForm(initial={'id': group.id})} for group in request.user.cm_groups.all()],
+        'groups': request.user.cm_groups.all(),
         'invitations': Invitation.objects.filter(user=request.user).all()
     })
 
