@@ -49,6 +49,7 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', '{{ga_code}}', 'auto');
+    ga('set', 'dimension1', '{{ga_dimension_user_type}}');
     ga('send', 'pageview');
   </script>
   {% endif %}
