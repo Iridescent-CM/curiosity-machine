@@ -7,6 +7,9 @@ class GroupForm(forms.ModelForm):
     class Meta:
         model = models.Group
         fields = ['name']
+        help_texts = {
+            "name": "This is the group name your students will see."
+        }
 
 class GroupJoinForm(forms.Form):
     code = forms.CharField(widget=forms.TextInput, required=True)
@@ -74,7 +77,10 @@ class ListField(forms.Field):
         return list(val for val in re.split("[\s;,]+", value) if val)
 
 class MultiInvitationForm(forms.Form):
-    recipients = ListField(required=True, help_text="Note: usernames are case sensitive.")
+    recipients = ListField(
+        required=True,
+        help_text="Enter one or more usernames separated by commas. Usernames are case sensitive."
+    )
 
     def clean_recipients(self):
         recipients = self.cleaned_data['recipients']

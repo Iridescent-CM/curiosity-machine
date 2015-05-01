@@ -285,8 +285,8 @@ $(document).ready(function() {
 }); //end dom ready
 
 $.fn.extend({
-  initPanelCarousel: function() {
-    return this.owlCarousel({
+  initPanelCarousel: function(opts) {
+    var opts = $.extend({
       items : 4,
       itemsCustom : false,
       itemsDesktop : [1199,3],
@@ -296,7 +296,8 @@ $.fn.extend({
       itemsMobile : [479,1],
       singleItem : false,
       itemsScaleUp : false
-    });
+    }, opts);
+    return this.owlCarousel(opts);
   },
 
   disableEmptySubmit: function() {

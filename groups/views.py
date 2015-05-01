@@ -102,6 +102,26 @@ class GroupMemberDetailView(DetailView):
 		context.update({'group': self.group})
 		return context
 
+class GroupLeaveView(UpdateView):
+	model = Group
+	fields = []
+	template_name_suffix = '_leave_form'
+	pk_url_kwarg = 'group_id'
+	success_url = '/home'
+
+	@method_decorator(login_required)
+	@method_decorator(student_only)
+	def dispatch(self, *args, **kwargs):
+		return super(GroupLeaveView, self).dispatch(*args, **kwargs)
+
+	def form_valid(self, form):
+		result = self.object.delete_member(self.request.user)
+		if result:
+			messages.success(self.request, 'Successfully unsubscribed to the %s group' % self.object.name)
+		else:
+			messages.error(self.request, 'Already unsubscribed to %s group' % self.object.name)
+		return super(GroupLeaveView, self).form_valid(form)
+
 @login_required
 @feature_flag('enable_groups')
 @require_http_methods(["POST"])
@@ -120,21 +140,6 @@ def join_group(request):
 				messages.error(request, 'You are already a member of %s' % group.name)
 	else:
 		messages.error(request, 'Invalid group code')
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-@login_required
-@feature_flag('enable_groups')
-@require_http_methods(["POST"])
-@student_only
-def leave_group(request):
-	group_form = forms.GroupLeaveForm(data=request.POST)
-	group_form.is_valid()
-	group = get_object_or_404(Group, id=group_form.cleaned_data['id'])
-	result = group.delete_member(request.user)
-	if result:
-		messages.success(request, 'Successfully unsubscribed to the %s group' % group.name)
-	else:
-		messages.error(request, 'Already unsubscribed to %s group' % group.name)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @feature_flag('enable_groups')

@@ -35,7 +35,7 @@
           {% include "_avatar.html" with profile=user.profile width=240 height=240 crop='fill' %}
         </a>
         <div class="caption">
-          <h3>{{ user.username }}</h3>
+          <h4 title="{{user.username}}" class="text-overflow">{{ user.username }}</h4>
         </div>
       </div>
     </div>
