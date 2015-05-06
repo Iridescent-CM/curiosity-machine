@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
     url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
     url(r'^about/', TemplateView.as_view(template_name="static/about.html"), name='about'),
-    url(r'^privacy/', 'pages.views.static_page', {'page_id': StaticPage.privacy.value,}, name='privacy'),
+    url(r'^privacy/', TemplateView.as_view(template_name="static/privacy.html"), name='privacy'),
     url(r'^educator/', 'pages.views.static_page', {'page_id': StaticPage.educator.value,}, name='educator'),
     url(r'^mentor/', 'pages.views.static_page', {'page_id': StaticPage.mentor.value,}, name='mentor'),
     url(r'^parents/', 'pages.views.static_page', {'page_id': StaticPage.parents.value,}, name='parents'),
