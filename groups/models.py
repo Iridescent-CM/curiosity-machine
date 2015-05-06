@@ -8,6 +8,7 @@ from cmemails import deliver_email
 from django.conf import settings
 from django_simple_redis import redis
 from uuid import uuid4
+from django.utils.timezone import now
 
 class Role(Enum):
     owner = 0
@@ -18,6 +19,7 @@ class Group(models.Model):
     code = models.CharField('code', max_length=20, unique=True, null=True, blank=False)
     member_users = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
     invited_users = models.ManyToManyField(User, through='Invitation', through_fields=('group', 'user'), related_name="cm_group_invites", null=True)
+    created = models.DateTimeField(default=now)
 
     def owners(self):
         return User.objects.filter(cm_groups=self, memberships__role=Role.owner.value)
