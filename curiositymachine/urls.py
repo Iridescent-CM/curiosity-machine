@@ -4,6 +4,7 @@ from django.views.generic.base import RedirectView
 from pages.models import StaticPage
 from .views import root_redirect
 import profiles.urls
+from django.views.generic.base import TemplateView
 
 urlpatterns = patterns('',
     url(r'^$', root_redirect, name='root'),
@@ -21,7 +22,7 @@ urlpatterns = patterns('',
     url(r'^educator/', 'pages.views.static_page', {'page_id': StaticPage.educator.value,}, name='educator'),
     url(r'^mentor/', 'pages.views.static_page', {'page_id': StaticPage.mentor.value,}, name='mentor'),
     url(r'^parents/', 'pages.views.static_page', {'page_id': StaticPage.parents.value,}, name='parents'),
-    url(r'^faq/', 'pages.views.static_page', {'page_id': StaticPage.faq.value,}, name='faq'),
+    url(r'^faq/', TemplateView.as_view(template_name="static/faq.html"), name='faq'),
     # password reset URLs -- the "recover" one is modified and so resides in the profiles app
     url(r'^password/recover/(?P<signature>.+)/$', 'password_reset.views.recover_done',
         name='password_reset_sent'),
