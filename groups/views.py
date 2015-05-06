@@ -19,7 +19,6 @@ class GroupDetailView(DetailView):
 
 	@method_decorator(login_required)
 	@method_decorator(owners_only)
-	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		return super(GroupDetailView, self).dispatch(*args, **kwargs)
 
@@ -30,7 +29,6 @@ class GroupCreateView(CreateView):
 
 	@method_decorator(login_required)
 	@method_decorator(educator_only)
-	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		return super(GroupCreateView, self).dispatch(*args, **kwargs)
 
@@ -48,7 +46,6 @@ class GroupEditView(UpdateView):
 
 	@method_decorator(login_required)
 	@method_decorator(owners_only)
-	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		return super(GroupEditView, self).dispatch(*args, **kwargs)
 
@@ -59,7 +56,6 @@ class GroupDeleteView(DeleteView):
 
 	@method_decorator(login_required)
 	@method_decorator(owners_only)
-	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		return super(GroupDeleteView, self).dispatch(*args, **kwargs)
 
@@ -69,7 +65,6 @@ class InvitationCreateView(FormView):
 
 	@method_decorator(login_required)
 	@method_decorator(owners_only)
-	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		query = QueryDict(self.request.META.get('QUERY_STRING'))
 		self.is_resend = ('resend' in query)
@@ -101,7 +96,6 @@ class InvitationRejectView(DeleteView):
 	success_url = '/home'
 
 	@method_decorator(login_required)
-	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		return super(InvitationRejectView, self).dispatch(*args, **kwargs)
 
@@ -116,7 +110,6 @@ class GroupMemberDetailView(DetailView):
 
 	@method_decorator(login_required)
 	@method_decorator(owners_only)
-	@method_decorator(feature_flag('enable_groups'))
 	def dispatch(self, *args, **kwargs):
 		self.group = get_object_or_404(Group, id=self.kwargs['group_id'])
 		return super(GroupMemberDetailView, self).dispatch(*args, **kwargs)
@@ -147,7 +140,6 @@ class GroupLeaveView(UpdateView):
 		return super(GroupLeaveView, self).form_valid(form)
 
 @login_required
-@feature_flag('enable_groups')
 @require_http_methods(["POST"])
 @student_only
 def join_group(request):
@@ -166,7 +158,6 @@ def join_group(request):
 		messages.error(request, 'An error occurred, please try again')
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-@feature_flag('enable_groups')
 @login_required
 def accept_invitation(request, group_id):
 	group = get_object_or_404(Group, id=group_id)
