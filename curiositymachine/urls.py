@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
-from pages.models import StaticPage
 from .views import root_redirect
 import profiles.urls
 from django.views.generic.base import TemplateView
@@ -19,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
     url(r'^about/', TemplateView.as_view(template_name="static/about.html"), name='about'),
     url(r'^privacy/', TemplateView.as_view(template_name="static/privacy.html"), name='privacy'),
-    url(r'^educator/', 'pages.views.static_page', {'page_id': StaticPage.educator.value,}, name='educator'),
+    url(r'^educator/', TemplateView.as_view(template_name="static/educator.html"), name='educator'),
     url(r'^mentor/', TemplateView.as_view(template_name="static/mentor.html"), name='mentor'),
     url(r'^parents/', TemplateView.as_view(template_name="static/parent.html"), name='parents'),
     url(r'^faq/', TemplateView.as_view(template_name="static/faq.html"), name='faq'),
