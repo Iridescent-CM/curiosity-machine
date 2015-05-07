@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^privacy/', TemplateView.as_view(template_name="static/privacy.html"), name='privacy'),
     url(r'^educator/', 'pages.views.static_page', {'page_id': StaticPage.educator.value,}, name='educator'),
     url(r'^mentor/', 'pages.views.static_page', {'page_id': StaticPage.mentor.value,}, name='mentor'),
-    url(r'^parents/', 'pages.views.static_page', {'page_id': StaticPage.parents.value,}, name='parents'),
+    url(r'^parents/', TemplateView.as_view(template_name="static/parent.html"), name='parents'),
     url(r'^faq/', TemplateView.as_view(template_name="static/faq.html"), name='faq'),
     # password reset URLs -- the "recover" one is modified and so resides in the profiles app
     url(r'^password/recover/(?P<signature>.+)/$', 'password_reset.views.recover_done',
