@@ -11,6 +11,7 @@ from datetime import date
 import re
 
 from . import educator
+from . import parent
 
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 

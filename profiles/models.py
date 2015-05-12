@@ -15,6 +15,7 @@ class Profile(models.Model):
     is_student = models.BooleanField(default=False, verbose_name="Student access")
     is_mentor = models.BooleanField(default=False, verbose_name="Mentor access")
     is_educator = models.BooleanField(default=False, verbose_name="Educator access")
+    is_parent = models.BooleanField(default=False, verbose_name="Parent leader access")
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
     city = models.TextField(blank=True)
@@ -114,7 +115,7 @@ class Profile(models.Model):
         deliver_email('publish', self, progress=progress)
 
 def create_user_profile(sender, instance, created, **kwargs):
-    if created and not kwargs.get('raw'):
+    if created and not hasattr(instance, "profile") and not kwargs.get('raw'):
         Profile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
