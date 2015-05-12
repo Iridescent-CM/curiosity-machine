@@ -10,9 +10,11 @@ class ParentUserAndProfileForm(forms.ModelForm):
     profile_fields = [
         'city'
     ]
+
     profile_force = {
         'is_parent': True
     }
+
     force_require = ['email', 'city']
 
     image_url = FilePickerDragDropField(
@@ -25,6 +27,7 @@ class ParentUserAndProfileForm(forms.ModelForm):
 
     class Meta:
         model = User
+
         fields = [
             'username',
             'password',
@@ -32,9 +35,16 @@ class ParentUserAndProfileForm(forms.ModelForm):
             'first_name',
             'last_name'
         ]
+
         widgets = {
             'password': forms.PasswordInput(render_value=False),
             'city': forms.TextInput
+        }
+
+        error_messages = {
+            'username': {
+                'invalid': "Username can only include letters, digits and @/./+/-/_"
+            }
         }
 
     def __init__(self, *args, **kwargs):
