@@ -294,3 +294,32 @@ def test_owners_only_decorator_rejects_non_owners(rf, group, student):
         response = decorators.owners_only(view)(request, group_id=group.id)
     assert not view.called
 
+@pytest.mark.django_db
+def test_cascading_delete_for_members(student, educator, group):
+    group.add_owner(educator)
+    group.add_member(student)
+    assert Membership.objects.count() == 2
+    group.delete()
+    assert Membership.objects.count() == 0
+
+@pytest.mark.django_db
+def test_cascading_delete_for_invited_members(student, educator, group):
+    group.invite_member(student)
+    assert Invitation.objects.count() == 1
+    group.delete()
+    assert Invitation.objects.count() == 0
+
+@pytest.mark.django_db
+def test_orphan_groups(student, educator, mentor, group):
+    group.add_owner(educator)
+    group.add_owner(mentor)
+    group.add_member(student)
+    assert Membership.objects.count() == 3
+
+    group.delete_owner(mentor)
+    assert Membership.objects.count() == 2
+    assert Group.objects.count() == 1
+
+    group.delete_owner(educator)
+    assert Group.objects.count() == 0
+    assert Membership.objects.count() == 0
