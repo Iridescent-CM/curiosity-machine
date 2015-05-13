@@ -6,38 +6,40 @@ from profiles.models import Profile
 from images.models import Image
 from curiositymachine.forms import FilePickerDragDropField
 
-# UserAndProfileForm intended use:
-#
-#   UserAndProfileForm extends ModelForm, and builds form fields from the User model as a normal ModelForm would.
-#   It also introduces additional class attributes that let subclasses build form fields from the Profile model, or include
-#   useful fields defined within this base class itself.
-#
-#   UserAndProfileForm's save method returns a User model, but will build the connected Profile and Image models as well.
-#
-#   Defining a new UserAndProfileForm with an `instance` keyword argument will modify the form slightly to drop the
-#   username field, since that's never editable, and to make password and confirm_password optional, since they are not
-#   retrievable to be pre-populated.
-#
-#   Configuration example:
-#
-#       class DescendantUserAndProfileForm(UserAndProfileForm):
-#           class Meta(UserAndProfileForm.Meta):
-#               fields = [...]                  # fields to include from User
-#               widgets =
-#                   UserAndProfileForm.Meta.widgets.update({...})   # consider adding widget definitions, etc.
-#                                                                     to the base class, unless different ones
-#                                                                     are needed for different subclasses in which
-#                                                                     case this approach should work
-#
-#           profile_fields = [...]              # fields to include from Profile
-#           profile_fields_force = {...}        # dictionary of fields and values to set on Profile model
-#
-#           form_fields = []                    # fields from _form_field_definitions to include
-#
-#           make_required = []                  # list of fields to make required in this form (even if not
-#                                                 required in underlying model)
 
 class UserAndProfileForm(forms.ModelForm):
+    """Base class for forms handling account creation/modification.
+
+    UserAndProfileForm extends ModelForm, and builds form fields from the User model as a normal ModelForm would.
+    It also introduces additional class attributes that let subclasses build form fields from the Profile model, or include
+    useful fields defined within this base class itself.
+
+    UserAndProfileForm's save method returns a User model, but will build the connected Profile and Image models as well.
+
+    Defining a new UserAndProfileForm with an `instance` keyword argument will modify the form slightly to drop the
+    username field, since that's never editable, and to make password and confirm_password optional, since they are not
+    retrievable to be pre-populated.
+
+    Configuration example:
+
+        class DescendantUserAndProfileForm(UserAndProfileForm):
+            class Meta(UserAndProfileForm.Meta):
+                fields = [...]                  # fields to include from User
+                widgets =
+                    UserAndProfileForm.Meta.widgets.update({...})   # consider adding widget definitions, etc.
+                                                                      to the base class, unless different ones
+                                                                      are needed for different subclasses in which
+                                                                      case this approach should work
+
+            profile_fields = [...]              # fields to include from Profile
+            profile_fields_force = {...}        # dictionary of fields and values to set on Profile model
+
+            form_fields = []                    # fields from _form_field_definitions to include
+
+            make_required = []                  # list of fields to make required in this form (even if not
+                                                  required in underlying model)
+    """
+
     profile_fields = []
     profile_fields_force = {}
     make_required = []
