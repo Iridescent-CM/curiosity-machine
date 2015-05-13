@@ -7,10 +7,7 @@ def login_and_join_forms(request):
         'join_form': JoinForm(),
         'login_form': AuthenticationForm(),
         'mentor_join_form': MentorJoinForm(),
-        'educator_join_forms': {
-            'userForm': educator.UserCreationForm(prefix="user"),
-            'profileForm': educator.ProfileChangeForm(prefix="profile")
-        },
+        'educator_join_form': educator.EducatorUserAndProfileForm(prefix="educator"),
         'parent_join_form': parent.ParentUserAndProfileForm(prefix="parent")
     }
 
