@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{request.user.username }}'s Profile</h1>
+<form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-4">
+      {% include "profiles/formfield.html" with field=form.email %}
+      {% include "profiles/formfield.html" with field=form.password %}
+      {% include "profiles/formfield.html" with field=form.confirm_password %}
+    </div>
+    <div class="col-md-4">
+      {% include "profiles/formfield.html" with field=form.first_name %}
+      {% include "profiles/formfield.html" with field=form.last_name %}
+      {% include "profiles/formfield.html" with field=form.city %}
+    </div>
+    <div class="col-md-4">
+      {% with field=form.image_url %}
+        <div class="form-group">
+          {{field.label_tag}}
+          {% include "_avatar.html" with profile=request.user.profile width=327 height=327 crop='fit' %}
+          {{field}}
+          <div class="errors">{{field.errors}}</div>
+        </div>
+      {% endwith %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      {{ form.non_field_errors }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

@@ -1,7 +1,7 @@
 from copy import copy
 from django import forms
 from django.contrib.auth.models import User
-from django.forms.models import fields_for_model
+from django.forms.models import fields_for_model, model_to_dict
 from profiles.models import Profile
 from images.models import Image
 from curiositymachine.forms import FilePickerDragDropField
@@ -49,6 +49,7 @@ class ParentUserAndProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ParentUserAndProfileForm, self).__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
 
         self.fields['confirm_password'] = copy(self.fields['password'])
         self.fields['confirm_password'].label = "Confirm password"
@@ -64,11 +65,20 @@ class ParentUserAndProfileForm(forms.ModelForm):
             self._meta.help_texts,
             self._meta.error_messages
         )
+        if instance:
+            initial = model_to_dict(instance.profile, self.profile_fields)
+            for fieldname, value in initial.items():
+                extra.get(fieldname).initial = value
         self.fields.update(extra)
 
         if hasattr(self, "force_require"):
             for fieldname in self.force_require:
                 self.fields[fieldname].required = True
+
+        if instance:
+            self.fields['password'].required = False
+            self.fields['confirm_password'].required = False
+            del self.fields['username']
 
     def clean_password(self):
         password = self.cleaned_data.get('password')
@@ -89,22 +99,28 @@ class ParentUserAndProfileForm(forms.ModelForm):
 
         password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
-        if password and confirm_password and password != confirm_password:
+        if password and password != confirm_password:
             self.add_error('password', "Passwords do not match.")
 
         return self.cleaned_data
 
     def save(self, commit=True):
         user = super(ParentUserAndProfileForm, self).save(commit=False)
-        user.set_password(self.cleaned_data["password"])
+        if "password" in self.cleaned_data:
+            user.set_password(self.cleaned_data["password"])
 
+        if hasattr(self.instance, "profile"):
+            profile = self.instance.profile
+        else:
+            profile = Profile()
         profile_data = {key: self.cleaned_data[key] for key in self.profile_fields}
         profile_data.update(self.profile_force)
-        profile = Profile(**profile_data)
+        for key, value in profile_data.items():
+            setattr(profile, key, value)
         profile.user = user
 
         image = None
-        if self.cleaned_data.get('image_url'):
+        if "image_url" in self.cleaned_data:
             image = Image(source_url=self.cleaned_data['image_url'])
             profile.image = image
 
