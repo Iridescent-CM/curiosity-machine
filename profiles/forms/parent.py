@@ -6,35 +6,24 @@ from profiles.models import Profile
 from images.models import Image
 from curiositymachine.forms import FilePickerDragDropField
 
-class ParentUserAndProfileForm(forms.ModelForm):
-    profile_fields = [
-        'city'
-    ]
+class UserAndProfileForm(forms.ModelForm):
+    profile_fields = []
+    profile_fields_force = {}
+    make_required = []
 
-    profile_force = {
-        'is_parent': True
+    _form_field_definitions = {
+        'image_url': FilePickerDragDropField(
+            label="Photo",
+            mimetypes="image/*",
+            openTo='WEBCAM',
+            services='WEBCAM,COMPUTER',
+            required=False
+        )
     }
-
-    force_require = ['email', 'city']
-
-    image_url = FilePickerDragDropField(
-        label="Photo",
-        mimetypes="image/*",
-        openTo='WEBCAM',
-        services='WEBCAM,COMPUTER',
-        required=False
-    )
 
     class Meta:
         model = User
-
-        fields = [
-            'username',
-            'password',
-            'email',
-            'first_name',
-            'last_name'
-        ]
+        fields = []
 
         widgets = {
             'password': forms.PasswordInput(render_value=False),
@@ -48,13 +37,14 @@ class ParentUserAndProfileForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(ParentUserAndProfileForm, self).__init__(*args, **kwargs)
+        super(UserAndProfileForm, self).__init__(*args, **kwargs)
         instance = kwargs.get('instance')
 
-        self.fields['confirm_password'] = copy(self.fields['password'])
-        self.fields['confirm_password'].label = "Confirm password"
+        if "password" in self.fields:
+            self.fields['confirm_password'] = copy(self.fields['password'])
+            self.fields['confirm_password'].label = "Confirm password"
 
-        extra = fields_for_model(
+        profile_fields = fields_for_model(
             Profile,
             self.profile_fields,
             [],
@@ -68,17 +58,20 @@ class ParentUserAndProfileForm(forms.ModelForm):
         if instance:
             initial = model_to_dict(instance.profile, self.profile_fields)
             for fieldname, value in initial.items():
-                extra.get(fieldname).initial = value
-        self.fields.update(extra)
+                profile_fields.get(fieldname).initial = value
+        self.fields.update(profile_fields)
 
-        if hasattr(self, "force_require"):
-            for fieldname in self.force_require:
-                self.fields[fieldname].required = True
+        self.fields.update({key: self._form_field_definitions[key] for key in self.form_fields})
+
+        for fieldname in self.make_required:
+            self.fields[fieldname].required = True
 
         if instance:
-            self.fields['password'].required = False
-            self.fields['confirm_password'].required = False
-            del self.fields['username']
+            if "password" in self.fields:
+                self.fields['password'].required = False
+                self.fields['confirm_password'].required = False
+            if "username" in self.fields:
+                del self.fields['username']
 
     def clean_password(self):
         password = self.cleaned_data.get('password')
@@ -95,7 +88,7 @@ class ParentUserAndProfileForm(forms.ModelForm):
         return confirm_password
 
     def clean(self):
-        super(ParentUserAndProfileForm, self).clean()
+        super(UserAndProfileForm, self).clean()
 
         password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
@@ -105,7 +98,7 @@ class ParentUserAndProfileForm(forms.ModelForm):
         return self.cleaned_data
 
     def save(self, commit=True):
-        user = super(ParentUserAndProfileForm, self).save(commit=False)
+        user = super(UserAndProfileForm, self).save(commit=False)
         if "password" in self.cleaned_data:
             user.set_password(self.cleaned_data["password"])
 
@@ -114,7 +107,7 @@ class ParentUserAndProfileForm(forms.ModelForm):
         else:
             profile = Profile()
         profile_data = {key: self.cleaned_data[key] for key in self.profile_fields}
-        profile_data.update(self.profile_force)
+        profile_data.update(self.profile_fields_force)
         for key, value in profile_data.items():
             setattr(profile, key, value)
         profile.user = user
@@ -135,3 +128,23 @@ class ParentUserAndProfileForm(forms.ModelForm):
             profile.save()
 
         return user
+
+class ParentUserAndProfileForm(UserAndProfileForm):
+    profile_fields = [
+        'city'
+    ]
+    profile_fields_force = {
+        'is_parent': True
+    }
+    make_required = ['email', 'city']
+
+    form_fields = ['image_url']
+
+    class Meta(UserAndProfileForm.Meta):
+        fields = [
+            'username',
+            'password',
+            'email',
+            'first_name',
+            'last_name'
+        ]
