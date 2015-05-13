@@ -11,7 +11,6 @@ from django.contrib.auth.decorators import login_required
 from groups.forms import GroupForm
 from units.models import Unit
 
-@feature_flag('enable_educators')
 @transaction.atomic
 def join(request):
     if request.method == 'POST':
@@ -68,7 +67,6 @@ def profile_edit(request):
         'profileForm': profileForm
     })
 
-@feature_flag('enable_educators')
 @educator_only
 @login_required
 def home(request):
