@@ -44,16 +44,7 @@ class StudentUserAndProfileForm(UserAndProfileForm):
                 msg = self.fields[fieldname].error_messages['required']
                 self.add_error(fieldname, msg)
 
-        self.profile_fields_force.update({
-            "approved": False
-        })
-
         return self.cleaned_data
 
     def _clean(self):
-
-        self.profile_fields_force.update({
-            "approved": True
-        })
-
         return self.cleaned_data

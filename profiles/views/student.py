@@ -6,9 +6,7 @@ from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
-from profiles.forms import StudentProfileEditForm
 from profiles.forms.student import StudentUserAndProfileForm
-from profiles.utils import create_or_edit_user
 from groups.forms import GroupJoinForm, GroupLeaveForm
 from groups.models import Invitation
 from challenges.models import Progress, Favorite
@@ -56,15 +54,14 @@ def home(request):
 @login_required
 def profile_edit(request):
     if request.method == 'POST':
-        form = StudentProfileEditForm(request=request, data=request.POST)
+        form = StudentUserAndProfileForm(data=request.POST, instance=request.user)
         if form.is_valid():
-            data = form.cleaned_data
-            create_or_edit_user(data, request.user)
+            form.save()
             messages.success(request, 'Profile has been updated.')
         else:
             messages.error(request, 'Correct errors below.')
     else:
-        form = StudentProfileEditForm(request)
+        form = StudentUserAndProfileForm(instance=request.user)
 
     return render(request, 'profile_edit.html', {'form': form,})
 

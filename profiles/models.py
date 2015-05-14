@@ -62,13 +62,13 @@ class Profile(models.Model):
             return 'admin'
         elif self.is_mentor:
             return 'mentor'
-        elif self.birthday and self.is_underage:
+        elif self.birthday and self.is_underage():
             return 'underage student'
         else:
             return 'student'
 
     def is_underage(self):
-        return self.age <= 13
+        return self.age < 13
 
 
     def set_active(self):
@@ -119,3 +119,11 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
+
+def auto_approve_non_coppa_students(sender, instance, created, **kwargs):
+    if created and not kwargs.get('raw'):
+        if instance.is_student and not instance.is_underage():
+            instance.approved = True
+            instance.save(update_fields=['approved'])
+
+post_save.connect(auto_approve_non_coppa_students, sender=Profile)

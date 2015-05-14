@@ -48,7 +48,7 @@ def test_form_clean_birthday_set():
     assert 'birthday' in f.errors
 
 @pytest.mark.django_db
-def test_form_sets_is_student_for_all_and_approved_by_age():
+def test_form_sets_is_student_for_all():
     bday = now() - relativedelta(years=13, days=1)
     f = forms.student.StudentUserAndProfileForm(data={
         'username': 'teen',
@@ -62,7 +62,6 @@ def test_form_sets_is_student_for_all_and_approved_by_age():
     assert f.is_valid()
     user = f.save()
     assert user.profile.is_student
-    assert user.profile.approved
 
     bday = now() - relativedelta(years=12)
     f = forms.student.StudentUserAndProfileForm(data={
@@ -80,4 +79,36 @@ def test_form_sets_is_student_for_all_and_approved_by_age():
     assert f.is_valid()
     user = f.save()
     assert user.profile.is_student
+
+@pytest.mark.django_db
+def test_over_13_student_accounts_auto_approve():
+    bday = now() - relativedelta(years=13, days=1)
+    f = forms.student.StudentUserAndProfileForm(data={
+        'username': 'teen',
+        'password': '123123',
+        'confirm_password': '123123',
+        'city': 'mycity',
+        'birthday_year': bday.year,
+        'birthday_month': bday.month,
+        'birthday_day': bday.day
+    })
+    assert f.is_valid()
+    user = f.save()
+    assert user.profile.approved
+
+    bday = now() - relativedelta(years=12)
+    f = forms.student.StudentUserAndProfileForm(data={
+        'username': 'underage',
+        'password': '123123',
+        'confirm_password': '123123',
+        'city': 'mycity',
+        'parent_first_name': 'parent',
+        'parent_last_name': 'parent',
+        'email': 'parentemail@example.com',
+        'birthday_year': bday.year,
+        'birthday_month': bday.month,
+        'birthday_day': bday.day
+    })
+    assert f.is_valid()
+    user = f.save()
     assert not user.profile.approved
