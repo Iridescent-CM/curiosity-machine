@@ -81,50 +81,6 @@ def test_mentor_inactive_for_with_last_inactive_email_sent_on(mentor):
     profile.save()
     assert Profile.inactive_mentors().count() == 0
 
-def test_student_join_form_required_fields():
-    f = forms.JoinForm()
-
-    assert f.fields['username'].required
-    assert f.fields['password'].required
-    assert f.fields['confirm_password'].required
-    assert f.fields['birthday'].required
-    assert f.fields['city'].required
-    
-    assert not f.fields['email'].required
-    assert not f.fields['picture_filepicker_url'].required
-    assert not f.fields['first_name'].required
-    assert not f.fields['last_name'].required
-    assert not f.fields['parent_first_name'].required
-    assert not f.fields['parent_last_name'].required
-
-def test_student_join_form_clean_requires_parent():
-    bday = now() - relativedelta(years=12)
-    f = forms.JoinForm(data={
-        'birthday_year': bday.year,
-        'birthday_month': bday.month,
-        'birthday_day': bday.day
-    })
-    assert 'parent_first_name' in f.errors
-    assert 'parent_last_name' in f.errors
-
-    bday = now() - relativedelta(years=13, days=1)
-    f = forms.JoinForm(data={
-        'birthday_year': bday.year,
-        'birthday_month': bday.month,
-        'birthday_day': bday.day
-    })
-    assert 'parent_first_name' not in f.errors
-    assert 'parent_last_name' not in f.errors
-
-def test_student_join_form_clean_birthday_set():
-    # values are widget initial values
-    f = forms.JoinForm(data={
-        'birthday_year': now().year,
-        'birthday_month': 1,
-        'birthday_day': 1
-    })
-    assert 'birthday' in f.errors
-
 def test_mentor_join_form_required_fields():
     f = forms.MentorJoinForm()
 

@@ -1,10 +1,14 @@
 from copy import copy
+from datetime import datetime, date
 from django import forms
 from django.contrib.auth.models import User
 from django.forms.models import fields_for_model, model_to_dict
+from django.forms.extras.widgets import SelectDateWidget
 from profiles.models import Profile
 from images.models import Image
 from curiositymachine.forms import FilePickerDragDropField
+
+BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 
 class UserAndProfileForm(forms.ModelForm):
     """Base class for forms handling account creation/modification.
@@ -24,11 +28,10 @@ class UserAndProfileForm(forms.ModelForm):
         class DescendantUserAndProfileForm(UserAndProfileForm):
             class Meta(UserAndProfileForm.Meta):
                 fields = [...]                  # fields to include from User
-                widgets =
-                    UserAndProfileForm.Meta.widgets.update({...})   # consider adding widget definitions, etc.
-                                                                      to the base class, unless different ones
-                                                                      are needed for different subclasses in which
-                                                                      case this approach should work
+                UserAndProfileForm.Meta.widgets.update({...})     # consider adding widget definitions, etc.
+                                                                    to the base class, unless different ones
+                                                                    are needed for different subclasses in which
+                                                                    case this approach should work
 
             profile_fields = [...]              # fields to include from Profile
             profile_fields_force = {...}        # dictionary of fields and values to set on Profile model
@@ -61,7 +64,10 @@ class UserAndProfileForm(forms.ModelForm):
 
         widgets = {
             'password': forms.PasswordInput(render_value=False),
-            'city': forms.TextInput
+            'city': forms.TextInput,
+            'birthday': SelectDateWidget(years=BIRTH_YEAR_CHOICES),
+            'parent_first_name': forms.TextInput,
+            'parent_last_name': forms.TextInput
         }
 
         error_messages = {
@@ -100,12 +106,22 @@ class UserAndProfileForm(forms.ModelForm):
         for fieldname in self.make_required:
             self.fields[fieldname].required = True
 
+        if "birthday" in self.fields:
+            self.fields['birthday'].initial = datetime.now()
+
         if instance:
             if "password" in self.fields:
                 self.fields['password'].required = False
                 self.fields['confirm_password'].required = False
             if "username" in self.fields:
                 del self.fields['username']
+
+    def clean_birthday(self):
+        birthday = self.cleaned_data['birthday']
+        if birthday == date(date.today().year, 1, 1):
+            # birthday hasn't been set
+            raise forms.ValidationError('Please set your birthday.')
+        return birthday
 
     def clean_password(self):
         password = self.cleaned_data.get('password')

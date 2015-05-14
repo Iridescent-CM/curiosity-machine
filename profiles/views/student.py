@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
-from profiles.forms import JoinForm, StudentProfileEditForm
+from profiles.forms import StudentProfileEditForm
+from profiles.forms.student import StudentUserAndProfileForm
 from profiles.utils import create_or_edit_user
 from groups.forms import GroupJoinForm, GroupLeaveForm
 from groups.models import Invitation
@@ -16,29 +17,21 @@ from django.db import transaction
 @transaction.atomic
 def join(request):
     if request.method == 'POST':
-        form = JoinForm(request=request, data=request.POST)
+        form = StudentUserAndProfileForm(data=request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-            data['is_student'] = True
-            try:
-                create_or_edit_user(data)
-            except IntegrityError:
-                errors = form._errors.setdefault('username', ErrorList())
-                errors.append('Username has already been used')
-                return render(request, 'join.html', {'form': form,})
-            else:
-                user = auth.authenticate(username=data['username'], password=data['password'])
-                auth.login(request, user)
-                user.profile.deliver_welcome_email()
-                return HttpResponseRedirect('/')
+            user = form.save()
+            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            auth.login(request, user)
+            user.profile.deliver_welcome_email()
+            return HttpResponseRedirect('/')
         else:
             return render(request, 'join.html', {'form': form,})
     else:
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('profiles:home'))
-        form = JoinForm()
+        form = StudentUserAndProfileForm()
 
-    return render(request, 'profiles/student/join_modal.html', {'form': form,})
+    return render(request, 'join.html', {'form': form,})
 
 @login_required
 def home(request):
