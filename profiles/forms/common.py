@@ -107,7 +107,7 @@ class UserAndProfileForm(forms.ModelForm):
             self.fields[fieldname].required = True
 
         if "birthday" in self.fields and not instance:
-            self.fields['birthday'].initial = datetime.now()
+            self.fields['birthday'].initial = date(date.today().year, 1, 1)
 
         if instance:
             if "password" in self.fields:

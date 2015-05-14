@@ -31,9 +31,7 @@ class StudentUserAndProfileForm(UserAndProfileForm):
         super(StudentUserAndProfileForm, self).clean()
 
         birthday = self.cleaned_data.get('birthday')
-        if not birthday:
-            return self.cleaned_data
-        elif age(birthday) < 13:
+        if not birthday or age(birthday) < 13:
             return self._clean_underage()
         else:
             return self._clean()
