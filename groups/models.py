@@ -2,12 +2,13 @@ import time
 from django.db import models
 from django.contrib.auth.models import User
 from enum import Enum
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save, post_save, post_delete
 from curiositymachine.helpers import random_string
 from cmemails import deliver_email
 from django.conf import settings
 from django_simple_redis import redis
 from uuid import uuid4
+from django.utils.timezone import now
 
 class Role(Enum):
     owner = 0
@@ -18,6 +19,7 @@ class Group(models.Model):
     code = models.CharField('code', max_length=20, unique=True, null=True, blank=False)
     member_users = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
     invited_users = models.ManyToManyField(User, through='Invitation', through_fields=('group', 'user'), related_name="cm_group_invites", null=True)
+    created = models.DateTimeField(default=now)
 
     def owners(self):
         return User.objects.filter(cm_groups=self, memberships__role=Role.owner.value)
@@ -34,6 +36,12 @@ class Group(models.Model):
     def add_owner(self, user):
         if not Membership.objects.filter(group=self, user=user, role=Role.owner.value).exists():
             Membership.objects.create(group=self, user=user, role=Role.owner.value)
+            return True
+        return False
+
+    def delete_owner(self, user):
+        if Membership.objects.filter(group=self, user=user, role=Role.owner.value).exists():
+            Membership.objects.get(group=self, user=user, role=Role.owner.value).delete()
             return True
         return False
 
@@ -71,6 +79,12 @@ def create_code(sender, instance, **kwargs):
 
 pre_save.connect(create_code, sender=Group)
 
+def delete_invitations_and_members(sender, instance, **kwargs):
+    for model_klass in [Membership, Invitation]:
+        model_klass.objects.filter(group=instance).delete()
+
+post_delete.connect(delete_invitations_and_members, sender=Group)
+
 class Membership(models.Model):
     group = models.ForeignKey(Group, related_name="memberships")
     user = models.ForeignKey(User, related_name="memberships")
@@ -97,6 +111,13 @@ class Membership(models.Model):
             group__memberships__user__username=username2,
             group__memberships__role=role2.value
         ).exists()
+
+def delete_when_group_is_orphaned(sender, instance, **kwargs):
+    group = Group.objects.filter(id=instance.group_id).first()
+    if group and len(group.owners()) < 1:
+        group.delete()
+
+post_delete.connect(delete_when_group_is_orphaned, sender=Membership)
 
 class Invitation(models.Model):
     group = models.ForeignKey(Group, related_name="group_invitations")

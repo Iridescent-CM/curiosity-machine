@@ -102,153 +102,111 @@ def test_educators(group, mentor):
 
 @pytest.mark.django_db
 def test_group(client, group, loggedInEducator):
-    with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_groups': True}):
-        group.add_owner(loggedInEducator)
-        response = client.get('/groups/%s/' % str(group.id))
-        assert response.status_code == 200
-        assert response.context['group'].id == group.id
+    group.add_owner(loggedInEducator)
+    response = client.get('/groups/%s/' % str(group.id))
+    assert response.status_code == 200
+    assert response.context['group'].id == group.id
 
 @pytest.mark.django_db
 def test_group_permission_denied_to_non_owners(client, loggedInEducator, group):
-    with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_groups': True}):
-        response = client.get('/groups/%s/' % group.id)
-        assert response.status_code == 403
+    response = client.get('/groups/%s/' % group.id)
+    assert response.status_code == 403
 
 @pytest.mark.django_db
 def test_join_group(client, group, loggedInStudent):
-    with mock.patch.dict(settings.FEATURE_FLAGS, {
-        'enable_groups': True,
-        'enable_educators': True
-    }):
-        response = client.post(reverse('groups:join_group'), {'code': group.code}, HTTP_REFERER='/')
-        assert len(group.members()) == 1
-        assert response.status_code == 302
+    response = client.post(reverse('groups:join_group'), {'code': group.code}, HTTP_REFERER='/')
+    assert len(group.members()) == 1
+    assert response.status_code == 302
 
 @pytest.mark.django_db
 def test_leave_group(client, group, loggedInStudent):
     group.add_member(loggedInStudent)
-    with mock.patch.dict(settings.FEATURE_FLAGS, {
-        'enable_groups': True,
-        'enable_educators': True
-    }):
-        response = client.post(reverse('groups:leave', kwargs={'group_id': group.id}))
-        assert len(group.members()) == 0
-        assert response.status_code == 302
+    response = client.post(reverse('groups:leave', kwargs={'group_id': group.id}))
+    assert len(group.members()) == 0
+    assert response.status_code == 302
 
 @pytest.mark.django_db
 def test_invite_to_group(client, group, student, loggedInEducator):
-    with mock.patch.dict(settings.FEATURE_FLAGS, {
-        'enable_groups': True,
-        'enable_educators': True
-    }):
-        group.add_owner(loggedInEducator)
-        response = client.post(
-            reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
-            {'recipients': student.username}
-        )
-        assert Invitation.objects.filter(user=student, group=group).exists()
-        assert response.status_code == 302
+    group.add_owner(loggedInEducator)
+    response = client.post(
+        reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
+        {'recipients': student.username}
+    )
+    assert Invitation.objects.filter(user=student, group=group).exists()
+    assert response.status_code == 302
 
 @pytest.mark.django_db
 def test_resend_invite_to_group(client, group, student, loggedInEducator):
-    with mock.patch.dict(settings.FEATURE_FLAGS, {
-        'enable_groups': True,
-        'enable_educators': True
-    }):
-        qs = '?resend=1'
-        group.add_owner(loggedInEducator)
-        response = client.post(
-            reverse('groups:invite_to_group', kwargs={'group_id': group.id}) + qs,
-            {'recipients': student.username},
-            follow=True
-        )
-        assert Invitation.objects.filter(user=student, group=group).exists()
-        messages = list(response.context['messages'])
-        assert len(messages) == 1
-        assert "Resent" in str(messages[0])
+    qs = '?resend=1'
+    group.add_owner(loggedInEducator)
+    response = client.post(
+        reverse('groups:invite_to_group', kwargs={'group_id': group.id}) + qs,
+        {'recipients': student.username},
+        follow=True
+    )
+    assert Invitation.objects.filter(user=student, group=group).exists()
+    messages = list(response.context['messages'])
+    assert len(messages) == 1
+    assert "Resent" in str(messages[0])
 
 @pytest.mark.django_db
 def test_invite_multiple_to_group(client, group, student, loggedInEducator):
-    with mock.patch.dict(settings.FEATURE_FLAGS, {
-        'enable_groups': True,
-        'enable_educators': True
-    }):
-        group.add_owner(loggedInEducator)
-        otherstudent = User.objects.create_user(username='otherstudent', email='student@example.com', password='password')
-        otherstudent.profile.approved = True
-        otherstudent.profile.is_student = True
-        otherstudent.profile.save()
-        response = client.post(
-            reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
-            {'recipients': ", ".join([student.username, otherstudent.username])}
-        )
-        assert Invitation.objects.filter(user=otherstudent, group=group).exists()
-        assert Invitation.objects.filter(user=student, group=group).exists()
-        assert response.status_code == 302
+    group.add_owner(loggedInEducator)
+    otherstudent = User.objects.create_user(username='otherstudent', email='student@example.com', password='password')
+    otherstudent.profile.approved = True
+    otherstudent.profile.is_student = True
+    otherstudent.profile.save()
+    response = client.post(
+        reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
+        {'recipients': ", ".join([student.username, otherstudent.username])}
+    )
+    assert Invitation.objects.filter(user=otherstudent, group=group).exists()
+    assert Invitation.objects.filter(user=student, group=group).exists()
+    assert response.status_code == 302
 
 @pytest.mark.django_db
 def test_invite_nonstudent_to_group(client, group, mentor, loggedInEducator):
-    with mock.patch.dict(settings.FEATURE_FLAGS, {
-        'enable_groups': True,
-        'enable_educators': True
-    }):
-        group.add_owner(loggedInEducator)
-        response = client.post(
-            reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
-            {'recipients': ", ".join([mentor.username])}
-        )
-        assert response.status_code == 200
-        assert 'recipients' in response.context['form'].errors.keys()
+    group.add_owner(loggedInEducator)
+    response = client.post(
+        reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
+        {'recipients': ", ".join([mentor.username])}
+    )
+    assert response.status_code == 200
+    assert 'recipients' in response.context['form'].errors.keys()
 
 @pytest.mark.django_db
 def test_invite_nonexistant_to_group(client, group, student, loggedInEducator):
-    with mock.patch.dict(settings.FEATURE_FLAGS, {
-        'enable_groups': True,
-        'enable_educators': True
-    }):
-        group.add_owner(loggedInEducator)
-        response = client.post(
-            reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
-            {'recipients': ", ".join([student.username, 'nonexistant'])}
-        )
-        assert response.status_code == 200
-        assert 'recipients' in response.context['form'].errors.keys()
+    group.add_owner(loggedInEducator)
+    response = client.post(
+        reverse('groups:invite_to_group', kwargs={'group_id': group.id}),
+        {'recipients': ", ".join([student.username, 'nonexistant'])}
+    )
+    assert response.status_code == 200
+    assert 'recipients' in response.context['form'].errors.keys()
 
 @pytest.mark.django_db
 def test_accept_invitation(client, group, loggedInStudent):
     group.invite_member(loggedInStudent)
-    with mock.patch.dict(settings.FEATURE_FLAGS, {
-        'enable_groups': True,
-        'enable_educators': True
-    }):
-        response = client.get(reverse('groups:accept_invitation', kwargs={'group_id': group.id}), HTTP_REFERER='/')
-        assert len(group.members()) == 1
-        assert response.status_code == 302
+    response = client.get(reverse('groups:accept_invitation', kwargs={'group_id': group.id}), HTTP_REFERER='/')
+    assert len(group.members()) == 1
+    assert response.status_code == 302
 
 @pytest.mark.django_db
 def test_reject_invitation(client, group, loggedInStudent):
     group.invite_member(loggedInStudent)
-    with mock.patch.dict(settings.FEATURE_FLAGS, {
-        'enable_groups': True,
-        'enable_educators': True
-    }):
-        response = client.get(reverse('groups:reject_invitation', kwargs={'group_id': group.id}))
-        assert Invitation.objects.count() == 1
-        assert response.status_code == 200
-        response = client.post(reverse('groups:reject_invitation', kwargs={'group_id': group.id}))
-        assert Invitation.objects.count() == 0
-        assert response.status_code == 302
+    response = client.get(reverse('groups:reject_invitation', kwargs={'group_id': group.id}))
+    assert Invitation.objects.count() == 1
+    assert response.status_code == 200
+    response = client.post(reverse('groups:reject_invitation', kwargs={'group_id': group.id}))
+    assert Invitation.objects.count() == 0
+    assert response.status_code == 302
 
 @pytest.mark.django_db
 def test_create(client, loggedInEducator):
-    with mock.patch.dict(settings.FEATURE_FLAGS, {
-        'enable_groups': True,
-        'enable_educators': True
-    }):
-        response = client.post(reverse('groups:create'), {'name': "group1"},HTTP_REFERER='/')
-        group = Group.objects.get(name='group1')
-        assert len(group.owners()) == 1
-        assert response.status_code == 302
+    response = client.post(reverse('groups:create'), {'name': "group1"},HTTP_REFERER='/')
+    group = Group.objects.get(name='group1')
+    assert len(group.owners()) == 1
+    assert response.status_code == 302
 
 @pytest.mark.django_db
 def test_invite_member_sends_one_email(group, student):
@@ -294,3 +252,32 @@ def test_owners_only_decorator_rejects_non_owners(rf, group, student):
         response = decorators.owners_only(view)(request, group_id=group.id)
     assert not view.called
 
+@pytest.mark.django_db
+def test_cascading_delete_for_members(student, educator, group):
+    group.add_owner(educator)
+    group.add_member(student)
+    assert Membership.objects.count() == 2
+    group.delete()
+    assert Membership.objects.count() == 0
+
+@pytest.mark.django_db
+def test_cascading_delete_for_invited_members(student, educator, group):
+    group.invite_member(student)
+    assert Invitation.objects.count() == 1
+    group.delete()
+    assert Invitation.objects.count() == 0
+
+@pytest.mark.django_db
+def test_orphan_groups(student, educator, mentor, group):
+    group.add_owner(educator)
+    group.add_owner(mentor)
+    group.add_member(student)
+    assert Membership.objects.count() == 3
+
+    group.delete_owner(mentor)
+    assert Membership.objects.count() == 2
+    assert Group.objects.count() == 1
+
+    group.delete_owner(educator)
+    assert Group.objects.count() == 0
+    assert Membership.objects.count() == 0
