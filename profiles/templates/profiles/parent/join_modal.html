@@ -9,9 +9,7 @@
   <h1>Create an account as a parent.</h1>
 </div>
 
-<form method='post' action="{% url 'profiles:join_as_parent' %}" enctype="multipart/form-data" 
-  id="join-modal-form" class="default-form"
->
+<form method='post' action="{% url 'profiles:join_as_parent' %}" enctype="multipart/form-data" class="default-form">
   <div class="modal-body clearfix">
     {% csrf_token %}
     <div class="row">
