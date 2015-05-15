@@ -6,6 +6,7 @@ from django.forms.models import fields_for_model, model_to_dict
 from django.forms.extras.widgets import SelectDateWidget
 from profiles.models import Profile
 from images.models import Image
+from videos.models import Video
 from curiositymachine.forms import FilePickerDragDropField
 
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
@@ -55,6 +56,30 @@ class UserAndProfileForm(forms.ModelForm):
             openTo='WEBCAM',
             services='WEBCAM,COMPUTER',
             required=False
+        ),
+        'about_me_filepicker_url': FilePickerDragDropField(
+            label="About Me Photo or Video",
+            mimetypes="video/*,image/*",
+            openTo='WEBCAM',
+            services='VIDEO,WEBCAM,COMPUTER',
+            required=False,
+            mimetype_widget=forms.HiddenInput(attrs={"id":"about_me_mimetype"})
+        ),
+        'about_me_filepicker_mimetype': forms.CharField(
+            required=False,
+            widget=forms.HiddenInput(attrs={"id":"about_me_mimetype"})
+        ),
+        'about_research_filepicker_url': FilePickerDragDropField(
+            label="About My Research Photo or Video",
+            mimetypes="video/*,image/*",
+            openTo='WEBCAM',
+            services='VIDEO,WEBCAM,COMPUTER',
+            required=False,
+            mimetype_widget=forms.HiddenInput(attrs={"id":"about_research_mimetype"})
+        ),
+        'about_research_filepicker_mimetype': forms.CharField(
+            required=False,
+            widget=forms.HiddenInput(attrs={"id":"about_research_mimetype"})
         )
     }
 
@@ -67,7 +92,15 @@ class UserAndProfileForm(forms.ModelForm):
             'city': forms.TextInput,
             'birthday': SelectDateWidget(years=BIRTH_YEAR_CHOICES),
             'parent_first_name': forms.TextInput,
-            'parent_last_name': forms.TextInput
+            'parent_last_name': forms.TextInput,
+            'title': forms.TextInput,
+            'employer': forms.TextInput
+        }
+
+        labels = {
+            'title': "What Is My Profession",
+            'employer': "Where Do I Work?",
+            'expertise': "Expertise In"
         }
 
         error_messages = {
@@ -162,18 +195,40 @@ class UserAndProfileForm(forms.ModelForm):
             setattr(profile, key, value)
         profile.user = user
 
-        image = None
+        if "about_me_filepicker_url" in self.cleaned_data and "about_me_filepicker_mimetype" in self.cleaned_data:
+            if self.cleaned_data['about_me_filepicker_mimetype'].startswith('image'):
+                image = Image.from_source_with_job(self.cleaned_data['about_me_filepicker_url'])
+                profile.about_me_image_id = image.id
+                profile.about_me_video_id = None
+
+            elif self.cleaned_data['about_me_filepicker_mimetype'].startswith('video'):
+                video = Video.from_source_with_job(self.cleaned_data['about_me_filepicker_url'])
+                profile.about_me_image_id = None
+                profile.about_me_video_id = video.id
+
+        if 'about_research_filepicker_url' in self.cleaned_data and 'about_research_filepicker_mimetype' in self.cleaned_data:
+            if self.cleaned_data['about_research_filepicker_mimetype'].startswith('image'):
+                image = Image.from_source_with_job(self.cleaned_data['about_research_filepicker_url'])
+                profile.about_research_image_id = image.id
+                profile.about_research_video_id = None
+
+            elif self.cleaned_data['about_research_filepicker_mimetype'].startswith('video'):
+                video = Video.from_source_with_job(self.cleaned_data['about_research_filepicker_url'])
+                profile.about_research_image_id = None
+                profile.about_research_video_id = video.id
+
+        profile_image = None
         if "image_url" in self.cleaned_data:
-            image = Image(source_url=self.cleaned_data['image_url'])
-            profile.image = image
+            profile_image = Image(source_url=self.cleaned_data['image_url'])
+            profile.image = profile_image
 
         if commit:
             user.save()
             profile.user = user # no user_id otherwise
-            if image:
-                image.save()
-                image.fetch_from_source()
-            profile.image = image # no image_id otherwise
+            if profile_image:
+                profile_image.save()
+                profile_image.fetch_from_source()
+            profile.image = profile_image # no image_id otherwise
 
             profile.save()
 

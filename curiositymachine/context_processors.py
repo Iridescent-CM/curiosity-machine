@@ -1,12 +1,12 @@
-from profiles.forms import MentorJoinForm, educator, parent, student
+from profiles.forms import mentor, educator, parent, student
 from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
 
 def login_and_join_forms(request):
     return {
-        'join_form': student.StudentUserAndProfileForm(),
         'login_form': AuthenticationForm(),
-        'mentor_join_form': MentorJoinForm(),
+        'join_form': student.StudentUserAndProfileForm(),
+        'mentor_join_form': mentor.MentorUserAndProfileForm(prefix="mentor"),
         'educator_join_form': educator.EducatorUserAndProfileForm(prefix="educator"),
         'parent_join_form': parent.ParentUserAndProfileForm(prefix="parent")
     }

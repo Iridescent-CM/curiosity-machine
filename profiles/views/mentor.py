@@ -8,7 +8,7 @@ from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.models import Profile
-from profiles.forms import MentorJoinForm, MentorProfileEditForm
+from profiles.forms.mentor import MentorUserAndProfileForm, MentorUserAndProfileChangeForm
 from profiles.utils import create_or_edit_user
 from training.models import Module
 from challenges.models import Progress
@@ -21,30 +21,22 @@ from django.conf import settings
 @transaction.atomic
 def join(request):
     if request.method == 'POST':
-        form = MentorJoinForm(request=request, data=request.POST)
+        form = MentorUserAndProfileForm(data=request.POST, prefix="mentor")
         if form.is_valid():
-            data = form.cleaned_data
-            data['is_mentor'] = True
-            try:
-                create_or_edit_user(data)
-            except IntegrityError:
-                errors = form._errors.setdefault('username', ErrorList())
-                errors.append('Username has already been used')
-                return render(request, 'join.html', {'form': form,})
-            else:
-                user = auth.authenticate(username=data['username'], password=data['password'])
-                auth.login(request, user)
-                user.profile.deliver_welcome_email()
-                messages.success(request, 'Thanks for your interest in joining the Curiosity Machine mentor community! You will receive an email shortly with more information on how to get started.')
-                return HttpResponseRedirect('/')
+            user = form.save()
+            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            auth.login(request, user)
+            user.profile.deliver_welcome_email()
+            messages.success(request, 'Thanks for your interest in joining the Curiosity Machine mentor community! You will receive an email shortly with more information on how to get started.')
+            return HttpResponseRedirect('/')
         else:
             return render(request, 'profiles/mentor/join.html', {'form': form,})
     else:
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('profiles:home'))
-        form = MentorJoinForm()
-
-    return render(request, 'profiles/mentor/join_modal.html', {'form': form,})
+        else:
+            form = MentorUserAndProfileForm(prefix="mentor")
+            return render(request, 'profiles/mentor/join.html', {'form': form,})
 
 @login_required
 def home(request):
@@ -63,15 +55,14 @@ def home(request):
 @login_required
 def profile_edit(request):
     if request.method == 'POST':
-        form = MentorProfileEditForm(request=request, data=request.POST)
+        form = MentorUserAndProfileChangeForm(data=request.POST, instance=request.user, prefix="mentor")
         if form.is_valid():
-            data = form.cleaned_data
-            create_or_edit_user(data, request.user)
+            form.save()
             messages.success(request, 'Profile has been updated.')
         else:
             messages.error(request, 'Correct errors below.')
     else:
-        form = MentorProfileEditForm(request)
+        form = MentorUserAndProfileChangeForm(instance=request.user, prefix="mentor")
 
     return render(request, 'profiles/mentor/profile_edit.html', {'form': form,})
 
