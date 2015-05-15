@@ -9,7 +9,6 @@ from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.models import Profile
 from profiles.forms.mentor import MentorUserAndProfileForm, MentorUserAndProfileChangeForm
-from profiles.utils import create_or_edit_user
 from training.models import Module
 from challenges.models import Progress
 from django.db import transaction
