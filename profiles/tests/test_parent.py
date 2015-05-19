@@ -138,3 +138,6 @@ def test_connect_form_connects_to_usernames():
     form.save()
     assert models.ParentConnection.objects.all().count() == 1
     assert [profile.id for profile in parent.profile.child_profiles.all()] == [child.profile.id]
+    assert len(form.saved) == 1
+    assert type(form.saved[0][0]) == models.ParentConnection
+    assert form.saved[0][1] == True
