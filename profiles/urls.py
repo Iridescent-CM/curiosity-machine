@@ -13,4 +13,6 @@ urlpatterns = patterns('profiles.views',
     url(r'^mentors/(?P<username>[^/]+)/$', views.mentor.show_profile, name='mentor_profile'),
     url(r'^underage/$', views.student.underage, name='underage_student'),
     url(r'^unclaimed_progresses/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})$', views.mentor.unclaimed_progresses, name='unclaimed_progresses'),
+    url(r'^connect/$', views.parent.ParentConnectionCreateView.as_view(), name='connect'),
+    url(r'^connection/(?P<connection_id>\d+)/remove$', views.student.ParentConnectionDeleteView.as_view(), name='remove_connection'),
 )

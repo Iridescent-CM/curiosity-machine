@@ -1,5 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>TBD</h1>
+  <h2>
+    Your children
+    <a class="btn btn-primary btn-sm" href="{% url 'profiles:connect' %}">Add your child</a>
+  </h2>
+  <p>
+    Link your child's account to view their progress. Children must accept your invitation before you can see them.
+  </p>
+  <div class="tab-content">
+    <ul id="child-carousel" class="owl-carousel">
+      {% for connection in children %}
+        <li>
+          <div class="panel panel-default parent-connection {% if not connection.active %}is-off{% endif %}">
+            <div class="panel-body">
+              {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
+              <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">{{ connection.child_profile.user.username }}</h4>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script>
+    $(document).ready(function () {
+      $('#child-carousel').initPanelCarousel({
+        items: 6,
+        itemsDesktop: [1199,6],
+        itemsDesktopSmall : [980,5],
+        itemsTablet: [768,3],
+        itemsTabletSmall: false,
+        itemsMobile: [479,2],
+      });
+    });
+  </script>
 {% endblock %}

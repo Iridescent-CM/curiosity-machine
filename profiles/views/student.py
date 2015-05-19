@@ -11,6 +11,7 @@ from groups.forms import GroupJoinForm, GroupLeaveForm
 from groups.models import Invitation
 from challenges.models import Progress, Favorite
 from django.db import transaction
+from django.views.generic.edit import DeleteView
 
 @transaction.atomic
 def join(request):
@@ -67,3 +68,6 @@ def profile_edit(request):
 
 def underage(request):
     return render(request, 'underage_student.html')
+
+class ParentConnectionDeleteView(DeleteView):
+    pass

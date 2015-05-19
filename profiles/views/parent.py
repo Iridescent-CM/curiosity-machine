@@ -4,8 +4,14 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.db import transaction
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.views.generic.edit import UpdateView
+from django.utils.functional import lazy
 from profiles.forms import parent as forms
+from profiles.models import ParentConnection, Profile
+from profiles.decorators import parents_only
+from django.utils.decorators import method_decorator
 
 @transaction.atomic
 def join(request):
@@ -34,7 +40,11 @@ def join(request):
 
 @login_required
 def home(request):
-    return render(request, "profiles/parent/home.html", {})
+    children = ParentConnection.objects.filter(parent_profile=request.user.profile, removed=False)
+    return render(request, "profiles/parent/home.html", {
+        "user": request.user,
+        "children": children
+    })
 
 @login_required
 @transaction.atomic
@@ -52,3 +62,23 @@ def profile_edit(request):
     return render(request, 'profiles/parent/profile_edit.html', {
         'form': form
     })
+
+class ParentConnectionCreateView(UpdateView):
+    model = Profile
+    form_class = forms.ConnectForm
+    success_url = lazy(reverse, str)('profiles:home')
+    template_name = "profiles/parent/connect.html"
+
+    @method_decorator(login_required)
+    @method_decorator(parents_only)
+    def dispatch(self, *args, **kwargs):
+        return super(ParentConnectionCreateView, self).dispatch(*args, **kwargs)
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+    def form_valid(self, form):
+        res = super(ParentConnectionCreateView, self).form_valid(form)
+        already_connected = [pair[0].child_profile.user.username for pair in form.saved]
+        #TODO use messages to communicate already connected?
+        return res
