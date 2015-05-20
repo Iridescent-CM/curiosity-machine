@@ -123,6 +123,16 @@ class Profile(models.Model):
     def deliver_publish_email(self, progress):
         deliver_email('publish', self, progress=progress)
 
+    def is_parent_of(self, username, **kwargs):
+        filters = {
+            'parent_profile': self,
+            'child_profile__user__username': username
+        }
+        for field in ['active', 'removed']:
+            if field in kwargs:
+                filters[field] = kwargs[field]
+        return ParentConnection.objects.filter(**filters).exists()
+
 class ParentConnection(models.Model):
     parent_profile = models.ForeignKey("Profile", related_name="connections_as_parent")
     child_profile = models.ForeignKey("Profile", related_name="connections_as_child")

@@ -6,6 +6,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 from django.utils.functional import lazy
 from profiles.forms import parent as forms
@@ -82,3 +83,12 @@ class ParentConnectionCreateView(UpdateView):
         already_connected = [pair[0].child_profile.user.username for pair in form.saved]
         #TODO use messages to communicate already connected?
         return res
+
+class ChildDetailView(DetailView):
+    model = ParentConnection
+    pk_url_kwarg = 'connection_id'
+    template_name = 'profiles/parent/child_detail.html'
+    context_object_name = 'connection'
+
+    def dispatch(self, *args, **kwargs):
+            return super(ChildDetailView, self).dispatch(*args, **kwargs)

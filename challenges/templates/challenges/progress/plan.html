@@ -29,7 +29,7 @@
           <div class="panel panel-bubble">
             <div class="panel-body">
               <h3>Post your plan as a video, drawing (photo) or text</h3>
-              {% include "_comment_action_list.html" with disable=request.user.profile.is_educator %}
+              {% include "_comment_action_list.html" with enable=request.user.profile.is_student %}
             </div>
           </div>
 

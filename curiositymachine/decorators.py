@@ -14,12 +14,13 @@ def mentor_or_current_user(view):
             return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge_id}))
     return inner
 
-def mentor_or_educator_or_current_user(view):
+def current_user_or_approved_viewer(view):
     @wraps(view)
     def inner(request, challenge_id, username, *args, **kwargs):
         if (request.user.profile.is_mentor
                 or request.user.username == username
-                or Membership.users_share_any_group(request.user.username, Role.owner, username, Role.member)):
+                or Membership.users_share_any_group(request.user.username, Role.owner, username, Role.member)
+                or request.user.profile.is_parent_of(username, active=True, removed=False)):
             return view(request, challenge_id, username, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge_id}))

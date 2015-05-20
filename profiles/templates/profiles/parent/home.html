@@ -14,7 +14,9 @@
         <li>
           <div class="panel panel-default parent-connection {% if not connection.active %}is-off{% endif %}">
             <div class="panel-body">
-              {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
+              <a href="{% url 'profiles:connection' connection.id %}">
+                {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
+              </a>
               <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">{{ connection.child_profile.user.username }}</h4>
             </div>
           </div>
