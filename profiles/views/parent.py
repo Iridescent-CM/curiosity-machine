@@ -68,7 +68,7 @@ class ParentConnectionCreateView(UpdateView):
     model = Profile
     form_class = forms.ConnectForm
     success_url = lazy(reverse, str)('profiles:home')
-    template_name = "profiles/parent/connect.html"
+    template_name = "profiles/parent/connect_form.html"
 
     @method_decorator(login_required)
     @method_decorator(parents_only)
