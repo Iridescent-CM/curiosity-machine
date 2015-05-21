@@ -39,5 +39,7 @@ def feature_flags(request):
 
 def template_globals(request):
     return {
-        "REQUEST_A_MENTOR_LINK": settings.REQUEST_A_MENTOR_LINK
+        "REQUEST_A_MENTOR_LINK": settings.REQUEST_A_MENTOR_LINK,
+        "SITE_MESSAGE": settings.SITE_MESSAGE,
+        "SITE_MESSAGE_LEVEL": settings.SITE_MESSAGE_LEVEL
     }

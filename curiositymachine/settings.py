@@ -270,6 +270,8 @@ GA_CODE = os.environ.get("GA_CODE", None)
 PROGRESS_MONTH_ACTIVE_LIMIT = os.environ.get("PROGRESS_MONTH_ACTIVE_LIMIT", 2)
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", None)
 REQUEST_A_MENTOR_LINK = os.environ.get("REQUEST_A_MENTOR_LINK", None)
+SITE_MESSAGE = os.environ.get("SITE_MESSAGE", None)
+SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
 
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 
