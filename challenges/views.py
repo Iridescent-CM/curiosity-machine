@@ -22,7 +22,7 @@ def challenges(request):
     challenges = Challenge.objects.filter(draft=False).select_related('image')
     theme = request.GET.get('theme')
     theme_id = request.GET.get('theme_id')
-    filters = Filter.objects.filter(visible=True)
+    filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
     if theme:
         challenges = challenges.filter(themes__name=theme)
     themes = Theme.objects.all()
@@ -227,8 +227,9 @@ def ajax_challenges(request):
 
 def filtered_challenges(request, filter_id):
     theme_id = request.GET.get('theme_id')
+    qs = Filter.objects.get(pk=filter_id).challenges.select_related('image')
     if theme_id:
-        challenges = Filter.objects.get(pk=filter_id).challenges.filter(themes__id=theme_id)
+        challenges = qs.filter(themes__id=theme_id)
     else:
-        challenges = Filter.objects.get(pk=filter_id).challenges.all
+        challenges = qs.all()
     return render(request, 'ajax/challenges.html', {'challenges': challenges})
