@@ -62,6 +62,11 @@
   </div>
 
   <div id="main-container" class="main-column">
+    {% if SITE_MESSAGE %}
+      <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }}" role="alert">
+        {{ SITE_MESSAGE|safe }}
+      </div>
+    {% endif %}
     <div class="container-fluid main-content">
       <a href="{% url 'challenges:challenges' %}" class="logo">Curiosity Machine</a>
       <button type="button" class="navbar-toggle">
