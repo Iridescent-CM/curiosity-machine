@@ -12,17 +12,53 @@
     <ul id="child-carousel" class="owl-carousel">
       {% for connection in children %}
         <li>
-          <div class="panel panel-default parent-connection {% if not connection.active %}is-off{% endif %}">
-            <div class="panel-body">
-              <a href="{% url 'profiles:connection' connection.id %}">
-                {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
-              </a>
-              <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">{{ connection.child_profile.user.username }}</h4>
-            </div>
-          </div>
+          {% if connection.active %}
+            <a href="{% url 'profiles:connection' connection.id %}">
+              <div class="panel panel-default parent-connection">
+                <div class="panel-body">
+                  {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
+                  <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">
+                    {{ connection.child_profile.user.username }}
+                  </h4>
+                </div>
+              </div>
+            </a>
+          {% else %}
+            <a data-toggle="modal" data-target="#inactive-parent-connection">
+              <div class="panel panel-default parent-connection is-off">
+                <div class="panel-body">
+                  {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
+                  <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">
+                    {{ connection.child_profile.user.username }}
+                  </h4>
+                </div>
+              </div>
+            </a>
+          {% endif %}
         </li>
       {% endfor %}
     </ul>
+  </div>
+
+  <div class="modal fade" id="inactive-parent-connection" tabindex="-1"
+    role="dialog" aria-labelledby="inactive-parent-connection-label" aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="inactive-parent-connection-label">You can't see this child yet.</h4>
+        </div>
+        <div class="modal-body text-center">
+          <p>To see your child's progress, they must accept your invitation in their profile.</p>
+          <a class="btn btn-primary" href="{% url "logout" %}?next={% url "login" %}">Log out and have your child log in</a>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}
 
