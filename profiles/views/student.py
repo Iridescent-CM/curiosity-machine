@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
@@ -10,8 +10,10 @@ from profiles.forms.student import StudentUserAndProfileForm
 from groups.forms import GroupJoinForm, GroupLeaveForm
 from groups.models import Invitation
 from challenges.models import Progress, Favorite
+from profiles.models import ParentConnection
 from django.db import transaction
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
+from django.utils.functional import lazy
 
 @transaction.atomic
 def join(request):
@@ -40,7 +42,7 @@ def home(request):
     progresses = Progress.objects.filter(student=request.user).select_related("challenge")
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
-    return render(request, "student_home.html", {
+    return render(request, "profiles/student/home.html", {
         'active_progresses': active_progresses, 
         'completed_progresses': completed_progresses, 
         'progresses': progresses, 
@@ -49,7 +51,8 @@ def home(request):
         'favorite_challenges': favorite_challenges,
         'group_form': GroupJoinForm(),
         'groups': request.user.cm_groups.all(),
-        'invitations': Invitation.objects.filter(user=request.user).all()
+        'invitations': Invitation.objects.filter(user=request.user).all(),
+        'parent_connections': request.user.profile.connections_as_child.all(),
     })
 
 @login_required
@@ -71,3 +74,30 @@ def underage(request):
 
 class ParentConnectionDeleteView(DeleteView):
     pass
+
+from django.core.exceptions import ImproperlyConfigured
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.base import View
+from django.utils.encoding import force_text
+
+class ToggleView(SingleObjectMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        raise Http404()
+
+    def post(self, request, *args, **kwargs):
+        obj = self.get_object()
+        self.toggle(obj)
+        return HttpResponseRedirect(force_text(self.success_url))
+
+    def toggle(self, obj):
+        raise ImproperlyConfigured("You must override toggle")
+
+class ParentConnectionToggleView(ToggleView):
+    model = ParentConnection
+    pk_url_kwarg = 'connection_id'
+    success_url = lazy(reverse, str)('profiles:home')
+
+    def toggle(self, obj):
+        obj.active = not obj.active
+        obj.save(update_fields=['active'])
