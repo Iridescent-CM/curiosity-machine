@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
+from curiositymachine.views.generic import SoftDeleteView
 from django.utils.functional import lazy
 from profiles.forms import parent as forms
 from profiles.models import ParentConnection, Profile
@@ -92,3 +93,12 @@ class ChildDetailView(DetailView):
 
     def dispatch(self, *args, **kwargs):
             return super(ChildDetailView, self).dispatch(*args, **kwargs)
+
+class ParentConnectionDeleteView(SoftDeleteView):
+    model = ParentConnection
+    pk_url_kwarg = 'connection_id'
+    template_name = 'profiles/parent/parentconnection_confirm_delete.html'
+    success_url = lazy(reverse, str)('profiles:home')
+    deletion_field = 'removed'
+
+remove_connection = ParentConnectionDeleteView.as_view()

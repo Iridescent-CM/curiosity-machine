@@ -11,9 +11,9 @@ from groups.forms import GroupJoinForm, GroupLeaveForm
 from groups.models import Invitation
 from challenges.models import Progress, Favorite
 from profiles.models import ParentConnection
-from curiositymachine.views.generic import ToggleView
+from curiositymachine.views.generic import ToggleView, SoftDeleteView
 from django.db import transaction
-from django.views.generic.edit import DeleteView, UpdateView
+from django.views.generic.edit import UpdateView
 from django.utils.functional import lazy
 
 @transaction.atomic
@@ -74,18 +74,14 @@ def profile_edit(request):
 def underage(request):
     return render(request, 'underage_student.html')
 
-class ParentConnectionDeleteView(DeleteView):
+class ParentConnectionDeleteView(SoftDeleteView):
     model = ParentConnection
     pk_url_kwarg = 'connection_id'
     template_name = 'profiles/student/parentconnection_confirm_delete.html'
     success_url = lazy(reverse, str)('profiles:home')
+    deletion_field = 'removed'
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        success_url = self.get_success_url()
-        self.object.removed = True
-        self.object.save(update_fields=['removed'])
-        return HttpResponseRedirect(success_url)
+remove_connection = ParentConnectionDeleteView.as_view()
 
 class ParentConnectionToggleView(ToggleView):
     model = ParentConnection

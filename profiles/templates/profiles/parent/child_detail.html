@@ -18,6 +18,7 @@
           <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">{{ connection.child_profile.user.username }}</h4>
         </div>
       </div>
+      <a href="{% url "profiles:remove_connection" connection_id=connection.id %}">Remove this child</a>
     </div>
     <div class="col-sm-10">
       <h1>Challenges</h1>
