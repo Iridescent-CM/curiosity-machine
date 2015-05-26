@@ -40,6 +40,36 @@
     </ul>
   </div>
 
+  <h2>Introductory Resources</h2>
+  <p>
+    Learn how to encourage children to imagine, invent, and engineer through these six short videos. These training modules cover the basics of physics and strategies to support your child in innovative thinking.
+  </p>
+  <div class="tab-content">
+    <ul id="training-carousel" class="owl-carousel">
+      {% for i in "1234567" %}
+        <li>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <a href="#">Module {{i}}</a>
+              </h3>
+            </div>
+            <div class="image-container">
+              <a href="#">
+                <img src="http://placehold.it/265x200" />
+              </a>
+            </div>
+            <div class="panel-body">
+              <div class="description">
+                example training module explanation
+              </div>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
   <div class="modal fade" id="inactive-parent-connection" tabindex="-1"
     role="dialog" aria-labelledby="inactive-parent-connection-label" aria-hidden="true"
   >
@@ -74,5 +104,6 @@
         itemsMobile: [479,2],
       });
     });
+    $('#training-carousel').initPanelCarousel();
   </script>
 {% endblock %}
