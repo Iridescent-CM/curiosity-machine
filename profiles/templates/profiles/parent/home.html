@@ -9,35 +9,39 @@
     Link your child's account to view their progress. Children must accept your invitation before you can see them.
   </p>
   <div class="tab-content">
-    <ul id="child-carousel" class="owl-carousel">
-      {% for connection in children %}
-        <li>
-          {% if connection.active %}
-            <a href="{% url 'profiles:connection' connection.id %}">
-              <div class="panel panel-default parent-connection">
-                <div class="panel-body">
-                  {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
-                  <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">
-                    {{ connection.child_profile.user.username }}
-                  </h4>
+    {% if children %}
+      <ul id="child-carousel" class="owl-carousel">
+        {% for connection in children %}
+          <li>
+            {% if connection.active %}
+              <a href="{% url 'profiles:connection' connection.id %}">
+                <div class="panel panel-default parent-connection">
+                  <div class="panel-body">
+                    {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
+                    <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">
+                      {{ connection.child_profile.user.username }}
+                    </h4>
+                  </div>
                 </div>
-              </div>
-            </a>
-          {% else %}
-            <a data-toggle="modal" data-target="#inactive-parent-connection">
-              <div class="panel panel-default parent-connection is-off">
-                <div class="panel-body">
-                  {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
-                  <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">
-                    {{ connection.child_profile.user.username }}
-                  </h4>
+              </a>
+            {% else %}
+              <a data-toggle="modal" data-target="#inactive-parent-connection">
+                <div class="panel panel-default parent-connection is-off">
+                  <div class="panel-body">
+                    {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
+                    <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">
+                      {{ connection.child_profile.user.username }}
+                    </h4>
+                  </div>
                 </div>
-              </div>
-            </a>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <h3 class="tab-empty">Use the button above to add your child's account.</h3>
+    {% endif %}
   </div>
 
   <h2>Introductory Resources</h2>
