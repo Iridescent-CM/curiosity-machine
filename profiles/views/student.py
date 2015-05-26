@@ -43,6 +43,7 @@ def home(request):
     progresses = Progress.objects.filter(student=request.user).select_related("challenge")
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
+    connections = ParentConnection.objects.filter(child_profile=request.user.profile, removed=False)
     return render(request, "profiles/student/home.html", {
         'active_progresses': active_progresses, 
         'completed_progresses': completed_progresses, 
@@ -53,7 +54,7 @@ def home(request):
         'group_form': GroupJoinForm(),
         'groups': request.user.cm_groups.all(),
         'invitations': Invitation.objects.filter(user=request.user).all(),
-        'parent_connections': request.user.profile.connections_as_child.all(),
+        'parent_connections': connections
     })
 
 @login_required
@@ -74,7 +75,17 @@ def underage(request):
     return render(request, 'underage_student.html')
 
 class ParentConnectionDeleteView(DeleteView):
-    pass
+    model = ParentConnection
+    pk_url_kwarg = 'connection_id'
+    template_name = 'profiles/student/parentconnection_confirm_delete.html'
+    success_url = lazy(reverse, str)('profiles:home')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.removed = True
+        self.object.save(update_fields=['removed'])
+        return HttpResponseRedirect(success_url)
 
 class ParentConnectionToggleView(ToggleView):
     model = ParentConnection

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  Delete parent connection?
+  <form action="" method="POST">
+    {% csrf_token %}
+    <ul class="list-inline">
+      <li><input class="btn btn-primary" type="submit" value="Confirm" /></li>
+      <li><a href="{% url 'profiles:home' %}">Cancel</a></li>
+    </ul>
+  </form>
+{% endblock %}

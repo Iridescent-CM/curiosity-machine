@@ -98,7 +98,7 @@
                 </form>
               </td>
               <td>
-                <a class="btn btn-link">REMOVE</a>
+                <a class="btn btn-link" href="{% url "profiles:remove_connection" connection_id=connection.id %}">REMOVE</a>
               </td>
             </tr>
           {% endfor %}
