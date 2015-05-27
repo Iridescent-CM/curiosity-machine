@@ -12,7 +12,7 @@ from curiositymachine.views.generic import SoftDeleteView
 from django.utils.functional import lazy
 from profiles.forms import parent as forms
 from profiles.models import ParentConnection, Profile
-from profiles.decorators import parents_only
+from profiles.decorators import parents_only, connected_parent_only
 from django.utils.decorators import method_decorator
 
 @transaction.atomic
@@ -91,6 +91,8 @@ class ChildDetailView(DetailView):
     template_name = 'profiles/parent/child_detail.html'
     context_object_name = 'connection'
 
+    @method_decorator(login_required)
+    @method_decorator(connected_parent_only)
     def dispatch(self, *args, **kwargs):
             return super(ChildDetailView, self).dispatch(*args, **kwargs)
 
@@ -100,5 +102,10 @@ class ParentConnectionDeleteView(SoftDeleteView):
     template_name = 'profiles/parent/parentconnection_confirm_delete.html'
     success_url = lazy(reverse, str)('profiles:home')
     deletion_field = 'removed'
+
+    @method_decorator(login_required)
+    @method_decorator(connected_parent_only)
+    def dispatch(self, *args, **kwargs):
+            return super(ParentConnectionDeleteView, self).dispatch(*args, **kwargs)
 
 remove_connection = ParentConnectionDeleteView.as_view()
