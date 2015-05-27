@@ -1,8 +1,29 @@
 import pytest
 import mock
 from datetime import datetime
-from profiles import forms, models
-from django.contrib.auth.models import User
+from profiles import forms, models, decorators
+from django.contrib.auth.models import User, AnonymousUser
+from django.core.exceptions import PermissionDenied
+
+@pytest.fixture
+def parent():
+    parent = User(username="parent")
+    parent_profile = models.Profile(is_parent=True)
+    parent_profile.user = parent
+    parent.save()
+    parent_profile.user = parent
+    parent_profile.save()
+    return parent
+
+@pytest.fixture
+def child():
+    child = User(username="child")
+    child_profile = models.Profile(is_student=True, birthday=datetime.now())
+    child_profile.user = child
+    child.save()
+    child_profile.user = child
+    child_profile.save()
+    return child
 
 def test_form_required_fields_on_creation():
     f = forms.parent.ParentUserAndProfileForm()
@@ -115,21 +136,7 @@ def test_connect_form_validates_existance():
     assert form.errors.as_data()["usernames"][0].code == 'nonexistant-user'
 
 @pytest.mark.django_db
-def test_connect_form_connects_to_usernames():
-    parent = User(username="parent")
-    parent_profile = models.Profile(is_parent=True)
-    parent_profile.user = parent
-    parent.save()
-    parent_profile.user = parent
-    parent_profile.save()
-
-    child = User(username="child")
-    child_profile = models.Profile(is_student=True, birthday=datetime.now())
-    child_profile.user = child
-    child.save()
-    child_profile.user = child
-    child_profile.save()
-
+def test_connect_form_connects_to_usernames(parent, child):
     form = forms.parent.ConnectForm(instance=parent.profile, data={
         "usernames": "child"
     })
@@ -141,3 +148,42 @@ def test_connect_form_connects_to_usernames():
     assert len(form.saved) == 1
     assert type(form.saved[0][0]) == models.ParentConnection
     assert form.saved[0][1] == True
+
+@pytest.mark.django_db
+def test_parents_only_decorator(rf, parent):
+    request = rf.get('/path')
+    view = mock.Mock()
+    request.user = AnonymousUser()
+    with pytest.raises(PermissionDenied):
+        response = decorators.parents_only(view)(request)
+        assert not view.called
+    request.user = parent
+    response = decorators.parents_only(view)(request)
+    assert view.called
+
+@pytest.mark.django_db
+def test_connected_parent_only_decorator(rf, parent, child):
+    connection = models.ParentConnection.objects.create(child_profile=child.profile, parent_profile=parent.profile)
+    request = rf.get('/path')
+    view = mock.Mock()
+    request.user = child
+    with pytest.raises(PermissionDenied):
+        response = decorators.connected_parent_only(view)(request, connection_id=connection.id)
+        assert not view.called
+    request.user = parent
+    response = decorators.connected_parent_only(view)(request, connection_id=connection.id)
+    assert view.called
+
+@pytest.mark.django_db
+def test_active_connected_parent_only_decorator(rf, parent, child):
+    connection = models.ParentConnection.objects.create(child_profile=child.profile, parent_profile=parent.profile)
+    request = rf.get('/path')
+    view = mock.Mock()
+    request.user = parent
+    with pytest.raises(PermissionDenied):
+        response = decorators.active_connected_parent_only(view)(request, connection_id=connection.id)
+        assert not view.called
+    connection.active = True
+    connection.save()
+    response = decorators.active_connected_parent_only(view)(request, connection_id=connection.id)
+    assert view.called

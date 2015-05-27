@@ -12,7 +12,7 @@ from curiositymachine.views.generic import SoftDeleteView
 from django.utils.functional import lazy
 from profiles.forms import parent as forms
 from profiles.models import ParentConnection, Profile
-from profiles.decorators import parents_only, connected_parent_only
+from profiles.decorators import parents_only, connected_parent_only, active_connected_parent_only
 from django.utils.decorators import method_decorator
 
 @transaction.atomic
@@ -92,7 +92,7 @@ class ChildDetailView(DetailView):
     context_object_name = 'connection'
 
     @method_decorator(login_required)
-    @method_decorator(connected_parent_only)
+    @method_decorator(active_connected_parent_only)
     def dispatch(self, *args, **kwargs):
             return super(ChildDetailView, self).dispatch(*args, **kwargs)
 

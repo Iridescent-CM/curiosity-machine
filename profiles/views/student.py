@@ -15,6 +15,8 @@ from curiositymachine.views.generic import ToggleView, SoftDeleteView
 from django.db import transaction
 from django.views.generic.edit import UpdateView
 from django.utils.functional import lazy
+from django.utils.decorators import method_decorator
+from profiles.decorators import connected_child_only
 
 @transaction.atomic
 def join(request):
@@ -81,12 +83,22 @@ class ParentConnectionDeleteView(SoftDeleteView):
     success_url = lazy(reverse, str)('profiles:home')
     deletion_field = 'removed'
 
+    @method_decorator(login_required)
+    @method_decorator(connected_child_only)
+    def dispatch(self, *args, **kwargs):
+            return super(ParentConnectionDeleteView, self).dispatch(*args, **kwargs)
+
 remove_connection = ParentConnectionDeleteView.as_view()
 
 class ParentConnectionToggleView(ToggleView):
     model = ParentConnection
     pk_url_kwarg = 'connection_id'
     success_url = lazy(reverse, str)('profiles:home')
+
+    @method_decorator(login_required)
+    @method_decorator(connected_child_only)
+    def dispatch(self, *args, **kwargs):
+            return super(ParentConnectionToggleView, self).dispatch(*args, **kwargs)
 
     def toggle(self, obj):
         obj.active = not obj.active

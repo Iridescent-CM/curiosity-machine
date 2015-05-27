@@ -1,8 +1,31 @@
 import pytest
 import mock
+from datetime import datetime
 from django.utils.timezone import now
+from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from dateutil.relativedelta import relativedelta
-from profiles import forms, models, views
+from profiles import forms, models, views, decorators
+
+@pytest.fixture
+def parent():
+    parent = User(username="parent")
+    parent_profile = models.Profile(is_parent=True)
+    parent_profile.user = parent
+    parent.save()
+    parent_profile.user = parent
+    parent_profile.save()
+    return parent
+
+@pytest.fixture
+def child():
+    child = User(username="child")
+    child_profile = models.Profile(is_student=True, birthday=datetime.now())
+    child_profile.user = child
+    child.save()
+    child_profile.user = child
+    child_profile.save()
+    return child
 
 def test_form_required_fields_on_creation_all_ages():
     f = forms.student.StudentUserAndProfileForm()
@@ -112,3 +135,16 @@ def test_over_13_student_accounts_auto_approve():
     assert f.is_valid()
     user = f.save()
     assert not user.profile.approved
+
+@pytest.mark.django_db
+def test_connected_child_only_decorator(rf, parent, child):
+    connection = models.ParentConnection.objects.create(child_profile=child.profile, parent_profile=parent.profile)
+    request = rf.get('/path')
+    view = mock.Mock()
+    request.user = parent
+    with pytest.raises(PermissionDenied):
+        response = decorators.connected_child_only(view)(request, connection_id=connection.id)
+        assert not view.called
+    request.user = child
+    response = decorators.connected_child_only(view)(request, connection_id=connection.id)
+    assert view.called
