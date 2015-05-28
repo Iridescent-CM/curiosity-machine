@@ -45,28 +45,39 @@ def home(request):
     children = ParentConnection.objects.filter(parent_profile=request.user.profile, removed=False)
     trainings = [
         {
-            "title": "Unit 1 - Forces & Growth Mindset",
-            "imagePath": "profiles/parenttraining1.jpg"
+            "title": "Unit 1",
+            "imagePath": "profiles/01_forces-and-growth-mindset.png",
+            "description": "Forces & Growth Mindset"
         },
         {
-            "title": "Unit 2 - Motion & Open-Ended Questions",
-            "imagePath": "profiles/parenttraining2.png"
+            "title": "Unit 2",
+            "imagePath": "profiles/02_motion.png",
+            "description": "Motion & Open-Ended Questions"
         },
         {
-            "title": "Unit 3 - Structural Strength & EDP",
-            "imagePath": "profiles/parenttraining3.png"
+            "title": "Unit 3",
+            "imagePath": "profiles/03_structural-strength.png",
+            "description": "Structural Strength & EDP"
         },
         {
-            "title": "Unit 4 - Forces of Flight & Persistence",
-            "imagePath": "profiles/parenttraining4.png"
+            "title": "Unit 4",
+            "imagePath": "profiles/04_forces-of-flight.png",
+            "description": "Forces of Flight & Persistence"
         },
         {
-            "title": "Unit 5 - Electricity & Gender Biases",
-            "imagePath": "profiles/parenttraining5.png"
+            "title": "Unit 5",
+            "imagePath": "profiles/05_electricity-and-gender.png",
+            "description": "Electricity & Gender Biases"
         },
         {
-            "title": "Power & Cognitive Apprenticeship",
-            "imagePath": "profiles/parenttraining6.png"
+            "title": "Unit 6",
+            "imagePath": "profiles/06_cognitive-apprenticeship.png",
+            "description": "Power & Cognitive Apprenticeship"
+        },
+        {
+            "title": "Unit 7",
+            "imagePath": "profiles/07_family-course.png",
+            "description": "How to Organize a Family Course"
         },
     ]
     return render(request, "profiles/parent/home.html", {
