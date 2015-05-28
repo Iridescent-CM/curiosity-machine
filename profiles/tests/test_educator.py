@@ -4,7 +4,7 @@ from django.conf import settings
 from profiles import forms, models, views
 from images.models import Image
 from django.http import Http404
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 
 def test_form_required_fields_on_creation():
     f = forms.educator.EducatorUserAndProfileForm()
@@ -189,9 +189,11 @@ def test_join(rf):
         'educator-username': 'user',
         'educator-email': 'email@example.com',
         'educator-password': '123123',
-        'educator-confirm_password': '123123'
+        'educator-confirm_password': '123123',
+        'educator-city': 'city'
     })
     request.session = mock.MagicMock()
+    request.user = AnonymousUser()
     response = views.educator.join(request)
     assert response.status_code == 302
     assert User.objects.filter(username='user').count() == 1

@@ -58,6 +58,7 @@ def test_theme_str(theme):
 @pytest.mark.django_db
 def test_challenges_response_code(rf, challenge, student):
     request = rf.get('/challenges/')
+    request.user = AnonymousUser()
     response = challenges(request)
     assert response.status_code == 200
 
