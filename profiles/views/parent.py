@@ -43,9 +43,36 @@ def join(request):
 @login_required
 def home(request):
     children = ParentConnection.objects.filter(parent_profile=request.user.profile, removed=False)
+    trainings = [
+        {
+            "title": "Unit 1 - Forces & Growth Mindset",
+            "imagePath": "profiles/parenttraining1.jpg"
+        },
+        {
+            "title": "Unit 2 - Motion & Open-Ended Questions",
+            "imagePath": "profiles/parenttraining2.png"
+        },
+        {
+            "title": "Unit 3 - Structural Strength & EDP",
+            "imagePath": "profiles/parenttraining3.png"
+        },
+        {
+            "title": "Unit 4 - Forces of Flight & Persistence",
+            "imagePath": "profiles/parenttraining4.png"
+        },
+        {
+            "title": "Unit 5 - Electricity & Gender Biases",
+            "imagePath": "profiles/parenttraining5.png"
+        },
+        {
+            "title": "Power & Cognitive Apprenticeship",
+            "imagePath": "profiles/parenttraining6.png"
+        },
+    ]
     return render(request, "profiles/parent/home.html", {
         "user": request.user,
-        "children": children
+        "children": children,
+        "trainings": trainings
     })
 
 @login_required

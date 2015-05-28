@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block content %}
   <h2>
@@ -50,22 +51,22 @@
   </p>
   <div class="tab-content">
     <ul id="training-carousel" class="owl-carousel">
-      {% for i in "1234567" %}
+      {% for training in trainings %}
         <li>
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">
-                <a href="#">Module {{i}}</a>
+                <a href="#">{{training.title}}</a>
               </h3>
             </div>
             <div class="image-container">
               <a href="#">
-                <img src="http://placehold.it/265x200" />
+                <img class="img-responsive" src="{% static training.imagePath %}" />
               </a>
             </div>
             <div class="panel-body">
               <div class="description">
-                example training module explanation
+                {{ training.description|default:"example training module explanation" }}
               </div>
             </div>
           </div>
