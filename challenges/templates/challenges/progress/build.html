@@ -73,7 +73,11 @@
               </ul>
               <div></div><!-- magical switch clearing div -->
 
-              {% include "_comment_action_list.html" with enable=request.user.profile.is_student %}
+              {% if request.user.profile.is_student %}
+                {% include "_comment_action_list.html" %}
+              {% else %}
+                {% include "_comment_action_list.html" with disable=True %}
+              {% endif %}
 
             </div>
           </div>
