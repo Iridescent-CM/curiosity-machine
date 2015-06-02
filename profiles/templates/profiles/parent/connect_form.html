@@ -8,7 +8,7 @@
   </p>
   <form action="" method="POST">
     {% csrf_token %}
-    {% include "profiles/formfield.html" with field=form.usernames %}
+    {% include "profiles/formfield.html" with field=form.usernames show_help=True %}
 
     <ul class="list-inline">
       <li><button class="btn btn-primary" type="submit">Send invite</button></li>
