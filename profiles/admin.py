@@ -5,13 +5,18 @@ from images.models import Image
 from .admin_utils import StudentFilter
 from cmemails import deliver_email
 
-from .models import Profile
+from .models import Profile, ConsentInvitation, UnderageConsent
 
 admin.site.unregister(User)
 
+class UnderageConsentInline(admin.StackedInline):
+    model = UnderageConsent
+    readonly_fields = ('signature', 'created_at', 'code',)
+    def has_add_permission(self, request): return False
+    def has_delete_permission(self, request, obj=None): return False
+
 class ProfileInline(admin.StackedInline):
     model = Profile
-
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if request.method == 'GET':
             if db_field.name == 'image':
@@ -22,7 +27,7 @@ class ProfileInline(admin.StackedInline):
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 class UserAdminWithProfile(UserAdmin):
-    inlines = [ ProfileInline, ]
+    inlines = [ ProfileInline, UnderageConsentInline, ]
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'date_joined')
     list_filter = (
         'is_superuser',
@@ -54,4 +59,15 @@ class UserAdminWithProfile(UserAdmin):
                 continue
             yield inline.get_formset(request, obj)
 
+class ConsentInvitationAdmin(admin.ModelAdmin):
+    model = ConsentInvitation
+    list_display = ('user', 'code', 'created_at')
+    fields = ('user','code',)
+    readonly_fields = ('code',)
+
+    def has_add_permission(self, request): return False
+    def has_delete_permission(self, request, obj=None): return False
+
+
 admin.site.register(User, UserAdminWithProfile)
+admin.site.register(ConsentInvitation, ConsentInvitationAdmin)

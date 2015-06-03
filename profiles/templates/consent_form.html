@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/favorites.js' %}"></script>
+{% endblock %}
+{% block avatar %}{% endblock %}
+
+{% block content %}
+
+<p>
+Dear Parent,
+</p>
+
+<p>
+Thank you for registering your child on Curiosity Machine!
+</p>
+
+<p>
+By becoming a part of the Curiosity Machine community, your child will learn that science and engineering,
+like art, is a creative process. It requires practice, feedback, and often guidance.
+On Curiosity Machine, your child will have the opportunity to receive constructive feedback from real scientists and engineers,
+who will encourage them to be a creative, curious, and persistent innovator.
+To receive this feedback, your child will have to submit pictures, video, and/or text to describe their designs and ask for help.
+</p>
+
+<p>
+Curiosity Machine mentors have been approved and trained by Iridescent,
+a 501(c)(3) science education nonprofit, to best support your child’s learning,
+and provide support for them to become the next generation of problem solvers,
+scientists, engineers, inventors, and entrepreneurs.
+</p>
+
+<p>
+Protecting the privacy of young children is especially important.
+We require a parent or guardian to provide consent for a child under the age of 13 to use Curiosity Machine.
+This is in compliance with the Children’s Online Privacy Protection Act (COPPA).
+Learn more about COPPA <a href="http://www.coppa.org/">here</a>.
+To learn more about how Iridescent protects children’s personally identifiable information, please read our Privacy Policy.
+</p>
+
+<p>
+To activate the account of your child under 13 years old, please sign below.
+You may also <a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">print the consent form</a>, sign it, and email, fax, or mail it to us.
+</p>
+
+<form action={% url 'profiles:consent_form' token=token %} method="POST">
+
+  <p>
+  <input type="checkbox" required/>
+	I understand that the information my child has supplied is correct. My child can post his/her projects, pictures, and videos to the website and interact with others in the Curiosity Machine community. I understand my child may receive promotional updates about upcoming design challenges and site improvements.
+  </p>
+
+  <p>
+    <strong>Electronic Signature</strong><br />By typing your name, you affirm that to the best of your knowledge the above information is true and correct.
+  </p>
+
+  {% csrf_token %}
+  {{ form.signature }}
+  <div class="errors">{{ form.signature.errors }}</div>
+
+  <input type="submit">
+</form>
+<hr />
+
+{% include '_privacy_policy.html' %}
+
+{% endblock %}

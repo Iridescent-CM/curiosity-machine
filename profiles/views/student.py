@@ -2,16 +2,18 @@ from django.shortcuts import render
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.forms import JoinForm, StudentProfileEditForm
+from profiles.forms.student import ConsentForm
 from profiles.utils import create_or_edit_user
 from groups.forms import GroupJoinForm, GroupLeaveForm
 from groups.models import Invitation
 from challenges.models import Progress, Favorite
 from django.db import transaction
+from profiles.models import Profile, ConsentInvitation, UnderageConsent
 
 @transaction.atomic
 def join(request):
@@ -49,11 +51,11 @@ def home(request):
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
     return render(request, "student_home.html", {
-        'active_progresses': active_progresses, 
-        'completed_progresses': completed_progresses, 
-        'progresses': progresses, 
-        'filter': filter, 
-        'my_challenges_filters': my_challenges_filters, 
+        'active_progresses': active_progresses,
+        'completed_progresses': completed_progresses,
+        'progresses': progresses,
+        'filter': filter,
+        'my_challenges_filters': my_challenges_filters,
         'favorite_challenges': favorite_challenges,
         'group_form': GroupJoinForm(),
         'groups': request.user.cm_groups.all(),
@@ -75,5 +77,42 @@ def profile_edit(request):
 
     return render(request, 'profile_edit.html', {'form': form,})
 
+@login_required
 def underage(request):
     return render(request, 'underage_student.html')
+
+def signed_consent_form(request, token):
+    if UnderageConsent.objects.filter(code=token).exists():
+        consent = UnderageConsent.objects.get(code=token)
+        return render(request, 'signed_consent_form.html', {'consent': consent,})
+    else:
+        messages.error(request, "Unable to find consent form.")
+        return HttpResponseRedirect(reverse('root'))
+
+def consent_form(request, token):
+    #get the token from the invite email
+    ctx = {
+        'token': token
+    }
+    if ConsentInvitation.objects.filter(code=token).exists():
+        if request.method == 'POST':
+            form = ConsentForm(data=request.POST)
+            if form.is_valid():
+                student = Profile.consent_student(token, form.cleaned_data['signature'])
+                messages.success(request, 'Your consent form for Curiosity Machine was successfully signed and {username} account is now active!.'.format(username=student.user.username))
+                return HttpResponseRedirect(reverse('profiles:signed_consent_form', kwargs={'token': student.user.consent.code}))
+            else:
+                ctx['form'] = form
+                return render(request, 'consent_form.html', ctx)
+        else:
+            ctx['form'] = ConsentForm()
+            return render(request, 'consent_form.html', ctx)
+    else:
+        messages.error(request, "Your invitation is invalid. Are you sure this invitation was for you?")
+        return HttpResponseRedirect(reverse('root'))
+
+@login_required
+def resend_consent_form_email(request):
+    request.user.profile.deliver_welcome_email()
+    messages.success(request, 'Activation Consent form was resent')
+    return HttpResponseRedirect(reverse('profiles:home'))

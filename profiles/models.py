@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from images.models import Image
@@ -9,6 +9,8 @@ from datetime import date, timedelta
 from cmcomments.models import Comment
 from cmemails import deliver_email
 from django.utils.timezone import now
+from uuid import uuid4
+import time
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
@@ -20,6 +22,7 @@ class Profile(models.Model):
     city = models.TextField(blank=True)
     parent_first_name = models.TextField(blank=True)
     parent_last_name = models.TextField(blank=True)
+
     title = models.TextField(blank=True, help_text="This is a mentor only field.")
     employer = models.TextField(blank=True, help_text="This is a mentor only field.")
     expertise = models.TextField(blank=True, help_text="This is a mentor only field.")
@@ -40,15 +43,26 @@ class Profile(models.Model):
 
     @classmethod
     def inactive_mentors(cls):
-         startdate = now()
-         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
-         return cls.objects.filter(last_active_on__lt=enddate, is_mentor=True, last_inactive_email_sent_on=None)
+        startdate = now()
+        enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
+        return cls.objects.filter(last_active_on__lt=enddate, is_mentor=True, last_inactive_email_sent_on=None)
 
     @classmethod
     def inactive_students(cls):
-         startdate = now()
-         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
-         return cls.objects.filter(last_active_on__lt=enddate,is_student=True, last_inactive_email_sent_on=None)
+        startdate = now()
+        enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
+        return cls.objects.filter(last_active_on__lt=enddate,is_student=True, last_inactive_email_sent_on=None)
+
+    @classmethod
+    def consent_student(cls, token, signature):
+        invitation = ConsentInvitation.objects.get(code=token)
+        profile = invitation.user.profile
+        consent = UnderageConsent.objects.create(signature=signature, user=invitation.user, code=token)
+        profile.approved = True
+        profile.save(update_fields=['approved'])
+        deliver_email('activation_confirmation', profile, digitally_signed=True, consent=consent)
+        invitation.delete()
+        return profile
 
     @property
     def age(self):
@@ -69,13 +83,11 @@ class Profile(models.Model):
     def is_underage(self):
         return self.age <= 13
 
-
     def set_active(self):
         self.last_active_on = now()
         return self.save(update_fields=['last_active_on'])
 
     def update_inactive_email_sent_on_and_save(self):
-
         self.last_inactive_email_sent_on = now()
         self.save(update_fields=['last_inactive_email_sent_on'])
 
@@ -100,6 +112,12 @@ class Profile(models.Model):
     def deliver_welcome_email(self):
         if self.is_mentor:
             deliver_email('welcome', self, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
+        elif self.is_student and self.is_underage:
+            if not ConsentInvitation.objects.filter(user=self.user).exists():
+                invitation = ConsentInvitation.objects.create(user=self.user)
+            else:
+                invitation = self.user.consent_invitation
+            invitation.send_welcome_invitation()
         else:
             deliver_email('welcome', self)
 
@@ -118,3 +136,46 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
+
+class UnderageConsent(models.Model):
+    user = models.OneToOneField(User, null=False, blank=False, related_name="consent")
+    signature = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    code = models.TextField(blank=False, null=True)
+
+    def __str__(self):
+        return "Consent: id={}, user={}".format(self.id, self.user)
+    def __repr__(self):
+        return "Consent: id={}, user={}".format(self.id, self.user)
+
+    def username(self):
+        return self.user.username
+
+#just a description of an invitation, used in a welcome email for underage students
+class ConsentInvitation(models.Model):
+    user = models.OneToOneField(User, related_name="consent_invitation")
+    code = models.TextField(blank=False, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Code={} User={}".format(self.code, self.user)
+
+    def __repr__(self):
+        return "Code={} User={}".format(self.code, self.user)
+
+    def send_welcome_invitation(self):
+        deliver_email('welcome', self.user.profile, token=self.code)
+
+def create_code(sender, instance, **kwargs):
+    def unique_slug():
+        string = uuid4()
+        if ConsentInvitation.objects.filter(code=string).exists():
+            return unique_slug()
+        else:
+            return string
+
+    #check that this model hasn't been created yet
+    if not instance.id:
+        instance.code = unique_slug()
+
+pre_save.connect(create_code, sender=ConsentInvitation)

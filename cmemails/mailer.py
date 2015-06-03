@@ -60,6 +60,7 @@ email_info = {
     #mentor's training task done
     'mentor_training_task_done': email_dict('training_task_done', MENTOR, 'You Completed Task!'),
 
+    'consent_form': email_dict('consent_form', UNDERAGE_STUDENT, 'Please sign consent form!'),    
     'mentor_training_task_done': email_dict('training_task_done', MENTOR, 'You Completed Task!'),
     #group invite
     'student_group_invite': email_dict('group_invite', STUDENT, 'You have been invited to join a group!'), 

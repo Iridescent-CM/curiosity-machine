@@ -191,8 +191,8 @@ EMAIL_HOST_USER = os.environ.get("POSTMARK_API_KEY", "")
 EMAIL_HOST_PASSWORD = os.environ.get("POSTMARK_API_KEY", "")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "")
+SEND_SYNC_EMAILS = process_false_string(os.environ.get('SEND_SYNC_EMAILS', False))
 
 # Which HTML tags are allowed
 BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'br', 'strike', 'li', 'ul', 'div', 'ol', 'span', 'blockquote', 'pre', 'img']
@@ -273,6 +273,7 @@ REQUEST_A_MENTOR_LINK = os.environ.get("REQUEST_A_MENTOR_LINK", None)
 SITE_MESSAGE = os.environ.get("SITE_MESSAGE", None)
 SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
 
+CONSENT_FORM_INVITATION_INACTIVE_DAYS = os.environ.get("CONSENT_FORM_INVITATION_INACTIVE_DAYS", 7)
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 
 # Import optional local settings.  This must come after config you want to be able to override.
