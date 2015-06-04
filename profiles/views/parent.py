@@ -5,6 +5,7 @@ from django.db import transaction
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from curiositymachine.decorators import feature_flag
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
@@ -16,6 +17,7 @@ from profiles.decorators import parents_only, connected_parent_only, active_conn
 from django.utils.decorators import method_decorator
 
 @transaction.atomic
+@feature_flag('enable_parents')
 def join(request):
     if request.method == 'POST':
         form = forms.ParentUserAndProfileForm(data=request.POST, prefix="parent")
@@ -41,6 +43,7 @@ def join(request):
             })
 
 @login_required
+@feature_flag('enable_parents')
 def home(request):
     children = ParentConnection.objects.filter(parent_profile=request.user.profile, removed=False)
     trainings = [
@@ -88,6 +91,7 @@ def home(request):
 
 @login_required
 @transaction.atomic
+@feature_flag('enable_parents')
 def profile_edit(request):
     if request.method == 'POST':
         form = forms.ParentUserAndProfileForm(data=request.POST, instance=request.user, prefix="parent")
