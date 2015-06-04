@@ -17,6 +17,7 @@ from django.views.generic.edit import UpdateView
 from django.utils.functional import lazy
 from django.utils.decorators import method_decorator
 from profiles.decorators import connected_child_only
+from curiositymachine.decorators import feature_flag
 
 @transaction.atomic
 def join(request):
@@ -85,6 +86,7 @@ class ParentConnectionDeleteView(SoftDeleteView):
 
     @method_decorator(login_required)
     @method_decorator(connected_child_only)
+    @method_decorator(feature_flag("enable_parents"))
     def dispatch(self, *args, **kwargs):
             return super(ParentConnectionDeleteView, self).dispatch(*args, **kwargs)
 
@@ -97,6 +99,7 @@ class ParentConnectionToggleView(ToggleView):
 
     @method_decorator(login_required)
     @method_decorator(connected_child_only)
+    @method_decorator(feature_flag("enable_parents"))
     def dispatch(self, *args, **kwargs):
             return super(ParentConnectionToggleView, self).dispatch(*args, **kwargs)
 

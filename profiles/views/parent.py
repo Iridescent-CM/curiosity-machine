@@ -115,6 +115,7 @@ class ParentConnectionCreateView(UpdateView):
 
     @method_decorator(login_required)
     @method_decorator(parents_only)
+    @method_decorator(feature_flag('enable_parents'))
     def dispatch(self, *args, **kwargs):
         return super(ParentConnectionCreateView, self).dispatch(*args, **kwargs)
 
@@ -135,6 +136,7 @@ class ChildDetailView(DetailView):
 
     @method_decorator(login_required)
     @method_decorator(active_connected_parent_only)
+    @method_decorator(feature_flag('enable_parents'))
     def dispatch(self, *args, **kwargs):
             return super(ChildDetailView, self).dispatch(*args, **kwargs)
 
@@ -147,6 +149,7 @@ class ParentConnectionDeleteView(SoftDeleteView):
 
     @method_decorator(login_required)
     @method_decorator(connected_parent_only)
+    @method_decorator(feature_flag('enable_parents'))
     def dispatch(self, *args, **kwargs):
             return super(ParentConnectionDeleteView, self).dispatch(*args, **kwargs)
 
