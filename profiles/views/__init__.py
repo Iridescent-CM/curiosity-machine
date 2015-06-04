@@ -10,7 +10,7 @@ from . import staff
 from . import parent
 
 @login_required
-def dispatch(request, action):
+def dispatch(request, action, *args, **kwargs):
     if request.user.profile.is_mentor:
         module = mentor
     elif request.user.profile.is_student:
@@ -26,7 +26,7 @@ def dispatch(request, action):
 
     fn = getattr(module, action, None)
     if fn:
-        return fn(request)
+        return fn(request, *args, **kwargs)
     else:
         raise Http404()
 

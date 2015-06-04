@@ -1,4 +1,7 @@
+from django import forms
 from profiles.forms.common import UserAndProfileForm
+from profiles.models import ParentConnection, Profile
+from curiositymachine.forms import StudentUsernamesField
 
 class ParentUserAndProfileForm(UserAndProfileForm):
     profile_fields = [
@@ -19,3 +22,25 @@ class ParentUserAndProfileForm(UserAndProfileForm):
             'first_name',
             'last_name'
         ]
+
+class ConnectForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = []
+
+    usernames = StudentUsernamesField(
+        required=True,
+        help_text="Enter one or more usernames separated by commas. Usernames are case sensitive."
+    )
+
+    def save(self, commit=True):
+        profiles = Profile.objects.filter(user__username__in=self.cleaned_data["usernames"])
+        existing = []
+        self.saved = [
+            ParentConnection.objects.get_or_create(
+                parent_profile=self.instance,
+                child_profile=profile,
+                removed=False
+            ) for profile in profiles
+        ]
+        return self.instance

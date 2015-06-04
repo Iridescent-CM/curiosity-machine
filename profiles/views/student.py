@@ -10,7 +10,14 @@ from profiles.forms.student import StudentUserAndProfileForm
 from groups.forms import GroupJoinForm, GroupLeaveForm
 from groups.models import Invitation
 from challenges.models import Progress, Favorite
+from profiles.models import ParentConnection
+from curiositymachine.views.generic import ToggleView, SoftDeleteView
 from django.db import transaction
+from django.views.generic.edit import UpdateView
+from django.utils.functional import lazy
+from django.utils.decorators import method_decorator
+from profiles.decorators import connected_child_only
+from curiositymachine.decorators import feature_flag
 
 @transaction.atomic
 def join(request):
@@ -39,7 +46,8 @@ def home(request):
     progresses = Progress.objects.filter(student=request.user).select_related("challenge")
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
-    return render(request, "student_home.html", {
+    connections = ParentConnection.objects.filter(child_profile=request.user.profile, removed=False)
+    return render(request, "profiles/student/home.html", {
         'active_progresses': active_progresses, 
         'completed_progresses': completed_progresses, 
         'progresses': progresses, 
@@ -48,7 +56,8 @@ def home(request):
         'favorite_challenges': favorite_challenges,
         'group_form': GroupJoinForm(),
         'groups': request.user.cm_groups.all(),
-        'invitations': Invitation.objects.filter(user=request.user).all()
+        'invitations': Invitation.objects.filter(user=request.user).all(),
+        'parent_connections': connections
     })
 
 @login_required
@@ -67,3 +76,33 @@ def profile_edit(request):
 
 def underage(request):
     return render(request, 'underage_student.html')
+
+class ParentConnectionDeleteView(SoftDeleteView):
+    model = ParentConnection
+    pk_url_kwarg = 'connection_id'
+    template_name = 'profiles/student/parentconnection_confirm_delete.html'
+    success_url = lazy(reverse, str)('profiles:home')
+    deletion_field = 'removed'
+
+    @method_decorator(login_required)
+    @method_decorator(connected_child_only)
+    @method_decorator(feature_flag("enable_parents"))
+    def dispatch(self, *args, **kwargs):
+            return super(ParentConnectionDeleteView, self).dispatch(*args, **kwargs)
+
+remove_connection = ParentConnectionDeleteView.as_view()
+
+class ParentConnectionToggleView(ToggleView):
+    model = ParentConnection
+    pk_url_kwarg = 'connection_id'
+    success_url = lazy(reverse, str)('profiles:home')
+
+    @method_decorator(login_required)
+    @method_decorator(connected_child_only)
+    @method_decorator(feature_flag("enable_parents"))
+    def dispatch(self, *args, **kwargs):
+            return super(ParentConnectionToggleView, self).dispatch(*args, **kwargs)
+
+    def toggle(self, obj):
+        obj.active = not obj.active
+        obj.save(update_fields=['active'])

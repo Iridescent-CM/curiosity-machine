@@ -1,6 +1,5 @@
 import pytest
 import mock
-from django.conf import settings
 from profiles import forms, models, views
 from images.models import Image
 from django.http import Http404

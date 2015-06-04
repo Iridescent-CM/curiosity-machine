@@ -39,6 +39,15 @@ class Profile(models.Model):
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
     shown_intro = models.BooleanField(default=False)
 
+    child_profiles = models.ManyToManyField(
+        "self",
+        through="ParentConnection",
+        through_fields=('parent_profile', 'child_profile'),
+        related_name="parent_profiles",
+        symmetrical=False,
+        null=True
+    )
+
     @classmethod
     def inactive_mentors(cls):
          startdate = now()
@@ -113,6 +122,22 @@ class Profile(models.Model):
 
     def deliver_publish_email(self, progress):
         deliver_email('publish', self, progress=progress)
+
+    def is_parent_of(self, username, **kwargs):
+        filters = {
+            'parent_profile': self,
+            'child_profile__user__username': username
+        }
+        for field in ['active', 'removed']:
+            if field in kwargs:
+                filters[field] = kwargs[field]
+        return ParentConnection.objects.filter(**filters).exists()
+
+class ParentConnection(models.Model):
+    parent_profile = models.ForeignKey("Profile", related_name="connections_as_parent")
+    child_profile = models.ForeignKey("Profile", related_name="connections_as_child")
+    active = models.BooleanField(default=False)
+    removed = models.BooleanField(default=False)
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created and not hasattr(instance, "profile") and not kwargs.get('raw'):
