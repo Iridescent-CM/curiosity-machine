@@ -14,57 +14,44 @@ from units.models import Unit
 @transaction.atomic
 def join(request):
     if request.method == 'POST':
-        userForm = forms.UserCreationForm(request.POST, prefix='user')
-        profileForm = forms.ProfileChangeForm(request.POST, prefix='profile')
-        if userForm.is_valid() and profileForm.is_valid():
-            user = userForm.save()
-            profileForm = forms.ProfileChangeForm(request.POST,
-                prefix='profile',
-                instance=user.profile
-            )
-            profileForm.save()
+        form = forms.EducatorUserAndProfileForm(data=request.POST, prefix='educator')
+        if form.is_valid():
+            user = form.save()
             user = auth.authenticate(
-                username=userForm.cleaned_data['username'],
-                password=userForm.cleaned_data['password']
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password']
             )
             auth.login(request, user)
             user.profile.deliver_welcome_email()
             return HttpResponseRedirect('/')
         else:
             return render(request, 'profiles/educator/join.html', {
-                'userForm': userForm,
-                'profileForm': profileForm
+                'form': form
             })
     else:
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('profiles:home'))
         else:
-            userForm = forms.UserCreationForm(prefix='user')
-            profileForm = forms.ProfileChangeForm(prefix='profile')
+            form = forms.EducatorUserAndProfileForm(prefix='educator')
             return render(request, 'profiles/educator/join.html', {
-                'userForm': userForm,
-                'profileForm': profileForm
+                'form': form
             })
 
 @login_required
 @transaction.atomic
 def profile_edit(request):
     if request.method == 'POST':
-        userForm = forms.UserChangeForm(request.POST, instance=request.user, prefix='user')
-        profileForm = forms.ProfileChangeForm(request.POST, instance=request.user.profile, prefix='profile')
-        if profileForm.is_valid() and userForm.is_valid():
-            userForm.save();
-            profileForm.save();
+        form = forms.EducatorUserAndProfileForm(data=request.POST, instance=request.user, prefix='educator')
+        if form.is_valid():
+            form.save();
             messages.success(request, 'Profile has been updated.')
         else:
             messages.error(request, 'Correct errors below.')
     else:
-        userForm = forms.UserChangeForm(instance=request.user, prefix='user')
-        profileForm = forms.ProfileChangeForm(instance=request.user.profile, prefix='profile')
+        form = forms.EducatorUserAndProfileForm(instance=request.user, prefix='educator')
 
     return render(request, 'profiles/educator/profile_edit.html', {
-        'userForm': userForm,
-        'profileForm': profileForm
+        'form': form
     })
 
 @educator_only

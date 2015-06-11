@@ -12,17 +12,17 @@ import django_rq
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
-from curiositymachine.decorators import mentor_or_educator_or_current_user, mentor_only
+from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only
 from videos.models import Video
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 
 def challenges(request):
-    challenges = Challenge.objects.filter(draft=False)
+    challenges = Challenge.objects.filter(draft=False).select_related('image')
     theme = request.GET.get('theme')
     theme_id = request.GET.get('theme_id')
-    filters = Filter.objects.filter(visible=True)
+    filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
     if theme:
         challenges = challenges.filter(themes__name=theme)
     themes = Theme.objects.all()
@@ -70,7 +70,7 @@ def reflect_guest(request, challenge_id):
         })
 
 @login_required
-@mentor_or_educator_or_current_user
+@current_user_or_approved_viewer
 def challenge_progress(request, challenge_id, username, stage=None):
     requestedStage = stage
     challenge = get_object_or_404(Challenge, id=challenge_id)
@@ -219,7 +219,7 @@ def favorite_challenges(request):
 
 
 def ajax_challenges(request):
-    challenges = Challenge.objects.filter(draft=False)
+    challenges = Challenge.objects.filter(draft=False).select_related('image')
     theme = request.GET.get('theme')
     if theme:
         challenges = challenges.filter(themes__name=theme)
@@ -227,8 +227,9 @@ def ajax_challenges(request):
 
 def filtered_challenges(request, filter_id):
     theme_id = request.GET.get('theme_id')
+    qs = Filter.objects.get(pk=filter_id).challenges.select_related('image')
     if theme_id:
-        challenges = Filter.objects.get(pk=filter_id).challenges.filter(themes__id=theme_id)
+        challenges = qs.filter(themes__id=theme_id)
     else:
-        challenges = Filter.objects.get(pk=filter_id).challenges.all
+        challenges = qs.all()
     return render(request, 'ajax/challenges.html', {'challenges': challenges})

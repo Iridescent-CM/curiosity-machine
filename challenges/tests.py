@@ -8,7 +8,6 @@ from profiles.tests import student, mentor
 from django.contrib.auth.models import User, AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
 from .templatetags.activity_count import activity_count
-from curiositymachine.decorators import mentor_or_educator_or_current_user
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
@@ -58,6 +57,7 @@ def test_theme_str(theme):
 @pytest.mark.django_db
 def test_challenges_response_code(rf, challenge, student):
     request = rf.get('/challenges/')
+    request.user = AnonymousUser()
     response = challenges(request)
     assert response.status_code == 200
 

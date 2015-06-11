@@ -15,6 +15,7 @@ class Profile(models.Model):
     is_student = models.BooleanField(default=False, verbose_name="Student access")
     is_mentor = models.BooleanField(default=False, verbose_name="Mentor access")
     is_educator = models.BooleanField(default=False, verbose_name="Educator access")
+    is_parent = models.BooleanField(default=False, verbose_name="Parent leader access")
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
     city = models.TextField(blank=True)
@@ -37,6 +38,15 @@ class Profile(models.Model):
     #this field will be cleared once the user becomes active
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
     shown_intro = models.BooleanField(default=False)
+
+    child_profiles = models.ManyToManyField(
+        "self",
+        through="ParentConnection",
+        through_fields=('parent_profile', 'child_profile'),
+        related_name="parent_profiles",
+        symmetrical=False,
+        null=True
+    )
 
     @classmethod
     def inactive_mentors(cls):
@@ -61,13 +71,13 @@ class Profile(models.Model):
             return 'admin'
         elif self.is_mentor:
             return 'mentor'
-        elif self.birthday and self.is_underage:
+        elif self.birthday and self.is_underage():
             return 'underage student'
         else:
             return 'student'
 
     def is_underage(self):
-        return self.age <= 13
+        return self.age < 13
 
 
     def set_active(self):
@@ -113,8 +123,32 @@ class Profile(models.Model):
     def deliver_publish_email(self, progress):
         deliver_email('publish', self, progress=progress)
 
+    def is_parent_of(self, username, **kwargs):
+        filters = {
+            'parent_profile': self,
+            'child_profile__user__username': username
+        }
+        for field in ['active', 'removed']:
+            if field in kwargs:
+                filters[field] = kwargs[field]
+        return ParentConnection.objects.filter(**filters).exists()
+
+class ParentConnection(models.Model):
+    parent_profile = models.ForeignKey("Profile", related_name="connections_as_parent")
+    child_profile = models.ForeignKey("Profile", related_name="connections_as_child")
+    active = models.BooleanField(default=False)
+    removed = models.BooleanField(default=False)
+
 def create_user_profile(sender, instance, created, **kwargs):
-    if created and not kwargs.get('raw'):
+    if created and not hasattr(instance, "profile") and not kwargs.get('raw'):
         Profile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
+
+def auto_approve_non_coppa_students(sender, instance, created, **kwargs):
+    if created and not kwargs.get('raw'):
+        if instance.is_student and not instance.is_underage():
+            instance.approved = True
+            instance.save(update_fields=['approved'])
+
+post_save.connect(auto_approve_non_coppa_students, sender=Profile)

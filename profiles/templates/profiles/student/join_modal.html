@@ -8,7 +8,7 @@
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
   <h1>Create an account as a student.</h1>
 </div>
-<form method='post' action="{% url 'profiles:join' %}" enctype="multipart/form-data" id="join-modal-form" class="default-form clearfix">
+<form method='post' action="{% url 'profiles:join' %}" enctype="multipart/form-data" class="default-form clearfix">
   <div class="modal-body row clearfix">
     
       {% csrf_token %}
