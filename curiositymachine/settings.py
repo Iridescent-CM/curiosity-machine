@@ -240,7 +240,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'default': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(message)s'
+            'format': '%(name)s:%(levelname)s (%(pathname)s) %(message)s'
         },
     },
     'handlers': {
