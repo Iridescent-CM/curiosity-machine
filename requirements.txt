@@ -71,3 +71,6 @@ django-sslify>=0.2
 django-compressor==1.4
 
 python-dateutil==2.3
+
+# request ids on heroku for logging
+django-log-request-id==1.1.0

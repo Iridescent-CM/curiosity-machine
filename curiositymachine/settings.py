@@ -80,6 +80,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'log_request_id.middleware.RequestIDMiddleware',
     'curiositymachine.middleware.CanonicalDomainMiddleware', # this MUST come before the SSLify middleware or else non-canonical domains that do not have SSL endpoints will not work!
     'sslify.middleware.SSLifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -91,6 +92,7 @@ MIDDLEWARE_CLASSES = (
     "curiositymachine.middleware.UnderageStudentSandboxMiddleware",
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
     'curiositymachine.middleware.LastActiveMiddleware',
+    'curiositymachine.middleware.LoggingMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -234,19 +236,27 @@ SUMMERNOTE_CONFIG = {
     ],
 }
 
+LOG_REQUEST_ID_HEADER = 'HTTP_X_REQUEST_ID'
+LOG_REQUESTS = True
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'filters': {
+        'request_id': {
+            '()': 'log_request_id.filters.RequestIDFilter'
+        }
+    },
     'formatters': {
         'default': {
-            'format': '%(name)s:%(levelname)s (%(pathname)s) %(message)s'
+            'format': '%(name)s:%(levelname)s [%(request_id)s] (%(pathname)s) %(message)s'
         },
     },
     'handlers': {
         'console':{
             'level': LOG_LEVEL,
             'class': 'logging.StreamHandler',
+            'filters': ['request_id'],
             'formatter': 'default',
         },
     },
@@ -262,7 +272,11 @@ LOGGING = {
         'django.security': {
             'handlers': ['console',],
             'level': 'DEBUG',
-        }
+        },
+        'custom': {
+            'handlers': ['console',],
+            'level': 'DEBUG',
+        },
     },
 }
 
