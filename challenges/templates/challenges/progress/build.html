@@ -3,7 +3,7 @@
 {% load resized %}
 
 {% block js %}
-  <script src="/static/js/challenges.js"></script>
+  <script src="{% static "js/challenges.js" %}"></script>
   {% if request.user.profile.is_student %}
     <script>
       $(function(){
