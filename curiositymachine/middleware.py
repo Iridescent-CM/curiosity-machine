@@ -43,3 +43,24 @@ class LastActiveMiddleware:
         if request.user.is_authenticated():
             request.user.profile.set_active()
         return None
+
+from time import time
+from logging import getLogger
+
+class LoggingMiddleware(object):
+    def __init__(self):
+        self.logger = getLogger('custom.RequestResponse')
+
+    def process_request(self, request):
+        self.logger.info('Starting request %s', request.get_full_path())
+        request.timer = time()
+        return None
+
+    def process_response(self, request, response):
+        self.logger.info(
+            'Finishing request %s [%s] (%.1fs)',
+            request.get_full_path(),
+            response.status_code,
+            time() - request.timer
+        )
+        return response
