@@ -56,19 +56,19 @@ def home(request):
         {
             "title": "Introducción a la Física y Pedagogía",
             "imagePath": "profiles/01_forces-and-growth-mindset.png",
-            "description": "Seis diapositivas que cubren física básica y modos de pensar de aprendizaje"
+            "description": "Seis diapositivas que cubren física básica y modos de pensar de aprendizaje",
             "link": "/parent-training-intro-series/"
         },
         {
             "title": "Family Courses",
             "imagePath": "profiles/07_family-course.png",
-            "description": "Learn how to set up a family course"
+            "description": "Learn how to set up a family course",
             "link": "/parent-training-intro-series/"
         },
         {
             "title": "Cursos Familiares",
             "imagePath": "profiles/07_family-course.png",
-            "description": "Aprenda cómo configurar un curso de familia"
+            "description": "Aprenda cómo configurar un curso de familia",
             "link": "/parent-training-intro-series/"
         },
     ]
