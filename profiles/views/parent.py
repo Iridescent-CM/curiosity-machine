@@ -48,13 +48,14 @@ def home(request):
     children = ParentConnection.objects.filter(parent_profile=request.user.profile, removed=False)
     trainings = [
         {
-            "title": "Unit 1",
+            "title": "Intro to Physics &amp; Pedagogy",
             "imagePath": "profiles/01_forces-and-growth-mindset.png",
-            "description": "Forces & Growth Mindset"
+            "description": "Six slideshows that cover basic physics and learning mindsets",
+            "link": "/parent-training-intro-series/"
         },
         {
             "title": "Unit 2",
-            "imagePath": "profiles/02_motion.png",
+            "imagePath": "profiles/07_family-course.png",
             "description": "Motion & Open-Ended Questions"
         },
         {
