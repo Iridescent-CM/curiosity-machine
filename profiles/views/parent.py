@@ -48,41 +48,29 @@ def home(request):
     children = ParentConnection.objects.filter(parent_profile=request.user.profile, removed=False)
     trainings = [
         {
-            "title": "Intro to Physics &amp; Pedagogy",
+            "title": "Intro to Physics & Pedagogy",
             "imagePath": "profiles/01_forces-and-growth-mindset.png",
             "description": "Six slideshows that cover basic physics and learning mindsets",
             "link": "/parent-training-intro-series/"
         },
         {
-            "title": "Unit 2",
+            "title": "Introducción a la Física y Pedagogía",
+            "imagePath": "profiles/01_forces-and-growth-mindset.png",
+            "description": "Seis diapositivas que cubren física básica y modos de pensar de aprendizaje"
+            "link": "/parent-training-intro-series/"
+        },
+        {
+            "title": "Family Courses",
             "imagePath": "profiles/07_family-course.png",
-            "description": "Motion & Open-Ended Questions"
+            "description": "Learn how to set up a family course"
+            "link": "/parent-training-intro-series/"
         },
         {
-            "title": "Unit 3",
-            "imagePath": "profiles/03_structural-strength.png",
-            "description": "Structural Strength & EDP"
+            "title": "Cursos Familiares",
+            "imagePath": "profiles/07_family-course.png",
+            "description": "Aprenda cómo configurar un curso de familia"
+            "link": "/parent-training-intro-series/"
         },
-        {
-            "title": "Unit 4",
-            "imagePath": "profiles/04_forces-of-flight.png",
-            "description": "Forces of Flight & Persistence"
-        },
-        # {
-        #     "title": "Unit 5",
-        #     "imagePath": "profiles/05_electricity-and-gender.png",
-        #     "description": "Electricity & Gender Biases"
-        # },
-        # {
-        #     "title": "Unit 6",
-        #     "imagePath": "profiles/06_cognitive-apprenticeship.png",
-        #     "description": "Power & Cognitive Apprenticeship"
-        # },
-        # {
-        #     "title": "Unit 7",
-        #     "imagePath": "profiles/07_family-course.png",
-        #     "description": "How to Organize a Family Course"
-        # },
     ]
     return render(request, "profiles/parent/home.html", {
         "user": request.user,
