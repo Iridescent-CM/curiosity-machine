@@ -57,16 +57,16 @@ def home(request):
             "imagePath": "profiles/02_motion.png",
             "description": "Motion & Open-Ended Questions"
         },
-        # {
-        #     "title": "Unit 3",
-        #     "imagePath": "profiles/03_structural-strength.png",
-        #     "description": "Structural Strength & EDP"
-        # },
-        # {
-        #     "title": "Unit 4",
-        #     "imagePath": "profiles/04_forces-of-flight.png",
-        #     "description": "Forces of Flight & Persistence"
-        # },
+        {
+            "title": "Unit 3",
+            "imagePath": "profiles/03_structural-strength.png",
+            "description": "Structural Strength & EDP"
+        },
+        {
+            "title": "Unit 4",
+            "imagePath": "profiles/04_forces-of-flight.png",
+            "description": "Forces of Flight & Persistence"
+        },
         # {
         #     "title": "Unit 5",
         #     "imagePath": "profiles/05_electricity-and-gender.png",
