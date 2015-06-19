@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+{% block title %}FAQ{% endblock %}
+
+{% block css %}
+  <style type="text/css">
+    #talltabs-maroon {
+      clear:left;
+      float:left;
+      padding:0;
+      border-top:6px solid #f16243;
+      width:100%;
+      overflow:hidden;
+      font-size: 18px;
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+    #talltabs-maroon ul {
+      float:left;
+      margin:0;
+      padding:0;
+      list-style:none;
+      position:relative;
+      left:50%;
+      text-align:center;
+    }
+    #talltabs-maroon ul li {
+      display:block;
+      float:left;
+      list-style:none;
+      margin:0;
+      padding:0;
+      position:relative;
+      right:50%;
+    }
+    #talltabs-maroon ul li {
+      display:block;
+      float:left;
+      margin:0 1px 0 0;
+      padding:30px 20px 6px 20px;
+      background:#f16243;
+      text-decoration:none;
+      color:#fff;
+    }
+    #talltabs-maroon ul li:hover {
+      padding:35px 20px 6px 20px;
+    }
+    #talltabs-maroon ul li.active {
+      padding:40px 10px 6px 10px;
+    }
+  </style>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" >
+    $(document).ready(function (){
+      $("#learning").click(function (){
+        $('html, body').animate({
+          scrollTop: $("#divlearning").offset().top
+        }, 1000);
+      });
+      $("#using").click(function (){
+        $('html, body').animate({
+          scrollTop: $("#divusing").offset().top
+        }, 1000);
+      });
+      $("#parents").click(function (){
+        $('html, body').animate({
+          scrollTop: $("#divparents").offset().top
+        }, 1000);
+      });
+      $("#educators").click(function (){
+        $('html, body').animate({
+          scrollTop: $("#diveducators").offset().top
+        }, 1000);
+      });
+      $("#mentors").click(function (){
+        $('html, body').animate({
+          scrollTop: $("#divmentors").offset().top
+        }, 1000);
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+  <img class="img-responsive" src="http://s4.postimg.org/4eqp2feel/family_make.jpg" width="1040" height="404"/>
+  <h2>Curiosity Machine FAQ</h2>
+
+  <div id="talltabs-maroon">
+    <ul>
+      <li id="learning">Learning Philosophy</li>
+      <li id="using">Using Curiosity Machine</li>
+      <li id="parents">Parents</li>
+      <li id="educators">Educators</li>
+      <li id="mentors">Mentors</li>
+    </ul>
+  </div>
+  <br />
+
+  <div id="divlearning">
+    <h3>Learning Philosophy</h3>
+
+    <p><strong>Who is Curiosity Machine for?</strong></p>
+    <p>Our engineering design challenges are open-ended and appropriate for children K-12. With the support of a parent, even young children can navigate the site, upload their designs, and become inventors in the Curiosity Machine community!</p>
+    <br />
+
+    <p><strong>What does it cost to use Curiosity Machine?</strong></p>
+    <p>Curiosity Machine is a free and open tool. Anyone can create an account and use all Curiosity Machine features, and our engineering design challenges can be completed with simple, low cost materials. </p>
+
+    <br />
+    <p><strong>What kind of technology do I need to use Curiosity Machine?</strong></p>
+    <p>You can access the Curiosity Machine and our online community of mentors on any smartphone, tablet, or computer with a browser and internet access. Ideally, your device has a built-in camera to take photos and videos as you move through the engineering design process (you can also use a digital camera and upload photos to your device).</p>
+
+    <p>Find more technology recommendations on page 7 of our <a href="http://iridescentlearning.org/wp-content/uploads/2014/09/Curiosity-Kit-1.pdf" target="_blank">Curiosity Kit.</a></p>
+
+    <br />
+    <p><strong>What are engineering design challenges?</strong></p>
+    <p>We believe children learn by building. Engineering design challenges are hands-on projects inspired by the cutting-edge work of scientists and engineers. In each challenge, children are presented with a complex problem to solve, and they progress with support from a trained mentor who guides and encourages them to persist through failure and bring their ideas to reality.</p>
+
+    <br />
+    <p><strong>How long does it take to complete an engineering design challenge?</strong></p>
+    <p>Most design challenges will take about 90 minutes to plan, build, test, and submit to the site for mentor feedback. A mentor will respond within 3-5 days, and then you can start the redesign process! The redesign process can go on for as long as you can make  improvements to the design--and the same mentor will be ready to offer feedback on every change you make. </p>
+
+    <br />
+    <p><strong>Should Curiosity Machine engineering design challenges be completed in  sequence?</strong></p>
+    <p>Our design challenges do not need to be completed in any particular order. If you’re looking for ideas of what challenge to do next, try focusing on a particular theme (like Aerospace or Civil Engineering), or follow one of <a href="http://iridescentlearning.org/wp-content/uploads/2014/09/Cm-Suggested-Series.pdf" target="_blank">our suggested series!</a> </p>
+
+    <br />
+    <p><strong>Who are Curiosity Machine mentors? How will they help my child?</strong></p>
+    <p>Mentors are professional scientists and engineers from all over the world who are dedicated to inspiring the next generation of inventors.</p>
+
+    <p>All of our mentors are volunteers, choosing to use their passion to inspire others. Mentors must successfully complete training before working with any user on Curiosity Machine. This training prepares them to work with children across a range of abilities, and to foster growth mindset, persistence, creativity, and curiosity in the children they work with. </p>
+
+    <p>When children submit text, photos or videos of a design challenge, one of our mentors will claim their challenge and respond with feedback. Look for the orange icon on your challenge that indicates a mentor message waiting for you! </p>
+
+    <br />
+    <p><strong>I created an account for a child under the age of 13, but the account is locked. How do I unlock this account?</strong></p>
+    <p>Because users upload photos and videos to the Curiosity Machine, the Children’s Online Privacy Protection Act (COPPA) requires that we obtain parental consent before activating Curiosity Machine accounts for children under the age of 13. </p>
+
+    <p>To unlock your child’s account please submit <a href ="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">this consent form</a> to <a href="mailto:curiosity@iridescentlearning.org" target="_blank">curiosity@iridescentlearning.org</a></p>
+
+    <br />
+    <p><strong>Where can I buy Curiosity Machine design challenge materials?</strong></p>
+    <p>Most design challenges can be completed with simple, low-cost materials that can be obtained at a grocery or hardware store.</p>
+  </div>
+  <br />
+
+  <div id="divusing">
+    <h3>Using Curiosity Machine</h3>
+
+    <p>Confused or stuck? Check out this <a href="https://www.youtube.com/watch?v=XBAE46x2qio" target="_blank">demo video</a> to walk through the Curiosity Machine website and learn how to submit your design challenges, view feedback, respond to feedback, and access challenges you’re still working on.</p>
+
+    <br />
+    <p><strong>Why haven’t I received any mentor feedback for my engineering design challenge?</strong></p>
+    <p>We try to respond to every design within 3 to 5 days after it’s submitted. Weekends and holidays or technical problems may prolong our usual response times. If it has been more than 5 days get in touch with us at <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.</p>
+
+    <br />
+    <p><strong>What does the orange icon on my project mean?</strong></p>
+    <p>Woohoo! That orange icon means that you have received feedback from a mentor! Select the challenge and see what you mentor has to say – and don’t forget to respond!</p>
+
+    <br />
+    <p><strong>How do I respond to mentor feedback?</strong></p>
+    <p>Once you have mentor feedback, you may have the option to continue to the next stage of the engineering design process. Or, you can ask your mentor for additional help and continue to improve on your design! Continue to post pictures, video, and text of your design process.</p>
+    <br />
+    <p><strong>How do I see the design challenges that I am currently working on?</strong></p>
+    <p>All of your design challenges live on your profile homepage. To get to your homepage, log in, then click on the menu tab and select “Home.” You should see all of the challenges you’re working on, as well as all the challenges you’ve completed.</p>
+  </div>
+
+  <br />
+  <div id="divparents">
+    <h3>Parents</h3>
+
+    <p><strong>I want to use Curiosity Machine at home, but I’m not a science expert. How can I support my child to learn science?</strong></p>
+
+    <p>We believe you don’t need to be a scientist or engineer to help your child learn science! You also don’t need to have all the answers--when you explore and learn alongside your child, you’ll be modeling curiosity and persistence, inspiring them to ask questions and look for answers instead of giving up when they don’t know something. </p>
+
+    <p>Check out our <a href="https://www.curiositymachine.org/parents/">resources for parents</a> to learn more about how to support your child in our engineering design challenges.</p>
+
+    <br />
+    <p><strong>How do I know what my child is doing? </strong></p>
+    <p>If your child is younger than 13, your child’s account is linked to your email. If your child has received feedback from a mentor, you will get an email notification. You can also log onto your child’s account to see what engineering design challenges they have uploaded and the mentor feedback they have received.</p>
+    <br />
+    <p><strong>Why is mentor feedback valuable to my child?</strong></p>
+    <p>Mentors provide encouraging and content-rich feedback to children throughout the building process. This support helps reinforce key science concepts, but it also inspires children to be more creative and persistent as it motivates them to continue improving their designs. </p>
+
+    <p>Receiving feedback from a professional is a really cool experience--it feels like both a “congratulations!” and a “keep going!” Oftentimes, mentors come to occupy the place of role models for children, through interacting and problem solving as a team. </p>
+
+    <br />
+    <p><strong>Is Curiosity Machine safe for my child to use?</strong></p>
+    <p>Curiosity Machine takes our users’ safety very seriously. We comply with the Children’s Online Privacy Protection Act (COPPA), requiring parental consent for accounts for children under the age of 13. Additionally, our mentors undergo required training on interacting with children online. Please be aware that student project pictures are uploaded to the inspiration gallery, which is visible to other users.</p>
+
+    <p>For more information about family internet safety, we recommend the information and advice found at <a href="https://www.commonsensemedia.org/blog/internet-safety-rules-of-the-road-for-kids">Common Sense Media.</a></p>
+
+  </div>
+  <br />
+  <div id="diveducators">
+    <h3>Educators</h3>
+
+    <p><strong>How can I use Curiosity Machine with my students?</strong></p>
+
+    <p>Curiosity Machine is a flexible STEM education tool that can be adapted to any learning environment. Our hands-on engineering design challenges and mentor feedback model can be used with children of any age, though we’ve seen the most success with elementary and middle school-aged students.</p>
+
+    <p>In the past, educators have… </p>
+
+    <ul>
+      <li>
+        used our <a href="https://www.curiositymachine.org/units/">Flight, Engineering Sampler and Energy units</a> to teach 6-8th grade students NGSS lessons aligned with the Middle School Engineering Design Process standards
+      </li>
+      <li>
+        used more complex designs, like <a href="https://www.curiositymachine.org/challenges/56/">Engineer a Pneumatic Creature</a> or <a href="https://www.curiositymachine.org/challenges/67/">Build a Self-Propelling Boat</a>, to host Family Science nights at their schools
+      </li>
+      <li>
+        elevated parent engagement in their classroom by inviting the guardians of their students into the classroom to help with Curiosity Machine lessons</li>
+      <li>
+        chosen their own <a href="https://www.dropbox.com/s/q6vm0ldevpqbpuu/Cm%20Suggested%20Series.pdf?dl=0">series of design challenges</a> to teach elementary aged students with disabilities project-based science</li>
+      <li>
+        used our <a href="https://www.curiositymachine.org/challenges/?theme=Art%20of%20Science&amp;theme_id=4">Art of Science</a> design challenges to integrate science into their art curricula</li>
+      <li>
+        focused on bringing more collaboration to their classroom by using design challenges that teams of students can work on</li>
+    </ul>
+    <br>
+
+    <p><strong>How does Curiosity Machine align to Next Generation Science Standards or Common Core Standards?</strong></p>
+
+    <p>Curiosity Machine designs are flexible and can be used to teach many standards related to engineering, physics, biology and more.</p>
+
+    <p>We have aligned Curiosity Machine design challenges to Next Generation Science Standards in our Design Challenge Units (find them on your Educator account home page). Curiosity Machine is an excellent resource to teach the middle school Engineering Design Process standards.</p>
+
+    <p>We have not yet aligned Curiosity Machine to Common Core Standards, but let us know if you do! Feel free to hack our resources and share how they worked for your students.</p>
+
+
+    <p><strong>How do Educator accounts work?</strong></p>
+
+    <p>If you’re using Curiosity Machine with a group of students, you can create an Educator account to connect with your students’ accounts.</p>
+
+    <p>Educators can view all of their students’ text, video and photo submissions, as well as any mentor interactions your students have on Curiosity Machine.</p>
+
+    <p>Educators also have access to our Design Challenge Units. These units are collections of our design challenges that come with lesson plans, student workbooks and Next Generation Science Standards alignment.</p>
+    <br>
+
+
+    <p><strong>How do I get started?</strong></p>
+
+    <p>First, create an <a href="https://www.curiositymachine.org/challenges/">educator account</a>! Once you have an account, you can create groups and invite your students to join them.</p>
+
+    <p>If they have not already, your students will need to create Curiosity Machine accounts. Before students under the age of 13 can join Curiosity Machine, their parents must fill out <a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">a consent form.</a></p>
+
+    <p>For more information on getting started, check our <a href="https://www.curiositymachine.org/about/educator">Educator page</a>.</p>
+    <br>
+
+
+    <p><strong>What is the consent process for getting students started on Curiosity Machine?</strong></p>
+
+    <p>If your students are above the age of 13, they do not need to complete any consent forms. You can simply lead them in creating accounts.</p>
+
+    <p>If your students are under the age of 13, due to COPPA laws, their parents will need to give permission for them to use Curiosity Machine. You can send <a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">this form home to parents</a> to explain the process of creating a Curiosity Machine account for their child. If you’d prefer that parents simply create accounts and then return the consent forms to you, you can scan and email the forms to <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org.</a></p>
+    <br>
+
+    <p><strong>I’m interested in using Curiosity Machine, but I don’t have a STEM background. How do I support my students to build design challenges?</strong></p>
+
+    <p>Our philosophy is that you don’t need to be a science or an engineering expert to help students learn science. If you can facilitate the learning by providing the space, materials, and encouragement for students to build and develop the mindset of an inventor (check out our guides on <a href="http://iridescentlearning.org/wp-content/uploads/2014/09/3HigherLevelQuestionsthatMakeYourChildrentoThinkDeeper-2.pdf">Asking Questions</a> and <a href="http://iridescentlearning.org/wp-content/uploads/2014/09/2WhatisMindset.pdf">Giving Feedback</a>).</p>
+
+    <p>Curiosity Machine also provides you with trained mentors who support each student to pause and reflect on their thinking strategies and to deepen their understanding of the science concepts involved in the challenge. <a href="https://docs.google.com/forms/d/1qzS_27yX9AY4Hwq6D-HHyL2ExyeaBebWt7R8nAOV7jU/viewform">Fill in this form to request mentor support for your classroom.</a></p>
+
+    <br>
+
+    <p><strong>What materials do I need to for the engineering design challenges?</strong></p>
+
+    <p>Each design challenge requires different materials, though we’ve worked hard to make sure all of our curriculum can be made from low cost, easy-to-find supplies.</p>
+
+    <p>For some of our design challenges, like <a href="https://www.curiositymachine.org/challenges/34/">Build a Redwood Tree</a> and <a href="https://www.curiositymachine.org/challenges/11/">Make a Flat Ball</a>, students will only need paper, tape and scissors.</p>
+
+    <p>Others, such as like <a href="https://www.curiositymachine.org/challenges/14/">Make an Electric Switch</a>, <a href="https://www.curiositymachine.org/challenges/38/">Build a Hydroelectric Waterwheel</a> and <a href="https://www.curiositymachine.org/challenges/7/">Build an Octopus Suction Pad</a>, require more complex materials such as batteries, tubing and syringes.</p>
+
+    <p>Our design challenges are open ended, which means that there are many ways to build working models to address the same challenge. If you have questions about which materials we suggest using, check the Plan stage of a design challenge to see our ideas. Remember, you can use whatever materials you think make the most sense--there are no rules for how you solve your design challenge and creativity is encouraged!</p>
+
+    <br>
+
+    <p><strong>How can I create a learning environment that supports Curiosity Machine learning?</strong></p>
+
+    <p>Helping students persevere through failure, think critically and solve problems are what this style of learning is all about!  But like most project-based learning experiences, it’s also messy, kids can get frustrated, and it takes longer than just assigning a worksheet.</p>
+
+    <p>We’ve thought a lot about how to structure learning environments that support this style of learning &mdash; one of the most powerful tools we’ve found is classroom volunteers. Invite your students’ parents in to help with these lessons. We offer training for parents to learn how to support project based learning. Contact us at <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org.</a>, if you’re interested in learning more.</p>
+
+    <p>For more strategies, check out our one pagers on <a href="http://iridescentlearning.org/wp-content/uploads/2014/09/2WhatisMindset.pdf">Never Giving Up</a>, <a href="http://iridescentlearning.org/wp-content/uploads/2014/09/3HigherLevelQuestionsthatMakeYourChildrentoThinkDeeper-2.pdf">Asking Challenging Questions</a> and <a href="http://iridescentlearning.org/wp-content/uploads/2014/09/1BuildYourChildsProblemSolvingSkills-2.pdf">Solving Problems</a>.</p>
+
+    <p><strong>How can I learn even more about using Curiosity Machine with my students?</strong></p>
+
+    <p>As  part of our Curiosity Machine community, you will receive monthly information on new features, design challenges and  best practices. You can also check out our <a href="https://www.curiositymachine.org/educator/">Educator page.</a></p>
+
+    <p>Our staff trains educators and parents to support you in customizing Curiosity Machine to your learning environment. If you’re interested, email <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org.</a>.</p>
+
+    <br>
+  </div>
+
+  <div id="divmentors">
+    <h3>Mentors</h3>
+
+    <p><strong>How do I become a Curiosity Machine mentor? </strong></p>
+    <p>Learn more and sign up on our <a href="http://www.curiositymachine.org/mentor" target="_blank">Mentor page</a>. </p>
+    <br />
+    <p><strong>What are the benefits of becoming a Curiosity Machine mentor?</strong></p>
+    <p>Help inspire the next generation of inventors while improving your science communication and mentoring skills! Curiosity Machine mentors are recognized for their role in supporting the learning of youth by Iridescent and our partners including Boeing, Google, Intel, and NSF. </p>
+    <br />
+    <p><strong>What is the time commitment required to become a mentor? </strong></p>
+    <p>We ask mentors to volunteer 1 hour a week, which equates to evaluating &amp; providing feedback on two student projects.</p>
+    <br />
+    <p><strong>Are there in-person mentoring opportunities available?</strong></p>
+    <p>Mentoring in-person at the Curiosity Courses is both fun and rewarding! If you are located in LA, NYC, Chicago, or San Francisco please contact us  for more information on joining.</p>
+    <br />
+    <br />
+
+    <p style="font-size: 18px;">Didn’t find an answer to your question? Email it to <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>! </p>
+  </div>
+{% endblock %}
