@@ -54,10 +54,10 @@ def home(request):
             "link": "/parent-training-intro-series/"
         },
         {
-            "title": "Introducción a la Física y Pedagogía",
+            "title": "Intro to Physics & Pedagogy [SPANISH]",
             "imagePath": "profiles/01_forces-and-growth-mindset.png",
-            "description": "Seis diapositivas que cubren física básica y modos de pensar de aprendizaje",
-            "link": "/parent-training-intro-series/"
+            "description": "[SPANISH DESCRIPTION]",
+            "link": "/parent-training-intro-series-sp/"
         },
         {
             "title": "Family Courses",
@@ -66,9 +66,9 @@ def home(request):
             "link": "/parent-training-intro-series/"
         },
         {
-            "title": "Cursos Familiares",
+            "title": "Family Courses [SPANISH]",
             "imagePath": "profiles/07_family-course.png",
-            "description": "Aprenda cómo configurar un curso de familia",
+            "description": "[SPANISH DESCRIPTION]",
             "link": "/parent-training-intro-series/"
         },
     ]
