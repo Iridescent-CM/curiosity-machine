@@ -5,7 +5,7 @@ from images.models import Image
 from .admin_utils import StudentFilter
 from cmemails import deliver_email
 
-from .models import Profile
+from .models import Profile, ParentConnection
 
 admin.site.unregister(User)
 
@@ -54,4 +54,17 @@ class UserAdminWithProfile(UserAdmin):
                 continue
             yield inline.get_formset(request, obj)
 
+class ParentConnectionAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'parent', 'child', 'active', 'removed']
+    list_filter = ['active', 'removed']
+
+    def parent(self, obj):
+        return obj.parent_profile.user.username
+    parent.admin_order_field = 'parent_profile__user__username'
+
+    def child(self, obj):
+        return obj.child_profile.user.username
+    child.admin_order_field = 'child_profile__user__username'
+
 admin.site.register(User, UserAdminWithProfile)
+admin.site.register(ParentConnection, ParentConnectionAdmin)
