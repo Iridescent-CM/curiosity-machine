@@ -78,6 +78,7 @@ class Profile(models.Model):
 
     def is_underage(self):
         return self.age < 13
+    is_underage.boolean = True
 
 
     def set_active(self):
