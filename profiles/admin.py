@@ -56,16 +56,30 @@ admin.site.unregister(User)
 admin.site.register(User, UserAdminWithProfile)
 
 class ParentConnectionAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'parent', 'child', 'active', 'removed']
+    list_display = ['__str__', 'parent', 'parent_email', 'child', 'child_email', 'active', 'removed']
     list_filter = ['active', 'removed']
+    search_fields = [
+        'parent_profile__user__username',
+        'child_profile__user__username',
+        'parent_profile__user__email',
+        'child_profile__user__email'
+    ]
 
     def parent(self, obj):
         return obj.parent_profile.user.username
     parent.admin_order_field = 'parent_profile__user__username'
 
+    def parent_email(self, obj):
+        return obj.parent_profile.user.email
+    parent.admin_order_field = 'parent_profile__user__email'
+
     def child(self, obj):
         return obj.child_profile.user.username
     child.admin_order_field = 'child_profile__user__username'
+
+    def child_email(self, obj):
+        return obj.child_profile.user.email
+    child.admin_order_field = 'child_profile__user__email'
 
 admin.site.register(ParentConnection, ParentConnectionAdmin)
 
@@ -89,11 +103,19 @@ class ParentAdmin(admin.ModelAdmin):
         'last_inactive_email_sent_on',
         'shown_intro'
     ]
-    list_display = ['user', 'id']
-    
+    list_display = ['user', 'email', 'id']
+    search_fields = [
+        'user__username',
+        'user__email',
+    ]
+
     def get_queryset(self, request):
         qs = super(ParentAdmin, self).get_queryset(request)
         return qs.filter(is_parent=True)
+
+    def email(self, obj):
+        return obj.user.email
+    email.admin_order_field = "user__email"
 
 admin.site.register(Parent, ParentAdmin)
 
@@ -111,11 +133,19 @@ class EducatorAdmin(admin.ModelAdmin):
         'last_inactive_email_sent_on',
         'shown_intro'
     ]
-    list_display = ['user', 'id']
+    list_display = ['user', 'email', 'id']
+    search_fields = [
+        'user__username',
+        'user__email',
+    ]
 
     def get_queryset(self, request):
         qs = super(EducatorAdmin, self).get_queryset(request)
         return qs.filter(is_educator=True)
+
+    def email(self, obj):
+        return obj.user.email
+    email.admin_order_field = "user__email"
 
 admin.site.register(Educator, EducatorAdmin)
 
@@ -142,11 +172,19 @@ class StudentAdmin(admin.ModelAdmin):
         'last_inactive_email_sent_on',
         'shown_intro'
     ]
-    list_display = ['user', 'id', 'is_underage']
+    list_display = ['user', 'email', 'id', 'is_underage']
+    search_fields = [
+        'user__username',
+        'user__email',
+    ]
 
     def get_queryset(self, request):
         qs = super(StudentAdmin, self).get_queryset(request)
         return qs.filter(is_student=True)
+
+    def email(self, obj):
+        return obj.user.email
+    email.admin_order_field = "user__email"
 
 admin.site.register(Student, StudentAdmin)
 
@@ -173,10 +211,18 @@ class MentorAdmin(admin.ModelAdmin):
         'last_inactive_email_sent_on',
         'shown_intro'
     ]
-    list_display = ['user', 'id']
+    list_display = ['user', 'email', 'id']
+    search_fields = [
+        'user__username',
+        'user__email',
+    ]
 
     def get_queryset(self, request):
         qs = super(MentorAdmin, self).get_queryset(request)
         return qs.filter(is_mentor=True)
+
+    def email(self, obj):
+        return obj.user.email
+    email.admin_order_field = "user__email"
 
 admin.site.register(Mentor, MentorAdmin)
