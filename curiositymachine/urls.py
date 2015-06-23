@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 from pages.models import StaticPage
-from .views import root_redirect
+from .views import root_redirect, health_check
 import profiles.urls
 
 urlpatterns = patterns('',
@@ -34,4 +34,5 @@ urlpatterns = patterns('',
     url(r'^units/', include('units.urls', namespace='units', app_name='units'), name='units'),
     url(r'^s3direct/', include('s3direct.urls')),
     url(r'^groups/', include('groups.urls', namespace='groups', app_name='groups'), name='groups'),
+    url(r'^health_check/', health_check),
 )
