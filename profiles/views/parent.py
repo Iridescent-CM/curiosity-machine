@@ -54,7 +54,7 @@ def home(request):
             "link": "/parent-training-intro-series/"
         },
         {
-            "title": "The Creative Parent's Toolbox [SPANISH]",
+            "title": "La Caja de herramientas del Padre Creativo",
             "imagePath": "profiles/01_forces-and-growth-mindset.png",
             "description": "[SPANISH DESCRIPTION]",
             "link": "/parent-training-intro-series-sp/"
