@@ -60,6 +60,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'curiositymachine',
     'django.contrib.admin',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'profiles',
     'challenges',
     'cmcomments',
@@ -79,6 +81,8 @@ INSTALLED_APPS = (
     'groups',
 )
 
+SITE_ID = 1
+
 MIDDLEWARE_CLASSES = (
     'curiositymachine.middleware.CanonicalDomainMiddleware', # this MUST come before the SSLify middleware or else non-canonical domains that do not have SSL endpoints will not work!
     'sslify.middleware.SSLifyMiddleware',
@@ -91,6 +95,7 @@ MIDDLEWARE_CLASSES = (
     "curiositymachine.middleware.UnderageStudentSandboxMiddleware",
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
     'curiositymachine.middleware.LastActiveMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
