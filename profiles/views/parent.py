@@ -56,21 +56,21 @@ def home(request):
         {
             "title": "La Caja de herramientas del Padre Creativo",
             "imagePath": "profiles/01_forces-and-growth-mindset.png",
-            "description": "[SPANISH DESCRIPTION]",
+            "description": "Entrenamiento que cubre los conceptos básicos de la física y cómo cultivar una mentalidad de aprendizaje",
             "link": "/parent-training-intro-series-sp/"
         },
-        {
-            "title": "Family Courses",
-            "imagePath": "profiles/07_family-course.png",
-            "description": "Learn how to set up a family course",
-            "link": "/parent-training-intro-series/"
-        },
-        {
-            "title": "Family Courses [SPANISH]",
-            "imagePath": "profiles/07_family-course.png",
-            "description": "[SPANISH DESCRIPTION]",
-            "link": "/parent-training-intro-series/"
-        },
+        # {
+        #     "title": "Family Courses",
+        #     "imagePath": "profiles/07_family-course.png",
+        #     "description": "Learn how to set up a family course",
+        #     "link": "/parent-training-intro-series/"
+        # },
+        # {
+        #     "title": "Family Courses [SPANISH]",
+        #     "imagePath": "profiles/07_family-course.png",
+        #     "description": "[SPANISH DESCRIPTION]",
+        #     "link": "/parent-training-intro-series/"
+        # },
     ]
     return render(request, "profiles/parent/home.html", {
         "user": request.user,
