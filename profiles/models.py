@@ -139,6 +139,7 @@ class ParentConnection(models.Model):
     child_profile = models.ForeignKey("Profile", related_name="connections_as_child")
     active = models.BooleanField(default=False)
     removed = models.BooleanField(default=False)
+    retries = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return "ParentConnection: {} -> {}, id={}".format(

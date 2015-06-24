@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import F
 from profiles.forms.common import UserAndProfileForm
 from profiles.models import ParentConnection, Profile
 from curiositymachine.forms import StudentUsernamesField
@@ -36,12 +37,20 @@ class ConnectForm(forms.ModelForm):
     def save(self, commit=True):
         profiles = Profile.objects.filter(user__username__in=self.cleaned_data["usernames"])
         for profile in profiles:
-            ParentConnection.objects.update_or_create(
+            updated = ParentConnection.objects.filter(
                 parent_profile=self.instance,
                 child_profile=profile,
-                defaults={
-                    "removed": False,
-                    "active": False
-                }
+            ).update(
+                removed=False,
+                active=False,
+                retries=F("retries") + 1
             )
+            if updated == 0:
+                ParentConnection.objects.create(
+                    parent_profile=self.instance,
+                    child_profile=profile,
+                    removed=False,
+                    active=False,
+                    retries=0
+                )
         return self.instance
