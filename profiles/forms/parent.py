@@ -35,12 +35,13 @@ class ConnectForm(forms.ModelForm):
 
     def save(self, commit=True):
         profiles = Profile.objects.filter(user__username__in=self.cleaned_data["usernames"])
-        existing = []
-        self.saved = [
-            ParentConnection.objects.get_or_create(
+        for profile in profiles:
+            ParentConnection.objects.update_or_create(
                 parent_profile=self.instance,
                 child_profile=profile,
-                removed=False
-            ) for profile in profiles
-        ]
+                defaults={
+                    "removed": False,
+                    "active": False
+                }
+            )
         return self.instance

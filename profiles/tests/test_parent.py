@@ -145,9 +145,27 @@ def test_connect_form_connects_to_usernames(parent, child):
     form.save()
     assert models.ParentConnection.objects.all().count() == 1
     assert [profile.id for profile in parent.profile.child_profiles.all()] == [child.profile.id]
-    assert len(form.saved) == 1
-    assert type(form.saved[0][0]) == models.ParentConnection
-    assert form.saved[0][1] == True
+
+@pytest.mark.django_db
+def test_connect_form_reuses_and_resets_parentconnection_objects(parent, child):
+    form = forms.parent.ConnectForm(instance=parent.profile, data={
+        "usernames": "child"
+    })
+    form.is_valid()
+    form.save()
+    conn = models.ParentConnection.objects.all().first()
+    conn.active = True
+    conn.removed = True
+    conn.save()
+    form = forms.parent.ConnectForm(instance=parent.profile, data={
+        "usernames": "child"
+    })
+    form.is_valid()
+    form.save()
+    assert models.ParentConnection.objects.all().count() == 1
+    assert models.ParentConnection.objects.all().first().removed == False
+    assert models.ParentConnection.objects.all().first().active == False
+
 
 @pytest.mark.django_db
 def test_parents_only_decorator(rf, parent):

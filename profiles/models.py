@@ -78,6 +78,7 @@ class Profile(models.Model):
 
     def is_underage(self):
         return self.age < 13
+    is_underage.boolean = True
 
 
     def set_active(self):
@@ -138,6 +139,13 @@ class ParentConnection(models.Model):
     child_profile = models.ForeignKey("Profile", related_name="connections_as_child")
     active = models.BooleanField(default=False)
     removed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "ParentConnection: {} -> {}, id={}".format(
+            self.parent_profile.user.username,
+            self.child_profile.user.username,
+            self.id
+        )
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created and not hasattr(instance, "profile") and not kwargs.get('raw'):
