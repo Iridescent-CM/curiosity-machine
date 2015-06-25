@@ -245,7 +245,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'default': {
-            'format': '%(name)s:%(levelname)s (%(pathname)s) %(message)s'
+            'format': '%(levelname)s:%(name)s "%(message)s"'
         },
     },
     'handlers': {
@@ -256,6 +256,10 @@ LOGGING = {
         },
     },
     'loggers': {
+        '': {
+            'handlers': ['console',],
+            'level': 'DEBUG',
+        },
         'django': {
             'handlers': ['console',],
             'level': 'DEBUG',
