@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
@@ -11,6 +11,9 @@ def root_redirect(request):
         return HttpResponseRedirect(reverse('profiles:home'))
     else:
         return HttpResponseRedirect(reverse('challenges:challenges'))
+
+def health_check(request):
+    return HttpResponse('OK')
 
 def csrf_failure_handler(request, reason=""):
 	from django.middleware.csrf import REASON_NO_REFERER, REASON_NO_CSRF_COOKIE

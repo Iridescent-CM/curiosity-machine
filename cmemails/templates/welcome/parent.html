@@ -1,0 +1,27 @@
+{% extends "email_base.html" %}
+{% block content %}
+<p>
+  Welcome to Curiosity Machine, {{profile.user.username}}!
+</p>
+<p>
+  We’re here to help your family build and invent together. If your child doesn’t 
+  have a Student account, help him or her create one <a href="{{ site_url }}">here</a>! 
+</p>
+<p>
+  With your Parent account, you can: 
+</p>
+<ul>
+  <li>Connect to your child’s Student account.</li>
+  <li>Follow your child’s progress on engineering challenges.</li>
+  <li>Follow our Parent Training to learn physics concepts and tips to encourage critical thinking.</li>
+</ul>
+<p>
+  Ready to get started?
+</p>
+
+<a href="{{ site_url }}{% url "profiles:home" %}">
+  <button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">
+    Add a Child
+  </button>
+</a>
+{% endblock %}

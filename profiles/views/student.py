@@ -77,11 +77,14 @@ def profile_edit(request):
 def underage(request):
     return render(request, 'underage_student.html')
 
+def reverse_with_anchor(view, anchor):
+    return "{}#{}".format(reverse(view), anchor)
+
 class ParentConnectionDeleteView(SoftDeleteView):
     model = ParentConnection
     pk_url_kwarg = 'connection_id'
     template_name = 'profiles/student/parentconnection_confirm_delete.html'
-    success_url = lazy(reverse, str)('profiles:home')
+    success_url = lazy(reverse_with_anchor, str)('profiles:home', 'parents')
     deletion_field = 'removed'
 
     @method_decorator(login_required)
@@ -95,7 +98,7 @@ remove_connection = ParentConnectionDeleteView.as_view()
 class ParentConnectionToggleView(ToggleView):
     model = ParentConnection
     pk_url_kwarg = 'connection_id'
-    success_url = lazy(reverse, str)('profiles:home')
+    success_url = lazy(reverse_with_anchor, str)('profiles:home', 'parents')
 
     @method_decorator(login_required)
     @method_decorator(connected_child_only)
@@ -106,3 +109,7 @@ class ParentConnectionToggleView(ToggleView):
     def toggle(self, obj):
         obj.active = not obj.active
         obj.save(update_fields=['active'])
+        if obj.active:
+            messages.success(self.request, "{} can now see your progress".format(obj.parent_profile.user.username))
+        else:
+            messages.success(self.request, "{} can no longer see your progress".format(obj.parent_profile.user.username))
