@@ -195,7 +195,7 @@ class UserAndProfileForm(forms.ModelForm):
             setattr(profile, key, value)
         profile.user = user
 
-        if "about_me_filepicker_url" in self.cleaned_data and "about_me_filepicker_mimetype" in self.cleaned_data:
+        if self.cleaned_data.get("about_me_filepicker_url") and self.cleaned_data.get("about_me_filepicker_mimetype"):
             if self.cleaned_data['about_me_filepicker_mimetype'].startswith('image'):
                 image = Image.from_source_with_job(self.cleaned_data['about_me_filepicker_url'])
                 profile.about_me_image_id = image.id
@@ -206,7 +206,7 @@ class UserAndProfileForm(forms.ModelForm):
                 profile.about_me_image_id = None
                 profile.about_me_video_id = video.id
 
-        if 'about_research_filepicker_url' in self.cleaned_data and 'about_research_filepicker_mimetype' in self.cleaned_data:
+        if self.cleaned_data.get('about_research_filepicker_url') and self.cleaned_data.get('about_research_filepicker_mimetype'):
             if self.cleaned_data['about_research_filepicker_mimetype'].startswith('image'):
                 image = Image.from_source_with_job(self.cleaned_data['about_research_filepicker_url'])
                 profile.about_research_image_id = image.id
@@ -218,7 +218,7 @@ class UserAndProfileForm(forms.ModelForm):
                 profile.about_research_video_id = video.id
 
         profile_image = None
-        if "image_url" in self.cleaned_data:
+        if self.cleaned_data.get("image_url"):
             profile_image = Image(source_url=self.cleaned_data['image_url'])
             profile.image = profile_image
 
