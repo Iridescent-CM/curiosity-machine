@@ -1,4 +1,7 @@
 from .templates import EmailTemplate
+import logging
+
+logger = logging.getLogger(__name__)
 
 STUDENT = 'student'
 MENTOR = 'mentor'
@@ -88,6 +91,7 @@ def deliver_email(event_name, profile, **context):
 
     user_type = determine_user_type(profile)
     if user_type is None:
+        logger.warn("Unable to determine user type for email event: {}, username: {}".format(event_name, profile.user.username))
         return None
     key = "_".join([user_type, event_name])
     info = email_info[key]
