@@ -4,6 +4,7 @@ STUDENT = 'student'
 MENTOR = 'mentor'
 UNDERAGE_STUDENT = 'underage_student'
 EDUCATOR = 'educator'
+PARENT = 'parent'
 
 def template_path(name, user_type):
     return '%s/%s' % (name, user_type)
@@ -21,6 +22,7 @@ email_info = {
     'student_welcome': email_dict('welcome', STUDENT, 'Welcome to Curiosity Machine!'), 
     'underage_student_welcome': email_dict('welcome', UNDERAGE_STUDENT, 'Activate Your Child’s Curiosity Machine Account'),
     'educator_welcome': email_dict('welcome', EDUCATOR, 'Welcome to Curiosity Machine'),
+    'parent_welcome': email_dict('welcome', PARENT, 'Welcome to Curiosity Machine!'),
 
     #activation
     'underage_student_activation_confirmation': email_dict('activation_confirmation', UNDERAGE_STUDENT, 'Your Child’s Curiosity Machine Account Is Now Active'),
@@ -77,6 +79,8 @@ def determine_user_type(profile):
             user_type = UNDERAGE_STUDENT
         else:
             user_type = STUDENT
+    elif profile.is_parent:
+        user_type = PARENT
     return user_type
 
 def deliver_email(event_name, profile, **context):
