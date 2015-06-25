@@ -166,6 +166,21 @@ def test_connect_form_reuses_and_resets_parentconnection_objects(parent, child):
     assert models.ParentConnection.objects.all().first().removed == False
     assert models.ParentConnection.objects.all().first().active == False
 
+@pytest.mark.django_db
+def test_connect_form_increments_retry_count(parent, child):
+    form = forms.parent.ConnectForm(instance=parent.profile, data={
+        "usernames": "child"
+    })
+    form.is_valid()
+    form.save()
+    assert models.ParentConnection.objects.all().first().retries == 0
+    models.ParentConnection.objects.all().update(removed=True)
+    form = forms.parent.ConnectForm(instance=parent.profile, data={
+        "usernames": "child"
+    })
+    form.is_valid()
+    form.save()
+    assert models.ParentConnection.objects.all().first().retries == 1
 
 @pytest.mark.django_db
 def test_parents_only_decorator(rf, parent):

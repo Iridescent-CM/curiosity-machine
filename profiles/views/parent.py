@@ -28,6 +28,7 @@ def join(request):
                 password=form.cleaned_data['password']
             )
             auth.login(request, user)
+            user.profile.deliver_welcome_email()
             return HttpResponseRedirect('/')
         else:
             return render(request, 'profiles/parent/join.html', {
