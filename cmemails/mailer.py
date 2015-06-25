@@ -94,5 +94,8 @@ def deliver_email(event_name, profile, **context):
         logger.warn("Unable to determine user type for email event: {}, username: {}".format(event_name, profile.user.username))
         return None
     key = "_".join([user_type, event_name])
-    info = email_info[key]
-    return email([profile.user.email], context.get('subject', info['subject']), context, info['template'], context.get('cc', None))
+    try:
+        info = email_info[key]
+        return email([profile.user.email], context.get('subject', info['subject']), context, info['template'], context.get('cc', None))
+    except KeyError:
+        logger.warn("No email defined for event: {}, type: {}, username: {}".format(event_name, user_type, profile.user.username))
