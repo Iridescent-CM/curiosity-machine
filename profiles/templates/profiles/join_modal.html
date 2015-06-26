@@ -11,21 +11,48 @@
 <div class="modal-body clearfix">
   <p class="lead">Join Curiosity Machine as a:</p>
   <div class="row text-center">
-    <div class="col-sm-4 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-      <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-student" data-dismiss="modal">
-        Student
-      </button>
-    </div>
-    <div class="col-sm-4 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-      <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-mentor" data-dismiss="modal">
-        Mentor
-      </button>
-    </div>
-    <div class="col-sm-4 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-      <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-educator" data-dismiss="modal">
-        Educator
-      </button>
-    </div>
+    {% if flags.enable_parents %}
+
+      <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+        <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-student" data-dismiss="modal">
+          Student
+        </button>
+      </div>
+      <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+        <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-mentor" data-dismiss="modal">
+          Mentor
+        </button>
+      </div>
+      <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+        <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-educator" data-dismiss="modal">
+          Educator
+        </button>
+      </div>
+      <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+        <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-parent" data-dismiss="modal">
+          Parent
+        </button>
+      </div>
+
+    {% else %}
+
+      <div class="col-sm-4 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+        <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-student" data-dismiss="modal">
+          Student
+        </button>
+      </div>
+      <div class="col-sm-4 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+        <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-mentor" data-dismiss="modal">
+          Mentor
+        </button>
+      </div>
+      <div class="col-sm-4 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+        <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-educator" data-dismiss="modal">
+          Educator
+        </button>
+      </div>
+
+    {% endif %}
   </div>
 </div>
 <div class="modal-footer">

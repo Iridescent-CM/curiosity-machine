@@ -234,27 +234,35 @@ SUMMERNOTE_CONFIG = {
     ],
 }
 
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'default': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(message)s'
+            'format': '%(name)s:%(levelname)s (%(pathname)s) %(message)s'
         },
     },
     'handlers': {
         'console':{
-            'level': 'ERROR',
+            'level': LOG_LEVEL,
             'class': 'logging.StreamHandler',
             'formatter': 'default',
         },
     },
     'loggers': {
+        'django': {
+            'handlers': ['console',],
+            'level': 'DEBUG',
+        },
         'django.request': {
             'handlers': ['console',],
-            'level': 'ERROR',
-            'propagate': True,
+            'level': 'DEBUG',
         },
+        'django.security': {
+            'handlers': ['console',],
+            'level': 'DEBUG',
+        }
     },
 }
 

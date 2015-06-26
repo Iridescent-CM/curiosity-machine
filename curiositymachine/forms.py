@@ -3,6 +3,8 @@ from django.conf import settings
 from django.forms.extras.widgets import SelectDateWidget
 from curiositymachine.widgets import FilePickerInlineWidget, FilePickerDragDropWidget
 from django.utils.timezone import now
+from django.contrib.auth.models import User
+import re
 
 MIMETYPE_SCRIPT = """
     evt = arguments[0];
@@ -45,3 +47,25 @@ class AnalyticsForm(forms.Form):
     today = now()
     start_date = forms.DateField(widget=SelectDateWidget(years=range(2014, today.year + 1)))
     end_date = forms.DateField(widget=SelectDateWidget(years=range(2014, today.year + 1)))
+
+def validate_users_exist(recipients):
+    existing = User.objects.filter(
+        username__in=recipients,
+        profile__is_student=True
+    ).values_list('username', flat=True)
+    nonexisting = list(set(recipients) - set(existing))
+    if nonexisting:
+        raise forms.ValidationError(
+            "Found no users named: %(users)s",
+            code='nonexistant-user',
+            params={'users':', '.join(nonexisting)}
+        )
+
+class StudentUsernamesField(forms.Field):
+    widget = forms.Textarea
+    default_validators = [validate_users_exist]
+
+    def to_python(self, value):
+        if not value:
+            return []
+        return list(val for val in re.split("[\s;,]+", value) if val)

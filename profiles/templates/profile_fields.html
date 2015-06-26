@@ -43,12 +43,12 @@
       <div class="errors">{{ form.city.errors }}</div>
     </div>
      <div>
-      {{form.picture_filepicker_url.label_tag}}
+      {{form.image_url.label_tag}}
       {% if page != 'join' %}
         {% include "_avatar.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
       {% endif %}
-      {{form.picture_filepicker_url}}
-      <div class="errors">{{ form.picture_filepicker_url.errors }}</div>
+      {{form.image_url}}
+      <div class="errors">{{ form.image_url.errors }}</div>
     </div>
   </div>
 

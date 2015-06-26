@@ -5,16 +5,16 @@
 -e git://github.com/django/django@1.7b1#egg=Django
 
 #db driver
-psycopg2==2.5.2
+psycopg2==2.6.1
 
 #Heroku DATABASE_URL env variable parsing
 dj-database-url==0.2.2
 
 #WSGI server
-waitress==0.8.8
+waitress==0.8.9
 
 #WSGI statics process
-whitenoise==0.13
+whitenoise==1.0.6
 
 #better testing
 pretend==1.0.7
@@ -58,7 +58,7 @@ django-summernote==0.5.8
 django-bleach==0.2.0
 
 #performance monitoring
-newrelic
+newrelic==2.50.0.39
 
 #captcha
 django-recaptcha==1.0

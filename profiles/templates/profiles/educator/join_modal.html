@@ -9,23 +9,21 @@
   <h1>Create an account as an educator.</h1>
 </div>
 
-<form method='post' action="{% url 'profiles:join_as_educator' %}" enctype="multipart/form-data" 
-  id="join-modal-form" class="default-form"
->
+<form method='post' action="{% url 'profiles:join_as_educator' %}" enctype="multipart/form-data" class="default-form">
   <div class="modal-body clearfix">
     {% csrf_token %}
     <div class="row">
       <div class="col-md-4 profile-fields">
-	{% include "profiles/formfield.html" with field=userForm.username %}
-	{% include "profiles/formfield.html" with field=userForm.email %}
-	{% include "profiles/formfield.html" with field=userForm.password %}
-	{% include "profiles/formfield.html" with field=userForm.confirm_password %}
+	{% include "profiles/formfield.html" with field=form.username %}
+	{% include "profiles/formfield.html" with field=form.email %}
+	{% include "profiles/formfield.html" with field=form.password %}
+	{% include "profiles/formfield.html" with field=form.confirm_password %}
       </div>
       <div class="col-md-4 profile-fields">
-	{% include "profiles/formfield.html" with field=userForm.first_name %}
-	{% include "profiles/formfield.html" with field=userForm.last_name %}
-	{% include "profiles/formfield.html" with field=profileForm.city %}
-	{% include "profiles/formfield.html" with field=profileForm.image_url %}
+	{% include "profiles/formfield.html" with field=form.first_name %}
+	{% include "profiles/formfield.html" with field=form.last_name %}
+	{% include "profiles/formfield.html" with field=form.city %}
+	{% include "profiles/formfield.html" with field=form.image_url %}
       </div>
     </div>
   </div>

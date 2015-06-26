@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Are you sure?</h1>
+  <p>
+    Are you sure you want to remove this parent completely?
+  </p>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <ul class="list-inline">
+      <li><input class="btn btn-primary" type="submit" value="Remove" /></li>
+      <li><a href="{% url 'profiles:home' %}">Cancel</a></li>
+    </ul>
+  </form>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/favorites.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+  <h1>Welcome {{ request.user.username}}</h1>
+
+  <ul class="nav nav-justified nav-tabs">
+    <li {% if filter in my_challenges_filters or filter != 'favorites' %}class="active"{% endif %}>
+      <a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a>
+    </li>
+    <li {% if filter == 'favorites' %}class="active"{% endif %}>
+      <a data-target="#favorites" class="favorites" href="{% url 'challenges:favorite_challenges' %}" data-toggle="tabajax">Favorites</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="challenges">
+      <ul class="pipe-nav">
+        <li>
+          <a href="{% url 'profiles:home' %}?filter=active" {% if not filter or filter == 'active' %}class="active"{% endif %}>
+            Active ({{active_progresses|length}})
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'profiles:home' %}?filter=completed" {% if filter == 'completed' %}class="active"{% endif %}>
+            Completed ({{completed_progresses|length}})
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'profiles:home' %}?filter=all" {% if filter == 'all' %}class="active"{% endif %}>View All</a>
+        </li>
+      </ul>
+
+      <ul class="challenges-list owl-carousel panel-carousel">
+        {% if filter == 'all' %}
+          {% for progress in progresses %}
+            {% include "_challenge_item.html" with challenge=progress.challenge %}
+          {% endfor %}
+        {% elif filter == 'completed' %}
+          {% for progress in completed_progresses %}
+            {% include "_challenge_item.html" with challenge=progress.challenge %}
+          {% endfor %}
+        {% else %}
+          {% for progress in active_progresses %}
+            {% include "_challenge_item.html" with challenge=progress.challenge %}
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="tab-pane fade" id="favorites">
+      <ul class="challenges-list owl-carousel panel-carousel">
+        {% for favorite in favorite_challenges %}
+          {% include "_challenge_item.html" with challenge=favorite.challenge %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {% include "profiles/student/_groups.html" with group_form=group_form groups=groups %}
+
+  {% if parent_connections and flags.enable_parents %}
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Parents</h2>
+        <table class="table table-middle">
+          <thead><tr>
+            <th>Name</th>
+            <th>Can they see my progress?</th>
+            <th></th>
+            <th></th>
+          </tr></thead>
+          {% for connection in parent_connections %}
+            <tr>
+              <td>{{ connection.parent_profile.user.username }}</td>
+              <td>
+                {% if connection.active %}
+                  Yes
+                {% else %}
+                  No
+                {% endif %}
+              </td>
+              <td>
+                <form action="{% url "profiles:toggle_connection" connection_id=connection.id %}" method="POST">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary">
+                    {% if connection.active %}
+                      Turn off
+                    {% else %}
+                      Turn on
+                    {% endif %}
+                  </button>
+                </form>
+              </td>
+              <td>
+                <a class="btn btn-link" href="{% url "profiles:remove_connection" connection_id=connection.id %}">REMOVE</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

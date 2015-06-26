@@ -9,7 +9,7 @@ import signal
 import time
 from django_rq import get_scheduler
 
-NUMBER_OF_WORKERS = 8
+NUMBER_OF_WORKERS = int(os.environ.get('RQ_CONCURRENT_WORKERS', 4))
 
 commands = ['python -u manage.py rqworker'] * NUMBER_OF_WORKERS
 
