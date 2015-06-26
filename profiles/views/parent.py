@@ -28,6 +28,7 @@ def join(request):
                 password=form.cleaned_data['password']
             )
             auth.login(request, user)
+            user.profile.deliver_welcome_email()
             return HttpResponseRedirect('/')
         else:
             return render(request, 'profiles/parent/join.html', {
@@ -124,8 +125,6 @@ class ParentConnectionCreateView(UpdateView):
 
     def form_valid(self, form):
         res = super(ParentConnectionCreateView, self).form_valid(form)
-        already_connected = [pair[0].child_profile.user.username for pair in form.saved]
-        #TODO use messages to communicate already connected?
         return res
 
 class ChildDetailView(DetailView):

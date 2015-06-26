@@ -6,14 +6,16 @@ Hi {{ profile.first_name | default:profile.user.username }}!
 </p>
 
 <p>
-We noticed you’ve been gone for awhile! Our students building at home and in Curiosity Courses are hoping to connect with mentors like you and receive feedback on their design challenges.
+We noticed you’ve been gone for a while! Children building at home and in Curiosity Courses are hoping to connect with inspiring mentors like you.
 </p>
 <p>
-Have a moment now? Visit the <a href="{{ site_url }}">Curiosity Machine</a> to see what amazing designs the students are building and how you can give them the support to succeed! If you would like to sign up to mentor a Curiosity Course, please visit the <a href="{{ site_url }}/training/4/4">mentor calendar</a> for updates and information on current mentoring opportunities.
+Have a moment now? Visit <a href="{{ site_url }}">Curiosity Machine</a> to check out their amazing designs and start giving them the support they need to succeed!
 </p>
 
-<a href="{{ site_url }}{% url 'profiles:home' %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Claim a Student Design Challenge!</button></a>
+<a href="{{ site_url }}{% url 'profiles:home' %}"><button style="color: #fff; background-color:#f16243; border:0px; border-radius: 10px; padding: 10px 35px; font-size: 13pt; width:300px; height:80px;">Get Started!</button></a>
 <p>
+
+
 Best regards, <br>
 Curiosity Machine Team
 </p>
