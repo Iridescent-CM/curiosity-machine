@@ -20,9 +20,10 @@ def test_override_subject(student):
 	assert mailer.deliver_email('welcome', student.profile) == None
 	assert mailer.deliver_email('welcome', student.profile, subject='test') == None
 
+@pytest.mark.django_db
 def test_deliver_email_returns_none_if_it_cant_determine_user_type():
-    profile = Profile()
-    assert mailer.deliver_email('key', profile) == None
+    user = User.objects.create_user(username='user', email='user@example.com', password='password')
+    assert mailer.deliver_email('key', user.profile) == None
 
 def test_deliver_email_looks_up_config_and_calls_email_if_it_can_determine_user_type():
     user = User(email='foo@example.com')

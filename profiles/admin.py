@@ -28,6 +28,7 @@ class UserAdminWithProfile(UserAdmin):
         'profile__is_mentor',
         'profile__is_student',
         'profile__is_educator',
+        'profile__is_parent',
         StudentFilter
     )
 
