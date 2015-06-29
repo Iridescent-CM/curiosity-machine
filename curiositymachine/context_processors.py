@@ -1,6 +1,9 @@
 from profiles.forms import mentor, educator, parent, student
 from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
 def login_and_join_forms(request):
     return {
@@ -15,6 +18,8 @@ def login_and_join_forms(request):
 def google_analytics(request):
     if not request.user.is_authenticated():
         usertype = "Anonymous"
+    elif request.user.is_staff:
+        usertype = "Staff"
     else:
         usertype = ""
         if request.user.profile.is_student:
@@ -28,6 +33,7 @@ def google_analytics(request):
 
         if not usertype:
             usertype = "Other"
+            logger.warn("User categorized as Other for Google Analytics: {}".format(request.user.username))
 
     return {
         'ga_code': settings.GA_CODE,
