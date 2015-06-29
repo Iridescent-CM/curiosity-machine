@@ -49,40 +49,29 @@ def home(request):
     children = ParentConnection.objects.filter(parent_profile=request.user.profile, removed=False)
     trainings = [
         {
-            "title": "Unit 1",
+            "title": "The Creative Parent's Toolbox",
             "imagePath": "profiles/01_forces-and-growth-mindset.png",
-            "description": "Forces & Growth Mindset"
+            "description": "Presentations that cover basic physics and learning mindsets",
+            "link": "/parent-training-intro-series/"
         },
         {
-            "title": "Unit 2",
-            "imagePath": "profiles/02_motion.png",
-            "description": "Motion & Open-Ended Questions"
+            "title": "La Caja de herramientas del Padre Creativo",
+            "imagePath": "profiles/01_forces-and-growth-mindset.png",
+            "description": "Entrenamiento que cubre los conceptos básicos de la física y cómo cultivar una mentalidad de aprendizaje",
+            "link": "/parent-training-intro-series-sp/"
         },
-        {
-            "title": "Unit 3",
-            "imagePath": "profiles/03_structural-strength.png",
-            "description": "Structural Strength & EDP"
-        },
-        {
-            "title": "Unit 4",
-            "imagePath": "profiles/04_forces-of-flight.png",
-            "description": "Forces of Flight & Persistence"
-        },
-        {
-            "title": "Unit 5",
-            "imagePath": "profiles/05_electricity-and-gender.png",
-            "description": "Electricity & Gender Biases"
-        },
-        {
-            "title": "Unit 6",
-            "imagePath": "profiles/06_cognitive-apprenticeship.png",
-            "description": "Power & Cognitive Apprenticeship"
-        },
-        {
-            "title": "Unit 7",
-            "imagePath": "profiles/07_family-course.png",
-            "description": "How to Organize a Family Course"
-        },
+        # {
+        #     "title": "Family Courses",
+        #     "imagePath": "profiles/07_family-course.png",
+        #     "description": "Learn how to set up a family course",
+        #     "link": "/parent-training-intro-series/"
+        # },
+        # {
+        #     "title": "Family Courses [SPANISH]",
+        #     "imagePath": "profiles/07_family-course.png",
+        #     "description": "[SPANISH DESCRIPTION]",
+        #     "link": "/parent-training-intro-series/"
+        # },
     ]
     return render(request, "profiles/parent/home.html", {
         "user": request.user,
