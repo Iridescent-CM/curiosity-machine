@@ -23,6 +23,8 @@ def google_analytics(request):
             usertype += "Mentor"
         if request.user.profile.is_educator:
             usertype += "Educator"
+        if request.user.profile.is_parent:
+            usertype += "Parent"
 
         if not usertype:
             usertype = "Other"
