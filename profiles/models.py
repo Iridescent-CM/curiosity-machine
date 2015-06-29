@@ -15,7 +15,7 @@ class Profile(models.Model):
     is_student = models.BooleanField(default=False, verbose_name="Student access")
     is_mentor = models.BooleanField(default=False, verbose_name="Mentor access")
     is_educator = models.BooleanField(default=False, verbose_name="Educator access")
-    is_parent = models.BooleanField(default=False, verbose_name="Parent leader access")
+    is_parent = models.BooleanField(default=False, verbose_name="Parent access")
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
     city = models.TextField(blank=True)
