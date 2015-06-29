@@ -4,11 +4,12 @@
   Welcome to Curiosity Machine, {{profile.user.username}}!
 </p>
 <p>
-  We’re here to help your family build and invent together. If your child doesn’t 
-  have a Student account, help him or her create one <a href="{{ site_url }}">here</a>! 
+  We’re here to help your family build and invent together. If your child doesn’t
+  have a Student account, help him or her create one
+  <a href="{{ site_url }}{% url "logout" %}?next={% url "profiles:join" %}">here</a>!
 </p>
 <p>
-  With your Parent account, you can: 
+  With your Parent account, you can:
 </p>
 <ul>
   <li>Connect to your child’s Student account.</li>
