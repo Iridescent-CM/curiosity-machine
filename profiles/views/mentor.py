@@ -18,14 +18,8 @@ from django.utils.timezone import now
 from django.conf import settings
 
 @transaction.atomic
-def join(request, source=None):
-
+def join(request):
     templates = ["profiles/mentor/join.html"]
-    initial = {}
-    if source:
-        templates.insert(0, "profiles/mentor/source/{}/join.html".format(source))
-        initial['source'] = source
-
     if request.method == 'POST':
         form = MentorUserAndProfileForm(data=request.POST, prefix="mentor")
         if form.is_valid():
@@ -41,8 +35,34 @@ def join(request, source=None):
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('profiles:home'))
         else:
-            form = MentorUserAndProfileForm(prefix="mentor", initial=initial)
+            form = MentorUserAndProfileForm(prefix="mentor")
             return render(request, templates, {'form': form,})
+
+@transaction.atomic
+def join_from_source(request, source):
+
+    templates = ["profiles/mentor/source/{}/join.html".format(source), "profiles/mentor/source/join.html"]
+    initial = {
+        'source': source
+    }
+
+    if request.method == 'POST':
+        form = MentorUserAndProfileForm(data=request.POST, prefix="mentor")
+        if form.is_valid():
+            user = form.save()
+            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            auth.login(request, user)
+            user.profile.deliver_welcome_email()
+            messages.success(request, 'Thanks for your interest in joining the Curiosity Machine mentor community! You will receive an email shortly with more information on how to get started.')
+            return HttpResponseRedirect('/')
+        else:
+            return render(request, templates, {'form': form, 'source': source})
+    else:
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('profiles:home'))
+        else:
+            form = MentorUserAndProfileForm(prefix="mentor", initial=initial)
+            return render(request, templates, {'form': form, 'source': source})
 
 @login_required
 def home(request):

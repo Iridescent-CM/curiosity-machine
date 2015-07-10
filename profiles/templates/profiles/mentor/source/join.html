@@ -5,7 +5,7 @@
 <h1>Get Started. Create an Account.</h1>
 <form method='post' action="{% url 'profiles:join_as_mentor_from_source' source=source %}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">
   {% csrf_token %}
-  <div class="clearfix">{% include "profiles/mentor/fields.html" with title="Boeing Mentor"%}</div>
+  <div class="clearfix">{% include "profiles/mentor/fields.html" %}</div>
   By clicking Save, you confirm that you accept the <a target="_blank" href="{% url 'privacy' %}">Privacy Policy</a>.
   <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
 </form>
