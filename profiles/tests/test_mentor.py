@@ -54,3 +54,8 @@ def test_mentor_join_form_clean_username_illegal_characters():
     assert 'username' in f.errors
     assert 'can only include' in f.errors['username'].as_text()
 
+def test_mentor_join_from_source_sets_source_from_url(client):
+    res = client.get('/join_as_mentor/whatever/')
+    assert res.context['source'] == 'whatever'
+    assert res.context['form'].initial['source'] == 'whatever'
+
