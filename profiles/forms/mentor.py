@@ -2,7 +2,8 @@ from profiles.forms.common import UserAndProfileForm
 
 class MentorUserAndProfileForm(UserAndProfileForm):
     profile_fields = [
-        'city'
+        'city',
+        'source'
     ]
     profile_fields_force = {
         'is_mentor': True

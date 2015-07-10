@@ -18,7 +18,14 @@ from django.utils.timezone import now
 from django.conf import settings
 
 @transaction.atomic
-def join(request):
+def join(request, source=None):
+
+    templates = ["profiles/mentor/join.html"]
+    initial = {}
+    if source:
+        templates.insert(0, "profiles/mentor/source/{}/join.html".format(source))
+        initial['source'] = source
+
     if request.method == 'POST':
         form = MentorUserAndProfileForm(data=request.POST, prefix="mentor")
         if form.is_valid():
@@ -29,13 +36,13 @@ def join(request):
             messages.success(request, 'Thanks for your interest in joining the Curiosity Machine mentor community! You will receive an email shortly with more information on how to get started.')
             return HttpResponseRedirect('/')
         else:
-            return render(request, 'profiles/mentor/join.html', {'form': form,})
+            return render(request, templates, {'form': form,})
     else:
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('profiles:home'))
         else:
-            form = MentorUserAndProfileForm(prefix="mentor")
-            return render(request, 'profiles/mentor/join.html', {'form': form,})
+            form = MentorUserAndProfileForm(prefix="mentor", initial=initial)
+            return render(request, templates, {'form': form,})
 
 @login_required
 def home(request):
