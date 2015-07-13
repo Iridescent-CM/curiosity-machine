@@ -16,12 +16,21 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.utils.timezone import now
 from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
 @transaction.atomic
 def join(request):
     templates = ["profiles/mentor/join.html"]
     if request.method == 'POST':
-        form = MentorUserAndProfileForm(data=request.POST, prefix="mentor")
+        data = request.POST
+
+        if data.get('mentor-source'):
+            logger.warn("Form submitted to {} with source={}; removing source".format(request.path, data.get('mentor-source')))
+            del data['mentor-source']
+
+        form = MentorUserAndProfileForm(data=data, prefix="mentor")
         if form.is_valid():
             user = form.save()
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
@@ -40,13 +49,18 @@ def join(request):
 
 @transaction.atomic
 def join_from_source(request, source):
-
     templates = ["profiles/mentor/source/{}/join.html".format(source), "profiles/mentor/source/join.html"]
     initial = {
         'source': source
     }
 
     if request.method == 'POST':
+        data = request.POST
+
+        if source != data.get('mentor-source'):
+            logger.warn("Form submitted to {} with source={}; setting source from url".format(request.path, data.get('mentor-source')))
+            data['mentor-source'] = source
+
         form = MentorUserAndProfileForm(data=request.POST, prefix="mentor")
         if form.is_valid():
             user = form.save()
