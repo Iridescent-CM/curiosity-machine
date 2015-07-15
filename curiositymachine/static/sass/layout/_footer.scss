@@ -1,0 +1,11 @@
+footer {
+	width: 100%;
+	background-color: $dark-gray;
+	padding: $large-spacing 0px $large-spacing 0px;
+	color: $primary-light;
+	input {
+		height: 24px;
+		@include basic-form-field;
+		width: 100%;
+	}
+}

@@ -1,0 +1,78 @@
+body {
+  color: $base-font-color;
+  font-family: $base-font-family;
+  font-feature-settings: "kern", "liga", "pnum";
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $heading-font-family;
+  font-size: $base-font-size;
+  line-height: $heading-line-height;
+  margin: 0 0 $small-spacing;
+  font-weight: $base-font-weight;
+}
+
+h1 {
+  font-size: $base-font-size * 2.6875;
+  font-weight: $light-font-weight;
+}
+
+h2 {
+  font-size: $base-font-size * 2;
+  font-weight: $light-font-weight;
+}
+
+h4 {
+  font-weight: $heavy-font-weight;
+}
+
+p {
+  margin: 0 0 $small-spacing;
+}
+
+a {
+  color: $action-color;
+  text-decoration: none;
+  transition: color $base-duration $base-timing;
+  border-bottom: solid 1px $action-color;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: shade($action-color, 25%);
+    border-bottom-color: shade($action-color, 25%);
+  }
+}
+
+a.action-img {
+  border-bottom: 0px;
+}
+
+hr {
+  border-bottom: $base-border;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  margin: $base-spacing 0;
+}
+
+img,
+picture {
+  margin: 0;
+  max-width: 100%;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.center {
+  text-align: center;
+}
