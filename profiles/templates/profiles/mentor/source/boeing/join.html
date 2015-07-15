@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load staticfiles %}
 
 <h1>Welcome Boeing Engineers and Scientists!</h1>
 
@@ -37,8 +38,7 @@
 		</ul>
 	</div>
 	<div class="col-md-6">
-		<img src="https://s3.amazonaws.com/curiositymachine/statics/boeing-logo.png" class="img-responsive" height="122" width="200">
-		<img src="https://s3.amazonaws.com/curiositymachine/statics/footer-image-1140.jpg" class="img-responsive">
+		<img src="{% static "images/mentor-and-daughter.jpg" %}" class="img-responsive">
 	</div>
 </div>
 
