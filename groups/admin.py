@@ -28,5 +28,12 @@ class InvitationAdmin(admin.ModelAdmin):
     model = models.Invitation
     list_display = ['id', 'group', 'user']
 
+class MembershipAdmin(admin.ModelAdmin):
+    model = models.Membership
+    list_display = ['group', 'user', 'role']
+    list_filter = ['role']
+    search_fields = ['group__name', 'user__username']
+
 admin.site.register(models.Group, GroupAdmin)
 admin.site.register(models.Invitation, InvitationAdmin)
+admin.site.register(models.Membership, MembershipAdmin)
