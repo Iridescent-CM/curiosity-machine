@@ -28,8 +28,20 @@ def join(request):
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             auth.login(request, user)
             user.profile.deliver_welcome_email()
+            request.session['ga_events'] = [{
+                'hitType': 'event',
+                'eventCategory': 'account-creation',
+                'eventAction': 'success',
+                'eventLabel': 'student'
+            }]
             return HttpResponseRedirect('/')
         else:
+            request.session['ga_events'] = [{
+                'hitType': 'event',
+                'eventCategory': 'account-creation',
+                'eventAction': 'error',
+                'eventLabel': 'student'
+            }]
             return render(request, 'join.html', {'form': form,})
     else:
         if request.user.is_authenticated():

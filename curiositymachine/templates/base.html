@@ -51,6 +51,9 @@
     ga('create', '{{ga_code}}', 'auto');
     ga('set', 'dimension1', '{{ga_dimension_user_type}}');
     ga('send', 'pageview');
+    {% for evt in ga_events %}
+      ga('send', {{evt|safe}});
+    {% endfor %}
   </script>
   {% endif %}
 </head>

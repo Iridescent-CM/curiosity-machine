@@ -7,8 +7,4 @@ $(document).ready(function(){
     ga('send', 'event', 'modal', 'hide', $(this).attr('id'));
   });
 
-  $('form').on('submit', function(){
-    ga('send', 'event', 'form', 'submit', $(this).attr('action'));
-  });
-
 });
