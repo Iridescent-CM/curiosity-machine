@@ -54,3 +54,30 @@ def test_mentor_join_form_clean_username_illegal_characters():
     assert 'username' in f.errors
     assert 'can only include' in f.errors['username'].as_text()
 
+def test_mentor_join_from_source_sets_source_from_url(client):
+    res = client.get('/join_as_mentor/whatever/')
+    assert res.context['source'] == 'whatever'
+    assert res.context['form'].initial['source'] == 'whatever'
+
+@pytest.mark.django_db
+def test_post_to_join_as_mentor_strips_source(client):
+    res = client.post('/join_as_mentor/', {
+        'mentor-email': 'email@example.org',
+        'mentor-username': 'username',
+        'mentor-password': 'password',
+        'mentor-confirm_password': 'password',
+        'mentor-city': 'city',
+        'mentor-source': 'source'
+    })
+    assert not User.objects.get(username='username').profile.source
+
+@pytest.mark.django_db
+def test_post_to_join_as_mentor_with_source_adds_source(client):
+    res = client.post('/join_as_mentor/source/', {
+        'mentor-email': 'email@example.org',
+        'mentor-username': 'username',
+        'mentor-password': 'password',
+        'mentor-confirm_password': 'password',
+        'mentor-city': 'city'
+    })
+    assert User.objects.get(username='username').profile.source == 'source'

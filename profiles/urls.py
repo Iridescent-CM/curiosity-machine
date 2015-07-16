@@ -5,6 +5,7 @@ from profiles import views
 urlpatterns = patterns('profiles.views',
     url(r'^join/$', views.student.join, name='join'),
     url(r'^join_as_mentor/$', views.mentor.join, name='join_as_mentor'),
+    url(r'^join_as_mentor/(?P<source>[^/]+)/$', views.mentor.join_from_source, name='join_as_mentor_from_source'),
     url(r'^join_as_educator/$', views.educator.join, name='join_as_educator'),
     url(r'^join_as_parent/$', views.parent.join, name='join_as_parent'),
     url(r'^home/$', views.dispatch, {'action': 'home'}, name='home'),

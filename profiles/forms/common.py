@@ -94,7 +94,8 @@ class UserAndProfileForm(forms.ModelForm):
             'parent_first_name': forms.TextInput,
             'parent_last_name': forms.TextInput,
             'title': forms.TextInput,
-            'employer': forms.TextInput
+            'employer': forms.TextInput,
+            'source': forms.HiddenInput,
         }
 
         labels = {
