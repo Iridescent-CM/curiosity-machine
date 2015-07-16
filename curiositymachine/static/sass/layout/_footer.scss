@@ -1,11 +1,27 @@
 footer {
 	width: 100%;
 	background-color: $dark-gray;
-	padding: $large-spacing 0px $large-spacing 0px;
+	padding: 0px 0px $large-spacing 0px;
 	color: $primary-light;
+}
+
+.social-icons {
+	margin: 0px 10px 0px 10px;
+}
+
+.newsletter-panel {
+	width: 100%;
+	background-color: shade($dark-gray, 40%);
+	padding: $large-spacing 0px $large-spacing 0px;
+	margin-bottom: $large-spacing;
+	//display: table-cell;
 	input {
 		height: 24px;
 		@include basic-form-field;
 		width: 100%;
 	}
+}
+
+.newsletter-subscribe {
+	margin-top: $base-spacing;
 }

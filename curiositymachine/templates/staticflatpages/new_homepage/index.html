@@ -31,9 +31,9 @@
 
 		<div class="home-top-panel">
 			<div class="grid-container">
-				<div class="grid-60 push-20 center home-top-panel-content">
+				<div class="grid-60 push-20 text-center home-top-panel-content">
 					<h1>Join the next generation of problem solvers.</h1>
-					<h4>Curiosity Machine is a <a href="#">STEM education</a> tool that teaches children to think like engineers.</h4>
+					<h5>Curiosity Machine is a STEM education tool that teaches children to think like engineers.</h5>
 					<a href="#" class="btn uppercase">Sign up</a>
 					<a href="#" class="btn-secondary uppercase">Watch Video</a>
 				</div>
@@ -71,7 +71,7 @@
 			</div>
 
 			<div class="home-who-panel grid-100">
-				<h2 class="center">We're here for students and their supporters.</h2>
+				<h2 class="text-center">We're here for students and their supporters.</h2>
 				<div class="grid-33">
 					<img src="#">
 					<h4>Parents</h4>
@@ -113,27 +113,37 @@
 
 		<div class="sign-up-panel">
 			<h2>Create an account and take on your first design challenge!</h1>
-			<a href="#" class="btn-secondary">Create an account</a>
+			<a href="#" class="btn-secondary uppercase">sign up</a>
 		</div>	
 
 
 		<footer>
+			<div class="newsletter-panel text-center">
+				<div class="grid-container">
+					<div class="grid-100">
+						<h1>
+							<a href="#" class="action-img"><i class="icon-twitter social-icons"></i></a>
+							<a href="#" class="action-img"><i class="icon-facebook social-icons"></i></a>
+						</h1>
+						<h4>Newsletter</h4>
+						<p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
+						<div class="grid-40 push-30 tablet-grid-60 tablet-push-20 mobile-grid-80 mobile-push-10 newsletter-input">
+							<input type="text" spellcheck="false" placeholder="youremail@email.com" required />
+						</div>
+						<span class="clear"></span>
+						<a href="#" class="btn uppercase newsletter-subscribe">subscribe</a>
+					</div>
+				</div>
+			</div>
 			<div class="grid-container">
-				<div class="grid-40">
-					<img src="https://www.curiositymachine.org/static/images/logo-small2.png">
+				<div class="grid-50">
+					<img src="https://www.curiositymachine.org/static/images/logo-small2.png" width="160">
 					<br>
+					<a href="http://iridescentlearning.org/" class="action-img"><img src="{% static 'images/home/iridescent-logo-210px.png'%}" width="120"></a>
+				</div>
+				<div class="grid-50 text-right">
 					<p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.</p>
 					<p>&copy; Iridescent Learning 2015</p>
-				</div>
-				<div class="grid-60">
-					<h4>Newsletter</h4>
-					<p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
-				</div>
-				<div class="grid-40">
-					<input type="text" spellcheck="false" placeholder="youremail@email.com" required />
-				</div>
-				<div class="grid-10 push-10">
-					<a href="#" class="btn">sign up</a>
 				</div>
 			</div>
 		</footer>

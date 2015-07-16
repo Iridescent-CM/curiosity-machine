@@ -16,7 +16,8 @@
 
 @mixin basic-form-field {
 	border-radius: $base-border-radius;
-	padding: 12px;
+	padding: 12px 0px 12px 12px;
+	margin-left: -6px;
 	background-color: $primary-light;
 	border: $base-border;
 	color: $dark-gray;
