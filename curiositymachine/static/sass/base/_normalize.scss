@@ -425,3 +425,12 @@ td,
 th {
   padding: 0;
 }
+
+
+// border box reset
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}

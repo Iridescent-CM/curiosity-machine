@@ -72,20 +72,20 @@
 
 			<div class="home-who-panel grid-100">
 				<h2 class="text-center">We're here for students and their supporters.</h2>
-				<div class="grid-33">
-					<img src="#">
+				<div class="grid-33 tablet-grid-33 mobile-grid-100">
+					<img src="{% static 'images/home/who-parents.png' %}">
 					<h4>Parents</h4>
 					<p>Learn how to nurture problem-solving skills using principles of design and the practices of engineering.</p>
 					<a href="#" class="btn-purple uppercase">Learn More</a>
 				</div>
-				<div class="grid-33">
-					<img src="#">
+				<div class="grid-33 tablet-grid-33 mobile-grid-100">
+					<img src="{% static 'images/home/who-educators.png' %}">
 					<h4>Educators</h4>
 					<p>Hit NGSS standards and learn how to apply project based learning with your group of students.</p>
 					<a href="#" class="btn-purple uppercase">Learn More</a>
 				</div>
-				<div class="grid-33">
-					<img src="#">
+				<div class="grid-33 tablet-grid-33 mobile-grid-100">
+					<img src="{% static 'images/home/who-stem-professionals.png' %}">
 					<h4>STEM Professionals</h4>
 					<p>Inspire with your ideas and share your strategies by supporting children through the design process.</p>
 					<a href="#" class="btn-purple uppercase">Learn More</a>
@@ -127,7 +127,7 @@
 						</h1>
 						<h4>Newsletter</h4>
 						<p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
-						<div class="grid-40 push-30 tablet-grid-60 tablet-push-20 mobile-grid-80 mobile-push-10 newsletter-input">
+						<div class="grid-40 push-30 tablet-grid-60 tablet-push-20 mobile-grid-80 mobile-push-10">
 							<input type="text" spellcheck="false" placeholder="youremail@email.com" required />
 						</div>
 						<span class="clear"></span>
@@ -135,15 +135,17 @@
 					</div>
 				</div>
 			</div>
-			<div class="grid-container">
-				<div class="grid-50">
-					<img src="https://www.curiositymachine.org/static/images/logo-small2.png" width="160">
-					<br>
-					<a href="http://iridescentlearning.org/" class="action-img"><img src="{% static 'images/home/iridescent-logo-210px.png'%}" width="120"></a>
-				</div>
-				<div class="grid-50 text-right">
-					<p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.</p>
-					<p>&copy; Iridescent Learning 2015</p>
+			<div class="grid-container company-info">
+				<div class="grid-100 tablet-grid-100">
+					<div class="grid-50 tablet-grid-100 company-logos">
+						<img src="https://www.curiositymachine.org/static/images/logo-small2.png" width="160">
+						<br>
+						<a href="http://iridescentlearning.org/" class="action-img"><img src="{% static 'images/home/iridescent-logo-210px.png'%}" width="120"></a>
+					</div>
+					<div class="grid-50 tablet-grid-100 company-text">
+						<p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.</p>
+						<p>&copy; Iridescent Learning 2015</p>
+					</div>
 				</div>
 			</div>
 		</footer>

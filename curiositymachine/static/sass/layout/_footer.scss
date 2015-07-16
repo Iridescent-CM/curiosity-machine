@@ -14,7 +14,6 @@ footer {
 	background-color: shade($dark-gray, 40%);
 	padding: $large-spacing 0px $large-spacing 0px;
 	margin-bottom: $large-spacing;
-	//display: table-cell;
 	input {
 		height: 24px;
 		@include basic-form-field;
@@ -24,4 +23,26 @@ footer {
 
 .newsletter-subscribe {
 	margin-top: $base-spacing;
+}
+
+.company-text {
+	text-align: right;
+}
+
+@media screen and (min-width: $media-tablet-min) and (max-width: $media-tablet-max) {
+	.company-info, .company-text,  {
+		text-align: center;
+	}
+	.company-text {
+		margin-top: $base-spacing;
+	}
+}
+
+@media screen and (max-width: $media-mobile-max) {
+	.company-info, .company-text,  {
+		text-align: center;
+	}
+	.company-text {
+		margin-top: $base-spacing;
+	}
 }
