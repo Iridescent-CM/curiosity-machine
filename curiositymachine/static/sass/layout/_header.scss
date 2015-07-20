@@ -7,6 +7,7 @@ header {
   box-shadow: 0px 2px 4px 2px rgba(51, 51, 51, .5);
   z-index: 100;
   position: relative;
+  transition: all 500ms ease;
 }
 
 nav.main ul {
@@ -22,6 +23,9 @@ nav.main ul {
     float: right;
     //display: inline-block;
     padding: 0px 15px 0px 15px;
+    //transition: all 500ms ease;
+    transition: background-color 500ms bottom-to-top;
+    border-bottom: 0px;
     &:hover {
       color: $primary-green;
       background-color: #F4F1EB;//darken($light, 10%);
@@ -52,55 +56,122 @@ nav.main ul {
   margin-top: 18px;
 }
 
-#mobile-menu-button {
+.small-screen-navigation {
+  width: 100%;
+  height: 100vh;
+  //height: 290px;
+  position: absolute;
+  top: -100vh;
+  //top: -290px;
+  transition: all .75s ease-in-out;
+  background-color: rgba(51,51,51,.9);
+  ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 20px;
+    li {
+      width: 100%;
+      height: 70px;
+      margin-bottom: 20px;
+      border-radius: $base-border-radius;
+      padding-left: 20px;
+      padding-top: 23px;
+    }
+    a {
+      color: white;
+      text-transform: uppercase;
+      font-weight: $heavy-font-weight;
+    }
+  }
+}
+
+.nav-reveal {
+  top: 60px;
+}
+
+// .nav-item-1 { top: 300px; }
+// .nav-item-2 { top: 60px; }
+// .nav-item-3 { top: 120px; }
+
+#account-link {
+  background-color: $primary-purple;
+  border: 2px solid shade($primary-purple, 20%);
+  &:hover {
+    background-color: tint($primary-purple, 20%);
+  }
+  // position: absolute;
+  // top: 10px;
+  transition: background-color 200ms ease-in;
+}
+
+#challenges-link {
+  background-color: $primary-blue;
+  border: 2px solid shade($primary-blue, 20%);
+  &:hover {
+    background-color: tint($primary-blue, 20%);
+  }
+  // position: absolute;
+  // top: 10px;
+  transition: background-color 200ms ease-in;
+}
+
+#about-link {
+  background-color: $primary-red;
+  border: 2px solid shade($primary-red, 20%);
+  &:hover {
+    background-color: tint($primary-red, 20%);
+  }
+  // position: absolute;
+  // top: 10px;
+  transition: background-color 200ms ease-in;
+}
+
+#mobile-menu-link {
+  display: none;
+}
+
+.small-screen-logo {
+  display: none;
+}
+
+.small-screen-navigation {
   display: none;
 }
 
 @media screen and (max-width: $media-tablet-max) {
-  #mobile-menu-button {
+  header {
+    height: 60px;
+  }
+  #mobile-menu-link {
     text-transform: uppercase;
     font-weight: $heavy-font-weight;
     display: inline-block;
     float: right;
     border: 0px;
     background-color: transparent;
-    margin-top: $base-spacing * 1.5;
+    margin-top: 20px;
+    cursor: pointer;
   }
   nav.main ul {
-    //display: none;
-    margin-top: 10px;
-    float: none;
-    height: auto;
-    text-align: center;
-    padding-left: 0px;
-    a {
-      width: 100%;
-      padding: 0px;
-      float: none;
-      border-bottom: 0px;
-      @include vertical-align;
-      li {
-        padding-top: 25px;
-        margin-top: 0px;
-        margin-bottom: 5px;
-        height: 45px;
-        width: 100%;
-        background-color: $light-gray;
-        img {
-          margin-top: 0px;
-          margin-left: 0px;
-          display: inline-block;
-        }
-      }
-    }
+    display: none;
+  }
+  .logo {
+    display: none;
+  }
+  .small-screen-navigation {
+    display: block;
+  }
+  .small-screen-logo {
+    display: inline;
+    float: left;
+    height: 60px;
+  }
+  .user-avatar {
+    position: absolute;
+    top: 25px;
+    left: 40px;
+  }
+  .user-name {
+    padding-left: 90px !important;
   }
 }
-
-// @media screen and (max-width: $media-mobile-max) {
-//   #main-header-logo {
-//     background-color
-//   }
-//   header {
-//     background-color: red;
-//     }
-// }

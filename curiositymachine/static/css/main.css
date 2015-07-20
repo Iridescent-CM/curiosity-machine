@@ -2251,7 +2251,8 @@ header {
   background-color: #FFFCF7;
   box-shadow: 0px 2px 4px 2px rgba(51, 51, 51, 0.5);
   z-index: 100;
-  position: relative; }
+  position: relative;
+  transition: all 500ms ease; }
 
 nav.main ul {
   list-style-type: none;
@@ -2264,7 +2265,9 @@ nav.main ul {
     text-decoration: none;
     height: 100%;
     float: right;
-    padding: 0px 15px 0px 15px; }
+    padding: 0px 15px 0px 15px;
+    transition: background-color 500ms bottom-to-top;
+    border-bottom: 0px; }
     nav.main ul a:hover {
       color: #8FB559;
       background-color: #F4F1EB; }
@@ -2291,46 +2294,97 @@ nav.main ul {
 .logo {
   margin-top: 18px; }
 
-#mobile-menu-button {
+.small-screen-navigation {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: -100vh;
+  transition: all .75s ease-in-out;
+  background-color: rgba(51, 51, 51, 0.9); }
+  .small-screen-navigation ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 20px; }
+    .small-screen-navigation ul li {
+      width: 100%;
+      height: 70px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      padding-left: 20px;
+      padding-top: 23px; }
+    .small-screen-navigation ul a {
+      color: white;
+      text-transform: uppercase;
+      font-weight: 700; }
+
+.nav-reveal {
+  top: 60px; }
+
+#account-link {
+  background-color: #6161AF;
+  border: 2px solid #4e4e8c;
+  transition: background-color 200ms ease-in; }
+  #account-link:hover {
+    background-color: #8181bf; }
+
+#challenges-link {
+  background-color: #2FB8C8;
+  border: 2px solid #2693a0;
+  transition: background-color 200ms ease-in; }
+  #challenges-link:hover {
+    background-color: #59c6d3; }
+
+#about-link {
+  background-color: #FD6917;
+  border: 2px solid #ca5412;
+  transition: background-color 200ms ease-in; }
+  #about-link:hover {
+    background-color: #fd8745; }
+
+#mobile-menu-link {
+  display: none; }
+
+.small-screen-logo {
+  display: none; }
+
+.small-screen-navigation {
   display: none; }
 
 @media screen and (max-width: 1024px) {
-  #mobile-menu-button {
+  header {
+    height: 60px; }
+
+  #mobile-menu-link {
     text-transform: uppercase;
     font-weight: 700;
     display: inline-block;
     float: right;
     border: 0px;
     background-color: transparent;
-    margin-top: 2.25em; }
+    margin-top: 20px;
+    cursor: pointer; }
 
   nav.main ul {
-    margin-top: 10px;
-    float: none;
-    height: auto;
-    text-align: center;
-    padding-left: 0px; }
-    nav.main ul a {
-      width: 100%;
-      padding: 0px;
-      float: none;
-      border-bottom: 0px;
-      position: relative;
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%); }
-      nav.main ul a li {
-        padding-top: 25px;
-        margin-top: 0px;
-        margin-bottom: 5px;
-        height: 45px;
-        width: 100%;
-        background-color: #E5E1D9; }
-        nav.main ul a li img {
-          margin-top: 0px;
-          margin-left: 0px;
-          display: inline-block; } }
+    display: none; }
+
+  .logo {
+    display: none; }
+
+  .small-screen-navigation {
+    display: block; }
+
+  .small-screen-logo {
+    display: inline;
+    float: left;
+    height: 60px; }
+
+  .user-avatar {
+    position: absolute;
+    top: 25px;
+    left: 40px; }
+
+  .user-name {
+    padding-left: 90px !important; } }
 footer {
   width: 100%;
   background-color: #333333;
@@ -2691,6 +2745,9 @@ nav#static-page-nav {
   text-align: center;
   color: white; }
 
+.challenge-navigation {
+  height: 100%; }
+
 .design-challenge-list {
   list-style-type: none;
   font-size: 14px;
@@ -2710,5 +2767,20 @@ nav#static-page-nav {
     box-shadow: 0px 1px 2px 0px rgba(148, 148, 148, 0.5);
     margin-top: 10px;
     margin-bottom: 10px; }
+
+.all-challenges-header {
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+  background-color: #2FB8C8;
+  color: white;
+  border-radius: 4px; }
+
+.placeholder-challenge-card {
+  width: 245px;
+  height: 300px;
+  background-color: #F2B353;
+  text-align: center;
+  border-radius: 4px; }
 
 /*# sourceMappingURL=main.css.map */

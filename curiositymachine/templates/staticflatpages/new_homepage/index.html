@@ -15,7 +15,8 @@
 			<div class="grid-container">
 				<div class="grid-100">
 					<nav class="main">
-						<a href="#" class="action-img"><img src="https://www.curiositymachine.org/static/images/logo-small2.png" class="logo"></a>
+						<a href="#" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
+						<a href="#" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
 						<ul>
 							<a href="#"><li class="user-name">
 							savannahmillion
@@ -25,9 +26,26 @@
 							<a href="#"><li>about us</li></a>
 						</ul>
 					</nav>
+					<a id="mobile-menu-link">menu</a>
 				</div>
 			</div>
 		</header>
+
+		<nav class="small-screen-navigation">
+			<div class="grid-container">
+				<div class="grid-100">
+					<ul>
+						<a href="#">
+							<li class="user-name" id="account-link">savannahmillion
+							<img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
+							</li>
+						</a>
+						<a href="#"><li  id="challenges-link">challenges</li></a>
+						<a href="#"><li id="about-link">about us</li></a>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
 		<div class="home-top-panel">
 			<div class="grid-container">
@@ -150,8 +168,17 @@
 			</div>
 		</footer>
 
-		<script src="js/jquery.min.js"></script>
-		<script src="js/application.js"></script>
+		<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script>
+			$(document).ready(function() {
+			    $('#mobile-menu-link').on('click', function(event) {
+			    $('.small-screen-navigation').toggleClass('nav-reveal');
+			    $('#about-link').toggleClass('nav-item-1');
+			    $('#challenges-link').toggleClass('nav-item-2');
+			    $('#account-link').toggleClass('nav-item-3');
+			  });
+			});
+		</script>
 	</body>
 
 </html>
