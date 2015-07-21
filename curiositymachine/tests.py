@@ -356,12 +356,12 @@ def test_user_join_view_sets_source_in_form_data_from_url(rf):
     request = rf.post('/whatever', {'source': None})
     request.user = AnonymousUser()
 
-    class SubUserFormView(UserJoinView):
+    class SubUserJoinView(UserJoinView):
         def form_valid(self, form):
             pass
 
     m = mock.MagicMock()
-    view = SubUserFormView.as_view(form_class=m)
+    view = SubUserJoinView.as_view(form_class=m)
     view(request, source='source')
 
     args = m.call_args
@@ -373,12 +373,12 @@ def test_user_join_view_strips_source_if_not_in_url(rf):
     request = rf.post('/whatever', {'source': 'source'})
     request.user = AnonymousUser()
 
-    class SubUserFormView(UserJoinView):
+    class SubUserJoinView(UserJoinView):
         def form_valid(self, form):
             pass
 
     m = mock.MagicMock()
-    view = SubUserFormView.as_view(form_class=m)
+    view = SubUserJoinView.as_view(form_class=m)
     view(request)
 
     args = m.call_args
@@ -397,4 +397,34 @@ def test_user_join_view_templates(rf):
 
     response = view(request, source='somesource')
     assert response.template_name == ['profiles/sources/somesource/usertype/join.html', 'profiles/usertype/join.html']
+
+def test_user_join_view_redirects_to_success_url(rf):
+    request = rf.post('/whatever', {})
+    request.user = AnonymousUser()
+
+    class SubUserJoinView(UserJoinView):
+        def create_user(self, form):
+            return mock.MagicMock()
+
+    m = mock.MagicMock()
+    view = SubUserJoinView.as_view(form_class=m, prefix='usertype', success_url='/success')
+
+    response = view(request)
+    assert isinstance(response, HttpResponseRedirect)
+    assert response.url == '/success'
+
+def test_user_join_view_redirects_to_success_url_from_form(rf):
+    request = rf.post('/whatever', {'success_url': '/thisone'})
+    request.user = AnonymousUser()
+
+    class SubUserJoinView(UserJoinView):
+        def create_user(self, form):
+            return mock.MagicMock()
+
+    m = mock.MagicMock()
+    view = SubUserJoinView.as_view(form_class=m, prefix='usertype', success_url='/success')
+
+    response = view(request)
+    assert isinstance(response, HttpResponseRedirect)
+    assert response.url == '/thisone'
 
