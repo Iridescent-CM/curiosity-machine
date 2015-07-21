@@ -1,5 +1,13 @@
 .about-top-panel {
-	background-color: shade($primary-red, 20%);
+	background: url("../images/home/home-img-1.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.about-top-panel-content {
+	background-color: rgba(255,90,0,.7);
 	color: white;
 	padding: $base-spacing 0px $base-spacing 0px;
 	margin-bottom: $large-spacing;
@@ -19,17 +27,19 @@ nav#static-page-nav {
 		padding-left: 0px;
 		a {
 			color: $primary-light;
+			border-bottom: 0px;
 			&:hover {
 				color: shade($primary-red, 40%);
 			}
 		}
 		li {
-			float: left;
-			//display: block;
+			//float: left;
+			display: inline;
 			margin: 0px 20px 0px 20px;
 			border-bottom: 2px solid $primary-light;
 			&:hover {
 				border-bottom-color: shade($primary-red, 40%);
+
 			}
 		}
 	}
@@ -40,6 +50,9 @@ nav#static-page-nav {
 	h2 {
 		text-align: center;
 		color: $primary-red;
+	}
+	h4 {
+		display: inline-block;
 	}
 }
 
