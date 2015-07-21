@@ -11,7 +11,7 @@ from groups.forms import GroupJoinForm, GroupLeaveForm
 from groups.models import Invitation
 from challenges.models import Progress, Favorite
 from profiles.models import ParentConnection
-from curiositymachine.views.generic import ToggleView, SoftDeleteView
+from curiositymachine.views.generic import ToggleView, SoftDeleteView, UserJoinView
 from django.db import transaction
 from django.views.generic.edit import UpdateView
 from django.utils.functional import lazy
@@ -19,24 +19,12 @@ from django.utils.decorators import method_decorator
 from profiles.decorators import connected_child_only
 from curiositymachine.decorators import feature_flag
 
-@transaction.atomic
-def join(request):
-    if request.method == 'POST':
-        form = StudentUserAndProfileForm(data=request.POST)
-        if form.is_valid():
-            user = form.save()
-            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            auth.login(request, user)
-            user.profile.deliver_welcome_email()
-            return HttpResponseRedirect('/')
-        else:
-            return render(request, 'join.html', {'form': form,})
-    else:
-        if request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('profiles:home'))
-        form = StudentUserAndProfileForm()
-
-    return render(request, 'join.html', {'form': form,})
+join = transaction.atomic(UserJoinView.as_view(
+    form_class = StudentUserAndProfileForm,
+    prefix = 'student',
+    logged_in_redirect = lazy(reverse, str)('profiles:home'),
+    success_url = '/'
+))
 
 @login_required
 def home(request):

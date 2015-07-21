@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>Get Started. Create an Account.</h1>
-<form method='post' action="{% url 'profiles:join' %}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">  
+<form method='post' action="{{ action }}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">  
   {% csrf_token %}
   <div class="clearfix">{% include "profile_fields.html" with page='join' %}</div>
   By clicking Save, you confirm that you accept the <a target="_blank" href="{% url 'privacy' %}">Privacy Policy</a>.

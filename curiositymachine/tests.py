@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from profiles.models import Profile
 from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware
 from .views import root_redirect
+from .views.generic import UserJoinView
 from challenges.models import Progress, Challenge
 from .helpers import random_string
 from curiositymachine import decorators
@@ -328,3 +329,72 @@ def test_challenge_access_decorator_redirects_other(rf):
     response = wrapped(request, 1, 'named')
     assert not view.called
     assert response.status_code == 302
+
+def test_user_join_view_redirects_logged_in_user(rf):
+    request = rf.get('/whatever')
+    user = User()
+    profile = Profile(user=user)
+    request.user = user
+    view = UserJoinView.as_view(logged_in_redirect='/redirect')
+    assert type(view(request)) == HttpResponseRedirect
+    assert view(request).url == '/redirect'
+
+def test_user_join_view_sets_source_in_initial_form_data(rf):
+    request = rf.get('/whatever')
+    request.user = AnonymousUser()
+
+    m = mock.MagicMock()
+    view = UserJoinView.as_view(form_class=m)
+    view(request, source='source')
+
+    args = m.call_args
+    assert 'initial' in args[1]
+    assert 'source' in args[1]['initial']
+    assert args[1]['initial']['source'] == 'source'
+
+def test_user_join_view_sets_source_in_form_data_from_url(rf):
+    request = rf.post('/whatever', {'source': None})
+    request.user = AnonymousUser()
+
+    class SubUserFormView(UserJoinView):
+        def form_valid(self, form):
+            pass
+
+    m = mock.MagicMock()
+    view = SubUserFormView.as_view(form_class=m)
+    view(request, source='source')
+
+    args = m.call_args
+    assert 'data' in args[1]
+    assert 'source' in args[1]['data']
+    assert args[1]['data']['source'] == 'source'
+
+def test_user_join_view_strips_source_if_not_in_url(rf):
+    request = rf.post('/whatever', {'source': 'source'})
+    request.user = AnonymousUser()
+
+    class SubUserFormView(UserJoinView):
+        def form_valid(self, form):
+            pass
+
+    m = mock.MagicMock()
+    view = SubUserFormView.as_view(form_class=m)
+    view(request)
+
+    args = m.call_args
+    assert 'data' in args[1]
+    assert 'source' not in args[1]['data']
+
+def test_user_join_view_templates(rf):
+    request = rf.get('/whatever')
+    request.user = AnonymousUser()
+
+    m = mock.MagicMock()
+    view = UserJoinView.as_view(form_class=m, prefix='usertype')
+
+    response = view(request)
+    assert response.template_name == ['profiles/usertype/join.html']
+
+    response = view(request, source='somesource')
+    assert response.template_name == ['profiles/sources/somesource/usertype/join.html', 'profiles/usertype/join.html']
+
