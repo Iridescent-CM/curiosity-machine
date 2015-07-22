@@ -11,7 +11,8 @@ class StudentUserAndProfileForm(UserAndProfileForm):
         'birthday',
         'city',
         'parent_first_name',
-        'parent_last_name'
+        'parent_last_name',
+        'source'
     ]
     profile_fields_force = {
         'is_student': True
