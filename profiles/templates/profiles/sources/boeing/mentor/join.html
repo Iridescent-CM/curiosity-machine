@@ -5,7 +5,7 @@
 
 <h1>Welcome Boeing Engineers and Scientists!</h1>
 
-<form method='post' action="{% url 'profiles:join_as_mentor_from_source' source=source %}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">
+<form method='post' action="{{ action }}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">
   {% csrf_token %}
   <div class="row">
     {% include "profiles/mentor/fields.html" with title="Become a Boeing Mentor"%}

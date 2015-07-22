@@ -6,6 +6,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from curiositymachine.decorators import feature_flag
+from curiositymachine.views.generic import UserJoinView
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
@@ -16,32 +17,12 @@ from profiles.models import ParentConnection, Profile
 from profiles.decorators import parents_only, connected_parent_only, active_connected_parent_only
 from django.utils.decorators import method_decorator
 
-@transaction.atomic
-@feature_flag('enable_parents')
-def join(request):
-    if request.method == 'POST':
-        form = forms.ParentUserAndProfileForm(data=request.POST, prefix="parent")
-        if form.is_valid():
-            user = form.save()
-            user = auth.authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password']
-            )
-            auth.login(request, user)
-            user.profile.deliver_welcome_email()
-            return HttpResponseRedirect('/')
-        else:
-            return render(request, 'profiles/parent/join.html', {
-                'form': form
-            })
-    else:
-        if request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('profiles:home'))
-        else:
-            form = forms.ParentUserAndProfileForm(prefix="parent")
-            return render(request, 'profiles/parent/join.html', {
-                'form': form
-            })
+join = transaction.atomic(UserJoinView.as_view(
+    form_class = forms.ParentUserAndProfileForm,
+    prefix = 'parent',
+    logged_in_redirect = lazy(reverse, str)('profiles:home'),
+    success_url = '/'
+))
 
 @login_required
 @feature_flag('enable_parents')

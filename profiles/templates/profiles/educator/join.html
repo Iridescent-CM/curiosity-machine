@@ -3,10 +3,11 @@
 {% block content %}
 
 <h1>Get Started. Create an Account.</h1>
-<form method='post' action="{% url 'profiles:join_as_educator' %}"
+<form method='post' action="{{ action }}"
     enctype="multipart/form-data" id="join-form"
     class="default-form profile-fields">
   {% csrf_token %}
+  {{ form.source }}
   <div class="row">
     <div class="col-md-12">
       <h3>Educator</h3>

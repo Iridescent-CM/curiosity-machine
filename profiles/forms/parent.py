@@ -6,7 +6,8 @@ from curiositymachine.forms import StudentUsernamesField
 
 class ParentUserAndProfileForm(UserAndProfileForm):
     profile_fields = [
-        'city'
+        'city',
+        'source'
     ]
     profile_fields_force = {
         'is_parent': True
