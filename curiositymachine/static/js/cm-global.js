@@ -16,38 +16,6 @@ CM.showMessage = function(message, classes) {
   }, 6 * 1000);
 };
 
-CM.Profile = {
-  init : function() {
-    this.show_or_hide_parent_fields();
-    this.bind();
-  },
-  bind : function() {
-    var self = this
-    $('.student-column .birthday-field').find('select').on('change', function(e) {
-      self.show_or_hide_parent_fields();
-    });
-  },
-  show_or_hide_parent_fields : function() {
-    var day = $('.student-column #id_birthday_day').val();
-    var month = $('.student-column #id_birthday_month').val() - 1;
-    var year = $('.student-column #id_birthday_year').val();
-    var today = new Date();
-    var age = today.getFullYear() - year;
-    if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
-      age--; //birthday hasn't happened this year
-    }
-    if (age < 13) {
-      $('.parent-info').show();
-      $('.student-column').removeClass('col-md-6').addClass('col-md-4');
-      $(".student-column label[for='id_email']").text('Parent Email:');
-    } else {
-      $('.parent-info').hide();
-      $('.student-column').removeClass('col-md-4').addClass('col-md-6');
-      $(".student-column label[for='id_email']").text('Email:');
-    }
-  },
-};
-
 CM.FilePicker = {
   config : {},
   init : function(parent) {
@@ -187,11 +155,6 @@ $(document).ready(function() {
       $(this.form).find('input[type=submit]').removeAttr('disabled');
     }
   });
-
-  /////PROFILE!
-
-  CM.Profile.init();
-
 
   //=======================
   //bootstrapy stuff

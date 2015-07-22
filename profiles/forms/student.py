@@ -28,6 +28,10 @@ class StudentUserAndProfileForm(UserAndProfileForm):
             'email'
         ]
 
+    # FIXME: not using Media until compressable/non-compressable js figured out
+    # class Media:
+    #     js = ['js/coppa.js']
+
     def clean(self):
         super(StudentUserAndProfileForm, self).clean()
 
