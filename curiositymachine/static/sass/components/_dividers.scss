@@ -1,0 +1,15 @@
+.basic-hr {
+	height: 3px;
+	border-radius: 3px;
+	margin-top: $large-spacing;
+}
+
+.hr-purple {
+	@extend .basic-hr;
+	background-color: $primary-purple;
+}
+
+.hr-red {
+	@extend .basic-hr;
+	background-color: $primary-red;
+}

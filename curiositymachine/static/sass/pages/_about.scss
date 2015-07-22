@@ -33,7 +33,6 @@ nav#static-page-nav {
 			}
 		}
 		li {
-			//float: left;
 			display: inline;
 			margin: 0px 20px 0px 20px;
 			border-bottom: 2px solid $primary-light;
@@ -50,9 +49,17 @@ nav#static-page-nav {
 	h2 {
 		text-align: center;
 		color: $primary-red;
+		//margin-top: $large-spacing;
 	}
-	h4 {
-		display: inline-block;
+	h3 {
+		text-align: center;
+		margin-bottom: $base-spacing;
+	}
+	// h4 {
+	// 	display: inline-block;
+	// }
+	hr {
+		margin-bottom: $large-spacing;
 	}
 }
 
@@ -75,5 +82,17 @@ nav#static-page-nav {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.numbered-bullet {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background-color: $primary-red;
+	color: white;
+	text-align: center;
+	position: relative;
+	display: inline-block;
+	top: -3px;
 }
 
