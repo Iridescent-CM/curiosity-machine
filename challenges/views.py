@@ -51,15 +51,15 @@ def preview_inspiration(request, challenge_id):
         'examples': Example.objects.filter(challenge=challenge),
     })
 
-def plan_guest(request, challenge_id):
+def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     return render(request, 'challenges/preview/plan.html', {'challenge': challenge})
 
-def build_guest(request, challenge_id):
+def preview_build(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     return render(request, 'challenges/preview/build.html', {'challenge': challenge})
 
-def reflect_guest(request, challenge_id):
+def preview_reflect(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if not request.user.is_authenticated() or request.user.profile.is_student:
         messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
