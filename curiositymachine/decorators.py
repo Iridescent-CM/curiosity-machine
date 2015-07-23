@@ -66,3 +66,12 @@ def feature_flag(flag):
                 raise Http404
         return inner
     return decorator
+
+def whitelist(*listnames):
+    def decorator(view):
+        @wraps(view)
+        def inner(request, *args, **kwargs):
+            return view(request, *args, **kwargs)
+        inner.whitelist = listnames
+        return inner
+    return decorator

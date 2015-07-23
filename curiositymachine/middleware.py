@@ -2,6 +2,9 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
+def whitelisted(view, listname):
+    return listname in getattr(view, 'whitelist', [])
+
 class CanonicalDomainMiddleware:
     """
     Redirects to CANONICAL_DOMAIN from other domains if set
@@ -9,6 +12,11 @@ class CanonicalDomainMiddleware:
     def process_request(self, request):
         if settings.CANONICAL_DOMAIN and not request.META['HTTP_HOST'] == settings.CANONICAL_DOMAIN:
             return HttpResponseRedirect('http://{}/{}'.format(settings.CANONICAL_DOMAIN, request.get_full_path())) # might as well redirect to http as sslify will then catch requests if appropriate
+
+class LoginRequiredMiddleware:
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        if not (request.user.is_authenticated() or whitelisted(view_func, 'public')):
+            return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.path))
 
 class UnderageStudentSandboxMiddleware:
     """

@@ -5,13 +5,18 @@ from pages.models import StaticPage
 from .views import root_redirect, health_check
 import profiles.urls
 
+from django.contrib.auth.views import login, logout
+from curiositymachine.decorators import whitelist
+
+public = whitelist('public')
+
 urlpatterns = patterns('',
-    url(r'^$', root_redirect, name='root'),
+    url(r'^$', public(root_redirect), name='root'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/analytics/$', 'curiositymachine.analytics.analytics', name="analytics"),
     url(r'^admin/export_users/$', 'curiositymachine.export_users.export_users', name="export_users"),
-    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', name="logout"),
+    url(r'^login/$', public(login), name='login'),
+    url(r'^logout/$', public(logout), name="logout"),
     url(r'^', include('profiles.urls', namespace='profiles', app_name='profiles')),
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
