@@ -17,7 +17,7 @@
   {% elif request.user.profile.is_student %}
     <p class="guest-modal-subheader">Use the button below to start building this challenge:</p>
     <div class="guest-buttons">
-      <form name="Start Building" action="{% url 'challenges:challenge' challenge_id=challenge.id %}" method='POST'>
+      <form name="Start Building" action="{% url 'challenges:start_building' challenge_id=challenge.id %}" method='POST'>
         {% csrf_token %}
         <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />
       </form>

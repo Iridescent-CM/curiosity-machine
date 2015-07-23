@@ -10,7 +10,7 @@
           {% if progress|unread_count:request.user %} <span title="{{progress|unread_count:request.user}} unread messages" class="unread">{{progress|unread_count:request.user}}</span>{% endif %}
           <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a>
         {% else %}
-          <a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
+          <a href="{% url 'challenges:preview_inspiration' challenge.id %}">{{ challenge.name }}</a>
         {% endif %}
         {% if request.user.is_authenticated and request.user.profile.is_student %}
         <span class="favorite-badge-backfold{% if challenge|is_favorite:request.user %} active{% endif %}"></span>
@@ -30,7 +30,7 @@
       {% if challenge in request.user.challenges.all %}
         <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">
       {% else %}
-        <a href="{% url 'challenges:challenge' challenge.id %}">
+        <a href="{% url 'challenges:preview_inspiration' challenge.id %}">
       {% endif %}
       {% if challenge.image %}
         <img src="{% resized challenge.image.url width=300 height=200 crop='fit' %}">
