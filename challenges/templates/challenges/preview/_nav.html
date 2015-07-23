@@ -7,7 +7,7 @@
         </a>
       </li>
       <li class="inspiration {% if stage == 'inspiration' %}selected{% endif %}">
-        <a href="{% url 'challenges:challenge' challenge_id=challenge.id %}">
+        <a href="{% url 'challenges:preview_inspiration' challenge_id=challenge.id %}">
           <span class="btn">Inspiration</span>
         </a>
         <span class="arrows"></span>

@@ -28,7 +28,7 @@ def challenges(request):
     themes = Theme.objects.all()
     return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme, 'theme_id': theme_id, 'filters': filters})
 
-def challenge(request, challenge_id):
+def start_building(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
 
     if request.method == 'POST':
@@ -38,12 +38,18 @@ def challenge(request, challenge_id):
                 Progress.objects.create(challenge=challenge, student=request.user)
             except (ValueError, ValidationError):
                 raise PermissionDenied
-        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': challenge.id, 'username': request.user.username,}))
-    else:
-        return render(request, 'challenges/preview/inspiration.html', {
-            'challenge': challenge,
-            'examples': Example.objects.filter(challenge=challenge),
-        })
+        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
+            'challenge_id': challenge.id,
+            'username': request.user.username,
+        }))
+
+def preview_inspiration(request, challenge_id):
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+
+    return render(request, 'challenges/preview/inspiration.html', {
+        'challenge': challenge,
+        'examples': Example.objects.filter(challenge=challenge),
+    })
 
 def plan_guest(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
@@ -59,7 +65,7 @@ def reflect_guest(request, challenge_id):
         messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
         return HttpResponseRedirect(request.META.get(
             'HTTP_REFERER',
-            reverse('challenges:challenge', kwargs={
+            reverse('challenges:preview_inspiration', kwargs={
                 'challenge_id': challenge_id,
             })
         ))
@@ -78,7 +84,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
     try:
         progress = Progress.objects.get(challenge=challenge, student__username=username)
     except Progress.DoesNotExist:
-        return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge.id,}))
+        return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge.id,}))
 
     if requestedStage == None:
         if progress.approved:
@@ -191,7 +197,7 @@ def change_materials(request, challenge_id, username):
 def set_favorite(request, challenge_id, mode='favorite'):
     content_type="application/json"
     user = request.user
-    
+
     challenge = get_object_or_404(Challenge, id=challenge_id)
     try:
         if mode == 'favorite':

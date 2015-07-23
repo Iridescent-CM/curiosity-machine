@@ -58,7 +58,7 @@ class Challenge(models.Model):
     draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown in the main challenge list")
     
     def get_absolute_url(self):
-        return reverse('challenges:challenge', kwargs={
+        return reverse('challenges:preview_inspiration', kwargs={
             'challenge_id': self.id,
         })
 
