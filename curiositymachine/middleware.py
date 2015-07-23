@@ -28,12 +28,12 @@ class UnderageStudentSandboxMiddleware:
     """
     Middleware that sandboxes students under 13 away from the rest of the site.
     """
-    def process_request(self, request):
+    def process_view(self, request, view, view_args, view_kwargs):
         if (request.user.is_authenticated()
                 and not request.user.is_staff
                 and request.user.profile.is_student
                 and not request.user.profile.approved):
-            if request.path_info not in ['/logout', '/logout/', reverse('profiles:underage_student')]:
+            if not whitelisted(view, 'public', 'underage'):
                 return HttpResponseRedirect(reverse('profiles:underage_student'))
 
 class UnapprovedMentorSandboxMiddleware:
@@ -45,7 +45,7 @@ class UnapprovedMentorSandboxMiddleware:
                 and not request.user.is_staff
                 and request.user.profile.is_mentor
                 and not request.user.profile.approved):
-            if not (whitelisted(view, 'public', 'unapproved_mentors')):
+            if not whitelisted(view, 'public', 'unapproved_mentors'):
                 return HttpResponseRedirect(reverse('profiles:home'))
 
 class LastActiveMiddleware:
