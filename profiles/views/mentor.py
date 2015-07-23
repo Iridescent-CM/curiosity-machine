@@ -3,6 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from curiositymachine.decorators import mentor_only
+from curiositymachine.views.generic import UserJoinView
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.forms.util import ErrorList
@@ -15,68 +16,19 @@ from django.db import transaction
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.utils.timezone import now
+from django.utils.functional import lazy
 from django.conf import settings
 import logging
 
 logger = logging.getLogger(__name__)
 
-@transaction.atomic
-def join(request):
-    templates = ["profiles/mentor/join.html"]
-    if request.method == 'POST':
-        data = request.POST
-
-        if data.get('mentor-source'):
-            logger.warn("Form submitted to {} with source={}; removing source".format(request.path, data.get('mentor-source')))
-            del data['mentor-source']
-
-        form = MentorUserAndProfileForm(data=data, prefix="mentor")
-        if form.is_valid():
-            user = form.save()
-            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            auth.login(request, user)
-            user.profile.deliver_welcome_email()
-            messages.success(request, 'Thanks for your interest in joining the Curiosity Machine mentor community! You will receive an email shortly with more information on how to get started.')
-            return HttpResponseRedirect('/')
-        else:
-            return render(request, templates, {'form': form,})
-    else:
-        if request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('profiles:home'))
-        else:
-            form = MentorUserAndProfileForm(prefix="mentor")
-            return render(request, templates, {'form': form,})
-
-@transaction.atomic
-def join_from_source(request, source):
-    templates = ["profiles/mentor/source/{}/join.html".format(source), "profiles/mentor/source/join.html"]
-    initial = {
-        'source': source
-    }
-
-    if request.method == 'POST':
-        data = request.POST
-
-        if source != data.get('mentor-source'):
-            logger.warn("Form submitted to {} with source={}; setting source from url".format(request.path, data.get('mentor-source')))
-            data['mentor-source'] = source
-
-        form = MentorUserAndProfileForm(data=request.POST, prefix="mentor")
-        if form.is_valid():
-            user = form.save()
-            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            auth.login(request, user)
-            user.profile.deliver_welcome_email()
-            messages.success(request, 'Thanks for your interest in joining the Curiosity Machine mentor community! You will receive an email shortly with more information on how to get started.')
-            return HttpResponseRedirect('/')
-        else:
-            return render(request, templates, {'form': form, 'source': source})
-    else:
-        if request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('profiles:home'))
-        else:
-            form = MentorUserAndProfileForm(prefix="mentor", initial=initial)
-            return render(request, templates, {'form': form, 'source': source})
+join = transaction.atomic(UserJoinView.as_view(
+    form_class = MentorUserAndProfileForm,
+    prefix = 'mentor',
+    logged_in_redirect = lazy(reverse, str)('profiles:home'),
+    success_message = 'Thanks for your interest in joining the Curiosity Machine mentor community! You will receive an email shortly with more information on how to get started.',
+    success_url = '/'
+))
 
 @login_required
 def home(request):

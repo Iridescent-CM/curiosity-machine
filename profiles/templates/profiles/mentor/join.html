@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>Get Started. Create an Account.</h1>
-<form method='post' action="{% url 'profiles:join_as_mentor' %}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">
+<form method='post' action="{{ action }}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">
   {% csrf_token %}
   <div class="row">
     {% include "profiles/mentor/fields.html" %}

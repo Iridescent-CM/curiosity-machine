@@ -3,7 +3,8 @@ from profiles.forms.common import UserAndProfileForm
 
 class EducatorUserAndProfileForm(UserAndProfileForm):
     profile_fields = [
-        'city'
+        'city',
+        'source'
     ]
     profile_fields_force = {
         'is_educator': True

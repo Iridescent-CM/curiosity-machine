@@ -11,7 +11,8 @@ class StudentUserAndProfileForm(UserAndProfileForm):
         'birthday',
         'city',
         'parent_first_name',
-        'parent_last_name'
+        'parent_last_name',
+        'source'
     ]
     profile_fields_force = {
         'is_student': True
@@ -26,6 +27,10 @@ class StudentUserAndProfileForm(UserAndProfileForm):
             'password',
             'email'
         ]
+
+    # FIXME: not using Media until compressable/non-compressable js figured out
+    # class Media:
+    #     js = ['js/coppa.js']
 
     def clean(self):
         super(StudentUserAndProfileForm, self).clean()

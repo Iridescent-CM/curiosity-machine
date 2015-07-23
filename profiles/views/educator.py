@@ -7,35 +7,18 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from profiles.forms import educator as forms
 from curiositymachine.decorators import feature_flag, educator_only
+from curiositymachine.views.generic import UserJoinView
 from django.contrib.auth.decorators import login_required
+from django.utils.functional import lazy
 from groups.forms import GroupForm
 from units.models import Unit
 
-@transaction.atomic
-def join(request):
-    if request.method == 'POST':
-        form = forms.EducatorUserAndProfileForm(data=request.POST, prefix='educator')
-        if form.is_valid():
-            user = form.save()
-            user = auth.authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password']
-            )
-            auth.login(request, user)
-            user.profile.deliver_welcome_email()
-            return HttpResponseRedirect('/')
-        else:
-            return render(request, 'profiles/educator/join.html', {
-                'form': form
-            })
-    else:
-        if request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('profiles:home'))
-        else:
-            form = forms.EducatorUserAndProfileForm(prefix='educator')
-            return render(request, 'profiles/educator/join.html', {
-                'form': form
-            })
+join = transaction.atomic(UserJoinView.as_view(
+    form_class = forms.EducatorUserAndProfileForm,
+    prefix = 'educator',
+    logged_in_redirect = lazy(reverse, str)('profiles:home'),
+    success_url = '/'
+))
 
 @login_required
 @transaction.atomic
