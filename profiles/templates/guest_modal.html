@@ -14,6 +14,11 @@
     <p class="guest-modal-subheader">This is an interaction for students. Claim a challenge to interact with them!</p>
   {% elif request.user.profile.is_educator %}
     <p class="guest-modal-subheader">This is an interaction for students. Add students to your group to see their submissions!</p>
+  {% elif request.user.profile.is_parent %}
+    <div class="text-center">
+      <p class="guest-modal-subheader">Student accounts can post to design challenges. Add your child's account to see their submissions!</p>
+      <a class="btn btn-primary btn-lg" href="{% url 'profiles:connect' %}">Add your child</a>
+    </div>
   {% elif request.user.profile.is_student %}
     <p class="guest-modal-subheader">Use the button below to start building this challenge:</p>
     <div class="guest-buttons">
