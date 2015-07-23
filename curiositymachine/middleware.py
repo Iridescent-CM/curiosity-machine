@@ -2,8 +2,14 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-def whitelisted(view, listname):
-    return listname in getattr(view, 'whitelist', [])
+def whitelisted(view, *listnames):
+    whitelists = getattr(view, 'whitelist', [])
+    if not whitelists:
+        return False
+    for name in listnames:
+        if name in whitelists:
+            return True
+    return False
 
 class CanonicalDomainMiddleware:
     """
@@ -34,13 +40,12 @@ class UnapprovedMentorSandboxMiddleware:
     """
     Middleware that sandboxes mentors who have not yet been approved to the training section of the site.
     """
-    def process_request(self, request):
+    def process_view(self, request, view, view_args, view_kwargs):
         if (request.user.is_authenticated()
                 and not request.user.is_staff
                 and request.user.profile.is_mentor
                 and not request.user.profile.approved):
-            if (request.path_info not in ['/logout', '/logout/', reverse('profiles:home'), reverse('profiles:profile_edit')]
-                    and not request.path_info.startswith('/training')):
+            if not (whitelisted(view, 'public', 'unapproved_mentors')):
                 return HttpResponseRedirect(reverse('profiles:home'))
 
 class LastActiveMiddleware:

@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from profiles import views
 
+from curiositymachine.decorators import whitelist
 
 urlpatterns = patterns('profiles.views',
     url(r'^join/$', views.student.join, name='join'),
@@ -11,8 +12,8 @@ urlpatterns = patterns('profiles.views',
     url(r'^join_as_educator/(?P<source>[^/]+)/$', views.educator.join, name='join_as_educator'),
     url(r'^join_as_parent/$', views.parent.join, name='join_as_parent'),
     url(r'^join_as_parent/(?P<source>[^/]+)/$', views.parent.join, name='join_as_parent'),
-    url(r'^home/$', views.dispatch, {'action': 'home'}, name='home'),
-    url(r'^profile-edit/$', views.dispatch, {'action': 'profile_edit'}, name='profile_edit'),
+    url(r'^home/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'home'}, name='home'),
+    url(r'^profile-edit/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'profile_edit'}, name='profile_edit'),
     url(r'^mentors/$', views.mentor.list_all, name='mentors'),
     url(r'^mentors/(?P<username>[^/]+)/$', views.mentor.show_profile, name='mentor_profile'),
     url(r'^underage/$', views.student.underage, name='underage_student'),
