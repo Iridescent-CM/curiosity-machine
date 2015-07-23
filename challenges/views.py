@@ -77,6 +77,32 @@ def preview_reflect(request, challenge_id):
 
 @login_required
 @current_user_or_approved_viewer
+def redirect_to_stage(request, challenge_id, username):
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+
+    try:
+        progress = Progress.objects.get(challenge=challenge, student__username=username)
+    except Progress.DoesNotExist:
+        return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge.id,}))
+
+    if progress.approved:
+        stageToShow = Stage.reflect
+    else:
+        latestStage = get_stage_for_progress(progress)
+        if latestStage == Stage.test:
+            stageToShow = Stage.build
+        elif latestStage == Stage.reflect and request.user.profile.is_student and not progress.approved:
+            stageToShow = Stage.build
+        else:
+            stageToShow = latestStage
+    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
+        'challenge_id': challenge.id,
+        'username': username,
+        'stage': stageToShow.name
+    }))
+
+@login_required
+@current_user_or_approved_viewer
 def challenge_progress(request, challenge_id, username, stage=None):
     requestedStage = stage
     challenge = get_object_or_404(Challenge, id=challenge_id)
@@ -85,23 +111,6 @@ def challenge_progress(request, challenge_id, username, stage=None):
         progress = Progress.objects.get(challenge=challenge, student__username=username)
     except Progress.DoesNotExist:
         return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge.id,}))
-
-    if requestedStage == None:
-        if progress.approved:
-            stageToShow = Stage.reflect
-        else:
-            latestStage = get_stage_for_progress(progress)
-            if latestStage == Stage.test:
-                stageToShow = Stage.build
-            elif latestStage == Stage.reflect and request.user.profile.is_student and not progress.approved:
-                stageToShow = Stage.build
-            else:
-                stageToShow = latestStage
-        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
-            'challenge_id': challenge.id,
-            'username': username,
-            'stage': stageToShow.name
-        }))
 
     try:
         stageToShow = Stage[requestedStage]
