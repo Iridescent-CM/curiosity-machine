@@ -2,8 +2,7 @@ import pytest
 import mock
 from .models import Challenge, Progress, Theme, Favorite, Stage, Filter
 from cmcomments.models import Comment
-from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress, challenge_progress
-from .views import challenge as challenge_view # avoid conflict with appropriately-named fixture
+from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress, challenge_progress, preview_inspiration, start_building
 from profiles.tests import student, mentor
 from django.contrib.auth.models import User, AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
@@ -126,20 +125,27 @@ def test_ajax_challenges_filters_drafts(client, loggedInStudent, challenge, chal
     assert len(response.context['challenges']) == 1
 
 @pytest.mark.django_db
-def test_challenge(rf, challenge, student):
+def test_preview_inpsiration(rf, challenge, student):
     request = rf.get('/challenges/1/')
     request.user = AnonymousUser()
-    response = challenge_view(request, challenge.id)
+    response = preview_inspiration(request, challenge.id)
     assert response.status_code == 200
 
     request = rf.get('/challenges/1/')
     request.user = student
-    response = challenge_view(request, challenge.id)
+    response = preview_inspiration(request, challenge.id)
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_challenge_renders_inspiration_preview(client, challenge):
-    url = reverse('challenges:challenge', kwargs={
+def test_start_building(rf, challenge, student):
+    request = rf.post('/challenges/1/start_building')
+    request.user = student
+    response = start_building(request, challenge.id)
+    assert Progress.objects.filter(challenge=challenge, student=student).count() == 1
+
+@pytest.mark.django_db
+def test_preview_inspiration_renders_inspiration_preview(client, challenge):
+    url = reverse('challenges:preview_inspiration', kwargs={
         'challenge_id': challenge.id
     })
     response = client.get(url)
@@ -147,8 +153,8 @@ def test_challenge_renders_inspiration_preview(client, challenge):
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_plan_guest_renders_plan_preview(client, challenge):
-    url = reverse('challenges:plan_guest', kwargs={
+def test_preview_plan_renders_plan_preview(client, challenge):
+    url = reverse('challenges:preview_plan', kwargs={
         'challenge_id': challenge.id
     })
     response = client.get(url)
@@ -156,8 +162,8 @@ def test_plan_guest_renders_plan_preview(client, challenge):
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_build_guest_renders_build_preview(client, challenge):
-    url = reverse('challenges:build_guest', kwargs={
+def test_preview_build_renders_build_preview(client, challenge):
+    url = reverse('challenges:preview_build', kwargs={
         'challenge_id': challenge.id
     })
     response = client.get(url)
@@ -165,8 +171,8 @@ def test_build_guest_renders_build_preview(client, challenge):
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_reflect_guest_redirects_with_reflect_message(client, challenge):
-    url = reverse('challenges:reflect_guest', kwargs={
+def test_preview_reflect_redirects_with_reflect_message(client, challenge):
+    url = reverse('challenges:preview_reflect', kwargs={
         'challenge_id': challenge.id
     })
     response = client.get(url, follow=True)
@@ -182,7 +188,7 @@ def test_challenge_progress_with_no_progress_redirects_to_preview(client, logged
     })
     response = client.get(url)
     assert response.status_code == 302
-    assert reverse('challenges:challenge', kwargs={
+    assert reverse('challenges:preview_inspiration', kwargs={
         'challenge_id':challenge.id
     }) in response.url
 
