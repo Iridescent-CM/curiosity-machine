@@ -13,6 +13,7 @@ from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only, whitelist
+from curiositymachine.middleware import LoginRequired
 from videos.models import Video
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
@@ -44,24 +45,39 @@ def start_building(request, challenge_id):
             'username': request.user.username,
         }))
 
+@whitelist('defer')
 def preview_inspiration(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
+    if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
+        raise LoginRequired() 
 
     return render(request, 'challenges/preview/inspiration.html', {
         'challenge': challenge,
         'examples': Example.objects.filter(challenge=challenge),
     })
 
+@whitelist('defer')
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
+    if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
+        raise LoginRequired() 
+
     return render(request, 'challenges/preview/plan.html', {'challenge': challenge})
 
+@whitelist('defer')
 def preview_build(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
+    if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
+        raise LoginRequired() 
+
     return render(request, 'challenges/preview/build.html', {'challenge': challenge})
 
+@whitelist('defer')
 def preview_reflect(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
+    if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
+        raise LoginRequired() 
+
     if not request.user.is_authenticated() or request.user.profile.is_student:
         messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
         return HttpResponseRedirect(request.META.get(

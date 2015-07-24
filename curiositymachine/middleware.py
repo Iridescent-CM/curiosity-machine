@@ -19,9 +19,22 @@ class CanonicalDomainMiddleware:
         if settings.CANONICAL_DOMAIN and not request.META['HTTP_HOST'] == settings.CANONICAL_DOMAIN:
             return HttpResponseRedirect('http://{}/{}'.format(settings.CANONICAL_DOMAIN, request.get_full_path())) # might as well redirect to http as sslify will then catch requests if appropriate
 
+class LoginRequired(Exception):
+    """
+    Exception class for views to use to tell LoginRequiredMiddleware to require login
+    """
+    pass
+
 class LoginRequiredMiddleware:
+    """
+    Redirects to login if view isn't in 'public' or 'defer' whitelists, or view has raised LoginRequired
+    """
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if not (request.user.is_authenticated() or whitelisted(view_func, 'public')):
+        if not (request.user.is_authenticated() or whitelisted(view_func, 'public', 'defer')):
+            return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.path))
+
+    def process_exception(self, request, exception):
+        if isinstance(exception, LoginRequired):        
             return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.path))
 
 class UnderageStudentSandboxMiddleware:
