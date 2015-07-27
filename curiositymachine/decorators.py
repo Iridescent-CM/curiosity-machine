@@ -68,6 +68,9 @@ def feature_flag(flag):
     return decorator
 
 def whitelist(*listnames):
+    """
+    Add view to named whitelist(s)
+    """
     def decorator(view):
         @wraps(view)
         def inner(request, *args, **kwargs):

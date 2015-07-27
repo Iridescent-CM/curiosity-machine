@@ -3,6 +3,9 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 
 def whitelisted(view, *listnames):
+    """
+    True if view belongs to any of the whitelists named in listnames, as marked by the @whitelist() decorator
+    """
     whitelists = getattr(view, 'whitelist', [])
     if not whitelists:
         return False
