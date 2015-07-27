@@ -2392,14 +2392,24 @@ footer {
   color: #FFFCF7; }
 
 .social-icons {
-  margin: 0px 10px 0px 10px; }
+  margin: 0px 10px 0px 10px;
+  color: #6161AF; }
 
 .newsletter-panel {
   width: 100%;
   background-color: #1f1f1f;
+  background-image: url("../images/home/design-challenge-repeating-pattern.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
+  color: white;
+  z-index: -1; }
+
+.newsletter-panel-content {
+  width: 100%;
+  text-align: center;
   padding: 3em 0px 3em 0px;
   margin-bottom: 3em; }
-  .newsletter-panel input {
+  .newsletter-panel-content input {
     height: 24px;
     border-radius: 4px;
     padding: 22px 12px 22px 12px;
@@ -2407,9 +2417,11 @@ footer {
     border: 1px solid #E5E1D9;
     color: #333333;
     width: 100%; }
-    .newsletter-panel input:focus {
+    .newsletter-panel-content input:focus {
       box-shadow: inset 0 0 0 2px #2FB8C8;
       outline: none; }
+  .newsletter-panel-content h4 {
+    color: #8FB559; }
 
 .newsletter-subscribe {
   margin-top: 1.5em; }
@@ -2624,8 +2636,10 @@ body {
 
 .home-top-panel {
   width: 100%;
-  background-color: #6161AF;
-  background-image: url("../images/design-challenge-icon-pattern.png");
+  background-color: #333333;
+  background-image: url("../images/home/design-challenge-repeating-pattern.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
   color: white;
   z-index: -1; }
 
@@ -2650,30 +2664,56 @@ body {
 
 .home-who-panel {
   text-align: center;
-  padding-top: 3em; }
-  .home-who-panel h2, .home-who-panel h4 {
+  padding-top: 3em;
+  width: 100%; }
+  .home-who-panel h2 {
+    color: white; }
+  .home-who-panel h4 {
     color: #6161AF; }
   .home-who-panel img {
     margin-top: 3em;
     margin-bottom: 1.5em;
+    background-color: #FFFCF7;
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    border: solid 2px #6161AF; }
+    border: solid 2px #6161AF;
+    box-shadow: 0px 1px 2px 0px rgba(148, 148, 148, 0.5); }
   .home-who-panel p {
     margin-bottom: 1.5em; }
 
-.home-member-panel {
-  margin-bottom: 3em; }
-  .home-member-panel h2, .home-member-panel h4 {
+.home-who-panel-title {
+  width: 100%;
+  background-color: #8FB559;
+  position: relative;
+  padding: 3em 0px 1.5em 0px; }
+
+.home-who-panel-columns {
+  position: relative;
+  top: -80px; }
+
+.home-member-panel-title {
+  width: 100%;
+  background: url("../images/home/home-img-1.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center; }
+
+.home-member-panel-title-content {
+  color: white;
+  padding: 3em 0px 1.5em 0px;
+  margin-bottom: 3em;
+  width: 100%;
+  text-align: center;
+  color: white;
+  background-color: rgba(242, 172, 66, 0.8); }
+
+.home-member-panel-columns {
+  text-align: center;
+  padding: 0px 80px 3em 80px; }
+  .home-member-panel-columns h4 {
     color: #F2B353; }
-  .home-member-panel h2 {
-    margin-top: 1.5em; }
-  .home-member-panel h4 {
-    margin-top: 3em; }
-  .home-member-panel img {
-    width: 100%;
-    height: 520px; }
 
 .sign-up-panel {
   padding: 6em 0px 6em 0px;

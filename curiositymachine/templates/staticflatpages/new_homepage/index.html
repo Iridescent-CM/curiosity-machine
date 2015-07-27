@@ -49,7 +49,7 @@
 
 		<div class="home-top-panel">
 			<div class="grid-container">
-				<div class="grid-60 push-20 text-center home-top-panel-content">
+				<div class="home-top-panel-content grid-60 push-20 text-center">
 					<h1>Join the next generation of problem solvers.</h1>
 					<h5>Curiosity Machine is a STEM education tool that teaches children to think like engineers.</h5>
 					<a href="#" class="btn uppercase">Sign up</a>
@@ -85,49 +85,71 @@
 					<p>A growing group of STEM professionals to provide feedback on children's inventions.</p>
 				</div>
 				<span class="clear"></span>
-				<hr class="hr-purple"/>
 			</div>
 
-			<div class="home-who-panel grid-100">
-				<h2 class="text-center">We're here for students and their supporters.</h2>
-				<div class="grid-33 tablet-grid-33 mobile-grid-100">
-					<img src="{% static 'images/home/who-parents.png' %}">
-					<h4>Parents</h4>
-					<p>Learn how to nurture problem-solving skills using principles of design and the practices of engineering.</p>
-					<a href="#" class="btn-purple uppercase">Learn More</a>
+		</div>
+
+			<div class="home-who-panel">
+
+				<div class="home-who-panel-title">
+					<div class="grid-container">
+						<div class="grid-100">
+							<h2>We're here for students and their supporters.</h2>
+						</div>
+					</div>
 				</div>
-				<div class="grid-33 tablet-grid-33 mobile-grid-100">
-					<img src="{% static 'images/home/who-educators.png' %}">
-					<h4>Educators</h4>
-					<p>Hit NGSS standards and learn how to apply project based learning with your group of students.</p>
-					<a href="#" class="btn-purple uppercase">Learn More</a>
+
+				<div class="home-who-panel-columns">
+					<div class="grid-container">
+						<div class="grid-33 tablet-grid-33 mobile-grid-100">
+							<img src="{% static 'images/home/who-parents.png' %}">
+							<h4>Parents</h4>
+							<p>Learn how to nurture problem-solving skills using principles of design and the practices of engineering.</p>
+							<a href="#" class="btn-green uppercase">Learn More</a>
+						</div>
+						<div class="grid-33 tablet-grid-33 mobile-grid-100">
+							<img src="{% static 'images/home/who-educators.png' %}">
+							<h4>Educators</h4>
+							<p>Hit NGSS standards and learn how to apply project based learning with your group of students.</p>
+							<a href="#" class="btn-green uppercase">Learn More</a>
+						</div>
+						<div class="grid-33 tablet-grid-33 mobile-grid-100">
+							<img src="{% static 'images/home/who-stem-professionals.png' %}">
+							<h4>STEM Professionals</h4>
+							<p>Inspire with your ideas and share your strategies by supporting children through the design process.</p>
+							<a href="#" class="btn-green uppercase">Learn More</a>
+						</div>
+						<span class="clear"></span>
+					</div>
 				</div>
-				<div class="grid-33 tablet-grid-33 mobile-grid-100">
-					<img src="{% static 'images/home/who-stem-professionals.png' %}">
-					<h4>STEM Professionals</h4>
-					<p>Inspire with your ideas and share your strategies by supporting children through the design process.</p>
-					<a href="#" class="btn-purple uppercase">Learn More</a>
-				</div>
-				<span class="clear"></span>
-				<hr class="hr-purple"/>
 			</div>
 
-			<div class="home-member-panel grid-100">
-				<div class="grid-60">
-					<h2>Our members are part of a growing community of trained professionals.</h2>
+
+
+			<div class="home-member-panel-title">
+				<div class="home-member-panel-title-content">
+					<div class="grid-container">
+						<div class="grid-60 push-20">
+							<h2>Our members are part of a growing community of trained professionals.</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="grid-container">
+				<div class="home-member-panel-columns grid-50">
 					<h4>Schools, organizations and playgroups</h4>
 					<p>We connect each child with a trained engineering mentor who will support them to analyze and reflect, at each step of the building process.</p>
 					<a href="#" class="btn-orange uppercase">Become a member</a>
+				</div>
+				<div class="home-member-panel-columns grid-50">
 					<h4>Science and Engineering companies</h4>
 					<p>Share your innovation with the public and support our community members.</p>
 					<a href="#" class="btn-orange uppercase">get involved</a>
 				</div>
-				<div class="grid-40">
-					<img src="#">
-				</div>
 			</div>
 
-		</div>
+
 
 		<div class="sign-up-panel">
 			<h2>Create an account and take on your first design challenge!</h1>
@@ -136,20 +158,22 @@
 
 
 		<footer>
-			<div class="newsletter-panel text-center">
-				<div class="grid-container">
-					<div class="grid-100">
-						<h1>
-							<a href="#" class="action-img"><i class="icon-twitter social-icons"></i></a>
-							<a href="#" class="action-img"><i class="icon-facebook social-icons"></i></a>
-						</h1>
-						<h4>Newsletter</h4>
-						<p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
-						<div class="grid-40 push-30 tablet-grid-60 tablet-push-20 mobile-grid-80 mobile-push-10">
-							<input type="text" spellcheck="false" placeholder="youremail@email.com" required />
+			<div class="newsletter-panel">
+				<div class="newsletter-panel-content">
+					<div class="grid-container">
+						<div class="grid-100">
+							<h1>
+								<a href="#" class="action-img"><i class="icon-twitter social-icons"></i></a>
+								<a href="#" class="action-img"><i class="icon-facebook social-icons"></i></a>
+							</h1>
+							<h4>Newsletter</h4>
+							<p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
+							<div class="grid-40 push-30 tablet-grid-60 tablet-push-20 mobile-grid-80 mobile-push-10">
+								<input type="text" spellcheck="false" placeholder="youremail@email.com" required />
+							</div>
+							<span class="clear"></span>
+							<a href="#" class="btn-green uppercase newsletter-subscribe">subscribe</a>
 						</div>
-						<span class="clear"></span>
-						<a href="#" class="btn uppercase newsletter-subscribe">subscribe</a>
 					</div>
 				</div>
 			</div>

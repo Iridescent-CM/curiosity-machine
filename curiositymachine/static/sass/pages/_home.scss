@@ -5,8 +5,11 @@ body {
 .home-top-panel {
 	width: 100%;
 	//min-height: 80vh;
-	background-color: $primary-purple;
-	background-image: url("../images/design-challenge-icon-pattern.png");
+	background-color: $dark-gray;
+	background-image: url("../images/home/design-challenge-repeating-pattern.png");
+	background-attachment: fixed;
+	background-repeat: repeat;
+	// background-position: center center;
 	color: white;
 	z-index: -1;
 }
@@ -43,36 +46,64 @@ body {
 .home-who-panel {
 	text-align: center;
 	padding-top: $large-spacing;
-	h2, h4 {
+	width: 100%;
+	h2 {
+		color: white;
+	}
+	h4 {
 		color: $primary-purple;
 	}
 	img {
 		margin-top: $large-spacing;
 		margin-bottom: $base-spacing;
+		background-color: $primary-light;
 		width: 100px;
 		height: 100px;
 		border-radius: 50%;
 		border: solid 2px $primary-purple;
+		box-shadow: 0px 1px 2px 0px $main-shadow;
 	}
 	p {
 		margin-bottom: $base-spacing;
 	}
 }
 
-.home-member-panel {
+.home-who-panel-title {
+	width: 100%;
+	background-color: $primary-green;
+	position: relative;
+	padding: $large-spacing 0px $base-spacing 0px;
+}
+
+.home-who-panel-columns {
+	position: relative;
+	top: -80px;	
+}
+
+.home-member-panel-title {
+	width: 100%;
+	background: url("../images/home/home-img-1.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.home-member-panel-title-content {
+	color: white;
+	padding: $large-spacing 0px $base-spacing 0px;
 	margin-bottom: $large-spacing;
-	h2, h4 {
-		color: $primary-orange;
-	}
-	h2 {
-		margin-top: $base-spacing;
-	}
+	width: 100%;
+	text-align: center;
+	color: white;
+	background-color: rgba(242, 172, 66, .8);
+}
+
+.home-member-panel-columns {
+	text-align: center;
+	padding: 0px 80px $large-spacing 80px;
 	h4 {
-		margin-top: $large-spacing;
-	}
-	img {
-		width: 100%;
-		height: 520px;
+		color: $primary-orange;
 	}
 }
 
