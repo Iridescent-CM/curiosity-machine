@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from curiositymachine.decorators import mentor_only, whitelist
+from curiositymachine.decorators import mentor_only
 from curiositymachine.views.generic import UserJoinView
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError
@@ -58,7 +58,6 @@ def profile_edit(request):
 
     return render(request, 'profiles/mentor/profile_edit.html', {'form': form,})
 
-@whitelist('unapproved_mentors')
 def list_all(request):
     '''
     List of current mentors
@@ -66,7 +65,6 @@ def list_all(request):
     mentors = Profile.objects.filter(is_mentor=True, approved=True)
     return render(request, "mentors.html", {'mentors': mentors,})
 
-@whitelist('unapproved_mentors')
 def show_profile(request, username):
     '''
     Page for viewing a mentor's profile

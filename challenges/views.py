@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http40
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_POST
 from django.db.models import Q
 from django.utils.timezone import now
 import django_rq
@@ -30,20 +30,19 @@ def challenges(request):
     themes = Theme.objects.all()
     return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme, 'theme_id': theme_id, 'filters': filters})
 
+@require_POST
 def start_building(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
 
-    if request.method == 'POST':
-        # any POST to this endpoint starts the project, creating a Progress object and adding you to the challenge
-        if not Progress.objects.filter(challenge=challenge, student=request.user).exists():
-            try:
-                Progress.objects.create(challenge=challenge, student=request.user)
-            except (ValueError, ValidationError):
-                raise PermissionDenied
-        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
-            'challenge_id': challenge.id,
-            'username': request.user.username,
-        }))
+    if not Progress.objects.filter(challenge=challenge, student=request.user).exists():
+        try:
+            Progress.objects.create(challenge=challenge, student=request.user)
+        except (ValueError, ValidationError):
+            raise PermissionDenied
+    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
+        'challenge_id': challenge.id,
+        'username': request.user.username,
+    }))
 
 @whitelist('defer')
 def preview_inspiration(request, challenge_id):

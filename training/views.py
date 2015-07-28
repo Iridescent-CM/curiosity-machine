@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-from curiositymachine.decorators import mentor_only, whitelist
+from curiositymachine.decorators import mentor_only
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import User
 from .models import Module, Comment, Task
@@ -16,7 +16,6 @@ from itertools import chain
 
 @login_required
 @mentor_only
-@whitelist('unapproved_mentors')
 def module(request, module_order):
     module = get_object_or_404(Module, order=module_order)
 
@@ -27,7 +26,6 @@ def module(request, module_order):
 
 @login_required
 @mentor_only
-@whitelist('unapproved_mentors')
 def task(request, module_order, task_order):
     module = get_object_or_404(Module, order=module_order)
     task = get_object_or_404(Task, order=task_order, module=module)
@@ -49,7 +47,6 @@ def task(request, module_order, task_order):
 @require_POST
 @login_required
 @mentor_only
-@whitelist('unapproved_mentors')
 def comments(request, module_order, task_order, thread_id=None):
     module = get_object_or_404(Module, order=module_order)
     task = get_object_or_404(Task, order=task_order, module=module)
@@ -65,7 +62,6 @@ def comments(request, module_order, task_order, thread_id=None):
 
 @require_POST
 @login_required
-@whitelist('unapproved_mentors')
 @permission_required('profiles.change_profile', raise_exception=True)
 def approve_task_progress(request, module_order, task_order, username):
     module = get_object_or_404(Module, order=module_order)
@@ -82,13 +78,11 @@ def approve_task_progress(request, module_order, task_order, username):
 
 @login_required
 @mentor_only
-@whitelist('unapproved_mentors')
 def thread_starter(request, module_order, task_order, thread_id):
     return render(request, 'ajax/thread_starter.html',thread_assigns(request, module_order, task_order, thread_id))
 
 @login_required
 @mentor_only
-@whitelist('unapproved_mentors')
 def replies(request, module_order, task_order, thread_id):
     return render(request, 'ajax/replies.html', thread_assigns(request, module_order, task_order, thread_id))
 
