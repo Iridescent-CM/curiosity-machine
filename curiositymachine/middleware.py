@@ -30,10 +30,10 @@ class LoginRequired(Exception):
 
 class LoginRequiredMiddleware:
     """
-    Redirects to login if view isn't in 'public' or 'defer' whitelists, or view has raised LoginRequired
+    Redirects to login if view isn't in 'public' or 'maybe_public' whitelists, or view has raised LoginRequired
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if not (request.user.is_authenticated() or whitelisted(view_func, 'public', 'defer')):
+        if not (request.user.is_authenticated() or whitelisted(view_func, 'public', 'maybe_public')):
             return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.path))
 
     def process_exception(self, request, exception):
@@ -49,7 +49,7 @@ class UnderageStudentSandboxMiddleware:
                 and not request.user.is_staff
                 and request.user.profile.is_student
                 and not request.user.profile.approved):
-            if not whitelisted(view, 'public', 'underage'):
+            if not whitelisted(view, 'public', 'maybe_public', 'underage'):
                 return HttpResponseRedirect(reverse('profiles:underage_student'))
 
 class UnapprovedMentorSandboxMiddleware:
@@ -61,7 +61,7 @@ class UnapprovedMentorSandboxMiddleware:
                 and not request.user.is_staff
                 and request.user.profile.is_mentor
                 and not request.user.profile.approved):
-            if not whitelisted(view, 'public', 'unapproved_mentors'):
+            if not whitelisted(view, 'public', 'maybe_public', 'unapproved_mentors'):
                 return HttpResponseRedirect(reverse('profiles:home'))
 
 class LastActiveMiddleware:

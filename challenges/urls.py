@@ -1,11 +1,16 @@
 from django.conf.urls import patterns, url, include
+from curiositymachine.decorators import whitelist
+from challenges import views
+
+public = whitelist('public')
+defer = whitelist('maybe_public')
 
 urlpatterns = patterns('challenges.views',
-    url(r'^$', 'challenges', name='challenges'),
-    url(r'^(?P<challenge_id>\d+)/$', 'preview_inspiration', name='preview_inspiration'),
-    url(r'^(?P<challenge_id>\d+)/plan/$', 'preview_plan', name='preview_plan'),
-    url(r'^(?P<challenge_id>\d+)/build/$', 'preview_build', name='preview_build'),
-    url(r'^(?P<challenge_id>\d+)/reflect/$', 'preview_reflect', name='preview_reflect'),
+    url(r'^$', public(views.challenges), name='challenges'),
+    url(r'^(?P<challenge_id>\d+)/$', defer(views.preview_inspiration), name='preview_inspiration'),
+    url(r'^(?P<challenge_id>\d+)/plan/$', defer(views.preview_plan), name='preview_plan'),
+    url(r'^(?P<challenge_id>\d+)/build/$', defer(views.preview_build), name='preview_build'),
+    url(r'^(?P<challenge_id>\d+)/reflect/$', defer(views.preview_reflect), name='preview_reflect'),
     url(r'^(?P<challenge_id>\d+)/start/$', 'start_building', name='start_building'),
     url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/$', 'redirect_to_stage', name='challenge_progress'),
     url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/approve/$', 'challenge_progress_approve', name='challenge_progress_approve'),
@@ -16,6 +21,6 @@ urlpatterns = patterns('challenges.views',
     url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/materials/$', 'change_materials', name='change_materials'),
     url(r'^(?P<challenge_id>\d+)/(?P<mode>favorite|unfavorite)$', 'set_favorite', name='set_favorite'),
     url(r'^favorite_challenges$', 'favorite_challenges', name='favorite_challenges'),
-    url(r'^ajax_challenges$', 'ajax_challenges', name='ajax_challenges'),
-    url(r'^filtered_challenges/(?P<filter_id>\d+)$', 'filtered_challenges', name='filtered_challenges'),
+    url(r'^ajax_challenges$', public(views.ajax_challenges), name='ajax_challenges'),
+    url(r'^filtered_challenges/(?P<filter_id>\d+)$', public(views.filtered_challenges), name='filtered_challenges'),
 )

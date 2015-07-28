@@ -31,7 +31,12 @@ def theme():
 
 @pytest.fixture
 def challenge():
-    return Challenge.objects.create(name="Test Challenge", draft=False, reflect_subheader='test reflect_subheader', build_subheader='test build_subheader')
+    return Challenge.objects.create(
+        name="Test Challenge",
+        draft=False,
+        reflect_subheader='test reflect_subheader',
+        build_subheader='test build_subheader'
+    )
 
 @pytest.fixture
 def filter():
@@ -127,11 +132,6 @@ def test_ajax_challenges_filters_drafts(client, loggedInStudent, challenge, chal
 @pytest.mark.django_db
 def test_preview_inpsiration(rf, challenge, student):
     request = rf.get('/challenges/1/')
-    request.user = AnonymousUser()
-    response = preview_inspiration(request, challenge.id)
-    assert response.status_code == 200
-
-    request = rf.get('/challenges/1/')
     request.user = student
     response = preview_inspiration(request, challenge.id)
     assert response.status_code == 200
@@ -144,7 +144,7 @@ def test_start_building(rf, challenge, student):
     assert Progress.objects.filter(challenge=challenge, student=student).count() == 1
 
 @pytest.mark.django_db
-def test_preview_inspiration_renders_inspiration_preview(client, challenge):
+def test_preview_inspiration_renders_inspiration_preview(client, challenge, loggedInStudent):
     url = reverse('challenges:preview_inspiration', kwargs={
         'challenge_id': challenge.id
     })
@@ -153,7 +153,7 @@ def test_preview_inspiration_renders_inspiration_preview(client, challenge):
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_preview_plan_renders_plan_preview(client, challenge):
+def test_preview_plan_renders_plan_preview(client, challenge, loggedInStudent):
     url = reverse('challenges:preview_plan', kwargs={
         'challenge_id': challenge.id
     })
@@ -162,7 +162,7 @@ def test_preview_plan_renders_plan_preview(client, challenge):
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_preview_build_renders_build_preview(client, challenge):
+def test_preview_build_renders_build_preview(client, challenge, loggedInStudent):
     url = reverse('challenges:preview_build', kwargs={
         'challenge_id': challenge.id
     })
@@ -171,7 +171,7 @@ def test_preview_build_renders_build_preview(client, challenge):
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_preview_reflect_redirects_with_reflect_message(client, challenge):
+def test_preview_reflect_redirects_with_reflect_message(client, challenge, loggedInStudent):
     url = reverse('challenges:preview_reflect', kwargs={
         'challenge_id': challenge.id
     })

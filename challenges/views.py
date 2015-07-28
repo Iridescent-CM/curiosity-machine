@@ -12,14 +12,13 @@ import django_rq
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
-from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only, whitelist
+from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only
 from curiositymachine.middleware import LoginRequired
 from videos.models import Video
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 
-@whitelist('public')
 def challenges(request):
     challenges = Challenge.objects.filter(draft=False).select_related('image')
     theme = request.GET.get('theme')
@@ -44,7 +43,6 @@ def start_building(request, challenge_id):
         'username': request.user.username,
     }))
 
-@whitelist('defer')
 def preview_inspiration(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
@@ -55,7 +53,6 @@ def preview_inspiration(request, challenge_id):
         'examples': Example.objects.filter(challenge=challenge),
     })
 
-@whitelist('defer')
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
@@ -63,7 +60,6 @@ def preview_plan(request, challenge_id):
 
     return render(request, 'challenges/preview/plan.html', {'challenge': challenge})
 
-@whitelist('defer')
 def preview_build(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
@@ -71,7 +67,6 @@ def preview_build(request, challenge_id):
 
     return render(request, 'challenges/preview/build.html', {'challenge': challenge})
 
-@whitelist('defer')
 def preview_reflect(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
