@@ -2,7 +2,7 @@ from .models import Unit
 from django.shortcuts import render
 
 def units(request):
-	units = Unit.objects.all().order_by('id')
+	units = Unit.objects.filter(draft=False).order_by('id')
 	return render(request, 'units/units.html', {'units': units})
 
 def unit(request, unit_id):
