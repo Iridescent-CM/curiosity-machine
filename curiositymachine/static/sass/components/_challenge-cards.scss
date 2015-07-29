@@ -1,0 +1,27 @@
+.challenge-card {
+	width: 245px;
+	height: 350px;
+	background-color: white;
+	border-radius: $base-border-radius;
+	display: inline-block;
+	box-shadow: 0px 2px 5px 1px $main-shadow;
+	margin: 0px $base-spacing 0px $base-spacing;
+	img {
+		width: 100%;
+		max-height: 140px;
+	}
+}
+
+.challenge-card-title {
+	text-align: left;
+	padding: 10px;
+	background-color: $medium-gray;
+	color: white;
+	border-top-left-radius: $base-border-radius;
+	border-top-right-radius: $base-border-radius;
+}
+
+.challenge-card-description {
+	text-align: left;
+	padding: 10px;
+}

@@ -16,8 +16,8 @@ body {
 
 .home-top-panel-content {
 	//padding-top: 20%;
-	padding-top: $large-spacing * 4;
-	padding-bottom: $large-spacing * 4;
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing * 2;
 	//@include vertical-align;
 	a {
 		margin-left: 10px;
@@ -26,14 +26,13 @@ body {
 }
 
 .home-what-panel {
-	//background-color: $primary-light;
-	padding-top: $large-spacing;
-	img {
-		width: 100%;
-		height: auto;
-	}
-	h2, h4 {
+	background-color: tint($light-gray, 30);
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing;
+	width: 100%;
+	h3 {
 		color: $primary-blue;
+		text-align: center;
 	}
 	.what-panel-description {
 		margin-bottom: $large-spacing;
@@ -43,67 +42,46 @@ body {
 	}
 }
 
+.home-what-panel-challenges {
+	width: 100%;
+	text-align: center;
+	margin-bottom: $large-spacing;
+}
+
 .home-who-panel {
 	text-align: center;
-	padding-top: $large-spacing;
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing * 2;
 	width: 100%;
-	h2 {
-		color: white;
-	}
-	h4 {
-		color: $primary-purple;
+	h3 {
+		color: $primary-blue;
 	}
 	img {
 		margin-top: $large-spacing;
 		margin-bottom: $base-spacing;
 		background-color: $primary-light;
-		width: 100px;
-		height: 100px;
+		width: 75px;
+		height: 75px;
 		border-radius: 50%;
-		border: solid 2px $primary-purple;
+		border: solid 2px $primary-blue;
 		box-shadow: 0px 1px 2px 0px $main-shadow;
 	}
-	p {
-		margin-bottom: $base-spacing;
+}
+
+.home-member-panel {
+	background-color: tint($light-gray, 30);
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing * 2;
+	width: 100%;
+	h3 {
+		color: $primary-blue;
+		text-align: center;
 	}
-}
-
-.home-who-panel-title {
-	width: 100%;
-	background-color: $primary-green;
-	position: relative;
-	padding: $large-spacing 0px $base-spacing 0px;
-}
-
-.home-who-panel-columns {
-	position: relative;
-	top: -80px;	
-}
-
-.home-member-panel-title {
-	width: 100%;
-	background: url("../images/home/home-img-1.jpg");
-	background-size: cover;
-	background-attachment: fixed;
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-
-.home-member-panel-title-content {
-	color: white;
-	padding: $large-spacing 0px $base-spacing 0px;
-	margin-bottom: $large-spacing;
-	width: 100%;
-	text-align: center;
-	color: white;
-	background-color: rgba(242, 172, 66, .8);
-}
-
-.home-member-panel-columns {
-	text-align: center;
-	padding: 0px 80px $large-spacing 80px;
 	h4 {
-		color: $primary-orange;
+		margin-top: $large-spacing;
+	}
+	.well {
+		margin-top: $large-spacing;
 	}
 }
 
@@ -118,4 +96,3 @@ body {
 .hideme {
 	opacity: 0;
 }
-

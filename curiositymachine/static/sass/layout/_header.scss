@@ -1,8 +1,6 @@
 header {
-  text-transform: uppercase;
-  color: $medium-gray;
   width: 100%;
-  height: 100px;
+  height: 60px;
   background-color: $primary-light;
   box-shadow: 0px 2px 4px 2px rgba(51, 51, 51, .5);
   z-index: 100;
@@ -13,7 +11,7 @@ header {
 nav.main ul {
   list-style-type: none;
   float: right;
-  height: 100px;
+  height: 60px;
   overflow: hidden;
   margin: 0px;
   a {
@@ -21,22 +19,26 @@ nav.main ul {
     text-decoration: none;
     height: 100%;
     float: right;
-    //display: inline-block;
     padding: 0px 15px 0px 15px;
-    //transition: all 500ms ease;
-    transition: background-color 500ms bottom-to-top;
+    //transition: background-color 500ms bottom-to-top;
     border-bottom: 0px;
-    &:hover {
-      color: $primary-green;
-      background-color: #F4F1EB;//darken($light, 10%);
-      //border-bottom: 8px solid black;
-    }
+    overflow: hidden;
+    z-index: 1;
+    position: relative;
+    transition:           0.08s ease-in;
+    -o-transition:      0.08s ease-in;
+    -ms-transition:     0.08s ease-in;
+    -moz-transition:    0.08s ease-in;
+    -webkit-transition: 0.08s ease-in;
+    // &:hover {
+    //   color: $primary-green;
+    //   background-color: #F4F1EB;//darken($light, 10%);
+    // }
     li {
-      font-weight: $heavy-font-weight;
-      margin-top: 40px;
+      margin-top: 18px;
       img {
         margin-left: 10px;
-        margin-top: 5px;
+        margin-top: 10px;
         float: right;
         @include vertical-align;
       }
@@ -44,16 +46,38 @@ nav.main ul {
   }
 }
 
+.fill {
+  &:hover {
+    color: $primary-green;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    background: #383736;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+    -webkit-transition: top 0.09s ease-in;
+  }
+}
+
+.fill:hover:before {
+  top: 0;
+}
+
 .user-avatar {
-  width: 60px;
-  height: 60px;
-  border: 3px solid white;
+  width: 35px;
+  height: 35px;
+  //border: 2px solid white;
   border-radius: 50%;
   box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, .5);
 }
 
 .logo {
-  margin-top: 18px;
+  margin-top: 5px;
+  height: 50px;
 }
 
 .small-screen-navigation {

@@ -2206,6 +2206,9 @@ h5 {
 p {
   margin: 0 0 0.75em; }
 
+small {
+  font-size: 0.875em; }
+
 a {
   color: #2FB8C8;
   text-decoration: none;
@@ -2244,10 +2247,8 @@ i {
   text-align: right; }
 
 header {
-  text-transform: uppercase;
-  color: #949494;
   width: 100%;
-  height: 100px;
+  height: 60px;
   background-color: #FFFCF7;
   box-shadow: 0px 2px 4px 2px rgba(51, 51, 51, 0.5);
   z-index: 100;
@@ -2257,7 +2258,7 @@ header {
 nav.main ul {
   list-style-type: none;
   float: right;
-  height: 100px;
+  height: 60px;
   overflow: hidden;
   margin: 0px; }
   nav.main ul a {
@@ -2266,17 +2267,20 @@ nav.main ul {
     height: 100%;
     float: right;
     padding: 0px 15px 0px 15px;
-    transition: background-color 500ms bottom-to-top;
-    border-bottom: 0px; }
-    nav.main ul a:hover {
-      color: #8FB559;
-      background-color: #F4F1EB; }
+    border-bottom: 0px;
+    overflow: hidden;
+    z-index: 1;
+    position: relative;
+    transition: 0.08s ease-in;
+    -o-transition: 0.08s ease-in;
+    -ms-transition: 0.08s ease-in;
+    -moz-transition: 0.08s ease-in;
+    -webkit-transition: 0.08s ease-in; }
     nav.main ul a li {
-      font-weight: 700;
-      margin-top: 40px; }
+      margin-top: 18px; }
       nav.main ul a li img {
         margin-left: 10px;
-        margin-top: 5px;
+        margin-top: 10px;
         float: right;
         position: relative;
         top: 50%;
@@ -2284,15 +2288,31 @@ nav.main ul {
         -ms-transform: translateY(-50%);
         transform: translateY(-50%); }
 
+.fill:hover {
+  color: #8FB559; }
+.fill:before {
+  content: "";
+  position: absolute;
+  background: #383736;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: -1;
+  -webkit-transition: top 0.09s ease-in; }
+
+.fill:hover:before {
+  top: 0; }
+
 .user-avatar {
-  width: 60px;
-  height: 60px;
-  border: 3px solid white;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
 
 .logo {
-  margin-top: 18px; }
+  margin-top: 5px;
+  height: 50px; }
 
 .small-screen-navigation {
   width: 100%;
@@ -2631,6 +2651,36 @@ footer {
 .hr-red {
   background-color: #FD6917; }
 
+.well {
+  background-color: #F5F5F5;
+  border: 2px solid #E3E3E3;
+  padding: 20px;
+  border-radius: 4px; }
+
+.challenge-card {
+  width: 245px;
+  height: 350px;
+  background-color: white;
+  border-radius: 4px;
+  display: inline-block;
+  box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
+  margin: 0px 1.5em 0px 1.5em; }
+  .challenge-card img {
+    width: 100%;
+    max-height: 140px; }
+
+.challenge-card-title {
+  text-align: left;
+  padding: 10px;
+  background-color: #949494;
+  color: white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px; }
+
+.challenge-card-description {
+  text-align: left;
+  padding: 10px; }
+
 body {
   background-color: #FFFCF7; }
 
@@ -2644,76 +2694,59 @@ body {
   z-index: -1; }
 
 .home-top-panel-content {
-  padding-top: 12em;
-  padding-bottom: 12em; }
+  padding-top: 6em;
+  padding-bottom: 6em; }
   .home-top-panel-content a {
     margin-left: 10px;
     margin-right: 10px; }
 
 .home-what-panel {
-  padding-top: 3em; }
-  .home-what-panel img {
-    width: 100%;
-    height: auto; }
-  .home-what-panel h2, .home-what-panel h4 {
-    color: #2FB8C8; }
+  background-color: #edeae4;
+  padding-top: 6em;
+  padding-bottom: 3em;
+  width: 100%; }
+  .home-what-panel h3 {
+    color: #2FB8C8;
+    text-align: center; }
   .home-what-panel .what-panel-description {
     margin-bottom: 3em; }
   .home-what-panel .what-panel-feature {
     margin-bottom: 1.5em; }
 
+.home-what-panel-challenges {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 3em; }
+
 .home-who-panel {
   text-align: center;
-  padding-top: 3em;
+  padding-top: 6em;
+  padding-bottom: 6em;
   width: 100%; }
-  .home-who-panel h2 {
-    color: white; }
-  .home-who-panel h4 {
-    color: #6161AF; }
+  .home-who-panel h3 {
+    color: #2FB8C8; }
   .home-who-panel img {
     margin-top: 3em;
     margin-bottom: 1.5em;
     background-color: #FFFCF7;
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
-    border: solid 2px #6161AF;
+    border: solid 2px #2FB8C8;
     box-shadow: 0px 1px 2px 0px rgba(148, 148, 148, 0.5); }
-  .home-who-panel p {
-    margin-bottom: 1.5em; }
 
-.home-who-panel-title {
-  width: 100%;
-  background-color: #8FB559;
-  position: relative;
-  padding: 3em 0px 1.5em 0px; }
-
-.home-who-panel-columns {
-  position: relative;
-  top: -80px; }
-
-.home-member-panel-title {
-  width: 100%;
-  background: url("../images/home/home-img-1.jpg");
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center center; }
-
-.home-member-panel-title-content {
-  color: white;
-  padding: 3em 0px 1.5em 0px;
-  margin-bottom: 3em;
-  width: 100%;
-  text-align: center;
-  color: white;
-  background-color: rgba(242, 172, 66, 0.8); }
-
-.home-member-panel-columns {
-  text-align: center;
-  padding: 0px 80px 3em 80px; }
-  .home-member-panel-columns h4 {
-    color: #F2B353; }
+.home-member-panel {
+  background-color: #edeae4;
+  padding-top: 6em;
+  padding-bottom: 6em;
+  width: 100%; }
+  .home-member-panel h3 {
+    color: #2FB8C8;
+    text-align: center; }
+  .home-member-panel h4 {
+    margin-top: 3em; }
+  .home-member-panel .well {
+    margin-top: 3em; }
 
 .sign-up-panel {
   padding: 6em 0px 6em 0px;
@@ -2824,14 +2857,15 @@ nav#static-page-nav {
   .design-challenge-list li {
     display: block;
     position: relative;
-    width: 100%;
+    width: 220px;
     height: 50px;
     background-color: #FFFCF7;
     padding: 12px 16px;
     border-radius: 4px;
     box-shadow: 0px 1px 2px 0px rgba(148, 148, 148, 0.5);
     margin-top: 10px;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    margin-left: 10px; }
 
 .all-challenges-header {
   width: 100%;
@@ -2847,5 +2881,8 @@ nav#static-page-nav {
   background-color: #F2B353;
   text-align: center;
   border-radius: 4px; }
+
+#all-challenges {
+  margin-left: 0px; }
 
 /*# sourceMappingURL=main.css.map */
