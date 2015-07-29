@@ -128,11 +128,6 @@ class UserJoinView(CreateView):
         if self.get_success_message():
             messages.success(self.request, self.get_success_message())
 
-        if 'success_url' in self.request.POST:
-            url = self.request.POST['success_url']
-            if is_safe_url(url=url, host=self.request.get_host()):
-                return HttpResponseRedirect(url)
-
         return HttpResponseRedirect(self.get_success_url())
 
     def create_user(self, form):
