@@ -413,8 +413,8 @@ def test_user_join_view_redirects_to_success_url(rf):
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == '/success'
 
-def test_user_join_view_redirects_to_success_url_from_form(rf):
-    request = rf.post('/whatever', {'success_url': '/thisone'})
+def test_user_join_view_redirects_to_welcome_url_from_form(rf):
+    request = rf.post('/join/thisone/', {'welcome': 'true'})
     request.user = AnonymousUser()
 
     class SubUserJoinView(UserJoinView):
@@ -422,9 +422,9 @@ def test_user_join_view_redirects_to_success_url_from_form(rf):
             return mock.MagicMock()
 
     m = mock.MagicMock()
-    view = SubUserJoinView.as_view(form_class=m, prefix='usertype', success_url='/success')
+    view = SubUserJoinView.as_view(form_class=m, success_url='/success')
 
-    response = view(request)
+    response = view(request, source='thisone')
     assert isinstance(response, HttpResponseRedirect)
-    assert response.url == '/thisone'
+    assert response.url == '/welcome/thisone'
 

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load resized %}
 {% block content %}
 <div class="row">
   <div class="col-xs-10 col-xs-offset-1">
@@ -11,12 +12,12 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <a href="{% url 'challenges:challenge' 84 %}">Deploy a Satellite</a>
+              <a href="{% url 'challenges:challenge' challenge_id=84 %}">Deploy a Satellite</a>
             </h3>
           </div>
           <div class="image-container">
-            <a href="{% url 'challenges:challenge' 84 %}">
-              <img src='http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/bd5fd24220cd9aed27540f9bacd0dfcf'  style="height:220px">
+            <a href="{% url 'challenges:challenge' challenge_id=84 %}">
+              <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/bd5fd24220cd9aed27540f9bacd0dfcf' width=400 height=220 crop='scale' %}">
             </a>
           </div>
           <div class="panel-body">
@@ -30,12 +31,12 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <a href="{% url 'challenges:challenge' 58 %}">Engineer an Air-Powered Spinning Machine</a>
+              <a href="{% url 'challenges:challenge' challenge_id=58 %}">Engineer an Air-Powered Spinning Machine</a>
             </h3>
           </div>
           <div class="image-container">
-            <a href="{% url 'challenges:challenge' 58 %}">
-              <img src='http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/3c22ea24b6e9e63d80ef4ef6fc1a96db'>
+            <a href="{% url 'challenges:challenge' challenge_id=58 %}">
+              <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/3c22ea24b6e9e63d80ef4ef6fc1a96db' width=400 height=220 crop='scale' %}">
             </a>
           </div>
           <div class="panel-body">
