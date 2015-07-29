@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <h2 class="text-center">Build your first design challenge!</h2>
+
+    <p>Check out one of the challenges you previewed at the museum below.</p>
+
+    <div class="row text-center challenges-list" style="margin-top:50px">
+      <div class="col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <a href="{% url 'challenges:challenge' 1 %}">Deploy a Satellite</a>
+            </h3>
+          </div>
+          <div class="image-container">
+            <a href="{% url 'challenges:challenge' 1 %}">
+              <img src='http://s3.amazonaws.com/devcuriositymachine/images/41a3b1aaa8bb905bc2d35c3dff44d919'>
+            </a>
+          </div>
+          <div class="panel-body">
+            <div class="description">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <a href="{% url 'challenges:challenge' 1 %}">Engineer an Air Powered Spinning Machine</a>
+            </h3>
+          </div>
+          <div class="image-container">
+            <a href="{% url 'challenges:challenge' 1 %}">
+              <img src='http://s3.amazonaws.com/devcuriositymachine/images/41a3b1aaa8bb905bc2d35c3dff44d919'>
+            </a>
+          </div>
+          <div class="panel-body">
+            <div class="description">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-center" style="margin-top:50px">Explore more Curiosity Machine challenges:</h3>
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2">
+        <a class="btn btn-lg btn-block btn-primary" style="text-transform:none" href="{% url 'challenges:challenges'%}">
+          Browse Design Challenges
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -15,7 +15,8 @@ class MentorUserAndProfileForm(UserAndProfileForm):
         'about_me_filepicker_url',
         'about_me_filepicker_mimetype',
         'about_research_filepicker_url',
-        'about_research_filepicker_mimetype'
+        'about_research_filepicker_mimetype',
+        'welcome'
     ]
 
     class Meta(UserAndProfileForm.Meta):

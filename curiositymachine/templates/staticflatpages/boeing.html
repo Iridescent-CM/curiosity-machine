@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <h2 class="text-center">Welcome to Curiosity Machine!</h2>
+
+    <h3>You explored the science of flight at Boeing's 1000th Year Traveling Exhibit. Now continue your adventure with Curiosity Machine!</h3>
+
+    <ul>
+      <li>Watch videos with Boeing engineers to learn more about the inventions you saw at the museum
+      <li>Build your own version using the engineering design process
+      <li>Document your project with pictures and videos and share it on Curiosity Machine
+    </ul>
+
+    <h3 class="text-center" style="margin-top:50px">Create an account to get started!</h3>
+
+    <p><b>Students</b> can build and document projects using the engineering design process
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2">
+        <a class="btn btn-lg btn-block btn-primary" style="text-transform:none" href="{% url 'profiles:join' 'boeing' %}?welcome=true">
+          Create a Student Account
+        </a>
+      </div>
+    </div>
+
+    <div class="row text-center" style="margin-top:50px">
+      <div class="col-xs-6">
+        <p><b>Parents</b> can connect to their child's account and learn how to build together
+        <p><a href="{% url 'profiles:join_as_parent' 'boeing' %}?welcome=true">Create a Parent Account</a>
+      </div>
+      <div class="col-xs-6">
+        <p><b>Educators</b> can find resources for engineering challenges and track student progress
+        <p><a href="{% url 'profiles:join_as_educator' 'boeing' %}?welcome=true">Create an Educator Account</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

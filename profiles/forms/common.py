@@ -80,6 +80,10 @@ class UserAndProfileForm(forms.ModelForm):
         'about_research_filepicker_mimetype': forms.CharField(
             required=False,
             widget=forms.HiddenInput(attrs={"id":"about_research_mimetype"})
+        ),
+        'welcome': forms.CharField(
+            required=False,
+            widget=forms.HiddenInput(attrs={"id":"welcome"})
         )
     }
 
@@ -96,6 +100,7 @@ class UserAndProfileForm(forms.ModelForm):
             'title': forms.TextInput,
             'employer': forms.TextInput,
             'source': forms.HiddenInput,
+            'welcome': forms.HiddenInput,
         }
 
         labels = {

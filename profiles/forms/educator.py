@@ -11,7 +11,7 @@ class EducatorUserAndProfileForm(UserAndProfileForm):
     }
     make_required = ['email', 'city']
 
-    form_fields = ['image_url']
+    form_fields = ['image_url', 'welcome']
 
     class Meta(UserAndProfileForm.Meta):
         fields = [
