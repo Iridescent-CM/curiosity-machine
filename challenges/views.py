@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.views.decorators.http import require_http_methods, require_POST
 from django.db.models import Q
 from django.utils.timezone import now
+from django.conf import settings
 import django_rq
 
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
@@ -43,9 +44,14 @@ def start_building(request, challenge_id):
         'username': request.user.username,
     }))
 
+def require_login_for(request, challenge):
+    if settings.FEATURE_FLAGS.get('enable_challenge_preview_restriction'):
+        return not (request.user.is_authenticated() or challenge.public)
+    return False
+
 def preview_inspiration(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
+    if require_login_for(request, challenge):
         raise LoginRequired() 
 
     return render(request, 'challenges/preview/inspiration.html', {
@@ -55,21 +61,21 @@ def preview_inspiration(request, challenge_id):
 
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
+    if require_login_for(request, challenge):
         raise LoginRequired() 
 
     return render(request, 'challenges/preview/plan.html', {'challenge': challenge})
 
 def preview_build(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
+    if require_login_for(request, challenge):
         raise LoginRequired() 
 
     return render(request, 'challenges/preview/build.html', {'challenge': challenge})
 
 def preview_reflect(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    if not (request.user.is_authenticated() or getattr(challenge, 'public', False)):
+    if require_login_for(request, challenge):
         raise LoginRequired() 
 
     if not request.user.is_authenticated() or request.user.profile.is_student:
