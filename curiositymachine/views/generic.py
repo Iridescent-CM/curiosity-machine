@@ -68,24 +68,18 @@ class UserJoinView(CreateView):
         if 'source' in kwargs:
             self.source = kwargs['source']
 
-        self.welcome = None
         if request.method == 'GET':
-            welcome = request.GET.get('welcome','')
-            if welcome:
-                self.welcome = welcome
+            self.welcome = request.GET.get('welcome', None)
         elif request.method == 'POST':
             welcome_field = 'welcome'
             if self.get_prefix():
                 welcome_field = self.get_prefix() + '-' + welcome_field
-
-            welcome = request.POST.get(welcome_field,'')
-            if welcome:
-                self.welcome = welcome
+            self.welcome = request.POST.get(welcome_field, None)
 
         return super(UserJoinView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        if self.welcome:
+        if self.welcome and self.source:
             return '/welcome/' + self.source
 
         return super(UserJoinView, self).get_success_url()
