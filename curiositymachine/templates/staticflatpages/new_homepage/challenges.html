@@ -15,19 +15,39 @@
 			<div class="grid-container">
 				<div class="grid-100">
 					<nav class="main">
-						<a href="#" class="action-img"><img src="https://www.curiositymachine.org/static/images/logo-small2.png" class="logo"></a>
+						<a href="#" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
+						<a href="#" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
 						<ul>
 							<a href="#"><li class="user-name">
 							savannahmillion
 							<img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
 							</li></a>
-							<a href="#"><li>challenges</li></a>
-							<a href="#"><li>about us</li></a>
+							<a href="#"><li>Challenges</li></a>
+							<a href="#"><li>About Us</li></a>
+							<a href="#"><li>Mentor Community</li></a>
 						</ul>
 					</nav>
+					<a id="mobile-menu-link">menu</a>
 				</div>
 			</div>
 		</header>
+
+		<nav class="small-screen-navigation">
+			<div class="grid-container">
+				<div class="grid-100">
+					<ul>
+						<a href="#">
+							<li class="user-name" id="account-link">savannahmillion
+							<img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
+							</li>
+						</a>
+						<a href="#"><li id="challenges-link">Challenges</li></a>
+						<a href="#"><li id="about-link">About Us</li></a>
+						<a href="#"><li id="mentor-link">Mentor Community</li></a>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
 		<div class="challenges-top-panel">
 			<div class="grid-container">
@@ -39,7 +59,10 @@
 
 		<div class="grid-container">
 			<div class="grid-100">
-				<div class="challenges-navigation grid-25 tablet-grid-25 mobile-grid-50">
+				<div class="challenges-navigation grid-25 tablet-grid-33 mobile-grid-100">
+					<ul class="design-challenge-highlights">
+						<a href="#"><li>inspired by boeing</li></a>
+					</ul>
 					<ul class="design-challenge-list">
 						<a href="#" id="all-challenges"><li>All Challenges</li></a>
 						<a href="#"><li><i class="icon-aerospace"></i> Aerospace</li></a>
@@ -57,16 +80,171 @@
 						<a href="#"><li><i class="icon-ocean"></i> Ocean Engineering</li></a>
 					</ul>
 				</div>
-				<div class="grid-75">
+				<div class="grid-75 tablet-grid-66 mobile-grid-100">
 					<h4 class="all-challenges-header">All Challenges</h4>
-					<div class="placeholder-challenge-card">
-						<p>245x350</p>
+					<div class="all-challenges-cards grid-100">
+						<div class="grid-33 tablet-grid-50 mobile-grid-100">
+							<div class="challenge-card">
+								<div class="challenge-card-title">
+									<p>Build a Mighty Machine</p>
+								</div>
+								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<div class="challenge-card-description">
+									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
+								</div>
+							</div>
+						</div>
+						<div class="grid-33 tablet-grid-50 mobile-grid-100">
+							<div class="challenge-card">
+								<div class="challenge-card-title">
+									<p>Build a Mighty Machine</p>
+								</div>
+								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<div class="challenge-card-description">
+									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
+								</div>
+							</div>
+						</div>
+						<div class="grid-33 tablet-grid-50 mobile-grid-100">
+							<div class="challenge-card">
+								<div class="challenge-card-title">
+									<p>Build a Mighty Machine</p>
+								</div>
+								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<div class="challenge-card-description">
+									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
+								</div>
+							</div>
+						</div>
+						<div class="grid-33 tablet-grid-50 mobile-grid-100">
+							<div class="challenge-card">
+								<div class="challenge-card-title">
+									<p>Build a Mighty Machine</p>
+								</div>
+								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<div class="challenge-card-description">
+									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
+								</div>
+							</div>
+						</div>
+						<div class="grid-33 tablet-grid-50 mobile-grid-100">
+							<div class="challenge-card">
+								<div class="challenge-card-title">
+									<p>Build a Mighty Machine</p>
+								</div>
+								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<div class="challenge-card-description">
+									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
+								</div>
+							</div>
+						</div>
+						<div class="grid-33 tablet-grid-50 mobile-grid-100">
+							<div class="challenge-card">
+								<div class="challenge-card-title">
+									<p>Build a Mighty Machine</p>
+								</div>
+								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<div class="challenge-card-description">
+									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
+								</div>
+							</div>
+						</div>
+						<div class="grid-33 tablet-grid-50 mobile-grid-100">
+							<div class="challenge-card">
+								<div class="challenge-card-title">
+									<p>Build a Mighty Machine</p>
+								</div>
+								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<div class="challenge-card-description">
+									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
+								</div>
+							</div>
+						</div>
+						<div class="grid-33 tablet-grid-50 mobile-grid-100">
+							<div class="challenge-card">
+								<div class="challenge-card-title">
+									<p>Build a Mighty Machine</p>
+								</div>
+								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<div class="challenge-card-description">
+									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
+								</div>
+							</div>
+						</div>
+						<div class="grid-33 tablet-grid-50 mobile-grid-100">
+							<div class="challenge-card">
+								<div class="challenge-card-title">
+									<p>Build a Mighty Machine</p>
+								</div>
+								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<div class="challenge-card-description">
+									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
+		<footer>
+			<div class="newsletter-panel">
+				<div class="newsletter-panel-content">
+					<div class="grid-container">
+						<div class="grid-100">
+							<h1>
+								<a href="#" class="action-img"><i class="icon-twitter social-icons"></i></a>
+								<a href="#" class="action-img"><i class="icon-facebook social-icons"></i></a>
+							</h1>
+							<h4>Newsletter</h4>
+							<p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
+							<div class="grid-40 push-30 tablet-grid-60 tablet-push-20 mobile-grid-80 mobile-push-10">
+								<input type="text" spellcheck="false" placeholder="youremail@email.com" required />
+							</div>
+							<span class="clear"></span>
+							<a href="#" class="btn-green uppercase newsletter-subscribe">subscribe</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="grid-container company-info">
+				<div class="grid-100 tablet-grid-100">
+					<div class="grid-50 tablet-grid-100 company-logos">
+						<img src="https://www.curiositymachine.org/static/images/logo-small2.png" width="160">
+						<br>
+						<a href="http://iridescentlearning.org/" class="action-img"><img src="{% static 'images/home/iridescent-logo-210px.png'%}" width="120"></a>
+					</div>
+					<div class="grid-50 tablet-grid-100 company-text">
+						<p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.</p>
+						<p>&copy; Iridescent Learning 2015</p>
+						<p>View our <a href="#">privacy policy</a>.</p>
+					</div>
+				</div>
+			</div>
+		</footer>
 
+		<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('.small-screen-navigation').on('click', function(event) {
+					var clickTarget = event.target;
+
+					if ($('.small-screen-navigation')[0]===clickTarget) {
+						toggleNav();
+					}
+				});
+		    	$('#mobile-menu-link').on('click', function(event) {
+			    	toggleNav();
+			  	});
+
+		    	var toggleNav=function() {
+		    		$('.small-screen-navigation').toggleClass('nav-reveal');
+				    $('#about-link').toggleClass('nav-item-1');
+				    $('#challenges-link').toggleClass('nav-item-2');
+				    $('#account-link').toggleClass('nav-item-3');
+		    	}
+			});
+		</script>
 	</body>
 
 </html>
