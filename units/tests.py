@@ -1,19 +1,34 @@
 import pytest
+from django.contrib.auth.models import User
+from profiles.models import Profile
 from .models import Unit
 
 @pytest.fixture
 def unit():
     return Unit.objects.create(name='unit1')
 
+@pytest.fixture
+def educator():
+    educator = User(username="educator")
+    educator.set_password('secret')
+    educator_profile = Profile(is_educator=True)
+    educator_profile.user = educator
+    educator.save()
+    educator_profile.user = educator
+    educator_profile.save()
+    return educator
+
 @pytest.mark.django_db
-def test_units(client, unit):
+def test_units_accessible_by_educator(client, unit, educator):
+    client.login(username='educator', password='secret')
     response = client.get('/units/')
     assert response.status_code == 200
     assert len(response.context['units']) == 1
 
 
 @pytest.mark.django_db
-def test_unit(client, unit):
+def test_unit_accessible_by_educator(client, unit, educator):
+    client.login(username='educator', password='secret')
     response = client.get('/units/%s/' % str(unit.id))
     assert response.status_code == 200
     assert response.context['unit'].id == unit.id

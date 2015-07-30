@@ -11,7 +11,7 @@ def mentor_or_current_user(view):
         if request.user.profile.is_mentor or request.user.username == username:
             return view(request, challenge_id, username, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge_id}))
+            return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge_id}))
     return inner
 
 def current_user_or_approved_viewer(view):
@@ -23,7 +23,7 @@ def current_user_or_approved_viewer(view):
                 or request.user.profile.is_parent_of(username, active=True, removed=False)):
             return view(request, challenge_id, username, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('challenges:challenge', kwargs={'challenge_id': challenge_id}))
+            return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge_id}))
     return inner
 
 #also permits staff
@@ -64,5 +64,17 @@ def feature_flag(flag):
                 return view(request, *args, **kwargs)
             else:
                 raise Http404
+        return inner
+    return decorator
+
+def whitelist(*listnames):
+    """
+    Add view to named whitelist(s)
+    """
+    def decorator(view):
+        @wraps(view)
+        def inner(request, *args, **kwargs):
+            return view(request, *args, **kwargs)
+        inner.whitelist = listnames
         return inner
     return decorator

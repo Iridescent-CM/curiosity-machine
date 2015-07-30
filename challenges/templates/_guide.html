@@ -32,7 +32,7 @@
 </div>
 <div class="modal-footer">
   {% if request.user.is_authenticated and request.user.profile.is_student and show_start_button %}
-      <form name="Start Building" action='' method='POST'>
+    <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
         {% csrf_token %}
         <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />
       </form>

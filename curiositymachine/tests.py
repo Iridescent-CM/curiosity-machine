@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from profiles.models import Profile
-from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware
+from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
 from .views import root_redirect
 from .views.generic import UserJoinView
 from challenges.models import Progress, Challenge
@@ -25,7 +25,7 @@ def test_underage_student_middleware_redirects_request(rf):
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
-    response = middleware.process_request(request)
+    response = middleware.process_view(request, mock.MagicMock(), None, None)
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == reverse('profiles:underage_student')
 
@@ -35,7 +35,7 @@ def test_underage_student_middleware_skips_approved_profiles(rf):
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
-    assert not middleware.process_request(request)
+    assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_underage_student_middleware_skips_mentors(rf):
     user = User()
@@ -43,7 +43,7 @@ def test_underage_student_middleware_skips_mentors(rf):
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
-    assert not middleware.process_request(request)
+    assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_underage_student_middleware_skips_staff(rf):
     user = User(is_staff=True)
@@ -51,14 +51,30 @@ def test_underage_student_middleware_skips_staff(rf):
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
-    assert not middleware.process_request(request)
+    assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_underage_student_middleware_skips_unauthenticated_user(rf):
     user = AnonymousUser()
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
-    assert not middleware.process_request(request)
+    assert not middleware.process_view(request, mock.MagicMock(), None, None)
+
+def test_underage_student_middleware_allows_whitelisted_views(rf):
+    user = User()
+    profile = Profile(user=user, is_student=True)
+    middleware = UnderageStudentSandboxMiddleware()
+    request = rf.get('/some/path')
+    request.user = user
+
+    view = decorators.whitelist('public')(mock.MagicMock())
+    assert not middleware.process_view(request, view, None, None)
+
+    view = decorators.whitelist('maybe_public')(mock.MagicMock())
+    assert not middleware.process_view(request, view, None, None)
+
+    view = decorators.whitelist('underage')(mock.MagicMock())
+    assert not middleware.process_view(request, view, None, None)
 
 def test_unapproved_mentor_middleware_redirects(rf):
     user = User()
@@ -66,7 +82,7 @@ def test_unapproved_mentor_middleware_redirects(rf):
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
-    response = middleware.process_request(request)
+    response = middleware.process_view(request, mock.MagicMock(), None, None)
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == reverse('profiles:home')
 
@@ -76,15 +92,23 @@ def test_unapproved_mentor_middleware_skips_approved(rf):
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
-    assert not middleware.process_request(request)
+    assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
-def test_unapproved_mentor_middleware_skips_training_paths(rf):
+def test_unapproved_mentor_middleware_skips_whitelisted(rf):
     user = User()
     profile = Profile(user=user, is_mentor=True)
     middleware = UnapprovedMentorSandboxMiddleware()
-    request = rf.get('/training/some/path')
+    request = rf.get('/some/path')
     request.user = user
-    assert not middleware.process_request(request)
+
+    view = decorators.whitelist('public')(mock.MagicMock())
+    assert not middleware.process_view(request, view, None, None)
+
+    view = decorators.whitelist('maybe_public')(mock.MagicMock())
+    assert not middleware.process_view(request, view, None, None)
+
+    view = decorators.whitelist('unapproved_mentors')(mock.MagicMock())
+    assert not middleware.process_view(request, view, None, None)
 
 def test_unapproved_mentor_middleware_skips_non_mentor(rf):
     user = User()
@@ -92,7 +116,7 @@ def test_unapproved_mentor_middleware_skips_non_mentor(rf):
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
-    assert not middleware.process_request(request)
+    assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_unapproved_mentor_middleware_skips_staff(rf):
     user = User(is_staff=True)
@@ -100,14 +124,50 @@ def test_unapproved_mentor_middleware_skips_staff(rf):
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
-    assert not middleware.process_request(request)
+    assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_unapproved_mentor_middleware_skips_unauthenticated(rf):
     user = AnonymousUser()
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
-    assert not middleware.process_request(request)
+    assert not middleware.process_view(request, mock.MagicMock(), None, None)
+
+def test_login_required_middleware_skips_whitelisted(rf):
+    user = AnonymousUser()
+    middleware = LoginRequiredMiddleware()
+    request = rf.get('/some/path')
+    request.user = user
+    view = decorators.whitelist('public')(mock.MagicMock())
+    assert not middleware.process_view(request, view, None, None)
+
+    view = decorators.whitelist('maybe_public')(mock.MagicMock())
+    assert not middleware.process_view(request, view, None, None)
+
+def test_login_required_middleware_redirects_if_not_public(rf):
+    user = AnonymousUser()
+    middleware = LoginRequiredMiddleware()
+    request = rf.get('/some/path')
+    request.user = user
+    view = mock.MagicMock()
+
+    response = middleware.process_view(request, view, None, None)
+    assert isinstance(response, HttpResponseRedirect)
+    assert response.url == reverse('login') + '?next=/some/path'
+
+    view = decorators.whitelist('something_not_public')(mock.MagicMock)
+    response = middleware.process_view(request, view, None, None)
+    assert isinstance(response, HttpResponseRedirect)
+    assert response.url == reverse('login') + '?next=/some/path'
+
+def test_login_required_middleware_redirects_login_required_exceptions(rf):
+    middleware = LoginRequiredMiddleware()
+    request = rf.get('/some/path')
+    assert not middleware.process_exception(request, Http404())
+
+    response = middleware.process_exception(request, LoginRequired())
+    assert isinstance(response, HttpResponseRedirect)
+    assert response.url == reverse('login') + '?next=/some/path'
 
 def test_root_redirect_redirects_student_without_progress_to_challenges(rf):
     user = User()
