@@ -1796,6 +1796,12 @@
 .icon-materials:before {
   content: "\e60f"; }
 
+.icon-right-arrow:before {
+  content: "\e610"; }
+
+.icon-left-arrow:before {
+  content: "\e611"; }
+
 .icon-facebook:before {
   content: "\e500"; }
 
@@ -2881,6 +2887,7 @@ nav#static-page-nav {
   height: 50px;
   margin-top: 14px;
   padding: 12px;
+  font-weight: 300;
   background-color: #2FB8C8;
   color: white;
   border-radius: 4px; }
@@ -2898,5 +2905,30 @@ nav#static-page-nav {
   color: #FFFCF7; }
   #all-challenges li {
     background-color: #2FB8C8; }
+
+ul.pagination {
+  list-style-type: none;
+  padding-left: 0px;
+  width: 100%;
+  text-align: center; }
+  ul.pagination a {
+    border-bottom: 0px; }
+  ul.pagination li {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+    vertical-align: center;
+    margin-left: 8px;
+    margin-right: 8px;
+    color: #949494; }
+  ul.pagination li:not(.pagination-arrow) {
+    background-color: #FFFCF7; }
+  ul.pagination #current-page-dot {
+    width: 8px;
+    height: 8px;
+    margin-bottom: 2px;
+    background-color: #949494; }
 
 /*# sourceMappingURL=main.css.map */
