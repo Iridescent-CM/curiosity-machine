@@ -1,39 +1,42 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block content %}
 <div class="row">
-  <div class="col-xs-10 col-xs-offset-1">
-    <h2 class="text-center">Welcome to Curiosity Machine!</h2>
+  <div class="col-xs-12">
+    <h2 class="text-center">Go <span class="text-primary">Above and Beyond</span> with Curiosity Machine!</h2>
+    <br>
+    <h3 class="text-center">Create an account and choose a challenge to build.
+    <br>Learn from Boeing engineers and share what you make!</h3>
+    <br>
 
-    <h3>You explored the science of flight at Boeing's 1000th Year Traveling Exhibit. Now continue your adventure with Curiosity Machine!</h3>
+    <div class="text-center">
+      <img src="{% static 'images/airplane.png' %}" class="img-responsive" style="display:inline;">
+    </div>
+    <br>
 
-    <ul>
-      <li>Watch videos with Boeing engineers to learn more about the inventions you saw at the museum
-      <li>Build your own version using the engineering design process
-      <li>Document your project with pictures and videos and share it on Curiosity Machine
-    </ul>
+    <div class="text-center">
+      <a class="btn btn-lg btn-primary" style="text-transform:none; display:inline; margin-top:50px;" href="{% url 'profiles:join' 'fattington' %}?welcome=true">
+        Create a Student Account
+      </a>
+    </div>
 
-    <h3 class="text-center" style="margin-top:50px">Create an account to get started!</h3>
-
-    <p><b>Students</b> can build and document projects using the engineering design process
+    <p class="text-center" style="margin-top:30px;">to build and document projects using the engineering design process</p>
+    <br>
+    <br>
+    <h3 class="text-center">Not a student?</h3>
+    <br>
 
     <div class="row">
-      <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2">
-        <a class="btn btn-lg btn-block btn-primary" style="text-transform:none" href="{% url 'profiles:join' 'fattington' %}?welcome=true">
-          Create a Student Account
-        </a>
+      <div class="col-md-6 col-sm-12 text-center">
+        <p><strong>Parents</strong> can connect to their child's account and learn how to build together.</p>
+        <p><a href="{% url 'profiles:join_as_parent' 'fattington' %}?welcome=true">Create a Parent Account</a></p>
+      </div>
+      <div class="col-md-6 col-sm-12 text-center">
+        <p><strong>Educators</strong> can find resources for engineering challenges and track student progress.</p>
+        <p><a href="{% url 'profiles:join_as_educator' 'fattington' %}?welcome=true">Create an Educator Account</a></p>
       </div>
     </div>
-
-    <div class="row text-center" style="margin-top:50px">
-      <div class="col-xs-6">
-        <p><b>Parents</b> can connect to their child's account and learn how to build together
-        <p><a href="{% url 'profiles:join_as_parent' 'fattington' %}?welcome=true">Create a Parent Account</a>
-      </div>
-      <div class="col-xs-6">
-        <p><b>Educators</b> can find resources for engineering challenges and track student progress
-        <p><a href="{% url 'profiles:join_as_educator' 'fattington' %}?welcome=true">Create an Educator Account</a>
-      </div>
-    </div>
+    
   </div>
 </div>
 {% endblock %}
