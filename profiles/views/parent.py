@@ -25,7 +25,6 @@ join = transaction.atomic(UserJoinView.as_view(
 ))
 
 @login_required
-@feature_flag('enable_parents')
 def home(request):
     children = ParentConnection.objects.filter(parent_profile=request.user.profile, removed=False)
     trainings = [
@@ -62,7 +61,6 @@ def home(request):
 
 @login_required
 @transaction.atomic
-@feature_flag('enable_parents')
 def profile_edit(request):
     if request.method == 'POST':
         form = forms.ParentUserAndProfileForm(data=request.POST, instance=request.user, prefix="parent")
@@ -86,7 +84,6 @@ class ParentConnectionCreateView(UpdateView):
 
     @method_decorator(login_required)
     @method_decorator(parents_only)
-    @method_decorator(feature_flag('enable_parents'))
     def dispatch(self, *args, **kwargs):
         return super(ParentConnectionCreateView, self).dispatch(*args, **kwargs)
 
@@ -105,7 +102,6 @@ class ChildDetailView(DetailView):
 
     @method_decorator(login_required)
     @method_decorator(active_connected_parent_only)
-    @method_decorator(feature_flag('enable_parents'))
     def dispatch(self, *args, **kwargs):
             return super(ChildDetailView, self).dispatch(*args, **kwargs)
 
@@ -118,7 +114,6 @@ class ParentConnectionDeleteView(SoftDeleteView):
 
     @method_decorator(login_required)
     @method_decorator(connected_parent_only)
-    @method_decorator(feature_flag('enable_parents'))
     def dispatch(self, *args, **kwargs):
             return super(ParentConnectionDeleteView, self).dispatch(*args, **kwargs)
 
