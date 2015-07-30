@@ -46,6 +46,11 @@ body {
 	width: 100%;
 	text-align: center;
 	margin-bottom: $large-spacing;
+	.challenge-card {
+		//float: left;
+		display: inline-block;
+		vertical-align: top;
+	}
 }
 
 .home-who-panel {
