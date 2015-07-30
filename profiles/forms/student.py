@@ -19,7 +19,7 @@ class StudentUserAndProfileForm(UserAndProfileForm):
     }
     make_required = ['city', 'birthday'] # under/over 13 requirement differences enforced in clean()
 
-    form_fields = ['image_url']
+    form_fields = ['image_url', 'welcome']
 
     class Meta(UserAndProfileForm.Meta):
         fields = [

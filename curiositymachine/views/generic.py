@@ -67,11 +67,27 @@ class UserJoinView(CreateView):
         self.source = None
         if 'source' in kwargs:
             self.source = kwargs['source']
+
+        if request.method == 'GET':
+            self.welcome = request.GET.get('welcome', None)
+        elif request.method == 'POST':
+            welcome_field = 'welcome'
+            if self.get_prefix():
+                welcome_field = self.get_prefix() + '-' + welcome_field
+            self.welcome = request.POST.get(welcome_field, None)
+
         return super(UserJoinView, self).dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        if self.welcome and self.source:
+            return '/welcome/' + self.source
+
+        return super(UserJoinView, self).get_success_url()
 
     def get_context_data(self, **kwargs):
         context = super(UserJoinView, self).get_context_data(**kwargs)
         context['source'] = self.source
+        context['welcome'] = self.welcome
         context['action'] = self.request.path
         return context
 
@@ -79,6 +95,10 @@ class UserJoinView(CreateView):
         initial = super(UserJoinView, self).get_initial()
         if self.source:
             initial['source'] = self.source
+
+        if self.welcome:
+            initial['welcome'] = self.welcome
+
         return initial
 
     def get_form_kwargs(self):
@@ -107,11 +127,6 @@ class UserJoinView(CreateView):
         self.object = self.create_user(form)
         if self.get_success_message():
             messages.success(self.request, self.get_success_message())
-
-        if 'success_url' in self.request.POST:
-            url = self.request.POST['success_url']
-            if is_safe_url(url=url, host=self.request.get_host()):
-                return HttpResponseRedirect(url)
 
         return HttpResponseRedirect(self.get_success_url())
 

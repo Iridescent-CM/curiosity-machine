@@ -71,3 +71,5 @@ django-sslify>=0.2
 django-compressor==1.4
 
 python-dateutil==2.3
+
+django-staticflatpages==0.3.1
