@@ -7,7 +7,7 @@
 }
 
 .about-top-panel-content {
-	background-color: rgba(255,90,0,.7);
+	background-color: rgba(255,90,0,.8);
 	color: white;
 	padding: $base-spacing 0px $base-spacing 0px;
 	margin-bottom: $large-spacing;
@@ -16,6 +16,16 @@
 }
 
 #about-page #about-page-nav {
+	color: tint($primary-red, 40%);
+	border-bottom-color: tint($primary-red, 40%);
+}
+
+#educator-about-page #educator-about-page-nav {
+	color: tint($primary-red, 40%);
+	border-bottom-color: tint($primary-red, 40%);
+}
+
+#parent-about-page #parent-about-page-nav {
 	color: tint($primary-red, 40%);
 	border-bottom-color: tint($primary-red, 40%);
 }
@@ -107,6 +117,15 @@ nav#static-page-nav {
 	h3 {
 		margin-top: $base-spacing;
 	}
+}
+
+.educator-top-panel {
+	//@extend .about-top-panel;
+	background: url("../images/about/educator-top-panel.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 

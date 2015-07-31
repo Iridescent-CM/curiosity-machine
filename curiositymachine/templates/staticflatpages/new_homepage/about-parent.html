@@ -1,6 +1,4 @@
 {% load staticfiles %}
-{% load compress %}
-{% load future %} {# suppresses deprecation warnings for firstof tag #}
 <!DOCTYPE html>
 <html>
 
@@ -11,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 
-	<body id="about-page">
+	<body id="parent-about-page">
 
 		<header>
 			<div class="grid-container">
@@ -55,7 +53,7 @@
 			<div class="about-top-panel-content">
 				<div class="grid-container">
 					<div class="grid-100">
-						<h1>About</h1>
+						<h1>Parents</h1>
 						<nav id="static-page-nav">
 							<ul>
 								<a href="/new_homepage/about"><li id="about-page-nav">About</li></a>
@@ -73,61 +71,32 @@
 		<div class="grid-container">
 
 			<div class="about-page-content grid-60 push-20 tablet-grid-80 tablet-push-10">
-				<h2>The hardest skill to develop is creativity.</h2>
-				<h3>We're here to help you learn.</h3>
-				<p>But how do you learn to be creative? It's like any other skill: it takes practice!</p>
-				<p>At Curiosity Machine, we practice by building hands-on engineering design challenges. We believe that through building, you learn not only how something works, but why.</p>
-				<p>And when a design doesn't work, why not? If you're inspired to ask, you're more likely to stick with it, even when it's hard. Keep building, keep practicing, and with time you'll surprise yourself with your creative solutions.</p>
-				<p>Sounds challenging? We agree! That's why we created Curiosity Machine. We support students, parents, educators, and mentors to build, learn, and teach using the engineering design process.</p>
-				<p>Together, we're building the next generation of problem solvers.</p>
-
-				<div class="about-page-video grid-80 push-10">
-					<div class="iframe-container">
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/XBAE46x2qio" frameborder="0" allowfullscreen></iframe>
-					</div>
-				</div>
-				<span class="clear"></span>
-
-				<hr class="hr-red"/>
-
-				<h2>How Curiosity Machine Works</h2>
-				<h3>Create a student account and...</h3>
-				<div class="grid-50">
-					<h4><span class="numbered-bullet">1</span> Find Inspiration</h4>
-					<p>What makes scientists and engineers curious? Watch videos of the experts sharing their research and inventions.</p>
-				</div>
-				<div class="grid-50">
-					<h4><span class="numbered-bullet">2</span> Build a Design Challenge</h4>
-					<p>Find a challenge and try to build it! Follow the engineering design process and document as you plan, build, and test.</p>
-				</div>
-				<div class="grid-50">
-					<h4><span class="numbered-bullet">3</span> Get Mentor Feedback</h4>
-					<p>Stuck? Need support? Looking for a new idea? Join a <a href="#">membership</a> and get feedback on your designs from a Curiosity Machine mentor.</p>
-				</div>
-				<div class="grid-50">
-					<h4><span class="numbered-bullet">4</span> Share What You Built</h4>
-					<p>Wrap up your design by reflecting and sharing a photo. Check out other users' projects for more inspiration!</p>
-				</div>
-				<span class="clear"></span>
-
-				<hr class="hr-red"/>
-
-				<h2>Curiosity Machine Supports You to Support Your Students</h2>
-				<p><a href="#">Parents:</a> connect to your child’s account and learn how to build together</p>
-				<p><a href="#">Educators:</a> find resources for engineering challenges and track student progress</p>
-				<p><a href="#">Mentors:</a> guide students as they build engineering design challenges</p>
-
-				<hr class="hr-red"/>
-
-				<h2>Engineering Design Challenges</h2>
-				<p>We work with scientists and engineers to create design challenges inspired by their inventions.</p>
-				<p>You learn about the science behind the challenge and try to build your own!</p>
-				<p></p>
+				<h2>Build something great together.</h2>
+				<h3>Connect to your child’s account and learn how to build together.</h3>
+				<p>Use Curiosity Machine to make building (engineering?) a regular family activity. Work alongside your child to build solutions to engineering design challenges together.</p>
+				<p>We believe that creativity is like any other skill &mdash; anyone can develop it, it just takes practice! Use Curiosity Machine to practice by building hands-on engineering design challenges with your child. Team up to learn how things work and why they work as you build.</p>
+				<p>It’s free to sign up for Curiosity Machine, and people all over are using it to build interesting things &mdash; and to connect with other families!</p>
 				<ul>
-					<li>Use simple household materials</li>
-					<li>Scale up or down for students K-12</li>
-					<li>Have many possible solutions &mdash; there’s never one right answer!</li>
+					<li>Organize a Curiosity Machine playdate with friends and build a challenge in an afternoon</li>
+					<li>Form a Curiosity Machine Club and build together regularly, or build longer challenges over multiple weeks.</li>
+					<li>Bring Curiosity Machine to your child’s school. </li>
 				</ul>
+
+				<hr class="hr-red"/>
+
+				<h2>Get Started</h2>
+				<h3>Sign up for a parent account to follow along as your child plans, builds, and tests their designs. </h3>
+				<p>With a parent account you can:</p>
+				<ul>
+					<li>See every step of every design your child builds, and watch your child’s portfolio of completed projects grow.</li>
+					<li>See all interactions your child has with their mentor(s).</li>
+					<li>Access parent trainings online</li>
+				</ul>
+				<p>It is free to sign up for a parent account on Curiosity Machine. If your school has signed up for a membership, we will also offer expanded parent trainings to interested parents. <a href="#">Learn more.</a></p>
+
+				<a href="#" class="btn">Create a Parent Account</a>
+
+				<hr class="hr-red"/>
 
 			</div>
 		</div>

@@ -2783,7 +2783,7 @@ body {
   background-position: center center; }
 
 .about-top-panel-content {
-  background-color: rgba(255, 90, 0, 0.7);
+  background-color: rgba(255, 90, 0, 0.8);
   color: white;
   padding: 1.5em 0px 1.5em 0px;
   margin-bottom: 3em;
@@ -2791,6 +2791,14 @@ body {
   text-align: center; }
 
 #about-page #about-page-nav {
+  color: #fea574;
+  border-bottom-color: #fea574; }
+
+#educator-about-page #educator-about-page-nav {
+  color: #fea574;
+  border-bottom-color: #fea574; }
+
+#parent-about-page #parent-about-page-nav {
   color: #fea574;
   border-bottom-color: #fea574; }
 
@@ -2857,6 +2865,13 @@ nav#static-page-nav {
   margin-bottom: 1.5em; }
   .educator-about-page-content h3 {
     margin-top: 1.5em; }
+
+.educator-top-panel {
+  background: url("../images/about/educator-top-panel.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center; }
 
 #challenges-page {
   background-color: #E5E1D9; }
