@@ -99,3 +99,8 @@
   @extend .btn-secondary;
   @include btn-secondary-color($primary-purple);
 }
+
+.btn-center {
+  display: inline-block;
+  margin: 0 auto;
+}

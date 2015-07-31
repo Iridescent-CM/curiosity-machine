@@ -96,3 +96,17 @@ nav#static-page-nav {
 	top: -3px;
 }
 
+// EDUCATOR ABOUT
+.educator-about-page-units {
+	width: 100%;
+}
+
+.educator-about-page-content {
+	@extend .about-page-content;
+	margin-bottom: $base-spacing;
+	h3 {
+		margin-top: $base-spacing;
+	}
+}
+
+

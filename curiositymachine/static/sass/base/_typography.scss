@@ -55,6 +55,7 @@ a {
   text-decoration: none;
   transition: color $base-duration $base-timing;
   border-bottom: solid 1px $action-color;
+  cursor: pointer;
 
   &:active,
   &:focus,
