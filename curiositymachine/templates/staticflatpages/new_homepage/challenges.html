@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load resized %}
 <!DOCTYPE html>
 <html>
 
@@ -118,7 +119,18 @@
 								<div class="challenge-card-title">
 									<p>Build a Mighty Machine</p>
 								</div>
-								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc' width=300 height=170 crop='fill' %}">
+								<div class="challenge-card-description">
+									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
+								</div>
+							</div>
+						</div>
+						<div class="grid-33 tablet-grid-50 mobile-grid-100">
+							<div class="challenge-card">
+								<div class="challenge-card-title">
+									<p>Build a Mighty Machine</p>
+								</div>
+								<img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/bd5fd24220cd9aed27540f9bacd0dfcf' width=300 height=170 crop='fill' %}">
 								<div class="challenge-card-description">
 									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
 								</div>
@@ -173,18 +185,7 @@
 								<div class="challenge-card-title">
 									<p>Build a Mighty Machine</p>
 								</div>
-								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
-								<div class="challenge-card-description">
-									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
-								</div>
-							</div>
-						</div>
-						<div class="grid-33 tablet-grid-50 mobile-grid-100">
-							<div class="challenge-card">
-								<div class="challenge-card-title">
-									<p>Build a Mighty Machine</p>
-								</div>
-								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
+								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/04c4c99ab5913ff9a67f0f4fa3312b60">
 								<div class="challenge-card-description">
 									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
 								</div>
