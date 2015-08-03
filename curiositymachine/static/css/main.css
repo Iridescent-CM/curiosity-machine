@@ -2332,6 +2332,13 @@ nav.main ul {
   top: 25px;
   margin-right: 10px; }
 
+.profile-dropdown {
+  position: absolute;
+  top: 80px;
+  width: 220px;
+  height: 120px;
+  background-color: red; }
+
 .user-avatar {
   width: 35px;
   height: 35px;
