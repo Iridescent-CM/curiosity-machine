@@ -20,25 +20,33 @@ nav.main ul {
     height: 100%;
     float: right;
     padding: 0px 15px 0px 15px;
-    //transition: background-color 500ms bottom-to-top;
     border-bottom: 0px;
     overflow: hidden;
     z-index: 1;
     position: relative;
-    transition:           0.08s ease-in;
-    -o-transition:      0.08s ease-in;
-    -ms-transition:     0.08s ease-in;
-    -moz-transition:    0.08s ease-in;
-    -webkit-transition: 0.08s ease-in;
-    // &:hover {
-    //   color: $primary-green;
-    //   background-color: #F4F1EB;//darken($light, 10%);
-    // }
+    &:hover {
+      color: $primary-light;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      background: $dark-gray;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 100%;
+      z-index: -1;
+      -webkit-transition: top 0.16s ease-in;
+    }
+    &:hover:before {
+      top: 0;
+    }
     li {
       margin-top: 18px;
       img {
         margin-left: 10px;
         margin-top: 10px;
+        margin-right: 18px;
         float: right;
         @include vertical-align;
       }
@@ -46,25 +54,28 @@ nav.main ul {
   }
 }
 
-.fill {
-  &:hover {
-    color: $primary-green;
-  }
-  &:before {
-    content: "";
-    position: absolute;
-    background: #383736;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 100%;
-    z-index: -1;
-    -webkit-transition: top 0.09s ease-in;
-  }
+#main-nav-profile:before {
+  background: $primary-purple;
 }
 
-.fill:hover:before {
-  top: 0;
+#main-nav-challenges:before {
+  background: $primary-blue;
+}
+
+#main-nav-about:before {
+  background: $primary-red;
+}
+
+#main-nav-mentors:before {
+  background: $primary-orange;
+}
+
+.profile-navigation {
+  float: right;
+  position: absolute;
+  right: 0;
+  top: 25px;
+  margin-right: 10px;
 }
 
 .user-avatar {
@@ -86,6 +97,7 @@ nav.main ul {
   //height: 290px;
   position: absolute;
   top: -100vh;
+  z-index: 99;
   //top: -290px;
   transition: all .75s ease-in-out;
   background-color: rgba(51,51,51,.9);

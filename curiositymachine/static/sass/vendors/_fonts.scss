@@ -71,11 +71,17 @@
 .icon-materials:before {
 	content: "\e60f";
 }
-.icon-right-arrow:before {
+.icon-up-arrow:before {
 	content: "\e610";
 }
-.icon-left-arrow:before {
+.icon-right-arrow:before {
 	content: "\e611";
+}
+.icon-down-arrow:before {
+	content: "\e612";
+}
+.icon-left-arrow:before {
+	content: "\e613";
 }
 .icon-facebook:before {
 	content: "\e500";

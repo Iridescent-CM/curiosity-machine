@@ -1796,11 +1796,17 @@
 .icon-materials:before {
   content: "\e60f"; }
 
-.icon-right-arrow:before {
+.icon-up-arrow:before {
   content: "\e610"; }
 
-.icon-left-arrow:before {
+.icon-right-arrow:before {
   content: "\e611"; }
+
+.icon-down-arrow:before {
+  content: "\e612"; }
+
+.icon-left-arrow:before {
+  content: "\e613"; }
 
 .icon-facebook:before {
   content: "\e500"; }
@@ -2280,17 +2286,27 @@ nav.main ul {
     border-bottom: 0px;
     overflow: hidden;
     z-index: 1;
-    position: relative;
-    transition: 0.08s ease-in;
-    -o-transition: 0.08s ease-in;
-    -ms-transition: 0.08s ease-in;
-    -moz-transition: 0.08s ease-in;
-    -webkit-transition: 0.08s ease-in; }
+    position: relative; }
+    nav.main ul a:hover {
+      color: #FFFCF7; }
+    nav.main ul a:before {
+      content: "";
+      position: absolute;
+      background: #333333;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 100%;
+      z-index: -1;
+      -webkit-transition: top 0.16s ease-in; }
+    nav.main ul a:hover:before {
+      top: 0; }
     nav.main ul a li {
       margin-top: 18px; }
       nav.main ul a li img {
         margin-left: 10px;
         margin-top: 10px;
+        margin-right: 18px;
         float: right;
         position: relative;
         top: 50%;
@@ -2298,21 +2314,24 @@ nav.main ul {
         -ms-transform: translateY(-50%);
         transform: translateY(-50%); }
 
-.fill:hover {
-  color: #8FB559; }
-.fill:before {
-  content: "";
-  position: absolute;
-  background: #383736;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 100%;
-  z-index: -1;
-  -webkit-transition: top 0.09s ease-in; }
+#main-nav-profile:before {
+  background: #6161AF; }
 
-.fill:hover:before {
-  top: 0; }
+#main-nav-challenges:before {
+  background: #2FB8C8; }
+
+#main-nav-about:before {
+  background: #FD6917; }
+
+#main-nav-mentors:before {
+  background: #F2B353; }
+
+.profile-navigation {
+  float: right;
+  position: absolute;
+  right: 0;
+  top: 25px;
+  margin-right: 10px; }
 
 .user-avatar {
   width: 35px;
@@ -2329,6 +2348,7 @@ nav.main ul {
   height: 100vh;
   position: absolute;
   top: -100vh;
+  z-index: 99;
   transition: all .75s ease-in-out;
   background-color: rgba(51, 51, 51, 0.9); }
   .small-screen-navigation ul {
