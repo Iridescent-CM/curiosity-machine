@@ -305,3 +305,6 @@ except ImportError:
 if DEBUG and DEBUG_TOOLBAR:
     INSTALLED_APPS += ('debug_toolbar',)
 
+
+WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?').split(','))
+BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))
