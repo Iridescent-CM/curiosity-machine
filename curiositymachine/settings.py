@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 import dj_database_url
-import re
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -307,5 +306,5 @@ if DEBUG and DEBUG_TOOLBAR:
     INSTALLED_APPS += ('debug_toolbar',)
 
 
-WHITELIST_URLS = re.compile('(' + ')|('.join([r for r in os.environ.get('WHITELIST_URLS', '^admin/?').split(',')]) + ')')
-BLACKLIST_URLS = re.compile('(' + ')|('.join([r for r in os.environ.get('BLACKLIST_URLS', 'a^').split(',')]) + ')')
+WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?').split(','))
+BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))

@@ -3,6 +3,9 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 import re
 
+whitelist_regex = re.compile('(' + ')|('.join([r for r in settings.WHITELIST_URLS]) + ')')
+blacklist_regex = re.compile('(' + ')|('.join([r for r in settings.BLACKLIST_URLS]) + ')')
+
 def whitelisted(view, *listnames):
     """
     True if view belongs to any of the whitelists named in listnames, as marked by the @whitelist() decorator
@@ -34,11 +37,11 @@ class LoginRequiredMiddleware:
     Redirects to login if view isn't in 'public' or 'maybe_public' whitelists, or view has raised LoginRequired
     """
     def process_request(self, request):
-        if re.match(settings.BLACKLIST_URLS, request.path.lstrip('/')):
+        if blacklist_regex.match(request.path.lstrip('/')):
             return HttpResponseForbidden()
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if not (request.user.is_authenticated() or whitelisted(view_func, 'public', 'maybe_public') or re.match(settings.WHITELIST_URLS, request.path.lstrip('/'))):
+        if not (request.user.is_authenticated() or whitelisted(view_func, 'public', 'maybe_public') or whitelist_regex.match(request.path.lstrip('/'))):
             return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.path))
 
     def process_exception(self, request, exception):
