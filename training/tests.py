@@ -10,14 +10,17 @@ from django.core.exceptions import PermissionDenied
 
 NEW_MENTOR_USERNAME = "newbie"
 NEW_MENTOR_EMAIL = "newbie@example.com"
+NEW_MENTOR_PASSWORD = "secret"
 ADMIN_USERNAME = "admin"
 ADMIN_EMAIL = "admin@example.com"
 
 @pytest.fixture
 def new_mentor(): # not approved
     mentor = User.objects.create(username=NEW_MENTOR_USERNAME, email=NEW_MENTOR_EMAIL)
+    mentor.set_password(NEW_MENTOR_PASSWORD)
     mentor.profile.is_mentor = True
     mentor.profile.save()
+    mentor.save()
     return mentor
 
 @pytest.fixture
@@ -28,11 +31,11 @@ def admin():
 
 @pytest.fixture
 def module():
-    return Module.objects.create(name="Module 1", order=1)
+    return Module.objects.create(name="Module 1", order=1, draft=False)
 
 @pytest.fixture
 def module2():
-    return Module.objects.create(name="Module 2", order=2)
+    return Module.objects.create(name="Module 2", order=2, draft=False)
 
 @pytest.fixture
 def task(module):
@@ -53,6 +56,20 @@ def module2_task(module2):
 @pytest.fixture
 def training_comment(task, mentor):
     return task.comments.create(user=mentor)
+
+@pytest.mark.django_db
+def test_modules_filters_drafts(client, module, module2, new_mentor):
+    client.login(username=NEW_MENTOR_USERNAME, password=NEW_MENTOR_PASSWORD)
+    response = client.get('/home/')
+    assert response.status_code == 200
+    assert len(response.context['accessible_modules']) == 2
+
+    module.draft = True
+    module.save()
+
+    response = client.get('/home/')
+    assert response.status_code == 200
+    assert len(response.context['accessible_modules']) == 1
 
 @pytest.mark.django_db
 def test_module_response_code(rf, student, mentor, new_mentor, module):
@@ -131,7 +148,6 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
     assert module2.is_accessible_by_mentor(new_mentor)
 
     task.mark_mentor_as_done(new_mentor)
-    assert not new_mentor.profile.approved
     assert task.is_finished_by_mentor(new_mentor)
     assert not task2.is_finished_by_mentor(new_mentor)
     assert not task3.is_finished_by_mentor(new_mentor)
@@ -143,7 +159,6 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
 
     # hit task 3 out of order to make sure you have to finish ALL tasks in the module before progressing
     task3.mark_mentor_as_done(new_mentor)
-    assert not new_mentor.profile.approved
     assert task.is_finished_by_mentor(new_mentor)
     assert not task2.is_finished_by_mentor(new_mentor)
     assert task3.is_finished_by_mentor(new_mentor)
@@ -154,7 +169,6 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
     assert module2.is_accessible_by_mentor(new_mentor)
 
     task2.mark_mentor_as_done(new_mentor)
-    assert not new_mentor.profile.approved
     assert task.is_finished_by_mentor(new_mentor)
     assert task2.is_finished_by_mentor(new_mentor)
     assert task3.is_finished_by_mentor(new_mentor)
@@ -165,7 +179,6 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
     assert module2.is_accessible_by_mentor(new_mentor)
 
     module2_task.mark_mentor_as_done(new_mentor)
-    assert new_mentor.profile.approved
     assert task.is_finished_by_mentor(new_mentor)
     assert task2.is_finished_by_mentor(new_mentor)
     assert task3.is_finished_by_mentor(new_mentor)
@@ -190,7 +203,6 @@ def test_approve_task_progress_view_status_code(rf, admin, mentor, new_mentor, m
     request._messages = FallbackStorage(request)
     with pytest.raises(PermissionDenied):
         response = approve_task_progress(request, module.order, task.order, new_mentor.username)
-    assert not new_mentor.profile.approved
     assert not task.is_finished_by_mentor(new_mentor)
     assert not module2_task.is_finished_by_mentor(new_mentor)
     assert not module.is_finished_by_mentor(new_mentor)
@@ -203,7 +215,6 @@ def test_approve_task_progress_view_status_code(rf, admin, mentor, new_mentor, m
     request._messages = FallbackStorage(request)
     response = approve_task_progress(request, module.order, task.order, new_mentor.username)
     assert response.status_code < 400
-    assert not new_mentor.profile.approved
     assert task.is_finished_by_mentor(new_mentor)
     assert not module2_task.is_finished_by_mentor(new_mentor)
     assert module.is_finished_by_mentor(new_mentor)
@@ -215,7 +226,6 @@ def test_approve_task_progress_view_status_code(rf, admin, mentor, new_mentor, m
     request._messages = FallbackStorage(request)
     response = approve_task_progress(request, module2.order, module2_task.order, new_mentor.username)
     assert response.status_code < 400
-    assert User.objects.get(id=new_mentor.id).profile.approved
     assert task.is_finished_by_mentor(new_mentor)
     assert module2_task.is_finished_by_mentor(new_mentor)
     assert module.is_finished_by_mentor(new_mentor)
