@@ -2178,9 +2178,6 @@ html {
 *, *:before, *:after {
   box-sizing: inherit; }
 
-a {
-  cursor: pointer; }
-
 body {
   color: #333333;
   font-family: "Raleway", Helvetica, sans-serif;
@@ -2334,10 +2331,15 @@ nav.main ul {
 
 .profile-dropdown {
   position: absolute;
-  top: 80px;
-  width: 220px;
-  height: 120px;
-  background-color: red; }
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style-type: none;
+  background-color: gray; }
 
 .user-avatar {
   width: 35px;
@@ -2436,8 +2438,10 @@ nav.main ul {
 
   .user-avatar {
     position: absolute;
-    top: 25px;
-    left: 40px; }
+    top: 30px;
+    left: 40px;
+    width: 50px;
+    height: 50px; }
 
   .user-name {
     padding-left: 90px !important; } }
