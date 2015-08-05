@@ -10,6 +10,7 @@ class Module(models.Model):
     order = models.PositiveSmallIntegerField(unique=True, help_text="The order, starting from 1, in which this module will be displayed. The URL to the module page and all of the module's task pages are based on this number, so changing it will also change the URLs. This also affects trainee progression -- for instance, the first module is always available to trainees, and a trainee who completes all tasks in the lastly-ordered module is promoted to mentor ('approved'). The numbers should be sequential.")
     name = models.CharField(max_length=70)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="modules")
+    draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown on the mentor home page")
 
     class Meta:
         ordering = ('order',)
@@ -57,9 +58,6 @@ class Task(models.Model):
     def mark_mentor_as_done(self, mentor):
         self.mentors_done.add(mentor)
         deliver_email('training_task_done', mentor.profile, task=self, subject="You Completed Task %d!" % self.order)
-        if self.module == Module.objects.last() and not self.module.tasks.exclude(mentors_done=mentor).exists():
-            mentor.profile.approve_and_save()
-            return True
 
     def get_absolute_url(self):
         return reverse('training:task', args=[self.module.order, self.order])

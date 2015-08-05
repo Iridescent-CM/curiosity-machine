@@ -32,7 +32,7 @@ join = transaction.atomic(UserJoinView.as_view(
 
 @login_required
 def home(request):
-    training_modules = Module.objects.all()
+    training_modules = Module.objects.filter(draft=False)
     accessible_modules = training_modules
     completed_modules = [module for module in training_modules if module.is_finished_by_mentor(request.user)]
     uncompleted_modules = [module for module in training_modules if not module.is_finished_by_mentor(request.user)]
