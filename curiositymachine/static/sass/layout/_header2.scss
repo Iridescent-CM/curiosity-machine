@@ -2,35 +2,53 @@ header {
   width: 100%;
   height: 60px;
   background-color: $primary-light;
-  //box-shadow: 0px 2px 4px 2px rgba(51, 51, 51, .5);
-  z-index: 100;
-  position: relative;
-  transition: all 500ms ease;
+  box-shadow: 0px 2px 4px 0px rgba(51, 51, 51, .4);
 }
 
-nav.main ul {
-  list-style-type: none;
+// full width navigation
+#main-navigation {
+  position: relative;
+  list-style: none;
+  display: inline-block;
   float: right;
+  padding: 0;
+  margin: 0 auto;
   height: 60px;
-  overflow: hidden;
-  margin: 0px;
-  a {
-    color: $medium-gray;
-    text-decoration: none;
+  position: relative;
+  li {
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    top: 0;
+    vertical-align: top;
     height: 100%;
-    float: right;
-    padding: 0px 15px 0px 15px;
+    padding: 0px;
+    margin: 0;
+  }
+  // only direct children so the profile nav isn't affected
+  li > a {
+    color: $medium-gray;
     border-bottom: 0px;
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    padding: 17px 15px 0px;
+  }
+  li:nth-last-child(1) {
+    margin-right: 10px;
+  }
+  a {
+    height: 100%;
     overflow: hidden;
     z-index: 1;
-    position: relative;
+    // hover state so the color fills it up
     &:hover {
       color: $primary-light;
     }
     &:before {
       content: "";
       position: absolute;
-      background: $dark-gray;
+      background: $primary-blue;
       bottom: 0;
       left: 0;
       right: 0;
@@ -41,75 +59,88 @@ nav.main ul {
     &:hover:before {
       top: 0;
     }
-    li {
-      margin-top: 18px;
-      img {
-        margin-left: 10px;
-        margin-top: 10px;
-        margin-right: 18px;
-        float: right;
-        @include vertical-align;
-      }
-    }
   }
 }
 
-#main-nav-profile:before {
-  background: $primary-purple;
+.profile-name {
+  margin-right: 45px;
 }
 
-#main-nav-challenges:before {
-  background: $primary-blue;
-}
-
-#main-nav-about:before {
-  background: $primary-red;
-}
-
-#main-nav-mentors:before {
-  background: $primary-orange;
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute !important;
+  //vertical-align: top;
+  top: 0;
+  right: 40px;
+  //margin-top: 5px;
+  @include vertical-align;
 }
 
 .profile-navigation {
-  float: right;
-  position: relative;
-  right: 0;
-  top: 25px;
-  margin-right: 10px;
+  overflow: hidden;
+  list-style: none;
+  position: absolute;
+  padding: 0;
+  width: 100%;
+  left: 0;
+  top: -100px;
+  box-shadow: 0px 2px 4px 0px rgba(51, 51, 51, .4);
+  @include transition(all 0.5s 0.1s);
+  z-index: -5;
+  div {
+    position: relative;
+    border-radius: 4px;
+  }
+  a {
+    display: block;
+    padding: 14px 0px !important;
+    height: 50px;
+    width: 100%;
+    color: $medium-gray !important;
+    background-color: $primary-light;
+    border-bottom: 0px;
+    &:hover {
+      background-color: $primary-purple;
+      color: $primary-light !important;
+    }
+    &:before {
+      background: none !important;
+    }
+  }
+  a:nth-last-child(1) {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+  a:nth-child(1) {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
 }
 
-// .profile-dropdown {
-//   overflow: hidden;
-//   list-style: none;
-//   position: absolute;
-//   padding: 0;
-//   width: 100%;
-//   left: 0;
-//   top: 0px;
-//   div {
-//     position: relative;
-//   }
-//   li {
-//     display: block;
-//     padding: 0;
-//     width: 100%;
-//     background-color: red;
-//     float: left;
-//   }
-// }
-
-.user-avatar {
-  width: 35px;
-  height: 35px;
-  //border: 2px solid white;
-  border-radius: 50%;
-  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, .5);
+#profile-navigation-link {
+  &:hover {
+    .profile-navigation {
+      top: 70px;
+    }
+  }
+  i {
+    margin-left: 10px;
+  }
 }
+
+#main-nav-profile:before { background: $primary-purple !important; }
+#main-nav-challenges:before { background: $primary-blue !important; }
+#main-nav-about:before { background: $primary-red !important; }
+#main-nav-mentors:before { background: $primary-orange !important;}
 
 .logo {
   margin-top: 5px;
   height: 50px;
 }
+
+// Responsive Menu Stuff
 
 .small-screen-navigation {
   width: 100%;
@@ -195,9 +226,6 @@ nav.main ul {
 }
 
 @media screen and (max-width: $media-tablet-max) {
-  header {
-    height: 60px;
-  }
   #mobile-menu-link {
     text-transform: uppercase;
     font-weight: $heavy-font-weight;
@@ -208,7 +236,7 @@ nav.main ul {
     margin-top: 20px;
     cursor: pointer;
   }
-  nav.main ul {
+  .large-screen-navigation {
     display: none;
   }
   .logo {
