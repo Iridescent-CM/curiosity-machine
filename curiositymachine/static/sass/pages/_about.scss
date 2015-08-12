@@ -1,0 +1,131 @@
+.about-top-panel {
+	background: url("../images/home/home-img-1.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.about-top-panel-content {
+	background-color: rgba(255,90,0,.8);
+	color: white;
+	padding: $base-spacing 0px $base-spacing 0px;
+	margin-bottom: $large-spacing;
+	width: 100%;
+	text-align: center;
+}
+
+#about-page #about-page-nav {
+	color: tint($primary-red, 40%);
+	border-bottom-color: tint($primary-red, 40%);
+}
+
+#educator-about-page #educator-about-page-nav {
+	color: tint($primary-red, 40%);
+	border-bottom-color: tint($primary-red, 40%);
+}
+
+#parent-about-page #parent-about-page-nav {
+	color: tint($primary-red, 40%);
+	border-bottom-color: tint($primary-red, 40%);
+}
+
+nav#static-page-nav {
+	width: 100%;
+	ul {
+		list-style-type: none;
+		padding-left: 0px;
+		a {
+			color: $primary-light;
+			border-bottom: 0px;
+			&:hover {
+				color: shade($primary-red, 40%);
+			}
+		}
+		li {
+			display: inline;
+			margin: 0px 20px 0px 20px;
+			border-bottom: 2px solid $primary-light;
+			&:hover {
+				border-bottom-color: shade($primary-red, 40%);
+
+			}
+		}
+	}
+}
+
+.about-page-content {
+	margin-bottom: $large-spacing;
+	h2 {
+		text-align: center;
+		color: $primary-red;
+		//margin-top: $large-spacing;
+	}
+	h3 {
+		text-align: center;
+		margin-bottom: $base-spacing;
+	}
+	// h4 {
+	// 	display: inline-block;
+	// }
+	hr {
+		margin-bottom: $large-spacing;
+	}
+}
+
+.about-page-video {
+	margin: $large-spacing 0px $large-spacing 0px;
+}
+
+// works for youtube embeds at their default size, 560 x 315
+.iframe-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.numbered-bullet {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background-color: $primary-red;
+	color: white;
+	text-align: center;
+	position: relative;
+	display: inline-block;
+	top: -3px;
+}
+
+// EDUCATOR ABOUT
+.educator-about-page-units {
+	width: 100%;
+}
+
+.educator-about-page-content {
+	@extend .about-page-content;
+	margin-bottom: $base-spacing;
+	h3 {
+		margin-top: $base-spacing;
+	}
+}
+
+.educator-top-panel {
+	//@extend .about-top-panel;
+	background: url("../images/about/educator-top-panel.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+

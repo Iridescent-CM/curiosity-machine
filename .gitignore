@@ -14,3 +14,4 @@ heroku.env
 *.env
 *.notes
 dump.rdb
+.sass-cache

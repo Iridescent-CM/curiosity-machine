@@ -1,0 +1,94 @@
+{% load staticfiles %}
+{% load resized %}
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300|Raleway+Dots' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+
+	<body>
+
+	<header>
+		<div class="grid-container">
+			<div class="grid-100">
+				<nav class="large-screen-navigation">
+					<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
+					<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
+					<ul id="main-navigation">
+						<li><a href="#" id="main-nav-mentors">Mentor Community</a></li>
+						<li><a href="/new_homepage/about" id="main-nav-about">About Us</a></li>
+						<li><a href="/new_homepage/challenges" id="main-nav-challenges">Challenges</a></li>
+						<li id="profile-navigation-link">
+							<a href="#" id="main-nav-profile">
+								<span class="profile-name">longerprofilename</span>
+								<img  class="avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_bigger.png">
+								<i class="icon-down-arrow"></i>
+							</a>
+					  		<ul class="profile-navigation">
+								<div>
+									<a href="#"><li>My Dashboard</li></a>
+									<a href="#"><li>Edit Profile</li></a>
+									<a href="#"><li>Log Out</li></a>
+								</div>
+					  		</ul>
+						</li>
+					</ul>
+					<a id="mobile-menu-link">menu</a>
+				</nav>
+			</div>
+		</div>
+		<nav class="small-screen-navigation">
+			<div class="grid-container">
+				<div class="grid-100">
+					<ul>
+						<a href="#">
+							<li class="user-name" id="account-link">savannahmillion
+							<img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
+								<!-- 
+								<ul class="small-screen-profile-navigation">
+									<div>
+										<a href="#"><li>My Dashboard</li></a>
+										<a href="#"><li>Edit Profile</li></a>
+										<a href="#"><li>Log Out</li></a>
+									</div>
+							  	</ul>
+							  	 -->
+							</li>
+						</a>
+						<a href="/new_homepage/challenges"><li id="challenges-link">Challenges</li></a>
+						<a href="/new_homepage/about"><li id="about-link">About Us</li></a>
+						<a href="#"><li id="mentor-link">Mentor Community</li></a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('.small-screen-navigation').on('click', function(event) {
+					var clickTarget = event.target;
+
+					if ($('.small-screen-navigation')[0]===clickTarget) {
+						toggleNav();
+					}
+				});
+		    	$('#mobile-menu-link').on('click', function(event) {
+			    	toggleNav();
+			  	});
+
+		    	var toggleNav=function() {
+		    		$('.small-screen-navigation').toggleClass('nav-reveal');
+				    $('#about-link').toggleClass('nav-item-1');
+				    $('#challenges-link').toggleClass('nav-item-2');
+				    $('#account-link').toggleClass('nav-item-3');
+		    	}
+			});
+		</script>
+</body>
+</html>

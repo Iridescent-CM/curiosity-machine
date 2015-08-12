@@ -1,0 +1,105 @@
+body {
+	background-color: $primary-light;
+}
+
+.home-top-panel {
+	width: 100%;
+	//min-height: 80vh;
+	background-color: $dark-gray;
+	background-image: url("../images/home/design-challenge-repeating-pattern.png");
+	background-attachment: fixed;
+	background-repeat: repeat;
+	// background-position: center center;
+	color: white;
+	z-index: -1;
+}
+
+.home-top-panel-content {
+	//padding-top: 20%;
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing * 2;
+	//@include vertical-align;
+	a {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+
+.home-what-panel {
+	background-color: tint($light-gray, 30);
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing;
+	width: 100%;
+	h3 {
+		color: $primary-blue;
+		text-align: center;
+	}
+	.what-panel-description {
+		margin-bottom: $large-spacing;
+	}
+	.what-panel-feature {
+		margin-bottom: $base-spacing;
+	}
+}
+
+.home-what-panel-challenges {
+	width: 100%;
+	text-align: center;
+	margin-bottom: $large-spacing;
+	.challenge-card {
+		//float: left;
+		display: inline-block;
+		vertical-align: top;
+		margin: 0px $base-spacing 0px $base-spacing;
+		width: 245px;
+	}
+}
+
+.home-who-panel {
+	text-align: center;
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing * 2;
+	width: 100%;
+	h3 {
+		color: $primary-blue;
+	}
+	img {
+		margin-top: $large-spacing;
+		margin-bottom: $base-spacing;
+		background-color: $primary-light;
+		width: 75px;
+		height: 75px;
+		border-radius: 50%;
+		border: solid 2px $primary-blue;
+		box-shadow: 0px 1px 2px 0px $main-shadow;
+	}
+}
+
+.home-member-panel {
+	background-color: tint($light-gray, 30);
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing * 2;
+	width: 100%;
+	h3 {
+		color: $primary-blue;
+		text-align: center;
+	}
+	h4 {
+		margin-top: $large-spacing;
+	}
+	.well {
+		margin-top: $large-spacing;
+	}
+}
+
+.sign-up-panel {
+	padding: $large-spacing * 2 0px $large-spacing * 2 0px;
+	text-align: center;
+	width: 100%;
+	background-color: $primary-blue;
+	color: white;
+}
+
+.hideme {
+	opacity: 0;
+}
