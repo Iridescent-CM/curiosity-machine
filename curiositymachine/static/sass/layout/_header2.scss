@@ -5,7 +5,6 @@ header {
   box-shadow: 0px 2px 4px 0px rgba(51, 51, 51, .4);
 }
 
-// full width navigation
 #main-navigation {
   position: relative;
   list-style: none;
@@ -33,9 +32,6 @@ header {
     position: relative;
     height: 100%;
     padding: 17px 15px 0px;
-  }
-  li:nth-last-child(1) {
-    margin-right: 10px;
   }
   a {
     height: 100%;
@@ -88,7 +84,7 @@ header {
   top: -100px;
   box-shadow: 0px 2px 4px 0px rgba(51, 51, 51, .4);
   @include transition(all 0.5s 0.1s);
-  z-index: -5;
+  z-index: -1;
   div {
     position: relative;
     border-radius: 4px;
@@ -236,7 +232,7 @@ header {
     margin-top: 20px;
     cursor: pointer;
   }
-  .large-screen-navigation {
+  #main-navigation {
     display: none;
   }
   .logo {
@@ -256,6 +252,7 @@ header {
     left: 40px;
     width: 50px;
     height: 50px;
+    border-radius: 50%;
   }
   .user-name {
     padding-left: 90px !important;

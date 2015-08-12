@@ -2290,8 +2290,6 @@ header {
     position: relative;
     height: 100%;
     padding: 17px 15px 0px; }
-  #main-navigation li:nth-last-child(1) {
-    margin-right: 10px; }
   #main-navigation a {
     height: 100%;
     overflow: hidden;
@@ -2340,7 +2338,7 @@ header {
   -moz-transition: all 0.5s 0.1s;
   -ms-transition: all 0.5s 0.1s;
   transition: all 0.5s 0.1s;
-  z-index: -5; }
+  z-index: -1; }
   .profile-navigation div {
     position: relative;
     border-radius: 4px; }
@@ -2453,7 +2451,7 @@ header {
     margin-top: 20px;
     cursor: pointer; }
 
-  .large-screen-navigation {
+  #main-navigation {
     display: none; }
 
   .logo {
@@ -2472,7 +2470,8 @@ header {
     top: 30px;
     left: 40px;
     width: 50px;
-    height: 50px; }
+    height: 50px;
+    border-radius: 50%; }
 
   .user-name {
     padding-left: 90px !important; } }
@@ -2965,7 +2964,9 @@ nav#static-page-nav {
   padding: 3em 0px 0.75em 0px;
   text-align: center;
   color: white;
-  margin-bottom: 1.5em; }
+  margin-bottom: 1.5em;
+  position: relative;
+  z-index: -2; }
 
 .challenge-navigation {
   height: 100%; }

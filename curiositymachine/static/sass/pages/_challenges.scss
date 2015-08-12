@@ -9,6 +9,9 @@
 	text-align: center;
 	color: white;
 	margin-bottom: $base-spacing;
+	// to make the profile navigation drop down appear on top
+	position: relative;
+	z-index: -2;
 }
 
 .challenge-navigation {
