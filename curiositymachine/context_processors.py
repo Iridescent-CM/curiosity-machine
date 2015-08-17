@@ -37,6 +37,7 @@ def google_analytics(request):
 
     return {
         'ga_code': settings.GA_CODE,
+        'ga_debug': settings.GA_DEBUG,
         'ga_dimension_user_type': usertype
     }
 

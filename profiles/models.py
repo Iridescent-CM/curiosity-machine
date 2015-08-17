@@ -77,10 +77,16 @@ class Profile(models.Model):
         else:
             return 'student'
 
+    def show_intro(self):
+        if not self.shown_intro:
+            self.shown_intro = True
+            self.save(update_fields=['shown_intro'])
+            return True
+        return False
+
     def is_underage(self):
         return self.age < 13
     is_underage.boolean = True
-
 
     def set_active(self):
         self.last_active_on = now()
@@ -104,10 +110,6 @@ class Profile(models.Model):
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__mentor=self.user, read=False).count()
         else:
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
-
-    def intro_video_was_played(self):
-        self.shown_intro = True
-        self.save(update_fields=['shown_intro'])
 
     def deliver_welcome_email(self):
         if self.is_mentor:
