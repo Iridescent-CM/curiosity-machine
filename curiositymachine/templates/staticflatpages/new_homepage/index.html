@@ -12,26 +12,34 @@
 	<body>
 
 		<header>
-			<div class="grid-container">
-				<div class="grid-100">
-					<nav class="main">
-						<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
-						<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
-						<ul>
-							<a href="#"><li class="user-name">
-							savannahmillion
-							<img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
-							</li></a>
-							<a href="/new_homepage/challenges"><li>Challenges</li></a>
-							<a href="/new_homepage/about"><li>About Us</li></a>
-							<a href="#"><li>Mentor Community</li></a>
-						</ul>
-					</nav>
+		<div class="grid-container">
+			<div class="grid-100">
+				<nav class="large-screen-navigation">
+					<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
+					<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
+					<ul id="main-navigation">
+						<li><a href="#" id="main-nav-mentors">Mentor Community</a></li>
+						<li><a href="/new_homepage/about" id="main-nav-about">About Us</a></li>
+						<li><a href="/new_homepage/challenges" id="main-nav-challenges">Challenges</a></li>
+						<li id="profile-navigation-link">
+							<a href="#" id="main-nav-profile">
+								<span class="profile-name">longerprofilename</span>
+								<img  class="avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_bigger.png">
+								<i class="icon-down-arrow"></i>
+							</a>
+					  		<ul class="profile-navigation">
+								<div>
+									<a href="#"><li>My Dashboard</li></a>
+									<a href="#"><li>Edit Profile</li></a>
+									<a href="#"><li>Log Out</li></a>
+								</div>
+					  		</ul>
+						</li>
+					</ul>
 					<a id="mobile-menu-link">menu</a>
-				</div>
+				</nav>
 			</div>
-		</header>
-
+		</div>
 		<nav class="small-screen-navigation">
 			<div class="grid-container">
 				<div class="grid-100">
@@ -39,6 +47,15 @@
 						<a href="#">
 							<li class="user-name" id="account-link">savannahmillion
 							<img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
+								<!-- 
+								<ul class="small-screen-profile-navigation">
+									<div>
+										<a href="#"><li>My Dashboard</li></a>
+										<a href="#"><li>Edit Profile</li></a>
+										<a href="#"><li>Log Out</li></a>
+									</div>
+							  	</ul>
+							  	 -->
 							</li>
 						</a>
 						<a href="/new_homepage/challenges"><li id="challenges-link">Challenges</li></a>
@@ -48,17 +65,22 @@
 				</div>
 			</div>
 		</nav>
+	</header>
 
+	<div class="home-top-panel-gradient">
 		<div class="home-top-panel">
-			<div class="grid-container">
-				<div class="home-top-panel-content grid-60 push-20 text-center">
-					<h1>Join the next generation of problem solvers.</h1>
-					<h5>Curiosity Machine is a STEM education tool that teaches children to think like engineers.</h5>
-					<a href="#" class="btn uppercase">Sign up</a>
-					<a href="#" class="btn-secondary uppercase">Watch Video</a>
+			<div class="home-top-panel-mobile-overlay">
+				<div class="grid-container">
+					<div class="home-top-panel-content grid-50">
+						<h1>Join the next generation of problem solvers.</h1>
+						<h5>Curiosity Machine is a STEM education tool that teaches children to think like engineers.</h5>
+						<a href="#" class="btn uppercase">Sign up</a>
+						<a href="#" class="btn-secondary uppercase">See How it Works</a>
+					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
 		<div class="home-what-panel">
 			<div class="grid-container">
@@ -128,19 +150,19 @@
 					<img src="{% static 'images/home/who-parents.png' %}">
 					<h4>Parents</h4>
 					<p>Learn how to nurture problem-solving skills using principles of design and the practices of engineering.</p>
-					<a href="#" class="btn uppercase">Learn More</a>
+					<a href="#">Learn More</a>
 				</div>
 				<div class="grid-33 tablet-grid-33 mobile-grid-100">
 					<img src="{% static 'images/home/who-educators.png' %}">
 					<h4>Educators</h4>
 					<p>Hit NGSS standards and learn how to apply project based learning with your group of students.</p>
-					<a href="#" class="btn uppercase">Learn More</a>
+					<a href="#">Learn More</a>
 				</div>
 				<div class="grid-33 tablet-grid-33 mobile-grid-100">
 					<img src="{% static 'images/home/who-stem-professionals.png' %}">
 					<h4>STEM Professionals</h4>
 					<p>Inspire with your ideas and share your strategies by supporting children through the design process.</p>
-					<a href="#" class="btn uppercase">Learn More</a>
+					<a href="#">Learn More</a>
 				</div>
 			</div>
 		</div>

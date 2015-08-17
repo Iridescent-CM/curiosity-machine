@@ -1,36 +1,70 @@
+// Stuff That Can Maybe Be Deleted
 header {
+  font-family: 'Raleway', Helvetica, sans-serif;
+}
+// end 'Stuff'
+
+header {
+  width: 100%;
+  background-color: $primary-light;
+  z-index: 100;
+  position: relative;
+  a {
+    text-decoration: none;
+  }
+}
+
+.large-screen-navigation {
   width: 100%;
   height: 60px;
   background-color: $primary-light;
-  //box-shadow: 0px 2px 4px 2px rgba(51, 51, 51, .5);
-  z-index: 100;
+  z-index: 101;
   position: relative;
-  transition: all 500ms ease;
 }
 
-nav.main ul {
-  list-style-type: none;
+#main-navigation {
+  position: relative;
+  list-style: none;
+  display: inline-block;
   float: right;
+  padding: 0;
+  margin: 0 auto;
+  position: relative;
+  z-index: 102;
   height: 60px;
-  overflow: hidden;
-  margin: 0px;
-  a {
-    color: $medium-gray;
-    text-decoration: none;
-    height: 100%;
-    float: right;
-    padding: 0px 15px 0px 15px;
-    border-bottom: 0px;
-    overflow: hidden;
-    z-index: 1;
+  li {
+    text-align: center;
+    display: inline-block;
     position: relative;
+    top: 0;
+    vertical-align: top;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+  }
+  // only direct children so the profile nav isn't affected
+  li > a {
+    color: $medium-gray;
+    border-bottom: 0px;
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    padding: 17px 15px 0px;
+  }
+  a {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: 103;
+    // hover state so the color fills it up
+    background-color: $primary-light;
     &:hover {
       color: $primary-light;
     }
     &:before {
       content: "";
       position: absolute;
-      background: $dark-gray;
+      background: $primary-blue;
       bottom: 0;
       left: 0;
       right: 0;
@@ -41,113 +75,102 @@ nav.main ul {
     &:hover:before {
       top: 0;
     }
-    li {
-      margin-top: 18px;
-      img {
-        margin-left: 10px;
-        margin-top: 10px;
-        margin-right: 18px;
-        float: right;
-        @include vertical-align;
-      }
-    }
   }
 }
 
-#main-nav-profile:before {
-  background: $primary-purple;
+.profile-name {
+  margin-right: 70px;
 }
 
-#main-nav-challenges:before {
-  background: $primary-blue;
-}
-
-#main-nav-about:before {
-  background: $primary-red;
-}
-
-#main-nav-mentors:before {
-  background: $primary-orange;
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute !important;
+  top: 0;
+  right: 35px;
+  @include vertical-align;
 }
 
 .profile-navigation {
-  float: right;
-  position: relative;
-  right: 0;
-  top: 25px;
-  margin-right: 10px;
+  overflow: hidden;
+  list-style: none;
+  position: absolute;
+  padding: 0;
+  width: 100%;
+  left: 0;
+  top: -100px;
+  //box-shadow: 0px 2px 4px 0px rgba(51, 51, 51, .4);
+  @include transition(all 0.5s 0.1s);
+  z-index: 99;
+  div {
+    position: relative;
+    border-radius: 4px;
+  }
+  a {
+    display: block;
+    padding: 14px 0px !important;
+    height: 50px;
+    width: 100%;
+    color: $medium-gray !important;
+    background-color: $primary-light;
+    border-bottom: 0px;
+    &:hover {
+      background-color: $primary-purple !important;
+      color: $primary-light !important;
+    }
+    &:before {
+      background: none !important;
+    }
+  }
+  a:nth-last-child(1) {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+  a:nth-child(1) {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
 }
 
-// .profile-dropdown {
-//   overflow: hidden;
-//   list-style: none;
-//   position: absolute;
-//   padding: 0;
-//   width: 100%;
-//   left: 0;
-//   top: 0px;
-//   div {
-//     position: relative;
-//   }
-//   li {
-//     display: block;
-//     padding: 0;
-//     width: 100%;
-//     background-color: red;
-//     float: left;
-//   }
-// }
-
-.user-avatar {
-  width: 35px;
-  height: 35px;
-  //border: 2px solid white;
-  border-radius: 50%;
-  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, .5);
+#profile-navigation-link {
+  &:hover {
+    .profile-navigation {
+      top: 70px;
+    }
+  }
+  a i {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+  }
 }
+
+#main-nav-profile:before { background: $primary-purple !important; }
+#main-nav-challenges:before { background: $primary-blue !important; }
+#main-nav-about:before { background: $primary-red !important; }
+#main-nav-mentors:before { background: $primary-orange !important;}
 
 .logo {
   margin-top: 5px;
   height: 50px;
 }
 
+// Responsive Menu Stuff
+
 .small-screen-navigation {
   width: 100%;
   height: 100vh;
-  //height: 290px;
   position: absolute;
   top: -100vh;
-  z-index: 99;
-  //top: -290px;
+  z-index: 85;
   transition: all .75s ease-in-out;
   background-color: rgba(51,51,51,.9);
-  ul {
-    list-style-type: none;
-    padding-left: 0px;
-    margin-top: 20px;
-    li {
-      width: 100%;
-      height: 70px;
-      margin-bottom: 20px;
-      border-radius: $base-border-radius;
-      padding-left: 20px;
-      padding-top: 23px;
-    }
-    a {
-      color: white;
-      text-transform: uppercase;
-      font-weight: $heavy-font-weight;
-    }
-  }
 }
 
 .nav-reveal {
   top: 60px;
 }
-
-// .nav-item-1 { top: 300px; }
-// .nav-item-2 { top: 60px; }
-// .nav-item-3 { top: 120px; }
 
 #account-link {
   background-color: $primary-purple;
@@ -155,8 +178,6 @@ nav.main ul {
   &:hover {
     background-color: tint($primary-purple, 20%);
   }
-  // position: absolute;
-  // top: 10px;
   transition: background-color 200ms ease-in;
 }
 
@@ -166,8 +187,6 @@ nav.main ul {
   &:hover {
     background-color: tint($primary-blue, 20%);
   }
-  // position: absolute;
-  // top: 10px;
   transition: background-color 200ms ease-in;
 }
 
@@ -177,27 +196,14 @@ nav.main ul {
   &:hover {
     background-color: tint($primary-red, 20%);
   }
-  // position: absolute;
-  // top: 10px;
   transition: background-color 200ms ease-in;
 }
 
-#mobile-menu-link {
-  display: none;
-}
-
-.small-screen-logo {
-  display: none;
-}
-
-.small-screen-navigation {
+#mobile-menu-link, .small-screen-logo, .small-screen-navigation {
   display: none;
 }
 
 @media screen and (max-width: $media-tablet-max) {
-  header {
-    height: 60px;
-  }
   #mobile-menu-link {
     text-transform: uppercase;
     font-weight: $heavy-font-weight;
@@ -208,28 +214,88 @@ nav.main ul {
     margin-top: 20px;
     cursor: pointer;
   }
-  nav.main ul {
+
+  #main-navigation, .logo {
     display: none;
   }
-  .logo {
-    display: none;
-  }
+
   .small-screen-navigation {
     display: block;
   }
+
   .small-screen-logo {
     display: inline;
     float: left;
     height: 60px;
   }
+
   .user-avatar {
-    position: absolute;
-    top: 30px;
-    left: 40px;
     width: 50px;
     height: 50px;
+    border-radius: 50%;
+    display: inline;
   }
-  .user-name {
-    padding-left: 90px !important;
+
+  #main-small-screen-navigation {
+    width: 100%;
+    border-radius: $base-border-radius;
+    text-align: center;
+    padding-left: 0px;
+    list-style: none;
+    li {
+      > a {
+        display: block;
+        padding: 15px 0px;
+        width: 100%;
+        color: $primary-light;
+        border-bottom: 0px;
+        border-radius: $base-border-radius;
+        margin: 10px 0px;
+      }
+    }
   }
+
+  #small-nav-challenges { 
+    background-color: $primary-blue;
+    &:hover { background-color: shade($primary-blue, 10); }
+  }
+  #small-nav-mentors { 
+    background-color: $primary-orange;
+    &:hover { background-color: shade($primary-orange, 10); }
+  }
+  #small-nav-about { 
+    background-color: $primary-red;
+    &:hover { background-color: shade($primary-red, 10); }
+  }
+
+  #small-screen-profile-li {
+    width: 100%;
+    background-color: shade($primary-purple, 20);
+    border-radius: $base-border-radius;
+    color: $primary-light;
+    padding-top: 10px;
+  }
+
+  #small-screen-profile-navigation {
+    padding-left: 0px;
+    list-style: none;
+    width: 100%;
+    a {
+      display: block;
+      padding: 15px 0px;
+      width: 100%;
+      background-color: $primary-light;
+      color: $primary-purple;
+      border-bottom: 0px;
+      &:hover {
+        background-color: $primary-purple;
+        color: $primary-light;
+      }
+      &:nth-last-child(1) {
+        border-bottom-right-radius: $base-border-radius;
+        border-bottom-left-radius: $base-border-radius;
+      }
+    }
+  }
+
 }
