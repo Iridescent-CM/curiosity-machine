@@ -46,12 +46,10 @@ body {
 }
 
 .home-what-panel {
-	background-color: tint($light-gray, 30);
 	padding-top: $large-spacing * 2;
-	padding-bottom: $large-spacing;
 	width: 100%;
 	h3 {
-		color: $primary-blue;
+		color: $primary-red;
 		text-align: center;
 	}
 	.what-panel-description {
@@ -60,22 +58,18 @@ body {
 	.what-panel-feature {
 		margin-bottom: $base-spacing;
 	}
-}
-
-.home-what-panel-challenges {
-	width: 100%;
-	text-align: center;
-	margin-bottom: $large-spacing;
-	.challenge-card {
-		//float: left;
-		display: inline-block;
-		vertical-align: top;
-		margin: 0px $base-spacing 0px $base-spacing;
-		width: 245px;
+	.what-panel-visual {
+		text-align: center;
+		margin-top: $large-spacing;
+		img {
+			display: block;
+			margin: 0 auto;
+		}
 	}
 }
 
 .home-who-panel {
+	background-color: tint($light-gray, 30);
 	text-align: center;
 	padding-top: $large-spacing * 2;
 	padding-bottom: $large-spacing * 2;
@@ -96,7 +90,6 @@ body {
 }
 
 .home-member-panel {
-	background-color: tint($light-gray, 30);
 	padding-top: $large-spacing * 2;
 	padding-bottom: $large-spacing * 2;
 	width: 100%;
@@ -109,6 +102,7 @@ body {
 	}
 	.well {
 		margin-top: $large-spacing;
+		text-align: center;
 	}
 }
 
@@ -118,6 +112,48 @@ body {
 	width: 100%;
 	background-color: $primary-blue;
 	color: white;
+}
+
+.home-support-panel {
+	background-color: tint($light-gray, 30);
+	text-align: center;
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing * 2;
+	width: 100%;
+	h3 { 
+		color: $dark-gray;
+		margin-bottom: $base-spacing;
+	}
+}
+
+.home-video-overlay {
+	opacity: 0.9;
+	transition: all 0.5s ease-in-out;
+}
+
+.home-video-overlay {
+	background: $primary-purple;
+	bottom: 0;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 150;
+}
+
+.video-close {
+	color: #fff;
+	&:hover {
+		color: tint($primary-purple, 60);
+	}
+	display: block;
+	font-size: 275%;
+	position: fixed;
+	right: 0.625em;
+	top: 0;
+	border-bottom: 0px;
 }
 
 .hideme {

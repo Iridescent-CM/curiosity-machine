@@ -13,43 +13,57 @@
 
 	<body id="mentor-about-page">
 
-		<header>
+	<header>
+		<nav class="large-screen-navigation">
 			<div class="grid-container">
-				<div class="grid-100">
-					<nav class="main">
-						<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
-						<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
-						<ul>
-							<a href="#"><li class="user-name">
-							savannahmillion
-							<img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
-							</li></a>
-							<a href="/new_homepage/challenges"><li>Challenges</li></a>
-							<a href="/new_homepage/about"><li>About Us</li></a>
-							<a href="#"><li>Mentor Community</li></a>
-						</ul>
-					</nav>
+				<div class="grid-100">			
+					<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
+					<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
+					<ul id="main-navigation">
+						<li><a href="#" id="main-nav-mentors">Mentor Community</a></li>
+						<li><a href="/new_homepage/about" id="main-nav-about">About Us</a></li>
+						<li><a href="/new_homepage/challenges" id="main-nav-challenges">Challenges</a></li>
+						<li id="profile-navigation-link">
+							<a href="#" id="main-nav-profile">
+								<span class="profile-name">profilename</span>
+								<img  class="avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_bigger.png">
+								<i class="icon-down-arrow"></i>
+							</a>
+					  		<ul class="profile-navigation">
+								<div>
+									<a href="#"><li>My Dashboard</li></a>
+									<a href="#"><li>Edit Profile</li></a>
+									<a href="#"><li>Log Out</li></a>
+								</div>
+					  		</ul>
+						</li>
+					</ul>
 					<a id="mobile-menu-link">menu</a>
+				
 				</div>
 			</div>
-		</header>
-
+		</nav>
 		<nav class="small-screen-navigation">
 			<div class="grid-container">
 				<div class="grid-100">
-					<ul>
-						<a href="#">
-							<li class="user-name" id="account-link">savannahmillion
+					<ul id="main-small-screen-navigation">
+						<li id="small-screen-profile-li">
 							<img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
-							</li>
-						</a>
-						<a href="/new_homepage/challenges"><li id="challenges-link">Challenges</li></a>
-						<a href="/new_homepage/about"><li id="about-link">About Us</li></a>
-						<a href="#"><li id="mentor-link">Mentor Community</li></a>
+							<p>profilename</p>
+							<ul id="small-screen-profile-navigation">
+								<a href="#"><li>My Dashboard</li></a>
+								<a href="#"><li>Edit Profile</li></a>
+								<a href="#"><li>Log Out</li></a>
+							</ul>
+						</li>
+						<li><a href="/new_homepage/challenges" id="small-nav-challenges">Challenges</a></li>
+						<li><a href="#" id="small-nav-mentors">Mentor Community</a></li>
+						<li><a href="/new_homepage/about" id="small-nav-about">About Us</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
+	</header>
 
 		<div class="about-top-panel">
 			<div class="about-top-panel-content">
@@ -58,11 +72,12 @@
 						<h1>Mentors</h1>
 						<nav id="static-page-nav">
 							<ul>
-								<a href="/new_homepage/about"><li id="about-page-nav">About</li></a>
-								<a href="/new_homepage/about-parent"><li id="parent-about-page-nav">Parents</li></a>
-								<a href="/new_homepage/about-educator"><li id="educator-about-page-nav">Educators</li></a>
-								<a href="/new_homepage/about-mentor"><li id="mentor-about-page-nav">Mentors</li></a>
-								<a href="/new_homepage/about-faq"><li id="faq-about-page-nav">FAQ</li></a>
+								<a href="/new_homepage/about" id="about-page-nav"><li>About</li></a>
+								<a href="/new_homepage/about-parent" id="parent-about-page-nav"><li>Parents</li></a>
+								<a href="/new_homepage/about-educator" id="educator-about-page-nav"><li>Educators</li></a>
+								<a href="/new_homepage/about-mentor" id="mentor-about-page-nav"><li>Mentors</li></a>
+								<a href="/new_homepage/about-membership" id="membership-about-page-nav"><li>Memberships</li></a>
+								<a href="/new_homepage/about-faq" id="faq-about-page-nav"><li>FAQ</li></a>
 							</ul>
 						</nav>
 					</div>
@@ -100,9 +115,16 @@
 					<li>How to teach the <a href="#">Engineering Design Process</a> and <a href="#">why it’s valuable</a></li>
 				</ul>
 
-				<a href="#" class="btn">Create a Mentor Account</a>
+				<hr class="hr-red"/>
+
+				<p class="text-center">Questions? Email <a href="#">mentor@iridescentlearning.org</a></p>
 
 			</div>
+		</div>
+
+		<div class="about-sign-up-panel">
+			<h2>Create a Mentor account!</h1>
+			<a href="#" class="btn-red-secondary uppercase">sign up</a>
 		</div>
 
 		<footer>
@@ -128,14 +150,14 @@
 			<div class="grid-container company-info">
 				<div class="grid-100 tablet-grid-100">
 					<div class="grid-50 tablet-grid-100 company-logos">
-						<img src="https://www.curiositymachine.org/static/images/logo-small2.png" width="160">
+						<img src="{% static 'images/logo-small2.png'%}" width="160">
 						<br>
 						<a href="http://iridescentlearning.org/" class="action-img"><img src="{% static 'images/home/iridescent-logo-210px.png'%}" width="120"></a>
 					</div>
 					<div class="grid-50 tablet-grid-100 company-text">
-						<p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.</p>
-						<p>&copy; Iridescent Learning 2015</p>
-						<p>View our <a href="#">privacy policy</a>.</p>
+						<p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.<br/>
+						&copy; Iridescent Learning 2015<br/>
+						View our <a href="#">privacy policy</a>.</p>
 					</div>
 				</div>
 			</div>

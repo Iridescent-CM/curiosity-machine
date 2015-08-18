@@ -1,5 +1,6 @@
 .challenge-card {
 	min-height: 355px;
+	max-width: 260px;
 	background-color: white;
 	border-radius: $base-border-radius;
 	box-shadow: 0px 2px 5px 1px $main-shadow;
@@ -31,13 +32,6 @@
 
 #inspired-by-boeing {
 	color: #0038A8; //boeing blue
-}
-
-.challenge-card-img {
-	img {
-		width: 100%;
-		overflow: hidden;
-	}
 }
 
 .challenge-card-title {

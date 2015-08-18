@@ -1,13 +1,11 @@
 .about-top-panel {
-	background: url("../images/home/home-img-1.jpg");
-	background-size: cover;
+	background: url("../images/design-challenge-repeating-pattern-white.png");
+	background-color: $primary-red;
 	background-attachment: fixed;
-	background-repeat: no-repeat;
-	background-position: center center;
+	background-repeat: repeat;
 }
 
 .about-top-panel-content {
-	background-color: rgba(255,90,0,.8);
 	color: white;
 	padding: $base-spacing 0px $base-spacing 0px;
 	margin-bottom: $large-spacing;
@@ -15,19 +13,14 @@
 	text-align: center;
 }
 
-#about-page #about-page-nav {
-	color: tint($primary-red, 40%);
-	border-bottom-color: tint($primary-red, 40%);
-}
-
-#educator-about-page #educator-about-page-nav {
-	color: tint($primary-red, 40%);
-	border-bottom-color: tint($primary-red, 40%);
-}
-
-#parent-about-page #parent-about-page-nav {
-	color: tint($primary-red, 40%);
-	border-bottom-color: tint($primary-red, 40%);
+#about-page #about-page-nav,
+#educator-about-page #educator-about-page-nav,
+#parent-about-page #parent-about-page-nav,
+#mentor-about-page #mentor-about-page-nav,
+#membership-about-page #membership-about-page-nav,
+#faq-about-page #faq-about-page-nav {
+	color: shade($primary-red, 40%);
+	border-bottom-color: shade($primary-red, 40%);
 }
 
 nav#static-page-nav {
@@ -37,19 +30,16 @@ nav#static-page-nav {
 		padding-left: 0px;
 		a {
 			color: $primary-light;
-			border-bottom: 0px;
+			margin: 0px 20px 0px 20px;
+			border-bottom: 2px solid $primary-light;
+			transition: all $base-duration $base-timing;
 			&:hover {
 				color: shade($primary-red, 40%);
+				border-bottom-color: shade($primary-red, 40%);
 			}
 		}
 		li {
 			display: inline;
-			margin: 0px 20px 0px 20px;
-			border-bottom: 2px solid $primary-light;
-			&:hover {
-				border-bottom-color: shade($primary-red, 40%);
-
-			}
 		}
 	}
 }
@@ -106,9 +96,31 @@ nav#static-page-nav {
 	top: -3px;
 }
 
+.about-sign-up-panel {
+	@extend .sign-up-panel;
+	background-color: $primary-red;
+}
+.about-support-panel {
+	background-color: tint($light-gray, 30);
+	text-align: center;
+	padding-top: $base-spacing * 2;
+	padding-bottom: $base-spacing * 2;
+	width: 100%;
+	h3 { 
+		color: $dark-gray;
+		margin-bottom: $base-spacing;
+	}
+}
+
 // EDUCATOR ABOUT
 .educator-about-page-units {
 	width: 100%;
+	text-align: center;
+	.challenge-card {
+		display: inline-block;
+		vertical-align: top;
+		margin: 10px 20px;
+	}
 }
 
 .educator-about-page-content {
@@ -120,12 +132,7 @@ nav#static-page-nav {
 }
 
 .educator-top-panel {
-	//@extend .about-top-panel;
-	background: url("../images/about/educator-top-panel.jpg");
-	background-size: cover;
-	background-attachment: fixed;
-	background-repeat: no-repeat;
-	background-position: center center;
+	@extend .about-top-panel;
 }
 
 

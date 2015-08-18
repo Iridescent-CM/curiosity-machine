@@ -2533,7 +2533,7 @@ footer {
 .newsletter-panel {
   width: 100%;
   background-color: #1f1f1f;
-  background-image: url("../images/home/design-challenge-repeating-pattern.png");
+  background-image: url("../images/design-challenge-repeating-pattern.png");
   background-attachment: fixed;
   background-repeat: repeat;
   color: white;
@@ -2772,6 +2772,7 @@ footer {
 
 .challenge-card {
   min-height: 355px;
+  max-width: 260px;
   background-color: white;
   border-radius: 4px;
   box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
@@ -2799,10 +2800,6 @@ footer {
 
 #inspired-by-boeing {
   color: #0038A8; }
-
-.challenge-card-img img {
-  width: 100%;
-  overflow: hidden; }
 
 .challenge-card-title {
   text-align: center;
@@ -2864,29 +2861,24 @@ body {
   .home-top-panel-mobile-overlay {
     background-color: rgba(0, 0, 0, 0.6); } }
 .home-what-panel {
-  background-color: #edeae4;
   padding-top: 6em;
-  padding-bottom: 3em;
   width: 100%; }
   .home-what-panel h3 {
-    color: #2FB8C8;
+    color: #FD6917;
     text-align: center; }
   .home-what-panel .what-panel-description {
     margin-bottom: 3em; }
   .home-what-panel .what-panel-feature {
     margin-bottom: 1.5em; }
-
-.home-what-panel-challenges {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 3em; }
-  .home-what-panel-challenges .challenge-card {
-    display: inline-block;
-    vertical-align: top;
-    margin: 0px 1.5em 0px 1.5em;
-    width: 245px; }
+  .home-what-panel .what-panel-visual {
+    text-align: center;
+    margin-top: 3em; }
+    .home-what-panel .what-panel-visual img {
+      display: block;
+      margin: 0 auto; }
 
 .home-who-panel {
+  background-color: #edeae4;
   text-align: center;
   padding-top: 6em;
   padding-bottom: 6em;
@@ -2904,7 +2896,6 @@ body {
     box-shadow: 0px 1px 2px 0px rgba(148, 148, 148, 0.5); }
 
 .home-member-panel {
-  background-color: #edeae4;
   padding-top: 6em;
   padding-bottom: 6em;
   width: 100%; }
@@ -2914,44 +2905,76 @@ body {
   .home-member-panel h4 {
     margin-top: 3em; }
   .home-member-panel .well {
-    margin-top: 3em; }
+    margin-top: 3em;
+    text-align: center; }
 
-.sign-up-panel {
+.sign-up-panel, .about-sign-up-panel {
   padding: 6em 0px 6em 0px;
   text-align: center;
   width: 100%;
   background-color: #2FB8C8;
   color: white; }
 
+.home-support-panel {
+  background-color: #edeae4;
+  text-align: center;
+  padding-top: 6em;
+  padding-bottom: 6em;
+  width: 100%; }
+  .home-support-panel h3 {
+    color: #333333;
+    margin-bottom: 1.5em; }
+
+.home-video-overlay {
+  opacity: 0.9;
+  transition: all 0.5s ease-in-out; }
+
+.home-video-overlay {
+  background: #6161AF;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 150; }
+
+.video-close {
+  color: #fff;
+  display: block;
+  font-size: 275%;
+  position: fixed;
+  right: 0.625em;
+  top: 0;
+  border-bottom: 0px; }
+  .video-close:hover {
+    color: #c0c0df; }
+
 .hideme {
   opacity: 0; }
 
-.about-top-panel {
-  background: url("../images/home/home-img-1.jpg");
-  background-size: cover;
+.about-top-panel, .educator-top-panel {
+  background: url("../images/design-challenge-repeating-pattern-white.png");
+  background-color: #FD6917;
   background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center center; }
+  background-repeat: repeat; }
 
 .about-top-panel-content {
-  background-color: rgba(255, 90, 0, 0.8);
   color: white;
   padding: 1.5em 0px 1.5em 0px;
   margin-bottom: 3em;
   width: 100%;
   text-align: center; }
 
-#about-page #about-page-nav {
-  color: #fea574;
-  border-bottom-color: #fea574; }
-
-#educator-about-page #educator-about-page-nav {
-  color: #fea574;
-  border-bottom-color: #fea574; }
-
-#parent-about-page #parent-about-page-nav {
-  color: #fea574;
-  border-bottom-color: #fea574; }
+#about-page #about-page-nav,
+#educator-about-page #educator-about-page-nav,
+#parent-about-page #parent-about-page-nav,
+#mentor-about-page #mentor-about-page-nav,
+#membership-about-page #membership-about-page-nav,
+#faq-about-page #faq-about-page-nav {
+  color: #983f0e;
+  border-bottom-color: #983f0e; }
 
 nav#static-page-nav {
   width: 100%; }
@@ -2960,15 +2983,14 @@ nav#static-page-nav {
     padding-left: 0px; }
     nav#static-page-nav ul a {
       color: #FFFCF7;
-      border-bottom: 0px; }
-      nav#static-page-nav ul a:hover {
-        color: #983f0e; }
-    nav#static-page-nav ul li {
-      display: inline;
       margin: 0px 20px 0px 20px;
-      border-bottom: 2px solid #FFFCF7; }
-      nav#static-page-nav ul li:hover {
+      border-bottom: 2px solid #FFFCF7;
+      transition: all 150ms ease; }
+      nav#static-page-nav ul a:hover {
+        color: #983f0e;
         border-bottom-color: #983f0e; }
+    nav#static-page-nav ul li {
+      display: inline; }
 
 .about-page-content, .educator-about-page-content {
   margin-bottom: 3em; }
@@ -3009,20 +3031,31 @@ nav#static-page-nav {
   display: inline-block;
   top: -3px; }
 
-.educator-about-page-units {
+.about-sign-up-panel {
+  background-color: #FD6917; }
+
+.about-support-panel {
+  background-color: #edeae4;
+  text-align: center;
+  padding-top: 3em;
+  padding-bottom: 3em;
   width: 100%; }
+  .about-support-panel h3 {
+    color: #333333;
+    margin-bottom: 1.5em; }
+
+.educator-about-page-units {
+  width: 100%;
+  text-align: center; }
+  .educator-about-page-units .challenge-card {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 20px; }
 
 .educator-about-page-content {
   margin-bottom: 1.5em; }
   .educator-about-page-content h3 {
     margin-top: 1.5em; }
-
-.educator-top-panel {
-  background: url("../images/about/educator-top-panel.jpg");
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center center; }
 
 #challenges-page {
   background-color: #E5E1D9; }
@@ -3085,9 +3118,9 @@ nav#static-page-nav {
 .all-challenges-cards {
   margin-bottom: 3em; }
   .all-challenges-cards .challenge-card {
-    width: 100%;
     display: block;
-    vertical-align: top; }
+    vertical-align: top;
+    margin: 10px auto; }
 
 #selected-challenge {
   left: -20px;

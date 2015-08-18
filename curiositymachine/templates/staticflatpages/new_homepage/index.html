@@ -11,10 +11,10 @@
 
 	<body>
 
-		<header>
-		<div class="grid-container">
-			<div class="grid-100">
-				<nav class="large-screen-navigation">
+	<header>
+		<nav class="large-screen-navigation">
+			<div class="grid-container">
+				<div class="grid-100">			
 					<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
 					<a href="/new_homepage/index" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
 					<ul id="main-navigation">
@@ -23,7 +23,7 @@
 						<li><a href="/new_homepage/challenges" id="main-nav-challenges">Challenges</a></li>
 						<li id="profile-navigation-link">
 							<a href="#" id="main-nav-profile">
-								<span class="profile-name">longerprofilename</span>
+								<span class="profile-name">profilename</span>
 								<img  class="avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_bigger.png">
 								<i class="icon-down-arrow"></i>
 							</a>
@@ -37,36 +37,36 @@
 						</li>
 					</ul>
 					<a id="mobile-menu-link">menu</a>
-				</nav>
+				
+				</div>
 			</div>
-		</div>
+		</nav>
 		<nav class="small-screen-navigation">
 			<div class="grid-container">
 				<div class="grid-100">
-					<ul>
-						<a href="#">
-							<li class="user-name" id="account-link">savannahmillion
+					<ul id="main-small-screen-navigation">
+						<li id="small-screen-profile-li">
 							<img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
-								<!-- 
-								<ul class="small-screen-profile-navigation">
-									<div>
-										<a href="#"><li>My Dashboard</li></a>
-										<a href="#"><li>Edit Profile</li></a>
-										<a href="#"><li>Log Out</li></a>
-									</div>
-							  	</ul>
-							  	 -->
-							</li>
-						</a>
-						<a href="/new_homepage/challenges"><li id="challenges-link">Challenges</li></a>
-						<a href="/new_homepage/about"><li id="about-link">About Us</li></a>
-						<a href="#"><li id="mentor-link">Mentor Community</li></a>
+							<p>profilename</p>
+							<ul id="small-screen-profile-navigation">
+								<a href="#"><li>My Dashboard</li></a>
+								<a href="#"><li>Edit Profile</li></a>
+								<a href="#"><li>Log Out</li></a>
+							</ul>
+						</li>
+						<li><a href="/new_homepage/challenges" id="small-nav-challenges">Challenges</a></li>
+						<li><a href="#" id="small-nav-mentors">Mentor Community</a></li>
+						<li><a href="/new_homepage/about" id="small-nav-about">About Us</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</header>
-
+<!-- 
+	<div class="home-video-overlay js-video-overlay">
+		<a href="#" class="video-close js-video-close" aria-label="close">&times;</a>
+	</div>
+ -->
 	<div class="home-top-panel-gradient">
 		<div class="home-top-panel">
 			<div class="home-top-panel-mobile-overlay">
@@ -89,55 +89,27 @@
 				</div>
 				<span class="clear"></span>
 
-				<div class="home-what-panel-challenges">
-					<div class="challenge-card">
-						<div class="challenge-card-title">
-							<p>Build a Mighty Machine</p>
-						</div>
-						<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
-						<div class="challenge-card-description">
-							<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
-						</div>
-					</div>
-					<div class="challenge-card">
-						<div class="challenge-card-title">
-							<p>Engineer an Air-Powered Spinning Machine</p>
-						</div>
-						<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/3c22ea24b6e9e63d80ef4ef6fc1a96db">
-						<div class="challenge-card-description">
-							<small>Build an air-powered spinning machine inspired by Boeing CST -100.</small>
-						</div>
-					</div>
-					
-					<div class="challenge-card">
-						<div class="challenge-card-title">
-							<p>Make a Structure that Assembles Itself</p>
-						</div>
-						<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/7900ac6c17e6054101ae8c479fcc1ba1">
-						<div class="challenge-card-description">
-							<small>Make pieces for a structure that builds itself using magnets.</small>
-						</div>
-					</div>
-				</div>
-				<span class="clear"></span>
-
-				<div class="what-panel-feature grid-25 tablet-grid-25 mobile-grid-50">
+				<div class="what-panel-feature grid-25 tablet-grid-25 mobile-grid-100">
 					<h4>Design Challenges</h4>
 					<p>A collection of 65+ open-ended design challenges developed by scientists and engineers.</p>
 				</div>
-				<div class="what-panel-feature grid-25 tablet-grid-25 mobile-grid-50">
+				<div class="what-panel-feature grid-25 tablet-grid-25 mobile-grid-100">
 					<h4>Videos</h4>
 					<p>High quality videos featuring scientists and engineers explaining cutting-edge and exciting inventions.</p>
 				</div>
-				<div class="what-panel-feature grid-25 tablet-grid-25 mobile-grid-50">
+				<div class="what-panel-feature grid-25 tablet-grid-25 mobile-grid-100">
 					<h4>Guide</h4>
 					<p>An Engineering Design Process Guide that supports children to plan, build, test, redesign, and reflect.</p>
 				</div>
-				<div class="what-panel-feature grid-25 tablet-grid-25 mobile-grid-50">
+				<div class="what-panel-feature grid-25 tablet-grid-25 mobile-grid-100">
 					<h4>Mentor Feedback</h4>
 					<p>A growing group of STEM professionals to provide feedback on children's inventions.</p>
 				</div>
 				<span class="clear"></span>
+
+				<div class="what-panel-visual grid-100">
+					<a href="/new_homepage/challenges" class="action-img"><img src="{% static 'images/home/challenge-cards.png' %}"></a>
+				</div>
 			</div>
 		</div>
 
@@ -167,12 +139,13 @@
 			</div>
 		</div>
 
+
 		<div class="home-member-panel">
 			<div class="grid-container">
 				<div class="grid-80 push-10">
 					<h3>Our members are part of a growing community of trained professionals.</h3>
 				</div>
-				<div class="grid-33">
+				<div class="grid-33 push-10 tablet-grid-50 mobile-grid-100">
 					<h4>Schools, organizations and playgroups</h4>
 					<p>We connect each child with a trained engineering mentor who will support them to analyze and reflect, at each step of the building process.</p>
 					<a href="#" class="btn uppercase">Become a member</a>
@@ -180,7 +153,8 @@
 					<p>Share your innovation with the public and support our community members.</p>
 					<a href="#" class="btn uppercase">get involved</a>
 				</div>
-				<div class="grid-66">
+
+				<div class="grid-40 push-20 tablet-grid-50 mobile-grid-100">
 					<div class="well">
 						<img src="{% static 'images/home/boeing-100.png' %}">
 					</div>
@@ -193,7 +167,25 @@
 		<div class="sign-up-panel">
 			<h2>Create an account and take on your first design challenge!</h1>
 			<a href="#" class="btn-secondary uppercase">sign up</a>
-		</div>	
+		</div>
+
+
+		<div class="home-support-panel">
+			<div class="grid-container">
+				<div class="grid-100">
+					<h3>Curiosity Machine is supported by:</h3>
+				</div>
+				<div class="grid-33 tablet-grid-33 mobile-grid-100">
+					<a href="#" class="action-img"><img src="{% static 'images/home/boeing-logo.png' %}"></a>
+				</div>
+				<div class="grid-33 tablet-grid-33 mobile-grid-100">
+					<a href="#" class="action-img"><img src="{% static 'images/home/nsf-logo.png' %}" height="70"></a>
+				</div>
+				<div class="grid-33 tablet-grid-33 mobile-grid-100">
+					<a href="#" class="action-img"><img src="{% static 'images/home/science-friday-logo.png' %}" width="180"></a>
+				</div>
+			</div>
+		</div>
 
 
 		<footer>
@@ -219,14 +211,14 @@
 			<div class="grid-container company-info">
 				<div class="grid-100 tablet-grid-100">
 					<div class="grid-50 tablet-grid-100 company-logos">
-						<img src="https://www.curiositymachine.org/static/images/logo-small2.png" width="160">
+						<img src="{% static 'images/logo-small2.png'%}" width="160">
 						<br>
 						<a href="http://iridescentlearning.org/" class="action-img"><img src="{% static 'images/home/iridescent-logo-210px.png'%}" width="120"></a>
 					</div>
 					<div class="grid-50 tablet-grid-100 company-text">
-						<p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.</p>
-						<p>&copy; Iridescent Learning 2015</p>
-						<p>View our <a href="#">privacy policy</a>.</p>
+						<p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.<br/>
+						&copy; Iridescent Learning 2015<br/>
+						View our <a href="#">privacy policy</a>.</p>
 					</div>
 				</div>
 			</div>
