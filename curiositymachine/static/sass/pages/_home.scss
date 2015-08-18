@@ -19,7 +19,7 @@ body {
 }
 
 .home-top-panel-mobile-overlay {
-	background-color: rgba(0,0,0, .0);
+	background-color: rgba(213,1240,244,0.0);
 	transition: all 300ms ease;
 }
 
@@ -36,12 +36,15 @@ body {
 }
 
 @media screen and (max-width: $media-tablet-max) {
+	// .home-top-panel {
+	// 	background-position: top 0px right -175%;
+	// }
 	.home-top-panel-content {
 		text-align: center;
-		h5 { color: $primary-light; }
+		//h5 { color: $primary-light; }
 	}
 	.home-top-panel-mobile-overlay {
-		background-color: rgba(0,0,0, .6);
+		background-color: rgba(213,1240,244,0.8);
 	}
 }
 

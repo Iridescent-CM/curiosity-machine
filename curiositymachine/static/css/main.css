@@ -2860,7 +2860,7 @@ body {
   z-index: -1; }
 
 .home-top-panel-mobile-overlay {
-  background-color: transparent;
+  background-color: rgba(213, 255, 244, 0);
   transition: all 300ms ease; }
 
 .home-top-panel-content {
@@ -2878,11 +2878,9 @@ body {
 @media screen and (max-width: 1024px) {
   .home-top-panel-content {
     text-align: center; }
-    .home-top-panel-content h5 {
-      color: #FFFCF7; }
 
   .home-top-panel-mobile-overlay {
-    background-color: rgba(0, 0, 0, 0.6); } }
+    background-color: rgba(213, 255, 244, 0.8); } }
 .home-what-panel {
   padding-top: 6em;
   width: 100%; }
