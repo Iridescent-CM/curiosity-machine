@@ -1796,6 +1796,9 @@
 .icon-materials:before {
   content: "\e60f"; }
 
+.icon-star-full:before {
+  content: "\e615"; }
+
 .icon-up-arrow:before {
   content: "\e610"; }
 
@@ -2777,7 +2780,8 @@ footer {
   border-radius: 4px;
   box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
   margin-bottom: 1.5em;
-  text-align: center; }
+  text-align: center;
+  position: relative; }
   .challenge-card img {
     width: 100%;
     overflow: hidden; }
@@ -2800,6 +2804,25 @@ footer {
 
 #inspired-by-boeing {
   color: #0038A8; }
+
+.favorites-filter {
+  position: absolute;
+  top: -8px;
+  left: -8px; }
+  .favorites-filter input[type='checkbox'] {
+    display: none; }
+  .favorites-filter input[type='checkbox'] + label {
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding-top: 2px;
+    background-color: #cacaca;
+    box-shadow: 0px 2px 4px rgba(151, 151, 151, 0.8);
+    color: white;
+    cursor: pointer; }
+  .favorites-filter input[type='checkbox']:checked + label {
+    background-color: #8FB559; }
 
 .challenge-card-title {
   text-align: center;
