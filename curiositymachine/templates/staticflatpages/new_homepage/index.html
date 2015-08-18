@@ -62,11 +62,18 @@
 			</div>
 		</nav>
 	</header>
-<!-- 
-	<div class="home-video-overlay js-video-overlay">
-		<a href="#" class="video-close js-video-close" aria-label="close">&times;</a>
+
+	<div class="home-video-overlay">
+		<div class="grid-container">
+			<div class="iframe-container">
+				<iframe width="960" height="540" src="https://www.youtube.com/embed/94JY-Zs1r2U" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+		<div class="video-lightbox-background">
+			<a href="#" class="video-close" aria-label="close">&times;</a>
+		</div>
 	</div>
- -->
+
 	<div class="home-top-panel-gradient">
 		<div class="home-top-panel">
 			<div class="home-top-panel-mobile-overlay">
@@ -75,7 +82,7 @@
 						<h1>How do children succeed?</h1>
 						<h5>With curiosity, creativity, and persistence. <br/>Start building with Curiosity Machine.</h5>
 						<a href="#" class="btn uppercase">Sign up</a>
-						<a href="#" class="btn-secondary uppercase">See How it Works</a>
+						<a href="#" class="btn-secondary uppercase watch-video">See How it Works</a>
 					</div>
 				</div>
 			</div>
@@ -108,7 +115,8 @@
 				<span class="clear"></span>
 
 				<div class="what-panel-visual grid-100">
-					<a href="/new_homepage/challenges" class="action-img"><img src="{% static 'images/home/challenge-cards.png' %}"></a>
+					<a href="/new_homepage/challenges" class="btn">View all of our Design Challenges</a>
+					<img src="{% static 'images/home/challenge-cards.png' %}">
 				</div>
 			</div>
 		</div>
@@ -237,6 +245,23 @@
 		    	$('#mobile-menu-link').on('click', function(event) {
 			    	toggleNav();
 			  	});
+
+			  	$('.home-video-overlay').on('click', function(event) {
+			  		var clickTarget = event.target;
+			  		if ($('.home-video-overlay')[0]===clickTarget) {
+			  			toggleVideo();
+			  		}
+			  	});
+			  	$('.watch-video').on('click', function(event) {
+			  		toggleVideo();
+			  	});
+			  	$('.home-video-overlay').on('click', function(event) {
+			  		toggleVideo();
+			  	});
+
+			  	var toggleVideo=function() {
+			  		$('.home-video-overlay').toggleClass('hide-video');
+			  	}
 
 		    	var toggleNav=function() {
 		    		$('.small-screen-navigation').toggleClass('nav-reveal');

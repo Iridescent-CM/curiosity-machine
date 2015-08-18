@@ -2896,7 +2896,7 @@ body {
     margin-top: 3em; }
     .home-what-panel .what-panel-visual img {
       display: block;
-      margin: 0 auto; }
+      margin: 3em auto 0px auto; }
 
 .home-who-panel {
   background-color: #edeae4;
@@ -2905,7 +2905,10 @@ body {
   padding-bottom: 6em;
   width: 100%; }
   .home-who-panel h3 {
-    color: #2FB8C8; }
+    color: #F2B353; }
+  .home-who-panel a {
+    color: #F2B353;
+    border-bottom-color: #F2B353; }
   .home-who-panel img {
     margin-top: 3em;
     margin-bottom: 1.5em;
@@ -2913,7 +2916,7 @@ body {
     width: 75px;
     height: 75px;
     border-radius: 50%;
-    border: solid 2px #2FB8C8;
+    border: solid 2px #F2B353;
     box-shadow: 0px 1px 2px 0px rgba(148, 148, 148, 0.5); }
 
 .home-member-panel {
@@ -2947,10 +2950,15 @@ body {
     margin-bottom: 1.5em; }
 
 .home-video-overlay {
-  opacity: 0.9;
+  display: none;
   transition: all 0.5s ease-in-out; }
+  .home-video-overlay iframe {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    z-index: 151; }
 
-.home-video-overlay {
+.video-lightbox-background {
   background: #6161AF;
   bottom: 0;
   height: 100%;
@@ -2959,7 +2967,13 @@ body {
   right: 0;
   top: 0;
   width: 100%;
-  z-index: 150; }
+  z-index: 125;
+  opacity: 0.9;
+  transition: all 0.5s ease-in-out;
+  overflow: hidden; }
+
+.hide-video {
+  display: block; }
 
 .video-close {
   color: #fff;

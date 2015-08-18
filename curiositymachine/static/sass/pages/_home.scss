@@ -36,12 +36,8 @@ body {
 }
 
 @media screen and (max-width: $media-tablet-max) {
-	// .home-top-panel {
-	// 	background-position: top 0px right -175%;
-	// }
 	.home-top-panel-content {
 		text-align: center;
-		//h5 { color: $primary-light; }
 	}
 	.home-top-panel-mobile-overlay {
 		background-color: rgba(213,1240,244,0.8);
@@ -66,7 +62,7 @@ body {
 		margin-top: $large-spacing;
 		img {
 			display: block;
-			margin: 0 auto;
+			margin: $large-spacing auto 0px auto;
 		}
 	}
 }
@@ -78,7 +74,11 @@ body {
 	padding-bottom: $large-spacing * 2;
 	width: 100%;
 	h3 {
-		color: $primary-blue;
+		color: $primary-orange;
+	}
+	a {
+		color: $primary-orange;
+		border-bottom-color: $primary-orange;
 	}
 	img {
 		margin-top: $large-spacing;
@@ -87,7 +87,7 @@ body {
 		width: 75px;
 		height: 75px;
 		border-radius: 50%;
-		border: solid 2px $primary-blue;
+		border: solid 2px $primary-orange;
 		box-shadow: 0px 1px 2px 0px $main-shadow;
 	}
 }
@@ -130,11 +130,17 @@ body {
 }
 
 .home-video-overlay {
-	opacity: 0.9;
+	display: none;
 	transition: all 0.5s ease-in-out;
+	iframe {
+		position: relative;
+		display: block;
+		margin: 0 auto;
+		z-index: 151;
+	}
 }
 
-.home-video-overlay {
+.video-lightbox-background {
 	background: $primary-purple;
 	bottom: 0;
 	height: 100%;
@@ -143,7 +149,14 @@ body {
 	right: 0;
 	top: 0;
 	width: 100%;
-	z-index: 150;
+	z-index: 125;
+	opacity: 0.9;
+	transition: all 0.5s ease-in-out;
+	overflow: hidden;
+}
+
+.hide-video {
+	display: block;
 }
 
 .video-close {
