@@ -14,6 +14,11 @@
 	background-color: $primary-red;
 }
 
+.hr-orange {
+	@extend .basic-hr;
+	background-color: $primary-orange;
+}
+
 .well {
 	background-color: #F5F5F5;
 	border: 2px solid #E3E3E3;
