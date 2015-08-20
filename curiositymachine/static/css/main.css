@@ -2924,8 +2924,7 @@ body {
 
 .home-member-panel {
   padding-top: 6em;
-  padding-bottom: 6em;
-  width: 100%; }
+  padding-bottom: 6em; }
   .home-member-panel h3 {
     color: #F2B353;
     text-align: center; }
@@ -2940,6 +2939,23 @@ body {
   .home-member-panel hr {
     margin-top: 1.5em; }
 
+.home-member-panel-content {
+  border: 3px solid #F2B353;
+  padding: 0px;
+  margin-top: 1.5em; }
+  .home-member-panel-content img {
+    display: block;
+    position: relative;
+    right: -10px; }
+
+@media screen and (max-width: 767px) {
+  .home-member-panel-content img {
+    right: 0px;
+    margin-top: 1.5em;
+    margin-bottom: 10px; } }
+.home-member-panel-text {
+  padding-left: 1.5em; }
+
 .sign-up-panel, .about-sign-up-panel {
   padding: 6em 0px 6em 0px;
   text-align: center;
@@ -2948,6 +2964,7 @@ body {
   color: white; }
 
 .home-support-panel {
+  background-color: #fff;
   text-align: center;
   padding-top: 3em;
   padding-bottom: 3em;
@@ -2955,6 +2972,10 @@ body {
   .home-support-panel h3 {
     color: #333333;
     margin-bottom: 1.5em; }
+  .home-support-panel img {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 10px; }
 
 .home-video-overlay {
   visibility: hidden;

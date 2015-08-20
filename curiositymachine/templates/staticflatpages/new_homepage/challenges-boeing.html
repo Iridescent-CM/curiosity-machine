@@ -100,8 +100,9 @@
 					</ul>
 				</div>
 				<div class="grid-75 tablet-grid-66 mobile-grid-100">
-					<h4 class="all-challenges-header">All Challenges</h4>
+					<h4 class="all-challenges-header">Inspired by Boeing Challenges</h4>
 					<div class="all-challenges-cards grid-100">
+						<img src="{% static 'images/home/boeing-100-horizontal.png' %}">
 						<ul class="pagination">
 							<a href="#"><li class="pagination-arrow"><i class="icon-left-arrow"></i></li></a>
 							<a href="#"><li class="pagination-dot"></li></a>
@@ -112,6 +113,10 @@
 						</ul>
 						<div class="grid-33 tablet-grid-50 mobile-grid-100">
 							<div class="challenge-card">
+								<div class="favorites-filter">
+									<input type="checkbox" name="favorite" id="favorite-star">
+									<label for="favorite-star" id="favorite-star"><i class="icon-star-full"></i></label>
+								</div>
 								<a href="#">
 									<div class="challenge-card-title">
 										<p>Deploy a Satellite</p>
@@ -126,12 +131,10 @@
 						</div>
 						<div class="grid-33 tablet-grid-50 mobile-grid-100">
 							<div class="challenge-card">
-
 								<div class="favorites-filter">
 									<input type="checkbox" name="favorite" id="favorite-star">
 									<label for="favorite-star" id="favorite-star"><i class="icon-star-full"></i></label>
 								</div>
-
 								<a href="#">
 									<div class="challenge-card-title">
 										<p>Build a Plane Powered by Stored Energy</p>
@@ -146,6 +149,10 @@
 						</div>
 						<div class="grid-33 tablet-grid-50 mobile-grid-100">
 							<div class="challenge-card">
+								<div class="favorites-filter">
+									<input type="checkbox" name="favorite" id="favorite-star">
+									<label for="favorite-star" id="favorite-star"><i class="icon-star-full"></i></label>
+								</div>
 								<a href="#">
 									<div class="challenge-card-title">
 										<p>Make a Wave Machine</p>
@@ -160,6 +167,10 @@
 						</div>
 						<div class="grid-33 tablet-grid-50 mobile-grid-100">
 							<div class="challenge-card">
+								<div class="favorites-filter">
+									<input type="checkbox" name="favorite" id="favorite-star">
+									<label for="favorite-star" id="favorite-star"><i class="icon-star-full"></i></label>
+								</div>
 								<a href="#">
 									<div class="challenge-card-title">
 										<p>Engineer an Air-Powered Spinning Machine</p>
@@ -172,61 +183,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="grid-33 tablet-grid-50 mobile-grid-100">
-							<div class="challenge-card">
-								<div class="challenge-card-title">
-									<p>Build a Mighty Machine</p>
-								</div>
-								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
-								<div class="challenge-card-description">
-									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
-								</div>
-							</div>
-						</div>
-						<div class="grid-33 tablet-grid-50 mobile-grid-100">
-							<div class="challenge-card">
-								<div class="challenge-card-title">
-									<p>Build a Mighty Machine</p>
-								</div>
-								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
-								<div class="challenge-card-description">
-									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
-								</div>
-							</div>
-						</div>
-						<div class="grid-33 tablet-grid-50 mobile-grid-100">
-							<div class="challenge-card">
-								<div class="challenge-card-title">
-									<p>Build a Mighty Machine</p>
-								</div>
-								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
-								<div class="challenge-card-description">
-									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
-								</div>
-							</div>
-						</div>
-						<div class="grid-33 tablet-grid-50 mobile-grid-100">
-							<div class="challenge-card">
-								<div class="challenge-card-title">
-									<p>Build a Mighty Machine</p>
-								</div>
-								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/e6289fa34e844574cf7e9ae8d2ac7cbc">
-								<div class="challenge-card-description">
-									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
-								</div>
-							</div>
-						</div>
-						<div class="grid-33 tablet-grid-50 mobile-grid-100">
-							<div class="challenge-card">
-								<div class="challenge-card-title">
-									<p>Build a Mighty Machine</p>
-								</div>
-								<img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fit,h_200,w_300/http://s3.amazonaws.com/curiositymachine/images/04c4c99ab5913ff9a67f0f4fa3312b60">
-								<div class="challenge-card-description">
-									<small>Build a mighty machine that jumpes up, sideways, or flips over. The whole structure should jump up into the air.</small>
-								</div>
-							</div>
-						</div>
+						
 						<span class="clear"></span>
 
 						<ul class="pagination">
@@ -237,6 +194,8 @@
 							<a href="#"><li class="pagination-dot"></li></a>
 							<a href="#"><li class="pagination-arrow"><i class="icon-right-arrow"></i></li></a>
 						</ul>
+
+						<!-- <img src="{% static 'images/home/boeing-100-horizontal.png' %}"> -->
 					</div>
 				</div>
 			</div>
