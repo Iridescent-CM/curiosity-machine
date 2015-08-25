@@ -2856,10 +2856,10 @@ body {
 
 .home-top-panel {
   width: 100%;
-  background-image: url("../images/collage2.png");
+  background-image: url("../images/home/paper-airplane.jpg");
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-position: top right;
+  background-size: cover;
   z-index: -1; }
 
 .home-top-panel-mobile-overlay {
@@ -2867,8 +2867,8 @@ body {
   transition: all 300ms ease; }
 
 .home-top-panel-content {
-  padding-top: 6em;
-  padding-bottom: 6em;
+  padding-top: 9em;
+  padding-bottom: 9em;
   transition: all 300ms ease; }
   .home-top-panel-content h1 {
     color: #FD6917; }
@@ -3044,6 +3044,7 @@ body {
 #parent-about-page #parent-about-page-nav,
 #mentor-about-page #mentor-about-page-nav,
 #membership-about-page #membership-about-page-nav,
+#partnership-about-page #partnership-about-page-nav,
 #faq-about-page #faq-about-page-nav {
   color: #983f0e;
   border-bottom-color: #983f0e; }
@@ -3074,6 +3075,8 @@ nav#static-page-nav {
     margin-bottom: 1.5em; }
   .about-page-content hr, .educator-about-page-content hr {
     margin-bottom: 3em; }
+  .about-page-content img, .educator-about-page-content img {
+    border-radius: 4px; }
 
 .about-page-video {
   margin: 3em 0px 3em 0px; }
@@ -3128,6 +3131,10 @@ nav#static-page-nav {
   margin-bottom: 1.5em; }
   .educator-about-page-content h3 {
     margin-top: 1.5em; }
+
+.btn-block {
+  display: inline-block;
+  margin-bottom: 1.5em; }
 
 #challenges-page {
   background-color: #E5E1D9; }

@@ -18,6 +18,7 @@
 #parent-about-page #parent-about-page-nav,
 #mentor-about-page #mentor-about-page-nav,
 #membership-about-page #membership-about-page-nav,
+#partnership-about-page #partnership-about-page-nav,
 #faq-about-page #faq-about-page-nav {
 	color: shade($primary-red, 40%);
 	border-bottom-color: shade($primary-red, 40%);
@@ -60,6 +61,9 @@ nav#static-page-nav {
 	// }
 	hr {
 		margin-bottom: $large-spacing;
+	}
+	img {
+		border-radius: $base-border-radius;
 	}
 }
 
@@ -133,6 +137,12 @@ nav#static-page-nav {
 
 .educator-top-panel {
 	@extend .about-top-panel;
+}
+
+// Move me later
+.btn-block {
+	display: inline-block;
+	margin-bottom: $base-spacing;
 }
 
 
