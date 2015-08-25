@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+  <div class="home-video-overlay">
+    <div class="grid-container">
+      <div class="iframe-container">
+        <iframe width="960" height="540" src="https://www.youtube.com/embed/94JY-Zs1r2U" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="video-lightbox-background">
+      <a href="#" class="video-close" aria-label="close">&times;</a>
+    </div>
+  </div>
+
+  <div class="home-top-panel-gradient">
+    <div class="home-top-panel">
+      <div class="home-top-panel-mobile-overlay">
+        <div class="grid-container">
+          <div class="home-top-panel-content">
+            <div class="grid-50">
+              <h1>How do children succeed?</h1>
+            </div>
+            <span class="clear"></span>
+            <div class="grid-40">
+              <h5>With curiosity, creativity, and persistence. Start building with Curiosity Machine.</h5>
+              <a href="#" class="btn uppercase">Sign up</a>
+              <a href="#" class="btn-secondary uppercase watch-video">See How it Works</a>
+            </div>
+            <span class="clear"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="home-what-panel">
+      <div class="grid-container">
+        <div class="what-panel-description grid-80 push-10">
+          <h3>Build science and engineering challenges using household objects, with the help of scientists and engineers.</h3>
+        </div>
+        <span class="clear"></span>
+
+        <div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
+          <h4>65+ Design Challenges</h4>
+          <p>developed by scientists and engineers.</p>
+        </div>
+        <div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
+          <h4>Videos</h4>
+          <p>featuring cutting-edge and exciting inventions.</p>
+        </div>
+        <div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
+          <h4>Guide</h4>
+          <p>that supports children to plan, build, test, redesign, and reflect.</p>
+        </div>
+        <div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
+          <h4>Mentor Feedback</h4>
+          <p>on children's inventions from STEM professionals.</p>
+        </div>
+        <span class="clear"></span>
+
+        <div class="what-panel-visual grid-100">
+          <a href="/new_homepage/challenges" class="btn">Browse Design Challenges</a>
+          <img src="{% static 'images/home/challenge-cards.png' %}">
+        </div>
+      </div>
+    </div>
+
+    <div class="home-who-panel">
+      <div class="grid-container">
+        <div class="grid-80 push-10">
+          <h3>We're here for students and their supporters.</h3>
+        </div>
+        <div class="grid-33 tablet-grid-33 mobile-grid-100">
+          <img src="{% static 'images/home/who-parents.png' %}">
+          <h4>Parents</h4>
+          <p>Learn how to build together and nurture problem-solving skills.</p>
+          <a href="#">Learn More</a>
+        </div>
+        <div class="grid-33 tablet-grid-33 mobile-grid-100">
+          <img src="{% static 'images/home/who-educators.png' %}">
+          <h4>Educators</h4>
+          <p>Hit NGSS standards and bring project-based learning to your classroom.</p>
+          <a href="#">Learn More</a>
+        </div>
+        <div class="grid-33 tablet-grid-33 mobile-grid-100">
+          <img src="{% static 'images/home/who-stem-professionals.png' %}">
+          <h4>STEM Professionals</h4>
+          <p>Share your strategies by supporting children through the design process.</p>
+          <a href="#">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="home-member-panel">
+      <div class="grid-container">
+        <div class="grid-80 push-10">
+          <h3>Use Curiosity Machine to build a STEM learning community.</h3>
+        </div>
+        <div class="home-member-panel-content grid-80 push-10">
+          <div class="home-member-panel-text grid-50 tablet-grid-50 mobile-grid-100">
+            <h4>Schools, organizations and playgroups</h4>
+            <p>Learn how to bring Curiosity Machine to an entire school or program.</p>
+            <a href="#">About Memberships</a>
+            <h4>Science and Engineering companies</h4>
+            <p>Share your innovation with the public and support our community.</p>
+            <a href="#">About Partnerships</a>
+          </div>
+          <div class="grid-50 tablet-grid-50 mobile-grid-100">
+            <img src="{% static 'images/home/member-panel-photo.JPG' %}">
+          </div>
+        </div>
+        <span class="clear"></span>
+      </div>
+    </div>
+
+
+    <div class="sign-up-panel">
+      <h2>Create an account and take on your first design challenge!</h1>
+      <a href="#" class="btn-secondary uppercase">sign up</a>
+    </div>
+
+
+    <div class="home-support-panel">
+      <div class="grid-container">
+        <div class="grid-100">
+          <h3>Curiosity Machine is supported by:</h3>
+          <a href="#" class="action-img"><img src="{% static 'images/home/boeing-logo.png' %}"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/home/nsf-logo.png' %}" height="70"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/home/cummins-logo.jpg' %}" height="70"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/home/moore-foundation-logo.png' %}" height="70"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/home/intel-logo.png' %}" height="70"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/home/onr-logo.jpg' %}" height="70"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/home/hive-logo.png' %}" height="70"></a>
+        </div>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('.small-screen-navigation').on('click', function(event) {
+          var clickTarget = event.target;
+
+          if ($('.small-screen-navigation')[0]===clickTarget) {
+            toggleNav();
+          }
+        });
+          $('#mobile-menu-link').on('click', function(event) {
+            toggleNav();
+          });
+
+          $('.home-video-overlay').on('click', function(event) {
+            var clickTarget = event.target;
+            if ($('.home-video-overlay')[0]===clickTarget) {
+              toggleVideo();
+            }
+          });
+          $('.watch-video').on('click', function(event) {
+            toggleVideo();
+          });
+          $('.home-video-overlay').on('click', function(event) {
+            toggleVideo();
+          });
+
+          var toggleVideo=function() {
+            $('.home-video-overlay').toggleClass('hide-video');
+          }
+
+          var toggleNav=function() {
+            $('.small-screen-navigation').toggleClass('nav-reveal');
+            $('#about-link').toggleClass('nav-item-1');
+            $('#challenges-link').toggleClass('nav-item-2');
+            $('#account-link').toggleClass('nav-item-3');
+          }
+      });
+    </script>
+
+{% endblock %}

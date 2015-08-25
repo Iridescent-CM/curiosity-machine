@@ -22,7 +22,8 @@
   <meta name="msapplication-TileColor" content="#ffc40d">
   <meta name="msapplication-TileImage" content="{% static 'images/favicons/mstile-144x144.png' %}">
 
-  <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600|Raleway+Dots' rel='stylesheet' type='text/css'>
+
   {% block css %}{% endblock %}
 
   {% compress css %}
@@ -31,9 +32,11 @@
     <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.theme.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'js/libs/mediaelement/mediaelementplayer.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
   {% endcompress %}
 
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script type="text/javascript" src="{% static 'js/libs/modernizr.custom.05723.js' %}"></script>
   <!--[if (gte IE 6)&(lte IE 8)]>
@@ -56,7 +59,7 @@
 </head>
 <body>
 
-  {% include '_user_nav.html' %}
+  {% include '_header.html' %}
 
   <div id="message-bar">
     <div class="layout-inner text"></div>
@@ -68,39 +71,46 @@
         {{ SITE_MESSAGE|safe }}
       </div>
     {% endif %}
-    <div class="container-fluid main-content">
-      <a href="{% url 'challenges:challenges' %}" class="logo">Curiosity Machine</a>
-      <button type="button" class="navbar-toggle">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      {% if request.user.is_authenticated %}
-        <div class="user-avatar">
-          {% if request.user.profile.get_unread_comment_count %}
-            <span title="{{request.user.profile.get_unread_comment_count}} unread messages" class="unread">
-              {{request.user.profile.get_unread_comment_count}}
-            </span>
-          {% endif %}
-
-          <div class="top-avatar">
-            <div class="image-wrapper">
-              <a href="{% url 'profiles:home' %}">
-                {% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' %}
-              </a>
-              <span>{{request.user.username}}</span>
-            </div>
-          </div>
-        </div>
-      {% endif %}
-
       {% block content %}
       {% endblock %}
     </div>
 
   </div>
 
+  <footer>
+    <div class="newsletter-panel">
+      <div class="newsletter-panel-content">
+        <div class="grid-container">
+          <div class="grid-100">
+            <h1>
+              <a href="#" class="action-img"><i class="icon-twitter social-icons"></i></a>
+              <a href="#" class="action-img"><i class="icon-facebook social-icons"></i></a>
+            </h1>
+            <h4>Newsletter</h4>
+            <p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
+            <div class="grid-40 push-30 tablet-grid-60 tablet-push-20 mobile-grid-80 mobile-push-10">
+              <input type="text" spellcheck="false" placeholder="youremail@email.com" required />
+            </div>
+            <span class="clear"></span>
+            <a href="#" class="btn-green uppercase newsletter-subscribe">subscribe</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-container company-info">
+      <div class="grid-100 tablet-grid-100">
+        <div class="grid-50 tablet-grid-100 company-logos">
+          <img src="{% static 'images/curiosity-machine-iridescent-logo.png'%}">
+        </div>
+        <div class="grid-50 tablet-grid-100 company-text">
+          <p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.<br/>
+          &copy; Iridescent Learning 2015<br/>
+          View our <a href="#">privacy policy</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
   <!-- global modals -->
   {% include "profiles/join_modal.html" %}
   {% include "profiles/student/join_modal.html" with form=join_form %}
@@ -110,19 +120,7 @@
   {% include "registration/_login_modal.html" with form=login_form %}
   <!-- /global modals -->
 
-  <footer class="main-column">
-    <div class="container-fluid footer-content">
-      <p>
-        Need help? <a href="/faq/">FAQ</a>
-        | Email: <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>
-        | Powered by Iridescent, a 501c3 nonprofit organization in the United States.<br/>
-        Stay updated by <a href="http://iridescentlearning.us4.list-manage.com/subscribe?u=b10254bbb5db780d1af913317&amp;id=5c4692fa5b">signing up for our newsletter</a>.<br/>
-        Follow us:
-          <a href="https://twitter.com/Curious_Machine"><img src="{% static "images/twitter-4-32.png" %}"></a>
-          <a href="https://www.facebook.com/curiositymachine"><img src="{% static "images/facebook-4-32.png" %}"></a>
-      </p>
-    </div>
-  </footer>
+
 
   <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
   {% compress js %}

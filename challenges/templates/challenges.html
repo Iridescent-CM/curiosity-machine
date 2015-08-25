@@ -11,77 +11,84 @@
 {% endblock %}
 
 {% block content %}
-  {% if not request.user.is_authenticated %}
-  <div class="home-hero" id="home-hero-none">
-    <h1>Imagine, Invent, <br>Engineer</h1>
-    <h2>A COMMUNITY OF</h2>
-    <h2>SCIENTISTS, ENGINEERS &amp; CHILDREN</h2>
-    <h2>CREATING TOGETHER. <a href="https://www.youtube.com/watch?v=94JY-Zs1r2U&feature=youtu.be" target="_blank"><button class="btn-link btn-watch"><i class="glyphicon glyphicon-play"></i> Watch! </button></a> </h2> 
-    <ul class="login-buttons">
-
-      <li><button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#join-modal">Get Started</button></li>
-      <li><button class="btn-link btn-lg" data-toggle="modal"  data-target="#login-modal">Sign In</button></li>
-    </ul>
-  </div>
-  {% else %}
-    <div class="challenge-browser">
-      <h1>Welcome {{request.user.username}}</h1>
+  <div class="challenges-top-panel">
+    <div class="grid-container">
+      <div class="grid-100">
+        <h1>Challenges</h1>
+      </div>
     </div>
-  {% endif %}
-<div class="no-gutters theme-wrapper">
-  <ul class="theme-carousel owl-carousel">
-    <li {% if not theme %}class="active"{% endif %}>
-      <a href="{% url 'challenges:challenges' %}">
-        <span class="theme-name">All</span>
-      </a>
-    </li>
-    {% for t in themes %}
-      <li {% if theme == t.name %}class="active"{% endif %}><a href="{% url 'challenges:challenges' %}?theme={{t.name}}&theme_id={{t.id}}" style="background: {{ t.color }}">
-        <span class="theme-icon {{ t.icon }}"></span>
-        <span class="theme-name">{{t.name}}</span>
-      </a></li>
-    {% endfor %}
-  </ul>
-</div>
-
-<ul class="nav nav-justified nav-tabs">
-  <li class="active"><a data-target="#challenges" href="{% url 'challenges:ajax_challenges' %}{% if theme %}?theme={{theme}}{% endif %}" data-toggle="tabajax">All {% if theme %}{{ theme }} {% endif %} Challenges</a></li>
-  {% for filter in filters %}
-     <li>
-      <a {% if filter.color %}style="background-color: {{filter.color}}"{% endif %} data-target="#filter_{{filter.id}}" href="{% url 'challenges:filtered_challenges' filter_id=filter.id %}?{% if theme_id %}theme_id={{theme_id}}{% endif %}" data-toggle="tabajax">{{ filter.name }}</a>
-  </li>
-  {% endfor %}
-  {% if request.user.is_authenticated and request.user.profile.is_student %}
-  <li><a class="favorites" data-target="#favorites" href="{% url 'challenges:favorite_challenges' %}?{% if theme_id %}theme_id={{theme_id}}{% endif %}" data-toggle="tabajax">Favorites</a></li>
-  {% endif %}
-</ul>
-<div class="tab-content">
-  <div class="tab-pane fade in active" id="challenges">
-    <ul class="challenges-list owl-carousel panel-carousel">
-      {% for challenge in challenges %}
-        {% include "_challenge_item.html" %}
-      {% endfor %}
-    </ul>
-  </div><!-- /#challenges -->
-  {% for filter in filters %}
-  <div class="tab-pane fade in" id="filter_{{filter.id}}">
-    <ul class="challenges-list owl-carousel panel-carousel">
-      {% for challenge in filter.challenges.all %}
-        {% include "_challenge_item.html" %}
-      {% endfor %}
-    </ul>
   </div>
-  {% endfor %}
-  {% if request.user.is_authenticated and request.user.profile.is_student %}
-  <div class="tab-pane fade" id="favorites" >
-    <ul class="challenges-list owl-carousel panel-carousel" id="favorites-scroll">
-      {% for favorite in favorite_challenges %}
-        {% include "_challenge_item.html"  with challenge=favorite.challenge %}
-      {% endfor %}
-    </ul>
+
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="challenges-navigation grid-25 tablet-grid-33 mobile-grid-100">
+        <!-- 
+        <ul class="design-challenge-highlights">
+          <a href="#">
+          <a href="#" id="boeing-filter"><li>Inspired by <i class="icon-boeing-logo"></i></li></a>
+        </ul>
+        -->
+        <ul class="design-challenge-list">
+          <a href="{% url 'challenges:challenges' %}?{% if theme_id %}theme_id={{theme_id}}{% endif %}" {% if not filter_id and not favorites %}id="selected-filter"{% endif %}><li>All Challenges</li></a>
+          {% for f in filters %}
+            <a href="{% url 'challenges:challenges' %}?filter_id={{ f.id }}&{% if theme_id %}theme_id={{theme_id}}{% endif %}" {% if filter == f.name %}id="selected-filter"{% endif %}><li>{{ f.name }}</li></a>
+          {% endfor %}
+          <a href="{% url 'challenges:challenges' %}?favorites=true&{% if theme_id %}theme_id={{theme_id}}{% endif %}" {% if favorites %}id="selected-filter"{% endif %}><li>Favorites</li></a>
+
+          <a href="{% url 'challenges:challenges' %}?{% if filter_id %}filter_id={{filter_id}}{% endif %}{% if favorites %}&favorites=true{% endif %}" {% if not theme %}id="selected-theme"{% endif %}><li>All</li></a>
+
+          {% for t in themes %}
+            <a href="{% url 'challenges:challenges' %}?theme={{t.name}}&theme_id={{t.id}}{% if filter_id %}&filter_id={{filter_id}}{% endif %}{% if favorites %}&favorites=true{% endif %}" {% if theme == t.name %}id="selected-theme"{% endif %}><li><i class="{{ t.icon }}"></i>{{ t.name }}</li></a>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="grid-75 tablet-grid-66 mobile-grid-100">
+        <h4 class="all-challenges-header">All Challenges</h4>
+        <div class="all-challenges-cards grid-100">
+          <ul class="pagination">
+            <a href="{% url 'challenges:challenges' %}?page={{ page|add:-1 }}{% if filter_id %}&filter_id={{filter_id}}{% endif %}{% if favorites %}&favorites=true{% endif %}{% if theme_id %}&theme_id={{ theme_id }}{% endif %}"><li class="pagination-arrow"><i class="icon-left-arrow"></i></li></a>
+            {% for i in page_range %}
+              <a href="{% url 'challenges:challenges' %}?page={{ i }}{% if filter_id %}&filter_id={{filter_id}}{% endif %}{% if favorites %}&favorites=true{% endif %}{% if theme_id %}&theme_id={{ theme_id }}{% endif %}"><li {% if i == page %}id="current-page-dot"{% else %}class="pagination-dot"{% endif %}></li></a>
+            {% endfor %}
+            <a href="{% url 'challenges:challenges' %}?page={{ page|add:1 }}{% if filter_id %}&filter_id={{filter_id}}{% endif %}{% if favorites %}&favorites=true{% endif %}{% if theme_id %}&theme_id={{ theme_id }}{% endif %}"><li class="pagination-arrow"><i class="icon-right-arrow"></i></li></a>
+          </ul>
+          {% for challenge in challenges %}
+            {% include "_challenge_item.html" %}
+          {% endfor %}
+          <span class="clear"></span>
+
+          <ul class="pagination">
+            <a href="{% url 'challenges:challenges' %}?page={{ page|add:-1 }}{% if filter_id %}&filter_id={{filter_id}}{% endif %}{% if favorites %}&favorites=true{% endif %}{% if theme_id %}&theme_id={{ theme_id }}{% endif %}"><li class="pagination-arrow"><i class="icon-left-arrow"></i></li></a>
+            {% for i in page_range %}
+              <a href="{% url 'challenges:challenges' %}?page={{ i }}{% if filter_id %}&filter_id={{filter_id}}{% endif %}{% if favorites %}&favorites=true{% endif %}{% if theme_id %}&theme_id={{ theme_id }}{% endif %}"><li {% if i == page %}id="current-page-dot"{% else %}class="pagination-dot"{% endif %}></li></a>
+            {% endfor %}
+            <a href="{% url 'challenges:challenges' %}?page={{ page|add:1 }}{% if filter_id %}&filter_id={{filter_id}}{% endif %}{% if favorites %}&favorites=true{% endif %}{% if theme_id %}&theme_id={{ theme_id }}{% endif %}"><li class="pagination-arrow"><i class="icon-right-arrow"></i></li></a>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-  {% endif %}
 
-</div><!-- /tabs content -->
+  <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.small-screen-navigation').on('click', function(event) {
+        var clickTarget = event.target;
 
+        if ($('.small-screen-navigation')[0]===clickTarget) {
+          toggleNav();
+        }
+      });
+        $('#mobile-menu-link').on('click', function(event) {
+          toggleNav();
+        });
+
+        var toggleNav=function() {
+          $('.small-screen-navigation').toggleClass('nav-reveal');
+          $('#about-link').toggleClass('nav-item-1');
+          $('#challenges-link').toggleClass('nav-item-2');
+          $('#account-link').toggleClass('nav-item-3');
+        }
+    });
+  </script>
 {% endblock %}

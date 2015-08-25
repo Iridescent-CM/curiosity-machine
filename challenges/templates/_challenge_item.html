@@ -1,48 +1,36 @@
 {% load unread_count %}
 {% load resized %}
-{% load is_favorite %}
 
-<li>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        {% if challenge in request.user.challenges.all %}
-          {% if progress|unread_count:request.user %} <span title="{{progress|unread_count:request.user}} unread messages" class="unread">{{progress|unread_count:request.user}}</span>{% endif %}
-          <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a>
-        {% else %}
-          <a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
-        {% endif %}
-        {% if request.user.is_authenticated and request.user.profile.is_student %}
-        <span class="favorite-badge-backfold{% if challenge|is_favorite:request.user %} active{% endif %}"></span>
-        <span class="favorite-badge">
-          <a href="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"  data-challenge-id="{{ challenge.id }}" class="favorite{% if challenge|is_favorite:request.user %} favorited{% endif %}">
-            <span class="favorite-badge-content{% if challenge|is_favorite:request.user %} active{% endif %}">
-            </span>
-            <span class="favorite-badge-icon-plus{% if challenge|is_favorite:request.user %} hide{% endif %}">
-              +
-            </span>
-          </a>
-        </span>
-        {% endif %}
-      </h3>
+<div class="grid-33 tablet-grid-50 mobile-grid-100">
+  <div class="challenge-card">
+    <div class="favorites-filter" data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}" data-challenge-id="{{ challenge.id }}">
+      <input id="favorite-star-{{ challenge.id }}" class="favorites-checkbox" type="checkbox" name="favorite-{{ challenge.id }}" {% if challenge.id in favorite_challenges %}checked=checked{% endif %} disabled>
+      <label for="favorite-{{ challenge.id }}"><i class="icon-star-full"></i></label>
     </div>
-    <div class="image-container">
-      {% if challenge in request.user.challenges.all %}
-        <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">
-      {% else %}
-        <a href="{% url 'challenges:challenge' challenge.id %}">
-      {% endif %}
+
+    {% if challenge in request.user.challenges.all %}
+      <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">
+    {% else %}
+      <a href="{% url 'challenges:challenge' challenge.id %}">
+    {% endif %}
+      <div class="challenge-card-title">
+        <p>{{ challenge.name }}</p>
+      </div>
+    </a>
+    {% if challenge in request.user.challenges.all %}
+      <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="action-img">
+    {% else %}
+      <a href="{% url 'challenges:challenge' challenge.id %}" class="action-img">
+    {% endif %}
       {% if challenge.image %}
-        <img src="{% resized challenge.image.url width=300 height=200 crop='fit' %}">
+        <img src="{% resized challenge.image.url width=300 height=170 crop='fill' %}">
       {% elif challenge.video.encodings_generated %}
         {{ challenge.video.output_videos.all.0.thumbnail }}
       {% endif %}
-      </a>
-    </div>
-    <div class="panel-body">
-      <div class="description">
-        {{ challenge.description | truncatechars:200 }}
-      </div>
+    </a>
+    <div class="inspired-by" id="inspired-by-boeing">Inspired by <i class="icon-boeing-logo"></i></div>
+    <div class="challenge-card-description">
+      <small>{{ challenge.description | truncatechars:200 }}</small>
     </div>
   </div>
-</li>
+</div>

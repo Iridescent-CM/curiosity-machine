@@ -2,11 +2,12 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 from pages.models import StaticPage
-from .views import root_redirect, health_check
+from .views import root_redirect, health_check, index
 import profiles.urls
 
 urlpatterns = patterns('',
     url(r'^$', root_redirect, name='root'),
+    url(r'^index/', index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/analytics/$', 'curiositymachine.analytics.analytics', name="analytics"),
     url(r'^admin/export_users/$', 'curiositymachine.export_users.export_users', name="export_users"),

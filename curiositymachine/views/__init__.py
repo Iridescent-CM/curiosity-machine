@@ -10,7 +10,10 @@ def root_redirect(request):
             and (not request.user.profile.is_student or request.user.progresses.exists())):
         return HttpResponseRedirect(reverse('profiles:home'))
     else:
-        return HttpResponseRedirect(reverse('challenges:challenges'))
+        return HttpResponseRedirect(reverse('index'))
+
+def index(request):
+  return render(request, 'index.html')
 
 def health_check(request):
     return HttpResponse('OK')

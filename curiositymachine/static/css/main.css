@@ -3194,7 +3194,7 @@ nav#static-page-nav {
     vertical-align: top;
     margin: 10px auto; }
 
-#selected-challenge {
+#selected-theme, #selected-filter {
   left: -20px;
   background-color: #2FB8C8;
   color: #FFFCF7; }
@@ -3228,3 +3228,4 @@ ul.pagination {
     background-color: #949494; }
 
 /*# sourceMappingURL=main.css.map */
+

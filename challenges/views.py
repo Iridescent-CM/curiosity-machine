@@ -17,16 +17,69 @@ from videos.models import Video
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+CHALLENGES_PER_PAGE = 9
 
 def challenges(request):
-    challenges = Challenge.objects.filter(draft=False).select_related('image')
-    theme = request.GET.get('theme')
+    challenges = Challenge.objects.none()
+    favorite_challenges = set()
     theme_id = request.GET.get('theme_id')
+    filter_id = request.GET.get('filter_id')
+    favorites = request.GET.get('favorites')
     filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
-    if theme:
-        challenges = challenges.filter(themes__name=theme)
+    page = request.GET.get('page')
+
     themes = Theme.objects.all()
-    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme, 'theme_id': theme_id, 'filters': filters})
+
+    if filter_id:
+        challenges = Filter.objects.get(pk=filter_id).challenges.filter(draft=False).select_related('image')
+        filter = Filter.objects.get(id=filter_id).name
+    else:
+        challenges = Challenge.objects.filter(draft=False).select_related('image')
+        filter = None
+
+    if theme_id:
+        challenges = challenges.filter(themes__id=theme_id)
+        theme = Theme.objects.get(id=theme_id).name
+    else:
+        challenges = challenges.all()
+        theme = None
+
+    if request.user.is_authenticated():
+        favorite_challenges = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
+
+    if favorites:
+        challenges = challenges.filter(id__in=favorite_challenges)
+
+    paginator = Paginator(challenges, CHALLENGES_PER_PAGE)
+    try:
+        challenges = paginator.page(page)
+        page = int(page)
+    except PageNotAnInteger:
+        page = 1
+        challenges = paginator.page(1)
+    except EmptyPage:
+        if (int(page) < 1):
+          page = 1;
+          challenges = paginator.page(1)
+        else:
+          page = paginator.num_pages
+          challenges = paginator.page(paginator.num_pages)
+
+    return render(request, 'challenges.html', {
+      'challenges': challenges,
+      'themes': themes,
+      'theme': theme,
+      'theme_id': theme_id,
+      'filters': filters,
+      'filter': filter,
+      'filter_id': filter_id,
+      'favorites': favorites,
+      'favorite_challenges': favorite_challenges,
+      'page_range': range(1, paginator.num_pages+1),
+      'page': page
+    })
 
 def challenge(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
