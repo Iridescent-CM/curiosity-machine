@@ -1,0 +1,65 @@
+footer {
+	width: 100%;
+	background-color: $dark-gray;
+	padding: 0px 0px $large-spacing 0px;
+	color: $primary-light;
+}
+
+.social-icons {
+	margin: 0px 10px 0px 10px;
+	color: $primary-purple;
+	&:hover {
+		color: tint($primary-purple, 20);
+	}
+}
+
+.newsletter-panel {
+	width: 100%;
+	background-color: shade($dark-gray, 40%);
+	background-image: url("../images/design-challenge-repeating-pattern.png");
+	background-attachment: fixed;
+	background-repeat: repeat;
+	color: white;
+	z-index: -1;
+}
+
+.newsletter-panel-content {
+	width: 100%;
+	text-align: center;
+	padding: $large-spacing 0px $large-spacing 0px;
+	margin-bottom: $large-spacing;
+	input {
+		height: 24px;
+		@include basic-form-field;
+		width: 100%;
+	}
+	h4 {
+		color: $primary-green;
+	}
+}
+
+.newsletter-subscribe {
+	margin-top: $base-spacing;
+}
+
+.company-text {
+	text-align: right;
+}
+
+@media screen and (min-width: $media-tablet-min) and (max-width: $media-tablet-max) {
+	.company-info, .company-text,  {
+		text-align: center;
+	}
+	.company-text {
+		margin-top: $base-spacing;
+	}
+}
+
+@media screen and (max-width: $media-mobile-max) {
+	.company-info, .company-text,  {
+		text-align: center;
+	}
+	.company-text {
+		margin-top: $base-spacing;
+	}
+}

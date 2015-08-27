@@ -1,0 +1,27 @@
+.basic-hr {
+	height: 3px;
+	border-radius: 3px;
+	margin-top: $large-spacing;
+}
+
+.hr-purple {
+	@extend .basic-hr;
+	background-color: $primary-purple;
+}
+
+.hr-red {
+	@extend .basic-hr;
+	background-color: $primary-red;
+}
+
+.hr-orange {
+	@extend .basic-hr;
+	background-color: $primary-orange;
+}
+
+.well {
+	background-color: #F5F5F5;
+	border: 2px solid #E3E3E3;
+	padding: 20px;
+	border-radius: $base-border-radius;
+}
