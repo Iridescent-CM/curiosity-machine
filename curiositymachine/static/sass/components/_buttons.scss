@@ -98,7 +98,8 @@
   @include btn-secondary-color($primary-purple);
 }
 
-.btn-center {
+// Button Layout Settings - put this on a button in a .text-center div to center it
+.btn-block {
   display: inline-block;
-  margin: 0 auto;
+  margin-bottom: $base-spacing;
 }

@@ -50,15 +50,11 @@ nav#static-page-nav {
 	h2 {
 		text-align: center;
 		color: $primary-red;
-		//margin-top: $large-spacing;
 	}
 	h3 {
 		text-align: center;
 		margin-bottom: $base-spacing;
 	}
-	// h4 {
-	// 	display: inline-block;
-	// }
 	hr {
 		margin-bottom: $large-spacing;
 	}
@@ -134,15 +130,3 @@ nav#static-page-nav {
 		margin-top: $base-spacing;
 	}
 }
-
-.educator-top-panel {
-	@extend .about-top-panel;
-}
-
-// Move me later
-.btn-block {
-	display: inline-block;
-	margin-bottom: $base-spacing;
-}
-
-

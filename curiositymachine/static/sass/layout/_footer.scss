@@ -8,6 +8,9 @@ footer {
 .social-icons {
 	margin: 0px 10px 0px 10px;
 	color: $primary-purple;
+	&:hover {
+		color: tint($primary-purple, 20);
+	}
 }
 
 .newsletter-panel {

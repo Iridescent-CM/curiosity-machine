@@ -2185,6 +2185,7 @@ html {
   box-sizing: inherit; }
 
 body {
+  background-color: #FFFCF7;
   color: #333333;
   font-family: "Raleway", Helvetica, sans-serif;
   font-feature-settings: "kern", "liga", "pnum";
@@ -2264,9 +2265,6 @@ i {
 
 .text-right {
   text-align: right; }
-
-header {
-  font-family: 'Raleway', Helvetica, sans-serif; }
 
 header {
   width: 100%;
@@ -2532,6 +2530,8 @@ footer {
 .social-icons {
   margin: 0px 10px 0px 10px;
   color: #6161AF; }
+  .social-icons:hover {
+    color: #8181bf; }
 
 .newsletter-panel {
   width: 100%;
@@ -2752,9 +2752,9 @@ footer {
     background-color: #dfdfef;
     border-color: #6161AF; }
 
-.btn-center {
+.btn-block {
   display: inline-block;
-  margin: 0 auto; }
+  margin-bottom: 1.5em; }
 
 .basic-hr, .hr-purple, .hr-red, .hr-orange {
   height: 3px;
@@ -2845,45 +2845,51 @@ footer {
   text-transform: uppercase;
   font-weight: 700; }
 
-body {
-  background-color: #FFFCF7; }
-
-.home-top-panel-gradient {
-  width: 100%;
-  z-index: -2;
-  background-color: #D5F0F4;
-  background-image: linear-gradient(to right, #D5F0F4, #97DBE3); }
-
 .home-top-panel {
   width: 100%;
   background-image: url("../images/home/paper-airplane.jpg");
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center center;
   z-index: -1; }
 
-.home-top-panel-mobile-overlay {
-  background-color: rgba(213, 255, 244, 0);
-  transition: all 300ms ease; }
+.home-top-panel-title {
+  padding-top: 6em;
+  padding-bottom: 6em;
+  width: 100%;
+  text-align: center; }
+  .home-top-panel-title h1 {
+    color: #FFFCF7;
+    font-weight: 400;
+    text-shadow: 0px 3px 4px rgba(0, 0, 0, 0.4);
+    font-size: 4em; }
 
 .home-top-panel-content {
-  padding-top: 9em;
-  padding-bottom: 9em;
-  transition: all 300ms ease; }
-  .home-top-panel-content h1 {
-    color: #FD6917; }
-  .home-top-panel-content h5 {
-    color: #333333; }
+  padding-top: 15em;
+  padding-bottom: 3em;
+  transition: all 300ms ease;
+  text-align: center; }
+  .home-top-panel-content h3 {
+    color: #FFFCF7; }
   .home-top-panel-content a {
     margin-top: 20px;
     margin-right: 10px; }
 
+.home-top-panel-content-gradient {
+  width: 100%;
+  z-index: -2;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent, rgba(0, 0, 0, 0.5)); }
+
 @media screen and (max-width: 1024px) {
   .home-top-panel-content {
-    text-align: center; }
+    padding-top: 9em; } }
+@media screen and (max-width: 767px) {
+  .home-top-panel-title {
+    padding-bottom: 1.5em; }
 
-  .home-top-panel-mobile-overlay {
-    background-color: rgba(213, 255, 244, 0.8); } }
+  .home-top-panel-content {
+    padding-top: 1.5em; } }
 .home-what-panel {
   padding-top: 6em;
   width: 100%; }
@@ -2894,18 +2900,19 @@ body {
     margin-bottom: 3em; }
   .home-what-panel .what-panel-feature {
     margin-bottom: 1.5em; }
-  .home-what-panel .what-panel-visual {
-    text-align: center;
-    margin-top: 3em; }
-    .home-what-panel .what-panel-visual img {
-      display: block;
-      margin: 3em auto 0px auto; }
 
-.home-who-panel {
-  background-color: #edeae4;
-  text-align: center;
+.photo-grid {
   padding-top: 6em;
-  padding-bottom: 6em;
+  padding-bottom: 6em; }
+  .photo-grid img {
+    border-radius: 4px;
+    margin-bottom: 10px; }
+
+@media screen and (max-width: 767px) {
+  .photo-grid {
+    text-align: center; } }
+.home-who-panel {
+  text-align: center;
   width: 100%; }
   .home-who-panel h3 {
     color: #6161AF; }
@@ -2913,48 +2920,22 @@ body {
     color: #6161AF;
     border-bottom-color: #6161AF; }
   .home-who-panel img {
-    margin-top: 3em;
-    margin-bottom: 1.5em;
-    background-color: #FFFCF7;
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    border: solid 2px #6161AF;
-    box-shadow: 0px 1px 2px 0px rgba(148, 148, 148, 0.5); }
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+    width: 65px;
+    height: 65px; }
 
 .home-member-panel {
-  padding-top: 6em;
-  padding-bottom: 6em; }
+  padding-bottom: 6em;
+  text-align: center; }
   .home-member-panel h3 {
     color: #F2B353;
     text-align: center; }
   .home-member-panel h4 {
-    margin-top: 3em; }
+    margin-top: 0.75em; }
   .home-member-panel a {
     color: #F2B353;
     border-bottom-color: #F2B353; }
-  .home-member-panel .well {
-    margin-top: 3em;
-    text-align: center; }
-  .home-member-panel hr {
-    margin-top: 1.5em; }
-
-.home-member-panel-content {
-  border: 3px solid #F2B353;
-  padding: 0px;
-  margin-top: 1.5em; }
-  .home-member-panel-content img {
-    display: block;
-    position: relative;
-    right: -10px; }
-
-@media screen and (max-width: 767px) {
-  .home-member-panel-content img {
-    right: 0px;
-    margin-top: 1.5em;
-    margin-bottom: 10px; } }
-.home-member-panel-text {
-  padding-left: 1.5em; }
 
 .sign-up-panel, .about-sign-up-panel {
   padding: 6em 0px 6em 0px;
@@ -3026,7 +3007,7 @@ body {
 .hideme {
   opacity: 0; }
 
-.about-top-panel, .educator-top-panel {
+.about-top-panel {
   background: url("../images/design-challenge-repeating-pattern-white.png");
   background-color: #FD6917;
   background-attachment: fixed;
@@ -3131,10 +3112,6 @@ nav#static-page-nav {
   margin-bottom: 1.5em; }
   .educator-about-page-content h3 {
     margin-top: 1.5em; }
-
-.btn-block {
-  display: inline-block;
-  margin-bottom: 1.5em; }
 
 #challenges-page {
   background-color: #E5E1D9; }

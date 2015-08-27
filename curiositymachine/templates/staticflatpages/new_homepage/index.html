@@ -74,21 +74,23 @@
 		</div>
 	</div>
 
-	<div class="home-top-panel-gradient">
-		<div class="home-top-panel">
+	<div class="home-top-panel">
+		<div class="home-top-panel-gradient">
 			<div class="home-top-panel-mobile-overlay">
-				<div class="grid-container">
-					<div class="home-top-panel-content">
-						<div class="grid-50">
+				<div class="home-top-panel-content-gradient">
+					<div class="grid-container">
+						<div class="home-top-panel-title">
 							<h1>How do children succeed?</h1>
 						</div>
-						<span class="clear"></span>
-						<div class="grid-40">
-							<h5>With curiosity, creativity, and persistence. Start building with Curiosity Machine.</h5>
-							<a href="#" class="btn uppercase">Sign up</a>
-							<a href="#" class="btn-secondary uppercase watch-video">See How it Works</a>
+						
+						<div class="home-top-panel-content">
+							<div class="grid-100">
+								<h3>With curiosity, creativity, and persistence. <br/> Start building with Curiosity Machine.</h3>
+								<a href="#" class="btn uppercase">Sign up</a>
+								<a href="#" class="btn-secondary uppercase watch-video">See How it Works</a>
+							</div>
 						</div>
-						<span class="clear"></span>
+						
 					</div>
 				</div>
 			</div>
@@ -98,12 +100,12 @@
 		<div class="home-what-panel">
 			<div class="grid-container">
 				<div class="what-panel-description grid-80 push-10">
-					<h3>Build science and engineering challenges using household objects, with the help of scientists and engineers.</h3>
+					<h3>Build engineering design challenges using household objects, with the help of scientists and engineers.</h3>
 				</div>
 				<span class="clear"></span>
 
 				<div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
-					<h4>65+ Design Challenges</h4>
+					<h4>80+ Design Challenges</h4>
 					<p>developed by scientists and engineers.</p>
 				</div>
 				<div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
@@ -116,14 +118,23 @@
 				</div>
 				<div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
 					<h4>Mentor Feedback</h4>
-					<p>on children's inventions from STEM professionals.</p>
+					<p>on children's inventions from scientists and engineers.</p>
 				</div>
 				<span class="clear"></span>
-
-				<div class="what-panel-visual grid-100">
+				
+				<div class="text-center">
 					<a href="/new_homepage/challenges" class="btn">Browse Design Challenges</a>
-					<img src="{% static 'images/home/challenge-cards.png' %}">
 				</div>
+			</div>
+		</div>
+
+		<div class="photo-grid grid-container">
+			<div class="grid-50 tablet-grid-50 mobile-grid-100">
+				<img src="{% static 'images/home/build-1.jpg' %}">
+			</div>
+			<div class="two-photos grid-50 tablet-grid-50 mobile-grid-100">
+				<img src="{% static 'images/home/build-2.jpg' %}">
+				<img src="{% static 'images/home/build-3.jpg' %}" class="second-image">
 			</div>
 		</div>
 
@@ -135,7 +146,7 @@
 				<div class="grid-33 tablet-grid-33 mobile-grid-100">
 					<img src="{% static 'images/home/who-parents.png' %}">
 					<h4>Parents</h4>
-					<p>Learn how to build together and nurture problem-solving skills.</p>
+					<p>Learn how to build with your child and nurture creativity.</p>
 					<a href="#">Learn More</a>
 				</div>
 				<div class="grid-33 tablet-grid-33 mobile-grid-100">
@@ -147,30 +158,37 @@
 				<div class="grid-33 tablet-grid-33 mobile-grid-100">
 					<img src="{% static 'images/home/who-stem-professionals.png' %}">
 					<h4>STEM Professionals</h4>
-					<p>Share your strategies by supporting children through the design process.</p>
+					<p>Share your expertise by helping children through the design process.</p>
 					<a href="#">Learn More</a>
 				</div>
 			</div>
 		</div>
 
+		<div class="photo-grid grid-container">
+			<div class="two-photos grid-50 tablet-grid-50 mobile-grid-100">
+				<img src="{% static 'images/home/build-4.jpg' %}">
+				<img src="{% static 'images/home/build-5.jpg' %}" class="second-image">
+			</div>
+			<div class="grid-50 tablet-grid-50 mobile-grid-100">
+				<img src="{% static 'images/home/build-6.jpg' %}">
+			</div>
+		</div>
 
 		<div class="home-member-panel">
 			<div class="grid-container">
 				<div class="grid-80 push-10">
 					<h3>Use Curiosity Machine to build a STEM learning community.</h3>
 				</div>
-				<div class="home-member-panel-content grid-80 push-10">
-					<div class="home-member-panel-text grid-50 tablet-grid-50 mobile-grid-100">
-						<h4>Schools, organizations and playgroups</h4>
-						<p>Learn how to bring Curiosity Machine to an entire school or program.</p>
-						<a href="#">About Memberships</a>
-						<h4>Science and Engineering companies</h4>
-						<p>Share your innovation with the public and support our community.</p>
-						<a href="#">About Partnerships</a>
-					</div>
-					<div class="grid-50 tablet-grid-50 mobile-grid-100">
-						<img src="{% static 'images/home/member-panel-photo.JPG' %}">
-					</div>
+				<span class="clear"></span>
+				<div class="grid-40 push-10">
+					<h4>Schools, organizations and playgroups</h4>
+					<p>Bring Curiosity Machine to your school or program.</p>
+					<a href="#">About Memberships</a>
+				</div>
+				<div class="grid-40 push-10">
+					<h4>Science and Engineering companies</h4>
+					<p>Share your innovations with the public.</p>
+					<a href="#">About Partnerships</a>
 				</div>
 				<span class="clear"></span>
 			</div>

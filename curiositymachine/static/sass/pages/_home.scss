@@ -1,13 +1,4 @@
-body {
-	background-color: $primary-light;
-}
-
-.home-top-panel-gradient {
-	width: 100%;
-	z-index: -2;
-	background-color: #D5F0F4;
-	background-image: linear-gradient(to right, #D5F0F4, #97DBE3);
-}
+// TOP PANEL
 
 .home-top-panel {
 	width: 100%;
@@ -15,35 +6,58 @@ body {
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-size: cover;
-	//background-position: top right;
+	background-position: center center;
 	z-index: -1;
 }
 
-.home-top-panel-mobile-overlay {
-	background-color: rgba(213,1240,244,0.0);
-	transition: all 300ms ease;
+.home-top-panel-title {
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing * 2;
+	width: 100%;
+	text-align: center;
+	h1 { 
+		color: $primary-light; 
+		font-weight: $base-font-weight;
+		text-shadow: 0px 3px 4px rgba(0,0,0,0.4); 
+		font-size: 4em; 
+	}
 }
 
 .home-top-panel-content {
-	padding-top: $large-spacing * 3;
-	padding-bottom: $large-spacing * 3;
+	padding-top: $large-spacing * 5;
+	padding-bottom: $large-spacing;
 	transition: all 300ms ease;
-	h1 { color: $primary-red; }
-	h5 { color: $dark-gray; }
+	text-align: center;
+	h3 { color: $primary-light; }
 	a {
 		margin-top: 20px;
 		margin-right: 10px;
 	}
 }
 
+.home-top-panel-content-gradient {
+	width: 100%;
+	z-index: -2;
+	background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.0), rgba(0,0,0,0.5));
+}
+
 @media screen and (max-width: $media-tablet-max) {
 	.home-top-panel-content {
-		text-align: center;
-	}
-	.home-top-panel-mobile-overlay {
-		background-color: rgba(213,1240,244,0.8);
+		padding-top: $large-spacing * 3;
 	}
 }
+
+@media screen and (max-width: $media-mobile-max) {
+	.home-top-panel-title {
+		padding-bottom: $base-spacing;
+	}
+	.home-top-panel-content {
+		padding-top: $base-spacing;
+	}
+}
+
+
+// "WHAT" PANEL
 
 .home-what-panel {
 	padding-top: $large-spacing * 2;
@@ -58,21 +72,31 @@ body {
 	.what-panel-feature {
 		margin-bottom: $base-spacing;
 	}
-	.what-panel-visual {
-		text-align: center;
-		margin-top: $large-spacing;
-		img {
-			display: block;
-			margin: $large-spacing auto 0px auto;
-		}
+}
+
+
+// PHOTO GRID
+
+.photo-grid {
+	padding-top: $large-spacing * 2;
+	padding-bottom: $large-spacing * 2;
+	img {
+		border-radius: $base-border-radius;
+		margin-bottom: 10px;
 	}
 }
 
+@media screen and (max-width: $media-mobile-max) {
+	.photo-grid {
+		text-align: center;
+	}
+}
+
+
+// "WHO" PANEL
+
 .home-who-panel {
-	background-color: tint($light-gray, 30);
 	text-align: center;
-	padding-top: $large-spacing * 2;
-	padding-bottom: $large-spacing * 2;
 	width: 100%;
 	h3 {
 		color: $primary-purple;
@@ -82,58 +106,34 @@ body {
 		border-bottom-color: $primary-purple;
 	}
 	img {
-		margin-top: $large-spacing;
-		margin-bottom: $base-spacing;
-		background-color: $primary-light;
-		width: 75px;
-		height: 75px;
-		border-radius: 50%;
-		border: solid 2px $primary-purple;
-		box-shadow: 0px 1px 2px 0px $main-shadow;
+		margin-top: $small-spacing;
+		margin-bottom: $small-spacing;
+		width: 65px;
+		height: 65px;
 	}
 }
 
+
+// MEMBERSHIP PANEL
+
 .home-member-panel {
-	padding-top: $large-spacing * 2;
 	padding-bottom: $large-spacing * 2;
-	//width: 100%;
+	text-align: center;
 	h3 {
 		color: $primary-orange;
 		text-align: center;
 	}
 	h4 {
-		margin-top: $large-spacing;
+		margin-top: $small-spacing;
 	}
-	a { color: $primary-orange; border-bottom-color: $primary-orange }
-	.well {
-		margin-top: $large-spacing;
-		text-align: center;
-	}
-	hr { margin-top: $base-spacing; }
-}
-
-.home-member-panel-content {
-	border: 3px solid $primary-orange;
-	padding: 0px;
-	margin-top: $base-spacing;
-	img {
-		display: block;
-		position: relative;
-		right: -10px;
+	a { 
+		color: $primary-orange; 
+		border-bottom-color: $primary-orange 
 	}
 }
 
-@media screen and (max-width: $media-mobile-max) {
-	.home-member-panel-content img {
-		right: 0px;
-		margin-top: $base-spacing;
-		margin-bottom: 10px;
-	}
-}
 
-.home-member-panel-text {
-	padding-left: $base-spacing;
-}
+// SIGN UP CTA
 
 .sign-up-panel {
 	padding: $large-spacing * 2 0px $large-spacing * 2 0px;
@@ -142,6 +142,9 @@ body {
 	background-color: $primary-blue;
 	color: white;
 }
+
+
+// LOGO ROW
 
 .home-support-panel {
 	background-color: #fff;
@@ -159,6 +162,10 @@ body {
 		margin: 0 10px;
 	}
 }
+
+
+
+// VIDEO LIGHTBOX
 
 .home-video-overlay {
 	visibility: hidden;
