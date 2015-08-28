@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+  //require('load-grunt-tasks')(grunt); // npm install --save-dev load-grunt-tasks 
 
   // Project configuration.
   grunt.initConfig({
@@ -16,8 +17,24 @@ module.exports = function(grunt) {
         }
     },
     watch: {
-        files: ["./curiositymachine/static/less/*","./curiositymachine/static/less/pages/*"],
-        tasks: ["less"]
+        less: {
+            files: ["./curiositymachine/static/less/**/*"],
+            tasks: ["less"]
+        },
+        sass: {
+            files: ["./curiositymachine/sass/**/*"],
+            tasks: ["sass"]
+        }
+    },
+    sass: {
+        options: {
+            sourceMap: true
+        },
+        dist: {
+            files: {
+                './curiositymachine/static/css/main.css': './curiositymachine/sass/main.scss'
+            }
+        }
     }
   });
 
@@ -25,7 +42,9 @@ module.exports = function(grunt) {
   //grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  //added in for sass:
+  grunt.loadNpmTasks('grunt-sass');
   // Default task(s).
-  grunt.registerTask('default', ['less']);
+  grunt.registerTask('default', ['less', 'sass']);
 
 };
