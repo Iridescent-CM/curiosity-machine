@@ -7,8 +7,8 @@ $media-tablet-min: 768px !default;
 $media-tablet-max: 1024px !default;
 $media-desktop-min: 1025px !default;
 
-@import "unsemantic/unsemantic-vars";
-@import "unsemantic/unsemantic-ie-snap";
+@import "unsemantic-master/assets/sass/partials/unsemantic-vars";
+@import "unsemantic-master/assets/sass/partials/unsemantic-ie-snap";
 
 @include unsemantic-grid-placeholders;
 @include unsemantic-grid-base-tablet;
