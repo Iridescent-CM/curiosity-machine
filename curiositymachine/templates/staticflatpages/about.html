@@ -1,0 +1,236 @@
+{% load staticfiles %}
+{% load compress %}
+{% load future %} {# suppresses deprecation warnings for firstof tag #}
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300|Raleway+Dots' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body id="about-page">
+
+  <header>
+    <nav class="large-screen-navigation">
+      <div class="grid-container">
+        <div class="grid-100">      
+          <a href="/new_homepage/index" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
+          <a href="/new_homepage/index" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
+          <ul id="main-navigation">
+            <li><a href="#" id="main-nav-mentors">Mentor Community</a></li>
+            <li><a href="/new_homepage/about" id="main-nav-about">About Us</a></li>
+            <li><a href="/new_homepage/challenges" id="main-nav-challenges">Challenges</a></li>
+            <li id="profile-navigation-link">
+              <a href="#" id="main-nav-profile">
+                <span class="profile-name">profilename</span>
+                <img  class="avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_bigger.png">
+                <i class="icon-down-arrow"></i>
+              </a>
+                <ul class="profile-navigation">
+                <div>
+                  <a href="#"><li>My Dashboard</li></a>
+                  <a href="#"><li>Edit Profile</li></a>
+                  <a href="#"><li>Log Out</li></a>
+                </div>
+                </ul>
+            </li>
+          </ul>
+          <a id="mobile-menu-link">menu</a>
+        
+        </div>
+      </div>
+    </nav>
+    <nav class="small-screen-navigation">
+      <div class="grid-container">
+        <div class="grid-100">
+          <ul id="main-small-screen-navigation">
+            <li id="small-screen-profile-li">
+              <img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
+              <p>profilename</p>
+              <ul id="small-screen-profile-navigation">
+                <a href="#"><li>My Dashboard</li></a>
+                <a href="#"><li>Edit Profile</li></a>
+                <a href="#"><li>Log Out</li></a>
+              </ul>
+            </li>
+            <li><a href="/new_homepage/challenges" id="small-nav-challenges">Challenges</a></li>
+            <li><a href="#" id="small-nav-mentors">Mentor Community</a></li>
+            <li><a href="/new_homepage/about" id="small-nav-about">About Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="about-top-panel">
+      <div class="about-top-panel-content">
+        <div class="grid-container">
+          <div class="grid-100">
+            <h1>About</h1>
+            <nav id="static-page-nav">
+              <ul>
+                <a href="/new_homepage/about" id="about-page-nav"><li>About</li></a>
+                <a href="/new_homepage/about-parent" id="parent-about-page-nav"><li>Parents</li></a>
+                <a href="/new_homepage/about-educator" id="educator-about-page-nav"><li>Educators</li></a>
+                <a href="/new_homepage/about-mentor" id="mentor-about-page-nav"><li>Mentors</li></a>
+                <a href="/new_homepage/about-membership" id="membership-about-page-nav"><li>Memberships</li></a>
+                <a href="/new_homepage/about-partnership" id="partnership-about-page-nav"><li>Partnerships</li></a>
+                <a href="/new_homepage/about-faq" id="faq-about-page-nav"><li>FAQ</li></a>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-container">
+
+      <div class="about-page-content grid-60 push-20 tablet-grid-80 tablet-push-10">
+        <h2>How Do Children Succeed?</h2>
+        <h3>With curiosity, creativity, and persistence.</h3>
+        <p>Like any other skill, it takes practice! We’re here to help you learn.</p>
+        <p>At Curiosity Machine, we practice by building hands-on engineering design challenges. We believe that through building, you learn not only how something works, but why it works.</p>
+        <p>And when a design doesn't work, why not? You’ll have to try new ideas, learn from your mistakes, and find your own solutions. Keep building, keep practicing, and with time you'll surprise yourself with your creative inventions.</p>
+        <p>Sounds challenging? We agree! That’s why we created Curiosity Machine. We support students, parents, educators, and mentors to build, learn, and teach using the engineering design process.</p>
+        <p>Together, we inspire children to succeed by being curious, creative, and persistent.</p>
+
+        <div class="about-page-video grid-80 push-10">
+          <div class="iframe-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/XBAE46x2qio" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+        <span class="clear"></span>
+
+        <hr class="hr-red"/>
+
+        <h2>How Curiosity Machine Works</h2>
+        <h3>Create a student account and...</h3>
+        <div class="grid-50">
+          <h4><span class="numbered-bullet">1</span> Find Inspiration</h4>
+          <p>What makes scientists and engineers curious? Watch videos of the experts sharing their research and inventions.</p>
+        </div>
+        <div class="grid-50">
+          <h4><span class="numbered-bullet">2</span> Build a Design Challenge</h4>
+          <p>Find a challenge and try to build it! Follow the engineering design process and document as you plan, build, and test.</p>
+        </div>
+        <div class="grid-50">
+          <h4><span class="numbered-bullet">3</span> Get Mentor Feedback</h4>
+          <p>Stuck? Need support? Looking for a new idea? Join a <a href="#">membership</a> and get feedback on your designs from a Curiosity Machine mentor.</p>
+        </div>
+        <div class="grid-50">
+          <h4><span class="numbered-bullet">4</span> Share What You Built</h4>
+          <p>Wrap up your design by reflecting and sharing a photo. Check out other users' projects for more inspiration!</p>
+        </div>
+        <span class="clear"></span>
+
+        <hr class="hr-red"/>
+
+        <h2>Curiosity Machine Supports You to Support Your Students</h2>
+        <p><a href="#">Parents:</a> connect to your child’s account and learn how to build together</p>
+        <p><a href="#">Educators:</a> find resources for engineering challenges and track student progress</p>
+        <p><a href="#">Mentors:</a> guide students as they build engineering design challenges</p>
+
+        <hr class="hr-red"/>
+
+        <h2>Engineering Design Challenges</h2>
+        <p><strong>We</strong> work with scientists and engineers to create design challenges inspired by their inventions.</p>
+        <p><strong>You</strong> learn about the science behind the challenge and try to build your own!</p>
+        <p>Our engineering design challenges:</p>
+        <ul>
+          <li>Use simple household materials</li>
+          <li>Scale up or down for students K-12</li>
+          <li>Have many possible solutions &mdash; there’s never one right answer!</li>
+        </ul>
+        <div class="text-center">
+          <a href="#" class="btn btn-block">Browse Challenges</a>
+        </div>
+        <br/>
+        <img src="{% static 'images/about/about-design-challenges.jpg' %}">
+      </div>
+    </div>
+
+    <div class="home-support-panel">
+      <div class="grid-container">
+        <div class="grid-100">
+          <h3>Supported by:</h3>
+          <a href="#" class="action-img"><img src="{% static 'images/logos/boeing-logo.png' %}"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/logos/nsf-logo.png' %}" height="70"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/logos/cummins-logo.jpg' %}" height="70"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/logos/moore-foundation-logo.png' %}" height="70"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/logos/intel-logo.png' %}" height="70"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/logos/onr-logo.jpg' %}" height="70"></a>
+          <a href="#" class="action-img"><img src="{% static 'images/logos/hive-logo.png' %}" height="70"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-sign-up-panel">
+      <h2>Create a Student Account!</h1>
+      <a href="#" class="btn-red-secondary uppercase">sign up</a>
+    </div>
+
+    <footer>
+      <div class="newsletter-panel">
+        <div class="newsletter-panel-content">
+          <div class="grid-container">
+            <div class="grid-100">
+              <h1>
+                <a href="#" class="action-img"><i class="icon-twitter social-icons"></i></a>
+                <a href="#" class="action-img"><i class="icon-facebook social-icons"></i></a>
+              </h1>
+              <h4>Newsletter</h4>
+              <p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
+              <div class="grid-40 push-30 tablet-grid-60 tablet-push-20 mobile-grid-80 mobile-push-10">
+                <input type="text" spellcheck="false" placeholder="youremail@email.com" required />
+              </div>
+              <span class="clear"></span>
+              <a href="#" class="btn-green uppercase newsletter-subscribe">subscribe</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-container company-info">
+        <div class="grid-100 tablet-grid-100">
+          <div class="grid-50 tablet-grid-100 company-logos">
+            <img src="{% static 'images/curiosity-machine-iridescent-logo.png'%}">
+          </div>
+          <div class="grid-50 tablet-grid-100 company-text">
+            <p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.<br/>
+            &copy; Iridescent 2015<br/>
+            View our <a href="#">privacy policy</a>.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('.small-screen-navigation').on('click', function(event) {
+          var clickTarget = event.target;
+
+          if ($('.small-screen-navigation')[0]===clickTarget) {
+            toggleNav();
+          }
+        });
+          $('#mobile-menu-link').on('click', function(event) {
+            toggleNav();
+          });
+
+          var toggleNav=function() {
+            $('.small-screen-navigation').toggleClass('nav-reveal');
+            $('#about-link').toggleClass('nav-item-1');
+            $('#challenges-link').toggleClass('nav-item-2');
+            $('#account-link').toggleClass('nav-item-3');
+          }
+      });
+    </script>
+
+  <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
+  </body>
+
+</html>
