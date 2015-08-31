@@ -1,40 +1,39 @@
 module.exports = function(grunt) {
-  //require('load-grunt-tasks')(grunt); // npm install --save-dev load-grunt-tasks 
 
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     less: {
-        development: {
-            options: {
-                paths: ["./curiositymachine/static/less/", "./curiositymachine/static/css/"],
-                compress: true
-            },
-            files: {
-                "./curiositymachine/static/css/base.css": "./curiositymachine/static/less/cm_bootstrap.less",
-                "./curiositymachine/static/css/filepicker.css": "./curiositymachine/static/less/pages/filepicker.less",
-            }
+      development: {
+        options: {
+          paths: ["./curiositymachine/static/less/", "./curiositymachine/static/css/"],
+          compress: true
+        },
+        files: {
+          "./curiositymachine/static/css/base.css": "./curiositymachine/static/less/cm_bootstrap.less",
+          "./curiositymachine/static/css/filepicker.css": "./curiositymachine/static/less/pages/filepicker.less",
         }
+      }
     },
     watch: {
-        less: {
-            files: ["./curiositymachine/static/less/**/*"],
-            tasks: ["less"]
-        },
-        sass: {
-            files: ["./curiositymachine/sass/**/*"],
-            tasks: ["sass"]
-        }
+      less: {
+        files: ["./curiositymachine/static/less/**/*"],
+        tasks: ["less"]
+      },
+      sass: {
+        files: ["./curiositymachine/sass/**/*"],
+        tasks: ["sass"]
+      }
     },
     sass: {
-        options: {
-            sourceMap: true
-        },
-        dist: {
-            files: {
-                './curiositymachine/static/css/main.css': './curiositymachine/sass/main.scss'
-            }
+      options: {
+        sourceMap: true
+      },
+      dist: {
+        files: {
+          './curiositymachine/static/css/main.css': './curiositymachine/sass/main.scss'
         }
+      }
     }
   });
 
