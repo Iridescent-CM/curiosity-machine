@@ -1,0 +1,49 @@
+<header>
+  <nav class="large-screen-navigation">
+    <div class="grid-container">
+      <div class="grid-100">      
+        <a href="/challenges" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
+        <a href="/challenges" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
+        <ul id="main-navigation">
+          <li><a href="/mentors" id="main-nav-mentors">Mentor Community</a></li>
+          <li><a href="/about" id="main-nav-about">About Us</a></li>
+          <li><a href="{% url 'challenges:challenges' %}" id="main-nav-challenges">Challenges</a></li>
+          <li id="profile-navigation-link">
+            <a href="#" id="main-nav-profile">
+              <span class="profile-name">profilename</span>
+              <img  class="avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_bigger.png">
+              <i class="icon-down-arrow"></i>
+            </a>
+              <ul class="profile-navigation">
+                <a href="#"><li>My Dashboard</li></a>
+                <a href="#"><li>Edit Profile</li></a>
+                <a href="#"><li>Log Out</li></a>
+              </ul>
+          </li>
+        </ul>
+        <a id="mobile-menu-link">menu</a>
+      
+      </div>
+    </div>
+  </nav>
+  <nav class="small-screen-backdrop">
+    <div class="grid-container">
+      <div class="grid-100">
+        <ul id="main-small-screen-navigation">
+          <li id="small-screen-profile-li">
+            <img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
+            <p>profilename</p>
+            <ul id="small-screen-profile-navigation">
+              <li><a href="#">My Dashboard</a></li>
+              <li><a href="#">Edit Profile</a></li>
+              <li><a href="#">Log Out</a></li>
+            </ul>
+          </li>
+          <li><a href="{% url 'challenges:challenges' %}" id="small-nav-challenges">Challenges</a></li>
+          <li><a href="/mentors" id="small-nav-mentors">Mentor Community</a></li>
+          <li><a href="/about" id="small-nav-about">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
