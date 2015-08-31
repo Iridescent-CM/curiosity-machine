@@ -147,7 +147,7 @@ header {
 
 // Responsive Menu Stuff
 
-.small-screen-navigation {
+.small-screen-backdrop {
   width: 100%;
   height: 100vh;
   position: absolute;
@@ -208,7 +208,7 @@ header {
     display: none;
   }
 
-  .small-screen-navigation {
+  .small-screen-backdrop {
     display: block;
   }
 

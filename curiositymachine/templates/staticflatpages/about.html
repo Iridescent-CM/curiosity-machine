@@ -41,7 +41,7 @@
         </div>
       </div>
     </nav>
-    <nav class="small-screen-navigation">
+    <nav class="small-screen-backdrop">
       <div class="grid-container">
         <div class="grid-100">
           <ul id="main-small-screen-navigation">
@@ -207,10 +207,10 @@
     <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
     <script>
       $(document).ready(function() {
-        $('.small-screen-navigation').on('click', function(event) {
+        $('.small-screen-backdrop').on('click', function(event) {
           var clickTarget = event.target;
 
-          if ($('.small-screen-navigation')[0]===clickTarget) {
+          if ($('.small-screen-backdrop')[0]===clickTarget) {
             toggleNav();
           }
         });
@@ -218,11 +218,8 @@
             toggleNav();
           });
 
-          var toggleNav=function() {
-            $('.small-screen-navigation').toggleClass('nav-reveal');
-            $('#about-link').toggleClass('nav-item-1');
-            $('#challenges-link').toggleClass('nav-item-2');
-            $('#account-link').toggleClass('nav-item-3');
+          function toggleNav() {
+            $('.small-screen-backdrop').toggleClass('nav-reveal');
           }
       });
     </script>

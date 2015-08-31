@@ -2019,7 +2019,7 @@ header {
   margin-top: 5px;
   height: 50px; }
 
-.small-screen-navigation {
+.small-screen-backdrop {
   width: 100%;
   height: 100vh;
   position: absolute;
@@ -2067,7 +2067,7 @@ header {
     cursor: pointer; }
   #main-navigation, .logo {
     display: none; }
-  .small-screen-navigation {
+  .small-screen-backdrop {
     display: block; }
   .small-screen-logo {
     display: inline;
