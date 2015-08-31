@@ -96,10 +96,6 @@ header {
   top: -100px;
   @include transition(all 0.5s 0.1s);
   z-index: 99;
-  div {
-    position: relative;
-    border-radius: 4px;
-  }
   a {
     display: block;
     padding: 14px 0px !important;

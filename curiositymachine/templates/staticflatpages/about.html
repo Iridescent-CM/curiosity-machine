@@ -22,7 +22,7 @@
           <ul id="main-navigation">
             <li><a href="/mentors" id="main-nav-mentors">Mentor Community</a></li>
             <li><a href="/about" id="main-nav-about">About Us</a></li>
-            <li><a href="/challenges" id="main-nav-challenges">Challenges</a></li>
+            <li><a href="{% url 'challenges:challenges' %}" id="main-nav-challenges">Challenges</a></li>
             <li id="profile-navigation-link">
               <a href="#" id="main-nav-profile">
                 <span class="profile-name">profilename</span>
@@ -30,11 +30,9 @@
                 <i class="icon-down-arrow"></i>
               </a>
                 <ul class="profile-navigation">
-                <div>
                   <a href="#"><li>My Dashboard</li></a>
                   <a href="#"><li>Edit Profile</li></a>
                   <a href="#"><li>Log Out</li></a>
-                </div>
                 </ul>
             </li>
           </ul>
@@ -56,7 +54,7 @@
                 <a href="#"><li>Log Out</li></a>
               </ul>
             </li>
-            <li><a href="/challenges" id="small-nav-challenges">Challenges</a></li>
+            <li><a href="{% url 'challenges:challenges' %}" id="small-nav-challenges">Challenges</a></li>
             <li><a href="/mentors" id="small-nav-mentors">Mentor Community</a></li>
             <li><a href="/about" id="small-nav-about">About Us</a></li>
           </ul>
@@ -145,7 +143,7 @@
           <li>Have many possible solutions &mdash; there’s never one right answer!</li>
         </ul>
         <div class="text-center">
-          <a href="/challenges" class="btn btn-block">Browse Challenges</a>
+          <a href="{% url 'challenges:challenges' %}" class="btn btn-block">Browse Challenges</a>
         </div>
         <br/>
         <img src="{% static 'images/about/about-design-challenges.jpg' %}">
@@ -229,7 +227,6 @@
       });
     </script>
 
-  <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
   <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
   </body>
 

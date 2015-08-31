@@ -1975,9 +1975,6 @@ header {
   -ms-transition: all 0.5s 0.1s;
   transition: all 0.5s 0.1s;
   z-index: 99; }
-  .profile-navigation div {
-    position: relative;
-    border-radius: 4px; }
   .profile-navigation a {
     display: block;
     padding: 14px 0px !important;
