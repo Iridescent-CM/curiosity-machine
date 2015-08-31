@@ -269,21 +269,25 @@ header {
     padding-left: 0px;
     list-style: none;
     width: 100%;
-    a {
-      display: block;
-      padding: 15px 0px;
-      width: 100%;
-      background-color: $primary-light;
-      color: $primary-purple;
-      border-bottom: 0px;
-      &:hover {
-        background-color: $primary-purple;
-        color: $primary-light;
-      }
-      &:nth-last-child(1) {
-        border-bottom-right-radius: $base-border-radius;
-        border-bottom-left-radius: $base-border-radius;
-      }
+    li {
+      a {
+        display: block;
+        padding: 15px 0px;
+        width: 100%;
+        margin: 0;
+        background-color: $primary-light;
+        color: $primary-purple;
+        border-bottom: 0px;
+        border-radius: 0px;
+        &:hover {
+          background-color: $primary-purple;
+          color: $primary-light;
+        }
+      }  
+    }
+    >:nth-last-child(1) a {
+      border-bottom-right-radius: $base-border-radius;
+      border-bottom-left-radius: $base-border-radius;
     }
   }
 }
