@@ -1,0 +1,293 @@
+header {
+  width: 100%;
+  background-color: $primary-light;
+  z-index: 100;
+  position: relative;
+  a {
+    text-decoration: none;
+  }
+}
+
+.large-screen-navigation {
+  width: 100%;
+  height: 60px;
+  background-color: $primary-light;
+  z-index: 101;
+  position: relative;
+}
+
+#main-navigation {
+  position: relative;
+  list-style: none;
+  display: inline-block;
+  float: right;
+  padding: 0;
+  margin: 0 auto;
+  position: relative;
+  z-index: 102;
+  height: 60px;
+  li {
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    top: 0;
+    vertical-align: top;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+  }
+  // only direct children so the profile nav isn't affected
+  li > a {
+    color: $medium-gray;
+    border-bottom: 0px;
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    padding: 17px 15px 0px;
+  }
+  a {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: 103;
+    // hover state so the color fills it up
+    background-color: $primary-light;
+    &:hover {
+      color: $primary-light;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      background: $primary-blue;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 100%;
+      z-index: -1;
+      -webkit-transition: top 0.16s ease-in;
+    }
+    &:hover:before {
+      top: 0;
+    }
+  }
+}
+
+.profile-name {
+  margin-right: 70px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute !important;
+  top: 0;
+  right: 35px;
+  @include vertical-align;
+}
+
+.profile-navigation {
+  overflow: hidden;
+  list-style: none;
+  position: absolute;
+  padding: 0;
+  width: 100%;
+  left: 0;
+  top: -100px;
+  @include transition(all 0.5s 0.1s);
+  z-index: 99;
+  div {
+    position: relative;
+    border-radius: 4px;
+  }
+  a {
+    display: block;
+    padding: 14px 0px !important;
+    height: 50px;
+    width: 100%;
+    color: $medium-gray !important;
+    background-color: $primary-light;
+    border-bottom: 0px;
+    &:hover {
+      background-color: $primary-purple !important;
+      color: $primary-light !important;
+    }
+    &:before {
+      background: none !important;
+    }
+  }
+  a:nth-last-child(1) {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+  a:nth-child(1) {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+}
+
+#profile-navigation-link {
+  &:hover {
+    .profile-navigation {
+      top: 70px;
+    }
+  }
+  a i {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+  }
+}
+
+#main-nav-profile:before { background: $primary-purple !important; }
+#main-nav-challenges:before { background: $primary-blue !important; }
+#main-nav-about:before { background: $primary-red !important; }
+#main-nav-mentors:before { background: $primary-orange !important;}
+
+.logo {
+  margin-top: 5px;
+  height: 50px;
+}
+
+// Responsive Menu Stuff
+
+.small-screen-navigation {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: -100vh;
+  z-index: 85;
+  transition: all .75s ease-in-out;
+  background-color: rgba(51,51,51,.9);
+}
+
+.nav-reveal {
+  top: 60px;
+}
+
+#account-link {
+  background-color: $primary-purple;
+  border: 2px solid shade($primary-purple, 20%);
+  &:hover {
+    background-color: tint($primary-purple, 20%);
+  }
+  transition: background-color 200ms ease-in;
+}
+
+#challenges-link {
+  background-color: $primary-blue;
+  border: 2px solid shade($primary-blue, 20%);
+  &:hover {
+    background-color: tint($primary-blue, 20%);
+  }
+  transition: background-color 200ms ease-in;
+}
+
+#about-link {
+  background-color: $primary-red;
+  border: 2px solid shade($primary-red, 20%);
+  &:hover {
+    background-color: tint($primary-red, 20%);
+  }
+  transition: background-color 200ms ease-in;
+}
+
+#mobile-menu-link, .small-screen-logo, .small-screen-navigation {
+  display: none;
+}
+
+@media screen and (max-width: $media-tablet-max) {
+  #mobile-menu-link {
+    text-transform: uppercase;
+    font-weight: $heavy-font-weight;
+    display: inline-block;
+    float: right;
+    border: 0px;
+    background-color: transparent;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  #main-navigation, .logo {
+    display: none;
+  }
+
+  .small-screen-navigation {
+    display: block;
+  }
+
+  .small-screen-logo {
+    display: inline;
+    float: left;
+    height: 60px;
+  }
+
+  .user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline;
+  }
+
+  #main-small-screen-navigation {
+    width: 100%;
+    border-radius: $base-border-radius;
+    text-align: center;
+    padding-left: 0px;
+    list-style: none;
+    li {
+      > a {
+        display: block;
+        padding: 15px 0px;
+        width: 100%;
+        color: $primary-light;
+        border-bottom: 0px;
+        border-radius: $base-border-radius;
+        margin: 10px 0px;
+      }
+    }
+  }
+
+  #small-nav-challenges { 
+    background-color: $primary-blue;
+    &:hover { background-color: shade($primary-blue, 10); }
+  }
+  #small-nav-mentors { 
+    background-color: $primary-orange;
+    &:hover { background-color: shade($primary-orange, 10); }
+  }
+  #small-nav-about { 
+    background-color: $primary-red;
+    &:hover { background-color: shade($primary-red, 10); }
+  }
+
+  #small-screen-profile-li {
+    width: 100%;
+    background-color: shade($primary-purple, 20);
+    border-radius: $base-border-radius;
+    color: $primary-light;
+    padding-top: 10px;
+  }
+
+  #small-screen-profile-navigation {
+    padding-left: 0px;
+    list-style: none;
+    width: 100%;
+    a {
+      display: block;
+      padding: 15px 0px;
+      width: 100%;
+      background-color: $primary-light;
+      color: $primary-purple;
+      border-bottom: 0px;
+      &:hover {
+        background-color: $primary-purple;
+        color: $primary-light;
+      }
+      &:nth-last-child(1) {
+        border-bottom-right-radius: $base-border-radius;
+        border-bottom-left-radius: $base-border-radius;
+      }
+    }
+  }
+}
