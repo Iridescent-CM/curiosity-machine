@@ -17,12 +17,12 @@
     <nav class="large-screen-navigation">
       <div class="grid-container">
         <div class="grid-100">      
-          <a href="/new_homepage/index" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
-          <a href="/new_homepage/index" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
+          <a href="/challenges" class="action-img"><img src="{% static 'images/logo-small.png' %}" class="logo"></a>
+          <a href="/challenges" class="action-img"><img src="{% static 'images/favicon.png' %}" class="small-screen-logo"></a>
           <ul id="main-navigation">
-            <li><a href="#" id="main-nav-mentors">Mentor Community</a></li>
-            <li><a href="/new_homepage/about" id="main-nav-about">About Us</a></li>
-            <li><a href="/new_homepage/challenges" id="main-nav-challenges">Challenges</a></li>
+            <li><a href="/mentors" id="main-nav-mentors">Mentor Community</a></li>
+            <li><a href="/about" id="main-nav-about">About Us</a></li>
+            <li><a href="/challenges" id="main-nav-challenges">Challenges</a></li>
             <li id="profile-navigation-link">
               <a href="#" id="main-nav-profile">
                 <span class="profile-name">profilename</span>
@@ -56,9 +56,9 @@
                 <a href="#"><li>Log Out</li></a>
               </ul>
             </li>
-            <li><a href="/new_homepage/challenges" id="small-nav-challenges">Challenges</a></li>
-            <li><a href="#" id="small-nav-mentors">Mentor Community</a></li>
-            <li><a href="/new_homepage/about" id="small-nav-about">About Us</a></li>
+            <li><a href="/challenges" id="small-nav-challenges">Challenges</a></li>
+            <li><a href="/mentors" id="small-nav-mentors">Mentor Community</a></li>
+            <li><a href="/about" id="small-nav-about">About Us</a></li>
           </ul>
         </div>
       </div>
@@ -72,13 +72,13 @@
             <h1>About</h1>
             <nav id="static-page-nav">
               <ul>
-                <a href="/new_homepage/about" id="about-page-nav"><li>About</li></a>
-                <a href="/new_homepage/about-parent" id="parent-about-page-nav"><li>Parents</li></a>
-                <a href="/new_homepage/about-educator" id="educator-about-page-nav"><li>Educators</li></a>
-                <a href="/new_homepage/about-mentor" id="mentor-about-page-nav"><li>Mentors</li></a>
-                <a href="/new_homepage/about-membership" id="membership-about-page-nav"><li>Memberships</li></a>
-                <a href="/new_homepage/about-partnership" id="partnership-about-page-nav"><li>Partnerships</li></a>
-                <a href="/new_homepage/about-faq" id="faq-about-page-nav"><li>FAQ</li></a>
+                <a href="/about" id="about-page-nav"><li>About</li></a>
+                <a href="/parents" id="parent-about-page-nav"><li>Parents</li></a>
+                <a href="/educator" id="educator-about-page-nav"><li>Educators</li></a>
+                <a href="/mentor" id="mentor-about-page-nav"><li>Mentors</li></a>
+                <a href="/about-membership" id="membership-about-page-nav"><li>Memberships</li></a>
+                <a href="/about-partnership" id="partnership-about-page-nav"><li>Partnerships</li></a>
+                <a href="/faq" id="faq-about-page-nav"><li>FAQ</li></a>
               </ul>
             </nav>
           </div>
@@ -118,7 +118,7 @@
         </div>
         <div class="grid-50">
           <h4><span class="numbered-bullet">3</span> Get Mentor Feedback</h4>
-          <p>Stuck? Need support? Looking for a new idea? Join a <a href="#">membership</a> and get feedback on your designs from a Curiosity Machine mentor.</p>
+          <p>Stuck? Need support? Looking for a new idea? Join a <a href="/about-membership">membership</a> and get feedback on your designs from a Curiosity Machine mentor.</p>
         </div>
         <div class="grid-50">
           <h4><span class="numbered-bullet">4</span> Share What You Built</h4>
@@ -129,9 +129,9 @@
         <hr class="hr-red"/>
 
         <h2>Curiosity Machine Supports You to Support Your Students</h2>
-        <p><a href="#">Parents:</a> connect to your child’s account and learn how to build together</p>
-        <p><a href="#">Educators:</a> find resources for engineering challenges and track student progress</p>
-        <p><a href="#">Mentors:</a> guide students as they build engineering design challenges</p>
+        <p><a href="/parents">Parents:</a> connect to your child’s account and learn how to build together</p>
+        <p><a href="/educator">Educators:</a> find resources for engineering challenges and track student progress</p>
+        <p><a href="/mentor">Mentors:</a> guide students as they build engineering design challenges</p>
 
         <hr class="hr-red"/>
 
@@ -145,7 +145,7 @@
           <li>Have many possible solutions &mdash; there’s never one right answer!</li>
         </ul>
         <div class="text-center">
-          <a href="#" class="btn btn-block">Browse Challenges</a>
+          <a href="/challenges" class="btn btn-block">Browse Challenges</a>
         </div>
         <br/>
         <img src="{% static 'images/about/about-design-challenges.jpg' %}">
@@ -156,13 +156,13 @@
       <div class="grid-container">
         <div class="grid-100">
           <h3>Supported by:</h3>
-          <a href="#" class="action-img"><img src="{% static 'images/logos/boeing-logo.png' %}"></a>
-          <a href="#" class="action-img"><img src="{% static 'images/logos/nsf-logo.png' %}" height="70"></a>
-          <a href="#" class="action-img"><img src="{% static 'images/logos/cummins-logo.jpg' %}" height="70"></a>
-          <a href="#" class="action-img"><img src="{% static 'images/logos/moore-foundation-logo.png' %}" height="70"></a>
-          <a href="#" class="action-img"><img src="{% static 'images/logos/intel-logo.png' %}" height="70"></a>
-          <a href="#" class="action-img"><img src="{% static 'images/logos/onr-logo.jpg' %}" height="70"></a>
-          <a href="#" class="action-img"><img src="{% static 'images/logos/hive-logo.png' %}" height="70"></a>
+          <a href="http://www.boeing.com/" class="action-img"><img src="{% static 'images/logos/boeing-logo.png' %}"></a>
+          <a href="http://www.nsf.gov/" class="action-img"><img src="{% static 'images/logos/nsf-logo.png' %}" height="70"></a>
+          <a href="http://www.cummins.com/" class="action-img"><img src="{% static 'images/logos/cummins-logo.jpg' %}" height="70"></a>
+          <a href="https://www.moore.org/" class="action-img"><img src="{% static 'images/logos/moore-foundation-logo.png' %}" height="70"></a>
+          <a href="http://www.intel.com/" class="action-img"><img src="{% static 'images/logos/intel-logo.png' %}" height="70"></a>
+          <a href="http://www.onr.navy.mil/" class="action-img"><img src="{% static 'images/logos/onr-logo.jpg' %}" height="70"></a>
+          <a href="https://hivelearningnetworks.org/" class="action-img"><img src="{% static 'images/logos/hive-logo.png' %}" height="70"></a>
         </div>
       </div>
     </div>
@@ -178,8 +178,8 @@
           <div class="grid-container">
             <div class="grid-100">
               <h1>
-                <a href="#" class="action-img"><i class="icon-twitter social-icons"></i></a>
-                <a href="#" class="action-img"><i class="icon-facebook social-icons"></i></a>
+                <a href="https://twitter.com/Curious_Machine" class="action-img"><i class="icon-twitter social-icons"></i></a>
+                <a href="https://www.facebook.com/curiositymachine" class="action-img"><i class="icon-facebook social-icons"></i></a>
               </h1>
               <h4>Newsletter</h4>
               <p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
@@ -195,12 +195,12 @@
       <div class="grid-container company-info">
         <div class="grid-100 tablet-grid-100">
           <div class="grid-50 tablet-grid-100 company-logos">
-            <img src="{% static 'images/curiosity-machine-iridescent-logo.png'%}">
+            <a href="http://iridescentlearning.org/" class="action-img"><img src="{% static 'images/curiosity-machine-iridescent-logo.png'%}"></a>
           </div>
           <div class="grid-50 tablet-grid-100 company-text">
-            <p>Powered by <a href="#">Iridescent</a>, a 501c3 nonprofit organization.<br/>
+            <p>Powered by <a href="http://iridescentlearning.org/">Iridescent</a>, a 501c3 nonprofit organization.<br/>
             &copy; Iridescent 2015<br/>
-            View our <a href="#">privacy policy</a>.</p>
+            View our <a href="/privacy">privacy policy</a>.</p>
           </div>
         </div>
       </div>
