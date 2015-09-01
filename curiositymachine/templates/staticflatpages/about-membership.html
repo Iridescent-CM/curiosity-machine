@@ -1,0 +1,72 @@
+{% extends "about_pg_layout.html" %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block title %}Memberships{% endblock %}
+{% block body-id %}membership-about-page{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  {% include '_about_pg_header.html' %}
+  <div class="grid-container">
+    <div class="about-page-content grid-60 push-20 tablet-grid-80 tablet-push-10">
+      <h2>Build a STEM Learning Community</h2>
+      <h3>Purchase a membership to bring Curiosity Machine to an entire school or program.</h3>
+      <!-- <p>We’ll help you create a STEM learning community with parents, educators, and mentors.</p> -->
+      <p>Curiosity Machine memberships include: </p>
+      <ul>
+        <li>1-on-1 STEM mentor support for student projects</li>
+        <li>Educator training</li>
+        <li>Parent training</li>
+        <li>Online support from Curiosity Machine staff to create a community of parents, educators, and mentors</li>
+      </ul>
+
+      <p>Memberships start at $5000 for one year of support. <a href="https://docs.google.com/forms/d/1DcdxlMzqh66u-M4rCE7AoLgMu2pbMT1MKZ1-BIq1zPU/viewform">Get in touch with us</a> to learn more.</p>
+
+      <hr class="hr-red"/>
+
+      <h3>STEM Mentor Support</h3>
+      <p>Connect your students with STEM experts! Curiosity Machine mentors are professional scientists and engineers who volunteer to support your students.</p>
+      <p>When your student begins a new design challenge, a mentor claims their project and starts a conversation with the student.</p>
+      <p>Curiosity Machine mentors...</p>
+      <ul>
+        <li>support individual student projects from start to finish</li>
+        <li>offer helpful feedback and suggestions when students get stuck</li>
+        <li>push students to iterate and improve their designs</li>
+      </ul>
+      <p>Curiosity Machine screens and trains all mentors before they begin working with students. Parents and educators of students can also view all mentor-student interactions.</p>
+      <br/>
+
+      <img src="{% static 'images/about/la-studio.jpg' %}">
+      <br/><br/>
+
+      <h3>Educator Training</h3>
+      <p>Curiosity Machine trains educators on how to best use Curiosity Machine at their site.</p>
+      <p>Educators learn how to:</p>
+      <ul>
+        <li>use the engineering design process with students</li>
+        <li>facilitate open-ended, project-based learning</li>
+        <li>plan logistics and implement Curiosity Machine at their site</li>
+      </ul>
+      <br/>
+
+      <img src="{% static 'images/about/group-activity.jpg' %}">
+      <br/><br/>
+
+      <h3>Parent Training</h3>
+      <p>Use Curiosity Machine as a tool for parent engagement! We support parents to become STEM learning ambassadors in their children's schools. Membership gives parent leaders access to our online parent training, which covers both pedagogical concepts and science and engineering concepts.</p>
+      <p>Parents learn to:</p>
+      <ul>
+        <li>support children as they build open ended design challenges</li>
+        <li>make open ended questions and provide feedback that fosters a growth mindset</li>
+        <li>plan logistics and implement Curiosity Machine at their site</li>
+      </ul>
+
+      <hr class="hr-red"/>
+
+      <h2>Get Started</h2>
+      <p class="text-center">Interested in membership? Fill out <a href="https://docs.google.com/forms/d/1DcdxlMzqh66u-M4rCE7AoLgMu2pbMT1MKZ1-BIq1zPU/viewform">this form</a> and our staff will be in touch!</p>
+    </div>
+  </div>
+{% endblock %}

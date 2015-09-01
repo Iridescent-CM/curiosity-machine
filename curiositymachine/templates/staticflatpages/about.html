@@ -1,4 +1,4 @@
-{% extends "base_new.html" %}
+{% extends "about_pg_layout.html" %}
 {% load staticfiles %}
 {% load resized %}
 
@@ -6,11 +6,9 @@
 {% block body-id %}about-page{% endblock %}
 
 {% block content %}
-
-  {% include '_about_pg_header.html' %}
+  {{ block.super }}
 
   <div class="grid-container">
-
     <div class="about-page-content grid-60 push-20 tablet-grid-80 tablet-push-10">
       <h2>How Do Children Succeed?</h2>
       <h3>With curiosity, creativity, and persistence.</h3>
