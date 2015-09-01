@@ -260,6 +260,10 @@ header {
     background-color: $primary-purple;
     &:hover { background-color: shade($primary-purple, 10); }
   }
+  #small-nav-login {
+    background-color: $primary-green;
+    &:hover { background-color: shade($primary-green, 10); }
+  }
 
   #small-screen-profile-li {
     width: 100%;

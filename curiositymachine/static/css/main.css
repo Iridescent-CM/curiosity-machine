@@ -2108,6 +2108,10 @@ header {
     background-color: #6161AF; }
     #small-nav-join:hover {
       background-color: #57579e; }
+  #small-nav-login {
+    background-color: #8FB559; }
+    #small-nav-login:hover {
+      background-color: #81a350; }
   #small-screen-profile-li {
     width: 100%;
     background-color: #4e4e8c;
