@@ -76,7 +76,7 @@ header {
   margin-right: 70px;
 }
 
-.avatar {
+.avatar img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -218,7 +218,7 @@ header {
     height: 60px;
   }
 
-  .user-avatar {
+  .small-screen-avatar img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -255,6 +255,10 @@ header {
   #small-nav-about { 
     background-color: $primary-red;
     &:hover { background-color: shade($primary-red, 10); }
+  }
+  #small-nav-join {
+    background-color: $primary-purple;
+    &:hover { background-color: shade($primary-purple, 10); }
   }
 
   #small-screen-profile-li {

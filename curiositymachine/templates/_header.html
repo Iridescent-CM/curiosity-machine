@@ -1,3 +1,4 @@
+{% load resized %}
 {% load staticfiles %}
 <header>
   <nav class="large-screen-navigation">
@@ -9,18 +10,22 @@
           <li><a href="/mentors" id="main-nav-mentors">Mentor Community</a></li>
           <li><a href="/about" id="main-nav-about">About Us</a></li>
           <li><a href="{% url 'challenges:challenges' %}" id="main-nav-challenges">Challenges</a></li>
-          <li id="profile-navigation-link">
-            <a href="#" id="main-nav-profile">
-              <span class="profile-name">profilename</span>
-              <img  class="avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_bigger.png">
-              <i class="icon-down-arrow"></i>
-            </a>
+          {% if request.user.is_authenticated %}
+            <li id="profile-navigation-link">
+              <a href="{% url 'profiles:home' %}" id="main-nav-profile">
+                <span class="profile-name">{{ user.username }}</span>
+                <span class="avatar">{% include "_avatar.html" with profile=profile width=40 height=40 class=avatar crop='fit' %}</span>
+                <i class="icon-down-arrow"></i>
+              </a>
               <ul class="profile-navigation">
-                <a href="#"><li>My Dashboard</li></a>
-                <a href="#"><li>Edit Profile</li></a>
-                <a href="#"><li>Log Out</li></a>
+                <a href="{% url 'profiles:home' %}"><li>My Dashboard</li></a>
+                <a href="{% url 'profiles:profile_edit' %}"><li>Edit Profile</li></a>
+                <a href="{% url 'logout' %}?next=/"><li>Log Out</li></a>
               </ul>
-          </li>
+            </li>
+          {% else %}
+            <li><a href="#">Join</a></li>
+          {% endif %}
         </ul>
         <a id="mobile-menu-link">menu</a>
       
@@ -31,15 +36,19 @@
     <div class="grid-container">
       <div class="grid-100">
         <ul id="main-small-screen-navigation">
-          <li id="small-screen-profile-li">
-            <img class="user-avatar" src="https://pbs.twimg.com/profile_images/568819794955104256/MIws6My3_400x400.png">
-            <p>profilename</p>
-            <ul id="small-screen-profile-navigation">
-              <li><a href="#">My Dashboard</a></li>
-              <li><a href="#">Edit Profile</a></li>
-              <li><a href="#">Log Out</a></li>
-            </ul>
-          </li>
+          {% if request.user.is_authenticated %}
+            <li id="small-screen-profile-li">
+              <span class="small-screen-avatar">{% include "_avatar.html" with profile=profile width=50 height=50 class=avatar crop='fit' %}</span>
+              <p>{{ user.username }}</p>
+              <ul id="small-screen-profile-navigation">
+                <li><a href="{% url 'profiles:home' %}">My Dashboard</a></li>
+                <li><a href="{% url 'profiles:profile_edit' %}">Edit Profile</a></li>
+                <li><a href="{% url 'logout' %}?next=/">Log Out</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li><a href="#" id="small-nav-join">Join</a></li>
+          {% endif %}
           <li><a href="{% url 'challenges:challenges' %}" id="small-nav-challenges">Challenges</a></li>
           <li><a href="/mentors" id="small-nav-mentors">Mentor Community</a></li>
           <li><a href="/about" id="small-nav-about">About Us</a></li>
