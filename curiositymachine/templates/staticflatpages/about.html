@@ -6,110 +6,92 @@
 {% block body-id %}about-page{% endblock %}
 
 {% block content %}
-  <div class="about-top-panel">
-      <div class="about-top-panel-content">
-        <div class="grid-container">
-          <div class="grid-100">
-            <h1>About</h1>
-            <nav id="static-page-nav">
-              <ul>
-                <li><a href="/about" id="about-page-nav">About</a></li>
-                <li><a href="/parents" id="parent-about-page-nav">Parents</a></li>
-                <li><a href="/educator" id="educator-about-page-nav">Educators</a></li>
-                <li><a href="/mentor" id="mentor-about-page-nav">Mentors</a></li>
-                <li><a href="/about-membership" id="membership-about-page-nav">Memberships</a></li>
-                <li><a href="/about-partnership" id="partnership-about-page-nav">Partnerships</a></li>
-                <li><a href="/faq" id="faq-about-page-nav">FAQ</a></li>
-              </ul>
-            </nav>
-          </div>
+
+  {% include '_about_pg_header.html' %}
+
+  <div class="grid-container">
+
+    <div class="about-page-content grid-60 push-20 tablet-grid-80 tablet-push-10">
+      <h2>How Do Children Succeed?</h2>
+      <h3>With curiosity, creativity, and persistence.</h3>
+      <p>Like any other skill, it takes practice! We’re here to help you learn.</p>
+      <p>At Curiosity Machine, we practice by building hands-on engineering design challenges. We believe that through building, you learn not only how something works, but why it works.</p>
+      <p>And when a design doesn't work, why not? You’ll have to try new ideas, learn from your mistakes, and find your own solutions. Keep building, keep practicing, and with time you'll surprise yourself with your creative inventions.</p>
+      <p>Sounds challenging? We agree! That’s why we created Curiosity Machine. We support students, parents, educators, and mentors to build, learn, and teach using the engineering design process.</p>
+      <p>Together, we inspire children to succeed by being curious, creative, and persistent.</p>
+
+      <div class="about-page-video grid-80 push-10">
+        <div class="iframe-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/XBAE46x2qio" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
-    </div>
+      <span class="clear"></span>
 
+      <hr class="hr-red"/>
+
+      <h2>How Curiosity Machine Works</h2>
+      <h3>Create a student account and...</h3>
+      <div class="grid-50">
+        <h4><span class="numbered-bullet">1</span> Find Inspiration</h4>
+        <p>What makes scientists and engineers curious? Watch videos of the experts sharing their research and inventions.</p>
+      </div>
+      <div class="grid-50">
+        <h4><span class="numbered-bullet">2</span> Build a Design Challenge</h4>
+        <p>Find a challenge and try to build it! Follow the engineering design process and document as you plan, build, and test.</p>
+      </div>
+      <div class="grid-50">
+        <h4><span class="numbered-bullet">3</span> Get Mentor Feedback</h4>
+        <p>Stuck? Need support? Looking for a new idea? Join a <a href="/about-membership">membership</a> and get feedback on your designs from a Curiosity Machine mentor.</p>
+      </div>
+      <div class="grid-50">
+        <h4><span class="numbered-bullet">4</span> Share What You Built</h4>
+        <p>Wrap up your design by reflecting and sharing a photo. Check out other users' projects for more inspiration!</p>
+      </div>
+      <span class="clear"></span>
+
+      <hr class="hr-red"/>
+
+      <h2>Curiosity Machine Supports You to Support Your Students</h2>
+      <p><a href="/parents">Parents:</a> connect to your child’s account and learn how to build together</p>
+      <p><a href="/educator">Educators:</a> find resources for engineering challenges and track student progress</p>
+      <p><a href="/mentor">Mentors:</a> guide students as they build engineering design challenges</p>
+
+      <hr class="hr-red"/>
+
+      <h2>Engineering Design Challenges</h2>
+      <p><strong>We</strong> work with scientists and engineers to create design challenges inspired by their inventions.</p>
+      <p><strong>You</strong> learn about the science behind the challenge and try to build your own!</p>
+      <p>Our engineering design challenges:</p>
+      <ul>
+        <li>Use simple household materials</li>
+        <li>Scale up or down for students K-12</li>
+        <li>Have many possible solutions &mdash; there’s never one right answer!</li>
+      </ul>
+      <div class="text-center">
+        <a href="{% url 'challenges:challenges' %}" class="btn btn-block">Browse Challenges</a>
+      </div>
+      <br/>
+      <img src="{% static 'images/about/about-design-challenges.jpg' %}">
+    </div>
+  </div>
+
+  <div class="home-support-panel">
     <div class="grid-container">
-
-      <div class="about-page-content grid-60 push-20 tablet-grid-80 tablet-push-10">
-        <h2>How Do Children Succeed?</h2>
-        <h3>With curiosity, creativity, and persistence.</h3>
-        <p>Like any other skill, it takes practice! We’re here to help you learn.</p>
-        <p>At Curiosity Machine, we practice by building hands-on engineering design challenges. We believe that through building, you learn not only how something works, but why it works.</p>
-        <p>And when a design doesn't work, why not? You’ll have to try new ideas, learn from your mistakes, and find your own solutions. Keep building, keep practicing, and with time you'll surprise yourself with your creative inventions.</p>
-        <p>Sounds challenging? We agree! That’s why we created Curiosity Machine. We support students, parents, educators, and mentors to build, learn, and teach using the engineering design process.</p>
-        <p>Together, we inspire children to succeed by being curious, creative, and persistent.</p>
-
-        <div class="about-page-video grid-80 push-10">
-          <div class="iframe-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/XBAE46x2qio" frameborder="0" allowfullscreen></iframe>
-          </div>
-        </div>
-        <span class="clear"></span>
-
-        <hr class="hr-red"/>
-
-        <h2>How Curiosity Machine Works</h2>
-        <h3>Create a student account and...</h3>
-        <div class="grid-50">
-          <h4><span class="numbered-bullet">1</span> Find Inspiration</h4>
-          <p>What makes scientists and engineers curious? Watch videos of the experts sharing their research and inventions.</p>
-        </div>
-        <div class="grid-50">
-          <h4><span class="numbered-bullet">2</span> Build a Design Challenge</h4>
-          <p>Find a challenge and try to build it! Follow the engineering design process and document as you plan, build, and test.</p>
-        </div>
-        <div class="grid-50">
-          <h4><span class="numbered-bullet">3</span> Get Mentor Feedback</h4>
-          <p>Stuck? Need support? Looking for a new idea? Join a <a href="/about-membership">membership</a> and get feedback on your designs from a Curiosity Machine mentor.</p>
-        </div>
-        <div class="grid-50">
-          <h4><span class="numbered-bullet">4</span> Share What You Built</h4>
-          <p>Wrap up your design by reflecting and sharing a photo. Check out other users' projects for more inspiration!</p>
-        </div>
-        <span class="clear"></span>
-
-        <hr class="hr-red"/>
-
-        <h2>Curiosity Machine Supports You to Support Your Students</h2>
-        <p><a href="/parents">Parents:</a> connect to your child’s account and learn how to build together</p>
-        <p><a href="/educator">Educators:</a> find resources for engineering challenges and track student progress</p>
-        <p><a href="/mentor">Mentors:</a> guide students as they build engineering design challenges</p>
-
-        <hr class="hr-red"/>
-
-        <h2>Engineering Design Challenges</h2>
-        <p><strong>We</strong> work with scientists and engineers to create design challenges inspired by their inventions.</p>
-        <p><strong>You</strong> learn about the science behind the challenge and try to build your own!</p>
-        <p>Our engineering design challenges:</p>
-        <ul>
-          <li>Use simple household materials</li>
-          <li>Scale up or down for students K-12</li>
-          <li>Have many possible solutions &mdash; there’s never one right answer!</li>
-        </ul>
-        <div class="text-center">
-          <a href="{% url 'challenges:challenges' %}" class="btn btn-block">Browse Challenges</a>
-        </div>
-        <br/>
-        <img src="{% static 'images/about/about-design-challenges.jpg' %}">
+      <div class="grid-100">
+        <h3>Supported by:</h3>
+        <a href="http://www.boeing.com/" class="action-img"><img src="{% static 'images/logos/boeing-logo.png' %}"></a>
+        <a href="http://www.nsf.gov/" class="action-img"><img src="{% static 'images/logos/nsf-logo.png' %}" height="70"></a>
+        <a href="http://www.cummins.com/" class="action-img"><img src="{% static 'images/logos/cummins-logo.jpg' %}" height="70"></a>
+        <a href="https://www.moore.org/" class="action-img"><img src="{% static 'images/logos/moore-foundation-logo.png' %}" height="70"></a>
+        <a href="http://www.intel.com/" class="action-img"><img src="{% static 'images/logos/intel-logo.png' %}" height="70"></a>
+        <a href="http://www.onr.navy.mil/" class="action-img"><img src="{% static 'images/logos/onr-logo.jpg' %}" height="70"></a>
+        <a href="https://hivelearningnetworks.org/" class="action-img"><img src="{% static 'images/logos/hive-logo.png' %}" height="70"></a>
       </div>
     </div>
+  </div>
 
-    <div class="home-support-panel">
-      <div class="grid-container">
-        <div class="grid-100">
-          <h3>Supported by:</h3>
-          <a href="http://www.boeing.com/" class="action-img"><img src="{% static 'images/logos/boeing-logo.png' %}"></a>
-          <a href="http://www.nsf.gov/" class="action-img"><img src="{% static 'images/logos/nsf-logo.png' %}" height="70"></a>
-          <a href="http://www.cummins.com/" class="action-img"><img src="{% static 'images/logos/cummins-logo.jpg' %}" height="70"></a>
-          <a href="https://www.moore.org/" class="action-img"><img src="{% static 'images/logos/moore-foundation-logo.png' %}" height="70"></a>
-          <a href="http://www.intel.com/" class="action-img"><img src="{% static 'images/logos/intel-logo.png' %}" height="70"></a>
-          <a href="http://www.onr.navy.mil/" class="action-img"><img src="{% static 'images/logos/onr-logo.jpg' %}" height="70"></a>
-          <a href="https://hivelearningnetworks.org/" class="action-img"><img src="{% static 'images/logos/hive-logo.png' %}" height="70"></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="about-sign-up-panel">
-      <h2>Create a Student Account!</h1>
-      <a href="#" class="btn-red-secondary uppercase">sign up</a>
-    </div>
+  <div class="about-sign-up-panel">
+    <h2>Create a Student Account!</h1>
+    <a href="#" class="btn-red-secondary uppercase">sign up</a>
+  </div>
 {% endblock %}
