@@ -1918,22 +1918,22 @@ header {
     height: 100%;
     padding: 0px;
     margin: 0px; }
-  #main-navigation li > a {
+  #main-navigation li > a:not(.btn) {
     color: #949494;
     border-bottom: 0px;
     display: inline-block;
     position: relative;
     height: 100%;
     padding: 17px 15px 0px; }
-  #main-navigation a {
+  #main-navigation a:not(.btn) {
     height: 100%;
     width: 100%;
     overflow: hidden;
     z-index: 103;
     background-color: #FFFCF7; }
-    #main-navigation a:hover {
+    #main-navigation a:not(.btn):hover {
       color: #FFFCF7; }
-    #main-navigation a:before {
+    #main-navigation a:not(.btn):before {
       content: "";
       position: absolute;
       background: #2FB8C8;
@@ -1943,8 +1943,11 @@ header {
       top: 100%;
       z-index: -1;
       -webkit-transition: top 0.16s ease-in; }
-    #main-navigation a:hover:before {
+    #main-navigation a:not(.btn):hover:before {
       top: 0; }
+  #main-navigation .btn, #main-navigation .btn-secondary, #main-navigation .btn-red-secondary, #main-navigation .btn-orange-secondary, #main-navigation .btn-green-secondary, #main-navigation .btn-purple-secondary, #main-navigation .btn-red, #main-navigation .btn-orange, #main-navigation .btn-green, #main-navigation .btn-purple {
+    padding: 7px 17px;
+    margin-top: 9px; }
 
 .profile-name {
   margin-right: 70px; }
