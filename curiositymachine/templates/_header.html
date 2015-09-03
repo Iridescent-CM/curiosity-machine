@@ -14,7 +14,7 @@
             <li id="profile-navigation-link">
               <a href="{% url 'profiles:home' %}" id="main-nav-profile">
                 <span class="profile-name">{{ user.username }}</span>
-                <span class="avatar">{% include "_avatar.html" with profile=profile width=40 height=40 class=avatar crop='fit' %}</span>
+                <span class="avatar">{% include "_avatar.html" with profile=request.user.profile width=40 height=40 crop='fit' %}</span>
                 <i class="icon-down-arrow"></i>
               </a>
               <ul class="profile-navigation">
@@ -39,7 +39,7 @@
         <ul id="main-small-screen-navigation">
           {% if request.user.is_authenticated %}
             <li id="small-screen-profile-li">
-              <span class="small-screen-avatar">{% include "_avatar.html" with profile=profile width=50 height=50 class=avatar crop='fit' %}</span>
+              <span class="small-screen-avatar">{% include "_avatar.html" with profile=request.user.profile width=50 height=50 crop='fit' %}</span>
               <p>{{ user.username }}</p>
               <ul id="small-screen-profile-navigation">
                 <li><a href="{% url 'profiles:home' %}">My Dashboard</a></li>
