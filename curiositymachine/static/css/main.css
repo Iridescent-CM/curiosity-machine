@@ -2148,8 +2148,9 @@ footer {
   color: #FFFCF7; }
 
 .social-icons {
-  margin: 0px 10px 0px 10px;
-  color: #6161AF; }
+  margin: 0px 10px;
+  color: #6161AF;
+  font-size: 2.6875em; }
   .social-icons:hover {
     color: #8181bf; }
 
@@ -2179,7 +2180,8 @@ footer {
       box-shadow: inset 0 0 0 2px #2FB8C8;
       outline: none; }
   .newsletter-panel-content h4 {
-    color: #8FB559; }
+    color: #8FB559;
+    margin-top: 1.5em; }
 
 .newsletter-subscribe {
   margin-top: 1.5em; }
