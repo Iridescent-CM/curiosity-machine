@@ -1,0 +1,61 @@
+{% load resized %}
+{% load staticfiles %}
+<header>
+  <nav class="large-screen-navigation">
+    <div class="grid-container">
+      <div class="grid-100">      
+        <a href="/challenges" class="action-img"><img src="{% static 'images/logo-small.png' %}" alt="curiosity machine logo" class="logo"></a>
+        <a href="/challenges" class="action-img"><img src="{% static 'images/favicon.png' %}" alt="curiosity machine logo" class="small-screen-logo"></a>
+        <ul id="main-navigation">
+          <li><a href="/mentors" id="main-nav-mentors">Mentor Community</a></li>
+          <li><a href="/about" id="main-nav-about">About Us</a></li>
+          <li><a href="{% url 'challenges:challenges' %}" id="main-nav-challenges">Challenges</a></li>
+          {% if request.user.is_authenticated %}
+            <li id="profile-navigation-link">
+              <a href="{% url 'profiles:home' %}" id="main-nav-profile">
+                <span class="profile-name">{{ user.username }}</span>
+                <span class="avatar">{% include "_avatar.html" with profile=request.user.profile width=40 height=40 crop='fit' %}</span>
+                <i class="icon-down-arrow"></i>
+              </a>
+              <ul class="profile-navigation">
+                <a href="{% url 'profiles:home' %}"><li>My Dashboard</li></a>
+                <a href="{% url 'profiles:profile_edit' %}"><li>Edit Profile</li></a>
+                <a href="{% url 'logout' %}?next=/"><li>Log Out</li></a>
+              </ul>
+            </li>
+          {% else %}
+            <li><a href="#">Log In</a></li>
+            <li><a href="#" class="btn">Join</a></li>
+          {% endif %}
+        </ul>
+        <a id="mobile-menu-link">menu</a>
+      
+      </div>
+    </div>
+  </nav>
+  <nav class="small-screen-backdrop">
+    <div class="grid-container">
+      <div class="grid-100">
+        <ul id="main-small-screen-navigation">
+          {% if request.user.is_authenticated %}
+            <li id="small-screen-profile-li">
+              <span class="small-screen-avatar">{% include "_avatar.html" with profile=request.user.profile width=50 height=50 crop='fit' %}</span>
+              <p>{{ user.username }}</p>
+              <ul id="small-screen-profile-navigation">
+                <li><a href="{% url 'profiles:home' %}">My Dashboard</a></li>
+                <li><a href="{% url 'profiles:profile_edit' %}">Edit Profile</a></li>
+                <li><a href="{% url 'logout' %}?next=/">Log Out</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li><a href="#" id="small-nav-login">Log In</a></li>
+            <li><a href="#" id="small-nav-join">Join</a></li>
+          {% endif %}
+          <li><a href="{% url 'challenges:challenges' %}" id="small-nav-challenges">Challenges</a></li>
+          <li><a href="/mentors" id="small-nav-mentors">Mentor Community</a></li>
+          <li><a href="/about" id="small-nav-about">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

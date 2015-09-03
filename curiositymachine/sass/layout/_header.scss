@@ -37,7 +37,7 @@ header {
     margin: 0px;
   }
   // only direct children so the profile nav isn't affected
-  li > a {
+  li > a:not(.btn) {
     color: $medium-gray;
     border-bottom: 0px;
     display: inline-block;
@@ -45,7 +45,7 @@ header {
     height: 100%;
     padding: 17px 15px 0px;
   }
-  a {
+  a:not(.btn) {
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -70,13 +70,17 @@ header {
       top: 0;
     }
   }
+  .btn {
+    padding: 7px 17px;
+    margin-top: 9px;
+  }
 }
 
 .profile-name {
   margin-right: 70px;
 }
 
-.avatar {
+.avatar img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -96,10 +100,6 @@ header {
   top: -100px;
   @include transition(all 0.5s 0.1s);
   z-index: 99;
-  div {
-    position: relative;
-    border-radius: 4px;
-  }
   a {
     display: block;
     padding: 14px 0px !important;
@@ -151,7 +151,7 @@ header {
 
 // Responsive Menu Stuff
 
-.small-screen-navigation {
+.small-screen-backdrop {
   width: 100%;
   height: 100vh;
   position: absolute;
@@ -212,7 +212,7 @@ header {
     display: none;
   }
 
-  .small-screen-navigation {
+  .small-screen-backdrop {
     display: block;
   }
 
@@ -222,7 +222,7 @@ header {
     height: 60px;
   }
 
-  .user-avatar {
+  .small-screen-avatar img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -260,6 +260,14 @@ header {
     background-color: $primary-red;
     &:hover { background-color: shade($primary-red, 10); }
   }
+  #small-nav-join {
+    background-color: $primary-purple;
+    &:hover { background-color: shade($primary-purple, 10); }
+  }
+  #small-nav-login {
+    background-color: $primary-green;
+    &:hover { background-color: shade($primary-green, 10); }
+  }
 
   #small-screen-profile-li {
     width: 100%;
@@ -273,21 +281,25 @@ header {
     padding-left: 0px;
     list-style: none;
     width: 100%;
-    a {
-      display: block;
-      padding: 15px 0px;
-      width: 100%;
-      background-color: $primary-light;
-      color: $primary-purple;
-      border-bottom: 0px;
-      &:hover {
-        background-color: $primary-purple;
-        color: $primary-light;
-      }
-      &:nth-last-child(1) {
-        border-bottom-right-radius: $base-border-radius;
-        border-bottom-left-radius: $base-border-radius;
-      }
+    li {
+      a {
+        display: block;
+        padding: 15px 0px;
+        width: 100%;
+        margin: 0;
+        background-color: $primary-light;
+        color: $primary-purple;
+        border-bottom: 0px;
+        border-radius: 0px;
+        &:hover {
+          background-color: $primary-purple;
+          color: $primary-light;
+        }
+      }  
+    }
+    >:nth-last-child(1) a {
+      border-bottom-right-radius: $base-border-radius;
+      border-bottom-left-radius: $base-border-radius;
     }
   }
 }
