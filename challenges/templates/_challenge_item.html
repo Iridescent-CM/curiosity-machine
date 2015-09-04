@@ -5,7 +5,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        {% if challenge in request.user.challenges.all %}
+        {% if challenge in all %}
           {% if progress|unread_count:request.user %} <span title="{{progress|unread_count:request.user}} unread messages" class="unread">{{progress|unread_count:request.user}}</span>{% endif %}
           <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a>
         {% else %}
@@ -26,7 +26,7 @@
       </h3>
     </div>
     <div class="image-container">
-      {% if challenge in request.user.challenges.all %}
+      {% if challenge in all %}
         <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">
       {% else %}
         <a href="{% url 'challenges:preview_inspiration' challenge.id %}">

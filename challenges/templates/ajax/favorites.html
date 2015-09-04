@@ -1,9 +1,11 @@
 
 <ul class="challenges-list owl-carousel panel-carousel">
   {% if favorite_challenges%}
-    {% for favorite in favorite_challenges %}
-      {% include "ajax/_challenge_item.html"  with challenge=favorite.challenge %}
-    {% endfor %}
+    {% with all=request.user.challenges.all %}
+      {% for favorite in favorite_challenges %}
+        {% include "ajax/_challenge_item.html"  with challenge=favorite.challenge %}
+      {% endfor %}
+    {% endwith %}
   {% else %}
     <li>No Favorites yet!</li>
   {% endif %}
