@@ -25,10 +25,20 @@ def challenges(request):
     theme = request.GET.get('theme')
     theme_id = request.GET.get('theme_id')
     filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
+    favorites = set()
     if theme:
         challenges = challenges.filter(themes__name=theme)
     themes = Theme.objects.all()
-    return render(request, 'challenges.html', {'challenges': challenges, 'themes': themes, 'theme': theme, 'theme_id': theme_id, 'filters': filters})
+    if request.user.is_authenticated():
+        favorites = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
+    return render(request, 'challenges.html', {
+        'challenges': challenges,
+        'themes': themes,
+        'theme':theme,
+        'theme_id': theme_id,
+        'filters': filters,
+        'favorites': favorites
+    })
 
 @require_POST
 def start_building(request, challenge_id):
@@ -247,21 +257,38 @@ def favorite_challenges(request):
             favorite_challenges = Favorite.objects.filter(student=request.user, challenge__themes__id=theme_id)
         else:
             favorite_challenges = Favorite.objects.filter(student=request.user)
-    return render(request, 'ajax/favorites.html', {'favorite_challenges': favorite_challenges})
+    favorite_ids = {favorite.challenge.id for favorite in favorite_challenges}
+    return render(request, 'ajax/favorites.html', {
+        'favorite_challenges': favorite_challenges,
+        'favorites': favorite_ids
+    })
 
 
 def ajax_challenges(request):
     challenges = Challenge.objects.filter(draft=False).select_related('image')
     theme = request.GET.get('theme')
+    favorites = set()
     if theme:
         challenges = challenges.filter(themes__name=theme)
-    return render(request, 'ajax/challenges.html', {'challenges': challenges, 'theme': theme})
+    if request.user.is_authenticated():
+        favorites = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
+    return render(request, 'ajax/challenges.html', {
+        'challenges': challenges,
+        'theme': theme,
+        'favorites': favorites
+    })
 
 def filtered_challenges(request, filter_id):
     theme_id = request.GET.get('theme_id')
     qs = Filter.objects.get(pk=filter_id).challenges.select_related('image')
+    favorites = set()
     if theme_id:
         challenges = qs.filter(themes__id=theme_id)
     else:
         challenges = qs.all()
-    return render(request, 'ajax/challenges.html', {'challenges': challenges})
+    if request.user.is_authenticated():
+        favorites = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
+    return render(request, 'ajax/challenges.html', {
+        'challenges': challenges,
+        'favorites': favorites
+    })
