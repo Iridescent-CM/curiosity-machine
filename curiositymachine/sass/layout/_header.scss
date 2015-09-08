@@ -192,7 +192,7 @@ header {
   transition: background-color 200ms ease-in;
 }
 
-#mobile-menu-link, .small-screen-logo, .small-screen-navigation {
+#mobile-menu-link, .small-screen-logo, #main-small-screen-navigation, .small-screen-backdrop {
   display: none;
 }
 
@@ -212,7 +212,7 @@ header {
     display: none;
   }
 
-  .small-screen-backdrop {
+  .small-screen-backdrop, #main-small-screen-navigation {
     display: block;
   }
 

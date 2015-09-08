@@ -2055,7 +2055,7 @@ header {
   #about-link:hover {
     background-color: #fd8745; }
 
-#mobile-menu-link, .small-screen-logo, .small-screen-navigation {
+#mobile-menu-link, .small-screen-logo, #main-small-screen-navigation, .small-screen-backdrop {
   display: none; }
 
 @media screen and (max-width: 1024px) {
@@ -2070,7 +2070,7 @@ header {
     cursor: pointer; }
   #main-navigation, .logo {
     display: none; }
-  .small-screen-backdrop {
+  .small-screen-backdrop, #main-small-screen-navigation {
     display: block; }
   .small-screen-logo {
     display: inline;
