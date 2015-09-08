@@ -56,32 +56,33 @@
   {% endif %}
 </ul>
 <div class="tab-content">
-  <div class="tab-pane fade in active" id="challenges">
-    <ul class="challenges-list owl-carousel panel-carousel">
-      {% for challenge in challenges %}
-        {% include "_challenge_item.html" %}
-      {% endfor %}
-    </ul>
-  </div><!-- /#challenges -->
-  {% for filter in filters %}
-  <div class="tab-pane fade in" id="filter_{{filter.id}}">
-    <ul class="challenges-list owl-carousel panel-carousel">
-      {% for challenge in filter.challenges.all %}
-        {% include "_challenge_item.html" %}
-      {% endfor %}
-    </ul>
-  </div>
-  {% endfor %}
-  {% if request.user.is_authenticated and request.user.profile.is_student %}
-  <div class="tab-pane fade" id="favorites" >
-    <ul class="challenges-list owl-carousel panel-carousel" id="favorites-scroll">
-      {% for favorite in favorite_challenges %}
-        {% include "_challenge_item.html"  with challenge=favorite.challenge %}
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
-
+  {% with all=request.user.challenges.all %}
+    <div class="tab-pane fade in active" id="challenges">
+      <ul class="challenges-list owl-carousel panel-carousel">
+        {% for challenge in challenges %}
+          {% include "_challenge_item.html" %}
+        {% endfor %}
+      </ul>
+    </div><!-- /#challenges -->
+    {% for filter in filters %}
+    <div class="tab-pane fade in" id="filter_{{filter.id}}">
+      <ul class="challenges-list owl-carousel panel-carousel">
+        {% for challenge in filter.challenges.all %}
+          {% include "_challenge_item.html" %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+    {% if request.user.is_authenticated and request.user.profile.is_student %}
+    <div class="tab-pane fade" id="favorites" >
+      <ul class="challenges-list owl-carousel panel-carousel" id="favorites-scroll">
+        {% for favorite in favorite_challenges %}
+          {% include "_challenge_item.html"  with challenge=favorite.challenge %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  {% endwith %}
 </div><!-- /tabs content -->
 
 {% endblock %}

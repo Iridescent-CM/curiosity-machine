@@ -1,24 +1,23 @@
 {% load unread_count %}
 {% load resized %}
-{% load is_favorite %}
 
 <li>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        {% if challenge in request.user.challenges.all %}
+        {% if challenge in all %}
           {% if progress|unread_count:request.user %} <span title="{{progress|unread_count:request.user}} unread messages" class="unread">{{progress|unread_count:request.user}}</span>{% endif %}
           <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a>
         {% else %}
           <a href="{% url 'challenges:preview_inspiration' challenge.id %}">{{ challenge.name }}</a>
         {% endif %}
         {% if request.user.is_authenticated and request.user.profile.is_student %}
-        <span class="favorite-badge-backfold{% if challenge|is_favorite:request.user %} active{% endif %}"></span>
+        <span class="favorite-badge-backfold{% if challenge.id in favorites %} active{% endif %}"></span>
         <span class="favorite-badge">
-          <a href="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"  data-challenge-id="{{ challenge.id }}" class="favorite{% if challenge|is_favorite:request.user %} favorited{% endif %}">
-            <span class="favorite-badge-content{% if challenge|is_favorite:request.user %} active{% endif %}">
+          <a href="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"  data-challenge-id="{{ challenge.id }}" class="favorite{% if challenge.id in favorites %} favorited{% endif %}">
+            <span class="favorite-badge-content{% if challenge.id in favorites %} active{% endif %}">
             </span>
-            <span class="favorite-badge-icon-plus{% if challenge|is_favorite:request.user %} hide{% endif %}">
+            <span class="favorite-badge-icon-plus{% if challenge.id in favorites %} hide{% endif %}">
               +
             </span>
           </a>
@@ -27,7 +26,7 @@
       </h3>
     </div>
     <div class="image-container">
-      {% if challenge in request.user.challenges.all %}
+      {% if challenge in all %}
         <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">
       {% else %}
         <a href="{% url 'challenges:preview_inspiration' challenge.id %}">

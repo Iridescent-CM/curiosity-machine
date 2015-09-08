@@ -7,6 +7,7 @@
 
 
 {% block content %}
+  {% with all=request.user.challenges.all %}
 
   <h1>Welcome {{ request.user.username}}</h1>
 
@@ -106,4 +107,6 @@
       </div>
     </div>
   {% endif %}
+
+  {% endwith %}
 {% endblock %}
