@@ -1,0 +1,157 @@
+{% extends "base_new.html" %}
+{% load staticfiles %}
+{% load future %} {# suppresses deprecation warnings for firstof tag #}
+
+{% block content %}
+
+  <div class="home-video-overlay">
+    <div class="grid-container">
+      <div class="iframe-container">
+        <iframe width="960" height="540" src="https://www.youtube.com/embed/94JY-Zs1r2U" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="video-lightbox-background">
+      <a href="#" class="video-close" aria-label="close">&times;</a>
+    </div>
+  </div>
+
+  <div class="home-top-panel">
+    <div class="home-top-panel-gradient">
+      <div class="home-top-panel-mobile-overlay">
+        <div class="home-top-panel-content-gradient">
+          <div class="grid-container">
+            <div class="home-top-panel-title">
+              <h1>How do children succeed?</h1>
+            </div>
+            <div class="home-top-panel-content">
+              <div class="grid-100">
+                <h3>With curiosity, creativity, and persistence. <br/> Start building with Curiosity Machine.</h3>
+                <a href="#" class="btn uppercase">Sign up</a>
+                <a href="#" class="btn-secondary uppercase watch-video">See How it Works</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-what-panel">
+    <div class="grid-container">
+      <div class="what-panel-description grid-80 push-10">
+        <h3>Build engineering design challenges using household objects, with the help of scientists and engineers.</h3>
+      </div>
+      <span class="clear"></span>
+
+      <div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
+        <h4>80+ Design Challenges</h4>
+        <p>developed by scientists and engineers.</p>
+      </div>
+      <div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
+        <h4>Videos</h4>
+        <p>featuring cutting-edge and exciting inventions.</p>
+      </div>
+      <div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
+        <h4>Guide</h4>
+        <p>that supports children to plan, build, test, redesign, and reflect.</p>
+      </div>
+      <div class="what-panel-feature grid-25 tablet-grid-50 mobile-grid-100">
+        <h4>Mentor Feedback</h4>
+        <p>on children's inventions from scientists and engineers.</p>
+      </div>
+      <span class="clear"></span>
+      
+      <div class="text-center">
+        <a href="{% url 'challenges:challenges' %}" class="btn">Browse Design Challenges</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="photo-grid grid-container">
+    <div class="grid-50 tablet-grid-50 mobile-grid-100">
+      <img src="{% static 'images/home/build-1.jpg' %}" alt="Girl builds engineering design challenge">
+    </div>
+    <div class="two-photos grid-50 tablet-grid-50 mobile-grid-100">
+      <img src="{% static 'images/home/build-2.jpg' %}" alt="An engineering design challenge example">
+      <img src="{% static 'images/home/build-3.jpg' %}" alt="An engineering design challenge being tested">
+    </div>
+  </div>
+
+  <div class="home-who-panel">
+    <div class="grid-container">
+      <div class="grid-80 push-10">
+        <h3>We're here for students and their supporters.</h3>
+      </div>
+      <div class="grid-33 tablet-grid-33 mobile-grid-100">
+        <img src="{% static 'images/home/who-parents.png' %}">
+        <h4>Parents</h4>
+        <p>Learn how to build with your child and nurture creativity.</p>
+        <a href="{% url 'parents' %}">Learn More</a>
+      </div>
+      <div class="grid-33 tablet-grid-33 mobile-grid-100">
+        <img src="{% static 'images/home/who-educators.png' %}">
+        <h4>Educators</h4>
+        <p>Hit NGSS standards and bring project-based learning to your classroom.</p>
+        <a href="{% url 'educator' %}">Learn More</a>
+      </div>
+      <div class="grid-33 tablet-grid-33 mobile-grid-100">
+        <img src="{% static 'images/home/who-stem-professionals.png' %}">
+        <h4>STEM Professionals</h4>
+        <p>Share your expertise by helping children through the design process.</p>
+        <a href="{% url 'mentor' %}">Learn More</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="photo-grid grid-container">
+    <div class="two-photos grid-50 tablet-grid-50 mobile-grid-100">
+      <img src="{% static 'images/home/build-4.jpg' %}" alt="Group builds together">
+      <img src="{% static 'images/home/build-5.jpg' %}" alt="Father and daughter build together">
+    </div>
+    <div class="grid-50 tablet-grid-50 mobile-grid-100">
+      <img src="{% static 'images/home/build-6.jpg' %}" alt="Girl builds paper airplane">
+    </div>
+  </div>
+
+  <div class="home-member-panel">
+    <div class="grid-container">
+      <div class="grid-80 push-10">
+        <h3>Use Curiosity Machine to build a STEM learning community.</h3>
+      </div>
+      <span class="clear"></span>
+      <div class="grid-40 push-10">
+        <h4>Schools, organizations and playgroups</h4>
+        <p>Bring Curiosity Machine to your school or program.</p>
+        <a href="/about-membership">About Memberships</a>
+      </div>
+      <div class="grid-40 push-10">
+        <h4>Science and Engineering companies</h4>
+        <p>Share your innovations with the public.</p>
+        <a href="/about-partnership">About Partnerships</a>
+      </div>
+      <span class="clear"></span>
+    </div>
+  </div>
+
+
+  <div class="sign-up-panel">
+    <h2>Create an account and take on your first design challenge!</h1>
+    <a href="#" class="btn-secondary uppercase">sign up</a>
+  </div>
+
+
+  <div class="home-support-panel">
+    <div class="grid-container">
+      <div class="grid-100">
+        <h3>Supported by:</h3>
+        <a href="http://www.boeing.com/" class="action-img"><img src="{% static 'images/logos/boeing-logo.png' %}" alt="Boeing logo"></a>
+        <a href="http://www.nsf.gov/" class="action-img"><img src="{% static 'images/logos/nsf-logo.png' %}" alt="National Science Foundation logo" height="70"></a>
+        <a href="http://www.cummins.com/" class="action-img"><img src="{% static 'images/logos/cummins-logo.jpg' %}" alt="Cummins logo" height="70"></a>
+        <a href="https://www.moore.org/" class="action-img"><img src="{% static 'images/logos/moore-foundation-logo.png' %}" alt="Moore Foundation logo" height="70"></a>
+        <a href="http://www.intel.com/" class="action-img"><img src="{% static 'images/logos/intel-logo.png' %}" alt="Intel logo" height="70"></a>
+        <a href="http://www.onr.navy.mil/" class="action-img"><img src="{% static 'images/logos/onr-logo.jpg' %}" alt="Office of Naval Research logo" height="70"></a>
+        <a href="https://hivelearningnetworks.org/" class="action-img"><img src="{% static 'images/logos/hive-logo.png' %}" alt="Hive Network logo" height="70"></a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -4,7 +4,7 @@ from django.contrib.auth.views import login, logout
 from django.views.generic.base import RedirectView
 from curiositymachine.decorators import whitelist
 from pages.models import StaticPage
-from .views import root_redirect, health_check
+from .views import root, health_check
 import password_reset.views
 import profiles.urls
 import profiles.views
@@ -13,7 +13,7 @@ import pages.views
 public = whitelist('public')
 
 urlpatterns = patterns('',
-    url(r'^$', public(root_redirect), name='root'),
+    url(r'^$', public(root), name='root'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/analytics/$', 'curiositymachine.analytics.analytics', name="analytics"),
     url(r'^admin/export_users/$', 'curiositymachine.export_users.export_users', name="export_users"),

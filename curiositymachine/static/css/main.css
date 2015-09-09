@@ -2022,17 +2022,23 @@ header {
   margin-top: 5px;
   height: 50px; }
 
-.small-screen-backdrop {
+.small-screen-backdrop-container {
   width: 100%;
   height: 100vh;
+  min-height: 500px;
+  position: absolute; }
+
+.small-screen-backdrop {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  top: -100vh;
+  top: -100%;
   z-index: 85;
   transition: all 0.75s ease-in-out;
   background-color: rgba(51, 51, 51, 0.9); }
 
 .nav-reveal {
-  top: 60px; }
+  top: 0; }
 
 #account-link {
   background-color: #6161AF;
@@ -2055,7 +2061,7 @@ header {
   #about-link:hover {
     background-color: #fd8745; }
 
-#mobile-menu-link, .small-screen-logo, .small-screen-navigation {
+#mobile-menu-link, .small-screen-logo, #main-small-screen-navigation, .small-screen-backdrop {
   display: none; }
 
 @media screen and (max-width: 1024px) {
@@ -2070,7 +2076,7 @@ header {
     cursor: pointer; }
   #main-navigation, .logo {
     display: none; }
-  .small-screen-backdrop {
+  .small-screen-backdrop, #main-small-screen-navigation {
     display: block; }
   .small-screen-logo {
     display: inline;
@@ -2148,8 +2154,9 @@ footer {
   color: #FFFCF7; }
 
 .social-icons {
-  margin: 0px 10px 0px 10px;
-  color: #6161AF; }
+  margin: 0px 10px;
+  color: #6161AF;
+  font-size: 2.6875em; }
   .social-icons:hover {
     color: #8181bf; }
 
@@ -2179,7 +2186,8 @@ footer {
       box-shadow: inset 0 0 0 2px #2FB8C8;
       outline: none; }
   .newsletter-panel-content h4 {
-    color: #8FB559; }
+    color: #8FB559;
+    margin-top: 1.5em; }
 
 .newsletter-subscribe {
   margin-top: 1.5em; }

@@ -5,7 +5,7 @@ from .models import Unit
 
 @pytest.fixture
 def unit():
-    return Unit.objects.create(name='unit1')
+    return Unit.objects.create(name='unit1', draft=False)
 
 @pytest.fixture
 def educator():
