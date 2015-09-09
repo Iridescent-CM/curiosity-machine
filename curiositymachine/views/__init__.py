@@ -4,13 +4,15 @@ from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.conf import settings
 
-def root_redirect(request):
+def root(request):
     # redirect to home if logged in unless you are a student with no challenges
-    if (request.user.is_authenticated()
-            and (not request.user.profile.is_student or request.user.progresses.exists())):
-        return HttpResponseRedirect(reverse('profiles:home'))
+    if request.user.is_authenticated():
+        if (not request.user.profile.is_student or request.user.progresses.exists()):
+            return HttpResponseRedirect(reverse('profiles:home'))
+        else:
+            return HttpResponseRedirect(reverse('challenges:challenges'))
     else:
-        return HttpResponseRedirect(reverse('challenges:challenges'))
+        return render(request, "staticflatpages/newhome.html")
 
 def health_check(request):
     return HttpResponse('OK')
