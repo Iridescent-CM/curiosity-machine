@@ -154,44 +154,4 @@
       </div>
     </div>
   </div>
-
-  <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('.small-screen-navigation').on('click', function(event) {
-        var clickTarget = event.target;
-
-        if ($('.small-screen-navigation')[0]===clickTarget) {
-          toggleNav();
-        }
-      });
-        $('#mobile-menu-link').on('click', function(event) {
-          toggleNav();
-        });
-
-        $('.home-video-overlay').on('click', function(event) {
-          var clickTarget = event.target;
-          if ($('.home-video-overlay')[0]===clickTarget) {
-            toggleVideo();
-          }
-        });
-        $('.watch-video').on('click', function(event) {
-          toggleVideo();
-        });
-        $('.home-video-overlay').on('click', function(event) {
-          toggleVideo();
-        });
-
-        var toggleVideo=function() {
-          $('.home-video-overlay').toggleClass('hide-video');
-        }
-
-        var toggleNav=function() {
-          $('.small-screen-navigation').toggleClass('nav-reveal');
-          $('#about-link').toggleClass('nav-item-1');
-          $('#challenges-link').toggleClass('nav-item-2');
-          $('#account-link').toggleClass('nav-item-3');
-        }
-    });
-  </script>
 {% endblock %}
