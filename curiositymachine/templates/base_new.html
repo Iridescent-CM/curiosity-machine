@@ -37,22 +37,16 @@
   <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('.small-screen-backdrop').on('click', function(event) {
-        var clickTarget = event.target;
-
-        if ($('.small-screen-backdrop')[0]===clickTarget) {
-          toggleNav();
-        }
+      $('.small-screen-backdrop').on('click', function(evt) {
+        if (this === evt.target) $(this).toggleClass('nav-reveal');
       });
-        $('#mobile-menu-link').on('click', function(event) {
-          toggleNav();
-        });
 
-        function toggleNav() {
-          $('.small-screen-backdrop').toggleClass('nav-reveal');
-        }
+      $('#mobile-menu-link').on('click', function(event) {
+        $('.small-screen-backdrop').toggleClass('nav-reveal');
+      });
     });
   </script>
+  {% block js %}{% endblock %}
 
 </body>
 </html>
