@@ -12,7 +12,7 @@ def root(request):
         else:
             return HttpResponseRedirect(reverse('challenges:challenges'))
     else:
-        return render(request, "staticflatpages/newhome.html")
+        return render(request, "curiositymachine/index.html")
 
 def health_check(request):
     return HttpResponse('OK')
