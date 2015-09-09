@@ -33,29 +33,31 @@
       </div>
     </div>
   </nav>
-  <nav class="small-screen-backdrop">
-    <div class="grid-container">
-      <div class="grid-100">
-        <ul id="main-small-screen-navigation">
-          {% if request.user.is_authenticated %}
-            <li id="small-screen-profile-li">
-              <span class="small-screen-avatar">{% include "_avatar.html" with profile=request.user.profile width=40 height=40 crop='thumb' gravity='faces' %}</span>
-              <p>{{ user.username }}</p>
-              <ul id="small-screen-profile-navigation">
-                <li><a href="{% url 'profiles:home' %}">My Dashboard</a></li>
-                <li><a href="{% url 'profiles:profile_edit' %}">Edit Profile</a></li>
-                <li><a href="{% url 'logout' %}?next=/">Log Out</a></li>
-              </ul>
-            </li>
-          {% else %}
-            <li><a href="#" id="small-nav-login">Log In</a></li>
-            <li><a href="#" id="small-nav-join">Join</a></li>
-          {% endif %}
-          <li><a href="{% url 'challenges:challenges' %}" id="small-nav-challenges">Challenges</a></li>
-          <li><a href="/mentors" id="small-nav-mentors">Mentor Community</a></li>
-          <li><a href="/about" id="small-nav-about">About Us</a></li>
-        </ul>
+  <div class="small-screen-backdrop-container">
+    <nav class="small-screen-backdrop">
+      <div class="grid-container">
+        <div class="grid-100">
+          <ul id="main-small-screen-navigation">
+            {% if request.user.is_authenticated %}
+              <li id="small-screen-profile-li">
+                <span class="small-screen-avatar">{% include "_avatar.html" with profile=request.user.profile width=40 height=40 crop='thumb' gravity='faces' %}</span>
+                <p>{{ user.username }}</p>
+                <ul id="small-screen-profile-navigation">
+                  <li><a href="{% url 'profiles:home' %}">My Dashboard</a></li>
+                  <li><a href="{% url 'profiles:profile_edit' %}">Edit Profile</a></li>
+                  <li><a href="{% url 'logout' %}?next=/">Log Out</a></li>
+                </ul>
+              </li>
+            {% else %}
+              <li><a href="#" id="small-nav-login">Log In</a></li>
+              <li><a href="#" id="small-nav-join">Join</a></li>
+            {% endif %}
+            <li><a href="{% url 'challenges:challenges' %}" id="small-nav-challenges">Challenges</a></li>
+            <li><a href="/mentors" id="small-nav-mentors">Mentor Community</a></li>
+            <li><a href="/about" id="small-nav-about">About Us</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </header>
