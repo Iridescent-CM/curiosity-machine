@@ -1,0 +1,14 @@
+@import 'vendors/bootstrap/scss/bootstrap';
+
+@import 'utils/variables';
+@import 'utils/functions';
+
+@import 'base/fonts';
+@import 'base/typography';
+
+@import 'layout/header';
+@import 'layout/footer';
+
+@import 'pages/home';
+
+@import 'components/buttons';

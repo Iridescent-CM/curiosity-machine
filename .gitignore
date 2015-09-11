@@ -5,7 +5,7 @@ staticfiles
 *.pyc
 .DS_Store
 curiositymachine/local.py
-curiositymachine/static/node_modules
+**/node_modules
 .coverage
 htmlcov
 *.db

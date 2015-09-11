@@ -1,0 +1,169 @@
+header {
+  background-color: $primary-light;
+  a {
+    border-bottom: 0;
+  }
+}
+
+.logo {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 50px;
+}
+
+.navbar {
+  padding: 0;
+
+  .navbar-brand {
+    padding: 0;
+  }
+
+  .nav-item {
+    .btn {
+      padding: 7px 17px;
+      margin-top: 9px;
+    }
+  }
+}
+
+.navbar-toggler {
+  text-transform: uppercase;
+  font-weight: $heavy-font-weight;
+  font-size: 16px;
+  display: inline-block;
+  float: right;
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+}
+  
+.navbar-toggleable-md {
+  @include media-breakpoint-up(lg) {
+    display: block !important;
+  }
+}
+
+/* Small screen nav styling */
+@include media-breakpoint-down(md) {
+  .navbar-toggler {
+    line-height: 60px;
+    padding: 0;
+  }
+
+  .navbar-brand {
+    .logo {
+      height: 60px;
+      margin: 0;
+    }
+  }
+
+  .navbar {
+    .nav-item {
+      float: none;
+      text-align: center;
+      & + .nav-item {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .navbar-light {
+    .navbar-nav {
+      .nav-link {
+        padding: 15px 0px;
+        color: $primary-light;
+        border-radius: $base-border-radius;
+        margin: 10px 0px;
+
+        &:hover {
+          color: $primary-light;
+        }
+      }
+
+      .nav-challenges { 
+        background-color: $primary-blue;
+        &:hover { background-color: shade($primary-blue, 10); }
+      }
+      .nav-mentors { 
+        background-color: $primary-orange;
+        &:hover { background-color: shade($primary-orange, 10); }
+      }
+      .nav-about { 
+        background-color: $primary-red;
+        &:hover { background-color: shade($primary-red, 10); }
+      }
+      .nav-join {
+        background-color: $primary-purple;
+        &:hover { background-color: shade($primary-purple, 10); }
+      }
+      .nav-login {
+        background-color: $primary-green;
+        &:hover { background-color: shade($primary-green, 10); }
+      }
+    }
+  }
+}
+
+/* Large screen nav styling */
+@include media-breakpoint-up(lg) {
+  .navbar {
+    .navbar-nav {
+      float: right;
+    }
+
+    .nav-item {
+      height: 62px;
+
+      & + .nav-item {
+        margin-left: 4px;
+      }
+    }
+
+    .nav-link {
+      z-index: 1;
+      position: relative;
+      padding: 17px 15px 0;
+      height: 62px;
+
+      &:before {
+        content: "";
+        position: absolute;
+        background: $primary-blue;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 100%;
+        z-index: -1;
+        -webkit-transition: top 0.16s ease-in;
+      }
+      &:hover:before {
+        top: 0;
+      }
+    }
+
+    .nav-profile:before { background: $primary-purple !important; }
+    .nav-challenges:before { background: $primary-blue !important; }
+    .nav-about:before { background: $primary-red !important; }
+    .nav-mentors:before { background: $primary-orange !important;}
+
+  }
+
+  .navbar-light {
+    .navbar-nav {
+      .nav-link {
+        color: $medium-gray;
+        &:hover {
+          color: $primary-light;
+        }
+      }
+    }
+  }
+}
+
+.m-a-xl { margin:        ($spacer * 6) !important; }
+.m-t-xl { margin-top:    ($spacer-y * 6) !important; }
+.m-r-xl { margin-right:  ($spacer-y * 6) !important; }
+.m-b-xl { margin-bottom: ($spacer-y * 6) !important; }
+.m-l-xl { margin-left:   ($spacer-y * 6) !important; }
+.m-x-xl { margin-right:  ($spacer-x * 6) !important; margin-left:   ($spacer-x * 6) !important; }
+.m-y-xl { margin-top:    ($spacer-y * 6) !important; margin-bottom: ($spacer-y * 6) !important; }
