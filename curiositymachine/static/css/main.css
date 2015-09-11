@@ -5326,6 +5326,29 @@ a.bg-danger:hover {
   .hidden-print .hidden-print {
     display: none !important; } }
 
+.m-a-xl {
+  margin: 6rem !important; }
+
+.m-t-xl {
+  margin-top: 6rem !important; }
+
+.m-r-xl {
+  margin-right: 6rem !important; }
+
+.m-b-xl {
+  margin-bottom: 6rem !important; }
+
+.m-l-xl {
+  margin-left: 6rem !important; }
+
+.m-x-xl {
+  margin-right: 6rem !important;
+  margin-left: 6rem !important; }
+
+.m-y-xl {
+  margin-top: 6rem !important;
+  margin-bottom: 6rem !important; }
+
 @font-face {
   font-family: 'curiosity-machine';
   src: url("../fonts/curiosity-machine.eot?6t4fb5");
@@ -5655,29 +5678,6 @@ header {
     .navbar-light .navbar-nav .nav-link:hover {
       color: #FFFCF7; } }
 
-.m-a-xl {
-  margin: 6rem !important; }
-
-.m-t-xl {
-  margin-top: 6rem !important; }
-
-.m-r-xl {
-  margin-right: 6rem !important; }
-
-.m-b-xl {
-  margin-bottom: 6rem !important; }
-
-.m-l-xl {
-  margin-left: 6rem !important; }
-
-.m-x-xl {
-  margin-right: 6rem !important;
-  margin-left: 6rem !important; }
-
-.m-y-xl {
-  margin-top: 6rem !important;
-  margin-bottom: 6rem !important; }
-
 footer {
   background-color: #333333;
   padding: 0px 0px 3em 0px;
@@ -5737,29 +5737,6 @@ footer {
 @media (max-width: 47.9em) {
   .home-subtitle {
     padding-top: 1.5em; } }
-
-.m-a-xl {
-  margin: 6rem !important; }
-
-.m-t-xl {
-  margin-top: 6rem !important; }
-
-.m-r-xl {
-  margin-right: 6rem !important; }
-
-.m-b-xl {
-  margin-bottom: 6rem !important; }
-
-.m-l-xl {
-  margin-left: 6rem !important; }
-
-.m-x-xl {
-  margin-right: 6rem !important;
-  margin-left: 6rem !important; }
-
-.m-y-xl {
-  margin-top: 6rem !important;
-  margin-bottom: 6rem !important; }
 
 .home-what-panel h3 {
   color: #FD6917; }
