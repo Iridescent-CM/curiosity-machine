@@ -11,6 +11,29 @@ header {
   height: 50px;
 }
 
+.avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.hidden-md-down {
+  .avatar img {
+    position: absolute !important;
+    top: 0;
+    right: 35px;
+    @include vertical-align;
+  }
+
+  .profile-name {
+    margin-right: 70px;
+  }
+}
+.hidden-lg-up {
+  .avatar img {
+    display: inline;
+  }
+}
+
 .navbar {
   padding: 0;
 
@@ -80,6 +103,26 @@ header {
         }
       }
 
+      .list-group.nav-profile {
+        .list-group-item {
+          a {
+            color: $primary-purple;
+          }
+          &:hover {
+            background-color: $primary-purple;
+            border-color: $primary-purple;
+            a {
+              text-decoration: none;
+              color: $primary-light;
+            }
+          }
+          &.active {
+            background-color: shade($primary-purple, 20);
+            border-color: shade($primary-purple, 20);
+            color: $primary-light;
+          }
+        }
+      }
       .nav-challenges { 
         background-color: $primary-blue;
         &:hover { background-color: shade($primary-blue, 10); }
@@ -141,10 +184,40 @@ header {
       }
     }
 
-    .nav-profile:before { background: $primary-purple !important; }
+    .nav-profile .nav-link:before { background: $primary-purple !important; }
     .nav-challenges:before { background: $primary-blue !important; }
     .nav-about:before { background: $primary-red !important; }
     .nav-mentors:before { background: $primary-orange !important;}
+
+    .dropdown.nav-profile {
+      &.open {
+        .dropdown-toggle {
+          background-color: $primary-purple;
+          color: $primary-light;
+        }
+      }
+      .dropdown-menu {
+        padding: 0;
+        border: 0;
+        margin-top: 10px;
+        .dropdown-item {
+          padding-top: 14px;
+          padding-bottom: 14px;
+          &:hover {
+            background-color: $primary-purple;
+            color: $primary-light;
+          }
+          &:first-child {
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+          }
+          &:last-child {
+            border-bottom-left-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+          }
+        }
+      }
+    }
 
   }
 
