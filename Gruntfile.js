@@ -32,7 +32,6 @@ module.exports = function(grunt) {
       dist: {
         files: {
           './curiositymachine/static/css/main.css': './curiositymachine/sass/main.scss',
-          './curiositymachine/static/css/boot.css': './curiositymachine/sass/boot.scss',
         }
       }
     }
