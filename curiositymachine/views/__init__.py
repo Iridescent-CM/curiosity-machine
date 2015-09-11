@@ -6,6 +6,7 @@ from django.conf import settings
 
 def root(request):
     # redirect to home if logged in unless you are a student with no challenges
+    return render(request, "curiositymachine/index.html")
     if request.user.is_authenticated():
         if (not request.user.profile.is_student or request.user.progresses.exists()):
             return HttpResponseRedirect(reverse('profiles:home'))

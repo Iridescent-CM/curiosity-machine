@@ -19,6 +19,8 @@
 
         <ul class="nav navbar-nav">
 
+          {% if request.user.is_authenticated %}
+
           <li class="nav-item hidden-lg-up">
             <ul class="list-group nav-profile">
               <li class="list-group-item active">
@@ -36,6 +38,8 @@
               </li>
             </ul>
           </li>
+
+          {% endif %}
 
           <li class="nav-item">
             <a class="nav-link nav-mentors" href="/mentors" />Mentor Community<span class="sr-only">(current)</span></a>
