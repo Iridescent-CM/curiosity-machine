@@ -1,0 +1,21 @@
+{% extends "curiositymachine/base.html" %}
+{% load staticfiles %}
+{% load future %} {# suppresses deprecation warnings for firstof tag #}
+
+{% block body-classes %}about-pages{% endblock %}
+{% block content %}
+<div class="container-fluid text-center nav-panel p-t-md p-b-md">
+  <h1>{% block title %}{% endblock %}</h1>
+  <nav>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link active" href="{% url 'about' %}" id="about-page-nav">About</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'parents' %}" id="parent-about-page-nav">Parents</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'educator' %}" id="educator-about-page-nav">Educators</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'mentor' %}" id="mentor-about-page-nav">Mentors</a></li>
+      <li class="nav-item"><a class="nav-link" href="/about-membership" id="membership-about-page-nav">Memberships</a></li>
+      <li class="nav-item"><a class="nav-link" href="/about-partnership" id="partnership-about-page-nav">Partnerships</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'faq' %}" id="faq-about-page-nav">FAQ</a></li>
+    </ul>
+  </nav>
+</div>
+{% endblock %}

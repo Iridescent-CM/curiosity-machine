@@ -5349,6 +5349,29 @@ a.bg-danger:hover {
   margin-top: 6rem !important;
   margin-bottom: 6rem !important; }
 
+.p-a-xl {
+  padding: 6rem !important; }
+
+.p-t-xl {
+  padding-top: 6rem !important; }
+
+.p-r-xl {
+  padding-right: 6rem !important; }
+
+.p-b-xl {
+  padding-bottom: 6rem !important; }
+
+.p-l-xl {
+  padding-left: 6rem !important; }
+
+.p-x-xl {
+  padding-right: 6rem !important;
+  padding-left: 6rem !important; }
+
+.p-y-xl {
+  padding-top: 6rem !important;
+  padding-bottom: 6rem !important; }
+
 @font-face {
   font-family: 'curiosity-machine';
   src: url("../fonts/curiosity-machine.eot?6t4fb5");
@@ -5705,6 +5728,46 @@ footer {
 .newsletter-subscribe {
   margin-top: 1.5em; }
 
+.about-pages .nav-panel {
+  color: white;
+  background: url("../images/design-challenge-repeating-pattern-white.png");
+  background-color: #FD6917;
+  background-attachment: fixed;
+  background-repeat: repeat; }
+  .about-pages .nav-panel .nav .nav-item {
+    display: inline-block;
+    margin: 0 20px; }
+  .about-pages .nav-panel .nav .nav-link {
+    transition-property: all; }
+    .about-pages .nav-panel .nav .nav-link:link,
+    .about-pages .nav-panel .nav .nav-link:visited {
+      color: #FFFCF7;
+      border-bottom: 2px solid #FFFCF7; }
+    .about-pages .nav-panel .nav .nav-link:hover,
+    .about-pages .nav-panel .nav .nav-link:active,
+    .about-pages .nav-panel .nav .nav-link.active {
+      color: #983f0e;
+      border-color: #983f0e; }
+
+.about-pages h2 {
+  color: #FD6917; }
+
+.about-pages .numbered-bullet {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #FD6917;
+  color: white;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  top: -3px; }
+
+.about-pages .sign-up-panel {
+  background-color: #FD6917; }
+  .about-pages .sign-up-panel h2 {
+    color: white; }
+
 .jumbotron {
   padding-top: 6em; }
 
@@ -5937,5 +6000,25 @@ footer {
 .btn-block {
   display: inline-block;
   margin-bottom: 1.5em; }
+
+.basic-hr, .hr-purple, .hr-red, .hr-orange {
+  height: 3px;
+  border-radius: 3px;
+  margin-top: 3em; }
+
+.hr-purple {
+  background-color: #6161AF; }
+
+.hr-red {
+  background-color: #FD6917; }
+
+.hr-orange {
+  background-color: #F2B353; }
+
+.well {
+  background-color: #F5F5F5;
+  border: 2px solid #E3E3E3;
+  padding: 20px;
+  border-radius: 4px; }
 
 /*# sourceMappingURL=main.css.map */
