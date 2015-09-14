@@ -5752,6 +5752,9 @@ footer {
 .about-pages h2 {
   color: #FD6917; }
 
+.about-pages h2, .about-pages h3 {
+  text-align: center; }
+
 .about-pages .numbered-bullet {
   width: 25px;
   height: 25px;
@@ -5764,7 +5767,8 @@ footer {
   top: -3px; }
 
 .about-pages .sign-up-panel {
-  background-color: #FD6917; }
+  background-color: #FD6917;
+  text-align: center; }
   .about-pages .sign-up-panel h2 {
     color: white; }
 

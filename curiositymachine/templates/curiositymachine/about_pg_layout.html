@@ -8,8 +8,12 @@
   <h1>{% block title %}{% endblock %}</h1>
   <nav>
     <ul class="nav">
-      <li class="nav-item"><a class="nav-link active" href="{% url 'about' %}" id="about-page-nav">About</a></li>
-      <li class="nav-item"><a class="nav-link" href="{% url 'parents' %}" id="parent-about-page-nav">Parents</a></li>
+      <li class="nav-item">
+        <a class="nav-link {% if active_nav == 'about' %}active{% endif %}" href="{% url 'about' %}" id="about-page-nav">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if active_nav == 'parents' %}active{% endif %}" href="{% url 'parents' %}" id="parent-about-page-nav">Parents</a>
+      </li>
       <li class="nav-item"><a class="nav-link" href="{% url 'educator' %}" id="educator-about-page-nav">Educators</a></li>
       <li class="nav-item"><a class="nav-link" href="{% url 'mentor' %}" id="mentor-about-page-nav">Mentors</a></li>
       <li class="nav-item"><a class="nav-link" href="/about-membership" id="membership-about-page-nav">Memberships</a></li>

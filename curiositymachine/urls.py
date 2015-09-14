@@ -23,11 +23,11 @@ urlpatterns = patterns('',
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
     url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
-    url(r'^about/', public(TemplateView.as_view(template_name="curiositymachine/about.html")), name='about'),
+    url(r'^about/', public(TemplateView.as_view(template_name="curiositymachine/about.html")), {'active_nav': 'about'}, name='about'),
     url(r'^privacy/', public(pages.views.static_page), {'page_id': StaticPage.privacy.value,}, name='privacy'),
     url(r'^educator/', public(pages.views.static_page), {'page_id': StaticPage.educator.value,}, name='educator'),
     url(r'^mentor/', public(pages.views.static_page), {'page_id': StaticPage.mentor.value,}, name='mentor'),
-    url(r'^parents/', public(pages.views.static_page), {'page_id': StaticPage.parents.value,}, name='parents'),
+    url(r'^parents/', public(TemplateView.as_view(template_name="curiositymachine/parents.html")), {'active_nav': 'parents'}, name='parents'),
     url(r'^faq/', public(pages.views.static_page), {'page_id': StaticPage.faq.value,}, name='faq'),
     # password reset URLs -- the "recover" one is modified and so resides in the profiles app
     url(r'^password/recover/(?P<signature>.+)/$', public(password_reset.views.recover_done),

@@ -32,6 +32,9 @@
   h2 {
     color: $primary-red;
   }
+  h2, h3 {
+    text-align: center;
+  }
 
   .numbered-bullet {
     width: 25px;
@@ -47,6 +50,7 @@
 
   .sign-up-panel {
     background-color: $primary-red;
+    text-align: center;
     h2 {
       color: white;
     }
