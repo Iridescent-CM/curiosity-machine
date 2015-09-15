@@ -56,6 +56,12 @@ urlpatterns = patterns('',
         name='parents'
     ),
     url(
+        r'^about-membership/',
+        public(TemplateView.as_view(template_name="curiositymachine/about-membership.html")),
+        {'active_nav': 'membership'},
+        name='membership'
+    ),
+    url(
         r'^faq/',
         public(pages.views.static_page),
         {'page_id': StaticPage.faq.value,},
