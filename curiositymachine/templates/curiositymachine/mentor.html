@@ -1,4 +1,4 @@
-{% extends "about_pg_layout.html" %}
+{% extends "curiositymachine/about_pg_layout.html" %}
 {% load staticfiles %}
 {% load resized %}
 
@@ -8,10 +8,10 @@
 {% block content %}
   {{ block.super }}
 
-  <div class="grid-container">
-    <div class="about-page-content grid-60 push-20 tablet-grid-80 tablet-push-10">
+  <div class="container">
+    <div class="col-lg-8 col-lg-push-2 col-md-10 col-md-push-1 m-t-lg">
       <h2>Inspire the Next Generation of Inventors</h2>
-      <h3>Become an online mentor with Curiosity Machine.</h3>
+      <h3 class="m-b-lg">Become an online mentor with Curiosity Machine.</h3>
       <p>On Curiosity Machine, mentors support students as they build solutions to engineering design challenges. Mentors give feedback on individual projects and help students work through the engineering design process. </p>
       <p>As a Curiosity Machine mentor, you will...</p>
       <ul>
@@ -27,12 +27,10 @@
       </ul>
     </div>
 
-    <div class="about-page-content grid-100 tablet-grid-100 mobile-grid-100">
-      <img src="{% static 'images/about/mentor-interaction-baymax.png' %}" alt="Mentor and student interaction example">
-    </div>
+    <img class="m-y-lg" src="{% static 'images/about/mentor-interaction-baymax.png' %}" alt="Mentor and student interaction example">
 
-    <div class="about-page-content grid-60 push-20 tablet-grid-80 tablet-push-10">
-      <hr class="hr-red"/>
+    <div class="col-lg-8 col-lg-push-2 col-md-10 col-md-push-1 m-t-lg">
+      <hr class="hr-red m-b-lg"/>
 
       <h2>Mentor Training</h2>
       <p>Before you begin mentoring, you’ll complete Curiosity Machine’s online mentor training.</p>
@@ -43,22 +41,23 @@
         <li>How to teach the <a href="#">Engineering Design Process</a> and <a href="#">why it’s valuable</a></li>
       </ul>
 
-      <div class="about-page-video grid-80 push-10">
-        <div class="iframe-container">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/XBAE46x2qio" frameborder="0" allowfullscreen></iframe>
+      <div class="row m-t-lg m-b-xl">
+        <div class="col-md-10 col-md-push-1">
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/XBAE46x2qio" frameborder="0" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
-      <span class="clear"></span>
 
       <hr class="hr-red"/>
 
-      <p class="text-center">Questions? Email <a href="#">mentor@iridescentlearning.org</a></p>
+      <p class="text-center m-y-lg">Questions? Email <a href="#">mentor@iridescentlearning.org</a></p>
 
     </div>
   </div>
 
-  <div class="about-sign-up-panel">
+  <div class="sign-up-panel p-y-xl">
     <h2>Create a Mentor Account!</h2>
-    <a href="#" class="btn-red-secondary uppercase">sign up</a>
+    <a href="#" class="btn-red-secondary text-uppercase">sign up</a>
   </div>
 {% endblock %}
