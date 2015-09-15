@@ -1,75 +1,77 @@
 // TOP PANEL
 
-.jumbotron {
-  padding-top: 6em;
-}
+#index-page {
+  .jumbotron {
+    padding-top: 6em;
+  }
 
-.home-top-panel {
-  background-image: url("../images/home/paper-airplane.jpg");
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-}
+  .home-top-panel {
+    background-image: url("../images/home/paper-airplane.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
 
-.home-top-panel-gradient {
-  background-color: transparent;
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.0), rgba(0,0,0,0.5));
-}
+  .home-top-panel-gradient {
+    background-color: transparent;
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.0), rgba(0,0,0,0.5));
+  }
 
-.home-title { 
-  color: $primary-light; 
-  font-weight: $base-font-weight;
-  text-shadow: 0px 3px 4px rgba(0,0,0,0.4); 
-  font-size: 4em; 
-}
+  .home-title { 
+    color: $primary-light; 
+    font-weight: $base-font-weight;
+    text-shadow: 0px 3px 4px rgba(0,0,0,0.4); 
+    font-size: 4em; 
+  }
 
-.home-subtitle {
-  padding-top: $large-spacing * 5;
-  color: $primary-light;
-  transition: all 300ms ease;
-}
-
-@include media-breakpoint-down(md) {
   .home-subtitle {
-    padding-top: $large-spacing * 3;
+    padding-top: $large-spacing * 5;
+    color: $primary-light;
+    transition: all 300ms ease;
   }
-}
 
-@include media-breakpoint-down(sm) {
-  .home-subtitle {
-    padding-top: $base-spacing;
+  @include media-breakpoint-down(md) {
+    .home-subtitle {
+      padding-top: $large-spacing * 3;
+    }
   }
-}
 
-.home-what-panel {
-  h3 {
-    color: $primary-red;
+  @include media-breakpoint-down(sm) {
+    .home-subtitle {
+      padding-top: $base-spacing;
+    }
   }
-}
 
-.home-who-panel {
-  h3 {
-    color: $primary-purple;
+  .home-what-panel {
+    h3 {
+      color: $primary-red;
+    }
   }
-}
 
-.home-member-panel {
-  h3 {
-    color: $primary-orange;
+  .home-who-panel {
+    h3 {
+      color: $primary-purple;
+    }
   }
-  a { 
-    color: $primary-orange; 
-    border-bottom-color: $primary-orange 
+
+  .home-member-panel {
+    h3 {
+      color: $primary-orange;
+    }
+    a { 
+      color: $primary-orange; 
+      border-bottom-color: $primary-orange 
+    }
   }
-}
 
-.sign-up-panel {
-  padding: $large-spacing * 2 0px $large-spacing * 2 0px;
-  background-color: $primary-blue;
-  color: white;
-}
+  .sign-up-panel {
+    padding: $large-spacing * 2 0px $large-spacing * 2 0px;
+    background-color: $primary-blue;
+    color: white;
+  }
 
-.home-support-panel {
-  background-color: #fff;
+  .home-support-panel {
+    background-color: #fff;
+  }
 }

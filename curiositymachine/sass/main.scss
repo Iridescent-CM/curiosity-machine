@@ -7,11 +7,12 @@
 @import 'base/fonts';
 @import 'base/typography';
 
+@import 'components/buttons';
+@import 'components/dividers';
+
 @import 'layout/header';
 @import 'layout/footer';
 @import 'layout/about_pg_layout';
 
 @import 'pages/home';
-
-@import 'components/buttons';
-@import 'components/dividers';
+@import 'pages/educator';
