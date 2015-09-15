@@ -6060,4 +6060,8 @@ footer {
       text-align: left;
       font-size: 0.875em; }
 
+#faq-about-page strong {
+  display: inline-block;
+  margin-top: 1.5em; }
+
 /*# sourceMappingURL=main.css.map */

@@ -69,8 +69,8 @@ urlpatterns = patterns('',
     ),
     url(
         r'^faq/',
-        public(pages.views.static_page),
-        {'page_id': StaticPage.faq.value,},
+        public(TemplateView.as_view(template_name="curiositymachine/faq.html")),
+        {'active_nav': 'faq'},
         name='faq'
     ),
 
