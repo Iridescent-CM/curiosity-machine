@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     # about pages 
     url(
         r'^about/',
-        public(TemplateView.as_view(template_name="curiositymachine/about.html")),
+        public(TemplateView.as_view(template_name="curiositymachine/pages/about.html")),
         {'active_nav': 'about'},
         name='about'
     ),
@@ -39,37 +39,37 @@ urlpatterns = patterns('',
     ),
     url(
         r'^educator/',
-        public(TemplateView.as_view(template_name="curiositymachine/educator.html")),
+        public(TemplateView.as_view(template_name="curiositymachine/pages/educator.html")),
         {'active_nav': 'educator'},
         name='educator'
     ),
     url(
         r'^mentor/',
-        public(TemplateView.as_view(template_name="curiositymachine/mentor.html")),
+        public(TemplateView.as_view(template_name="curiositymachine/pages/mentor.html")),
         {'active_nav': 'mentor'},
         name='mentor'
     ),
     url(
         r'^parents/',
-        public(TemplateView.as_view(template_name="curiositymachine/parents.html")),
+        public(TemplateView.as_view(template_name="curiositymachine/pages/parents.html")),
         {'active_nav': 'parents'},
         name='parents'
     ),
     url(
         r'^about-membership/',
-        public(TemplateView.as_view(template_name="curiositymachine/about-membership.html")),
+        public(TemplateView.as_view(template_name="curiositymachine/pages/about-membership.html")),
         {'active_nav': 'membership'},
         name='about-membership'
     ),
     url(
         r'^about-partnership/',
-        public(TemplateView.as_view(template_name="curiositymachine/about-partnership.html")),
+        public(TemplateView.as_view(template_name="curiositymachine/pages/about-partnership.html")),
         {'active_nav': 'partnership'},
         name='about-partnership'
     ),
     url(
         r'^faq/',
-        public(TemplateView.as_view(template_name="curiositymachine/faq.html")),
+        public(TemplateView.as_view(template_name="curiositymachine/pages/faq.html")),
         {'active_nav': 'faq'},
         name='faq'
     ),
