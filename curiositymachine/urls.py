@@ -59,7 +59,13 @@ urlpatterns = patterns('',
         r'^about-membership/',
         public(TemplateView.as_view(template_name="curiositymachine/about-membership.html")),
         {'active_nav': 'membership'},
-        name='membership'
+        name='about-membership'
+    ),
+    url(
+        r'^about-partnership/',
+        public(TemplateView.as_view(template_name="curiositymachine/about-partnership.html")),
+        {'active_nav': 'partnership'},
+        name='about-partnership'
     ),
     url(
         r'^faq/',
