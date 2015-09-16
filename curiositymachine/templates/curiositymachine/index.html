@@ -149,9 +149,9 @@
     </div>
   </div>
 
-  <!-- new stuff (delete me later) -->
-  <div class="modal fade" id="join-modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-    <div class="modal-dialog">
+<!-- new stuff (delete me later) -->
+  <div class="modal fade" id="join-modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">    
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -161,7 +161,7 @@
           <p class="lead">Join Curiosity Machine as a:</p>
           <div class="row text-center">
             <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-              <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-student" data-dismiss="modal">
+              <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#join-modal-student" data-dismiss="modal">
                 Student
               </button>
               <p class="button-help">
@@ -169,7 +169,7 @@
               </p>
             </div>
             <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-              <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-mentor" data-dismiss="modal">
+              <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#join-modal-mentor" data-dismiss="modal">
                 Mentor
               </button>
               <p class="button-help">
@@ -177,7 +177,7 @@
               </p>
             </div>
             <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-              <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-educator" data-dismiss="modal">
+              <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#join-modal-educator" data-dismiss="modal">
                 Educator
               </button>
               <p class="button-help">
@@ -185,7 +185,7 @@
               </p>
             </div>
             <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-              <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#join-modal-parent" data-dismiss="modal">
+              <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#join-modal-parent" data-dismiss="modal">
                 Parent
               </button>
               <p class="button-help">
@@ -194,11 +194,133 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-        </div>
       </div>
     </div>
   </div>
-  <--end new stuff-->
+
+  <!-- join as student modal -->
+  <div class="modal fade" id="join-modal-student" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h1>Create an account as a student.</h1>
+        </div>
+        <form method='post' action="{% url 'profiles:join' %}" enctype="multipart/form-data" class="default-form clearfix" data-apply="coppa-transforms" data-prefix='{{form.prefix}}'>
+          <div class="modal-body row clearfix">
+            
+              {% csrf_token %}
+              {% include "profile_fields.html" with page='join' %}
+
+          </div>
+          <div class="modal-footer">
+            By clicking Save, you confirm that you accept the <a target="_blank" href="{% url 'privacy' %}">Privacy Policy</a>.
+            <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
+            <button type="submit" class="btn btn-primary btn-lg">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- join as mentor modal -->
+  <div class="modal fade" id="join-modal-mentor" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h1>Create an account as a mentor.</h1>
+        </div>
+        <form method='post' action="{% url 'profiles:join_as_mentor' %}" enctype="multipart/form-data" class="default-form clearfix">
+        <div class="modal-body row clearfix">
+          <h5>*Please only register as a mentor if you if are a STEM professional or are in school training to become one</h5>
+
+            {% csrf_token %}
+            {% include "profiles/mentor/fields.html" %}
+        </div>
+        <div class="modal-footer">
+          By clicking Save, you confirm that you accept the <a target="_blank" href="{% url 'privacy' %}">Privacy Policy</a>.
+          <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
+          <button type="submit" class="btn btn-primary btn-lg">Save</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- join as educator modal -->
+  <div class="modal fade" id="join-modal-educator" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h1>Create an account as an educator.</h1>
+        </div>
+
+        <form method='post' action="{% url 'profiles:join_as_educator' %}" enctype="multipart/form-data" class="default-form">
+          <div class="modal-body clearfix">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-4 profile-fields">
+                {% include "profiles/formfield.html" with field=form.username %}
+                {% include "profiles/formfield.html" with field=form.email %}
+                {% include "profiles/formfield.html" with field=form.password %}
+                {% include "profiles/formfield.html" with field=form.confirm_password %}
+              </div>
+              <div class="col-md-4 profile-fields">
+                {% include "profiles/formfield.html" with field=form.first_name %}
+                {% include "profiles/formfield.html" with field=form.last_name %}
+                {% include "profiles/formfield.html" with field=form.city %}
+                {% include "profiles/formfield.html" with field=form.image_url %}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            By clicking Save, you confirm that you accept the <a target="_blank" href="{% url 'privacy' %}">Privacy Policy</a>.
+            <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
+            <button type="submit" class="btn btn-primary btn-lg">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- join as parent modal -->
+  <div class="modal fade" id="join-modal-parent" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h1>Create an account as a parent.</h1>
+        </div>
+
+        <form method='post' action="{% url 'profiles:join_as_parent' %}" enctype="multipart/form-data" class="default-form">
+          <div class="modal-body clearfix">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-4 profile-fields">
+                {% include "profiles/formfield.html" with field=form.username %}
+                {% include "profiles/formfield.html" with field=form.email %}
+                {% include "profiles/formfield.html" with field=form.password %}
+                {% include "profiles/formfield.html" with field=form.confirm_password %}
+              </div>
+              <div class="col-md-4 profile-fields">
+                {% include "profiles/formfield.html" with field=form.first_name %}
+                {% include "profiles/formfield.html" with field=form.last_name %}
+                {% include "profiles/formfield.html" with field=form.city %}
+                {% include "profiles/formfield.html" with field=form.image_url %}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            By clicking Save, you confirm that you accept the <a target="_blank" href="{% url 'privacy' %}">Privacy Policy</a>.
+            <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
+            <button type="submit" class="btn btn-primary btn-lg">Save</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+<--end new stuff-->
 
 {% endblock %}
