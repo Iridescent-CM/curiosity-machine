@@ -5372,6 +5372,13 @@ a.bg-danger:hover {
   padding-top: 6rem !important;
   padding-bottom: 6rem !important; }
 
+.modal.fade.no-slide .modal-dialog {
+  transform: none;
+  transition: none; }
+
+.modal.in .modal-dialog {
+  transform: none; }
+
 @font-face {
   font-family: 'curiosity-machine';
   src: url("../fonts/curiosity-machine.eot?6t4fb5");
