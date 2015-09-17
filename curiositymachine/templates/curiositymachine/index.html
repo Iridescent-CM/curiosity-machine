@@ -6,7 +6,7 @@
 {% block content %}
 
   <div id="how-vid" class="modal fade">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
       <span class="sr-only">Close</span>
     </button>
@@ -22,7 +22,7 @@
       <div class="container text-center">
         <h1 class="home-title">How do children succeed?</h1>
         <h3 class="home-subtitle">With curiosity, creativity, and persistence. <br/> Start building with Curiosity Machine.</h3>
-        <a href="#" class="btn btn-primary text-uppercase">Sign up</a>
+        <a href="#" class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
         <button type="button" data-toggle="modal" data-target="#how-vid" class="btn btn-secondary text-uppercase">See How it Works</button>
       </div>
     </div>
@@ -149,15 +149,18 @@
     </div>
   </div>
 
-  <div class="modal fade" id="join-modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">    
+  <div class="modal fade" id="join-modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>  
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h1>Get started. Create an account.</h1>
+          <h1 class="text-center">Get started. Create an account.</h1>
         </div>
         <div class="modal-body">
-          <p class="lead">Join Curiosity Machine as a:</p>
+          <p class="lead text-center">Join Curiosity Machine as a:</p>
           <div class="row text-center">
             <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
               <a class="btn btn-primary btn-block" href="{% url 'profiles:join' %}">
