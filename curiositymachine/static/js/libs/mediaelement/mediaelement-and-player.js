@@ -2836,7 +2836,6 @@ if (typeof jQuery != 'undefined') {
 
 				// adjust controls whenever window sizes (used to be in fullscreen only)
 				t.globalBind('resize', function() {
-					console.log('RESIZING');
 
 					// don't resize for fullscreen mode
 					if ( !(t.isFullScreen || (mejs.MediaFeatures.hasTrueNativeFullScreen && document.webkitIsFullScreen)) ) {
