@@ -5,14 +5,17 @@
 {% block body-id %}index-page{% endblock %}
 {% block content %}
 
-  <div id="how-vid" class="modal fade no-slide">
+  <div id="how-video-modal" class="modal fade no-slide">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
       <span class="sr-only">Close</span>
     </button>
     <div class="modal-dialog modal-lg">
       <div class="embed-responsive embed-responsive-16by9">
-        <iframe width="960" height="540" src="https://www.youtube.com/embed/94JY-Zs1r2U" allowfullscreen></iframe>
+        <video id="how-video" controls="controls" preload="metadata">
+          <source src="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.mp4" type="video/mp4">
+          <source src="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.ogg" type="video/ogg">
+        </video>
       </div>
     </div>
   </div>
@@ -23,7 +26,7 @@
         <h1 class="home-title">How do children succeed?</h1>
         <h3 class="home-subtitle">With curiosity, creativity, and persistence. <br/> Start building with Curiosity Machine.</h3>
         <a href="#" class="btn btn-primary text-uppercase">Sign up</a>
-        <button type="button" data-toggle="modal" data-target="#how-vid" class="btn btn-secondary text-uppercase">See How it Works</button>
+        <button type="button" data-toggle="modal" data-target="#how-video-modal" class="btn btn-secondary text-uppercase">See How it Works</button>
       </div>
     </div>
   </div>
@@ -148,4 +151,20 @@
       </a>
     </div>
   </div>
+{% endblock %}
+
+{% block js %}
+<script>
+  $(function(){
+    var $modal = $('#how-video-modal');
+    var video = $('#how-video')[0];
+    $modal.on('hide.bs.modal', function(){
+      video.pause();
+    });
+    $modal.on('shown.bs.modal', function(){
+      video.play();
+    });
+
+  });
+</script>
 {% endblock %}
