@@ -25,6 +25,7 @@
   <meta name="msapplication-TileImage" content="{% static 'images/favicons/mstile-144x144.png' %}">
 
   <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600' rel='stylesheet' type='text/css'>
+  {% block css %}{% endblock %}
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body id="{% block body-id %}{% endblock %}" class="{% block body-classes %}{% endblock %}">
