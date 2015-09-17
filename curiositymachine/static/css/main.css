@@ -5737,6 +5737,21 @@ i {
   padding: 20px;
   border-radius: 4px; }
 
+.modal-close {
+  color: #fff;
+  font-size: 3em;
+  font-weight: 300;
+  text-shadow: 0px;
+  opacity: 1.0;
+  position: absolute;
+  right: 20px;
+  top: 5px; }
+  .modal-close:hover {
+    color: #cccccc; }
+
+#how-vid {
+  padding: 40px 20px 20px 20px; }
+
 header {
   background-color: #FFFCF7; }
   header a {

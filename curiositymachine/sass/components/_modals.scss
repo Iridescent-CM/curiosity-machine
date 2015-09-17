@@ -1,0 +1,17 @@
+.modal-close {
+  color: #fff;
+  font-size: $base-font-size * 3;
+  font-weight: $light-font-weight;
+  text-shadow: 0px;
+  opacity: 1.0;
+  position: absolute;
+  right: 20px;
+  top: 5px;
+  &:hover {
+    color: shade(#fff, 20);
+  }
+}
+
+#how-vid {
+  padding: 40px 20px 20px 20px;
+}
