@@ -5758,6 +5758,9 @@ i {
 .modal-header h1 {
   margin-bottom: 0px; }
 
+.modal.fade .modal-dialog {
+  transform: translate(0, 0); }
+
 header {
   background-color: #FFFCF7; }
   header a {

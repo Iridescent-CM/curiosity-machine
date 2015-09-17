@@ -27,3 +27,8 @@
     margin-bottom: 0px;
   }
 }
+
+// so the modal doesn't visually drop down
+.modal.fade .modal-dialog {
+  transform: translate(0,0);
+}
