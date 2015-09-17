@@ -5752,6 +5752,12 @@ i {
 #how-vid {
   padding: 40px 20px 20px 20px; }
 
+.modal {
+  padding-top: 40px; }
+
+.modal-header h1 {
+  margin-bottom: 0px; }
+
 header {
   background-color: #FFFCF7; }
   header a {

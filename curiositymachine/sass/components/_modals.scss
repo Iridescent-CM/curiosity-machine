@@ -1,3 +1,5 @@
+// Bootstrap 4 Modal Overrides
+
 .modal-close {
   color: #fff;
   font-size: $base-font-size * 3;
@@ -14,4 +16,14 @@
 
 #how-vid {
   padding: 40px 20px 20px 20px;
+}
+
+.modal {
+  padding-top: 40px;
+}
+
+.modal-header {
+  h1 {
+    margin-bottom: 0px;
+  }
 }
