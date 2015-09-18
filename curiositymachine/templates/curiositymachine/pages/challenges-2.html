@@ -1,0 +1,137 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% load future %} {# suppresses deprecation warnings for firstof tag #}
+
+{% block body-id %}challenges-page{% endblock %}
+{% block content %}
+
+  <div class="challenges-top-panel">
+    <h1>Challenges</h1>
+  </div>
+
+  <div class="container">
+    <div class="challenges-navigation col-md-3">
+      <ul class="design-challenge-list">
+        <a href="#"><li>All Challenges</li></a>
+        <a href="#" id="selected-challenge"><li>Inspired by <i class="icon-boeing-logo"></i></li></a>
+        <a href="#"><li><i class="icon-aerospace"></i> Aerospace</li></a>
+        <a href="#"><li><i class="icon-art"></i> Art of Science</li></a>
+        <a href="#"><li><i class="icon-biomechanics"></i> Biomechanics</li></a>
+        <a href="#"><li><i class="icon-biomimicry"></i> Biomimicry</li></a>
+        <a href="#"><li><i class="icon-civil"></i> Civil Engineering</li></a>
+        <a href="#"><li><i class="icon-robotics"></i> Robotics</li></a>
+        <a href="#"><li><i class="icon-compsci"></i> Computer Science</li></a>
+        <a href="#"><li><i class="icon-electrical"></i> Electrical Engineering</li></a>
+        <a href="#"><li><i class="icon-food"></i> Food Science</li></a>
+        <a href="#"><li><i class="icon-satellite"></i> Sattelite Systems</li></a>
+        <a href="#"><li><i class="icon-materials"></i> Materials Science</li></a>
+        <a href="#"><li><i class="icon-neuroscience"></i> Neuroscience</li></a>
+        <a href="#"><li><i class="icon-ocean"></i> Ocean Engineering</li></a>
+      </ul>
+    </div>
+
+    <div class="col-md-9">
+      <h4 class="all-challenges-header">Inspired by Boeing Challenges</h4>
+      <div class="all-challenges-cards row">
+        <ul class="pagination">
+          <a href="#"><li class="pagination-arrow"><i class="icon-left-arrow"></i></li></a>
+          <a href="#"><li class="pagination-dot"></li></a>
+          <a href="#"><li id="current-page-dot"></li></a>
+          <a href="#"><li class="pagination-dot"></li></a>
+          <a href="#"><li class="pagination-dot"></li></a>
+          <a href="#"><li class="pagination-arrow"><i class="icon-right-arrow"></i></li></a>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="challenge-card">
+            <div class="favorites-filter">
+              <input type="checkbox" name="favorite" id="favorite-star">
+              <label for="favorite-star" id="favorite-star"><i class="icon-star-full"></i></label>
+            </div>
+            <a href="#">
+              <div class="challenge-card-title">
+                <p>Deploy a Satellite</p>
+              </div>
+            </a>
+            <a href="#" class="action-img"><img src="{% static 'images/challenges/deploy-a-satellite.jpg' width=300 height=170 crop='fill' %}"></a>
+            <div class="inspired-by" id="inspired-by-boeing">Inspired by <i class="icon-boeing-logo"></i></div>
+            <div class="challenge-card-description">
+              <small>Build a satellite with a 6-inch square body that can deploy its own solar winds and antennae, and can fit inside a 9-inch diameter tube.</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="challenge-card">
+            <div class="favorites-filter">
+              <input type="checkbox" name="favorite" id="favorite-star">
+              <label for="favorite-star" id="favorite-star"><i class="icon-star-full"></i></label>
+            </div>
+            <a href="#">
+              <div class="challenge-card-title">
+                <p>Build a Plane Powered by Stored Energy</p>
+              </div>
+            </a>
+            <a href="#" class="action-img"><img src="{% static 'images/challenges/build-a-plane.jpg' width=300 height=170 crop='fill' %}"></a>
+            <div class="inspired-by" id="inspired-by-boeing">Inspired by <i class="icon-boeing-logo"></i></div>
+            <div class="challenge-card-description">
+              <small>Build a plane that is powered by stored energy from a rubber band, ballon or spring. The plane should be able to fly straight for 5 feet.</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="challenge-card">
+            <div class="favorites-filter">
+              <input type="checkbox" name="favorite" id="favorite-star">
+              <label for="favorite-star" id="favorite-star"><i class="icon-star-full"></i></label>
+            </div>
+            <a href="#">
+              <div class="challenge-card-title">
+                <p>Make a Wave Machine</p>
+              </div>
+            </a>
+            <a href="#" class="action-img"><img src="{% static 'images/challenges/make-a-wave-machine.png' width=300 height=170 crop='fill' %}"></a>
+            <div class="inspired-by" id="inspired-by-boeing">Inspired by <i class="icon-boeing-logo"></i></div>
+            <div class="challenge-card-description">
+              <small>Make a device that will carry a wave and record the wave's movement.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="challenge-card">
+            <div class="favorites-filter">
+              <input type="checkbox" name="favorite" id="favorite-star">
+              <label for="favorite-star" id="favorite-star"><i class="icon-star-full"></i></label>
+            </div>
+            <a href="#">
+              <div class="challenge-card-title">
+                <p>Engineer an Air-Powered Spinning Machine</p>
+              </div>
+            </a>
+            <a href="#" class="action-img"><img src="{% static 'images/challenges/air-powered-spinning.png' width=300 height=170 crop='fill' %}"></a>
+            <div class="inspired-by" id="inspired-by-boeing">Inspired by <i class="icon-boeing-logo"></i></div>
+            <div class="challenge-card-description">
+              <small>Build an air-powered spinning machine inspired by Boeing CST -100.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <ul class="pagination">
+          <a href="#"><li class="pagination-arrow"><i class="icon-left-arrow"></i></li></a>
+          <a href="#"><li class="pagination-dot"></li></a>
+          <a href="#"><li id="current-page-dot"></li></a>
+          <a href="#"><li class="pagination-dot"></li></a>
+          <a href="#"><li class="pagination-dot"></li></a>
+          <a href="#"><li class="pagination-arrow"><i class="icon-right-arrow"></i></li></a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -24,6 +24,14 @@ urlpatterns = patterns('',
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
     url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
     
+    # new challenges page
+    url(
+        r'^challenges-2/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/challenges-2.html")),
+        {'active_nav': 'challenges-2'},
+        name='challenges'
+    ),
+
     # about pages 
     url(
         r'^about/',
