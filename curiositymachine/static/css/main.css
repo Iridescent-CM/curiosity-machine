@@ -5517,6 +5517,7 @@ a {
   a:focus,
   a:hover {
     color: #238a96;
+    text-decoration: none;
     border-bottom-color: #238a96; }
 
 a.action-img {
@@ -5876,6 +5877,8 @@ header {
     background: #FD6917 !important; }
   .navbar .nav-mentors:before {
     background: #F2B353 !important; }
+  .navbar .nav-login:before {
+    background: #8FB559 !important; }
   .navbar .dropdown.nav-profile.open .dropdown-toggle {
     background-color: #6161AF;
     color: #FFFCF7; }
@@ -5980,6 +5983,8 @@ footer {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center; }
+  #index-page .home-top-panel button {
+    margin-left: 10px; }
 
 #index-page .home-top-panel-gradient {
   background-color: transparent;
