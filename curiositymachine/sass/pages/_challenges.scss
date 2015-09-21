@@ -42,6 +42,11 @@
       transition: all 300ms ease-in;
       &:hover {
         background-color: tint($primary-light, 50);
+        text-decoration: none;
+      }
+      &:focus {
+        background-color: tint($primary-light, 50);
+        text-decoration: none;
       }
     }
   }
@@ -58,10 +63,9 @@
   .all-challenges-header {
     width: 100%;
     height: 50px;
-    margin-top: 14px;
     padding: 12px;
     font-weight: $light-font-weight;
-    background-color: $primary-blue;
+    background-color: $primary-green;
     color: white;
     border-radius: $base-border-radius;
   }
