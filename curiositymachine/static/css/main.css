@@ -5372,13 +5372,6 @@ a.bg-danger:hover {
   padding-top: 6rem !important;
   padding-bottom: 6rem !important; }
 
-.modal.no-slide .modal-dialog {
-  transform: none;
-  transition: none; }
-
-.modal.in .modal-dialog {
-  transform: none; }
-
 @font-face {
   font-family: 'curiosity-machine';
   src: url("../fonts/curiosity-machine.eot?6t4fb5");
@@ -5744,6 +5737,27 @@ i {
   padding: 20px;
   border-radius: 4px; }
 
+.modal-close {
+  color: #fff;
+  font-size: 3em;
+  font-weight: 300;
+  text-shadow: 0px;
+  opacity: 1.0;
+  position: absolute;
+  right: 20px;
+  top: 5px; }
+  .modal-close:hover {
+    color: #cccccc; }
+
+.modal {
+  padding-top: 40px; }
+
+.modal-header h1 {
+  margin-bottom: 0px; }
+
+.modal.fade .modal-dialog {
+  transform: translate(0, 0); }
+
 header {
   background-color: #FFFCF7; }
   header a {
@@ -6031,6 +6045,9 @@ footer {
 
 #index-page .home-support-panel {
   background-color: #fff; }
+
+#index-page #how-video-modal {
+  padding: 40px 20px 20px 20px; }
 
 #educator-about-page .units {
   text-align: center; }

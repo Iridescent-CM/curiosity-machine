@@ -1,6 +1,5 @@
 @import 'vendors/bootstrap/scss/bootstrap';
 @import 'vendors-extensions/bootstrap/utilities-spacing';
-@import 'vendors-extensions/bootstrap/modal';
 
 @import 'utils/variables';
 @import 'utils/functions';
@@ -10,6 +9,7 @@
 
 @import 'components/buttons';
 @import 'components/dividers';
+@import 'components/modals';
 
 @import 'layout/header';
 @import 'layout/footer';

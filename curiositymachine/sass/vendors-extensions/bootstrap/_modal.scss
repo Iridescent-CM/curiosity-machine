@@ -1,8 +1,0 @@
-.modal {
-  // Add .no-slide to .fade to remove slide animation
-  &.fade.no-slide .modal-dialog {
-    transform: none;
-    transition: none;
-  }
-  &.in .modal-dialog { transform: none; }
-}
