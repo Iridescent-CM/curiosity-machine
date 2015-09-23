@@ -42,7 +42,7 @@
           </div>
           <div class="col-lg-6">
             <h4><span class="numbered-bullet">3</span> Get Mentor Feedback</h4>
-            <p>Stuck? Need support? Looking for a new idea? Join a <a href="/about-membership">membership</a> and get feedback on your designs from a Curiosity Machine mentor.</p>
+            <p>Stuck? Need support? Looking for a new idea? Join a <a href="{% url "about-membership" %}">membership</a> and get feedback on your designs from a Curiosity Machine mentor.</p>
           </div>
           <div class="col-lg-6">
             <h4><span class="numbered-bullet">4</span> Share What You Built</h4>
@@ -53,9 +53,9 @@
         <hr class="hr-red m-b-lg"/>
 
         <h2>Curiosity Machine Supports You to Support Your Students</h2>
-        <p><a href="/parents">Parents:</a> connect to your child’s account and learn how to build together</p>
-        <p><a href="/educator">Educators:</a> find resources for engineering challenges and track student progress</p>
-        <p><a href="/mentor">Mentors:</a> guide students as they build engineering design challenges</p>
+        <p><a href="{% url "parents" %}">Parents:</a> connect to your child’s account and learn how to build together</p>
+        <p><a href="{% url "educator" %}">Educators:</a> find resources for engineering challenges and track student progress</p>
+        <p><a href="{% url "mentor" %}">Mentors:</a> guide students as they build engineering design challenges</p>
 
         <hr class="hr-red m-b-lg"/>
 
@@ -92,7 +92,7 @@
   <div class="sign-up-panel p-y-xl">
     <div class="container">
       <h2>Create a Student Account!</h1>
-      <a href="#" class="btn-red-secondary text-uppercase">sign up</a>
+      <a href="{% url "profiles:join" %}" class="btn-red-secondary text-uppercase">sign up</a>
     </div>
   </div>
 {% endblock %}
