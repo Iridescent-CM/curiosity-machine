@@ -188,6 +188,7 @@ header {
     .nav-challenges:before { background: $primary-blue !important; }
     .nav-about:before { background: $primary-red !important; }
     .nav-mentors:before { background: $primary-orange !important;}
+    .nav-login:before { background: $primary-green !important;}
 
     .dropdown.nav-profile {
       &.open {
