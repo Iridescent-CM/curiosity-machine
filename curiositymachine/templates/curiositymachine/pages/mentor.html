@@ -18,7 +18,7 @@
         <ul>
           <li>Improve your communication and mentoring skills</li>
           <li>Inspire students by sharing the skills you use every day</li>
-          <li>Join our <a href="/mentors">community of STEM professionals</a></li>
+          <li>Join our <a href="{% url "profiles:mentors" %}">community of STEM professionals</a></li>
         </ul>
 
         <p>Time Commitment</p>
@@ -66,6 +66,6 @@
 
   <div class="sign-up-panel p-y-xl">
     <h2>Create a Mentor Account!</h2>
-    <a href="/join_as_mentor" class="btn-red-secondary text-uppercase">sign up</a>
+    <a href="{% url "profiles:join_as_mentor" %}" class="btn-red-secondary text-uppercase">sign up</a>
   </div>
 {% endblock %}
