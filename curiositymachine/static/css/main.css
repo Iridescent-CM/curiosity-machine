@@ -5750,9 +5750,6 @@ i {
   .modal-close:hover {
     color: #cccccc; }
 
-#how-vid {
-  padding: 40px 20px 20px 20px; }
-
 .modal {
   padding-top: 40px; }
 
@@ -6053,6 +6050,9 @@ footer {
 
 #index-page .home-support-panel {
   background-color: #fff; }
+
+#index-page #how-video-modal {
+  padding: 40px 20px 20px 20px; }
 
 #educator-about-page .units {
   text-align: center; }

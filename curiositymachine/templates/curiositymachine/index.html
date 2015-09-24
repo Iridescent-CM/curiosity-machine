@@ -5,14 +5,18 @@
 {% block body-id %}index-page{% endblock %}
 {% block content %}
 
-  <div id="how-vid" class="modal fade">
+  <div id="how-video-modal" class="modal fade">
     <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
       <span class="sr-only">Close</span>
     </button>
     <div class="modal-dialog modal-lg">
       <div class="embed-responsive embed-responsive-16by9">
-        <iframe width="960" height="540" src="https://www.youtube.com/embed/94JY-Zs1r2U" allowfullscreen></iframe>
+        <video id="how-video" controls="controls" preload="metadata">
+          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.mp4" type="video/mp4">
+          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.ogg" type="video/ogg">
+          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.webm" type="video/webm">
+        </video>
       </div>
     </div>
   </div>
@@ -23,7 +27,7 @@
         <h1 class="home-title">How do children succeed?</h1>
         <h3 class="home-subtitle">With curiosity, creativity, and persistence. <br/> Start building with Curiosity Machine.</h3>
         <a href="#" class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
-        <button type="button" data-toggle="modal" data-target="#how-vid" class="btn btn-secondary text-uppercase">See How it Works</button>
+        <button type="button" data-toggle="modal" data-target="#how-video-modal" class="btn btn-secondary text-uppercase">See How it Works</button>
       </div>
     </div>
   </div>
@@ -88,7 +92,7 @@
         <a href="{% url 'mentor' %}">Learn More</a>
       </div>
     </div>
-   
+
     <div class="row m-t-xl">
       <div class="col-md-6">
         <img class="img-responsive img-rounded m-b" src="{% static 'images/home/build-4.jpg' %}" alt="Group builds together">
@@ -155,7 +159,7 @@
     <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
       <span class="sr-only">Close</span>
-    </button>  
+    </button>
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -201,5 +205,20 @@
       </div>
     </div>
   </div>
+{% endblock %}
 
+{% block js %}
+<script>
+  $(function(){
+    var $modal = $('#how-video-modal');
+    var video = $('#how-video')[0];
+    $modal.on('hide.bs.modal', function(){
+      video.pause();
+    });
+    $modal.on('shown.bs.modal', function(){
+      video.play();
+    });
+
+  });
+</script>
 {% endblock %}
