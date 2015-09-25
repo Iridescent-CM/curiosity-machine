@@ -1,6 +1,47 @@
 {% load resized %}
 {% load staticfiles %}
 
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label" aria-hidden="true">
+  <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only">Close</span>
+  </button>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="text-center" id="login-modal-label">Log in.</h1>
+      </div>
+      <form method="post" action="{% url 'login' %}">
+        <div class="modal-body">
+          <div class="row">
+            {% csrf_token %}
+            <div class="col-xs-2">
+              {{ login_form.username.label_tag }}
+            </div>
+            <div class="col-xs-10">
+              {{ login_form.username }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-2">
+              {{ login_form.password.label_tag }}
+            </div>
+            <div class="col-xs-10">
+              {{ login_form.password }}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="{% url "password_reset_recover" %}">Forgot your password?</a>
+          <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
+          <input type="submit" value="Log in" class="btn btn-primary btn-lg" />
+          <input type="hidden" name="next" value="{{ next|default:'/' }}" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <header class="navbar navbar-light">
   <div class="container">
 
@@ -70,7 +111,7 @@
           {% else %}
 
           <li class="nav-item">
-            <a class="nav-link nav-login" href="#">Log In</a>
+            <a href="#" class="nav-link nav-login" data-toggle="modal" data-target="#login-modal">Log In</a>
           </li>
 
           <li class="nav-item">
