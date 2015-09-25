@@ -19,7 +19,7 @@
 }
 
 .modal-header {
-  h1 {
+  h1, h2 {
     margin-bottom: 0px;
   }
 }
@@ -27,4 +27,19 @@
 // so the modal doesn't visually drop down
 .modal.fade .modal-dialog {
   transform: translate(0,0);
+}
+
+// Log in Modal
+#login-modal {
+  .modal-body {
+    input {
+      border-radius: $base-border-radius;
+      border: 0.0625rem solid $medium-gray;
+      padding: 0.375rem 0.75rem;
+      width: 100%;
+    }
+    .row {
+      margin-bottom: $base-spacing;
+    }
+  }
 }
