@@ -182,6 +182,12 @@ header {
       &:hover:before {
         top: 0;
       }
+
+      &:focus, &:active {
+        outline: none;
+        background-color: $primary-red;
+        color: #fff;
+      }
     }
 
     .nav-profile .nav-link:before { background: $primary-purple !important; }

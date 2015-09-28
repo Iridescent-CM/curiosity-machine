@@ -58,17 +58,26 @@ a {
   border-bottom: solid 1px $action-color;
   cursor: pointer;
 
-  &:active,
-  &:focus,
   &:hover {
     color: shade($action-color, 25%);
     text-decoration: none;
     border-bottom-color: shade($action-color, 25%);
   }
+
+  &:focus {
+    color: $primary-red;
+    border-bottom-color: $primary-red;
+    text-decoration: none;
+    outline: none;
+  }
 }
 
 a.action-img {
   border-bottom: 0px;
+
+  &:focus {
+    outline: thin dotted $primary-red;
+  }
 }
 
 hr {
