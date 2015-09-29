@@ -37,9 +37,9 @@
           </li>
           {% endif %}
 
+          <li class="nav-item"><a href="{% url "challenges:challenges" %}" class="nav-link nav-challenges">Challenges</a></li>
           <li class="nav-item"><a href="{% url "profiles:mentors" %}" class="nav-link nav-mentors">Mentor Community</a></li>
-          <li class="nav-item"><a href="#" class="nav-link nav-about">About Us</a></li>
-          <li class="nav-item"><a href="#" class="nav-link nav-challenges">Challenges</a></li>
+          <li class="nav-item"><a href="{% url "about" %}" class="nav-link nav-about">About Us</a></li>
 
           {% if request.user.is_authenticated %}
           <li class="nav-item visible-lg dropdown">
@@ -55,7 +55,7 @@
             </ul>
           </li>
           {% else %}
-          <li class="nav-item"><a href="#" class="nav-link nav-login">Log In</a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-login" data-toggle="modal" data-target="#login-modal">Log In</a></li>
           <li class="nav-item">
             <a class="btn btn-primary visible-md visible-lg" data-toggle="modal" data-target="#join-modal">Join</a>
             <a class="nav-link nav-join hidden-md hidden-lg">Join</a>
