@@ -1,6 +1,98 @@
 {% load resized %}
 {% load staticfiles %}
 
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label" aria-hidden="true">
+  <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only">Close</span>
+  </button>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="text-center" id="login-modal-label">Log In</h2>
+      </div>
+      <form method="post" action="{% url 'login' %}">
+        <div class="modal-body">
+          <div class="row">
+            {% csrf_token %}
+            <div class="col-xs-12">
+              {{ login_form.username.label_tag }}
+            </div>
+            <div class="col-xs-12">
+              {{ login_form.username }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              {{ login_form.password.label_tag }}
+            </div>
+            <div class="col-xs-12">
+              {{ login_form.password }}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="{% url "password_reset_recover" %}">Forgot your password?</a>
+          <a class="btn btn-link" data-dismiss="modal" aria-hidden="true">Cancel</a>
+          <input type="submit" value="Log in" class="btn btn-primary" />
+          <input type="hidden" name="next" value="{{ next|default:'/' }}" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="join-modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+  <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only">Close</span>
+  </button>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="text-center">Get started. Create an account.</h1>
+      </div>
+      <div class="modal-body">
+        <p class="lead text-center">Join Curiosity Machine as a:</p>
+        <div class="row text-center">
+          <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+            <a class="btn btn-primary btn-block" href="{% url 'profiles:join' %}">
+              Student
+            </a>
+            <p class="button-help">
+              build and document projects using the engineering design process
+            </p>
+          </div>
+          <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+            <a class="btn btn-primary btn-block" href="{% url 'profiles:join_as_mentor' %}">
+              Mentor
+            </a>
+            <p class="button-help">
+              guide students as they build engineering design challenges
+            </p>
+          </div>
+          <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+            <a class="btn btn-primary btn-block" href="{% url 'profiles:join_as_educator' %}">
+              Educator
+            </a>
+            <p class="button-help">
+              find resources for engineering challenges and track student progress
+            </p>
+          </div>
+          <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+            <a class="btn btn-primary btn-block" href="{% url 'profiles:join_as_parent' %}">
+              Parent
+            </a>
+            <p class="button-help">
+              connect to your child’s account and learn how to build together
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <header class="navbar navbar-light">
   <div class="container">
 
@@ -13,7 +105,7 @@
 
     <div id="main-nav" class="collapse navbar-toggleable-md">
       <nav>
-        <a href="/challenges" class="navbar-brand action-img hidden-md-down">
+        <a href="/" class="navbar-brand action-img hidden-md-down">
           <img src="{% static 'images/logo-small.png' %}" alt="curiosity machine logo" class="logo">
         </a>
 
@@ -42,15 +134,15 @@
           {% endif %}
 
           <li class="nav-item">
+            <a class="nav-link nav-challenges" href="/challenges">Challenges</a>
+          </li>
+
+          <li class="nav-item">
             <a class="nav-link nav-mentors" href="/mentors" />Mentor Community<span class="sr-only">(current)</span></a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link nav-about" href="/about">About Us</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link nav-challenges" href="/challenges">Challenges</a>
           </li>
 
           {% if request.user.is_authenticated %}
@@ -70,12 +162,12 @@
           {% else %}
 
           <li class="nav-item">
-            <a class="nav-link nav-login" href="#">Log In</a>
+            <a href="#" class="nav-link nav-login" data-toggle="modal" data-target="#login-modal">Log In</a>
           </li>
 
           <li class="nav-item">
-            <a class="btn btn-primary hidden-md-down" href="#">Join</a>
-            <a class="nav-link nav-join hidden-lg-up" href="#">Join</a>
+            <a class="btn btn-primary hidden-md-down" data-toggle="modal" data-target="#join-modal">Join</a>
+            <a class="nav-link nav-join hidden-lg-up" data-toggle="modal" data-target="#join-modal">Join</a>
           </li>
 
           {% endif %}

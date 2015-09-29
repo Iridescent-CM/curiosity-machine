@@ -39,7 +39,7 @@
         </ul>
 
         <div class="text-center">
-          <a class="btn btn-primary" href="#">Become a Member</a>
+          <a class="btn btn-primary" href="{% url "about-membership" %}">Become a Member</a>
         </div>
 
         <hr class="hr-red m-b-lg"/>
@@ -52,37 +52,37 @@
       <div class="col-lg-12 units">
         <div class="card">
           <div class="card-block card-header card-linked-header">
-            <a href="{% url 'units:unit' unit_id=1 %}">Flight</a>
+            <a href="{% url 'units:unit' unit_id=11 %}">Kindergarten-2nd Grade Engineering Design Process</a>
           </div>
-          <a href="{% url 'units:unit' unit_id=1 %}" class="action-img">
-            <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/74c8ae12b539f31d2b836f55cf0574cb' width=300 height=170 crop='fill' %}" alt="Flight Unit">
+          <a href="{% url 'units:unit' unit_id=11 %}" class="action-img">
+            <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/c1432a04cb8f694b9d7d74f28e7863f0' width=300 height=170 crop='fill' %}" alt="Flight Unit">
           </a>
           <div class="card-block">
-            <p class="card-text">Invent machines that fly.</p>
+            <p class="card-text">Inspire young students to make observations and find solutions to problems.</p>
           </div>
         </div>
 
         <div class="card">
           <div class="card-block card-header card-linked-header">
-            <a href="{% url 'units:unit' unit_id=8 %}">Summer of Invention</a>
+            <a href="{% url 'units:unit' unit_id=13 %}">3rd-5th Grade Engineering Design Process</a>
           </div>
-          <a href="{% url 'units:unit' unit_id=8 %}" class="action-img">
-            <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/502468ae521413f7f64fe7e43fc075a6' width=300 height=170 crop='fill' %}" alt="Summer of Invention Unit">
+          <a href="{% url 'units:unit' unit_id=13 %}" class="action-img">
+            <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/ec1c2ec8086227732540b5f8bcb79d8e' width=300 height=170 crop='fill' %}" alt="Summer of Invention Unit">
           </a>
           <div class="card-block">
-            <p class="card-text">Inspire children to invent and learn outdoors.</p>
+            <p class="card-text">Inspire elementary students to design for constraints and test solutions.</p>
           </div>
         </div>
 
         <div class="card">
           <div class="card-block card-header card-linked-header">
-            <a href="{% url 'units:unit' unit_id=9 %}" class="action-img">Bio&#8226;Bots</a>
+            <a href="{% url 'units:unit' unit_id=2 %}" class="action-img">6th-8th Grade Engineering Sampler</a>
           </div>
-          <a href="{% url 'units:unit' unit_id=9 %}" class="action-img">
-            <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/5200e3e38eb53c92c8c811d53452dee9' width=300 height=170 crop='fill' %}" alt="BioBots Unit">
+          <a href="{% url 'units:unit' unit_id=2 %}" class="action-img">
+            <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/06653476d73be4481ff06e29c1f563d0' width=300 height=170 crop='fill' %}" alt="BioBots Unit">
           </a>
           <div class="card-block">
-            <p class="card-text">Invent nature-inspired robots.</p>
+            <p class="card-text">A collection of design challenges that explore different types of engineering.</p>
           </div>
         </div>
       </div>
@@ -92,14 +92,14 @@
         <p>Want to do hands-on projects and hit standards at the same time? Curiosity Machine has you covered. Our design challenges are aligned to elementary NGSS standards, and middle school alignment is on the way.</p>
         
         <div class="text-center">
-          <a href="#" class="btn btn-primary">View NGSS K-5 Alignment</a>
+          <a href="https://s3.amazonaws.com/curiositymachine/statics/Curiosity_Machine_NGSS_Alignment_K-5.pdf" class="btn btn-primary">View NGSS K-5 Alignment</a>
         </div>
 
         <h3 class="m-t-lg">More Resources</h3>
         <ul>
-          <li><a href="#">Guide to Great Submissions</a></li>
-          <li><a href="#">Under 13 Consent Form</a></li>
-          <li><a href="#">Create Account Instructions</a></li>
+          <li><a href="https://s3.amazonaws.com/curiositymachine/statics/guide-to-great-submissions.pdf">Guide to Great Submissions</a></li>
+          <li><a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">Under 13 Consent Form</a></li>
+          <li><a href="http://iridescentlearning.org/wp-content/uploads/2014/09/CM-Login.pdf">Create Account Instructions</a></li>
         </ul>
 
       </div>
@@ -108,6 +108,6 @@
 
   <div class="sign-up-panel p-y-xl">
     <h2>Create an Educator Account!</h2>
-    <a href="#" class="btn-red-secondary text-uppercase">sign up</a>
+    <a href="{% url "profiles:join_as_educator" %}" class="btn-red-secondary text-uppercase">sign up</a>
   </div>
 {% endblock %}

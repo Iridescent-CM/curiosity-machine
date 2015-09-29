@@ -5513,14 +5513,20 @@ a {
   transition: color 150ms ease;
   border-bottom: solid 1px #2FB8C8;
   cursor: pointer; }
-  a:active,
-  a:focus,
   a:hover {
     color: #238a96;
+    text-decoration: none;
     border-bottom-color: #238a96; }
+  a:focus {
+    color: #FD6917;
+    border-bottom-color: #FD6917;
+    text-decoration: none;
+    outline: none; }
 
 a.action-img {
   border-bottom: 0px; }
+  a.action-img:focus {
+    outline: thin dotted #FD6917; }
 
 hr {
   border-bottom: 1px solid #E5E1D9;
@@ -5557,8 +5563,8 @@ i {
     background-color: #2aa6b4;
     border-color: #2aa6b4; }
   .btn-primary:focus {
-    color: white;
-    box-shadow: inset 0 0 0 2px #fff; }
+    color: white !important;
+    box-shadow: inset 0 0 0 2px #fff !important; }
   .btn-primary:active {
     color: white;
     background-color: #2693a0;
@@ -5590,8 +5596,8 @@ i {
     background-color: #e45f15;
     border-color: #e45f15; }
   .btn-red:focus {
-    color: white;
-    box-shadow: inset 0 0 0 2px #fff; }
+    color: white !important;
+    box-shadow: inset 0 0 0 2px #fff !important; }
   .btn-red:active {
     color: white;
     background-color: #ca5412;
@@ -5623,8 +5629,8 @@ i {
     background-color: #daa14b;
     border-color: #daa14b; }
   .btn-orange:focus {
-    color: white;
-    box-shadow: inset 0 0 0 2px #fff; }
+    color: white !important;
+    box-shadow: inset 0 0 0 2px #fff !important; }
   .btn-orange:active {
     color: white;
     background-color: #c28f42;
@@ -5656,8 +5662,8 @@ i {
     background-color: #81a350;
     border-color: #81a350; }
   .btn-green:focus {
-    color: white;
-    box-shadow: inset 0 0 0 2px #fff; }
+    color: white !important;
+    box-shadow: inset 0 0 0 2px #fff !important; }
   .btn-green:active {
     color: white;
     background-color: #729147;
@@ -5689,8 +5695,8 @@ i {
     background-color: #57579e;
     border-color: #57579e; }
   .btn-purple:focus {
-    color: white;
-    box-shadow: inset 0 0 0 2px #fff; }
+    color: white !important;
+    box-shadow: inset 0 0 0 2px #fff !important; }
   .btn-purple:active {
     color: white;
     background-color: #4e4e8c;
@@ -5808,6 +5814,27 @@ a .challenge-card-title p:hover {
   border-bottom: 0px;
   text-transform: uppercase;
   font-weight: 700; }
+
+.modal-close {
+  color: #fff;
+  font-size: 3em;
+  font-weight: 300;
+  text-shadow: 0px;
+  opacity: 1.0;
+  position: absolute;
+  right: 20px;
+  top: 5px; }
+  .modal-close:hover {
+    color: #cccccc; }
+
+.modal {
+  padding-top: 40px; }
+
+.modal-header h1, .modal-header h2 {
+  margin-bottom: 0px; }
+
+.modal.fade .modal-dialog {
+  transform: translate(0, 0); }
 
 header {
   background-color: #FFFCF7; }
@@ -5940,6 +5967,10 @@ header {
       -webkit-transition: top 0.16s ease-in; }
     .navbar .nav-link:hover:before {
       top: 0; }
+    .navbar .nav-link:focus, .navbar .nav-link:active {
+      outline: none;
+      background-color: #FD6917;
+      color: #fff; }
   .navbar .nav-profile .nav-link:before {
     background: #6161AF !important; }
   .navbar .nav-challenges:before {
@@ -5948,6 +5979,8 @@ header {
     background: #FD6917 !important; }
   .navbar .nav-mentors:before {
     background: #F2B353 !important; }
+  .navbar .nav-login:before {
+    background: #8FB559 !important; }
   .navbar .dropdown.nav-profile.open .dropdown-toggle {
     background-color: #6161AF;
     color: #FFFCF7; }
@@ -5971,6 +6004,15 @@ header {
     color: #949494; }
     .navbar-light .navbar-nav .nav-link:hover {
       color: #FFFCF7; } }
+
+#login-modal .modal-body input {
+  border-radius: 4px;
+  border: 0.0625rem solid #949494;
+  padding: 0.375rem 0.75rem;
+  width: 100%; }
+
+#login-modal .modal-body .row {
+  margin-bottom: 1.5em; }
 
 footer {
   background-color: #333333;
@@ -6052,6 +6094,8 @@ footer {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center; }
+  #index-page .home-top-panel button {
+    margin-left: 10px; }
 
 #index-page .home-top-panel-gradient {
   background-color: transparent;
@@ -6085,10 +6129,6 @@ footer {
 #index-page .home-member-panel h3 {
   color: #F2B353; }
 
-#index-page .home-member-panel a {
-  color: #F2B353;
-  border-bottom-color: #F2B353; }
-
 #index-page .sign-up-panel {
   padding: 6em 0px 6em 0px;
   background-color: #2FB8C8;
@@ -6096,6 +6136,9 @@ footer {
 
 #index-page .home-support-panel {
   background-color: #fff; }
+
+#index-page #how-video-modal {
+  padding: 40px 20px 20px 20px; }
 
 #educator-about-page .units {
   text-align: center; }

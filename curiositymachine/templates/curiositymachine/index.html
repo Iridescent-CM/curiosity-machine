@@ -5,14 +5,18 @@
 {% block body-id %}index-page{% endblock %}
 {% block content %}
 
-  <div id="how-vid" class="modal fade">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <div id="how-video-modal" class="modal fade">
+    <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
       <span class="sr-only">Close</span>
     </button>
     <div class="modal-dialog modal-lg">
       <div class="embed-responsive embed-responsive-16by9">
-        <iframe width="960" height="540" src="https://www.youtube.com/embed/94JY-Zs1r2U" allowfullscreen></iframe>
+        <video id="how-video" controls="controls" preload="metadata">
+          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.mp4" type="video/mp4">
+          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.ogg" type="video/ogg">
+          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.webm" type="video/webm">
+        </video>
       </div>
     </div>
   </div>
@@ -22,14 +26,16 @@
       <div class="container text-center">
         <h1 class="home-title">How do children succeed?</h1>
         <h3 class="home-subtitle">With curiosity, creativity, and persistence. <br/> Start building with Curiosity Machine.</h3>
-        <a href="#" class="btn btn-primary text-uppercase">Sign up</a>
-        <button type="button" data-toggle="modal" data-target="#how-vid" class="btn btn-secondary text-uppercase">See How it Works</button>
+        <a href="#" class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
+        <button type="button" data-toggle="modal" data-target="#how-video-modal" class="btn btn-secondary text-uppercase">See How it Works</button>
       </div>
     </div>
   </div>
 
   <div class="container text-center home-what-panel m-t-xl">
-    <h3>Build engineering design challenges using household objects, with the help of scientists and engineers.</h3>
+    <div class="col-md-8 col-md-offset-2">
+      <h3>Build engineering design challenges using household objects, with the help of scientists and engineers.</h3>
+    </div>
 
     <div class="row m-t-lg">
       <div class="col-md-6 col-lg-3">
@@ -86,7 +92,7 @@
         <a href="{% url 'mentor' %}">Learn More</a>
       </div>
     </div>
-   
+
     <div class="row m-t-xl">
       <div class="col-md-6">
         <img class="img-responsive img-rounded m-b" src="{% static 'images/home/build-4.jpg' %}" alt="Group builds together">
@@ -103,12 +109,12 @@
 
     <div class="row m-t-lg">
       <div class="col-md-6">
-        <h4>Schools, organizations and playgroups</h4>
+        <h4>Schools, Organizations and Playgroups</h4>
         <p>Bring Curiosity Machine to your school or program.</p>
         <a href="/about-membership">About Memberships</a>
       </div>
       <div class="col-md-6">
-        <h4>Science and Engineering companies</h4>
+        <h4>Science and Engineering Companies</h4>
         <p>Share your innovations with the public.</p>
         <a href="/about-partnership">About Partnerships</a>
       </div>
@@ -118,7 +124,7 @@
   <div class="container-fluid sign-up-panel m-t-xl">
     <div class="container text-center">
       <h2>Create an account and take on your first design challenge!</h1>
-      <a href="#" class="btn btn-secondary text-uppercase">sign up</a>
+      <a href="#" class="btn btn-secondary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
     </div>
   </div>
 
@@ -148,4 +154,20 @@
       </a>
     </div>
   </div>
+{% endblock %}
+
+{% block js %}
+<script>
+  $(function(){
+    var $modal = $('#how-video-modal');
+    var video = $('#how-video')[0];
+    $modal.on('hide.bs.modal', function(){
+      video.pause();
+    });
+    $modal.on('shown.bs.modal', function(){
+      video.play();
+    });
+
+  });
+</script>
 {% endblock %}

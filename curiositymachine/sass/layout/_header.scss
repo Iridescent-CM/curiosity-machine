@@ -182,12 +182,19 @@ header {
       &:hover:before {
         top: 0;
       }
+
+      &:focus, &:active {
+        outline: none;
+        background-color: $primary-red;
+        color: #fff;
+      }
     }
 
     .nav-profile .nav-link:before { background: $primary-purple !important; }
     .nav-challenges:before { background: $primary-blue !important; }
     .nav-about:before { background: $primary-red !important; }
     .nav-mentors:before { background: $primary-orange !important;}
+    .nav-login:before { background: $primary-green !important;}
 
     .dropdown.nav-profile {
       &.open {
@@ -229,6 +236,21 @@ header {
           color: $primary-light;
         }
       }
+    }
+  }
+}
+
+// Log in Modal
+#login-modal {
+  .modal-body {
+    input {
+      border-radius: $base-border-radius;
+      border: 0.0625rem solid $medium-gray;
+      padding: 0.375rem 0.75rem;
+      width: 100%;
+    }
+    .row {
+      margin-bottom: $base-spacing;
     }
   }
 }
