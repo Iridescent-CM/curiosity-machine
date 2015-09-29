@@ -1,0 +1,231 @@
+@primary-red: #FD6917;
+@primary-orange: #F2B353;
+@primary-green: #8FB559;
+@primary-blue: #2FB8C8;
+@primary-purple: #6161AF;
+@dark-gray: #333333;
+@medium-gray: #949494;
+@light-gray: #E5E1D9;
+@primary-light: #FFFCF7;
+@base-border-radius: 3px;
+@heavy-font-weight: 700;
+
+* {
+  font-size: 16px;
+}
+
+.navbar {
+  min-height: 60px;
+  border-radius: 0;
+	border: 0;
+}
+
+.navbar-collapse {
+  max-height: none;
+	border: 0;
+}
+
+.navbar-brand {
+  padding: 5px;
+
+  img {
+    height: 50px;
+  }
+}
+
+.avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+}
+
+.navbar-default {
+  li a.nav-link {
+    font-weight: normal;
+	  font-size: 16px;
+		color: @primary-light;
+
+		&:hover {
+		  color: @primary-light;
+    }
+  }
+
+	.navbar-toggle {
+		top: 0;
+		text-transform: uppercase;
+		font-weight: @heavy-font-weight;
+		font-size: 16px;
+		line-height: 60px;
+		color: @primary-blue;
+	  border: 0;
+		margin: 0;
+		padding: 0;
+
+		&:hover {
+      text-decoration: none;
+			background: none;
+			cursor: pointer;
+			color: shade(@primary-blue, 10);
+		}
+  }
+}
+
+@media (max-width: @screen-sm-max) {
+
+  .avatar img {
+    display: inline;
+  }
+
+  .navbar {
+    .nav-item {
+      float: none;
+      text-align: center;
+			a {
+        line-height: 1.5em;
+      }
+
+      & + .nav-item {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      padding: 15px 0px;
+      color: @primary-light;
+      border-radius: @base-border-radius;
+      margin: 10px 0px;
+
+      &:hover {
+        color: @primary-light;
+      }
+    }
+
+    .list-group.nav-profile {
+      .list-group-item {
+				padding: 12px 20px;
+
+        a {
+          color: @primary-purple;
+        }
+
+        &:hover {
+          background-color: @primary-purple;
+          border-color: @primary-purple;
+          a {
+            text-decoration: none;
+            color: @primary-light;
+          }
+        }
+
+        &.active {
+				  border: 0;
+          background-color: shade(@primary-purple, 20);
+          border-color: shade(@primary-purple, 20);
+          color: @primary-light;
+        }
+
+      }
+    }
+
+		li {
+      a.nav-challenges { 
+        background-color: @primary-blue;
+        &:hover { background-color: shade(@primary-blue, 10); }
+      }
+      a.nav-mentors { 
+        background-color: @primary-orange;
+        &:hover { background-color: shade(@primary-orange, 10); }
+      }
+      a.nav-about { 
+        background-color: @primary-red;
+        &:hover { background-color: shade(@primary-red, 10); }
+      }
+      a.nav-join {
+        background-color: @primary-purple;
+        &:hover { background-color: shade(@primary-purple, 10); }
+      }
+      a.nav-login {
+        background-color: @primary-green;
+        &:hover { background-color: shade(@primary-green, 10); }
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md-min) {
+
+  .avatar img {
+    position: absolute;
+    top: 0;
+    right: 35px;
+	  top: 50%;
+	  transform: translateY(-50%);
+  }
+
+  .profile-name {
+    margin-right: 70px;
+  }
+
+	.nav-item {
+	  height: 62px;
+		& + .nav-item {
+		  margin-left: 4px;
+    }
+  }
+
+	.navbar-default .navbar-nav {
+    li a.nav-link {
+      z-index: 1;
+      position: relative;
+      padding: 17px 15px 0;
+      height: 62px;
+			transition: color 150ms ease;
+      color: @medium-gray;
+			line-height: 1.5em;
+  
+      &:hover {
+        color: @primary-light;
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        background: @primary-blue;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 100%;
+        z-index: -1;
+        -webkit-transition: top 0.16s ease-in;
+      }
+      &:hover:before {
+        top: 0;
+      }
+    }
+
+    .btn-primary {
+      text-transform: none;
+			font-weight: normal;
+			color: @primary-light;
+		  background-color: @primary-blue;
+			border-width: 0;
+			padding: 9px 19px;
+			margin-top: 9px;
+			line-height: 1.5em;
+
+		  &:hover {
+			  color: @primary-light;
+		    background-color: shade(@primary-blue, 10);
+      }
+	  }
+  }
+
+  .nav-profile .nav-link:before { background: @primary-purple !important; }
+  .nav-challenges:before { background: @primary-blue !important; }
+  .nav-about:before { background: @primary-red !important; }
+  .nav-mentors:before { background: @primary-orange !important;}
+  .nav-login:before { background: @primary-green !important;}
+}

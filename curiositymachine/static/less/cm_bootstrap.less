@@ -23,6 +23,16 @@
 @import "input-groups.less";
 @import "navs.less";
 @import "navbar.less";
+
+.temp-header {
+	// change the navbar breakpoint
+	@grid-float-breakpoint: @screen-md-min;
+	@grid-float-breakpoint-max: @screen-sm-max;
+
+  @import "original-navbar.less";
+	@import "new-header.less";
+}
+
 @import "breadcrumbs.less";
 @import "pagination.less";
 @import "pager.less";

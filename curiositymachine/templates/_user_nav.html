@@ -1,23 +1,68 @@
-<div class="navbar" role="navigation">
-  <ul class="nav-menu">
-    {% if request.user.is_authenticated %}
-      <li><a href="{% url 'logout' %}?next=/">Logout</a></li>
-      <li><a href="{% url 'profiles:home' %}">Home</a></li>
-      <li><a href="{% url 'profiles:profile_edit' %}">Edit My Profile</a></li>
-    {% else %}
-      <li><button class="btn-link" data-toggle="modal"  data-target="#login-modal">Login</button></li>
-      <li><button class="btn-link" data-toggle="modal" data-target="#join-modal">Join</button></li>
-    {% endif %}
-    <li>&nbsp;</li>
-    <li><a href="{% url 'challenges:challenges' %}">Challenges</a></li>
-    <li><a href="{% url 'profiles:mentors' %}">Mentors</a></li>
-    <li>&nbsp;</li>
-    <li><a href="{% url 'faq' %}">FAQ</a></li>
-    <li><a href="{% url 'about' %}">About Us</a></li>
-    <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
-    <li>&nbsp;</li>
-    {% if request.user.is_authenticated %}
-    <li><a href="{% url 'tsl:course_reflection' %}">CCR</a></li>
-    {% endif %}
-  </ul>
+{% load staticfiles %}
+<div class="temp-header">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
+          Menu
+        </a>
+        <a class="navbar-brand" href="/">
+          <img src="{% static 'images/logo-small.png' %}" class="visible-lg" alt="curiosity machine logo">
+          <img src="{% static 'images/favicon.png' %}" class="hidden-lg" alt="curiosity machine logo">
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="main-nav">
+        <ul class="nav navbar-nav navbar-right">
+
+          {% if request.user.is_authenticated %}
+          <li class="nav-item hidden-lg">
+            <ul class="list-group nav-profile">
+              <li class="list-group-item active">
+                <div class="avatar text-center">{% include "_avatar.html" with profile=request.user.profile width=40 height=40 crop='thumb' gravity='faces' %}</div>
+                <span class="profile-name">{{ user.username }}</span>
+              </li>
+              <li class="list-group-item">
+                <a href="{% url 'profiles:home' %}">My Dashboard</a>
+              </li>
+              <li class="list-group-item">
+                <a href="{% url 'profiles:profile_edit' %}">Edit Profile</a>
+              </li>
+              <li class="list-group-item">
+                <a href="{% url 'logout' %}?next=/">Log Out</a>
+              </li>
+            </ul>
+          </li>
+          {% endif %}
+
+          <li class="nav-item"><a href="{% url "profiles:mentors" %}" class="nav-link nav-mentors">Mentor Community</a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-about">About Us</a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-challenges">Challenges</a></li>
+
+          {% if request.user.is_authenticated %}
+          <li class="nav-item visible-lg dropdown">
+            <a class="nav-link dropdown-toggle" id="usermenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="profile-name">{{ user.username }}</span>
+              <span class="avatar">{% include "_avatar.html" with profile=request.user.profile width=40 height=40 crop='thumb' gravity='faces' %}</span>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="usermenu">
+              <li><a class="dropdown-item" href="{% url 'profiles:home' %}">My Dashboard</a></li>
+              <li><a class="dropdown-item" href="{% url 'profiles:profile_edit' %}">Edit Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}?next=/">Log Out</a></li>
+            </ul>
+          </li>
+          {% else %}
+          <li class="nav-item"><a href="#" class="nav-link nav-login">Log In</a></li>
+          <li class="nav-item">
+            <a class="btn btn-primary visible-md visible-lg" data-toggle="modal" data-target="#join-modal">Join</a>
+            <a class="nav-link nav-join hidden-md hidden-lg">Join</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 </div>

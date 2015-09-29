@@ -102,6 +102,7 @@ $(document).ready(function() {
   
   
   $('.navbar-toggle').on('click', function(e) {
+    return;
     e.preventDefault();
     var $content = $('.container-fluid');
     var $nav = $('.nav-menu');
