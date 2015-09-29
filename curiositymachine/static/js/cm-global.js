@@ -101,20 +101,6 @@ $(document).ready(function() {
   }
   
   
-  $('.navbar-toggle').on('click', function(e) {
-    return;
-    e.preventDefault();
-    var $content = $('.container-fluid');
-    var $nav = $('.nav-menu');
-    if ($content.hasClass('nav-open')) {
-      $content.removeClass('nav-open');
-      $nav.removeClass('nav-open');
-    } else {
-      $content.addClass('nav-open');
-      $nav.addClass('nav-open');
-    }
-  });
-
   //this adds margin to the images in comments so they always line up with the paper lines.
   $('.paper img').on('load',function() {
     var $self = $(this);

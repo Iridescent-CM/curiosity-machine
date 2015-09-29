@@ -24,13 +24,17 @@
 @import "navs.less";
 @import "navbar.less";
 
+// isolate all the following in a wrapper class
 .temp-header {
-	// change the navbar breakpoint
-	@grid-float-breakpoint: @screen-md-min;
-	@grid-float-breakpoint-max: @screen-sm-max;
+  // change the navbar breakpoint
+  @grid-float-breakpoint: @screen-md-min;
+  @grid-float-breakpoint-max: @screen-sm-max;
 
+  // pull in the original bootstrap navbar source into a new file, because
+  // it has been modified in this project
   @import "original-navbar.less";
-	@import "new-header.less";
+  // apply our own changes on top of the original
+  @import "new-header.less";
 }
 
 @import "breadcrumbs.less";

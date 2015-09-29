@@ -1,3 +1,4 @@
+// some variables we need from our SASS files
 @primary-red: #FD6917;
 @primary-orange: #F2B353;
 @primary-green: #8FB559;
@@ -17,12 +18,12 @@
 .navbar {
   min-height: 60px;
   border-radius: 0;
-	border: 0;
+  border: 0;
 }
 
 .navbar-collapse {
   max-height: none;
-	border: 0;
+  border: 0;
 }
 
 .navbar-brand {
@@ -43,31 +44,31 @@
 .navbar-default {
   li a.nav-link {
     font-weight: normal;
-	  font-size: 16px;
-		color: @primary-light;
+    font-size: 16px;
+    color: @primary-light;
 
-		&:hover {
-		  color: @primary-light;
+    &:hover {
+    color: @primary-light;
     }
   }
 
-	.navbar-toggle {
-		top: 0;
-		text-transform: uppercase;
-		font-weight: @heavy-font-weight;
-		font-size: 16px;
-		line-height: 60px;
-		color: @primary-blue;
-	  border: 0;
-		margin: 0;
-		padding: 0;
+  .navbar-toggle {
+    top: 0;
+    text-transform: uppercase;
+    font-weight: @heavy-font-weight;
+    font-size: 16px;
+    line-height: 60px;
+    color: @primary-blue;
+    border: 0;
+    margin: 0;
+    padding: 0;
 
-		&:hover {
+    &:hover {
       text-decoration: none;
-			background: none;
-			cursor: pointer;
-			color: shade(@primary-blue, 10);
-		}
+      background: none;
+      cursor: pointer;
+      color: shade(@primary-blue, 10);
+    }
   }
 }
 
@@ -81,7 +82,7 @@
     .nav-item {
       float: none;
       text-align: center;
-			a {
+      a {
         line-height: 1.5em;
       }
 
@@ -105,7 +106,7 @@
 
     .list-group.nav-profile {
       .list-group-item {
-				padding: 12px 20px;
+        padding: 12px 20px;
 
         a {
           color: @primary-purple;
@@ -121,7 +122,7 @@
         }
 
         &.active {
-				  border: 0;
+          border: 0;
           background-color: shade(@primary-purple, 20);
           border-color: shade(@primary-purple, 20);
           color: @primary-light;
@@ -130,7 +131,7 @@
       }
     }
 
-		li {
+    li {
       a.nav-challenges { 
         background-color: @primary-blue;
         &:hover { background-color: shade(@primary-blue, 10); }
@@ -161,30 +162,30 @@
     position: absolute;
     top: 0;
     right: 35px;
-	  top: 50%;
-	  transform: translateY(-50%);
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .profile-name {
     margin-right: 70px;
   }
 
-	.nav-item {
-	  height: 62px;
-		& + .nav-item {
-		  margin-left: 4px;
+  .nav-item {
+    height: 62px;
+    & + .nav-item {
+      margin-left: 4px;
     }
   }
 
-	.navbar-default .navbar-nav {
+  .navbar-default .navbar-nav {
     li a.nav-link {
       z-index: 1;
       position: relative;
       padding: 17px 15px 0;
       height: 62px;
-			transition: color 150ms ease;
+      transition: color 150ms ease;
       color: @medium-gray;
-			line-height: 1.5em;
+      line-height: 1.5em;
   
       &:hover {
         color: @primary-light;
@@ -208,19 +209,19 @@
 
     .btn-primary {
       text-transform: none;
-			font-weight: normal;
-			color: @primary-light;
-		  background-color: @primary-blue;
-			border-width: 0;
-			padding: 9px 19px;
-			margin-top: 9px;
-			line-height: 1.5em;
+      font-weight: normal;
+      color: @primary-light;
+      background-color: @primary-blue;
+      border-width: 0;
+      padding: 9px 19px;
+      margin-top: 9px;
+      line-height: 1.5em;
 
-		  &:hover {
-			  color: @primary-light;
-		    background-color: shade(@primary-blue, 10);
+      &:hover {
+        color: @primary-light;
+        background-color: shade(@primary-blue, 10);
       }
-	  }
+    }
   }
 
   .nav-profile .nav-link:before { background: @primary-purple !important; }
