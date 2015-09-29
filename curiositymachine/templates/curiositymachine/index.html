@@ -124,7 +124,7 @@
   <div class="container-fluid sign-up-panel m-t-xl">
     <div class="container text-center">
       <h2>Create an account and take on your first design challenge!</h1>
-      <a href="#" class="btn btn-secondary text-uppercase">sign up</a>
+      <a href="#" class="btn btn-secondary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
     </div>
   </div>
 
@@ -152,57 +152,6 @@
       <a href="https://hivelearningnetworks.org/" class="action-img">
         <img src="{% static 'images/logos/hive-logo.png' %}" alt="Hive Network logo" height="70">
       </a>
-    </div>
-  </div>
-
-  <div class="modal fade" id="join-modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-    <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-      <span class="sr-only">Close</span>
-    </button>
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="text-center">Get started. Create an account.</h1>
-        </div>
-        <div class="modal-body">
-          <p class="lead text-center">Join Curiosity Machine as a:</p>
-          <div class="row text-center">
-            <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-              <a class="btn btn-primary btn-block" href="{% url 'profiles:join' %}">
-                Student
-              </a>
-              <p class="button-help">
-                build and document projects using the engineering design process
-              </p>
-            </div>
-            <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-              <a class="btn btn-primary btn-block" href="{% url 'profiles:join_as_mentor' %}">
-                Mentor
-              </a>
-              <p class="button-help">
-                guide students as they build engineering design challenges
-              </p>
-            </div>
-            <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-              <a class="btn btn-primary btn-block" href="{% url 'profiles:join_as_educator' %}">
-                Educator
-              </a>
-              <p class="button-help">
-                find resources for engineering challenges and track student progress
-              </p>
-            </div>
-            <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-              <a class="btn btn-primary btn-block" href="{% url 'profiles:join_as_parent' %}">
-                Parent
-              </a>
-              <p class="button-help">
-                connect to your child’s account and learn how to build together
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 {% endblock %}
