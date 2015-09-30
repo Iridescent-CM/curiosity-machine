@@ -206,6 +206,11 @@
         top: 0;
       }
     }
+		li.open a.nav-link {
+		  &:before {
+			  top: 0;
+      }
+		}
 
     .btn-primary {
       text-transform: none;
@@ -229,4 +234,35 @@
   .nav-about:before { background: @primary-red !important; }
   .nav-mentors:before { background: @primary-orange !important;}
   .nav-login:before { background: @primary-green !important;}
+
+  .dropdown.nav-profile {
+    &.open {
+      .dropdown-toggle {
+        background-color: @primary-purple;
+        color: @primary-light;
+      }
+    }
+    .dropdown-menu {
+      padding: 0;
+      border: 0;
+      margin-top: 10px;
+			border-radius: 4px;
+      .dropdown-item {
+        padding-top: 14px;
+        padding-bottom: 14px;
+        &:hover {
+          background-color: @primary-purple;
+          color: @primary-light;
+        }
+      }
+      li:first-child .dropdown-item {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+      li:last-child .dropdown-item {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+    }
+  }
 }
