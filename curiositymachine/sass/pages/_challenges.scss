@@ -49,6 +49,14 @@
         text-decoration: none;
       }
     }
+    li.active {
+      position: relative;
+      left: -20px;
+      a {
+        background-color: $primary-blue;
+        color: $primary-light;
+      }
+    }
   }
 
   .design-challenge-highlights {
@@ -77,11 +85,5 @@
       margin: 10px auto;
     }
     margin-bottom: $large-spacing;
-  }
-
-  #selected-challenge {
-    left: -20px;
-    background-color: $primary-blue;
-    color: $primary-light;
   }
 }

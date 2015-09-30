@@ -14,18 +14,27 @@
     <div class="challenges-navigation col-md-5 col-lg-4 col-xl-3">
       <h4 class="all-challenges-header text-center">Categories</h4>
       <ul class="design-challenge-list">
-        <li><a href="#">All Challenges</a></li>
+        <li {% if not active_filter and not active_theme_name %}class="active"{% endif %}>
+          <a href="{% url "challenges:challenges" %}#challenges">All Challenges</a>
+        </li>
         {% for filter in filters %}
-        <li><a href="#">{{filter.name}}</a></li>
+        <li {% if active_filter == filter %}class="active"{% endif %}>
+          <a href="{% url "challenges:challenges" %}?filter_id={{filter.id}}#challenges">{{filter.name}}</a>
+        </li>
         {% endfor %}
         {% for theme in themes %}
-        <li><a href="#"><i class="{{theme.icon}}"></i>{{theme.name}}</a></li>
+        <li {% if active_theme_name == theme.name %}class="active"{% endif %}>
+          <a href="{% url "challenges:challenges" %}?theme={{theme.name}}#challenges">
+            <i class="{{theme.icon}}"></i>
+            {{theme.name}}
+          </a>
+        </li>
         {% endfor %}
       </ul>
     </div>
 
     <div class="col-md-7 col-lg-8 col-xl-9">
-      <h4 class="all-challenges-header text-center">Inspired by Boeing Challenges</h4>
+      <h4 class="all-challenges-header text-center" id="challenges">{{title}}</h4>
       <div class="all-challenges-cards">
         <div class="row text-center">
           <nav>

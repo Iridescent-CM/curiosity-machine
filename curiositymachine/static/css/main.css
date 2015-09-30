@@ -6221,6 +6221,12 @@ footer {
       #challenges-page .design-challenge-list a:focus, #challenges-page .design-challenge-highlights a:focus {
         background-color: #fffefb;
         text-decoration: none; }
+    #challenges-page .design-challenge-list li.active, #challenges-page .design-challenge-highlights li.active {
+      position: relative;
+      left: -20px; }
+      #challenges-page .design-challenge-list li.active a, #challenges-page .design-challenge-highlights li.active a {
+        background-color: #2FB8C8;
+        color: #FFFCF7; }
   #challenges-page .design-challenge-highlights {
     border-bottom: 2px solid #2FB8C8; }
   #challenges-page #boeing-filter {
@@ -6239,9 +6245,5 @@ footer {
       display: block;
       vertical-align: top;
       margin: 10px auto; }
-  #challenges-page #selected-challenge {
-    left: -20px;
-    background-color: #2FB8C8;
-    color: #FFFCF7; }
 
 /*# sourceMappingURL=main.css.map */
