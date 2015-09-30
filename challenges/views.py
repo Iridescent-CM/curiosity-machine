@@ -19,6 +19,8 @@ from videos.models import Video
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def challenges(request):
     challenges = Challenge.objects.filter(draft=False).select_related('image')
@@ -31,7 +33,17 @@ def challenges(request):
     themes = Theme.objects.all()
     if request.user.is_authenticated():
         favorites = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
-    return render(request, 'challenges.html', {
+
+    paginator = Paginator(challenges, 2)
+    page = request.GET.get('page')
+    try:
+        challenges = paginator.page(page)
+    except PageNotAnInteger:
+        challenges = paginator.page(1)
+    except EmptyPage:
+        challenges = paginator.page(paginator.num_pages)
+
+    return render(request, 'challenges/new.html', {
         'challenges': challenges,
         'themes': themes,
         'theme':theme,

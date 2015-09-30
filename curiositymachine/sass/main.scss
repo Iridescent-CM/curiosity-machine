@@ -1,8 +1,9 @@
 @import 'vendors/bootstrap/scss/bootstrap';
-@import 'vendors-extensions/bootstrap/utilities-spacing';
 
 @import 'utils/variables';
 @import 'utils/functions';
+
+@import 'vendors-extensions/bootstrap/utilities-spacing';
 
 @import 'base/fonts';
 @import 'base/typography';
