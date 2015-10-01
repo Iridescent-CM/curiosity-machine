@@ -86,6 +86,7 @@
           </nav>
         </div>
       
+        {% with all=request.user.challenges.all %}
         <div class="row">
           {% for challenge in challenges %}
           <div class="col-sm-6 col-md-12 col-lg-6 col-xl-4">
@@ -94,19 +95,29 @@
                 <input type="checkbox" name="favorite" id="favorite-star">
                 <label for="favorite-star" id="favorite-star"><i class="icon-star-full"></i></label>
               </div>
-              <a href="#">
+
+              {% if challenge in all %}
+              <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
+              {% else %}
+              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
+              {% endif %}
                 <div class="challenge-card-title">
                   <p>{{challenge.name}}</p>
                 </div>
               </a>
-              <a href="#" class="action-img">
+
+              {% if challenge in all %}
+              <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
+              {% else %}
+              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
+              {% endif %}
                 {% if challenge.image %}
                 <img src="{% resized challenge.image.url width=300 height=170 crop='fill' %}">
                 {% elif challenge.video.encodings_generated %}
                 {{ challenge.video.output_videos.all.0.thumbnail }}
                 {% endif %}
               </a>
-              <div class="inspired-by" id="inspired-by-boeing">Inspired by <i class="icon-boeing-logo"></i></div>
+
               <div class="challenge-card-description">
                 <small>{{challenge.description}}</small>
               </div>
@@ -114,6 +125,7 @@
           </div>
           {% endfor %}
         </div>
+        {% endwith %}
 
         <div class="row text-center">
           <nav>
