@@ -69,13 +69,6 @@
       </div>
     {% endif %}
     <div class="container-fluid main-content">
-      <a href="{% url 'challenges:challenges' %}" class="logo">Curiosity Machine</a>
-      <button type="button" class="navbar-toggle">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       {% if request.user.is_authenticated %}
         <div class="user-avatar">
           {% if request.user.profile.get_unread_comment_count %}
