@@ -134,15 +134,15 @@
           {% endif %}
 
           <li class="nav-item">
-            <a class="nav-link nav-challenges" href="/challenges">Challenges</a>
+            <a class="nav-link nav-challenges" href="{% url "challenges:challenges" %}">Challenges</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link nav-mentors" href="/mentors" />Mentor Community<span class="sr-only">(current)</span></a>
+            <a class="nav-link nav-mentors" href="{% url "profiles:mentors" %}" />Mentor Community<span class="sr-only">(current)</span></a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link nav-about" href="/about">About Us</a>
+            <a class="nav-link nav-about" href="{% url "about" %}">About Us</a>
           </li>
 
           {% if request.user.is_authenticated %}
