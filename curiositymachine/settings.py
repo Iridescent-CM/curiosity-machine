@@ -293,6 +293,10 @@ REQUEST_A_MENTOR_LINK = os.environ.get("REQUEST_A_MENTOR_LINK", None)
 SITE_MESSAGE = os.environ.get("SITE_MESSAGE", None)
 SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
 
+# an impossible pattern below prevents blacklisting until actual patterns are provided through the env
+BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))
+WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?').split(','))
+
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 
 # Import optional local settings.  This must come after config you want to be able to override.
@@ -305,6 +309,3 @@ except ImportError:
 if DEBUG and DEBUG_TOOLBAR:
     INSTALLED_APPS += ('debug_toolbar',)
 
-
-WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?').split(','))
-BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))
