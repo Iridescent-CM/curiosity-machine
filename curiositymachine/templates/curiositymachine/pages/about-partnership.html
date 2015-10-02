@@ -1,0 +1,38 @@
+{% extends "curiositymachine/layout/about_pg_layout.html" %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block title %}Partnerships{% endblock %}
+{% block body-id %}partnership-about-page{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-push-2 col-md-10 col-md-push-1 m-t-lg">
+        <h2>Your Work is Inspiring</h2>
+        <h3 class="m-b-lg">Share it with the world!</h3>
+        <p>Curiosity Machine leverages industry experts to bring science and engineering role models to those who don’t have access to them. By partnering with us, your company’s employees have the unique chance to:</p>
+        <ul>
+          <li>
+            <h4>Invent design challenges for children based on your company’s work</h4>
+            <p>We train your engineers and scientists to develop a hands-on design challenge — a project for children and their families to build over the course of a few hours, using simple household materials. Each challenge explores a key science and engineering concept distilled from the work you do every day.</p>
+          </li>
+          <li>
+            <h4>Feature your company’s work in animated videos for children</h4>
+            <p>Work with our Curiosity Machine team to produce a high quality video that explains your company’s cutting-edge innovation. Each of the videos takes a complicated physics or engineering concept and breaks it down into smaller concepts.</p>
+          </li>
+          <li>
+            <h4>Become a role model and support children from anywhere</h4>
+            <p>Scientists and engineers are trained on how to guide children as online mentors. They share their strategies and provide feedback as children progress through the engineering design process. Learn more and become a <a href="{% url "mentor" %}">mentor</a>.</p>
+          </li>
+        </ul>
+
+        <img class="img-rounded" src="{% static 'images/about/nyc-team.jpg' %}" alt="Group photo in NYC">
+
+        <p class="m-t-md m-b-lg">Want to learn more? Schedule a meeting with us! Contact <a href="mailto:mentors@iridescentlearning.org">mentors@iridescentlearning.org</a>.</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

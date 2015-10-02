@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from profiles.models import Profile
 from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
-from .views import root_redirect
+from .views import root
 from .views.generic import UserJoinView
 from challenges.models import Progress, Challenge
 from .helpers import random_string
@@ -169,23 +169,23 @@ def test_login_required_middleware_redirects_login_required_exceptions(rf):
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == reverse('login') + '?next=/some/path'
 
-def test_root_redirect_redirects_student_without_progress_to_challenges(rf):
+def test_root_redirects_student_without_progress_to_challenges(rf):
     user = User()
     profile = Profile(user=user, is_student=True)
     request = rf.get('/some/path')
     request.user = user
-    response = root_redirect(request)
+    response = root(request)
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == reverse('challenges:challenges')
 
 @pytest.mark.django_db
-def test_root_redirect_redirects_student_with_progress_to_home(rf):
+def test_root_redirects_student_with_progress_to_home(rf):
     user = User.objects.create(username='user', email='useremail')
     challenge = Challenge.objects.create(name='challenge')
     progress = Progress.objects.create(student=user, challenge=challenge)
     request = rf.get('/some/path')
     request.user = user
-    response = root_redirect(request)
+    response = root(request)
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == reverse('profiles:home')
 

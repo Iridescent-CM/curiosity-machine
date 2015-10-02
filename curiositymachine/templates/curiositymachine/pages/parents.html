@@ -1,0 +1,44 @@
+{% extends "curiositymachine/layout/about_pg_layout.html" %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block title %}Parents{% endblock %}
+{% block body-id %}parent-about-page{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div class="container p-b-lg">
+    <div class="row">
+      <div class="col-lg-8 col-lg-push-2 col-md-10 col-md-push-1 m-t-lg">
+        <h2>Build Something Great Together</h2>
+        <h3 class="m-b-lg">Join your child to plan, build, and test design challenges.</h3>
+        <p>This practice will help your child learn from her own mistakes and develop:</p>
+          <ul>
+            <li><strong>Curiosity</strong> to ask questions and understand how the world around her works</li>
+            <li><strong>Creativity</strong> to plan new ideas and create unique inventions</li>
+            <li><strong>Persistence</strong> to learn from her own mistakes and succeed</li>
+          </ul>
+        <p>With a parent account, you can follow each step of every design your child builds and watch your child’s portfolio of completed projects grow. It’s free to sign up!</p>
+
+        <img class="img-rounded" src="{% static 'images/about/family-make.jpg' %}" alt="Family builds together">
+
+        <hr class="hr-red m-b-lg"/>
+
+        <h2>Support Your Child’s Critical Thinking Skills</h2>
+        <p>Our Creative Parent’s Toolbox includes 6 training presentations that cover a variety of topics to set you and your child up for success:</p>
+        <ul>
+          <li>How to ask questions that make your child think</li>
+          <li>How to foster a growth mindset</li>
+          <li>How to support a girl and recognize gender biases</li>
+          <li>A crash course on the basics of physics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sign-up-panel p-y-xl">
+    <h2>Create a Parent Account!</h2>
+    <a href="{% url "profiles:join_as_parent" %}" class="btn-red-secondary text-uppercase">sign up</a>
+  </div>
+{% endblock %}

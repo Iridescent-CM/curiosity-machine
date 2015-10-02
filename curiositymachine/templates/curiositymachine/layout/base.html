@@ -1,0 +1,45 @@
+{% load staticfiles %}
+{% load future %} {# suppresses deprecation warnings for firstof tag #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{% block title %}Curiosity Machine{% endblock %}</title>
+  <!-- favicons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicons/apple-touch-icon-57x57.png' %}">
+  <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicons/apple-touch-icon-114x114.png' %}">
+  <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicons/apple-touch-icon-72x72.png' %}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicons/apple-touch-icon-144x144.png' %}">
+  <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicons/apple-touch-icon-60x60.png' %}">
+  <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicons/apple-touch-icon-120x120.png' %}">
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicons/apple-touch-icon-76x76.png' %}">
+  <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicons/apple-touch-icon-152x152.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-196x196.png' %}" sizes="196x196">
+  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-160x160.png' %}" sizes="160x160">
+  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-96x96.png' %}" sizes="96x96">
+  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-16x16.png' %}" sizes="16x16">
+  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-32x32.png' %}" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="{% static 'images/favicons/mstile-144x144.png' %}">
+
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body id="{% block body-id %}{% endblock %}" class="{% block body-classes %}{% endblock %}">
+
+  {% include 'curiositymachine/_header.html' %}
+
+  {% block content %}
+  {% endblock %}
+
+  {% include 'curiositymachine/_footer.html' %}
+
+  <!-- jQuery first, then Bootstrap JS. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
+  {% block js %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+@import 'vendors/bootstrap/scss/bootstrap';
+@import 'vendors-extensions/bootstrap/utilities-spacing';
+
+@import 'utils/variables';
+@import 'utils/functions';
+
+@import 'base/fonts';
+@import 'base/typography';
+
+@import 'components/buttons';
+@import 'components/dividers';
+@import 'components/modals';
+
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/about_pg_layout';
+
+@import 'pages/home';
+@import 'pages/educator';
+@import 'pages/faq';
