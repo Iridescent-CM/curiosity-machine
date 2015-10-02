@@ -42,9 +42,9 @@ def challenges(request):
 
     filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
     themes = Theme.objects.all()
-    favorites = set()
+    favorite_ids = set()
     if request.user.is_authenticated():
-        favorites = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
+        favorite_ids = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
 
     if theme_name:
         challenges = challenges.filter(themes__name=theme_name)
@@ -64,7 +64,7 @@ def challenges(request):
         'active_theme_name': theme_name,
         'filters': filters,
         'active_filter': filt,
-        'favorites': favorites,
+        'favorite_ids': favorite_ids,
         'title': title + " Challenges"
     })
 
