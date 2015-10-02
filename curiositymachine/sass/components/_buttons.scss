@@ -21,6 +21,26 @@ $btn-secondary-border:           #ccc !default;
   box-shadow: inset 0 0 0 2px #fff;
 }
 
+@mixin btn-color($color) {
+  color: white;
+  background-color: $color;
+  border-color: $color;
+  &:hover {
+    color: white;
+    background-color: shade($color, 10%);
+        border-color: shade($color, 10%);
+  }
+  &:focus {
+    color: white !important;
+    box-shadow: inset 0 0 0 2px #fff !important;
+  }
+  &:active {
+    color: white;
+    background-color: shade($color, 20%);
+        border-color: shade($color, 20%);
+  }
+}
+
 @mixin btn-secondary-tab-focus($color) {
   outline: none;
   box-shadow: inset 0 0 0 2px $color;
