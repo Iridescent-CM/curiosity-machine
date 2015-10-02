@@ -76,7 +76,7 @@ a.action-img {
   border-bottom: 0px;
 
   &:focus {
-    outline: -webkit-focus-ring-color auto 5px;
+    @include tab-focus();
   }
 }
 

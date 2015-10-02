@@ -4649,7 +4649,9 @@ a {
 a.action-img {
   border-bottom: 0px; }
   a.action-img:focus {
-    outline: -webkit-focus-ring-color auto 5px; }
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px; }
 
 hr {
   border-bottom: 1px solid #E5E1D9;
