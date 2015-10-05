@@ -5665,6 +5665,8 @@ footer {
   transition: all 300ms ease; }
 
 @media (max-width: 61.9em) {
+  #index-page .home-top-panel {
+    background-attachment: scroll; }
   #index-page .home-subtitle {
     padding-top: 9em; } }
 

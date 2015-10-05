@@ -33,6 +33,10 @@
   }
 
   @include media-breakpoint-down(md) {
+    .home-top-panel {
+      background-attachment: scroll; // many mobile devices don't handle fixed/cover well
+    }
+
     .home-subtitle {
       padding-top: $large-spacing * 3;
     }
