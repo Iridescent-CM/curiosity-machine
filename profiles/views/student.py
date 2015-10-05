@@ -19,11 +19,17 @@ from django.utils.decorators import method_decorator
 from profiles.decorators import connected_child_only
 from curiositymachine.decorators import feature_flag
 
-join = transaction.atomic(UserJoinView.as_view(
+class StudentUserJoinView(UserJoinView):
+    def get_success_url(self):
+        if self.object.profile.is_underage():
+            return reverse('profiles:underage_student')
+        else:
+            return '/'
+
+join = transaction.atomic(StudentUserJoinView.as_view(
     form_class = StudentUserAndProfileForm,
     prefix = 'student',
-    logged_in_redirect = lazy(reverse, str)('profiles:home'),
-    success_url = '/'
+    logged_in_redirect = lazy(reverse, str)('profiles:home')
 ))
 
 @login_required
