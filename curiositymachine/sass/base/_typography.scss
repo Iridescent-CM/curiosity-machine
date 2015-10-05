@@ -76,7 +76,7 @@ a.action-img {
   border-bottom: 0px;
 
   &:focus {
-    outline: thin dotted $primary-red;
+    @include tab-focus();
   }
 }
 
