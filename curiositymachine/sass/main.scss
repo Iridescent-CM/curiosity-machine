@@ -1,14 +1,16 @@
 @import 'vendors/bootstrap/scss/bootstrap';
-@import 'vendors-extensions/bootstrap/utilities-spacing';
 
 @import 'utils/variables';
 @import 'utils/functions';
+
+@import 'vendors-extensions/bootstrap/utilities-spacing';
 
 @import 'base/fonts';
 @import 'base/typography';
 
 @import 'components/buttons';
 @import 'components/dividers';
+@import 'components/challenge-cards';
 @import 'components/modals';
 
 @import 'layout/header';
@@ -18,3 +20,4 @@
 @import 'pages/home';
 @import 'pages/educator';
 @import 'pages/faq';
+@import 'pages/challenges';
