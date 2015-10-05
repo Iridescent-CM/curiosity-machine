@@ -10,13 +10,16 @@
       {% include "registration/_login_form.html" %}
     
     
-      <p> <input type="submit" value="login" class="btn btn-primary btn-lg" /> <small><a href="{% url "password_reset_recover" %}">Forgot your password?</a></small></p>
-      
+      <p> <input type="submit" value="login" class="btn btn-primary btn-lg" /> <small><a href="{% url "password_reset_recover" %}">Forgot your password?</a></small></p><br/><br/>
+  
       {% if next %}
           <input type="hidden" name="next" value="{{ next }}" />
       {% else %}
           <input type="hidden" name="next" value="/home/" />
       {% endif %}
-    
   </form>
+
+  <p>Don't have an account? Create one: </p>
+  <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#join-modal">Join</button></p>
+
 {% endblock %}
