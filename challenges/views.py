@@ -21,7 +21,7 @@ from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-CHALLENGES_PER_PAGE = 6
+CHALLENGES_PER_PAGE = 9
 
 def challenges(request):
     theme_name = request.GET.get('theme')
