@@ -4,7 +4,6 @@
   background-color: white;
   border-radius: $base-border-radius;
   box-shadow: 0px 2px 5px 1px $main-shadow;
-  margin-bottom: $base-spacing;
   text-align: center;
   position: relative;
   img {
@@ -63,6 +62,11 @@
   color: white;
   border-top-left-radius: $base-border-radius;
   border-top-right-radius: $base-border-radius;
+}
+
+a .challenge-card-title p:hover {
+  border-bottom: 0px;
+  text-decoration: none;
 }
 
 .challenge-card-description {
