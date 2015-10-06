@@ -1,6 +1,8 @@
 .pagination {
-  .arrow {
-    padding: 12px 12px 8px 12px;
+  .icon-left-arrow,
+  .icon-right-arrow {
+    position: relative;
+    top: 3px;
   }
   li a,
   li span {

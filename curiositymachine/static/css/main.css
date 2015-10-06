@@ -5390,8 +5390,10 @@ a .challenge-card-title p:hover {
 .modal.fade .modal-dialog {
   transform: translate(0, 0); }
 
-.pagination .arrow {
-  padding: 12px 12px 8px 12px; }
+.pagination .icon-left-arrow,
+.pagination .icon-right-arrow {
+  position: relative;
+  top: 3px; }
 
 .pagination li a,
 .pagination li span {
