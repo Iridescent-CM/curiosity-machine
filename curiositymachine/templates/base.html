@@ -69,24 +69,6 @@
       </div>
     {% endif %}
     <div class="container-fluid main-content">
-      {% if request.user.is_authenticated %}
-        <div class="user-avatar">
-          {% if request.user.profile.get_unread_comment_count %}
-            <span title="{{request.user.profile.get_unread_comment_count}} unread messages" class="unread">
-              {{request.user.profile.get_unread_comment_count}}
-            </span>
-          {% endif %}
-
-          <div class="top-avatar">
-            <div class="image-wrapper">
-              <a href="{% url 'profiles:home' %}">
-                {% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' %}
-              </a>
-              <span>{{request.user.username}}</span>
-            </div>
-          </div>
-        </div>
-      {% endif %}
 
       {% block content %}
       {% endblock %}
