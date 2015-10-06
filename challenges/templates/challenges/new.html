@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load resized %}
 {% load qstring %}
+{% load pagination %}
 {% load future %} {# suppresses deprecation warnings for firstof tag #}
 
 {% block body-id %}challenges-page{% endblock %}
@@ -55,13 +56,13 @@
               </li>
               {% endif %}
 
-              {% for page in challenges.paginator.page_range %}
+              {% for page in challenges|page_slice:9 %}
               {% if page == challenges.number %}
               <li class="active">
                 <span>{{page}}<span class="sr-only"> (current)</span></span>
               </li>
               {% else %}
-              <li>
+              <li class="{% page_visibility_classes page challenges.number challenges.paginator.num_pages %}">
                 <a href="{% url "challenges:challenges" %}?{% qstring_update page=page %}#challenges">{{page}}</a>
               </li>
               {% endif %}
@@ -155,13 +156,13 @@
               </li>
               {% endif %}
 
-              {% for page in challenges.paginator.page_range %}
+              {% for page in challenges|page_slice:9 %}
               {% if page == challenges.number %}
               <li class="active">
                 <span>{{page}}<span class="sr-only"> (current)</span></span>
               </li>
               {% else %}
-              <li>
+              <li class="{% page_visibility_classes page challenges.number challenges.paginator.num_pages %}">
                 <a href="{% url "challenges:challenges" %}?{% qstring_update page=page %}#challenges">{{page}}</a>
               </li>
               {% endif %}
