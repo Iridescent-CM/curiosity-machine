@@ -3253,7 +3253,7 @@ a.label:hover {
   .label-danger[href]:hover {
     background-color: #c9302c; }
 
-.jumbotron {
+.jumbotron, .jumbotron-green {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
   background-color: #eceeef;
@@ -3263,7 +3263,7 @@ a.label:hover {
   border-top-color: #d0d5d8; }
 
 @media (min-width: 34em) {
-  .jumbotron {
+  .jumbotron, .jumbotron-green {
     padding: 4rem 2rem; } }
 
 .jumbotron-fluid {
@@ -5415,6 +5415,12 @@ a .challenge-card-title p:hover {
 .pagination .disabled span:hover {
   cursor: default; }
 
+.jumbotron-green {
+  background-color: #8FB559;
+  color: #FFFCF7; }
+  .jumbotron-green h1 {
+    margin-bottom: 0; }
+
 header {
   background-color: #FFFCF7; }
   header a {
@@ -5662,7 +5668,7 @@ footer {
   .about-pages .sign-up-panel h2 {
     color: white; }
 
-#index-page .jumbotron {
+#index-page .jumbotron, #index-page .jumbotron-green {
   padding-top: 6em; }
 
 #index-page .home-top-panel {

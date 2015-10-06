@@ -69,7 +69,7 @@ def profile_edit(request):
     return render(request, 'profile_edit.html', {'form': form,})
 
 def underage(request):
-    return render(request, 'underage_student.html')
+    return render(request, 'profiles/underage_student.html')
 
 def reverse_with_anchor(view, anchor):
     return "{}#{}".format(reverse(view), anchor)
