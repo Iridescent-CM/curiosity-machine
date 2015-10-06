@@ -1,0 +1,23 @@
+// Bootstrap 4 Pagination Override
+
+.pagination {
+  li a, li span  {
+    color: $primary-blue;
+    padding: 10px 14px;
+    border-color: #E5E1D9;
+    &:hover {
+      color: shade($primary-blue, 20);
+    }
+  }
+  .arrow {
+    padding: 12px 12px 8px 12px;
+  }
+  .active span, .active span:hover {
+    background-color: $primary-blue;
+    border-color: #E5E1D9;
+    color: #fff;
+  }
+  .disabled span:hover {
+    cursor: default;
+  }
+}
