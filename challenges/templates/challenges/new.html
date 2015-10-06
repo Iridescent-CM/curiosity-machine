@@ -19,7 +19,7 @@
         </li>
         {% for filter in filters %}
         <li {% if active_filter == filter %}class="active"{% endif %}>
-          <a href="{% url "challenges:challenges" %}?{% qstring filter_id=filter.id %}#challenges">{{filter.name}}</a>
+          <a href="{% url "challenges:challenges" %}?{% qstring filter_id=filter.id %}#challenges">{{filter.name|safe}}</a>
         </li>
         {% endfor %}
         {% for theme in themes %}
