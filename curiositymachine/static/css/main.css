@@ -5082,7 +5082,9 @@ a .challenge-card-title p:hover {
   background-color: #2FB8C8;
   border-color: #E5E1D9; }
 
-.pagination .disabled a:hover,
+.pagination .disabled a, .pagination .disabled a:focus, .pagination .disabled a:hover,
+.pagination .disabled span,
+.pagination .disabled span:focus,
 .pagination .disabled span:hover {
   cursor: default; }
 
