@@ -20,8 +20,10 @@
     background-color: $primary-blue;
     border-color: $light-gray;
   }
-  .disabled a:hover,
-  .disabled span:hover {
-    cursor: default;
+  .disabled a,
+  .disabled span {
+    @include plain-hover-focus {
+      cursor: default;
+    }
   }
 }
