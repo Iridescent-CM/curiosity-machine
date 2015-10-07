@@ -125,7 +125,7 @@ class FilterItemInline(admin.TabularInline):
 class FilterAdmin(admin.ModelAdmin):
     form = FilterForm
     name = "Filters"
-    fields = ('name', 'visible', 'color',)
+    fields = ('name', 'visible', 'color', 'header_template')
     list_display = ('id','name','visible', 'color',)
     inlines = [
         FilterItemInline
