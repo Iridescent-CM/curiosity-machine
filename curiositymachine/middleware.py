@@ -74,9 +74,16 @@ class UnapprovedMentorSandboxMiddleware:
 
 class LastActiveMiddleware:
     """
-    Middleware that updates the last_active_on(or last seen) field of a profile
+    Middleware that updates the last_active_on(or last seen) field of a profile, and maintains shown_intro flag
     """
     def process_request(self, request):
         if request.user.is_authenticated():
             request.user.profile.set_active()
         return None
+
+    def process_response(self, request, response):
+        if request.user.is_authenticated() and not request.user.profile.shown_intro:
+            # assume successful response means they'll be seeing the intro video
+            if response.status_code == 200:
+                request.user.profile.intro_video_was_played()
+        return response
