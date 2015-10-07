@@ -157,6 +157,10 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = 'staticfiles'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "curiositymachine/sass/vendors/bootstrap/dist/"),
+)
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
