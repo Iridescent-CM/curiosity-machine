@@ -55,7 +55,11 @@
   {% endif %}
 </head>
 <body>
-
+  {% if SITE_MESSAGE %}
+    <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }}" role="alert">
+      {{ SITE_MESSAGE|safe }}
+    </div>
+  {% endif %}
   {% include '_user_nav.html' %}
 
   <div id="message-bar">
@@ -63,11 +67,6 @@
   </div>
 
   <div id="main-container" class="main-column">
-    {% if SITE_MESSAGE %}
-      <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }}" role="alert">
-        {{ SITE_MESSAGE|safe }}
-      </div>
-    {% endif %}
     <div class="container-fluid main-content">
 
       {% block content %}

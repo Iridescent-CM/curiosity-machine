@@ -44,6 +44,11 @@
   {% endif %}
 </head>
 <body id="{% block body-id %}{% endblock %}" class="{% block body-classes %}{% endblock %}">
+  {% if SITE_MESSAGE %}
+    <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }}" role="alert">
+      {{ SITE_MESSAGE|safe }}
+    </div>
+  {% endif %}
 
   {% include 'curiositymachine/_header.html' %}
 
