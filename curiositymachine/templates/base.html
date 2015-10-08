@@ -129,7 +129,10 @@
       {% include "introduction_modal.html" %}
       <script type="text/javascript">
         $(function(){
-         $('#introduction-modal').modal('show');
+          $('#introduction-modal').modal('show');
+          $('#introduction-modal').on('hidden.bs.modal', function (){
+            $("#intro-video")[0].pause();
+          });  
         });
       </script>
     {% endif %}
