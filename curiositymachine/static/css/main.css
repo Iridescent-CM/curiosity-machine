@@ -5529,4 +5529,10 @@ footer {
   max-height: 120px;
   overflow: hidden; }
 
+#mentor-community-page .sign-up-panel {
+  background-color: #F2B353;
+  text-align: center; }
+  #mentor-community-page .sign-up-panel h2 {
+    color: white; }
+
 /*# sourceMappingURL=main.css.map */
