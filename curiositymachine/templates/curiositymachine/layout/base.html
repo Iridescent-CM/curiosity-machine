@@ -44,8 +44,23 @@
   {% endif %}
 </head>
 <body id="{% block body-id %}{% endblock %}" class="{% block body-classes %}{% endblock %}">
+  <noscript>
+    <p class="alert alert-danger m-b-0">
+      For full functionality of this site it is necessary to enable JavaScript.
+      Here are the <a href="http://www.enable-javascript.com/" target="_blank">
+      instructions how to enable JavaScript in your web browser</a>.
+    </p>
+  </noscript>
+  <!--[if lte IE 8]>
+    <p class="alert alert-danger m-b-0">
+      You are using an older browser Curiosity Machine is unable to support. Please consider
+      <a href="http://browsehappy.com/">upgrading your browser</a> to improve your experience,
+      or contact us at <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>
+      for support.
+    </p>
+  <![endif]-->
   {% if SITE_MESSAGE %}
-    <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }}" role="alert">
+    <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }} m-b-0" role="alert">
       {{ SITE_MESSAGE|safe }}
     </div>
   {% endif %}
