@@ -5784,10 +5784,6 @@ footer {
     font-size: 14px;
     font-weight: 700;
     padding-left: 0px; }
-    #challenges-page .design-challenge-list i, #challenges-page .design-challenge-highlights i {
-      font-size: 1.75em;
-      margin-right: 10px;
-      vertical-align: middle; }
     #challenges-page .design-challenge-list a, #challenges-page .design-challenge-highlights a {
       height: 50px;
       width: 100%;
@@ -5815,6 +5811,10 @@ footer {
       #challenges-page .design-challenge-list li.active a, #challenges-page .design-challenge-highlights li.active a {
         background-color: #2FB8C8;
         color: #FFFCF7; }
+    #challenges-page .design-challenge-list .icon-boeing-logo, #challenges-page .design-challenge-highlights .icon-boeing-logo {
+      font-size: 1.75em;
+      margin-left: 10px;
+      vertical-align: middle; }
   #challenges-page .design-challenge-highlights {
     border-bottom: 2px solid #2FB8C8; }
   #challenges-page #boeing-filter {
@@ -5826,6 +5826,10 @@ footer {
     background-color: #8FB559;
     color: white;
     border-radius: 4px; }
+    #challenges-page .all-challenges-header .icon-boeing-logo {
+      font-size: 1.35em;
+      vertical-align: middle;
+      margin: 0 10px 0 10px; }
   #challenges-page .all-challenges-cards {
     margin-bottom: 3em; }
     #challenges-page .all-challenges-cards .challenge-card {
