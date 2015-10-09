@@ -227,11 +227,6 @@ $(document).ready(function() {
   $('.cm-mejs-player').mediaelementplayer({
     features: ['playpause','progress','current','duration','tracks','volume','fullscreen','googleanalytics']
   });
-
-  $('#introduction-modal').on('hidden.bs.modal', function (){
-    $("#intro-video")[0].pause();
-  });  
-
 }); //end dom ready
 
 $.fn.extend({
