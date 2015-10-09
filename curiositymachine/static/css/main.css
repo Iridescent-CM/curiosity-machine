@@ -5425,6 +5425,10 @@ a .challenge-card-title p:hover {
   .jumbotron-green h1 {
     margin-bottom: 0; }
 
+#site-message {
+  border-radius: 0;
+  margin-bottom: 0; }
+
 header {
   background-color: #FFFCF7; }
   header a {
