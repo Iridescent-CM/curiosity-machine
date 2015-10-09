@@ -97,6 +97,7 @@ MIDDLEWARE_CLASSES = (
     "curiositymachine.middleware.UnderageStudentSandboxMiddleware",
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
     'curiositymachine.middleware.LastActiveMiddleware',
+    'curiositymachine.middleware.FirstLoginMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'staticflatpages.middleware.StaticFlatpageFallbackMiddleware',
 )
