@@ -294,6 +294,10 @@ REQUEST_A_MENTOR_LINK = os.environ.get("REQUEST_A_MENTOR_LINK", None)
 SITE_MESSAGE = os.environ.get("SITE_MESSAGE", None)
 SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
 
+# pagination
+CHALLENGES_PER_PAGE = os.environ.get("CHALLENGES_PER_PAGE", 9)
+MENTORS_PER_PAGE = os.environ.get("MENTORS_PER_PAGE", 12)
+
 # an impossible pattern below prevents blacklisting until actual patterns are provided through the env
 BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))
 WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?').split(','))

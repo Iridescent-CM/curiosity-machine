@@ -1,8 +1,7 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load staticfiles %}
-{% load resized %}
 {% load qstring %}
-{% load pagination %}
+{% load resized %}
 {% load future %} {# suppresses deprecation warnings for firstof tag #}
 
 {% block body-id %}challenges-page{% endblock %}
@@ -38,53 +37,7 @@
       <h4 class="all-challenges-header text-center" id="challenges">{{title|safe}}</h4>
       <div class="all-challenges-cards">
         <div class="row text-center">
-          <nav>
-            <ul class="pagination">
-              {% if challenges.has_previous %}
-              <li>
-                <a href="{% url "challenges:challenges" %}?{% qstring_update page=challenges.previous_page_number %}#challenges" aria-label="Previous">
-                  <i class="icon-left-arrow" aria-hidden="true"></i>
-                  <span class="sr-only">Previous</span>
-                </a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <span aria-label="Previous">
-                  <i class="icon-left-arrow" aria-hidden="true"></i>
-                  <span class="sr-only">Previous</span>
-                </span>
-              </li>
-              {% endif %}
-
-              {% for page in challenges|page_slice:9 %}
-              {% if page == challenges.number %}
-              <li class="active">
-                <span>{{page}}<span class="sr-only"> (current)</span></span>
-              </li>
-              {% else %}
-              <li class="{% page_visibility_classes page challenges.number challenges.paginator.num_pages %}">
-                <a href="{% url "challenges:challenges" %}?{% qstring_update page=page %}#challenges">{{page}}</a>
-              </li>
-              {% endif %}
-              {% endfor %}
-
-              {% if challenges.has_next %}
-              <li>
-                <a href="{% url "challenges:challenges" %}?{% qstring_update page=challenges.next_page_number %}#challenges" aria-label="Next">
-                  <i class="icon-right-arrow" aria-hidden="true"></i>
-                  <span class="sr-only">Next</span>
-                </a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <span aria-label="Next">
-                  <i class="icon-right-arrow" aria-hidden="true"></i>
-                  <span class="sr-only">Next</span>
-                </span>
-              </li>
-              {% endif %}
-            </ul>
-          </nav>
+          {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges view="challenges:challenges" anchor="challenges" %}
         </div>
       
         {% with all=request.user.challenges.all %}
@@ -138,53 +91,7 @@
         {% endwith %}
 
         <div class="row text-center">
-          <nav>
-            <ul class="pagination">
-              {% if challenges.has_previous %}
-              <li>
-                <a href="{% url "challenges:challenges" %}?{% qstring_update page=challenges.previous_page_number %}#challenges" aria-label="Previous">
-                  <i class="icon-left-arrow" aria-hidden="true"></i>
-                  <span class="sr-only">Previous</span>
-                </a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <span aria-label="Previous">
-                  <i class="icon-left-arrow" aria-hidden="true"></i>
-                  <span class="sr-only">Previous</span>
-                </span>
-              </li>
-              {% endif %}
-
-              {% for page in challenges|page_slice:9 %}
-              {% if page == challenges.number %}
-              <li class="active">
-                <span>{{page}}<span class="sr-only"> (current)</span></span>
-              </li>
-              {% else %}
-              <li class="{% page_visibility_classes page challenges.number challenges.paginator.num_pages %}">
-                <a href="{% url "challenges:challenges" %}?{% qstring_update page=page %}#challenges">{{page}}</a>
-              </li>
-              {% endif %}
-              {% endfor %}
-
-              {% if challenges.has_next %}
-              <li>
-                <a href="{% url "challenges:challenges" %}?{% qstring_update page=challenges.next_page_number %}#challenges" aria-label="Next">
-                  <i class="icon-right-arrow" aria-hidden="true"></i>
-                  <span class="sr-only">Next</span>
-                </a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <span aria-label="Next">
-                  <i class="icon-right-arrow" aria-hidden="true"></i>
-                  <span class="sr-only">Next</span>
-                </span>
-              </li>
-              {% endif %}
-            </ul>
-          </nav>
+          {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges view="challenges:challenges" anchor="challenges" %}
         </div>
       </div>
     </div>
