@@ -64,7 +64,7 @@ def list_all(request):
     List of current mentors
     '''
     page = request.GET.get('page')
-    mentors = Profile.objects.filter(is_mentor=True, approved=True).order_by('-user__date_joined')
+    mentors = Profile.objects.filter(is_mentor=True, approved=True).select_related('user').order_by('-user__date_joined')
 
     paginator = Paginator(mentors, settings.MENTORS_PER_PAGE)
     try:
