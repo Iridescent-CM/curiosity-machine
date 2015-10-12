@@ -66,7 +66,7 @@ def list_all(request):
     page = request.GET.get('page')
     mentors = Profile.objects.filter(is_mentor=True, approved=True).order_by('-user__date_joined')
 
-    paginator = Paginator(mentors, 5)
+    paginator = Paginator(mentors, settings.MENTORS_PER_PAGE)
     try:
         mentors = paginator.page(page)
     except PageNotAnInteger:
