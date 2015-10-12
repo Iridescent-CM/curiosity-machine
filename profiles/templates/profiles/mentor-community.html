@@ -1,0 +1,87 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block body-id %}mentor-community-page{% endblock %}
+{% block content %}
+
+  <div class="mentor-community-top-panel">
+    <h1>Mentor Community</h1>
+  </div>
+
+  <div class="container">
+    <div class="row text-center">
+      <a href="#" class="btn btn-primary">Become a Mentor</a>
+      <nav>
+        <ul class="pagination">
+          <li>
+            <a href="#" aria-label="Previous">
+              <i class="icon-left-arrow" aria-hidden="true"></i>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li>
+            <a href="#" aria-label="Next">
+              <i class="icon-right-arrow" aria-hidden="true"></i>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="row">
+
+      {% for mentor in mentors %}
+      <div class="col-md-3">
+        <div class="mentor-card">
+          <div class="mentor-card-title text-center">
+            <img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fill,h_80,w_80/http://s3.amazonaws.com/curiositymachine/images/cad405fffc4b5fa45f95f1b5b2c127bb">
+            <h3>name</h3>
+            <small>joined since when</small>
+          </div>
+          <div class="mentor-card-description">
+            <p class="text-center">PhD candidate in Biological Sciences, Columbia University Sciences</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <div class="row text-center">
+      <nav>
+        <ul class="pagination">
+          <li>
+            <a href="#" aria-label="Previous">
+              <i class="icon-left-arrow" aria-hidden="true"></i>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li>
+            <a href="#" aria-label="Next">
+              <i class="icon-right-arrow" aria-hidden="true"></i>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="sign-up-panel p-y-xl">
+    <h2>Create a Mentor Account!</h2>
+    <a href="{% url "profiles:join_as_mentor" %}" class="btn btn-orange-secondary text-uppercase">sign up</a>
+  </div>
+
+{% endblock %}

@@ -63,7 +63,9 @@ def list_all(request):
     List of current mentors
     '''
     mentors = Profile.objects.filter(is_mentor=True, approved=True)
-    return render(request, "mentors.html", {'mentors': mentors,})
+    return render(request, "profiles/mentor-community.html", {
+        'mentors': mentors,
+    })
 
 def show_profile(request, username):
     '''
