@@ -5510,6 +5510,8 @@ footer {
   border-radius: 4px;
   border: 1px solid #E5E1D9;
   margin-bottom: 1.5em; }
+  #mentor-community-page .mentor-card a {
+    color: #333333; }
 
 #mentor-community-page .mentor-card-title {
   background-color: #f5f3f0;
@@ -5521,13 +5523,14 @@ footer {
     border: 3px solid #E5E1D9; }
   #mentor-community-page .mentor-card-title h3 {
     color: #FD6917;
-    margin: 10px 0px 5px 0px; }
+    margin: 10px 0px 5px 0px;
+    word-break: break-all; }
 
 #mentor-community-page .mentor-card-description {
   padding: 15px;
   min-height: 120px;
   max-height: 120px;
-  overflow: hidden; }
+  overflow: auto; }
 
 #mentor-community-page .sign-up-panel {
   background-color: #F2B353;
