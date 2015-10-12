@@ -179,7 +179,7 @@ header {
         z-index: -1;
         -webkit-transition: top 0.16s ease-in;
       }
-      &:hover:before {
+      &:hover:before, &:focus:before {
         top: 0;
       }
     }
@@ -226,11 +226,8 @@ header {
     .navbar-nav {
       .nav-link {
         color: $medium-gray;
-        &:hover {
+        &:hover, &:focus, &:active {
           color: $primary-light;
-        }
-        &:focus {
-          color: $primary-red;
         }
       }
     }

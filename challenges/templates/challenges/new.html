@@ -34,7 +34,7 @@
     </div>
 
     <div class="col-md-7 col-lg-8 col-xl-9">
-      <h4 class="all-challenges-header text-center" id="challenges">{{title}}</h4>
+      <h4 class="all-challenges-header text-center" id="challenges">{{title|safe}}</h4>
       <div class="all-challenges-cards">
         <div class="row text-center">
           {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges view="challenges:challenges" anchor="challenges" %}
