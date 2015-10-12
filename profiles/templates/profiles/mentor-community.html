@@ -11,7 +11,12 @@
 
   <div class="container">
     <div class="row text-center">
-      <a href="#" class="btn btn-primary">Become a Mentor</a>
+      <a href="#" class="btn btn-primary m-y">Become a Mentor</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row text-center hidden-xl-down">
       <nav>
         <ul class="pagination">
           <li>
@@ -35,26 +40,32 @@
       </nav>
     </div>
 
-    <div class="row">
+    <div class="row m-y">
 
       {% for mentor in mentors %}
-      <div class="col-lg-3 col-sm-6">
-        <div class="mentor-card">
-          <div class="mentor-card-title text-center">
-            {% include "profiles/_avatar.html" with profile=mentor.profile width=40 height=40 crop='thumb' gravity='faces' classes='img-block'%}
-            <h3>{{mentor.user.username}}</h3>
-            <small>Joined {{mentor.user.date_joined|date:"F Y"}}</small>
-          </div>
-          <div class="mentor-card-description">
-            <p class="text-center">{{mentor.about_me}}</p>
+        <div class="col-lg-3 col-sm-6">
+          <div class="mentor-card">
+            <div class="mentor-card-title text-center">
+              {% include "profiles/_avatar.html" with profile=mentor.profile width=40 height=40 crop='thumb' gravity='faces' classes='img-block'%}
+              <h3>{{mentor.user.username}}</h3>
+              <small>Joined {{mentor.user.date_joined|date:"F Y"}}</small>
+            </div>
+            <div class="mentor-card-description">
+              <p class="text-center">
+                {% if mentor.title %}{{mentor.title}}, {% endif%}
+                {{mentor.employer}}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+        {% if forloop.counter|divisibleby:2 %}
+          <div class="clearfix{% if not forloop.counter|divisibleby:4 %} hidden-md-up{% endif %}"></div>
+        {% endif %}
       {% endfor %}
 
     </div>
 
-    <div class="row text-center">
+    <div class="row text-center hidden-xl-down">
       <nav>
         <ul class="pagination">
           <li>

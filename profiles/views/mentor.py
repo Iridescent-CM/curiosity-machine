@@ -62,7 +62,7 @@ def list_all(request):
     '''
     List of current mentors
     '''
-    mentors = Profile.objects.filter(is_mentor=True, approved=True)
+    mentors = Profile.objects.filter(is_mentor=True, approved=True).order_by('-user__date_joined')
     return render(request, "profiles/mentor-community.html", {
         'mentors': mentors,
     })
