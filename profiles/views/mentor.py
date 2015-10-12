@@ -18,6 +18,7 @@ from dateutil.relativedelta import relativedelta
 from django.utils.timezone import now
 from django.utils.functional import lazy
 from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
 
 logger = logging.getLogger(__name__)
@@ -62,7 +63,17 @@ def list_all(request):
     '''
     List of current mentors
     '''
+    page = request.GET.get('page')
     mentors = Profile.objects.filter(is_mentor=True, approved=True).order_by('-user__date_joined')
+
+    paginator = Paginator(mentors, 5)
+    try:
+        mentors = paginator.page(page)
+    except PageNotAnInteger:
+        mentors = paginator.page(1)
+    except EmptyPage:
+        mentors = paginator.page(paginator.num_pages)
+
     return render(request, "profiles/mentor-community.html", {
         'mentors': mentors,
     })
