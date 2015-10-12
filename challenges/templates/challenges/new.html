@@ -25,7 +25,7 @@
         {% for theme in themes %}
         <li {% if active_theme_name == theme.name %}class="active"{% endif %}>
           <a href="{% url "challenges:challenges" %}?{% qstring theme=theme.name %}#challenges">
-            <i class="{{theme.icon}}"></i>
+            <i class="icon {{theme.icon}}"></i>
             {{theme.name}}
           </a>
         </li>
