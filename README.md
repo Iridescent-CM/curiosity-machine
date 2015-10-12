@@ -66,3 +66,7 @@ Run `make test` to run tests.
 
 Test coverage can be generated with `make coverage` or `coverage.sh` for a command-line report,
 or to generate an HTML report in `./htmlcov/index.html` use `make cov` or `make htmlcov`.
+
+## Error Pages
+
+Error pages under `curiositymachine/static/errors/` can be used on Heroku as specified [here](https://devcenter.heroku.com/articles/error-pages). 
