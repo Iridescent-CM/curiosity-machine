@@ -5786,6 +5786,10 @@ footer {
     font-size: 14px;
     font-weight: 700;
     padding-left: 0px; }
+    #challenges-page .design-challenge-list .icon, #challenges-page .design-challenge-highlights .icon {
+      font-size: 1.75em;
+      vertical-align: middle;
+      margin-right: 0.5em; }
     #challenges-page .design-challenge-list a, #challenges-page .design-challenge-highlights a {
       height: 50px;
       width: 100%;
