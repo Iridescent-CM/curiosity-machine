@@ -1,0 +1,22 @@
+{% load resized %}
+{% load staticfiles %}
+
+{% if profile.image.url %}
+  <img
+    src="{% resized profile.image.url width=width height=height crop=crop gravity=gravity %}"
+    {% if classes %}
+      class="{{classes}}"
+    {% else %}
+      class="img-responsive"
+    {% endif %}
+  />
+{% else %}
+  <img
+    src="{% resized MEDIA_URL|add:'images/placeholder.png' width=width height=height crop=crop gravity=gravity %}"
+    {% if classes %}
+      class="{{classes}}"
+    {% else %}
+      class="img-responsive"
+    {% endif %}
+  />
+{% endif %}

@@ -38,15 +38,15 @@
     <div class="row">
 
       {% for mentor in mentors %}
-      <div class="col-md-3">
+      <div class="col-lg-3 col-sm-6">
         <div class="mentor-card">
           <div class="mentor-card-title text-center">
-            <img src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fill,h_80,w_80/http://s3.amazonaws.com/curiositymachine/images/cad405fffc4b5fa45f95f1b5b2c127bb">
-            <h3>name</h3>
-            <small>joined since when</small>
+            {% include "profiles/_avatar.html" with profile=mentor.profile width=40 height=40 crop='thumb' gravity='faces' classes='img-block'%}
+            <h3>{{mentor.user.username}}</h3>
+            <small>Joined {{mentor.user.date_joined|date:"F Y"}}</small>
           </div>
           <div class="mentor-card-description">
-            <p class="text-center">PhD candidate in Biological Sciences, Columbia University Sciences</p>
+            <p class="text-center">{{mentor.about_me}}</p>
           </div>
         </div>
       </div>

@@ -14,21 +14,27 @@
     border-radius: $base-border-radius;
     border: 1px solid $light-gray;
     margin-bottom: $base-spacing;
+
+    a {
+      color: $dark-gray;
+    }
   }
 
   .mentor-card-title {
     background-color: tint($light-gray, 60);
     padding: 20px 20px 10px 20px;
+
     img {
       width: 80px;
       height: 80px;
       border-radius: 50%;
       border: 3px solid $light-gray;
     }
+
     h3 {
-      //font-weight: $base-font-weight;
       color: $primary-red;
       margin: 10px 0px 5px 0px;
+      word-break:break-all;
     }
   }
 
@@ -36,7 +42,7 @@
     padding: 15px;
     min-height: 120px;
     max-height: 120px;
-    overflow: hidden;
+    overflow: auto;
   }
 
   .sign-up-panel {
