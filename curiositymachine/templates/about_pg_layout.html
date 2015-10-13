@@ -1,0 +1,26 @@
+{% extends "curiositymachine/base.html" %}
+{% load staticfiles %}
+{% load future %} {# suppresses deprecation warnings for firstof tag #}
+
+{% block content %}
+<div class="about-top-panel">
+  <div class="about-top-panel-content">
+    <div class="grid-container">
+      <div class="grid-100">
+        <h1>{% block title %}{% endblock %}</h1>
+        <nav id="static-page-nav">
+          <ul>
+            <li><a href="{% url 'about' %}" id="about-page-nav">About</a></li>
+            <li><a href="{% url 'parents' %}" id="parent-about-page-nav">Parents</a></li>
+            <li><a href="{% url 'educator' %}" id="educator-about-page-nav">Educators</a></li>
+            <li><a href="{% url 'mentor' %}" id="mentor-about-page-nav">Mentors</a></li>
+            <li><a href="/about-membership" id="membership-about-page-nav">Memberships</a></li>
+            <li><a href="/about-partnership" id="partnership-about-page-nav">Partnerships</a></li>
+            <li><a href="{% url 'faq' %}" id="faq-about-page-nav">FAQ</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

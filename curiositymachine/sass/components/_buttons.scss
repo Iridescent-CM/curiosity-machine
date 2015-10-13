@@ -1,0 +1,142 @@
+// New Button Stuff that Overwrites Bits of Bootstrap's existing Button Stuff
+
+//
+// Overwriting line 58 from bootstrap/scss/_buttons.scss
+//
+
+$btn-primary-color:              #fff !default;
+$btn-primary-bg:                 $primary-blue !default;
+$btn-primary-border:             shade($primary-blue, 40) !default;
+
+$btn-secondary-color:            $gray-dark !default;
+$btn-secondary-bg:               #fff !default;
+$btn-secondary-border:           #ccc !default;
+
+//
+// New (altered) mixin from bootstrap/scss/mixins/_tab-focus.scss
+//
+
+@mixin btn-tab-focus() {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #fff;
+}
+
+@mixin btn-color($color) {
+  color: white;
+  background-color: $color;
+  border-color: $color;
+  &:hover {
+    color: white;
+    background-color: shade($color, 10%);
+        border-color: shade($color, 10%);
+  }
+  &:focus {
+    color: white !important;
+    box-shadow: inset 0 0 0 2px #fff !important;
+  }
+  &:active {
+    color: white;
+    background-color: shade($color, 20%);
+        border-color: shade($color, 20%);
+  }
+}
+
+@mixin btn-secondary-tab-focus($color) {
+  outline: none;
+  box-shadow: inset 0 0 0 2px $color;
+}
+
+//
+// Applying new tab focus mixin to line 5 of bootstrap/scss/_buttons.scss
+//
+
+.btn {
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      @include btn-tab-focus();
+    }
+  }
+}
+
+
+//
+// Overwriting bits after line 58 of bootstrap/scss/_buttons.scss
+//
+
+.btn-primary {
+  @include button-variant(#fff, $primary-blue, shade($primary-blue, 20));
+}
+.btn-secondary {
+  @include button-variant($primary-blue, $btn-secondary-bg, $btn-secondary-border);
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      @include btn-secondary-tab-focus($primary-blue);
+    }
+  }
+}
+
+.btn-red {
+  @include button-variant(#fff, $primary-red, shade($primary-red, 20));
+}
+.btn-red-secondary {
+  @include button-variant($primary-red, $btn-secondary-bg, shade($primary-red, 20));
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      @include btn-secondary-tab-focus($primary-red);
+    }
+  }
+}
+
+.btn-purple {
+  @include button-variant(#fff, $primary-purple, shade($primary-purple, 20));
+}
+.btn-purple-secondary {
+  @include button-variant($primary-purple, $btn-secondary-bg, shade($primary-purple, 20));
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      @include btn-secondary-tab-focus($primary-purple);
+    }
+  }
+}
+
+.btn-green {
+  @include button-variant(#fff, $primary-green, shade($primary-green, 20));
+}
+.btn-green-secondary {
+  @include button-variant($primary-green, $btn-secondary-bg, shade($primary-green, 20));
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      @include btn-secondary-tab-focus($primary-green);
+    }
+  }
+}
+
+.btn-orange {
+  @include button-variant(#fff, $primary-orange, shade($primary-orange, 20));
+}
+.btn-orange-secondary {
+  @include button-variant($primary-orange, $btn-secondary-bg, shade($primary-orange, 20));
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      @include btn-secondary-tab-focus($primary-orange);
+    }
+  }
+}

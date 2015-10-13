@@ -1,0 +1,33 @@
+footer {
+  background-color: $dark-gray;
+  padding: 0px 0px $large-spacing 0px;
+  color: $primary-light;
+}
+
+.social-icons {
+  margin: 0px 10px;
+  color: $primary-purple;
+  font-size: $base-font-size * 2.6875;
+  &:hover {
+    color: tint($primary-purple, 20);
+  }
+}
+
+.newsletter-panel {
+  background-color: shade($dark-gray, 40%);
+  background-image: url("../images/design-challenge-repeating-pattern.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
+  color: white;
+  padding: $large-spacing 0px $large-spacing 0px;
+  margin-bottom: $large-spacing;
+
+  h4 {
+    color: $primary-green;
+    margin-top: $base-spacing;
+  }
+}
+
+.newsletter-subscribe {
+  margin-top: $base-spacing;
+}

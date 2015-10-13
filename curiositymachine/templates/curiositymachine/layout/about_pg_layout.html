@@ -1,0 +1,77 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% load future %} {# suppresses deprecation warnings for firstof tag #}
+
+{% block body-classes %}about-pages{% endblock %}
+{% block content %}
+<div class="container-fluid text-center nav-panel p-t-md p-b-md">
+  <h1>{% block title %}{% endblock %}</h1>
+  <nav>
+    <ul class="nav">
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'about' %}active{% endif %}"
+          href="{% url 'about' %}"
+          id="about-page-nav"
+        >
+          About
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'parents' %}active{% endif %}"
+          href="{% url 'parents' %}"
+          id="parent-about-page-nav"
+        >
+          Parents
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'educator' %}active{% endif %}"
+          href="{% url 'educator' %}"
+          id="educator-about-page-nav"
+        >
+          Educators
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'mentor' %}active{% endif %}"
+          href="{% url 'mentor' %}"
+          id="mentor-about-page-nav"
+        >
+          Mentors
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'membership' %}active{% endif %}"
+          href="{% url 'about-membership' %}"
+          id="membership-about-page-nav"
+        >
+          Memberships
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'partnership' %}active{% endif %}"
+          href="/about-partnership"
+          id="partnership-about-page-nav"
+        >
+          Partnerships
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'faq' %}active{% endif %}"
+          href="{% url 'faq' %}"
+          id="faq-about-page-nav"
+        >
+          FAQ
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% load qstring %}
+{% load resized %}
+{% load future %} {# suppresses deprecation warnings for firstof tag #}
+
+{% block body-id %}challenges-page{% endblock %}
+{% block content %}
+  <div class="challenges-top-panel">
+    <h1>Challenges</h1>
+  </div>
+
+  <div class="container">
+    <div class="challenges-navigation col-md-5 col-lg-4 col-xl-3">
+      <h4 class="all-challenges-header text-center">Categories</h4>
+      <ul class="design-challenge-list">
+        <li {% if not active_filter and not active_theme_name %}class="active"{% endif %}>
+          <a href="{% url "challenges:challenges" %}#challenges">All Challenges</a>
+        </li>
+        {% for filter in filters %}
+        <li {% if active_filter == filter %}class="active"{% endif %}>
+          <a href="{% url "challenges:challenges" %}?{% qstring filter_id=filter.id %}#challenges">{{filter.name|safe}}</a>
+        </li>
+        {% endfor %}
+        {% for theme in themes %}
+        <li {% if active_theme_name == theme.name %}class="active"{% endif %}>
+          <a href="{% url "challenges:challenges" %}?{% qstring theme=theme.name %}#challenges">
+            <i class="icon {{theme.icon}}"></i>
+            {{theme.name}}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="col-md-7 col-lg-8 col-xl-9">
+      <h4 class="all-challenges-header text-center" id="challenges">{{title|safe}}</h4>
+      <div class="all-challenges-cards">
+        <div class="row text-center">
+          {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges view="challenges:challenges" anchor="challenges" %}
+        </div>
+      
+        {% with all=request.user.challenges.all %}
+        <div class="row">
+          {% for challenge in challenges %}
+          <div class="col-sm-6 col-md-12 col-lg-6 col-xl-4">
+            <div class="challenge-card">
+              {% if request.user.is_authenticated and request.user.profile.is_student %}
+              <div class="favorites-filter">
+                <input type="checkbox"
+                  name="favorite-star-{{challenge.id}}"
+                  id="favorite-star-{{challenge.id}}"
+                  data-toggle="favorite"
+                  data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}"
+                  data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"
+                  {% if challenge.id in favorite_ids %}checked="checked"{% endif %}
+                >
+                <label for="favorite-star-{{challenge.id}}"><i class="icon-star-full"></i></label>
+              </div>
+              {% endif %}
+
+              {% if challenge in all %}
+              <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
+              {% else %}
+              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
+              {% endif %}
+                <div class="challenge-card-title">
+                  <p>{{challenge.name}}</p>
+                </div>
+              </a>
+
+              {% if challenge in all %}
+              <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
+              {% else %}
+              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
+              {% endif %}
+                {% if challenge.image %}
+                <img src="{% resized challenge.image.url width=300 height=170 crop='fill' %}">
+                {% elif challenge.video.encodings_generated %}
+                {{ challenge.video.output_videos.all.0.thumbnail }}
+                {% endif %}
+              </a>
+
+              <div class="challenge-card-description">
+                <small>{{challenge.description}}</small>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endwith %}
+
+        <div class="row text-center">
+          {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges view="challenges:challenges" anchor="challenges" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/favorites.js' %}"></script>
+{% endblock %}

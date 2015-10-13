@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
-from django.views.generic.base import RedirectView
+from django.views.generic.base import RedirectView, TemplateView
 from curiositymachine.decorators import whitelist
 from pages.models import StaticPage
-from .views import root_redirect, health_check
+from . import views
 import password_reset.views
 import profiles.urls
 import profiles.views
@@ -13,7 +13,7 @@ import pages.views
 public = whitelist('public')
 
 urlpatterns = patterns('',
-    url(r'^$', public(root_redirect), name='root'),
+    url(r'^$', public(views.root), name='root'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/analytics/$', 'curiositymachine.analytics.analytics', name="analytics"),
     url(r'^admin/export_users/$', 'curiositymachine.export_users.export_users', name="export_users"),
@@ -23,12 +23,57 @@ urlpatterns = patterns('',
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
     url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
-    url(r'^about/', public(pages.views.static_page), {'page_id': StaticPage.about.value,}, name='about'),
-    url(r'^privacy/', public(pages.views.static_page), {'page_id': StaticPage.privacy.value,}, name='privacy'),
-    url(r'^educator/', public(pages.views.static_page), {'page_id': StaticPage.educator.value,}, name='educator'),
-    url(r'^mentor/', public(pages.views.static_page), {'page_id': StaticPage.mentor.value,}, name='mentor'),
-    url(r'^parents/', public(pages.views.static_page), {'page_id': StaticPage.parents.value,}, name='parents'),
-    url(r'^faq/', public(pages.views.static_page), {'page_id': StaticPage.faq.value,}, name='faq'),
+    
+    # about pages 
+    url(
+        r'^about/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/about.html")),
+        {'active_nav': 'about'},
+        name='about'
+    ),
+    url(
+        r'^privacy/',
+        public(pages.views.static_page),
+        {'page_id': StaticPage.privacy.value,},
+        name='privacy'
+    ),
+    url(
+        r'^educator/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/educator.html")),
+        {'active_nav': 'educator'},
+        name='educator'
+    ),
+    url(
+        r'^mentor/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/mentor.html")),
+        {'active_nav': 'mentor'},
+        name='mentor'
+    ),
+    url(
+        r'^parents/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/parents.html")),
+        {'active_nav': 'parents'},
+        name='parents'
+    ),
+    url(
+        r'^about-membership/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/about-membership.html")),
+        {'active_nav': 'membership'},
+        name='about-membership'
+    ),
+    url(
+        r'^about-partnership/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/about-partnership.html")),
+        {'active_nav': 'partnership'},
+        name='about-partnership'
+    ),
+    url(
+        r'^faq/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/faq.html")),
+        {'active_nav': 'faq'},
+        name='faq'
+    ),
+
     # password reset URLs -- the "recover" one is modified and so resides in the profiles app
     url(r'^password/recover/(?P<signature>.+)/$', public(password_reset.views.recover_done),
         name='password_reset_sent'),
@@ -41,5 +86,5 @@ urlpatterns = patterns('',
     url(r'^units/', include('units.urls', namespace='units', app_name='units'), name='units'),
     url(r'^s3direct/', include('s3direct.urls')),
     url(r'^groups/', include('groups.urls', namespace='groups', app_name='groups'), name='groups'),
-    url(r'^health_check/', public(health_check)),
+    url(r'^health_check/', public(views.health_check)),
 )

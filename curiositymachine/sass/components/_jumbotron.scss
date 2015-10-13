@@ -1,0 +1,9 @@
+.jumbotron-green {
+  @extend .jumbotron;
+  background-color: $primary-green;
+  color: $primary-light;
+
+  h1 {
+    margin-bottom: 0;
+  }
+}

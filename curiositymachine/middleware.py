@@ -69,7 +69,7 @@ class UnapprovedMentorSandboxMiddleware:
                 and not request.user.is_staff
                 and request.user.profile.is_mentor
                 and not request.user.profile.approved):
-            if not whitelisted(view, 'public', 'maybe_public', 'unapproved_mentors'):
+            if not whitelisted(view, 'public', 'maybe_public', 'unapproved_mentors') and not whitelist_regex.match(request.path.lstrip('/')):
                 return HttpResponseRedirect(reverse('profiles:home'))
 
 class LastActiveMiddleware:
@@ -80,3 +80,14 @@ class LastActiveMiddleware:
         if request.user.is_authenticated():
             request.user.profile.set_active()
         return None
+
+class FirstLoginMiddleware:
+    """
+    Maintains shown_intro flag used to detect first login
+    """
+    def process_response(self, request, response):
+        if hasattr(request, 'user') and request.user.is_authenticated() and not request.user.profile.shown_intro:
+            # assume successful response means they'll be seeing the intro video
+            if response.status_code == 200:
+                request.user.profile.intro_video_was_played()
+        return response

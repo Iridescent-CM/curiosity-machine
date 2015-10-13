@@ -1,0 +1,173 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% load future %} {# suppresses deprecation warnings for firstof tag #}
+
+{% block body-id %}index-page{% endblock %}
+{% block content %}
+
+  <div id="how-video-modal" class="modal fade">
+    <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <div class="modal-dialog modal-lg">
+      <div class="embed-responsive embed-responsive-16by9">
+        <video id="how-video" controls="controls" preload="metadata">
+          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.mp4" type="video/mp4">
+          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.ogg" type="video/ogg">
+          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.webm" type="video/webm">
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-top-panel">
+    <div class="jumbotron jumbotron-fluid home-top-panel-gradient">
+      <div class="container text-center">
+        <h1 class="home-title">How do children succeed?</h1>
+        <h3 class="home-subtitle">With curiosity, creativity, and persistence. <br/> Start building with Curiosity Machine.</h3>
+        <a href="#" class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
+        <button type="button" data-toggle="modal" data-target="#how-video-modal" class="btn btn-secondary text-uppercase">See How it Works</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center home-what-panel m-t-xl">
+    <div class="col-md-8 col-md-offset-2">
+      <h3>Build engineering design challenges using household objects, with the help of scientists and engineers.</h3>
+    </div>
+
+    <div class="row m-t-lg">
+      <div class="col-md-6 col-lg-3">
+        <h4>80+ Design Challenges</h4>
+        <p>developed by scientists and engineers.</p>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <h4>Videos</h4>
+        <p>featuring cutting-edge and exciting inventions.</p>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <h4>Guide</h4>
+        <p>that supports children to plan, build, test, redesign, and reflect.</p>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <h4>Mentor Feedback</h4>
+        <p>on children's inventions from scientists and engineers.</p>
+      </div>
+    </div>
+
+    <a href="{% url 'challenges:challenges' %}" class="btn btn-primary m-t-md">Browse Design Challenges</a>
+
+    <div class="row m-t-xl">
+      <div class="col-md-6">
+        <img class="img-responsive img-rounded m-b" src="{% static 'images/home/build-1.jpg' %}" alt="Girl builds engineering design challenge">
+      </div>
+      <div class="col-md-6">
+        <img class="img-responsive img-rounded m-b" src="{% static 'images/home/build-2.jpg' %}" alt="An engineering design challenge example">
+        <img class="img-responsive img-rounded m-b" src="{% static 'images/home/build-3.jpg' %}" alt="An engineering design challenge being tested">
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center home-who-panel m-t-xl">
+    <h3>We're here for students and their supporters.</h3>
+
+    <div class="row m-t-lg">
+      <div class="col-md-4">
+        <img src="{% static 'images/home/who-parents.png' %}">
+        <h4>Parents</h4>
+        <p>Learn how to build with your child and nurture creativity.</p>
+        <a href="{% url 'parents' %}">Learn More</a>
+      </div>
+      <div class="col-md-4">
+        <img src="{% static 'images/home/who-educators.png' %}">
+        <h4>Educators</h4>
+        <p>Hit NGSS standards and bring project-based learning to your classroom.</p>
+        <a href="{% url 'educator' %}">Learn More</a>
+      </div>
+      <div class="col-md-4">
+        <img src="{% static 'images/home/who-stem-professionals.png' %}">
+        <h4>STEM Professionals</h4>
+        <p>Share your expertise by helping children through the design process.</p>
+        <a href="{% url 'mentor' %}">Learn More</a>
+      </div>
+    </div>
+
+    <div class="row m-t-xl">
+      <div class="col-md-6">
+        <img class="img-responsive img-rounded m-b" src="{% static 'images/home/build-4.jpg' %}" alt="Group builds together">
+        <img class="img-responsive img-rounded m-b" src="{% static 'images/home/build-5.jpg' %}" alt="Father and daughter build together">
+      </div>
+      <div class="col-md-6">
+        <img class="img-responsive img-rounded m-b" src="{% static 'images/home/build-6.jpg' %}" alt="Girl builds paper airplane">
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center home-member-panel m-t-xl">
+    <h3>Use Curiosity Machine to build a STEM learning community.</h3>
+
+    <div class="row m-t-lg">
+      <div class="col-md-6">
+        <h4>Schools, Organizations and Playgroups</h4>
+        <p>Bring Curiosity Machine to your school or program.</p>
+        <a href="/about-membership">About Memberships</a>
+      </div>
+      <div class="col-md-6">
+        <h4>Science and Engineering Companies</h4>
+        <p>Share your innovations with the public.</p>
+        <a href="/about-partnership">About Partnerships</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid sign-up-panel m-t-xl">
+    <div class="container text-center">
+      <h2>Create an account and take on your first design challenge!</h1>
+      <a href="#" class="btn btn-secondary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
+    </div>
+  </div>
+
+  <div class="container-fluid home-support-panel p-y-lg">
+    <div class="container text-center">
+      <h3>Supported by:</h3>
+      <a href="http://www.boeing.com/" class="action-img">
+        <img src="{% static 'images/logos/boeing-logo.png' %}" alt="Boeing logo">
+      </a>
+      <a href="http://www.nsf.gov/" class="action-img">
+        <img src="{% static 'images/logos/nsf-logo.png' %}" alt="National Science Foundation logo" height="70">
+      </a>
+      <a href="http://www.cummins.com/" class="action-img">
+        <img src="{% static 'images/logos/cummins-logo.jpg' %}" alt="Cummins logo" height="70">
+      </a>
+      <a href="https://www.moore.org/" class="action-img">
+        <img src="{% static 'images/logos/moore-foundation-logo.png' %}" alt="Moore Foundation logo" height="70">
+      </a>
+      <a href="http://www.intel.com/" class="action-img">
+        <img src="{% static 'images/logos/intel-logo.png' %}" alt="Intel logo" height="70">
+      </a>
+      <a href="http://www.onr.navy.mil/" class="action-img">
+        <img src="{% static 'images/logos/onr-logo.jpg' %}" alt="Office of Naval Research logo" height="70">
+      </a>
+      <a href="https://hivelearningnetworks.org/" class="action-img">
+        <img src="{% static 'images/logos/hive-logo.png' %}" alt="Hive Network logo" height="70">
+      </a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+<script>
+  $(function(){
+    var $modal = $('#how-video-modal');
+    var video = $('#how-video')[0];
+    $modal.on('hide.bs.modal', function(){
+      video.pause();
+    });
+    $modal.on('shown.bs.modal', function(){
+      video.play();
+    });
+
+  });
+</script>
+{% endblock %}

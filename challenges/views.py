@@ -19,25 +19,51 @@ from videos.models import Video
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def challenges(request):
-    challenges = Challenge.objects.filter(draft=False).select_related('image')
-    theme = request.GET.get('theme')
-    theme_id = request.GET.get('theme_id')
+    theme_name = request.GET.get('theme')
+    filter_id = request.GET.get('filter_id')
+    page = request.GET.get('page')
+
+    title = "All"
+    challenges = []
+    filt = None
+
+    if (filter_id):
+        filt = Filter.objects.get(pk=filter_id)
+        challenges = filt.challenges
+        title = filt.name
+    else:
+        challenges = Challenge.objects
+    challenges = challenges.filter(draft=False).select_related('image', 'profile')
+
     filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
-    favorites = set()
-    if theme:
-        challenges = challenges.filter(themes__name=theme)
     themes = Theme.objects.all()
+    favorite_ids = set()
     if request.user.is_authenticated():
-        favorites = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
-    return render(request, 'challenges.html', {
+        favorite_ids = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
+
+    if theme_name:
+        challenges = challenges.filter(themes__name=theme_name)
+        title = theme_name
+
+    paginator = Paginator(challenges, settings.CHALLENGES_PER_PAGE)
+    try:
+        challenges = paginator.page(page)
+    except PageNotAnInteger:
+        challenges = paginator.page(1)
+    except EmptyPage:
+        challenges = paginator.page(paginator.num_pages)
+
+    return render(request, 'challenges/new.html', {
         'challenges': challenges,
         'themes': themes,
-        'theme':theme,
-        'theme_id': theme_id,
+        'active_theme_name': theme_name,
         'filters': filters,
-        'favorites': favorites
+        'active_filter': filt,
+        'favorite_ids': favorite_ids,
+        'title': title + " Challenges"
     })
 
 @require_POST
@@ -261,34 +287,4 @@ def favorite_challenges(request):
     return render(request, 'ajax/favorites.html', {
         'favorite_challenges': favorite_challenges,
         'favorites': favorite_ids
-    })
-
-
-def ajax_challenges(request):
-    challenges = Challenge.objects.filter(draft=False).select_related('image')
-    theme = request.GET.get('theme')
-    favorites = set()
-    if theme:
-        challenges = challenges.filter(themes__name=theme)
-    if request.user.is_authenticated():
-        favorites = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
-    return render(request, 'ajax/challenges.html', {
-        'challenges': challenges,
-        'theme': theme,
-        'favorites': favorites
-    })
-
-def filtered_challenges(request, filter_id):
-    theme_id = request.GET.get('theme_id')
-    qs = Filter.objects.get(pk=filter_id).challenges.select_related('image')
-    favorites = set()
-    if theme_id:
-        challenges = qs.filter(themes__id=theme_id)
-    else:
-        challenges = qs.all()
-    if request.user.is_authenticated():
-        favorites = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
-    return render(request, 'ajax/challenges.html', {
-        'challenges': challenges,
-        'favorites': favorites
     })

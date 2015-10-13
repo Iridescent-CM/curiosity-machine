@@ -55,7 +55,11 @@
   {% endif %}
 </head>
 <body>
-
+  {% if SITE_MESSAGE %}
+    <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }}" role="alert">
+      {{ SITE_MESSAGE|safe }}
+    </div>
+  {% endif %}
   {% include '_user_nav.html' %}
 
   <div id="message-bar">
@@ -63,37 +67,7 @@
   </div>
 
   <div id="main-container" class="main-column">
-    {% if SITE_MESSAGE %}
-      <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }}" role="alert">
-        {{ SITE_MESSAGE|safe }}
-      </div>
-    {% endif %}
     <div class="container-fluid main-content">
-      <a href="{% url 'challenges:challenges' %}" class="logo">Curiosity Machine</a>
-      <button type="button" class="navbar-toggle">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      {% if request.user.is_authenticated %}
-        <div class="user-avatar">
-          {% if request.user.profile.get_unread_comment_count %}
-            <span title="{{request.user.profile.get_unread_comment_count}} unread messages" class="unread">
-              {{request.user.profile.get_unread_comment_count}}
-            </span>
-          {% endif %}
-
-          <div class="top-avatar">
-            <div class="image-wrapper">
-              <a href="{% url 'profiles:home' %}">
-                {% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' %}
-              </a>
-              <span>{{request.user.username}}</span>
-            </div>
-          </div>
-        </div>
-      {% endif %}
 
       {% block content %}
       {% endblock %}
@@ -154,10 +128,12 @@
       {% include "introduction_modal.html" %}
       <script type="text/javascript">
         $(function(){
-         $('#introduction-modal').modal('show'); 
+          $('#introduction-modal').modal('show');
+          $('#introduction-modal').on('hidden.bs.modal', function (){
+            $("#intro-video")[0].pause();
+          });  
         });
       </script>
-      {{ request.user.profile.intro_video_was_played }}
     {% endif %}
   {% endif %}
   {% if messages %}{% for message in messages %}

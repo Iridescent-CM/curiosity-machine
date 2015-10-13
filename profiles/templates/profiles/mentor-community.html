@@ -1,0 +1,60 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block body-id %}mentor-community-page{% endblock %}
+{% block content %}
+
+  <div class="mentor-community-top-panel">
+    <h1>Mentor Community</h1>
+  </div>
+
+  <div class="container">
+    <div class="row text-center">
+      <a href="{% url "mentor" %}" class="m-y">Learn more about mentoring</a>
+    </div>
+  </div>
+
+  <div class="container" id="mentors">
+    <div class="row text-center">
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=mentors view="profiles:mentors" anchor="mentors"%}
+    </div>
+
+    <div class="row m-y">
+
+      {% for mentor in mentors %}
+        <div class="col-lg-3 col-sm-6">
+          <div class="mentor-card">
+            <a href="{% url "profiles:mentor_profile" username=mentor.user.username %}">
+              <div class="mentor-card-title text-center">
+                {% include "profiles/_avatar.html" with profile=mentor width=80 height=80 crop='thumb' gravity='faces' classes='img-block'%}
+                <h3>{{mentor.user.username}}</h3>
+                <small>Joined {{mentor.user.date_joined|date:"F Y"}}</small>
+              </div>
+            </a>
+            <div class="mentor-card-description">
+              <p class="text-center">
+                {% if mentor.title %}{{mentor.title}}, {% endif%}
+                {{mentor.employer}}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:2 %}
+          <div class="clearfix{% if not forloop.counter|divisibleby:4 %} hidden-md-up{% endif %}"></div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <div class="row text-center">
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=mentors view="profiles:mentors" anchor="mentors"%}
+    </div>
+  </div>
+
+  <div class="sign-up-panel p-y-xl">
+    <h2>Create a Mentor Account!</h2>
+    <a href="{% url "profiles:join_as_mentor" %}" class="btn btn-orange-secondary text-uppercase">sign up</a>
+  </div>
+
+{% endblock %}

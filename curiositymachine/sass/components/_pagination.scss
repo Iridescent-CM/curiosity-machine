@@ -1,0 +1,29 @@
+.pagination {
+  .icon-left-arrow,
+  .icon-right-arrow {
+    position: relative;
+    top: 3px;
+  }
+  li a,
+  li span {
+    border-color: $light-gray;
+    color: $primary-blue;
+    padding: 10px 14px;
+    &:hover {
+      color: shade($primary-blue, 20);
+    }
+  }
+  .active a,
+  .active a:hover,
+  .active span,
+  .active span:hover {
+    background-color: $primary-blue;
+    border-color: $light-gray;
+  }
+  .disabled a,
+  .disabled span {
+    @include plain-hover-focus {
+      cursor: default;
+    }
+  }
+}
