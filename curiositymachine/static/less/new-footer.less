@@ -1,0 +1,38 @@
+@primary-green: #8FB559;
+@primary-purple: #6161AF;
+@dark-gray: #333333;
+@primary-light: #FFFCF7;
+
+#new-footer {
+  background-color: @dark-gray;
+  padding: 0px 0px 50px 0px;
+  color: @primary-light;
+
+  .social-icons {
+    margin: 0px 10px;
+    color: @primary-purple;
+    font-size: 16px * 2.6875;
+    &:hover {
+      color: tint(@primary-purple, 20);
+    }
+  }
+
+  .newsletter-panel {
+    background-color: shade(@dark-gray, 40%);
+    background-image: url("../images/design-challenge-repeating-pattern.png");
+    background-attachment: fixed;
+    background-repeat: repeat;
+    padding: 50px 0px;
+    margin-bottom: 50px;
+
+    h4 {
+      color: @primary-green;
+      margin-top: 15px;
+    }
+  }
+
+  .newsletter-subscribe {
+    margin-top: 15px;
+  }
+  
+}
