@@ -36,7 +36,7 @@ def challenges(request):
         title = filt.name
     else:
         challenges = Challenge.objects
-    challenges = challenges.filter(draft=False).select_related('image')
+    challenges = challenges.filter(draft=False).select_related('image', 'profile')
 
     filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
     themes = Theme.objects.all()

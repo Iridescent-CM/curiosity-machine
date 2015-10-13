@@ -45,7 +45,7 @@
           {% for challenge in challenges %}
           <div class="col-sm-6 col-md-12 col-lg-6 col-xl-4">
             <div class="challenge-card">
-              {% if request.user.is_authenticated %}
+              {% if request.user.is_authenticated and request.user.profile.is_student %}
               <div class="favorites-filter">
                 <input type="checkbox"
                   name="favorite-star-{{challenge.id}}"
