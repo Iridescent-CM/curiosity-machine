@@ -84,6 +84,11 @@
   {% include "registration/_login_modal.html" with form=login_form %}
   <!-- /global modals -->
 
+  <div class="main-column">
+    {% include '_new_footer.html' %}
+  </div>
+
+<!-- 
   <footer class="main-column">
     <div class="container-fluid footer-content">
       <p>
@@ -105,6 +110,7 @@
       <img class="nsf-logo" src="{% static "images/nsf.gif" %}" alt="National Science Foundation logo" />
     </div>
   </footer>
+ -->
 
   <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
   {% compress js %}
