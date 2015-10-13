@@ -38,7 +38,7 @@ def challenges(request):
         challenges = Challenge.objects
     challenges = challenges.filter(draft=False).select_related('image', 'profile')
 
-    filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
+    filters = Filter.objects.defer('header_template').filter(visible=True).prefetch_related('challenges__image')
     themes = Theme.objects.all()
     favorite_ids = set()
     if request.user.is_authenticated():
