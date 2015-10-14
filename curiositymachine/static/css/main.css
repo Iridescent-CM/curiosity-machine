@@ -4668,6 +4668,25 @@ a.bg-danger:hover {
   .hidden-print .hidden-print {
     display: none !important; } }
 
+.hidden-xs-min-down {
+  display: none !important; }
+
+@media (max-width: 34em) {
+  .hidden-sm-min-down {
+    display: none !important; } }
+
+@media (max-width: 48em) {
+  .hidden-md-min-down {
+    display: none !important; } }
+
+@media (max-width: 62em) {
+  .hidden-lg-min-down {
+    display: none !important; } }
+
+@media (max-width: 75em) {
+  .hidden-xl-min-down {
+    display: none !important; } }
+
 .m-a-xl {
   margin: 6rem !important; }
 
