@@ -31,7 +31,7 @@ def challenges(request):
     filt = None
 
     if (filter_id):
-        filt = Filter.objects.get(pk=filter_id)
+        filt = Filter.objects.defer('header_template').get(pk=filter_id)
         challenges = filt.challenges
         title = filt.name
     else:
