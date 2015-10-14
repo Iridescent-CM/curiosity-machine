@@ -31,14 +31,14 @@ def challenges(request):
     filt = None
 
     if (filter_id):
-        filt = Filter.objects.defer('header_template').get(pk=filter_id)
+        filt = Filter.objects.get(pk=filter_id)
         challenges = filt.challenges
         title = filt.name
     else:
         challenges = Challenge.objects
     challenges = challenges.filter(draft=False).select_related('image', 'profile')
 
-    filters = Filter.objects.defer('header_template').filter(visible=True).prefetch_related('challenges__image')
+    filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
     themes = Theme.objects.all()
     favorite_ids = set()
     if request.user.is_authenticated():
