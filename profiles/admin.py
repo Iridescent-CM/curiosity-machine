@@ -9,15 +9,7 @@ from .models import Profile, ParentConnection
 
 class ProfileInline(admin.StackedInline):
     model = Profile
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if request.method == 'GET':
-            if db_field.name == 'image':
-                if request._obj_ is not None and request._obj_.profile.image is not None:
-                    kwargs["queryset"] = Image.objects.filter(source_url = request._obj_.profile.image.source_url)
-                else:
-                    kwargs["queryset"] = Image.objects.none()
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+    raw_id_fields = ('image', 'about_me_image', 'about_me_video', 'about_research_image', 'about_research_video')
 
 class UserAdminWithProfile(UserAdmin):
     inlines = [ ProfileInline, ]
@@ -104,6 +96,7 @@ class ParentAdmin(admin.ModelAdmin):
         'last_inactive_email_sent_on',
         'shown_intro'
     ]
+    raw_id_fields = ['image']
     list_display = ['user', 'email', 'id']
     search_fields = [
         'user__username',
@@ -134,6 +127,7 @@ class EducatorAdmin(admin.ModelAdmin):
         'last_inactive_email_sent_on',
         'shown_intro'
     ]
+    raw_id_fields = ['image']
     list_display = ['user', 'email', 'id']
     search_fields = [
         'user__username',
@@ -173,6 +167,7 @@ class StudentAdmin(admin.ModelAdmin):
         'last_inactive_email_sent_on',
         'shown_intro'
     ]
+    raw_id_fields = ['image']
     list_display = ['user', 'email', 'id', 'is_underage']
     search_fields = [
         'user__username',
@@ -211,6 +206,13 @@ class MentorAdmin(admin.ModelAdmin):
         'last_active_on',
         'last_inactive_email_sent_on',
         'shown_intro'
+    ]
+    raw_id_fields = [
+        'image',
+        'about_me_image',
+        'about_me_video',
+        'about_research_image',
+        'about_research_video',
     ]
     list_display = ['user', 'email', 'id']
     search_fields = [
