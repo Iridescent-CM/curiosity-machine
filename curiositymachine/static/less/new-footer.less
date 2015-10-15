@@ -1,0 +1,90 @@
+@dark-gray: #333333;
+@primary-light: #FFFCF7;
+@primary-purple: #6161AF;
+@primary-green: #8FB559;
+@primary-blue: #2FB8C8;
+@base-font-size: 1em;
+@base-spacing: 1.5em;
+
+@large-spacing: 50px;
+
+.temp-footer {
+  background-color: @dark-gray;
+  padding: 0;
+  color: @primary-light;
+  font-size: 16px;
+  
+  .social-icons {
+    margin: 0px 10px;
+    color: @primary-purple;
+    font-size: @base-font-size * 2.6875;
+    &:hover {
+      color: tint(@primary-purple, 20);
+    }
+  }
+  
+  .newsletter-panel {
+    background-color: shade(@dark-gray, 40%);
+    background-image: url("../images/design-challenge-repeating-pattern.png");
+    background-attachment: fixed;
+    background-repeat: repeat;
+    color: white;
+    padding: @large-spacing 0px @large-spacing 0px;
+  
+    h4 {
+      color: @primary-green;
+      margin-top: @base-spacing;
+  		font-weight: 700;
+    }
+  }
+  
+  .newsletter-subscribe {
+    margin-top: @base-spacing;
+  }
+  
+  .footer-panel {
+    background-color: @dark-gray;
+  	padding-top: 48px;
+  	padding-bottom: 48px;
+  }
+  
+  @media (min-width: @screen-sm-min) {
+    .text-md-left {
+      text-align: left;
+    }
+    .text-md-right {
+  	  text-align: right;
+    }
+  }
+
+	input {
+	  font-size: 16px;
+  } 
+
+	.btn-green {
+    font-size: 1em;
+		padding: 6px 16px;
+	  background-color: @primary-green;
+		&:hover, &:active {
+		  background-color: shade(@primary-green, 20);
+			color: white;
+    }
+	}
+
+	a {
+	  color: @primary-blue;
+		border-bottom: 1px solid @primary-blue;
+		transition: color 150ms ease;
+
+		&:hover {
+		  text-decoration: none;
+			color: shade(@primary-blue, 25%);
+			border-bottom-color: shade(@primary-blue, 25%);
+    }
+
+		&.action-img {
+		  border-bottom: none;
+    }
+  }
+
+}
