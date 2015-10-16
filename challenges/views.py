@@ -63,7 +63,7 @@ def challenges(request):
         'filters': filters,
         'active_filter': filt,
         'favorite_ids': favorite_ids,
-        'title': title + " Challenges"
+        'title': title + " Design Challenges"
     })
 
 @require_POST
