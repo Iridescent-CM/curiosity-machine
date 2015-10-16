@@ -6,7 +6,7 @@
   .hidden-#{$bp}-min-down {
     $max: breakpoint-min($bp, $grid-breakpoints);
     @if $max {
-      @media (max-width: $max) {
+      @media (max-width: $max - 0.01em) {
         display: none !important;
       }
     } @else {
