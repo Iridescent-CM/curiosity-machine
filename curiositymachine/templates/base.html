@@ -27,6 +27,7 @@
 
   {% compress css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/temp-fonts.css' %}" />
     <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.carousel.css' %}">
     <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.theme.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
@@ -75,6 +76,46 @@
 
   </div>
 
+  <footer class="temp-footer">
+    <div class="container-fluid newsletter-panel">
+      <div class="text-center">
+        <a href="https://twitter.com/Curious_Machine" class="action-img"><i class="icon-twitter social-icons"></i></a>
+        <a href="https://www.facebook.com/curiositymachine" class="action-img"><i class="icon-facebook social-icons"></i></a>
+        <h4>Newsletter</h4>
+        <p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
+        <form action="//iridescentlearning.us4.list-manage.com/subscribe/post?u=b10254bbb5db780d1af913317&amp;id=5c4692fa5b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+          <div class="row">
+            <div class="col-xs-10 col-xs-push-1 col-md-6 col-md-push-3 col-lg-4 col-lg-push-4">
+              <label class="sr-only" for="mce-EMAIL">Email Address </label>
+              <input type="email" value="" name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="youremail@email.com" required>
+            </div>
+          </div>
+          <div style="position: absolute; left: -5000px;">
+            <input type="text" name="b_b10254bbb5db780d1af913317_5c4692fa5b" tabindex="-1" value="">
+          </div>
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-green text-uppercase newsletter-subscribe">
+        </form>
+      </div>
+    </div>
+
+    <div class="container-fluid footer-panel">
+      <div class="row">
+        <div class="col-sm-6 text-center text-md-left">
+          <a href="/" class="action-img">
+            <img src="{% static 'images/curiosity-machine-iridescent-logo.png'%}" alt="Curiosity Machine Iridescent logo">
+          </a>
+        </div>
+        <div class="col-sm-6 text-center text-md-right">
+          <p>
+            Powered by <a href="http://iridescentlearning.org/">Iridescent</a>, a 501c3 nonprofit organization.<br/>
+            &copy; Iridescent 2015<br/>
+            View our <a href="/privacy">privacy policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <!-- global modals -->
   {% include "profiles/join_modal.html" %}
   {% include "profiles/student/join_modal.html" with form=join_form %}
@@ -83,28 +124,6 @@
   {% include "profiles/parent/join_modal.html" with form=parent_join_form %}
   {% include "registration/_login_modal.html" with form=login_form %}
   <!-- /global modals -->
-
-  <footer class="main-column">
-    <div class="container-fluid footer-content">
-      <p>
-        Need help? <a href="/faq/">FAQ</a>
-        | Email: <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>
-        | Powered by Iridescent, a 501c3 nonprofit organization in the United States.
-      </p>
-      <p>
-        Stay updated by <a href="http://iridescentlearning.us4.list-manage.com/subscribe?u=b10254bbb5db780d1af913317&amp;id=5c4692fa5b">signing up for our newsletter</a>.
-      </p>
-      <p>
-        Follow us:
-          <a href="https://twitter.com/Curious_Machine"><img src="{% static "images/twitter-4-32.png" %}"></a>
-          <a href="https://www.facebook.com/curiositymachine"><img src="{% static "images/facebook-4-32.png" %}"></a>
-      </p>
-      <p>
-        Supported by <a href="http://www.nsf.gov/">National Science Foundation</a>.
-      </p>
-      <img class="nsf-logo" src="{% static "images/nsf.gif" %}" alt="National Science Foundation logo" />
-    </div>
-  </footer>
 
   <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
   {% compress js %}

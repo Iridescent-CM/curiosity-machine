@@ -32,6 +32,7 @@ module.exports = function(grunt) {
       dist: {
         files: {
           './curiositymachine/static/css/main.css': './curiositymachine/sass/main.scss',
+          './curiositymachine/static/css/temp-fonts.css': './curiositymachine/sass/temp-fonts.scss',
         }
       }
     }
