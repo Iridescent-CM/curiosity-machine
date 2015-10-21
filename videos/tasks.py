@@ -46,6 +46,8 @@ def check_video_job_progress(video, job_id): # repeats itself every TIME_BETWEEN
         #add thumbnails as images
         for thumbnail in job.body['job']['thumbnails']:
             video.thumbnails.add(Image.from_source_with_job(thumbnail['url']))
+        if settings.REPORT_ZENCODER_USAGE:
+            django_rq.enqueue(check_usage)
 
 def handle_finished_video_output(video, output):
     # zencoder docs are inconsistent on whether they use mpeg4 or mp4, so may as well normalize here
@@ -72,3 +74,9 @@ def handle_finished_video_output(video, output):
         encoding.save()
     except IntegrityError: # race condition -- this encoding combo already exists. just do nothing here.
         return
+
+def check_usage():
+    client = Zencoder(settings.ZENCODER_API_KEY)
+    details = client.account.details()
+    usage = details['minutes_used'] / details['minutes_included']
+    logger.info("Encoding plan usage: %d%% (%d\%d)" % (usage, details['minutes_used'], details['minutes_included']))
