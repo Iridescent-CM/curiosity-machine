@@ -5626,6 +5626,8 @@ footer {
   background-color: #333333;
   padding: 0px 0px 3em 0px;
   color: #FFFCF7; }
+  footer .logo {
+    display: block; }
 
 .social-icons {
   margin: 0px 10px;
