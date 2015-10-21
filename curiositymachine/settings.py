@@ -275,7 +275,12 @@ LOGGING = {
         'django.security': {
             'handlers': ['console',],
             'level': 'DEBUG',
-        }
+        },
+        'rq.worker': {
+            'handlers': ['console',],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
     },
 }
 
