@@ -8,6 +8,9 @@ import tempfile
 from .models import Video, EncodedVideo
 from images.models import Image
 from django.db import IntegrityError
+import logging
+
+logger = logging.getLogger(__name__)
 
 TIME_BETWEEN_STATUS_CHECKS = datetime.timedelta(minutes=1)
 
@@ -31,8 +34,10 @@ def check_video_job_progress(video, job_id): # repeats itself every TIME_BETWEEN
     for output in outputs:
         if output['state'] == "finished":
             django_rq.enqueue(handle_finished_video_output, video, output)
-        elif output['state'] not in ["failed", "cancelled", "no input"]:
+        elif output['state'] not in ["failed", "cancelled", "no_input"]:
             unfinished = True
+        else:
+            logger.error("Unsuccessful encoding of output id %s, job id %s for video %s" % (output['id'], job_id, video))
 
     if unfinished:
         scheduler = django_rq.get_scheduler()
