@@ -10,8 +10,11 @@
 </div>
 <div class="container m-b-xl">
   <p class="text-center">
-    Your password has successfully been reset. You can use it right now 
-    to <a href="#" data-toggle="modal" data-target="#login-modal">log in</a>.
+    Your password has successfully been reset.
+    {% if not request.user.is_authenticated %}
+      You can use it right now 
+      to <a href="#" data-toggle="modal" data-target="#login-modal">log in</a>.
+    {% endif %}
   </p>
 </div>
 {% endblock %}
