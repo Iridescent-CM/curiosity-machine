@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import login, logout, password_change
 from django.views.generic.base import RedirectView, TemplateView
 from curiositymachine.decorators import whitelist
 from pages.models import StaticPage
@@ -81,6 +81,8 @@ urlpatterns = patterns('',
     url(r'^password/reset/done/$', public(password_reset.views.reset_done), name='password_reset_done'),
     url(r'^password/reset/(?P<token>[\w:-]+)/$', public(password_reset.views.reset),
         name='password_reset_reset'),
+    url(r'^foo/$', public(password_change), {"post_change_redirect": "/"}, name='password_change'),
+
     url(r'^summernote/', include('django_summernote.urls')),
     url(r'^tsl/$', include('tsl.urls', namespace='tsl', app_name='tsl'), name='tsl'),
     url(r'^units/', include('units.urls', namespace='units', app_name='units'), name='units'),

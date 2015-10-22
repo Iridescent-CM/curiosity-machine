@@ -80,6 +80,7 @@ INSTALLED_APPS = (
     'units',
     's3direct',
     'groups',
+    'widget_tweaks',
 )
 
 SITE_ID = 1
