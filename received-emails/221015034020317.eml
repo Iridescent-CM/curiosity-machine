@@ -1,0 +1,17 @@
+        Thu, 22 Oct 2015 15:40:20 -0400 (EDT)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Password recovery on x:8000
+From: default_from_email@example.org
+To: paeret@mailinator.com
+Date: Thu, 22 Oct 2015 19:40:20 -0000
+Message-ID: <20151022194020.8464.91469@Mikes-MacBook-Pro.local>
+
+A password reset was requested for parent on x:8000.
+
+You can choose a new password by following this link:
+
+http://x:8000/password/reset/NDE%3A1ZpLim%3AXNzLSsITr5LBLgVAjbOQ53UjbrQ/
+
+If you don't want to reset your password, you can ignore this email.
