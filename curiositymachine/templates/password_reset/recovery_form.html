@@ -1,0 +1,29 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Password Recovery{% endblock %}
+{% block body-id %}password-change{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-center jumbotron-green">
+  <h1>Reset Password</h1>
+</div>
+<div class="container m-b-xl">
+  <p class="text-center">
+    Type in your username and we'll send a link to your email to reset your password.
+  </p>
+  <form method="post" action="{{ url }}">
+    {% csrf_token %}
+    <div class="form-body">
+      <fieldset class="form-group {% if form.username_or_email.errors %}has-error{% endif %}">
+        <label for="id_username_or_email" class="required">Username:</label>
+        {{ form.username_or_email|add_class:"form-control" }}
+        {% for error in form.username_or_email.errors %}
+          <small class="text-muted help-block">{{ error }}</small>
+        {% endfor %}
+      </fieldset>
+      <input type="submit" class="btn btn-primary btn-lg pull-right" value="Send" class="default" />
+    </div>
+  </form>
+</div>
+{% endblock %}

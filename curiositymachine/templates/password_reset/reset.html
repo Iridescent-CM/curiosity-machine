@@ -1,0 +1,47 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}New Password for {{username}}{% endblock %}
+{% block body-id %}password-change{% endblock %}
+
+{% block content %}
+  {% if invalid %}
+    <div class="container-fluid text-center jumbotron-green">
+      <h1>New Password</h1>
+    </div>
+
+    <div class="container m-b-xl">
+      <p class="text-center">
+        Sorry, this password reset link is invalid. You can still <a href="{% url "password_reset_recover" %}">request a new one</a>.
+      </p>
+    </div>
+  {% else %}
+    <div class="container-fluid text-center jumbotron-green">
+      <h1>New Password for {{username}}</h1>
+    </div>
+
+    <div class="container m-b-xl">
+      <p class="text-center">Type your new password twice to confirm it.</p>
+      <form method="post" action="{% url "password_reset_reset" token %}">
+        {% csrf_token %}
+        <div class="form-body">
+          <fieldset class="form-group {% if form.password1.errors %}has-error{% endif %}">
+            <label for="id_password1" class="required">New password:</label>
+            {{ form.password1|add_class:"form-control" }}
+            {% for error in form.password1.errors %}
+              <small class="text-muted help-block">{{ error }}</small>
+            {% endfor %}
+          </fieldset>
+          <fieldset class="form-group {% if form.password2.errors %}has-error{% endif %}">
+            <label for="id_password2" class="required">Confirm new password:</label>
+            {{ form.password2|add_class:"form-control" }}
+            {% for error in form.password2.errors %}
+              <small class="text-muted help-block">{{ error }}</small>
+            {% endfor %}
+          </fieldset>
+          <input type="submit" class="btn btn-primary btn-lg pull-right" value="Save" class="default" />
+        </div>
+      </form>
+    </div>
+  {% endif %}
+{% endblock %}

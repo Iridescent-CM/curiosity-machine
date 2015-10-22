@@ -1,0 +1,16 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Password Recovery{% endblock %}
+{% block body-id %}password-change{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-center jumbotron-green">
+  <h1>Reset Password</h1>
+</div>
+<div class="container m-b-xl">
+  <p class="text-center">
+    An email was sent to <strong>{{ email }}</strong> {{ timestamp|timesince }} ago. Use the link in it to set a new password.
+  </p>
+</div>
+{% endblock %}
