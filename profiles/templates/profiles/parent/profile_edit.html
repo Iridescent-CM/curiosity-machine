@@ -7,8 +7,12 @@
   <div class="row">
     <div class="col-md-4">
       {% include "profiles/formfield.html" with field=form.email %}
+      {% if form.password %}
       {% include "profiles/formfield.html" with field=form.password %}
       {% include "profiles/formfield.html" with field=form.confirm_password %}
+      {% else %}
+      <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
+      {% endif %}
     </div>
     <div class="col-md-4">
       {% include "profiles/formfield.html" with field=form.first_name %}
