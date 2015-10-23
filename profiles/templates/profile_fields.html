@@ -18,6 +18,7 @@
       <div class="errors">{{ form.username.errors }}</div>
     </div>
     {% endif %}
+    {% if form.password %}
     <div>
       {{form.password.label_tag}}
       {{form.password}}
@@ -28,6 +29,12 @@
       {{form.confirm_password}}
       <div class="errors">{{ form.confirm_password.errors }}</div>
     </div>
+    {% else %}
+    <div>
+      <br>
+      <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
+    </div>
+    {% endif %}
   </div>
 
   <div class="col-md-4 {% if page == 'join' or request.user.profile.is_student %}student-column{% endif %}">

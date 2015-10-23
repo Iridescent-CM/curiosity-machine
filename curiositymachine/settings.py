@@ -80,6 +80,7 @@ INSTALLED_APPS = (
     'units',
     's3direct',
     'groups',
+    'widget_tweaks',
 )
 
 SITE_ID = 1
@@ -179,6 +180,7 @@ S3DIRECT_DESTINATIONS = {
 }
 
 ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
+REPORT_ZENCODER_USAGE = os.environ.get("REPORT_ZENCODER_USAGE", False)
 
 S3_URL_BASE = "http://s3.amazonaws.com"
 
@@ -275,7 +277,12 @@ LOGGING = {
         'django.security': {
             'handlers': ['console',],
             'level': 'DEBUG',
-        }
+        },
+        'rq.worker': {
+            'handlers': ['console',],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
     },
 }
 

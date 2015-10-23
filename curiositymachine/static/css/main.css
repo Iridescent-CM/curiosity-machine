@@ -5905,4 +5905,9 @@ footer {
   #mentor-community-page .sign-up-panel h2 {
     color: white; }
 
+.password-change .form-body {
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto; }
+
 /*# sourceMappingURL=main.css.map */

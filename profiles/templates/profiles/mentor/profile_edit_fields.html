@@ -11,6 +11,7 @@
       {{form.email}}
       <div class="errors">{{ form.email.errors }}</div>
     </div>
+    {% if form.password %}
     <div>
       {{form.password.label_tag}}
       {{form.password}}
@@ -21,6 +22,9 @@
       {{form.confirm_password}}
       <div class="errors">{{ form.confirm_password.errors }}</div>
     </div>
+    {% else %}
+    <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
+    {% endif %}
   </div>
   <div class="col-md-4">
     <div>
