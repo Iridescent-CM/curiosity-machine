@@ -5903,7 +5903,10 @@ footer {
   #mentor-community-page .sign-up-panel h2 {
     color: white; }
 
-#password-change .form-body {
+/* .password-change is used as a body class by several related pages,
+   not sure if that means it's better in layout/ or pages/
+*/
+.password-change .form-body {
   max-width: 380px;
   margin-left: auto;
   margin-right: auto; }
