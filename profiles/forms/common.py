@@ -119,7 +119,7 @@ class UserAndProfileForm(forms.ModelForm):
         super(UserAndProfileForm, self).__init__(*args, **kwargs)
         instance = kwargs.get('instance')
 
-        if "password" in self.fields:
+        if "password" in self.fields and not instance:
             self.fields['confirm_password'] = copy(self.fields['password'])
             self.fields['confirm_password'].label = "Confirm password"
 
@@ -150,8 +150,7 @@ class UserAndProfileForm(forms.ModelForm):
 
         if instance:
             if "password" in self.fields:
-                self.fields['password'].required = False
-                self.fields['confirm_password'].required = False
+                del self.fields['password']
             if "username" in self.fields:
                 del self.fields['username']
 
@@ -234,7 +233,7 @@ class UserAndProfileForm(forms.ModelForm):
             if profile_image:
                 profile_image.save()
                 profile_image.fetch_from_source()
-            profile.image = profile_image # no image_id otherwise
+                profile.image = profile_image # no image_id otherwise
 
             profile.save()
 

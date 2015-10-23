@@ -98,38 +98,6 @@ def test_challenges_filters_drafts(client, challenge, challenge2, student):
     assert len(response.context['challenges']) == 1
 
 @pytest.mark.django_db
-def test_ajax_challenges(client, loggedInStudent, challenge):
-    response = client.get('/challenges/ajax_challenges', follow=True)
-    assert response.status_code == 200
-    assert response.context['challenges'][0] == challenge
-
-@pytest.mark.django_db
-def test_ajax_challenges_filters_by_name(client, loggedInStudent, challenge, challenge2, theme):
-    challenge.themes.add(theme)
-    challenge.save()
-
-    response = client.get('/challenges/ajax_challenges')
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 2
-
-    response = client.get('/challenges/ajax_challenges', {'theme': theme.name}, follow=True)
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 1
-
-@pytest.mark.django_db
-def test_ajax_challenges_filters_drafts(client, loggedInStudent, challenge, challenge2):
-    response = client.get('/challenges/ajax_challenges')
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 2
-
-    challenge.draft = True
-    challenge.save()
-
-    response = client.get('/challenges/ajax_challenges')
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 1
-
-@pytest.mark.django_db
 def test_preview_inpsiration(rf, challenge, student):
     request = rf.get('/challenges/1/')
     request.user = student
