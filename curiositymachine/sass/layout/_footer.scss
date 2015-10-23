@@ -2,6 +2,10 @@ footer {
   background-color: $dark-gray;
   padding: 0px 0px $large-spacing 0px;
   color: $primary-light;
+
+  .logo {
+    display: block;
+  }
 }
 
 .social-icons {
