@@ -78,4 +78,4 @@ def handle_finished_video_output(video, output):
 def check_usage():
     client = Zencoder(settings.ZENCODER_API_KEY)
     details = client.account.details()
-    logger.info("Encoding plan minutes used: %d" % (details['minutes_used']))
+    logger.info("Encoding plan minutes used: %d" % (details.body['minutes_used']))
