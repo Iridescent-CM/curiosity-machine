@@ -16,7 +16,6 @@ TIME_BETWEEN_STATUS_CHECKS = datetime.timedelta(minutes=1)
 
 def encode_video(video):
     client = Zencoder(settings.ZENCODER_API_KEY)
-    client.account.live() # don't run in integration mode by mistake -- this line factors out the biggest remote state issue
     response = client.job.create(video.url,
         outputs=[{'format': 'mp4', 'thumbnails': [{'label': 'thumbnail','format': 'jpg', 'number': 4,}]},
                  {'format': 'ogg'}])
