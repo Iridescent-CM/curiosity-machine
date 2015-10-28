@@ -78,5 +78,5 @@ AWS_STORAGE_BUCKET_NAME = 'devcuriositymachine'
 FILEPICKER_API_KEY = 'AGMpw9ALPRTObV0qAHZKJz'
 FILEPICKER_API_SECRET = 'A3KXG3UOK5HPTLKML6AIBJ54XA'
 
-# Zencoder integration mode api key, same as staging. 
-ZENCODER_API_KEY = '44f49037d18313505855f0920a70bd5a'
+# Zencoder integration-only api key
+ZENCODER_API_KEY = '706fcf725d47fde1665dd52db9aedcd4'
