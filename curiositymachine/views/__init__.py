@@ -17,6 +17,30 @@ def root(request):
 def health_check(request):
     return HttpResponse('OK')
 
+def test_email(request):
+    import mandrill
+    try:
+        mandrill_client = mandrill.Mandrill(settings.MANDRILL_API_KEY)
+        message = {
+            "to": [{
+                "email": request.user.email,
+                "name": request.user.username,
+                "type": "to"
+            }],
+            "merge": True,
+            "merge_language": "handlebars",
+            "global_merge_vars": [
+                {
+                    "name": "username",
+                    "content": request.user.username
+                }
+            ]
+        }
+        result = mandrill_client.messages.send_template(template_name='test-email', template_content=[], message=message)
+        return HttpResponse(result)
+    except mandrill.Error as e:
+        return HttpResponse(e)
+
 def csrf_failure_handler(request, reason=""):
 	from django.middleware.csrf import REASON_NO_REFERER, REASON_NO_CSRF_COOKIE
 	ctx = {
