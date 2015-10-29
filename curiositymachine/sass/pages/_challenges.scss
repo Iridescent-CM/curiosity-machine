@@ -115,6 +115,7 @@
       display: block;
     }
     .design-challenge-list {
+      overflow: visible;
       li.active {
         left: -20px;
       }

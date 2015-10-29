@@ -5872,8 +5872,10 @@ footer {
   @media (min-width: 48em) {
     #challenges-page .design-challenge-list.collapse, #challenges-page .collapse.design-challenge-highlights {
       display: block; }
-    #challenges-page .design-challenge-list li.active, #challenges-page .design-challenge-highlights li.active {
-      left: -20px; } }
+    #challenges-page .design-challenge-list, #challenges-page .design-challenge-highlights {
+      overflow: visible; }
+      #challenges-page .design-challenge-list li.active, #challenges-page .design-challenge-highlights li.active {
+        left: -20px; } }
 
 #mentor-community-page .mentor-community-top-panel {
   width: 100%;
