@@ -102,6 +102,23 @@
 
   .filter-theme-toggle {
     margin-bottom: 1em;
+
+    &:after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-left: 0.25rem;
+      vertical-align: middle;
+      content: "";
+      border-bottom: $caret-width solid;
+      border-right: $caret-width solid transparent;
+      border-left: $caret-width solid transparent;
+    }
+    &.collapsed:after {
+      border-bottom: none;
+      border-top: $caret-width solid;
+    }
+
     &:before {
       content: "Hide";
     }

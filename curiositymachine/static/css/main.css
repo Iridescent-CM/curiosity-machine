@@ -5865,6 +5865,19 @@ footer {
       margin: 10px auto; }
   #challenges-page .filter-theme-toggle {
     margin-bottom: 1em; }
+    #challenges-page .filter-theme-toggle:after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-left: 0.25rem;
+      vertical-align: middle;
+      content: "";
+      border-bottom: 0.3em solid;
+      border-right: 0.3em solid transparent;
+      border-left: 0.3em solid transparent; }
+    #challenges-page .filter-theme-toggle.collapsed:after {
+      border-bottom: none;
+      border-top: 0.3em solid; }
     #challenges-page .filter-theme-toggle:before {
       content: "Hide"; }
     #challenges-page .filter-theme-toggle.collapsed:before {
