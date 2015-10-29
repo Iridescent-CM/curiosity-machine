@@ -4,7 +4,7 @@ import tempfile
 import hashlib
 import django_rq
 from django.conf import settings
-from psycopg2 import IntegrityError
+from django.db import DatabaseError
 
 
 def sum_for_fd(fd):
@@ -28,10 +28,10 @@ def upload_to_s3(obj, key_prefix='', queue_after=None): # key_prefix should incl
         obj.key = key # now that it's uploaded, set the filename to the model too
 
     try:
-        obj.save()
-    except IntegrityError:
+        obj.save(force_update=True)
+    except DatabaseError:
         # potential race condition where two saves both try to insert, try once more
-        obj.save()
+        obj.save(force_update=True)
 
     if queue_after:
         django_rq.enqueue(queue_after, obj)
