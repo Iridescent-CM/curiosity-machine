@@ -5,7 +5,9 @@ import hashlib
 import django_rq
 from django.conf import settings
 from django.db import DatabaseError
+import logging
 
+logger = logging.getLogger(__name__)
 
 def sum_for_fd(fd):
     md5 = hashlib.md5()
@@ -29,7 +31,8 @@ def upload_to_s3(obj, key_prefix='', queue_after=None): # key_prefix should incl
 
     try:
         obj.save(force_update=True)
-    except DatabaseError:
+    except DatabaseError as err:
+        logger.warning("Exception on save, trying again", exc_info=err)
         # potential race condition where two saves both try to insert, try once more
         obj.save(force_update=True)
 
