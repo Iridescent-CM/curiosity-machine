@@ -4,7 +4,10 @@ import tempfile
 import hashlib
 import django_rq
 from django.conf import settings
+from django.db import DatabaseError
+import logging
 
+logger = logging.getLogger(__name__)
 
 def sum_for_fd(fd):
     md5 = hashlib.md5()
@@ -26,7 +29,12 @@ def upload_to_s3(obj, key_prefix='', queue_after=None): # key_prefix should incl
         conn.upload(key, fd, settings.AWS_STORAGE_BUCKET_NAME, public=True) # upload to AWS_STORAGE_BUCKET_NAME with the hash as the key
         obj.key = key # now that it's uploaded, set the filename to the model too
 
-    obj.save()
+    try:
+        obj.save(force_update=True)
+    except DatabaseError as err:
+        logger.warning("Exception on save, trying again", exc_info=err)
+        # potential race condition where two saves both try to insert, try once more
+        obj.save(force_update=True)
 
     if queue_after:
         django_rq.enqueue(queue_after, obj)
