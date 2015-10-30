@@ -19,6 +19,7 @@
     font-size: 14px;
     font-weight: $heavy-font-weight;
     padding-left: 0px;
+    overflow: hidden;
 
     .icon {
       font-size: 1.75em;
@@ -53,7 +54,6 @@
 
     li.active {
       position: relative;
-      left: -20px;
       a {
         background-color: $primary-blue;
         color: $primary-light;
@@ -98,5 +98,44 @@
       margin: 10px auto;
     }
     margin-bottom: $large-spacing;
+  }
+
+  .filter-theme-toggle {
+    margin-bottom: 1em;
+
+    &:after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-left: 0.25rem;
+      vertical-align: middle;
+      content: "";
+      border-bottom: $caret-width solid;
+      border-right: $caret-width solid transparent;
+      border-left: $caret-width solid transparent;
+    }
+    &.collapsed:after {
+      border-bottom: none;
+      border-top: $caret-width solid;
+    }
+
+    &:before {
+      content: "Hide";
+    }
+    &.collapsed:before {
+      content: "Show";
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    .design-challenge-list.collapse {
+      display: block;
+    }
+    .design-challenge-list {
+      overflow: visible;
+      li.active {
+        left: -20px;
+      }
+    }
   }
 }

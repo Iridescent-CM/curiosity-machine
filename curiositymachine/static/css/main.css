@@ -5806,7 +5806,8 @@ footer {
     list-style-type: none;
     font-size: 14px;
     font-weight: 700;
-    padding-left: 0px; }
+    padding-left: 0px;
+    overflow: hidden; }
     #challenges-page .design-challenge-list .icon, #challenges-page .design-challenge-highlights .icon {
       font-size: 1.75em;
       vertical-align: middle;
@@ -5833,8 +5834,7 @@ footer {
         background-color: #fffefb;
         text-decoration: none; }
     #challenges-page .design-challenge-list li.active, #challenges-page .design-challenge-highlights li.active {
-      position: relative;
-      left: -20px; }
+      position: relative; }
       #challenges-page .design-challenge-list li.active a, #challenges-page .design-challenge-highlights li.active a {
         background-color: #2FB8C8;
         color: #FFFCF7; }
@@ -5863,6 +5863,32 @@ footer {
       display: block;
       vertical-align: top;
       margin: 10px auto; }
+  #challenges-page .filter-theme-toggle {
+    margin-bottom: 1em; }
+    #challenges-page .filter-theme-toggle:after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-left: 0.25rem;
+      vertical-align: middle;
+      content: "";
+      border-bottom: 0.3em solid;
+      border-right: 0.3em solid transparent;
+      border-left: 0.3em solid transparent; }
+    #challenges-page .filter-theme-toggle.collapsed:after {
+      border-bottom: none;
+      border-top: 0.3em solid; }
+    #challenges-page .filter-theme-toggle:before {
+      content: "Hide"; }
+    #challenges-page .filter-theme-toggle.collapsed:before {
+      content: "Show"; }
+  @media (min-width: 48em) {
+    #challenges-page .design-challenge-list.collapse, #challenges-page .collapse.design-challenge-highlights {
+      display: block; }
+    #challenges-page .design-challenge-list, #challenges-page .design-challenge-highlights {
+      overflow: visible; }
+      #challenges-page .design-challenge-list li.active, #challenges-page .design-challenge-highlights li.active {
+        left: -20px; } }
 
 #mentor-community-page .mentor-community-top-panel {
   width: 100%;
