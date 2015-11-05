@@ -251,7 +251,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'default': {
-            'format': '%(levelname)s:%(name)s "%(message)s"'
+            'format': 'severity=%(levelname)s logger=%(name)s message="%(message)s"'
         },
     },
     'handlers': {
