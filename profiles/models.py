@@ -7,7 +7,7 @@ from images.models import Image
 from videos.models import Video
 from datetime import date, timedelta
 from cmcomments.models import Comment
-from cmemails import deliver_email
+from cmemails import deliver_email, send_mandrill_email
 from django.utils.timezone import now
 
 class Profile(models.Model):
@@ -111,7 +111,8 @@ class Profile(models.Model):
 
     def deliver_welcome_email(self):
         if self.is_mentor:
-            deliver_email('welcome', self, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
+            #deliver_email('welcome', self, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
+            send_mandrill_email(template_name='mentor-welcome-email', to=self.user)
         else:
             deliver_email('welcome', self)
 

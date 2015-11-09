@@ -1,4 +1,6 @@
 from .templates import EmailTemplate
+from . import tasks
+import django_rq
 import logging
 
 logger = logging.getLogger(__name__)
@@ -85,6 +87,9 @@ def determine_user_type(profile):
     elif profile.is_parent:
         user_type = PARENT
     return user_type
+
+def send_mandrill_email(**kwargs):
+    django_rq.enqueue(tasks.send_mandrill_email, **kwargs)
 
 def deliver_email(event_name, profile, **context):
     context.update({'profile': profile})

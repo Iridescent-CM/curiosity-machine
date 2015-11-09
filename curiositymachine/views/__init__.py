@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.conf import settings
+from cmemails.mailer import send_mandrill_email
 
 def root(request):
     # redirect to home if logged in unless you are a student with no challenges
@@ -18,28 +19,32 @@ def health_check(request):
     return HttpResponse('OK')
 
 def test_email(request):
-    import mandrill
-    try:
-        mandrill_client = mandrill.Mandrill(settings.MANDRILL_API_KEY)
-        message = {
-            "to": [{
-                "email": request.user.email,
-                "name": request.user.username,
-                "type": "to"
-            }],
-            "merge": True,
-            "merge_language": "handlebars",
-            "global_merge_vars": [
-                {
-                    "name": "username",
-                    "content": request.user.username
-                }
-            ]
-        }
-        result = mandrill_client.messages.send_template(template_name='test-email', template_content=[], message=message)
-        return HttpResponse(result)
-    except mandrill.Error as e:
-        return HttpResponse(e)
+    if (request.GET.get("job")):
+        send_mandrill_email(template_name="test-email", to=request.user)
+        return HttpResponse("check job logs")
+    else:
+        import mandrill
+        try:
+            mandrill_client = mandrill.Mandrill(settings.MANDRILL_API_KEY)
+            message = {
+                "to": [{
+                    "email": request.user.email,
+                    "name": request.user.username,
+                    "type": "to"
+                }],
+                "merge": True,
+                "merge_language": "handlebars",
+                "global_merge_vars": [
+                    {
+                        "name": "username",
+                        "content": request.user.username
+                    }
+                ]
+            }
+            result = mandrill_client.messages.send_template(template_name='test-email', template_content=[], message=message)
+            return HttpResponse(result)
+        except mandrill.Error as e:
+            return HttpResponse(e)
 
 def csrf_failure_handler(request, reason=""):
 	from django.middleware.csrf import REASON_NO_REFERER, REASON_NO_CSRF_COOKIE
