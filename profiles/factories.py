@@ -23,3 +23,23 @@ class MentorFactory(factory.django.DjangoModelFactory):
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
     profile = factory.RelatedFactory(MentorProfileFactory, 'user')
+
+class StudentProfileFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Profile
+
+    user = factory.SubFactory('profiles.factories.StudentFactory', profile=None)
+    city = 'city'
+    is_student = True
+    approved = True
+
+@factory.django.mute_signals(models.post_save)
+class StudentFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.User
+
+    username = factory.fuzzy.FuzzyText(prefix="student_")
+    email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
+    password = factory.PostGenerationMethodCall('set_password', '123123')
+
+    profile = factory.RelatedFactory(StudentProfileFactory, 'user')
