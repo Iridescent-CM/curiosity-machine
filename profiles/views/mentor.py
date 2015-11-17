@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from curiositymachine.decorators import mentor_only
 from curiositymachine.views.generic import UserJoinView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
@@ -89,7 +89,27 @@ def show_profile(request, username):
 
 @login_required
 @mentor_only
-def unclaimed_progresses(request, year, month, day):
-    selected_date = date(int(year), int(month), int(day))
-    progresses = Progress.unclaimed(selected_date)
-    return render(request, 'mentor_unclaimed_challenges.html', {'date': selected_date, 'progresses': progresses})
+def unclaimed_progresses(request, **kwargs):
+    progresses = []
+    grouping = "none"
+
+    if set(['year', 'month', 'day']).issubset(set(kwargs.keys())):
+        # original logic to see progresses by date
+        selected_date = date(int(kwargs['year']), int(kwargs['month']), int(kwargs['day']))
+        progresses = Progress.unclaimed(selected_date)
+        grouping = selected_date
+    elif "source" in request.GET:
+        grouping = request.GET["source"]
+        progresses = Progress.objects.filter(
+                mentor__isnull=True, student__profile__source=grouping
+        ).exclude(
+                comments=None
+        ).order_by(
+                '-started'
+        ).select_related(
+                'challenge', 'student', 'student__profile'
+        )
+    else:
+        raise Http404()
+
+    return render(request, 'mentor_unclaimed_challenges.html', {'grouping': grouping, 'progresses': progresses})
