@@ -46,7 +46,7 @@ def home(request):
     challenges = {progress.challenge for progress in progresses}
 
     claimable_progresses = Progress.objects.filter(mentor__isnull=True).exclude(comments=None)
-    source_and_counts = claimable_progresses.filter(student__profile__source__isnull=False).values('student__profile__source').annotate(count=Count('student__profile__source'))
+    source_and_counts = claimable_progresses.exclude(student__profile__source__isnull=True).exclude(student__profile__source='').values('student__profile__source').annotate(count=Count('student__profile__source'))
     partnerships = [{
         "source": obj['student__profile__source'],
         "unclaimed": obj['count'],
