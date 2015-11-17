@@ -8,7 +8,6 @@
   
   {% if request.user.profile.approved %}
   <h2>Challenges I'm Mentoring</h2>
-  <ul class="nav nav-justified nav-tabs"></ul>
   <div class="tab-content">
     <ul class="challenges-list owl-carousel panel-carousel">
 
@@ -17,18 +16,6 @@
           {% empty %}
           <h3>You are not mentoring any challenges right now</h3>
           {% endfor %}
-
-    </ul>
-  </div>
-    <h2>Claim a Challenge</h2>
-    <ul class="nav nav-justified nav-tabs"></ul>
-  <div class="tab-content">
-    <ul class="challenges-list owl-carousel panel-carousel">
-      {% for day_with_progress in unclaimed_days %}
-        {% include "_challenge_item_day.html" with aggregate=day_with_progress.0 progress=day_with_progress.1 %}
-      {% empty %}
-    <h3>There are currently no unclaimed student challenges</h3>
-      {% endfor %}
     </ul>
   </div>
 
@@ -65,6 +52,17 @@
         {% endwith %}
       {% empty %}
         <h3>There are currently no active partnerships</h3>
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <h2>Claim a Challenge by Date</h2>
+  <div class="tab-content">
+    <ul class="challenges-list owl-carousel panel-carousel">
+      {% for day_with_progress in unclaimed_days %}
+        {% include "_challenge_item_day.html" with aggregate=day_with_progress.0 progress=day_with_progress.1 %}
+      {% empty %}
+    <h3>There are currently no unclaimed student challenges</h3>
       {% endfor %}
     </ul>
   </div>
