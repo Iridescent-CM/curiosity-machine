@@ -54,8 +54,9 @@ def home(request):
             "example_progress": claimable_progresses.filter(student__profile__source=obj['student__profile__source']).select_related('challenge', 'student', 'student_profile').order_by("-started").first()
         } for obj in source_and_counts
     }
-    non_partnerships = partnerships['']
-    del partnerships['']
+    non_partnerships = partnerships.get('', None)
+    if non_partnerships:
+        del partnerships['']
     partnerships = partnerships.values()
 
     return render(request, "mentor_home.html", {

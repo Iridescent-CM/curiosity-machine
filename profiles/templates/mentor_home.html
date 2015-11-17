@@ -52,33 +52,35 @@
             </li>
           {% endwith %}
         {% endfor %}
-        {% with progress=non_partnership.example_progress source=non_partnership.source count=non_partnership.unclaimed %}
-          <li>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <div class="panel-title">
-                  <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">Other</a>
+        {% if non_partnership %}
+          {% with progress=non_partnership.example_progress source=non_partnership.source count=non_partnership.unclaimed %}
+            <li>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">Other</a>
+                  </div>
                 </div>
-              </div>
-              <div class="panel-body text-center">
-                <div class="image-container">
-                  <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">
-                    {% if progress.challenge.image %}
-                      <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}">
-                    {% elif progress.challenge.video.encodings_generated %}
-                      <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}">
-                    {% elif progress.student.profile.image %}
-                      <img src="{% resized progress.student.profile.image.url  width=300 height=200 crop='fill' %}" />
-                    {% endif %}
+                <div class="panel-body text-center">
+                  <div class="image-container">
+                    <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">
+                      {% if progress.challenge.image %}
+                        <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}">
+                      {% elif progress.challenge.video.encodings_generated %}
+                        <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}">
+                      {% elif progress.student.profile.image %}
+                        <img src="{% resized progress.student.profile.image.url  width=300 height=200 crop='fill' %}" />
+                      {% endif %}
 
-                  </a>
+                    </a>
+                  </div>
+                  <h2><a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{count}}</a></h2>
+                  <p>Unclaimed</p>
                 </div>
-                <h2><a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{count}}</a></h2>
-                <p>Unclaimed</p>
               </div>
-            </div>
-          </li>
-        {% endwith %}
+            </li>
+          {% endwith %}
+        {% endif %}
       {% else %}
         <h3>There are currently no unclaimed student challenges</h3>
       {% endif %}
