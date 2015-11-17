@@ -46,13 +46,17 @@ def home(request):
     challenges = {progress.challenge for progress in progresses}
 
     claimable_progresses = Progress.objects.filter(mentor__isnull=True).exclude(comments=None)
-    source_and_counts = claimable_progresses.exclude(student__profile__source__isnull=True).exclude(student__profile__source='').values('student__profile__source').annotate(count=Count('student__profile__source'))
-    partnerships = [{
-        "source": obj['student__profile__source'],
-        "unclaimed": obj['count'],
-        "example_progress": claimable_progresses.filter(student__profile__source=obj['student__profile__source']).select_related('challenge', 'student', 'student_profile').order_by("-started").first()
-    } for obj in source_and_counts]
-
+    source_and_counts = claimable_progresses.values('student__profile__source').annotate(count=Count('student__profile__source'))
+    partnerships = {
+        obj["student__profile__source"]: {
+            "source": obj['student__profile__source'],
+            "unclaimed": obj['count'],
+            "example_progress": claimable_progresses.filter(student__profile__source=obj['student__profile__source']).select_related('challenge', 'student', 'student_profile').order_by("-started").first()
+        } for obj in source_and_counts
+    }
+    non_partnerships = partnerships['']
+    del partnerships['']
+    partnerships = partnerships.values()
 
     return render(request, "mentor_home.html", {
         'challenges':challenges,
@@ -62,7 +66,8 @@ def home(request):
         'accessible_modules': accessible_modules,
         'completed_modules': completed_modules,
         'uncompleted_modules': uncompleted_modules,
-        'progresses_by_partnership': partnerships
+        'progresses_by_partnership': partnerships,
+        'non_partnership': non_partnerships
     })
 
 @login_required
@@ -129,6 +134,8 @@ def unclaimed_progresses(request, **kwargs):
         ).select_related(
                 'challenge', 'student', 'student__profile'
         )
+        if grouping == "":
+            grouping = "Other"
     else:
         raise Http404()
 

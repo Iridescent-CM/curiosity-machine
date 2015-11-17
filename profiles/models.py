@@ -38,7 +38,7 @@ class Profile(models.Model):
     #this field will be cleared once the user becomes active
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
     shown_intro = models.BooleanField(default=False)
-    source = models.CharField(max_length=50, null=True, blank=True)
+    source = models.CharField(max_length=50, null=False, blank=True, default="")
 
     child_profiles = models.ManyToManyField(
         "self",

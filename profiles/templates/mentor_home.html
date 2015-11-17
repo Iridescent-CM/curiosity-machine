@@ -22,13 +22,42 @@
   <h2>Claim a Challenge by Partnership</h2>
   <div class="tab-content">
     <ul class="challenges-list owl-carousel panel-carousel">
-      {% for partnership in progresses_by_partnership %}
-        {% with progress=partnership.example_progress source=partnership.source count=partnership.unclaimed %}
+      {% if progresses_by_partnership or non_partnership %}
+        {% for partnership in progresses_by_partnership %}
+          {% with progress=partnership.example_progress source=partnership.source count=partnership.unclaimed %}
+            <li>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{source}}</a>
+                  </div>
+                </div>
+                <div class="panel-body text-center">
+                  <div class="image-container">
+                    <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">
+                      {% if progress.challenge.image %}
+                        <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}">
+                      {% elif progress.challenge.video.encodings_generated %}
+                        <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}">
+                      {% elif progress.student.profile.image %}
+                        <img src="{% resized progress.student.profile.image.url  width=300 height=200 crop='fill' %}" />
+                      {% endif %}
+
+                    </a>
+                  </div>
+                  <h2><a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{count}}</a></h2>
+                  <p>Unclaimed</p>
+                </div>
+              </div>
+            </li>
+          {% endwith %}
+        {% endfor %}
+        {% with progress=non_partnership.example_progress source=non_partnership.source count=non_partnership.unclaimed %}
           <li>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <div class="panel-title">
-                  <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{source}}</a>
+                  <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">Other</a>
                 </div>
               </div>
               <div class="panel-body text-center">
@@ -50,9 +79,9 @@
             </div>
           </li>
         {% endwith %}
-      {% empty %}
-        <h3>There are currently no active partnerships</h3>
-      {% endfor %}
+      {% else %}
+        <h3>There are currently no unclaimed student challenges</h3>
+      {% endif %}
     </ul>
   </div>
   
