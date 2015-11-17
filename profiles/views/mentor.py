@@ -20,6 +20,7 @@ from django.utils.timezone import now
 from django.utils.functional import lazy
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import operator
 import logging
 
 logger = logging.getLogger(__name__)
@@ -51,13 +52,13 @@ def home(request):
         obj["student__profile__source"]: {
             "source": obj['student__profile__source'],
             "unclaimed": obj['count'],
-            "example_progress": claimable_progresses.filter(student__profile__source=obj['student__profile__source']).select_related('challenge', 'student', 'student_profile').order_by("-started").first()
+            "example_progress": claimable_progresses.filter(student__profile__source=obj['student__profile__source']).select_related('challenge', 'student', 'student_profile').order_by("started").first()
         } for obj in source_and_counts
     }
     non_partnerships = partnerships.get('', None)
     if non_partnerships:
         del partnerships['']
-    partnerships = partnerships.values()
+    partnerships = sorted(partnerships.values(), key=operator.itemgetter('source'))
 
     return render(request, "mentor_home.html", {
         'challenges':challenges,
@@ -131,7 +132,7 @@ def unclaimed_progresses(request, **kwargs):
         ).exclude(
                 comments=None
         ).order_by(
-                '-started'
+                'started'
         ).select_related(
                 'challenge', 'student', 'student__profile'
         )
