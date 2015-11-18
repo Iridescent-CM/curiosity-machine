@@ -1,17 +1,18 @@
-{% extends "base.html" %}
-
+{% extends "curiositymachine/layout/base.html" %}
+{% block body-id %}login-page{% endblock %}
 
 {% block content %}
-
-    <h1>Login.</h1>
+<div class="login-top-panel">
+  <h1>Login</h1>
+</div>
 
   <form method="post" action="{% url 'login' %}">
-    
+
       {% include "registration/_login_form.html" %}
-    
-    
+
+
       <p> <input type="submit" value="login" class="btn btn-primary btn-lg" /> <small><a href="{% url "password_reset_recover" %}">Forgot your password?</a></small></p><br/><br/>
-  
+
       {% if next %}
           <input type="hidden" name="next" value="{{ next }}" />
       {% else %}
