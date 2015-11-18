@@ -58,7 +58,7 @@ def home(request):
     non_partnerships = partnerships.get('', None)
     if non_partnerships:
         del partnerships['']
-    partnerships = sorted(partnerships.values(), key=operator.itemgetter('source'))
+    partnerships = sorted(partnerships.values(), key=lambda o: o.get('source').lower())
 
     return render(request, "mentor_home.html", {
         'challenges':challenges,
@@ -137,7 +137,7 @@ def unclaimed_progresses(request, **kwargs):
                 'challenge', 'student', 'student__profile'
         )
         if grouping == "":
-            grouping = "Other"
+            grouping = "other"
     else:
         raise Http404()
 
