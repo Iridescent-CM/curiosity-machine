@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from curiositymachine.decorators import mentor_only
 from curiositymachine.views.generic import UserJoinView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.db import IntegrityError
+from django.db.models import Count
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.models import Profile
@@ -19,6 +20,7 @@ from django.utils.timezone import now
 from django.utils.functional import lazy
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import operator
 import logging
 
 logger = logging.getLogger(__name__)
@@ -37,13 +39,38 @@ def home(request):
     accessible_modules = training_modules
     completed_modules = [module for module in training_modules if module.is_finished_by_mentor(request.user)]
     uncompleted_modules = [module for module in training_modules if not module.is_finished_by_mentor(request.user)]
-    
+
     startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
-    
+
     progresses = Progress.objects.filter(mentor=request.user, started__gt=startdate).order_by('-started').select_related("challenge")
     unclaimed_days = [(day, Progress.unclaimed(day[0])[0]) for day in Progress.unclaimed_days()]
     challenges = {progress.challenge for progress in progresses}
-    return render(request, "mentor_home.html", {'challenges':challenges, 'progresses': progresses,'unclaimed_days': unclaimed_days, 'training_modules': training_modules, 'accessible_modules': accessible_modules, 'completed_modules': completed_modules, 'uncompleted_modules': uncompleted_modules})
+
+    claimable_progresses = Progress.objects.filter(mentor__isnull=True).exclude(comments=None)
+    source_and_counts = claimable_progresses.values('student__profile__source').annotate(count=Count('student__profile__source'))
+    partnerships = {
+        obj["student__profile__source"]: {
+            "source": obj['student__profile__source'],
+            "unclaimed": obj['count'],
+            "example_progress": claimable_progresses.filter(student__profile__source=obj['student__profile__source']).select_related('challenge', 'student', 'student_profile').order_by("started").first()
+        } for obj in source_and_counts
+    }
+    non_partnerships = partnerships.get('', None)
+    if non_partnerships:
+        del partnerships['']
+    partnerships = sorted(partnerships.values(), key=lambda o: o.get('source').lower())
+
+    return render(request, "mentor_home.html", {
+        'challenges':challenges,
+        'progresses': progresses,
+        'unclaimed_days': unclaimed_days,
+        'training_modules': training_modules,
+        'accessible_modules': accessible_modules,
+        'completed_modules': completed_modules,
+        'uncompleted_modules': uncompleted_modules,
+        'progresses_by_partnership': partnerships,
+        'non_partnership': non_partnerships
+    })
 
 @login_required
 def profile_edit(request):
@@ -89,7 +116,29 @@ def show_profile(request, username):
 
 @login_required
 @mentor_only
-def unclaimed_progresses(request, year, month, day):
-    selected_date = date(int(year), int(month), int(day))
-    progresses = Progress.unclaimed(selected_date)
-    return render(request, 'mentor_unclaimed_challenges.html', {'date': selected_date, 'progresses': progresses})
+def unclaimed_progresses(request, **kwargs):
+    progresses = []
+    grouping = "none"
+
+    if set(['year', 'month', 'day']).issubset(set(kwargs.keys())):
+        # original logic to see progresses by date
+        selected_date = date(int(kwargs['year']), int(kwargs['month']), int(kwargs['day']))
+        progresses = Progress.unclaimed(selected_date)
+        grouping = selected_date
+    elif "source" in request.GET:
+        grouping = request.GET["source"]
+        progresses = Progress.objects.filter(
+                mentor__isnull=True, student__profile__source=grouping
+        ).exclude(
+                comments=None
+        ).order_by(
+                'started'
+        ).select_related(
+                'challenge', 'student', 'student__profile'
+        )
+        if grouping == "":
+            grouping = "other"
+    else:
+        raise Http404()
+
+    return render(request, 'mentor_unclaimed_challenges.html', {'grouping': grouping, 'progresses': progresses})

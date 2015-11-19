@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load unread_count %}
+{% load resized %}
 
 {% block content %}
 
@@ -8,7 +8,6 @@
   
   {% if request.user.profile.approved %}
   <h2>Challenges I'm Mentoring</h2>
-  <ul class="nav nav-justified nav-tabs"></ul>
   <div class="tab-content">
     <ul class="challenges-list owl-carousel panel-carousel">
 
@@ -17,11 +16,78 @@
           {% empty %}
           <h3>You are not mentoring any challenges right now</h3>
           {% endfor %}
-
     </ul>
   </div>
-    <h2>Claim a Challenge</h2>
-    <ul class="nav nav-justified nav-tabs"></ul>
+
+  <h2>Claim a Challenge by Partnership</h2>
+  <div class="tab-content">
+    <ul class="challenges-list owl-carousel panel-carousel">
+      {% if progresses_by_partnership or non_partnership %}
+        {% for partnership in progresses_by_partnership %}
+          {% with progress=partnership.example_progress source=partnership.source count=partnership.unclaimed %}
+            <li>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{source}}</a>
+                  </div>
+                </div>
+                <div class="panel-body text-center">
+                  <div class="image-container">
+                    <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">
+                      {% if progress.challenge.image %}
+                        <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}">
+                      {% elif progress.challenge.video.encodings_generated %}
+                        <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}">
+                      {% elif progress.student.profile.image %}
+                        <img src="{% resized progress.student.profile.image.url  width=300 height=200 crop='fill' %}" />
+                      {% endif %}
+
+                    </a>
+                  </div>
+                  <h2><a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{count}}</a></h2>
+                  <p>Unclaimed</p>
+                </div>
+              </div>
+            </li>
+          {% endwith %}
+        {% endfor %}
+        {% if non_partnership %}
+          {% with progress=non_partnership.example_progress source=non_partnership.source count=non_partnership.unclaimed %}
+            <li>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">other</a>
+                  </div>
+                </div>
+                <div class="panel-body text-center">
+                  <div class="image-container">
+                    <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">
+                      {% if progress.challenge.image %}
+                        <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}">
+                      {% elif progress.challenge.video.encodings_generated %}
+                        <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}">
+                      {% elif progress.student.profile.image %}
+                        <img src="{% resized progress.student.profile.image.url  width=300 height=200 crop='fill' %}" />
+                      {% endif %}
+
+                    </a>
+                  </div>
+                  <h2><a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{count}}</a></h2>
+                  <p>Unclaimed</p>
+                </div>
+              </div>
+            </li>
+          {% endwith %}
+        {% endif %}
+      {% else %}
+        <h3>There are currently no unclaimed student challenges</h3>
+      {% endif %}
+    </ul>
+  </div>
+  
+  <h2>Claim a Challenge by Date</h2>
   <div class="tab-content">
     <ul class="challenges-list owl-carousel panel-carousel">
       {% for day_with_progress in unclaimed_days %}
