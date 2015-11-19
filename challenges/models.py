@@ -182,10 +182,6 @@ class Progress(models.Model):
         if self.mentor:
             deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student.profile)
 
-    def email_first_project(self):
-        if self.is_first_project():
-            deliver_email('first_project', self.student.profile)
-
 class Favorite(models.Model):
     challenge = models.ForeignKey(Challenge)
     student = models.ForeignKey(User, related_name='favorites')
