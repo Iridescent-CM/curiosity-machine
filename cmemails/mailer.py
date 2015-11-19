@@ -96,6 +96,9 @@ def deliver_email(event_name, profile, **context):
     key = "_".join([user_type, event_name])
     try:
         info = email_info[key]
-        return email([profile.user.email], context.get('subject', info['subject']), context, info['template'], context.get('cc', None))
+        if profile.user.email:
+            return email([profile.user.email], context.get('subject', info['subject']), context, info['template'], context.get('cc', None))
+        else:
+            logger.info("No email address; email not sent for event: {}, type: {}, username: {}".format(event_name, user_type, profile.user.username))
     except KeyError:
         logger.warn("No email defined for event: {}, type: {}, username: {}".format(event_name, user_type, profile.user.username))
