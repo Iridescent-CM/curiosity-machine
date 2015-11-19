@@ -7,7 +7,6 @@ from videos.models import Video
 from images.models import Image
 from enum import Enum
 from django.utils.safestring import mark_safe
-from django.db.models.signals import post_save
 from cmemails import deliver_email
 from django.db import connection
 from .validators import validate_color
@@ -187,12 +186,6 @@ class Progress(models.Model):
         if self.is_first_project():
             deliver_email('first_project', self.student.profile)
 
-def create_progress(sender, instance, created, **kwargs):
-    if created and instance.is_first_project():
-        instance.email_first_project()
-
-post_save.connect(create_progress, sender=Progress)
-
 class Favorite(models.Model):
     challenge = models.ForeignKey(Challenge)
     student = models.ForeignKey(User, related_name='favorites')
@@ -220,14 +213,6 @@ class Example(models.Model): # media that a mentor has selected to be featured o
         if self._name: return self._name
         elif self.progress: return self.progress.student.username
         else: return ""
-
-def create_example(sender, instance, created, **kwargs):
-    if created:
-        progress = instance.progress
-        progress.student.profile.deliver_publish_email(progress)
-
-post_save.connect(create_example, sender=Example)
-
 
 class Filter(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False, help_text="name of the filter")
