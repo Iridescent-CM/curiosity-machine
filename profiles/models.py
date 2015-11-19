@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from images.models import Image
@@ -148,17 +147,3 @@ class ParentConnection(models.Model):
             self.child_profile.user.username,
             self.id
         )
-
-def create_user_profile(sender, instance, created, **kwargs):
-    if created and not hasattr(instance, "profile") and not kwargs.get('raw'):
-        Profile.objects.create(user=instance)
-
-post_save.connect(create_user_profile, sender=User)
-
-def auto_approve_non_coppa_students(sender, instance, created, **kwargs):
-    if created and not kwargs.get('raw'):
-        if instance.is_student and not instance.is_underage():
-            instance.approved = True
-            instance.save(update_fields=['approved'])
-
-post_save.connect(auto_approve_non_coppa_students, sender=Profile)
