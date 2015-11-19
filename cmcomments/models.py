@@ -4,7 +4,6 @@ from django.utils.timezone import now
 from django.contrib.auth.models import User
 from videos.models import Video
 from images.models import Image
-from django.db.models.signals import post_save
 from cmemails import deliver_email
 
 class Comment(models.Model):
@@ -30,10 +29,3 @@ class Comment(models.Model):
     def email_student_completed(self):
         if self.challenge_progress.mentor:
             return deliver_email('student_completed', self.challenge_progress.mentor.profile, student=self.challenge_progress.student.profile, progress=self.challenge_progress)
-
-def create_comment(sender, instance, created, **kwargs):
-    if created:
-        if instance.stage == Stage.reflect.value and instance.image:
-            instance.email_student_completed()
-
-post_save.connect(create_comment, sender=Comment)
