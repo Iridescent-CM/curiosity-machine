@@ -1,0 +1,1 @@
+import curiositymachine.signals.student
