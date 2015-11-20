@@ -1,10 +1,15 @@
 import pytest
 import mock
-from . import mailer
+from . import mailer, signals
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from datetime import date, timedelta
 from profiles.models import Profile
+from images.models import Image
+from challenges.models import Stage
+import profiles.factories
+import challenges.factories
+import cmcomments.factories
 
 @pytest.fixture
 def student():
@@ -110,3 +115,35 @@ def test_deliver_email_named_arguments_become_email_context():
             'task': 5,
             'profile': profile
         }
+
+def test_handler_student_posted_comment_no_mentor():
+    student = profiles.factories.StudentFactory.build()
+    progress = challenges.factories.ProgressFactory.build()
+    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
+
+    with mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
+        signals.handlers.student_posted_comment(student, comment)
+        assert len(deliver_email.mock_calls) == 0
+
+def test_handler_student_posted_comment():
+    student = profiles.factories.StudentFactory.build()
+    mentor = profiles.factories.MentorFactory.build()
+    progress = challenges.factories.ProgressFactory.build(mentor=mentor)
+    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
+
+    with mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
+        signals.handlers.student_posted_comment(student, comment)
+        assert len(deliver_email.mock_calls) == 1
+        assert deliver_email.call_args[0][0] == 'student_responded'
+
+def test_handler_student_posted_reflect_comment_with_image():
+    student = profiles.factories.StudentFactory.build()
+    mentor = profiles.factories.MentorFactory.build()
+    progress = challenges.factories.ProgressFactory.build(mentor=mentor)
+    image = Image()
+    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student, image=image, stage=Stage.reflect.value)
+
+    with mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
+        signals.handlers.student_posted_comment(student, comment)
+        assert len(deliver_email.mock_calls) == 1
+        assert deliver_email.call_args[0][0] == 'student_completed'

@@ -1,1 +1,2 @@
 import curiositymachine.signals.student
+import curiositymachine.signals.mentor

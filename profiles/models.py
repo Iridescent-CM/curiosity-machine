@@ -121,9 +121,6 @@ class Profile(models.Model):
     def deliver_encouragement_email(self):
         deliver_email('encouragement', self)
 
-    def deliver_publish_email(self, progress):
-        deliver_email('publish', self, progress=progress)
-
     def is_parent_of(self, username, **kwargs):
         filters = {
             'parent_profile': self,

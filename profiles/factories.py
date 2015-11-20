@@ -3,6 +3,7 @@ import factory.django
 import factory.fuzzy
 
 from . import models
+from .signals import handlers
 
 class MentorProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -13,7 +14,7 @@ class MentorProfileFactory(factory.django.DjangoModelFactory):
     is_mentor = True
     approved = True
 
-@factory.django.mute_signals(models.post_save)
+@factory.django.mute_signals(handlers.post_save)
 class MentorFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.User
@@ -33,7 +34,7 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
     is_student = True
     approved = True
 
-@factory.django.mute_signals(models.post_save)
+@factory.django.mute_signals(handlers.post_save)
 class StudentFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.User

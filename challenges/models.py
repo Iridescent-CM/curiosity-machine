@@ -174,14 +174,6 @@ class Progress(models.Model):
     def __str__(self):
         return "Progress: id={}".format(self.id)
 
-    def email_mentor_responded(self):
-        if self.mentor:
-            deliver_email('mentor_responded', self.student.profile, progress=self, mentor=self.mentor.profile)
-
-    def email_student_responded(self):
-        if self.mentor:
-            deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student.profile)
-
 class Favorite(models.Model):
     challenge = models.ForeignKey(Challenge)
     student = models.ForeignKey(User, related_name='favorites')

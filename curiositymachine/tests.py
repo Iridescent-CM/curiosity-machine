@@ -7,11 +7,14 @@ from profiles.models import Profile
 from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
 from .views import root
 from .views.generic import UserJoinView
-from challenges.models import Progress, Challenge
+from challenges.models import Progress, Challenge, Example
 from .helpers import random_string
 from curiositymachine import decorators
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
+from . import signals
+import challenges.factories
+import profiles.factories
 
 def force_true(*args, **kwargs):
     return True
@@ -488,12 +491,10 @@ def test_user_join_view_redirects_to_welcome_url_from_form(rf):
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == '/welcome/thisone'
 
-from . import signals
-
 @pytest.mark.django_db
-def test_signal_first_project_started():
+def test_signal_student_started_first_project():
     handler = mock.MagicMock()
-    signals.student.first_project_started.connect(handler)
+    signals.student.started_first_project.connect(handler)
 
     user = User.objects.create(username='user', email='useremail')
     challenge = Challenge.objects.create(name='challenge')
@@ -502,5 +503,39 @@ def test_signal_first_project_started():
     challenge2 = Challenge.objects.create(name='challenge2')
     second_progress = Progress.objects.create(student=user, challenge=challenge2)
 
-    handler.assert_called_once_with(signal=signals.student.first_project_started, progress=first_progress, sender=user)
+    handler.assert_called_once_with(signal=signals.student.started_first_project, progress=first_progress, sender=user)
 
+@pytest.mark.django_db
+def test_signal_mentor_approved_project_for_gallery():
+    handler = mock.MagicMock()
+    signals.mentor.approved_project_for_gallery.connect(handler)
+
+    user = User.objects.create(username='user', email='useremail')
+    user2 = User.objects.create(username='user2', email='useremail2')
+    user2.profile.is_mentor=True
+    challenge = Challenge.objects.create(name='challenge')
+    progress = Progress.objects.create(student=user, challenge=challenge, mentor=user2)
+    example = Example.objects.create(challenge=challenge, progress=progress)
+
+    handler.assert_called_once_with(signal=signals.mentor.approved_project_for_gallery, sender=user2, example=example)
+
+@pytest.mark.django_db
+def test_signal_student_posted_comment():
+    handler = mock.MagicMock()
+    signals.student.posted_comment.connect(handler)
+
+    progress = challenges.factories.ProgressFactory()
+    comment = progress.comments.create(user=progress.student, text="comment", stage=1)
+
+    handler.assert_called_once_with(signal=signals.student.posted_comment, sender=progress.student, comment=comment)
+
+@pytest.mark.django_db
+def test_signal_mentor_posted_comment():
+    handler = mock.MagicMock()
+    signals.mentor.posted_comment.connect(handler)
+
+    mentor = profiles.factories.MentorFactory()
+    progress = challenges.factories.ProgressFactory(mentor=mentor)
+    comment = progress.comments.create(user=progress.mentor, text="comment", stage=1)
+
+    handler.assert_called_once_with(signal=signals.mentor.posted_comment, sender=progress.mentor, comment=comment)

@@ -1,3 +1,4 @@
 from django.dispatch import Signal
 
-first_project_started = Signal(providing_args=[])
+started_first_project = Signal(providing_args=['progress'])
+posted_comment = Signal(providing_args=['comment'])
