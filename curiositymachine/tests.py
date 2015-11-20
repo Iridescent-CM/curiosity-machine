@@ -539,3 +539,15 @@ def test_signal_mentor_posted_comment():
     comment = progress.comments.create(user=progress.mentor, text="comment", stage=1)
 
     handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.mentor, comment=comment)
+
+@pytest.mark.django_db
+def test_signal_approved_project_for_reflection():
+    handler = mock.MagicMock()
+    signal = signals.approved_project_for_reflection
+    signal.connect(handler)
+
+    progress = challenges.factories.ProgressFactory()
+    mentor = profiles.factories.MentorFactory()
+    progress.approve(approver=mentor)
+
+    handler.assert_called_once_with(signal=signal, sender=mentor, progress=progress)

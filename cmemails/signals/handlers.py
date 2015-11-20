@@ -4,15 +4,19 @@ from cmemails import deliver_email
 from challenges.models import Stage
 
 @receiver(signals.started_first_project)
-def student_started_first_project(sender, progress, **kwargs):
+def started_first_project(sender, progress, **kwargs):
     deliver_email('first_project', sender.profile)
 
 @receiver(signals.approved_project_for_gallery)
-def mentor_approved_project_for_gallery(sender, example, **kwargs):
+def approved_project_for_gallery(sender, example, **kwargs):
     deliver_email('publish', example.progress.student.profile, progress=example.progress)
 
+@receiver(signals.approved_project_for_reflection)
+def approved_project_for_reflection(sender, progress, **kwargs):
+    deliver_email('project_completion', progress.student.profile, progress=progress, stage=Stage.reflect.name)
+
 @receiver(signals.posted_comment)
-def student_posted_comment(sender, comment, **kwargs):
+def posted_comment(sender, comment, **kwargs):
     progress = comment.challenge_progress
 
     if not progress.mentor:

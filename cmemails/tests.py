@@ -122,7 +122,7 @@ def test_handler_student_posted_comment_no_mentor():
     comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
 
     with mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
-        signals.handlers.student_posted_comment(student, comment)
+        signals.handlers.posted_comment(student, comment)
         assert len(deliver_email.mock_calls) == 0
 
 def test_handler_student_posted_comment():
@@ -132,7 +132,7 @@ def test_handler_student_posted_comment():
     comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
 
     with mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
-        signals.handlers.student_posted_comment(student, comment)
+        signals.handlers.posted_comment(student, comment)
         assert len(deliver_email.mock_calls) == 1
         assert deliver_email.call_args[0][0] == 'student_responded'
 
@@ -144,6 +144,6 @@ def test_handler_student_posted_reflect_comment_with_image():
     comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student, image=image, stage=Stage.reflect.value)
 
     with mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
-        signals.handlers.student_posted_comment(student, comment)
+        signals.handlers.posted_comment(student, comment)
         assert len(deliver_email.mock_calls) == 1
         assert deliver_email.call_args[0][0] == 'student_completed'

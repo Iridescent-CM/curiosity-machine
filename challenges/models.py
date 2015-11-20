@@ -7,9 +7,9 @@ from videos.models import Video
 from images.models import Image
 from enum import Enum
 from django.utils.safestring import mark_safe
-from cmemails import deliver_email
 from django.db import connection
 from .validators import validate_color
+from curiositymachine import signals
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
@@ -115,12 +115,10 @@ class Progress(models.Model):
     def is_first_project(self):
         return self.student.progresses.count() == 1
 
-    def approve(self):
+    def approve(self, approver=None):
         self.approved=now()
         self.save()
-        if self.student.profile.birthday:
-            deliver_email('project_completion', self.student.profile, progress=self, stage=Stage.reflect.name)
-
+        signals.approved_project_for_reflection.send(sender=approver, progress=self)
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
