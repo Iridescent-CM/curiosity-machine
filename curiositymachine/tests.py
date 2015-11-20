@@ -488,3 +488,19 @@ def test_user_join_view_redirects_to_welcome_url_from_form(rf):
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == '/welcome/thisone'
 
+from . import signals
+
+@pytest.mark.django_db
+def test_signal_first_project_started():
+    handler = mock.MagicMock()
+    signals.student.first_project_started.connect(handler)
+
+    user = User.objects.create(username='user', email='useremail')
+    challenge = Challenge.objects.create(name='challenge')
+    first_progress = Progress.objects.create(student=user, challenge=challenge)
+
+    challenge2 = Challenge.objects.create(name='challenge2')
+    second_progress = Progress.objects.create(student=user, challenge=challenge2)
+
+    handler.assert_called_once_with(signal=signals.student.first_project_started, progress=first_progress, sender=user)
+
