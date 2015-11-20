@@ -10,7 +10,4 @@ def create_comment(sender, instance, created, **kwargs):
     comment = instance
     progress = comment.challenge_progress
     if created:
-        if comment.user.profile.is_mentor:
-            signals.mentor.posted_comment.send(sender=comment.user, comment=comment)
-        elif comment.user.profile.is_student:
-            signals.student.posted_comment.send(sender=comment.user, comment=comment)
+        signals.posted_comment.send(sender=comment.user, comment=comment)

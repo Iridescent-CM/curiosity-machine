@@ -494,7 +494,7 @@ def test_user_join_view_redirects_to_welcome_url_from_form(rf):
 @pytest.mark.django_db
 def test_signal_student_started_first_project():
     handler = mock.MagicMock()
-    signals.student.started_first_project.connect(handler)
+    signals.started_first_project.connect(handler)
 
     user = User.objects.create(username='user', email='useremail')
     challenge = Challenge.objects.create(name='challenge')
@@ -503,12 +503,12 @@ def test_signal_student_started_first_project():
     challenge2 = Challenge.objects.create(name='challenge2')
     second_progress = Progress.objects.create(student=user, challenge=challenge2)
 
-    handler.assert_called_once_with(signal=signals.student.started_first_project, progress=first_progress, sender=user)
+    handler.assert_called_once_with(signal=signals.started_first_project, progress=first_progress, sender=user)
 
 @pytest.mark.django_db
 def test_signal_mentor_approved_project_for_gallery():
     handler = mock.MagicMock()
-    signals.mentor.approved_project_for_gallery.connect(handler)
+    signals.approved_project_for_gallery.connect(handler)
 
     user = User.objects.create(username='user', email='useremail')
     user2 = User.objects.create(username='user2', email='useremail2')
@@ -517,25 +517,25 @@ def test_signal_mentor_approved_project_for_gallery():
     progress = Progress.objects.create(student=user, challenge=challenge, mentor=user2)
     example = Example.objects.create(challenge=challenge, progress=progress)
 
-    handler.assert_called_once_with(signal=signals.mentor.approved_project_for_gallery, sender=user2, example=example)
+    handler.assert_called_once_with(signal=signals.approved_project_for_gallery, sender=user2, example=example)
 
 @pytest.mark.django_db
 def test_signal_student_posted_comment():
     handler = mock.MagicMock()
-    signals.student.posted_comment.connect(handler)
+    signals.posted_comment.connect(handler)
 
     progress = challenges.factories.ProgressFactory()
     comment = progress.comments.create(user=progress.student, text="comment", stage=1)
 
-    handler.assert_called_once_with(signal=signals.student.posted_comment, sender=progress.student, comment=comment)
+    handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.student, comment=comment)
 
 @pytest.mark.django_db
 def test_signal_mentor_posted_comment():
     handler = mock.MagicMock()
-    signals.mentor.posted_comment.connect(handler)
+    signals.posted_comment.connect(handler)
 
     mentor = profiles.factories.MentorFactory()
     progress = challenges.factories.ProgressFactory(mentor=mentor)
     comment = progress.comments.create(user=progress.mentor, text="comment", stage=1)
 
-    handler.assert_called_once_with(signal=signals.mentor.posted_comment, sender=progress.mentor, comment=comment)
+    handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.mentor, comment=comment)
