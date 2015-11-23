@@ -9,4 +9,35 @@
     margin-bottom: $base-spacing;
   }
 
+  .page-content {
+    padding: $base-spacing 0 $large-spacing;
+  }
+
+  .alert {
+    text-align: center;
+  }
+
+  .join-cm {
+    text-align: center;
+  }
+
+  #login-page-form {
+
+    input {
+      display: block;
+      width: 100%;
+      margin-bottom: $base-spacing;
+      //border-radius: $base-border-radius;
+    }
+
+    .login-btn {
+      display: inline-block;
+      width: inherit;
+    }
+
+    small {
+      float: right;
+    }
+  }
+
 }

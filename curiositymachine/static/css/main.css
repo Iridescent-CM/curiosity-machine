@@ -5608,4 +5608,25 @@ footer {
   color: white;
   margin-bottom: 1.5em; }
 
+#login-page .page-content {
+  padding: 1.5em 0 3em; }
+
+#login-page .alert {
+  text-align: center; }
+
+#login-page .join-cm {
+  text-align: center; }
+
+#login-page #login-page-form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1.5em; }
+
+#login-page #login-page-form .login-btn {
+  display: inline-block;
+  width: inherit; }
+
+#login-page #login-page-form small {
+  float: right; }
+
 /*# sourceMappingURL=main.css.map */
