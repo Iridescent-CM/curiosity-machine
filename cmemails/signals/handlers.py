@@ -11,6 +11,10 @@ def deliver_welcome_email(sender, **kwargs):
     else:
         deliver_email('welcome', sender.profile)
 
+@receiver(signals.underage_activation_confirmed)
+def underage_activation_confirmed(sender, account, **kwargs):
+    deliver_email('activation_confirmation', account.profile)
+
 @receiver(signals.started_first_project)
 def started_first_project(sender, progress, **kwargs):
     deliver_email('first_project', sender.profile)
