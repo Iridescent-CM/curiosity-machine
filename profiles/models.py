@@ -108,12 +108,6 @@ class Profile(models.Model):
         self.shown_intro = True
         self.save(update_fields=['shown_intro'])
 
-    def deliver_welcome_email(self):
-        if self.is_mentor:
-            deliver_email('welcome', self, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
-        else:
-            deliver_email('welcome', self)
-
     def deliver_inactive_email(self):
         if self.birthday:
             deliver_email('inactive', self)

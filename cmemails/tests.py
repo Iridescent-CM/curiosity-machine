@@ -147,3 +147,11 @@ def test_handler_student_posted_reflect_comment_with_image():
         signals.handlers.posted_comment(student, comment)
         assert len(deliver_email.mock_calls) == 1
         assert deliver_email.call_args[0][0] == 'student_completed'
+
+def test_handler_deliver_welcome_email_ccs_mentor_relationship_managers():
+    mentor = profiles.factories.MentorFactory.build()
+
+    with mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
+        signals.handlers.deliver_welcome_email(mentor)
+        assert len(deliver_email.mock_calls) == 1
+        assert 'cc' in deliver_email.call_args[1]

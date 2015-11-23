@@ -18,7 +18,6 @@ from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from curiositymachine import signals
 
 def challenges(request):
     theme_name = request.GET.get('theme')

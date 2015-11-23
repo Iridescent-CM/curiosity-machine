@@ -551,3 +551,13 @@ def test_signal_approved_project_for_reflection():
     progress.approve(approver=mentor)
 
     handler.assert_called_once_with(signal=signal, sender=mentor, progress=progress)
+
+@pytest.mark.django_db
+def test_signal_created_account():
+    handler = mock.MagicMock()
+    signal = signals.created_account
+    signal.connect(handler)
+
+    user = User.objects.create(username='user', email='email')
+
+    handler.assert_called_once_with(signal=signal, sender=user)
