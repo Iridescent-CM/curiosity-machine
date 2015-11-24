@@ -1,6 +1,7 @@
 import pytest
 import mock
 from . import mailer, signals
+from .mandrill import send_template
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from datetime import date, timedelta
@@ -151,7 +152,71 @@ def test_handler_student_posted_reflect_comment_with_image():
 def test_handler_deliver_welcome_email_ccs_mentor_relationship_managers():
     mentor = profiles.factories.MentorFactory.build()
 
-    with mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
+    with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.deliver_welcome_email(mentor)
-        assert len(deliver_email.mock_calls) == 1
-        assert 'cc' in deliver_email.call_args[1]
+        assert len(send.mock_calls) == 1
+        assert 'cc' in send.call_args[1]
+
+def test_send_template_handles_single_recipient():
+    student = profiles.factories.StudentFactory.build()
+
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name='foo', to=student)
+        kwargs = mandrill().messages.send_template.call_args[1]
+        assert 'template_name' in kwargs and kwargs['template_name'] == 'foo'
+        assert ('message' in kwargs and
+            len(kwargs['message']['to']) == 1 and
+            kwargs['message']['to'][0] == {
+                "email": student.email,
+                "name": student.username,
+                "type": "to"
+            })
+
+def test_send_template_handles_multiple_recipients():
+    students = profiles.factories.StudentFactory.build_batch(2)
+
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name='foo', to=students)
+        kwargs = mandrill().messages.send_template.call_args[1]
+        assert ('message' in kwargs and len(kwargs['message']['to']) == 2)
+
+def test_send_template_handles_single_cc():
+    student = profiles.factories.StudentFactory.build()
+
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name='foo', to=student, cc="someemail@example.com")
+        kwargs = mandrill().messages.send_template.call_args[1]
+        assert 'message' in kwargs
+        assert len(kwargs['message']['to']) == 2
+        assert {
+            "email": "someemail@example.com",
+            "type": "cc"
+        } in kwargs['message']['to']
+
+def test_send_template_handles_multiple_ccs():
+    student = profiles.factories.StudentFactory.build()
+
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name='foo', to=student, cc=["someemail@example.com", "someotheremail@example.com"])
+        kwargs = mandrill().messages.send_template.call_args[1]
+        assert 'message' in kwargs
+        assert len(kwargs['message']['to']) == 3
+        assert {
+            "email": "someemail@example.com",
+            "type": "cc"
+        } in kwargs['message']['to']
+        assert {
+            "email": "someotheremail@example.com",
+            "type": "cc"
+        } in kwargs['message']['to']
+
+def test_send_template_skips_users_without_email():
+    student = profiles.factories.StudentFactory.build(email=None)
+    student2 = profiles.factories.StudentFactory.build()
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name='foo', to=student)
+        assert len(mandrill().messages.send_template.mock_calls) == 0
+        send_template(template_name='foo', to=student, cc="email@example.com")
+        assert len(mandrill().messages.send_template.mock_calls) == 0
+        send_template(template_name='foo', to=[student, student2])
+        assert len(mandrill().messages.send_template.mock_calls) == 1

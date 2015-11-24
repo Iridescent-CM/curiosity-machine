@@ -1,13 +1,13 @@
 from curiositymachine import signals
 from django.conf import settings
 from django.dispatch import receiver
-from cmemails import deliver_email
+from cmemails import deliver_email, send
 from challenges.models import Stage
 
 @receiver(signals.created_account)
 def deliver_welcome_email(sender, **kwargs):
     if sender.profile.is_mentor:
-        deliver_email('welcome', sender.profile, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
+        send(template_name='mentor-welcome-email', to=sender, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
     else:
         deliver_email('welcome', sender.profile)
 
