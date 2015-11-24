@@ -203,6 +203,8 @@ EMAIL_HOST_PASSWORD = os.environ.get("POSTMARK_API_KEY", "")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
+MANDRILL_API_KEY = os.environ.get("MANDRILL_API_KEY", "")
+
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "")
 
 # Which HTML tags are allowed
