@@ -206,6 +206,7 @@ EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "")
 
 MANDRILL_API_KEY = os.environ.get("MANDRILL_API_KEY", "")
+MANDRILL_TEMPLATE_PREFIX = os.environ.get("MANDRILL_TEMPLATE_PREFIX", "")
 MANDRILL_MESSAGE_DEFAULTS = {
     "auto_text": True,
     "inline_css": True,

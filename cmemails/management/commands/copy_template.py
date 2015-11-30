@@ -37,6 +37,8 @@ class Command(BaseCommand):
             "publish": options["publish"],
             "labels": source_info['labels']
         }
+        # source values equal to None should become '' when setting the target, as None is considered "no change"
+        copy_info = {k: v or '' for k, v in copy_info.items()}
 
         try:
             mandrill_client.templates.update(name=target_name, **copy_info)

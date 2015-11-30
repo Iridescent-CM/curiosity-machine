@@ -4,7 +4,9 @@ from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
-def send_template(template_name=None, to=[], cc=[], **kwargs):
+def send_template(template_name, to=[], cc=[], **kwargs):
+    template_name = settings.MANDRILL_TEMPLATE_PREFIX + template_name
+
     if not isinstance(to, (list, tuple)):
         to = [to]
     if not isinstance(cc, (list, tuple)):
