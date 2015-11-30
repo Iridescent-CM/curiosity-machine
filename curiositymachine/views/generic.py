@@ -43,6 +43,7 @@ class UserJoinView(CreateView):
     logged_in_redirect = None
     success_message = None
     template_names = None
+    welcome = None
 
     def get_logged_in_redirect(self):
         return self.logged_in_redirect
