@@ -39,6 +39,8 @@ class UserAdminWithProfile(UserAdmin):
                 if not old_profile.approved and profile.approved:
                     if profile.is_student and profile.birthday and profile.is_underage():
                         signals.underage_activation_confirmed.send(sender=request.user, account=profile.user)
+                    elif profile.is_mentor:
+                        signals.completed_training.send(sender=profile.user, approver=request.user)
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj

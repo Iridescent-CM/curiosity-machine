@@ -49,3 +49,7 @@ def posted_comment(sender, comment, **kwargs):
 def approved_training_task(sender, user, task, **kwargs):
     if task.completion_email_template:
         send(template_name=task.completion_email_template, to=user)
+
+@receiver(signals.completed_training)
+def completed_training(sender, approver, **kwargs):
+    send(template_name='mentor-account-approved', to=sender)
