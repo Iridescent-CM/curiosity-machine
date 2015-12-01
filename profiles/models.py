@@ -112,9 +112,6 @@ class Profile(models.Model):
         if self.birthday:
             deliver_email('inactive', self)
 
-    def deliver_encouragement_email(self):
-        deliver_email('encouragement', self)
-
     def is_parent_of(self, username, **kwargs):
         filters = {
             'parent_profile': self,
