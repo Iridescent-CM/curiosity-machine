@@ -130,13 +130,15 @@ def test_handler_student_posted_comment_no_mentor():
 def test_handler_student_posted_comment():
     student = profiles.factories.StudentFactory.build()
     mentor = profiles.factories.MentorFactory.build()
-    progress = challenges.factories.ProgressFactory.build(mentor=mentor)
+    progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
     comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.posted_comment(student, comment)
         assert len(send.mock_calls) == 1
         assert send.call_args[1]['template_name'] == 'mentor-student-responded-to-feedback'
+        assert "studentname" in send.call_args[1]['merge_vars']
+        assert "url" in send.call_args[1]['merge_vars']
 
 def test_handler_student_posted_reflect_comment_with_image():
     student = profiles.factories.StudentFactory.build()

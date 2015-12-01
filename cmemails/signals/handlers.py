@@ -1,8 +1,10 @@
 from curiositymachine import signals
 from django.conf import settings
 from django.dispatch import receiver
+from django.core.urlresolvers import reverse
 from cmemails import deliver_email, send
 from challenges.models import Stage
+import urllib.parse
 
 @receiver(signals.created_account)
 def deliver_welcome_email(sender, **kwargs):
@@ -38,8 +40,14 @@ def posted_comment(sender, comment, **kwargs):
         deliver_email('mentor_responded', progress.student.profile, progress=progress, mentor=progress.mentor.profile)
     elif sender.profile.is_student:
         if comment.stage != Stage.reflect.value:
+            path = reverse('challenges:challenge_progress', kwargs={
+                "challenge_id": progress.challenge.id,
+                "username": sender.username,
+                "stage": Stage(comment.stage).name
+            })
             send(template_name='mentor-student-responded-to-feedback', to=progress.mentor, merge_vars={
-                "studentname": sender.username
+                "studentname": sender.username,
+                "url": urllib.parse.urljoin(settings.SITE_URL, path)
             })
         elif comment.stage == Stage.reflect.value and comment.image:
             deliver_email('student_completed', progress.mentor.profile, student=progress.student.profile, progress=progress)
