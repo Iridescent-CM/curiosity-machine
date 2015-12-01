@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from cmemails import deliver_email, send
 from challenges.models import Stage
 import urllib.parse
+import re
 
 @receiver(signals.created_account)
 def deliver_welcome_email(sender, **kwargs):
@@ -47,7 +48,7 @@ def posted_comment(sender, comment, **kwargs):
             })
             send(template_name='mentor-student-responded-to-feedback', to=progress.mentor, merge_vars={
                 "studentname": sender.username,
-                "url": urllib.parse.urljoin(settings.SITE_URL, path)
+                "url": re.sub(r'.*://', '', urllib.parse.urljoin(settings.SITE_URL, path))
             })
         elif comment.stage == Stage.reflect.value and comment.image:
             deliver_email('student_completed', progress.mentor.profile, student=progress.student.profile, progress=progress)

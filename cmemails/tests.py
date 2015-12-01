@@ -139,6 +139,7 @@ def test_handler_student_posted_comment():
         assert send.call_args[1]['template_name'] == 'mentor-student-responded-to-feedback'
         assert "studentname" in send.call_args[1]['merge_vars']
         assert "url" in send.call_args[1]['merge_vars']
+        assert "://" not in send.call_args[1]['merge_vars']['url'] # Mailchimp's WYSIWYG insists on adding the protocol
 
 def test_handler_student_posted_reflect_comment_with_image():
     student = profiles.factories.StudentFactory.build()
