@@ -4,7 +4,7 @@ from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
-def send_template(template_name, to=[], cc=[], **kwargs):
+def send_template(template_name, to=[], cc=[], merge_vars={}, **kwargs):
     template_name = settings.MANDRILL_TEMPLATE_PREFIX + template_name
 
     if not isinstance(to, (list, tuple)):
@@ -46,6 +46,7 @@ def send_template(template_name, to=[], cc=[], **kwargs):
               #"content": to.username
               #},
           ],
+          "global_merge_vars": merge_vars,
           "preserve_recipients": True
         })
         result = mandrill_client.messages.send_template(template_name=template_name, template_content=[], message=message)
