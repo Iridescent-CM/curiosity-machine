@@ -46,7 +46,7 @@ def send_template(template_name, to=[], cc=[], merge_vars={}, **kwargs):
               #"content": to.username
               #},
           ],
-          "global_merge_vars": merge_vars,
+          "global_merge_vars": [{"name": k, "content": v} for k, v in merge_vars.items()],
           "preserve_recipients": True
         })
         result = mandrill_client.messages.send_template(template_name=template_name, template_content=[], message=message)

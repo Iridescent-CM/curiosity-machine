@@ -238,7 +238,10 @@ def test_send_template_skips_users_without_email():
 def test_send_template_with_merge_vars():
     student = profiles.factories.StudentFactory.build()
     with mock.patch('mandrill.Mandrill') as mandrill:
-        send_template(template_name="foo", to=student, merge_vars={"vars": "go here"})
+        send_template(template_name="foo", to=student, merge_vars={"vars": "go here", "all": "of them"})
         assert len(mandrill().messages.send_template.mock_calls) == 1
         message = mandrill().messages.send_template.call_args[1]['message']
-        assert message["global_merge_vars"] == {"vars": "go here"}
+        assert message["global_merge_vars"] == [
+            {"name": "vars", "content": "go here"},
+            {"name": "all", "content": "of them"}
+        ]
