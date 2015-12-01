@@ -38,7 +38,7 @@ def posted_comment(sender, comment, **kwargs):
         deliver_email('mentor_responded', progress.student.profile, progress=progress, mentor=progress.mentor.profile)
     elif sender.profile.is_student:
         if comment.stage != Stage.reflect.value:
-            deliver_email('student_responded', progress.mentor.profile, progress=progress, student=progress.student.profile)
+            send(template_name='mentor-student-responded-to-feedback', to=progress.mentor)
         elif comment.stage == Stage.reflect.value and comment.image:
             deliver_email('student_completed', progress.mentor.profile, student=progress.student.profile, progress=progress)
         else:
