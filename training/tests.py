@@ -139,7 +139,7 @@ def test_comments_with_thread_id(rf, student, mentor, module, task, training_com
     assert comment.thread_id == training_comment.id
 
 @pytest.mark.django_db
-def test_mentor_training_approval(new_mentor, module, module2, task, task2, task3, module2_task):
+def test_mentor_training_approval(mentor, new_mentor, module, module2, task, task2, task3, module2_task):
     assert not new_mentor.profile.approved
     assert not module.is_finished_by_mentor(new_mentor)
     assert not module2.is_finished_by_mentor(new_mentor)
@@ -147,7 +147,7 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
     assert module.is_accessible_by_mentor(new_mentor)
     assert module2.is_accessible_by_mentor(new_mentor)
 
-    task.mark_mentor_as_done(new_mentor)
+    task.mark_mentor_as_done(new_mentor, mentor)
     assert task.is_finished_by_mentor(new_mentor)
     assert not task2.is_finished_by_mentor(new_mentor)
     assert not task3.is_finished_by_mentor(new_mentor)
@@ -158,7 +158,7 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
     assert module2.is_accessible_by_mentor(new_mentor)
 
     # hit task 3 out of order to make sure you have to finish ALL tasks in the module before progressing
-    task3.mark_mentor_as_done(new_mentor)
+    task3.mark_mentor_as_done(new_mentor, mentor)
     assert task.is_finished_by_mentor(new_mentor)
     assert not task2.is_finished_by_mentor(new_mentor)
     assert task3.is_finished_by_mentor(new_mentor)
@@ -168,7 +168,7 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
     assert module.is_accessible_by_mentor(new_mentor)
     assert module2.is_accessible_by_mentor(new_mentor)
 
-    task2.mark_mentor_as_done(new_mentor)
+    task2.mark_mentor_as_done(new_mentor, mentor)
     assert task.is_finished_by_mentor(new_mentor)
     assert task2.is_finished_by_mentor(new_mentor)
     assert task3.is_finished_by_mentor(new_mentor)
@@ -178,7 +178,7 @@ def test_mentor_training_approval(new_mentor, module, module2, task, task2, task
     assert module.is_accessible_by_mentor(new_mentor)
     assert module2.is_accessible_by_mentor(new_mentor)
 
-    module2_task.mark_mentor_as_done(new_mentor)
+    module2_task.mark_mentor_as_done(new_mentor, mentor)
     assert task.is_finished_by_mentor(new_mentor)
     assert task2.is_finished_by_mentor(new_mentor)
     assert task3.is_finished_by_mentor(new_mentor)

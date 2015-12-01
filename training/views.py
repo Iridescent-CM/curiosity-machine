@@ -68,7 +68,7 @@ def approve_task_progress(request, module_order, task_order, username):
     task = get_object_or_404(Task, order=task_order, module=module)
     mentor = get_object_or_404(User, username=username, profile__is_mentor=True)
 
-    task.mark_mentor_as_done(mentor)
+    task.mark_mentor_as_done(mentor, approver=request.user)
     if User.objects.get(id=mentor.id).profile.approved:
         messages.success(request, 'Mentor {} has completed task {}, module {}, and is now approved.'.format(mentor.username, task.name, module.name))
     else:

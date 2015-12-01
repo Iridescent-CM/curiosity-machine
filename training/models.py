@@ -4,7 +4,7 @@ from django.utils.timezone import now
 from django.core.urlresolvers import reverse
 from videos.models import Video
 from images.models import Image
-from cmemails import deliver_email
+from curiositymachine import signals
 
 class Module(models.Model):
     order = models.PositiveSmallIntegerField(unique=True, help_text="The order, starting from 1, in which this module will be displayed. The URL to the module page and all of the module's task pages are based on this number, so changing it will also change the URLs. This also affects trainee progression -- for instance, the first module is always available to trainees, and a trainee who completes all tasks in the lastly-ordered module is promoted to mentor ('approved'). The numbers should be sequential.")
@@ -46,6 +46,7 @@ class Task(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="tasks")
     text = models.TextField(help_text="HTML")
     mentors_done = models.ManyToManyField(User, null=True, blank=True, related_name='completed_tasks') # mentors listed here have completed the task
+    completion_email_template = models.CharField(null=True, blank=True, max_length=70, help_text="Optional template name to send on task completion")
 
     class Meta:
         ordering = ('module', 'order',)
@@ -54,10 +55,9 @@ class Task(models.Model):
     def is_finished_by_mentor(self, mentor):
         return self.mentors_done.filter(id=mentor.id).exists()
 
-    # add mentor to the done list, and also approve the mentor if completion of this task constitutes completion of the final module
-    def mark_mentor_as_done(self, mentor):
+    def mark_mentor_as_done(self, mentor, approver):
         self.mentors_done.add(mentor)
-        deliver_email('training_task_done', mentor.profile, task=self, subject="You Completed Task %d!" % self.order)
+        signals.approved_training_task.send(sender=approver, user=mentor, task=self)
 
     def get_absolute_url(self):
         return reverse('training:task', args=[self.module.order, self.order])

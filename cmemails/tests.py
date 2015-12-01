@@ -11,6 +11,7 @@ from challenges.models import Stage
 import profiles.factories
 import challenges.factories
 import cmcomments.factories
+import training.factories
 
 @pytest.fixture
 def student():
@@ -156,6 +157,19 @@ def test_handler_deliver_welcome_email_ccs_mentor_relationship_managers():
         signals.handlers.deliver_welcome_email(mentor)
         assert len(send.mock_calls) == 1
         assert 'cc' in send.call_args[1]
+
+def test_handler_approved_training_task():
+    with mock.patch('cmemails.signals.handlers.send') as send:
+        approver = profiles.factories.MentorFactory.build()
+        mentor = profiles.factories.MentorFactory.build()
+
+        task = training.factories.TaskFactory.build()
+        signals.handlers.approved_training_task(approver, mentor, task)
+        assert len(send.mock_calls) == 0
+
+        task = training.factories.TaskFactory.build(completion_email_template='template')
+        signals.handlers.approved_training_task(approver, mentor, task)
+        assert len(send.mock_calls) == 1
 
 def test_send_template_handles_single_recipient():
     student = profiles.factories.StudentFactory.build()

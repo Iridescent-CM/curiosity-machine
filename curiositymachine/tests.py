@@ -15,6 +15,7 @@ from django.conf import settings
 from . import signals
 import challenges.factories
 import profiles.factories
+from training.models import Module
 
 def force_true(*args, **kwargs):
     return True
@@ -561,3 +562,18 @@ def test_signal_created_account():
     user = User.objects.create(username='user', email='email')
 
     handler.assert_called_once_with(signal=signal, sender=user)
+
+@pytest.mark.django_db
+def test_signal_approved_training_task():
+    handler = mock.MagicMock()
+    signal = signals.approved_training_task
+    signal.connect(handler)
+
+    user = User.objects.create(username='user', email='email')
+    approver = User.objects.create(username='user2', email='email2')
+    module = Module.objects.create(name="Module 1", order=1, draft=False)
+    task = module.tasks.create(name="Task 1", order=1)
+
+    task.mark_mentor_as_done(user, approver)
+
+    handler.assert_called_once_with(signal=signal, sender=approver, user=user, task=task)

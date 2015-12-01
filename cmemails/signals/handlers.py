@@ -44,3 +44,8 @@ def posted_comment(sender, comment, **kwargs):
         else:
             # TODO: figure out the right email and send it here
             pass
+
+@receiver(signals.approved_training_task)
+def approved_training_task(sender, user, task, **kwargs):
+    if task.completion_email_template:
+        send(template_name=task.completion_email_template, to=user)
