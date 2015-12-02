@@ -40,21 +40,29 @@ def posted_comment(sender, comment, **kwargs):
     if sender.profile.is_mentor:
         deliver_email('mentor_responded', progress.student.profile, progress=progress, mentor=progress.mentor.profile)
     elif sender.profile.is_student:
+        path = reverse('challenges:challenge_progress', kwargs={
+            "challenge_id": progress.challenge.id,
+            "username": sender.username,
+            "stage": Stage(comment.stage).name
+        })
+        # mailchimp insists on adding http:// to button urls coming from variables
+        most_of_url = re.sub(r'.*://', '', urllib.parse.urljoin(settings.SITE_URL, path))
+
         if comment.stage != Stage.reflect.value:
-            path = reverse('challenges:challenge_progress', kwargs={
-                "challenge_id": progress.challenge.id,
-                "username": sender.username,
-                "stage": Stage(comment.stage).name
-            })
             send(template_name='mentor-student-responded-to-feedback', to=progress.mentor, merge_vars={
                 "studentname": sender.username,
-                "url": re.sub(r'.*://', '', urllib.parse.urljoin(settings.SITE_URL, path))
+                "url": most_of_url
             })
         elif comment.stage == Stage.reflect.value and comment.image:
-            deliver_email('student_completed', progress.mentor.profile, student=progress.student.profile, progress=progress)
+            send(template_name='mentor-student-completed-project-w-photo', to=progress.mentor, merge_vars={
+                "studentname": sender.username,
+                "url": most_of_url
+            })
         else:
-            # TODO: figure out the right email and send it here
-            pass
+            send(template_name='mentor-student-completed-project-w-o-photo', to=progress.mentor, merge_vars={
+                "studentname": sender.username,
+                "url": most_of_url
+            })
 
 @receiver(signals.approved_training_task)
 def approved_training_task(sender, user, task, **kwargs):

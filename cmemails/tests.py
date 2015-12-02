@@ -141,17 +141,28 @@ def test_handler_student_posted_comment():
         assert "url" in send.call_args[1]['merge_vars']
         assert "://" not in send.call_args[1]['merge_vars']['url'] # Mailchimp's WYSIWYG insists on adding the protocol
 
+def test_handler_student_posted_reflect_comment_without_image():
+    student = profiles.factories.StudentFactory.build()
+    mentor = profiles.factories.MentorFactory.build()
+    progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
+    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student, stage=Stage.reflect.value)
+
+    with mock.patch('cmemails.signals.handlers.send') as send:
+        signals.handlers.posted_comment(student, comment)
+        assert len(send.mock_calls) == 1
+        assert send.call_args[1]['template_name'] == 'mentor-student-completed-project-w-o-photo'
+
 def test_handler_student_posted_reflect_comment_with_image():
     student = profiles.factories.StudentFactory.build()
     mentor = profiles.factories.MentorFactory.build()
-    progress = challenges.factories.ProgressFactory.build(mentor=mentor)
+    progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
     image = Image()
     comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student, image=image, stage=Stage.reflect.value)
 
-    with mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
+    with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.posted_comment(student, comment)
-        assert len(deliver_email.mock_calls) == 1
-        assert deliver_email.call_args[0][0] == 'student_completed'
+        assert len(send.mock_calls) == 1
+        assert send.call_args[1]['template_name'] == 'mentor-student-completed-project-w-photo'
 
 def test_handler_deliver_welcome_email_ccs_mentor_relationship_managers():
     mentor = profiles.factories.MentorFactory.build()
@@ -244,7 +255,9 @@ def test_send_template_with_merge_vars():
         send_template(template_name="foo", to=student, merge_vars={"vars": "go here", "all": "of them"})
         assert len(mandrill().messages.send_template.mock_calls) == 1
         message = mandrill().messages.send_template.call_args[1]['message']
-        assert message["global_merge_vars"] == [
+        expected = [
             {"name": "vars", "content": "go here"},
             {"name": "all", "content": "of them"}
         ]
+        assert len(message["global_merge_vars"]) == len(expected)
+        assert all(x in message["global_merge_vars"] for x in expected)
