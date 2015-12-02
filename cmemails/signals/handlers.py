@@ -51,17 +51,17 @@ def posted_comment(sender, comment, **kwargs):
         if comment.stage != Stage.reflect.value:
             send(template_name='mentor-student-responded-to-feedback', to=progress.mentor, merge_vars={
                 "studentname": sender.username,
-                "url": most_of_url
+                "progress_url": most_of_url
             })
         elif comment.stage == Stage.reflect.value and comment.image:
             send(template_name='mentor-student-completed-project-w-photo', to=progress.mentor, merge_vars={
                 "studentname": sender.username,
-                "url": most_of_url
+                "progress_url": most_of_url
             })
         else:
             send(template_name='mentor-student-completed-project-w-o-photo', to=progress.mentor, merge_vars={
                 "studentname": sender.username,
-                "url": most_of_url
+                "progress_url": most_of_url
             })
 
 @receiver(signals.approved_training_task)
