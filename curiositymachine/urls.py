@@ -5,12 +5,10 @@ from django.views.generic.base import RedirectView, TemplateView
 from django.utils.functional import lazy
 from django.core.urlresolvers import reverse
 from curiositymachine.decorators import whitelist
-from pages.models import StaticPage
 from . import views
 import password_reset.views
 import profiles.urls
 import profiles.views
-import pages.views
 
 public = whitelist('public')
 
@@ -32,12 +30,6 @@ urlpatterns = patterns('',
         public(TemplateView.as_view(template_name="curiositymachine/pages/about.html")),
         {'active_nav': 'about'},
         name='about'
-    ),
-    url(
-        r'^privacy/',
-        public(pages.views.static_page),
-        {'page_id': StaticPage.privacy.value,},
-        name='privacy'
     ),
     url(
         r'^educator/',
