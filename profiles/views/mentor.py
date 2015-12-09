@@ -112,7 +112,7 @@ def show_profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user=user, is_mentor=True)
 
-    return render(request, "mentor_profile.html", {'user': user, 'profile': profile,})
+    return render(request, "mentor_profile.html", {'mentor': user, 'mentor_profile': profile,})
 
 @login_required
 @mentor_only
