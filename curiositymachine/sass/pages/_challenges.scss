@@ -1,7 +1,7 @@
 #challenges-page {
   background-color: $light-gray;
 
-    .challenges-top-panel {
+  .challenges-top-panel {
     width: 100%;
     background-color: $primary-blue;
     padding: $large-spacing 0px $small-spacing 0px;
@@ -17,6 +17,7 @@
   .design-challenge-list {
     list-style-type: none;
     font-size: 14px;
+    font-family: $heading-font-family;
     font-weight: $heavy-font-weight;
     padding-left: 0px;
     overflow: hidden;
