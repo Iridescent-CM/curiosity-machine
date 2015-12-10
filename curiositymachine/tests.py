@@ -149,6 +149,7 @@ def test_login_required_middleware_redirects_if_not_public(rf):
     middleware = LoginRequiredMiddleware()
     request = rf.get('/some/path')
     request.user = user
+    setattr(request, '_messages', mock.MagicMock())
     view = mock.MagicMock()
 
     response = middleware.process_view(request, view, None, None)
@@ -163,6 +164,7 @@ def test_login_required_middleware_redirects_if_not_public(rf):
 def test_login_required_middleware_redirects_login_required_exceptions(rf):
     middleware = LoginRequiredMiddleware()
     request = rf.get('/some/path')
+    setattr(request, '_messages', mock.MagicMock())
     assert not middleware.process_exception(request, Http404())
 
     response = middleware.process_exception(request, LoginRequired())
