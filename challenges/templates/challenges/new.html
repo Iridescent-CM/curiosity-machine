@@ -48,7 +48,7 @@
         <div class="row text-center">
           {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges view="challenges:challenges" anchor="challenges" %}
         </div>
-      
+
         {% with all=request.user.challenges.all %}
         <div class="row">
           {% for challenge in challenges %}
@@ -66,17 +66,7 @@
                 >
                 <label for="favorite-star-{{challenge.id}}"><i class="icon-star-full"></i></label>
               </div>
-              {% endif %}
-
-              {% if challenge in all %}
-              <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
-              {% else %}
-              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
-              {% endif %}
-                <div class="challenge-card-title">
-                  <p>{{challenge.name}}</p>
-                </div>
-              </a>
+              {% endif %}    
 
               {% if challenge in all %}
               <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
@@ -88,6 +78,16 @@
                 {% elif challenge.video.encodings_generated %}
                 {{ challenge.video.output_videos.all.0.thumbnail }}
                 {% endif %}
+              </a>
+
+              {% if challenge in all %}
+              <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
+              {% else %}
+              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
+              {% endif %}
+                <div class="challenge-card-title">
+                  <p>{{challenge.name}}</p>
+                </div>
               </a>
 
               <div class="challenge-card-description">

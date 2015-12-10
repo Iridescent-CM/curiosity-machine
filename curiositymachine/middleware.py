@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.contrib import messages
 import re
 
 whitelist_regex = re.compile('(' + ')|('.join([r for r in settings.WHITELIST_URLS]) + ')')
@@ -42,10 +43,20 @@ class LoginRequiredMiddleware:
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         if not (request.user.is_authenticated() or whitelisted(view_func, 'public', 'maybe_public') or whitelist_regex.match(request.path.lstrip('/'))):
+            messages.add_message(
+                request,
+                messages.INFO,
+                "The page you’re trying to view requires being logged in to Curiosity Machine."
+            )
             return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.path))
 
     def process_exception(self, request, exception):
         if isinstance(exception, LoginRequired):        
+            messages.add_message(
+                request,
+                messages.INFO,
+                "The page you’re trying to view requires being logged in to Curiosity Machine."
+            )
             return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.path))
 
 class UnderageStudentSandboxMiddleware:

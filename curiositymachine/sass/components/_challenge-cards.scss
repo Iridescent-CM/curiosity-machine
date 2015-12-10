@@ -9,6 +9,8 @@
   img {
     width: 100%;
     overflow: hidden;
+    border-top-left-radius: $base-border-radius;
+    border-top-right-radius: $base-border-radius;
   }
 }
 
@@ -56,12 +58,12 @@
 }
 
 .challenge-card-title {
-  text-align: center;
+  text-align: left;
+  color: $dark-gray;
+  font-weight: $heavy-font-weight;
+  font-family: $heading-font-family;
   padding: 10px 10px 2px 10px;
-  background-color: $medium-gray;
-  color: white;
-  border-top-left-radius: $base-border-radius;
-  border-top-right-radius: $base-border-radius;
+  border-bottom: 2px solid $light-gray;
 }
 
 a .challenge-card-title p:hover {

@@ -1,5 +1,6 @@
 header {
   background-color: $primary-light;
+  font-family: $heading-font-family;
   a {
     border-bottom: 0;
   }
@@ -59,7 +60,7 @@ header {
   background-color: transparent;
   cursor: pointer;
 }
-  
+
 .navbar-toggleable-md {
   @include media-breakpoint-up(lg) {
     display: block !important;
@@ -123,15 +124,15 @@ header {
           }
         }
       }
-      .nav-challenges { 
+      .nav-challenges {
         background-color: $primary-blue;
         &:hover { background-color: shade($primary-blue, 10); }
       }
-      .nav-mentors { 
+      .nav-mentors {
         background-color: $primary-orange;
         &:hover { background-color: shade($primary-orange, 10); }
       }
-      .nav-about { 
+      .nav-about {
         background-color: $primary-red;
         &:hover { background-color: shade($primary-red, 10); }
       }
