@@ -1,25 +1,43 @@
-{% extends "base.html" %}
-
+{% extends "curiositymachine/layout/base.html" %}
+{% block body-id %}login-page{% endblock %}
 
 {% block content %}
+<div class="login-top-panel">
+  <h1>Login</h1>
+</div>
 
-    <h1>Login.</h1>
+<div class="container">
 
-  <form method="post" action="{% url 'login' %}">
-    
-      {% include "registration/_login_form.html" %}
-    
-    
-      <p> <input type="submit" value="login" class="btn btn-primary btn-lg" /> <small><a href="{% url "password_reset_recover" %}">Forgot your password?</a></small></p><br/><br/>
-  
-      {% if next %}
-          <input type="hidden" name="next" value="{{ next }}" />
-      {% else %}
-          <input type="hidden" name="next" value="/home/" />
-      {% endif %}
-  </form>
+  {% if messages %}
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      {% for message in messages %}
+      <div class="alert alert-info" role="alert">{{message}}</div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 
-  <p>Don't have an account? Create one: </p>
-  <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#join-modal">Join</button></p>
+  <div class="col-md-4 col-md-offset-4 page-content">
+
+    <form method="post" id="login-page-form" action="{% url 'login' %}">
+        {% include "registration/_login_form.html" %}
+
+        <p><input type="submit" class="btn btn-primary login-btn" value="Login" class="btn btn-primary btn-lg" /> <small><a href="{% url "password_reset_recover" %}">Forgot your password?</a></small></p>
+
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% else %}
+            <input type="hidden" name="next" value="/home/" />
+        {% endif %}
+    </form>
+
+    <div class="join-cm">
+      <p>Don't have an account? Create one for free!</p>
+      <p><button class="btn btn-primary" data-toggle="modal" data-target="#join-modal">Join Curiosity Machine</button></p>
+    </div>
+
+  </div>
+</div>
 
 {% endblock %}
