@@ -9,7 +9,7 @@ MENTOR_EMAIL = "mentor@example.com"
 
 @pytest.fixture
 def student():
-    student = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
+    student = User.objects.create_user(username=STUDENT_USERNAME, email=STUDENT_EMAIL, password='password')
     student.profile.approved = True
     student.profile.is_student = True
     student.profile.save()

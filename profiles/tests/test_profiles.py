@@ -11,6 +11,19 @@ from profiles.tests import student, mentor, progress, challenge, loggedInMentor,
 from profiles import views
 
 @pytest.mark.django_db
+def test_gets_ok(client, mentor):
+    assert client.get('/join/').status_code == 200
+    assert client.get('/join/some_source/').status_code == 200
+    assert client.get('/join_as_mentor/').status_code == 200
+    assert client.get('/join_as_mentor/source/').status_code == 200
+    assert client.get('/join_as_educator/').status_code == 200
+    assert client.get('/join_as_educator/source/').status_code == 200
+    assert client.get('/join_as_parent/').status_code == 200
+    assert client.get('/join_as_parent/source/').status_code == 200
+    assert client.get('/mentors/').status_code == 200
+    assert client.get('/mentors/%s/' % mentor.username).status_code == 200
+
+@pytest.mark.django_db
 def test_new_user_has_default_typeless_profile():
     user = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
     assert user.profile

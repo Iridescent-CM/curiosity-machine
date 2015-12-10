@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from dateutil.relativedelta import relativedelta
 from profiles import forms, models, views, decorators
+from profiles.factories import StudentFactory
 
 @pytest.fixture
 def parent():
@@ -26,6 +27,15 @@ def child():
     child_profile.user = child
     child_profile.save()
     return child
+
+@pytest.mark.django_db
+def test_gets_ok(client):
+    student = StudentFactory(username="student", password="password")
+    client.login(username='student', password='password')
+
+    assert client.get('/home/').status_code == 200
+    assert client.get('/profile-edit/').status_code == 200
+    assert client.get('/underage/').status_code == 200
 
 def test_form_required_fields_on_creation_all_ages():
     f = forms.student.StudentUserAndProfileForm()
