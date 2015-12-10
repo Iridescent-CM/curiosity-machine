@@ -6,7 +6,7 @@
 <form method='post' action="{{ action }}" enctype="multipart/form-data" id="join-form" class="default-form clearfix" data-apply="coppa-transforms" data-prefix='{{form.prefix}}'>
   {% csrf_token %}
   <div class="clearfix">{% include "profile_fields.html" with page='join' %}</div>
-  By clicking Save, you confirm that you accept the <a target="_blank" href="{% url 'privacy' %}">Privacy Policy</a>.
+  By clicking Save, you confirm that you accept the <a target="_blank" href="/privacy">Privacy Policy</a>.
   <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
 </form>
 

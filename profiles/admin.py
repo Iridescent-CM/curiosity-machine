@@ -13,7 +13,7 @@ class ProfileInline(admin.StackedInline):
 
 class UserAdminWithProfile(UserAdmin):
     inlines = [ ProfileInline, ]
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'date_joined')
+    list_display = ('username', 'email', 'source', 'first_name', 'last_name', 'is_staff', 'date_joined')
     list_filter = (
         'is_superuser',
         'is_staff',
@@ -23,6 +23,11 @@ class UserAdminWithProfile(UserAdmin):
         'profile__is_parent',
         StudentFilter
     )
+    search_fields = ('username', 'email', 'first_name', 'last_name', 'profile__source')
+
+    def source(self, obj):
+        return obj.profile.source
+    source.admin_order_field = "profile__source"
 
     def save_related(self, request, form, formsets, change):
         if len(formsets):
