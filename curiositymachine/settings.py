@@ -213,6 +213,10 @@ MANDRILL_MESSAGE_DEFAULTS = {
     "merge_language": "handlebars",
 }
 
+MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_API_KEY", "")
+MAILCHIMP_DATA_CENTER = os.environ.get("MAILCHIMP_DATA_CENTER", "")
+MAILCHIMP_LIST_ID = os.environ.get("MAILCHIMP_LIST_ID", "")
+
 # Which HTML tags are allowed
 BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'br', 'strike', 'li', 'ul', 'div', 'ol', 'span', 'blockquote', 'pre', 'img']
 
