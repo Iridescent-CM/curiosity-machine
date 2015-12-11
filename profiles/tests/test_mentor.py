@@ -1,7 +1,25 @@
 import pytest
 import mock
+from django.utils.timezone import now
 from profiles import forms, models
+import profiles.factories
+import challenges.factories
 from django.contrib.auth.models import User
+
+@pytest.mark.django_db
+def test_gets_ok(client):
+    mentor = profiles.factories.MentorFactory(username="mentor", password="password")
+    client.login(username='mentor', password='password')
+
+    assert client.get('/home/').status_code == 200
+    assert client.get('/profile-edit/').status_code == 200
+
+    student = profiles.factories.StudentFactory(username="student", password="password", profile__source="source")
+    started = now()
+    challenges.factories.ProgressFactory(started=started, comment=True, student=student)
+
+    assert client.get('/unclaimed_progresses/%d/%d/%d' % (started.year, started.month, started.day)).status_code == 200
+    assert client.get('/unclaimed_progresses/?source=source').status_code == 200
 
 def test_form_required_fields_on_creation():
     f = forms.mentor.MentorUserAndProfileForm()
