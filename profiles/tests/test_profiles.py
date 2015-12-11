@@ -9,6 +9,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from profiles.tests import student, mentor, progress, challenge, loggedInMentor, STUDENT_USERNAME, STUDENT_EMAIL
 from profiles import views
+from profiles.factories import ProfileFactory
 
 @pytest.mark.django_db
 def test_new_user_has_default_typeless_profile():
@@ -117,3 +118,12 @@ def test_dispatch_passes_through_args_and_kwargs(rf):
         views.dispatch(request, 'foo', 'arg', kwarg=True)
         assert studentViews.foo.called
         assert studentViews.foo.call_args == mock.call(request, 'arg', kwarg=True)
+
+def test_user_type():
+    assert ProfileFactory.build(user__is_superuser=True).user_type == 'admin'
+    assert ProfileFactory.build(is_mentor=True).user_type == 'mentor'
+    assert ProfileFactory.build(is_student=True).user_type == 'student'
+    assert ProfileFactory.build(is_student=True, birthday=now()).user_type == 'underage student'
+    assert ProfileFactory.build(is_educator=True).user_type == 'educator'
+    assert ProfileFactory.build(is_parent=True).user_type == 'parent'
+

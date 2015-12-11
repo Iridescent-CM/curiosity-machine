@@ -5,6 +5,19 @@ import factory.fuzzy
 from . import models
 from .signals import handlers
 
+class ProfileFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Profile
+
+    user = factory.SubFactory('profiles.factories.UserFactory', profile=None)
+
+@factory.django.mute_signals(handlers.post_save)
+class UserFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.User
+
+    profile = factory.RelatedFactory(ProfileFactory, 'user')
+
 class MentorProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile

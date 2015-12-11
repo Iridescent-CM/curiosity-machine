@@ -5,16 +5,23 @@ from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
+def choose_list(user):
+    if user.profile.user_type:
+        return settings.MAILCHIMP_LIST_IDS.get(user.profile.user_type, None)
+
 def subscribe(user):
-    if not settings.MAILCHIMP_API_KEY and settings.MAILCHIMP_LIST_ID:
+    if not settings.MAILCHIMP_API_KEY:
+        return
+
+    list_id = choose_list(user)
+    if not list_id:
         return
 
     dc = settings.MAILCHIMP_DATA_CENTER
-    list_id = settings.MAILCHIMP_LIST_ID
     api_key = settings.MAILCHIMP_API_KEY
     user_hash = hashlib.md5(user.email.lower().encode("latin-1")).hexdigest()
 
-    r = requests.put(
+    r = _put(
         'https://%s.api.mailchimp.com/3.0/lists/%s/members/%s' % (dc, list_id, user_hash),
         auth=requests.auth.HTTPBasicAuth('anystring', api_key),
         json={
@@ -30,3 +37,5 @@ def subscribe(user):
     if r.status_code != 200:
         logger.warning("Mailchimp list signup returned an error: %s", r.json())    
     
+def _put(*args, **kwargs):
+    return requests.put(*args, **kwargs)

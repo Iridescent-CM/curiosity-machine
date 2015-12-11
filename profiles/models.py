@@ -71,10 +71,15 @@ class Profile(models.Model):
             return 'admin'
         elif self.is_mentor:
             return 'mentor'
-        elif self.birthday and self.is_underage():
-            return 'underage student'
-        else:
-            return 'student'
+        elif self.is_student:
+            if self.birthday and self.is_underage():
+                return 'underage student'
+            else:
+                return 'student'
+        elif self.is_educator:
+            return 'educator'
+        elif self.is_parent:
+            return 'parent'
 
     def is_underage(self):
         return self.age < 13

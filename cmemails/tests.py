@@ -2,6 +2,7 @@ import pytest
 import mock
 from . import mailer, signals
 from .mandrill import send_template
+from .mailchimp import subscribe
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from datetime import date, timedelta
@@ -261,3 +262,37 @@ def test_send_template_with_merge_vars():
         ]
         assert len(message["global_merge_vars"]) == len(expected)
         assert all(x in message["global_merge_vars"] for x in expected)
+
+def test_mailchimp_subscribe_does_nothing_without_api_key():
+    student = profiles.factories.StudentFactory.build()
+    with mock.patch('cmemails.mailchimp.requests') as requests:
+        with mock.patch('cmemails.mailchimp.settings') as settings:
+            settings.MAILCHIMP_API_KEY = None
+            subscribe(student)
+
+def test_mailchimp_subscribe_does_nothing_without_list_id_for_user_type():
+    student = profiles.factories.StudentFactory.build()
+    with mock.patch('cmemails.mailchimp.requests') as requests:
+        with mock.patch('cmemails.mailchimp.settings') as settings:
+            settings.MAILCHIMP_LIST_IDS = {}
+            subscribe(student)
+            assert len(requests.put.mock_calls) == 0
+
+def test_mailchimp_subscribe_subscribes_user():
+    student = profiles.factories.StudentFactory.build()
+    mentor = profiles.factories.MentorFactory.build()
+    with mock.patch('cmemails.mailchimp._put') as put:
+        with mock.patch('cmemails.mailchimp.settings') as settings:
+            settings.MAILCHIMP_DATA_CENTER = 'x'
+            settings.MAILCHIMP_API_KEY = 'abc'
+            settings.MAILCHIMP_LIST_IDS = {
+                "student": 123,
+                "mentor": 456
+            }
+            subscribe(student)
+            assert len(put.mock_calls) > 0
+            assert put.mock_calls[0].call_list()[0][1][0].startswith('https://x.api.mailchimp.com/3.0/lists/123/members/')
+
+            put.reset_mock()
+            subscribe(mentor)
+            assert put.mock_calls[0].call_list()[0][1][0].startswith('https://x.api.mailchimp.com/3.0/lists/456/members/')
