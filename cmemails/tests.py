@@ -138,8 +138,8 @@ def test_handler_student_posted_comment():
         assert len(send.mock_calls) == 1
         assert send.call_args[1]['template_name'] == 'mentor-student-responded-to-feedback'
         assert "studentname" in send.call_args[1]['merge_vars']
-        assert "url" in send.call_args[1]['merge_vars']
-        assert "://" not in send.call_args[1]['merge_vars']['url'] # Mailchimp's WYSIWYG insists on adding the protocol
+        assert "progress_url" in send.call_args[1]['merge_vars']
+        assert "://" not in send.call_args[1]['merge_vars']['progress_url'] # Mailchimp's WYSIWYG insists on adding the protocol
 
 def test_handler_student_posted_reflect_comment_without_image():
     student = profiles.factories.StudentFactory.build()
@@ -164,11 +164,11 @@ def test_handler_student_posted_reflect_comment_with_image():
         assert len(send.mock_calls) == 1
         assert send.call_args[1]['template_name'] == 'mentor-student-completed-project-w-photo'
 
-def test_handler_deliver_welcome_email_ccs_mentor_relationship_managers():
+def test_handler_created_account_ccs_mentor_relationship_managers():
     mentor = profiles.factories.MentorFactory.build()
 
     with mock.patch('cmemails.signals.handlers.send') as send:
-        signals.handlers.deliver_welcome_email(mentor)
+        signals.handlers.created_account(mentor)
         assert len(send.mock_calls) == 1
         assert 'cc' in send.call_args[1]
 

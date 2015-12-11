@@ -8,7 +8,7 @@ import urllib.parse
 import re
 
 @receiver(signals.created_account)
-def deliver_welcome_email(sender, **kwargs):
+def created_account(sender, **kwargs):
     if sender.profile.is_mentor:
         send(template_name='mentor-welcome-email', to=sender, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
     else:
