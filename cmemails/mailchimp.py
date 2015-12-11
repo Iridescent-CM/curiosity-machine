@@ -6,6 +6,9 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 def subscribe(user):
+    if not settings.MAILCHIMP_API_KEY and settings.MAILCHIMP_LIST_ID:
+        return
+
     dc = settings.MAILCHIMP_DATA_CENTER
     list_id = settings.MAILCHIMP_LIST_ID
     api_key = settings.MAILCHIMP_API_KEY
@@ -22,9 +25,6 @@ def subscribe(user):
                 "Last Name": user.last_name,
                 "Username": user.username
             }
-        },
-        headers={
-            "X-Trigger-Error": "APIKeyMissing"
         }
     )
     if r.status_code != 200:
