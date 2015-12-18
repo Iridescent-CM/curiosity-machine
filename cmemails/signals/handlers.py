@@ -2,7 +2,7 @@ from curiositymachine import signals
 from django.conf import settings
 from django.dispatch import receiver
 from django.core.urlresolvers import reverse
-from cmemails import deliver_email, send
+from cmemails import deliver_email, send, subscribe
 from challenges.models import Stage
 import urllib.parse
 import re
@@ -13,6 +13,7 @@ def created_account(sender, **kwargs):
         send(template_name='mentor-welcome-email', to=sender, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
     else:
         deliver_email('welcome', sender.profile)
+    subscribe(sender)
 
 @receiver(signals.underage_activation_confirmed)
 def underage_activation_confirmed(sender, account, **kwargs):
