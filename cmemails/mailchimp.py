@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 def choose_list(user):
     if user.profile.user_type:
         return settings.MAILCHIMP_LIST_IDS.get(user.profile.user_type, None)
+    logger.info("No mailing list configured for user type %s (user=%s)" % (user.profile.user_type, user))
 
 def subscribe(user):
     if not settings.MAILCHIMP_API_KEY:
