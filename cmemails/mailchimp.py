@@ -6,9 +6,14 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 def choose_list(user):
+    list_id = None
     if user.profile.user_type:
-        return settings.MAILCHIMP_LIST_IDS.get(user.profile.user_type, None)
-    logger.info("No mailing list configured for user type %s (user=%s)" % (user.profile.user_type, user))
+        list_id = settings.MAILCHIMP_LIST_IDS.get(user.profile.user_type, None)
+
+    if not list_id:
+        logger.info("No mailing list configured for user type %s (user=%s)" % (user.profile.user_type, user))
+
+    return list_id
 
 def subscribe(user):
     if not settings.MAILCHIMP_API_KEY:
