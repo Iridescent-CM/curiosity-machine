@@ -26,7 +26,7 @@ DATABASES = {
 
 ## Django RQ and Redis
 # For development mode, usually redis is on 6379 on localhost
-# so there may be nothing to change here. The Django RQ configuration 
+# so there may be nothing to change here. The Django RQ configuration
 # uses REDIS_URL as well. Uncomment the lines below to change if desired.
 # REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
 # RQ_QUEUES = {
@@ -35,12 +35,16 @@ DATABASES = {
 #         'DB': None # take from REDIS_URL instead
 #     }
 # }
-# 
+#
 # Tests will flush the Redis database, so you can use the config below
 # to point it at a different instance or db.
 REDIS_TEST_URL = os.getenv('REDIS_TEST_URL', 'redis://localhost:6379/1')
 
 ## Email
+# NOTE: we are migrating to use the Mandrill API for email, and emailing sending is
+# temporarily split between Mandrill and Django's built-in email functionality
+#
+# SMTP
 # You can send email through a properly configured gmail account, or use
 # a tool like FakeSMTP (http://nilhcem.github.io/FakeSMTP/) to keep it all local.
 # Comment/uncomment the following sections as appropriate for your approach.
@@ -60,11 +64,39 @@ EMAIL_USE_TLS   = False
 # EMAIL_PORT      = 587
 # EMAIL_USE_TLS   = True
 
+# Mandrill
+# For local development, using a test key will segregate test API calls from real ones, and
+# will incur no per-email cost. Emails will not be sent, but will be viewable through the
+# Mandrill dashboard if put into test mode.
+MANDRILL_API_KEY = ''
+# A prefix, if provided, will be prepended to template names when making API calls.
+MANDRILL_TEMPLATE_PREFIX = ''
+MANDRILL_MESSAGE_DEFAULTS = {
+    "auto_text": True,
+    "inline_css": True,
+    "merge_language": "handlebars",
+}
+
 ## Email addresses
 # Try not to spam strangers! Addresses at example.com or example.org should
 # go nowhere, or you can use something like mailinator (http://mailinator.com/)
 DEFAULT_FROM_EMAIL  = 'default_from_email@example.org'
 MENTOR_RELATIONSHIP_MANAGERS = ['mentor_relationship_manager@example.org']
+
+## Mailing lists
+# New users are auto-subscribed to Mailchimp mailing lists if proper
+# configuration is provided. Omitting the Mailchimp API key will not
+# cause an error, but simply skip the mailing list sign-up.
+MAILCHIMP_API_KEY = ''
+# The data center is part of the url, and corresponds to the data center for
+# the Mailchimp account. It's the last part of the API key, e.g. if the key
+# is abc123-us4 the data center is us4.
+# http://developer.mailchimp.com/documentation/mailchimp/guides/get-started-with-mailchimp-api-3/#resources
+MAILCHIMP_DATA_CENTER = ''
+# To sign up users to lists, populate this dictionary with key/value pairs where the key
+# is the user type and the value is the list id. Alternatively, delete the following line and
+# provide environmental configuration of the pattern MAILCHIMP_LIST_ID_<type>=<id>.
+MAILCHIMP_LIST_IDS = {}
 
 ## Addon keys
 
