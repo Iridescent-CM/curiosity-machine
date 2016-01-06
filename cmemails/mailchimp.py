@@ -32,7 +32,7 @@ def subscribe(user):
         auth=requests.auth.HTTPBasicAuth('anystring', api_key),
         json={
             "email_address": user.email,
-            "status_if_new": "subscribed",
+            "status_if_new": "pending",
             "merge_fields": {
                 "First Name": user.first_name,
                 "Last Name": user.last_name,
