@@ -2,20 +2,23 @@ from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from optparse import make_option
 import mandrill
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     help = 'Copy Mandrill template'
     args = '<source name> <target name>'
     option_list = BaseCommand.option_list + (
         make_option(
-            "-p", "--publish",
-            action="store_true",
+            "-d", "--draft",
+            action="store_false",
             dest="publish",
-            default=False,
-            help="Publish target template, instead of saving changes as draft"
+            default=True,
+            help="Make target template a draft instead of publishing"
         ),
         make_option(
-            "-x", "--prefix",
+            "-p", "--prefix",
             action="store",
             dest="prefix",
             help="Ignore <target name>, if provided, and use <prefix + source name> as target"
@@ -53,6 +56,8 @@ class Command(BaseCommand):
 
         try:
             mandrill_client.templates.update(name=target_name, **copy_info)
+            logger.info('Updated %s' % (target_name))
         except mandrill.UnknownTemplateError:
             mandrill_client.templates.add(name=target_name, **copy_info)
+            logger.info('Added %s' % (target_name))
 
