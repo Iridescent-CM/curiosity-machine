@@ -37,9 +37,9 @@ def subscribe(user):
             "email_address": user.email,
             "status_if_new": "subscribed",
             "merge_fields": {
-                "First Name": user.first_name,
-                "Last Name": user.last_name,
-                "Username": user.username
+                "FNAME": user.first_name,
+                "LNAME": user.last_name,
+                "MMERGE3": user.username
             }
         }
     )
