@@ -19,6 +19,9 @@ def subscribe(user):
     if not settings.MAILCHIMP_API_KEY:
         return
 
+    if not user.email:
+        return
+
     list_id = choose_list(user)
     if not list_id:
         return
@@ -41,9 +44,12 @@ def subscribe(user):
         }
     )
     if r.status_code != 200:
-        logger.warning("Mailchimp list signup returned an error: %s", r.json())    
+        logger.warning("Mailchimp list signup returned an error: %s", r.json())
     else:
-        logger.info("User %s email %s type %s subscribed to mailing list id %s" % (user.username, user.email, user.profile.user_type, list_id))
-    
+        logger.info(
+            "User %s email %s type %s subscribed to mailing list id %s"
+            % (user.username, user.email, user.profile.user_type, list_id)
+        )
+
 def _put(*args, **kwargs):
     return requests.put(*args, **kwargs)

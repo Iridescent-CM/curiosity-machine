@@ -278,6 +278,18 @@ def test_mailchimp_subscribe_does_nothing_without_list_id_for_user_type():
             subscribe(student)
             assert len(requests.put.mock_calls) == 0
 
+def test_mailchimp_subscribe_does_nothing_without_email():
+    student = profiles.factories.StudentFactory.build(email='')
+    with mock.patch('cmemails.mailchimp.requests') as requests:
+        with mock.patch('cmemails.mailchimp.settings') as settings:
+            settings.MAILCHIMP_DATA_CENTER = 'x'
+            settings.MAILCHIMP_API_KEY = 'abc'
+            settings.MAILCHIMP_LIST_IDS = {
+                "student": 123,
+            }
+            subscribe(student)
+            assert len(requests.put.mock_calls) == 0
+
 def test_mailchimp_subscribe_subscribes_user():
     student = profiles.factories.StudentFactory.build()
     mentor = profiles.factories.MentorFactory.build()
