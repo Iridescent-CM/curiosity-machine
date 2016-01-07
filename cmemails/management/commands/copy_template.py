@@ -14,13 +14,24 @@ class Command(BaseCommand):
             default=False,
             help="Publish target template, instead of saving changes as draft"
         ),
+        make_option(
+            "-x", "--prefix",
+            action="store",
+            dest="prefix",
+            help="Ignore <target name>, if provided, and use <prefix + source name> as target"
+        )
     )
 
     def handle(self, *args, **options):
-        if len(args) != 2:
+        if not ((options["prefix"] and len(args) >= 1) or len(args) == 2):
             raise CommandError('Provide source and target template names')
 
-        (source_name, target_name) = args
+        source_name = args[0]
+
+        if options["prefix"]:
+            target_name = options["prefix"] + source_name
+        else:
+            target_name = args[1]
 
         mandrill_client = mandrill.Mandrill(settings.MANDRILL_API_KEY)
         try:
