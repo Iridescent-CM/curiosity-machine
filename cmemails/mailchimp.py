@@ -32,7 +32,7 @@ def subscribe(user):
         auth=requests.auth.HTTPBasicAuth('anystring', api_key),
         json={
             "email_address": user.email,
-            "status_if_new": "pending",
+            "status_if_new": "subscribed",
             "merge_fields": {
                 "First Name": user.first_name,
                 "Last Name": user.last_name,
@@ -42,6 +42,8 @@ def subscribe(user):
     )
     if r.status_code != 200:
         logger.warning("Mailchimp list signup returned an error: %s", r.json())    
+    else:
+        logger.info("User %s email %s type %s subscribed to mailing list id %s" % (user.username, user.email, user.profile.user_type, list_id))
     
 def _put(*args, **kwargs):
     return requests.put(*args, **kwargs)
