@@ -7,11 +7,15 @@ from profiles.models import Profile
 from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
 from .views import root
 from .views.generic import UserJoinView
-from challenges.models import Progress, Challenge
+from challenges.models import Progress, Challenge, Example
 from .helpers import random_string
 from curiositymachine import decorators
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
+from . import signals
+import challenges.factories
+import profiles.factories
+from training.models import Module
 
 def force_true(*args, **kwargs):
     return True
@@ -490,3 +494,88 @@ def test_user_join_view_redirects_to_welcome_url_from_form(rf):
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == '/welcome/thisone'
 
+@pytest.mark.django_db
+def test_signal_student_started_first_project():
+    handler = mock.MagicMock()
+    signals.started_first_project.connect(handler)
+
+    user = User.objects.create(username='user', email='useremail')
+    challenge = Challenge.objects.create(name='challenge')
+    first_progress = Progress.objects.create(student=user, challenge=challenge)
+
+    challenge2 = Challenge.objects.create(name='challenge2')
+    second_progress = Progress.objects.create(student=user, challenge=challenge2)
+
+    handler.assert_called_once_with(signal=signals.started_first_project, progress=first_progress, sender=user)
+
+@pytest.mark.django_db
+def test_signal_mentor_approved_project_for_gallery():
+    handler = mock.MagicMock()
+    signals.approved_project_for_gallery.connect(handler)
+
+    user = User.objects.create(username='user', email='useremail')
+    user2 = User.objects.create(username='user2', email='useremail2')
+    user2.profile.is_mentor=True
+    challenge = Challenge.objects.create(name='challenge')
+    progress = Progress.objects.create(student=user, challenge=challenge, mentor=user2)
+    example = Example.objects.create(challenge=challenge, progress=progress)
+
+    handler.assert_called_once_with(signal=signals.approved_project_for_gallery, sender=user2, example=example)
+
+@pytest.mark.django_db
+def test_signal_student_posted_comment():
+    handler = mock.MagicMock()
+    signals.posted_comment.connect(handler)
+
+    progress = challenges.factories.ProgressFactory()
+    comment = progress.comments.create(user=progress.student, text="comment", stage=1)
+
+    handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.student, comment=comment)
+
+@pytest.mark.django_db
+def test_signal_mentor_posted_comment():
+    handler = mock.MagicMock()
+    signals.posted_comment.connect(handler)
+
+    mentor = profiles.factories.MentorFactory()
+    progress = challenges.factories.ProgressFactory(mentor=mentor)
+    comment = progress.comments.create(user=progress.mentor, text="comment", stage=1)
+
+    handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.mentor, comment=comment)
+
+@pytest.mark.django_db
+def test_signal_approved_project_for_reflection():
+    handler = mock.MagicMock()
+    signal = signals.approved_project_for_reflection
+    signal.connect(handler)
+
+    progress = challenges.factories.ProgressFactory()
+    mentor = profiles.factories.MentorFactory()
+    progress.approve(approver=mentor)
+
+    handler.assert_called_once_with(signal=signal, sender=mentor, progress=progress)
+
+@pytest.mark.django_db
+def test_signal_created_account():
+    handler = mock.MagicMock()
+    signal = signals.created_account
+    signal.connect(handler)
+
+    user = User.objects.create(username='user', email='email')
+
+    handler.assert_called_once_with(signal=signal, sender=user)
+
+@pytest.mark.django_db
+def test_signal_approved_training_task():
+    handler = mock.MagicMock()
+    signal = signals.approved_training_task
+    signal.connect(handler)
+
+    user = User.objects.create(username='user', email='email')
+    approver = User.objects.create(username='user2', email='email2')
+    module = Module.objects.create(name="Module 1", order=1, draft=False)
+    task = module.tasks.create(name="Task 1", order=1)
+
+    task.mark_mentor_as_done(user, approver)
+
+    handler.assert_called_once_with(signal=signal, sender=approver, user=user, task=task)

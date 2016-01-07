@@ -4,6 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from images.models import Image
 from .admin_utils import StudentFilter
 from cmemails import deliver_email
+from curiositymachine import signals
 
 from .models import Profile, ParentConnection
 
@@ -37,7 +38,9 @@ class UserAdminWithProfile(UserAdmin):
                 super(UserAdminWithProfile, self).save_related(request, form, formsets, change)
                 if not old_profile.approved and profile.approved:
                     if profile.is_student and profile.birthday and profile.is_underage():
-                        deliver_email('activation_confirmation', profile)
+                        signals.underage_activation_confirmed.send(sender=request.user, account=profile.user)
+                    elif profile.is_mentor:
+                        signals.completed_training.send(sender=profile.user, approver=request.user)
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj

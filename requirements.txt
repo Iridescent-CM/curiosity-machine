@@ -31,7 +31,7 @@ rq==0.4.6
 django-apptemplates
 
 #better url handling
-requests==2.2.1
+requests==2.8.1
 
 #interface to S3
 tinys3==0.1.9
@@ -66,7 +66,6 @@ django-recaptcha==1.0
 #ssl only
 django-sslify>=0.2
 
-
 #asset compression
 django-compressor==1.4
 
@@ -76,3 +75,5 @@ django-staticflatpages==0.3.1
 
 #helpful widget templatetags
 django-widget-tweaks==1.4.1
+
+mandrill==1.0.57

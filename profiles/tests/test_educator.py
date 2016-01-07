@@ -4,6 +4,7 @@ from profiles import forms, models, views
 from images.models import Image
 from django.http import Http404
 from django.contrib.auth.models import User, AnonymousUser
+from curiositymachine import signals
 
 def test_form_required_fields_on_creation():
     f = forms.educator.EducatorUserAndProfileForm()
@@ -166,21 +167,22 @@ def test_educator_profile_change_form_creates_image_from_image_url():
     assert user.profile.image.source_url == 'http://example.com/'
 
 @pytest.mark.django_db
-def test_join_sends_welcome_email(rf):
-    with mock.patch('profiles.models.deliver_email') as deliver_email:
-        request = rf.post('/join_as_educator', data={
-            'educator-username': 'user',
-            'educator-email': 'email@example.com',
-            'educator-password': '123123',
-            'educator-confirm_password': '123123',
-            'educator-city': 'city'
-        })
-        request.session = mock.MagicMock()
-        response = views.educator.join(request)
-        assert deliver_email.called
-        assert deliver_email.call_count == 1
-        assert deliver_email.call_args[0][0] == "welcome"
-        assert deliver_email.call_args[0][1].user.email == "email@example.com"
+def test_join_sends_signal(rf):
+    handler = mock.MagicMock()
+    signal = signals.created_account
+    signal.connect(handler)
+
+    request = rf.post('/join_as_educator', data={
+        'educator-username': 'user',
+        'educator-email': 'email@example.com',
+        'educator-password': '123123',
+        'educator-confirm_password': '123123',
+        'educator-city': 'city'
+    })
+    request.session = mock.MagicMock()
+    response = views.educator.join(request)
+
+    handler.assert_called_once()
 
 @pytest.mark.django_db
 def test_join(rf):

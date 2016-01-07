@@ -205,6 +205,23 @@ EMAIL_USE_SSL = False
 
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "")
 
+MANDRILL_API_KEY = os.environ.get("MANDRILL_API_KEY", "")
+MANDRILL_TEMPLATE_PREFIX = os.environ.get("MANDRILL_TEMPLATE_PREFIX", "")
+MANDRILL_MESSAGE_DEFAULTS = {
+    "auto_text": True,
+    "inline_css": True,
+    "merge_language": "handlebars",
+}
+
+MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_API_KEY", "")
+MAILCHIMP_DATA_CENTER = os.environ.get("MAILCHIMP_DATA_CENTER", "")
+MAILCHIMP_LIST_IDS = {
+    k.replace("MAILCHIMP_LIST_ID_", "").replace("_", " ").lower(): v
+    for k, v
+    in os.environ.items()
+    if k.startswith('MAILCHIMP_LIST_ID_')
+}
+
 # Which HTML tags are allowed
 BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'br', 'strike', 'li', 'ul', 'div', 'ol', 'span', 'blockquote', 'pre', 'img']
 

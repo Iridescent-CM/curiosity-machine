@@ -135,6 +135,5 @@ class UserJoinView(CreateView):
         form.save()
         user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
         auth.login(self.request, user)
-        user.profile.deliver_welcome_email()
         return user
         

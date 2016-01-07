@@ -7,10 +7,9 @@ from videos.models import Video
 from images.models import Image
 from enum import Enum
 from django.utils.safestring import mark_safe
-from django.db.models.signals import post_save
-from cmemails import deliver_email
 from django.db import connection
 from .validators import validate_color
+from curiositymachine import signals
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
@@ -116,12 +115,10 @@ class Progress(models.Model):
     def is_first_project(self):
         return self.student.progresses.count() == 1
 
-    def approve(self):
+    def approve(self, approver=None):
         self.approved=now()
         self.save()
-        if self.student.profile.birthday:
-            deliver_email('project_completion', self.student.profile, progress=self, stage=Stage.reflect.name)
-
+        signals.approved_project_for_reflection.send(sender=approver, progress=self)
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
@@ -175,24 +172,6 @@ class Progress(models.Model):
     def __str__(self):
         return "Progress: id={}".format(self.id)
 
-    def email_mentor_responded(self):
-        if self.mentor:
-            deliver_email('mentor_responded', self.student.profile, progress=self, mentor=self.mentor.profile)
-
-    def email_student_responded(self):
-        if self.mentor:
-            deliver_email('student_responded', self.mentor.profile, progress=self, student=self.student.profile)
-
-    def email_first_project(self):
-        if self.is_first_project():
-            deliver_email('first_project', self.student.profile)
-
-def create_progress(sender, instance, created, **kwargs):
-    if created and instance.is_first_project():
-        instance.email_first_project()
-
-post_save.connect(create_progress, sender=Progress)
-
 class Favorite(models.Model):
     challenge = models.ForeignKey(Challenge)
     student = models.ForeignKey(User, related_name='favorites')
@@ -220,14 +199,6 @@ class Example(models.Model): # media that a mentor has selected to be featured o
         if self._name: return self._name
         elif self.progress: return self.progress.student.username
         else: return ""
-
-def create_example(sender, instance, created, **kwargs):
-    if created:
-        progress = instance.progress
-        progress.student.profile.deliver_publish_email(progress)
-
-post_save.connect(create_example, sender=Example)
-
 
 class Filter(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False, help_text="name of the filter")

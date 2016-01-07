@@ -1,10 +1,18 @@
 import pytest
 import mock
-from . import mailer
+from . import mailer, signals
+from .mandrill import send_template
+from .mailchimp import subscribe
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from datetime import date, timedelta
 from profiles.models import Profile
+from images.models import Image
+from challenges.models import Stage
+import profiles.factories
+import challenges.factories
+import cmcomments.factories
+import training.factories
 
 @pytest.fixture
 def student():
@@ -110,3 +118,193 @@ def test_deliver_email_named_arguments_become_email_context():
             'task': 5,
             'profile': profile
         }
+
+def test_handler_student_posted_comment_no_mentor():
+    student = profiles.factories.StudentFactory.build()
+    progress = challenges.factories.ProgressFactory.build()
+    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
+
+    with mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
+        signals.handlers.posted_comment(student, comment)
+        assert len(deliver_email.mock_calls) == 0
+
+def test_handler_student_posted_comment():
+    student = profiles.factories.StudentFactory.build()
+    mentor = profiles.factories.MentorFactory.build()
+    progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
+    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
+
+    with mock.patch('cmemails.signals.handlers.send') as send:
+        signals.handlers.posted_comment(student, comment)
+        assert len(send.mock_calls) == 1
+        assert send.call_args[1]['template_name'] == 'mentor-student-responded-to-feedback'
+        assert "studentname" in send.call_args[1]['merge_vars']
+        assert "progress_url" in send.call_args[1]['merge_vars']
+        assert "://" not in send.call_args[1]['merge_vars']['progress_url'] # Mailchimp's WYSIWYG insists on adding the protocol
+
+def test_handler_student_posted_reflect_comment_without_image():
+    student = profiles.factories.StudentFactory.build()
+    mentor = profiles.factories.MentorFactory.build()
+    progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
+    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student, stage=Stage.reflect.value)
+
+    with mock.patch('cmemails.signals.handlers.send') as send:
+        signals.handlers.posted_comment(student, comment)
+        assert len(send.mock_calls) == 1
+        assert send.call_args[1]['template_name'] == 'mentor-student-completed-project-w-o-photo'
+
+def test_handler_student_posted_reflect_comment_with_image():
+    student = profiles.factories.StudentFactory.build()
+    mentor = profiles.factories.MentorFactory.build()
+    progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
+    image = Image()
+    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student, image=image, stage=Stage.reflect.value)
+
+    with mock.patch('cmemails.signals.handlers.send') as send:
+        signals.handlers.posted_comment(student, comment)
+        assert len(send.mock_calls) == 1
+        assert send.call_args[1]['template_name'] == 'mentor-student-completed-project-w-photo'
+
+def test_handler_created_account_ccs_mentor_relationship_managers():
+    mentor = profiles.factories.MentorFactory.build()
+
+    with mock.patch('cmemails.signals.handlers.send') as send:
+        signals.handlers.created_account(mentor)
+        assert len(send.mock_calls) == 1
+        assert 'cc' in send.call_args[1]
+
+def test_handler_approved_training_task():
+    with mock.patch('cmemails.signals.handlers.send') as send:
+        approver = profiles.factories.MentorFactory.build()
+        mentor = profiles.factories.MentorFactory.build()
+
+        task = training.factories.TaskFactory.build()
+        signals.handlers.approved_training_task(approver, mentor, task)
+        assert len(send.mock_calls) == 0
+
+        task = training.factories.TaskFactory.build(completion_email_template='template')
+        signals.handlers.approved_training_task(approver, mentor, task)
+        assert len(send.mock_calls) == 1
+
+def test_send_template_handles_single_recipient():
+    student = profiles.factories.StudentFactory.build()
+
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name='foo', to=student)
+        kwargs = mandrill().messages.send_template.call_args[1]
+        assert 'template_name' in kwargs and kwargs['template_name'] == 'foo'
+        assert ('message' in kwargs and
+            len(kwargs['message']['to']) == 1 and
+            kwargs['message']['to'][0] == {
+                "email": student.email,
+                "name": student.username,
+                "type": "to"
+            })
+
+def test_send_template_handles_multiple_recipients():
+    students = profiles.factories.StudentFactory.build_batch(2)
+
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name='foo', to=students)
+        kwargs = mandrill().messages.send_template.call_args[1]
+        assert ('message' in kwargs and len(kwargs['message']['to']) == 2)
+
+def test_send_template_handles_single_cc():
+    student = profiles.factories.StudentFactory.build()
+
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name='foo', to=student, cc="someemail@example.com")
+        kwargs = mandrill().messages.send_template.call_args[1]
+        assert 'message' in kwargs
+        assert len(kwargs['message']['to']) == 2
+        assert {
+            "email": "someemail@example.com",
+            "type": "cc"
+        } in kwargs['message']['to']
+
+def test_send_template_handles_multiple_ccs():
+    student = profiles.factories.StudentFactory.build()
+
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name='foo', to=student, cc=["someemail@example.com", "someotheremail@example.com"])
+        kwargs = mandrill().messages.send_template.call_args[1]
+        assert 'message' in kwargs
+        assert len(kwargs['message']['to']) == 3
+        assert {
+            "email": "someemail@example.com",
+            "type": "cc"
+        } in kwargs['message']['to']
+        assert {
+            "email": "someotheremail@example.com",
+            "type": "cc"
+        } in kwargs['message']['to']
+
+def test_send_template_skips_users_without_email():
+    student = profiles.factories.StudentFactory.build(email=None)
+    student2 = profiles.factories.StudentFactory.build()
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name='foo', to=student)
+        assert len(mandrill().messages.send_template.mock_calls) == 0
+        send_template(template_name='foo', to=student, cc="email@example.com")
+        assert len(mandrill().messages.send_template.mock_calls) == 0
+        send_template(template_name='foo', to=[student, student2])
+        assert len(mandrill().messages.send_template.mock_calls) == 1
+
+def test_send_template_with_merge_vars():
+    student = profiles.factories.StudentFactory.build()
+    with mock.patch('mandrill.Mandrill') as mandrill:
+        send_template(template_name="foo", to=student, merge_vars={"vars": "go here", "all": "of them"})
+        assert len(mandrill().messages.send_template.mock_calls) == 1
+        message = mandrill().messages.send_template.call_args[1]['message']
+        expected = [
+            {"name": "vars", "content": "go here"},
+            {"name": "all", "content": "of them"}
+        ]
+        assert len(message["global_merge_vars"]) == len(expected)
+        assert all(x in message["global_merge_vars"] for x in expected)
+
+def test_mailchimp_subscribe_does_nothing_without_api_key():
+    student = profiles.factories.StudentFactory.build()
+    with mock.patch('cmemails.mailchimp.requests') as requests:
+        with mock.patch('cmemails.mailchimp.settings') as settings:
+            settings.MAILCHIMP_API_KEY = None
+            subscribe(student)
+
+def test_mailchimp_subscribe_does_nothing_without_list_id_for_user_type():
+    student = profiles.factories.StudentFactory.build()
+    with mock.patch('cmemails.mailchimp.requests') as requests:
+        with mock.patch('cmemails.mailchimp.settings') as settings:
+            settings.MAILCHIMP_LIST_IDS = {}
+            subscribe(student)
+            assert len(requests.put.mock_calls) == 0
+
+def test_mailchimp_subscribe_does_nothing_without_email():
+    student = profiles.factories.StudentFactory.build(email='')
+    with mock.patch('cmemails.mailchimp.requests') as requests:
+        with mock.patch('cmemails.mailchimp.settings') as settings:
+            settings.MAILCHIMP_DATA_CENTER = 'x'
+            settings.MAILCHIMP_API_KEY = 'abc'
+            settings.MAILCHIMP_LIST_IDS = {
+                "student": 123,
+            }
+            subscribe(student)
+            assert len(requests.put.mock_calls) == 0
+
+def test_mailchimp_subscribe_subscribes_user():
+    student = profiles.factories.StudentFactory.build()
+    mentor = profiles.factories.MentorFactory.build()
+    with mock.patch('cmemails.mailchimp._put') as put:
+        with mock.patch('cmemails.mailchimp.settings') as settings:
+            settings.MAILCHIMP_DATA_CENTER = 'x'
+            settings.MAILCHIMP_API_KEY = 'abc'
+            settings.MAILCHIMP_LIST_IDS = {
+                "student": 123,
+                "mentor": 456
+            }
+            subscribe(student)
+            assert len(put.mock_calls) > 0
+            assert put.mock_calls[0].call_list()[0][1][0].startswith('https://x.api.mailchimp.com/3.0/lists/123/members/')
+
+            put.reset_mock()
+            subscribe(mentor)
+            assert put.mock_calls[0].call_list()[0][1][0].startswith('https://x.api.mailchimp.com/3.0/lists/456/members/')

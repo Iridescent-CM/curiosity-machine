@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from images.models import Image
@@ -72,10 +71,15 @@ class Profile(models.Model):
             return 'admin'
         elif self.is_mentor:
             return 'mentor'
-        elif self.birthday and self.is_underage():
-            return 'underage student'
-        else:
-            return 'student'
+        elif self.is_student:
+            if self.birthday and self.is_underage():
+                return 'underage student'
+            else:
+                return 'student'
+        elif self.is_educator:
+            return 'educator'
+        elif self.is_parent:
+            return 'parent'
 
     def is_underage(self):
         return self.age < 13
@@ -109,21 +113,9 @@ class Profile(models.Model):
         self.shown_intro = True
         self.save(update_fields=['shown_intro'])
 
-    def deliver_welcome_email(self):
-        if self.is_mentor:
-            deliver_email('welcome', self, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
-        else:
-            deliver_email('welcome', self)
-
     def deliver_inactive_email(self):
         if self.birthday:
             deliver_email('inactive', self)
-
-    def deliver_encouragement_email(self):
-        deliver_email('encouragement', self)
-
-    def deliver_publish_email(self, progress):
-        deliver_email('publish', self, progress=progress)
 
     def is_parent_of(self, username, **kwargs):
         filters = {
@@ -148,17 +140,3 @@ class ParentConnection(models.Model):
             self.child_profile.user.username,
             self.id
         )
-
-def create_user_profile(sender, instance, created, **kwargs):
-    if created and not hasattr(instance, "profile") and not kwargs.get('raw'):
-        Profile.objects.create(user=instance)
-
-post_save.connect(create_user_profile, sender=User)
-
-def auto_approve_non_coppa_students(sender, instance, created, **kwargs):
-    if created and not kwargs.get('raw'):
-        if instance.is_student and not instance.is_underage():
-            instance.approved = True
-            instance.save(update_fields=['approved'])
-
-post_save.connect(auto_approve_non_coppa_students, sender=Profile)

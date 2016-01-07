@@ -8,8 +8,6 @@ from django.views.decorators.http import require_http_methods, require_POST
 from django.db.models import Q
 from django.utils.timezone import now
 from django.conf import settings
-import django_rq
-
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
@@ -207,7 +205,7 @@ def challenge_progress_approve(request, challenge_id, username):
         raise PermissionDenied
 
     if request.POST.get("approve", False):
-        progress.approve()
+        progress.approve(approver=request.user)
         messages.success(request, 'Student was moved to Reflect')
         return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
             'challenge_id': challenge_id,
