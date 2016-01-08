@@ -44,7 +44,10 @@ def subscribe(user):
         }
     )
     if r.status_code != 200:
-        logger.warning("Mailchimp list signup returned an error: %s", r.json())
+        try:
+            logger.warning("Mailchimp list signup returned an error: %d %s", r.status_code, r.json())
+        except:
+            logger.warning("Mailchimp list signup returned a non-json error: %d", r.status_code)
     else:
         logger.info(
             "User %s email %s type %s subscribed to mailing list id %s"
