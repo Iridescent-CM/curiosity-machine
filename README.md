@@ -20,6 +20,15 @@ python manage.py runserver
 
 This gets you basically operational. The site won't be terribly intersting with an empty database though.
 
+## When Requirements Get Added
+
+From time to time requirements will get added, updated, or removed from the project. In this case running
+the following command should get your environment up to date:
+
+```sh
+pip install -r requirements.txt
+```
+
 ### Data
 
 One quick way to get going is to clone the Heroku staging database to your local machine and use that, assuming you're
