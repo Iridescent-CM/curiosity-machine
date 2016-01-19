@@ -112,7 +112,8 @@ def preview_reflect(request, challenge_id):
     if require_login_for(request, challenge):
         raise LoginRequired() 
 
-    if not request.user.is_authenticated() or request.user.profile.is_student:
+    #if not request.user.is_authenticated() or request.user.profile.is_student:
+    if False:
         messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
         return HttpResponseRedirect(request.META.get(
             'HTTP_REFERER',
@@ -174,16 +175,16 @@ def challenge_progress(request, challenge_id, username, stage=None):
             'progress': progress,
             'examples': Example.objects.filter(challenge=challenge),
         })
-    elif stageToShow == Stage.reflect and request.user.profile.is_student and not progress.approved:
-        messages.info(request, 'Not yet! Your mentor needs to approve your challenge for the Reflect stage.')
-        return HttpResponseRedirect(request.META.get(
-            'HTTP_REFERER',
-            reverse('challenges:challenge_progress', kwargs={
-                'challenge_id': challenge.id,
-                'username': username,
-                'stage': Stage.inspiration.name
-            })
-        ))
+    #elif stageToShow == Stage.reflect and request.user.profile.is_student and not progress.approved:
+    #    messages.info(request, 'Not yet! Your mentor needs to approve your challenge for the Reflect stage.')
+    #    return HttpResponseRedirect(request.META.get(
+    #        'HTTP_REFERER',
+    #        reverse('challenges:challenge_progress', kwargs={
+    #            'challenge_id': challenge.id,
+    #            'username': username,
+    #            'stage': Stage.inspiration.name
+    #        })
+    #    ))
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
     return render(request, "challenges/progress/%s.html" % stageToShow.name, {

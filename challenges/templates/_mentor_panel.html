@@ -25,6 +25,7 @@
       </div>
       {% endif %}
       
+      {% if 0 %}
       {% if request.user == progress.mentor %}
         <form 
           action="{% url "challenges:challenge_progress_approve" challenge_id=challenge.id username=progress.student.username %}"
@@ -38,6 +39,7 @@
             Move to {% if progress.approved %}Build{% else %}Reflect{% endif %} Stage
           </button>
         </form>
+      {% endif %}
       {% endif %}
 
     </div>
