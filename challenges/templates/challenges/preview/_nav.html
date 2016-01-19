@@ -26,7 +26,7 @@
         </a>
         <span class="arrows"></span>
       </li>
-      <li class="reflect">
+      <li class="reflect {% if stage == 'reflect' %}selected{% endif %}">
         <a href="{% url 'challenges:preview_reflect' challenge_id=challenge.id %}">
           <span class="btn">Reflect</span>
         </a>
