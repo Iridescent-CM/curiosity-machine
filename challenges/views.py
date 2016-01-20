@@ -86,7 +86,7 @@ def require_login_for(request, challenge):
 def preview_inspiration(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
-        raise LoginRequired() 
+        raise LoginRequired()
 
     return render(request, 'challenges/preview/inspiration.html', {
         'challenge': challenge,
@@ -96,21 +96,21 @@ def preview_inspiration(request, challenge_id):
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
-        raise LoginRequired() 
+        raise LoginRequired()
 
     return render(request, 'challenges/preview/plan.html', {'challenge': challenge})
 
 def preview_build(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
-        raise LoginRequired() 
+        raise LoginRequired()
 
     return render(request, 'challenges/preview/build.html', {'challenge': challenge})
 
 def preview_reflect(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
-        raise LoginRequired() 
+        raise LoginRequired()
 
     #if not request.user.is_authenticated() or request.user.profile.is_student:
     if False:
@@ -286,4 +286,9 @@ def favorite_challenges(request):
     return render(request, 'ajax/favorites.html', {
         'favorite_challenges': favorite_challenges,
         'favorites': favorite_ids
+    })
+
+def examples(request, challenge_id):
+    return render(request, 'challenges/examples/examples.html', {
+        'examples': [1,5,8],
     })
