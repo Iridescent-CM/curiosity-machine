@@ -6,7 +6,7 @@
 
   <ul>
     {% for example in examples %}
-    <li>{{ example }}</li>
+    <li>{{ example.progress.student.username }}<img src="{{ example.image.url }}"></li>
     {% endfor %}
   </ul>
 

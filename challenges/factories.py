@@ -19,3 +19,10 @@ class ProgressFactory(factory.django.DjangoModelFactory):
     def comment(obj, create, extracted, **kwargs):
         if extracted:
             obj.comments.create(user=obj.student, text="First post!", stage=1)
+
+class ExampleFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Example
+
+    progress = factory.SubFactory('challenges.factories.ProgressFactory')
+    image = factory.SubFactory('images.factories.ImageFactory')

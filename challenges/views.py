@@ -289,6 +289,7 @@ def favorite_challenges(request):
     })
 
 def examples(request, challenge_id):
+    examples = Example.objects.filter(challenge_id=challenge_id)
     return render(request, 'challenges/examples/examples.html', {
-        'examples': [1,5,8],
+        'examples': examples,
     })
