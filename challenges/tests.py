@@ -139,14 +139,13 @@ def test_preview_build_renders_build_preview(client, challenge, loggedInStudent)
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_preview_reflect_redirects_with_reflect_message(client, challenge, loggedInStudent):
+def test_preview_reflect_renders_reflect_preview(client, challenge, loggedInStudent):
     url = reverse('challenges:preview_reflect', kwargs={
         'challenge_id': challenge.id
     })
-    response = client.get(url, follow=True)
-    messages = list(response.context['messages'])
-    assert len(messages) == 1
-    assert "your mentor will approve" in str(messages[0])
+    response = client.get(url)
+    assert 'challenges/preview/reflect.html' in [tmpl.name for tmpl in response.templates]
+    assert response.status_code == 200
 
 @pytest.mark.django_db
 def test_challenge_progress_with_no_progress_redirects_to_preview(client, loggedInStudent, challenge):
@@ -221,33 +220,12 @@ def test_challenge_progress_furthest_progress_test_redirects_to_build(client, st
     }) in response.url
 
 @pytest.mark.django_db
-def test_challenge_progress_furthest_progress_reflect_unapproved_redirects_to_build(client, student_comment, loggedInStudent):
+def test_challenge_progress_furthest_progress_reflect_redirects_to_reflect(client, student_comment, loggedInStudent):
     student_comment.stage = Stage.reflect.value
     student_comment.user = loggedInStudent
     student_comment.save()
     progress = student_comment.challenge_progress
     progress.student = loggedInStudent
-    progress.save()
-    url = reverse('challenges:challenge_progress', kwargs={
-        'challenge_id':progress.challenge.id,
-        'username':loggedInStudent.username
-    })
-    response = client.get(url)
-    assert response.status_code == 302
-    assert reverse('challenges:challenge_progress', kwargs={
-        'challenge_id':progress.challenge.id,
-        'username': loggedInStudent.username,
-        'stage': Stage.build.name
-    }) in response.url
-
-@pytest.mark.django_db
-def test_challenge_progress_furthest_progress_build_approved_redirects_to_reflect(client, student_comment, loggedInStudent):
-    student_comment.stage = Stage.build.value
-    student_comment.user = loggedInStudent
-    student_comment.save()
-    progress = student_comment.challenge_progress
-    progress.student = loggedInStudent
-    progress.approved = now()
     progress.save()
     url = reverse('challenges:challenge_progress', kwargs={
         'challenge_id':progress.challenge.id,
@@ -309,21 +287,6 @@ def test_challenge_progress_renders_stage_templates(client, student_comment, log
         response = client.get(url)
         assert 'challenges/progress/%s.html' % stage.name in [tmpl.name for tmpl in response.templates]
         assert response.status_code == 200
-
-@pytest.mark.django_db
-def test_challenge_progress_shows_reflect_unapproved_message(client, student_comment, loggedInStudent):
-    progress = student_comment.challenge_progress
-    progress.student = loggedInStudent
-    progress.save()
-    url = reverse('challenges:challenge_progress', kwargs={
-        'challenge_id':progress.challenge.id,
-        'username':loggedInStudent.username,
-        'stage': Stage.reflect.name
-    })
-    response = client.get(url, follow=True)
-    messages = list(response.context['messages'])
-    assert len(messages) == 1
-    assert "mentor needs to approve" in str(messages[0])
 
 @pytest.mark.django_db
 def test_challenge_progress_renders_all_comments_together(client, progress, loggedInStudent):

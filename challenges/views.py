@@ -112,19 +112,7 @@ def preview_reflect(request, challenge_id):
     if require_login_for(request, challenge):
         raise LoginRequired() 
 
-    if not request.user.is_authenticated() or request.user.profile.is_student:
-        messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
-        return HttpResponseRedirect(request.META.get(
-            'HTTP_REFERER',
-            reverse('challenges:preview_inspiration', kwargs={
-                'challenge_id': challenge_id,
-            })
-        ))
-    else:
-        return render(request, 'challenges/preview/reflect.html', {
-            'challenge': challenge,
-            'comment_form': CommentForm(),
-        })
+    return render(request, 'challenges/preview/reflect.html', {'challenge': challenge})
 
 @login_required
 @current_user_or_approved_viewer
@@ -141,8 +129,6 @@ def redirect_to_stage(request, challenge_id, username):
     else:
         latestStage = get_stage_for_progress(progress)
         if latestStage == Stage.test:
-            stageToShow = Stage.build
-        elif latestStage == Stage.reflect and request.user.profile.is_student and not progress.approved:
             stageToShow = Stage.build
         else:
             stageToShow = latestStage
@@ -174,16 +160,6 @@ def challenge_progress(request, challenge_id, username, stage=None):
             'progress': progress,
             'examples': Example.objects.filter(challenge=challenge),
         })
-    elif stageToShow == Stage.reflect and request.user.profile.is_student and not progress.approved:
-        messages.info(request, 'Not yet! Your mentor needs to approve your challenge for the Reflect stage.')
-        return HttpResponseRedirect(request.META.get(
-            'HTTP_REFERER',
-            reverse('challenges:challenge_progress', kwargs={
-                'challenge_id': challenge.id,
-                'username': username,
-                'stage': Stage.inspiration.name
-            })
-        ))
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
     return render(request, "challenges/progress/%s.html" % stageToShow.name, {

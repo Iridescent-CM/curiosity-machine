@@ -38,7 +38,7 @@ CM.Challenge.Reflect = {
   },
   updateFields : function(question) {
     $('.reflect-question .question').text(question.text());
-    $('#id_question_text').val(question.text());
+    $('.question-text').val(question.text());
     this.config.currentQuestion = question;
   },
   selectImage : function(li) {
