@@ -1,0 +1,22 @@
+#examples-page {
+  //background-color: $light-gray;
+
+  .examples-top-panel {
+    width: 100%;
+    background: linear-gradient( 45deg, $primary-blue, $primary-green );
+    padding: $large-spacing 0px $small-spacing 0px;
+    text-align: center;
+    color: white;
+    margin-bottom: $base-spacing;
+  }
+
+  .card {
+    margin-bottom: $base-spacing;
+  }
+
+  .card-block {
+    background-color: tint($light-gray, 60);
+    overflow: auto;
+  }
+
+}

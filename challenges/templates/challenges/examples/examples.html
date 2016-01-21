@@ -1,13 +1,141 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load resized %}
 
+{% block body-id %}examples-page{% endblock %}
 {% block content %}
-  <h1>hello I'm words and numbers</h1>
+  <div class="examples-top-panel">
+    <div class="container">
+      <h1>Inspiration Gallery for {{ challenge.name }}</h1>
+    </div>
+  </div>
 
-  <ul>
-    {% for example in examples %}
-    <li>{{ example.progress.student.username }}<img src="{{ example.image.url }}"></li>
-    {% endfor %}
-  </ul>
+  <div class="container">
+
+    <div class="row text-center">
+      <nav>
+        <ul class="pagination">
+          <li class="disabled">
+            <span aria-label="Previous">
+              <i class="icon-left-arrow" aria-hidden="true"></i>
+              <span class="sr-only">Previous</span>
+            </span>
+          </li>
+          <li class="active">
+            <span>1<span class="sr-only"> (current)</span></span>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=2#mentors">2</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=3#mentors">3</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=4#mentors">4</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=5#mentors">5</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=6#mentors">6</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=7#mentors">7</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=8#mentors">8</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=9#mentors">9</a>
+          </li>
+          <li>
+            <a href="/mentors/?page=2#mentors" aria-label="Next">
+              <i class="icon-right-arrow" aria-hidden="true"></i>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="row m-y">
+
+      {% for example in examples %}
+      <div class="col-lg-3 col-sm-6">
+        <div class="card">
+          <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
+            <img class="card-img-top" src="{% resized example.image.url width=300 height=190 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+          </a>
+          <div class="card-block text-center">
+            <p class="card-title">{{ example.progress.student.username }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="{{ example.progress.student.username }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3>{{ example.progress.student.username }}'s {{ challenge.name }}</h3>
+            </div>
+            <div class="modal-body text-center">
+              <img src="{% resized example.image.url crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <div class="row text-center">
+      <nav>
+        <ul class="pagination">
+          <li class="disabled">
+            <span aria-label="Previous">
+              <i class="icon-left-arrow" aria-hidden="true"></i>
+              <span class="sr-only">Previous</span>
+            </span>
+          </li>
+          <li class="active">
+            <span>1<span class="sr-only"> (current)</span></span>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=2#mentors">2</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=3#mentors">3</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=4#mentors">4</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=5#mentors">5</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=6#mentors">6</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=7#mentors">7</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=8#mentors">8</a>
+          </li>
+          <li class="hidden-sm-down hidden-md-down">
+            <a href="/mentors/?page=9#mentors">9</a>
+          </li>
+          <li>
+            <a href="/mentors/?page=2#mentors" aria-label="Next">
+              <i class="icon-right-arrow" aria-hidden="true"></i>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
 
 {% endblock %}
