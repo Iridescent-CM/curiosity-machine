@@ -111,6 +111,18 @@ body {
       display: block;
     }
   }
+
+  .reflect-question {
+    background: lighten(@teal, 5%);
+    color: white;
+    border-radius: @panel-border-radius;
+    padding: 8px;
+    margin-bottom: 10px;
+
+    p {
+      margin: 0;
+    }
+  }
 }
 
 .switch { //radio button for build/test
@@ -652,9 +664,8 @@ margin-left: auto;
     width: 100%;
     color: @text-color;
   }
-  .btn-primary {
+  .action-list li .btn {
     .button-variant(#fff; @teal; @teal);
-    &.btn-reflect {float: right; margin: 10px 0 20px 0;}
     margin-right: 10px;
   }
   .btn-link {
