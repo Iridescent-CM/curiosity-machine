@@ -5647,4 +5647,12 @@ footer {
   background-color: #f5f3f0;
   overflow: auto; }
 
+#examples-page .modal-header {
+  border-bottom-width: 0px; }
+
+#examples-page .submit-example {
+  border: 1px solid #E5E1D9;
+  border-radius: 4px;
+  background-color: white; }
+
 /*# sourceMappingURL=main.css.map */

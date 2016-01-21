@@ -19,4 +19,14 @@
     overflow: auto;
   }
 
+  .modal-header {
+    border-bottom-width: 0px;
+  }
+
+  .submit-example {
+    border: 1px solid $light-gray;
+    border-radius: $base-border-radius;
+    background-color: lighten($light-gray, 70%);
+  }
+
 }

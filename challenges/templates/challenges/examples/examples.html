@@ -5,11 +5,18 @@
 {% block content %}
   <div class="examples-top-panel">
     <div class="container">
-      <h1>Inspiration Gallery for {{ challenge.name }}</h1>
+      <h3>{{ challenge.name }}</h3>
+      <h1>Inspiration Gallery</h1>
     </div>
   </div>
 
   <div class="container">
+
+    <div class="submit-example text-center p-a-md m-y-md">
+      <h3>Add your Creation</h3>
+      <p>Want to share your design? Choose a photo to share with the community.</p>
+      <a href="#" class="btn btn-purple m-x-md">Choose a Photo</a><a href="#" class="btn btn-primary m-x-md">Submit</a>
+    </div>
 
     <div class="row text-center">
       <nav>
@@ -63,7 +70,7 @@
       <div class="col-lg-3 col-sm-6">
         <div class="card">
           <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
-            <img class="card-img-top" src="{% resized example.image.url width=300 height=190 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+            <img class="card-img-top action-img" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
           </a>
           <div class="card-block text-center">
             <p class="card-title">{{ example.progress.student.username }}</p>
