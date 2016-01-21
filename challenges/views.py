@@ -143,8 +143,8 @@ def redirect_to_stage(request, challenge_id, username):
         latestStage = get_stage_for_progress(progress)
         if latestStage == Stage.test:
             stageToShow = Stage.build
-        elif latestStage == Stage.reflect and request.user.profile.is_student and not progress.approved:
-            stageToShow = Stage.build
+        #elif latestStage == Stage.reflect and request.user.profile.is_student and not progress.approved:
+        #    stageToShow = Stage.build
         else:
             stageToShow = latestStage
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
