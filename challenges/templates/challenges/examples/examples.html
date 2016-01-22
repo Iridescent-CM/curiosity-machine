@@ -14,8 +14,48 @@
 
     <div class="submit-example text-center p-a-md m-y-md">
       <h3>Add your Creation</h3>
-      <p>Want to share your design? Choose a photo to share with the community.</p>
-      <a href="#" class="btn btn-purple m-x-md">Choose a Photo</a><a href="#" class="btn btn-primary m-x-md">Submit</a>
+      <p>Want to share your design? Choose a photo from your project to share with the community.</p>
+      <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera"></i>Choose a Photo</a><a href="#" class="btn btn-primary">Submit</a>
+
+      <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3>Choose a Photo</h3>
+            </div>
+            <div class="modal-body text-center">
+              <p>Your images from {{ challenge.name }}</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <img src="http://placehold.it/330x200" alt="">
+                </div>
+                <div class="col-md-6">
+                  <img src="http://placehold.it/330x200" alt="">
+                </div>
+                <div class="col-md-6">
+                  <img src="http://placehold.it/330x200" alt="">
+                </div>
+                <div class="col-md-6">
+                  <img src="http://placehold.it/330x200" alt="">
+                </div>
+                <div class="col-md-6">
+                  <img src="http://placehold.it/330x200" alt="">
+                </div>
+                <div class="col-md-6">
+                  <img src="http://placehold.it/330x200" alt="">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+              <a href="#" class="btn btn-primary">Submit</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="row text-center">

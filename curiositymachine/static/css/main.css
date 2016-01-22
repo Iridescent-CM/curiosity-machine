@@ -4533,6 +4533,9 @@ a.bg-danger:focus, a.bg-danger:hover {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
+.icon-camera:before {
+  content: "\e900"; }
+
 .icon-compsci:before {
   content: "\e60e"; }
 
@@ -5647,12 +5650,26 @@ footer {
   background-color: #f5f3f0;
   overflow: auto; }
 
-#examples-page .modal-header {
-  border-bottom-width: 0px; }
+#examples-page .modal-header h3 {
+  margin-bottom: 0px; }
+
+#examples-page #choose-photo .modal-body {
+  max-height: 525px;
+  overflow: scroll; }
+
+#examples-page #choose-photo img {
+  margin-bottom: 1.5em;
+  border: 2px solid #FFFCF7; }
+  #examples-page #choose-photo img:hover {
+    border: 2px solid #2FB8C8; }
 
 #examples-page .submit-example {
   border: 1px solid #E5E1D9;
   border-radius: 4px;
   background-color: white; }
+  #examples-page .submit-example i {
+    margin-right: 0.75em; }
+  #examples-page .submit-example a {
+    margin: 0px 0.75em; }
 
 /*# sourceMappingURL=main.css.map */

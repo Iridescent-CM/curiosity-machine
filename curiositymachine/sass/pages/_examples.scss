@@ -19,14 +19,38 @@
     overflow: auto;
   }
 
-  .modal-header {
-    border-bottom-width: 0px;
+  .modal-header h3 {
+    margin-bottom: 0px;
+  }
+
+  #choose-photo {
+
+    .modal-body {
+      max-height: 525px;
+      overflow: scroll;
+    }
+
+    img {
+      margin-bottom: $base-spacing;
+      border: 2px solid $primary-light;
+      &:hover {
+        border: 2px solid $primary-blue;
+      }
+    }
   }
 
   .submit-example {
     border: 1px solid $light-gray;
     border-radius: $base-border-radius;
     background-color: lighten($light-gray, 70%);
+
+    i {
+      margin-right: $small-spacing;
+    }
+
+    a {
+      margin: 0px $small-spacing;
+    }
   }
 
 }
