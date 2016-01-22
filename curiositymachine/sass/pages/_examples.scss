@@ -39,6 +39,19 @@
     }
   }
 
+  .pending {
+    width: 100%;
+    background-color: rgba(247,209,151,.9);
+    border: 1px solid $primary-orange;
+    color: darken($primary-orange, 30%);
+    position: relative;
+    display: block;
+    padding: $small-spacing/2;
+    top: -55px;
+    text-align: center;
+    margin-bottom: -55px;
+  }
+
   .submit-example {
     border: 1px solid $light-gray;
     border-radius: $base-border-radius;

@@ -5663,6 +5663,18 @@ footer {
   #examples-page #choose-photo img:hover {
     border: 2px solid #2FB8C8; }
 
+#examples-page .pending {
+  width: 100%;
+  background-color: rgba(247, 209, 151, 0.9);
+  border: 1px solid #F2B353;
+  color: #a0650c;
+  position: relative;
+  display: block;
+  padding: 0.375em;
+  top: -55px;
+  text-align: center;
+  margin-bottom: -55px; }
+
 #examples-page .submit-example {
   border: 1px solid #E5E1D9;
   border-radius: 4px;

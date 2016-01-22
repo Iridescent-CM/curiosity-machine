@@ -13,9 +13,13 @@
   <div class="container">
 
     <div class="submit-example text-center p-a-md m-y-md">
-      <h3>Add your Creation</h3>
-      <p>Want to share your design? Choose a photo from your project to share with the community.</p>
-      <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera"></i>Choose a Photo</a><a href="#" class="btn btn-primary">Submit</a>
+      <h3>Add your project!</h3>
+      <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
+      <!-- <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a><a href="#" class="btn btn-primary">Submit</a> -->
+
+      <div class="alert alert-info" role="alert">
+        <strong>Thanks for submitting your project!</strong> Once your photo has been approved, it will show up in the gallery for everyone to see.
+      </div>
 
       <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -29,24 +33,13 @@
             <div class="modal-body text-center">
               <p>Your images from {{ challenge.name }}</p>
               <div class="row">
+                {% for image in progress.get_student_images %}
                 <div class="col-md-6">
-                  <img src="http://placehold.it/330x200" alt="">
+                  <img src="{{ image.url }}" alt="">
                 </div>
-                <div class="col-md-6">
-                  <img src="http://placehold.it/330x200" alt="">
-                </div>
-                <div class="col-md-6">
-                  <img src="http://placehold.it/330x200" alt="">
-                </div>
-                <div class="col-md-6">
-                  <img src="http://placehold.it/330x200" alt="">
-                </div>
-                <div class="col-md-6">
-                  <img src="http://placehold.it/330x200" alt="">
-                </div>
-                <div class="col-md-6">
-                  <img src="http://placehold.it/330x200" alt="">
-                </div>
+                {% empty %}
+                  <h3>You have not added any photos to this challenge!</h3>
+                {% endfor %}
               </div>
             </div>
             <div class="modal-footer">
@@ -111,6 +104,7 @@
         <div class="card">
           <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
             <img class="card-img-top action-img" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+            <div class="pending"><em>Pending Approval!</em></div>
           </a>
           <div class="card-block text-center">
             <p class="card-title">{{ example.progress.student.username }}</p>
