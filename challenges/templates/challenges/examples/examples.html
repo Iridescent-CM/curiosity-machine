@@ -15,11 +15,15 @@
     <div class="submit-example text-center p-a-md m-y-md">
       <h3>Add your project!</h3>
       <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
-      <!-- <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a><a href="#" class="btn btn-primary">Submit</a> -->
+      <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a><a href="#" class="btn btn-primary">Submit</a>
 
-      <div class="alert alert-info" role="alert">
+
+      <!-- A Pending Example submission -->
+      <!-- <div class="alert alert-info" role="alert">
         <strong>Thanks for submitting your project!</strong> Once your photo has been approved, it will show up in the gallery for everyone to see.
-      </div>
+      </div> -->
+
+
 
       <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
