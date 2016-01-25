@@ -8,6 +8,11 @@
     text-align: center;
     color: white;
     margin-bottom: $base-spacing;
+
+    a {
+      color: white;
+      border-bottom-color: white;
+    }
   }
 
   .card {
@@ -52,7 +57,7 @@
     margin-bottom: -55px;
   }
 
-  .submit-example {
+  .examples-page-alerts {
     border: 1px solid $light-gray;
     border-radius: $base-border-radius;
     background-color: lighten($light-gray, 70%);
@@ -62,7 +67,14 @@
     }
 
     a {
-      margin: 0px $small-spacing;
+      margin-right: $small-spacing;
+    }
+  }
+
+  @include media-breakpoint-up(xs) {
+    .card {
+      max-width: 330px;
+      margin: $base-spacing auto;
     }
   }
 

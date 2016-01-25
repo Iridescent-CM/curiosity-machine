@@ -5,24 +5,38 @@
 {% block content %}
   <div class="examples-top-panel">
     <div class="container">
-      <h3>{{ challenge.name }}</h3>
+      <h3><a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{ challenge.name }}</a></h3>
       <h1>Inspiration Gallery</h1>
     </div>
   </div>
 
   <div class="container">
 
-    <div class="submit-example text-center p-a-md m-y-md">
+    <!-- student who has started the design challenge but not posted in Reflect progress -->
+    <div class="examples-page-alerts text-center p-a-md m-y-md">
+      <h3>You are working on this design challenge!</h3>
+      <p>Complete your project and post in Reflect. Then you can share your design here!</p>
+      <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}" class="btn btn-primary">Keep Working</a>
+    </div>
+
+    <!-- student who has not started the design challenge -->
+    <div class="examples-page-alerts text-center p-a-md m-y-md">
+      <h3>Want to {{ challenge.name }}?</h3>
+      <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}" class="btn btn-primary">Start Building</a>
+    </div>
+
+    <div class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>Add your project!</h3>
       <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
-      <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a><a href="#" class="btn btn-primary">Submit</a>
+      <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
 
 
       <!-- A Pending Example submission -->
-      <!-- <div class="alert alert-info" role="alert">
+      <!--
+      <div class="alert alert-info m-t-md" role="alert">
         <strong>Thanks for submitting your project!</strong> Once your photo has been approved, it will show up in the gallery for everyone to see.
-      </div> -->
-
+      </div>
+      -->
 
 
       <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -130,6 +144,36 @@
             </div>
           </div>
         </div>
+      </div>
+      {% empty %}
+
+      <!-- anonymous user -->
+      <div class="examples-page-alerts text-center p-a-md m-y-md">
+        <h3>There aren't any examples here!</h3>
+        <p>Be the first to share your design! Create a student account and build this design challenge to submit your project.</p>
+        <a href="{% url "profiles:join" %}" class="btn btn-primary">Create a Student Account</a>
+        <a href="{% url "login" %}" class="btn btn-green">Log In</a>
+      </div>
+
+      <!-- student who has not started this challenge -->
+      <div class="examples-page-alerts text-center p-a-md m-y-md">
+        <h3>There aren't any examples here!</h3>
+        <p>Be the first to share your design! Build this design challenge to submit your project.</p>
+        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}" class="btn btn-primary">Start Building</a>
+      </div>
+
+      <!-- student who has started this challenge -->
+      <div class="examples-page-alerts text-center p-a-md m-y-md">
+        <h3>There aren't any examples here!</h3>
+        <p>Be the first to share your design! Finish your project and come back to submit it.</p>
+        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}" class="btn btn-primary">Keep Building</a>
+      </div>
+
+      <!-- mentors, educators & parents -->
+      <div class="examples-page-alerts text-center p-a-md m-y-md">
+        <h3>There aren't any examples here!</h3>
+        <p>When a student builds a project, they can add their design to this page. Encourage them to be creative!</p>
+        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{ challenge.name }}</a>
       </div>
       {% endfor %}
 

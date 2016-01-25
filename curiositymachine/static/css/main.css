@@ -5642,6 +5642,9 @@ footer {
   text-align: center;
   color: white;
   margin-bottom: 1.5em; }
+  #examples-page .examples-top-panel a {
+    color: white;
+    border-bottom-color: white; }
 
 #examples-page .card {
   margin-bottom: 1.5em; }
@@ -5675,13 +5678,17 @@ footer {
   text-align: center;
   margin-bottom: -55px; }
 
-#examples-page .submit-example {
+#examples-page .examples-page-alerts {
   border: 1px solid #E5E1D9;
   border-radius: 4px;
   background-color: white; }
-  #examples-page .submit-example i {
+  #examples-page .examples-page-alerts i {
     margin-right: 0.75em; }
-  #examples-page .submit-example a {
-    margin: 0px 0.75em; }
+  #examples-page .examples-page-alerts a {
+    margin-right: 0.75em; }
+
+#examples-page .card {
+  max-width: 330px;
+  margin: 1.5em auto; }
 
 /*# sourceMappingURL=main.css.map */
