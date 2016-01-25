@@ -5,7 +5,7 @@
 {% block content %}
   <div class="examples-top-panel">
     <div class="container">
-      <h3><a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{ challenge.name }}</a></h3>
+      <h3><a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">{{ challenge.name }}</a></h3>
       <h1>Inspiration Gallery</h1>
     </div>
   </div>
