@@ -16,7 +16,7 @@ kwargs:
     <ul class="pagination">
       {% if curr_page.has_previous %}
       <li>
-        <a href="{% url view %}?{% qstring_update page=curr_page.previous_page_number %}#{{anchor}}" aria-label="Previous">
+        <a href="{{ base_url }}?{% qstring_update page=curr_page.previous_page_number %}#{{anchor}}" aria-label="Previous">
           <i class="icon-left-arrow" aria-hidden="true"></i>
           <span class="sr-only">Previous</span>
         </a>
@@ -37,14 +37,14 @@ kwargs:
       </li>
       {% else %}
       <li class="{% page_visibility_classes curr_page curr_page.number curr_page.paginator.num_pages %}">
-        <a href="{% url view %}?{% qstring_update page=page %}#{{anchor}}">{{page}}</a>
+        <a href="{{ base_url }}?{% qstring_update page=page %}#{{anchor}}">{{page}}</a>
       </li>
       {% endif %}
       {% endfor %}
 
       {% if curr_page.has_next %}
       <li>
-        <a href="{% url view %}?{% qstring_update page=curr_page.next_page_number %}#{{anchor}}" aria-label="Next">
+        <a href="{{ base_url }}?{% qstring_update page=curr_page.next_page_number %}#{{anchor}}" aria-label="Next">
           <i class="icon-right-arrow" aria-hidden="true"></i>
           <span class="sr-only">Next</span>
         </a>
