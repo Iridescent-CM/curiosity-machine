@@ -70,49 +70,7 @@
     </div>
 
     <div class="row text-center">
-      <nav>
-        <ul class="pagination">
-          <li class="disabled">
-            <span aria-label="Previous">
-              <i class="icon-left-arrow" aria-hidden="true"></i>
-              <span class="sr-only">Previous</span>
-            </span>
-          </li>
-          <li class="active">
-            <span>1<span class="sr-only"> (current)</span></span>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=2#mentors">2</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=3#mentors">3</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=4#mentors">4</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=5#mentors">5</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=6#mentors">6</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=7#mentors">7</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=8#mentors">8</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=9#mentors">9</a>
-          </li>
-          <li>
-            <a href="/mentors/?page=2#mentors" aria-label="Next">
-              <i class="icon-right-arrow" aria-hidden="true"></i>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=examples view="example:examples" anchor="examples" %}
     </div>
 
     <div class="row m-y">
@@ -180,49 +138,7 @@
     </div>
 
     <div class="row text-center">
-      <nav>
-        <ul class="pagination">
-          <li class="disabled">
-            <span aria-label="Previous">
-              <i class="icon-left-arrow" aria-hidden="true"></i>
-              <span class="sr-only">Previous</span>
-            </span>
-          </li>
-          <li class="active">
-            <span>1<span class="sr-only"> (current)</span></span>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=2#mentors">2</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=3#mentors">3</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=4#mentors">4</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=5#mentors">5</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=6#mentors">6</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=7#mentors">7</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=8#mentors">8</a>
-          </li>
-          <li class="hidden-sm-down hidden-md-down">
-            <a href="/mentors/?page=9#mentors">9</a>
-          </li>
-          <li>
-            <a href="/mentors/?page=2#mentors" aria-label="Next">
-              <i class="icon-right-arrow" aria-hidden="true"></i>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges view="challenges:challenges" anchor="challenges" %}
     </div>
 
   </div>
