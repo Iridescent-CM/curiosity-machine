@@ -1,6 +1,5 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load resized %}
-{% url "challenges:examples" challenge_id=challenge.id as pagination_base_url%
 
 {% block body-id %}examples-page{% endblock %}
 {% block content %}
@@ -71,7 +70,7 @@
     </div>
 
     <div class="row text-center">
-      {% include "curiositymachine/_pagination_controls.html" with curr_page=examples base_url=pagination_base_url anchor="examples" %}
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=examples anchor="examples" %}
     </div>
 
     <div class="row m-y">
@@ -139,6 +138,7 @@
     </div>
 
     <div class="row text-center">
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=examples anchor="examples" %}
     </div>
 
   </div>

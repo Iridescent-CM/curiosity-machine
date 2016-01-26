@@ -46,9 +46,9 @@
       {% endif %}
       <div class="all-challenges-cards">
         <div class="row text-center">
-          {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges view="challenges:challenges" anchor="challenges" %}
+          {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
         </div>
-      
+
         {% with all=request.user.challenges.all %}
         <div class="row">
           {% for challenge in challenges %}
@@ -100,7 +100,7 @@
         {% endwith %}
 
         <div class="row text-center">
-          {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges view="challenges:challenges" anchor="challenges" %}
+          {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
         </div>
       </div>
     </div>

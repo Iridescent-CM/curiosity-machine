@@ -294,7 +294,7 @@ def examples(request, challenge_id):
     progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
     page = request.GET.get('page')
 
-    paginator = Paginator(examples, 3)
+    paginator = Paginator(examples, settings.EXAMPLES_PER_PAGE)
     try:
         examples = paginator.page(page)
     except PageNotAnInteger:

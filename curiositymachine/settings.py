@@ -321,6 +321,7 @@ SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
 # pagination
 CHALLENGES_PER_PAGE = os.environ.get("CHALLENGES_PER_PAGE", 9)
 MENTORS_PER_PAGE = os.environ.get("MENTORS_PER_PAGE", 12)
+EXAMPLES_PER_PAGE = os.environ.get("EXAMPLES_PER_PAGE", 12)
 
 # an impossible pattern below prevents blacklisting until actual patterns are provided through the env
 BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))
@@ -337,4 +338,3 @@ except ImportError:
 # Conditionally install the debug toolbar
 if DEBUG and DEBUG_TOOLBAR:
     INSTALLED_APPS += ('debug_toolbar',)
-
