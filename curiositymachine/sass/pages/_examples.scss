@@ -1,4 +1,4 @@
-#examples-page {
+#examples-page, #examples-approval {
   //background-color: $light-gray;
 
   .examples-top-panel {
@@ -22,6 +22,14 @@
   .card-block {
     background-color: tint($light-gray, 60);
     overflow: auto;
+  }
+
+  .radio {
+    margin: 0px $small-spacing/2;
+
+    label small {
+      font-weight: $heavy-font-weight;
+    }
   }
 
   .modal-header h3 {

@@ -1,0 +1,92 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load resized %}
+
+{% block body-id %}examples-approval{% endblock %}
+{% block content %}
+  <div class="examples-top-panel">
+    <div class="container">
+      <h1>Approve Example Submissions</h1>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="examples-page-alerts text-center p-a-md m-y-md">
+      <p>Approve example submissions individually or in bulk. <br/>Students will recieve a notification email when their submission has been approved or declined.</p>
+      <a href="#" class="btn btn-primary">Approve Entire Page</a>
+      <a href="#" class="btn btn-green">Approve Selected</a>
+    </div>
+
+    <div class="row text-center">
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=examples anchor="examples" %}
+    </div>
+
+    <div class="row m-y">
+
+      <div class="col-lg-3 col-sm-6">
+        <div class="card">
+          <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
+            <img class="card-img-top action-img" src="{% resized image width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+          </a>
+          <div class="card-block">
+            <div class="card-title">
+              <h4>Engineer an Octopus Suction Pad</h4>
+              <p>By examplekid</p>
+            </div>
+            <div class="card-text text-center">
+              <form class="form-inline">
+                <div class="form-group">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                      <small>APPROVE</small>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                      <small>DECLINE</small>
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="{{ example.progress.student.username }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3>{{ example.progress.student.username }}'s {{ challenge.name }}</h3>
+            </div>
+            <div class="modal-body text-center">
+              <img src="{% resized example.image.url crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center p-a-md m-y-md">
+        <h3>Nothin' left to approve.</h3>
+      </div>
+
+
+    </div>
+
+    <div class="row text-center">
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=examples anchor="examples" %}
+    </div>
+
+    <div class="examples-page-alerts text-center p-a-md m-y-md">
+      <a href="#" class="btn btn-primary">Approve Entire Page</a>
+      <a href="#" class="btn btn-green">Approve Selected</a>
+    </div>
+
+  </div>
+
+{% endblock %}

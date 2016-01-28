@@ -5635,45 +5635,50 @@ footer {
 #login-page #login-page-form small {
   float: right; }
 
-#examples-page .examples-top-panel {
+#examples-page .examples-top-panel, #examples-approval .examples-top-panel {
   width: 100%;
   background: linear-gradient(45deg, #2FB8C8, #8FB559);
   padding: 3em 0px 0.75em 0px;
   text-align: center;
   color: white;
   margin-bottom: 1.5em; }
-  #examples-page .examples-top-panel a {
+  #examples-page .examples-top-panel a, #examples-approval .examples-top-panel a {
     color: white;
     border-bottom-color: white; }
 
-#examples-page .card {
+#examples-page .card, #examples-approval .card {
   margin-bottom: 1.5em; }
 
-#examples-page .card-block {
+#examples-page .card-block, #examples-approval .card-block {
   background-color: #f5f3f0;
   overflow: auto; }
 
-#examples-page .modal-header h3 {
+#examples-page .radio, #examples-approval .radio {
+  margin: 0px 0.375em; }
+  #examples-page .radio label small, #examples-approval .radio label small {
+    font-weight: 700; }
+
+#examples-page .modal-header h3, #examples-approval .modal-header h3 {
   margin-bottom: 0px; }
 
-#examples-page #choose-photo .modal-body {
+#examples-page #choose-photo .modal-body, #examples-approval #choose-photo .modal-body {
   max-height: 525px;
   overflow: scroll; }
 
-#examples-page #choose-photo input[type='radio'] {
+#examples-page #choose-photo input[type='radio'], #examples-approval #choose-photo input[type='radio'] {
   display: none; }
 
-#examples-page #choose-photo input[type='radio'] + label {
+#examples-page #choose-photo input[type='radio'] + label, #examples-approval #choose-photo input[type='radio'] + label {
   margin-bottom: 1.5em;
   border: 3px solid #FFFCF7;
   transition: all 150ms ease; }
-  #examples-page #choose-photo input[type='radio'] + label:hover {
+  #examples-page #choose-photo input[type='radio'] + label:hover, #examples-approval #choose-photo input[type='radio'] + label:hover {
     border: 3px solid #2FB8C8; }
 
-#examples-page #choose-photo input[type='radio']:checked + label {
+#examples-page #choose-photo input[type='radio']:checked + label, #examples-approval #choose-photo input[type='radio']:checked + label {
   border: 3px solid #2FB8C8; }
 
-#examples-page .pending {
+#examples-page .pending, #examples-approval .pending {
   width: 100%;
   background-color: rgba(247, 209, 151, 0.9);
   border: 1px solid #F2B353;
@@ -5685,16 +5690,16 @@ footer {
   text-align: center;
   margin-bottom: -55px; }
 
-#examples-page .examples-page-alerts {
+#examples-page .examples-page-alerts, #examples-approval .examples-page-alerts {
   border: 1px solid #E5E1D9;
   border-radius: 4px;
   background-color: white; }
-  #examples-page .examples-page-alerts i {
+  #examples-page .examples-page-alerts i, #examples-approval .examples-page-alerts i {
     margin-right: 0.75em; }
-  #examples-page .examples-page-alerts a {
+  #examples-page .examples-page-alerts a, #examples-approval .examples-page-alerts a {
     margin-right: 0.75em; }
 
-#examples-page .card {
+#examples-page .card, #examples-approval .card {
   max-width: 330px;
   margin: 1.5em auto; }
 

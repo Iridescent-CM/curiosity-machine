@@ -288,6 +288,10 @@ def examples(request, challenge_id):
         'user_has_example': user_has_example,
     })
 
+def examples_approval(request, challenge_id):
+    return render(request, 'challenges/examples/examples-approval.html', {
+    })
+
 @require_POST
 def add_example(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
