@@ -91,7 +91,7 @@ def preview_inspiration(request, challenge_id):
 
     return render(request, 'challenges/preview/inspiration.html', {
         'challenge': challenge,
-        'examples': Example.objects.filter(challenge=challenge, approved=True)[:4],
+        'examples': Example.objects.filter(challenge=challenge, approved=True).order_by('-id')[:4],
     })
 
 def preview_plan(request, challenge_id):
@@ -159,7 +159,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         return render(request, 'challenges/progress/inspiration.html', {
             'challenge': challenge,
             'progress': progress,
-            'examples': Example.objects.filter(challenge=challenge, approved=True)[:4],
+            'examples': Example.objects.filter(challenge=challenge, approved=True).order_by('-id')[:4],
         })
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
@@ -267,7 +267,7 @@ def favorite_challenges(request):
 def examples(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-    examples = Example.objects.filter(Q(challenge_id=challenge_id), Q(approved=True) | Q(progress=progress))
+    examples = Example.objects.filter(Q(challenge_id=challenge_id), Q(approved=True) | Q(progress=progress)).order_by('-id')
 
     page = request.GET.get('page')
 
