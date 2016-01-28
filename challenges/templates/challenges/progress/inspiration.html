@@ -41,6 +41,9 @@
           {% endfor %}
         </ul>
       </div>
+      <div class="text-center">
+        <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary">View the Inspiration Gallery</a>
+      </div>
       {% include "_modal.html" with id="galleryModal" %}
     </div>
   {% endif %}

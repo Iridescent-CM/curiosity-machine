@@ -91,7 +91,7 @@ def preview_inspiration(request, challenge_id):
 
     return render(request, 'challenges/preview/inspiration.html', {
         'challenge': challenge,
-        'examples': Example.objects.filter(challenge=challenge),
+        'examples': Example.objects.filter(challenge=challenge, approved=True)[:4],
     })
 
 def preview_plan(request, challenge_id):
@@ -159,7 +159,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         return render(request, 'challenges/progress/inspiration.html', {
             'challenge': challenge,
             'progress': progress,
-            'examples': Example.objects.filter(challenge=challenge),
+            'examples': Example.objects.filter(challenge=challenge, approved=True)[:4],
         })
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
