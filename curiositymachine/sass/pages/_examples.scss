@@ -35,13 +35,21 @@
       overflow: scroll;
     }
 
-    img {
+    input[type='radio'] { display: none }
+
+    input[type='radio'] + label {
       margin-bottom: $base-spacing;
-      border: 2px solid $primary-light;
+      border: 3px solid $primary-light;
+      transition: all $base-duration $base-timing;
       &:hover {
-        border: 2px solid $primary-blue;
+        border: 3px solid $primary-blue;
       }
     }
+
+    input[type='radio']:checked + label {
+      border: 3px solid $primary-blue;
+    }
+
   }
 
   .pending {

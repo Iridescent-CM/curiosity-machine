@@ -5660,11 +5660,18 @@ footer {
   max-height: 525px;
   overflow: scroll; }
 
-#examples-page #choose-photo img {
+#examples-page #choose-photo input[type='radio'] {
+  display: none; }
+
+#examples-page #choose-photo input[type='radio'] + label {
   margin-bottom: 1.5em;
-  border: 2px solid #FFFCF7; }
-  #examples-page #choose-photo img:hover {
-    border: 2px solid #2FB8C8; }
+  border: 3px solid #FFFCF7;
+  transition: all 150ms ease; }
+  #examples-page #choose-photo input[type='radio'] + label:hover {
+    border: 3px solid #2FB8C8; }
+
+#examples-page #choose-photo input[type='radio']:checked + label {
+  border: 3px solid #2FB8C8; }
 
 #examples-page .pending {
   width: 100%;
