@@ -325,4 +325,4 @@ def add_example(request, challenge_id):
     example.save()
     return HttpResponseRedirect(reverse('challenges:examples', kwargs={
         'challenge_id': challenge.id,
-    })
+    }))
