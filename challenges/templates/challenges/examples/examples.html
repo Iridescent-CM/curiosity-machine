@@ -93,7 +93,9 @@
         <div class="card">
           <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
             <img class="card-img-top action-img" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
-            <div class="pending"><em>Pending Approval!</em></div>
+            {% if not example.approved %}
+              <div class="pending"><em>Pending Approval!</em></div>
+            {% endif %}
           </a>
           <div class="card-block text-center">
             <p class="card-title">{{ example.progress.student.username }}</p>
