@@ -14,6 +14,7 @@ from cmcomments.models import Comment
 from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only
 from curiositymachine.middleware import LoginRequired
 from videos.models import Video
+from images.models import Image
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
@@ -292,7 +293,10 @@ def examples(request, challenge_id):
     examples = Example.objects.filter(challenge_id=challenge_id)
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
+
     page = request.GET.get('page')
+
+    user_has_example = examples.filter(progress=progress).exists()
 
     paginator = Paginator(examples, settings.EXAMPLES_PER_PAGE)
     try:
@@ -306,4 +310,19 @@ def examples(request, challenge_id):
         'examples': examples,
         'challenge': challenge,
         'progress': progress,
+        'user_has_example': user_has_example,
+    })
+
+@require_POST
+def add_example(request, challenge_id):
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+    progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
+    image = get_object_or_404(Image, id=request.POST.get('example'))
+
+    if not image.comments.filter(user=request.user, challenge_progress=progress).exists():
+        raise Http404("Image not found for this challenge")
+    example = Example(challenge=challenge, progress=progress, image=image)
+    example.save()
+    return HttpResponseRedirect(reverse('challenges:examples', kwargs={
+        'challenge_id': challenge.id,
     })
