@@ -1,5 +1,6 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load resized %}
+{% load staticfiles %}
 
 {% block body-id %}examples-page{% endblock %}
 {% block content %}
@@ -120,50 +121,11 @@
       </div>
       {% empty %}
 
-      <!-- anonymous user -->
-      {% if not request.user.is_authenticated %}
-      <div class="examples-page-alerts text-center p-a-md m-y-md">
-        <h3>There aren't any examples here!</h3>
-        <p>Be the first to share your design! Create a student account and build this design challenge to submit your project.</p>
-        <a href="{% url "profiles:join" %}" class="btn btn-primary">Create a Student Account</a>
-        <a href="{% url "login" %}" class="btn btn-green">Log In</a>
+      <div class="text-center p-a-md m-y-md">
+        <h3>There aren't any examples yet!</h3>
+        <img src="{% static 'images/examples/inspiration-gallery-bot.png' %}" alt="The robot is having trouble hanging the art. Please add your own work to help the struggling robot.">
       </div>
 
-      <!-- student who has not started this challenge -->
-      {% elif request.user.profile.is_student %}
-        {% if not progress %}
-        <div class="examples-page-alerts text-center p-a-md m-y-md">
-          <h3>There aren't any examples here!</h3>
-          <p>Be the first to share your design! Build this design challenge to submit your project.</p>
-          <a href="#" class="btn btn-primary">Start Building</a>
-        </div>
-        {% endif %}
-
-        <!-- student who has started this challenge -->
-        {% if progress and not progress.completed %}
-        <div class="examples-page-alerts text-center p-a-md m-y-md">
-          <h3>There aren't any examples here!</h3>
-          <p>Be the first to share your design! Finish your project and come back to submit it.</p>
-          <a href="#" class="btn btn-primary">Keep Building</a>
-        </div>
-        {% endif %}
-
-        <!-- student who has started challenge & posted in Reflect progress -->
-        {% if progress.completed %}
-        <div class="text-center p-a-md m-y-md">
-          <h3>There aren't any examples here!</h3>
-          <p>add yours above!</p>
-        </div>
-        {% endif %}
-
-      <!-- mentors, educators & parents -->
-      {% else %}
-      <div class="examples-page-alerts text-center p-a-md m-y-md">
-        <h3>There aren't any examples here!</h3>
-        <p>When a student builds a project, they can add their design to this page. Encourage them to be creative!</p>
-        <a href="#">{{ challenge.name }}</a>
-      </div>
-      {% endif %}
       {% endfor %}
 
     </div>
