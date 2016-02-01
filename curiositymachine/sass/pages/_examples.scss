@@ -24,11 +24,24 @@
     overflow: auto;
   }
 
-  .radio {
-    margin: 0px $small-spacing/2;
-
-    label small {
-      font-weight: $heavy-font-weight;
+  .example-select {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    input[type='checkbox'] { display: none }
+    input[type='checkbox'] + label {
+      display: block;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      padding-top: 2px;
+      padding-left: 4px;
+      background-color: tint($medium-gray, 50);
+      box-shadow: 0px 2px 4px rgba(151,151,151,0.8);
+      color: white;
+    }
+    input[type='checkbox']:checked + label {
+      background-color: $primary-blue;
     }
   }
 

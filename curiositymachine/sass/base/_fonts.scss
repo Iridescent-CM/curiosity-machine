@@ -23,6 +23,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-check:before {
+    content: "\e901";
+}
 .icon-camera:before {
     content: "\e900";
 }

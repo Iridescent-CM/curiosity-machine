@@ -12,9 +12,14 @@
   <div class="container">
 
     <div class="examples-page-alerts text-center p-a-md m-y-md">
-      <p>Approve example submissions individually or in bulk. <br/>Students will recieve a notification email when their submission has been approved or declined.</p>
+      <p>Approve example submissions in bulk:</p>
       <a href="#" class="btn btn-primary">Approve Entire Page</a>
+      <br/><br/>
+      <p>Or individually:</p>
       <a href="#" class="btn btn-green">Approve Selected</a>
+      <a href="#" class="btn btn-red">Decline Selected</a>
+      <br/><br/>
+      <p>Students will recieve a notification email when their submission has been approved or declined.</p>
     </div>
 
     <div class="row text-center">
@@ -25,31 +30,26 @@
 
       <div class="col-lg-3 col-sm-6">
         <div class="card">
+          <div class="example-select">
+            <input type="checkbox"
+              name="example-select"
+              id="example-select"
+              data-toggle="favorite"
+              data-set-url="#"
+              data-clear-url="#"
+              {% if challenge.id in favorite_ids %}checked="checked"{% endif %}
+            >
+            <label for="example-select"><i class="icon-check"></i></label>
+          </div>
           <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
-            <img class="card-img-top action-img" src="{% resized image width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+            <img class="card-img-top action-img" src="http://res.cloudinary.com/hvyvoop1d/image/fetch/c_fill,h_200,w_330/http://s3.amazonaws.com/curiositymachine/images/cf2e85ebefbaa36b03b0190ce1f130eb" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
           </a>
           <div class="card-block">
             <div class="card-title">
               <h4>Engineer an Octopus Suction Pad</h4>
-              <p>By examplekid</p>
             </div>
-            <div class="card-text text-center">
-              <form class="form-inline">
-                <div class="form-group">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                      <small>APPROVE</small>
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                      <small>DECLINE</small>
-                    </label>
-                  </div>
-                </div>
-              </form>
+            <div class="card-text">
+              <p>By examplekid</p>
             </div>
           </div>
         </div>
