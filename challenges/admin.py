@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
+from django.utils.encoding import force_text
 from .models import Challenge, Theme, Progress, Question, Example, Filter
 from .forms import ThemeForm, FilterForm
 from cmcomments.models import Comment
@@ -92,10 +93,70 @@ class ThemeAdmin(admin.ModelAdmin):
 admin.site.register(Theme, ThemeAdmin)
 admin.site.register(Question)
 
+class DefaultsToPendingApprovalFilter(admin.SimpleListFilter):
+    title = 'approved'
+
+    parameter_name = 'approved'
+
+    def lookups(self, request, model_admin):
+        return (
+            (None, 'Pending (default)'),
+            ('approved', 'Approved'),
+            ('rejected', 'Rejected'),
+            ('all', 'All'),
+        )
+
+    def choices(self, cl):
+        for lookup, title in self.lookup_choices:
+            yield {
+                'selected': self.value() == force_text(lookup),
+                'query_string': cl.get_query_string({
+                    self.parameter_name: lookup,
+                }, []),
+                'display': title,
+            }
+
+    def queryset(self, request, queryset):
+        if self.value() == 'approved':
+            return queryset.filter(approved=True)
+        elif self.value() == 'rejected':
+            return queryset.filter(approved=False)
+        elif self.value() == None:
+            return queryset.filter(approved__isnull=True)
+
 class ExampleAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': forms.TextInput},
     }
+
+    list_display = ['id', '_challenge_name', '_student', '_admin_thumbnail', 'approved']
+    list_filter = [DefaultsToPendingApprovalFilter]
+    fields = ['challenge', 'progress', '_name', 'image', '_admin_thumbnail', 'video', 'approved']
+    readonly_fields = ['_admin_thumbnail']
+    search_fields = ['challenge__name', 'progress__student__username']
+
+    def approve_all(modeladmin, request, queryset):
+        queryset.update(approved=True)
+    approve_all.short_description = "Approve selected examples"
+
+    def reject_all(modeladmin, request, queryset):
+        queryset.update(approved=False)
+    reject_all.short_description = "Reject selected examples"
+
+    actions = [approve_all, reject_all]
+
+    def _challenge_name(self, obj):
+        return obj.challenge.name
+    _challenge_name.short_description = 'Challenge'
+
+    def _student(self, obj):
+        return obj.progress.student.username
+    _student.short_description = 'Student'
+
+    def _admin_thumbnail(self, obj):
+        return u'<a href="%s"><img src="%s" height=200 /></a>' % (obj.image.url, obj.image.url)
+    _admin_thumbnail.short_description = 'Thumbnail'
+    _admin_thumbnail.allow_tags = True
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj

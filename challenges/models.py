@@ -193,7 +193,7 @@ class Example(models.Model): # media that a mentor has selected to be featured o
     _name = models.TextField(blank=True, verbose_name="name", db_column="name", help_text="The student's username in plain text. This can be left blank if a progress is set, in which case the progress's student username will be automatically used instead.")
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, help_text="An image to display in the gallery. If a video is also set, this will be the thumbnail. Each example must have an image or a video, or both, to be displayed correctly.")
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, help_text="Each example must have an image or a video, or both, to be displayed correctly.")
-    approved = models.BooleanField(default=False, null=False, db_index=True)
+    approved = models.NullBooleanField(db_index=True)
 
     @property
     def name(self):
