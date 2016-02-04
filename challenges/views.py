@@ -298,6 +298,7 @@ def examples(request, challenge_id):
         'user_has_example': user_has_example,
     })
 
+@login_required
 @require_POST
 def add_example(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
@@ -306,6 +307,8 @@ def add_example(request, challenge_id):
 
     if not image.comments.filter(user=request.user, challenge_progress=progress).exists():
         raise Http404("Image not found for this challenge")
+    if Example.objects.filter(challenge=challenge, progress=progress).exists():
+        return HttpResponse(status=409, reason="Example already exists")
     example = Example(challenge=challenge, progress=progress, image=image)
     example.save()
     return HttpResponseRedirect(reverse('challenges:examples', kwargs={

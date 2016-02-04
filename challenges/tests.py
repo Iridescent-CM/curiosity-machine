@@ -15,6 +15,7 @@ from django.utils.timezone import now
 from .factories import ChallengeFactory, ProgressFactory, ExampleFactory
 from profiles.factories import StudentFactory, MentorFactory
 from cmcomments.factories import CommentFactory
+from images.factories import ImageFactory
 
 @pytest.fixture
 def loggedInStudent(client):
@@ -437,36 +438,6 @@ def test_activity_count_by_stage(student, mentor, progress):
     assert activity_count(progress, None, Stage.build.name) == 2
     assert activity_count(progress, None, Stage.plan.name, Stage.build.name) == 3
 
-# [x] student no progress
-# [x] student progress no example
-# [x] student progress example pending
-# [x] student progress example accepted
-# [x] student progress example rejected
-# [x] another student has pending
-# [x] another student has rejected
-# [x] non-student
-#
-# [x] public
-# [x] private
-#
-# skip?
-# [ ] no examples
-# [ ] <= PAGE_SIZE examples
-# [ ] > PAGE_SIZE examples
-#
-# [ ] add example
-# [ ] no challenge
-# [ ] no progress
-# [ ] no image
-# [ ] image not for challenge
-# [ ] not a student
-#
-# [ ] remove example
-# ...
-#
-# [ ] email on approval
-# [ ] email on rejection
-
 @pytest.mark.django_db
 def test_examples_view_for_student_without_progress(client):
     challenge = ChallengeFactory()
@@ -656,3 +627,85 @@ def test_examples_view_for_rejected_example_not_visible_by_others(client):
 
     assert example not in response.context['examples']
 
+@pytest.mark.django_db
+def test_examples_view_when_adding_new_example(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+    progress = ProgressFactory(challenge=challenge, student=student)
+    image = ImageFactory()
+    comment = CommentFactory(user=student, challenge_progress=progress, image=image)
+
+    client.login(username="student", password="password")
+    response = client.post('/challenges/%d/examples/add/' % (challenge.id), {
+        "example": image.id
+    }, follow=True)
+
+    assert response.status_code == 200
+    assert response.context['examples'][0].image.id == image.id
+
+@pytest.mark.django_db
+def test_examples_view_when_adding_new_example_no_progress_error(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+    image = ImageFactory()
+
+    client.login(username="student", password="password")
+    response = client.post('/challenges/%d/examples/add/' % (challenge.id), {
+        "example": image.id
+    }, follow=True)
+
+    assert response.status_code == 404
+
+@pytest.mark.django_db
+def test_examples_view_when_adding_new_example_wrong_challenge_error(client):
+    student = StudentFactory(username="student", password="password")
+
+    challenge = ChallengeFactory()
+    progress = ProgressFactory(challenge=challenge, student=student)
+    image = ImageFactory()
+    comment = CommentFactory(user=student, challenge_progress=progress, image=image)
+
+    challenge2 = ChallengeFactory()
+    progress2 = ProgressFactory(challenge=challenge2, student=student)
+    image2 = ImageFactory()
+    comment2 = CommentFactory(user=student, challenge_progress=progress, image=image)
+
+    client.login(username="student", password="password")
+    response = client.post('/challenges/%d/examples/add/' % (challenge2.id), {
+        "example": image.id
+    }, follow=True)
+
+    assert response.status_code == 404
+
+@pytest.mark.django_db
+def test_examples_view_when_adding_new_example_not_a_student_error(client):
+    challenge = ChallengeFactory()
+    user = MentorFactory(username="user", password="password")
+    progress = ProgressFactory(challenge=challenge, mentor=user)
+    image = ImageFactory()
+    comment = CommentFactory(user=user, challenge_progress=progress, image=image)
+
+    client.login(username="user", password="password")
+    response = client.post('/challenges/%d/examples/add/' % (challenge.id), {
+        "example": image.id
+    }, follow=True)
+
+    assert response.status_code == 404
+
+@pytest.mark.django_db
+def test_examples_view_when_adding_new_example_already_exists_error(client):
+    challenge = ChallengeFactory()
+    user = StudentFactory(username="user", password="password")
+    progress = ProgressFactory(challenge=challenge, student=user)
+    image = ImageFactory()
+    comment = CommentFactory(user=user, challenge_progress=progress, image=image)
+    example = ExampleFactory(challenge=challenge, progress=progress, image=image)
+    image2 = ImageFactory()
+    comment2 = CommentFactory(user=user, challenge_progress=progress, image=image2)
+
+    client.login(username="user", password="password")
+    response = client.post('/challenges/%d/examples/add/' % (challenge.id), {
+        "example": image2.id
+    }, follow=True)
+
+    assert response.status_code == 409
