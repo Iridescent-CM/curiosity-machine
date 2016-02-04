@@ -266,13 +266,23 @@ def favorite_challenges(request):
 
 def examples(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-    examples = Example.objects.filter(Q(challenge_id=challenge_id), Q(approved=True) | Q(progress=progress)).order_by('-id')
+    if require_login_for(request, challenge):
+        raise LoginRequired()
+
+    examples = Example.objects.exclude(approved=False).filter(challenge_id=challenge_id)
+
+    if request.user.is_authenticated():
+        progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
+        examples = examples.filter(Q(approved=True) | Q(progress=progress))
+        user_has_example = examples.filter(progress=progress).exists()
+    else:
+        progress = None
+        examples = examples.filter(Q(approved=True))
+        user_has_example = False
+
+    examples = examples.order_by('-id')
 
     page = request.GET.get('page')
-
-    user_has_example = examples.filter(progress=progress).exists()
-
     paginator = Paginator(examples, settings.EXAMPLES_PER_PAGE)
     try:
         examples = paginator.page(page)

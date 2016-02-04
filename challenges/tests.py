@@ -1,5 +1,6 @@
 import pytest
 import mock
+from pyquery import PyQuery as pq
 from .models import Challenge, Progress, Theme, Favorite, Stage, Filter
 from cmcomments.models import Comment
 from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress, challenge_progress, preview_inspiration, start_building
@@ -11,6 +12,9 @@ from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.utils.timezone import now
+from .factories import ChallengeFactory, ProgressFactory, ExampleFactory
+from profiles.factories import StudentFactory, MentorFactory
+from cmcomments.factories import CommentFactory
 
 @pytest.fixture
 def loggedInStudent(client):
@@ -432,3 +436,223 @@ def test_activity_count_by_stage(student, mentor, progress):
     assert activity_count(progress, None, Stage.plan.name) == 1
     assert activity_count(progress, None, Stage.build.name) == 2
     assert activity_count(progress, None, Stage.plan.name, Stage.build.name) == 3
+
+# [x] student no progress
+# [x] student progress no example
+# [x] student progress example pending
+# [x] student progress example accepted
+# [x] student progress example rejected
+# [x] another student has pending
+# [x] another student has rejected
+# [x] non-student
+#
+# [x] public
+# [x] private
+#
+# skip?
+# [ ] no examples
+# [ ] <= PAGE_SIZE examples
+# [ ] > PAGE_SIZE examples
+#
+# [ ] add example
+# [ ] no challenge
+# [ ] no progress
+# [ ] no image
+# [ ] image not for challenge
+# [ ] not a student
+#
+# [ ] remove example
+# ...
+#
+# [ ] email on approval
+# [ ] email on rejection
+
+@pytest.mark.django_db
+def test_examples_view_for_student_without_progress(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+
+    client.login(username="student", password="password")
+    response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
+
+    assert response.context['challenge']
+    assert not response.context['progress']
+    assert not response.context['user_has_example']
+
+    d = pq(response.content)
+    assert d('#student-not-started')
+    assert not d('#student-in-progress')
+    assert not d('#student-completed')
+
+@pytest.mark.django_db
+def test_examples_view_for_student_with_progress_without_example(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+    progress = ProgressFactory(challenge=challenge, student=student)
+
+    client.login(username="student", password="password")
+    response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
+
+    assert response.context['challenge']
+    assert response.context['progress']
+    assert not response.context['user_has_example']
+
+    d = pq(response.content)
+    assert not d('#student-not-started')
+    assert d('#student-in-progress')
+    assert not d('#student-completed')
+
+@pytest.mark.django_db
+def test_examples_view_for_student_with_completed_progress_without_example(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+    progress = ProgressFactory(challenge=challenge, student=student, completed=True)
+
+    client.login(username="student", password="password")
+    response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
+
+    assert response.context['challenge']
+    assert response.context['progress']
+    assert not response.context['user_has_example']
+
+    d = pq(response.content)
+    assert not d('#student-not-started')
+    assert not d('#student-in-progress')
+    assert d('#student-completed')
+
+@pytest.mark.django_db
+def test_examples_view_for_student_with_completed_progress_with_example_pending(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+    progress = ProgressFactory(challenge=challenge, student=student, completed=True)
+    example = ExampleFactory(challenge=challenge, progress=progress)
+
+    client.login(username="student", password="password")
+    response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
+
+    assert response.context['challenge']
+    assert response.context['progress']
+    assert response.context['user_has_example']
+    assert example in response.context['examples']
+
+    d = pq(response.content)
+    assert not d('#student-not-started')
+    assert not d('#student-in-progress')
+    assert not d('#student-completed')
+
+@pytest.mark.django_db
+def test_examples_view_for_student_with_completed_progress_with_example_approved(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+    progress = ProgressFactory(challenge=challenge, student=student, completed=True)
+    example = ExampleFactory(challenge=challenge, progress=progress, approved=True)
+
+    client.login(username="student", password="password")
+    response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
+
+    assert response.context['challenge']
+    assert response.context['progress']
+    assert response.context['user_has_example']
+    assert example in response.context['examples']
+
+    d = pq(response.content)
+    assert not d('#student-not-started')
+    assert not d('#student-in-progress')
+    assert not d('#student-completed')
+
+@pytest.mark.django_db
+def test_examples_view_for_student_with_completed_progress_with_example_rejected(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+    progress = ProgressFactory(challenge=challenge, student=student, completed=True)
+    example = ExampleFactory(challenge=challenge, progress=progress, approved=False)
+
+    client.login(username="student", password="password")
+    response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
+
+    assert response.context['challenge']
+    assert response.context['progress']
+    assert not response.context['user_has_example']
+    assert example not in response.context['examples']
+
+    d = pq(response.content)
+    assert not d('#student-not-started')
+    assert not d('#student-in-progress')
+    assert d('#student-completed')
+
+@pytest.mark.django_db
+def test_examples_view_for_non_student(client):
+    challenge = ChallengeFactory()
+    mentor = MentorFactory(username="mentor", password="password")
+
+    client.login(username=mentor.username, password="password")
+    response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
+
+    d = pq(response.content)
+    assert not d('#student-not-started')
+    assert not d('#student-in-progress')
+    assert not d('#student-completed')
+
+@pytest.mark.django_db
+def test_examples_view_for_anonymous_on_public_challenge(client):
+    challenge = ChallengeFactory(public=True)
+
+    response = client.get('/challenges/%d/examples/' % (challenge.id), follow=False)
+
+    assert response.status_code == 200
+    d = pq(response.content)
+    assert not d('#student-not-started')
+    assert not d('#student-in-progress')
+    assert not d('#student-completed')
+
+@pytest.mark.django_db
+def test_examples_view_for_anonymous_on_private_challenge(client):
+    challenge = ChallengeFactory(public=False)
+
+    response = client.get('/challenges/%d/examples/' % (challenge.id), follow=False)
+
+    assert response.status_code == 302
+    assert 'login' in response.url
+
+@pytest.mark.django_db
+def test_examples_view_for_approved_example_visibile_by_others(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+    progress = ProgressFactory(challenge=challenge, student=student)
+    example = ExampleFactory(challenge=challenge, progress=progress, approved=True)
+
+    viewer = StudentFactory(username="student2", password="password")
+
+    client.login(username="student2", password="password")
+    response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
+
+    assert example in response.context['examples']
+
+@pytest.mark.django_db
+def test_examples_view_for_pending_example_not_visible_by_others(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+    progress = ProgressFactory(challenge=challenge, student=student)
+    example = ExampleFactory(challenge=challenge, progress=progress)
+
+    viewer = StudentFactory(username="student2", password="password")
+
+    client.login(username="student2", password="password")
+    response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
+
+    assert example not in response.context['examples']
+
+@pytest.mark.django_db
+def test_examples_view_for_rejected_example_not_visible_by_others(client):
+    challenge = ChallengeFactory()
+    student = StudentFactory(username="student", password="password")
+    progress = ProgressFactory(challenge=challenge, student=student)
+    example = ExampleFactory(challenge=challenge, progress=progress, approved=False)
+
+    viewer = StudentFactory(username="student2", password="password")
+
+    client.login(username="student2", password="password")
+    response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
+
+    assert example not in response.context['examples']
+
