@@ -6,7 +6,11 @@
 {% block content %}
   <div class="examples-top-panel">
     <div class="container">
+      {% if request.user.is_authenticated and request.user.profile.is_student %}
+      <h3><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a></h3>
+      {% else %}
       <h3><a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">{{ challenge.name }}</a></h3>
+      {% endif %}
       <h1>Inspiration Gallery</h1>
     </div>
   </div>
@@ -18,7 +22,7 @@
     <div class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>You are working on this design challenge!</h3>
       <p>Complete your project and post in Reflect. Then you can share your design here!</p>
-      <a href="#" class="btn btn-primary">Keep Working</a>
+      <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Keep Working</a>
     </div>
     {% endif %}
 
@@ -26,7 +30,10 @@
     {% if request.user.profile.is_student and not progress %}
     <div class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>Want to {{ challenge.name }}?</h3>
-      <a href="#" class="btn btn-primary">Start Building</a>
+      <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
+      {% csrf_token %}
+        <input type="submit" value="Start Building" class="btn btn-primary"/>
+      </form>
     </div>
     {% endif %}
 
