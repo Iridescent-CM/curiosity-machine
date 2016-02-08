@@ -28,6 +28,10 @@
     margin-bottom: 0px;
   }
 
+  .modal-footer a {
+    margin-right: $small-spacing;
+  }
+
   #choose-photo {
 
     .modal-body {
@@ -71,10 +75,6 @@
     background-color: lighten($light-gray, 70%);
 
     i {
-      margin-right: $small-spacing;
-    }
-
-    a {
       margin-right: $small-spacing;
     }
   }
