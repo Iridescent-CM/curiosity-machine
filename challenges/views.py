@@ -274,11 +274,11 @@ def examples(request, challenge_id):
     if request.user.is_authenticated():
         progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
         examples = examples.filter(Q(approved=True) | Q(progress=progress))
-        user_has_example = examples.filter(progress=progress).exists()
+        user_example = examples.filter(progress=progress).first()
     else:
         progress = None
         examples = examples.filter(Q(approved=True))
-        user_has_example = False
+        user_example = None
 
     examples = examples.order_by('-id')
 
@@ -295,7 +295,7 @@ def examples(request, challenge_id):
         'examples': examples,
         'challenge': challenge,
         'progress': progress,
-        'user_has_example': user_has_example,
+        'user_example': user_example,
     })
 
 @login_required

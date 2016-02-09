@@ -38,20 +38,11 @@
     {% endif %}
 
     <!-- student who has started the challenge AND posted in Reflect progress -->
-    {% if progress.completed and not user_has_example %}
+    {% if progress.completed and not user_example %}
     <div id="student-completed" class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>Add your project!</h3>
       <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
       <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
-
-
-      <!-- A Pending Example submission -->
-      <!--
-      <div class="alert alert-info m-t-md" role="alert">
-        <strong>Thanks for submitting your project!</strong> Once your photo has been approved, it will show up in the gallery for everyone to see.
-      </div>
-      -->
-
 
       <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -87,6 +78,13 @@
           </div>
         </div>
       </div>
+    </div>
+    {% endif %}
+
+    <!-- A Pending Example submission -->
+    {% if user_example and not user_example.approved %}
+    <div id="student-example-pending" class="alert alert-info m-t-md" role="alert">
+      <strong>Thanks for submitting your project!</strong> Once your photo has been approved, it will show up in the gallery for everyone to see.
     </div>
     {% endif %}
 

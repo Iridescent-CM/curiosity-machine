@@ -448,12 +448,13 @@ def test_examples_view_for_student_without_progress(client):
 
     assert response.context['challenge']
     assert not response.context['progress']
-    assert not response.context['user_has_example']
+    assert not response.context['user_example']
 
     d = pq(response.content)
     assert d('#student-not-started')
     assert not d('#student-in-progress')
     assert not d('#student-completed')
+    assert not d('#student-example-pending')
 
 @pytest.mark.django_db
 def test_examples_view_for_student_with_progress_without_example(client):
@@ -466,12 +467,13 @@ def test_examples_view_for_student_with_progress_without_example(client):
 
     assert response.context['challenge']
     assert response.context['progress']
-    assert not response.context['user_has_example']
+    assert not response.context['user_example']
 
     d = pq(response.content)
     assert not d('#student-not-started')
     assert d('#student-in-progress')
     assert not d('#student-completed')
+    assert not d('#student-example-pending')
 
 @pytest.mark.django_db
 def test_examples_view_for_student_with_completed_progress_without_example(client):
@@ -484,12 +486,13 @@ def test_examples_view_for_student_with_completed_progress_without_example(clien
 
     assert response.context['challenge']
     assert response.context['progress']
-    assert not response.context['user_has_example']
+    assert not response.context['user_example']
 
     d = pq(response.content)
     assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert d('#student-completed')
+    assert not d('#student-example-pending')
 
 @pytest.mark.django_db
 def test_examples_view_for_student_with_completed_progress_with_example_pending(client):
@@ -503,13 +506,14 @@ def test_examples_view_for_student_with_completed_progress_with_example_pending(
 
     assert response.context['challenge']
     assert response.context['progress']
-    assert response.context['user_has_example']
+    assert response.context['user_example']
     assert example in response.context['examples']
 
     d = pq(response.content)
     assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert not d('#student-completed')
+    assert d('#student-example-pending')
 
 @pytest.mark.django_db
 def test_examples_view_for_student_with_completed_progress_with_example_approved(client):
@@ -523,13 +527,14 @@ def test_examples_view_for_student_with_completed_progress_with_example_approved
 
     assert response.context['challenge']
     assert response.context['progress']
-    assert response.context['user_has_example']
+    assert response.context['user_example']
     assert example in response.context['examples']
 
     d = pq(response.content)
     assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert not d('#student-completed')
+    assert not d('#student-example-pending')
 
 @pytest.mark.django_db
 def test_examples_view_for_student_with_completed_progress_with_example_rejected(client):
@@ -543,13 +548,14 @@ def test_examples_view_for_student_with_completed_progress_with_example_rejected
 
     assert response.context['challenge']
     assert response.context['progress']
-    assert not response.context['user_has_example']
+    assert not response.context['user_example']
     assert example not in response.context['examples']
 
     d = pq(response.content)
     assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert d('#student-completed')
+    assert not d('#student-example-pending')
 
 @pytest.mark.django_db
 def test_examples_view_for_non_student(client):
@@ -563,6 +569,7 @@ def test_examples_view_for_non_student(client):
     assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert not d('#student-completed')
+    assert not d('#student-example-pending')
 
 @pytest.mark.django_db
 def test_examples_view_for_anonymous_on_public_challenge(client):
@@ -575,6 +582,7 @@ def test_examples_view_for_anonymous_on_public_challenge(client):
     assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert not d('#student-completed')
+    assert not d('#student-example-pending')
 
 @pytest.mark.django_db
 def test_examples_view_for_anonymous_on_private_challenge(client):
