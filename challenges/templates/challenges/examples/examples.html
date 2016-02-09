@@ -19,7 +19,7 @@
 
     <!-- student who has started the design challenge but not posted in Reflect progress -->
     {% if progress and not progress.completed %}
-    <div class="examples-page-alerts text-center p-a-md m-y-md">
+    <div id="student-in-progress" class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>You are working on this design challenge!</h3>
       <p>Complete your project and post in Reflect. Then you can share your design here!</p>
       <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Keep Working</a>
@@ -28,7 +28,7 @@
 
     <!-- student who has not started the design challenge -->
     {% if request.user.profile.is_student and not progress %}
-    <div class="examples-page-alerts text-center p-a-md m-y-md">
+    <div id="student-not-started" class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>Want to {{ challenge.name }}?</h3>
       <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
       {% csrf_token %}
@@ -39,7 +39,7 @@
 
     <!-- student who has started the challenge AND posted in Reflect progress -->
     {% if progress.completed and not user_has_example %}
-    <div class="examples-page-alerts text-center p-a-md m-y-md">
+    <div id="student-completed" class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>Add your project!</h3>
       <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
       <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
