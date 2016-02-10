@@ -1,7 +1,7 @@
 import pytest
 import mock
 from pyquery import PyQuery as pq
-from .models import Challenge, Progress, Theme, Favorite, Stage, Filter
+from .models import Challenge, Progress, Theme, Favorite, Stage, Filter, Example
 from cmcomments.models import Comment
 from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress, challenge_progress, preview_inspiration, start_building
 from profiles.tests import student, mentor
@@ -644,7 +644,7 @@ def test_examples_view_when_adding_new_example(client):
     comment = CommentFactory(user=student, challenge_progress=progress, image=image)
 
     client.login(username="student", password="password")
-    response = client.post('/challenges/%d/examples/add/' % (challenge.id), {
+    response = client.post('/challenges/%d/examples/' % (challenge.id), {
         "example": image.id
     }, follow=True)
 
@@ -712,8 +712,39 @@ def test_examples_view_when_adding_new_example_already_exists_error(client):
     comment2 = CommentFactory(user=user, challenge_progress=progress, image=image2)
 
     client.login(username="user", password="password")
-    response = client.post('/challenges/%d/examples/add/' % (challenge.id), {
+    response = client.post('/challenges/%d/examples/' % (challenge.id), {
         "example": image2.id
     }, follow=True)
 
     assert response.status_code == 409
+
+@pytest.mark.django_db
+def test_examples_delete_view_deletes_example(client):
+    user = StudentFactory(username="user", password="password")
+    progress = ProgressFactory(student=user)
+    example = ExampleFactory(challenge=progress.challenge, progress=progress)
+
+    client.login(username=user.username, password='password')
+    response = client.post('/challenges/%d/examples/delete/' % (progress.challenge.id), {
+        "example-id": example.id
+    }, follow=True)
+
+    assert response.status_code == 200
+    assert example not in response.context['examples']
+    assert Example.objects.get(pk=example.id).approved == False
+
+@pytest.mark.django_db
+def test_examples_delete_view_cannot_delete_other_users_example(client):
+    user = StudentFactory(username="user", password="password")
+    progress = ProgressFactory(student=user)
+    example = ExampleFactory(challenge=progress.challenge, progress=progress)
+
+    user2 = StudentFactory(username="user2", password="password")
+    client.login(username=user2.username, password='password')
+
+    response = client.post('/challenges/%d/examples/delete/' % (progress.challenge.id), {
+        "example-id": example.id
+    }, follow=True)
+
+    assert response.status_code == 404
+    assert Example.objects.get(pk=example.id).approved != False

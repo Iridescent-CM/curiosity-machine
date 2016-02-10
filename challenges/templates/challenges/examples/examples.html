@@ -53,7 +53,7 @@
               </button>
               <h3>Choose a Photo</h3>
             </div>
-            <form method="POST" action="{% url "challenges:add_example" challenge_id=challenge.id %}">
+            <form method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
               <div class="modal-body text-center">
                 <p>Your images from {{ challenge.name }}</p>
                 <div class="row">
@@ -103,9 +103,11 @@
               <div class="pending"><em>Pending Approval!</em></div>
             {% endif %}
           </a>
+          {% if example == user_example %}
           <div class="remove-example">
             <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="action-img">&#215;</a>
           </div>
+          {% endif %}
           <div class="card-block text-center">
             <p class="card-title">{{ example.progress.student.username }}</p>
           </div>
@@ -128,6 +130,7 @@
         </div>
       </div>
 
+      {% if example == user_example %}
       <div class="modal fade" id="remove-example-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -141,12 +144,17 @@
               <p>You can re-submit this image or another, but it will need to go through the approval process again.</p>
             </div>
             <div class="modal-footer">
-              <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
-              <input type="submit" class="btn btn-primary">
+              <form action="{% url "challenges:delete_example" challenge_id=challenge.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="example-id" value="{{example.id}}" />
+                <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                <input type="submit" class="btn btn-primary">
+              </form>
             </div>
           </div>
         </div>
       </div>
+      {% endif %}
       {% empty %}
 
       <div class="text-center p-a-md m-y-md">
