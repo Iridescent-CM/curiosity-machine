@@ -19,6 +19,8 @@ from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import View
+from django.utils.decorators import method_decorator
 
 def challenges(request):
     theme_name = request.GET.get('theme')
@@ -264,53 +266,66 @@ def favorite_challenges(request):
         'favorites': favorite_ids
     })
 
-def examples(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-    if require_login_for(request, challenge):
-        raise LoginRequired()
+class ExamplesView(View):
+    def get(self, request, challenge_id=None, *args, **kwargs):
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        if require_login_for(request, challenge):
+            raise LoginRequired()
 
-    examples = Example.objects.exclude(approved=False).filter(challenge_id=challenge_id)
+        examples = Example.objects.exclude(approved=False).filter(challenge_id=challenge_id)
 
-    if request.user.is_authenticated():
+        if request.user.is_authenticated():
+            progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
+            examples = examples.filter(Q(approved=True) | Q(progress=progress))
+            user_example = examples.filter(progress=progress).first()
+        else:
+            progress = None
+            examples = examples.filter(Q(approved=True))
+            user_example = None
+
+        examples = examples.order_by('-id')
+
+        page = request.GET.get('page')
+        paginator = Paginator(examples, settings.EXAMPLES_PER_PAGE)
+        try:
+            examples = paginator.page(page)
+        except PageNotAnInteger:
+            examples = paginator.page(1)
+        except EmptyPage:
+            examples = paginator.page(paginator.num_pages)
+
+        return render(request, 'challenges/examples/examples.html', {
+            'examples': examples,
+            'challenge': challenge,
+            'progress': progress,
+            'user_example': user_example,
+        })
+
+    @method_decorator(login_required)
+    def post(self, request, challenge_id=None, *args, **kwargs):
+        challenge = get_object_or_404(Challenge, id=challenge_id)
         progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-        examples = examples.filter(Q(approved=True) | Q(progress=progress))
-        user_has_example = examples.filter(progress=progress).exists()
-    else:
-        progress = None
-        examples = examples.filter(Q(approved=True))
-        user_has_example = False
+        image = get_object_or_404(Image, id=request.POST.get('example'))
 
-    examples = examples.order_by('-id')
+        if not image.comments.filter(user=request.user, challenge_progress=progress).exists():
+            raise Http404("Image not found for this challenge")
+        if Example.objects.exclude(approved=False).filter(challenge=challenge, progress=progress).exists():
+            return HttpResponse(status=409, reason="Example already exists")
+        example = Example(challenge=challenge, progress=progress, image=image)
+        example.save()
+        return HttpResponseRedirect(reverse('challenges:examples', kwargs={
+            'challenge_id': challenge.id,
+        }))
 
-    page = request.GET.get('page')
-    paginator = Paginator(examples, settings.EXAMPLES_PER_PAGE)
-    try:
-        examples = paginator.page(page)
-    except PageNotAnInteger:
-        examples = paginator.page(1)
-    except EmptyPage:
-        examples = paginator.page(paginator.num_pages)
+class ExamplesDeleteView(View):
+    @method_decorator(login_required)
+    def post(self, request, challenge_id=None, *args, **kwargs):
+        example = get_object_or_404(Example, id=request.POST.get('example-id'))
+        if example.progress.student != request.user:
+            raise Http404()
+        example.approved=False
+        example.save()
+        return HttpResponseRedirect(reverse('challenges:examples', kwargs={
+            'challenge_id': challenge_id,
+        }))
 
-    return render(request, 'challenges/examples/examples.html', {
-        'examples': examples,
-        'challenge': challenge,
-        'progress': progress,
-        'user_has_example': user_has_example,
-    })
-
-@login_required
-@require_POST
-def add_example(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-    progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-    image = get_object_or_404(Image, id=request.POST.get('example'))
-
-    if not image.comments.filter(user=request.user, challenge_progress=progress).exists():
-        raise Http404("Image not found for this challenge")
-    if Example.objects.filter(challenge=challenge, progress=progress).exists():
-        return HttpResponse(status=409, reason="Example already exists")
-    example = Example(challenge=challenge, progress=progress, image=image)
-    example.save()
-    return HttpResponseRedirect(reverse('challenges:examples', kwargs={
-        'challenge_id': challenge.id,
-    }))

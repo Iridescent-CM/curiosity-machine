@@ -32,7 +32,7 @@
                   {% include "_video.html" with video=example.video %}
                 {% else %}
                 <div class="image-container" data-toggle="modal" data-target="#galleryModal" >
-                  <img src="{% resized example.image.url width=550 height=413 crop='fit' %}" />
+                  <img src="{% resized example.image.url width=330 height=200 crop='fill' %}" />
                 </div>
                 {% endif %}
 
@@ -45,7 +45,7 @@
     {% endif %}
 
     <div class="text-center">
-      <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary">View the Inspiration Gallery</a>
+      <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary ig-button">View the Inspiration Gallery</a>
     </div>
   </div>
 

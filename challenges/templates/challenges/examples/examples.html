@@ -6,7 +6,11 @@
 {% block content %}
   <div class="examples-top-panel">
     <div class="container">
+      {% if request.user.is_authenticated and request.user.profile.is_student %}
+      <h3><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a></h3>
+      {% else %}
       <h3><a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">{{ challenge.name }}</a></h3>
+      {% endif %}
       <h1>Inspiration Gallery</h1>
     </div>
   </div>
@@ -18,7 +22,7 @@
     <div id="student-in-progress" class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>You are working on this design challenge!</h3>
       <p>Complete your project and post in Reflect. Then you can share your design here!</p>
-      <a href="#" class="btn btn-primary">Keep Working</a>
+      <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Keep Working</a>
     </div>
     {% endif %}
 
@@ -26,25 +30,19 @@
     {% if request.user.profile.is_student and not progress %}
     <div id="student-not-started" class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>Want to {{ challenge.name }}?</h3>
-      <a href="#" class="btn btn-primary">Start Building</a>
+      <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
+      {% csrf_token %}
+        <input type="submit" value="Start Building" class="btn btn-primary"/>
+      </form>
     </div>
     {% endif %}
 
     <!-- student who has started the challenge AND posted in Reflect progress -->
-    {% if progress.completed and not user_has_example %}
+    {% if progress.completed and not user_example %}
     <div id="student-completed" class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>Add your project!</h3>
       <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
       <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
-
-
-      <!-- A Pending Example submission -->
-      <!--
-      <div class="alert alert-info m-t-md" role="alert">
-        <strong>Thanks for submitting your project!</strong> Once your photo has been approved, it will show up in the gallery for everyone to see.
-      </div>
-      -->
-
 
       <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -55,7 +53,7 @@
               </button>
               <h3>Choose a Photo</h3>
             </div>
-            <form method="POST" action="{% url "challenges:add_example" challenge_id=challenge.id %}">
+            <form method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
               <div class="modal-body text-center">
                 <p>Your images from {{ challenge.name }}</p>
                 <div class="row">
@@ -64,7 +62,7 @@
                   <div class="col-md-6">
                     <input type="radio" name="example" id="example-{{image.id}}" value="{{image.id}}">
                     <label for="example-{{image.id}}">
-                      <img src="{{ image.url }}" alt="">
+                      <img src="{% resized image.url width=330 height=200 crop='fill' %}" alt="">
                     </label>
                   </div>
                   {% empty %}
@@ -83,6 +81,13 @@
     </div>
     {% endif %}
 
+    <!-- A Pending Example submission -->
+    {% if user_example and not user_example.approved %}
+    <div id="student-example-pending" class="alert alert-info m-t-md" role="alert">
+      <strong>Thanks for submitting your project!</strong> Once your photo has been approved, it will show up in the gallery for everyone to see.
+    </div>
+    {% endif %}
+
     <div class="row text-center">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=examples anchor="examples" %}
     </div>
@@ -98,6 +103,11 @@
               <div class="pending"><em>Pending Approval!</em></div>
             {% endif %}
           </a>
+          {% if example == user_example %}
+          <div class="remove-example">
+            <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="action-img">&#215;</a>
+          </div>
+          {% endif %}
           <div class="card-block text-center">
             <p class="card-title">{{ example.progress.student.username }}</p>
           </div>
@@ -114,11 +124,37 @@
               <h3>{{ example.progress.student.username }}'s {{ challenge.name }}</h3>
             </div>
             <div class="modal-body text-center">
-              <img src="{% resized example.image.url crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+              <img src="{% resized example.image.url %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
             </div>
           </div>
         </div>
       </div>
+
+      {% if example == user_example %}
+      <div class="modal fade" id="remove-example-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3>Remove your project?</h3>
+            </div>
+            <div class="modal-body text-center">
+              <p>You can re-submit this image or another, but it will need to go through the approval process again.</p>
+            </div>
+            <div class="modal-footer">
+              <form action="{% url "challenges:delete_example" challenge_id=challenge.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="example-id" value="{{example.id}}" />
+                <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                <input type="submit" class="btn btn-primary">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
       {% empty %}
 
       <div class="text-center p-a-md m-y-md">

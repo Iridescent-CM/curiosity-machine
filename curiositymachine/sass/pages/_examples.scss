@@ -28,6 +28,10 @@
     margin-bottom: 0px;
   }
 
+  .modal-footer a {
+    margin-right: $small-spacing;
+  }
+
   #choose-photo {
 
     .modal-body {
@@ -60,9 +64,9 @@
     position: relative;
     display: block;
     padding: $small-spacing/2;
-    top: -55px;
+    top: -36px;
     text-align: center;
-    margin-bottom: -55px;
+    margin-bottom: -36px;
   }
 
   .examples-page-alerts {
@@ -71,10 +75,6 @@
     background-color: lighten($light-gray, 70%);
 
     i {
-      margin-right: $small-spacing;
-    }
-
-    a {
       margin-right: $small-spacing;
     }
   }
