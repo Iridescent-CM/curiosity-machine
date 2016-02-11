@@ -552,7 +552,6 @@ def test_signal_progress_considered_complete():
 
     progress = challenges.factories.ProgressFactory()
     mentor = profiles.factories.MentorFactory()
-    # progress.approve(approver=mentor)
     first_reflect_post = cmcomments.factories.ReflectionCommentFactory(challenge_progress=progress, user=progress.student)
 
     handler.assert_called_once_with(signal=signal, sender=progress.student, progress=progress)

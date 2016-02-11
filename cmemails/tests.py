@@ -165,6 +165,33 @@ def test_handler_student_posted_reflect_comment_with_image():
         assert len(send.mock_calls) == 1
         assert send.call_args[1]['template_name'] == 'mentor-student-completed-project-w-photo'
 
+def test_handle_complete_progress_without_mentor():
+    student = profiles.factories.StudentFactory.build()
+    progress = challenges.factories.ProgressFactory.build(student=student, challenge__id=5)
+
+    with mock.patch('cmemails.signals.handlers.send') as send:
+        signals.handlers.handle_complete_progress(student, progress)
+        assert len(send.mock_calls) == 1
+        assert send.call_args[1]['template_name'] == 'student-completed-project'
+        merge_vars = send.call_args[1]['merge_vars']
+        assert merge_vars['studentname'] == student.username
+        assert merge_vars['challengename'] == progress.challenge.name
+        assert 'inspiration_url' in merge_vars
+
+def test_handle_complete_progress_with_mentor():
+    student = profiles.factories.StudentFactory.build()
+    mentor = profiles.factories.MentorFactory.build()
+    progress = challenges.factories.ProgressFactory.build(student=student, mentor=mentor, challenge__id=5)
+
+    with mock.patch('cmemails.signals.handlers.send') as send:
+        signals.handlers.handle_complete_progress(student, progress)
+        assert len(send.mock_calls) == 2
+        assert send.call_args_list[0][1]['template_name'] == 'mentor-student-completed-project'
+        assert send.call_args_list[1][1]['template_name'] == 'student-completed-project'
+        mentor_merge_vars = send.call_args_list[0][1]['merge_vars']
+        assert mentor_merge_vars['studentname'] == student.username
+        assert 'progress_url' in mentor_merge_vars
+
 def test_handler_created_account_ccs_mentor_relationship_managers():
     mentor = profiles.factories.MentorFactory.build()
 

@@ -3,6 +3,7 @@ from django.conf import settings
 from django.dispatch import receiver
 from django.core.urlresolvers import reverse
 from cmemails import deliver_email, send, subscribe
+from cmemails.mandrill import url_for_template
 from challenges.models import Stage
 import urllib.parse
 import re
@@ -29,7 +30,24 @@ def approved_project_for_gallery(sender, example, **kwargs):
 
 @receiver(signals.progress_considered_complete)
 def handle_complete_progress(sender, progress, **kwargs):
-    deliver_email('project_completion', progress.student.profile, progress=progress, stage=Stage.reflect.name)
+    if progress.mentor:
+        path = reverse('challenges:challenge_progress', kwargs={
+            "challenge_id": progress.challenge.id,
+            "username": sender.username
+        })
+        send(template_name='mentor-student-completed-project', to=progress.mentor, merge_vars={
+            "studentname": progress.student.username,
+            "progress_url": url_for_template(path),
+        })
+
+    path = reverse('challenges:examples', kwargs={
+        "challenge_id": progress.challenge.id
+    })
+    send(template_name='student-completed-project', to=progress.student, merge_vars={
+        "studentname": progress.student.username,
+        "challengename": progress.challenge.name,
+        "inspiration_url": url_for_template(path)
+    })
 
 @receiver(signals.posted_comment)
 def posted_comment(sender, comment, **kwargs):
