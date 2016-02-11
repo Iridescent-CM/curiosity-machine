@@ -64,24 +64,10 @@ def posted_comment(sender, comment, **kwargs):
             "username": sender.username,
             "stage": Stage(comment.stage).name
         })
-        # mailchimp insists on adding http:// to button urls coming from variables
-        most_of_url = re.sub(r'.*://', '', urllib.parse.urljoin(settings.SITE_URL, path))
-
-        if comment.stage != Stage.reflect.value:
-            send(template_name='mentor-student-responded-to-feedback', to=progress.mentor, merge_vars={
-                "studentname": sender.username,
-                "progress_url": most_of_url
-            })
-        elif comment.stage == Stage.reflect.value and comment.image:
-            send(template_name='mentor-student-completed-project-w-photo', to=progress.mentor, merge_vars={
-                "studentname": sender.username,
-                "progress_url": most_of_url
-            })
-        else:
-            send(template_name='mentor-student-completed-project-w-o-photo', to=progress.mentor, merge_vars={
-                "studentname": sender.username,
-                "progress_url": most_of_url
-            })
+        send(template_name='mentor-student-responded-to-feedback', to=progress.mentor, merge_vars={
+            "studentname": sender.username,
+            "progress_url": url_for_template(path)
+        })
 
 @receiver(signals.approved_training_task)
 def approved_training_task(sender, user, task, **kwargs):

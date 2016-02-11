@@ -550,11 +550,15 @@ def test_signal_progress_considered_complete():
     signal = signals.progress_considered_complete
     signal.connect(handler)
 
+    handler2 = mock.MagicMock()
+    signals.posted_comment.connect(handler2)
+
     progress = challenges.factories.ProgressFactory()
     mentor = profiles.factories.MentorFactory()
     first_reflect_post = cmcomments.factories.ReflectionCommentFactory(challenge_progress=progress, user=progress.student)
 
     handler.assert_called_once_with(signal=signal, sender=progress.student, progress=progress)
+    handler2.assert_not_called()
 
 @pytest.mark.django_db
 def test_signal_created_account():
