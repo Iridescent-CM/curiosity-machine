@@ -115,11 +115,6 @@ class Progress(models.Model):
     def is_first_project(self):
         return self.student.progresses.count() == 1
 
-    def approve(self, approver=None):
-        self.approved=now()
-        self.save()
-        signals.approved_project_for_reflection.send(sender=approver, progress=self)
-
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")

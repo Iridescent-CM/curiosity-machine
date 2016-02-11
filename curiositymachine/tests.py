@@ -15,6 +15,7 @@ from django.conf import settings
 from . import signals
 import challenges.factories
 import profiles.factories
+import cmcomments.factories
 from training.models import Module
 
 def force_true(*args, **kwargs):
@@ -544,16 +545,17 @@ def test_signal_mentor_posted_comment():
     handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.mentor, comment=comment)
 
 @pytest.mark.django_db
-def test_signal_approved_project_for_reflection():
+def test_signal_progress_considered_complete():
     handler = mock.MagicMock()
-    signal = signals.approved_project_for_reflection
+    signal = signals.progress_considered_complete
     signal.connect(handler)
 
     progress = challenges.factories.ProgressFactory()
     mentor = profiles.factories.MentorFactory()
-    progress.approve(approver=mentor)
+    # progress.approve(approver=mentor)
+    first_reflect_post = cmcomments.factories.ReflectionCommentFactory(challenge_progress=progress, user=progress.student)
 
-    handler.assert_called_once_with(signal=signal, sender=mentor, progress=progress)
+    handler.assert_called_once_with(signal=signal, sender=progress.student, progress=progress)
 
 @pytest.mark.django_db
 def test_signal_created_account():

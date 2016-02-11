@@ -27,8 +27,8 @@ def started_first_project(sender, progress, **kwargs):
 def approved_project_for_gallery(sender, example, **kwargs):
     deliver_email('publish', example.progress.student.profile, progress=example.progress)
 
-@receiver(signals.approved_project_for_reflection)
-def approved_project_for_reflection(sender, progress, **kwargs):
+@receiver(signals.progress_considered_complete)
+def handle_complete_progress(sender, progress, **kwargs):
     deliver_email('project_completion', progress.student.profile, progress=progress, stage=Stage.reflect.name)
 
 @receiver(signals.posted_comment)

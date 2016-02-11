@@ -3,7 +3,7 @@ import mock
 from pyquery import PyQuery as pq
 from .models import Challenge, Progress, Theme, Favorite, Stage, Filter, Example
 from cmcomments.models import Comment
-from .views import challenges, challenge_progress_approve, unclaimed_progresses, claim_progress, challenge_progress, preview_inspiration, start_building
+from .views import challenges, unclaimed_progresses, claim_progress, challenge_progress, preview_inspiration, start_building
 from profiles.tests import student, mentor
 from django.contrib.auth.models import User, AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
@@ -327,36 +327,6 @@ def test_user_has_started_challenge(progress, challenge2):
     challenge = progress.challenge
     assert user_has_started_challenge(student, challenge)
     assert not user_has_started_challenge(student, challenge2)
-
-@pytest.mark.django_db
-def test_mentor_can_approve(rf, progress):
-    assert not progress.approved
-
-    request = rf.post('/challenges/1/approve', {'approve': 'anyvalue'})
-    request.user = progress.mentor
-    request.session = 'session'
-    request._messages = FallbackStorage(request)
-    response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
-    assert response.status_code == 302
-    assert Progress.objects.get(id=progress.id).approved
-
-    request = rf.post('/challenges/1/approve', {})
-    request.user = progress.mentor
-    request.session = 'session'
-    request._messages = FallbackStorage(request)
-    response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
-    assert response.status_code == 302
-    assert not Progress.objects.get(id=progress.id).approved
-
-@pytest.mark.django_db
-def test_student_cannot_approve(rf, progress):
-    assert not progress.approved
-
-    request = rf.post('/challenges/1/approve')
-    request.user = progress.student
-    with pytest.raises(PermissionDenied):
-        response = challenge_progress_approve(request, progress.challenge.id, progress.student.username)
-    assert not Progress.objects.get(id=progress.id).approved
 
 @pytest.mark.django_db
 def test_unclaimed_progresses_response_code(rf, mentor, unclaimed_progress):
