@@ -116,6 +116,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "curiositymachine.context_processors.google_analytics",
     "curiositymachine.context_processors.feature_flags",
     "curiositymachine.context_processors.template_globals",
+    "curiositymachine.context_processors.staff_alerts",
 )
 
 # Any environment variable beginning with ENABLE_ will end up in template contexts
