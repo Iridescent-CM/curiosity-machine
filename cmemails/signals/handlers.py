@@ -9,7 +9,7 @@ import urllib.parse
 import re
 
 @receiver(signals.created_account)
-def created_account(sender, **kwargs):
+def send_welcome_email(sender, **kwargs):
     if sender.profile.is_mentor:
         send(template_name='mentor-welcome-email', to=sender, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
     else:
@@ -17,19 +17,19 @@ def created_account(sender, **kwargs):
     subscribe(sender)
 
 @receiver(signals.underage_activation_confirmed)
-def underage_activation_confirmed(sender, account, **kwargs):
+def send_activation_confirmation(sender, account, **kwargs):
     deliver_email('activation_confirmation', account.profile)
 
 @receiver(signals.started_first_project)
-def started_first_project(sender, progress, **kwargs):
+def send_first_project_encouragement(sender, progress, **kwargs):
     deliver_email('first_project', sender.profile)
 
 @receiver(signals.approved_project_for_gallery)
-def approved_project_for_gallery(sender, example, **kwargs):
+def send_example_publication_notice(sender, example, **kwargs):
     deliver_email('publish', example.progress.student.profile, progress=example.progress)
 
 @receiver(signals.progress_considered_complete)
-def handle_complete_progress(sender, progress, **kwargs):
+def send_mentor_progress_completion_notice(sender, progress, **kwargs):
     if progress.mentor:
         path = reverse('challenges:challenge_progress', kwargs={
             "challenge_id": progress.challenge.id,
@@ -40,6 +40,8 @@ def handle_complete_progress(sender, progress, **kwargs):
             "progress_url": url_for_template(path),
         })
 
+@receiver(signals.progress_considered_complete)
+def send_student_challenge_share_encouragement(sender, progress, **kwargs):
     path = reverse('challenges:examples', kwargs={
         "challenge_id": progress.challenge.id
     })
@@ -50,15 +52,13 @@ def handle_complete_progress(sender, progress, **kwargs):
     })
 
 @receiver(signals.posted_comment)
-def posted_comment(sender, comment, **kwargs):
+def send_mentor_progress_update_notice(sender, comment, **kwargs):
     progress = comment.challenge_progress
 
     if not progress.mentor:
         return
 
-    if sender.profile.is_mentor:
-        deliver_email('mentor_responded', progress.student.profile, progress=progress, mentor=progress.mentor.profile)
-    elif sender.profile.is_student:
+    if sender.profile.is_student:
         path = reverse('challenges:challenge_progress', kwargs={
             "challenge_id": progress.challenge.id,
             "username": sender.username,
@@ -69,11 +69,18 @@ def posted_comment(sender, comment, **kwargs):
             "progress_url": url_for_template(path)
         })
 
+@receiver(signals.posted_comment)
+def send_student_mentor_response_notice(sender, comment, **kwargs):
+    progress = comment.challenge_progress
+
+    if sender.profile.is_mentor:
+        deliver_email('mentor_responded', progress.student.profile, progress=progress, mentor=progress.mentor.profile)
+
 @receiver(signals.approved_training_task)
-def approved_training_task(sender, user, task, **kwargs):
+def send_training_task_approval_notice(sender, user, task, **kwargs):
     if task.completion_email_template:
         send(template_name=task.completion_email_template, to=user)
 
 @receiver(signals.completed_training)
-def completed_training(sender, approver, **kwargs):
+def send_training_completion_notice(sender, approver, **kwargs):
     send(template_name='mentor-account-approved', to=sender)
