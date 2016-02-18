@@ -14,7 +14,7 @@ class CommentFactory(factory.django.DjangoModelFactory):
         Stage.inspiration.value,
         Stage.plan.value,
         Stage.build.value,
-        # Stage.test.value omitted until fix gets merged
+        Stage.test.value
         # no Stage.reflect.value by default because of its special semantics for completedness
     ])
     question_text = factory.LazyAttribute(lambda o: "This is the question text." if Stage(int(o.stage)) == Stage.reflect else "")
