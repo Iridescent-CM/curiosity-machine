@@ -222,15 +222,13 @@ class ExampleQuerySet(models.QuerySet):
             return self
 
     def reject(self, user=None):
-        count = self.update(approved=False)
         signals.inspiration_gallery_submissions_rejected.send(sender=user, queryset=self)
-        return count
+        return self.update(approved=False)
     reject.queryset_only = True
 
     def approve(self, user=None):
-        count = self.update(approved=True)
         signals.inspiration_gallery_submissions_approved.send(sender=user, queryset=self)
-        return count
+        return self.update(approved=True)
     approve.queryset_only = True
 
 class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)

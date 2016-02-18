@@ -26,10 +26,28 @@ def send_first_project_encouragement(sender, progress, **kwargs):
 
 @receiver(signals.inspiration_gallery_submission_created)
 def send_example_submission_notice(sender, example, **kwargs):
-    send(template_name='', to=sender, merge_vars={
+    send(template_name='student-submitted-example', to=sender, merge_vars={
         'challengename': example.challenge.name,
         'challenges_url': url_for_template(reverse('challenges:challenges'))
     })
+
+@receiver(signals.inspiration_gallery_submissions_rejected)
+def send_example_rejection_notices(sender, queryset, **kwargs):
+    for example in queryset.all():
+        path = reverse("challenges:examples", kwargs={ "challenge_id": example.challenge.id })
+        send(template_name='student-example-declined', to=example.progress.student, merge_vars={
+            'challengename': example.challenge.name,
+            'url': url_for_template(path)
+        })
+
+@receiver(signals.inspiration_gallery_submissions_approved)
+def send_example_approval_notices(sender, queryset, **kwargs):
+    for example in queryset.all():
+        path = reverse("challenges:examples", kwargs={ "challenge_id": example.challenge.id })
+        send(template_name='student-example-approved', to=example.progress.student, merge_vars={
+            'challengename': example.challenge.name,
+            'url': url_for_template(path)
+        })
 
 @receiver(signals.progress_considered_complete)
 def send_mentor_progress_completion_notice(sender, progress, **kwargs):
