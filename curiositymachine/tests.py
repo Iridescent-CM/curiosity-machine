@@ -580,3 +580,30 @@ def test_signal_inspiration_gallery_submission_created():
     example = challenges.factories.ExampleFactory()
 
     handler.assert_called_once_with(signal=signal, sender=example.progress.student, example=example)
+
+@pytest.mark.django_db
+def test_signal_inspiration_gallery_submissions_rejected():
+    handler = mock.MagicMock()
+    signal = signals.inspiration_gallery_submissions_rejected
+    signal.connect(handler)
+
+    example = challenges.factories.ExampleFactory()
+    user = profiles.factories.UserFactory()
+    qs = Example.objects.all()
+    qs.reject(user=user)
+
+    handler.assert_called_once_with(signal=signal, sender=user, queryset=qs)
+
+@pytest.mark.django_db
+def test_signal_inspiration_gallery_submissions_approved():
+    handler = mock.MagicMock()
+    signal = signals.inspiration_gallery_submissions_approved
+    signal.connect(handler)
+
+    example = challenges.factories.ExampleFactory()
+    user = profiles.factories.UserFactory()
+    qs = Example.objects.all()
+    qs.approve(user=user)
+
+    handler.assert_called_once_with(signal=signal, sender=user, queryset=qs)
+

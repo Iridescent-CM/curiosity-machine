@@ -786,3 +786,38 @@ def test_example_queryset_for_gallery():
     assert approved in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
     assert pending in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
     assert rejected not in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
+
+@pytest.mark.django_db
+def test_example_queryset_reject():
+    user = StudentFactory(username="user", password="password")
+    challenge = ChallengeFactory()
+    progress = ProgressFactory(challenge=challenge, student=user)
+    pending = ExampleFactory(challenge=challenge, progress=progress, approved=None)
+
+    assert Example.objects.status(pending=True).reject() == 1
+    assert Example.objects.get(pk=pending.id).approved == False
+
+@pytest.mark.django_db
+def test_example_queryset_reject_many():
+    ExampleFactory.create_batch(5, approved=None)
+    ExampleFactory.create_batch(5, approved=True)
+
+    assert Example.objects.status(pending=True).reject() == 5
+
+@pytest.mark.django_db
+def test_example_queryset_approve():
+    user = StudentFactory(username="user", password="password")
+    challenge = ChallengeFactory()
+    progress = ProgressFactory(challenge=challenge, student=user)
+    pending = ExampleFactory(challenge=challenge, progress=progress, approved=None)
+
+    assert Example.objects.status(pending=True).approve() == 1
+    assert Example.objects.get(pk=pending.id).approved == True
+
+@pytest.mark.django_db
+def test_example_queryset_approve_many():
+    ExampleFactory.create_batch(5, approved=None)
+    ExampleFactory.create_batch(5, approved=False)
+
+    assert Example.objects.status(pending=True).approve() == 5
+

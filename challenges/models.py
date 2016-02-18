@@ -221,6 +221,18 @@ class ExampleQuerySet(models.QuerySet):
         else:
             return self
 
+    def reject(self, user=None):
+        count = self.update(approved=False)
+        signals.inspiration_gallery_submissions_rejected.send(sender=user, queryset=self)
+        return count
+    reject.queryset_only = True
+
+    def approve(self, user=None):
+        count = self.update(approved=True)
+        signals.inspiration_gallery_submissions_approved.send(sender=user, queryset=self)
+        return count
+    approve.queryset_only = True
+
 class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
     challenge = models.ForeignKey(Challenge)
     progress = models.ForeignKey(Progress, null=True, blank=True, on_delete=models.SET_NULL, help_text="An optional association with a specific student's progress on a challenge.")
