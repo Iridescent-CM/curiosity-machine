@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods, require_POST
-from django.db.models import Q
 from django.utils.timezone import now
 from django.conf import settings
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
