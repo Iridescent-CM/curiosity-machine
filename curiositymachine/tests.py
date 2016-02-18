@@ -510,20 +510,6 @@ def test_signal_student_started_first_project():
     handler.assert_called_once_with(signal=signals.started_first_project, progress=first_progress, sender=user)
 
 @pytest.mark.django_db
-def test_signal_mentor_approved_project_for_gallery():
-    handler = mock.MagicMock()
-    signals.approved_project_for_gallery.connect(handler)
-
-    user = User.objects.create(username='user', email='useremail')
-    user2 = User.objects.create(username='user2', email='useremail2')
-    user2.profile.is_mentor=True
-    challenge = Challenge.objects.create(name='challenge')
-    progress = Progress.objects.create(student=user, challenge=challenge, mentor=user2)
-    example = Example.objects.create(challenge=challenge, progress=progress)
-
-    handler.assert_called_once_with(signal=signals.approved_project_for_gallery, sender=user2, example=example)
-
-@pytest.mark.django_db
 def test_signal_student_posted_comment():
     handler = mock.MagicMock()
     signals.posted_comment.connect(handler)
@@ -584,3 +570,13 @@ def test_signal_approved_training_task():
     task.mark_mentor_as_done(user, approver)
 
     handler.assert_called_once_with(signal=signal, sender=approver, user=user, task=task)
+
+@pytest.mark.django_db
+def test_signal_inspiration_gallery_submission_created():
+    handler = mock.MagicMock()
+    signal = signals.inspiration_gallery_submission_created
+    signal.connect(handler)
+
+    example = challenges.factories.ExampleFactory()
+
+    handler.assert_called_once_with(signal=signal, sender=example.progress.student, example=example)

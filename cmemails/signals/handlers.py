@@ -24,9 +24,12 @@ def send_activation_confirmation(sender, account, **kwargs):
 def send_first_project_encouragement(sender, progress, **kwargs):
     deliver_email('first_project', sender.profile)
 
-@receiver(signals.approved_project_for_gallery)
-def send_example_publication_notice(sender, example, **kwargs):
-    deliver_email('publish', example.progress.student.profile, progress=example.progress)
+@receiver(signals.inspiration_gallery_submission_created)
+def send_example_submission_notice(sender, example, **kwargs):
+    send(template_name='', to=sender, merge_vars={
+        'challengename': example.challenge.name,
+        'challenges_url': url_for_template(reverse('challenges:challenges'))
+    })
 
 @receiver(signals.progress_considered_complete)
 def send_mentor_progress_completion_notice(sender, progress, **kwargs):
