@@ -718,3 +718,71 @@ def test_examples_delete_view_cannot_delete_other_users_example(client):
 
     assert response.status_code == 404
     assert Example.objects.get(pk=example.id).approved != False
+
+@pytest.mark.django_db
+def test_example_queryset_from_progress():
+    user = StudentFactory(username="user", password="password")
+    challenge = ChallengeFactory()
+    progress = ProgressFactory(challenge=challenge, student=user)
+    approved = ExampleFactory(challenge=challenge, progress=progress, approved=True)
+    pending = ExampleFactory(challenge=challenge, progress=progress, approved=None)
+    rejected = ExampleFactory(challenge=challenge, progress=progress, approved=False)
+
+    challenge2 = ChallengeFactory()
+    progress2 = ProgressFactory(challenge=challenge2, student=user)
+    approved2 = ExampleFactory(challenge=challenge2, progress=progress2, approved=True)
+
+    assert approved in Example.objects.from_progress(progress=progress)
+    assert pending in Example.objects.from_progress(progress=progress)
+    assert rejected in Example.objects.from_progress(progress=progress)
+    assert approved2 not in Example.objects.from_progress(progress=progress)
+
+@pytest.mark.django_db
+def test_example_queryset_status():
+    user = StudentFactory(username="user", password="password")
+    challenge = ChallengeFactory()
+    progress = ProgressFactory(challenge=challenge, student=user)
+    approved = ExampleFactory(challenge=challenge, progress=progress, approved=True)
+    pending = ExampleFactory(challenge=challenge, progress=progress, approved=None)
+    rejected = ExampleFactory(challenge=challenge, progress=progress, approved=False)
+
+    assert approved in Example.objects.status(approved=True)
+    assert pending not in Example.objects.status(approved=True)
+    assert rejected not in Example.objects.status(approved=True)
+
+    assert approved not in Example.objects.status(pending=True)
+    assert pending in Example.objects.status(pending=True)
+    assert rejected not in Example.objects.status(pending=True)
+
+    assert approved not in Example.objects.status(rejected=True)
+    assert pending not in Example.objects.status(rejected=True)
+    assert rejected in Example.objects.status(rejected=True)
+
+    assert approved not in Example.objects.status(approved=False)
+    assert pending not in Example.objects.status(pending=False)
+    assert rejected not in Example.objects.status(rejected=False)
+
+    assert approved in Example.objects.status(approved=True, pending=True, rejected=True)
+    assert pending in Example.objects.status(approved=True, pending=True, rejected=True)
+    assert rejected in Example.objects.status(approved=True, pending=True, rejected=True)
+
+@pytest.mark.django_db
+def test_example_queryset_for_gallery():
+    user = StudentFactory(username="user", password="password")
+    challenge = ChallengeFactory()
+    progress = ProgressFactory(challenge=challenge, student=user)
+    approved = ExampleFactory(challenge=challenge, progress=progress, approved=True)
+    pending = ExampleFactory(challenge=challenge, progress=progress, approved=None)
+    rejected = ExampleFactory(challenge=challenge, progress=progress, approved=False)
+
+    assert approved in Example.objects.for_gallery(challenge_id=challenge.id).all()
+    assert pending not in Example.objects.for_gallery(challenge_id=challenge.id).all()
+    assert rejected not in Example.objects.for_gallery(challenge_id=challenge.id).all()
+
+    assert approved in Example.objects.for_gallery(challenge=challenge).all()
+    assert pending not in Example.objects.for_gallery(challenge=challenge).all()
+    assert rejected not in Example.objects.for_gallery(challenge=challenge).all()
+
+    assert approved in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
+    assert pending in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
+    assert rejected not in Example.objects.for_gallery(challenge=challenge, progress=progress).all()

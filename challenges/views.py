@@ -93,7 +93,7 @@ def preview_inspiration(request, challenge_id):
 
     return render(request, 'challenges/preview/inspiration.html', {
         'challenge': challenge,
-        'examples': Example.objects.filter(challenge=challenge, approved=True).order_by('-id')[:4],
+        'examples': Example.objects.for_gallery(challenge=challenge)[:4],
     })
 
 def preview_plan(request, challenge_id):
@@ -161,7 +161,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         return render(request, 'challenges/progress/inspiration.html', {
             'challenge': challenge,
             'progress': progress,
-            'examples': Example.objects.filter(challenge=challenge, approved=True).order_by('-id')[:4],
+            'examples': Example.objects.for_gallery(challenge=challenge)[:4],
         })
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
@@ -246,18 +246,14 @@ class ExamplesView(View):
         if require_login_for(request, challenge):
             raise LoginRequired()
 
-        examples = Example.objects.exclude(approved=False).filter(challenge_id=challenge_id)
-
         if request.user.is_authenticated():
             progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-            examples = examples.filter(Q(approved=True) | Q(progress=progress))
+            examples = Example.objects.for_gallery(challenge=challenge, progress=progress)
             user_example = examples.filter(progress=progress).first()
         else:
             progress = None
-            examples = examples.filter(Q(approved=True))
+            examples = Example.objects.for_gallery(challenge=challenge)
             user_example = None
-
-        examples = examples.order_by('-id')
 
         page = request.GET.get('page')
         paginator = Paginator(examples, settings.EXAMPLES_PER_PAGE)
@@ -283,7 +279,7 @@ class ExamplesView(View):
 
         if not image.comments.filter(user=request.user, challenge_progress=progress).exists():
             raise Http404("Image not found for this challenge")
-        if Example.objects.exclude(approved=False).filter(challenge=challenge, progress=progress).exists():
+        if Example.objects.from_progress(progress=progress).status(approved=True, pending=True).exists():
             return HttpResponse(status=409, reason="Example already exists")
         example = Example(challenge=challenge, progress=progress, image=image)
         example.save()
