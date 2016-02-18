@@ -126,14 +126,7 @@ def redirect_to_stage(request, challenge_id, username):
     except Progress.DoesNotExist:
         return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge.id,}))
 
-    if progress.approved:
-        stageToShow = Stage.reflect
-    else:
-        latestStage = get_stage_for_progress(progress)
-        if latestStage == Stage.test:
-            stageToShow = Stage.build
-        else:
-            stageToShow = latestStage
+    stageToShow = get_stage_for_progress(progress)
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
         'challenge_id': challenge.id,
         'username': username,
@@ -156,7 +149,9 @@ def challenge_progress(request, challenge_id, username, stage=None):
     except KeyError:
         raise Http404("Stage does not exist")
 
-    if stageToShow == Stage.inspiration:
+    if stageToShow == Stage.test:
+        stageToShow = Stage.build
+    elif stageToShow == Stage.inspiration:
         return render(request, 'challenges/progress/inspiration.html', {
             'challenge': challenge,
             'progress': progress,
