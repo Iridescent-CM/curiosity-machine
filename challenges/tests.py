@@ -205,7 +205,7 @@ def test_challenge_progress_furthest_progress_build_redirects_to_build(client, s
     }) in response.url
 
 @pytest.mark.django_db
-def test_challenge_progress_furthest_progress_test_redirects_to_build(client, student_comment, loggedInStudent):
+def test_challenge_progress_furthest_progress_test_redirects_to_test(client, student_comment, loggedInStudent):
     student_comment.stage = Stage.test.value
     student_comment.user = loggedInStudent
     student_comment.save()
@@ -221,7 +221,7 @@ def test_challenge_progress_furthest_progress_test_redirects_to_build(client, st
     assert reverse('challenges:challenge_progress', kwargs={
         'challenge_id':progress.challenge.id,
         'username': loggedInStudent.username,
-        'stage': Stage.build.name
+        'stage': Stage.test.name
     }) in response.url
 
 @pytest.mark.django_db
