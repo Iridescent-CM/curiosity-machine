@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods, require_POST
-from django.db.models import Q
 from django.utils.timezone import now
 from django.conf import settings
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
@@ -93,7 +92,7 @@ def preview_inspiration(request, challenge_id):
 
     return render(request, 'challenges/preview/inspiration.html', {
         'challenge': challenge,
-        'examples': Example.objects.filter(challenge=challenge, approved=True).order_by('-id')[:4],
+        'examples': Example.objects.for_gallery(challenge=challenge)[:4],
     })
 
 def preview_plan(request, challenge_id):
@@ -156,7 +155,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         return render(request, 'challenges/progress/inspiration.html', {
             'challenge': challenge,
             'progress': progress,
-            'examples': Example.objects.filter(challenge=challenge, approved=True).order_by('-id')[:4],
+            'examples': Example.objects.for_gallery(challenge=challenge)[:4],
         })
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
@@ -167,32 +166,6 @@ def challenge_progress(request, challenge_id, username, stage=None):
         'comments': progress.comments.all(),
         'materials_form': MaterialsForm(progress=progress)
     })
-
-# Any POST to this by the assigned mentor moves a challenge progress into the reflect stage (marks approve=True); any DELETE reverses that
-@require_http_methods(["POST"])
-@login_required
-def challenge_progress_approve(request, challenge_id, username):
-    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
-
-    #Only the mentor assigned to the progress can approve/un-approve it
-    if not request.user == progress.mentor:
-        raise PermissionDenied
-
-    if request.POST.get("approve", False):
-        progress.approve(approver=request.user)
-        messages.success(request, 'Student was moved to Reflect')
-        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
-            'challenge_id': challenge_id,
-            'username': username,
-            'stage': Stage.reflect.name
-        }))
-    else:
-        Progress.objects.filter(id=progress.id).update(approved=None)
-        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
-            'challenge_id': challenge_id,
-            'username': username,
-            'stage': Stage.build.name
-        }))
 
 @mentor_only
 def unclaimed_progresses(request):
@@ -267,18 +240,14 @@ class ExamplesView(View):
         if require_login_for(request, challenge):
             raise LoginRequired()
 
-        examples = Example.objects.exclude(approved=False).filter(challenge_id=challenge_id)
-
         if request.user.is_authenticated():
             progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-            examples = examples.filter(Q(approved=True) | Q(progress=progress))
+            examples = Example.objects.for_gallery(challenge=challenge, progress=progress)
             user_example = examples.filter(progress=progress).first()
         else:
             progress = None
-            examples = examples.filter(Q(approved=True))
+            examples = Example.objects.for_gallery(challenge=challenge)
             user_example = None
-
-        examples = examples.order_by('-id')
 
         page = request.GET.get('page')
         paginator = Paginator(examples, settings.EXAMPLES_PER_PAGE)
@@ -304,7 +273,7 @@ class ExamplesView(View):
 
         if not image.comments.filter(user=request.user, challenge_progress=progress).exists():
             raise Http404("Image not found for this challenge")
-        if Example.objects.exclude(approved=False).filter(challenge=challenge, progress=progress).exists():
+        if Example.objects.from_progress(progress=progress).status(approved=True, pending=True).exists():
             return HttpResponse(status=409, reason="Example already exists")
         example = Example(challenge=challenge, progress=progress, image=image)
         example.save()

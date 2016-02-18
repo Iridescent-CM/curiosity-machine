@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.core.urlresolvers import reverse
@@ -10,6 +11,7 @@ from django.utils.safestring import mark_safe
 from django.db import connection
 from .validators import validate_color
 from curiositymachine import signals
+from functools import reduce
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
@@ -115,11 +117,6 @@ class Progress(models.Model):
     def is_first_project(self):
         return self.student.progresses.count() == 1
 
-    def approve(self, approver=None):
-        self.approved=now()
-        self.save()
-        signals.approved_project_for_reflection.send(sender=approver, progress=self)
-
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
@@ -187,6 +184,53 @@ class Favorite(models.Model):
         else:
             super(Favorite, self).save(*args, **kwargs)
 
+class ExampleQuerySet(models.QuerySet):
+
+    def for_gallery(self, **kwargs):
+        challenge_id = kwargs.get('challenge_id', None) or kwargs.get('challenge').id
+        progress = kwargs.get('progress', None)
+        f = Q(approved=True)
+        if progress:
+            f = f | Q(progress=progress, approved=None)
+        return self.filter(challenge_id=challenge_id).filter(f).order_by('-id')
+
+    def from_progress(self, **kwargs):
+        progress = kwargs.get('progress')
+        return self.filter(challenge=progress.challenge, progress=progress)
+
+    def status(self, **kwargs):
+        qs = []
+        if 'approved' in kwargs:
+            if kwargs.get('approved'):
+                qs.append(Q(approved=True))
+            else:
+                qs.append(~Q(approved=True))
+        if 'pending' in kwargs:
+            if kwargs.get('pending'):
+                qs.append(Q(approved__isnull=True))
+            else:
+                qs.append(Q(approved__isnull=False))
+        if 'rejected' in kwargs:
+            if kwargs.get('rejected'):
+                qs.append(Q(approved=False))
+            else:
+                qs.append(~Q(approved=False))
+
+        if len(qs) > 0:
+            return self.filter(reduce(lambda a, b: a | b, qs))
+        else:
+            return self
+
+    def reject(self, user=None):
+        signals.inspiration_gallery_submissions_rejected.send(sender=user, queryset=self)
+        return self.update(approved=False)
+    reject.queryset_only = True
+
+    def approve(self, user=None):
+        signals.inspiration_gallery_submissions_approved.send(sender=user, queryset=self)
+        return self.update(approved=True)
+    approve.queryset_only = True
+
 class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
     challenge = models.ForeignKey(Challenge)
     progress = models.ForeignKey(Progress, null=True, blank=True, on_delete=models.SET_NULL, help_text="An optional association with a specific student's progress on a challenge.")
@@ -194,6 +238,8 @@ class Example(models.Model): # media that a mentor has selected to be featured o
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, help_text="An image to display in the gallery. If a video is also set, this will be the thumbnail. Each example must have an image or a video, or both, to be displayed correctly.")
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, help_text="Each example must have an image or a video, or both, to be displayed correctly.")
     approved = models.NullBooleanField(db_index=True)
+
+    objects = ExampleQuerySet().as_manager()
 
     @property
     def name(self):

@@ -136,12 +136,12 @@ class ExampleAdmin(admin.ModelAdmin):
     search_fields = ['challenge__name', 'progress__student__username']
 
     def approve_all(modeladmin, request, queryset):
-        queryset.update(approved=True)
-    approve_all.short_description = "Approve selected examples"
+        queryset.approve()
+    approve_all.short_description = "Approve selected examples and notify"
 
     def reject_all(modeladmin, request, queryset):
-        queryset.update(approved=False)
-    reject_all.short_description = "Reject selected examples"
+        queryset.reject()
+    reject_all.short_description = "Reject selected examples and notify"
 
     actions = [approve_all, reject_all]
 
