@@ -104,9 +104,9 @@
             {% endif %}
           </a>
           {% if example == user_example %}
-          <div class="remove-example">
-            <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="action-img">&#215;</a>
-          </div>
+          <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="action-img remove-example">
+              &#215;
+          </a>
           {% endif %}
           <div class="card-block text-center">
             <p class="card-title">{{ example.progress.student.username }}</p>
@@ -155,6 +155,11 @@
         </div>
       </div>
       {% endif %}
+
+      {% if forloop.counter|divisibleby:2 %}
+        <div class="clearfix{% if not forloop.counter|divisibleby:4 %} hidden-md-up{% endif %}"></div>
+      {% endif %}
+
       {% empty %}
 
       <div class="text-center p-a-md m-y-md">
