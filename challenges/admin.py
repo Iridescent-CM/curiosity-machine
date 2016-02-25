@@ -102,7 +102,7 @@ class DefaultsToPendingApprovalFilter(admin.SimpleListFilter):
         return (
             (None, 'Pending (default)'),
             ('approved', 'Approved'),
-            ('rejected', 'Rejected'),
+            ('rejected', 'Rejected or deleted'),
             ('all', 'All'),
         )
 
