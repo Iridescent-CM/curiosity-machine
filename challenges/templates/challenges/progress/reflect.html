@@ -21,14 +21,16 @@
     {% endif %}
 
     {% if request.user.profile.is_student and progress.completed %}
-      <div class="panel green congratulations-panel">
+      <div class="panel white congratulations-panel">
         <div class="panel-body text-center">
-          <h2>Congratulations!</h2>
-          <p>
-            You just completed a design challenge! Now you can post a picture of your project to the Inspiration Gallery
-            to share with the community.
-          </p>
-          <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-link" style="color: white;">Go to the Inspiration Gallery</a>
+          <div class="col-md-6 col-md-offset-3 congratulations-panel-content">
+            <h2>Congratulations!</h2>
+            <p>
+              You just completed a design challenge! Now you can post a picture of your project to the Inspiration Gallery
+              to share with the community.
+            </p>
+            <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary btn-link">Go to the Inspiration Gallery</a>
+          </div>
         </div>
       </div>
     {% endif %}
