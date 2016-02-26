@@ -55,8 +55,10 @@
             </div>
             <form method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
               <div class="modal-body text-center">
-                <p>Your images from {{ challenge.name }}</p>
                 <div class="row">
+                  {% if image in progress.get_student_images %}
+                    <p>Your images from {{ challenge.name }}</p>
+                  {% endif %}
                   {% csrf_token %}
                   {% for image in progress.get_student_images %}
                   <div class="col-md-6">
@@ -66,13 +68,17 @@
                     </label>
                   </div>
                   {% empty %}
-                    <h3>You have not added any photos to this challenge!</h3>
+                    <p>You didn't post any photos to {{ challenge.name }}! Add a photo of your project, and then come back to share it in the Inspiration Gallery.</p>
                   {% endfor %}
                 </div>
               </div>
               <div class="modal-footer">
                 <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                {% if image in progress.get_student_images %}
                 <input type="submit" class="btn btn-primary">
+                {% else %}
+                <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Return to Challenge</a>
+                {% endif %}
               </div>
             </form>
           </div>
