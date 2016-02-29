@@ -2,6 +2,7 @@ from django.contrib import admin
 from datetime import date
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+from dateutil.relativedelta import relativedelta
 
 class StudentFilter(admin.SimpleListFilter):
     # Human-readable title which will be displayed in the
@@ -33,7 +34,7 @@ class StudentFilter(admin.SimpleListFilter):
         # Compare the requested value (either '80s' or '90s')
         # to decide how to filter the queryset.
         n = now()
-        thirteen_years_ago = date(n.year - 13, n.month, n.day)
+        thirteen_years_ago = n - relativedelta(years=13)
         queryset.filter(profile__birthday__isnull=False)
         if self.value() == 'underage':
             return queryset.filter(profile__birthday__gt=thirteen_years_ago)
