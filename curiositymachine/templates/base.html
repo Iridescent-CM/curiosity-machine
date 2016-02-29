@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{% block title %}Curiosity Machine{% endblock %}</title>
+  <title>{% block title %}Curiosity Machine – Hands-on Science Projects{% endblock %}</title>
   <!-- favicons -->
   <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicons/apple-touch-icon-57x57.png' %}">
   <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicons/apple-touch-icon-114x114.png' %}">
@@ -21,6 +21,11 @@
   <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-32x32.png' %}" sizes="32x32">
   <meta name="msapplication-TileColor" content="#ffc40d">
   <meta name="msapplication-TileImage" content="{% static 'images/favicons/mstile-144x144.png' %}">
+
+  <meta property="og:url" content="{{ SITE_URL }}" />
+  <meta property="og:title" content="Curiosity Machine – Hands-on Science Projects" />
+  <meta property="og:description" content="Free hands-on science and engineering projects for families and educators. Build 80+ projects with everyday household materials." />
+  <meta property="og:image" content="{{ SITE_URL }}{% static 'images/cm-thumbnail.jpg' %}" />
 
   <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600' rel='stylesheet' type='text/css'>
   {% block css %}{% endblock %}
@@ -147,7 +152,7 @@
           $('#introduction-modal').modal('show');
           $('#introduction-modal').on('hidden.bs.modal', function (){
             $("#intro-video")[0].pause();
-          });  
+          });
         });
       </script>
     {% endif %}
