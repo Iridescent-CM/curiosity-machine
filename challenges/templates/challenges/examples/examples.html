@@ -44,9 +44,10 @@
       <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
       <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
 
-      {% if progress.get_student_images %}
+
       <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
+          {% if progress.get_student_images %}
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -77,11 +78,7 @@
               </div>
             </form>
           </div>
-        </div>
-      </div>
-      {% else %}
-      <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+          {% else %}
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -104,9 +101,9 @@
               </div>
             </form>
           </div>
+          {% endif %}
         </div>
       </div>
-      {% endif %}
 
     </div>
     {% endif %}
