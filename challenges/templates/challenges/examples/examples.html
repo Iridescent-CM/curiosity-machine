@@ -2,6 +2,21 @@
 {% load resized %}
 {% load staticfiles %}
 
+{% block js %}
+  <script>
+    $(document).ready(function(){
+      var submitSelector = '#submit-form input[type="submit"]';
+      var radioSelector = '#submit-form [name="example"]';
+      var checkedRadioSelector = '#submit-form [name="example"]:checked';
+
+      $(submitSelector).prop('disabled', !$(checkedRadioSelector).val());
+      $(radioSelector).change(function (evt) {
+        $(submitSelector).prop('disabled', !$(checkedRadioSelector).val());
+      });
+    });
+  </script>
+{% endblock %}
+
 {% block body-id %}examples-page{% endblock %}
 {% block content %}
   <div class="examples-top-panel">
@@ -53,7 +68,7 @@
               </button>
               <h3>Choose a Photo</h3>
             </div>
-            <form method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
+            <form id="submit-form" method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
               <div class="modal-body text-center">
                 <p>Your images from {{ challenge.name }}</p>
                 <div class="row">

@@ -102,7 +102,7 @@ class DefaultsToPendingApprovalFilter(admin.SimpleListFilter):
         return (
             (None, 'Pending (default)'),
             ('approved', 'Approved'),
-            ('rejected', 'Rejected'),
+            ('rejected', 'Rejected or deleted'),
             ('all', 'All'),
         )
 
@@ -154,7 +154,10 @@ class ExampleAdmin(admin.ModelAdmin):
     _student.short_description = 'Student'
 
     def _admin_thumbnail(self, obj):
-        return u'<a href="%s"><img src="%s" height=200 /></a>' % (obj.image.url, obj.image.url)
+        if obj.image:
+            return u'<a href="%s"><img src="%s" height=200 /></a>' % (obj.image.url, obj.image.url)
+        else:
+            return u'No image'
     _admin_thumbnail.short_description = 'Thumbnail'
     _admin_thumbnail.allow_tags = True
 

@@ -247,6 +247,9 @@ class Example(models.Model): # media that a mentor has selected to be featured o
         elif self.progress: return self.progress.student.username
         else: return ""
 
+    def __str__(self):
+        return "Example: id={}".format(self.id)
+
 class Filter(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False, help_text="name of the filter")
     color = models.CharField(max_length=7, blank=True, null=True, validators=[validate_color], help_text="Enter the background color in hex format. for example: #ffffff<br><br>Here are the brand colors for reference:<br> Blue: <strong>#44b1f5</strong> Green: <strong>#84af49</strong> Orange: <strong>#f16243</strong> Teal: <strong>#1bb2c4</strong> Yellow: <strong>#f1ac43</strong><br>gray-darker: <strong>#222222</strong> gray-dark: <Strong>#333333</strong> gray: <strong>#555555</strong> gray-light: <strong>#999999</strong> gray-lighter: <strong>#eee</strong>")
