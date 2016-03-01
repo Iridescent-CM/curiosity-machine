@@ -42,12 +42,9 @@
     <div id="student-completed" class="examples-page-alerts text-center p-a-md m-y-md">
       <h3>Add your project!</h3>
       <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
-      {% if progress.get_student_images %}
       <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
-      {% else %}
-      <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo-no-photos"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
-      {% endif %}
 
+      {% if progress.get_student_images %}
       <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -82,8 +79,8 @@
           </div>
         </div>
       </div>
-
-      <div class="modal fade" id="choose-photo-no-photos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      {% else %}
+      <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -109,6 +106,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
 
     </div>
     {% endif %}
