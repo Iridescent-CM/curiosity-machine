@@ -5,18 +5,13 @@
 {% block js %}
   <script>
     $(document).ready(function(){
-      function toggleSubmit(button, enable){
-        if (enable) {
-          $(button).removeAttr('disabled');
-        }
-        else {
-          $(button).attr('disabled', 'disabled');
-        }
-      }
+      var submitSelector = '#submit-form input[type="submit"]';
+      var radioSelector = '#submit-form [name="example"]';
+      var checkedRadioSelector = '#submit-form [name="example"]:checked';
 
-      toggleSubmit($('#submit-form input[type="submit"]'), $('#submit-form [name="example"]:checked').val());
-      $('#submit-form [name="example"]').change(function (evt) {
-        toggleSubmit($('#submit-form input[type="submit"]'), $('#submit-form [name="example"]:checked').val());
+      $(submitSelector).prop('disabled', !$(checkedRadioSelector).val());
+      $(radioSelector).change(function (evt) {
+        $(submitSelector).prop('disabled', !$(checkedRadioSelector).val());
       });
     });
   </script>
