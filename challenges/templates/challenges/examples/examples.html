@@ -105,7 +105,7 @@
           </a>
           {% if example == user_example %}
           <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="action-img remove-example">
-              &#215;
+              &times;
           </a>
           {% endif %}
           <div class="card-block text-center">
@@ -148,7 +148,7 @@
                 {% csrf_token %}
                 <input type="hidden" name="example-id" value="{{example.id}}" />
                 <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
-                <input type="submit" value="Remove" class="btn btn-primary btn-red">
+                <input type="submit" value="Remove" class="btn btn-red">
               </form>
             </div>
           </div>
