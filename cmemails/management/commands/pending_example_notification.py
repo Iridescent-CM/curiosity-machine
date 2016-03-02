@@ -16,7 +16,7 @@ class Command(BaseCommand):
                     "email": recipient,
                     "type": "to"
                 }
-                for recipient in settings.MENTOR_RELATIONSHIP_MANAGERS
+                for recipient in settings.NOTIFICATION_RECIPIENTS
             ]
 
             content = render_to_string("cmemails/admin/pending_examples.html", {
