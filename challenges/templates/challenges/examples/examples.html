@@ -55,28 +55,25 @@
               </button>
               <h3>Choose a Photo</h3>
             </div>
-            <form method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
-              <div class="modal-body text-center">
-                <div class="row">
-                  {% csrf_token %}
-                  <div class="col-md-12">
-                    <p>Photos from {{ challenge.name }}</p>
-                  </div>
-                  {% for image in progress.get_student_images %}
-                  <div class="col-md-6">
-                    <input type="radio" name="example" id="example-{{image.id}}" value="{{image.id}}">
-                    <label for="example-{{image.id}}">
-                      <img src="{% resized image.url width=330 height=200 crop='fill' %}" alt="">
-                    </label>
-                  </div>
-                  {% endfor %}
+            <div class="modal-body text-center">
+              <div class="row">
+                <div class="col-md-12">
+                  <p>Photos from {{ challenge.name }}</p>
                 </div>
+                {% for image in progress.get_student_images %}
+                <div class="col-md-6">
+                  <input type="radio" name="example" id="example-{{image.id}}" value="{{image.id}}">
+                  <label for="example-{{image.id}}">
+                    <img src="{% resized image.url width=330 height=200 crop='fill' %}" alt="">
+                  </label>
+                </div>
+                {% endfor %}
               </div>
-              <div class="modal-footer">
-                <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
-                <input type="submit" class="btn btn-primary">
-              </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+              <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+              <input type="submit" class="btn btn-primary">
+            </div>
           </div>
           {% else %}
           <div class="modal-content">
