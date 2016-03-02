@@ -42,16 +42,38 @@ def home(request):
     active_progresses = [progress for progress in progresses if not progress.completed]
     connections = ParentConnection.objects.filter(child_profile=request.user.profile, removed=False)
     return render(request, "profiles/student/home.html", {
-        'active_progresses': active_progresses, 
-        'completed_progresses': completed_progresses, 
-        'progresses': progresses, 
-        'filter': filter, 
-        'my_challenges_filters': my_challenges_filters, 
+        'active_progresses': active_progresses,
+        'completed_progresses': completed_progresses,
+        'progresses': progresses,
+        'filter': filter,
+        'my_challenges_filters': my_challenges_filters,
         'favorite_challenges': favorite_challenges,
         'group_form': GroupJoinForm(),
         'groups': request.user.cm_groups.all(),
         'invitations': Invitation.objects.filter(user=request.user).all(),
         'parent_connections': connections
+    })
+
+@login_required
+def dashboard(request):
+    filter = request.GET.get('filter')
+    my_challenges_filters = [ 'active', 'completed', 'all' ]
+    favorite_challenges = Favorite.objects.filter(student=request.user)
+    progresses = Progress.objects.filter(student=request.user).select_related("challenge")
+    completed_progresses = [progress for progress in progresses if progress.completed]
+    active_progresses = [progress for progress in progresses if not progress.completed]
+    connections = ParentConnection.objects.filter(child_profile=request.user.profile, removed=False)
+    return render(request, "profiles/student/dashboard.html", {
+        'active_progresses': active_progresses,
+        'completed_progresses': completed_progresses,
+        'progresses': progresses,
+        'filter': filter,
+        'my_challenges_filters': my_challenges_filters,
+        'favorite_challenges': favorite_challenges,
+        'group_form': GroupJoinForm(),
+        'groups': request.user.cm_groups.all(),
+        'invitations': Invitation.objects.filter(user=request.user).all(),
+        'parent_connections': connections,
     })
 
 @login_required

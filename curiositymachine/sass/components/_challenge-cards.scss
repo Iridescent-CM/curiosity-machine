@@ -81,3 +81,26 @@ a .challenge-card-title p:hover {
   text-transform: uppercase;
   font-weight: $heavy-font-weight;
 }
+
+//
+// Modules
+//
+
+.module {
+  border-radius: $base-border-radius;
+  border: 1px solid $light-gray;
+
+  .module-header {
+    background-color: tint($light-gray, 45%);
+    padding: $small-spacing;
+    border-bottom: 1px solid $light-gray;
+    h3 {
+      color: $primary-red;
+      margin-bottom: 0px;
+    }
+  }
+
+  .module-body {
+    padding: $small-spacing;
+  }
+}
