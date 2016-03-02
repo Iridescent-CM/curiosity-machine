@@ -65,8 +65,12 @@
   top: -8px;
   left: -8px;
   box-shadow: 0px 2px 4px rgba(151,151,151,0.8);
+  color: white;
 
-  a {
+  &:hover {
+    color: darken($primary-red, 20%);
+  }
+  &:active, &:focus {
     color: white;
   }
 }

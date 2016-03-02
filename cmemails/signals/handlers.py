@@ -37,7 +37,7 @@ def send_example_rejection_notices(sender, queryset, **kwargs):
         path = reverse("challenges:examples", kwargs={ "challenge_id": example.challenge.id })
         send(template_name='student-example-declined', to=example.progress.student, merge_vars={
             'challengename': example.challenge.name,
-            'url': url_for_template(path)
+            'inspiration_url': url_for_template(path),
         })
 
 @receiver(signals.inspiration_gallery_submissions_approved)
@@ -46,7 +46,7 @@ def send_example_approval_notices(sender, queryset, **kwargs):
         path = reverse("challenges:examples", kwargs={ "challenge_id": example.challenge.id })
         send(template_name='student-example-approved', to=example.progress.student, merge_vars={
             'challengename': example.challenge.name,
-            'url': url_for_template(path)
+            'inspiration_url': url_for_template(path)
         })
 
 @receiver(signals.progress_considered_complete)

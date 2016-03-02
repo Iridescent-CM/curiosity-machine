@@ -22,6 +22,7 @@
   .card-block {
     background-color: tint($light-gray, 60);
     overflow: auto;
+    word-break: break-all;
   }
 
   .modal-header h3 {

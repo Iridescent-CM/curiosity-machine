@@ -98,8 +98,8 @@
 
     <!-- A Pending Example submission -->
     {% if user_example and not user_example.approved %}
-    <div id="student-example-pending" class="alert alert-info m-t-md" role="alert">
-      <strong>Thanks for submitting your project!</strong> Once your photo has been approved, it will show up in the gallery for everyone to see.
+    <div id="student-example-pending" class="alert alert-info m-t-md text-center" role="alert">
+      <strong>Thanks for submitting your project!</strong> After we approve your photo, it will show up in the gallery for everyone to see.
     </div>
     {% endif %}
 
@@ -119,9 +119,9 @@
             {% endif %}
           </a>
           {% if example == user_example %}
-          <div class="remove-example">
-            <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="action-img">&#215;</a>
-          </div>
+          <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="action-img remove-example">
+              &times;
+          </a>
           {% endif %}
           <div class="card-block text-center">
             <p class="card-title">{{ example.progress.student.username }}</p>
@@ -156,20 +156,25 @@
               <h3>Remove your project?</h3>
             </div>
             <div class="modal-body text-center">
-              <p>You can re-submit this image or another, but it will need to go through the approval process again.</p>
+              <p>This will remove your project from the Inspiration Gallery. You can always re-submit your project if you change your mind!</p>
             </div>
             <div class="modal-footer">
               <form action="{% url "challenges:delete_example" challenge_id=challenge.id %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="example-id" value="{{example.id}}" />
                 <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
-                <input type="submit" class="btn btn-primary">
+                <input type="submit" value="Remove" class="btn btn-red">
               </form>
             </div>
           </div>
         </div>
       </div>
       {% endif %}
+
+      {% if forloop.counter|divisibleby:2 %}
+        <div class="clearfix{% if not forloop.counter|divisibleby:4 %} hidden-md-up{% endif %}"></div>
+      {% endif %}
+
       {% empty %}
 
       <div class="text-center p-a-md m-y-md">

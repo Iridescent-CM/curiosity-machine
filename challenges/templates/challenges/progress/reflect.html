@@ -62,7 +62,7 @@
           <div class="panel panel-bubble teal right reflect-box">
             <div class="panel-body">
               <h1>Reflect</h1>
-              <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
+              <p>Are you finished with your project? Reflect on your work by answering a question below! Then you'll be able to share your design in the <a href="{% url "challenges:examples" challenge_id=challenge.id %}"><strong>Inspiration Gallery</strong></a>.</p>
 
                 <ul class="challenge-reflect-questions" style="display: none;">
                   {% for question in challenge.reflect_questions.all %}
