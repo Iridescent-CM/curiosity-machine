@@ -55,25 +55,28 @@
               </button>
               <h3>Choose a Photo</h3>
             </div>
-            <div class="modal-body text-center">
-              <div class="row">
-                <div class="col-md-12">
-                  <p>Photos from {{ challenge.name }}</p>
+            <form method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
+              <div class="modal-body text-center">
+                <div class="row">
+                  {% csrf_token %}
+                  <div class="col-md-12">
+                    <p>Photos from {{ challenge.name }}</p>
+                  </div>
+                  {% for image in progress.get_student_images %}
+                  <div class="col-md-6">
+                    <input type="radio" name="example" id="example-{{image.id}}" value="{{image.id}}">
+                    <label for="example-{{image.id}}">
+                      <img src="{% resized image.url width=330 height=200 crop='fill' %}" alt="">
+                    </label>
+                  </div>
+                  {% endfor %}
                 </div>
-                {% for image in progress.get_student_images %}
-                <div class="col-md-6">
-                  <input type="radio" name="example" id="example-{{image.id}}" value="{{image.id}}">
-                  <label for="example-{{image.id}}">
-                    <img src="{% resized image.url width=330 height=200 crop='fill' %}" alt="">
-                  </label>
-                </div>
-                {% endfor %}
               </div>
-            </div>
-            <div class="modal-footer">
-              <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
-              <input type="submit" class="btn btn-primary">
-            </div>
+              <div class="modal-footer">
+                <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                <input type="submit" class="btn btn-primary">
+              </div>
+            </form>
           </div>
           {% else %}
           <div class="modal-content">
@@ -83,20 +86,17 @@
               </button>
               <h3>Choose a Photo</h3>
             </div>
-            <form method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
-              <div class="modal-body text-center">
-                <div class="row">
-                  {% csrf_token %}
-                  <div class="col-md-12">
-                    <p>You didn't post any photos to {{ challenge.name }}! Add a photo of your project, and then come back to share it in the Inspiration Gallery.</p>
-                  </div>
+            <div class="modal-body text-center">
+              <div class="row">
+                <div class="col-md-12">
+                  <p>You didn't post any photos to {{ challenge.name }}! Add a photo of your project, and then come back to share it in the Inspiration Gallery.</p>
                 </div>
               </div>
-              <div class="modal-footer">
-                <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
-                <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Return to Challenge</a>
-              </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+              <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+              <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Return to Challenge</a>
+            </div>
           </div>
           {% endif %}
         </div>
