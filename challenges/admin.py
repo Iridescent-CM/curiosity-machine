@@ -131,7 +131,7 @@ class ExampleAdmin(admin.ModelAdmin):
 
     list_display = ['id', '_challenge_name', '_student', '_admin_thumbnail', 'approved']
     list_filter = [DefaultsToPendingApprovalFilter]
-    fields = ['challenge', 'progress', '_name', 'image', '_admin_thumbnail', 'video', 'approved']
+    fields = ['challenge', 'progress', 'image', '_admin_thumbnail', 'approved']
     readonly_fields = ['_admin_thumbnail']
     search_fields = ['challenge__name', 'progress__student__username']
 
