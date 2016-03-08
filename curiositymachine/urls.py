@@ -23,8 +23,8 @@ urlpatterns = patterns('',
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
     url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
-    
-    # about pages 
+
+    # about pages
     url(
         r'^about/',
         public(TemplateView.as_view(template_name="curiositymachine/pages/about.html")),
@@ -60,6 +60,12 @@ urlpatterns = patterns('',
         public(TemplateView.as_view(template_name="curiositymachine/pages/about-partnership.html")),
         {'active_nav': 'partnership'},
         name='about-partnership'
+    ),
+    url(
+        r'^about-technical-communication/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/about-technical-communication.html")),
+        # {'active_nav': 'partnership'},
+        name='about-technical-communication'
     ),
     url(
         r'^faq/',
