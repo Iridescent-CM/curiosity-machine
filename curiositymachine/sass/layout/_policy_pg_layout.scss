@@ -1,0 +1,58 @@
+.policy-pages {
+  .nav-panel {
+    color: white;
+    background: url("../images/design-challenge-repeating-pattern-white.png");
+    background-color: tint($primary-purple, 20%);
+    background-attachment: fixed;
+    background-repeat: repeat;
+
+    .nav {
+      .nav-item {
+        display: inline-block;
+        margin: 0 20px;
+      }
+
+      .nav-link {
+        transition-property: all;
+        &:link,
+        &:visited {
+          color: $primary-light;
+          border-bottom: 2px solid $primary-light;
+        }
+        &:hover,
+        &:active,
+        &.active {
+          color: shade($primary-purple, 40%);
+          border-color: shade($primary-purple, 40%);
+        }
+      }
+    }
+  }
+
+  h2 {
+    color: $primary-purple;
+  }
+
+  .numbered-bullet {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: $primary-purple;
+    color: white;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    top: -3px;
+  }
+
+  .sign-up-panel {
+    background-color: $primary-purple;
+    text-align: center;
+    h2 {
+      color: white;
+    }
+  }
+
+  .privacy-policy-page {
+  }
+}

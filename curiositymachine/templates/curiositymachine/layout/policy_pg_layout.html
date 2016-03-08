@@ -1,0 +1,32 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% load future %} {# suppresses deprecation warnings for firstof tag #}
+
+{% block body-classes %}policy-pages{% endblock %}
+{% block content %}
+<div class="container-fluid text-center nav-panel p-t-md p-b-md">
+  <h1>{% block title %}{% endblock %}</h1>
+  <nav>
+    <ul class="nav">
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'terms-of-use' %}active{% endif %}"
+          href="{% url 'terms-of-use' %}"
+          id="terms-of-use-policy-page"
+        >
+          Terms of Use
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'privacy' %}active{% endif %}"
+          href="{% url 'privacy' %}"
+          id="privacy-policy-page"
+        >
+          Privacy Policy
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+{% endblock %}
