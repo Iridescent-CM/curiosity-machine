@@ -1,5 +1,5 @@
 test:
-	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.test_settings py.test 
+	LOG_LEVEL=ERROR PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.test_settings py.test
 
 coverage:
 	PYTHONPATH=. DJANGO_SETTINGS_MODULE=curiositymachine.test_settings coverage run --source . -m py.test && coverage report

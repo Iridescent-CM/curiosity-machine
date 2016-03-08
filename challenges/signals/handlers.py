@@ -12,5 +12,5 @@ def create_progress(sender, instance, created, **kwargs):
 def create_example(sender, instance, created, **kwargs):
     if created:
         progress = instance.progress
-        signals.approved_project_for_gallery.send(sender=progress.mentor, example=instance)
+        signals.inspiration_gallery_submission_created.send(sender=progress.student, example=instance)
 

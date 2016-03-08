@@ -6,6 +6,8 @@ from curiositymachine import signals
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    if kwargs.get('raw'):
+        return
     if created:
         if not hasattr(instance, "profile") and not kwargs.get('raw'):
             Profile.objects.create(user=instance)

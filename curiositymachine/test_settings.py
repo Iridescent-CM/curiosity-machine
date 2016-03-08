@@ -15,4 +15,6 @@ RQ_QUEUES = {
 # For tests, force no feature flags and override in actual test with e.g.
 #       with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_whatever': True}):
 #               ...
-FEATURE_FLAGS={}
+FEATURE_FLAGS={
+    'enable_challenge_preview_restriction': True
+}
