@@ -29,8 +29,20 @@
     }
   }
 
-  h2 {
+  h2, h4 {
     color: $primary-purple;
+  }
+
+  h2 {
+    margin-top: $base-spacing;
+  }
+
+  h4 {
+    margin-top: $large-spacing;
+  }
+
+  p {
+    margin-bottom: $base-spacing;
   }
 
   .numbered-bullet {

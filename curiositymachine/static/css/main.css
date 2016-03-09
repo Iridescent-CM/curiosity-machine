@@ -5400,8 +5400,17 @@ footer {
       color: #3a3a69;
       border-color: #3a3a69; }
 
-.policy-pages h2 {
+.policy-pages h2, .policy-pages h4 {
   color: #6161AF; }
+
+.policy-pages h2 {
+  margin-top: 1.5em; }
+
+.policy-pages h4 {
+  margin-top: 3em; }
+
+.policy-pages p {
+  margin-bottom: 1.5em; }
 
 .policy-pages .numbered-bullet {
   width: 25px;
