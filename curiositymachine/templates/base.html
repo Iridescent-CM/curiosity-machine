@@ -110,7 +110,7 @@
           <p>
             Powered by <a href="http://iridescentlearning.org/">Iridescent</a>, a 501c3 nonprofit organization.<br/>
             &copy; Iridescent 2015<br/>
-            View our <a href="/privacy">privacy policy</a>.
+            View our <a href="{% url 'terms-of-use' %}">policies</a>.
           </p>
         </div>
       </div>
@@ -147,7 +147,7 @@
           $('#introduction-modal').modal('show');
           $('#introduction-modal').on('hidden.bs.modal', function (){
             $("#intro-video")[0].pause();
-          });  
+          });
         });
       </script>
     {% endif %}
