@@ -44,27 +44,4 @@
   p {
     margin-bottom: $base-spacing;
   }
-
-  .numbered-bullet {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background-color: $primary-purple;
-    color: white;
-    text-align: center;
-    position: relative;
-    display: inline-block;
-    top: -3px;
-  }
-
-  .sign-up-panel {
-    background-color: $primary-purple;
-    text-align: center;
-    h2 {
-      color: white;
-    }
-  }
-
-  .privacy-policy-page {
-  }
 }

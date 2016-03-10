@@ -5412,23 +5412,6 @@ footer {
 .policy-pages p {
   margin-bottom: 1.5em; }
 
-.policy-pages .numbered-bullet {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: #6161AF;
-  color: white;
-  text-align: center;
-  position: relative;
-  display: inline-block;
-  top: -3px; }
-
-.policy-pages .sign-up-panel {
-  background-color: #6161AF;
-  text-align: center; }
-  .policy-pages .sign-up-panel h2 {
-    color: white; }
-
 #index-page .jumbotron, #index-page .jumbotron-green {
   padding-top: 6em; }
 
