@@ -236,11 +236,8 @@ class Example(models.Model): # media that a mentor has selected to be featured o
     progress = models.ForeignKey(Progress, null=True, blank=True, on_delete=models.SET_NULL, help_text="An optional association with a specific student's progress on a challenge.")
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, help_text="An image to display in the gallery. If a video is also set, this will be the thumbnail. Each example must have an image or a video, or both, to be displayed correctly.")
     approved = models.NullBooleanField(db_index=True)
-
-    # DEPRECATED
-    # TODO: remove the following fields; the inspiration gallery currently expects only images that are attached to a progress
-    _name = models.TextField(blank=True, verbose_name="name", db_column="name", help_text="The student's username in plain text. This can be left blank if a progress is set, in which case the progress's student username will be automatically used instead.")
-    video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, help_text="Each example must have an image or a video, or both, to be displayed correctly.")
+    created_at = models.DateTimeField(auto_now_add=True, default=now)
+    updated_at = models.DateTimeField(auto_now=True, default=now)
 
     objects = ExampleQuerySet().as_manager()
 
