@@ -1,0 +1,40 @@
+#dashboard {
+
+  .top-panel {
+    color: white;
+    background: url("../images/design-challenge-repeating-pattern-white.png");
+    background-color: $primary-purple;
+    background-attachment: fixed;
+    background-repeat: repeat;
+
+    h1 {
+      margin-bottom: 0px;
+    }
+  }
+
+  .profile-edit {
+    position: absolute;
+    right: $base-spacing;
+    top: 5px;
+  }
+
+  .profile-info-avatar img {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: $small-spacing;
+  }
+
+  .profile-details {
+    list-style-type: none;
+    padding-left: 0px;
+    font-size: 0.875em;
+
+    i {
+      margin-right: $small-spacing;
+      color: $medium-gray;
+    }
+  }
+
+}

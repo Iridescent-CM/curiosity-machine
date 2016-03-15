@@ -6,28 +6,34 @@
 {% block body-id %}dashboard{% endblock %}
 
 {% block content %}
+  <div class="container-fluid text-center top-panel p-t-md p-b-md m-b-md">
+    <h1>My Dashboard</h1>
+  </div>
   <div class="container">
     <div class="row">
 
       <div class="col-md-3">
-        <div class="module">
+        <div class="module m-b-md">
           <div class="module-header text-center">
-            <div class="avatar text-center">{% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='thumb' gravity='faces' %}</div>
+            <div class="profile-edit">
+              <a href="{% url 'profiles:profile_edit' %}" class="action-img"><i class="icon-facebook"></i></a>
+            </div>
+            <div class="profile-info-avatar">{% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='thumb' gravity='faces' %}</div>
             <h3>{{ request.user.username }}</h3>
           </div>
           <div class="module-body">
             <ul class="profile-details">
-              <li>city</li>
-              <li>birthday</li>
-              <li>email</li>
-              <li>parent name</li>
+              <li><i class="icon-facebook"></i>Chicago</li>
+              <li><i class="icon-facebook"></i>Jan 2, 1991</li>
+              <li><i class="icon-facebook"></i>child@iridescentlearning.org</li>
+              <li><i class="icon-facebook"></i>Mrs. Parent</li>
             </ul>
           </div>
         </div>
       </div>
 
       <div class="col-md-9">
-        <div class="module">
+        <div class="module m-b-md">
           <div class="module-header">
             <h3>Challenges</h3>
           </div>

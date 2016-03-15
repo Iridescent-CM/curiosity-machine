@@ -5645,4 +5645,33 @@ footer {
 #login-page #login-page-form small {
   float: right; }
 
+#dashboard .top-panel {
+  color: white;
+  background: url("../images/design-challenge-repeating-pattern-white.png");
+  background-color: #6161AF;
+  background-attachment: fixed;
+  background-repeat: repeat; }
+  #dashboard .top-panel h1 {
+    margin-bottom: 0px; }
+
+#dashboard .profile-edit {
+  position: absolute;
+  right: 1.5em;
+  top: 5px; }
+
+#dashboard .profile-info-avatar img {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 0.75em; }
+
+#dashboard .profile-details {
+  list-style-type: none;
+  padding-left: 0px;
+  font-size: 0.875em; }
+  #dashboard .profile-details i {
+    margin-right: 0.75em;
+    color: #949494; }
+
 /*# sourceMappingURL=main.css.map */
