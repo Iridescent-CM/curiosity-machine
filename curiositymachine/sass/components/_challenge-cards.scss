@@ -103,4 +103,9 @@ a .challenge-card-title p:hover {
   .module-body {
     padding: $small-spacing;
   }
+
+  .module-footer {
+    padding: $small-spacing;
+    border-top: 1px solid $light-gray;
+  }
 }

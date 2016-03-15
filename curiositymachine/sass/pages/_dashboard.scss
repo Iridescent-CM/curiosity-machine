@@ -3,7 +3,7 @@
   .top-panel {
     color: white;
     background: url("../images/design-challenge-repeating-pattern-white.png");
-    background-color: $primary-purple;
+    background-color: $primary-green;
     background-attachment: fixed;
     background-repeat: repeat;
 
@@ -23,6 +23,7 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
+    border: 2px solid $light-gray;
     margin-bottom: $small-spacing;
   }
 
@@ -34,6 +35,27 @@
     i {
       margin-right: $small-spacing;
       color: $medium-gray;
+    }
+  }
+
+  .student-activity {
+
+    .student-avatar img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+    .student-activity-content {
+      border: 1px solid $light-gray;
+      // background-color: $light-gray;
+      border-radius: $base-border-radius;
+      padding: $small-spacing;
+    }
+
+    .post-img {
+      width: 100%;
+      height: auto;
     }
   }
 

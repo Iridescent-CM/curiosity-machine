@@ -1,0 +1,108 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load resized %}
+{% load staticfiles %}
+
+{% block title %}{{ request.user.username }}'s Dashboard{% endblock %}
+{% block body-id %}dashboard{% endblock %}
+
+{% block content %}
+  <div class="container-fluid text-center top-panel p-t-md p-b-md m-b-md">
+    <h1>My Dashboard</h1>
+  </div>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-3 col-sm-6">
+        <div class="module m-b-md">
+          <div class="module-header text-center">
+            <div class="profile-edit">
+              <a href="{% url 'profiles:profile_edit' %}" class="action-img"><i class="icon-facebook"></i></a>
+            </div>
+            <div class="profile-info-avatar">{% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='thumb' gravity='faces' %}</div>
+            <h3>{{ request.user.username }}</h3>
+          </div>
+          <div class="module-body">
+            <!-- Icons should be replaced, also, the correct data should show up -->
+            <p class="text-center">Hello, I am Cat! I like cooking and learning and being outside.</p>
+            <ul class="profile-details">
+              <li><i class="icon-facebook"></i>Chicago</li>
+              <li><i class="icon-facebook"></i>Product Manager</li>
+              <li><i class="icon-facebook"></i>Iridescent Learning</li>
+            </ul>
+          </div>
+          <div class="module-footer">
+            <p class="text-center"><strong>About my Research</strong></p>
+            <p><small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sapien orci. Donec imperdiet faucibus eleifend. Praesent consequat nisl lacus, gravida vehicula ex blandit ac. Ut eget lorem dictum dolor cursus semper. Donec sed ex ex. In lobortis vitae risus venenatis lobortis.</small></p>
+            <img src="http://localhost:8000/static/images/about/family-make.jpg">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-6">
+        <div class="module m-b-md">
+          <div class="module-body text-center">
+            <!-- This number should be correct instead! -->
+            <!-- Also this link should go to a separate Claim Challenges page -->
+            There are currently <strong>18</strong> unclaimed challenges. <a href="#">Claim one!</a>
+          </div>
+        </div>
+
+        <div class="module m-b-md">
+          <div class="module-header">
+            <h3>Activity</h3>
+          </div>
+          <div class="module-body">
+            {% if request.user.profile.approved %}
+              {% for progress in progresses %}
+                <div class="container">
+                  <div class="student-activity row">
+                    <div class="col-md-2 m-b-md">
+                      <!-- why is avatar a lil squished? I do not know yet -->
+                      <div class="student-avatar">
+                        {% include "_avatar.html" with profile=progress.student.profile width=55 height=55 crop='fill' %}
+                      </div>
+                    </div>
+                    <div class="col-md-10 m-b-md student-activity-content">
+                      <div class="row m-b-md">
+                        <!-- Instead of when the challenge was started, should be when latest activity was -->
+                        <div class="col-md-6"><small>{{ progress.started }}</small></div>
+                        <!-- If > 1 progress, display # of progresses here -->
+                        <div class="col-md-6 text-right"><span class="label label-pill label-info">3 New posts</span></div>
+                      </div>
+                      <p><strong>{{ progress.student.username }}'s {{ progress.challenge.name }}</strong></p>
+                      <!-- Excerpt from latest progress post. Truncate to < 140 characters & add ellipse  -->
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sapien orci. Donec imperdiet faucibus eleifend. Praesent consequat nisl lacus, gravida...</p>
+                      <!-- If photo or video from latest post, thumb here. If not, nothin' -->
+                      <img src="#" class="post-img">
+                      <!-- link to post -->
+                      <a href="#" class="btn btn-block btn-primary">View &amp; Feedback</a>
+                    </div>
+                  </div>
+                </div>
+                {% empty %}
+                <!-- Perhaps better help text -->
+                <p>You are not mentoring any challenges right now.</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <!-- If > 7 progresses being mentored, show this button. Links to paginated page or something(?) If not, no footer -->
+          <div class="module-footer">
+            <a href="#" class="btn btn-block btn-green">View More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="module m-b-md">
+          <div class="module-header">
+            <h3>Trainings</h3>
+          </div>
+          <div class="module-body">
+            <p>Stuff about Docebo</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

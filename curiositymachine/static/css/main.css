@@ -5072,6 +5072,9 @@ a .challenge-card-title p:hover {
       margin-bottom: 0px; }
   .module .module-body {
     padding: 0.75em; }
+  .module .module-footer {
+    padding: 0.75em;
+    border-top: 1px solid #E5E1D9; }
 
 .modal-close {
   color: #fff;
@@ -5648,7 +5651,7 @@ footer {
 #dashboard .top-panel {
   color: white;
   background: url("../images/design-challenge-repeating-pattern-white.png");
-  background-color: #6161AF;
+  background-color: #8FB559;
   background-attachment: fixed;
   background-repeat: repeat; }
   #dashboard .top-panel h1 {
@@ -5664,6 +5667,7 @@ footer {
   width: 80px;
   height: 80px;
   border-radius: 50%;
+  border: 2px solid #E5E1D9;
   margin-bottom: 0.75em; }
 
 #dashboard .profile-details {
@@ -5673,5 +5677,19 @@ footer {
   #dashboard .profile-details i {
     margin-right: 0.75em;
     color: #949494; }
+
+#dashboard .student-activity .student-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; }
+
+#dashboard .student-activity .student-activity-content {
+  border: 1px solid #E5E1D9;
+  border-radius: 4px;
+  padding: 0.75em; }
+
+#dashboard .student-activity .post-img {
+  width: 100%;
+  height: auto; }
 
 /*# sourceMappingURL=main.css.map */
