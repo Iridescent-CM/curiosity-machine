@@ -192,7 +192,7 @@ class ExampleQuerySet(models.QuerySet):
         f = Q(approved=True)
         if progress:
             f = f | Q(progress=progress, approved=None)
-        return self.filter(challenge_id=challenge_id).filter(f).order_by('-id')
+        return self.filter(progress__challenge_id=challenge_id).filter(f).order_by('-id')
 
     def from_progress(self, **kwargs):
         progress = kwargs.get('progress')
