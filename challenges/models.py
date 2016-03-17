@@ -232,8 +232,7 @@ class ExampleQuerySet(models.QuerySet):
     approve.queryset_only = True
 
 class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
-    challenge = models.ForeignKey(Challenge)
-    progress = models.ForeignKey(Progress, null=True, blank=True, on_delete=models.SET_NULL, help_text="An optional association with a specific student's progress on a challenge.")
+    progress = models.ForeignKey(Progress, null=False, blank=False, on_delete=models.CASCADE)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, help_text="An image to display in the gallery. If a video is also set, this will be the thumbnail. Each example must have an image or a video, or both, to be displayed correctly.")
     approved = models.NullBooleanField(db_index=True)
     created_at = models.DateTimeField(auto_now_add=True, default=now)
@@ -246,6 +245,10 @@ class Example(models.Model): # media that a mentor has selected to be featured o
         if self._name: return self._name
         elif self.progress: return self.progress.student.username
         else: return ""
+
+    @property
+    def challenge(self):
+        return self.progress.challenge
 
     def __str__(self):
         return "Example: id={}".format(self.id)
