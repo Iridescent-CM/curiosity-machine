@@ -1,0 +1,31 @@
+{% extends "curiositymachine/layout/about_pg_layout.html" %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block title %}Technical Communications Training{% endblock %}
+{% block body-id %}partnership-about-page{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-push-2 col-md-10 col-md-push-1 m-t-lg">
+        <h2>Professional Training: Technical Communication for Lay Audiences</h2>
+        <h3 class="m-b-lg">Share your work with your community</h3>
+
+        <p>Develop the skills necessary to bring Curiosity Machine to your local community through this technical communication course.</p>
+
+        <p>This online course is self-guided and consists of 7 modules that can be completed at your own pace. The modules include activities that build towards the goal of developing a lesson plan for a hands-on engineering program. The final module requires leading this program with local families.</p>
+
+        <p>Learn more <a href="{% static 'pdfs/tech-comm-training-prop.pdf'%}">here</a>, and get started by filling out <a href="https://docs.google.com/forms/d/1jbmiVhZ5SgKzyhwtARY-vMy57OaT-niopk2haYoz_ZU/viewform">this form.</a></p>
+
+        <hr>
+
+        <p><em>This training was developed in partnership with the University of Southern California’s, Viterbi School of Engineering. USC Viterbi’s Corporate and Professional Programs area offers continuing education and executive training to engineering professionals around the world. Upon successful completion of this continuing education program, participants will have the option to receive 0.7 Continuing Education Units (CEUs), awarded by the University of Southern California.</em></p>
+        <br/><br/>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
