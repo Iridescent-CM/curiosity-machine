@@ -100,24 +100,51 @@
   </div>
   {% endif %}
 
+  {% if flags.enable_docebo_training %}
   <h2>Mentor Training</h2>
-  <ul class="nav nav-justified nav-tabs"></ul>
   <div class="tab-content">
     <ul class="challenges-list owl-carousel panel-carousel">
       <li>
         <div class="panel panel-default training-module">
           <a href="{{ module.get_absolute_url }}">
             <div class="image-container">
-              <img src="{% static 'images/mentors/docebo-logo.png' %}">
+              <img src="{% static 'images/mentors/iridescent-university.jpg' %}">
             </div>
           </a>
           <div class="panel-body">
             <p>We've moved our brand new mentor training to Docebo. Make an account and get started!</p>
-            <a href="#" class="btn btn-primary">Sign Up</a>
+            <a href="http://www.iridescentuniversity.org/lms/" target="_blank" class="btn btn-primary">Sign Up</a>
           </div>
         </div>
       </li>
     </ul>
   </div>
+
+  {% else %}
+
+  <h2>Training Modules</h2>
+  <ul class="nav nav-justified nav-tabs"></ul>
+  <div class="tab-content">
+    <ul class="challenges-list owl-carousel panel-carousel">
+      {% for module in uncompleted_modules %}
+        {% include "_training_module.html" %}
+      {% empty %}
+        <h3>You have finished all the training modules</h3>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <h2>Completed Training Modules</h2>
+  <ul class="nav nav-justified nav-tabs"></ul>
+  <div class="tab-content">
+    <ul class="challenges-list owl-carousel panel-carousel">
+      {% for module in completed_modules %}
+        {% include "_training_module.html" %}
+      {% empty %}
+        <h3>There is no completed training module</h3>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 
 {% endblock %}
