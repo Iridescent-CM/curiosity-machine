@@ -196,7 +196,7 @@ class ExampleQuerySet(models.QuerySet):
 
     def from_progress(self, **kwargs):
         progress = kwargs.get('progress')
-        return self.filter(challenge=progress.challenge, progress=progress)
+        return self.filter(progress=progress)
 
     def status(self, **kwargs):
         qs = []
