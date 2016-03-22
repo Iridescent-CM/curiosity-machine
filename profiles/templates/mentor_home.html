@@ -106,14 +106,14 @@
     <ul class="challenges-list owl-carousel panel-carousel">
       <li>
         <div class="panel panel-default training-module">
-          <a href="{{ module.get_absolute_url }}">
+          <a href="{{ DOCEBO_MENTOR_URL }}">
             <div class="image-container">
               <img src="{% static 'images/mentors/iridescent-university.jpg' %}">
             </div>
           </a>
           <div class="panel-body">
             <p>We've moved our brand new mentor training to Docebo. Make an account and get started!</p>
-            <a href="http://www.iridescentuniversity.org/lms/" target="_blank" class="btn btn-primary">Sign Up</a>
+            <a href="{{ DOCEBO_MENTOR_URL }}" target="_blank" class="btn btn-primary">Sign Up</a>
           </div>
         </div>
       </li>
