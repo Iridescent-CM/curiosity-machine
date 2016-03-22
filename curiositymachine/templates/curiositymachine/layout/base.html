@@ -86,23 +86,5 @@
   {% endcompress %}
   {% block js %}{% endblock %}
 
-  {% if request.user.is_authenticated and not request.user.profile.shown_intro %}
-    <div id="introduction-modal" class="modal fade">
-      <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        <span class="sr-only">Close</span>
-      </button>
-      <div class="modal-dialog modal-lg">
-        <div class="embed-responsive embed-responsive-16by9">
-          <video id="intro-video" controls="controls" preload="metadata" autoplay>
-            <source src="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.mp4" type="video/mp4">
-            <source src="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.ogg" type="video/ogg">
-          </video>
-        </div>
-      </div>
-    </div>
-
-  {% endif %}
-
 </body>
 </html>
