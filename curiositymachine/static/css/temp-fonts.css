@@ -17,6 +17,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
+.icon-camera:before {
+  content: "\e900"; }
+
 .icon-compsci:before {
   content: "\e60e"; }
 

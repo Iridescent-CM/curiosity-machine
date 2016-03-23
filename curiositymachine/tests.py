@@ -15,6 +15,7 @@ from django.conf import settings
 from . import signals
 import challenges.factories
 import profiles.factories
+import cmcomments.factories
 from training.models import Module
 
 def force_true(*args, **kwargs):
@@ -509,20 +510,6 @@ def test_signal_student_started_first_project():
     handler.assert_called_once_with(signal=signals.started_first_project, progress=first_progress, sender=user)
 
 @pytest.mark.django_db
-def test_signal_mentor_approved_project_for_gallery():
-    handler = mock.MagicMock()
-    signals.approved_project_for_gallery.connect(handler)
-
-    user = User.objects.create(username='user', email='useremail')
-    user2 = User.objects.create(username='user2', email='useremail2')
-    user2.profile.is_mentor=True
-    challenge = Challenge.objects.create(name='challenge')
-    progress = Progress.objects.create(student=user, challenge=challenge, mentor=user2)
-    example = Example.objects.create(challenge=challenge, progress=progress)
-
-    handler.assert_called_once_with(signal=signals.approved_project_for_gallery, sender=user2, example=example)
-
-@pytest.mark.django_db
 def test_signal_student_posted_comment():
     handler = mock.MagicMock()
     signals.posted_comment.connect(handler)
@@ -544,16 +531,20 @@ def test_signal_mentor_posted_comment():
     handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.mentor, comment=comment)
 
 @pytest.mark.django_db
-def test_signal_approved_project_for_reflection():
+def test_signal_progress_considered_complete():
     handler = mock.MagicMock()
-    signal = signals.approved_project_for_reflection
+    signal = signals.progress_considered_complete
     signal.connect(handler)
+
+    handler2 = mock.MagicMock()
+    signals.posted_comment.connect(handler2)
 
     progress = challenges.factories.ProgressFactory()
     mentor = profiles.factories.MentorFactory()
-    progress.approve(approver=mentor)
+    first_reflect_post = cmcomments.factories.ReflectionCommentFactory(challenge_progress=progress, user=progress.student)
 
-    handler.assert_called_once_with(signal=signal, sender=mentor, progress=progress)
+    handler.assert_called_once_with(signal=signal, sender=progress.student, progress=progress)
+    handler2.assert_not_called()
 
 @pytest.mark.django_db
 def test_signal_created_account():
@@ -579,3 +570,40 @@ def test_signal_approved_training_task():
     task.mark_mentor_as_done(user, approver)
 
     handler.assert_called_once_with(signal=signal, sender=approver, user=user, task=task)
+
+@pytest.mark.django_db
+def test_signal_inspiration_gallery_submission_created():
+    handler = mock.MagicMock()
+    signal = signals.inspiration_gallery_submission_created
+    signal.connect(handler)
+
+    example = challenges.factories.ExampleFactory()
+
+    handler.assert_called_once_with(signal=signal, sender=example.progress.student, example=example)
+
+@pytest.mark.django_db
+def test_signal_inspiration_gallery_submissions_rejected():
+    handler = mock.MagicMock()
+    signal = signals.inspiration_gallery_submissions_rejected
+    signal.connect(handler)
+
+    example = challenges.factories.ExampleFactory()
+    user = profiles.factories.UserFactory()
+    qs = Example.objects.all()
+    qs.reject(user=user)
+
+    handler.assert_called_once_with(signal=signal, sender=user, queryset=qs)
+
+@pytest.mark.django_db
+def test_signal_inspiration_gallery_submissions_approved():
+    handler = mock.MagicMock()
+    signal = signals.inspiration_gallery_submissions_approved
+    signal.connect(handler)
+
+    example = challenges.factories.ExampleFactory()
+    user = profiles.factories.UserFactory()
+    qs = Example.objects.all()
+    qs.approve(user=user)
+
+    handler.assert_called_once_with(signal=signal, sender=user, queryset=qs)
+

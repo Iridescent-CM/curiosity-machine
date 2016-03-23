@@ -38,6 +38,8 @@ SECRET_KEY = SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_HOSTS") else []
 MENTOR_RELATIONSHIP_MANAGERS = os.getenv("MENTOR_RELATIONSHIP_MANAGERS", '').split(',') if os.getenv("MENTOR_RELATIONSHIP_MANAGERS") else []
+NOTIFICATION_RECIPIENTS = os.getenv("NOTIFICATION_RECIPIENTS").split(',') if os.getenv("NOTIFICATION_RECIPIENTS") else []
+
 # SSL settings
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -116,6 +118,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "curiositymachine.context_processors.google_analytics",
     "curiositymachine.context_processors.feature_flags",
     "curiositymachine.context_processors.template_globals",
+    "curiositymachine.context_processors.staff_alerts",
 )
 
 # Any environment variable beginning with ENABLE_ will end up in template contexts
@@ -322,6 +325,7 @@ DOCEBO_MENTOR_URL = os.environ.get("DOCEBO_MENTOR_URL","http://www.iridescentuni
 # pagination
 CHALLENGES_PER_PAGE = os.environ.get("CHALLENGES_PER_PAGE", 9)
 MENTORS_PER_PAGE = os.environ.get("MENTORS_PER_PAGE", 12)
+EXAMPLES_PER_PAGE = os.environ.get("EXAMPLES_PER_PAGE", 12)
 
 # an impossible pattern below prevents blacklisting until actual patterns are provided through the env
 BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))

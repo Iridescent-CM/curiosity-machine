@@ -7,7 +7,10 @@ from curiositymachine import signals
 
 @receiver(post_save, sender=Comment)
 def create_comment(sender, instance, created, **kwargs):
-    comment = instance
-    progress = comment.challenge_progress
     if created:
-        signals.posted_comment.send(sender=comment.user, comment=comment)
+        comment = instance
+
+        if comment.is_first_reflect_post():
+            signals.progress_considered_complete.send(sender=comment.user, progress=comment.challenge_progress)
+        else:
+            signals.posted_comment.send(sender=comment.user, comment=comment)

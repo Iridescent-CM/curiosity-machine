@@ -23,8 +23,8 @@
     </div>
   </div>
 
-  {% if examples %}
-    <div class="tab-content">
+  <div class="tab-content">
+    {% if examples %}
       <div class="tab-pane fade in active">
         <h3 class="carousel-header">Check out what other kids built</h3>
         <ul class="challenges-list free-height owl-carousel panel-carousel image-gallery">
@@ -38,7 +38,7 @@
                   {% include "_video.html" with video=example.video %}
                 {% else %}
                 <div class="image-container" data-toggle="modal" data-target="#galleryModal" >
-                  <img src="{% resized example.image.url width=550 height=413 crop='fit' %}" />
+                  <img src="{% resized example.image.url width=330 height=200 crop='fill' %}" />
                 </div>
                 {% endif %}
 
@@ -48,7 +48,12 @@
         </ul>
       </div>
       {% include "_modal.html" with id="galleryModal" %}
+    {% endif %}
+
+    <div class="text-center">
+      <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary ig-button">View the Inspiration Gallery</a>
     </div>
-  {% endif %}
+  </div>
+
   {{ block.super }}
 {% endblock %}

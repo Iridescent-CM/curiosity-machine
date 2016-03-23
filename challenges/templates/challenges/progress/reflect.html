@@ -4,13 +4,6 @@
 
 {% block js %}
   <script src="{% static "js/challenges.js" %}"></script>
-  {% if request.user.profile.is_student %}
-    <script>
-      $(function(){
-        $('#reflection-form').disableEmptySubmit();
-      });
-    </script>
-  {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -26,6 +19,24 @@
         <p>{{ challenge.reflect_subheader }}</p>
       </header>
     {% endif %}
+
+    {% if request.user.profile.is_student and progress.completed %}
+      <div class="panel white congratulations-panel">
+        <div class="panel-body text-center">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 congratulations-panel-content">
+              <h2>Congratulations!</h2>
+              <p>
+                You just completed a design challenge! Now you can post a picture of your project to the Inspiration Gallery
+                to share with the community.
+              </p>
+              <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary">Go to the Inspiration Gallery</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
     <div class="row">
       {% if request.user.profile.is_mentor %}
         {% include "_mentor_panel.html" %}
@@ -51,14 +62,7 @@
           <div class="panel panel-bubble teal right reflect-box">
             <div class="panel-body">
               <h1>Reflect</h1>
-              <p>You've finished your challenge. Upload a key photo and describe what makes your challenge unique.</p>
-              <form
-                action="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' %}"
-                method="POST" class="comment-form" id="reflection-form"
-              >
-                {% csrf_token %}
-
-                <div class="errors">{{ comment_form.picture_filepicker_url.errors }}</div>
+              <p>Are you finished with your project? Reflect on your work by answering a question below! Then you'll be able to share your design in the <a href="{% url "challenges:examples" challenge_id=challenge.id %}"><strong>Inspiration Gallery</strong></a>.</p>
 
                 <ul class="challenge-reflect-questions" style="display: none;">
                   {% for question in challenge.reflect_questions.all %}
@@ -73,28 +77,11 @@
                   </p>
                 </div>
 
-                {{comment_form.question_text}}
-                {{comment_form.text}}
-
-                <input type="hidden"
-                  id="{{comment_form.picture_filepicker_url.id_for_label }}"
-                  name="{{comment_form.picture_filepicker_url.html_name }}"
-                >
-
-                <div id="reflect-images">
-                  <div class="img-wrapper"></div>
-                  <button type="button" class="btn btn-link"
-                    data-toggle="modal" data-target="#reflect-images-modal" title="choose an image"
-                    {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}
-                  >
-                    <span class="btn btn-primary"><span class="glyphicon glyphicon-camera" title="Post Picture"></span></span>
-                    Pick a Photo
-                  </button>
-                </div>
-
-                <div class="errors">{{ comment_form.text.errors }}</div>
-                <input type="submit" value="Publish to The Gallery" class="btn btn-lg btn-primary btn-reflect" disabled='disabled' />
-              </form>
+                {% if request.user.profile.is_student %}
+                  {% include "_comment_action_list.html" %}
+                {% else %}
+                  {% include "_comment_action_list.html" with disable=True %}
+                {% endif %}
             </div>
           </div>
           {% include "_challenge_reflect_images_modal.html" %}
@@ -108,10 +95,10 @@
     </div><!-- row -->
 
     {% include "_guide.html" %}
-    {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
-    {% include "_comment_form.html" with stage="build" format="video" url=comment_url %}
-    {% include "_comment_form.html" with stage="build" format="picture" url=comment_url %}
-    {% include "_comment_form.html" with stage="build" format="text" url=comment_url %}
+    {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' as comment_url %}
+    {% include "_comment_form.html" with stage="reflect" format="video" url=comment_url %}
+    {% include "_comment_form.html" with stage="reflect" format="picture" url=comment_url %}
+    {% include "_comment_form.html" with stage="reflect" format="text" url=comment_url %}
 
   </div><!-- content -->
 

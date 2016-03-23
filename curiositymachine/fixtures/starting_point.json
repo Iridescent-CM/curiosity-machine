@@ -1,0 +1,2295 @@
+[
+{
+  "fields": {
+    "model": "permission",
+    "app_label": "auth",
+    "name": "permission"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 1
+},
+{
+  "fields": {
+    "model": "group",
+    "app_label": "auth",
+    "name": "group"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 2
+},
+{
+  "fields": {
+    "model": "user",
+    "app_label": "auth",
+    "name": "user"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 3
+},
+{
+  "fields": {
+    "model": "contenttype",
+    "app_label": "contenttypes",
+    "name": "content type"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 4
+},
+{
+  "fields": {
+    "model": "session",
+    "app_label": "sessions",
+    "name": "session"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 5
+},
+{
+  "fields": {
+    "model": "logentry",
+    "app_label": "admin",
+    "name": "log entry"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 6
+},
+{
+  "fields": {
+    "model": "site",
+    "app_label": "sites",
+    "name": "site"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 7
+},
+{
+  "fields": {
+    "model": "flatpage",
+    "app_label": "flatpages",
+    "name": "flat page"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 8
+},
+{
+  "fields": {
+    "model": "profile",
+    "app_label": "profiles",
+    "name": "profile"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 9
+},
+{
+  "fields": {
+    "model": "parentconnection",
+    "app_label": "profiles",
+    "name": "parent connection"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 10
+},
+{
+  "fields": {
+    "model": "educator",
+    "app_label": "profiles",
+    "name": "educator"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 11
+},
+{
+  "fields": {
+    "model": "mentor",
+    "app_label": "profiles",
+    "name": "mentor"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 12
+},
+{
+  "fields": {
+    "model": "student",
+    "app_label": "profiles",
+    "name": "student"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 13
+},
+{
+  "fields": {
+    "model": "parent",
+    "app_label": "profiles",
+    "name": "parent"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 14
+},
+{
+  "fields": {
+    "model": "theme",
+    "app_label": "challenges",
+    "name": "theme"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 15
+},
+{
+  "fields": {
+    "model": "question",
+    "app_label": "challenges",
+    "name": "question"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 16
+},
+{
+  "fields": {
+    "model": "challenge",
+    "app_label": "challenges",
+    "name": "challenge"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 17
+},
+{
+  "fields": {
+    "model": "progress",
+    "app_label": "challenges",
+    "name": "progress"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 18
+},
+{
+  "fields": {
+    "model": "favorite",
+    "app_label": "challenges",
+    "name": "favorite"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 19
+},
+{
+  "fields": {
+    "model": "example",
+    "app_label": "challenges",
+    "name": "example"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 20
+},
+{
+  "fields": {
+    "model": "filter",
+    "app_label": "challenges",
+    "name": "filter"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 21
+},
+{
+  "fields": {
+    "model": "comment",
+    "app_label": "cmcomments",
+    "name": "comment"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 22
+},
+{
+  "fields": {
+    "model": "video",
+    "app_label": "videos",
+    "name": "video"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 23
+},
+{
+  "fields": {
+    "model": "encodedvideo",
+    "app_label": "videos",
+    "name": "encoded video"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 24
+},
+{
+  "fields": {
+    "model": "image",
+    "app_label": "images",
+    "name": "image"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 25
+},
+{
+  "fields": {
+    "model": "page",
+    "app_label": "pages",
+    "name": "page"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 26
+},
+{
+  "fields": {
+    "model": "attachment",
+    "app_label": "django_summernote",
+    "name": "attachment"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 27
+},
+{
+  "fields": {
+    "model": "module",
+    "app_label": "training",
+    "name": "module"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 28
+},
+{
+  "fields": {
+    "model": "task",
+    "app_label": "training",
+    "name": "task"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 29
+},
+{
+  "fields": {
+    "model": "comment",
+    "app_label": "training",
+    "name": "comment"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 30
+},
+{
+  "fields": {
+    "model": "question",
+    "app_label": "tsl",
+    "name": "question"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 31
+},
+{
+  "fields": {
+    "model": "answer",
+    "app_label": "tsl",
+    "name": "answer"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 32
+},
+{
+  "fields": {
+    "model": "unit",
+    "app_label": "units",
+    "name": "unit"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 33
+},
+{
+  "fields": {
+    "model": "unitchallenge",
+    "app_label": "units",
+    "name": "unit challenge"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 34
+},
+{
+  "fields": {
+    "model": "resource",
+    "app_label": "units",
+    "name": "resource"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 35
+},
+{
+  "fields": {
+    "model": "group",
+    "app_label": "groups",
+    "name": "group"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 36
+},
+{
+  "fields": {
+    "model": "membership",
+    "app_label": "groups",
+    "name": "membership"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 37
+},
+{
+  "fields": {
+    "model": "invitation",
+    "app_label": "groups",
+    "name": "invitation"
+  },
+  "model": "contenttypes.contenttype",
+  "pk": 38
+},
+{
+  "fields": {
+    "expire_date": "2016-02-11T19:17:38.273Z",
+    "session_data": "MTg5MTYwODNkOGUyODhlYzcwMTkxOGVhMDgyNzNhMGI1YTA0OTc3NDp7Il9hdXRoX3VzZXJfaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0="
+  },
+  "model": "sessions.session",
+  "pk": "eyy50nwycb5ty2m3tjziaklwuwfgfumm"
+},
+{
+  "fields": {
+    "expire_date": "2016-02-11T19:12:22.195Z",
+    "session_data": "MTg5MTYwODNkOGUyODhlYzcwMTkxOGVhMDgyNzNhMGI1YTA0OTc3NDp7Il9hdXRoX3VzZXJfaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0="
+  },
+  "model": "sessions.session",
+  "pk": "rmu9aqxa9ewt2vnssatggka6vmmjc925"
+},
+{
+  "fields": {
+    "expire_date": "2016-02-11T19:16:51.990Z",
+    "session_data": "NjA2YjMyZmM0YjA2NTRiYTZjNGJhNTRlY2UzMTQ2MjgzMzUxZGVkMjp7fQ=="
+  },
+  "model": "sessions.session",
+  "pk": "xltaevhnchzfvz5s7k0sbn4glitvoieo"
+},
+{
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  },
+  "model": "sites.site",
+  "pk": 1
+},
+{
+  "fields": {
+    "icon": "icon-civil",
+    "color": "#84af49",
+    "name": "Civil Engineering"
+  },
+  "model": "challenges.theme",
+  "pk": 1
+},
+{
+  "fields": {
+    "icon": "icon-electrical",
+    "color": "#f16243",
+    "name": "Electrical Engineering"
+  },
+  "model": "challenges.theme",
+  "pk": 2
+},
+{
+  "fields": {
+    "icon": "icon-food",
+    "color": "#f1ac43",
+    "name": "Food Science"
+  },
+  "model": "challenges.theme",
+  "pk": 3
+},
+{
+  "fields": {
+    "icon": "icon-art",
+    "color": "#f16243",
+    "name": "Art of Science"
+  },
+  "model": "challenges.theme",
+  "pk": 4
+},
+{
+  "fields": {
+    "icon": "icon-satellite",
+    "color": "#f1ac43",
+    "name": "Satellite Systems"
+  },
+  "model": "challenges.theme",
+  "pk": 5
+},
+{
+  "fields": {
+    "icon": "icon-biomechanics",
+    "color": "#f1ac43",
+    "name": "Biomechanics"
+  },
+  "model": "challenges.theme",
+  "pk": 6
+},
+{
+  "fields": {
+    "icon": "icon-ocean",
+    "color": "#44b1f5",
+    "name": "Ocean Engineering"
+  },
+  "model": "challenges.theme",
+  "pk": 7
+},
+{
+  "fields": {
+    "icon": "icon-biomimicry",
+    "color": "#1bb2c4 ",
+    "name": "Biomimicry"
+  },
+  "model": "challenges.theme",
+  "pk": 8
+},
+{
+  "fields": {
+    "icon": "icon-neuroscience",
+    "color": "#84af49",
+    "name": "Neuroscience"
+  },
+  "model": "challenges.theme",
+  "pk": 9
+},
+{
+  "fields": {
+    "icon": "icon-aerospace",
+    "color": "#44b1f5",
+    "name": "Aerospace"
+  },
+  "model": "challenges.theme",
+  "pk": 10
+},
+{
+  "fields": {
+    "icon": "icon-robotics",
+    "color": "#f16243",
+    "name": "Robotics"
+  },
+  "model": "challenges.theme",
+  "pk": 11
+},
+{
+  "fields": {
+    "icon": "icon-compsci",
+    "color": "#44b1f5",
+    "name": "Computer Science"
+  },
+  "model": "challenges.theme",
+  "pk": 13
+},
+{
+  "fields": {
+    "icon": "icon-engineer",
+    "color": "#1bb2c4",
+    "name": "Mechanical  Engineering"
+  },
+  "model": "challenges.theme",
+  "pk": 14
+},
+{
+  "fields": {
+    "text": "How do you think your design is similar or different to real chromataphors?"
+  },
+  "model": "challenges.question",
+  "pk": 1
+},
+{
+  "fields": {
+    "text": "What happened when you attached your rubber bands in different ways?"
+  },
+  "model": "challenges.question",
+  "pk": 2
+},
+{
+  "fields": {
+    "text": "How could you tell that energy was stored in your design before you released it?"
+  },
+  "model": "challenges.question",
+  "pk": 3
+},
+{
+  "fields": {
+    "text": "What challenges did you encounter and how did you or would you fix them?"
+  },
+  "model": "challenges.question",
+  "pk": 4
+},
+{
+  "fields": {
+    "text": "How much food was your bird beak able to pick up? What could you change to make it able to pick up even more?"
+  },
+  "model": "challenges.question",
+  "pk": 5
+},
+{
+  "fields": {
+    "text": "Does your design require a lot of effort (or push) in order to pick up food? Do you think your beak could crush the food?"
+  },
+  "model": "challenges.question",
+  "pk": 6
+},
+{
+  "fields": {
+    "text": "How many fulcrums does your design have? What effect do you think the placement of these fulcrums has on the amount of effort that is needed for the beak to crush a piece of food?"
+  },
+  "model": "challenges.question",
+  "pk": 7
+},
+{
+  "fields": {
+    "text": "Can you reflect on how the way you completed this project let you practice being curious, creative, and persistant?"
+  },
+  "model": "challenges.question",
+  "pk": 8
+},
+{
+  "fields": {
+    "text": "Some types of birds have specialized beaks for tearing flesh, cracking nuts, or hammering through wood. How could you modify your design to be able to both pick up food and accomplish a specific task?"
+  },
+  "model": "challenges.question",
+  "pk": 9
+},
+{
+  "fields": {
+    "text": "How far did you launch your shuttle? What do you think you could change in your design to cause it to launch even farther?"
+  },
+  "model": "challenges.question",
+  "pk": 10
+},
+{
+  "fields": {
+    "text": "Can you think of a way to control the direction of your space shuttle? See if you can make your shuttle hit a target and show us what you did!\r\n"
+  },
+  "model": "challenges.question",
+  "pk": 11
+},
+{
+  "fields": {
+    "text": "How else might you propel a rocket? See if you can think of another way to launch a rocket and show us your design sketch! \r\n"
+  },
+  "model": "challenges.question",
+  "pk": 12
+},
+{
+  "fields": {
+    "text": "Did you try many different nose cone or fin shapes in your rocket design? How do you think the shapes and sizes of these parts affect your rocket\u2019s flight through the air?"
+  },
+  "model": "challenges.question",
+  "pk": 14
+},
+{
+  "fields": {
+    "text": "What changes to your design could you make to give your rocket more thrust and shoot it even higher? "
+  },
+  "model": "challenges.question",
+  "pk": 15
+},
+{
+  "fields": {
+    "text": "What do you think the nose cone helps your rocket do when it flies through the air?"
+  },
+  "model": "challenges.question",
+  "pk": 16
+},
+{
+  "fields": {
+    "text": "How might the type of filler material (rice, coffee grounds, beans, etc.) you use affect how well you can grab on to objects? "
+  },
+  "model": "challenges.question",
+  "pk": 17
+},
+{
+  "fields": {
+    "text": "How did you use your syringe to create a suction? Explain!\r\n"
+  },
+  "model": "challenges.question",
+  "pk": 18
+},
+{
+  "fields": {
+    "text": "Try testing your suction device in a tub of water. Do you notice anything different? \r\n"
+  },
+  "model": "challenges.question",
+  "pk": 19
+},
+{
+  "fields": {
+    "text": "What inspired the design and different parts of your bridge? Tell us how each part worked.\r\n"
+  },
+  "model": "challenges.question",
+  "pk": 20
+},
+{
+  "fields": {
+    "text": "How does changing the direction the thruster straws are pointing change how the ping pong ball rotates?"
+  },
+  "model": "challenges.question",
+  "pk": 21
+},
+{
+  "fields": {
+    "text": "How does changing the size of the hole you blow air into change the speed of your thruster?"
+  },
+  "model": "challenges.question",
+  "pk": 22
+},
+{
+  "fields": {
+    "text": "Does changing the amount of thrusters in your design affect how it moves? How?"
+  },
+  "model": "challenges.question",
+  "pk": 23
+},
+{
+  "fields": {
+    "text": "How many seconds does it take the waves to pass through your machine? How can you change the speed of your wave?"
+  },
+  "model": "challenges.question",
+  "pk": 24
+},
+{
+  "fields": {
+    "text": "Try adding weights to the end of the popsicle sticks. Does this change the way the wave travels, or the characteristics of the wave that your machine records?"
+  },
+  "model": "challenges.question",
+  "pk": 25
+},
+{
+  "fields": {
+    "text": "How can you tell the difference between a little waves passing through your machine by accident versus a big waves that you\u2019re using for your message?"
+  },
+  "model": "challenges.question",
+  "pk": 26
+},
+{
+  "fields": {
+    "header_template": "challenges/filters/inspired_by_boeing.html",
+    "color": "#f1ac43",
+    "visible": true,
+    "updated_at": "2015-10-16T19:02:28.349Z",
+    "name": "Inspired by <i class=\"icon-boeing-logo\"></i>",
+    "challenges": [
+      11,
+      12
+    ],
+    "created_at": "2015-05-28T22:04:33.610Z"
+  },
+  "model": "challenges.filter",
+  "pk": 1
+},
+{
+  "fields": {
+    "key": "",
+    "raw_job_details": "{'job': {'thumbnails': [{'file_size_bytes': 8518, 'id': 1049279470, 'created_at': '2015-04-29T13:39:46Z', 'format': 'jpg', 'width': 474, 'group_label': 'thumbnail', 'updated_at': '2015-04-29T13:39:46Z', 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20150429/1edebe8fb356abb8ef95c53434e12c0d/frame_0003.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=aNv2M4oAhjEU2G3jRR7BZQbpI5A%3D&Expires=1430401186', 'height': 348}, {'file_size_bytes': 15673, 'id': 1049279469, 'created_at': '2015-04-29T13:39:46Z', 'format': 'jpg', 'width': 474, 'group_label': 'thumbnail', 'updated_at': '2015-04-29T13:39:46Z', 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20150429/1edebe8fb356abb8ef95c53434e12c0d/frame_0002.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=zetA0QRWcuowbMKECkClED2hPi0%3D&Expires=1430401186', 'height': 348}, {'file_size_bytes': 16859, 'id': 1049279468, 'created_at': '2015-04-29T13:39:46Z', 'format': 'jpg', 'width': 474, 'group_label': 'thumbnail', 'updated_at': '2015-04-29T13:39:46Z', 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20150429/1edebe8fb356abb8ef95c53434e12c0d/frame_0001.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=ztW9XJr01P5dIaXntSsPZtT/JPI%3D&Expires=1430401186', 'height': 348}, {'file_size_bytes': 15440, 'id': 1049279467, 'created_at': '2015-04-29T13:39:46Z', 'format': 'jpg', 'width': 474, 'group_label': 'thumbnail', 'updated_at': '2015-04-29T13:39:46Z', 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20150429/1edebe8fb356abb8ef95c53434e12c0d/frame_0000.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=xapW423k0gX%2By5t4PDyb7AZgF3g%3D&Expires=1430401186', 'height': 348}], 'created_at': '2015-04-29T13:39:27Z', 'finished_at': '2015-04-29T13:39:46Z', 'test': True, 'submitted_at': '2015-04-29T13:39:27Z', 'input_media_file': {'audio_sample_rate': 44100, 'created_at': '2015-04-29T13:39:27Z', 'finished_at': '2015-04-29T13:39:29Z', 'audio_bitrate_in_kbps': 74, 'test': True, 'url': 'http://s3.amazonaws.com/devcuriositymachine/videos/81976df78883dc77a6ecf0f239a2e47e', 'audio_codec': 'aac', 'video_bitrate_in_kbps': 135, 'md5_checksum': None, 'width': 474, 'channels': '1', 'error_message': None, 'error_class': None, 'privacy': False, 'total_bitrate_in_kbps': 209, 'height': 348, 'audio_tracks': None, 'frame_rate': 10.0, 'duration_in_ms': 7000, 'id': 157722285, 'format': 'mpeg4', 'state': 'finished', 'video_codec': 'h264', 'updated_at': '2015-04-29T13:39:46Z', 'file_size_bytes': 178631}, 'updated_at': '2015-04-29T13:39:46Z', 'state': 'finished', 'id': 157751336, 'output_media_files': [{'audio_sample_rate': 44100, 'md5_checksum': None, 'created_at': '2015-04-29T13:39:27Z', 'finished_at': '2015-04-29T13:39:46Z', 'audio_bitrate_in_kbps': 45, 'test': True, 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/o/20150429/7acb51f4cd05fb64f86d07be624a80ae/27de9c7e4f8de8a0a2bf4677e1d5523b.mp4?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=O8TjRbzFQaqKXpzvIBy6NYtscNk%3D&Expires=1430401186', 'audio_codec': 'aac', 'video_bitrate_in_kbps': 154, 'rfc_6381_audio_codec': 'mp4a.40.2', 'width': 474, 'channels': '1', 'error_message': None, 'error_class': None, 'privacy': False, 'total_bitrate_in_kbps': 199, 'height': 348, 'label': None, 'frame_rate': 10.0, 'duration_in_ms': 5000, 'id': 478224376, 'format': 'mpeg4', 'state': 'finished', 'rfc_6381_video_codec': 'avc1.420015', 'fragment_duration_in_ms': None, 'updated_at': '2015-04-29T13:39:46Z', 'video_codec': 'h264', 'file_size_bytes': 131376}, {'audio_sample_rate': 44100, 'md5_checksum': None, 'created_at': '2015-04-29T13:39:27Z', 'finished_at': '2015-04-29T13:39:36Z', 'audio_bitrate_in_kbps': 62, 'test': True, 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/o/20150429/07287d9003d1fea5e00d8a90dbaa1c7b/ae65314eda6bf84a1aba72ef3d907f47.ogg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=F1UmgjiewZ6RYIJfmN7F0CODP4E%3D&Expires=1430401176', 'audio_codec': 'vorbis', 'video_bitrate_in_kbps': 168, 'rfc_6381_audio_codec': None, 'width': 474, 'channels': '1', 'error_message': None, 'error_class': None, 'privacy': False, 'total_bitrate_in_kbps': 230, 'height': 348, 'label': None, 'frame_rate': 10.0, 'duration_in_ms': 5000, 'id': 478224377, 'format': 'ogg', 'state': 'finished', 'rfc_6381_video_codec': None, 'fragment_duration_in_ms': None, 'updated_at': '2015-04-29T13:39:36Z', 'video_codec': 'theora', 'file_size_bytes': 150985}], 'privacy': False, 'pass_through': None}}",
+    "md5_hash": "81976df78883dc77a6ecf0f239a2e47e",
+    "thumbnails": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "source_url": "https://www.filepicker.io/api/file/z6azlS7RdifBmLfUvsjU"
+  },
+  "model": "videos.video",
+  "pk": 1
+},
+{
+  "fields": {
+    "mime_type": "video/mp4",
+    "raw_encoding_details": "{'privacy': False, 'audio_codec': 'aac', 'video_bitrate_in_kbps': 154, 'label': None, 'rfc_6381_audio_codec': 'mp4a.40.2', 'test': True, 'fragment_duration_in_ms': None, 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/o/20150429/7acb51f4cd05fb64f86d07be624a80ae/27de9c7e4f8de8a0a2bf4677e1d5523b.mp4?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=O8TjRbzFQaqKXpzvIBy6NYtscNk%3D&Expires=1430401186', 'state': 'finished', 'width': 474, 'audio_bitrate_in_kbps': 45, 'height': 348, 'rfc_6381_video_codec': 'avc1.420015', 'created_at': '2015-04-29T13:39:27Z', 'video_codec': 'h264', 'file_size_bytes': 131376, 'md5_checksum': None, 'duration_in_ms': 5000, 'audio_sample_rate': 44100, 'error_class': None, 'error_message': None, 'updated_at': '2015-04-29T13:39:46Z', 'frame_rate': 10.0, 'total_bitrate_in_kbps': 199, 'format': 'mpeg4', 'finished_at': '2015-04-29T13:39:46Z', 'id': 478224376, 'channels': '1'}",
+    "video": 1,
+    "key": "videos/videos/81976df78883dc77a6ecf0f239a2e47e.mp4",
+    "width": 474,
+    "height": 348
+  },
+  "model": "videos.encodedvideo",
+  "pk": 1
+},
+{
+  "fields": {
+    "mime_type": "video/ogg",
+    "raw_encoding_details": "{'fragment_duration_in_ms': None, 'audio_codec': 'vorbis', 'format': 'ogg', 'finished_at': '2015-04-29T13:39:36Z', 'updated_at': '2015-04-29T13:39:36Z', 'file_size_bytes': 150985, 'video_bitrate_in_kbps': 168, 'channels': '1', 'rfc_6381_video_codec': None, 'frame_rate': 10.0, 'height': 348, 'duration_in_ms': 5000, 'total_bitrate_in_kbps': 230, 'id': 478224377, 'rfc_6381_audio_codec': None, 'audio_sample_rate': 44100, 'error_class': None, 'privacy': False, 'url': 'https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/o/20150429/07287d9003d1fea5e00d8a90dbaa1c7b/ae65314eda6bf84a1aba72ef3d907f47.ogg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=F1UmgjiewZ6RYIJfmN7F0CODP4E%3D&Expires=1430401176', 'created_at': '2015-04-29T13:39:27Z', 'error_message': None, 'md5_checksum': None, 'label': None, 'width': 474, 'state': 'finished', 'test': True, 'video_codec': 'theora', 'audio_bitrate_in_kbps': 62}",
+    "video": 1,
+    "key": "videos/videos/81976df78883dc77a6ecf0f239a2e47e.ogg",
+    "width": 474,
+    "height": 348
+  },
+  "model": "videos.encodedvideo",
+  "pk": 2
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "5863379e5a8d8fc268a16d5593196e3f",
+    "source_url": "https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20150429/1edebe8fb356abb8ef95c53434e12c0d/frame_0003.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=aNv2M4oAhjEU2G3jRR7BZQbpI5A%3D&Expires=1430401186"
+  },
+  "model": "images.image",
+  "pk": 1
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "9d2faa3eea7d3ad37b39b96a2586dfb6",
+    "source_url": "https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20150429/1edebe8fb356abb8ef95c53434e12c0d/frame_0002.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=zetA0QRWcuowbMKECkClED2hPi0%3D&Expires=1430401186"
+  },
+  "model": "images.image",
+  "pk": 2
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "e69215bea06d8c07b569e62eb59a5c69",
+    "source_url": "https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20150429/1edebe8fb356abb8ef95c53434e12c0d/frame_0001.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=ztW9XJr01P5dIaXntSsPZtT/JPI%3D&Expires=1430401186"
+  },
+  "model": "images.image",
+  "pk": 3
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "49146bded99e5212066b94adc9a476f6",
+    "source_url": "https://zencoder-temp-storage-us-east-1.s3.amazonaws.com/t/20150429/1edebe8fb356abb8ef95c53434e12c0d/frame_0000.jpg?AWSAccessKeyId=AKIAI456JQ76GBU7FECA&Signature=xapW423k0gX%2By5t4PDyb7AZgF3g%3D&Expires=1430401186"
+  },
+  "model": "images.image",
+  "pk": 4
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "c489021d5bccccee25f3583ebf301d1d",
+    "source_url": "https://www.filepicker.io/api/file/SDxKVCnQBKz5KhYLdAuA"
+  },
+  "model": "images.image",
+  "pk": 5
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "b089a280afd28d75bcb1732faafb9ac3",
+    "source_url": "https://www.filepicker.io/api/file/vCxbVrpdTyCxzMe4Y0ov"
+  },
+  "model": "images.image",
+  "pk": 6
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "7d7bdb8362e24e25c08edab5c713b898",
+    "source_url": "https://www.filepicker.io/api/file/5x3K0BGAQI2mzcXCk8kX"
+  },
+  "model": "images.image",
+  "pk": 7
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "fab7ca8c8a6a98cb7997daa03fabc7df",
+    "source_url": "https://www.filepicker.io/api/file/8Za5mhgSxCwv42KqpFHw"
+  },
+  "model": "images.image",
+  "pk": 8
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "eaac819b35bdba1dd5eabb699e5ea3dd",
+    "source_url": "https://www.filepicker.io/api/file/129ViBf1TQ2DAQU0SYL5"
+  },
+  "model": "images.image",
+  "pk": 9
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "17ad5327dda55b64581b77b351d3c3fc",
+    "source_url": "https://www.filepicker.io/api/file/lruC3MjBTqyknbW3ThpZ"
+  },
+  "model": "images.image",
+  "pk": 10
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "ed368f2f3386d4c2b04569a99b08f303",
+    "source_url": "https://www.filepicker.io/api/file/SRWAz3olQvSg6s98gb2Z"
+  },
+  "model": "images.image",
+  "pk": 11
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "a3f612e3547e9f7eae30c08233b73e74",
+    "source_url": "https://www.filepicker.io/api/file/i72EWHWoRgSwL9Al9L0K"
+  },
+  "model": "images.image",
+  "pk": 12
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "e6289fa34e844574cf7e9ae8d2ac7cbc",
+    "source_url": "https://www.filepicker.io/api/file/6TKBYlElSaqTPzlze5Rn"
+  },
+  "model": "images.image",
+  "pk": 13
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "04c4c99ab5913ff9a67f0f4fa3312b60",
+    "source_url": "https://www.filepicker.io/api/file/FQmKvgiRhqPNHgO9w4Hs"
+  },
+  "model": "images.image",
+  "pk": 14
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "d8d23e799ad576c28532eaa081a41c5d",
+    "source_url": "https://www.filepicker.io/api/file/DFwwKldVRKCz3yGjfEiK"
+  },
+  "model": "images.image",
+  "pk": 120
+},
+{
+  "fields": {
+    "key": "",
+    "md5_hash": "77d6b8f9f9865e6bb0d54abc1821bf2d",
+    "source_url": "https://www.filepicker.io/api/file/WjVBe5xmSyqosjrszBDK"
+  },
+  "model": "images.image",
+  "pk": 121
+},
+{
+  "fields": {
+    "content_type": 1,
+    "codename": "add_permission",
+    "name": "Can add permission"
+  },
+  "model": "auth.permission",
+  "pk": 1
+},
+{
+  "fields": {
+    "content_type": 1,
+    "codename": "change_permission",
+    "name": "Can change permission"
+  },
+  "model": "auth.permission",
+  "pk": 2
+},
+{
+  "fields": {
+    "content_type": 1,
+    "codename": "delete_permission",
+    "name": "Can delete permission"
+  },
+  "model": "auth.permission",
+  "pk": 3
+},
+{
+  "fields": {
+    "content_type": 2,
+    "codename": "add_group",
+    "name": "Can add group"
+  },
+  "model": "auth.permission",
+  "pk": 4
+},
+{
+  "fields": {
+    "content_type": 2,
+    "codename": "change_group",
+    "name": "Can change group"
+  },
+  "model": "auth.permission",
+  "pk": 5
+},
+{
+  "fields": {
+    "content_type": 2,
+    "codename": "delete_group",
+    "name": "Can delete group"
+  },
+  "model": "auth.permission",
+  "pk": 6
+},
+{
+  "fields": {
+    "content_type": 3,
+    "codename": "add_user",
+    "name": "Can add user"
+  },
+  "model": "auth.permission",
+  "pk": 7
+},
+{
+  "fields": {
+    "content_type": 3,
+    "codename": "change_user",
+    "name": "Can change user"
+  },
+  "model": "auth.permission",
+  "pk": 8
+},
+{
+  "fields": {
+    "content_type": 3,
+    "codename": "delete_user",
+    "name": "Can delete user"
+  },
+  "model": "auth.permission",
+  "pk": 9
+},
+{
+  "fields": {
+    "content_type": 4,
+    "codename": "add_contenttype",
+    "name": "Can add content type"
+  },
+  "model": "auth.permission",
+  "pk": 10
+},
+{
+  "fields": {
+    "content_type": 4,
+    "codename": "change_contenttype",
+    "name": "Can change content type"
+  },
+  "model": "auth.permission",
+  "pk": 11
+},
+{
+  "fields": {
+    "content_type": 4,
+    "codename": "delete_contenttype",
+    "name": "Can delete content type"
+  },
+  "model": "auth.permission",
+  "pk": 12
+},
+{
+  "fields": {
+    "content_type": 5,
+    "codename": "add_session",
+    "name": "Can add session"
+  },
+  "model": "auth.permission",
+  "pk": 13
+},
+{
+  "fields": {
+    "content_type": 5,
+    "codename": "change_session",
+    "name": "Can change session"
+  },
+  "model": "auth.permission",
+  "pk": 14
+},
+{
+  "fields": {
+    "content_type": 5,
+    "codename": "delete_session",
+    "name": "Can delete session"
+  },
+  "model": "auth.permission",
+  "pk": 15
+},
+{
+  "fields": {
+    "content_type": 6,
+    "codename": "add_logentry",
+    "name": "Can add log entry"
+  },
+  "model": "auth.permission",
+  "pk": 16
+},
+{
+  "fields": {
+    "content_type": 6,
+    "codename": "change_logentry",
+    "name": "Can change log entry"
+  },
+  "model": "auth.permission",
+  "pk": 17
+},
+{
+  "fields": {
+    "content_type": 6,
+    "codename": "delete_logentry",
+    "name": "Can delete log entry"
+  },
+  "model": "auth.permission",
+  "pk": 18
+},
+{
+  "fields": {
+    "content_type": 7,
+    "codename": "add_site",
+    "name": "Can add site"
+  },
+  "model": "auth.permission",
+  "pk": 19
+},
+{
+  "fields": {
+    "content_type": 7,
+    "codename": "change_site",
+    "name": "Can change site"
+  },
+  "model": "auth.permission",
+  "pk": 20
+},
+{
+  "fields": {
+    "content_type": 7,
+    "codename": "delete_site",
+    "name": "Can delete site"
+  },
+  "model": "auth.permission",
+  "pk": 21
+},
+{
+  "fields": {
+    "content_type": 8,
+    "codename": "add_flatpage",
+    "name": "Can add flat page"
+  },
+  "model": "auth.permission",
+  "pk": 22
+},
+{
+  "fields": {
+    "content_type": 8,
+    "codename": "change_flatpage",
+    "name": "Can change flat page"
+  },
+  "model": "auth.permission",
+  "pk": 23
+},
+{
+  "fields": {
+    "content_type": 8,
+    "codename": "delete_flatpage",
+    "name": "Can delete flat page"
+  },
+  "model": "auth.permission",
+  "pk": 24
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "add_profile",
+    "name": "Can add profile"
+  },
+  "model": "auth.permission",
+  "pk": 25
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "change_profile",
+    "name": "Can change profile"
+  },
+  "model": "auth.permission",
+  "pk": 26
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "delete_profile",
+    "name": "Can delete profile"
+  },
+  "model": "auth.permission",
+  "pk": 27
+},
+{
+  "fields": {
+    "content_type": 10,
+    "codename": "add_parentconnection",
+    "name": "Can add parent connection"
+  },
+  "model": "auth.permission",
+  "pk": 28
+},
+{
+  "fields": {
+    "content_type": 10,
+    "codename": "change_parentconnection",
+    "name": "Can change parent connection"
+  },
+  "model": "auth.permission",
+  "pk": 29
+},
+{
+  "fields": {
+    "content_type": 10,
+    "codename": "delete_parentconnection",
+    "name": "Can delete parent connection"
+  },
+  "model": "auth.permission",
+  "pk": 30
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "add_parent",
+    "name": "Can add parent"
+  },
+  "model": "auth.permission",
+  "pk": 31
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "change_parent",
+    "name": "Can change parent"
+  },
+  "model": "auth.permission",
+  "pk": 32
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "delete_parent",
+    "name": "Can delete parent"
+  },
+  "model": "auth.permission",
+  "pk": 33
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "add_educator",
+    "name": "Can add educator"
+  },
+  "model": "auth.permission",
+  "pk": 34
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "change_educator",
+    "name": "Can change educator"
+  },
+  "model": "auth.permission",
+  "pk": 35
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "delete_educator",
+    "name": "Can delete educator"
+  },
+  "model": "auth.permission",
+  "pk": 36
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "add_student",
+    "name": "Can add student"
+  },
+  "model": "auth.permission",
+  "pk": 37
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "change_student",
+    "name": "Can change student"
+  },
+  "model": "auth.permission",
+  "pk": 38
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "delete_student",
+    "name": "Can delete student"
+  },
+  "model": "auth.permission",
+  "pk": 39
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "add_mentor",
+    "name": "Can add mentor"
+  },
+  "model": "auth.permission",
+  "pk": 40
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "change_mentor",
+    "name": "Can change mentor"
+  },
+  "model": "auth.permission",
+  "pk": 41
+},
+{
+  "fields": {
+    "content_type": 9,
+    "codename": "delete_mentor",
+    "name": "Can delete mentor"
+  },
+  "model": "auth.permission",
+  "pk": 42
+},
+{
+  "fields": {
+    "content_type": 15,
+    "codename": "add_theme",
+    "name": "Can add theme"
+  },
+  "model": "auth.permission",
+  "pk": 43
+},
+{
+  "fields": {
+    "content_type": 15,
+    "codename": "change_theme",
+    "name": "Can change theme"
+  },
+  "model": "auth.permission",
+  "pk": 44
+},
+{
+  "fields": {
+    "content_type": 15,
+    "codename": "delete_theme",
+    "name": "Can delete theme"
+  },
+  "model": "auth.permission",
+  "pk": 45
+},
+{
+  "fields": {
+    "content_type": 16,
+    "codename": "add_question",
+    "name": "Can add question"
+  },
+  "model": "auth.permission",
+  "pk": 46
+},
+{
+  "fields": {
+    "content_type": 16,
+    "codename": "change_question",
+    "name": "Can change question"
+  },
+  "model": "auth.permission",
+  "pk": 47
+},
+{
+  "fields": {
+    "content_type": 16,
+    "codename": "delete_question",
+    "name": "Can delete question"
+  },
+  "model": "auth.permission",
+  "pk": 48
+},
+{
+  "fields": {
+    "content_type": 17,
+    "codename": "add_challenge",
+    "name": "Can add challenge"
+  },
+  "model": "auth.permission",
+  "pk": 49
+},
+{
+  "fields": {
+    "content_type": 17,
+    "codename": "change_challenge",
+    "name": "Can change challenge"
+  },
+  "model": "auth.permission",
+  "pk": 50
+},
+{
+  "fields": {
+    "content_type": 17,
+    "codename": "delete_challenge",
+    "name": "Can delete challenge"
+  },
+  "model": "auth.permission",
+  "pk": 51
+},
+{
+  "fields": {
+    "content_type": 18,
+    "codename": "add_progress",
+    "name": "Can add progress"
+  },
+  "model": "auth.permission",
+  "pk": 52
+},
+{
+  "fields": {
+    "content_type": 18,
+    "codename": "change_progress",
+    "name": "Can change progress"
+  },
+  "model": "auth.permission",
+  "pk": 53
+},
+{
+  "fields": {
+    "content_type": 18,
+    "codename": "delete_progress",
+    "name": "Can delete progress"
+  },
+  "model": "auth.permission",
+  "pk": 54
+},
+{
+  "fields": {
+    "content_type": 19,
+    "codename": "add_favorite",
+    "name": "Can add favorite"
+  },
+  "model": "auth.permission",
+  "pk": 55
+},
+{
+  "fields": {
+    "content_type": 19,
+    "codename": "change_favorite",
+    "name": "Can change favorite"
+  },
+  "model": "auth.permission",
+  "pk": 56
+},
+{
+  "fields": {
+    "content_type": 19,
+    "codename": "delete_favorite",
+    "name": "Can delete favorite"
+  },
+  "model": "auth.permission",
+  "pk": 57
+},
+{
+  "fields": {
+    "content_type": 20,
+    "codename": "add_example",
+    "name": "Can add example"
+  },
+  "model": "auth.permission",
+  "pk": 58
+},
+{
+  "fields": {
+    "content_type": 20,
+    "codename": "change_example",
+    "name": "Can change example"
+  },
+  "model": "auth.permission",
+  "pk": 59
+},
+{
+  "fields": {
+    "content_type": 20,
+    "codename": "delete_example",
+    "name": "Can delete example"
+  },
+  "model": "auth.permission",
+  "pk": 60
+},
+{
+  "fields": {
+    "content_type": 21,
+    "codename": "add_filter",
+    "name": "Can add filter"
+  },
+  "model": "auth.permission",
+  "pk": 61
+},
+{
+  "fields": {
+    "content_type": 21,
+    "codename": "change_filter",
+    "name": "Can change filter"
+  },
+  "model": "auth.permission",
+  "pk": 62
+},
+{
+  "fields": {
+    "content_type": 21,
+    "codename": "delete_filter",
+    "name": "Can delete filter"
+  },
+  "model": "auth.permission",
+  "pk": 63
+},
+{
+  "fields": {
+    "content_type": 22,
+    "codename": "add_comment",
+    "name": "Can add comment"
+  },
+  "model": "auth.permission",
+  "pk": 64
+},
+{
+  "fields": {
+    "content_type": 22,
+    "codename": "change_comment",
+    "name": "Can change comment"
+  },
+  "model": "auth.permission",
+  "pk": 65
+},
+{
+  "fields": {
+    "content_type": 22,
+    "codename": "delete_comment",
+    "name": "Can delete comment"
+  },
+  "model": "auth.permission",
+  "pk": 66
+},
+{
+  "fields": {
+    "content_type": 23,
+    "codename": "add_video",
+    "name": "Can add video"
+  },
+  "model": "auth.permission",
+  "pk": 67
+},
+{
+  "fields": {
+    "content_type": 23,
+    "codename": "change_video",
+    "name": "Can change video"
+  },
+  "model": "auth.permission",
+  "pk": 68
+},
+{
+  "fields": {
+    "content_type": 23,
+    "codename": "delete_video",
+    "name": "Can delete video"
+  },
+  "model": "auth.permission",
+  "pk": 69
+},
+{
+  "fields": {
+    "content_type": 24,
+    "codename": "add_encodedvideo",
+    "name": "Can add encoded video"
+  },
+  "model": "auth.permission",
+  "pk": 70
+},
+{
+  "fields": {
+    "content_type": 24,
+    "codename": "change_encodedvideo",
+    "name": "Can change encoded video"
+  },
+  "model": "auth.permission",
+  "pk": 71
+},
+{
+  "fields": {
+    "content_type": 24,
+    "codename": "delete_encodedvideo",
+    "name": "Can delete encoded video"
+  },
+  "model": "auth.permission",
+  "pk": 72
+},
+{
+  "fields": {
+    "content_type": 25,
+    "codename": "add_image",
+    "name": "Can add image"
+  },
+  "model": "auth.permission",
+  "pk": 73
+},
+{
+  "fields": {
+    "content_type": 25,
+    "codename": "change_image",
+    "name": "Can change image"
+  },
+  "model": "auth.permission",
+  "pk": 74
+},
+{
+  "fields": {
+    "content_type": 25,
+    "codename": "delete_image",
+    "name": "Can delete image"
+  },
+  "model": "auth.permission",
+  "pk": 75
+},
+{
+  "fields": {
+    "content_type": 26,
+    "codename": "add_page",
+    "name": "Can add page"
+  },
+  "model": "auth.permission",
+  "pk": 76
+},
+{
+  "fields": {
+    "content_type": 26,
+    "codename": "change_page",
+    "name": "Can change page"
+  },
+  "model": "auth.permission",
+  "pk": 77
+},
+{
+  "fields": {
+    "content_type": 26,
+    "codename": "delete_page",
+    "name": "Can delete page"
+  },
+  "model": "auth.permission",
+  "pk": 78
+},
+{
+  "fields": {
+    "content_type": 27,
+    "codename": "add_attachment",
+    "name": "Can add attachment"
+  },
+  "model": "auth.permission",
+  "pk": 79
+},
+{
+  "fields": {
+    "content_type": 27,
+    "codename": "change_attachment",
+    "name": "Can change attachment"
+  },
+  "model": "auth.permission",
+  "pk": 80
+},
+{
+  "fields": {
+    "content_type": 27,
+    "codename": "delete_attachment",
+    "name": "Can delete attachment"
+  },
+  "model": "auth.permission",
+  "pk": 81
+},
+{
+  "fields": {
+    "content_type": 28,
+    "codename": "add_module",
+    "name": "Can add module"
+  },
+  "model": "auth.permission",
+  "pk": 82
+},
+{
+  "fields": {
+    "content_type": 28,
+    "codename": "change_module",
+    "name": "Can change module"
+  },
+  "model": "auth.permission",
+  "pk": 83
+},
+{
+  "fields": {
+    "content_type": 28,
+    "codename": "delete_module",
+    "name": "Can delete module"
+  },
+  "model": "auth.permission",
+  "pk": 84
+},
+{
+  "fields": {
+    "content_type": 29,
+    "codename": "add_task",
+    "name": "Can add task"
+  },
+  "model": "auth.permission",
+  "pk": 85
+},
+{
+  "fields": {
+    "content_type": 29,
+    "codename": "change_task",
+    "name": "Can change task"
+  },
+  "model": "auth.permission",
+  "pk": 86
+},
+{
+  "fields": {
+    "content_type": 29,
+    "codename": "delete_task",
+    "name": "Can delete task"
+  },
+  "model": "auth.permission",
+  "pk": 87
+},
+{
+  "fields": {
+    "content_type": 30,
+    "codename": "add_comment",
+    "name": "Can add comment"
+  },
+  "model": "auth.permission",
+  "pk": 88
+},
+{
+  "fields": {
+    "content_type": 30,
+    "codename": "change_comment",
+    "name": "Can change comment"
+  },
+  "model": "auth.permission",
+  "pk": 89
+},
+{
+  "fields": {
+    "content_type": 30,
+    "codename": "delete_comment",
+    "name": "Can delete comment"
+  },
+  "model": "auth.permission",
+  "pk": 90
+},
+{
+  "fields": {
+    "content_type": 31,
+    "codename": "add_question",
+    "name": "Can add question"
+  },
+  "model": "auth.permission",
+  "pk": 91
+},
+{
+  "fields": {
+    "content_type": 31,
+    "codename": "change_question",
+    "name": "Can change question"
+  },
+  "model": "auth.permission",
+  "pk": 92
+},
+{
+  "fields": {
+    "content_type": 31,
+    "codename": "delete_question",
+    "name": "Can delete question"
+  },
+  "model": "auth.permission",
+  "pk": 93
+},
+{
+  "fields": {
+    "content_type": 32,
+    "codename": "add_answer",
+    "name": "Can add answer"
+  },
+  "model": "auth.permission",
+  "pk": 94
+},
+{
+  "fields": {
+    "content_type": 32,
+    "codename": "change_answer",
+    "name": "Can change answer"
+  },
+  "model": "auth.permission",
+  "pk": 95
+},
+{
+  "fields": {
+    "content_type": 32,
+    "codename": "delete_answer",
+    "name": "Can delete answer"
+  },
+  "model": "auth.permission",
+  "pk": 96
+},
+{
+  "fields": {
+    "content_type": 33,
+    "codename": "add_unit",
+    "name": "Can add unit"
+  },
+  "model": "auth.permission",
+  "pk": 97
+},
+{
+  "fields": {
+    "content_type": 33,
+    "codename": "change_unit",
+    "name": "Can change unit"
+  },
+  "model": "auth.permission",
+  "pk": 98
+},
+{
+  "fields": {
+    "content_type": 33,
+    "codename": "delete_unit",
+    "name": "Can delete unit"
+  },
+  "model": "auth.permission",
+  "pk": 99
+},
+{
+  "fields": {
+    "content_type": 34,
+    "codename": "add_unitchallenge",
+    "name": "Can add unit challenge"
+  },
+  "model": "auth.permission",
+  "pk": 100
+},
+{
+  "fields": {
+    "content_type": 34,
+    "codename": "change_unitchallenge",
+    "name": "Can change unit challenge"
+  },
+  "model": "auth.permission",
+  "pk": 101
+},
+{
+  "fields": {
+    "content_type": 34,
+    "codename": "delete_unitchallenge",
+    "name": "Can delete unit challenge"
+  },
+  "model": "auth.permission",
+  "pk": 102
+},
+{
+  "fields": {
+    "content_type": 35,
+    "codename": "add_resource",
+    "name": "Can add resource"
+  },
+  "model": "auth.permission",
+  "pk": 103
+},
+{
+  "fields": {
+    "content_type": 35,
+    "codename": "change_resource",
+    "name": "Can change resource"
+  },
+  "model": "auth.permission",
+  "pk": 104
+},
+{
+  "fields": {
+    "content_type": 35,
+    "codename": "delete_resource",
+    "name": "Can delete resource"
+  },
+  "model": "auth.permission",
+  "pk": 105
+},
+{
+  "fields": {
+    "content_type": 36,
+    "codename": "add_group",
+    "name": "Can add group"
+  },
+  "model": "auth.permission",
+  "pk": 106
+},
+{
+  "fields": {
+    "content_type": 36,
+    "codename": "change_group",
+    "name": "Can change group"
+  },
+  "model": "auth.permission",
+  "pk": 107
+},
+{
+  "fields": {
+    "content_type": 36,
+    "codename": "delete_group",
+    "name": "Can delete group"
+  },
+  "model": "auth.permission",
+  "pk": 108
+},
+{
+  "fields": {
+    "content_type": 37,
+    "codename": "add_membership",
+    "name": "Can add membership"
+  },
+  "model": "auth.permission",
+  "pk": 109
+},
+{
+  "fields": {
+    "content_type": 37,
+    "codename": "change_membership",
+    "name": "Can change membership"
+  },
+  "model": "auth.permission",
+  "pk": 110
+},
+{
+  "fields": {
+    "content_type": 37,
+    "codename": "delete_membership",
+    "name": "Can delete membership"
+  },
+  "model": "auth.permission",
+  "pk": 111
+},
+{
+  "fields": {
+    "content_type": 38,
+    "codename": "add_invitation",
+    "name": "Can add invitation"
+  },
+  "model": "auth.permission",
+  "pk": 112
+},
+{
+  "fields": {
+    "content_type": 38,
+    "codename": "change_invitation",
+    "name": "Can change invitation"
+  },
+  "model": "auth.permission",
+  "pk": 113
+},
+{
+  "fields": {
+    "content_type": 38,
+    "codename": "delete_invitation",
+    "name": "Can delete invitation"
+  },
+  "model": "auth.permission",
+  "pk": 114
+},
+{
+  "fields": {
+    "last_name": "",
+    "user_permissions": [],
+    "is_active": true,
+    "username": "admin",
+    "first_name": "",
+    "last_login": "2016-01-28T19:17:38.269Z",
+    "is_staff": true,
+    "password": "pbkdf2_sha256$12000$oyary5VikuTG$rZjVxNiF6YxvNVE3UWf+E5jgm+O+GLWLT1tuhR+PGIY=",
+    "groups": [],
+    "date_joined": "2016-01-28T19:07:48.510Z",
+    "is_superuser": true,
+    "email": "mike@iridescentlearning.org"
+  },
+  "model": "auth.user",
+  "pk": 1
+},
+{
+  "fields": {
+    "approved": false,
+    "shown_intro": true,
+    "is_student": false,
+    "user": 1,
+    "parent_last_name": "",
+    "about_research_image": null,
+    "last_inactive_email_sent_on": null,
+    "employer": "",
+    "source": "",
+    "last_active_on": "2016-01-28T19:18:22.642Z",
+    "is_educator": false,
+    "about_me": "",
+    "about_research_video": null,
+    "image": null,
+    "parent_first_name": "",
+    "expertise": "",
+    "city": "",
+    "is_mentor": false,
+    "about_me_video": null,
+    "title": "",
+    "gender": "",
+    "is_parent": false,
+    "birthday": null,
+    "about_me_image": null,
+    "about_research": ""
+  },
+  "model": "profiles.profile",
+  "pk": 1
+},
+{
+  "fields": {
+    "reflect_questions": [
+      2,
+      3,
+      4
+    ],
+    "image": 5,
+    "learn_more": "<p>As David Bonter explained in the video, before making long flights over bodies of water, birds have to \u201cfuel up\u201d to be sure they have enough energy to make the flight. The design and effectiveness of a bird\u2019s beak has a huge impact on their success as a species. Birds who are able to eat more food with less effort will be able to migrate more easily when harsh weather arrives.</p>\r\n<p>\r\nSome birds are able to eat hard foods, like nuts, which offer a high amount of calories (aka fuel).  This is because their beaks use mechanical advantage to break through the nut\u2019s shell easily. <strong>Mechanical advantage</strong> gives birds the ability to amplify the force of their beaks. Though beaks vary in size and shape, the overall structures of beaks are similar. Most bird beaks allow for a large <strong>load</strong> (or food in this case) to be consumed because the <strong>fulcrum</strong>, or area of the beak that permits movement, is very sensitive to effort, or the amount of energy, that it takes to move the beak. </p>\r\n<p>\r\nBecause beaks have this special combination of fulcrums, parts sensitive to effort <em>and</em> the ability to accommodate a large load they are able to crack open hard nuts and seeds!</p>\r\n",
+    "build_call_to_action": "How much food was your bird beak able to pick up? What could you change to make it able to pick up even more?",
+    "video": 1,
+    "plan_subheader": "Sketch a plan for your design and what materials you\u2019ll use!",
+    "how_to_make_it": "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/LlqjlLNGx1A\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<ol>\r\n<li>Connect your pencils together with rubber bands to create a system that closes when you apply effort with your hands. Feel free to use a variety of long, rigid objects.</li>\r\n<li>Think of the connection areas of your long, rigid objects as fulcrums--what materials and structure will allow for the easiest movement of the pencils?</li>\r\n<li>Connect your spoons or \u201cfood grabbers\u201d at the end of your system. You\u2019re ready to begin testing your design!</li>\r\n</ol>",
+    "name": "Engineer a Bird Beak",
+    "description": "Engineer a beak that will allow you to pick up as much food as possible in one try without using your hands.",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?",
+    "draft": false,
+    "public": true,
+    "materials_list": "<ul>\r\n<li>sticks</li>\r\n<li>rubber bands<li>\r\n <li>paper clips</li>\r\n<li>plastic cutlery</li>\r\n<li>grains</li>\r\n</ul>",
+    "themes": [
+      6,
+      14
+    ],
+    "plan_call_to_action": "How will your design work?",
+    "mentor_guide": "",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?"
+  },
+  "model": "challenges.challenge",
+  "pk": 1
+},
+{
+  "fields": {
+    "reflect_questions": [
+      17,
+      18,
+      19
+    ],
+    "image": 6,
+    "learn_more": "<p>Have you ever watched a rocket launch a shuttle into space? Did you wonder how a launch works, and why the rocket is able to move at such high speeds?<p>\r\n<p>You might be surprised to learn that rocket launches are the result of the movements of tiny molecules! <strong>Molecules</strong> are atoms bonded together \u2013 such as water (which is made of 3 atoms: 2 hydrogen and 1 oxygen).</p>\r\n<p>When a rocket launches, it  combines hydrogen (H2) and oxygen (O2) molecules and heats them \u2013 resulting in a <strong>chemical reaction</strong>, recombining the hydrogen and oxygen atoms into water molecules. This chemical reaction produces heat and steam, which moves quickly and is forced out of the rocket\u2019s thrusters, pushing the rocket upward! <strong>Thrust</strong> is the force that pushes something rapidly in a direction. </p>\r\n<p>In this design challenge, you\u2019ll create your own launcher powered by a chemical reaction and create a large thrust! Wear safety goggles, and do this design challenge outside.</p>\r\n<p><em>Interesting fact:</em> Alka seltzer is powdered acetic acid (vinegar) and sodium bicarbonate (baking soda). When an alka seltzer tablet is placed in water, the water helps to free the vinegar and baking soda molecules so they can react with each other, creating a fizz of carbon dioxide bubbles \u2013 the water isn't actually part of the chemical reaction!</p>\r\n",
+    "build_call_to_action": "Build your rocket launcher and see how high it can propel your space shuttle!",
+    "video": 1,
+    "plan_subheader": "Sketch a plan for your design and describe what materials you\u2019ll use!",
+    "how_to_make_it": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/2W61Si4SSEU\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<ol>\r\n<li>Note: Do this design challenge outside, and wear protective safety glasses. Once you do step 2, you have about 15 seconds before your chemical reaction causes a launch, so work quickly and run through the steps a few times before using water.</li>\r\n<li>Fill you film canister \u00bd to \u2154 full with water, and add \u00bd for a crushed alka seltzer tablet to the canister. This will be the reaction chamber of your rocket!</li>\r\n<li>Quickly put the lid on the canister. Place the canister on the ground and back away quickly.</li>\r\n<li>Repeat your launch, and place your marble or gumball on top of the canister before snapping it shut. The gumball or marble is your space shuttle. CAREFUL: the marble will shoot upwards at great velocity, step away from the canister as soon as the marble is in place, and NEVER put your face over the rocket.</li>\r\n</ol>\r\n",
+    "name": "Build a Self-Powered Rocket",
+    "description": "Use a simple chemical reaction to launch a small object.",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?\r\n",
+    "draft": false,
+    "public": false,
+    "materials_list": "<ul>\r\n<li>empty film canister</li>\r\n<li>water</li>\r\n<li>alka seltzer tablet</li>\r\n<li>safety goggles</li>\r\n<li>marble or gumball</li>\r\n</ul>",
+    "themes": [
+      10
+    ],
+    "plan_call_to_action": "Plan your design and post a picture of it here!\r\n",
+    "mentor_guide": "",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?"
+  },
+  "model": "challenges.challenge",
+  "pk": 2
+},
+{
+  "fields": {
+    "reflect_questions": [
+      9,
+      10,
+      11
+    ],
+    "image": 7,
+    "learn_more": "<p>When NASA scientists get ready to launch a rocket, they have to be sure that the rocket will be able overcome the force of gravity. This is difficult, because <strong>gravity</strong> pulls objects toward the ground (this is why you always land after jumping up!), making it very difficult for anything to leave Earth\u2019s atmosphere. In the video, Raul was able to send a toy shuttle into space using a helium balloon, making it weigh less than air and rise, very similarly to how bubbles rise to the top of a glass of soda. The toy shuttle and balloon fell back to Earth when enough helium leaked out of the balloon to make it heavier than air again.</p>\r\n\r\n<p>In your design challenge, you are going to launch a rocket by creating a <strong>thrust</strong>, or strong push, that causes your object to move upward against the force of gravity. In your stomp rocket design, you will use an <strong>air bladder</strong> to hold a large amount of air, which can be squeezed (or stomped on!) to force the air out very quickly. If you direct all this escaping air into your rocket, it will thrust the rocket forward!</p>\r\n\r\n<p>In order to travel at very high speeds along a predictable path, rockets need to have an <strong>aerodynamic</strong> shape that will allow them to cut through the air easily, reducing air resistance. <strong>Air resistance</strong> is the reason objects moving through air slow down \u2013 to move forward, an object has to push through millions of invisible air molecules, which slow it down and reduce its forward thrust. Objects with pointed fronts, like airplanes and arrows, are able to shove air molecules aside, which allows them to move forward more easily.</p>",
+    "build_call_to_action": "Let\u2019s start building! Try out different wing sizes to see which ones help your rocket fly the straightest and highest.",
+    "video": 1,
+    "plan_subheader": "Sketch a plan for your design and what materials you\u2019ll use!",
+    "how_to_make_it": "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/oypRWWl4rUA\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<ol>\r\n<li>Using a pvc pipe or straw, build your rocket by wrapping a piece of construction paper around a pipe. Make sure the paper cylinder wrapped tight, but that the pipe can still move freely.</li>\r\n<li>When the paper is taped, remove the PVC pipe from within the paper cylinder and cap the top end using tape.</li>\r\n<li>Build a nose cone and attach fins to the rocket to help it cut through the air and fly farther. </li>\r\n<li>Use your PVC pipe or straw to create a tube with a 45 degree bend near one end.</li>\r\n<li>Attach your water bottle or bulb syringe to one end of the pipe.</li>\r\n<li>Slip your rocket over the pipe opening and stomp on the water bottle or bulb and watch your rocket fly!</li>\r\n</ol>",
+    "name": "Build a Stomp Rocket",
+    "description": "Design a stomp rocket propelled by air pressure that can fly at least 10 ft in the air.",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?",
+    "draft": false,
+    "public": false,
+    "materials_list": "<ul>\r\n<li>PVC pipes</li>\r\n<li>PVC elbow connector</li>\r\n<li>recycled plastic bottle</li>\r\n<li>recycled paper</li>\r\n<li>tape</li>\r\n</ul>",
+    "themes": [
+      10
+    ],
+    "plan_call_to_action": "Plan your design and post a picture of it here! ",
+    "mentor_guide": "",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?"
+  },
+  "model": "challenges.challenge",
+  "pk": 3
+},
+{
+  "fields": {
+    "reflect_questions": [
+      4,
+      5,
+      6
+    ],
+    "image": 8,
+    "learn_more": "\r\n<p>In the video, Roger Hanlon explains his interest in the unique adaptations of <strong>cephalopods</strong>, the animal class that octopi and squid belong to. Although he focused on the amazing camouflage abilities of cephalopods, this is not their only impressive adaptation.</p>\r\n<p>Octopi and other cephalopods use suction cups which cover each of their eight their tentacles (or arms)! A <strong>suction</strong>, or extremely tight seal, is created by using pressure to push gas or fluid molecules out from between the flexible suction cup and a hard surface. A suction\u2019s seal is so tight that when the suction cup is pulled away from the hard surface, no gas or liquid molecules can re-enter the space that they were originally pushed out from! This creates a small <strong>vacuum</strong> between the suction cup and the hard surface, and is what makes suction cups so strong!</p>\r\n<p>\r\nOctopi aren\u2019t the only animals who use suction to grab onto things! Swimming squid, treefrogs, wall climbing geckos, snails and even some bugs have specialized body parts that act as suction cups!</p>\r\n",
+    "build_call_to_action": "You may have to try again or redesign before your design works. Be curious, think creatively and be persistent!",
+    "video": 1,
+    "plan_subheader": "Sketch a plan for your design and what materials you\u2019ll use!",
+    "how_to_make_it": "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/kTzykJ21oiA\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<ol>\r\n  <li>Try creating a paper funnel, to fill your balloon with the filler material</li>\r\n  <li>Connect your tubing to the balloon</li>\r\n  <li>Connect your syringe to the tubing</li>\r\n  <li>Remove all air from the balloon </li>\r\n  <li>Try picking up an object. Put the balloon on an object and use the syringe as your suction mechanism!</li>\r\n</ol>",
+    "name": "Engineer an Octopus Suction Pad",
+    "description": "Build an octopus-inspired suction pad that can grab an object and hold it tightly in the air.",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?",
+    "draft": false,
+    "public": false,
+    "materials_list": "<ul>\r\n  <li>balloon</li>\r\n  <li>rubber bands</li>\r\n  <li>syringe</li>\r\n  <li>plastic tubing</li>\r\n  <li>sand</li>\r\n</ul>",
+    "themes": [
+      6,
+      8
+    ],
+    "plan_call_to_action": "Plan your design and post a picture of it here!\r\n",
+    "mentor_guide": "",
+    "build_subheader": "Sketch a plan for your design and what materials you\u2019ll use!"
+  },
+  "model": "challenges.challenge",
+  "pk": 4
+},
+{
+  "fields": {
+    "reflect_questions": [
+      3,
+      4,
+      5
+    ],
+    "image": 9,
+    "learn_more": "<img src=\"https://lh3.googleusercontent.com/-PWuf-ESjKFE/U_NdmJ_u9kI/AAAAAAAABQc/NtRbTYnEwaU/w744-h481-no/suspension%2Bbridge.png\" width=50% style=\"float:right\">\r\n\r\n<p>\r\nAs engineers, we look to some of nature\u2019s smallest creatures for inspiration. Spiders build webs to capture flying insects without having to spend energy by running them down. The spider web must withstand the wind and impact of large flying insects. Some species of spider even produce silk that is stronger than steel! </p>\r\n\r\n<p>Spider webs are extremely good at withstanding <strong>tension</strong>, or being stretched. In addition to building a web with strong, flexible, spider silk, the spider starts building with a Y-shaped structure that provides the core support for the web and helps to tolerate extreme tension. (Like <strong>suspension</strong> rods on a bridge.) The spider then incorporates triangular shapes, criss-crosses, and spiral structures to strengthen the web. (Like <strong>trusses</strong> that structural engineers use in bridges.) Engineers use these same types of structures to strengthen bridges that support the weight of cars and people.</p>\r\n\r\n<p> In the video, Jordana Jackson, of the California Department of Transportation, takes us on a tour of the new Bay Bridge. She talks about different structural engineering tools they used so the Bay bridge can withstand a lot of weight and also earthquakes. In this challenge, you are going to build a bridge that can withstand weight (pennies) and add trusses and suspension to your design so that it can hold up more weight just like the engineers did for the Bay bridge!\r\n</p>\r\n",
+    "build_call_to_action": "Plan your design and post a picture of it here!\r\n",
+    "video": 1,
+    "plan_subheader": "Sketch a plan for your design and what materials you\u2019ll use!\r\n",
+    "how_to_make_it": "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/FWriO_zM0cw\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<ol>\r\n  <li> Set two desks or chairs about 10 inches apart. Your bridge will span the space between.</li>\r\n  <li> Poke the ends of the paper clip into opposite sides of a paper cup near the rim. Use a second paper clip to make a hook to hang the load tester from the bridge. </li>\r\n  <li>Construct a bridge from toothpicks and gumdrops, and place it so that it spans the gap between the two desks or chairs. Use the load tester to see how much weight it can hold. </li>\r\n  <li> Add some <strong>trusses</strong> to your bridge, and see how much more weight it can hold.</li>\r\n <li> Now turn your truss bridge into a <strong>suspension</strong> bridge to make it even stronger! Build towers for the bridge to suspend from, as well as cables to connect the floor of the bridge to the towers. See how much more weight your suspension bridge can hold.</li>\r\n</ol>",
+    "name": "Build a Suspension Bridge",
+    "description": "Build a suspension bridge inspired by spider webs that spans 10 inches and can hold at least 15 pennies.\r\n",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?",
+    "draft": false,
+    "public": false,
+    "materials_list": "<ul>\r\n  <li>toothpicks</li>\r\n  <li>gumdrops<li>\r\n  <li>large cups</li>\r\n  <li>small cup</li>\r\n  <li>string</li>\r\n  <li>paper clips</li>\r\n  <li>pennies</li>\r\n  <li>tape</li>\r\n</ul>",
+    "themes": [
+      1
+    ],
+    "plan_call_to_action": "Plan your design and post a picture of it here!\r\n",
+    "mentor_guide": "",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?\r\n"
+  },
+  "model": "challenges.challenge",
+  "pk": 5
+},
+{
+  "fields": {
+    "reflect_questions": [
+      7,
+      8,
+      9
+    ],
+    "image": 10,
+    "learn_more": "<p>Did you know that jellyfish not only float on currents in the ocean, but can also swim? Scientist John Dabiri studies how jellyfish swim, examining the powerful movements created by its body</p>\r\n<p> \r\nA jellyfish uses <strong>jet propulsion</strong> to push itself forward in the water by opening and closing its bell (the circular part of the animal) \u2013 very similarly to how you open and close an umbrella. To help with this propulsion, a jellyfish has a ring of muscle around its bell (or head). When a jellyfish tightens this muscle, the bell closes. This pushes the water that was inside the jellyfish out and behind, which results in pushing the jellyfish forward. As the muscle relaxes, water fills the bell again, starting the whole process over.</p>\r\n<img src=\"https://lh5.googleusercontent.com/-DvQ7vUc7YEE/U5h8AZrEk2I/AAAAAAAAAQo/ADhs2rKSpjI/w397-h281-no/jellyfish+vortex.jpg\">\r\n<p>\r\n\r\nWhat John Dabiri found so interesting about how a jellyfish moves is the vortices formed when a jellyfish closes its bell. A <strong>vortex</strong> is created when a fluid swirls around a central point, much like a tornado or smoke ring! A doughnut-shaped vortex is formed when fluid flows back on itself, making a spinning ring around an invisible core. </p>",
+    "build_call_to_action": "You may have to try again or redesign before your vortex cannon works. Be curious, think creatively and be persistent!",
+    "video": 1,
+    "plan_subheader": "Sketch a plan for your design and what materials you\u2019ll use!",
+    "how_to_make_it": "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/agjbmvaWKhw\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<ol>\r\n  <li>Cut a round hole that is about 2 inches across in the bottom of a cup. This will represent the \u201cbell\u201d of a jellyfish! Have an adult help you and wear protective gloves.</li>\r\n  <li>Cover the top of your cup with a sheet of thin, flexible plastic. </li>\r\n  <li>Find a way to stretch the plastic (and pull air into the cup), and then have the plastic snap back into place (pushing the air out again).</li>\r\n  <li>Test your vortex cannon! See if you can move or knock over an object with the vortex rings your cannon creates! For an extra challenge, try to <em>see</em> the vortex rings \u2013 just like John Dabiri did in his experiments! <em>Hint:</em> Try using incense or a fog machine!</li>\r\n</ol>\r\n",
+    "name": "Build a Vortex Cannon",
+    "description": "Design a vortex cannon that is strong enough to move objects with its bursts of air.",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?\r\n",
+    "draft": false,
+    "public": false,
+    "materials_list": "<ul>\r\n  <li>large cup</li>\r\n  <li>rubber bands</li>\r\n  <li>recycled plastic bag</li>\r\n  <li>paper clips</li>\r\n  <li>tape</li>\r\n  <li>scissors</li>\r\n  <li>protective gloves</li>\r\n</ul>",
+    "themes": [
+      8
+    ],
+    "plan_call_to_action": "Make your plan- upload a drawing of what you plan to build and tell us what materials you are using by editing the material's list.",
+    "mentor_guide": "",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?"
+  },
+  "model": "challenges.challenge",
+  "pk": 6
+},
+{
+  "fields": {
+    "reflect_questions": [
+      11,
+      12,
+      14
+    ],
+    "image": 11,
+    "learn_more": "<img width=400 src=\"https://lh4.googleusercontent.com/-7GP_QGyhZ5U/U-4vc3ztFJI/AAAAAAAABME/8iK_VtbpIzM/w633-h475-no/orthographic%2Bprojection.png\" style=\"float:right\";>\r\n\r\n<p>When engineers design a new 3D object, they need to be able to describe the object accurately in drawings so that other engineers can understand the details of the object and how to make it. To do this, drawings must be made of many sides of the object, to show the shapes and dimensions of the object from all views. You need to be able to represent 3 dimensions onto a paper.These drawings are called <strong>orthographic projection drawings</strong>! Engineers all over the world use these drawings to communicate ideas.</p>\r\n\r\n<p>To give a better idea of how orthographic projection drawings work, imagine that an object is placed inside a box with clear sides. If the object\u2019s outline (also called <strong>contour</strong> which is the physical edge or shape of an object) and details were traced on each of the box\u2019s clear sides, together these drawings would be an orthographic drawing of the object! <em>In this design challenge, you are going to make a \u201cglass box\u201d and orthographic projection drawings!</em>\r\n</p>\r\n\r\n<p>Every 3D object has 6 sides (or <strong>faces</strong> which is the same number of sides as a cardboard box. In this design challenge you will make a drawing of at least 3 of these faces, including the top and two of the sides. We will be using the <strong> Glass Box </strong> to help you represent a 3D object so that you can create drawings like Ioana did of the avocado in the instructional video. In her video, she chose a simple shaped object and moved the objects so she can see different faces for her drawing. In our design challenge, we will use the help of a \u201cglass box\u201d which to do the same. \r\n</p>\r\n",
+    "build_call_to_action": "Were you able to draw the 3 sides of your object using the \u201cglass box\u201d? How could you design you glass box so you can use it to draw a better picture of your 3-dimensional object? \r\n",
+    "video": 1,
+    "plan_subheader": "Sketch a plan for your design and what materials you\u2019ll use!\r\n",
+    "how_to_make_it": "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/bRZBeNLPPtQ\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<ol>\r\n  <li>Build your \u201cglass box\u201d! You\u2019ll want to cut large windows on 3 faces of your box which share one corner. When your object is placed inside the box, you will be able to see the plan and two elevation faces of your object!</li>\r\n  <li>Where the faces of the box have been cut away, tape sheets of saran wrap. You\u2019ll want these to be tight so that they are easy to draw on!\r\n</li>\r\n  <li>Place your object inside the box. It is a good idea to tape the object to the bottom of your box so that it doesn\u2019t move!</li>\r\n  <li>Trace the outline and contours of your object onto the saran wrap windows.</li>\r\n</ol>\r\n",
+    "name": "Make Drawings of Three-Dimensional Objects",
+    "description": "Make scaled technical drawings of 3D objects using the Glass Box Theory.\r\n",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?\r\n",
+    "draft": false,
+    "public": false,
+    "materials_list": "<ul>\r\n  <li>simple 3-D object</li>\r\n  <li>recycled cardboard box</li>\r\n  <li>saran wrap</li>\r\n  <li>marker</li>\r\n</ul>",
+    "themes": [
+      4
+    ],
+    "plan_call_to_action": "Plan your design and post a picture of it here!\r\n",
+    "mentor_guide": "",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?\r\n"
+  },
+  "model": "challenges.challenge",
+  "pk": 7
+},
+{
+  "fields": {
+    "reflect_questions": [
+      12,
+      14,
+      15
+    ],
+    "image": 12,
+    "learn_more": "<p>How does your computer trick your eyes into thinking that a flat screen can project a three-dimensional world? Scientists, like Joseph Teran, use computers and mathematics to <strong>simulate</strong> real world objects using simple shapes and math, and enable flat computer screens to simulate objects with height, width and depth. Creating computer simulations of real world objects let scientists test potential designs, predict future outcomes, or get a close look at events that are difficult to observe directly.\r\n</p>\r\n\r\n<p>For a computer to display a complex image, such as a human body, a scientist might require thousands of small simple shapes put together into a structure called a <strong>wireframe</strong>. A digital<strong> 3-dimensional</strong> image is made up of a variety of shapes that are mostly made up of straight lines. \r\n</p>\r\n\r\n<p>In this design challenge, you are going to build a a sphere, which has no straight sides, using straight, flat shapes such as squares, triangles, pentagons, hexagons or others. You will be mimicking what Dr. Teran\u2019s computer simulations and 3-D modeling can do to reproduce a life-like animation.\r\n</p>\r\n<p> <img src=\"https://s-media-cache-ak0.pinimg.com/originals/15/eb/ef/15ebef0a1968c4232b4ba4d576b10c6e.jpg\" width=\"334\" height=\"314\"> </p>",
+    "build_call_to_action": "What shapes are you using and in what order are you putting the shapes together? Can you think of a way to change the order so your ball is more round?",
+    "video": 1,
+    "plan_subheader": "Sketch a plan for your design and what materials you\u2019ll use!\r\n",
+    "how_to_make_it": "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/yU5gMJeinWw\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<ol>\r\n  <li>Remember that your task is to make a <em>round</em> ball from <em>flat</em>, cutout shapes. Although everyone works differently, it is a good idea to start with a drawing and plan what shapes you\u2019ll need to complete your design.</li>\r\n  <li>Start cutting and taping your shapes! You may find that you can make a ball out of the same shapes that are all one size. Or, you may find that a variety of shapes and sizes work very well. Hint: think of a soccer ball! Most modern soccer balls consist of flat panels positioned in order to form a ball.</li>\r\n  <li>Tape your cut shapes together and construct your ball.</li>\r\n</ol>",
+    "name": "Make a Flat Ball",
+    "description": "Create a ball that is as round as possible using simple geometric shapes cut out of paper and taped together.\r\n",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?",
+    "draft": false,
+    "public": false,
+    "materials_list": "<ul>\r\n  <li>recycled cereal box</li>\r\n  <li>tape</li>\r\n  <li>scissors</li>\r\n</ul>",
+    "themes": [
+      4,
+      13
+    ],
+    "plan_call_to_action": "Plan your design, and post a picture of it here!\r\n",
+    "mentor_guide": "",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?\r\n"
+  },
+  "model": "challenges.challenge",
+  "pk": 8
+},
+{
+  "fields": {
+    "reflect_questions": [
+      18,
+      19,
+      20
+    ],
+    "image": 13,
+    "learn_more": "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/Ja5TqYiFCoo\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<p> Scientist Sheila Patek found that the fastest animals in the world rely on a quick release of energy in order to propel themselves or deliver an extremely fast, powerful punch! When a trapjaw ant opens its large jaws and pushed them against the ground, it is building <strong>elastic potential energy</strong>, or energy that is building due to something being stretched or compressed from its natural shape. In this case, the energy is the result of the tendons in the ant\u2019s jaws being stretched like a rubber band! When the trapjaw ant allows its jaws to snap shut (and release all the energy very quickly), it causes the ant to fly several body lengths away!</p>\r\n\r\n<p>In this design challenge, you are going to build your own Mighty Machine that can store potential energy in the rubber bands. This machine will be able to jump when you release it which is when the stored potential energy is converted (changed) to kinetic energy. <strong> Kinetic energy </strong> is the energy used to make something move. Lets get building!</p>",
+    "build_call_to_action": "If your mighty machine doesn\u2019t work at first, try again! Designing and building can be a frustrating process with many unforeseen problems. Be persistent, think creatively and be curious!",
+    "video": 1,
+    "plan_subheader": "Sketch a plan for your design and what materials you\u2019ll use!",
+    "how_to_make_it": "<table cellpadding=\"10\">\r\n    <th style=\"padding-right:10px\"><iframe width=\"400\" height=\"300\" src=\"//www.youtube.com/embed/vdkDDRiuUO4\" frameborder=\"0\" allowfullscreen></iframe></th>\r\n    <th style=\"padding-right:10px\"><iframe width=\"400\" height=\"300\" src=\"//www.youtube.com/embed/KbfEkrx8-gY\" frameborder=\"0\" allowfullscreen></iframe></th>\r\n</table>\r\n\r\n<ol>\r\n  <li>Find different ways to attach your rigid objects and rubber bands together. Winding or stretching a rubber band can be a great way to store elastic energy!</li>\r\n  <li>See if you can create a latch system for your design, so that it releases its elastic energy when the latch is released (similarly to how an umbrella latch is used to release open an umbrella, and how the mantis shrimp kept its are cocked and ready to punch!).</li>\r\n  <li>Test your design, and see how far it can jump!</li>\r\n</ol>",
+    "name": "Build a Mighty Machine",
+    "description": "Build a mighty machine that jumps up, sideways, or flips over. The whole structure should jump into the air.",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?",
+    "draft": false,
+    "public": false,
+    "materials_list": "<ul>\r\n  <li>sticks</li>\r\n  <li>rubber bands</li>\r\n  <li>paper clips</li>\r\n  <li>drinking straws</li>\r\n</ul>",
+    "themes": [
+      6,
+      14
+    ],
+    "plan_call_to_action": "Make your plan- upload a drawing of what you plan to build and tell us what materials you are using by editing the material's list.",
+    "mentor_guide": "",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?"
+  },
+  "model": "challenges.challenge",
+  "pk": 9
+},
+{
+  "fields": {
+    "reflect_questions": [
+      5,
+      6,
+      7
+    ],
+    "image": 14,
+    "learn_more": "<p>In the video, Scientist Eric Blood talks about the special parachute built to land the Curiosity Rover on Mars. The parachute is able to create <strong>drag</strong>, which helps land the rover safely onto the surface of Mars. Drag is impacted by the <strong>velocity</strong> or speed of the object falling, <strong>air density</strong> (how many air molecules there are in a volume or air, such as the atmosphere of Mars), and the shape of the landing device. Mars has a very low air density (very few air molecules compared to the earth\u2019s atmosphere), and less friction from air molecules to slow the rover\u2019s fall. It is very important that we design a landing device that is able to create as much drag as possible, catching as many air molecules as it can in order to slow the fall. </p>\r\n<p>\r\nFor the Curiosity Rover, a special parachute was designed specifically for the rover so that it can land safely on Mars. In this challenge, you are going to build a landing device for a payload. You want to make sure the payload can land right-side-up and safely from a great height, as there won\u2019t be anyone on Mars to help repair or flip it over!</p>\r\n<p>\r\n<p>Check out this video from Science Friday with more <a href=\"http://s3.amazonaws.com/scifri-videos/lrg-curiosity-081012.mp4\" target=\"_blank\">Curiosity Rover</a> inspiration!</p>",
+    "build_call_to_action": "You may have to try again or redesign before your design works. Be curious, think creatively and be persistent!\r\n",
+    "video": 1,
+    "plan_subheader": "Sketch a plan for your design and what materials you\u2019ll use!",
+    "how_to_make_it": "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/8CgWBrKJVfU\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<ol>\r\n  <li>Build your payload, a <a href=\"http://www.curiositymachine.org/challenges/27/\">Mars Rover!</a> Alternatively, you can use a small, somewhat heavy object such as a toy car for your payload.</li>\r\n  <li>Construct a carrier for your payload that will help it stay upright as it falls.</li>\r\n  <li>Build an attachment to your carrier that creates enough drag to slow your rover when it is being dropped from an 8 foot height. The heavier your payload, the more drag your carrier will need to create!</li>\r\n</ol>",
+    "name": "Engineer a Landing Device",
+    "description": "Build a device that will slow down your payload as it falls so it lands gently when dropped from 8 feet high.",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?",
+    "draft": false,
+    "public": false,
+    "materials_list": "<ul>\r\n  <li>recycled paper</li>\r\n  <li>string</li>\r\n  <li>popsicle sticks</li>\r\n  <li>sticks</li>\r\n  <li>tape</li>\r\n  <li>scissors</li>\r\n</ul>",
+    "themes": [
+      10
+    ],
+    "plan_call_to_action": "Make your plan - upload a drawing of what you plan to build and tell us what materials you are using by editing the materials list.",
+    "mentor_guide": "<p><strong> Challenge: </strong>Build a device that will slow down as it falls, to minimize force of impact when dropped from 8 feet high.</p>\r\n<p><strong> Concepts: </strong>Students will explore the concepts of aerodynamic forces and impact.</p>\r\n\r\n<strong> Top Mentor Feedback Example! </strong>\r\n\r\n<p> Jessica mentoring Sophia's project: <a target=\"_blank\" href=\"https://www.curiositymachine.org/challenges/13/Baymax8/build/\">https://www.curiositymachine.org/challenges/13/Baymax8/build/ </a> </p>\r\n\r\n<p><u>Speed</u></p>\r\n<p>How far an object has travelled over a total period of time (distance).</p>\r\n<p> <img src=\"http://www.examstutor.com/physics/resources/studyroom/mechanics/speed_and_velocity_constant_motion/pictures/dist_time_graph.gif\"></p>\r\n\r\n<p><u>Velocity</u></p>\r\n<p>How much an object has moved in relation to the initial starting point, over the amount of time taken (displacement).</p>\r\n<p> <img src=\"http://www.icoachmath.com/physics/physics-dictinory/exa.JPG\" ></p>\r\n\r\n<p><u>Distance vs. Displacement</u></p>\r\n<p>Distance is the length of how much an object has traveled during its journey, while displacement is the distance in relation to the object\u2019s starting point.</p>\r\n<p> <img src=\"http://wikipremed.com/image_science_archive_68/010101_68/101450_323px-Distancedisplacement.svg_68.jpg\" width=\"320\" height=\"240\"></p>\r\n\r\n<p><u>Drag</u></p>\r\n<p>A type of friction that slows down the movement of an object travelling through air. It is dependent on the surface area of the object in contact with air. Also known as air resistance.\r\n</p>\r\n<p> <img src=\"https://cheshirelibraryscience.files.wordpress.com/2013/10/parachute_forces.jpg\"width=\"426\" height=\"308\"></p>\r\n\r\n<p><u>Impact or Collision</u></p>\r\n<p>The forces that occur when two or more objects collide, which depends on speed, acceleration, material, and surface area of object.</p>\r\n<p> <img src=\"http://hyperphysics.phy-astr.gsu.edu/hbase/imgmec/flobi2.gif\" width=\"507\" height=\"191\"></p>\r\n\r\n<p><u>Air Density</u></p>\r\n<p>The amount of air or fluid molecules that are in the atmosphere to help create drag, which slows down a falling object.</p>\r\n<p> <img src=\"http://upload.wikimedia.org/wikipedia/commons/4/45/Particles_density.svg\" width=\"150\" height=\"210\"></p>\r\n\r\n<br> </br>\r\n<p><strong> Feedback Advice:</strong></p>\r\n<p>The students may have not created enough surface area to provide drag.</p><ul>\r\n<li>\u201cWhat would happen if you increased or decreased the surface area of the parachute part of your landing device?\u201d</li></ul>\r\n<p>The force of impact or collision may make the lander unstable or break.</p> <ul>\r\n<li>\u201cCan you try adding stuff to the bottom of the lander to absorb the force when it hits the ground?\u201d</li></ul>\r\n<br> </br>\r\n\r\n<p> <iframe width='800' height='350' frameborder='0' \r\nsrc=https://docs.google.com/spreadsheets/d/1svSBhpCnclplFQDC-rXpp5JwZ2e08qtF-kXkU1OEaxE/edit?usp=sharing></iframe></p>\r\n\r\n<p><strong>Mentor Instructional Video </strong> </p>\r\n<p> <em>Coming soon! </em></p>",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?\r\n"
+  },
+  "model": "challenges.challenge",
+  "pk": 10
+},
+{
+  "fields": {
+    "reflect_questions": [
+      21,
+      22,
+      23
+    ],
+    "image": 121,
+    "learn_more": "<img src=\"https://lh4.googleusercontent.com/-J5mdb1nXVCY/U_Y1bNiianI/AAAAAAAABcI/-VrZoTXSTEY/w652-h489-no/Ping%2BPong%2BAeolipile.png\" width=50% style=\"float:right\">\r\n\r\n<p>Thousands of years ago, an ancient Greek named \u201cHero\u201d wrote notes about an experiment where he boiled water using a special pot. He called it an <strong>aeolipile</strong>. Water heated in a cauldron would produce steam, which would then rise into a sphere. The steam would collect in the sphere, building pressure until forced to exit through bent vents with great force. The force of the exiting steam created a <strong>thrust</strong>, or strong push, in the opposite direction that the steam exits from, and caused the sphere to spin.</p>\r\n\r\n<p>Today, Tony Castilleja and other engineers use the same idea when they make spaceships! In order for a vehicle to steer itself in space, it uses the same principle of thrust \u2013 it pushes gases out a nozzle, which makes the ship move in the opposite direction.  The CST-100 has 24 onboard <strong>thrusters</strong>. It uses to navigate through space, slow down, and dock at the International Space Station. Each thruster works just like vents on an aeolipile! Imagine releasing air from a balloon. If the opening faces to the right, which direction does the balloon move in?</p>\r\n\r\n<p>In this design challenge, you are going to build your own air=powered spinning machine inspired by the thrusters on the CST-100!</p>",
+    "build_call_to_action": "How many thrusters did you add? What direction will the air be released in your machine? \r\n",
+    "video": null,
+    "plan_subheader": "Sketch a plan for your air-powered spinning machine design and what materials you\u2019ll use!",
+    "how_to_make_it": "<table cellpadding=\"10\">\r\n  <tr>\r\n    <th style=\"padding-right:10px\"><iframe width=\"400\" height=\"300\" src=\"//www.youtube.com/embed/pBvTuinF608\" frameborder=\"0\" allowfullscreen></iframe></th>\r\n    <th style=\"padding-right:10px\"><iframe width=\"400\" height=\"300\" src=\"https://www.youtube.com/embed/TSZGU6iUm9o\" frameborder=\"0\" allowfullscreen></iframe></th>\r\n  </tr>\r\n  <tr>\r\n    <td valign=\"top\" style=\"padding-right:10px\">\r\n<ol><strong>Version 1</strong>\r\n  <li>Carefully use a sharpened pencils to make two small holes in a ping pong ball. These should be directly across from each other. Push a long skewer or other material through these holes to form the air-powered spinning machine <strong>axis</strong>, or line around which the sphere will rotate. The ball should spin freely.</li>\r\n<li> With a pencil or pen, mark the <strong>equator</strong>, or middle, of your ping pong ball. This line should be perpendicular to the axis.</li>\r\n <li>Make holes along the equator where you will insert vents. You can make as few or as many as you think will be necessary to spin the ping pong ball.</li>\r\n <li>Insert straws to these new holes to form vents. Cut them so there\u2019s an inch or two of straight straw on either side of the flexible part.</li>\r\n <li>Cut a circle out of cardboard and poke the axis through it so your ping pong ball will sit on top of it while you hold it.</li>\r\n <li>Take a straw and place it over the skewer or pencil (above the circle) and with a deep breath blow into the straw.</li>\r\n</ol>\r\n</td>\r\n    <td valign=\"top\"><ol><strong>Version 2:</strong>\r\n<li>Make a hole in the bottom of a paper cup. Place the cup upside-down and insert a long, straight stick in the hole.</li>\r\n<li>Secure the cup on a table. Slide a piece of a straw over the stick.</li>\r\n<li>Tape a straw or stick on top of the piece of straw to form a \"T\".</li>\r\n<li>Blow up two balloons and use paperclips to keep them from losing air.</li>\r\n<li>Tape the balloons to opposite sides of the \"T\". Make sure they face in opposite directions and don't wiggle too much.</li>\r\n<li>Carefully take off the paper clips and let the balloons go at the same time. Your machine should spin!</li>\r\n</ol>\r\n</td>\r\n  </tr>\r\n</table>",
+    "name": "Engineer an Air-Powered Spinning Machine\r\n",
+    "description": "Build an air-powered spinning machine inspired by Boeing CST -100. ",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?",
+    "draft": false,
+    "public": false,
+    "materials_list": "<ul>\r\n  <li>ping pong ball</li>\r\n  <li>stick</li>\r\n  <li>sharpened pencil</li>\r\n  <li>drinking straws</li>\r\n  <li>milkshake straw</li>\r\n  <li>recycled cardboard</li>\r\n  <li>scissors</li>\r\n</ul>",
+    "themes": [
+      10
+    ],
+    "plan_call_to_action": "Plan your design and post a picture of it here!",
+    "mentor_guide": "\r\n<p><strong>Challenge: </strong>Build an air-powered spinning machine inspired by Boeing\u2019s CST-100.</p>\r\n\r\n<strong> Top Mentor Feedback Examples! </strong>\r\n\r\n<p> Jessica mentoring Joseph's project: <a target=\"_blank\" href=\"https://www.curiositymachine.org/challenges/58/Josephkung/build\">https://www.curiositymachine.org/challenges/58/Josephkung/build </a> \r\n<br>Paige mentoring Ringo's project: <a target=\"_blank\" href=\"https://www.curiositymachine.org/challenges/58/Ringo/build \">https://www.curiositymachine.org/challenges/58/Ringo/build </a> </p>\r\n\r\n<p><strong> Concepts: </strong>Students will explore the concepts of force, Newton\u2019s Third Law, thrust, and rotational motion. </p>\r\n\r\n<p><u>Aeolipile</u></p>\r\n<p>Water heated in a cauldron would produce steam, which would then rise into a sphere. The steam would collect in the sphere, building pressure until forced to exit through bent vents with great force. </p>\r\n<p> <img src=\"https://lh4.googleusercontent.com/-J5mdb1nXVCY/U_Y1bNiianI/AAAAAAAABcI/-VrZoTXSTEY/w652-h489-no/Ping%2BPong%2BAeolipile.png\" width=\"450\" height=\"350\" ></p>\r\n\r\n<p><u>Force</u></p>\r\n<p>Any interaction which tends to change the motion of an object.</p>\r\n<p> <img src=\"http://www.bbc.co.uk/bitesize/intermediate2/physics/images/200/110_bitesize_intermediate2_physics_forces_at_work_bar_above_head.png\"></p>\r\n\r\n<p><u>Action & Reaction (Newton\u2019s Third Law)</u></p>\r\n<p>If one object exerts a force on another object, then the second object exerts an equal and opposite reaction force on the first.</p>\r\n<p> <img src=\"http://sciencevogel.wikispaces.com/file/view/action%20rxn%20balloon%201/505162764/action%20rxn%20balloon%201\" ></p>\r\n\r\n<p><u>Thrust</u></p>\r\n<p>A type of force that moves something forward.</p>\r\n<p> <img src=\"http://upload.wikimedia.org/wikipedia/commons/1/13/RS-88_test_firing.jpg\" width=\"498\" height=\"325\"></p>\r\n\r\n<p><u>Axle</u></p>\r\n<p>What an axle rotates or spins around, like how a top spins around one point.</p>\r\n<p> <img src=\"http://www.goldridge08.com/pictures/simple/WheelAndAxle2.gif\"></p>\r\n\r\n<p><u>Torque</u></p>\r\n<p>The force of rotation around an object. Ex) a wrench uses torque to unscrew a bolt.</p>\r\n<p> <img src=\"https://thefitcoach.files.wordpress.com/2012/06/torqueb.gif\"></p>\r\n\r\n<br> </br>\r\n<p><strong> Feedback Advice:</strong></p>\r\n<p>Students may have built a fixed axle that does not allow the machine to spin.</p><ul>\r\n<li>\u201cDoes your machine rotate? What could you add or change to make your machine spin?\u201d</li></ul>\r\n<br> </br>\r\n\r\n\r\n\r\n<br> </br>\r\n<p> <iframe width='800' height='350' frameborder='0' \r\nsrc=https://docs.google.com/spreadsheets/d/1Z06XRaiVDvArrR6Dd0Inu5QwLF9rtrYg2RGozq6K1AI/edit?usp=sharing></iframe></p> \r\n\r\n<p><strong>Mentor Instructional Video </strong> </p>\r\n<p> <em>Coming soon! </em></p>",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?"
+  },
+  "model": "challenges.challenge",
+  "pk": 11
+},
+{
+  "fields": {
+    "reflect_questions": [
+      24,
+      25,
+      26
+    ],
+    "image": 120,
+    "learn_more": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/78Kg7Z9O9CY\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<p>After satellite engineers like Tricia and her colleagues launch their satellites, they need to communicate with them. They accomplish this by sending <strong>signal waves</strong>, such as radio waves or microwaves, to transmit information over great distances. <strong>Waves</strong> are <strong>oscillations</strong>, or back and forth movements, that travel through matter such as air, water, or even solids such as metal or earth! Waves can be used to carry information depending on their unique characteristics. There are three main characteristics of waves, known as frequency, amplitude, and wavelength. </p>\r\n\r\n<ul>\r\n<li><strong>frequency</strong> the number of waves that pass a specific point in a second.</li>\r\n<li><strong>amplitude</strong> the height of a wave from crest (highest point) to trough (lowest point).</li>\r\n<li><strong>wavelength</strong> the distance between crests of a wave</li>\r\n</ul></p>\r\n\r\n<p>The signals satellites receive travel from stations on earth and must make their way up through the atmosphere into space. Once the signal reaches the satellite, it is received using an antenna. Then, the satellite detects variations in the wave\u2019s characteristics and interprets these changes to translate the signal\u2019s message. For example, a signal with a low frequency and longer wavelength send radio signals versus a signal with high frequency and short wavelength sends television signals. </p>\r\n\r\n<p>In this challenge, you will send signals through your own wave machine. The signals that Tricia and her colleagues send, like signal you will make, travel through space and take time to travel from the sender to the receiver. While a signal might take a second or two to get across your wave machine, amazingly, the signals sent up to space only take a fraction of a second (a thousandth or two) to reach a satellite! This is because signals used in satellite communication travel at the speed of light, which is about 186,000 miles per second\u2014that\u2019s a lot, lot, <em>lot</em> faster than the wave traveling through your wave machine!</p>\r\n\r\n<p> Your goal for this design challenge is to build a machine that a waves can travel through and record their characteristics using a signal recording device. You can get an inspiration from a <strong>seismograph</strong> (like in the picture below) which is used to record vibrations from an earthquake (another type of wave!). You can use the signal recording to study the frequency, amplitude, and wavelength of your waves and interpret what these characteristics mean!</p>\r\n\r\n<img src=\"https://lh6.googleusercontent.com/-bPkLGPEVnQc/VRrEA5psAiI/AAAAAAAADow/dHAzsA-JDx0/w687-h515-no/seismograph-01.png\">",
+    "build_call_to_action": "Let\u2019s start building! Try out different spacing between the wave sticks to see how the wave moves through your device!",
+    "video": null,
+    "plan_subheader": "Sketch a plan for your design and what materials you\u2019ll use!",
+    "how_to_make_it": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/w76QQ428-sk\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<ol><strong>Wave Machine</strong>\r\n  <li>Lay your tape on a table with the sticky side up and carefully place popsicle sticks across the tape.</li>\r\n <li> Think about how you want to space the sticks on the tape, and how it might affect your wave. Also think about how many sticks you want to place in the machine, and how long it should be.</li>\r\n  <li>Once all the sticks are in place, lay another strip of tape on top of the first one, so the sticks are secured on top and bottom.</li>\r\n  <li>Attach the ends of the tape to two solid holding spots, like table edges or chair backs, so that the tape is a taut.</li>\r\n  <li>Add weights to the end of the sticks using pennies or clothespins. Adjust the weights so that each stick is balanced and lays flat.</li>\r\n</ol>\r\n\r\n<ol><strong>Wave Recorder</strong>\r\n<li>Make a signal recording device by attaching a marker to the last one or two popsicle sticks.</li>\r\n<li>Place a piece of paper (or a spinning paper-covered cylinder) so that the marker just brushes against the paper\u2019s surface.</li>\r\n<li> Tap one end of the machine to send a wave and slowly slide the paper in one direction to see what the marker records on the paper! </li>\r\n</ol>",
+    "name": "Make a Wave Machine",
+    "description": "Make a device that will carry a wave and record the wave\u2019s movement.",
+    "reflect_subheader": "What went wrong with your design and how did you make it better?",
+    "draft": false,
+    "public": true,
+    "materials_list": "<ul>\r\n  <li>tape</li>\r\n  <li>wooden dowels/li>\r\n  <li>clothes pins</li>\r\n <li>marker</li>\r\n <li>recycled paper</li>\r\n</ul>",
+    "themes": [
+      5
+    ],
+    "plan_call_to_action": "Plan your design and post a picture of it here!",
+    "mentor_guide": "",
+    "build_subheader": "Share in picture or video what you built! Did it work like you thought it would?"
+  },
+  "model": "challenges.challenge",
+  "pk": 12
+}
+]

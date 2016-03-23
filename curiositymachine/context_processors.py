@@ -1,6 +1,7 @@
 from profiles.forms import mentor, educator, parent, student
 from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
+from challenges.models import Example
 import logging
 
 logger = logging.getLogger(__name__)
@@ -51,3 +52,13 @@ def template_globals(request):
         "SITE_URL": settings.SITE_URL,
         "DOCEBO_MENTOR_URL": settings.DOCEBO_MENTOR_URL
     }
+
+def staff_alerts(request):
+    if request.user.is_authenticated() and request.user.is_staff:
+        return {
+            "staff_alerts": {
+                "pending_examples": Example.objects.filter(approved__isnull=True).count()
+            }
+        }
+    else:
+        return {}

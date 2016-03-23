@@ -4,6 +4,30 @@
 		{
 			"icon": {
 				"paths": [
+					"M512 409.6c-84.838 0-153.6 68.813-153.6 153.6s68.762 153.6 153.6 153.6c84.787 0 153.6-68.813 153.6-153.6s-68.813-153.6-153.6-153.6zM921.6 256h-122.88c-16.896 0-35.123-13.107-40.397-29.184l-31.795-95.283c-5.376-16.026-23.501-29.133-40.448-29.133h-348.16c-16.896 0-35.123 13.107-40.397 29.082l-31.846 95.334c-5.325 16.077-23.501 29.184-40.397 29.184h-122.88c-56.32 0-102.4 46.080-102.4 102.4v460.8c0 56.32 46.080 102.4 102.4 102.4h819.2c56.32 0 102.4-46.080 102.4-102.4v-460.8c0-56.32-46.080-102.4-102.4-102.4zM512 819.2c-141.414 0-256-114.586-256-256s114.586-256 256-256c141.363 0 256 114.586 256 256s-114.637 256-256 256zM896 419.84c-19.814 0-35.84-16.077-35.84-35.891 0-19.712 16.026-35.84 35.84-35.84s35.84 16.077 35.84 35.84c0 19.814-16.026 35.891-35.84 35.891z"
+				],
+				"attrs": [],
+				"isMulticolor": false,
+				"tags": [
+					"camera"
+				],
+				"grid": 0
+			},
+			"attrs": [],
+			"properties": {
+				"order": 1,
+				"id": 0,
+				"prevSize": 20,
+				"code": 59648,
+				"name": "camera"
+			},
+			"setIdx": 0,
+			"setId": 4,
+			"iconIdx": 0
+		},
+		{
+			"icon": {
+				"paths": [
 					"M665.6 619.52c20.48-43.52 33.28-94.72 33.28-145.92 0-120.32-61.44-225.28-153.6-289.28 56.32-56.32 115.2-112.64 179.2-168.96-74.24 43.52-145.92 94.72-209.92 148.48-48.64-25.6-102.4-38.4-161.28-38.4-192 0-348.16 156.16-348.16 348.16 0 87.040 30.72 166.4 84.48 225.28-66.56 143.36-76.8 258.56-20.48 296.96 61.44 40.96 199.68-33.28 281.6-156.16 0 0-125.44 115.2-194.56 87.040-43.52-15.36-43.52-81.92-7.68-174.080 56.32 40.96 128 66.56 204.8 66.56 94.72 0 181.76-38.4 243.2-99.84l12.8 23.040c151.040-12.8 601.6-23.040 601.6-23.040-2.56-23.040-299.52-2.56-545.28-99.84zM46.080 473.6c0-168.96 135.68-304.64 304.64-304.64 46.080 0 87.040 10.24 125.44 28.16-163.84 143.36-291.84 312.32-366.080 460.8-40.96-51.2-64-115.2-64-184.32zM350.72 778.24c-71.68 0-135.68-25.6-189.44-66.56 61.44-135.68 184.32-320 350.72-496.64 84.48 53.76 143.36 148.48 143.36 258.56 0 46.080-10.24 89.6-28.16 130.56-53.76-25.6-102.4-56.32-145.92-94.72l92.16 171.52c-53.76 58.88-133.12 97.28-222.72 97.28z",
 					"M2734.080 440.32l56.32-74.24h-197.12l48.64-64h197.12l56.32-76.8h-394.24l-268.8 358.4h391.68l56.32-74.24h-197.12l53.76-69.12h197.12z",
 					"M3005.44 225.28l-268.8 358.4h194.56l271.36-358.4h-197.12z",
@@ -91,13 +115,13 @@
 				}
 			],
 			"properties": {
-				"order": 23,
+				"order": 1,
 				"id": 0,
-				"prevSize": 32,
+				"prevSize": 20,
 				"code": 58900,
 				"name": "boeing-logo"
 			},
-			"setIdx": 0,
+			"setIdx": 1,
 			"setId": 3,
 			"iconIdx": 0
 		},
@@ -119,13 +143,13 @@
 				{}
 			],
 			"properties": {
-				"order": 24,
+				"order": 2,
 				"id": 3,
 				"name": "compsci",
 				"prevSize": 32,
 				"code": 58894
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 0
 		},
@@ -153,13 +177,13 @@
 				{}
 			],
 			"properties": {
-				"order": 25,
+				"order": 3,
 				"id": 4,
 				"name": "satellite",
 				"prevSize": 32,
 				"code": 58880
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 1
 		},
@@ -181,13 +205,13 @@
 				{}
 			],
 			"properties": {
-				"order": 28,
+				"order": 6,
 				"id": 5,
 				"name": "robotics",
 				"prevSize": 32,
 				"code": 58881
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 2
 		},
@@ -222,13 +246,13 @@
 				{}
 			],
 			"properties": {
-				"order": 39,
+				"order": 17,
 				"id": 0,
 				"name": "ocean",
 				"prevSize": 32,
 				"code": 58882
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 3
 		},
@@ -250,13 +274,13 @@
 				{}
 			],
 			"properties": {
-				"order": 30,
+				"order": 8,
 				"id": 7,
 				"name": "neuroscience",
 				"prevSize": 32,
 				"code": 58883
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 4
 		},
@@ -281,13 +305,13 @@
 				{}
 			],
 			"properties": {
-				"order": 31,
+				"order": 9,
 				"id": 8,
 				"name": "inventor",
 				"prevSize": 32,
 				"code": 58884
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 5
 		},
@@ -319,13 +343,13 @@
 				{}
 			],
 			"properties": {
-				"order": 32,
+				"order": 10,
 				"id": 1,
 				"name": "food",
 				"prevSize": 32,
 				"code": 58885
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 6
 		},
@@ -350,13 +374,13 @@
 				{}
 			],
 			"properties": {
-				"order": 33,
+				"order": 11,
 				"id": 9,
 				"name": "engineer",
 				"prevSize": 32,
 				"code": 58886
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 7
 		},
@@ -378,13 +402,13 @@
 				{}
 			],
 			"properties": {
-				"order": 34,
+				"order": 12,
 				"id": 10,
 				"name": "electrical",
 				"prevSize": 32,
 				"code": 58887
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 8
 		},
@@ -406,13 +430,13 @@
 				{}
 			],
 			"properties": {
-				"order": 35,
+				"order": 13,
 				"id": 11,
 				"name": "civil",
 				"prevSize": 32,
 				"code": 58888
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 9
 		},
@@ -434,13 +458,13 @@
 				{}
 			],
 			"properties": {
-				"order": 36,
+				"order": 14,
 				"id": 12,
 				"name": "builder",
 				"prevSize": 32,
 				"code": 58889
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 10
 		},
@@ -468,13 +492,13 @@
 				{}
 			],
 			"properties": {
-				"order": 37,
+				"order": 15,
 				"id": 13,
 				"name": "biomimicry",
 				"prevSize": 32,
 				"code": 58890
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 11
 		},
@@ -499,13 +523,13 @@
 				{}
 			],
 			"properties": {
-				"order": 38,
+				"order": 16,
 				"id": 14,
 				"name": "biomechanics",
 				"prevSize": 32,
 				"code": 58891
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 12
 		},
@@ -527,13 +551,13 @@
 				{}
 			],
 			"properties": {
-				"order": 29,
+				"order": 7,
 				"id": 15,
 				"name": "art",
 				"prevSize": 32,
 				"code": 58892
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 13
 		},
@@ -555,13 +579,13 @@
 				{}
 			],
 			"properties": {
-				"order": 26,
+				"order": 4,
 				"id": 16,
 				"name": "aerospace",
 				"prevSize": 32,
 				"code": 58893
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 14
 		},
@@ -584,13 +608,13 @@
 				{}
 			],
 			"properties": {
-				"order": 27,
+				"order": 5,
 				"id": 2,
 				"name": "materials",
 				"prevSize": 32,
 				"code": 58895
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 1,
 			"iconIdx": 15
 		},
@@ -612,13 +636,13 @@
 			},
 			"attrs": [],
 			"properties": {
-				"order": 47,
+				"order": 23,
 				"id": 6,
 				"prevSize": 16,
 				"code": 58901,
 				"name": "star-full"
 			},
-			"setIdx": 2,
+			"setIdx": 3,
 			"setId": 2,
 			"iconIdx": 0
 		},
@@ -640,13 +664,13 @@
 				{}
 			],
 			"properties": {
-				"order": 41,
+				"order": 19,
 				"id": 5,
 				"prevSize": 16,
 				"code": 58896,
 				"name": "up-arrow"
 			},
-			"setIdx": 2,
+			"setIdx": 3,
 			"setId": 2,
 			"iconIdx": 1
 		},
@@ -668,13 +692,13 @@
 				{}
 			],
 			"properties": {
-				"order": 42,
+				"order": 24,
 				"id": 4,
 				"prevSize": 16,
 				"code": 58897,
 				"name": "right-arrow"
 			},
-			"setIdx": 2,
+			"setIdx": 3,
 			"setId": 2,
 			"iconIdx": 2
 		},
@@ -696,13 +720,13 @@
 				{}
 			],
 			"properties": {
-				"order": 43,
+				"order": 20,
 				"id": 3,
 				"prevSize": 16,
 				"code": 58898,
 				"name": "down-arrow"
 			},
-			"setIdx": 2,
+			"setIdx": 3,
 			"setId": 2,
 			"iconIdx": 3
 		},
@@ -724,13 +748,13 @@
 				{}
 			],
 			"properties": {
-				"order": 44,
+				"order": 21,
 				"id": 2,
 				"prevSize": 16,
 				"code": 58899,
 				"name": "left-arrow"
 			},
-			"setIdx": 2,
+			"setIdx": 3,
 			"setId": 2,
 			"iconIdx": 4
 		},
@@ -754,13 +778,13 @@
 				{}
 			],
 			"properties": {
-				"order": 45,
+				"order": 22,
 				"id": 1,
 				"prevSize": 16,
 				"code": 58624,
 				"name": "facebook"
 			},
-			"setIdx": 2,
+			"setIdx": 3,
 			"setId": 2,
 			"iconIdx": 5
 		},
@@ -785,13 +809,13 @@
 				{}
 			],
 			"properties": {
-				"order": 40,
+				"order": 18,
 				"id": 0,
 				"prevSize": 16,
 				"code": 58625,
 				"name": "twitter"
 			},
-			"setIdx": 2,
+			"setIdx": 3,
 			"setId": 2,
 			"iconIdx": 6
 		}
@@ -821,7 +845,8 @@
 			"ie7": true,
 			"showSelector": false,
 			"resetPoint": 58880,
-			"embed": false
+			"embed": false,
+			"noie8": false
 		},
 		"imagePref": {
 			"prefix": "icon-",
@@ -835,7 +860,6 @@
 		"quickUsageToken": {
 			"CuriosityMachine": "NzdhMWM2NDIwMmI1OTk3ZmQ5Njg1ZjZjZDk3YTg4YTAjMSMxNDM3MDYzMDI4IyMj"
 		},
-		"fontHostingName": false,
 		"gridSize": 16,
 		"showGrid": true,
 		"showLiga": false

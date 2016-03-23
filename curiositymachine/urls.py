@@ -23,8 +23,8 @@ urlpatterns = patterns('',
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
     url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
-    
-    # about pages 
+
+    # about pages
     url(
         r'^about/',
         public(TemplateView.as_view(template_name="curiositymachine/pages/about.html")),
@@ -62,10 +62,30 @@ urlpatterns = patterns('',
         name='about-partnership'
     ),
     url(
+        r'^about-technical-communication/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/about-technical-communication.html")),
+        # {'active_nav': 'partnership'},
+        name='about-technical-communication'
+    ),
+    url(
         r'^faq/',
         public(TemplateView.as_view(template_name="curiositymachine/pages/faq.html")),
         {'active_nav': 'faq'},
         name='faq'
+    ),
+
+    # policy pages
+    url(
+        r'^terms-of-use/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/policy-terms-of-use.html")),
+        {'active_nav': 'terms-of-use'},
+        name='terms-of-use'
+    ),
+    url(
+        r'^privacy/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/policy-privacy.html")),
+        {'active_nav': 'privacy'},
+        name='privacy'
     ),
 
     # password reset URLs -- the "recover" one is modified and so resides in the profiles app

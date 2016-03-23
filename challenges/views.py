@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods, require_POST
-from django.db.models import Q
 from django.utils.timezone import now
 from django.conf import settings
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
@@ -14,10 +13,13 @@ from cmcomments.models import Comment
 from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only
 from curiositymachine.middleware import LoginRequired
 from videos.models import Video
+from images.models import Image
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import View
+from django.utils.decorators import method_decorator
 
 def challenges(request):
     theme_name = request.GET.get('theme')
@@ -86,45 +88,33 @@ def require_login_for(request, challenge):
 def preview_inspiration(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
-        raise LoginRequired() 
+        raise LoginRequired()
 
     return render(request, 'challenges/preview/inspiration.html', {
         'challenge': challenge,
-        'examples': Example.objects.filter(challenge=challenge),
+        'examples': Example.objects.for_gallery(challenge=challenge)[:4],
     })
 
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
-        raise LoginRequired() 
+        raise LoginRequired()
 
     return render(request, 'challenges/preview/plan.html', {'challenge': challenge})
 
 def preview_build(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
-        raise LoginRequired() 
+        raise LoginRequired()
 
     return render(request, 'challenges/preview/build.html', {'challenge': challenge})
 
 def preview_reflect(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
-        raise LoginRequired() 
+        raise LoginRequired()
 
-    if not request.user.is_authenticated() or request.user.profile.is_student:
-        messages.info(request, 'After you build and test, your mentor will approve your challenge to Reflect!')
-        return HttpResponseRedirect(request.META.get(
-            'HTTP_REFERER',
-            reverse('challenges:preview_inspiration', kwargs={
-                'challenge_id': challenge_id,
-            })
-        ))
-    else:
-        return render(request, 'challenges/preview/reflect.html', {
-            'challenge': challenge,
-            'comment_form': CommentForm(),
-        })
+    return render(request, 'challenges/preview/reflect.html', {'challenge': challenge})
 
 @login_required
 @current_user_or_approved_viewer
@@ -136,14 +126,7 @@ def redirect_to_stage(request, challenge_id, username):
     except Progress.DoesNotExist:
         return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge.id,}))
 
-    if progress.approved:
-        stageToShow = Stage.reflect
-    else:
-        latestStage = get_stage_for_progress(progress)
-        if latestStage == Stage.reflect and request.user.profile.is_student and not progress.approved:
-            stageToShow = Stage.build
-        else:
-            stageToShow = latestStage
+    stageToShow = get_stage_for_progress(progress)
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
         'challenge_id': challenge.id,
         'username': username,
@@ -172,18 +155,8 @@ def challenge_progress(request, challenge_id, username, stage=None):
         return render(request, 'challenges/progress/inspiration.html', {
             'challenge': challenge,
             'progress': progress,
-            'examples': Example.objects.filter(challenge=challenge),
+            'examples': Example.objects.for_gallery(challenge=challenge)[:4],
         })
-    elif stageToShow == Stage.reflect and request.user.profile.is_student and not progress.approved:
-        messages.info(request, 'Not yet! Your mentor needs to approve your challenge for the Reflect stage.')
-        return HttpResponseRedirect(request.META.get(
-            'HTTP_REFERER',
-            reverse('challenges:challenge_progress', kwargs={
-                'challenge_id': challenge.id,
-                'username': username,
-                'stage': Stage.inspiration.name
-            })
-        ))
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
     return render(request, "challenges/progress/%s.html" % stageToShow.name, {
@@ -193,32 +166,6 @@ def challenge_progress(request, challenge_id, username, stage=None):
         'comments': progress.comments.all(),
         'materials_form': MaterialsForm(progress=progress)
     })
-
-# Any POST to this by the assigned mentor moves a challenge progress into the reflect stage (marks approve=True); any DELETE reverses that
-@require_http_methods(["POST"])
-@login_required
-def challenge_progress_approve(request, challenge_id, username):
-    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
-
-    #Only the mentor assigned to the progress can approve/un-approve it
-    if not request.user == progress.mentor:
-        raise PermissionDenied
-
-    if request.POST.get("approve", False):
-        progress.approve(approver=request.user)
-        messages.success(request, 'Student was moved to Reflect')
-        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
-            'challenge_id': challenge_id,
-            'username': username,
-            'stage': Stage.reflect.name
-        }))
-    else:
-        Progress.objects.filter(id=progress.id).update(approved=None)
-        return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
-            'challenge_id': challenge_id,
-            'username': username,
-            'stage': Stage.build.name
-        }))
 
 @mentor_only
 def unclaimed_progresses(request):
@@ -286,3 +233,63 @@ def favorite_challenges(request):
         'favorite_challenges': favorite_challenges,
         'favorites': favorite_ids
     })
+
+class ExamplesView(View):
+    def get(self, request, challenge_id=None, *args, **kwargs):
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        if require_login_for(request, challenge):
+            raise LoginRequired()
+
+        if request.user.is_authenticated():
+            progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
+            examples = Example.objects.for_gallery(challenge=challenge, progress=progress)
+            user_example = examples.filter(progress=progress).first()
+        else:
+            progress = None
+            examples = Example.objects.for_gallery(challenge=challenge)
+            user_example = None
+
+        page = request.GET.get('page')
+        paginator = Paginator(examples, settings.EXAMPLES_PER_PAGE)
+        try:
+            examples = paginator.page(page)
+        except PageNotAnInteger:
+            examples = paginator.page(1)
+        except EmptyPage:
+            examples = paginator.page(paginator.num_pages)
+
+        return render(request, 'challenges/examples/examples.html', {
+            'examples': examples,
+            'challenge': challenge,
+            'progress': progress,
+            'user_example': user_example,
+        })
+
+    @method_decorator(login_required)
+    def post(self, request, challenge_id=None, *args, **kwargs):
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
+        image = get_object_or_404(Image, id=request.POST.get('example'))
+
+        if not image.comments.filter(user=request.user, challenge_progress=progress).exists():
+            raise Http404("Image not found for this challenge")
+        if Example.objects.from_progress(progress=progress).status(approved=True, pending=True).exists():
+            return HttpResponse(status=409, reason="Example already exists")
+        example = Example(challenge=challenge, progress=progress, image=image)
+        example.save()
+        return HttpResponseRedirect(reverse('challenges:examples', kwargs={
+            'challenge_id': challenge.id,
+        }))
+
+class ExamplesDeleteView(View):
+    @method_decorator(login_required)
+    def post(self, request, challenge_id=None, *args, **kwargs):
+        example = get_object_or_404(Example, id=request.POST.get('example-id'))
+        if example.progress.student != request.user:
+            raise Http404()
+        example.approved=False
+        example.save()
+        return HttpResponseRedirect(reverse('challenges:examples', kwargs={
+            'challenge_id': challenge_id,
+        }))
+
