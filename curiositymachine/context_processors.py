@@ -49,7 +49,8 @@ def template_globals(request):
         "REQUEST_A_MENTOR_LINK": settings.REQUEST_A_MENTOR_LINK,
         "SITE_MESSAGE": settings.SITE_MESSAGE,
         "SITE_MESSAGE_LEVEL": settings.SITE_MESSAGE_LEVEL,
-        "SITE_URL": settings.SITE_URL
+        "SITE_URL": settings.SITE_URL,
+        "DOCEBO_MENTOR_URL": settings.DOCEBO_MENTOR_URL
     }
 
 def staff_alerts(request):
