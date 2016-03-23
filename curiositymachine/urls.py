@@ -74,6 +74,20 @@ urlpatterns = patterns('',
         name='faq'
     ),
 
+    # policy pages
+    url(
+        r'^terms-of-use/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/policy-terms-of-use.html")),
+        {'active_nav': 'terms-of-use'},
+        name='terms-of-use'
+    ),
+    url(
+        r'^privacy/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/policy-privacy.html")),
+        {'active_nav': 'privacy'},
+        name='privacy'
+    ),
+
     # password reset URLs -- the "recover" one is modified and so resides in the profiles app
     url(r'^password/recover/(?P<signature>.+)/$', public(password_reset.views.recover_done),
         name='password_reset_sent'),
