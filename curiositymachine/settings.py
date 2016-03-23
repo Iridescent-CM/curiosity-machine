@@ -320,6 +320,7 @@ CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", None)
 REQUEST_A_MENTOR_LINK = os.environ.get("REQUEST_A_MENTOR_LINK", None)
 SITE_MESSAGE = os.environ.get("SITE_MESSAGE", None)
 SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
+DOCEBO_MENTOR_URL = os.environ.get("DOCEBO_MENTOR_URL","http://www.iridescentuniversity.org/lms/")
 
 # pagination
 CHALLENGES_PER_PAGE = os.environ.get("CHALLENGES_PER_PAGE", 9)
