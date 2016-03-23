@@ -1,0 +1,9 @@
+{% if count == 1 %}
+  <p>There is 1 pending example waiting for review.</p>
+{% else %}
+  <p>There are {{count}} pending examples waiting for review.</p>
+{% endif %}
+
+<p><a href="{{site_url}}{% url "admin:challenges_example_changelist" %}">Review examples</a></p>
+
+<p>- Curiosity Machine</p>
