@@ -72,7 +72,6 @@ INSTALLED_APPS = (
     'images',
     'django_rq',
     'password_reset',
-    'pages',
     'django_summernote',
     'django_bleach',
     'training',
