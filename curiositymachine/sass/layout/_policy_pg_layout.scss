@@ -1,0 +1,49 @@
+.policy-pages {
+  .nav-panel {
+    color: white;
+    background: url("../images/design-challenge-repeating-pattern-white.png");
+    background-color: tint($primary-purple, 20%);
+    background-attachment: fixed;
+    background-repeat: repeat;
+
+    .nav {
+      .nav-item {
+        display: inline-block;
+        margin: 0 20px;
+      }
+
+      .nav-link {
+        transition-property: all;
+        &:link,
+        &:visited {
+          color: $primary-light;
+          border-bottom: 2px solid $primary-light;
+        }
+        &:hover,
+        &:active,
+        &.active {
+          color: shade($primary-purple, 40%);
+          border-color: shade($primary-purple, 40%);
+        }
+      }
+    }
+  }
+
+  .article {
+    h2, h4 {
+      color: $primary-purple;
+    }
+
+    h2 {
+      margin-top: $base-spacing;
+    }
+
+    h4 {
+      margin-top: $large-spacing;
+    }
+
+    p {
+      margin-bottom: $base-spacing;
+    }
+  }
+}

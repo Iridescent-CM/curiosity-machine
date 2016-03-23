@@ -5382,6 +5382,36 @@ footer {
   .about-pages .sign-up-panel h2 {
     color: white; }
 
+.policy-pages .nav-panel {
+  color: white;
+  background: url("../images/design-challenge-repeating-pattern-white.png");
+  background-color: #8181bf;
+  background-attachment: fixed;
+  background-repeat: repeat; }
+  .policy-pages .nav-panel .nav .nav-item {
+    display: inline-block;
+    margin: 0 20px; }
+  .policy-pages .nav-panel .nav .nav-link {
+    transition-property: all; }
+    .policy-pages .nav-panel .nav .nav-link:link, .policy-pages .nav-panel .nav .nav-link:visited {
+      color: #FFFCF7;
+      border-bottom: 2px solid #FFFCF7; }
+    .policy-pages .nav-panel .nav .nav-link:hover, .policy-pages .nav-panel .nav .nav-link:active, .policy-pages .nav-panel .nav .nav-link.active {
+      color: #3a3a69;
+      border-color: #3a3a69; }
+
+.policy-pages .article h2, .policy-pages .article h4 {
+  color: #6161AF; }
+
+.policy-pages .article h2 {
+  margin-top: 1.5em; }
+
+.policy-pages .article h4 {
+  margin-top: 3em; }
+
+.policy-pages .article p {
+  margin-bottom: 1.5em; }
+
 #index-page .jumbotron, #index-page .jumbotron-green {
   padding-top: 6em; }
 
