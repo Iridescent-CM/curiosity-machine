@@ -1,7 +1,7 @@
 footer {
-  background-color: $dark-gray;
+  background-color: $dark;
   padding: 0px 0px $large-spacing 0px;
-  color: $primary-light;
+  color: $ivory;
 
   .logo {
     display: block;
@@ -13,12 +13,12 @@ footer {
   color: $primary-purple;
   font-size: $base-font-size * 2.6875;
   &:hover {
-    color: tint($primary-purple, 20);
+    color: $primary-purple-light;
   }
 }
 
 .newsletter-panel {
-  background-color: shade($dark-gray, 40%);
+  background-color: shade($dark, 40%);
   background-image: url("../images/design-challenge-repeating-pattern.png");
   background-attachment: fixed;
   background-repeat: repeat;

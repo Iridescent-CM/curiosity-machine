@@ -45,7 +45,7 @@
     height: 25px;
     border-radius: 50%;
     padding-top: 2px;
-    background-color: tint($medium-gray, 50);
+    background-color: tint($gray, 50);
     box-shadow: 0px 2px 4px rgba(151,151,151,0.8);
     color: white;
     cursor: pointer;
@@ -68,7 +68,7 @@
   color: white;
 
   &:hover {
-    color: darken($primary-red, 20%);
+    color: $primary-red-dark;
   }
   &:active, &:focus {
     color: white;
@@ -78,7 +78,7 @@
 .challenge-card-title {
   text-align: center;
   padding: 10px 10px 2px 10px;
-  background-color: $medium-gray;
+  background-color: $gray;
   color: white;
   font-family: $heading-font-family;
   border-top-left-radius: $base-border-radius;
