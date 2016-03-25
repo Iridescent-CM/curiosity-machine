@@ -5317,7 +5317,7 @@ footer {
   padding: 0px 0px 3em 0px;
   color: #FFFCF7; }
   footer .logo {
-    display: block;
+    display: inline-block;
     width: 210px; }
 
 .social-icons {
