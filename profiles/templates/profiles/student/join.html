@@ -1,11 +1,80 @@
 {% extends "base.html" %}
 
+{% block js %}
+  {{ form.media }}
+{% endblock %}
+
 {% block content %}
 
 <h1>Get Started. Create an Account.</h1>
 <form method='post' action="{{ action }}" enctype="multipart/form-data" id="join-form" class="default-form clearfix" data-apply="coppa-transforms" data-prefix='{{form.prefix}}'>
   {% csrf_token %}
-  <div class="clearfix">{% include "profile_fields.html" with page='join' %}</div>
+  <div class="clearfix">
+
+    <div class="profile-fields">
+      <div class="col-md-4 student-column">
+        <h3>Student</h3>
+        <div class="birthday-field">
+          {{form.birthday.label_tag}}
+          {{form.birthday}}
+          <div class="errors">{{ form.birthday.errors }}</div>
+        </div>
+      
+        <div>
+          {{form.username.label_tag}}
+          {{form.username}}
+          <div class="errors">{{ form.username.errors }}</div>
+        </div>
+        <div>
+          {{form.password.label_tag}}
+          {{form.password}}
+          <div class="errors">{{ form.password.errors }}</div>
+        </div>
+        <div>
+          {{form.confirm_password.label_tag}}
+          {{form.confirm_password}}
+          <div class="errors">{{ form.confirm_password.errors }}</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 student-column">
+        <h3>&nbsp;</h3>
+        <div>
+          {{form.email.label_tag}}
+          {{form.email}}
+          <div class="errors">{{ form.email.errors }}</div>
+        </div>
+        <div>
+          {{form.city.label_tag}}
+          {{form.city}}
+          <div class="errors">{{ form.city.errors }}</div>
+        </div>
+        <div>
+          {{form.image_url.label_tag}}
+          {{form.image_url}}
+          <div class="errors">{{ form.image_url.errors }}</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 parent-info">
+        <h3>Parent</h3>
+        <div>
+          {{form.parent_first_name.label_tag}}
+          {{form.parent_first_name}}
+          <div class="errors">{{ form.parent_first_name.errors }}</div>
+        </div>
+        <div>
+          {{form.parent_last_name.label_tag}}
+          {{form.parent_last_name}}
+          <div class="errors">{{ form.parent_last_name.errors }}</div>
+        </div>
+      </div>
+
+      {{ form.source }}
+      {{ form.welcome }}
+      {{ form.non_field_errors }}
+    </div>
+  </div>
   By clicking Save, you confirm that you accept the <a target="_blank" href="/privacy">Privacy Policy</a>.
   <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
 </form>

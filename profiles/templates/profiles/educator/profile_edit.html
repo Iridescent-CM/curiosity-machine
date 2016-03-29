@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block js %}
+  {{ form.media }}
+{% endblock %}
+
 {% block content %}
 <h1>{{request.user.username }}'s Profile</h1>
 <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data">

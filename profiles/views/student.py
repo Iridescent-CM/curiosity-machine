@@ -66,7 +66,7 @@ def profile_edit(request):
     else:
         form = StudentUserAndProfileForm(instance=request.user)
 
-    return render(request, 'profile_edit.html', {'form': form,})
+    return render(request, 'profiles/student/profile_edit.html', {'form': form,})
 
 def underage(request):
     return render(request, 'profiles/underage_student.html')

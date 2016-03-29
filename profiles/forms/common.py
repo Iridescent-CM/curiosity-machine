@@ -7,7 +7,7 @@ from django.forms.extras.widgets import SelectDateWidget
 from profiles.models import Profile
 from images.models import Image
 from videos.models import Video
-from curiositymachine.forms import FilePickerDragDropField
+from curiositymachine.forms import FilePickerMediaField
 
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 
@@ -50,36 +50,26 @@ class UserAndProfileForm(forms.ModelForm):
     form_fields = []
 
     _form_field_definitions = {
-        'image_url': FilePickerDragDropField(
+        'image_url': FilePickerMediaField(
             label="Photo",
             mimetypes="image/*",
             openTo='WEBCAM',
             services='WEBCAM,COMPUTER',
             required=False
         ),
-        'about_me_filepicker_url': FilePickerDragDropField(
+        'about_me_filepicker_url': FilePickerMediaField(
             label="About Me Photo or Video",
             mimetypes="video/*,image/*",
             openTo='WEBCAM',
             services='VIDEO,WEBCAM,COMPUTER',
             required=False,
-            mimetype_widget=forms.HiddenInput(attrs={"id":"about_me_mimetype"})
         ),
-        'about_me_filepicker_mimetype': forms.CharField(
-            required=False,
-            widget=forms.HiddenInput(attrs={"id":"about_me_mimetype"})
-        ),
-        'about_research_filepicker_url': FilePickerDragDropField(
+        'about_research_filepicker_url': FilePickerMediaField(
             label="About My Research Photo or Video",
             mimetypes="video/*,image/*",
             openTo='WEBCAM',
             services='VIDEO,WEBCAM,COMPUTER',
             required=False,
-            mimetype_widget=forms.HiddenInput(attrs={"id":"about_research_mimetype"})
-        ),
-        'about_research_filepicker_mimetype': forms.CharField(
-            required=False,
-            widget=forms.HiddenInput(attrs={"id":"about_research_mimetype"})
         ),
         'welcome': forms.CharField(
             required=False,
@@ -200,31 +190,33 @@ class UserAndProfileForm(forms.ModelForm):
             setattr(profile, key, value)
         profile.user = user
 
-        if self.cleaned_data.get("about_me_filepicker_url") and self.cleaned_data.get("about_me_filepicker_mimetype"):
-            if self.cleaned_data['about_me_filepicker_mimetype'].startswith('image'):
-                image = Image.from_source_with_job(self.cleaned_data['about_me_filepicker_url'])
+        if self.cleaned_data.get("about_me_filepicker_url"):
+            media = self.cleaned_data.get("about_me_filepicker_url")
+            if media['mimetype'].startswith('image'):
+                image = Image.from_source_with_job(media['url'])
                 profile.about_me_image_id = image.id
                 profile.about_me_video_id = None
 
-            elif self.cleaned_data['about_me_filepicker_mimetype'].startswith('video'):
-                video = Video.from_source_with_job(self.cleaned_data['about_me_filepicker_url'])
+            elif media['mimetype'].startswith('video'):
+                video = Video.from_source_with_job(media['url'])
                 profile.about_me_image_id = None
                 profile.about_me_video_id = video.id
 
-        if self.cleaned_data.get('about_research_filepicker_url') and self.cleaned_data.get('about_research_filepicker_mimetype'):
-            if self.cleaned_data['about_research_filepicker_mimetype'].startswith('image'):
-                image = Image.from_source_with_job(self.cleaned_data['about_research_filepicker_url'])
+        if self.cleaned_data.get('about_research_filepicker_url'):
+            media = self.cleaned_data.get("about_research_filepicker_url")
+            if media['mimetype'].startswith('image'):
+                image = Image.from_source_with_job(media['url'])
                 profile.about_research_image_id = image.id
                 profile.about_research_video_id = None
 
-            elif self.cleaned_data['about_research_filepicker_mimetype'].startswith('video'):
-                video = Video.from_source_with_job(self.cleaned_data['about_research_filepicker_url'])
+            elif media['mimetype'].startswith('video'):
+                video = Video.from_source_with_job(media['url'])
                 profile.about_research_image_id = None
                 profile.about_research_video_id = video.id
 
         profile_image = None
         if self.cleaned_data.get("image_url"):
-            profile_image = Image(source_url=self.cleaned_data['image_url'])
+            profile_image = Image(source_url=self.cleaned_data['image_url']['url'])
             profile.image = profile_image
 
         if commit:

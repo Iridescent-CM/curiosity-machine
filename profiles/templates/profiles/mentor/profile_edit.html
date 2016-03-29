@@ -1,11 +1,113 @@
 {% extends "base.html" %}
 
+{% block js %}
+  {{ form.media }}
+{% endblock %}
+
 {% block content %}
 <h1>{{request.user.username }}'s Profile</h1>
   <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
     {% csrf_token %}
     <div class="clearfix">
-    {% include "profiles/mentor/profile_edit_fields.html" with page='edit' %}
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Account details</h2>
+        </div>
+      </div>
+
+      <div class="row profile-fields">
+        <div class="col-md-4">
+          <div>
+            {{form.email.label_tag}}
+            {{form.email}}
+            <div class="errors">{{ form.email.errors }}</div>
+          </div>
+          {% if form.password %}
+          <div>
+            {{form.password.label_tag}}
+            {{form.password}}
+            <div class="errors">{{ form.password.errors }}</div>
+          </div>
+          <div>
+            {{form.confirm_password.label_tag}}
+            {{form.confirm_password}}
+            <div class="errors">{{ form.confirm_password.errors }}</div>
+          </div>
+          {% else %}
+          <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
+          {% endif %}
+        </div>
+        <div class="col-md-4">
+          <div>
+            {{form.city.label_tag}}
+            {{form.city}}
+            <div class="errors">{{ form.city.errors }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Profile details</h2>
+        </div>
+      </div>
+
+      <div class="row profile-fields">
+        <div class="col-md-4">
+          <div>
+            {{form.title.label_tag}}
+            {{form.title}}
+            <div class="errors">{{ form.title.errors }}</div>
+          </div>
+          <div>
+            {{form.employer.label_tag}}
+            {{form.employer}}
+            <div class="errors">{{ form.employer.errors }}</div>
+          </div>
+          <div>
+            {{form.expertise.label_tag}}
+            {{form.expertise}}
+            <div class="errors">{{ form.expertise.errors }}</div>
+          </div>
+           <div>
+            {{form.image_url.label_tag}}
+            {% include "_avatar.html" with profile=request.user.profile width=327 height=327 crop='fit' %}
+            {{form.image_url}}
+            <div class="errors">{{ form.image_url.errors }}</div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div>
+            {{form.about_me.label_tag}}
+            <textarea id="{{form.about_me.id_for_label}}" name="{{form.about_me.html_name}}">{{ form.about_me.value }}</textarea>
+            <div class="errors">{{ form.about_me.errors }}</div>
+          </div>
+          <div>
+            {{form.about_me_filepicker_url.label_tag}}
+            {% include "_img_or_video.html" with video=request.user.profile.about_me_video image=request.user.profile.about_me_image crop='fit' width=317 %}
+            {{form.about_me_filepicker_url}}
+            {{form.about_me_filepicker_mimetype}}
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div>
+            {{form.about_research.label_tag}}      
+            <textarea id="{{form.about_research.id_for_label}}" name="{{form.about_research.html_name}}">{{ form.about_research.value }}</textarea>
+            <div class="errors">{{ form.about_research.errors }}</div>
+          </div>
+          <div>
+            {{form.about_research_filepicker_url.label_tag}}
+            {% include "_img_or_video.html" with video=request.user.profile.about_research_video image=request.user.profile.about_research_image crop='fit' width=317 %}
+            {{form.about_research_filepicker_url}}
+            {{form.about_research_filepicker_mimetype}}
+          </div>
+        </div>
+
+        {{ form.non_field_errors }}
+
+      </div>
     </div>
     <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
   </form>

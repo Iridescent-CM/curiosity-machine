@@ -5,7 +5,7 @@
 {% block content %}
 
 <h1>Welcome {{user.username}}</h1>
-{% include "_mentor_profile_info.html" with profile=user.profile %}
+{% include "profiles/mentor/_profile_info.html" with profile=user.profile %}
 
   {% if request.user.profile.approved %}
   <h2>Challenges I'm Mentoring</h2>

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block js %}
+  {{ form.media }}
+{% endblock %}
+
+{% block content %}
+<h1>{{request.user.username }}'s Profile</h1>
+  <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
+    {% csrf_token %}
+    <div class="clearfix">
+      <div class="profile-fields">
+        <div class="col-md-4 student-column">
+          <h3>Student</h3>
+          <div class="birthday-field">
+            {{form.birthday.label_tag}}
+            {{form.birthday}}
+            <div class="errors">{{ form.birthday.errors }}</div>
+          </div>
+          
+          <div>
+            <br>
+            <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
+          </div>
+        </div>
+
+        <div class="col-md-4 student-column">
+          <h3>&nbsp;</h3>
+          <div>
+            {{form.email.label_tag}}
+            {{form.email}}
+            <div class="errors">{{ form.email.errors }}</div>
+          </div>
+          <div>
+            {{form.city.label_tag}}
+            {{form.city}}
+            <div class="errors">{{ form.city.errors }}</div>
+          </div>
+           <div>
+            {{form.image_url.label_tag}}
+            {% include "_avatar.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
+            {{form.image_url}}
+            <div class="errors">{{ form.image_url.errors }}</div>
+          </div>
+        </div>
+
+        <div class="col-md-4 parent-info" {% if request.user.profile.age >= 13 %} style="display:none" {% endif %} >
+          <h3>Parent</h3>
+          <div>
+            {{form.parent_first_name.label_tag}}
+            {{form.parent_first_name}}
+            <div class="errors">{{ form.parent_first_name.errors }}</div>
+          </div>
+          <div>
+            {{form.parent_last_name.label_tag}}
+            {{form.parent_last_name}}
+            <div class="errors">{{ form.parent_last_name.errors }}</div>
+          </div>
+        </div>
+
+        {{ form.source }}
+        {{ form.welcome }}
+        {{ form.non_field_errors }}
+
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
+  </form>
+{% endblock %}

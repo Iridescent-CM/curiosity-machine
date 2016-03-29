@@ -1,7 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.forms.extras.widgets import SelectDateWidget
-from curiositymachine.widgets import FilePickerInlineWidget, FilePickerDragDropWidget
+from curiositymachine.widgets import FilePickerInlineWidget, FilePickerPickWidget
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 import re
@@ -40,8 +40,36 @@ class FilePickerField(forms.URLField):
 class FilePickerURLField(FilePickerField):
     widget = FilePickerInlineWidget
     
-class FilePickerDragDropField(FilePickerField):
-    widget = FilePickerDragDropWidget
+class FilePickerMediaField(forms.fields.MultiValueField):
+    widget = FilePickerPickWidget
+
+    def __init__(self, *args, **kwargs):
+        self.mimetypes = kwargs.pop('mimetypes', '*/*')
+        self.openTo = kwargs.pop('openTo', None)
+        self.services = kwargs.pop('services', None)
+        fields = (
+            forms.URLField(),
+            forms.CharField()
+        )
+        super(FilePickerMediaField, self).__init__(fields=fields, *args, **kwargs)
+
+    def widget_attrs(self, widget):
+        attrs = {
+            'data-fp-mimetypes': self.mimetypes
+        }
+        if self.openTo:
+            attrs['data-fp-opento'] = self.openTo
+        if self.services:
+            attrs['data-fp-services']= self.services
+        return attrs
+
+    def compress(self, data_list):
+        if data_list:
+            return {
+                "url": data_list[0],
+                "mimetype": data_list[1]
+            }
+        return {}
 
 class AnalyticsForm(forms.Form):
     today = now()
