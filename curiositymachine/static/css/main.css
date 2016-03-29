@@ -5318,7 +5318,7 @@ footer {
   color: #FFFCF7; }
   footer .logo {
     display: inline-block;
-    width: 210px; }
+    width: 210px !important; }
 
 .social-icons {
   margin: 0px 10px;
