@@ -1,31 +1,33 @@
 
 <div class="col-md-5">
+  <div class="mentor-panel-wrapper sticky">
+    <div class="mentor-panel row">
+      <div class="col-md-5 mentor-panel-content">
 
-<div class="mentor-panel-wrapper sticky">
-  <div class="mentor-panel row">
-    <div class="col-md-5 mentor-panel-content">
-
-      <h3>{{progress.student.username}}</h3>
-      {% if not progress.mentor %}
-        <h4 style="font-size: 17px;">This challenge is unclaimed. Claim it to provide feedback!</h4>
-        <form class="ajax-and-refresh-form" action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
-          {% csrf_token %}
-          <button class="btn btn-lg btn-primary" type="submit">Claim this Challenge</button>
-        </form>
-      {% else %}
-      {% include "_avatar.html" with profile=request.user.profile width=50 height=50 crop='fit' %}
-      <br><br>
-      
-      <div class="panel panel-bubble bottom gray-light">
-        <div class="panel-body">
-          <h3>Give Feedback</h3>
-
-          {% include "_comment_action_list.html" %}
-        </div>
+        <h3>{{progress.student.username}}</h3>
+        {% if not progress.mentor %}
+          <h4 style="font-size: 17px;">This challenge is unclaimed. Claim it to provide feedback!</h4>
+          <form class="ajax-and-refresh-form" action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-lg btn-primary" type="submit">Claim this Challenge</button>
+          </form>
+        {% else %}
+          {% include "_avatar.html" with profile=request.user.profile width=50 height=50 crop='fit' %}
+          <br><br>
+          
+          <div class="panel panel-bubble bottom gray-light">
+            <div class="panel-body">
+              <h3>Give Feedback</h3>
+              <form method="POST" action="{{ comment_url }}">
+                {% csrf_token %}
+                {{ comment_form.text }}
+                {{ comment_form.visual_media }}
+                <input type="submit" class="btn btn-primary pull-right" />
+              </form>
+            </div>
+          </div>
+        {% endif %}
       </div>
-      {% endif %}
     </div>
   </div>
-</div>
-
 </div>

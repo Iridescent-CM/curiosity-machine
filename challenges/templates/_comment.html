@@ -20,21 +20,6 @@
     </div>
     <div class="panel-body paper">
       {% include "_comment_content.html" %}
-
-      {% if request.user.profile.is_mentor and comment.get_stage_display == 'reflect'%}{% if comment.image or comment.video %}
-      {% if comment.is_featured_as_example %}
-        <form name="unfeature" class="ajax-and-refresh-form" action="{% url "challenges:comments:feature_as_example" challenge_id=challenge.id username=progress.student.username stage='build' comment_id=comment.id %}" method="DELETE">
-          {% csrf_token %}
-          <input type="submit" value="Unfeature {% if comment.video %}video{% else %}image{% endif %}" class="btn pull-right btn-xs">
-        </form>
-      {% else %}
-        {# display a button so that the mentor can feature this comment's media on the inspiration page #}
-        <form name="feature_as_example" class="ajax-and-refresh-form" action="{% url "challenges:comments:feature_as_example" challenge_id=challenge.id username=progress.student.username stage='build' comment_id=comment.id %}" method="POST">
-          {% csrf_token %}
-          <input type="submit" value="Feature {% if comment.video %}video{% else %}image{% endif %} as example" class="btn pull-right btn-xs btn-primary">
-        </form>
-      {% endif %}
-    {% endif %}{% endif %}
     </div>
   </div>
 {% endif %}

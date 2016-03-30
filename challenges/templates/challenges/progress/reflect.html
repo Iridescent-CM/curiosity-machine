@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load resized %}
+{% load widget_tweaks %}
 
 {% block js %}
   <script src="{% static "js/challenges.js" %}"></script>
+  {{ comment_form.media }}
 {% endblock %}
 
 {% block content %}
+  {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' as comment_url %}
+
   <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
   {% if challenge.draft %}
     <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
@@ -39,7 +43,7 @@
 
     <div class="row">
       {% if request.user.profile.is_mentor %}
-        {% include "_mentor_panel.html" %}
+        {% include "_mentor_panel.html" with comment_url=comment_url %}
       {% else %}
         <div class="col-md-5">
           <div class="panel blue">
@@ -78,7 +82,13 @@
                 </div>
 
                 {% if request.user.profile.is_student %}
-                  {% include "_comment_action_list.html" %}
+                  <form method="POST" action="{{ comment_url }}">
+                    {% csrf_token %}
+                    {{ comment_form.text }}
+                    {{ comment_form.visual_media }}
+                    {{ comment_form.question_text|add_class:'question-text' }}
+                    <input type="submit" class="btn btn-primary pull-right" />
+                  </form>
                 {% else %}
                   {% include "_comment_action_list.html" with disable=True %}
                 {% endif %}
@@ -95,10 +105,6 @@
     </div><!-- row -->
 
     {% include "_guide.html" %}
-    {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' as comment_url %}
-    {% include "_comment_form.html" with stage="reflect" format="video" url=comment_url %}
-    {% include "_comment_form.html" with stage="reflect" format="picture" url=comment_url %}
-    {% include "_comment_form.html" with stage="reflect" format="text" url=comment_url %}
 
   </div><!-- content -->
 

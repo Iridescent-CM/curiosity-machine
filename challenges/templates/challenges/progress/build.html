@@ -4,16 +4,12 @@
 
 {% block js %}
   <script src="{% static "js/challenges.js" %}"></script>
-  {% if request.user.profile.is_student %}
-    <script>
-      $(function(){
-        $('#reflection-form').disableEmptySubmit();
-      });
-    </script>
-  {% endif %}
+  {{ comment_form.media }}
 {% endblock %}
 
 {% block content %}
+  {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
+
   <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
   {% if challenge.draft %}
     <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
@@ -28,7 +24,7 @@
     {% endif %}
     <div class="row">
       {% if request.user.profile.is_mentor %}
-        {% include "_mentor_panel.html" %}
+        {% include "_mentor_panel.html" with comment_url=comment_url %}
       {% else %}
         <div class="col-md-5">
           <div class="panel blue">
@@ -50,31 +46,25 @@
           <div class="panel panel-bubble right">
             <div class="panel-body">
               <h3>Are you on</h3>
-
-              <ul class="switch stage-switch">
-                <li>
-                  <input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
-                  <label for="buildSelector">Building?</label>
-                  <input
-                    type="hidden"
-                    value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' %}"
-                    class="build-url url"
-                  >
-                </li>
-                <li>
-                  <input type="radio" name="stepSelector" id="testSelector" value="test">
-                  <label for="testSelector">Testing?</label>
-                  <input
-                    type="hidden"
-                    value="{% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='test' %}"
-                    class="test-url url"
-                  >
-                </li>
-              </ul>
-              <div></div><!-- magical switch clearing div -->
-
               {% if request.user.profile.is_student %}
-                {% include "_comment_action_list.html" %}
+                <form method="POST" action="{{ comment_url }}">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <ul class="switch stage-switch">
+                      <li>
+                        <input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
+                        <label for="buildSelector">Building?</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="stepSelector" id="testSelector" value="test">
+                        <label for="testSelector">Testing?</label>
+                      </li>
+                    </ul>
+                  </div>
+                  {{ comment_form.text }}
+                  {{ comment_form.visual_media }}
+                  <input type="submit" class="btn btn-primary pull-right" />
+                </form>
               {% else %}
                 {% include "_comment_action_list.html" with disable=True %}
               {% endif %}
