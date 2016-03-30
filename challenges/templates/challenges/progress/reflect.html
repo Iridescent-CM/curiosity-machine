@@ -90,7 +90,11 @@
                     <input type="submit" class="btn btn-primary pull-right" />
                   </form>
                 {% else %}
-                  {% include "_comment_action_list.html" with disable=True %}
+                  <form>
+                    {{ comment_form.text|attr:"disabled:disabled" }}
+                    {{ comment_form.visual_media|attr:"disabled:disabled" }}
+                    <input type="submit" disabled="disabled" class="btn btn-primary pull-right" />
+                  </form>
                 {% endif %}
             </div>
           </div>

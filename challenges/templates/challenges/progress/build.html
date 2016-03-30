@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load resized %}
+{% load widget_tweaks %}
 
 {% block js %}
   <script src="{% static "js/challenges.js" %}"></script>
@@ -66,7 +67,23 @@
                   <input type="submit" class="btn btn-primary pull-right" />
                 </form>
               {% else %}
-                {% include "_comment_action_list.html" with disable=True %}
+                <form>
+                  <div class="form-group">
+                    <ul class="switch stage-switch">
+                      <li>
+                        <input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
+                        <label for="buildSelector">Building?</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="stepSelector" id="testSelector" value="test">
+                        <label for="testSelector">Testing?</label>
+                      </li>
+                    </ul>
+                  </div>
+                  {{ comment_form.text|attr:"disabled:disabled" }}
+                  {{ comment_form.visual_media|attr:"disabled:disabled" }}
+                  <input type="submit" disabled="disabled" class="btn btn-primary pull-right" />
+                </form>
               {% endif %}
 
             </div>
