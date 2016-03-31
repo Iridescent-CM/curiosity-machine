@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% load resized %}
 
 {% block content %}
 
 <h1>Welcome {{user.username}}</h1>
 {% include "_mentor_profile_info.html" with profile=user.profile %}
-  
+
   {% if request.user.profile.approved %}
   <h2>Challenges I'm Mentoring</h2>
   <div class="tab-content">
@@ -86,7 +87,7 @@
       {% endif %}
     </ul>
   </div>
-  
+
   <h2>Claim a Challenge by Date</h2>
   <div class="tab-content">
     <ul class="challenges-list owl-carousel panel-carousel">
@@ -98,31 +99,52 @@
     </ul>
   </div>
   {% endif %}
-  
+
+  {% if flags.enable_docebo_training %}
+  <h2>Mentor Training</h2>
+  <div class="tab-content">
+    <ul class="challenges-list owl-carousel panel-carousel">
+      <li>
+        <div class="panel panel-default training-module">
+          <a href="{{ DOCEBO_MENTOR_URL }}">
+            <div class="image-container">
+              <img src="{% static 'images/mentors/iridescent-university.jpg' %}">
+            </div>
+          </a>
+          <div class="panel-body">
+            <p>We updated our mentor training to make it more interactive! Make an account on our training site to get started.</p>
+            <a href="{{ DOCEBO_MENTOR_URL }}" target="_blank" class="btn btn-primary">Create Account</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  {% else %}
 
   <h2>Training Modules</h2>
   <ul class="nav nav-justified nav-tabs"></ul>
   <div class="tab-content">
-  <ul class="challenges-list owl-carousel panel-carousel">
-  {% for module in uncompleted_modules %}
-    {% include "_training_module.html" %}
-  {% empty %}
-    <h3>You have finished all the training modules</h3>
-  {% endfor %}
-  </ul>
-</div>
+    <ul class="challenges-list owl-carousel panel-carousel">
+      {% for module in uncompleted_modules %}
+        {% include "_training_module.html" %}
+      {% empty %}
+        <h3>You have finished all the training modules</h3>
+      {% endfor %}
+    </ul>
+  </div>
 
   <h2>Completed Training Modules</h2>
   <ul class="nav nav-justified nav-tabs"></ul>
   <div class="tab-content">
-  <ul class="challenges-list owl-carousel panel-carousel">
-  {% for module in completed_modules %}
-    {% include "_training_module.html" %}
-  {% empty %}
-    <h3>There is no completed training module</h3>
-  {% endfor %}
-  </ul>
-</div>
-
+    <ul class="challenges-list owl-carousel panel-carousel">
+      {% for module in completed_modules %}
+        {% include "_training_module.html" %}
+      {% empty %}
+        <h3>There is no completed training module</h3>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 
 {% endblock %}
