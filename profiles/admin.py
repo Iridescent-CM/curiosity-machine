@@ -11,6 +11,7 @@ from .models import Profile, ParentConnection
 class ProfileInline(admin.StackedInline):
     model = Profile
     raw_id_fields = ('image', 'about_me_image', 'about_me_video', 'about_research_image', 'about_research_video')
+    exclude = ('first_login',)
 
 class UserAdminWithProfile(UserAdmin):
     inlines = [ ProfileInline, ]
