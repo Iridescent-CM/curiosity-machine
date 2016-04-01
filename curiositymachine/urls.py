@@ -64,8 +64,13 @@ urlpatterns = patterns('',
     url(
         r'^about-technical-communication/',
         public(TemplateView.as_view(template_name="curiositymachine/pages/about-technical-communication.html")),
-        # {'active_nav': 'partnership'},
         name='about-technical-communication'
+    ),
+    url(
+        r'^community-guidelines/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/about-community-guidelines.html")),
+        {'active_nav': 'community-guidelines'},
+        name='community-guidelines'
     ),
     url(
         r'^faq/',
