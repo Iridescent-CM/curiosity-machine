@@ -146,19 +146,6 @@
   <!--[if (gte IE 6)&(lte IE 8)]>
       <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
   <![endif]-->
-  {% if request.user.is_authenticated %}
-    {% if not request.user.profile.shown_intro %}
-      {% include "introduction_modal.html" %}
-      <script type="text/javascript">
-        $(function(){
-          $('#introduction-modal').modal('show');
-          $('#introduction-modal').on('hidden.bs.modal', function (){
-            $("#intro-video")[0].pause();
-          });
-        });
-      </script>
-    {% endif %}
-  {% endif %}
   {% if messages %}{% for message in messages %}
     <script type="text/javascript">
       $(function() {
