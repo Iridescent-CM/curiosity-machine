@@ -102,7 +102,6 @@ class ParentAdmin(admin.ModelAdmin):
         'approved',
         'last_active_on',
         'last_inactive_email_sent_on',
-        'shown_intro'
     ]
     raw_id_fields = ['image']
     list_display = ['user', 'email', 'id']
@@ -133,7 +132,6 @@ class EducatorAdmin(admin.ModelAdmin):
         'approved',
         'last_active_on',
         'last_inactive_email_sent_on',
-        'shown_intro'
     ]
     raw_id_fields = ['image']
     list_display = ['user', 'email', 'id']
@@ -173,7 +171,6 @@ class StudentAdmin(admin.ModelAdmin):
         'approved',
         'last_active_on',
         'last_inactive_email_sent_on',
-        'shown_intro'
     ]
     raw_id_fields = ['image']
     list_display = ['user', 'email', 'id', 'is_underage']
@@ -213,7 +210,6 @@ class MentorAdmin(admin.ModelAdmin):
         'approved',
         'last_active_on',
         'last_inactive_email_sent_on',
-        'shown_intro'
     ]
     raw_id_fields = [
         'image',
