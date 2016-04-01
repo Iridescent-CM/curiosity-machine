@@ -54,7 +54,8 @@ class UserAndProfileForm(forms.ModelForm):
             label="Photo",
             mimetypes="image/*",
             openTo='WEBCAM',
-            services='WEBCAM,COMPUTER',
+            services='WEBCAM,COMPUTER,CONVERT',
+            conversions='crop,rotate',
             required=False
         ),
         'about_me_filepicker_url': FilePickerMediaField(

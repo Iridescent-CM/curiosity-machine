@@ -16,10 +16,12 @@ class FilePickerPickWidget(Widget):
     class Media:
         js = ("//api.filestackapi.com/filestack.js", "js/pickwidget.js",)
 
-    def __init__(self, attrs=None):
+    def __init__(self, attrs=None, preview=False):
         _attrs = {
             'data-fp-apikey': settings.FILEPICKER_API_KEY
         }
+        if preview:
+            _attrs['data-show-preview'] = 'preview'
         if (attrs):
             _attrs.update(attrs)
         super(FilePickerPickWidget, self).__init__(_attrs)

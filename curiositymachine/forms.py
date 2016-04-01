@@ -47,6 +47,7 @@ class FilePickerMediaField(forms.fields.MultiValueField):
         self.mimetypes = kwargs.pop('mimetypes', '*/*')
         self.openTo = kwargs.pop('openTo', None)
         self.services = kwargs.pop('services', None)
+        self.conversions = kwargs.pop('conversions', None)
         fields = (
             forms.URLField(),
             forms.CharField()
@@ -60,7 +61,9 @@ class FilePickerMediaField(forms.fields.MultiValueField):
         if self.openTo:
             attrs['data-fp-opento'] = self.openTo
         if self.services:
-            attrs['data-fp-services']= self.services
+            attrs['data-fp-services'] = self.services
+        if self.conversions:
+            attrs['data-fp-conversions'] = self.conversions
         return attrs
 
     def compress(self, data_list):
