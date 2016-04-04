@@ -29,7 +29,7 @@
   <meta property="og:description" content="Free hands-on science and engineering projects for families and educators. Build 80+ projects with everyday household materials." />
   <meta property="og:image" content="{{ SITE_URL }}{% static 'images/cm-thumbnail.jpg' %}" />
 
-  <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Raleway:300,400,700|Open+Sans:400,700' rel='stylesheet' type='text/css'>
   {% block css %}{% endblock %}
 
   {% compress css %}
@@ -108,8 +108,8 @@
     <div class="container-fluid footer-panel">
       <div class="row">
         <div class="col-sm-6 text-center text-md-left">
-          <a href="/" class="action-img">
-            <img src="{% static 'images/curiosity-machine-iridescent-logo.png'%}" alt="Curiosity Machine Iridescent logo">
+          <a href="/" class="action-img logo">
+            <img src="{% static 'images/cm-logo.svg' %}" alt="Curiosity Machine Iridescent">
           </a>
           <p class="help">Need help? Email <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.</p>
         </div>
@@ -145,19 +145,6 @@
   <!--[if (gte IE 6)&(lte IE 8)]>
       <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
   <![endif]-->
-  {% if request.user.is_authenticated %}
-    {% if not request.user.profile.shown_intro %}
-      {% include "introduction_modal.html" %}
-      <script type="text/javascript">
-        $(function(){
-          $('#introduction-modal').modal('show');
-          $('#introduction-modal').on('hidden.bs.modal', function (){
-            $("#intro-video")[0].pause();
-          });
-        });
-      </script>
-    {% endif %}
-  {% endif %}
   {% if messages %}{% for message in messages %}
     <script type="text/javascript">
       $(function() {

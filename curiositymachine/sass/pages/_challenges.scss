@@ -1,5 +1,5 @@
 #challenges-page {
-  background-color: $light-gray;
+  background-color: $sand;
 
   .challenges-top-panel {
     width: 100%;
@@ -34,7 +34,7 @@
       border-bottom: 0px;
       display: block;
       position: relative;
-      background-color: $primary-light;
+      background-color: $ivory;
       width: 100%;
       padding: 12px 16px;
       border-radius: $base-border-radius;
@@ -44,11 +44,11 @@
       left: 0px;
       transition: all 300ms ease-in;
       &:hover {
-        background-color: tint($primary-light, 50);
+        background-color: tint($ivory, 50);
         text-decoration: none;
       }
       &:focus {
-        background-color: tint($primary-light, 50);
+        background-color: tint($ivory, 50);
         text-decoration: none;
       }
     }
@@ -57,7 +57,7 @@
       position: relative;
       a {
         background-color: $primary-blue;
-        color: $primary-light;
+        color: $ivory;
       }
     }
 

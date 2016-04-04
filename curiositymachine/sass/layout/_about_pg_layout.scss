@@ -16,14 +16,14 @@
         transition-property: all;
         &:link,
         &:visited {
-          color: $primary-light;
-          border-bottom: 2px solid $primary-light;
+          color: $ivory;
+          border-bottom: 2px solid $ivory;
         }
         &:hover,
         &:active,
         &.active {
-          color: shade($primary-red, 40%);
-          border-color: shade($primary-red, 40%);
+          color: $primary-red-darkest;
+          border-color: $primary-red-darkest;
         }
       }
     }

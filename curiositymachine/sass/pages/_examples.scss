@@ -20,7 +20,7 @@
   }
 
   .card-block {
-    background-color: tint($light-gray, 60);
+    background-color: tint($sand, 60);
     overflow: auto;
     word-break: break-all;
   }
@@ -44,7 +44,7 @@
 
     input[type='radio'] + label {
       margin-bottom: $base-spacing;
-      border: 3px solid $primary-light;
+      border: 3px solid $ivory;
       transition: all $base-duration $base-timing;
       &:hover {
         border: 3px solid $primary-blue;
@@ -71,9 +71,9 @@
   }
 
   .examples-page-alerts {
-    border: 1px solid $light-gray;
+    border: 1px solid $sand;
     border-radius: $base-border-radius;
-    background-color: lighten($light-gray, 70%);
+    background-color: lighten($sand, 70%);
 
     i {
       margin-right: $small-spacing;

@@ -32,7 +32,7 @@
   <meta property="og:description" content="Free hands-on science and engineering projects for families and educators. Build 80+ projects with everyday household materials." />
   <meta property="og:image" content="{{ SITE_URL }}{% static 'images/cm-thumbnail.jpg' %}" />
 
-  <link href='https://fonts.googleapis.com/css?family=Raleway:300,400,700|Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Raleway:300,400,700|Open+Sans:400,700' rel='stylesheet' type='text/css'>
   {% compress css %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
   {% endcompress %}
@@ -87,32 +87,6 @@
     <script type="text/javascript" src="{% static 'js/libs/modals.js' %}"></script>
   {% endcompress %}
   {% block js %}{% endblock %}
-
-  {% if request.user.is_authenticated and not request.user.profile.shown_intro %}
-    <div id="introduction-modal" class="modal fade">
-      <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        <span class="sr-only">Close</span>
-      </button>
-      <div class="modal-dialog modal-lg">
-        <div class="embed-responsive embed-responsive-16by9">
-          <video id="intro-video" controls="controls" preload="metadata" autoplay>
-            <source src="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.mp4" type="video/mp4">
-            <source src="http://s3.amazonaws.com/curiositymachine/videos/videos/d63a51574efc7b834740ce9f74cb54aa.ogg" type="video/ogg">
-          </video>
-        </div>
-      </div>
-    </div>
-
-    <script type="text/javascript">
-      $(function(){
-        $('#introduction-modal').modal('show');
-        $('#introduction-modal').on('hidden.bs.modal', function (){
-          $("#intro-video")[0].pause();
-        });
-      });
-    </script>
-  {% endif %}
 
 </body>
 </html>

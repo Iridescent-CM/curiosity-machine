@@ -11,6 +11,7 @@ from .models import Profile, ParentConnection
 class ProfileInline(admin.StackedInline):
     model = Profile
     raw_id_fields = ('image', 'about_me_image', 'about_me_video', 'about_research_image', 'about_research_video')
+    exclude = ('first_login',)
 
 class UserAdminWithProfile(UserAdmin):
     inlines = [ ProfileInline, ]
@@ -102,7 +103,6 @@ class ParentAdmin(admin.ModelAdmin):
         'approved',
         'last_active_on',
         'last_inactive_email_sent_on',
-        'shown_intro'
     ]
     raw_id_fields = ['image']
     list_display = ['user', 'email', 'id']
@@ -133,7 +133,6 @@ class EducatorAdmin(admin.ModelAdmin):
         'approved',
         'last_active_on',
         'last_inactive_email_sent_on',
-        'shown_intro'
     ]
     raw_id_fields = ['image']
     list_display = ['user', 'email', 'id']
@@ -173,7 +172,6 @@ class StudentAdmin(admin.ModelAdmin):
         'approved',
         'last_active_on',
         'last_inactive_email_sent_on',
-        'shown_intro'
     ]
     raw_id_fields = ['image']
     list_display = ['user', 'email', 'id', 'is_underage']
@@ -213,7 +211,6 @@ class MentorAdmin(admin.ModelAdmin):
         'approved',
         'last_active_on',
         'last_inactive_email_sent_on',
-        'shown_intro'
     ]
     raw_id_fields = [
         'image',

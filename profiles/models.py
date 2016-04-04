@@ -36,7 +36,7 @@ class Profile(models.Model):
     last_active_on = models.DateTimeField(default=now)
     #this field will be cleared once the user becomes active
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
-    shown_intro = models.BooleanField(default=False)
+    first_login = models.BooleanField(default=True)
     source = models.CharField(max_length=50, null=False, blank=True, default="")
 
     child_profiles = models.ManyToManyField(
@@ -108,10 +108,6 @@ class Profile(models.Model):
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__mentor=self.user, read=False).count()
         else:
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
-
-    def intro_video_was_played(self):
-        self.shown_intro = True
-        self.save(update_fields=['shown_intro'])
 
     def deliver_inactive_email(self):
         if self.birthday:
