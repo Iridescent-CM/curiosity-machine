@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             filenameDisplay.textContent = blob.filename;
 
             if (injectPreview) {
-              Array.prototype.forEach.call(container.querySelectorAll('#pickwidget-preview'), function(el) {
+              Array.prototype.forEach.call(container.querySelectorAll('.pickwidget-preview'), function(el) {
                 container.removeChild(el);
               });
               if (blob.mimetype.startsWith('image')) {
