@@ -13,6 +13,12 @@ class FilePickerInlineWidget(widgets.Input):
         js = (JS_URL,)
 
 class FilePickerPickWidget(Widget):
+    """
+    A Filepicker widget similar to <input type="file"> with optional media preview.
+    Value is a dictionary of media URL and mimetype information, must be used with
+    a field type that can parse this, like MediaURLField.
+    """
+
     class Media:
         js = ("//api.filestackapi.com/filestack.js", "js/pickwidget.js",)
 
@@ -40,6 +46,10 @@ class FilePickerPickWidget(Widget):
         return [data.get(name + '_url', None), data.get(name + '_mimetype', None)]
 
 class FilePickerImagePickWidget(FilePickerPickWidget):
+    """
+    A Filepicker image selection widget suitable for use with something like URLField.
+    """
+
     def __init__(self, attrs=None):
         _attrs = {
             'data-fp-mimetypes': 'image/*'
@@ -51,6 +61,9 @@ class FilePickerImagePickWidget(FilePickerPickWidget):
         return data.get(name + '_url', None)
 
 class FilePickerVideoPickWidget(FilePickerPickWidget):
+    """
+    A Filepicker video selection widget suitable for use with something like URLField.
+    """
     def __init__(self, attrs=None):
         _attrs = {
             'data-fp-mimetypes': 'video/*'

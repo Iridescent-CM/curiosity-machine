@@ -40,12 +40,18 @@ class FilePickerField(forms.URLField):
 class FilePickerURLField(FilePickerField):
     widget = FilePickerInlineWidget
     
-#TODO: validate mimetype from widget against init arg
 class MediaURLField(forms.fields.MultiValueField):
+    """
+    A field for use with FilePickerPickWidget, which returns both media URL and
+    mimetype information.
+    """
+    #TODO: validate mimetype from the widget against the value provided as an argument
+
     widget = FilePickerPickWidget
 
-    def __init__(self, *args, **kwargs):
-        self.mimetypes = kwargs.pop('mimetypes', '*/*')
+    def __init__(self, mimetypes='*/*', *args, **kwargs):
+        # mimetypes -- comma-separated list of acceptable mimetypes
+        self.mimetypes = mimetypes
         fields = (
             forms.URLField(),
             forms.CharField()
