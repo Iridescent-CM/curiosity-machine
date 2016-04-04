@@ -4,13 +4,13 @@
 // Overwriting line 58 from bootstrap/scss/_buttons.scss
 //
 
-$btn-primary-color:              #fff !default;
-$btn-primary-bg:                 $primary-blue !default;
-$btn-primary-border:             shade($primary-blue, 40) !default;
+$btn-primary-color: $ivory !default;
+$btn-primary-bg: $primary-blue !default;
+$btn-primary-border: $primary-blue-darkest !default;
 
-$btn-secondary-color:            $gray-dark !default;
-$btn-secondary-bg:               #fff !default;
-$btn-secondary-border:           #ccc !default;
+$btn-secondary-color: $dark !default;
+$btn-secondary-bg: $ivory !default;
+$btn-secondary-border: $sand !default;
 
 //
 // New (altered) mixin from bootstrap/scss/mixins/_tab-focus.scss
@@ -18,24 +18,24 @@ $btn-secondary-border:           #ccc !default;
 
 @mixin btn-tab-focus() {
   outline: none;
-  box-shadow: inset 0 0 0 2px #fff;
+  box-shadow: inset 0 0 0 2px $ivory;
 }
 
 @mixin btn-color($color) {
-  color: white;
+  color: $ivory;
   background-color: $color;
   border-color: $color;
   &:hover {
-    color: white;
+    color: $ivory;
     background-color: shade($color, 10%);
         border-color: shade($color, 10%);
   }
   &:focus {
-    color: white !important;
-    box-shadow: inset 0 0 0 2px #fff !important;
+    color: $ivory !important;
+    box-shadow: inset 0 0 0 2px $ivory !important;
   }
   &:active {
-    color: white;
+    color: $ivory;
     background-color: shade($color, 20%);
         border-color: shade($color, 20%);
   }

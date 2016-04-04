@@ -12,23 +12,23 @@
   .mentor-card {
     width: 100%;
     border-radius: $base-border-radius;
-    border: 1px solid $light-gray;
+    border: 1px solid $sand;
     margin-bottom: $base-spacing;
 
     a {
-      color: $dark-gray;
+      color: $dark;
     }
   }
 
   .mentor-card-title {
-    background-color: tint($light-gray, 60);
+    background-color: tint($sand, 60);
     padding: 20px 20px 10px 20px;
 
     img {
       width: 80px;
       height: 80px;
       border-radius: 50%;
-      border: 3px solid $light-gray;
+      border: 3px solid $sand;
     }
 
     h3 {
@@ -52,5 +52,5 @@
       color: white;
     }
   }
-  
+
 }

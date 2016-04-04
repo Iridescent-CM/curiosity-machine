@@ -1,5 +1,5 @@
 header {
-  background-color: $primary-light;
+  background-color: $ivory;
   font-family: $heading-font-family;
   a {
     border-bottom: 0;
@@ -10,6 +10,11 @@ header {
   margin-top: 5px;
   margin-bottom: 5px;
   height: 50px;
+}
+
+.logo-sm {
+  height: 30px;
+  margin-top: 15px;
 }
 
 .avatar img {
@@ -95,12 +100,12 @@ header {
     .navbar-nav {
       .nav-link {
         padding: 15px 0px;
-        color: $primary-light;
+        color: $ivory;
         border-radius: $base-border-radius;
         margin: 10px 0px;
 
         &:hover {
-          color: $primary-light;
+          color: $ivory;
         }
       }
 
@@ -114,13 +119,13 @@ header {
             border-color: $primary-purple;
             a {
               text-decoration: none;
-              color: $primary-light;
+              color: $ivory;
             }
           }
           &.active {
-            background-color: shade($primary-purple, 20);
-            border-color: shade($primary-purple, 20);
-            color: $primary-light;
+            background-color: $primary-purple-dark;
+            border-color: $primary-purple-dark;
+            color: $ivory;
           }
         }
       }
@@ -195,7 +200,7 @@ header {
       &.open {
         .dropdown-toggle {
           background-color: $primary-purple;
-          color: $primary-light;
+          color: $ivory;
         }
       }
       .dropdown-menu {
@@ -207,7 +212,7 @@ header {
           padding-bottom: 14px;
           &:hover {
             background-color: $primary-purple;
-            color: $primary-light;
+            color: $ivory;
           }
           &:first-child {
             border-top-left-radius: 0.25rem;
@@ -226,9 +231,9 @@ header {
   .navbar-light {
     .navbar-nav {
       .nav-link {
-        color: $medium-gray;
+        color: $gray;
         &:hover, &:focus, &:active {
-          color: $primary-light;
+          color: $ivory;
         }
       }
     }
@@ -240,7 +245,7 @@ header {
   .modal-body {
     input {
       border-radius: $base-border-radius;
-      border: 0.0625rem solid $medium-gray;
+      border: 0.0625rem solid $gray;
       padding: 0.375rem 0.75rem;
       width: 100%;
     }

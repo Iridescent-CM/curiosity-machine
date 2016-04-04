@@ -32,8 +32,13 @@ background-color: @primary-light;
 .navbar-brand {
   padding: 5px;
 
-  img {
+  .logo-lg {
     height: 50px;
+  }
+
+  .logo-sm {
+    height: 30px;
+    margin-top: 10px;
   }
 }
 
@@ -135,15 +140,15 @@ background-color: @primary-light;
     }
 
     li {
-      a.nav-challenges { 
+      a.nav-challenges {
         background-color: @primary-blue;
         &:hover { background-color: shade(@primary-blue, 10); }
       }
-      a.nav-mentors { 
+      a.nav-mentors {
         background-color: @primary-orange;
         &:hover { background-color: shade(@primary-orange, 10); }
       }
-      a.nav-about { 
+      a.nav-about {
         background-color: @primary-red;
         &:hover { background-color: shade(@primary-red, 10); }
       }
@@ -189,7 +194,7 @@ background-color: @primary-light;
       transition: color 150ms ease;
       color: @medium-gray;
       line-height: 1.5em;
-  
+
       &:hover {
         color: @primary-light;
       }

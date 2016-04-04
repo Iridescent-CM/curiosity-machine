@@ -2,7 +2,7 @@
   .nav-panel {
     color: white;
     background: url("../images/design-challenge-repeating-pattern-white.png");
-    background-color: tint($primary-purple, 20%);
+    background-color: $primary-purple-light;
     background-attachment: fixed;
     background-repeat: repeat;
 
@@ -16,14 +16,14 @@
         transition-property: all;
         &:link,
         &:visited {
-          color: $primary-light;
-          border-bottom: 2px solid $primary-light;
+          color: $ivory;
+          border-bottom: 2px solid $ivory;
         }
         &:hover,
         &:active,
         &.active {
-          color: shade($primary-purple, 40%);
-          border-color: shade($primary-purple, 40%);
+          color: $primary-purple-darkest;
+          border-color: $primary-purple-darkest;
         }
       }
     }
