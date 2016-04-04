@@ -11,18 +11,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         filepicker.setKey(el.getAttribute('data-fp-apikey'));
         var injectPreview = el.hasAttribute('data-show-preview');
+
         var opts = {
           mimetypes: el.getAttribute('data-fp-mimetypes').split(','),
         };
-        if (el.hasAttribute('data-fp-opento')) {
-          opts.openTo = el.getAttribute('data-fp-opento');
-        }
-        if (el.hasAttribute('data-fp-services')) {
-          opts.services = el.getAttribute('data-fp-services').split(',')
-        }
-        if (el.hasAttribute('data-fp-conversions')) {
-          opts.conversions = el.getAttribute('data-fp-conversions').split(',')
-        }
+        opts.openTo = el.hasAttribute('data-fp-opento') ? el.getAttribute('data-fp-opento') : undefined;
+        opts.services = el.hasAttribute('data-fp-services') ? el.getAttribute('data-fp-services').split(',') : undefined;
+        opts.conversions = el.hasAttribute('data-fp-conversions') ? el.getAttribute('data-fp-conversions').split(',') : undefined;
 
         filepicker.pick(
           opts,
@@ -32,16 +27,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
             filenameDisplay.textContent = blob.filename;
 
             if (injectPreview) {
+              Array.prototype.forEach.call(container.querySelectorAll('#pickwidget-preview'), function(el) {
+                container.removeChild(el);
+              });
               if (blob.mimetype.startsWith('image')) {
-                var img = document.createElement('img');
-                img.src = blob.url;
-                container.insertBefore(img, container.firstChild);
+                var el = document.createElement('img');
+                el.src = blob.url;
+                el.classList.add('pickwidget-preview');
+                container.insertBefore(el, container.firstChild);
               }
               else if (blob.mimetype.startsWith('video')) {
-                var vid = document.createElement('video');
-                vid.src = blob.url;
-                vid.controls = 'controls';
-                container.insertBefore(vid, container.firstChild);
+                var el = document.createElement('video');
+                el.src = blob.url;
+                el.controls = 'controls';
+                el.classList.add('pickwidget-preview');
+                container.insertBefore(el, container.firstChild);
               }
             }
           },

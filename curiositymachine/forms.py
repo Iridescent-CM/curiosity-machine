@@ -40,30 +40,22 @@ class FilePickerField(forms.URLField):
 class FilePickerURLField(FilePickerField):
     widget = FilePickerInlineWidget
     
-class FilePickerMediaField(forms.fields.MultiValueField):
+#TODO: validate mimetype from widget against init arg
+class MediaURLField(forms.fields.MultiValueField):
     widget = FilePickerPickWidget
 
     def __init__(self, *args, **kwargs):
         self.mimetypes = kwargs.pop('mimetypes', '*/*')
-        self.openTo = kwargs.pop('openTo', None)
-        self.services = kwargs.pop('services', None)
-        self.conversions = kwargs.pop('conversions', None)
         fields = (
             forms.URLField(),
             forms.CharField()
         )
-        super(FilePickerMediaField, self).__init__(fields=fields, *args, **kwargs)
+        super(MediaURLField, self).__init__(fields=fields, *args, **kwargs)
 
     def widget_attrs(self, widget):
         attrs = {
             'data-fp-mimetypes': self.mimetypes
         }
-        if self.openTo:
-            attrs['data-fp-opento'] = self.openTo
-        if self.services:
-            attrs['data-fp-services'] = self.services
-        if self.conversions:
-            attrs['data-fp-conversions'] = self.conversions
         return attrs
 
     def compress(self, data_list):

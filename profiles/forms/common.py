@@ -7,7 +7,8 @@ from django.forms.extras.widgets import SelectDateWidget
 from profiles.models import Profile
 from images.models import Image
 from videos.models import Video
-from curiositymachine.forms import FilePickerMediaField
+from curiositymachine.forms import MediaURLField
+from curiositymachine.widgets import FilePickerPickWidget
 
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 
@@ -50,26 +51,32 @@ class UserAndProfileForm(forms.ModelForm):
     form_fields = []
 
     _form_field_definitions = {
-        'image_url': FilePickerMediaField(
+        'image_url': MediaURLField(
             label="Photo",
             mimetypes="image/*",
-            openTo='WEBCAM',
-            services='WEBCAM,COMPUTER,CONVERT',
-            conversions='crop,rotate',
+            widget=FilePickerPickWidget(attrs={
+                "data-fp-opento": "WEBCAM",
+                "data-fp-services": "WEBCAM,COMPUTER,CONVERT",
+                "data-fp-conversions": "crop,rotate",
+            }),
             required=False
         ),
-        'about_me_filepicker_url': FilePickerMediaField(
+        'about_me_filepicker_url': MediaURLField(
             label="About Me Photo or Video",
             mimetypes="video/*,image/*",
-            openTo='WEBCAM',
-            services='VIDEO,WEBCAM,COMPUTER',
+            widget=FilePickerPickWidget(attrs={
+                "data-fp-opento": 'WEBCAM',
+                "data-fp-services": 'VIDEO,WEBCAM,COMPUTER',
+            }),
             required=False,
         ),
-        'about_research_filepicker_url': FilePickerMediaField(
+        'about_research_filepicker_url': MediaURLField(
             label="About My Research Photo or Video",
             mimetypes="video/*,image/*",
-            openTo='WEBCAM',
-            services='VIDEO,WEBCAM,COMPUTER',
+            widget=FilePickerPickWidget(attrs={
+                'data-fp-opento': 'WEBCAM',
+                'data-fp-services': 'VIDEO,WEBCAM,COMPUTER',
+            }),
             required=False,
         ),
         'welcome': forms.CharField(
