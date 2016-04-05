@@ -30,7 +30,7 @@
         {% include "_mentor_panel.html" with comment_url=comment_url %}
       {% else %}
         <div class="col-md-5">
-          <div class="panel panel-bubble">
+          <div class="panel panel-bubble filepicker-comments">
             <div class="panel-body">
               <h3>Post your plan as a video, drawing (photo) or text</h3>
               {% if request.user.profile.is_student %}
@@ -61,12 +61,14 @@
       {% endif %}
 
       <div class="col-md-1">
-        {% include "_avatar.html" with profile=progress.student.profile width=60 height=80 crop='fit' %}
+        <div class="avatar-container">
+          {% include "_avatar.html" with profile=progress.student.profile width=50 height=50 crop='fill' %}
+        </div>
       </div>
 
       <div class="col-md-6">
         {% if request.user.profile.is_mentor %}
-          <h1>{{progress.student.username}}'s plan</h1>
+          <h3>{{progress.student.username}}'s plan</h3>
         {% endif %}
 
         <div class="materials-list panel">
