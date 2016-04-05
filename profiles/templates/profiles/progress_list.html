@@ -23,11 +23,13 @@
             <div class="panel-heading">
               <h3 class="panel-title">
                 {% if progress.mentor %}
-                  {% if progress|unread_count:request.user %}
-                    <span title="{{progress|unread_count:request.user}} unread messages" class="unread">
-                      {{progress|unread_count:request.user}}
-                    </span>
-                  {% endif %}
+                  {% with count=progress|unread_count:request.user %}
+                    {% if count %}
+                      <span title="{{count}} unread messages" class="unread">
+                        {{count}}
+                      </span>
+                    {% endif %}
+                  {% endwith %}
                 {% endif %}
                 <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">
                   {{progress.student.username}}
