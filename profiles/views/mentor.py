@@ -157,7 +157,11 @@ def unclaimed_progresses(request, **kwargs):
     except EmptyPage:
         progresses = paginator.page(paginator.num_pages)
 
-    return render(request, 'mentor_unclaimed_challenges.html', {'grouping': grouping, 'progresses': progresses})
+    return render(request, 'profiles/progress_list.html', {
+        'claimed': False,
+        'grouping': grouping,
+        'progresses': progresses
+    })
 
 @login_required
 @mentor_only
@@ -181,7 +185,7 @@ def claimed_progresses(request, **kwargs):
     except EmptyPage:
         progresses = paginator.page(paginator.num_pages)
 
-    return render(request, 'mentor_unclaimed_challenges.html', {
+    return render(request, 'profiles/progress_list.html', {
         'claimed': True,
         'progresses': progresses
     })
