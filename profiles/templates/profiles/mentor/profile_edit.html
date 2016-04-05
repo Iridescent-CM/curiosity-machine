@@ -71,7 +71,7 @@
           </div>
            <div>
             {{form.image_url.label_tag}}
-            {% include "_avatar.html" with profile=request.user.profile width=327 height=327 crop='fit' %}
+            {% include "_avatar.html" with profile=request.user.profile width=330 height=330 crop='fill' %}
             {{form.image_url}}
             <div class="errors">{{ form.image_url.errors }}</div>
           </div>
@@ -90,10 +90,10 @@
             {{form.about_me_filepicker_mimetype}}
           </div>
         </div>
-        
+
         <div class="col-md-4">
           <div>
-            {{form.about_research.label_tag}}      
+            {{form.about_research.label_tag}}
             <textarea id="{{form.about_research.id_for_label}}" name="{{form.about_research.html_name}}">{{ form.about_research.value }}</textarea>
             <div class="errors">{{ form.about_research.errors }}</div>
           </div>

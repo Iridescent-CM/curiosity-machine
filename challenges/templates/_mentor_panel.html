@@ -1,3 +1,5 @@
+{% load widget_tweaks %}
+
 <div class="col-md-5">
   <div class="mentor-panel-content">
 
@@ -19,7 +21,7 @@
           <h3>Give Feedback</h3>
           <form method="POST" action="{{ comment_url }}">
             {% csrf_token %}
-            {{ comment_form.text }}
+            {{ comment_form.text|attr:"placeholder:Write your comment here..." }}
             {{ comment_form.visual_media }}
             <input type="submit" class="btn btn-primary pull-right" />
           </form>

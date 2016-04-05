@@ -36,7 +36,7 @@
               {% if request.user.profile.is_student %}
                 <form method="POST" action="{{ comment_url }}">
                   {% csrf_token %}
-                  {{ comment_form.text }}
+                  {{ comment_form.text|attr:"placeholder:Write up a good plan, kids" }}
                   {{ comment_form.visual_media }}
                   <input type="submit" class="btn btn-primary pull-right" />
                 </form>

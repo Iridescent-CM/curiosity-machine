@@ -28,7 +28,7 @@
 
         <div>
           {{comment_form.text.label_tag}}
-          {{comment_form.text}}
+          {{ comment_form.text|attr:"placeholder:Write your comment here..." }}
           <div class="errors">{{ comment_form.text.errors }}</div>
         </div>
       </div>
