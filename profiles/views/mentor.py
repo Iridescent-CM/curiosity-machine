@@ -119,11 +119,19 @@ def show_profile(request, username):
 def unclaimed_progresses(request, **kwargs):
     progresses = []
     grouping = "none"
+    page = request.GET.get('page')
 
     if set(['year', 'month', 'day']).issubset(set(kwargs.keys())):
-        # original logic to see progresses by date
         selected_date = date(int(kwargs['year']), int(kwargs['month']), int(kwargs['day']))
-        progresses = Progress.unclaimed(selected_date)
+        progresses = Progress.objects.filter(
+            mentor__isnull=True, started__year=selected_date.year, started__month=selected_date.month, started__day=selected_date.day
+        ).exclude(
+            comments=None
+        ).order_by(
+            'started'
+        ).select_related(
+           'challenge', 'student', 'student__profile'
+        )
         grouping = selected_date
     elif "source" in request.GET:
         grouping = request.GET["source"]
@@ -140,5 +148,13 @@ def unclaimed_progresses(request, **kwargs):
             grouping = "other"
     else:
         raise Http404()
+
+    paginator = Paginator(progresses, settings.MENTORS_PER_PAGE)
+    try:
+        progresses = paginator.page(page)
+    except PageNotAnInteger:
+        progresses = paginator.page(1)
+    except EmptyPage:
+        progresses = paginator.page(paginator.num_pages)
 
     return render(request, 'mentor_unclaimed_challenges.html', {'grouping': grouping, 'progresses': progresses})
