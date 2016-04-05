@@ -18,8 +18,16 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">
-                {% if progress|unread_count:request.user %} <span title="{{progress|unread_count:request.user}} unread messages" class="unread">{{progress|unread_count:request.user}}</span>{% endif %}
-                <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{progress.student.username}} </a>
+                {% if progress.mentor %}
+                  {% if progress|unread_count:request.user %}
+                    <span title="{{progress|unread_count:request.user}} unread messages" class="unread">
+                      {{progress|unread_count:request.user}}
+                    </span>
+                  {% endif %}
+                {% endif %}
+                <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">
+                  {{progress.student.username}}
+                </a>
               </h3>
               <div class="image-container">
                 <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}"> 
@@ -29,11 +37,11 @@
                   {% elif progress.challenge.image %}
                     <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}"class="center-block img-responsive" />
                   {% elif progress.challenge.video.encodings_generated %}
-                    <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}"class="center-block img-responsive />
+                    <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}"class="center-block img-responsive" />
                   {% endif %}
 
                 </a>
-            </div>
+              </div>
             </div>
             <div class="panel-body">
               <h4><a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{ progress.challenge.name }}</a></h4>
