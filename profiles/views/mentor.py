@@ -158,3 +158,30 @@ def unclaimed_progresses(request, **kwargs):
         progresses = paginator.page(paginator.num_pages)
 
     return render(request, 'mentor_unclaimed_challenges.html', {'grouping': grouping, 'progresses': progresses})
+
+@login_required
+@mentor_only
+def claimed_progresses(request, **kwargs):
+    progresses = []
+    page = request.GET.get('page')
+
+    progresses = Progress.objects.filter(
+        mentor=request.user
+    ).order_by(
+        '-started', 'id'
+    ).select_related(
+        'challenge', 'student', 'student__profile'
+    )
+
+    paginator = Paginator(progresses, settings.MENTORS_PER_PAGE)
+    try:
+        progresses = paginator.page(page)
+    except PageNotAnInteger:
+        progresses = paginator.page(1)
+    except EmptyPage:
+        progresses = paginator.page(paginator.num_pages)
+
+    return render(request, 'mentor_unclaimed_challenges.html', {
+        'claimed': True,
+        'progresses': progresses
+    })

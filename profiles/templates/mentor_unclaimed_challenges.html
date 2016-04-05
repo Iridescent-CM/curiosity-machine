@@ -6,7 +6,11 @@
   {% if request.user.profile.approved %}
     <div class="row">
       <div class="col-sm-12">
-        <h2>Unclaimed Student Challenges for {{grouping}}</h2>
+        {% if claimed %}
+          <h2>Challenges I'm Mentoring</h2>
+        {% else %}
+          <h2>Unclaimed Student Challenges for {{grouping}}</h2>
+        {% endif %}
       </div>
     </div>
     <div class="row text-center">
