@@ -9,7 +9,6 @@
 
   {% if request.user.profile.approved %}
     <h2>Recent Challenges I'm Mentoring</h2>
-    <a href="{% url "profiles:claimed_progresses" %}" class="btn btn-default">See all</a>
     <div class="tab-content">
       <ul class="challenges-list owl-carousel panel-carousel">
         {% for progress in progresses %}
@@ -18,6 +17,9 @@
           <h3>You are not mentoring any challenges right now</h3>
         {% endfor %}
       </ul>
+      <div class="text-center">
+        <a href="{% url "profiles:claimed_progresses" %}" class="btn btn-primary">See all</a>
+      </div>
     </div>
 
     <h2>Claim a Challenge by Partnership</h2>
