@@ -7,11 +7,6 @@ class CommentForm(forms.Form):
     visual_media = MediaURLField(
         widget=FilePickerPickWidget(
             preview=True,
-            text="""
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-            """,
             attrs={
                 "data-fp-opento": 'WEBCAM',
                 "data-fp-services": 'VIDEO,WEBCAM,COMPUTER,CONVERT',
