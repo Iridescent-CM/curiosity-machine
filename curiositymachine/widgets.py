@@ -25,7 +25,8 @@ class FilePickerPickWidget(Widget):
     def __init__(self, attrs=None, preview=False, text=None):
         self.text = text
         _attrs = {
-            'data-fp-apikey': settings.FILEPICKER_API_KEY
+            'data-fp-apikey': settings.FILEPICKER_API_KEY,
+            'class': 'btn btn-primary pickwidget-button'
         }
         if preview:
             _attrs['data-show-preview'] = 'preview'
