@@ -653,9 +653,10 @@ margin-left: auto;
 .reflect-box {
   textarea {
     display: block;
-    background: lighten(@teal, 20%);
+    background: lighten(@teal, 40%);
     width: 100%;
     color: @text-color;
+    resize: vertical;
   }
   .action-list li .btn {
     .button-variant(#fff; @teal; @teal);
@@ -781,7 +782,7 @@ margin-left: auto;
     resize: vertical;
   }
 
-  img {
+  img, .videocontent {
     width: 100%;
     height: auto;
     margin-bottom: 10px;
@@ -1086,6 +1087,7 @@ h2 a.btn:first-child {
   textarea {
     resize: vertical;
     width: 100%;
+    color: @dark-gray;
   }
 
   img, video {
@@ -1097,6 +1099,8 @@ h2 a.btn:first-child {
   .pickwidget-filename {
     word-wrap: break-word;
   }
+
+  color: #fff;
 }
 
 .avatar-container {
@@ -1110,4 +1114,11 @@ h2 a.btn:first-child {
     display: inline-block;
     margin-left: 10px;
   }
+}
+
+////========================
+//// other
+
+.preview-page-alerts a, .preview-page-alerts input {
+  margin: 10px 10px 0;
 }

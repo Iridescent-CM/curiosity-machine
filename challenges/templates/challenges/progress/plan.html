@@ -32,11 +32,11 @@
         <div class="col-md-5">
           <div class="panel panel-bubble filepicker-comments">
             <div class="panel-body">
-              <h3>Post your plan as a video, drawing (photo) or text</h3>
+              <h3>Post your plan!</h3>
               {% if request.user.profile.is_student %}
                 <form method="POST" action="{{ comment_url }}">
                   {% csrf_token %}
-                  {{ comment_form.text|attr:"placeholder:Write up a good plan, kids" }}
+                  {{ comment_form.text|attr:"placeholder:Write your plan here. You can also add a photo or video below." }}
                   {{ comment_form.visual_media }}
                   <input type="submit" class="btn btn-primary pull-right" />
                 </form>
