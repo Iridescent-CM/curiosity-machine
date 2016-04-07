@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 <form>
-  {{ comment_form.text|attr:"disabled:disabled" }}
+  {{ comment_form.text|attr:"disabled:disabled"|add_class:"form-control" }}
   {{ comment_form.visual_media|attr:"disabled:disabled" }}
   <input type="submit" disabled="disabled" class="btn btn-primary pull-right" />
 </form>
