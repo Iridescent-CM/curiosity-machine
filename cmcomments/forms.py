@@ -22,3 +22,11 @@ class CommentForm(forms.Form):
         required=False
     )
     question_text = forms.CharField(widget=forms.HiddenInput, required=False)
+
+    def clean(self):
+        cleaned_data = super(CommentForm, self).clean()
+        media = cleaned_data['visual_media']
+        text = cleaned_data['text']
+
+        if not media and not text:
+            raise forms.ValidationError("Comments must contain text, image, or video")
