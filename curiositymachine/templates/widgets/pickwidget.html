@@ -1,5 +1,11 @@
 <div id="{{id}}_container" class="pickwidget">
-  <button type="button" id="{{id}}" class="btn btn-primary pickwidget-button" data-toggle="filepicker" {{attrs}}>Pick</button>
+  <button type="button" id="{{id}}" class="btn btn-primary pickwidget-button" data-toggle="filepicker" {{attrs}} aria-label="Select files">
+    {% if button_text %}
+      {{button_text|safe}}
+    {% else %}
+      Select file
+    {% endif %}
+  </button>
   <span id="{{id}}_filename" class="pickwidget-filename">No file selected</span>
   <input type="hidden" name="{{name}}_url" id="{{id}}_url" />
   <input type="hidden" name="{{name}}_mimetype" id="{{id}}_mimetype" />

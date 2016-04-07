@@ -22,7 +22,8 @@ class FilePickerPickWidget(Widget):
     class Media:
         js = ("//api.filestackapi.com/filestack.js", "js/pickwidget.js",)
 
-    def __init__(self, attrs=None, preview=False):
+    def __init__(self, attrs=None, preview=False, text=None):
+        self.text = text
         _attrs = {
             'data-fp-apikey': settings.FILEPICKER_API_KEY
         }
@@ -38,6 +39,7 @@ class FilePickerPickWidget(Widget):
             "id": id,
             "name": name,
             "value": value,
+            "button_text": self.text,
             "attrs": flatatt(self.build_attrs(attrs))
         }
         return render_to_string('widgets/pickwidget.html', context)
