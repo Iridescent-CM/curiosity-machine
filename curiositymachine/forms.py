@@ -12,6 +12,7 @@ MIMETYPE_SCRIPT = """
         $('#{}').val(evt.fpfile.mimetype);
 """
 
+# deprecated
 class FilePickerField(forms.URLField):
     default_mimetypes = "*/*"
     default_openTo = 'COMPUTER'
@@ -37,6 +38,7 @@ class FilePickerField(forms.URLField):
             attrs['onchange'] = MIMETYPE_SCRIPT.format(self.mimetype_widget.attrs.get('id'))
         return attrs
 
+# deprecated: use MediaURLField
 class FilePickerURLField(FilePickerField):
     widget = FilePickerInlineWidget
     

@@ -100,10 +100,6 @@
     </div><!-- row -->
 
     {% include "_guide.html" %}
-    {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
-    {% include "_comment_form.html" with stage="build" format="video" url=comment_url %}
-    {% include "_comment_form.html" with stage="build" format="picture" url=comment_url %}
-    {% include "_comment_form.html" with stage="build" format="text" url=comment_url %}
 
   </div><!-- content -->
 

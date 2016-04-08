@@ -5,6 +5,7 @@ from django.forms.utils import flatatt
 
 JS_URL = "//api.filestackapi.com/filestack.js"
 
+# deprecated
 class FilePickerInlineWidget(widgets.Input):
     input_type = "filepicker-custom"
     needs_multipart_form = False

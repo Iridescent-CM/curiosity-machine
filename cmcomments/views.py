@@ -12,6 +12,9 @@ from curiositymachine.decorators import mentor_or_current_user, mentor_only
 from videos.models import Video
 from images.models import Image
 import django_rq
+import logging
+
+logger = logging.getLogger(__name__)
 
 @require_POST
 @login_required
@@ -44,8 +47,8 @@ def comments(request, challenge_id, username, stage):
             question_text=form.cleaned_data['question_text']
         )
         comment.save()
-
-    #TODO: add some way to handle form.errors, for instance converting it into a JSON API
+    else:
+        logger.info("Invalid comment: " + form.errors.as_json())
 
     return HttpResponseRedirect(
         request.META.get(
