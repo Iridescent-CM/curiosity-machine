@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         opts.openTo = el.hasAttribute('data-fp-opento') ? el.getAttribute('data-fp-opento') : undefined;
         opts.services = el.hasAttribute('data-fp-services') ? el.getAttribute('data-fp-services').split(',') : undefined;
         opts.conversions = el.hasAttribute('data-fp-conversions') ? el.getAttribute('data-fp-conversions').split(',') : undefined;
+        opts.cropRatio = el.hasAttribute('data-fp-cropratio') ? el.getAttribute('data-fp-cropratio') : undefined;
+        opts.cropForce = el.hasAttribute('data-fp-cropforce');
 
         filepicker.pick(
           opts,
