@@ -66,7 +66,8 @@ class UserAndProfileForm(forms.ModelForm):
             mimetypes="video/*,image/*",
             widget=FilePickerPickWidget(attrs={
                 "data-fp-opento": 'WEBCAM',
-                "data-fp-services": 'VIDEO,WEBCAM,COMPUTER',
+                "data-fp-services": 'VIDEO,WEBCAM,COMPUTER,CONVERT',
+                "data-fp-conversions": "crop,rotate",
             }),
             required=False,
         ),
@@ -75,7 +76,8 @@ class UserAndProfileForm(forms.ModelForm):
             mimetypes="video/*,image/*",
             widget=FilePickerPickWidget(attrs={
                 'data-fp-opento': 'WEBCAM',
-                'data-fp-services': 'VIDEO,WEBCAM,COMPUTER',
+                'data-fp-services': 'VIDEO,WEBCAM,COMPUTER,CONVERT',
+                "data-fp-conversions": "crop,rotate",
             }),
             required=False,
         ),
