@@ -9,24 +9,7 @@
 {% block content %}
   <h1>{{ challenge.name }}</h1>
 
-  {% if request.user.profile.is_student %}
-    <div class="alert alert-info text-center preview-page-alerts">
-      <strong>You're previewing this challenge.</strong> Start building if you want to post!<br/>
-      <form name="Start Building" action="{% url 'challenges:start_building' challenge_id=challenge.id %}" method='POST'>
-        {% csrf_token %}
-        <input type="submit" value="Start Building" class="btn btn-primary" />
-      </form>
-    </div>
-  {% elif request.user.is_anonymous %}
-    <div class="alert alert-info text-center preview-page-alerts">
-      <strong>You're previewing this challenge.</strong> To post, make a student account!<br/>
-      <a href="{% url "profiles:join" %}" class="btn btn-primary">Create Account</a><a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
-    </div>
-  {% else %}
-    <div class="alert alert-info text-center preview-page-alerts">
-      <strong>You're previewing this challenge.</strong> Only student accounts can post to design challenges.
-    </div>
-  {% endif %}
+  {% include 'challenges/preview/_alerts.html' %}
 
   {% if challenge.draft %}
     <h2><small>We're improving this challenge. Keep an eye out for changes.</small></h2>
@@ -53,7 +36,7 @@
       </div>
 
       <div class="col-md-6">
-        <div class="panel panel-bubble right filepicker-comments">
+        <div class="panel panel-bubble right edp-comments">
           <div class="panel-body">
             <h3>What step are you on?</h3>
               <ul class="switch stage-switch">

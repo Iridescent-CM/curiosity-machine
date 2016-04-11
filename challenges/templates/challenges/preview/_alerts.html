@@ -1,0 +1,18 @@
+{% if request.user.profile.is_student %}
+  <div class="alert alert-info text-center preview-page-alerts">
+    <strong>You're previewing this challenge.</strong> Start building if you want to post!<br/>
+    <form name="Start Building" action="{% url 'challenges:start_building' challenge_id=challenge.id %}" method='POST'>
+      {% csrf_token %}
+      <input type="submit" value="Start Building" class="btn btn-primary" />
+    </form>
+  </div>
+{% elif request.user.is_anonymous %}
+  <div class="alert alert-info text-center preview-page-alerts">
+    <strong>You're previewing this challenge.</strong> To post, make a student account!<br/>
+    <a href="{% url "profiles:join" %}" class="btn btn-primary">Create Account</a><a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+  </div>
+{% else %}
+  <div class="alert alert-info text-center preview-page-alerts">
+    <strong>You're previewing this challenge.</strong> Only students can post their design challenge progress.
+  </div>
+{% endif %}

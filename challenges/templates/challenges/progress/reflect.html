@@ -65,7 +65,7 @@
         {% if request.user.profile.is_mentor %}
           <h3>{{progress.student.username}}'s progress</h3>
         {% else %}
-          <div class="panel panel-bubble teal right reflect-box filepicker-comments">
+          <div class="panel panel-bubble teal right reflect-box edp-comments">
             <div class="panel-body">
               <h1>Reflect</h1>
               <p>Are you finished with your project? Reflect on your work by answering a question below! Then you'll be able to share your design in the <a href="{% url "challenges:examples" challenge_id=challenge.id %}"><strong>Inspiration Gallery</strong></a>.</p>
