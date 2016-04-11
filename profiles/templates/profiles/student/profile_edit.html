@@ -17,7 +17,7 @@
             {{form.birthday}}
             <div class="errors">{{ form.birthday.errors }}</div>
           </div>
-          
+
           <div>
             <br>
             <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
@@ -38,7 +38,7 @@
           </div>
            <div>
             {{form.image_url.label_tag}}
-            {% include "_avatar.html" with profile=request.user.profile width=150 height=150 crop='fit' %}
+            {% include "_avatar.html" with profile=request.user.profile %}
             {{form.image_url}}
             <div class="errors">{{ form.image_url.errors }}</div>
           </div>
