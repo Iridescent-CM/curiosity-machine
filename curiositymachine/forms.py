@@ -47,7 +47,9 @@ class MediaURLField(forms.fields.MultiValueField):
     A field for use with FilePickerPickWidget, which returns both media URL and
     mimetype information.
     """
-    #TODO: validate mimetype from the widget against the value provided as an argument
+    #TODO: validate mimetype from the widget against the value provided as an argument.
+    #      for now this is used with a filepicker widget that enforces the mimetype, so this
+    #      isn't crucial
 
     widget = FilePickerPickWidget
 

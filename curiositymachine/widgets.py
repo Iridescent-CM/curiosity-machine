@@ -58,7 +58,8 @@ class FilePickerImagePickWidget(FilePickerPickWidget):
         _attrs = {
             'data-fp-mimetypes': 'image/*'
         }
-        _attrs.update(attrs)
+        if (attrs):
+            _attrs.update(attrs)
         super(FilePickerImagePickWidget, self).__init__(_attrs)
 
     def value_from_datadict(self, data, files, name):
@@ -72,7 +73,8 @@ class FilePickerVideoPickWidget(FilePickerPickWidget):
         _attrs = {
             'data-fp-mimetypes': 'video/*'
         }
-        _attrs.update(attrs)
+        if (attrs):
+            _attrs.update(attrs)
         super(FilePickerVideoPickWidget, self).__init__(_attrs)
 
     def value_from_datadict(self, data, files, name):
