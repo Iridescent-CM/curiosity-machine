@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
               Array.prototype.forEach.call(container.querySelectorAll('.pickwidget-preview'), function(el) {
                 container.removeChild(el);
               });
-              if (blob.mimetype.startsWith('image')) {
+              if (blob.mimetype.substr(0, 5) === 'image') {
                 var el = document.createElement('img');
                 el.src = blob.url;
                 el.classList.add('pickwidget-preview');
                 container.insertBefore(el, container.firstChild);
               }
-              else if (blob.mimetype.startsWith('video')) {
+              else if (blob.mimetype.substr(0, 5) === 'video') {
                 var el = document.createElement('video');
                 el.src = blob.url;
                 el.controls = 'controls';
