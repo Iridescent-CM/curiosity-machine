@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block js %}
+  {{ form.media }}
+{% endblock %}
+
 {% block content %}
 {% load staticfiles %}
 
@@ -8,7 +12,7 @@
 <form method='post' action="{{ action }}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">
   {% csrf_token %}
   <div class="row">
-    {% include "profiles/mentor/fields.html" with title="Become an ITW Mentor"%}
+    {% include "profiles/mentor/_join_fields.html" with title="Become an ITW Mentor"%}
   </div>
   <div class="row">
     <div class="col-md-8">

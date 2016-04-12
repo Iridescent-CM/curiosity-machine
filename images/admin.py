@@ -1,17 +1,19 @@
 from django.contrib import admin
 from django import forms
 from .models import Image
-from curiositymachine.forms import FilePickerDragDropField
+from curiositymachine.widgets import FilePickerImagePickWidget
 from django.conf import settings
 
 class ImageAdminForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ('source_url',)
-
-    def __init__(self, *args, **kwargs):
-        super(ImageAdminForm, self).__init__(*args, **kwargs)
-        self.fields['source_url'] = FilePickerDragDropField(mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER')
+        widgets = {
+            'source_url': FilePickerImagePickWidget(attrs={
+                'data-fp-services': 'WEBCAM,COMPUTER',
+                'data-fp-opento': 'COMPUTER'
+            })
+        }
 
 class ImageAdmin(admin.ModelAdmin):
     fields = ('source_url',)

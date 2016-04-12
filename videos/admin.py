@@ -1,17 +1,19 @@
 from django.contrib import admin
 from videos.models import Video, EncodedVideo
 from django import forms
-from curiositymachine.forms import FilePickerDragDropField
+from curiositymachine.widgets import FilePickerVideoPickWidget
 from django.conf import settings
 
 class VideoAdminForm(forms.ModelForm):
     class Meta:
         model = Video
         fields = ('source_url',)
-
-    def __init__(self, *args, **kwargs):
-        super(VideoAdminForm, self).__init__(*args, **kwargs)
-        self.fields['source_url'] = FilePickerDragDropField(mimetypes="video/*", openTo='VIDEO', services='VIDEO,COMPUTER')
+        widgets = {
+            'source_url': FilePickerVideoPickWidget(attrs={
+                'data-fp-services': 'VIDEO,COMPUTER',
+                'data-fp-opento': 'COMPUTER'
+            })
+        }
 
 class VideoAdmin(admin.ModelAdmin):
     fields = ('source_url',)

@@ -1,9 +1,12 @@
 {% load resized %}
 {% load staticfiles %}
 
-<div class="row mentor-info">
-  <div class="col-md-3 col-sm-3 col-xs-5 image-wrapper">
-    {% include "_avatar.html" with profile=profile width=260 height=260 crop='fit' %}
+<div class="row profile-info">
+  <div class="col-md-3 col-sm-3 col-xs-5">
+    {% include "_avatar.html" with profile=profile width=260 height=260 crop='fill' %}
+    {% if request.user == profile.user %}
+      <a href="{% url 'profiles:profile_edit' %}" class="btn btn-primary btn-block">Edit Profile</a>
+    {% endif %}
   </div>
   <div class="col-md-9 col-sm-9 col-xs-7">
     <div class="row">
@@ -35,12 +38,9 @@
         <h4>I'm curious about</h4>
         <p>{{profile.about_research}}</p>
         {% include "_img_or_video.html" with video=profile.about_research_video image=profile.about_research_image crop='fit' width=372 %}
-        {% endif %}  
+        {% endif %}
       </div>
     </div><!-- row -->
-    {% if request.user == profile.user %}
-      <a href="{% url 'profiles:profile_edit' %}" class="btn btn-primary">Edit Profile</a>
-    {% endif %}
-    
+
   </div><!-- col 9 -->
 </div>

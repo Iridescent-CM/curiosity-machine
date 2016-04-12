@@ -17,6 +17,10 @@ import challenges.factories
 import profiles.factories
 import cmcomments.factories
 from training.models import Module
+from curiositymachine.forms import MediaURLField
+from curiositymachine.widgets import FilePickerPickWidget, FilePickerImagePickWidget, FilePickerVideoPickWidget
+from django import forms
+from pyquery import PyQuery as pq
 
 def force_true(*args, **kwargs):
     return True
@@ -607,3 +611,72 @@ def test_signal_inspiration_gallery_submissions_approved():
 
     handler.assert_called_once_with(signal=signal, sender=user, queryset=qs)
 
+def test_mediaurlfield_value_is_dictionary():
+    class MyForm(forms.Form):
+        mediaURL = MediaURLField()
+
+    val = {
+        "url": "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216",
+        "mimetype": "img/png"
+    }
+
+    form = MyForm(initial={ "mediaURL": val })
+    assert form['mediaURL'].value() == val
+
+    form = MyForm(data={
+        "mediaURL_url": val['url'],
+        "mediaURL_mimetype": val['mimetype']
+    })
+    assert form.is_valid()
+    assert form.cleaned_data['mediaURL'] == val
+
+def test_mediaurlfield_sets_default_mimetypes_on_widget():
+    class MyForm(forms.Form):
+        mediaURL = MediaURLField()
+
+    form = MyForm()
+    d = pq(str(form['mediaURL']))
+    assert d('button').attr('data-fp-mimetypes') == '*/*'
+
+def test_mediaurlfield_sets_specified_mimetypes_on_widget():
+    class MyForm(forms.Form):
+        mediaURL = MediaURLField(mimetypes='image/*,video/*')
+
+    form = MyForm()
+    d = pq(str(form['mediaURL']))
+    assert d('button').attr('data-fp-mimetypes') == 'image/*,video/*'
+
+def test_filepickerpickwidget_sets_basic_data_attrs_and_class():
+    widget = FilePickerPickWidget()
+    d = pq(widget.render('name', 'value'))
+    assert d('button').attr('data-fp-apikey')
+    assert 'pickwidget-button' in d('button').attr('class').split(' ')
+
+def test_filepickerpickwidget_sets_preview_data_attr():
+    widget = FilePickerPickWidget(preview=True)
+    d = pq(widget.render('name', 'value'))
+    assert d('button').attr('data-show-preview')
+
+def test_filepickerimagepickwidget_sets_mimetype():
+    widget = FilePickerImagePickWidget()
+    d = pq(widget.render('name', 'value'))
+    assert d('button').attr('data-fp-mimetypes') == 'image/*'
+
+def test_filepickerimagepickwidget_returns_url_only():
+    widget = FilePickerImagePickWidget()
+    assert widget.value_from_datadict({
+        "fieldname_url": "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216",
+        "fieldname_mimetype": "img/png"
+    }, None, "fieldname") == "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216"
+
+def test_filepickervideopickwidget_sets_mimetype():
+    widget = FilePickerVideoPickWidget()
+    d = pq(widget.render('name', 'value'))
+    assert d('button').attr('data-fp-mimetypes') == 'video/*'
+
+def test_filepickervideopickwidget_returns_url_only():
+    widget = FilePickerVideoPickWidget()
+    assert widget.value_from_datadict({
+        "fieldname_url": "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216",
+        "fieldname_mimetype": "video/mp4"
+    }, None, "fieldname") == "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216"

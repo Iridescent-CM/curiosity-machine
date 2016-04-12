@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load resized %}
+{% load widget_tweaks %}
 
 {% block js %}
   <script src="{% static "js/challenges.js" %}"></script>
+  {{ comment_form.media }}
 {% endblock %}
 
 {% block content %}
+  {% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username stage='plan' as comment_url %}
+
   <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
   {% if challenge.draft %}
     <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
@@ -23,16 +27,25 @@
     <div class="row">
 
       {% if request.user.profile.is_mentor %}
-        {% include "_mentor_panel.html" %}
+        {% include "_mentor_panel.html" with comment_url=comment_url %}
       {% else %}
         <div class="col-md-5">
-          <div class="panel panel-bubble">
+          <div class="panel panel-bubble edp-comments">
             <div class="panel-body">
-              <h3>Post your plan as a video, drawing (photo) or text</h3>
+              <h3>Post your plan!</h3>
               {% if request.user.profile.is_student %}
-                {% include "_comment_action_list.html" %}
+                <form method="POST" action="{{ comment_url }}">
+                  {% csrf_token %}
+                  {{ comment_form.text|attr:"placeholder:Write your plan here. You can also add a photo or video below." }}
+                  {{ comment_form.visual_media }}
+                  <input type="submit" class="btn btn-primary pull-right" />
+                </form>
               {% else %}
-                {% include "_comment_action_list.html" with disable=True %}
+                <form>
+                  {{ comment_form.text|attr:"disabled:disabled" }}
+                  {{ comment_form.visual_media|attr:"disabled:disabled" }}
+                  <input type="submit" disabled="disabled" class="btn btn-primary pull-right" />
+                </form>
               {% endif %}
             </div>
           </div>
@@ -48,12 +61,14 @@
       {% endif %}
 
       <div class="col-md-1">
-        {% include "_avatar.html" with profile=progress.student.profile width=60 height=80 crop='fit' %}
+        <div class="avatar-container">
+          {% include "_avatar.html" with profile=progress.student.profile width=50 height=50 crop='fill' %}
+        </div>
       </div>
 
       <div class="col-md-6">
         {% if request.user.profile.is_mentor %}
-          <h1>{{progress.student.username}}'s plan</h1>
+          <h3>{{progress.student.username}}'s plan</h3>
         {% endif %}
 
         <div class="materials-list panel">
@@ -109,9 +124,5 @@
       </div><!-- /col 2 -->
     </div><!-- row -->
     {% include "_guide.html" %}
-    {% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username stage='plan' as comment_url %}
-    {% include "_comment_form.html" with stage="plan" format="video" url=comment_url %}
-    {% include "_comment_form.html" with stage="plan" format="picture" url=comment_url %}
-    {% include "_comment_form.html" with stage="plan" format="text" url=comment_url %}
   </div><!-- content -->
 {% endblock %}

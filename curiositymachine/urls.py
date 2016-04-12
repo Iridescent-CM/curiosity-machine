@@ -22,7 +22,6 @@ urlpatterns = patterns('',
     url(r'^', include('profiles.urls', namespace='profiles', app_name='profiles')),
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
-    url(r'^training/', include('training.urls', namespace='training', app_name='training')), # training (mentors only)
 
     # about pages
     url(
@@ -110,7 +109,6 @@ urlpatterns = patterns('',
     ),
 
     url(r'^summernote/', include('django_summernote.urls')),
-    url(r'^tsl/$', include('tsl.urls', namespace='tsl', app_name='tsl'), name='tsl'),
     url(r'^units/', include('units.urls', namespace='units', app_name='units'), name='units'),
     url(r'^s3direct/', include('s3direct.urls')),
     url(r'^groups/', include('groups.urls', namespace='groups', app_name='groups'), name='groups'),

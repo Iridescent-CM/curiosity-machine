@@ -19,7 +19,11 @@ def encode_video(video):
     response = client.job.create(video.url,
         outputs=[{'format': 'mp4', 'thumbnails': [{'label': 'thumbnail','format': 'jpg', 'number': 4,}]},
                  {'format': 'ogg'}])
+
+    if response.body.get('errors', None):
+        raise RuntimeError('Zencoder API call returned errors: ' + ','.join(response.body['errors']))
     check_video_job_progress(video, response.body['id'])
+
 
 def check_video_job_progress(video, job_id): # repeats itself every TIME_BETWEEN_STATUS_CHECKS until all outputs are done or dead
     client = Zencoder(settings.ZENCODER_API_KEY)
@@ -50,7 +54,7 @@ def check_video_job_progress(video, job_id): # repeats itself every TIME_BETWEEN
 
 def handle_finished_video_output(video, output):
     # zencoder docs are inconsistent on whether they use mpeg4 or mp4, so may as well normalize here
-    output_format = output['format'] if output['format'] != "mpeg4" else "mp4" 
+    output_format = output['format'] if output['format'] != "mpeg4" else "mp4"
     mime_type = "video/{}".format(output_format)
     height, width = output['height'], output['width']
     if EncodedVideo.objects.filter(video_id=video.id, height=height, width=width, mime_type=mime_type).exists():
