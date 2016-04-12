@@ -100,21 +100,30 @@ def preview_plan(request, challenge_id):
     if require_login_for(request, challenge):
         raise LoginRequired()
 
-    return render(request, 'challenges/preview/plan.html', {'challenge': challenge})
+    return render(request, 'challenges/preview/plan.html', {
+        'challenge': challenge,
+        'comment_form': CommentForm(),
+    })
 
 def preview_build(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
         raise LoginRequired()
 
-    return render(request, 'challenges/preview/build.html', {'challenge': challenge})
+    return render(request, 'challenges/preview/build.html', {
+        'challenge': challenge,
+        'comment_form': CommentForm(),
+    })
 
 def preview_reflect(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
         raise LoginRequired()
 
-    return render(request, 'challenges/preview/reflect.html', {'challenge': challenge})
+    return render(request, 'challenges/preview/reflect.html', {
+        'challenge': challenge,
+        'comment_form': CommentForm(),
+    })
 
 @login_required
 @current_user_or_approved_viewer

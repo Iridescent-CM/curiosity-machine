@@ -4,7 +4,11 @@
   <span class="mentor-comment">MENTOR MESSAGE</span>
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">
-    <a href="{% url 'profiles:mentor_profile' comment.user.username %}">{% include "_avatar.html" with profile=comment.user.profile width=50 height=50 crop='fit' %}</a>
+    <a href="{% url 'profiles:mentor_profile' comment.user.username %}">
+      <div class="avatar-container">
+        {% include "_avatar.html" with profile=comment.user.profile width=50 height=50 crop='fill' %}
+      </div>
+    </a>
     <p><a href="{% url 'profiles:mentor_profile' comment.user.username %}">{{comment.user.username}}</a><br><strong>Mentor</strong></p>
   </div>
   <div class="panel panel-bubble blue comment">
@@ -20,21 +24,6 @@
     </div>
     <div class="panel-body paper">
       {% include "_comment_content.html" %}
-
-      {% if request.user.profile.is_mentor and comment.get_stage_display == 'reflect'%}{% if comment.image or comment.video %}
-      {% if comment.is_featured_as_example %}
-        <form name="unfeature" class="ajax-and-refresh-form" action="{% url "challenges:comments:feature_as_example" challenge_id=challenge.id username=progress.student.username stage='build' comment_id=comment.id %}" method="DELETE">
-          {% csrf_token %}
-          <input type="submit" value="Unfeature {% if comment.video %}video{% else %}image{% endif %}" class="btn pull-right btn-xs">
-        </form>
-      {% else %}
-        {# display a button so that the mentor can feature this comment's media on the inspiration page #}
-        <form name="feature_as_example" class="ajax-and-refresh-form" action="{% url "challenges:comments:feature_as_example" challenge_id=challenge.id username=progress.student.username stage='build' comment_id=comment.id %}" method="POST">
-          {% csrf_token %}
-          <input type="submit" value="Feature {% if comment.video %}video{% else %}image{% endif %} as example" class="btn pull-right btn-xs btn-primary">
-        </form>
-      {% endif %}
-    {% endif %}{% endif %}
     </div>
   </div>
 {% endif %}

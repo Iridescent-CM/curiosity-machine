@@ -127,21 +127,18 @@ body {
 }
 
 .switch { //radio button for build/test
-  float: left;
-  position: absolute;
-  left: 50%;
-  margin-left: -142px;
-  padding: 1px;
+  position: relative;
+  width: 100%;
+  padding: 1px 0px;
   border-radius: 5px;
   background: darken(@green, 5%);
   box-shadow: inset 2px 2px 0 rgba(0,0,0,.1);
-  ~ div {
-    margin-bottom: 80px;
-  }
+  text-align: center;
   li {
     list-style-type: none;
-    float: left;
-    line-height: 1;
+    display: inline-block;
+    position: relative;
+    width: calc(50% - 1px);
   }
   input {
     display: none;
@@ -152,17 +149,15 @@ body {
     }
   }
   label {
-    float: left;
+    // float: left;
     border-radius: 3px;
-    line-height: 1;
     margin: 0;
     color: lighten(@green, 5%);
     font-weight: 600;
-    padding: 6px 50px;
+    padding: 10px 0px;
     cursor: pointer;
   }
 }
-
 .pipe-nav {
   li {
     list-style-type: none;
@@ -664,9 +659,10 @@ margin-left: auto;
 .reflect-box {
   textarea {
     display: block;
-    background: lighten(@teal, 20%);
+    background: lighten(@teal, 40%);
     width: 100%;
     color: @text-color;
+    resize: vertical;
   }
   .action-list li .btn {
     .button-variant(#fff; @teal; @teal);
@@ -753,29 +749,14 @@ margin-left: auto;
 
 
 //// mentor view
-.mentor-panel-wrapper {
-    margin: 0 -(@grid-side-gutters);
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    margin: 0;
-    height: 100%;
-  .mentor-panel {
-    max-width: @container-lg;
-    margin: 0 auto;
-    height: 100%;
-  }
-  .mentor-panel-content {
-    padding-top: 30px;
-    background: @gray;
-    height: 100%;
-    color: #fff;
-    h3 {
-      color: #fff;
-    }
-    img {
-      width: 50px;
+.mentor-panel-content {
+  .panel {
+    margin-top: 20px;
+
+    textarea {
+      width: 100%;
+      resize: vertical;
+      color: black;
     }
   }
 }
@@ -783,21 +764,40 @@ margin-left: auto;
 
 ////profiles
 
-.mentor-info {
+.profile-info {
   .image-wrapper {
     img {
       width: 100%;
     }
   }
+
+  img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
 }
 
 .profile-fields {
+
   input[type="text"], input[type="password"], input[type="email"] {
     width: 100%;
   }
+
+  label {
+    margin-top: 10px;
+  }
+
   textarea {
     width: 100%;
     height: 8em;
+    resize: vertical;
+  }
+
+  img, .videocontent {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
   }
 }
 
@@ -1089,4 +1089,48 @@ h2 a.btn:first-child {
 
 .ig-button {
   margin: 20px 0px 40px 0px;
+}
+
+////========================
+//// EDP Comments
+
+.edp-comments {
+
+  textarea {
+    resize: vertical;
+    width: 100%;
+    color: @dark-gray;
+  }
+
+  img, video {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .pickwidget-filename {
+    word-wrap: break-word;
+  }
+
+  color: #fff;
+}
+
+////========================
+//// other
+
+.avatar-container {
+  display: inline-block;
+  img {
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .avatar-name {
+    display: inline-block;
+    margin-left: 10px;
+  }
+}
+
+.preview-page-alerts a, .preview-page-alerts input {
+  margin: 10px 10px 0;
 }

@@ -155,7 +155,7 @@ def test_form_checks_password_confirmation():
 @pytest.mark.django_db
 def test_educator_profile_change_form_creates_image_from_image_url():
     f = forms.educator.EducatorUserAndProfileForm({
-        'image_url': "http://example.com/",
+        'image_url_url': "http://example.com/",
         'password': '123123',
         'confirm_password': '123123',
         'username': 'example',

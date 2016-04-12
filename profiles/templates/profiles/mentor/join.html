@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block js %}
+  {{ form.media }}
+{% endblock %}
+
 {% block content %}
 
 <h1>Get Started. Create an Account.</h1>
@@ -7,7 +11,7 @@
 <form method='post' action="{{ action }}" enctype="multipart/form-data" id="join-form" class="default-form clearfix">
   {% csrf_token %}
   <div class="row">
-    {% include "profiles/mentor/fields.html" %}
+    {% include "profiles/mentor/_join_fields.html" %}
   </div>
   <div class="row">
     <div class="col-md-8">

@@ -1,7 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.forms.extras.widgets import SelectDateWidget
-from curiositymachine.widgets import FilePickerInlineWidget, FilePickerDragDropWidget
+from curiositymachine.widgets import FilePickerInlineWidget, FilePickerPickWidget
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 import re
@@ -12,6 +12,7 @@ MIMETYPE_SCRIPT = """
         $('#{}').val(evt.fpfile.mimetype);
 """
 
+# deprecated
 class FilePickerField(forms.URLField):
     default_mimetypes = "*/*"
     default_openTo = 'COMPUTER'
@@ -37,11 +38,43 @@ class FilePickerField(forms.URLField):
             attrs['onchange'] = MIMETYPE_SCRIPT.format(self.mimetype_widget.attrs.get('id'))
         return attrs
 
+# deprecated: use MediaURLField
 class FilePickerURLField(FilePickerField):
     widget = FilePickerInlineWidget
     
-class FilePickerDragDropField(FilePickerField):
-    widget = FilePickerDragDropWidget
+class MediaURLField(forms.fields.MultiValueField):
+    """
+    A field for use with FilePickerPickWidget, which returns both media URL and
+    mimetype information.
+    """
+    #TODO: validate mimetype from the widget against the value provided as an argument.
+    #      for now this is used with a filepicker widget that enforces the mimetype, so this
+    #      isn't crucial
+
+    widget = FilePickerPickWidget
+
+    def __init__(self, mimetypes='*/*', *args, **kwargs):
+        # mimetypes -- comma-separated list of acceptable mimetypes
+        self.mimetypes = mimetypes
+        fields = (
+            forms.URLField(),
+            forms.CharField()
+        )
+        super(MediaURLField, self).__init__(fields=fields, *args, **kwargs)
+
+    def widget_attrs(self, widget):
+        attrs = {
+            'data-fp-mimetypes': self.mimetypes
+        }
+        return attrs
+
+    def compress(self, data_list):
+        if data_list:
+            return {
+                "url": data_list[0],
+                "mimetype": data_list[1]
+            }
+        return {}
 
 class AnalyticsForm(forms.Form):
     today = now()

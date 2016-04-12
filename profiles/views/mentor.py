@@ -81,7 +81,8 @@ def home(request):
         del partnerships['']
     partnerships = sorted(partnerships.values(), key=lambda o: o.get('source').lower())
 
-    return render(request, "mentor_home.html", {
+    return render(request, "profiles/mentor/home.html", {
+        'challenges':challenges,
         'progresses': progresses,
         'unclaimed_days': unclaimed_days,
         'training_modules': training_modules,
@@ -132,7 +133,7 @@ def show_profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user=user, is_mentor=True)
 
-    return render(request, "mentor_profile.html", {'mentor': user, 'mentor_profile': profile,})
+    return render(request, "profiles/mentor/profile.html", {'mentor': user, 'mentor_profile': profile,})
 
 @login_required
 @mentor_only
