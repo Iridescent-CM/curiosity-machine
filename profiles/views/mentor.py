@@ -82,7 +82,6 @@ def home(request):
     partnerships = sorted(partnerships.values(), key=lambda o: o.get('source').lower())
 
     return render(request, "profiles/mentor/home.html", {
-        'challenges':challenges,
         'progresses': progresses,
         'unclaimed_days': unclaimed_days,
         'training_modules': training_modules,
