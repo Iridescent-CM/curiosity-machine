@@ -1,7 +1,26 @@
 from django import forms
-from curiositymachine.forms import FilePickerURLField
+from curiositymachine.forms import MediaURLField
+from curiositymachine.widgets import FilePickerPickWidget
 
 class CommentForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea, required=False)
-    video_filepicker_url = FilePickerURLField(mimetypes="video/*", openTo='VIDEO', services='VIDEO,COMPUTER', required=False)
-    picture_filepicker_url = FilePickerURLField(mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
+    visual_media = MediaURLField(
+        widget=FilePickerPickWidget(
+            preview=True,
+            attrs={
+                "data-fp-opento": 'WEBCAM',
+                "data-fp-services": 'VIDEO,WEBCAM,COMPUTER,CONVERT',
+                "data-fp-conversions": 'crop,rotate',
+            }
+        ),
+        mimetypes="video/*,image/*",
+        required=False
+    )
+
+    def clean(self):
+        cleaned_data = super(CommentForm, self).clean()
+        media = cleaned_data['visual_media']
+        text = cleaned_data['text']
+
+        if not media and not text:
+            raise forms.ValidationError("Comments must contain text, image, or video")

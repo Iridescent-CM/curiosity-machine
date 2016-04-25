@@ -54,8 +54,9 @@ def comments(request, module_order, task_order, thread_id=None):
 
     form = CommentForm(data=request.POST)
     if form.is_valid():
-        video = Video.from_source_with_job(form.cleaned_data['video_filepicker_url']) if form.cleaned_data['video_filepicker_url'] else None
-        image = Image.from_source_with_job(form.cleaned_data['picture_filepicker_url']) if form.cleaned_data['picture_filepicker_url'] else None
+        media = form.cleaned_data['visual_media']
+        video = Video.from_source_with_job(media['url']) if media and media['mimetype'].startswith('video') else None
+        image = Image.from_source_with_job(media['url']) if media and media['mimetype'].startswith('image') else None
         Comment.objects.create(user=request.user, text=form.cleaned_data['text'], task=task, thread=thread, image=image, video=video)
 
     return HttpResponseRedirect(reverse('training:task', args=[str(module_order), str(task_order),]))
