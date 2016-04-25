@@ -224,6 +224,9 @@ MAILCHIMP_LIST_IDS = {
     if k.startswith('MAILCHIMP_LIST_ID_')
 }
 
+ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN = os.environ.get("ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN", "")
+ROLLBAR_ENV = os.environ.get("ROLLBAR_ENV", "default")
+
 # Which HTML tags are allowed
 BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'br', 'strike', 'li', 'ul', 'div', 'ol', 'span', 'blockquote', 'pre', 'img']
 
