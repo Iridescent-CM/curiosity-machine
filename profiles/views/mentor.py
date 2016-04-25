@@ -41,18 +41,39 @@ def home(request):
     uncompleted_modules = [module for module in training_modules if not module.is_finished_by_mentor(request.user)]
 
     startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
+    progresses = Progress.objects.filter(
+        mentor=request.user, started__gt=startdate
+    ).select_related(
+        'challenge',
+        'challenge__image',
+        'challenge__video',
+        'mentor',
+        'student',
+        'student__profile',
+        'student__profile__image'
+    ).order_by(
+        '-started'
+    )[:4]
 
-    progresses = Progress.objects.filter(mentor=request.user, started__gt=startdate).order_by('-started').select_related("challenge")
     unclaimed_days = [(day, Progress.unclaimed(day[0])[0]) for day in Progress.unclaimed_days()]
-    challenges = {progress.challenge for progress in progresses}
 
-    claimable_progresses = Progress.objects.filter(mentor__isnull=True).exclude(comments=None)
+    claimable_progresses = Progress.objects.filter(
+        mentor__isnull=True
+    ).exclude(
+        comments=None
+    )
     source_and_counts = claimable_progresses.values('student__profile__source').annotate(count=Count('student__profile__source'))
     partnerships = {
         obj["student__profile__source"]: {
             "source": obj['student__profile__source'],
             "unclaimed": obj['count'],
-            "example_progress": claimable_progresses.filter(student__profile__source=obj['student__profile__source']).select_related('challenge', 'student', 'student_profile').order_by("started").first()
+            "example_progress": claimable_progresses.filter(
+                    student__profile__source=obj['student__profile__source']
+                ).select_related(
+                    "challenge__image"
+                ).order_by(
+                    "started"
+                ).first()
         } for obj in source_and_counts
     }
     non_partnerships = partnerships.get('', None)
@@ -61,7 +82,6 @@ def home(request):
     partnerships = sorted(partnerships.values(), key=lambda o: o.get('source').lower())
 
     return render(request, "profiles/mentor/home.html", {
-        'challenges':challenges,
         'progresses': progresses,
         'unclaimed_days': unclaimed_days,
         'training_modules': training_modules,
@@ -119,11 +139,19 @@ def show_profile(request, username):
 def unclaimed_progresses(request, **kwargs):
     progresses = []
     grouping = "none"
+    page = request.GET.get('page')
 
     if set(['year', 'month', 'day']).issubset(set(kwargs.keys())):
-        # original logic to see progresses by date
         selected_date = date(int(kwargs['year']), int(kwargs['month']), int(kwargs['day']))
-        progresses = Progress.unclaimed(selected_date)
+        progresses = Progress.objects.filter(
+            mentor__isnull=True, started__year=selected_date.year, started__month=selected_date.month, started__day=selected_date.day
+        ).exclude(
+            comments=None
+        ).order_by(
+            'started'
+        ).select_related(
+           'challenge', 'student', 'student__profile', 'student__profile__image', 'challenge__image'
+        )
         grouping = selected_date
     elif "source" in request.GET:
         grouping = request.GET["source"]
@@ -134,11 +162,50 @@ def unclaimed_progresses(request, **kwargs):
         ).order_by(
                 'started'
         ).select_related(
-                'challenge', 'student', 'student__profile'
+                'challenge', 'student', 'student__profile', 'student__profile__image', 'challenge__image'
         )
         if grouping == "":
             grouping = "other"
     else:
         raise Http404()
 
-    return render(request, 'profiles/mentor/unclaimed_challenges.html', {'grouping': grouping, 'progresses': progresses})
+    paginator = Paginator(progresses, settings.MENTORS_PER_PAGE)
+    try:
+        progresses = paginator.page(page)
+    except PageNotAnInteger:
+        progresses = paginator.page(1)
+    except EmptyPage:
+        progresses = paginator.page(paginator.num_pages)
+
+    return render(request, 'profiles/progress_list.html', {
+        'claimed': False,
+        'grouping': grouping,
+        'progresses': progresses
+    })
+
+@login_required
+@mentor_only
+def claimed_progresses(request, **kwargs):
+    progresses = []
+    page = request.GET.get('page')
+
+    progresses = Progress.objects.filter(
+        mentor=request.user
+    ).order_by(
+        '-started', 'id'
+    ).select_related(
+        'challenge', 'mentor', 'student', 'student__profile', 'student__profile__image', 'challenge__image'
+    )
+
+    paginator = Paginator(progresses, settings.MENTORS_PER_PAGE)
+    try:
+        progresses = paginator.page(page)
+    except PageNotAnInteger:
+        progresses = paginator.page(1)
+    except EmptyPage:
+        progresses = paginator.page(paginator.num_pages)
+
+    return render(request, 'profiles/progress_list.html', {
+        'claimed': True,
+        'progresses': progresses
+    })
