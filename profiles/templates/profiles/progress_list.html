@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load unread_count %}
+{% load resized %}
+
+{% block content %}
+  <ol class="breadcrumb">
+    <li><a href="{% url 'root' %}">Home</a></li>
+    {% if claimed %}
+      <li>Claimed Challenges</li>
+    {% else %}
+      <li>Unclaimed Challenges</li>
+    {% endif %}
+  </ol>
+  {% if request.user.profile.approved %}
+    <div class="row">
+      <div class="col-sm-12">
+        {% if claimed %}
+          <h2>Challenges I'm Mentoring</h2>
+        {% else %}
+          <h2>Claim a Challenge from {{grouping}}</h2>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row text-center">
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=progresses %}
+    </div>
+    <div class="row">
+      {% for progress in progresses %}
+        <div class="col-lg-3 col-sm-6">
+          <div class="unread-offset">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  {% if progress.mentor %}
+                    {% with count=progress|unread_count:request.user %}
+                      {% if count %}
+                        <span title="{{count}} unread messages" class="unread">
+                          {{count}}
+                        </span>
+                      {% endif %}
+                    {% endwith %}
+                  {% endif %}
+                  <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">
+                    {{progress.student.username}}
+                  </a>
+                </h3>
+                <div class="image-container">
+                  <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}"> 
+
+                    {% if progress.student.profile.image %}
+                      <img src="{% resized progress.student.profile.image.url width=300 height=200 crop='fill' %}" class="center-block img-responsive" />
+                    {% elif progress.challenge.image %}
+                      <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}"class="center-block img-responsive" />
+                    {% elif progress.challenge.video.encodings_generated %}
+                      <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}"class="center-block img-responsive" />
+                    {% endif %}
+
+                  </a>
+                </div>
+              </div>
+              <div class="panel-body">
+                <h4><a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{ progress.challenge.name }}</a></h4>
+                <p>Started: {{ progress.started }}</p>
+                {% if not progress.mentor %}
+                  <form action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" type="submit">Claim</button>
+                  </form>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-sm-12">
+          <h3>There are currently no unclaimed student challenges for {{grouping}}</h3>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="row text-center">
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=progresses %}
+    </div>
+  {% endif %}
+
+{% endblock %}
