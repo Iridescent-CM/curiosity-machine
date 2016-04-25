@@ -3,64 +3,128 @@
 {% block title %}{{ challenge.name }}{% endblock %}
 
 {% block content %}
-<div class="jumbotron">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        {% include '_challenge_details.html' %}
-      </div>
-      <div class="col-md-6">
-        <h1>{{ challenge.name }}</h1>
-        <p>{{ challenge.description }}</p>
-        {% if request.user.is_authenticated and request.user.profile.is_student %}
-          <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
-              {% csrf_token %}
-              <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />
-            </form>
-        {% endif %}
+<div id="landing-page">
+  <div class="jumbotron-dark-pattern jumbotron-fluid m-b-lg">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="challenge-details-hero">
+            <img src="{{ challenge.image.url }}" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h1 class="red-type m-b-md">{{ challenge.name }}</h1>
+          <p class="light-type m-b-md">{{ challenge.description }}</p>
+          {% if request.user.is_authenticated and request.user.profile.is_student %}
+            <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
+                {% csrf_token %}
+                <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />
+              </form>
+          {% elif request.user.profile.is_mentor %}
+            <p class="light-type">you're a mentor</p>
+          {% else %}
+            <p class="light-type">You need to sign in to Curiosity Machine as a student to work on design challenges.</p>
+            <a href="{% url 'profiles:join' %}" class="btn btn-primary">Create Student Account</a>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="container">
-  <div class="row">
-    {% if examples %}
-      <div class="col-md-12">
-        <h3>Check out what other kids built</h3>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card card-module m-b-lg">
+          <div class="card-block card-block-title">
+            <h4 class="card-title red-type">Inspiration Video</h4>
+          </div>
+          <div class="card-block">
+            <div class="challenge-details-hero">
+              {% if challenge.video %}
+                <div class="videocontent">
+                    <video
+                      preload="none"
+                      controls
+                      poster='{% if challenge.image %}{{ challenge.image.url }}{% else %}{{challenge.video.thumbnails.first.url}}{% endif %}'
+                      id="video-element-{{challenge.video.id}}">
+                      {% for v in challenge.video.encoded_videos.all %}
+                        <source src="{{v.url}}" type="{{v.mime_type}}" />
+                      {% endfor %}
+                    </video>
+                </div>
+              {% elif challenge.image %}
+                <img src="{{ challenge.image.url }}" />
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
       </div>
-      {% for example in examples %}
-        <div class="col-lg-3 col-sm-6">
-          <div class="card">
-            <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
-              <img class="card-img-top action-img" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
-            </a>
-            <div class="card-block text-center">
-              <p class="card-title">{{ example.progress.student.username }}</p>
-            </div>
+      <div class="col-md-4">
+        <div class="card card-module m-b-lg">
+          <div class="card-block card-block-title">
+            <h4 class="card-title red-type">Suggested Materials</h4>
+          </div>
+          <div class="card-block">
+            {{ challenge.materials_list | safe }}
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="modal fade" id="{{ example.progress.student.username }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h3>{{ example.progress.student.username }}'s {{ challenge.name }}</h3>
+    {% if request.user.is_authenticated %}
+      <div class="row">
+        {% if examples %}
+          <div class="col-md-12">
+            <div class="card card-module m-b-lg">
+              <div class="card-block card-block-title">
+                <h4 class="red-type">Inspiration Gallery</h4>
               </div>
-              <div class="modal-body text-center">
-                <img src="{% resized example.image.url %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+              <div class="card-block">
+                <div class="row">
+                  {% for example in examples %}
+                    <div class="col-lg-3 col-sm-6">
+                      <div class="card">
+                        <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
+                          <img class="card-img-top action-img" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+                        </a>
+                        <div class="card-block text-center">
+                          <p class="card-title">{{ example.progress.student.username }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal fade" id="{{ example.progress.student.username }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3>{{ example.progress.student.username }}'s {{ challenge.name }}</h3>
+                          </div>
+                          <div class="modal-body text-center">
+                            <img src="{% resized example.image.url %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% empty %}
+                    <p>all gone</p>
+                  {% endfor %}
+                {% endif %}
               </div>
+            </div>
+            <div class="card-block text-center">
+              <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary ig-button">View the Inspiration Gallery</a>
             </div>
           </div>
         </div>
-      {% endfor %}
+      </div>
     {% endif %}
-  </div>
-  <div class="row text-center m-b-lg">
-    <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary ig-button">View the Inspiration Gallery</a>
+
+
+
   </div>
 </div>
 {{ block.super }}

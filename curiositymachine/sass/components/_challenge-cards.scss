@@ -101,3 +101,16 @@ a .challenge-card-title p:hover {
   text-transform: uppercase;
   font-weight: $heavy-font-weight;
 }
+
+//
+// Card Modules
+//
+.card-module {
+  .card-block-title {
+    background-color: $sand;
+
+    h1, h2, h3, h4 {
+      margin-bottom: 0px;
+    }
+  }
+}
