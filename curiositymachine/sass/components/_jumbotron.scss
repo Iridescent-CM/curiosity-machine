@@ -19,6 +19,7 @@
 
 .jumbotron-dark {
   @extend .jumbotron;
+  // background-color: $primary-blue-darkest;
   background-color: shade($dark, 40%);
 
   h1 {
@@ -31,4 +32,45 @@
   background-image: url("../images/design-challenge-repeating-pattern.png");
   background-attachment: fixed;
   background-repeat: repeat;
+}
+
+.jumbotron-hero {
+  @extend .jumbotron;
+  background-color: $primary-blue;
+  border-radius: $base-border-radius;
+  margin-bottom: 0px;
+  padding: 0px;
+  display: table;
+  width: 100%;
+
+  .jumbotron-hero-img {
+    display: table-cell;
+    width: 480px;
+    img {
+      border-radius: 0 $base-border-radius $base-border-radius 0;
+    }
+  }
+
+  .jumbotron-hero-text {
+    display: table-cell;
+    vertical-align: middle;
+
+    h3 {
+      color: tint($primary-blue, 70%);
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .jumbotron-hero {
+    display: inherit !important;
+    width: auto;
+  }
+  .jumbotron-hero-img, .jumbotron-hero-text {
+    width: 100% !important;
+    display: block !important;
+  }
+  .jumbotron-hero-img img {
+    border-radius: 0 0 $base-border-radius $base-border-radius !important;
+  }
 }
