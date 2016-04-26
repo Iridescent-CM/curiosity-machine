@@ -53,7 +53,7 @@
                 <form method="POST" action="{{ comment_url }}">
                   {% csrf_token %}
                   <div class="form-group">
-                    <ul class="switch stage-switch">
+                    <ul class="switch">
                       <li>
                         <input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
                         <label for="buildSelector">Building</label>
@@ -71,7 +71,7 @@
               {% else %}
                 <form>
                   <div class="form-group">
-                    <ul class="switch stage-switch">
+                    <ul class="switch">
                       <li>
                         <input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
                         <label for="buildSelector">Building?</label>
