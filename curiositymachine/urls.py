@@ -114,4 +114,5 @@ urlpatterns = patterns('',
     url(r'^s3direct/', include('s3direct.urls')),
     url(r'^groups/', include('groups.urls', namespace='groups', app_name='groups'), name='groups'),
     url(r'^health_check/', public(views.health_check)),
+    url(r'^log/', public(views.log)),
 )
