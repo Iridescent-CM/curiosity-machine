@@ -29,7 +29,7 @@
               {% csrf_token %}
               {{ form.text|attr:"placeholder:Type your feedback here" }}
               {{ form.visual_media }}
-              <input type="submit" class="btn btn-primary pull-right" />
+              <input type="submit" class="btn btn-primary pull-right" data-debounce="true" />
             </form>
           </div>
         </div>
@@ -81,7 +81,7 @@
                     {% csrf_token %}
                     {{ form.text|attr:"placeholder:Type your feedback here" }}
                     {{ form.visual_media }}
-                    <input type="submit" class="btn btn-primary pull-right" />
+                    <input type="submit" class="btn btn-primary pull-right" data-debounce="true" />
                   </form>
                 </div>
               </div>

@@ -38,7 +38,7 @@
                   {% csrf_token %}
                   {{ comment_form.text|attr:"placeholder:Write your plan here. You can also add a photo or video below." }}
                   {{ comment_form.visual_media }}
-                  <input type="submit" class="btn btn-primary pull-right" />
+                  <input type="submit" class="btn btn-primary pull-right" data-debounce="true" />
                 </form>
               {% else %}
                 <form>
