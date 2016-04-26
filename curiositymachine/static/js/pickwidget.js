@@ -48,8 +48,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
           },
           function error (err) {
-            // TODO: error handling
-            console.log(err);
+            if (!err.code || err.code !== 101) {
+              Rollbar.error("Filepicker returned an error", err);
+            }
           }
         );
       };
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     init(els);
   }
   else {
-    // TODO: alerting
+    Rollbar.error("filepicker not available on page");
     Array.prototype.forEach.call(els, function (el) {
       el.disabled = "disabled";
     });
