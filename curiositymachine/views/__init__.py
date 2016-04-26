@@ -3,8 +3,9 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.conf import settings
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+import json
 import rollbar
 
 def root(request):
@@ -20,14 +21,15 @@ def root(request):
 def health_check(request):
     return HttpResponse('OK')
 
-@require_POST
+@require_http_methods(["PUT"])
 @csrf_exempt
 def log(request):
+    data = json.loads(request.body.decode('utf-8'))
     rollbar.report_message(
-        request.POST.get("message", "POST to log endpoint"),
-        request.POST.get("level", "info"),
+        data.get("message", "POST to log endpoint"),
+        data.get("level", "info"),
         request,
-        extra_data=request.POST
+        extra_data=data
     )
     return HttpResponse("OK")
 
