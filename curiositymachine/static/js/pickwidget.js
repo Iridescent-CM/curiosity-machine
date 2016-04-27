@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if (!err.code || err.code !== 101) {
               Rollbar.error("Filepicker returned an error", err);
             }
+            alert("We’re experiencing a problem at one of our data centers. Our engineers are on the case, and will have things back to normal shortly.");
           }
         );
       };
@@ -75,5 +76,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     Array.prototype.forEach.call(els, function (el) {
       el.disabled = "disabled";
     });
+
+    alert("We’re experiencing a problem at one of our data centers. Our engineers are on the case, and will have things back to normal shortly.");
   }
 });
