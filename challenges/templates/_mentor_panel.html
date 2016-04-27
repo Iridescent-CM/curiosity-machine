@@ -23,7 +23,7 @@
             {% csrf_token %}
             {{ comment_form.text|attr:"placeholder:Write your comment here..." }}
             {{ comment_form.visual_media }}
-            <input type="submit" class="btn btn-primary pull-right" />
+            <input type="submit" class="btn btn-primary pull-right" data-debounce="true" />
           </form>
         </div>
       </div>

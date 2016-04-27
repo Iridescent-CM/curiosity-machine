@@ -256,3 +256,16 @@ $.fn.extend({
     });
   }
 });
+
+$(function(){
+  $('[data-debounce="true"]').each(function() {
+    var $el = $(this);
+    $el.parent('form').on('submit', function() {
+      $el.prop('disabled', true).css({
+        'pointer-events': 'all',
+        'cursor': 'progress'
+      });
+      return true;
+    });
+  });
+});
