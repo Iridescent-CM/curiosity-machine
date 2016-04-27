@@ -1,7 +1,6 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load resized %}
 {% block title %}{{ challenge.name }}{% endblock %}
-{% load static %}
 
 {% block content %}
 <div id="landing-page">
@@ -24,10 +23,10 @@
           {% endif %}
         </div>
 
-        {% if challenge.image %}
+        {% if challenge.landing_image %}
           <div class="jumbotron-hero-img">
-            <img src="{% static 'images/engineer-air-square.jpg' %}">
-            <!-- <img src="{{ challenge.image.url }}"> -->
+            <img src="{% resized challenge.landing_image.url width=720 height=720 crop='fill' %}" class="hidden-md-down">
+            <img src="{% resized challenge.landing_image.url width=720 height=400 crop='fill' %}" class="hidden-lg-up">
           </div>
         {% endif %}
 
@@ -79,12 +78,13 @@
 
     {% if request.user.is_authenticated %}
       <div class="row">
-        {% if examples %}
+
           <div class="col-md-12">
             <div class="card card-module m-b-lg">
               <div class="card-block card-block-title">
                 <h4 class="red-type">Inspiration Gallery</h4>
               </div>
+              {% if examples %}
               <div class="card-block">
                 <div class="row">
                   {% for example in examples %}
@@ -113,20 +113,23 @@
                         </div>
                       </div>
                     </div>
-                  {% empty %}
-                    <p>all gone</p>
                   {% endfor %}
+                </div>
+                <div class="row">
+                  <div class="card-block text-center">
+                    <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary ig-button">View the Inspiration Gallery</a>
+                  </div>
+                {% else %}
+                  <div class="card-block text-center">
+                    <p>There aren't any examples yet!</p>
+                  </div>
                 {% endif %}
               </div>
-            </div>
-            <div class="card-block text-center">
-              <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary ig-button">View the Inspiration Gallery</a>
             </div>
           </div>
         </div>
       </div>
     {% endif %}
-
 
 
   </div>

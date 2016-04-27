@@ -39,16 +39,22 @@ class ChallengeAdmin(admin.ModelAdmin):
         if request.method == 'GET':
             if db_field.name == 'video':
                 if request._obj_ is not None and request._obj_.video is not None:
-                    kwargs["queryset"] = Video.objects.filter(source_url = request._obj_.video.source_url)  
+                    kwargs["queryset"] = Video.objects.filter(source_url = request._obj_.video.source_url)
                 else:
                     kwargs["queryset"] = Video.objects.none()
 
             if db_field.name == 'image':
                 if request._obj_ is not None and request._obj_.image is not None:
-                    kwargs["queryset"] = Image.objects.filter(source_url = request._obj_.image.source_url)  
+                    kwargs["queryset"] = Image.objects.filter(source_url = request._obj_.image.source_url)
                 else:
                     kwargs["queryset"] = Image.objects.none()
-        return super(ChallengeAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)        
+
+            if db_field.name == 'landing_image':
+                if request._obj_ is not None and request._obj_.landing_image is not None:
+                    kwargs["queryset"] = Image.objects.filter(source_url = request._obj_.landing_image.source_url)
+                else:
+                    kwargs["queryset"] = Image.objects.none()
+        return super(ChallengeAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class CommentInline(admin.StackedInline):
