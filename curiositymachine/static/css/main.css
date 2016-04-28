@@ -5164,8 +5164,7 @@ a .challenge-card-title p:hover {
   border-radius: 4px;
   margin-bottom: 0px;
   padding: 0px;
-  display: table;
-  width: 100%; }
+  display: table; }
   .jumbotron-hero .jumbotron-hero-img {
     display: table-cell;
     width: 480px; }
