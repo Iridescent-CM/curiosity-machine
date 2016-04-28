@@ -7,7 +7,6 @@ window.log = function(){
       return;
     }
     
-    console.log(config);
     var xhr = new XMLHttpRequest();
     xhr.open('PUT', config.endpoint);
     xhr.setRequestHeader('Content-Type', 'application/json');
