@@ -16,14 +16,14 @@
         <h3 class="avatar-name">{{ request.user.username }}</h3>
       </div>
 
-      <div class="panel panel-bubble bottom gray-light filepicker-comments">
+      <div class="panel panel-bubble bottom gray-light edp-comments">
         <div class="panel-body">
           <h3>Give Feedback</h3>
           <form method="POST" action="{{ comment_url }}">
             {% csrf_token %}
             {{ comment_form.text|attr:"placeholder:Write your comment here..." }}
             {{ comment_form.visual_media }}
-            <input type="submit" class="btn btn-primary pull-right" />
+            <input type="submit" class="btn btn-primary pull-right" data-debounce="true" />
           </form>
         </div>
       </div>

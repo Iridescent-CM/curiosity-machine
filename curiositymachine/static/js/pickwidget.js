@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     Array.prototype.forEach.call(els, function (el) {
       el.onclick = function () {
         var el = this;
-        var urlField = document.getElementById(el.id + '_url');
-        var mimeField = document.getElementById(el.id + '_mimetype');
-        var filenameDisplay = document.getElementById(el.id + '_filename');
-        var container = document.getElementById(el.id + '_container');
+        var container = el.parentNode;
+        var urlField = container.querySelector('#' + el.id + '_url');
+        var mimeField = container.querySelector('#' + el.id + '_mimetype');
+        var filenameDisplay = container.querySelector('#' + el.id + '_filename');
 
         filepicker.setKey(el.getAttribute('data-fp-apikey'));
         var injectPreview = el.hasAttribute('data-show-preview');
