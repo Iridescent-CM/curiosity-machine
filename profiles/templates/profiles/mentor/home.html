@@ -18,7 +18,10 @@
         {% endfor %}
       </ul>
       <div class="text-center">
-        <a href="{% url "profiles:claimed_progresses" %}" class="btn btn-primary">See all</a>
+        <a href="{% url "profiles:claimed_progresses" %}"
+            class="btn btn-primary"
+            {% if not progresses %}disabled="disabled"{% endif %}
+        >See all</a>
       </div>
     </div>
 
