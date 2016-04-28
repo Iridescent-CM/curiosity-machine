@@ -145,6 +145,13 @@
 
   <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
   {% compress js %}
+    <script src="{% static 'js/log.js' %}"></script>
+    <script>
+      log.init({
+        csrf_token: "{{ csrf_token }}",
+        endpoint: "{% url 'log' %}"
+      });
+    </script>
     <script type="text/javascript" src="{% static 'js/libs/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/owl-carousel/owl.carousel.min.js' %}"></script>

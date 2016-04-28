@@ -95,6 +95,13 @@
   <!-- jQuery first, then Bootstrap JS. -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   {% compress js %}
+    <script src="{% static 'js/log.js' %}"></script>
+    <script>
+      log.init({
+        csrf_token: "{{ csrf_token }}",
+        endpoint: "{% url 'log' %}"
+      });
+    </script>
     <script type="text/javascript" src="{% static 'js/libs/bootstrap4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/modals.js' %}"></script>

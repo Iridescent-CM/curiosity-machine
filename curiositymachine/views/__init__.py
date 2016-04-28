@@ -22,11 +22,10 @@ def health_check(request):
     return HttpResponse('OK')
 
 @require_http_methods(["PUT"])
-@csrf_exempt
 def log(request):
     data = json.loads(request.body.decode('utf-8')) if request.body else {}
     rollbar.report_message(
-        data.get("message", "POST to log endpoint"),
+        data.get("message", "PUT to log endpoint"),
         data.get("level", "info"),
         request,
         extra_data=data

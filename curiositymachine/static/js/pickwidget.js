@@ -64,14 +64,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
   else {
     Rollbar.critical("filepicker not available on page");
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('PUT', '/log/');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-      message: "log: filepicker not available on page",
-      level: "critical"
-    }));
+    log("log: filepicker not available on page", "critical");
 
     Array.prototype.forEach.call(els, function (el) {
       el.disabled = "disabled";
