@@ -259,7 +259,7 @@ class ExamplesView(View):
             user_example = None
 
         page = request.GET.get('page')
-        paginator = Paginator(examples, settings.EXAMPLES_PER_PAGE)
+        paginator = Paginator(examples, settings.DEFAULT_PER_PAGE)
         try:
             examples = paginator.page(page)
         except PageNotAnInteger:

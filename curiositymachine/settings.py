@@ -337,8 +337,7 @@ DOCEBO_MENTOR_URL = os.environ.get("DOCEBO_MENTOR_URL","http://www.iridescentuni
 
 # pagination
 CHALLENGES_PER_PAGE = os.environ.get("CHALLENGES_PER_PAGE", 9)
-MENTORS_PER_PAGE = os.environ.get("MENTORS_PER_PAGE", 12)
-EXAMPLES_PER_PAGE = os.environ.get("EXAMPLES_PER_PAGE", 12)
+DEFAULT_PER_PAGE = os.environ.get("DEFAULT_PER_PAGE", 12)
 
 # an impossible pattern below prevents blacklisting until actual patterns are provided through the env
 BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))
