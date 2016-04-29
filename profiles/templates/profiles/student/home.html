@@ -16,7 +16,7 @@
       <a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a>
     </li>
     <li {% if filter == 'favorites' %}class="active"{% endif %}>
-      <a data-target="#favorites" class="favorites" href="{% url 'challenges:favorite_challenges' %}" data-toggle="tabajax">Favorites</a>
+      <a data-target="#favorites" class="favorites" href="{% url 'challenges:favorite_challenges' %}">Favorites</a>
     </li>
   </ul>
   <div class="tab-content">

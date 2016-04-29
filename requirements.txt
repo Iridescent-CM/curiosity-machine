@@ -59,6 +59,7 @@ django-bleach==0.2.0
 
 #performance monitoring
 newrelic==2.50.0.39
+rollbar==0.12.1
 
 #captcha
 django-recaptcha==1.0

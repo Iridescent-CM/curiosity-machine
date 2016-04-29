@@ -48,8 +48,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
           },
           function error (err) {
-            // TODO: error handling
-            console.log(err);
+            if (!err.code || err.code !== 101) {
+              Rollbar.error("Filepicker returned an error", err);
+              alert("We’re experiencing a problem with our media service. Our engineers are on the case, and will have things back to normal shortly.");
+            }
           }
         );
       };
@@ -61,7 +63,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     init(els);
   }
   else {
-    // TODO: alerting
+    Rollbar.critical("filepicker not available on page");
+    log("log: filepicker not available on page", "critical");
+
     Array.prototype.forEach.call(els, function (el) {
       el.disabled = "disabled";
     });
