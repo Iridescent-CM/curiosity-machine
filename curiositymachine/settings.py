@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 import dj_database_url
+from django.http import Http404
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -102,6 +103,7 @@ MIDDLEWARE_CLASSES = (
     'curiositymachine.middleware.FirstLoginMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'staticflatpages.middleware.StaticFlatpageFallbackMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -222,6 +224,18 @@ MAILCHIMP_LIST_IDS = {
     for k, v
     in os.environ.items()
     if k.startswith('MAILCHIMP_LIST_ID_')
+}
+
+ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN = os.environ.get("ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN", "")
+ROLLBAR_ENV = os.environ.get("ROLLBAR_ENV", "default")
+ROLLBAR = {
+    'access_token': os.environ.get("ROLLBAR_SERVER_SIDE_ACCESS_TOKEN", ""),
+    'environment': ROLLBAR_ENV,
+    'branch': 'master',
+    'root': os.getcwd(),
+    'exception_level_filters': [
+        (Http404, 'ignored')
+    ]
 }
 
 # Which HTML tags are allowed

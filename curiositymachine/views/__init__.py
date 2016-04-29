@@ -3,6 +3,9 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.conf import settings
+from django.views.decorators.http import require_http_methods
+import json
+import rollbar
 
 def root(request):
     # redirect to home if logged in unless you are a student with no challenges
@@ -16,6 +19,17 @@ def root(request):
 
 def health_check(request):
     return HttpResponse('OK')
+
+@require_http_methods(["PUT"])
+def log(request):
+    data = json.loads(request.body.decode('utf-8')) if request.body else {}
+    rollbar.report_message(
+        data.get("message", "PUT to log endpoint"),
+        data.get("level", "info"),
+        request,
+        extra_data=data
+    )
+    return HttpResponse("OK")
 
 def csrf_failure_handler(request, reason=""):
 	from django.middleware.csrf import REASON_NO_REFERER, REASON_NO_CSRF_COOKIE
