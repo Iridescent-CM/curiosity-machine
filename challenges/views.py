@@ -11,7 +11,7 @@ from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only
-from curiositymachine.middleware import LoginRequired
+from curiositymachine.exceptions import LoginRequired
 from videos.models import Video
 from images.models import Image
 from .utils import get_stage_for_progress

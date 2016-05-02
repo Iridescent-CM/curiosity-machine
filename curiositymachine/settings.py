@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 
 import dj_database_url
 from django.http import Http404
+from curiositymachine.exceptions import LoginRequired
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -35,7 +36,7 @@ COMPRESS_ENABLED = process_false_string(os.environ.get('COMPRESS_ENABLED', False
 ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMINS", '').split(',')])
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m2c165xpbn9^#z_a%kgwrs')
+SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m2c165xpbn9^#z_a%kgwrs')
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_HOSTS") else []
 MENTOR_RELATIONSHIP_MANAGERS = os.getenv("MENTOR_RELATIONSHIP_MANAGERS", '').split(',') if os.getenv("MENTOR_RELATIONSHIP_MANAGERS") else []
@@ -234,7 +235,8 @@ ROLLBAR = {
     'branch': 'master',
     'root': os.getcwd(),
     'exception_level_filters': [
-        (Http404, 'ignored')
+        (Http404, 'ignored'),
+        (LoginRequired, 'ignored'),
     ]
 }
 
