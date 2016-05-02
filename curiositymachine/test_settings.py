@@ -16,5 +16,4 @@ RQ_QUEUES = {
 #       with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_whatever': True}):
 #               ...
 FEATURE_FLAGS={
-    'enable_challenge_preview_restriction': True
 }

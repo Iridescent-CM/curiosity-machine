@@ -81,9 +81,7 @@ def start_building(request, challenge_id):
     }))
 
 def require_login_for(request, challenge):
-    if settings.FEATURE_FLAGS.get('enable_challenge_preview_restriction'):
-        return not (request.user.is_authenticated() or challenge.public)
-    return False
+    return not (request.user.is_authenticated() or challenge.public)
 
 def preview_inspiration(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
