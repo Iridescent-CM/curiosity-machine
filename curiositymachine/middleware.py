@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib import messages
+from curiositymachine.exceptions import LoginRequired
 import re
 
 whitelist_regex = re.compile('(' + ')|('.join([r for r in settings.WHITELIST_URLS]) + ')')
@@ -26,12 +27,6 @@ class CanonicalDomainMiddleware:
     def process_request(self, request):
         if settings.CANONICAL_DOMAIN and not request.META['HTTP_HOST'] == settings.CANONICAL_DOMAIN:
             return HttpResponseRedirect('http://{}/{}'.format(settings.CANONICAL_DOMAIN, request.get_full_path())) # might as well redirect to http as sslify will then catch requests if appropriate
-
-class LoginRequired(Exception):
-    """
-    Exception class for views to use to tell LoginRequiredMiddleware to require login
-    """
-    pass
 
 class LoginRequiredMiddleware:
     """

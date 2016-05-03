@@ -11,7 +11,7 @@ from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only
-from curiositymachine.middleware import LoginRequired
+from curiositymachine.exceptions import LoginRequired
 from videos.models import Video
 from images.models import Image
 from .utils import get_stage_for_progress
@@ -81,9 +81,7 @@ def start_building(request, challenge_id):
     }))
 
 def require_login_for(request, challenge):
-    if settings.FEATURE_FLAGS.get('enable_challenge_preview_restriction'):
-        return not (request.user.is_authenticated() or challenge.public)
-    return False
+    return not (request.user.is_authenticated() or challenge.public)
 
 def preview_inspiration(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
