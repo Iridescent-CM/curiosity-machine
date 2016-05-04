@@ -3100,7 +3100,7 @@ a.label:focus, a.label:hover {
   .label-danger[href]:focus, .label-danger[href]:hover {
     background-color: #c9302c; }
 
-.jumbotron, .jumbotron-green, .jumbotron-sand, .jumbotron-dark, .jumbotron-dark-pattern, .jumbotron-hero {
+.jumbotron, .jumbotron-green, .jumbotron-dark, .jumbotron-dark-pattern {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
   background-color: #eceeef;
@@ -3110,7 +3110,7 @@ a.label:focus, a.label:hover {
   border-top-color: #d0d5d8; }
 
 @media (min-width: 34em) {
-  .jumbotron, .jumbotron-green, .jumbotron-sand, .jumbotron-dark, .jumbotron-dark-pattern, .jumbotron-hero {
+  .jumbotron, .jumbotron-green, .jumbotron-dark, .jumbotron-dark-pattern {
     padding: 4rem 2rem; } }
 
 .jumbotron-fluid {
@@ -5144,46 +5144,43 @@ a .challenge-card-title p:hover {
   .jumbotron-green h1 {
     margin-bottom: 0; }
 
-.jumbotron-sand {
-  background-color: #333333; }
-  .jumbotron-sand h1 {
-    margin-bottom: 0; }
-
-.jumbotron-dark, .jumbotron-dark-pattern {
+.jumbotron-dark {
   background-color: #1f1f1f; }
-  .jumbotron-dark h1, .jumbotron-dark-pattern h1 {
+  .jumbotron-dark h1 {
     margin-bottom: 0; }
 
 .jumbotron-dark-pattern {
+  background-color: #1f1f1f;
   background-image: url("../images/design-challenge-repeating-pattern.png");
   background-attachment: fixed;
   background-repeat: repeat; }
 
-.jumbotron-hero {
+.hero {
   background-color: #00B1C3;
   border-radius: 4px;
   margin-bottom: 0px;
   padding: 0px;
-  display: table; }
-  .jumbotron-hero .jumbotron-hero-img {
+  display: table;
+  width: 100%; }
+  .hero .hero-img {
     display: table-cell;
     width: 480px; }
-    .jumbotron-hero .jumbotron-hero-img img {
+    .hero .hero-img img {
       border-radius: 0 4px 4px 0; }
-  .jumbotron-hero .jumbotron-hero-text {
+  .hero .hero-text {
     display: table-cell;
     vertical-align: middle; }
-    .jumbotron-hero .jumbotron-hero-text h3 {
+    .hero .hero-text h3 {
       color: #b3e8ed; }
 
 @media (max-width: 61.9em) {
-  .jumbotron-hero {
+  .hero {
     display: inherit !important;
     width: auto; }
-  .jumbotron-hero-img, .jumbotron-hero-text {
+  .hero-img, .hero-text {
     width: 100% !important;
     display: block !important; }
-  .jumbotron-hero-img img {
+  .hero-img img {
     border-radius: 0 0 4px 4px !important; } }
 
 #site-message {
@@ -5474,7 +5471,7 @@ footer {
 .policy-pages .article p {
   margin-bottom: 1.5em; }
 
-#index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-sand, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern, #index-page .jumbotron-hero {
+#index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern {
   padding-top: 6em; }
 
 #index-page .home-top-panel {
