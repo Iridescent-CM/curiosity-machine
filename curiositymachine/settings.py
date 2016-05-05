@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 import dj_database_url
+from django.http import Http404
+from curiositymachine.exceptions import LoginRequired
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -34,7 +36,7 @@ COMPRESS_ENABLED = process_false_string(os.environ.get('COMPRESS_ENABLED', False
 ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMINS", '').split(',')])
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m2c165xpbn9^#z_a%kgwrs')
+SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m2c165xpbn9^#z_a%kgwrs')
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_HOSTS") else []
 MENTOR_RELATIONSHIP_MANAGERS = os.getenv("MENTOR_RELATIONSHIP_MANAGERS", '').split(',') if os.getenv("MENTOR_RELATIONSHIP_MANAGERS") else []
@@ -102,6 +104,7 @@ MIDDLEWARE_CLASSES = (
     'curiositymachine.middleware.FirstLoginMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'staticflatpages.middleware.StaticFlatpageFallbackMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -224,6 +227,19 @@ MAILCHIMP_LIST_IDS = {
     if k.startswith('MAILCHIMP_LIST_ID_')
 }
 
+ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN = os.environ.get("ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN", "")
+ROLLBAR_ENV = os.environ.get("ROLLBAR_ENV", "default")
+ROLLBAR = {
+    'access_token': os.environ.get("ROLLBAR_SERVER_SIDE_ACCESS_TOKEN", ""),
+    'environment': ROLLBAR_ENV,
+    'branch': 'master',
+    'root': os.getcwd(),
+    'exception_level_filters': [
+        (Http404, 'ignored'),
+        (LoginRequired, 'ignored'),
+    ]
+}
+
 # Which HTML tags are allowed
 BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'br', 'strike', 'li', 'ul', 'div', 'ol', 'span', 'blockquote', 'pre', 'img']
 
@@ -323,8 +339,7 @@ DOCEBO_MENTOR_URL = os.environ.get("DOCEBO_MENTOR_URL","http://www.iridescentuni
 
 # pagination
 CHALLENGES_PER_PAGE = os.environ.get("CHALLENGES_PER_PAGE", 9)
-MENTORS_PER_PAGE = os.environ.get("MENTORS_PER_PAGE", 12)
-EXAMPLES_PER_PAGE = os.environ.get("EXAMPLES_PER_PAGE", 12)
+DEFAULT_PER_PAGE = os.environ.get("DEFAULT_PER_PAGE", 12)
 
 # an impossible pattern below prevents blacklisting until actual patterns are provided through the env
 BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))

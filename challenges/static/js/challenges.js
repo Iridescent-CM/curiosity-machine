@@ -17,15 +17,6 @@ CM.Challenge.Reflect = {
     $('.reflect-question .refresh').on('click', function() {
       self.updateQuestion();
     });
-    //images
-    $('#reflect-images-selector li').on('click', function() {
-      self.selectImage($(this));
-    });
-
-    $('#reflect-images-modal .btn-primary').on('click', function() {
-      self.saveImage($('#reflect-images-selector .selected'));
-    })
-
   },
   updateQuestion : function(isFirst) {
     var self = this;
@@ -41,33 +32,10 @@ CM.Challenge.Reflect = {
     $('.question-text').val(question.text());
     this.config.currentQuestion = question;
   },
-  selectImage : function(li) {
-    li.siblings().removeClass('selected');
-    li.addClass('selected');
-  },
-  saveImage : function(li) {
-    if (li.length) {
-      var src = li.find('img').attr('src');
-      $('#id_picture_filepicker_url').val(src);
-      $('#reflect-images img').remove();
-      $('#reflect-images .img-wrapper').append('<img src="' + src + '" />')
-    } else {
-      //close modal
-    }
-  }
 };
 
 $(document).ready(function() {
 
-  //change the comment form action url from build to test
-  $('.stage-switch input').on('change', function(e) {
-    var url = $('.stage-switch input:checked').parent().find('.url').val();
-    $('.comment-form').attr('action', url);
-  });
-
-
-
-  
   $('.materials-form').css("display", "none");
 
   $('.edit-materials').on('click', function(e) {

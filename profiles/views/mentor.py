@@ -113,7 +113,7 @@ def list_all(request):
     page = request.GET.get('page')
     mentors = Profile.objects.filter(is_mentor=True, approved=True).select_related('user').order_by('-user__date_joined')
 
-    paginator = Paginator(mentors, settings.MENTORS_PER_PAGE)
+    paginator = Paginator(mentors, settings.DEFAULT_PER_PAGE)
     try:
         mentors = paginator.page(page)
     except PageNotAnInteger:
@@ -169,7 +169,7 @@ def unclaimed_progresses(request, **kwargs):
     else:
         raise Http404()
 
-    paginator = Paginator(progresses, settings.MENTORS_PER_PAGE)
+    paginator = Paginator(progresses, settings.DEFAULT_PER_PAGE)
     try:
         progresses = paginator.page(page)
     except PageNotAnInteger:
@@ -197,7 +197,7 @@ def claimed_progresses(request, **kwargs):
         'challenge', 'mentor', 'student', 'student__profile', 'student__profile__image', 'challenge__image'
     )
 
-    paginator = Paginator(progresses, settings.MENTORS_PER_PAGE)
+    paginator = Paginator(progresses, settings.DEFAULT_PER_PAGE)
     try:
         progresses = paginator.page(page)
     except PageNotAnInteger:
