@@ -104,7 +104,6 @@ MIDDLEWARE_CLASSES = (
     'curiositymachine.middleware.FirstLoginMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'staticflatpages.middleware.StaticFlatpageFallbackMiddleware',
-    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -227,19 +226,6 @@ MAILCHIMP_LIST_IDS = {
     if k.startswith('MAILCHIMP_LIST_ID_')
 }
 
-ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN = os.environ.get("ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN", "")
-ROLLBAR_ENV = os.environ.get("ROLLBAR_ENV", "default")
-ROLLBAR = {
-    'access_token': os.environ.get("ROLLBAR_SERVER_SIDE_ACCESS_TOKEN", ""),
-    'environment': ROLLBAR_ENV,
-    'branch': 'master',
-    'root': os.getcwd(),
-    'exception_level_filters': [
-        (Http404, 'ignored'),
-        (LoginRequired, 'ignored'),
-    ]
-}
-
 # Which HTML tags are allowed
 BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'br', 'strike', 'li', 'ul', 'div', 'ol', 'span', 'blockquote', 'pre', 'img']
 
@@ -347,11 +333,31 @@ WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?').spl
 
 # CLOUDINARY_URL is not a config variable; cloudinary reads it directly from the environment.  To override it, run cloudinary.config()
 
-# Import optional local settings.  This must come after config you want to be able to override.
+# Rollbar
+ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN = os.environ.get("ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN", "")
+ROLLBAR_SERVER_SIDE_ACCESS_TOKEN = os.environ.get("ROLLBAR_SERVER_SIDE_ACCESS_TOKEN", "")
+ROLLBAR_ENV = os.environ.get("ROLLBAR_ENV", "default")
+
+
+# Import optional local settings.  This must come after config you want to be able to override, but before it's usage.
 try:
     from .local import *
 except ImportError:
     pass
+
+# Do this after importing local.py so it can swap out the env parameters if desired
+if ROLLBAR_SERVER_SIDE_ACCESS_TOKEN:
+    ROLLBAR = {
+        'access_token': ROLLBAR_SERVER_SIDE_ACCESS_TOKEN,
+        'environment': ROLLBAR_ENV,
+        'branch': 'master',
+        'root': os.getcwd(),
+        'exception_level_filters': [
+            (Http404, 'ignored'),
+            (LoginRequired, 'ignored'),
+        ]
+    }
+    MIDDLEWARE_CLASSES += ('rollbar.contrib.django.middleware.RollbarNotifierMiddleware',)
 
 # Conditionally install the debug toolbar
 if DEBUG and DEBUG_TOOLBAR:
