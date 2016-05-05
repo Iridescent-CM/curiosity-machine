@@ -10,17 +10,7 @@
       <div class="hero-text text-center p-a-md">
         <h1 class="light-type m-b-md">{{ challenge.name }}</h1>
         <h3>{{ challenge.description }}</h3>
-        {% if request.user.is_authenticated and request.user.profile.is_student %}
-          <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
-              {% csrf_token %}
-              <input type="submit" value="Start Building" class="btn btn-secondary btn-lg" />
-            </form>
-        {% elif request.user.profile.is_mentor or request.user.profile.is_parent or request.user.profile.is_educator %}
-          <a href="#" class="btn btn-secondary">Preview Challenge</a>
-        {% else %}
-          <p class="light-type m-b-md">You need to sign in to Curiosity Machine as a student to work on design challenges.</p>
-          <a href="{% url 'profiles:join' %}" class="btn btn-secondary">Create Student Account</a>
-        {% endif %}
+        {% include 'challenges/preview/_landing-messages.html' %}
       </div>
       {% if challenge.landing_image %}
       <div class="hero-img">
