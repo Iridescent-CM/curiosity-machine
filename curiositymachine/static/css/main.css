@@ -5155,34 +5155,6 @@ a .challenge-card-title p:hover {
   background-attachment: fixed;
   background-repeat: repeat; }
 
-.hero {
-  background-color: #00B1C3;
-  border-radius: 4px;
-  margin-bottom: 0px;
-  padding: 0px;
-  display: table;
-  width: 100%; }
-  .hero .hero-img {
-    display: table-cell;
-    width: 480px; }
-    .hero .hero-img img {
-      border-radius: 0 4px 4px 0; }
-  .hero .hero-text {
-    display: table-cell;
-    vertical-align: middle; }
-    .hero .hero-text h3 {
-      color: #b3e8ed; }
-
-@media (max-width: 61.9em) {
-  .hero {
-    display: inherit !important;
-    width: auto; }
-  .hero-img, .hero-text {
-    width: 100% !important;
-    display: block !important; }
-  .hero-img img {
-    border-radius: 0 0 4px 4px !important; } }
-
 #site-message {
   border-radius: 0;
   margin-bottom: 0; }
@@ -5804,5 +5776,33 @@ footer {
 #examples-page .card {
   max-width: 330px;
   margin: 1.5em auto; }
+
+#landing-page .hero {
+  background-color: #00B1C3;
+  border-radius: 4px;
+  margin-bottom: 0px;
+  padding: 0px;
+  display: table;
+  width: 100%; }
+  #landing-page .hero .hero-img {
+    display: table-cell;
+    width: 480px; }
+    #landing-page .hero .hero-img img {
+      border-radius: 0 4px 4px 0; }
+  #landing-page .hero .hero-text {
+    display: table-cell;
+    vertical-align: middle; }
+    #landing-page .hero .hero-text h3 {
+      color: #b3e8ed; }
+
+@media (max-width: 61.9em) {
+  #landing-page .hero {
+    display: inherit !important;
+    width: auto; }
+  #landing-page .hero-img, #landing-page .hero-text {
+    width: 100% !important;
+    display: block !important; }
+  #landing-page .hero-img img {
+    border-radius: 0 0 4px 4px !important; } }
 
 /*# sourceMappingURL=main.css.map */
