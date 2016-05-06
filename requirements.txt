@@ -2,7 +2,7 @@
 # everything necessary to run the app
 
 #framework
--e git://github.com/django/django@1.7b1#egg=Django
+Django==1.8.13
 
 #db driver
 psycopg2==2.6.1

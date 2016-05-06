@@ -18,7 +18,7 @@ class Group(models.Model):
     name = models.CharField('name', max_length=80, null=True, blank=False)
     code = models.CharField('code', max_length=20, unique=True, null=True, blank=False)
     member_users = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
-    invited_users = models.ManyToManyField(User, through='Invitation', through_fields=('group', 'user'), related_name="cm_group_invites", null=True)
+    invited_users = models.ManyToManyField(User, through='Invitation', through_fields=('group', 'user'), related_name="cm_group_invites")
     created = models.DateTimeField(default=now)
 
     def owners(self):
