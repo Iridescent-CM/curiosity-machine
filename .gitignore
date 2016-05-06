@@ -7,6 +7,7 @@ staticfiles
 curiositymachine/local.py
 **/node_modules
 .coverage
+.cache
 htmlcov
 *.db
 db.sqlite3
