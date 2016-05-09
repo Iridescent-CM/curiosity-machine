@@ -2,6 +2,9 @@
 {% load resized %}
 {% block title %}{{ challenge.name }}{% endblock %}
 {% block body-id %}landing-page{% endblock %}
+{% block social-title %}{{ challenge.name }}{% endblock %}
+{% block social-description %}{{ challenge.description }}{% endblock %}
+{% block social-image %}{{ challenge.landing_image.url }}{% endblock %}
 
 {% block content %}
 <div class="jumbotron-fluid jumbotron-dark-pattern m-b-lg">
