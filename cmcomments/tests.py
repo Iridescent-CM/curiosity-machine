@@ -1,7 +1,7 @@
 import pytest
 
 from profiles.tests import student, mentor
-from challenges.tests import progress, challenge
+from challenges.tests.fixtures import progress, challenge
 
 from .models import Comment
 from .factories import CommentFactory, ReflectionCommentFactory

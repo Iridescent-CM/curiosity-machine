@@ -1,63 +1,34 @@
+# test libs
 import pytest
-import mock
 from pyquery import PyQuery as pq
-from .models import Challenge, Progress, Theme, Favorite, Stage, Filter, Example
-from cmcomments.models import Comment
-from .views import challenges, unclaimed_progresses, claim_progress, challenge_progress, preview_inspiration, start_building
-from profiles.tests import student, mentor
-from django.contrib.auth.models import User, AnonymousUser
-from .templatetags.user_has_started_challenge import user_has_started_challenge
-from .templatetags.activity_count import activity_count
-from django.contrib.messages.storage.fallback import FallbackStorage
-from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
-from django.utils.timezone import now
-from .factories import ChallengeFactory, ProgressFactory, ExampleFactory
+
+# fixtures
+from challenges.tests.fixtures import *
+from profiles.tests import student, mentor # TODO: move to profiles.tests.fixtures
+
+# factories
+from challenges.factories import ChallengeFactory, ProgressFactory, ExampleFactory
 from profiles.factories import StudentFactory, MentorFactory
 from cmcomments.factories import CommentFactory
 from images.factories import ImageFactory
 
-@pytest.fixture
-def loggedInStudent(client):
-    student = User.objects.create_user(username='loggedinstudent', email='loggedinstudent@example.com', password='password')
-    student.profile.is_student = True
-    student.profile.approved = True
-    student.profile.save()
-    client.login(username='loggedinstudent', password='password')
-    return student
+# django modules
+from django.contrib.auth.models import AnonymousUser
+from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
+from django.contrib.messages.storage.fallback import FallbackStorage
+from django.utils.timezone import now
 
-@pytest.fixture
-def student_comment(student, progress):
-    return Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
+# app modules
+from challenges.models import Stage, Example
+from challenges.views import challenges, unclaimed_progresses, claim_progress, preview_inspiration, start_building
+from challenges.templatetags.activity_count import activity_count
+from challenges.templatetags.user_has_started_challenge import user_has_started_challenge
+from cmcomments.models import Comment
 
-@pytest.fixture
-def theme():
-    return Theme.objects.create(name="MyTheme")
+# mark all as integration tests for -m filtering
+pytestmark = pytest.mark.integration
 
-@pytest.fixture
-def challenge():
-    return Challenge.objects.create(
-        name="Test Challenge",
-        draft=False,
-        reflect_subheader='test reflect_subheader',
-        build_subheader='test build_subheader'
-    )
-
-@pytest.fixture
-def filter():
-    return Filter.objects.create(name="My Filter")
-
-@pytest.fixture
-def challenge2():
-    return Challenge.objects.create(name="Test Challenge 2", draft=False)
-
-@pytest.fixture
-def progress(student, mentor, challenge):
-    return Progress.objects.create(student=student, mentor=mentor, challenge=challenge)
-
-@pytest.fixture
-def unclaimed_progress(student, challenge):
-    return Progress.objects.create(student=student, challenge=challenge)
 
 @pytest.mark.django_db
 def test_theme_str(theme):
@@ -820,4 +791,3 @@ def test_example_queryset_approve_many():
     ExampleFactory.create_batch(5, approved=False)
 
     assert Example.objects.status(pending=True).approve() == 5
-
