@@ -14,8 +14,8 @@
   <input type="submit" value="View Project" class="btn btn-secondary btn-lg" />
 </form>
 {% elif request.user.profile.is_mentor or request.user.profile.is_parent or request.user.profile.is_educator %}
-  <a href="{% url 'challenges:preview_plan' challenge_id=challenge.id %}" class="btn btn-secondary">Preview Challenge</a>
+  <a href="{% url 'challenges:preview_plan' challenge_id=challenge.id %}" class="btn btn-secondary btn-lg">Preview Challenge</a>
 {% else %}
   <p class="light-type m-b-md">You need to sign in to Curiosity Machine as a student to work on design challenges.</p>
-  <a href="{% url 'profiles:join' %}" class="btn btn-secondary">Create Student Account</a>
+  <a href="{% url 'profiles:join' %}" class="btn btn-secondary btn-lg">Create Student Account</a>
 {% endif %}
