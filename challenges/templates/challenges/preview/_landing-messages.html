@@ -11,11 +11,12 @@
 {% elif request.user.profile.is_student and progress.completed %}
 <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
   {% csrf_token %}
-  <input type="submit" value="View Project" class="btn btn-secondary btn-lg" />
+  <input type="submit" value="View Your Project" class="btn btn-secondary btn-lg" />
 </form>
 {% elif request.user.profile.is_mentor or request.user.profile.is_parent or request.user.profile.is_educator %}
   <a href="{% url 'challenges:preview_plan' challenge_id=challenge.id %}" class="btn btn-secondary btn-lg">Preview Challenge</a>
 {% else %}
-  <p class="light-type m-b-md">You need to sign in to Curiosity Machine as a student to work on design challenges.</p>
+  <p class="light-type m-b-md">You need to sign in as a student to work on design challenges.</p>
   <a href="{% url 'profiles:join' %}" class="btn btn-secondary btn-lg">Create Student Account</a>
+  <p class="light-type m-a-md">Or, preview the design challenge with an <a href="{% url 'profiles:join_as_educator' %}" class="a-secondary">educator</a> or <a href="{% url 'profiles:join_as_parent' %}" class="a-secondary">parent</a> account.</p>
 {% endif %}

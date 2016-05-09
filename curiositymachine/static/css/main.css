@@ -4668,6 +4668,13 @@ a {
     text-decoration: none;
     outline: none; }
 
+.a-secondary {
+  color: #FFFCF7;
+  border-bottom-color: #FFFCF7; }
+  .a-secondary:hover {
+    color: #bfbdb9;
+    border-bottom-color: #bfbdb9; }
+
 a.action-img {
   border-bottom: 0px; }
   a.action-img:focus {

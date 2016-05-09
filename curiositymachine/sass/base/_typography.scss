@@ -72,6 +72,15 @@ a {
   }
 }
 
+.a-secondary {
+  color: $ivory;
+  border-bottom-color: $ivory;
+  &:hover {
+    color: shade($ivory, 25%);
+    border-bottom-color: shade($ivory, 25%);
+  }
+}
+
 a.action-img {
   border-bottom: 0px;
 
