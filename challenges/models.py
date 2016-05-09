@@ -49,7 +49,7 @@ class Challenge(models.Model):
     themes = models.ManyToManyField(Theme, null=True, blank=True, related_name='challenges')
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
-    landing_image = models.ForeignKey(Image, null=True, blank=True, related_name="+", on_delete=models.PROTECT, help_text="Image size should be a 4:3 ratio, at least 600px wide for best results. Jpg, png, or gif accepted.")
+    landing_image = models.ForeignKey(Image, null=True, blank=True, related_name="+", on_delete=models.PROTECT, help_text="Image size should be a 4:3 ratio, at least 720px wide for best results. Jpg, png, or gif accepted.")
     plan_call_to_action = models.TextField(help_text="HTML, shown in the left column of the plan stage")
     build_call_to_action = models.TextField(help_text="HTML, shown in the left column of the build stage")
     plan_subheader = models.TextField(help_text="One line of plain text, shown below the plan stage header")
