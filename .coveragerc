@@ -2,7 +2,7 @@
 branch = True
 
 [report]
-excluded_lines = 
+exclude_lines = 
   pragma: no cover
 
 omit =
