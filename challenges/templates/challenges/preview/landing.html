@@ -4,7 +4,13 @@
 {% block body-id %}landing-page{% endblock %}
 {% block social-title %}{{ challenge.name }}{% endblock %}
 {% block social-description %}{{ challenge.description }}{% endblock %}
-{% block social-image %}{{ challenge.landing_image.url }}{% endblock %}
+{% block social-image %}
+  {% if challenge.landing_image %}
+    {{ challenge.landing_image.url }}
+  {% else %}
+    {{ block.super }}
+  {% endif %}
+{% endblock %}
 
 {% block content %}
 <div class="jumbotron-fluid jumbotron-dark-pattern m-b-lg">
@@ -88,7 +94,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="modal fade" id="{{ example.progress.student.username }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="{{ example.progress.student.username }}" tabindex="-1" role="dialog" aria-labelledby="{{ example.progress.student.username }}'s {{ challenge.name }}" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">

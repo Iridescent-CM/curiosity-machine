@@ -4,15 +4,9 @@
     <input type="submit" value="Start Building" class="btn btn-secondary btn-lg" />
   </form>
 {% elif request.user.profile.is_student and not progress.completed %}
-  <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
-    {% csrf_token %}
-    <input type="submit" value="Keep Building" class="btn btn-secondary btn-lg" />
-  </form>
+  <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id  username=request.user.username %}" class="btn btn-secondary btn-lg">Keep Building</a>
 {% elif request.user.profile.is_student and progress.completed %}
-<form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
-  {% csrf_token %}
-  <input type="submit" value="View Your Project" class="btn btn-secondary btn-lg" />
-</form>
+  <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id  username=request.user.username %}" class="btn btn-secondary btn-lg">View Your Project</a>
 {% elif request.user.profile.is_mentor or request.user.profile.is_parent or request.user.profile.is_educator %}
   <a href="{% url 'challenges:preview_plan' challenge_id=challenge.id %}" class="btn btn-secondary btn-lg">Preview Challenge</a>
 {% else %}
