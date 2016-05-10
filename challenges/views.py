@@ -314,16 +314,14 @@ class LandingView(View):
 
         if request.user.is_authenticated():
             progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-            examples = Example.objects.for_gallery(challenge=challenge, progress=progress)
-            user_example = examples.filter(progress=progress).first()
+            examples = Example.objects.for_gallery(challenge=challenge)
+
         else:
             progress = None
             examples = Example.objects.for_gallery(challenge=challenge)
-            user_example = None
 
         return render(request, 'challenges/preview/landing.html', {
             'examples': examples,
             'challenge': challenge,
             'progress': progress,
-            'user_example': user_example,
         })
