@@ -189,11 +189,14 @@ class ExampleQuerySet(models.QuerySet):
 
     def for_gallery(self, **kwargs):
         challenge_id = kwargs.get('challenge_id', None) or kwargs.get('challenge').id
-        progress = kwargs.get('progress', None)
+        user = kwargs.get('user', None)
         f = Q(approved=True)
-        if progress:
-            f = f | Q(progress=progress, approved=None)
+        if user:
+            f = f | Q(progress__student=user, approved=None)
         return self.filter(progress__challenge_id=challenge_id).filter(f).order_by('-id')
+
+    def for_gallery_preview(self, **kwargs):
+        return self.for_gallery(**kwargs)[:4]
 
     def from_progress(self, **kwargs):
         progress = kwargs.get('progress')

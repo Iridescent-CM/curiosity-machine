@@ -783,9 +783,17 @@ def test_example_queryset_for_gallery():
     assert pending not in Example.objects.for_gallery(challenge=challenge).all()
     assert rejected not in Example.objects.for_gallery(challenge=challenge).all()
 
-    assert approved in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
-    assert pending in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
-    assert rejected not in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
+    assert approved in Example.objects.for_gallery(challenge=challenge, user=user).all()
+    assert pending in Example.objects.for_gallery(challenge=challenge, user=user).all()
+    assert rejected not in Example.objects.for_gallery(challenge=challenge, user=user).all()
+
+@pytest.mark.django_db
+def test_example_queryset_for_gallery_preview_returns_subset():
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+
+    assert Example.objects.for_gallery_preview(challenge=challenge).count() == 4
+    assert set(Example.objects.for_gallery_preview(challenge=challenge)).issubset(set(examples))
 
 @pytest.mark.django_db
 def test_example_queryset_reject():
