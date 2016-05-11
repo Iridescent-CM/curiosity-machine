@@ -3,7 +3,7 @@ import mock
 from pyquery import PyQuery as pq
 from .models import Challenge, Progress, Theme, Favorite, Stage, Filter, Example
 from cmcomments.models import Comment
-from .views import challenges, unclaimed_progresses, claim_progress, challenge_progress, preview_inspiration, start_building
+from .views import challenges, unclaimed_progresses, claim_progress, challenge_progress, preview_inspiration, start_building, LandingView
 from profiles.tests import student, mentor
 from django.contrib.auth.models import User, AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
@@ -821,3 +821,40 @@ def test_example_queryset_approve_many():
 
     assert Example.objects.status(pending=True).approve() == 5
 
+@pytest.mark.django_db
+def test_landingview_renders_for_anonymous_user(client):
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+
+    response = client.get('/challenges/%d/landing/' % (challenge.id,))
+
+    assert set(response.context['examples']).issubset(set(examples))
+    assert response.context['challenge'] == challenge
+    assert response.context['progress'] == None
+
+@pytest.mark.django_db
+def test_landingview_renders_for_logged_in_user_without_progress(client):
+    user = MentorFactory(username='mentor', password='password')
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+
+    client.login(username='mentor', password='password')
+    response = client.get('/challenges/%d/landing/' % (challenge.id,))
+
+    assert set(response.context['examples']).issubset(set(examples))
+    assert response.context['challenge'] == challenge
+    assert response.context['progress'] == None
+
+@pytest.mark.django_db
+def test_landingview_renders_for_logged_in_student_with_progress(client):
+    user = StudentFactory(username='student', password='password')
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+    progress = ProgressFactory(challenge=challenge, student=user)
+
+    client.login(username='student', password='password')
+    response = client.get('/challenges/%d/landing/' % (challenge.id,))
+
+    assert set(response.context['examples']).issubset(set(examples))
+    assert response.context['challenge'] == challenge
+    assert response.context['progress'] == progress

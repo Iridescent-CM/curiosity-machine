@@ -310,7 +310,7 @@ class LandingView(View):
             progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
 
         return render(request, 'challenges/preview/landing.html', {
-            'examples': examples
+            'examples': examples,
             'challenge': challenge,
             'progress': progress,
         })
