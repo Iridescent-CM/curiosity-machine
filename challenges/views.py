@@ -321,7 +321,7 @@ class LandingView(View):
             examples = Example.objects.for_gallery(challenge=challenge)
 
         return render(request, 'challenges/preview/landing.html', {
-            'examples': examples,
+            'examples': Example.objects.for_gallery(challenge=challenge)[:4],
             'challenge': challenge,
             'progress': progress,
         })
