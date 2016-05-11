@@ -93,14 +93,6 @@ def preview_inspiration(request, challenge_id):
         'examples': Example.objects.for_gallery(challenge=challenge)[:4],
     })
 
-def preview_landing(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-
-    return render(request, 'challenges/preview/landing.html', {
-        'challenge': challenge,
-        'examples': Example.objects.for_gallery(challenge=challenge)[:4],
-    })
-
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
