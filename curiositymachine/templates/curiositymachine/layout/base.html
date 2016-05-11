@@ -43,9 +43,9 @@
   <meta name="description" content="Free hands-on science and engineering projects for families and educators. Build 80+ projects with everyday household materials." />
 
   <meta property="og:url" content="{{ SITE_URL }}" />
-  <meta property="og:title" content="Curiosity Machine – Hands-on Science Projects" />
-  <meta property="og:description" content="Free hands-on science and engineering projects for families and educators. Build 80+ projects with everyday household materials." />
-  <meta property="og:image" content="{{ SITE_URL }}{% static 'images/cm-thumbnail.jpg' %}" />
+  <meta property="og:title" content="{% block social-title %}Curiosity Machine – Hands-on Science Projects{% endblock%}" />
+  <meta property="og:description" content="{% block social-description %}Free hands-on science and engineering projects for families and educators. Build 80+ projects with everyday household materials.{% endblock%}" />
+  <meta property="og:image" content="{% block social-image %}{{ SITE_URL }}{% static 'images/cm-thumbnail.jpg' %}{% endblock%}" />
 
   <link href='//fonts.googleapis.com/css?family=Raleway:300,400,700|Open+Sans:400,700' rel='stylesheet' type='text/css'>
   {% compress css %}

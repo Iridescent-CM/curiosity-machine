@@ -7,3 +7,20 @@
     margin-bottom: 0;
   }
 }
+
+.jumbotron-dark {
+  @extend .jumbotron;
+  background-color: shade($dark, 40%);
+
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+.jumbotron-dark-pattern {
+  @extend .jumbotron;
+  background-color: shade($dark, 40%);
+  background-image: url("../images/design-challenge-repeating-pattern.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
+}

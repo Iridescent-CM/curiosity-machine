@@ -93,6 +93,14 @@ def preview_inspiration(request, challenge_id):
         'examples': Example.objects.for_gallery(challenge=challenge)[:4],
     })
 
+def preview_landing(request, challenge_id):
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+
+    return render(request, 'challenges/preview/landing.html', {
+        'challenge': challenge,
+        'examples': Example.objects.for_gallery(challenge=challenge)[:4],
+    })
+
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     if require_login_for(request, challenge):
@@ -300,3 +308,20 @@ class ExamplesDeleteView(View):
             'challenge_id': challenge_id,
         }))
 
+class LandingView(View):
+    def get(self, request, challenge_id=None, *args, **kwargs):
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+
+        if request.user.is_authenticated():
+            progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
+            examples = Example.objects.for_gallery(challenge=challenge)
+
+        else:
+            progress = None
+            examples = Example.objects.for_gallery(challenge=challenge)
+
+        return render(request, 'challenges/preview/landing.html', {
+            'examples': Example.objects.for_gallery(challenge=challenge)[:4],
+            'challenge': challenge,
+            'progress': progress,
+        })
