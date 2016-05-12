@@ -21,7 +21,7 @@ def parent():
 @pytest.fixture
 def child():
     child = User(username="child")
-    child_profile = models.Profile(is_student=True, birthday=datetime.now())
+    child_profile = models.Profile(role=models.UserRole.student.value, birthday=datetime.now())
     child_profile.user = child
     child.save()
     child_profile.user = child
@@ -81,7 +81,7 @@ def test_form_clean_birthday_set():
     assert 'birthday' in f.errors
 
 @pytest.mark.django_db
-def test_form_sets_is_student_for_all():
+def test_form_sets_student_role_for_all():
     bday = now() - relativedelta(years=13, days=1)
     f = forms.student.StudentUserAndProfileForm(data={
         'username': 'teen',

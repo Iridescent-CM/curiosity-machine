@@ -4,6 +4,7 @@ from django.forms.extras.widgets import SelectDateWidget
 from curiositymachine.widgets import FilePickerInlineWidget, FilePickerPickWidget
 from django.utils.timezone import now
 from django.contrib.auth.models import User
+from profiles.models import UserRole
 import re
 
 MIMETYPE_SCRIPT = """
@@ -84,7 +85,7 @@ class AnalyticsForm(forms.Form):
 def validate_users_exist(recipients):
     existing = User.objects.filter(
         username__in=recipients,
-        profile__is_student=True
+        profile__role=UserRole.student.value
     ).values_list('username', flat=True)
     nonexisting = list(set(recipients) - set(existing))
     if nonexisting:

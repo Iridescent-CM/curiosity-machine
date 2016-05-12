@@ -8,13 +8,18 @@ from datetime import date, timedelta
 from cmcomments.models import Comment
 from cmemails import deliver_email
 from django.utils.timezone import now
+from enum import Enum
+
+class UserRole(Enum):
+    none = 0
+    student = 1
+    mentor = 2
+    educator = 3
+    parent = 4
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
-    is_student = models.BooleanField(default=False, verbose_name="Student access")
-    is_mentor = models.BooleanField(default=False, verbose_name="Mentor access")
-    is_educator = models.BooleanField(default=False, verbose_name="Educator access")
-    is_parent = models.BooleanField(default=False, verbose_name="Parent access")
+    role = models.SmallIntegerField(choices=[(role.value, role.name) for role in UserRole], default=UserRole.none.value)
     birthday = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=1,blank=True)
     city = models.TextField(blank=True)
@@ -52,13 +57,13 @@ class Profile(models.Model):
     def inactive_mentors(cls):
          startdate = now()
          enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
-         return cls.objects.filter(last_active_on__lt=enddate, is_mentor=True, last_inactive_email_sent_on=None)
+         return cls.objects.filter(last_active_on__lt=enddate, role=UserRole.mentor.value, last_inactive_email_sent_on=None)
 
     @classmethod
     def inactive_students(cls):
          startdate = now()
          enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
-         return cls.objects.filter(last_active_on__lt=enddate,is_student=True, last_inactive_email_sent_on=None)
+         return cls.objects.filter(last_active_on__lt=enddate,role=UserRole.student.value, last_inactive_email_sent_on=None)
 
     @property
     def age(self):
@@ -80,6 +85,22 @@ class Profile(models.Model):
             return 'educator'
         elif self.is_parent:
             return 'parent'
+
+    @property
+    def is_student(self):
+        return UserRole(self.role) == UserRole.student
+
+    @property
+    def is_mentor(self):
+        return UserRole(self.role) == UserRole.mentor
+
+    @property
+    def is_educator(self):
+        return UserRole(self.role) == UserRole.educator
+
+    @property
+    def is_parent(self):
+        return UserRole(self.role) == UserRole.parent
 
     def is_underage(self):
         return self.age < 13

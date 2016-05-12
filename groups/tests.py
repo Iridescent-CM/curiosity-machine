@@ -7,14 +7,14 @@ from . import views
 from . import decorators
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from profiles.models import Profile
+from profiles.models import Profile, UserRole
 from django.core.exceptions import PermissionDenied
 
 @pytest.fixture
 def student():
     student = User.objects.create_user(username='student', email='student@example.com', password='password')
     student.profile.approved = True
-    student.profile.is_student = True
+    student.profile.role = UserRole.student.value
     student.profile.save()
     return student
 
@@ -22,7 +22,7 @@ def student():
 def educator():
     educator = User.objects.create_user(username='educator', email='educator@example.com', password='password')
     educator.profile.approved = True
-    educator.profile.is_educator = True
+    educator.profile.role = UserRole.educator.value
     educator.profile.save()
     return educator
 
@@ -30,7 +30,7 @@ def educator():
 def mentor():
     mentor = User.objects.create_user(username='mentor', email='mentor@example.com', password='password')
     mentor.profile.approved = True
-    mentor.profile.is_mentor = True
+    mentor.profile.role = UserRole.mentor.value
     mentor.profile.save()
     return mentor
 
@@ -154,7 +154,7 @@ def test_invite_multiple_to_group(client, group, student, loggedInEducator):
     group.add_owner(loggedInEducator)
     otherstudent = User.objects.create_user(username='otherstudent', email='student@example.com', password='password')
     otherstudent.profile.approved = True
-    otherstudent.profile.is_student = True
+    otherstudent.profile.role = UserRole.student.value
     otherstudent.profile.save()
     response = client.post(
         reverse('groups:invite_to_group', kwargs={'group_id': group.id}),

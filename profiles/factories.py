@@ -24,7 +24,7 @@ class MentorProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('profiles.factories.MentorFactory', profile=None)
     city = 'city'
-    is_mentor = True
+    role = models.UserRole.mentor.value
     approved = True
 
 @factory.django.mute_signals(handlers.post_save)
@@ -44,7 +44,7 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('profiles.factories.StudentFactory', profile=None)
     city = 'city'
-    is_student = True
+    role = models.UserRole.student.value
     approved = True
 
 @factory.django.mute_signals(handlers.post_save)

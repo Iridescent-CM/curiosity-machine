@@ -3,7 +3,7 @@ import mock
 from django.contrib.auth.models import User, AnonymousUser
 from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
-from profiles.models import Profile
+from profiles.models import Profile, UserRole
 from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
 from .views import root
 from .views.generic import UserJoinView
@@ -30,7 +30,7 @@ def force_false(*args, **kwargs):
 
 def test_underage_student_middleware_redirects_request(rf):
     user = User()
-    profile = Profile(user=user, is_student=True)
+    profile = Profile(user=user, role=UserRole.student.value)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -48,7 +48,7 @@ def test_underage_student_middleware_skips_approved_profiles(rf):
 
 def test_underage_student_middleware_skips_mentors(rf):
     user = User()
-    profile = Profile(user=user, is_mentor=True)
+    profile = Profile(user=user, role=UserRole.mentor.value)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -71,7 +71,7 @@ def test_underage_student_middleware_skips_unauthenticated_user(rf):
 
 def test_underage_student_middleware_allows_whitelisted_views(rf):
     user = User()
-    profile = Profile(user=user, is_student=True)
+    profile = Profile(user=user, role=UserRole.student.value)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -87,7 +87,7 @@ def test_underage_student_middleware_allows_whitelisted_views(rf):
 
 def test_unapproved_mentor_middleware_redirects(rf):
     user = User()
-    profile = Profile(user=user, is_mentor=True)
+    profile = Profile(user=user, role=UserRole.mentor.value)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -97,7 +97,7 @@ def test_unapproved_mentor_middleware_redirects(rf):
 
 def test_unapproved_mentor_middleware_skips_approved(rf):
     user = User()
-    profile = Profile(user=user, is_mentor=True, approved=True)
+    profile = Profile(user=user, role=UserRole.mentor.value, approved=True)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -105,7 +105,7 @@ def test_unapproved_mentor_middleware_skips_approved(rf):
 
 def test_unapproved_mentor_middleware_skips_whitelisted(rf):
     user = User()
-    profile = Profile(user=user, is_mentor=True)
+    profile = Profile(user=user, role=UserRole.mentor.value)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -121,7 +121,7 @@ def test_unapproved_mentor_middleware_skips_whitelisted(rf):
 
 def test_unapproved_mentor_middleware_skips_non_mentor(rf):
     user = User()
-    profile = Profile(user=user, is_mentor=False)
+    profile = Profile(user=user)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -129,7 +129,7 @@ def test_unapproved_mentor_middleware_skips_non_mentor(rf):
 
 def test_unapproved_mentor_middleware_skips_staff(rf):
     user = User(is_staff=True)
-    profile = Profile(user=user, is_mentor=True)
+    profile = Profile(user=user, role=UserRole.mentor.value)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -182,7 +182,7 @@ def test_login_required_middleware_redirects_login_required_exceptions(rf):
 
 def test_root_redirects_student_without_progress_to_challenges(rf):
     user = User()
-    profile = Profile(user=user, is_student=True)
+    profile = Profile(user=user, role=UserRole.student.value)
     request = rf.get('/some/path')
     request.user = user
     response = root(request)
@@ -216,7 +216,7 @@ def test_mentor_only_denies_view_for_anonymous_user(rf):
 
 def test_mentor_only_denies_view_for_non_mentor_or_staff(rf):
     user = User()
-    profile = Profile(user=user, is_student=True)
+    profile = Profile(user=user, role=UserRole.student.value)
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -226,7 +226,7 @@ def test_mentor_only_denies_view_for_non_mentor_or_staff(rf):
 
 def test_mentor_only_calls_view_for_mentor(rf):
     user = User()
-    profile = Profile(user=user, is_mentor=True)
+    profile = Profile(user=user, role=UserRole.mentor.value)
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -265,7 +265,7 @@ def test_student_only_denies_view_for_non_student_or_staff(rf):
 
 def test_student_only_calls_view_for_student(rf):
     user = User()
-    profile = Profile(user=user, is_student=True)
+    profile = Profile(user=user, role=UserRole.student.value)
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -304,7 +304,7 @@ def test_educator_only_denies_view_for_non_educator_or_staff(rf):
 
 def test_educator_only_calls_view_for_educator(rf):
     user = User()
-    profile = Profile(user=user, is_educator=True)
+    profile = Profile(user=user, role=UserRole.educator.value)
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -347,7 +347,7 @@ def test_feature_flag_calls_view_if_flag_true(rf):
 
 def test_challenge_access_decorator_allows_any_mentor(rf):
     mentor = User()
-    profile = Profile(user=mentor, is_mentor=True)
+    profile = Profile(user=mentor, role=UserRole.mentor.value)
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = mentor
@@ -392,7 +392,7 @@ def test_challenge_access_decorator_allows_connected_parent(rf):
 @mock.patch('profiles.models.Profile.is_parent_of', force_false)
 def test_challenge_access_decorator_redirects_other(rf):
     user = User(username='other')
-    profile = Profile(user=user, is_student=True)
+    profile = Profile(user=user, role=UserRole.student.value)
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user

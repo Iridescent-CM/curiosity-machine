@@ -5,6 +5,7 @@ from .models import Challenge, Progress, Theme, Favorite, Stage, Filter, Example
 from cmcomments.models import Comment
 from .views import challenges, unclaimed_progresses, claim_progress, challenge_progress, preview_inspiration, start_building
 from profiles.tests import student, mentor
+from profiles.models import UserRole
 from django.contrib.auth.models import User, AnonymousUser
 from .templatetags.user_has_started_challenge import user_has_started_challenge
 from .templatetags.activity_count import activity_count
@@ -20,7 +21,7 @@ from images.factories import ImageFactory
 @pytest.fixture
 def loggedInStudent(client):
     student = User.objects.create_user(username='loggedinstudent', email='loggedinstudent@example.com', password='password')
-    student.profile.is_student = True
+    student.profile.role = UserRole.student.value
     student.profile.approved = True
     student.profile.save()
     client.login(username='loggedinstudent', password='password')
