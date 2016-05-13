@@ -37,7 +37,7 @@ class Question(models.Model):
 
     def __str__(self):
         return self.text[:297] + "..." if len(self.text) > 300 else self.text
-        
+
 class Challenge(models.Model):
     name = models.TextField()
     description = models.TextField(help_text="One line of plain text, shown on the inspiration page")
@@ -49,6 +49,7 @@ class Challenge(models.Model):
     themes = models.ManyToManyField(Theme, blank=True, related_name='challenges')
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
+    landing_image = models.ForeignKey(Image, null=True, blank=True, related_name="+", on_delete=models.PROTECT, help_text="Image size should be a 4:3 ratio, at least 720px wide for best results. Jpg, png, or gif accepted.")
     plan_call_to_action = models.TextField(help_text="HTML, shown in the left column of the plan stage")
     build_call_to_action = models.TextField(help_text="HTML, shown in the left column of the build stage")
     plan_subheader = models.TextField(help_text="One line of plain text, shown below the plan stage header")
@@ -58,7 +59,7 @@ class Challenge(models.Model):
     favorited = models.ManyToManyField(User, through='Favorite', through_fields=('challenge', 'student'), related_name="favorite_challenges")
     draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown in the main challenge list")
     public = models.BooleanField(default=False, null=False, help_text="Public challenges are previewable without an account")
-    
+
     def get_absolute_url(self):
         return reverse('challenges:preview_inspiration', kwargs={
             'challenge_id': self.id,
@@ -88,8 +89,8 @@ class Progress(models.Model):
             started_date = "%d-%d-%d" % (started_date.year, started_date.month, started_date.day)
             date_clause = "and DATE(challenges_progress.started) = DATE('%s')" % started_date
         query = """
-        select distinct challenges_progress.* from challenges_progress 
-        left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id 
+        select distinct challenges_progress.* from challenges_progress
+        left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id
         where cmcomments_comment.challenge_progress_id IS NOT NULL
         %s
         and challenges_progress.mentor_id IS NULL
@@ -102,8 +103,8 @@ class Progress(models.Model):
     @classmethod
     def unclaimed_days(cls):
         query = """
-        select distinct DATE(challenges_progress.started) as started, count(distinct challenges_progress.id) as count from challenges_progress 
-        left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id 
+        select distinct DATE(challenges_progress.started) as started, count(distinct challenges_progress.id) as count from challenges_progress
+        left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id
         where cmcomments_comment.challenge_progress_id IS NOT NULL
         and challenges_progress.mentor_id IS NULL
         group by DATE(challenges_progress.started)
@@ -262,10 +263,9 @@ class Filter(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     visible = models.BooleanField(default=False, null=False, db_index=True)
 
-    
+
     def __str__(self):
         return "Filter: id={}, name={}".format(self.id, self.name)
 
     def __repr__(self):
-        return "Filter: id={}, name={}".format(self.id, self.name)    
-
+        return "Filter: id={}, name={}".format(self.id, self.name)
