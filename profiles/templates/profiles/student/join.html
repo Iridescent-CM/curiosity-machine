@@ -19,7 +19,7 @@
           {{form.birthday}}
           <div class="errors">{{ form.birthday.errors }}</div>
         </div>
-      
+
         <div>
           {{form.username.label_tag}}
           {{form.username}}
@@ -75,7 +75,7 @@
       {{ form.non_field_errors }}
     </div>
   </div>
-  By clicking Save, you confirm that you accept the <a target="_blank" href="/privacy">Privacy Policy</a>.
+  <p>By joining Curiosity Machine, you confirm that you accept our <a target="_blank" href="{% url 'terms-of-use' %}">Terms of Use</a>.</p>
   <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
 </form>
 
