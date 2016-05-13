@@ -246,8 +246,7 @@ class Example(models.Model): # media that a mentor has selected to be featured o
 
     @property
     def name(self):
-        if self._name: return self._name
-        elif self.progress: return self.progress.student.username
+        if self.progress: return self.progress.student.username
         else: return ""
 
     @property
