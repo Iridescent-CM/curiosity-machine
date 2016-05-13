@@ -5,3 +5,4 @@
 django-debug-toolbar==1.2.2
 factory-boy==2.5.2
 pyquery==1.2.11
+pytest-cov==2.2.1

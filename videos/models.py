@@ -13,7 +13,7 @@ class Video(models.Model):
     source_url = models.URLField(max_length=2048, blank=True)
     md5_hash = models.CharField(max_length=32, blank=True) # this is the hash of the ORIGINAL file, not the encoded file
     key = models.CharField(max_length=1024, blank=True) # this is the filename of the ORIGINAL file, not the encoded file
-    thumbnails = models.ManyToManyField(Image, null=True, blank=True)
+    thumbnails = models.ManyToManyField(Image, blank=True)
     raw_job_details = models.TextField(blank=True)
 
     @property

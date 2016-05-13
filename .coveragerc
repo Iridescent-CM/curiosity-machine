@@ -1,0 +1,28 @@
+[run]
+branch = True
+
+[report]
+exclude_lines = 
+  pragma: no cover
+
+omit =
+	manage.py
+	subprocess_workers.py
+	curiositymachine/wsgi.py
+	curiositymachine/settings.py
+	curiositymachine/test_settings.py
+
+	# somewhat aggressive skipping of non user-facing parts
+	*/management/*
+	*/migrations/*
+	*/admin.py
+	profiles/admin_utils.py
+
+  # deprecated
+	tsl/*
+	cmemails/mailer.py
+	cmemails/templates.py
+	curiositymachine/analytics.py
+	curiositymachine/export_users.py
+
+show_missing = True
