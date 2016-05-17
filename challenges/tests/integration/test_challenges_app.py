@@ -754,9 +754,17 @@ def test_example_queryset_for_gallery():
     assert pending not in Example.objects.for_gallery(challenge=challenge).all()
     assert rejected not in Example.objects.for_gallery(challenge=challenge).all()
 
-    assert approved in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
-    assert pending in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
-    assert rejected not in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
+    assert approved in Example.objects.for_gallery(challenge=challenge, user=user).all()
+    assert pending in Example.objects.for_gallery(challenge=challenge, user=user).all()
+    assert rejected not in Example.objects.for_gallery(challenge=challenge, user=user).all()
+
+@pytest.mark.django_db
+def test_example_queryset_for_gallery_preview_returns_subset():
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+
+    assert Example.objects.for_gallery_preview(challenge=challenge).count() == 4
+    assert set(Example.objects.for_gallery_preview(challenge=challenge)).issubset(set(examples))
 
 @pytest.mark.django_db
 def test_example_queryset_reject():
@@ -791,3 +799,41 @@ def test_example_queryset_approve_many():
     ExampleFactory.create_batch(5, approved=False)
 
     assert Example.objects.status(pending=True).approve() == 5
+
+@pytest.mark.django_db
+def test_landingview_renders_for_anonymous_user(client):
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+
+    response = client.get('/challenges/%d/landing/' % (challenge.id,))
+
+    assert set(response.context['examples']).issubset(set(examples))
+    assert response.context['challenge'] == challenge
+    assert response.context['progress'] == None
+
+@pytest.mark.django_db
+def test_landingview_renders_for_logged_in_user_without_progress(client):
+    user = MentorFactory(username='mentor', password='password')
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+
+    client.login(username='mentor', password='password')
+    response = client.get('/challenges/%d/landing/' % (challenge.id,))
+
+    assert set(response.context['examples']).issubset(set(examples))
+    assert response.context['challenge'] == challenge
+    assert response.context['progress'] == None
+
+@pytest.mark.django_db
+def test_landingview_renders_for_logged_in_student_with_progress(client):
+    user = StudentFactory(username='student', password='password')
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+    progress = ProgressFactory(challenge=challenge, student=user)
+
+    client.login(username='student', password='password')
+    response = client.get('/challenges/%d/landing/' % (challenge.id,))
+
+    assert set(response.context['examples']).issubset(set(examples))
+    assert response.context['challenge'] == challenge
+    assert response.context['progress'] == progress

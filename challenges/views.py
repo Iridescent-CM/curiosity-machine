@@ -90,15 +90,7 @@ def preview_inspiration(request, challenge_id):
 
     return render(request, 'challenges/preview/inspiration.html', {
         'challenge': challenge,
-        'examples': Example.objects.for_gallery(challenge=challenge)[:4],
-    })
-
-def preview_landing(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-
-    return render(request, 'challenges/preview/landing.html', {
-        'challenge': challenge,
-        'examples': Example.objects.for_gallery(challenge=challenge)[:4],
+        'examples': Example.objects.for_gallery_preview(challenge=challenge),
     })
 
 def preview_plan(request, challenge_id):
@@ -170,7 +162,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         return render(request, 'challenges/progress/inspiration.html', {
             'challenge': challenge,
             'progress': progress,
-            'examples': Example.objects.for_gallery(challenge=challenge)[:4],
+            'examples': Example.objects.for_gallery_preview(challenge=challenge),
         })
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
@@ -257,7 +249,7 @@ class ExamplesView(View):
 
         if request.user.is_authenticated():
             progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-            examples = Example.objects.for_gallery(challenge=challenge, progress=progress)
+            examples = Example.objects.for_gallery(challenge=challenge, user=request.user)
             user_example = examples.filter(progress=progress).first()
         else:
             progress = None
@@ -312,16 +304,13 @@ class LandingView(View):
     def get(self, request, challenge_id=None, *args, **kwargs):
         challenge = get_object_or_404(Challenge, id=challenge_id)
 
+        examples = Example.objects.for_gallery_preview(challenge=challenge)
+        progress = None
         if request.user.is_authenticated():
             progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-            examples = Example.objects.for_gallery(challenge=challenge)
-
-        else:
-            progress = None
-            examples = Example.objects.for_gallery(challenge=challenge)
 
         return render(request, 'challenges/preview/landing.html', {
-            'examples': Example.objects.for_gallery(challenge=challenge)[:4],
+            'examples': examples,
             'challenge': challenge,
             'progress': progress,
         })
