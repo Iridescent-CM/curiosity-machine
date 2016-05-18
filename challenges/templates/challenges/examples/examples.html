@@ -24,7 +24,7 @@
       {% if request.user.is_authenticated and request.user.profile.is_student %}
       <h3><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a></h3>
       {% else %}
-      <h3><a href="{% url "challenges:preview_landing" challenge_id=challenge.id %}">{{ challenge.name }}</a></h3>
+      <h3><a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">{{ challenge.name }}</a></h3>
       {% endif %}
       <h1>Inspiration Gallery</h1>
     </div>

@@ -320,7 +320,7 @@ class LandingView(View):
             progress = None
             examples = Example.objects.for_gallery(challenge=challenge)
 
-        return render(request, 'challenges/preview/landing.html', {
+        return render(request, 'challenges/preview/inspiration.html', {
             'examples': Example.objects.for_gallery(challenge=challenge)[:4],
             'challenge': challenge,
             'progress': progress,
