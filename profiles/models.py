@@ -50,7 +50,6 @@ class Profile(models.Model):
         through_fields=('parent_profile', 'child_profile'),
         related_name="parent_profiles",
         symmetrical=False,
-        null=True
     )
 
     @classmethod

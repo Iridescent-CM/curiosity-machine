@@ -45,8 +45,8 @@ class Challenge(models.Model):
     learn_more = models.TextField(help_text="HTML, shown in the guide")
     mentor_guide = models.TextField(help_text="HTML, shown in the mentor guide", null=True, blank=True)
     materials_list = models.TextField(help_text="HTML")
-    students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True, related_name="challenges")
-    themes = models.ManyToManyField(Theme, null=True, blank=True, related_name='challenges')
+    students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), related_name="challenges")
+    themes = models.ManyToManyField(Theme, blank=True, related_name='challenges')
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     landing_image = models.ForeignKey(Image, null=True, blank=True, related_name="+", on_delete=models.PROTECT, help_text="Image size should be a 4:3 ratio, at least 720px wide for best results. Jpg, png, or gif accepted.")
@@ -55,8 +55,8 @@ class Challenge(models.Model):
     plan_subheader = models.TextField(help_text="One line of plain text, shown below the plan stage header")
     build_subheader = models.TextField(help_text="One line of plain text, shown below the build stage header")
     reflect_subheader = models.TextField(help_text="One line of plain text, shown below the reflect stage header")
-    reflect_questions = models.ManyToManyField(Question, null=True)
-    favorited = models.ManyToManyField(User, through='Favorite', through_fields=('challenge', 'student'), null=True, related_name="favorite_challenges")
+    reflect_questions = models.ManyToManyField(Question)
+    favorited = models.ManyToManyField(User, through='Favorite', through_fields=('challenge', 'student'), related_name="favorite_challenges")
     draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown in the main challenge list")
     public = models.BooleanField(default=False, null=False, help_text="Public challenges are previewable without an account")
 
@@ -189,11 +189,14 @@ class ExampleQuerySet(models.QuerySet):
 
     def for_gallery(self, **kwargs):
         challenge_id = kwargs.get('challenge_id', None) or kwargs.get('challenge').id
-        progress = kwargs.get('progress', None)
+        user = kwargs.get('user', None)
         f = Q(approved=True)
-        if progress:
-            f = f | Q(progress=progress, approved=None)
+        if user:
+            f = f | Q(progress__student=user, approved=None)
         return self.filter(progress__challenge_id=challenge_id).filter(f).order_by('-id')
+
+    def for_gallery_preview(self, **kwargs):
+        return self.for_gallery(**kwargs)[:4]
 
     def from_progress(self, **kwargs):
         progress = kwargs.get('progress')
@@ -236,15 +239,14 @@ class Example(models.Model): # media that a mentor has selected to be featured o
     progress = models.ForeignKey(Progress, null=False, blank=False, on_delete=models.CASCADE)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, help_text="An image to display in the gallery. If a video is also set, this will be the thumbnail. Each example must have an image or a video, or both, to be displayed correctly.")
     approved = models.NullBooleanField(db_index=True)
-    created_at = models.DateTimeField(auto_now_add=True, default=now)
-    updated_at = models.DateTimeField(auto_now=True, default=now)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     objects = ExampleQuerySet().as_manager()
 
     @property
     def name(self):
-        if self._name: return self._name
-        elif self.progress: return self.progress.student.username
+        if self.progress: return self.progress.student.username
         else: return ""
 
     @property

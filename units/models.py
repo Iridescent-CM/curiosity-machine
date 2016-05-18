@@ -11,7 +11,7 @@ class Unit(models.Model):
     name = models.TextField(blank=False, null=False, help_text="name of the unit")
     description = models.TextField(blank=True, null=True, help_text="blurb for the unit")
     overview = models.TextField(blank=True, null=True, help_text="overview for the unit")
-    challenges = models.ManyToManyField(Challenge, through='UnitChallenge', null=True, blank=True)
+    challenges = models.ManyToManyField(Challenge, through='UnitChallenge', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="image")
@@ -35,7 +35,7 @@ class UnitChallenge(models.Model):
     display_order = models.PositiveIntegerField()
 
 class Resource(models.Model):
-    units = models.ManyToManyField(Unit, related_name="resources", null=True, blank=True)
+    units = models.ManyToManyField(Unit, related_name="resources", blank=True)
     link_text = models.CharField(max_length=128)
     file = S3DirectField(dest='unit-resources', blank=True, null=True, help_text="Uploads will overwrite files of the same name")
 

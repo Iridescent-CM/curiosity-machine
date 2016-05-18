@@ -2,7 +2,7 @@
 # everything necessary to run the app
 
 #framework
--e git://github.com/django/django@1.7b1#egg=Django
+Django==1.8.13
 
 #db driver
 psycopg2==2.6.1
@@ -18,7 +18,7 @@ whitenoise==1.0.6
 
 #better testing
 pretend==1.0.7
-pytest-django==2.6
+pytest-django==2.9.1
 mock==1.0.1
 coverage
 

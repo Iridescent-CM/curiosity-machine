@@ -45,7 +45,7 @@ class Task(models.Model):
     name = models.CharField(max_length=70)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="tasks")
     text = models.TextField(help_text="HTML")
-    mentors_done = models.ManyToManyField(User, null=True, blank=True, related_name='completed_tasks') # mentors listed here have completed the task
+    mentors_done = models.ManyToManyField(User, blank=True, related_name='completed_tasks') # mentors listed here have completed the task
     completion_email_template = models.CharField(null=True, blank=True, max_length=70, help_text="Optional template name to send on task completion")
 
     class Meta:

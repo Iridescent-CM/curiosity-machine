@@ -8,8 +8,6 @@ from django.contrib.auth.models import User
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
 
-pytestmark = pytest.mark.skipif(True, reason="training app is deprecated")
-
 NEW_MENTOR_USERNAME = "newbie"
 NEW_MENTOR_EMAIL = "newbie@example.com"
 NEW_MENTOR_PASSWORD = "secret"

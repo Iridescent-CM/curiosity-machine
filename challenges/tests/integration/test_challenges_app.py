@@ -1,19 +1,13 @@
+# test libs
 import pytest
-import mock
 from pyquery import PyQuery as pq
-from .models import Challenge, Progress, Theme, Favorite, Stage, Filter, Example
-from cmcomments.models import Comment
-from .views import challenges, unclaimed_progresses, claim_progress, challenge_progress, preview_inspiration, start_building
-from profiles.tests import student, mentor
-from profiles.models import UserRole
-from django.contrib.auth.models import User, AnonymousUser
-from .templatetags.user_has_started_challenge import user_has_started_challenge
-from .templatetags.activity_count import activity_count
-from django.contrib.messages.storage.fallback import FallbackStorage
-from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
-from django.utils.timezone import now
-from .factories import ChallengeFactory, ProgressFactory, ExampleFactory
+
+# fixtures
+from challenges.tests.fixtures import *
+from profiles.tests import student, mentor # TODO: move to profiles.tests.fixtures
+
+# factories
+from challenges.factories import ChallengeFactory, ProgressFactory, ExampleFactory
 from profiles.factories import StudentFactory, MentorFactory
 from cmcomments.factories import CommentFactory
 from images.factories import ImageFactory
@@ -59,6 +53,25 @@ def progress(student, mentor, challenge):
 @pytest.fixture
 def unclaimed_progress(student, challenge):
     return Progress.objects.create(student=student, challenge=challenge)
+=======
+# django modules
+from django.contrib.auth.models import AnonymousUser
+from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
+from django.contrib.messages.storage.fallback import FallbackStorage
+from django.utils.timezone import now
+
+# app modules
+from challenges.models import Stage, Example
+from challenges.views import challenges, unclaimed_progresses, claim_progress, preview_inspiration, start_building
+from challenges.templatetags.activity_count import activity_count
+from challenges.templatetags.user_has_started_challenge import user_has_started_challenge
+from cmcomments.models import Comment
+
+# mark all as integration tests for -m filtering
+pytestmark = pytest.mark.integration
+
+>>>>>>> develop:challenges/tests/integration/test_challenges_app.py
 
 @pytest.mark.django_db
 def test_theme_str(theme):
@@ -784,9 +797,17 @@ def test_example_queryset_for_gallery():
     assert pending not in Example.objects.for_gallery(challenge=challenge).all()
     assert rejected not in Example.objects.for_gallery(challenge=challenge).all()
 
-    assert approved in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
-    assert pending in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
-    assert rejected not in Example.objects.for_gallery(challenge=challenge, progress=progress).all()
+    assert approved in Example.objects.for_gallery(challenge=challenge, user=user).all()
+    assert pending in Example.objects.for_gallery(challenge=challenge, user=user).all()
+    assert rejected not in Example.objects.for_gallery(challenge=challenge, user=user).all()
+
+@pytest.mark.django_db
+def test_example_queryset_for_gallery_preview_returns_subset():
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+
+    assert Example.objects.for_gallery_preview(challenge=challenge).count() == 4
+    assert set(Example.objects.for_gallery_preview(challenge=challenge)).issubset(set(examples))
 
 @pytest.mark.django_db
 def test_example_queryset_reject():
@@ -822,3 +843,40 @@ def test_example_queryset_approve_many():
 
     assert Example.objects.status(pending=True).approve() == 5
 
+@pytest.mark.django_db
+def test_landingview_renders_for_anonymous_user(client):
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+
+    response = client.get('/challenges/%d/landing/' % (challenge.id,))
+
+    assert set(response.context['examples']).issubset(set(examples))
+    assert response.context['challenge'] == challenge
+    assert response.context['progress'] == None
+
+@pytest.mark.django_db
+def test_landingview_renders_for_logged_in_user_without_progress(client):
+    user = MentorFactory(username='mentor', password='password')
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+
+    client.login(username='mentor', password='password')
+    response = client.get('/challenges/%d/landing/' % (challenge.id,))
+
+    assert set(response.context['examples']).issubset(set(examples))
+    assert response.context['challenge'] == challenge
+    assert response.context['progress'] == None
+
+@pytest.mark.django_db
+def test_landingview_renders_for_logged_in_student_with_progress(client):
+    user = StudentFactory(username='student', password='password')
+    challenge = ChallengeFactory()
+    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+    progress = ProgressFactory(challenge=challenge, student=user)
+
+    client.login(username='student', password='password')
+    response = client.get('/challenges/%d/landing/' % (challenge.id,))
+
+    assert set(response.context['examples']).issubset(set(examples))
+    assert response.context['challenge'] == challenge
+    assert response.context['progress'] == progress
