@@ -3,6 +3,7 @@ from .models import Module, Comment
 from .views import module as module_view
 from .views import task as task_view
 from .views import comments, approve_task_progress
+from profiles.models import UserRole
 from profiles.tests import student, mentor
 from django.contrib.auth.models import User
 from django.contrib.messages.storage.fallback import FallbackStorage
@@ -18,7 +19,7 @@ ADMIN_EMAIL = "admin@example.com"
 def new_mentor(): # not approved
     mentor = User.objects.create(username=NEW_MENTOR_USERNAME, email=NEW_MENTOR_EMAIL)
     mentor.set_password(NEW_MENTOR_PASSWORD)
-    mentor.profile.is_mentor = True
+    mentor.profile.role = UserRole.mentor.value
     mentor.profile.save()
     mentor.save()
     return mentor
