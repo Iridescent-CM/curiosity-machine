@@ -9,7 +9,7 @@
           {% if progress|unread_count:request.user %} <span title="{{progress|unread_count:request.user}} unread messages" class="unread">{{progress|unread_count:request.user}}</span>{% endif %}
           <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a>
         {% else %}
-          <a href="{% url 'challenges:preview_inspiration' challenge.id %}">{{ challenge.name }}</a>
+          <a href="{% url 'challenges:preview_landing' challenge.id %}">{{ challenge.name }}</a>
         {% endif %}
       </h3>
     </div>
@@ -17,7 +17,7 @@
       {% if challenge in all %}
         <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">
       {% else %}
-        <a href="{% url 'challenges:preview_inspiration' challenge.id %}">
+        <a href="{% url 'challenges:preview_landing' challenge.id %}">
       {% endif %}
       {% if challenge.image %}
         <img src="{% resized challenge.image.url width=300 height=200 crop='fit' %}">

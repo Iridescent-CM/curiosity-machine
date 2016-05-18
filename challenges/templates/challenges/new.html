@@ -71,7 +71,7 @@
               {% if challenge in all %}
               <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
               {% else %}
-              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
+              <a href="{% url "challenges:preview_landing" challenge_id=challenge.id %}">
               {% endif %}
                 <div class="challenge-card-title">
                   <p>{{challenge.name}}</p>
@@ -81,7 +81,7 @@
               {% if challenge in all %}
               <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
               {% else %}
-              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
+              <a href="{% url "challenges:preview_landing" challenge_id=challenge.id %}" class="action-img">
               {% endif %}
                 {% if challenge.image %}
                 <img src="{% resized challenge.image.url width=300 height=170 crop='fill' %}">
