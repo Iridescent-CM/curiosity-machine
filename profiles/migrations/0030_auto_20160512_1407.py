@@ -34,7 +34,7 @@ def set_flags(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('profiles', '0028_profile_role'),
+        ('profiles', '0029_profile_role'),
     ]
 
     operations = [
