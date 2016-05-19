@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse, Http404
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -159,18 +159,7 @@ class InspirationProgressDispatch(View):
             else:
                 return InspirationUserProgress.as_view()(request, *args, **kwargs)
         else:
-            raise Http404()
-
-
-#def preview_inspiration(request, challenge_id):
-#    challenge = get_object_or_404(Challenge, id=challenge_id)
-#    if require_login_for(request, challenge):
-#        raise LoginRequired()
-#
-#    return render(request, ['challenges/edp/inspiration_user.html'], {
-#        'challenge': challenge,
-#        'examples': Example.objects.for_gallery_preview(challenge=challenge),
-#    })
+            return HttpResponseForbidden()
 
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
