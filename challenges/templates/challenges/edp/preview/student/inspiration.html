@@ -1,0 +1,22 @@
+{% extends "challenges/edp/inspiration_user.html" %}
+
+{% block jumbotron_message %}
+  {% if not progress %}
+    <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
+      {% csrf_token %}
+      <input type="submit" value="Start Building" class="btn btn-secondary btn-lg" />
+    </form>
+  {% elif not progress.completed %}
+    <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id  username=request.user.username %}"
+      class="btn btn-secondary btn-lg">Keep Building</a>
+  {% elif progress.completed %}
+    <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id  username=request.user.username %}"
+      class="btn btn-secondary btn-lg">View Your Project</a>
+  {% endif %}
+{% endblock %}
+
+{% block body_rows %}
+  SPECIAL STUDENT STUFF TOP
+  {{ block.super }}
+  SPECIAL STUDENT STUFF BOTTOM
+{% endblock %}

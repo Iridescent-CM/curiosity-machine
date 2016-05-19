@@ -1,0 +1,10 @@
+{% extends "challenges/edp/preview/inspiration_anonymous.html" %}
+
+{% block jumbotron_message %}
+  <a href="{% url 'challenges:preview_plan' challenge_id=challenge.id %}" class="btn btn-secondary btn-lg">Preview Challenge</a>
+{% endblock %}
+
+{% block body_rows %}
+  {{ block.super }}
+  {% include "challenges/edp/_inspiration_gallery_row.html" with challenge=challenge examples=examples%}
+{% endblock %}

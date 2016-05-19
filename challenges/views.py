@@ -83,15 +83,67 @@ def start_building(request, challenge_id):
 def require_login_for(request, challenge):
     return not (request.user.is_authenticated() or challenge.public)
 
-def preview_inspiration(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-    if require_login_for(request, challenge):
-        raise LoginRequired()
+from django.views.generic.base import View, TemplateView
 
-    return render(request, 'challenges/preview/inspiration.html', {
-        'challenge': challenge,
-        'examples': Example.objects.for_gallery_preview(challenge=challenge),
-    })
+class InspirationAnonymousPreview(TemplateView):
+    template_name = "challenges/edp/preview/inspiration_anonymous.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(InspirationAnonymousPreview, self).get_context_data(**kwargs)
+
+        challenge = get_object_or_404(Challenge, id=kwargs.get('challenge_id'))
+        if require_login_for(self.request, challenge):
+            raise LoginRequired()
+
+        context['challenge'] = challenge
+        return context
+
+class InspirationUserPreview(InspirationAnonymousPreview):
+    template_name = None
+
+    def get_context_data(self, **kwargs):
+        context = super(InspirationUserPreview, self).get_context_data(**kwargs)
+        context['examples'] = Example.objects.for_gallery_preview(challenge=context['challenge'])
+        return context
+
+    def get_user_role(self):
+        if self.request.user.profile.is_student:
+            return 'student'
+        else:
+            return 'none'
+
+    def get_template_names(self):
+        return [
+            "challenges/edp/preview/%s/inspiration.html" % self.get_user_role(),
+            "challenges/edp/preview/inspiration_user.html"
+        ]
+
+class InspirationStudentPreview(InspirationUserPreview):
+
+    def get_context_data(self, **kwargs):
+        context = super(InspirationStudentPreview, self).get_context_data(**kwargs)
+        context['progress'] = Progress.objects.filter(challenge=context['challenge'], student__username=self.request.user.username).first()
+        return context
+
+class InspirationPreviewDispatch(View):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            if request.user.profile.is_student:
+                return InspirationStudentPreview.as_view()(request, *args, **kwargs)
+            else:
+                return InspirationUserPreview.as_view()(request, *args, **kwargs)
+        else:
+            return InspirationAnonymousPreview.as_view()(request, *args, **kwargs)
+
+#def preview_inspiration(request, challenge_id):
+#    challenge = get_object_or_404(Challenge, id=challenge_id)
+#    if require_login_for(request, challenge):
+#        raise LoginRequired()
+#
+#    return render(request, ['challenges/edp/inspiration_user.html'], {
+#        'challenge': challenge,
+#        'examples': Example.objects.for_gallery_preview(challenge=challenge),
+#    })
 
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
