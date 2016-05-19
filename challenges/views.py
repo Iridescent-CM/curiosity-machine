@@ -18,7 +18,7 @@ from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import View
+from django.views.generic.base import View, TemplateView
 from django.utils.decorators import method_decorator
 
 def challenges(request):
@@ -83,8 +83,6 @@ def start_building(request, challenge_id):
 def require_login_for(request, challenge):
     return not (request.user.is_authenticated() or challenge.public)
 
-from django.views.generic.base import View, TemplateView
-
 class InspirationAnonymousPreview(TemplateView):
     template_name = "challenges/edp/preview/inspiration_anonymous.html"
 
@@ -142,25 +140,42 @@ class InspirationStudentPreview(InspirationUserPreview):
         context['progress'] = Progress.objects.filter(challenge=context['challenge'], student__username=self.request.user.username).first()
         return context
 
-class InspirationPreviewDispatch(View):
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
-            if request.user.profile.is_student:
-                return InspirationStudentPreview.as_view()(request, *args, **kwargs)
-            else:
-                return InspirationUserPreview.as_view()(request, *args, **kwargs)
-        else:
-            return InspirationAnonymousPreview.as_view()(request, *args, **kwargs)
+class InspirationStudentProgress(InspirationStudentPreview):
+    pass
 
-class InspirationProgressDispatch(View):
+class ViewDispatch(View):
+
+    @staticmethod
+    def select_view_class(user):
+        raise NotImplementedError("Subclass must implement select_view_class(user)")
+
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
-            if request.user.profile.is_student:
-                return InspirationStudentPreview.as_view()(request, *args, **kwargs)
+        viewClass = self.select_view_class(request.user)
+        return viewClass.as_view()(request, *args, **kwargs)
+
+class InspirationPreviewDispatch(ViewDispatch):
+
+    @staticmethod
+    def select_view_class(user):
+        if user.is_authenticated():
+            if user.profile.is_student:
+                return InspirationStudentPreview
             else:
-                return InspirationUserProgress.as_view()(request, *args, **kwargs)
+                return InspirationUserPreview
         else:
-            return HttpResponseForbidden()
+            return InspirationAnonymousPreview
+
+class InspirationProgressDispatch(ViewDispatch):
+    
+    @staticmethod
+    def select_view_class(user):
+        if user.is_authenticated():
+            if user.profile.is_student:
+                return InspirationStudentProgress
+            else:
+                return InspirationUserProgress
+        else:
+            raise PermissionDenied()
 
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
