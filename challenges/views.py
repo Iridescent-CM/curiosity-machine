@@ -98,11 +98,12 @@ class InspirationAnonymousPreview(TemplateView):
         context['challenge'] = challenge
         return context
 
-class InspirationUserPreview(InspirationAnonymousPreview):
+class InspirationUserView(InspirationAnonymousPreview):
     template_name = None
+    template_dir = None
 
     def get_context_data(self, **kwargs):
-        context = super(InspirationUserPreview, self).get_context_data(**kwargs)
+        context = super(InspirationUserView, self).get_context_data(**kwargs)
         context['examples'] = Example.objects.for_gallery_preview(challenge=context['challenge'])
         return context
 
@@ -114,9 +115,24 @@ class InspirationUserPreview(InspirationAnonymousPreview):
 
     def get_template_names(self):
         return [
-            "challenges/edp/preview/%s/inspiration.html" % self.get_user_role(),
-            "challenges/edp/preview/inspiration_user.html"
+            "challenges/edp/%s/%s/inspiration.html" % (self.template_dir, self.get_user_role()),
+            "challenges/edp/%s/inspiration_user.html" % self.template_dir
         ]
+
+class InspirationUserPreview(InspirationUserView):
+    template_dir = 'preview'
+
+class InspirationUserProgress(InspirationUserView):
+    template_dir = 'progress'
+
+    def get_context_data(self, **kwargs):
+        context = super(InspirationUserProgress, self).get_context_data(**kwargs)
+        context['progress'] = get_object_or_404(
+            Progress,
+            challenge_id = kwargs.get('challenge_id'),
+            student__username = kwargs.get('username')
+        )
+        return context
 
 class InspirationStudentPreview(InspirationUserPreview):
 
@@ -134,6 +150,17 @@ class InspirationPreviewDispatch(View):
                 return InspirationUserPreview.as_view()(request, *args, **kwargs)
         else:
             return InspirationAnonymousPreview.as_view()(request, *args, **kwargs)
+
+class InspirationProgressDispatch(View):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            if request.user.profile.is_student:
+                return InspirationStudentPreview.as_view()(request, *args, **kwargs)
+            else:
+                return InspirationUserProgress.as_view()(request, *args, **kwargs)
+        else:
+            raise Http404()
+
 
 #def preview_inspiration(request, challenge_id):
 #    challenge = get_object_or_404(Challenge, id=challenge_id)
