@@ -107,6 +107,7 @@ class InspirationUserView(InspirationAnonymousPreview):
         context['examples'] = Example.objects.for_gallery_preview(challenge=context['challenge'])
         return context
 
+    # FIXME: this goes away after #876, when role can be checked directly
     def get_user_role(self):
         if self.request.user.profile.is_student:
             return 'student'
