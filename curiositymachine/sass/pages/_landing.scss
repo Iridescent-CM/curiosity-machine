@@ -25,13 +25,6 @@
     }
   }
 
-  .down-arrow {
-    font-size: 2em;
-    margin-top: $small-spacing;
-    color: $primary-red;
-    text-align: center;
-  }
-
   @include media-breakpoint-down(md) {
     .hero {
       display: inherit !important;
