@@ -86,6 +86,10 @@ class Profile(models.Model):
             return 'parent'
 
     @property
+    def role_name(self):
+        return UserRole(self.role).name
+
+    @property
     def is_student(self):
         return UserRole(self.role) == UserRole.student
 
