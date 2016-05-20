@@ -90,8 +90,6 @@ class InspirationAnonymousPreview(TemplateView):
         context = super(InspirationAnonymousPreview, self).get_context_data(**kwargs)
 
         challenge = get_object_or_404(Challenge, id=kwargs.get('challenge_id'))
-        if require_login_for(self.request, challenge):
-            raise LoginRequired()
 
         context['challenge'] = challenge
         return context
