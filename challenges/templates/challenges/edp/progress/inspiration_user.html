@@ -1,0 +1,6 @@
+{% extends "challenges/edp/inspiration_with_gallery.html" %}
+
+{% block jumbotron_message %}
+  <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='plan'%}"
+    class="btn btn-secondary btn-lg">Return to Progress</a>
+{% endblock %}

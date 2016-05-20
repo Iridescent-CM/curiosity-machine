@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse, Http404
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -18,7 +18,7 @@ from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import View
+from django.views.generic.base import View, TemplateView
 from django.utils.decorators import method_decorator
 
 def challenges(request):
@@ -83,15 +83,100 @@ def start_building(request, challenge_id):
 def require_login_for(request, challenge):
     return not (request.user.is_authenticated() or challenge.public)
 
-def preview_inspiration(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-    if require_login_for(request, challenge):
-        raise LoginRequired()
+class InspirationAnonymousPreview(TemplateView):
+    template_name = "challenges/edp/preview/inspiration_anonymous.html"
 
-    return render(request, 'challenges/preview/inspiration.html', {
-        'challenge': challenge,
-        'examples': Example.objects.for_gallery_preview(challenge=challenge),
-    })
+    def get_context_data(self, **kwargs):
+        context = super(InspirationAnonymousPreview, self).get_context_data(**kwargs)
+
+        challenge = get_object_or_404(Challenge, id=kwargs.get('challenge_id'))
+
+        context['challenge'] = challenge
+        return context
+
+class InspirationUserView(InspirationAnonymousPreview):
+    template_name = None
+    template_dir = None
+
+    def get_context_data(self, **kwargs):
+        context = super(InspirationUserView, self).get_context_data(**kwargs)
+        context['examples'] = Example.objects.for_gallery_preview(challenge=context['challenge'])
+        return context
+
+    # FIXME: this goes away after #876, when role can be checked directly
+    def get_user_role(self):
+        if self.request.user.profile.is_student:
+            return 'student'
+        else:
+            return 'none'
+
+    def get_template_names(self):
+        return [
+            "challenges/edp/%s/%s/inspiration.html" % (self.template_dir, self.get_user_role()),
+            "challenges/edp/%s/inspiration_user.html" % self.template_dir
+        ]
+
+class InspirationUserPreview(InspirationUserView):
+    template_dir = 'preview'
+
+class InspirationUserProgress(InspirationUserView):
+    template_dir = 'progress'
+
+    def get_context_data(self, **kwargs):
+        context = super(InspirationUserProgress, self).get_context_data(**kwargs)
+        context['progress'] = get_object_or_404(
+            Progress,
+            challenge_id = kwargs.get('challenge_id'),
+            student__username = kwargs.get('username')
+        )
+        return context
+
+class InspirationStudentPreview(InspirationUserPreview):
+
+    def get_context_data(self, **kwargs):
+        context = super(InspirationStudentPreview, self).get_context_data(**kwargs)
+        context['progress'] = Progress.objects.filter(challenge=context['challenge'], student__username=self.request.user.username).first()
+        return context
+
+class InspirationStudentProgress(InspirationUserProgress):
+
+    @method_decorator(current_user_or_approved_viewer)
+    def dispatch(self, request, *args, **kwargs):
+        return super(InspirationStudentProgress, self).dispatch(request, *args, **kwargs)
+
+class ViewDispatch(View):
+
+    @staticmethod
+    def select_view_class(user):
+        raise NotImplementedError("Subclass must implement select_view_class(user)")
+
+    def dispatch(self, request, *args, **kwargs):
+        viewClass = self.select_view_class(request.user)
+        return viewClass.as_view()(request, *args, **kwargs)
+
+class InspirationPreviewDispatch(ViewDispatch):
+
+    @staticmethod
+    def select_view_class(user):
+        if user.is_authenticated():
+            if user.profile.is_student:
+                return InspirationStudentPreview
+            else:
+                return InspirationUserPreview
+        else:
+            return InspirationAnonymousPreview
+
+class InspirationProgressDispatch(ViewDispatch):
+    
+    @staticmethod
+    def select_view_class(user):
+        if user.is_authenticated():
+            if user.profile.is_student:
+                return InspirationStudentProgress
+            else:
+                return InspirationUserProgress
+        else:
+            raise PermissionDenied()
 
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)

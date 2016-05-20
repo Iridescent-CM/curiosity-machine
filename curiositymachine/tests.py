@@ -352,7 +352,7 @@ def test_challenge_access_decorator_allows_any_mentor(rf):
     request = rf.get('/some/path')
     request.user = mentor
     wrapped = decorators.current_user_or_approved_viewer(view)
-    response = wrapped(request, 1, 'student')
+    response = wrapped(request, challenge_id=1, username='student')
     assert view.called
 
 def test_challenge_access_decorator_allows_named_user(rf):
@@ -362,7 +362,7 @@ def test_challenge_access_decorator_allows_named_user(rf):
     request = rf.get('/some/path')
     request.user = user
     wrapped = decorators.current_user_or_approved_viewer(view)
-    response = wrapped(request, 1, 'named')
+    response = wrapped(request, challenge_id=1, username='named')
     assert view.called
 
 @mock.patch('curiositymachine.decorators.Membership.users_share_any_group', force_true)
@@ -373,7 +373,7 @@ def test_challenge_access_decorator_allows_connected_group_owners(rf):
     request = rf.get('/some/path')
     request.user = user
     wrapped = decorators.current_user_or_approved_viewer(view)
-    response = wrapped(request, 1, 'student')
+    response = wrapped(request, challenge_id=1, username='student')
     assert view.called
 
 @mock.patch('curiositymachine.decorators.Membership.users_share_any_group', force_false)
@@ -385,7 +385,7 @@ def test_challenge_access_decorator_allows_connected_parent(rf):
     request = rf.get('/some/path')
     request.user = user
     wrapped = decorators.current_user_or_approved_viewer(view)
-    response = wrapped(request, 1, 'student')
+    response = wrapped(request, challenge_id=1, username='student')
     assert view.called
 
 @mock.patch('curiositymachine.decorators.Membership.users_share_any_group', force_false)
@@ -397,7 +397,7 @@ def test_challenge_access_decorator_redirects_other(rf):
     request = rf.get('/some/path')
     request.user = user
     wrapped = decorators.current_user_or_approved_viewer(view)
-    response = wrapped(request, 1, 'named')
+    response = wrapped(request, challenge_id=1, username='named')
     assert not view.called
     assert response.status_code == 302
 
