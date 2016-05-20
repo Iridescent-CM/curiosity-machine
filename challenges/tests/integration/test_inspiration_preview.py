@@ -7,6 +7,13 @@ pytestmark = pytest.mark.integration
 
 
 @pytest.mark.django_db
+def test_nonpublic_challenges_require_login(client):
+    challenge = ChallengeFactory( public=False )
+    response = client.get('/challenges/%d/' % challenge.id, follow=True)
+    assert response.status_code == 200
+    assert "registration/login.html" == response.templates[0].name
+
+@pytest.mark.django_db
 def test_renders_anonymous_template_with_challenge_for_anonymous_user(client):
     challenge = ChallengeFactory( public=True )
     response = client.get('/challenges/%d/' % challenge.id, follow=True) 
