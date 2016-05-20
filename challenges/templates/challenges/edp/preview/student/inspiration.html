@@ -1,4 +1,4 @@
-{% extends "challenges/edp/preview/inspiration_user.html" %}
+{% extends "challenges/edp/inspiration_with_gallery.html" %}
 
 {% block jumbotron_message %}
     <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
