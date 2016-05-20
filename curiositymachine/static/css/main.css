@@ -5802,6 +5802,12 @@ footer {
     #landing-page .hero .hero-text h3 {
       color: #b3e8ed; }
 
+#landing-page .down-arrow {
+  font-size: 2em;
+  margin-top: 0.75em;
+  color: #F55932;
+  text-align: center; }
+
 @media (max-width: 61.9em) {
   #landing-page .hero {
     display: inherit !important;
