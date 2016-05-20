@@ -1,7 +1,5 @@
 import pytest
 
-from challenges.views import InspirationAnonymousPreview
-
 from challenges.factories import ChallengeFactory, ExampleFactory, ProgressFactory
 from profiles.factories import StudentFactory, MentorFactory
 

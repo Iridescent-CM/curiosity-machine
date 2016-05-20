@@ -140,8 +140,11 @@ class InspirationStudentPreview(InspirationUserPreview):
         context['progress'] = Progress.objects.filter(challenge=context['challenge'], student__username=self.request.user.username).first()
         return context
 
-class InspirationStudentProgress(InspirationStudentPreview):
-    pass
+class InspirationStudentProgress(InspirationUserProgress):
+
+    @method_decorator(current_user_or_approved_viewer)
+    def dispatch(self, request, *args, **kwargs):
+        return super(InspirationStudentProgress, self).dispatch(request, *args, **kwargs)
 
 class ViewDispatch(View):
 

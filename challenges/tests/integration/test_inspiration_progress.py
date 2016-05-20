@@ -1,0 +1,91 @@
+import pytest
+
+from challenges.factories import ChallengeFactory, ExampleFactory, ProgressFactory
+from profiles.factories import StudentFactory, MentorFactory
+
+pytestmark = pytest.mark.integration
+
+
+@pytest.mark.django_db
+def test_inspiration_progress_view_as_student_renders_student_template(client):
+    challenge = ChallengeFactory( public=True )
+    user = StudentFactory(username='user', password='123123')
+    progress = ProgressFactory(challenge=challenge, student=user)
+
+    client.login(username='user', password='123123')
+    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, user.username), follow=True) 
+
+    assert response.status_code == 200
+    assert "challenges/edp/progress/student/inspiration.html" == response.templates[0].name
+
+@pytest.mark.django_db
+def test_student_template_gets_progress(client):
+    challenge = ChallengeFactory( public=True )
+    user = StudentFactory(username='user', password='123123')
+    progress = ProgressFactory(challenge=challenge, student=user)
+
+    client.login(username='user', password='123123')
+    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, user.username), follow=True) 
+
+    assert response.status_code == 200
+    assert response.context['progress'] == progress
+
+@pytest.mark.django_db
+def test_student_template_gets_examples(client):
+    challenge = ChallengeFactory( public=True )
+    examples = ExampleFactory.create_batch(2, challenge=challenge, approved=True)
+    user = StudentFactory(username='user', password='123123')
+    progress = ProgressFactory(challenge=challenge, student=user)
+
+    client.login(username='user', password='123123')
+    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, user.username), follow=True) 
+
+    assert response.status_code == 200
+    assert set(response.context['examples']) == set(examples)
+
+@pytest.mark.django_db
+def test_student_cannot_view_other_student_progress_inspirations(client):
+    challenge = ChallengeFactory( public=True )
+    progress = ProgressFactory(challenge=challenge)
+    user = StudentFactory(username='user', password='123123')
+
+    client.login(username='user', password='123123')
+    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=False) 
+
+    assert response.status_code == 302
+
+@pytest.mark.django_db
+def test_renders_nonstudent_template_with_challenge_for_nonstudent_user(client):
+    challenge = ChallengeFactory( public=True )
+    progress = ProgressFactory(challenge=challenge)
+    user = MentorFactory(username='user', password='123123')
+
+    client.login(username='user', password='123123')
+    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=True) 
+
+    assert response.status_code == 200
+    assert response.context['challenge'] == challenge
+    assert "challenges/edp/progress/inspiration_user.html" == response.templates[0].name
+
+@pytest.mark.django_db
+def test_nonstudent_template_gets_examples(client):
+    challenge = ChallengeFactory( public=True )
+    progress = ProgressFactory(challenge=challenge)
+    examples = ExampleFactory.create_batch(2, challenge=challenge, approved=True)
+    user = MentorFactory(username='user', password='123123')
+
+    client.login(username='user', password='123123')
+    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=True) 
+
+    assert response.status_code == 200
+    assert set(response.context['examples']) == set(examples)
+
+@pytest.mark.django_db
+def test_anonymous_user_access_denied(client):
+    challenge = ChallengeFactory( public=True )
+    progress = ProgressFactory(challenge=challenge)
+
+    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=True) 
+
+    assert response.status_code == 200
+    assert "registration/login.html" == response.templates[0].name
