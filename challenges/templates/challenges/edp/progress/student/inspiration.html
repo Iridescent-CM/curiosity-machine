@@ -1,0 +1,11 @@
+{% extends "challenges/edp/inspiration_with_gallery.html" %}
+
+{% block jumbotron_message %}
+  {% if not progress.completed %}
+    <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id  username=request.user.username %}"
+      class="btn btn-secondary btn-lg">Keep Building</a>
+  {% else %}
+    <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id  username=request.user.username %}"
+      class="btn btn-secondary btn-lg">View Your Project</a>
+  {% endif %}
+{% endblock %}

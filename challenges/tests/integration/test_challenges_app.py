@@ -21,7 +21,7 @@ from django.utils.timezone import now
 
 # app modules
 from challenges.models import Stage, Example
-from challenges.views import challenges, unclaimed_progresses, claim_progress, preview_inspiration, start_building
+from challenges.views import challenges, unclaimed_progresses, claim_progress, start_building
 from challenges.templatetags.activity_count import activity_count
 from challenges.templatetags.user_has_started_challenge import user_has_started_challenge
 from cmcomments.models import Comment
@@ -74,27 +74,11 @@ def test_challenges_filters_drafts(client, challenge, challenge2, student):
     assert len(response.context['challenges']) == 1
 
 @pytest.mark.django_db
-def test_preview_inpsiration(rf, challenge, student):
-    request = rf.get('/challenges/1/')
-    request.user = student
-    response = preview_inspiration(request, challenge.id)
-    assert response.status_code == 200
-
-@pytest.mark.django_db
 def test_start_building(rf, challenge, student):
     request = rf.post('/challenges/1/start_building')
     request.user = student
     response = start_building(request, challenge.id)
     assert Progress.objects.filter(challenge=challenge, student=student).count() == 1
-
-@pytest.mark.django_db
-def test_preview_inspiration_renders_inspiration_preview(client, challenge, loggedInStudent):
-    url = reverse('challenges:preview_inspiration', kwargs={
-        'challenge_id': challenge.id
-    })
-    response = client.get(url)
-    assert 'challenges/preview/inspiration.html' in [tmpl.name for tmpl in response.templates]
-    assert response.status_code == 200
 
 @pytest.mark.django_db
 def test_preview_plan_renders_plan_preview(client, challenge, loggedInStudent):
@@ -253,7 +237,7 @@ def test_challenge_progress_renders_stage_templates(client, student_comment, log
     progress.save()
 
     for stage in Stage:
-        if stage == Stage.test:
+        if stage in [Stage.test, Stage.inspiration]:
             continue
         url = reverse('challenges:challenge_progress', kwargs={
             'challenge_id':progress.challenge.id,
@@ -799,41 +783,3 @@ def test_example_queryset_approve_many():
     ExampleFactory.create_batch(5, approved=False)
 
     assert Example.objects.status(pending=True).approve() == 5
-
-@pytest.mark.django_db
-def test_landingview_renders_for_anonymous_user(client):
-    challenge = ChallengeFactory()
-    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
-
-    response = client.get('/challenges/%d/landing/' % (challenge.id,))
-
-    assert set(response.context['examples']).issubset(set(examples))
-    assert response.context['challenge'] == challenge
-    assert response.context['progress'] == None
-
-@pytest.mark.django_db
-def test_landingview_renders_for_logged_in_user_without_progress(client):
-    user = MentorFactory(username='mentor', password='password')
-    challenge = ChallengeFactory()
-    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
-
-    client.login(username='mentor', password='password')
-    response = client.get('/challenges/%d/landing/' % (challenge.id,))
-
-    assert set(response.context['examples']).issubset(set(examples))
-    assert response.context['challenge'] == challenge
-    assert response.context['progress'] == None
-
-@pytest.mark.django_db
-def test_landingview_renders_for_logged_in_student_with_progress(client):
-    user = StudentFactory(username='student', password='password')
-    challenge = ChallengeFactory()
-    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
-    progress = ProgressFactory(challenge=challenge, student=user)
-
-    client.login(username='student', password='password')
-    response = client.get('/challenges/%d/landing/' % (challenge.id,))
-
-    assert set(response.context['examples']).issubset(set(examples))
-    assert response.context['challenge'] == challenge
-    assert response.context['progress'] == progress

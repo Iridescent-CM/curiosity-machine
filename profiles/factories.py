@@ -57,3 +57,45 @@ class StudentFactory(factory.django.DjangoModelFactory):
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
     profile = factory.RelatedFactory(StudentProfileFactory, 'user')
+
+class EducatorProfileFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Profile
+
+    is_educator = True
+    city = 'city'
+    approved = True
+
+@factory.django.mute_signals(handlers.post_save)
+class EducatorFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.User
+
+    username = factory.fuzzy.FuzzyText(prefix="educator_")
+    email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
+    password = factory.PostGenerationMethodCall('set_password', '123123')
+
+    profile = factory.RelatedFactory(EducatorProfileFactory, 'user')
+
+class ParentProfileFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Profile
+
+    is_parent = True
+    city = 'city'
+    approved = True
+
+@factory.django.mute_signals(handlers.post_save)
+class ParentFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.User
+
+    username = factory.fuzzy.FuzzyText(prefix="parent_")
+    email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
+    password = factory.PostGenerationMethodCall('set_password', '123123')
+
+    profile = factory.RelatedFactory(EducatorProfileFactory, 'user')
+
+class ParentConnectionFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.ParentConnection

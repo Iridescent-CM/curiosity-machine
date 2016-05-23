@@ -1,0 +1,54 @@
+{% load resized %}
+{% if request.user.is_authenticated %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-module m-b-lg">
+        <div class="card-block card-block-title">
+          <h4 class="red-type">Inspiration Gallery</h4>
+        </div>
+        {% if examples %}
+        <div class="card-block">
+          <div class="row">
+            {% for example in examples %}
+            <div class="col-lg-3 col-sm-6">
+              <div class="card">
+                <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
+                  <img class="card-img-top action-img" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+                </a>
+                <div class="card-block text-center">
+                  <p class="card-title">{{ example.progress.student.username }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="{{ example.progress.student.username }}" tabindex="-1" role="dialog" aria-labelledby="modal-{{ example.id }}-title" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 id="modal-{{example.id}}-title">{{ example.progress.student.username }}'s {{ challenge.name }}</h3>
+                  </div>
+                  <div class="modal-body text-center">
+                    <img src="{% resized example.image.url %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="row">
+            <div class="card-block text-center">
+              <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary ig-button">View the Inspiration Gallery</a>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="card-block text-center">
+          <p>There aren't any examples yet!</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
