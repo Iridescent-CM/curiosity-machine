@@ -118,6 +118,10 @@ class InspirationUserPreview(InspirationUserView):
 class InspirationUserProgress(InspirationUserView):
     template_dir = 'progress'
 
+    @method_decorator(current_user_or_approved_viewer)
+    def dispatch(self, request, *args, **kwargs):
+        return super(InspirationUserProgress, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(InspirationUserProgress, self).get_context_data(**kwargs)
         context['progress'] = get_object_or_404(
@@ -135,10 +139,7 @@ class InspirationStudentPreview(InspirationUserPreview):
         return context
 
 class InspirationStudentProgress(InspirationUserProgress):
-
-    @method_decorator(current_user_or_approved_viewer)
-    def dispatch(self, request, *args, **kwargs):
-        return super(InspirationStudentProgress, self).dispatch(request, *args, **kwargs)
+    pass
 
 class ViewDispatch(View):
 
@@ -380,18 +381,3 @@ class ExamplesDeleteView(View):
         return HttpResponseRedirect(reverse('challenges:examples', kwargs={
             'challenge_id': challenge_id,
         }))
-
-class LandingView(View):
-    def get(self, request, challenge_id=None, *args, **kwargs):
-        challenge = get_object_or_404(Challenge, id=challenge_id)
-
-        examples = Example.objects.for_gallery_preview(challenge=challenge)
-        progress = None
-        if request.user.is_authenticated():
-            progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-
-        return render(request, 'challenges/preview/landing.html', {
-            'examples': examples,
-            'challenge': challenge,
-            'progress': progress,
-        })

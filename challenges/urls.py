@@ -8,7 +8,6 @@ defer = whitelist('maybe_public')
 urlpatterns = patterns('challenges.views',
     url(r'^$', public(views.challenges), name='challenges'),
     url(r'^(?P<challenge_id>\d+)/$', public(views.InspirationPreviewDispatch.as_view()), name='preview_inspiration'),
-    url(r'^(?P<challenge_id>\d+)/landing/$', defer(views.LandingView.as_view()), name='preview_landing'),
     url(r'^(?P<challenge_id>\d+)/examples/$', defer(views.ExamplesView.as_view()), name='examples'),
     url(r'^(?P<challenge_id>\d+)/examples/delete/$', views.ExamplesDeleteView.as_view(), name='delete_example'),
     url(r'^(?P<challenge_id>\d+)/plan/$', defer(views.preview_plan), name='preview_plan'),

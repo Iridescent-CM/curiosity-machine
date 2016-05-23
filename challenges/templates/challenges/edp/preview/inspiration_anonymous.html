@@ -1,11 +1,6 @@
 {% extends "challenges/edp/inspiration.html" %}
 
 {% block jumbotron_message %}
-  <p class="light-type m-b-md">You need to sign in as a student to work on design challenges.</p>
-  <a href="{% url 'profiles:join' %}" class="btn btn-secondary btn-lg">Create Student Account</a>
-  <p class="light-type m-a-md">
-    Or, preview the design challenge with an
-    <a href="{% url 'profiles:join_as_educator' %}" class="a-secondary">educator</a> or
-    <a href="{% url 'profiles:join_as_parent' %}" class="a-secondary">parent</a> account.
-  </p>
+  <p class="light-type m-b-md">You need to log in as a student to work on design challenges.</p>
+  <a href="{% url 'login' %}" class="btn btn-secondary btn-lg">Log In</a>
 {% endblock %}
