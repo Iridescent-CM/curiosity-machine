@@ -384,18 +384,3 @@ class ExamplesDeleteView(View):
         return HttpResponseRedirect(reverse('challenges:examples', kwargs={
             'challenge_id': challenge_id,
         }))
-
-class LandingView(View):
-    def get(self, request, challenge_id=None, *args, **kwargs):
-        challenge = get_object_or_404(Challenge, id=challenge_id)
-
-        examples = Example.objects.for_gallery_preview(challenge=challenge)
-        progress = None
-        if request.user.is_authenticated():
-            progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
-
-        return render(request, 'challenges/preview/landing.html', {
-            'examples': examples,
-            'challenge': challenge,
-            'progress': progress,
-        })
