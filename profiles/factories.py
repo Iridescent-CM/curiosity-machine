@@ -62,7 +62,7 @@ class EducatorProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
 
-    is_educator = True
+    role = models.UserRole.educator.value
     city = 'city'
     approved = True
 
@@ -81,7 +81,7 @@ class ParentProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
 
-    is_parent = True
+    role = models.UserRole.parent.value
     city = 'city'
     approved = True
 
