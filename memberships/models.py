@@ -28,7 +28,7 @@ class Member(models.Model):
     def clean(self):
         role = self.user.profile.role
         limit = self.membership.limit_for(role)
-        if limit:
+        if limit != None:
             count = (self.membership.member_set
                 .exclude(id=self.id)
                 .filter(user__profile__role=role)).count()
@@ -41,3 +41,9 @@ class MemberLimit(models.Model):
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in UserRole], default=UserRole.none.value)
     limit = models.PositiveIntegerField(null=False, blank=True, default=0)
     membership = models.ForeignKey(Membership, null=False, on_delete=models.CASCADE)
+
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+@receiver(pre_save, sender=Member)
+def clean_first(sender, instance, **kwargs):
+    instance.full_clean()
