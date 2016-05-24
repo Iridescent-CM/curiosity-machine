@@ -4,6 +4,14 @@ from memberships.models import Membership
 
 from profiles.models import UserRole
 
+from django.db.utils import IntegrityError
+
+@pytest.mark.django_db
+def test_uniqueness():
+    Membership(name="membership").save()
+    with pytest.raises(IntegrityError):
+        Membership(name="membership").save()
+
 @pytest.mark.django_db
 def test_limit_for():
     membership = Membership(name="membership")
