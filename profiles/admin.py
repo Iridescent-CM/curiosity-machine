@@ -19,11 +19,7 @@ class UserAdminWithProfile(UserAdmin):
     list_filter = (
         'is_superuser',
         'is_staff',
-        # TODO: reintroduce these filters
-        #'profile__is_mentor',
-        #'profile__is_student',
-        #'profile__is_educator',
-        #'profile__is_parent',
+        'profile__role',
         StudentFilter
     )
     search_fields = ('username', 'email', 'first_name', 'last_name', 'profile__source')
