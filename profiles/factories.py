@@ -5,6 +5,9 @@ import factory.fuzzy
 from . import models
 from .signals import handlers
 
+from django.utils.timezone import now
+from dateutil.relativedelta import relativedelta
+
 class ProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
@@ -15,6 +18,8 @@ class ProfileFactory(factory.django.DjangoModelFactory):
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.User
+
+    password = factory.PostGenerationMethodCall('set_password', '123123')
 
     profile = factory.RelatedFactory(ProfileFactory, 'user')
 
@@ -44,6 +49,7 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('profiles.factories.StudentFactory', profile=None)
     city = 'city'
+    birthday = now() - relativedelta(years=14)
     role = models.UserRole.student.value
     approved = True
 
@@ -94,7 +100,7 @@ class ParentFactory(factory.django.DjangoModelFactory):
     email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
-    profile = factory.RelatedFactory(EducatorProfileFactory, 'user')
+    profile = factory.RelatedFactory(ParentProfileFactory, 'user')
 
 class ParentConnectionFactory(factory.django.DjangoModelFactory):
     class Meta:
