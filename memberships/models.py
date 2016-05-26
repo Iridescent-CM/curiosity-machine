@@ -22,6 +22,9 @@ class Membership(models.Model):
         return self.name
 
 class Member(models.Model):
+    class Meta:
+        unique_together = ("membership", "user")
+
     membership = models.ForeignKey(Membership)
     user = models.ForeignKey(User)
 
@@ -41,6 +44,10 @@ class MemberLimit(models.Model):
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in UserRole], default=UserRole.none.value)
     limit = models.PositiveIntegerField(null=False, blank=True, default=0)
     membership = models.ForeignKey(Membership, null=False, on_delete=models.CASCADE)
+
+    @property
+    def current(self):
+        return self.membership.member_set.filter(user__profile__role=self.role).count()
 
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
