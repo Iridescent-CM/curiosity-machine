@@ -144,7 +144,7 @@ class InspirationStudentPreview(InspirationUserPreview):
             challenge=challenge_id,
             student__username=username
         ).exists():
-            return HttpResponseRedirect(reverse('challenges:inspiration_progress', kwargs={
+            return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
                 'challenge_id': challenge_id,
                 'username': username
             }))

@@ -17,7 +17,7 @@ def test_renders_anonymous_template_with_challenge_for_anonymous_user(client):
     assert response.context['challenge'] == challenge
 
 @pytest.mark.django_db
-def test_renders_student_template_with_challenge_for_student_user(client):
+def test_renders_student_template_with_challenge_for_student_user_without_progress(client):
     challenge = ChallengeFactory()
     user = StudentFactory(username='user', password='123123')
 
@@ -41,7 +41,7 @@ def test_student_template_gets_examples(client):
     assert set(response.context['examples']) == set(examples)
 
 @pytest.mark.django_db
-def test_student_template_redirects_to_progress_view_if_progress_exists(client):
+def test_redirects_student_with_progress_to_their_progress(client):
     challenge = ChallengeFactory()
     user = StudentFactory(username='user', password='123123')
     progress = ProgressFactory(challenge=challenge, student=user)
@@ -50,7 +50,7 @@ def test_student_template_redirects_to_progress_view_if_progress_exists(client):
     response = client.get('/challenges/%d/' % challenge.id, follow=False) 
 
     assert response.status_code == 302
-    assert response.url.endswith(reverse("challenges:inspiration_progress", kwargs={
+    assert response.url.endswith(reverse("challenges:challenge_progress", kwargs={
         "challenge_id": challenge.id,
         "username": user.username
     }))
