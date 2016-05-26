@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import F
 from profiles.forms.common import UserAndProfileForm
-from profiles.models import ParentConnection, Profile
+from profiles.models import ParentConnection, Profile, UserRole
 from curiositymachine.forms import StudentUsernamesField
 
 class ParentUserAndProfileForm(UserAndProfileForm):
@@ -10,7 +10,7 @@ class ParentUserAndProfileForm(UserAndProfileForm):
         'source'
     ]
     profile_fields_force = {
-        'is_parent': True
+        'role': UserRole.parent.value
     }
     make_required = ['email', 'city']
 

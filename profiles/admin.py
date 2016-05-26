@@ -6,7 +6,7 @@ from .admin_utils import StudentFilter
 from cmemails import deliver_email
 from curiositymachine import signals
 
-from .models import Profile, ParentConnection
+from .models import Profile, ParentConnection, UserRole
 
 class ProfileInline(admin.StackedInline):
     model = Profile
@@ -19,10 +19,7 @@ class UserAdminWithProfile(UserAdmin):
     list_filter = (
         'is_superuser',
         'is_staff',
-        'profile__is_mentor',
-        'profile__is_student',
-        'profile__is_educator',
-        'profile__is_parent',
+        'profile__role',
         StudentFilter
     )
     search_fields = ('username', 'email', 'first_name', 'last_name', 'profile__source')
@@ -113,7 +110,7 @@ class ParentAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(ParentAdmin, self).get_queryset(request)
-        return qs.filter(is_parent=True)
+        return qs.filter(role=UserRole.parent.value)
 
     def email(self, obj):
         return obj.user.email
@@ -143,7 +140,7 @@ class EducatorAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(EducatorAdmin, self).get_queryset(request)
-        return qs.filter(is_educator=True)
+        return qs.filter(role=UserRole.educator.value)
 
     def email(self, obj):
         return obj.user.email
@@ -182,7 +179,7 @@ class StudentAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(StudentAdmin, self).get_queryset(request)
-        return qs.filter(is_student=True)
+        return qs.filter(role=UserRole.student.value)
 
     def email(self, obj):
         return obj.user.email
@@ -227,7 +224,7 @@ class MentorAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(MentorAdmin, self).get_queryset(request)
-        return qs.filter(is_mentor=True)
+        return qs.filter(role=UserRole.mentor.value)
 
     def email(self, obj):
         return obj.user.email

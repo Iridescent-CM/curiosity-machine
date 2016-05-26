@@ -8,7 +8,7 @@ from django.core.exceptions import PermissionDenied
 @pytest.fixture
 def parent():
     parent = User(username="parent")
-    parent_profile = models.Profile(is_parent=True)
+    parent_profile = models.Profile(role=models.UserRole.parent.value)
     parent_profile.user = parent
     parent.save()
     parent_profile.user = parent
@@ -18,7 +18,7 @@ def parent():
 @pytest.fixture
 def child():
     child = User(username="child")
-    child_profile = models.Profile(is_student=True, birthday=datetime.now())
+    child_profile = models.Profile(role=models.UserRole.student.value, birthday=datetime.now())
     child_profile.user = child
     child.save()
     child_profile.user = child
@@ -77,7 +77,6 @@ def test_modifies_exisiting_user_and_profile():
         'username': 'example',
         'email': 'email@example.com',
         'city': 'mycity',
-        'is_student': True
     })
     user = f.save()
     f = forms.parent.ParentUserAndProfileForm(
@@ -94,7 +93,7 @@ def test_modifies_exisiting_user_and_profile():
     assert models.Profile.objects.all().count() == 1
 
 @pytest.mark.django_db
-def test_sets_is_parent_flag():
+def test_sets_parent_role():
     f = forms.parent.ParentUserAndProfileForm(data={
         'password': '123123',
         'confirm_password': '123123',
@@ -113,7 +112,7 @@ def test_form_ignores_unspecified_profile_fields():
         'username': 'example',
         'email': 'email@example.com',
         'city': 'mycity',
-        'is_student': True,
+        'role': models.UserRole.student.value,
         'title': 'title'
     })
     user = f.save()

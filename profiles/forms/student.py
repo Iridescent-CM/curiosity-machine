@@ -1,6 +1,7 @@
 from datetime import date
 from django import forms
 from profiles.forms.common import UserAndProfileForm
+from profiles.models import UserRole
 
 def age(birthday):
     today = date.today()
@@ -15,7 +16,7 @@ class StudentUserAndProfileForm(UserAndProfileForm):
         'source'
     ]
     profile_fields_force = {
-        'is_student': True
+        'role': UserRole.student.value
     }
     make_required = ['city', 'birthday'] # under/over 13 requirement differences enforced in clean()
 

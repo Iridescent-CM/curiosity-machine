@@ -2,11 +2,12 @@ import pytest
 from django.contrib.auth.models import User
 from cmcomments.models import Comment
 from challenges.models import Challenge, Progress, Theme, Favorite, Filter
+from profiles.models import UserRole
 
 @pytest.fixture
 def loggedInStudent(client):
     student = User.objects.create_user(username='loggedinstudent', email='loggedinstudent@example.com', password='password')
-    student.profile.is_student = True
+    student.profile.role = UserRole.student.value
     student.profile.approved = True
     student.profile.save()
     client.login(username='loggedinstudent', password='password')

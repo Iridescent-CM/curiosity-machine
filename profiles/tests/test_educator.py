@@ -102,7 +102,6 @@ def test_modifies_exisiting_user_and_profile():
         'username': 'example',
         'email': 'email@example.com',
         'city': 'mycity',
-        'is_student': True
     })
     user = f.save()
     f = forms.educator.EducatorUserAndProfileForm(
@@ -119,7 +118,7 @@ def test_modifies_exisiting_user_and_profile():
     assert models.Profile.objects.all().count() == 1
 
 @pytest.mark.django_db
-def test_sets_is_educator_flag():
+def test_sets_educator_role():
     f = forms.educator.EducatorUserAndProfileForm(data={
         'password': '123123',
         'confirm_password': '123123',
