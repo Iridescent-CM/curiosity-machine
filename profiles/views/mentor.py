@@ -9,7 +9,7 @@ from django.db import IntegrityError
 from django.db.models import Count
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
-from profiles.models import Profile
+from profiles.models import Profile, UserRole
 from profiles.forms.mentor import MentorUserAndProfileForm, MentorUserAndProfileChangeForm
 from training.models import Module
 from challenges.models import Progress
@@ -111,7 +111,7 @@ def list_all(request):
     List of current mentors
     '''
     page = request.GET.get('page')
-    mentors = Profile.objects.filter(is_mentor=True, approved=True).select_related('user').order_by('-user__date_joined')
+    mentors = Profile.objects.filter(role=UserRole.mentor.value, approved=True).select_related('user').order_by('-user__date_joined')
 
     paginator = Paginator(mentors, settings.DEFAULT_PER_PAGE)
     try:
@@ -130,7 +130,7 @@ def show_profile(request, username):
     Page for viewing a mentor's profile
     '''
     user = get_object_or_404(User, username=username)
-    profile = get_object_or_404(Profile, user=user, is_mentor=True)
+    profile = get_object_or_404(Profile, user=user, role=UserRole.mentor.value)
 
     return render(request, "profiles/mentor/profile.html", {'mentor': user, 'mentor_profile': profile,})
 

@@ -1,4 +1,5 @@
 from profiles.forms.common import UserAndProfileForm
+from profiles.models import UserRole
 
 class MentorUserAndProfileForm(UserAndProfileForm):
     profile_fields = [
@@ -6,7 +7,7 @@ class MentorUserAndProfileForm(UserAndProfileForm):
         'source'
     ]
     profile_fields_force = {
-        'is_mentor': True
+        'role': UserRole.mentor.value
     }
     make_required = ['email', 'city']
 

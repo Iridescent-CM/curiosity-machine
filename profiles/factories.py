@@ -5,6 +5,9 @@ import factory.fuzzy
 from . import models
 from .signals import handlers
 
+from django.utils.timezone import now
+from dateutil.relativedelta import relativedelta
+
 class ProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
@@ -16,6 +19,8 @@ class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.User
 
+    password = factory.PostGenerationMethodCall('set_password', '123123')
+
     profile = factory.RelatedFactory(ProfileFactory, 'user')
 
 class MentorProfileFactory(factory.django.DjangoModelFactory):
@@ -24,7 +29,7 @@ class MentorProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('profiles.factories.MentorFactory', profile=None)
     city = 'city'
-    is_mentor = True
+    role = models.UserRole.mentor.value
     approved = True
 
 @factory.django.mute_signals(handlers.post_save)
@@ -44,7 +49,8 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('profiles.factories.StudentFactory', profile=None)
     city = 'city'
-    is_student = True
+    birthday = now() - relativedelta(years=14)
+    role = models.UserRole.student.value
     approved = True
 
 @factory.django.mute_signals(handlers.post_save)
@@ -62,7 +68,7 @@ class EducatorProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
 
-    is_educator = True
+    role = models.UserRole.educator.value
     city = 'city'
     approved = True
 
@@ -81,7 +87,7 @@ class ParentProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
 
-    is_parent = True
+    role = models.UserRole.parent.value
     city = 'city'
     approved = True
 
@@ -94,7 +100,7 @@ class ParentFactory(factory.django.DjangoModelFactory):
     email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
-    profile = factory.RelatedFactory(EducatorProfileFactory, 'user')
+    profile = factory.RelatedFactory(ParentProfileFactory, 'user')
 
 class ParentConnectionFactory(factory.django.DjangoModelFactory):
     class Meta:

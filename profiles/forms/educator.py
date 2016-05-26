@@ -1,4 +1,5 @@
 from profiles.forms.common import UserAndProfileForm
+from profiles.models import UserRole
 
 
 class EducatorUserAndProfileForm(UserAndProfileForm):
@@ -7,7 +8,7 @@ class EducatorUserAndProfileForm(UserAndProfileForm):
         'source'
     ]
     profile_fields_force = {
-        'is_educator': True
+        'role': UserRole.educator.value
     }
     make_required = ['email', 'city']
 

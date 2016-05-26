@@ -11,6 +11,7 @@ from .models import Module, Comment, Task
 from .forms import CommentForm
 from videos.models import Video
 from images.models import Image
+from profiles.models import UserRole
 from itertools import chain
 
 
@@ -67,7 +68,7 @@ def comments(request, module_order, task_order, thread_id=None):
 def approve_task_progress(request, module_order, task_order, username):
     module = get_object_or_404(Module, order=module_order)
     task = get_object_or_404(Task, order=task_order, module=module)
-    mentor = get_object_or_404(User, username=username, profile__is_mentor=True)
+    mentor = get_object_or_404(User, username=username, profile__role=UserRole.mentor.value)
 
     task.mark_mentor_as_done(mentor, approver=request.user)
     if User.objects.get(id=mentor.id).profile.approved:

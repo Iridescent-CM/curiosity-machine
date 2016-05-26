@@ -6,7 +6,7 @@ from .mailchimp import subscribe
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from datetime import date, timedelta
-from profiles.models import Profile
+from profiles.models import Profile, UserRole
 from images.models import Image
 from challenges.models import Stage
 import profiles.factories
@@ -18,7 +18,7 @@ import training.factories
 def student():
     student = User.objects.create_user(username='student', email='student@example.com', password='password')
     student.profile.approved = True
-    student.profile.is_student = True
+    student.profile.role = UserRole.student.value
     student.profile.birthday = now() - timedelta(days=(365 * 16))
     student.profile.save()
     return student
@@ -35,7 +35,7 @@ def test_deliver_email_returns_none_if_it_cant_determine_user_type():
 
 def test_deliver_email_looks_up_config_and_calls_email_if_it_can_determine_user_type():
     user = User(email='foo@example.com')
-    profile = Profile(is_mentor=True)
+    profile = Profile(role=UserRole.mentor.value)
     profile.user = user
     config = {
         'mentor_some_key': {
@@ -56,31 +56,31 @@ def test_deliver_email_looks_up_config_and_calls_email_if_it_can_determine_user_
 
 def test_determine_user_type_mentor():
     user = User(email='foo@example.com')
-    profile = Profile(is_mentor=True)
+    profile = Profile(role=UserRole.mentor.value)
     profile.user = user
     assert mailer.determine_user_type(profile) == mailer.MENTOR
 
 def test_determine_user_type_student():
     user = User(email='foo@example.com')
-    profile = Profile(is_student=True, birthday=date(1900, 1, 1))
+    profile = Profile(role=UserRole.student.value, birthday=date(1900, 1, 1))
     profile.user = user
     assert mailer.determine_user_type(profile) == mailer.STUDENT
 
 def test_determine_user_type_underage():
     user = User(email='foo@example.com')
-    profile = Profile(is_student=True, birthday=date.today())
+    profile = Profile(role=UserRole.student.value, birthday=date.today())
     profile.user = user
     assert mailer.determine_user_type(profile) == mailer.UNDERAGE_STUDENT
 
 def test_determine_user_type_educator():
     user = User(email='foo@example.com')
-    profile = Profile(is_educator=True)
+    profile = Profile(role=UserRole.educator.value)
     profile.user = user
     assert mailer.determine_user_type(profile) == mailer.EDUCATOR
 
 def test_deliver_email_can_override_subject_from_config():
     user = User(email='foo@example.com')
-    profile = Profile(is_mentor=True)
+    profile = Profile(role=UserRole.mentor.value)
     profile.user = user
     config = {
         'mentor_some_key': {
@@ -97,7 +97,7 @@ def test_deliver_email_can_override_subject_from_config():
 
 def test_deliver_email_named_arguments_become_email_context():
     user = User(email='foo@example.com')
-    profile = Profile(is_mentor=True)
+    profile = Profile(role=UserRole.mentor.value)
     profile.user = user
     config = {
         'mentor_some_key': {
