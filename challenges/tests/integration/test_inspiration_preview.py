@@ -3,6 +3,8 @@ import pytest
 from challenges.factories import ChallengeFactory, ExampleFactory, ProgressFactory
 from profiles.factories import StudentFactory, MentorFactory
 
+from django.core.urlresolvers import reverse
+
 pytestmark = pytest.mark.integration
 
 
@@ -39,16 +41,19 @@ def test_student_template_gets_examples(client):
     assert set(response.context['examples']) == set(examples)
 
 @pytest.mark.django_db
-def test_student_template_gets_progress_if_it_exists(client):
+def test_student_template_redirects_to_progress_view_if_progress_exists(client):
     challenge = ChallengeFactory()
     user = StudentFactory(username='user', password='123123')
     progress = ProgressFactory(challenge=challenge, student=user)
 
     client.login(username='user', password='123123')
-    response = client.get('/challenges/%d/' % challenge.id, follow=True) 
+    response = client.get('/challenges/%d/' % challenge.id, follow=False) 
 
-    assert response.status_code == 200
-    assert response.context['progress'] == progress
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:inspiration_progress", kwargs={
+        "challenge_id": challenge.id,
+        "username": user.username
+    }))
 
 @pytest.mark.django_db
 def test_renders_nonstudent_template_with_challenge_for_nonstudent_user(client):
