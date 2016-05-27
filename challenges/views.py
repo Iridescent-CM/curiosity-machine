@@ -133,10 +133,19 @@ class InspirationUserProgress(InspirationUserView):
 
 class InspirationStudentPreview(InspirationUserPreview):
 
-    def get_context_data(self, **kwargs):
-        context = super(InspirationStudentPreview, self).get_context_data(**kwargs)
-        context['progress'] = Progress.objects.filter(challenge=context['challenge'], student__username=self.request.user.username).first()
-        return context
+    def get(self, request, *args, **kwargs):
+        username = self.request.user.username
+        challenge_id = kwargs.get('challenge_id')
+        if Progress.objects.filter(
+            challenge=challenge_id,
+            student__username=username
+        ).exists():
+            return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
+                'challenge_id': challenge_id,
+                'username': username
+            }))
+        else:
+            return super(InspirationStudentPreview, self).get(request, *args, **kwargs)
 
 class InspirationStudentProgress(InspirationUserProgress):
     pass
