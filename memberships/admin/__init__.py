@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from memberships.models import Membership, Member, MemberLimit
+from memberships.admin.views import ImportView
 
 class MemberLimitInline(admin.TabularInline):
     model = MemberLimit
@@ -24,8 +25,7 @@ class MembershipAdmin(admin.ModelAdmin):
         return extra_urls + urls
 
     def import_members(self, request, *args, **kwargs):
-        obj = get_object_or_404(Membership, id=kwargs.get('id'))
-        return HttpResponse('OK')
+        return ImportView.as_view()(request, *args, **kwargs)
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
