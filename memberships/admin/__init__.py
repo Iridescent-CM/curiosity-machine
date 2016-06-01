@@ -21,6 +21,7 @@ class MembershipAdmin(admin.ModelAdmin):
         urls = super(MembershipAdmin, self).get_urls()
         extra_urls = [
             url(r'^(?P<id>\d+)/import_members/$', self.admin_site.admin_view(self.import_members), name="import_members"),
+            url(r'^(?P<id>\d+)/import_members/process/$', self.admin_site.admin_view(self.process_import), name="process_member_import"),
         ]
         return extra_urls + urls
 
@@ -30,6 +31,9 @@ class MembershipAdmin(admin.ModelAdmin):
             opts = self.model._meta
         )
         return ImportView.as_view(extra_context=context)(request, *args, **kwargs)
+
+    def process_import(self, request, *args, **kwargs):
+        return HttpResponse("Process")
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
