@@ -59,7 +59,7 @@ def test_post_import_members_with_file_url_redirects_to_processing_view_with_que
     ))
 
 @pytest.mark.django_db
-def test_get_process_member_import_renders_template(client):
+def test_get_process_member_import_renders_template_with_membership(client):
     user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
     membership = MembershipFactory()
 
@@ -71,6 +71,7 @@ def test_get_process_member_import_renders_template(client):
     ))
 
     assert response.status_code == 200
+    assert response.context["original"] == membership
     assert response.templates[0].name == "memberships/admin/import_members/process.html"
 
 @pytest.mark.django_db

@@ -44,3 +44,12 @@ class ImportView(ExtraContextMixin, FormView):
 
 class ProcessView(ExtraContextMixin, TemplateView):
     template_name = "memberships/admin/import_members/process.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        self.membership = get_object_or_404(Membership, id=kwargs.get('id'))
+        return super(ProcessView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ProcessView, self).get_context_data(**kwargs)
+        context.update(original = self.membership)
+        return context
