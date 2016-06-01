@@ -6,7 +6,7 @@ from profiles.factories import UserFactory
 from django.core.urlresolvers import reverse
 
 @pytest.mark.django_db
-def test_get_import_members_renders_template_with_membership_and_form(client):
+def test_import_members_view_renders_template_with_membership_and_form(client):
     user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
     membership = MembershipFactory()
 
@@ -35,3 +35,5 @@ def test_get_import_members_has_admin_context_variables(client):
     assert "site_url" in response.context
     assert "site_title" in response.context
     assert "site_header" in response.context
+    assert "adminform" in response.context
+    assert hasattr(response.context["adminform"], "fieldsets")

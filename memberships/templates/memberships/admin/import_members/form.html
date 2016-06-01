@@ -1,6 +1,8 @@
 {% extends "admin/base_site.html" %}
 {% load admin_urls admin_static admin_modify %}
 
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
+
 {% block breadcrumbs %}
 <div class="breadcrumbs">
   <a href="{% url 'admin:index' %}">Home</a>
@@ -14,7 +16,9 @@
 {% block content %}
   <form action="{% url "admin:import_members" id=original.id %}" method="POST">
     {% csrf_token %}
-    {{ form }}
+    {% for fieldset in adminform %}
+      {% include "admin/includes/fieldset.html" %}
+    {% endfor %}
     <input type="submit">
   </form>
 {% endblock %}

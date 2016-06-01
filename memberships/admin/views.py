@@ -1,5 +1,6 @@
 from django.views.generic.edit import FormView
 from django.shortcuts import get_object_or_404
+from django.contrib import admin
 from memberships.models import Membership
 from memberships.admin.forms import ImportForm
 
@@ -15,8 +16,14 @@ class ImportView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(ImportView, self).get_context_data(**kwargs)
+
+        form = self.get_form()
+        fieldsets = [(None, {'fields': list(form.base_fields)})]
+        adminForm = admin.helpers.AdminForm(form, fieldsets, {})
+
         context.update(
             self.extra_context,
-            original = self.membership
+            original = self.membership,
+            adminform = adminForm
         )
         return context
