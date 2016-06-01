@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from memberships.models import Membership, Member, MemberLimit
-from memberships.admin.views import ImportView
+from memberships.admin.views import ImportView, ProcessView
 
 class MemberLimitInline(admin.TabularInline):
     model = MemberLimit
@@ -33,7 +33,11 @@ class MembershipAdmin(admin.ModelAdmin):
         return ImportView.as_view(extra_context=context)(request, *args, **kwargs)
 
     def process_import(self, request, *args, **kwargs):
-        return HttpResponse("Process")
+        context = dict(
+            self.admin_site.each_context(request),
+            opts = self.model._meta
+        )
+        return ProcessView.as_view(extra_context=context)(request, *args, **kwargs)
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')

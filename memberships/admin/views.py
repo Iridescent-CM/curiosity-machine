@@ -1,3 +1,4 @@
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
@@ -6,11 +7,17 @@ from django.http import HttpResponseRedirect
 from memberships.models import Membership
 from memberships.admin.forms import ImportForm
 
-class ImportView(FormView):
+class ExtraContextMixin(object):
+    extra_context = {}
+
+    def get_context_data(self, **kwargs):
+        context = super(ExtraContextMixin, self).get_context_data(**kwargs)
+        context.update(self.extra_context)
+        return context
+
+class ImportView(ExtraContextMixin, FormView):
     template_name = "memberships/admin/import_members/form.html"
     form_class = ImportForm
-
-    extra_context = {}
 
     def dispatch(self, request, *args, **kwargs):
         self.membership = get_object_or_404(Membership, id=kwargs.get('id'))
@@ -24,7 +31,6 @@ class ImportView(FormView):
         adminForm = admin.helpers.AdminForm(form, fieldsets, {})
 
         context.update(
-            self.extra_context,
             original = self.membership,
             adminform = adminForm
         )
@@ -36,3 +42,5 @@ class ImportView(FormView):
         })
         return HttpResponseRedirect("%s?%s=%s" % (url, "csv", form.cleaned_data["csv_file"]))
 
+class ProcessView(ExtraContextMixin, TemplateView):
+    template_name = "memberships/admin/import_members/process.html"
