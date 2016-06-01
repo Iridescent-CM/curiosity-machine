@@ -37,3 +37,23 @@ def test_get_import_members_has_admin_context_variables(client):
     assert "site_header" in response.context
     assert "adminform" in response.context
     assert hasattr(response.context["adminform"], "fieldsets")
+
+@pytest.mark.django_db
+def test_post_import_members_with_file_url_redirects_to_processing_view_with_query_param(client):
+    user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
+    membership = MembershipFactory()
+
+    client.login(username=user.username, password="123123")
+    response = client.post(reverse("admin:import_members", kwargs={
+        "id": membership.id
+    }), {
+        "csv_file": "https://s3.amazonaws.com/devcuriositymachine/yay.jpeg" 
+    }, follow = False)
+
+    print(response.content)
+    assert response.status_code == 302
+    assert response.url.endswith("%s?%s=%s" % (
+        reverse("admin:process_member_import", kwargs={"id": membership.id}),
+        "csv",
+        "https://s3.amazonaws.com/devcuriositymachine/yay.jpeg"
+    ))
