@@ -12,5 +12,9 @@
 {% endblock %}
 
 {% block content %}
-  {{ original }}
+  <form action="{% url "admin:import_members" id=original.id %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit">
+  </form>
 {% endblock %}

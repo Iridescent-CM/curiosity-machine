@@ -1,9 +1,13 @@
-from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
 from django.shortcuts import get_object_or_404
 from memberships.models import Membership
+from memberships.admin.forms import ImportForm
 
-class ImportView(TemplateView):
+class ImportView(FormView):
     template_name = "memberships/admin/import_members/form.html"
+    form_class = ImportForm
+
+    extra_context = {}
 
     def dispatch(self, request, *args, **kwargs):
         self.membership = get_object_or_404(Membership, id=kwargs.get('id'))
@@ -11,5 +15,8 @@ class ImportView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ImportView, self).get_context_data(**kwargs)
-        context['original'] = self.membership
+        context.update(
+            self.extra_context,
+            original = self.membership
+        )
         return context

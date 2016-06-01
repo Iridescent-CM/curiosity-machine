@@ -25,11 +25,11 @@ class MembershipAdmin(admin.ModelAdmin):
         return extra_urls + urls
 
     def import_members(self, request, *args, **kwargs):
-        kwargs.update(
+        context = dict(
             self.admin_site.each_context(request),
             opts = self.model._meta
         )
-        return ImportView.as_view()(request, *args, **kwargs)
+        return ImportView.as_view(extra_context=context)(request, *args, **kwargs)
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
