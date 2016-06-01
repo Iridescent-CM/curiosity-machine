@@ -18,3 +18,8 @@
     <input type="submit">
   </form>
 {% endblock %}
+
+{% block extrahead %}
+  {{ block.super }}
+  {{ form.media }}
+{% endblock %}

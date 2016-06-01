@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 import dj_database_url
 from django.http import Http404
 from curiositymachine.exceptions import LoginRequired
+from uuid import uuid4
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -181,6 +182,12 @@ S3DIRECT_DESTINATIONS = {
     'unit-resources': (
         'units/resources',
         lambda u: u.is_staff,
+    ),
+    'member-import': (
+        lambda orig: 'memberships/imports/' + str(uuid4()),
+        lambda u: u.is_staff,
+        ['text/csv'],
+        'private'
     )
 }
 
