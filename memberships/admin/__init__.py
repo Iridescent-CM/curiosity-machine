@@ -25,6 +25,10 @@ class MembershipAdmin(admin.ModelAdmin):
         return extra_urls + urls
 
     def import_members(self, request, *args, **kwargs):
+        kwargs.update(
+            self.admin_site.each_context(request),
+            opts = self.model._meta
+        )
         return ImportView.as_view()(request, *args, **kwargs)
 
 class MemberAdmin(admin.ModelAdmin):
