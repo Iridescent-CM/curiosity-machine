@@ -20,7 +20,7 @@ def test_get_import_members_renders_template_with_membership(client):
     assert response.context["original"] == membership
 
 @pytest.mark.django_db
-def test_get_import_members_context_has_admin_stuff(client):
+def test_get_import_members_has_admin_context_variables(client):
     user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
     membership = MembershipFactory()
 
