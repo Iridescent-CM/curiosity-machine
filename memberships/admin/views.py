@@ -56,17 +56,20 @@ class ImportView(ExtraContextMixin, RequiredObjectMixin, FormView):
         form = self.get_form()
         fieldsets = [(None, {'fields': list(form.base_fields)})]
         adminForm = admin.helpers.AdminForm(form, fieldsets, {})
+        errors = admin.helpers.AdminErrorList(form, [])
 
         context.update(
-            adminform = adminForm
+            adminform = adminForm,
+            errors = errors
         )
         return context
 
     def form_valid(self, form):
+        # TODO: stick file in s3 and redirect to processing view with filename instead of "tbd"
         url = reverse("admin:process_member_import", kwargs={
             "id": self.membership.id
         })
-        return HttpResponseRedirect("%s?%s=%s" % (url, "csv", form.cleaned_data["csv_file"]))
+        return HttpResponseRedirect("%s?%s=%s" % (url, "csv", "tbd"))
 
 class ProcessView(ExtraContextMixin, RequiredObjectMixin, TemplateView):
     template_name = "memberships/admin/import_members/process.html"

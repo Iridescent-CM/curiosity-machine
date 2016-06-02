@@ -182,12 +182,6 @@ S3DIRECT_DESTINATIONS = {
     'unit-resources': (
         'units/resources',
         lambda u: u.is_staff,
-    ),
-    'member-import': (
-        lambda orig: 'memberships/imports/' + str(uuid4()) + '/' + orig,
-        lambda u: u.is_staff,
-        ['text/csv'],
-        'private'
     )
 }
 
