@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     'units',
     's3direct',
     'groups',
+    'memberships',
     'widget_tweaks',
 )
 
