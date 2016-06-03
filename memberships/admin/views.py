@@ -7,6 +7,7 @@ from django.contrib import admin
 from django.http import HttpResponseRedirect
 from memberships.models import Membership
 from memberships.admin.forms import ImportForm
+from django_s3_storage.storage import S3Storage
 
 class ExtraContextMixin(object):
     extra_context = {}
@@ -50,6 +51,8 @@ class ImportView(ExtraContextMixin, RequiredObjectMixin, FormView):
     context_object_name = "original"
     attribute_name = "membership"
 
+    storage = S3Storage(aws_s3_key_prefix="memberships/imports/")
+
     def get_context_data(self, **kwargs):
         context = super(ImportView, self).get_context_data(**kwargs)
 
@@ -65,11 +68,15 @@ class ImportView(ExtraContextMixin, RequiredObjectMixin, FormView):
         return context
 
     def form_valid(self, form):
-        # TODO: stick file in s3 and redirect to processing view with filename instead of "tbd"
-        url = reverse("admin:process_member_import", kwargs={
-            "id": self.membership.id
-        })
-        return HttpResponseRedirect("%s?%s=%s" % (url, "csv", "tbd"))
+        try:
+            name = self.storage.save(None, form.cleaned_data.get("csv_file"))
+            url = reverse("admin:process_member_import", kwargs={
+                "id": self.membership.id
+            })
+            return HttpResponseRedirect("%s?%s=%s" % (url, "csv", name))
+        except:
+            # FIXME: report errors more gracefully?
+            raise
 
 class ProcessView(ExtraContextMixin, RequiredObjectMixin, TemplateView):
     template_name = "memberships/admin/import_members/process.html"

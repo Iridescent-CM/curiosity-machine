@@ -173,10 +173,12 @@ STATICFILES_FINDERS = (
 
 FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 
+# upload_to_s3 task settings
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "curiositymachine")
 
+# s3direct
 S3DIRECT_REGION = os.getenv("S3DIRECT_REGION", "us-east-1")
 S3DIRECT_DESTINATIONS = {
     'unit-resources': (
@@ -184,6 +186,11 @@ S3DIRECT_DESTINATIONS = {
         lambda u: u.is_staff,
     )
 }
+
+# django-s3-storage
+AWS_REGION = S3DIRECT_REGION
+AWS_S3_BUCKET_NAME = AWS_STORAGE_BUCKET_NAME
+AWS_S3_CALLING_FORMAT = "boto.s3.connection.OrdinaryCallingFormat"
 
 ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
 REPORT_ZENCODER_USAGE = os.environ.get("REPORT_ZENCODER_USAGE", False)

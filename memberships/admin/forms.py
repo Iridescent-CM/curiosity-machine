@@ -21,3 +21,5 @@ class ImportForm(forms.Form):
             raise forms.ValidationError("File does not appear to be UTF-8 encoded")
         except:
             raise forms.ValidationError("Unknown error while decoding file")
+
+        return csv_file

@@ -1,10 +1,13 @@
 import pytest
+from mock import Mock, MagicMock, patch
 import os
 
 from memberships.factories import MembershipFactory
 from profiles.factories import UserFactory
 
 from django.core.urlresolvers import reverse
+
+from memberships.admin.views import ImportView
 
 TEST_DIR = os.path.dirname(__file__)
 
@@ -57,27 +60,46 @@ def test_post_import_members_with_errors_renders_template_with_errors_in_context
     assert len(response.context['errors']) > 0
 
 @pytest.mark.django_db
-def test_post_import_members_with_file_puts_file_on_s3(client):
-    pytest.fail("not yet written")
+def test_post_import_members_with_file_sends_file_to_storage(client):
+    user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
+    membership = MembershipFactory()
+
+    with patch.object(ImportView, 'storage') as storageMock:
+        storageMock.save.return_value = "name.csv"
+
+        with open(os.path.join(TEST_DIR, './data/normal.csv')) as fp:
+            client.login(username=user.username, password="123123")
+            response = client.post(reverse("admin:import_members", kwargs={
+                "id": membership.id
+            }), {
+                "csv_file": fp
+            }, follow = False)
+
+            assert storageMock.save.called
+            assert storageMock.save.call_count == 1
+            assert fp.name.endswith(storageMock.save.call_args[0][1].name)
 
 @pytest.mark.django_db
 def test_post_import_members_with_file_redirects_to_processing_view_with_query_param(client):
     user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
     membership = MembershipFactory()
 
-    with open(os.path.join(TEST_DIR, './data/normal.csv')) as fp:
-        client.login(username=user.username, password="123123")
-        response = client.post(reverse("admin:import_members", kwargs={
-            "id": membership.id
-        }), {
-            "csv_file": fp
-        }, follow = False)
+    with patch.object(ImportView, 'storage'):
+        ImportView.storage.save.return_value = "name.csv"
+
+        with open(os.path.join(TEST_DIR, './data/normal.csv')) as fp:
+            client.login(username=user.username, password="123123")
+            response = client.post(reverse("admin:import_members", kwargs={
+                "id": membership.id
+            }), {
+                "csv_file": fp
+            }, follow = False)
 
     assert response.status_code == 302
     assert response.url.endswith("%s?%s=%s" % (
         reverse("admin:process_member_import", kwargs={"id": membership.id}),
         "csv",
-        "tbd" # FIXME
+        "name.csv"
     ))
 
 @pytest.mark.django_db
