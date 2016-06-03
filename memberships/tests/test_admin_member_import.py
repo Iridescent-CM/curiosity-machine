@@ -155,7 +155,7 @@ def test_get_process_member_import_has_admin_context_variables(client):
     membership = MembershipFactory()
 
     with patch.object(ProcessView, 'storage') as storageMock:
-        with open(os.path.join(TEST_DIR, './data/normal.csv')) as fp:
+        with open(os.path.join(TEST_DIR, './data/normal.csv'), 'rb') as fp:
             storageMock.open.return_value = fp
 
             client.login(username=user.username, password="123123")
