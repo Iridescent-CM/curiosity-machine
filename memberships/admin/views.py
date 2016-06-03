@@ -4,7 +4,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib import admin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404
 from memberships.models import Membership
 from memberships.admin.forms import ImportForm
 from django_s3_storage.storage import S3Storage
@@ -78,6 +78,11 @@ class ImportView(ExtraContextMixin, RequiredObjectMixin, FormView):
             # FIXME: report errors more gracefully?
             raise
 
+class Importer(object):
+
+    def parse(self, f):
+        return "woo"
+
 class ProcessView(ExtraContextMixin, RequiredObjectMixin, TemplateView):
     template_name = "memberships/admin/import_members/process.html"
 
@@ -85,3 +90,22 @@ class ProcessView(ExtraContextMixin, RequiredObjectMixin, TemplateView):
     pk_url_kwarg = "id"
     context_object_name = "original"
     attribute_name = "membership"
+
+    storage = S3Storage(aws_s3_key_prefix="memberships/imports/")
+    importer = Importer()
+
+    def get(self, request, *args, **kwargs):
+        if "csv" not in request.GET:
+            return HttpResponseBadRequest("Must provide csv query parameter")
+        return super(ProcessView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ProcessView, self).get_context_data(**kwargs)
+
+        try:
+            csv = self.storage.open(self.request.GET.get('csv'))
+        except OSError as e:
+            raise Http404(e)
+
+        context["members"] = self.importer.parse(csv)
+        return context

@@ -7,7 +7,7 @@ from profiles.factories import UserFactory
 
 from django.core.urlresolvers import reverse
 
-from memberships.admin.views import ImportView
+from memberships.admin.views import ImportView, ProcessView
 
 TEST_DIR = os.path.dirname(__file__)
 
@@ -103,7 +103,17 @@ def test_post_import_members_with_file_redirects_to_processing_view_with_query_p
     ))
 
 @pytest.mark.django_db
-def test_get_process_member_import_renders_template_with_membership(client):
+def test_get_process_member_import_without_csv_parameter_returns_error(client):
+    user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
+    membership = MembershipFactory()
+
+    client.login(username=user.username, password="123123")
+    response = client.get(reverse("admin:process_member_import", kwargs={ "id": membership.id }))
+
+    assert response.status_code == 400
+
+@pytest.mark.django_db
+def test_get_process_member_import_with_missing_csv_returns_error(client):
     user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
     membership = MembershipFactory()
 
@@ -111,24 +121,49 @@ def test_get_process_member_import_renders_template_with_membership(client):
     response = client.get("%s?%s=%s" % (
         reverse("admin:process_member_import", kwargs={ "id": membership.id }),
         "csv",
-        "fake-file-url"
+        "this-file-doesnt-exist"
     ))
 
+    assert response.status_code == 404
+
+@pytest.mark.django_db
+def test_get_process_member_import_renders_template_with_membership_and_parsed_members(client):
+    user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
+    membership = MembershipFactory()
+
+    with patch.object(ProcessView, 'storage') as storageMock, patch.object(ProcessView, 'importer') as importerMock:
+        importerMock.parse.return_value = ["member1", "member2"]
+
+        with open(os.path.join(TEST_DIR, './data/normal.csv')) as fp:
+            storageMock.open.return_value = fp
+
+            client.login(username=user.username, password="123123")
+            response = client.get("%s?%s=%s" % (
+                reverse("admin:process_member_import", kwargs={ "id": membership.id }),
+                "csv",
+                "doesntmatter.csv"
+            ))
+
     assert response.status_code == 200
-    assert response.context["original"] == membership
     assert response.templates[0].name == "memberships/admin/import_members/process.html"
+    assert response.context["original"] == membership
+    assert set(response.context["members"]) == set(["member1", "member2"])
 
 @pytest.mark.django_db
 def test_get_process_member_import_has_admin_context_variables(client):
     user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
     membership = MembershipFactory()
 
-    client.login(username=user.username, password="123123")
-    response = client.get("%s?%s=%s" % (
-        reverse("admin:process_member_import", kwargs={ "id": membership.id }),
-        "csv",
-        "fake-file-url"
-    ))
+    with patch.object(ProcessView, 'storage') as storageMock:
+        with open(os.path.join(TEST_DIR, './data/normal.csv')) as fp:
+            storageMock.open.return_value = fp
+
+            client.login(username=user.username, password="123123")
+            response = client.get("%s?%s=%s" % (
+                reverse("admin:process_member_import", kwargs={ "id": membership.id }),
+                "csv",
+                "doesntmatter.csv"
+            ))
 
     assert response.status_code == 200
     assert "opts" in response.context
