@@ -7,6 +7,7 @@ from django.contrib import admin
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404
 from memberships.models import Membership
 from memberships.admin.forms import ImportForm
+from memberships.admin.importer import Importer
 from django_s3_storage.storage import S3Storage
 
 class ExtraContextMixin(object):
@@ -77,11 +78,6 @@ class ImportView(ExtraContextMixin, RequiredObjectMixin, FormView):
         except:
             # FIXME: report errors more gracefully?
             raise
-
-class Importer(object):
-
-    def parse(self, f):
-        return "woo"
 
 class ProcessView(ExtraContextMixin, RequiredObjectMixin, TemplateView):
     template_name = "memberships/admin/import_members/process.html"
