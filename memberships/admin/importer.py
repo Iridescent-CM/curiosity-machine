@@ -1,5 +1,7 @@
 import csv
 
+from profiles.forms.student import StudentUserAndProfileForm
+
 def decode_lines(f, encoding='utf-8'):
     for line in f:
         yield line.decode(encoding)
@@ -16,4 +18,20 @@ class Importer(object):
         f.seek(0)
         dialect = csv.Sniffer().sniff(contents)
         reader = csv.DictReader(decode_lines(f))
-        return list(reader)
+
+        from django.forms.models import modelformset_factory
+        from django.contrib.auth.models import User
+        MyFormset = modelformset_factory(User, StudentUserAndProfileForm)
+        data = {}
+        idx = 0
+        for row in reader:
+            row["confirm_password"] = row["password"]
+            data.update({"form-%d-%s" % (idx, k): v for k, v in row.items()})
+            idx += 1
+        data.update({
+             'form-TOTAL_FORMS': idx,
+             'form-INITIAL_FORMS': '0',
+             'form-MAX_NUM_FORMS': '',
+        })
+        f = MyFormset(data=data)
+        return f

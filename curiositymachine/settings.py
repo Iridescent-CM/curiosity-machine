@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 import dj_database_url
 from django.http import Http404
 from curiositymachine.exceptions import LoginRequired
-from uuid import uuid4
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os

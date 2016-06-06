@@ -154,7 +154,9 @@ def test_get_process_member_import_has_admin_context_variables(client):
     user = UserFactory(username="username", password="123123", is_staff=True, is_superuser=True, is_active=True)
     membership = MembershipFactory()
 
-    with patch.object(ProcessView, 'storage') as storageMock:
+    with patch.object(ProcessView, 'storage') as storageMock, patch.object(ProcessView, 'importer') as importerMock:
+        importerMock.parse.return_value = ["member1", "member2"]
+
         with open(os.path.join(TEST_DIR, './data/normal.csv'), 'rb') as fp:
             storageMock.open.return_value = fp
 

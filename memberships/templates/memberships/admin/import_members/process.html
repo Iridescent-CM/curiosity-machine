@@ -12,5 +12,20 @@
 {% endblock %}
 
 {% block content %}
-  Members: {{members}}
+  Members:
+  <table>
+    {% for member in members %}
+    <tr>
+      {% for field in member %}
+      <td>{{field.errors}} {{field.label_tag}} {{field.value}}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+
+  {% if members.is_valid %}
+  <button>Create users</button>
+  {% else %}
+  No.
+  {% endif %}
 {% endblock %}
