@@ -49,6 +49,39 @@ class MemberLimit(models.Model):
     def current(self):
         return self.membership.member_set.filter(user__profile__role=self.role).count()
 
+from django_s3_storage.storage import S3Storage
+from django.core.exceptions import ValidationError
+from django.template.defaultfilters import filesizeformat
+import csv
+
+def member_import_csv_validator(csv_file):
+    """
+    Validates that CSVs used for member import are small enough to keep
+    in memory, and readable as CSVs. Does not validate that members can
+    necessarily be created from the data within.
+    """
+
+    if csv_file.multiple_chunks():
+        raise ValidationError("File is too large (%s)" % filesizeformat(csv_file.size))
+    contents = csv_file.read()
+    csv_file.seek(0)
+    try:
+        contents = contents.decode('utf-8')
+    except UnicodeDecodeError:
+        raise ValidationError("File does not appear to be UTF-8 encoded")
+    except:
+        raise ValidationError("Unknown error while decoding file")
+
+    sniffer = csv.Sniffer()
+    try:
+        dialect = sniffer.sniff(contents)
+    except csv.Error:
+        raise ValidationError("Not a valid CSV file")
+
+class MemberImport(models.Model):
+    input = models.FileField(upload_to="memberships/imports/", storage=S3Storage(), validators=[member_import_csv_validator])
+    membership = models.ForeignKey(Membership, null=False, on_delete=models.CASCADE)
+
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 @receiver(pre_save, sender=Member)

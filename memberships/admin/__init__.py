@@ -2,8 +2,12 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
-from memberships.models import Membership, Member, MemberLimit
+from memberships.models import Membership, Member, MemberLimit, MemberImport
 from memberships.admin.views import ImportView, ProcessView
+
+class MemberImportInline(admin.TabularInline):
+    model = MemberImport
+    extra = 0
 
 class MemberLimitInline(admin.TabularInline):
     model = MemberLimit
@@ -14,7 +18,7 @@ class MemberLimitInline(admin.TabularInline):
 class MembershipAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'expiration')
     search_fields = ('name',)
-    inlines = [MemberLimitInline]
+    inlines = [MemberLimitInline, MemberImportInline]
     filter_horizontal = ['challenges']
 
     def get_urls(self):
