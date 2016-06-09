@@ -1,0 +1,10 @@
+{% extends "curiositymachine/layout/base.html" %}
+
+{% block content %}
+  <p>{{ membership.name }}</p>
+  <ul>
+    {% for student in membership.members.all %}
+      <li>{{ student.username }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
