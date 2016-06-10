@@ -58,6 +58,20 @@ def test_valid_data_written_to_output_without_errors():
         fout.seek(0)
         assert fout.read().strip() == "1,2,3,errors\na,b,c,"
 
+def test_error_column_blanked_out_if_input_has_column_value_but_record_is_valid():
+    MockFormClass = MagicMock()
+    MockFormClass().is_valid.return_value = True
+
+    with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
+        fin.write(b'1,2,3,errors\na,b,c,error!')
+        fin.seek(0)
+
+        strategy = BulkImporter(MockFormClass)
+        strategy.call(fin, fout)
+
+        fout.seek(0)
+        assert fout.read().strip() == "1,2,3,errors\na,b,c,"
+
 def test_invalid_data_written_to_output_with_errors():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = False

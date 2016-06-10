@@ -31,7 +31,8 @@ class BulkImporter(object):
 
     def _build_fieldnames(self, keys):
         keys.sort()
-        keys.append('errors')
+        if not "errors" in keys:
+            keys.append('errors')
         return keys
 
     def _format_errors(self, errors):
@@ -53,12 +54,13 @@ class BulkImporter(object):
                 writer.writeheader()
 
             form = self.modelformclass(row)
-            if not form.is_valid():
+            if form.is_valid():
+                row['errors'] = ''
+                valid.append((row, form))
+            else:
                 row['errors'] = self._format_errors(form.errors)
                 writer.writerow(row)
                 clean = False
-            else:
-                valid.append((row, form))
 
         for row, form in valid:
             if clean:
