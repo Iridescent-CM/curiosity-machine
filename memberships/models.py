@@ -1,8 +1,15 @@
 from django.db import models
-from challenges.models import Challenge
-from profiles.models import UserRole
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.files import File
+from django.forms.models import modelform_factory
+from tempfile import TemporaryFile
+from django_s3_storage.storage import S3Storage
+from challenges.models import Challenge
+from profiles.models import UserRole
+from memberships.importer import BulkImporter
+from memberships.validators import member_import_csv_validator
+
 
 class Membership(models.Model):
     name = models.CharField(unique=True, max_length=255, null=False, blank=False)
