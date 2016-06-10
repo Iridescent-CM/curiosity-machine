@@ -1,18 +1,21 @@
 import pytest
 from mock import Mock
 
-from memberships.models import member_import_csv_validator
+from memberships.factories import MembershipFactory
+
+from memberships.models import member_import_csv_validator, MemberImport
 
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.conf import settings
 
-def test_member_import_csv_validator_fails_on_multiple_chunks():
+def test_member_import_csv_validator_limits_size():
     f = SimpleUploadedFile.from_dict({
         "filename": "file.csv",
         "content": b'file body'
     })
     mockFile = Mock(wraps=f)
-    mockFile.multiple_chunks.return_value = True
+    mockFile.size = settings.FILE_UPLOAD_MAX_MEMORY_SIZE + 1
 
     with pytest.raises(ValidationError) as err:
         member_import_csv_validator(mockFile)

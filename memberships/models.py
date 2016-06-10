@@ -52,6 +52,7 @@ class MemberLimit(models.Model):
 from django_s3_storage.storage import S3Storage
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
+from django.conf import settings
 import csv
 
 def member_import_csv_validator(csv_file):
@@ -61,7 +62,7 @@ def member_import_csv_validator(csv_file):
     necessarily be created from the data within.
     """
 
-    if csv_file.multiple_chunks():
+    if csv_file.size > settings.FILE_UPLOAD_MAX_MEMORY_SIZE:
         raise ValidationError("File is too large (%s)" % filesizeformat(csv_file.size))
     contents = csv_file.read()
     csv_file.seek(0)
