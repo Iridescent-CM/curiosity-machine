@@ -5,9 +5,27 @@ from django.shortcuts import get_object_or_404
 from memberships.models import Membership, Member, MemberLimit, MemberImport
 from memberships.admin.views import ImportView, ProcessView
 
-class MemberImportInline(admin.TabularInline):
+class PastMemberImportInline(admin.TabularInline):
     model = MemberImport
     extra = 0
+    fields = ['input', 'output']
+    readonly_fields = ['input', 'output']
+    can_delete = False
+
+    def has_add_permission(self, request):
+        return False
+
+class NewMemberImportInline(admin.TabularInline):
+    model = MemberImport
+    extra = 1
+    max_num = 1
+    fields = ['input']
+    verbose_name = ""
+    verbose_name_plural = "Import members"
+    can_delete = False
+
+    def has_change_permission(self, request):
+        return False
 
 class MemberLimitInline(admin.TabularInline):
     model = MemberLimit
@@ -18,7 +36,7 @@ class MemberLimitInline(admin.TabularInline):
 class MembershipAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'expiration')
     search_fields = ('name',)
-    inlines = [MemberLimitInline, MemberImportInline]
+    inlines = [MemberLimitInline, NewMemberImportInline, PastMemberImportInline]
     filter_horizontal = ['challenges']
 
     def get_urls(self):

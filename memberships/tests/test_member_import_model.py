@@ -1,45 +1,24 @@
 import pytest
-from mock import Mock
 
 from memberships.factories import MembershipFactory
 
-from memberships.models import member_import_csv_validator, MemberImport
+from memberships.models import MemberImport
 
-from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.conf import settings
+from django_rq import get_worker, get_queue
 
-def test_member_import_csv_validator_limits_size():
-    f = SimpleUploadedFile.from_dict({
-        "filename": "file.csv",
-        "content": b'file body'
-    })
-    mockFile = Mock(wraps=f)
-    mockFile.size = settings.FILE_UPLOAD_MAX_MEMORY_SIZE + 1
+@pytest.mark.django_db
+def test_saving_a_new_member_import_processes_the_input_file_in_a_worker():
+    queue = get_queue()
+    queue.empty()
 
-    with pytest.raises(ValidationError) as err:
-        member_import_csv_validator(mockFile)
+    membership = MembershipFactory()
+    member_import = MemberImport(input=SimpleUploadedFile("file.csv", b'file contents'), membership=membership)
+    member_import.save()
 
-    assert "too large" in str(err.value)
+    assert queue.count == 1
+    assert not MemberImport.objects.all().first().output.name
 
-def test_member_import_csv_validator_fails_on_non_utf8():
-    f = SimpleUploadedFile.from_dict({
-        "filename": "file.csv",
-        "content": "file body".encode('utf-16')
-    })
+    get_worker().work(burst=True)  
 
-    with pytest.raises(ValidationError) as err:
-        member_import_csv_validator(f)
-
-    assert "UTF-8" in str(err.value)
-
-def test_member_import_csv_validator_fails_on_unsniffable_csv():
-    f = SimpleUploadedFile.from_dict({
-        "filename": "file.csv",
-        "content": b'' # empty files seem to be unsniffable
-    })
-
-    with pytest.raises(ValidationError) as err:
-        member_import_csv_validator(f)
-
-    assert "Not a valid CSV" in str(err.value)
+    assert MemberImport.objects.all().first().output.name
