@@ -7,7 +7,6 @@ from django.contrib import admin
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404
 from memberships.models import Membership
 from memberships.admin.forms import ImportForm
-from memberships.admin.importer import Importer
 from django_s3_storage.storage import S3Storage
 
 class ExtraContextMixin(object):
@@ -88,7 +87,7 @@ class ProcessView(ExtraContextMixin, RequiredObjectMixin, TemplateView):
     attribute_name = "membership"
 
     storage = S3Storage(aws_s3_key_prefix="memberships/imports/")
-    importer = Importer()
+    importer = None
 
     def get(self, request, *args, **kwargs):
         if "csv" not in request.GET:
