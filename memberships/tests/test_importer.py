@@ -3,7 +3,7 @@ from mock import Mock, MagicMock, call
 
 from tempfile import TemporaryFile
 
-from memberships.importer import BulkImporter
+from memberships.importer import BulkImporter, Result
 
 def test_row_data_validity_checked_by_formclass():
     MockFormClass = MagicMock()
@@ -135,3 +135,51 @@ def test_some_records_saved_when_save_exception_happens():
         assert set(User.objects.all().values_list('username', flat=True)) == set(['a', 'b'])
         assert "Exception encountered" in fout.read()
 
+def test_result_output_includes_header():
+    with TemporaryFile(mode='w+t') as fout:
+        result = Result(fout)
+        result.saved({"a": "1", "b": "2"})
+
+        fout.seek(0)
+        assert fout.read().strip().startswith("a,b,errors")
+
+def test_result_saved_outputs_data():
+    with TemporaryFile(mode='w+t') as fout:
+        result = Result(fout)
+        result.saved({"a": "1", "b": "2"})
+        result.saved({"a": "3", "b": "4"})
+
+        fout.seek(0)
+        assert fout.read().strip() == "a,b,errors\n1,2,\n3,4,"
+
+def test_result_saved_does_not_accept_errors_column():
+    with pytest.raises(Exception) as e, TemporaryFile(mode='w+t') as fout:
+        result = Result(fout)
+        result.saved({"a": "1", "b": "2", "errors": "yep"})
+    
+    assert str(e.value) == 'errors is a reserved fieldname'
+
+def test_result_invalid_outputs_data_and_errors():
+    with TemporaryFile(mode='w+t') as fout:
+        result = Result(fout)
+        result.invalid({"a": "1", "b": "2"}, {"error 1": ["error"]})
+
+        fout.seek(0)
+        assert fout.read().strip() == "a,b,errors\n1,2,error 1: error"
+
+def test_result_save_exception_outputs_data_and_exception_notice():
+    with TemporaryFile(mode='w+t') as fout:
+        result = Result(fout)
+        e = Exception("boom")
+        result.save_exception({"a": "1", "b": "2"}, e)
+
+        fout.seek(0)
+        assert fout.read().strip() == "a,b,errors\n1,2,Exception encountered while saving record"
+
+def test_result_unsaved_outputs_data():
+    with TemporaryFile(mode='w+t') as fout:
+        result = Result(fout)
+        result.unsaved({"a": "1", "b": "2"})
+
+        fout.seek(0)
+        assert fout.read().strip() == "a,b,errors\n1,2,"

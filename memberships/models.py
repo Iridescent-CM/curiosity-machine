@@ -61,6 +61,10 @@ class MemberImport(models.Model):
     membership = models.ForeignKey(Membership, null=False, on_delete=models.CASCADE)
 
     def process(self):
+        """
+        This method calls BulkImporter to do the heavy lifting (in a more easily testable way)
+        and maps the results back to the MemberImport object for persistence
+        """
         modelform = modelform_factory(User, fields=['username', 'email'])
         importer = BulkImporter(modelform)
         with TemporaryFile(mode="w+t") as fp:

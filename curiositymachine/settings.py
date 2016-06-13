@@ -29,6 +29,8 @@ DEBUG = process_false_string(os.environ.get('DEBUG', False)) # debug saves a LOT
 
 TEMPLATE_DEBUG = DEBUG
 
+TEST_RUNNER = "django_pytest.test_runner.TestRunner"
+
 DEBUG_TOOLBAR = os.environ.get('DEBUG_TOOLBAR', False)
 
 COMPRESS_ENABLED = process_false_string(os.environ.get('COMPRESS_ENABLED', False)) # no compression by default for now
