@@ -48,6 +48,9 @@ class BulkImporter(object):
         valid = []
         clean = True
         for idx, row in enumerate(reader):
+            if "errors" in row:
+                del row["errors"]
+
             if idx == 0:
                 fieldnames = self._build_fieldnames(list(row.keys()))
                 writer = csv.DictWriter(outfile, fieldnames=fieldnames)
@@ -55,7 +58,6 @@ class BulkImporter(object):
 
             form = self.modelformclass(row)
             if form.is_valid():
-                row['errors'] = ''
                 valid.append((row, form))
             else:
                 row['errors'] = self._format_errors(form.errors)
