@@ -170,6 +170,8 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
+DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
+
 FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 
 # upload_to_s3 task settings

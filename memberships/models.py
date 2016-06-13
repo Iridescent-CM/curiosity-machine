@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.forms.models import modelform_factory
 from tempfile import TemporaryFile
-from django_s3_storage.storage import S3Storage
 from challenges.models import Challenge
 from profiles.models import UserRole
 from memberships.importer import BulkImporter
@@ -57,8 +56,8 @@ class MemberLimit(models.Model):
         return self.membership.member_set.filter(user__profile__role=self.role).count()
 
 class MemberImport(models.Model):
-    input = models.FileField(upload_to="memberships/imports/", storage=S3Storage(), validators=[member_import_csv_validator])
-    output = models.FileField(null=True, blank=True, upload_to="memberships/imports/", storage=S3Storage())
+    input = models.FileField(upload_to="memberships/imports/", validators=[member_import_csv_validator])
+    output = models.FileField(null=True, blank=True, upload_to="memberships/imports/")
     membership = models.ForeignKey(Membership, null=False, on_delete=models.CASCADE)
 
     def process(self):
