@@ -1,54 +1,45 @@
 import csv
 from django.db import transaction, DataError
+from enum import Enum
+
+class Status(Enum):
+    invalid = 0
+    saved = 1
+    unsaved = 2
+    exception = 3
+
+class ResultRow(object):
+    def __init__(self, status, row, error=None, exception=None):
+        reserved_in_use = set(row.keys()).intersection(set(['errors']))
+        if reserved_in_use:
+            raise Exception('You cannot use these reserved fieldnames in row data: %s' % ", ".join(reserved_in_use))
+        self.status = status
+        self.data = row
+        if error and not isinstance(error, str):
+            error = self._format_errors(error)
+        self.error = error
+        self.exception = exception # FIXME: do something with this
+
+    @staticmethod
+    def _format_errors(errors):
+        return " ".join(["%s: %s" % (k, " ".join(v)) for k, v in iter(sorted(errors.items()))])
+
+    @property
+    def fieldnames(self):
+        fieldnames = sorted(list(self.data.keys()))
+        fieldnames.extend(["errors"])
+        return fieldnames
+
+    @property
+    def fields(self):
+        fields = self.data.copy()
+        if self.error:
+            fields.update({'errors': self.error})
+        return fields
 
 def decode_lines(f, encoding='utf-8'):
     for line in f:
         yield line.decode(encoding)
-
-class Result(object):
-    def __init__(self, outfile):
-        self.outfile = outfile
-        self.writer = None
-
-    def _build_fieldnames(self, keys):
-        keys.sort()
-        if not "errors" in keys:
-            keys.append('errors')
-        return keys
-
-    def _format_errors(self, errors):
-        return " ".join(["%s: %s" % (k, " ".join(v)) for k, v in iter(sorted(errors.items()))])
-
-    def _init_writer(self, row_keys):
-        fieldnames = self._build_fieldnames(row_keys)
-        writer = csv.DictWriter(self.outfile, fieldnames=fieldnames)
-        writer.writeheader()
-        self.writer = writer
-
-    def _write(self, row, errstr=''):
-        if "errors" in row.keys():
-            raise Exception('errors is a reserved fieldname')
-
-        if not self.writer:
-            self._init_writer(list(row.keys()))
-
-        row = row.copy() 
-        row.update({
-            "errors": errstr
-        })
-        self.writer.writerow(row)
-
-    def invalid(self, row, errors):
-        self._write(row, self._format_errors(errors))
-
-    def saved(self, row):
-        self._write(row)
-
-    def save_exception(self, row, exception):
-        self._write(row, "Exception encountered while saving record")
-
-    def unsaved(self, row):
-        self._write(row)
 
 class BulkImporter(object):
     """
@@ -74,35 +65,55 @@ class BulkImporter(object):
         dialect = csv.Sniffer().sniff(contents)
         return csv.DictReader(decode_lines(f))
 
+    def _open_writer(self, f, fieldnames):
+        return csv.DictWriter(f, fieldnames=fieldnames)
+
     def call(self, infile, outfile):
         """
         infile  -  A readable binary mode file, assumed to be UTF-8 encoded, containing CSV data with header  
         outfile -  A writable text mode file for output
         """
         reader = self._open_reader(infile)
-        result = Result(outfile)
 
-        valid = []
-        all_valid = True
+        valids, invalids = [], []
         for row in reader:
             if "errors" in row:
                 del row["errors"]
 
             form = self.modelformclass(row)
             if form.is_valid():
-                valid.append((row, form))
+                valids.append((row, form))
             else:
-                result.invalid(row, form.errors)
-                all_valid = False
+                invalids.append((row, form))
 
-        for row, form in valid:
-            if all_valid:
+        try_to_save = not invalids
+        results = []
+
+        for row, form in invalids:
+            results.append(ResultRow(Status.invalid, row, form.errors))
+
+        for row, form in valids:
+            if try_to_save:
                 try:
                     with transaction.atomic():
                         obj = form.save()
-                        result.saved(row)
-                except Exception as err:
-                    result.save_exception(row, err)
+                except Exception as ex:
+                    results.append(ResultRow(Status.exception, row, "Exception encountered while saving record", ex))
                     # FIXME: log it too
+                else:
+                    results.append(ResultRow(Status.saved, row))
             else:
-                result.unsaved(row)
+                results.append(ResultRow(Status.unsaved, row))
+
+        if results:
+            writer = self._open_writer(outfile, results[0].fieldnames)
+            writer.writeheader()
+            for result_row in results:
+                writer.writerow(result_row.fields)
+
+        counts = {}
+        for result_row in results:
+            counts[result_row.status] = counts.get(result_row.status, 0) + 1
+
+        return counts
+
