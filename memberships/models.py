@@ -6,7 +6,7 @@ from django.forms.models import modelform_factory
 from tempfile import TemporaryFile
 from challenges.models import Challenge
 from profiles.models import UserRole
-from memberships.importer import BulkImporter
+from memberships.importer import BulkImporter, Status
 from memberships.validators import member_import_csv_validator
 
 
@@ -59,6 +59,7 @@ class MemberImport(models.Model):
     input = models.FileField(upload_to="memberships/imports/", validators=[member_import_csv_validator])
     output = models.FileField(null=True, blank=True, upload_to="memberships/imports/")
     membership = models.ForeignKey(Membership, null=False, on_delete=models.CASCADE)
+    status = models.SmallIntegerField(null=True, choices=[(status.value, status.name) for status in Status])
 
     def process(self):
         """
@@ -68,8 +69,10 @@ class MemberImport(models.Model):
         modelform = modelform_factory(User, fields=['username', 'email'])
         importer = BulkImporter(modelform)
         with TemporaryFile(mode="w+t") as fp:
-            importer.call(self.input, fp)
-            self.output.save("out.csv", File(fp))
+            result = importer.call(self.input, fp)
+            self.status = result["final"].value
+            self.output.save("out.csv", File(fp), save=False)
+            self.save()
 
 import django_rq
 from django.db.models.signals import pre_save, post_save

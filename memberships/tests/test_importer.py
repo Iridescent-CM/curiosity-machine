@@ -57,7 +57,7 @@ def test_valid_data_processed_without_errors():
 
         fout.seek(0)
         assert fout.read().strip() == "1,2,3,errors\na,b,c,"
-        assert result == {Status.saved: 1}
+        assert result["statuses"] == {Status.saved: 1}
 
 def test_error_column_blanked_out_if_input_has_column_value_but_record_is_valid():
     MockFormClass = MagicMock()
@@ -87,7 +87,7 @@ def test_invalid_data_processed_with_errors():
 
         fout.seek(0)
         assert fout.read().strip() == "1,2,3,errors\na,b,c,1: Error desc1 Error desc2 2: Error desc"
-        assert result == {Status.invalid: 1}
+        assert result["statuses"] == {Status.invalid: 1}
 
 def test_save_exception_processed_with_data():
     MockFormClass = MagicMock()
@@ -103,7 +103,23 @@ def test_save_exception_processed_with_data():
 
         fout.seek(0)
         assert fout.read().strip() == "1,2,3,errors\na,b,c,Exception encountered while saving record"
-        assert result == {Status.exception: 1}
+        assert result["statuses"] == {Status.exception: 1}
+
+def test_all_saved_rows_results_in_saved():
+    MockFormClass = MagicMock()
+    MockFormClass().is_valid.return_value = True
+
+    with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
+        fin.write(b'1,2,3\na,b,c\nd,e,f\ng,h,i')
+        fin.seek(0)
+
+        strategy = BulkImporter(MockFormClass)
+        result = strategy.call(fin, fout)
+
+        assert result["statuses"] == {
+            Status.saved: 3
+        }
+        assert result["final"] == Status.saved
 
 def test_invalid_row_results_in_unsaved_rows():
     MockFormClass = MagicMock()
@@ -116,10 +132,11 @@ def test_invalid_row_results_in_unsaved_rows():
         strategy = BulkImporter(MockFormClass)
         result = strategy.call(fin, fout)
 
-        assert result == {
+        assert result["statuses"] == {
             Status.unsaved: 2,
             Status.invalid: 1
         }
+        assert result["final"] == Status.invalid
 
 def test_exception_row_results_in_partial_save():
     MockFormClass = MagicMock()
@@ -133,10 +150,11 @@ def test_exception_row_results_in_partial_save():
         strategy = BulkImporter(MockFormClass)
         result = strategy.call(fin, fout)
 
-        assert result == {
+        assert result["statuses"] == {
             Status.saved: 2,
             Status.exception: 1
         }
+        assert result["final"] == Status.exception
 
 from django.forms.models import modelform_factory
 from django.contrib.auth.models import User

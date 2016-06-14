@@ -68,6 +68,25 @@ class BulkImporter(object):
     def _open_writer(self, f, fieldnames):
         return csv.DictWriter(f, fieldnames=fieldnames)
 
+    @staticmethod
+    def summarize(status_counts):
+        """
+        Return the Status to consider the entire file,
+        given the statuses of each row
+        """
+
+        keys = list(status_counts.keys())
+        if keys == [Status.saved]:
+            return Status.saved
+        elif keys == [Status.unsaved]:
+            return Status.unsaved
+        elif keys == [Status.invalid]:
+            return Status.invalid
+        elif set(keys) == set([Status.invalid, Status.unsaved]):
+            return Status.invalid
+        else:
+            return Status.exception
+
     def call(self, infile, outfile):
         """
         infile  -  A readable binary mode file, assumed to be UTF-8 encoded, containing CSV data with header  
@@ -115,5 +134,8 @@ class BulkImporter(object):
         for result_row in results:
             counts[result_row.status] = counts.get(result_row.status, 0) + 1
 
-        return counts
+        return {
+            "statuses": counts,
+            "final": self.summarize(counts)
+        }
 

@@ -3,17 +3,32 @@ from django.http import HttpResponse
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from memberships.models import Membership, Member, MemberLimit, MemberImport
+from memberships.importer import Status
 from memberships.admin.views import ImportView, ProcessView
 
 class PastMemberImportInline(admin.TabularInline):
     model = MemberImport
     extra = 0
-    fields = ['input', 'output']
-    readonly_fields = ['input', 'output']
+    fields = ['input', 'output', 'status_message']
+    readonly_fields = ['input', 'output', 'status_message']
     can_delete = False
+
+    messages = {
+        None: 'Import pending',
+        Status.invalid: 'Invalid records found, no users created',
+        Status.saved: 'All users created',
+        Status.exception: 'Encountered errors, some users may have been created',
+        Status.unsaved: 'No users created'
+    }
 
     def has_add_permission(self, request):
         return False
+
+    def status_message(self, obj):
+        key = None
+        if obj.status != None:
+            key = Status(obj.status)
+        return self.messages[key]
 
 class NewMemberImportInline(admin.TabularInline):
     model = MemberImport
