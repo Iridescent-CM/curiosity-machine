@@ -1,3 +1,4 @@
+from os.path import splitext, basename
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -55,13 +56,20 @@ class MemberLimit(models.Model):
     def current(self):
         return self.membership.member_set.filter(user__profile__role=self.role).count()
 
+def member_import_path(instance, filename):
+    return "memberships/%d/import/%s" % (instance.membership.id, filename)
+
 class MemberImport(models.Model):
-    input = models.FileField(upload_to="memberships/imports/", validators=[member_import_csv_validator])
-    output = models.FileField(null=True, blank=True, upload_to="memberships/imports/")
+    input = models.FileField(upload_to=member_import_path, validators=[member_import_csv_validator])
+    output = models.FileField(null=True, blank=True, upload_to=member_import_path)
     membership = models.ForeignKey(Membership, null=False, on_delete=models.CASCADE)
     status = models.SmallIntegerField(null=True, choices=[(status.value, status.name) for status in Status])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    @staticmethod
+    def output_name(name):
+        return "%s_result%s" % splitext(name)
 
     def process(self):
         """
@@ -73,7 +81,7 @@ class MemberImport(models.Model):
         with TemporaryFile(mode="w+t") as fp:
             result = importer.call(self.input, fp)
             self.status = result["final"].value
-            self.output.save("out.csv", File(fp), save=False)
+            self.output.save(self.output_name(basename(self.input.name)), File(fp), save=False)
             self.save()
 
 import django_rq

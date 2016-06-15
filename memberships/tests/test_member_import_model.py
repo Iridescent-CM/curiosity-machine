@@ -10,6 +10,9 @@ from django.core.files.storage import default_storage
 from django_rq import get_worker, get_queue
 from django_s3_storage.storage import S3Storage
 
+def test_output_name():
+    assert MemberImport.output_name("a/b/c/file.ext") == "a/b/c/file_result.ext"
+
 @pytest.mark.django_db
 def test_saving_a_new_member_import_processes_the_input_file_in_a_worker():
     queue = get_queue()
