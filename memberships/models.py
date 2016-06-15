@@ -60,6 +60,8 @@ class MemberImport(models.Model):
     output = models.FileField(null=True, blank=True, upload_to="memberships/imports/")
     membership = models.ForeignKey(Membership, null=False, on_delete=models.CASCADE)
     status = models.SmallIntegerField(null=True, choices=[(status.value, status.name) for status in Status])
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def process(self):
         """

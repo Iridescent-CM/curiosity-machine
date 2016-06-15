@@ -9,8 +9,8 @@ from memberships.admin.views import ImportView, ProcessView
 class PastMemberImportInline(admin.TabularInline):
     model = MemberImport
     extra = 0
-    fields = ['input', 'output', 'status_message']
-    readonly_fields = ['input', 'output', 'status_message']
+    fields = ['input', 'output', 'status_message', 'created_at']
+    readonly_fields = ['input', 'output', 'status_message', 'created_at']
     can_delete = False
 
     messages = {
