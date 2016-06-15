@@ -77,7 +77,7 @@ class MemberImport(models.Model):
             self.save()
 
 import django_rq
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 
 @receiver(pre_save, sender=Member)
@@ -88,3 +88,10 @@ def clean_first(sender, instance, **kwargs):
 def process(sender, instance, created, **kwargs):
     if created:
         django_rq.enqueue(instance.process)
+
+@receiver(post_delete, sender=MemberImport)
+def delete_files(sender, instance, **kwargs):
+    if instance.input.name:
+        instance.input.delete(save=False)
+    if instance.output.name:
+        instance.output.delete(save=False)
