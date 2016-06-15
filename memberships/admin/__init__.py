@@ -30,12 +30,12 @@ class PastMemberImportInline(admin.TabularInline):
             key = Status(obj.status)
         return self.messages[key]
 
-class NewMemberImportInline(admin.TabularInline):
+class NewMemberImportInline(admin.StackedInline):
     model = MemberImport
     extra = 1
     max_num = 1
     fields = ['input']
-    verbose_name = ""
+    verbose_name = "New import"
     verbose_name_plural = "Import members"
     can_delete = False
 

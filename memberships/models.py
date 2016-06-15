@@ -60,7 +60,7 @@ def member_import_path(instance, filename):
     return "memberships/%d/import/%s" % (instance.membership.id, filename)
 
 class MemberImport(models.Model):
-    input = models.FileField(upload_to=member_import_path, validators=[member_import_csv_validator])
+    input = models.FileField(upload_to=member_import_path, validators=[member_import_csv_validator], help_text="Input file must be csv format, utf-8 encoding")
     output = models.FileField(null=True, blank=True, upload_to=member_import_path)
     membership = models.ForeignKey(Membership, null=False, on_delete=models.CASCADE)
     status = models.SmallIntegerField(null=True, choices=[(status.value, status.name) for status in Status])
