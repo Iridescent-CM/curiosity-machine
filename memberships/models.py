@@ -9,7 +9,7 @@ from django.utils.timezone import now
 from tempfile import TemporaryFile
 from datetime import timedelta
 from challenges.models import Challenge
-from profiles.models import UserRole
+from profiles.models import UserRole, Profile
 from memberships.importer import BulkImporter, Status
 from memberships.validators import member_import_csv_validator
 
@@ -94,8 +94,13 @@ class MemberImport(models.Model):
         This method calls BulkImporter to do the heavy lifting (in a more easily testable way)
         and maps the results back to the MemberImport object for persistence
         """
-        modelform = modelform_factory(User, fields=['username', 'email'])
-        importer = BulkImporter(modelform)
+        from memberships.forms import RowImportForm
+        class MembershipRowImportForm(RowImportForm):
+            membership = self.membership
+            userFormClass = modelform_factory(User, fields=['username', 'email', 'first_name', 'last_name'])
+            profileFormClass = modelform_factory(Profile, fields=['city'])
+
+        importer = BulkImporter(MembershipRowImportForm)
         with TemporaryFile(mode="w+t") as fp:
             result = importer.call(self.input, fp)
             self.status = result["final"].value

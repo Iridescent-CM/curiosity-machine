@@ -53,11 +53,12 @@ class BulkImporter(object):
     encountered.
     """
 
-    def __init__(self, modelformclass):
+    def __init__(self, modelformclass, **extra_form_kwargs):
         """
         modelformclass -  the ModelForm to use on input rows
         """
         self.modelformclass = modelformclass
+        self.extra_form_kwargs = extra_form_kwargs
 
     def _open_reader(self, f):
         contents = f.read().decode('utf-8')
@@ -99,7 +100,7 @@ class BulkImporter(object):
             if "errors" in row:
                 del row["errors"]
 
-            form = self.modelformclass(row)
+            form = self.modelformclass(row, **self.extra_form_kwargs)
             if form.is_valid():
                 valids.append((row, form))
             else:

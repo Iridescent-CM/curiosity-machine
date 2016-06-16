@@ -44,6 +44,18 @@ def test_invalid_data_doesnt_call_form_save():
 
         assert not MockFormClass().save.called
 
+def test_extra_form_kwargs_passed_to_form():
+    MockFormClass = MagicMock()
+
+    with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
+        fin.write(b'1,2,3\na,b,c')
+        fin.seek(0)
+
+        strategy = BulkImporter(MockFormClass, extra1=1, extra2=2)
+        strategy.call(fin, fout)
+
+        assert MockFormClass.call_args == call({'1':'a', '2':'b', '3':'c'}, extra1=1, extra2=2)
+
 def test_valid_data_processed_without_errors():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = True
