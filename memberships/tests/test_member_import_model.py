@@ -7,8 +7,11 @@ from memberships.models import MemberImport
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.files.storage import default_storage
+from django.conf import settings
+from django.utils.timezone import now
 from django_rq import get_worker, get_queue
 from django_s3_storage.storage import S3Storage
+from datetime import timedelta
 
 def test_output_name():
     assert MemberImport.output_name("a/b/c/file.ext") == "a/b/c/file_result.ext"
@@ -63,3 +66,20 @@ def test_member_import_deletion_deletes_files():
     assert not default_storage.exists(saved.input.name)
     assert not default_storage.exists(saved.output.name)
 
+@pytest.mark.django_db
+def test_stale_objects_manager():
+    membership = MembershipFactory()
+    stale = MemberImport.objects.create(
+        input = SimpleUploadedFile("file.csv", b'file contents'),
+        membership = membership
+    )
+    MemberImport.objects.create(
+        input = SimpleUploadedFile("file.csv", b'file contents'),
+        membership = membership
+    )
+    too_old = now() - timedelta(days=settings.MEMBER_IMPORT_EXPIRATION_DAYS + 1)
+    MemberImport.objects.filter(pk=stale.pk).update(updated_at=too_old)
+
+    assert MemberImport.objects.count() == 2
+    assert MemberImport.stale_objects.count() == 1
+    assert MemberImport.stale_objects.first().id == stale.id

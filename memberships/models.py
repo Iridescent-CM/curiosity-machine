@@ -4,7 +4,10 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.forms.models import modelform_factory
+from django.conf import settings
+from django.utils.timezone import now
 from tempfile import TemporaryFile
+from datetime import timedelta
 from challenges.models import Challenge
 from profiles.models import UserRole
 from memberships.importer import BulkImporter, Status
@@ -59,6 +62,18 @@ class MemberLimit(models.Model):
 def member_import_path(instance, filename):
     return "memberships/%d/import/%s" % (instance.membership.id, filename)
 
+class StaleManager(models.Manager):
+    def __init__(self, settings_key, *args, **kwargs):
+        self.days_old = int(getattr(settings, settings_key))
+        return super().__init__(*args, **kwargs)
+
+    def get_queryset(self):
+        return super().get_queryset().filter(updated_at__lt=self.threshold)
+
+    @property
+    def threshold(self):
+        return now() - timedelta(days=self.days_old)
+
 class MemberImport(models.Model):
     input = models.FileField(upload_to=member_import_path, validators=[member_import_csv_validator], help_text="Input file must be csv format, utf-8 encoding")
     output = models.FileField(null=True, blank=True, upload_to=member_import_path)
@@ -66,6 +81,9 @@ class MemberImport(models.Model):
     status = models.SmallIntegerField(null=True, choices=[(status.value, status.name) for status in Status])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+    stale_objects = StaleManager("MEMBER_IMPORT_EXPIRATION_DAYS")
 
     @staticmethod
     def output_name(name):
