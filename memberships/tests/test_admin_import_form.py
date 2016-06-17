@@ -9,8 +9,8 @@ from memberships.admin.forms import ImportForm
 TEST_DIR = os.path.dirname(__file__)
 
 def test_valid_import_form():
-    with open(os.path.join(TEST_DIR, './data/normal.csv'), 'rb') as fp:
-        file_data = {"csv_file": SimpleUploadedFile('normal.csv', fp.read())}
+    with open(os.path.join(TEST_DIR, './data/good.csv'), 'rb') as fp:
+        file_data = {"csv_file": SimpleUploadedFile('file.csv', fp.read())}
 
     form = ImportForm({}, file_data)
     assert form.is_valid()

@@ -1,13 +1,27 @@
 from django import forms
 from django.forms.utils import ErrorDict
+from django.forms.models import modelform_factory
 
 from memberships.models import Member
+from profiles.models import Profile
+from django.contrib.auth.models import User
+
+class RowUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'first_name', 'last_name']
+
+    def save(self, commit=True):
+        user = super().save(commit=commit)
+        if "password" in self.cleaned_data:
+            user.set_password(self.cleaned_data["password"])
+        return user
 
 class RowImportForm(forms.Form):
 
     membership = None
-    userFormClass = None
-    profileFormClass = None
+    userFormClass = RowUserForm
+    profileFormClass = modelform_factory(Profile, fields=['birthday', 'approved'])
 
     def __init__(self, *args, **kwargs):
         for keyword in list(kwargs.keys()):

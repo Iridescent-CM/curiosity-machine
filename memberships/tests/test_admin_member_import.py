@@ -67,7 +67,7 @@ def test_post_import_members_with_file_sends_file_to_storage(client):
     with patch.object(ImportView, 'storage') as storageMock:
         storageMock.save.return_value = "name.csv"
 
-        with open(os.path.join(TEST_DIR, './data/normal.csv')) as fp:
+        with open(os.path.join(TEST_DIR, './data/good.csv')) as fp:
             client.login(username=user.username, password="123123")
             response = client.post(reverse("admin:import_members", kwargs={
                 "id": membership.id
@@ -87,7 +87,7 @@ def test_post_import_members_with_file_redirects_to_processing_view_with_query_p
     with patch.object(ImportView, 'storage'):
         ImportView.storage.save.return_value = "name.csv"
 
-        with open(os.path.join(TEST_DIR, './data/normal.csv')) as fp:
+        with open(os.path.join(TEST_DIR, './data/good.csv')) as fp:
             client.login(username=user.username, password="123123")
             response = client.post(reverse("admin:import_members", kwargs={
                 "id": membership.id
@@ -134,7 +134,7 @@ def test_get_process_member_import_renders_template_with_membership_and_parsed_m
     with patch.object(ProcessView, 'storage') as storageMock, patch.object(ProcessView, 'importer') as importerMock:
         importerMock.parse.return_value = ["member1", "member2"]
 
-        with open(os.path.join(TEST_DIR, './data/normal.csv')) as fp:
+        with open(os.path.join(TEST_DIR, './data/good.csv')) as fp:
             storageMock.open.return_value = fp
 
             client.login(username=user.username, password="123123")
@@ -157,7 +157,7 @@ def test_get_process_member_import_has_admin_context_variables(client):
     with patch.object(ProcessView, 'storage') as storageMock, patch.object(ProcessView, 'importer') as importerMock:
         importerMock.parse.return_value = ["member1", "member2"]
 
-        with open(os.path.join(TEST_DIR, './data/normal.csv'), 'rb') as fp:
+        with open(os.path.join(TEST_DIR, './data/good.csv'), 'rb') as fp:
             storageMock.open.return_value = fp
 
             client.login(username=user.username, password="123123")

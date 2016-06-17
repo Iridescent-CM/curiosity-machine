@@ -3,7 +3,8 @@ from mock import patch
 
 from memberships.factories import MembershipFactory
 
-from memberships.models import MemberImport
+from memberships.models import MemberImport, Membership
+from memberships.importer import Status
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.files.storage import default_storage
@@ -12,9 +13,49 @@ from django.utils.timezone import now
 from django_rq import get_worker, get_queue
 from django_s3_storage.storage import S3Storage
 from datetime import timedelta
+import os
 
 def test_output_name():
     assert MemberImport.output_name("a/b/c/file.ext") == "a/b/c/file_result.ext"
+
+@pytest.mark.django_db
+def test_valid_example_file():
+    # It's useful to have actual files for some number of tests. They can be used
+    # in manual QA, or be the basis for QA test files, and it's then best to ensure
+    # they are valid or invalid as expected.
+
+    queue = get_queue()
+    queue.empty()
+
+    membership = MembershipFactory()
+    with open("%s/data/good.csv" % os.path.dirname(os.path.abspath(__file__)), mode='rb') as fp:
+        member_import = MemberImport(input=SimpleUploadedFile("file.csv", fp.read()), membership=membership)
+    member_import.save()
+    get_worker().work(burst=True)
+
+    member_import = MemberImport.objects.all().first()
+    assert Status(member_import.status) == Status.saved
+
+    membership = Membership.objects.all().first()
+    assert membership.members.count() > 0
+
+@pytest.mark.django_db
+def test_invalid_example_file():
+    queue = get_queue()
+    queue.empty()
+
+    membership = MembershipFactory()
+    with open("%s/data/bad.csv" % os.path.dirname(os.path.abspath(__file__)), mode='rb') as fp:
+        member_import = MemberImport(input=SimpleUploadedFile("file.csv", fp.read()), membership=membership)
+    member_import.save()
+    get_worker().work(burst=True)
+
+    member_import = MemberImport.objects.all().first()
+    assert Status(member_import.status) == Status.invalid
+
+    membership = Membership.objects.all().first()
+    assert membership.members.count() == 0
+
 
 @pytest.mark.django_db
 def test_saving_a_new_member_import_processes_the_input_file_in_a_worker():

@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.files import File
-from django.forms.models import modelform_factory
 from django.conf import settings
 from django.utils.timezone import now
 from tempfile import TemporaryFile
@@ -95,12 +94,7 @@ class MemberImport(models.Model):
         and maps the results back to the MemberImport object for persistence
         """
         from memberships.forms import RowImportForm
-        class MembershipRowImportForm(RowImportForm):
-            membership = self.membership
-            userFormClass = modelform_factory(User, fields=['username', 'email', 'first_name', 'last_name'])
-            profileFormClass = modelform_factory(Profile, fields=['city'])
-
-        importer = BulkImporter(MembershipRowImportForm)
+        importer = BulkImporter(RowImportForm, membership=self.membership)
         with TemporaryFile(mode="w+t") as fp:
             result = importer.call(self.input, fp)
             self.status = result["final"].value
