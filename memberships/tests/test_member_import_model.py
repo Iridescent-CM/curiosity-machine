@@ -126,6 +126,37 @@ def test_stale_objects_manager():
     assert MemberImport.stale_objects.first().id == stale.id
 
 @pytest.mark.django_db
+def test_stale_manager_older_than():
+    membership = MembershipFactory()
+    MemberImport.objects.create(
+        input = SimpleUploadedFile("file.csv", b'file contents'),
+        membership = membership
+    )
+    default_days = settings.MEMBER_IMPORT_EXPIRATION_DAYS
+    MemberImport.objects.all().update(
+        updated_at = now() - timedelta(days=default_days + 1)
+    )
+
+    assert MemberImport.objects.count() == 1
+    assert MemberImport.stale_objects.older_than().count() == 1
+    assert MemberImport.stale_objects.older_than(default_days).count() == 1
+    assert MemberImport.stale_objects.older_than(default_days + 2).count() == 0
+
+def test_stale_objects_threshold():
+    default = settings.MEMBER_IMPORT_EXPIRATION_DAYS
+    def roughly_equal(d1, d2):
+        return d1 - d2 < timedelta(minutes=5)
+
+    assert roughly_equal(
+        MemberImport.stale_objects.threshold(),
+        now() - timedelta(days=default)
+    )
+    assert roughly_equal(
+        MemberImport.stale_objects.threshold(4),
+        now() - timedelta(days=4)
+    )
+
+@pytest.mark.django_db
 def test_unexpected_exception_recorded_in_status():
     queue = get_queue()
     queue.empty()

@@ -12,9 +12,13 @@ class RowUserForm(forms.ModelForm):
         fields = ['username', 'password', 'first_name', 'last_name']
 
     def save(self, commit=True):
-        user = super().save(commit=commit)
+        user = super().save(commit=False)
         if "password" in self.cleaned_data:
             user.set_password(self.cleaned_data["password"])
+        user.skip_welcome_email = True
+        user.skip_mailing_list_subscription = True
+        if commit:
+            user.save()
         return user
 
 class RowImportForm(forms.Form):

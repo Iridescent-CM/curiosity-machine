@@ -66,15 +66,21 @@ def member_import_path(instance, filename):
 
 class StaleManager(models.Manager):
     def __init__(self, settings_key, *args, **kwargs):
-        self.days_old = int(getattr(settings, settings_key))
+        self.default_days = int(getattr(settings, settings_key))
         return super().__init__(*args, **kwargs)
 
     def get_queryset(self):
-        return super().get_queryset().filter(updated_at__lt=self.threshold)
+        return self.older_than(self.default_days)
 
-    @property
-    def threshold(self):
-        return now() - timedelta(days=self.days_old)
+    def older_than(self, days=None):
+        qs =  super().get_queryset()
+        if days != None:
+            qs = qs.filter(updated_at__lt=self.threshold(days))
+        return qs
+
+    def threshold(self, days=None):
+        days = days if days != None else self.default_days
+        return now() - timedelta(days=days)
 
 class MemberImport(models.Model):
     input = models.FileField(upload_to=member_import_path, validators=[member_import_csv_validator], help_text="Input file must be csv format, utf-8 encoding")
