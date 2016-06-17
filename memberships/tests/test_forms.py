@@ -42,6 +42,10 @@ def test_profile_birthday_values():
     profile = RowImportForm.profileFormClass({"birthday": "1990-01-01"}).save(commit=False)
     assert profile.birthday == date(month=1, day=1, year=1990)
 
+def test_profile_has_student_role():
+    profile = RowImportForm.profileFormClass({"birthday":"01/01/1990", "approved":"1"}).save(commit=False)
+    assert profile.is_student
+
 @pytest.mark.django_db
 def test_valid_user_data_with_default_form():
     examples = [

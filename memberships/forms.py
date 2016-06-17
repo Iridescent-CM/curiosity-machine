@@ -3,7 +3,7 @@ from django.forms.utils import ErrorDict
 from django.forms.models import modelform_factory
 
 from memberships.models import Member
-from profiles.models import Profile
+from profiles.models import Profile, UserRole
 from django.contrib.auth.models import User
 
 class RowUserForm(forms.ModelForm):
@@ -21,11 +21,24 @@ class RowUserForm(forms.ModelForm):
             user.save()
         return user
 
+class RowProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['birthday', 'approved']
+
+    def save(self, commit=False):
+        profile = super().save(commit=False)
+        profile.role = UserRole.student.value
+        if commit:
+            profile.save()
+        return profile
+
+
 class RowImportForm(forms.Form):
 
     membership = None
     userFormClass = RowUserForm
-    profileFormClass = modelform_factory(Profile, fields=['birthday', 'approved'])
+    profileFormClass = RowProfileForm
 
     def __init__(self, *args, **kwargs):
         for keyword in list(kwargs.keys()):
