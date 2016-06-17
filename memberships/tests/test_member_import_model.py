@@ -124,3 +124,18 @@ def test_stale_objects_manager():
     assert MemberImport.objects.count() == 2
     assert MemberImport.stale_objects.count() == 1
     assert MemberImport.stale_objects.first().id == stale.id
+
+@pytest.mark.django_db
+def test_unexpected_exception_recorded_in_status():
+    queue = get_queue()
+    queue.empty()
+
+    membership = MembershipFactory()
+    member_import = MemberImport(input=SimpleUploadedFile("file.csv", b'file contents'), membership=membership)
+    member_import.save()
+    with patch("memberships.importer.BulkImporter.call") as mock:
+        mock.side_effect = Exception("kaboom")
+        get_worker().work(burst=True)
+
+    saved = MemberImport.objects.all().first()
+    assert Status(saved.status) == Status.exception

@@ -11,6 +11,9 @@ from challenges.models import Challenge
 from profiles.models import UserRole, Profile
 from memberships.importer import BulkImporter, Status
 from memberships.validators import member_import_csv_validator
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Membership(models.Model):
@@ -93,13 +96,18 @@ class MemberImport(models.Model):
         This method calls BulkImporter to do the heavy lifting (in a more easily testable way)
         and maps the results back to the MemberImport object for persistence
         """
-        from memberships.forms import RowImportForm
-        importer = BulkImporter(RowImportForm, membership=self.membership)
-        with TemporaryFile(mode="w+t") as fp:
-            result = importer.call(self.input, fp)
-            self.status = result["final"].value
-            self.output.save(self.output_name(basename(self.input.name)), File(fp), save=False)
-            self.save()
+        try:
+            from memberships.forms import RowImportForm
+            importer = BulkImporter(RowImportForm, membership=self.membership)
+            with TemporaryFile(mode="w+t") as fp:
+                result = importer.call(self.input, fp)
+                self.status = result["final"].value
+                self.output.save(self.output_name(basename(self.input.name)), File(fp), save=False)
+                self.save()
+        except Exception as ex:
+            logger.warning("Unexpected exception processing member import file %s" % self.input.name, exc_info=ex)
+            self.status = Status.exception.value
+            self.save(update_fields=['status'])
 
 import django_rq
 from django.db.models.signals import pre_save, post_save, post_delete

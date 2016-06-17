@@ -1,6 +1,9 @@
 import csv
 from django.db import transaction, DataError
 from enum import Enum
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Status(Enum):
     invalid = 0
@@ -119,7 +122,7 @@ class BulkImporter(object):
                         obj = form.save()
                 except Exception as ex:
                     results.append(ResultRow(Status.exception, row, "Exception encountered while saving record", ex))
-                    # FIXME: log it too
+                    logger.warning("Exception saving row", exc_info=ex)
                 else:
                     results.append(ResultRow(Status.saved, row))
             else:
