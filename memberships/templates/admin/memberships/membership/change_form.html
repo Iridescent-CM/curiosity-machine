@@ -1,9 +1,0 @@
-{% extends 'admin/change_form.html' %}
-{% load admin_urls %}
-
-{% block object-tools-items %}
-{{ block.super }}
-<li>
-  <a href="{% url 'admin:import_members' id=original.id %}" class="historylink">Import members</a>
-</li>
-{% endblock %}

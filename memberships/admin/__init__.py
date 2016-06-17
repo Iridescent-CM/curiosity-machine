@@ -4,7 +4,6 @@ from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from memberships.models import Membership, Member, MemberLimit, MemberImport
 from memberships.importer import Status
-from memberships.admin.views import ImportView, ProcessView
 
 class PastMemberImportInline(admin.TabularInline):
     model = MemberImport
@@ -53,28 +52,6 @@ class MembershipAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     inlines = [MemberLimitInline, NewMemberImportInline, PastMemberImportInline]
     filter_horizontal = ['challenges']
-
-    def get_urls(self):
-        urls = super(MembershipAdmin, self).get_urls()
-        extra_urls = [
-            url(r'^(?P<id>\d+)/import_members/$', self.admin_site.admin_view(self.import_members), name="import_members"),
-            url(r'^(?P<id>\d+)/import_members/process/$', self.admin_site.admin_view(self.process_import), name="process_member_import"),
-        ]
-        return extra_urls + urls
-
-    def import_members(self, request, *args, **kwargs):
-        context = dict(
-            self.admin_site.each_context(request),
-            opts = self.model._meta
-        )
-        return ImportView.as_view(extra_context=context)(request, *args, **kwargs)
-
-    def process_import(self, request, *args, **kwargs):
-        context = dict(
-            self.admin_site.each_context(request),
-            opts = self.model._meta
-        )
-        return ProcessView.as_view(extra_context=context)(request, *args, **kwargs)
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
