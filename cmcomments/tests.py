@@ -67,3 +67,6 @@ def test_progress_considered_complete_not_sent_if_mentor_reflects_first():
     progress = ProgressFactory(student=student, mentor=mentor)
     comment = ReflectionCommentFactory(challenge_progress=progress, user=mentor)
     assert not handler.called
+
+    comment = ReflectionCommentFactory(challenge_progress=progress, user=student)
+    assert handler.called
