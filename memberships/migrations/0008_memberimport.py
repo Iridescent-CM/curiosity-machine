@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django_s3_storage.storage
+import memberships.models
+import memberships.validators
 
 
 class Migration(migrations.Migration):
@@ -15,8 +16,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MemberImport',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('input', models.FileField(upload_to='', storage=django_s3_storage.storage.S3Storage(aws_s3_key_prefix='memberships/imports/'))),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+                ('input', models.FileField(upload_to=memberships.models.member_import_path, help_text='Input file must be csv format, utf-8 encoding', validators=[memberships.validators.member_import_csv_validator])),
+                ('output', models.FileField(blank=True, null=True, upload_to=memberships.models.member_import_path)),
+                ('status', models.SmallIntegerField(choices=[(0, 'invalid'), (1, 'saved'), (2, 'unsaved'), (3, 'exception')], null=True, blank=True)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
                 ('membership', models.ForeignKey(to='memberships.Membership')),
             ],
         ),
