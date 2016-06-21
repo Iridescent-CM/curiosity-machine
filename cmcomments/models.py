@@ -19,6 +19,9 @@ class Comment(models.Model):
     def is_featured_as_example(self):
         return Example.objects.filter(progress=self.challenge_progress, image=self.image, video=self.video).exists()
 
+    def is_first_post(self):
+        return self.challenge_progress.comments.filter(user=self.user).count() == 1
+
     def is_first_reflect_post(self):
         return self.stage == Stage.reflect.value and self.challenge_progress.comments.filter(
             user=self.user,
