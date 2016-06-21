@@ -10,9 +10,7 @@ import re
 
 @receiver(signals.created_account)
 def send_welcome_email(sender, **kwargs):
-    if sender.profile.is_mentor:
-        send(template_name='mentor-welcome-email', to=sender, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
-    else:
+    if sender.profile.send_welcome:
         deliver_email('welcome', sender.profile)
     subscribe(sender)
 
