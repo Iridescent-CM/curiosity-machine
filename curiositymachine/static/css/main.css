@@ -5458,6 +5458,14 @@ footer {
   .membership-pages .jumbotron-sand h3 {
     font-weight: 400; }
 
+.membership-pages .all-challenges-cards {
+  margin-bottom: 3em; }
+  .membership-pages .all-challenges-cards .challenge-card {
+    display: block;
+    vertical-align: top;
+    margin: 10px auto;
+    min-height: 400px; }
+
 #index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern {
   padding-top: 6em; }
 
