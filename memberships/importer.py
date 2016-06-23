@@ -12,6 +12,9 @@ class Status(Enum):
     exception = 3
 
 class ResultRow(object):
+    """
+    Formatter for csv output row
+    """
     def __init__(self, status, row, error=None, exception=None):
         reserved_in_use = set(row.keys()).intersection(set(['errors']))
         if reserved_in_use:
@@ -46,14 +49,14 @@ def decode_lines(f, encoding='utf-8'):
 
 class BulkImporter(object):
     """
-    Given a ModelForm, BulkImporter will create models form the rows of a CSV data file.
+    Given a ModelForm, BulkImporter will create models from the rows of a CSV data file.
 
-    All rows will be checked for validity first, and no models created if an invalid
+    All rows will be checked for validity first, and no models are created if an invalid
     row is encountered. Exceptions encountered saving a model will be logged but will not
     prevent creation of other models.
 
     An output CSV will be generated detailing the records created and the errors or exceptions
-    encountered.
+    encountered. A summary object is also returned detailing the import results.
     """
 
     def __init__(self, modelformclass, **extra_form_kwargs):
@@ -100,14 +103,13 @@ class BulkImporter(object):
 
         valids, invalids = [], []
         for row in reader:
-            if "errors" in row:
-                del row["errors"]
-
             form = self.modelformclass(row, **self.extra_form_kwargs)
+            reduced_row = {k: v for k, v in row.items() if k in form.fields}
+
             if form.is_valid():
-                valids.append((row, form))
+                valids.append((reduced_row, form))
             else:
-                invalids.append((row, form))
+                invalids.append((reduced_row, form))
 
         try_to_save = not invalids
         results = []

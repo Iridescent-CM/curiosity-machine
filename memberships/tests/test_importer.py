@@ -59,6 +59,7 @@ def test_extra_form_kwargs_passed_to_form():
 def test_valid_data_processed_without_errors():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = True
+    MockFormClass().fields = ['1','2','3']
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
         fin.write(b'1,2,3\na,b,c')
@@ -74,6 +75,7 @@ def test_valid_data_processed_without_errors():
 def test_error_column_blanked_out_if_input_has_column_value_but_record_is_valid():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = True
+    MockFormClass().fields = ['1','2','3']
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
         fin.write(b'1,2,3,errors\na,b,c,error!')
@@ -85,9 +87,25 @@ def test_error_column_blanked_out_if_input_has_column_value_but_record_is_valid(
         fout.seek(0)
         assert fout.read().strip() == "1,2,3,errors\na,b,c,"
 
+def test_only_fields_in_form_written_to_output():
+    MockFormClass = MagicMock()
+    MockFormClass().is_valid.return_value = True
+    MockFormClass().fields = ['1','2']
+
+    with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
+        fin.write(b'1,2,3\na,b,c')
+        fin.seek(0)
+
+        strategy = BulkImporter(MockFormClass)
+        strategy.call(fin, fout)
+
+        fout.seek(0)
+        assert fout.read().strip() == "1,2,errors\na,b,"
+
 def test_invalid_data_processed_with_errors():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = False
+    MockFormClass().fields = ['1','2','3']
     MockFormClass().errors = {'1': ['Error desc1', 'Error desc2'], '2': ['Error desc']}
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
@@ -104,6 +122,7 @@ def test_invalid_data_processed_with_errors():
 def test_save_exception_processed_with_data():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = True
+    MockFormClass().fields = ['1','2','3']
     MockFormClass().save.side_effect = Exception("Boom")
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
