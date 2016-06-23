@@ -29,6 +29,8 @@ DEBUG = process_false_string(os.environ.get('DEBUG', False)) # debug saves a LOT
 
 TEMPLATE_DEBUG = DEBUG
 
+TEST_RUNNER = "django_pytest.test_runner.TestRunner"
+
 DEBUG_TOOLBAR = os.environ.get('DEBUG_TOOLBAR', False)
 
 COMPRESS_ENABLED = process_false_string(os.environ.get('COMPRESS_ENABLED', False)) # no compression by default for now
@@ -170,12 +172,16 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
+DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
+
 FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 
+# upload_to_s3 task settings
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "curiositymachine")
 
+# s3direct
 S3DIRECT_REGION = os.getenv("S3DIRECT_REGION", "us-east-1")
 S3DIRECT_DESTINATIONS = {
     'unit-resources': (
@@ -183,6 +189,11 @@ S3DIRECT_DESTINATIONS = {
         lambda u: u.is_staff,
     )
 }
+
+# django-s3-storage
+AWS_REGION = S3DIRECT_REGION
+AWS_S3_BUCKET_NAME = AWS_STORAGE_BUCKET_NAME
+AWS_S3_CALLING_FORMAT = "boto.s3.connection.OrdinaryCallingFormat"
 
 ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
 REPORT_ZENCODER_USAGE = os.environ.get("REPORT_ZENCODER_USAGE", False)
@@ -314,6 +325,7 @@ TEMPLATE_LOADERS = (
     'apptemplates.Loader',
 )
 
+MEMBER_IMPORT_EXPIRATION_DAYS = os.environ.get("MEMBER_IMPORT_EXPIRATION_DAYS", 7)
 EMAIL_INACTIVE_DAYS_MENTOR = os.environ.get("EMAIL_INACTIVE_DAYS_MENTOR", 7)
 EMAIL_INACTIVE_DAYS_STUDENT = os.environ.get("EMAIL_INACTIVE_DAYS_STUDENT", 14)
 GA_CODE = os.environ.get("GA_CODE", None)
