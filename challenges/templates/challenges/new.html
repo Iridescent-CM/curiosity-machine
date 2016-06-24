@@ -51,51 +51,52 @@
 
         {% with all=request.user.challenges.all %}
         <div class="row">
+
           {% for challenge in challenges %}
-          <div class="col-sm-6 col-md-12 col-lg-6 col-xl-4">
-            <div class="challenge-card">
-              {% if request.user.is_authenticated and request.user.profile.is_student %}
-              <div class="favorites-filter">
-                <input type="checkbox"
-                  name="favorite-star-{{challenge.id}}"
-                  id="favorite-star-{{challenge.id}}"
-                  data-toggle="favorite"
-                  data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}"
-                  data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"
-                  {% if challenge.id in favorite_ids %}checked="checked"{% endif %}
-                >
-                <label for="favorite-star-{{challenge.id}}"><i class="icon-star-full"></i></label>
-              </div>
-              {% endif %}
-
-              {% if challenge in all %}
-              <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
-              {% else %}
-              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
-              {% endif %}
-                <div class="challenge-card-title">
-                  <p>{{challenge.name}}</p>
-                </div>
-              </a>
-
-              {% if challenge in all %}
-              <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
-              {% else %}
-              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
-              {% endif %}
-                {% if challenge.image %}
-                <img src="{% resized challenge.image.url width=300 height=170 crop='fill' %}">
-                {% elif challenge.video.encodings_generated %}
-                {{ challenge.video.output_videos.all.0.thumbnail }}
+            <div class="col-sm-6 col-md-12 col-lg-6 col-xl-4">
+              <div class="card challenge-card">
+                {% if request.user.is_authenticated and request.user.profile.is_student %}
+                  <div class="favorites-filter">
+                    <input type="checkbox"
+                      name="favorite-star-{{challenge.id}}"
+                      id="favorite-star-{{challenge.id}}"
+                      data-toggle="favorite"
+                      data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}"
+                      data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"
+                      {% if challenge.id in favorite_ids %}checked="checked"{% endif %}
+                    >
+                    <label for="favorite-star-{{challenge.id}}"><i class="icon-star-full"></i></label>
+                  </div>
                 {% endif %}
-              </a>
+                {% if challenge in all %}
+                  <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
+                  {% else %}
+                  <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
+                {% endif %}
+                {% if challenge.image %}
+                  <img class="card-img-top" src="{% resized challenge.image.url width=300 height=190 crop='fill' %}" alt="{{challenge.name}}">
+                {% elif challenge.video.encodings_generated %}
+                  {{ challenge.video.output_videos.all.0.thumbnail }}
+                {% endif %}
+                  </a>
 
-              <div class="challenge-card-description">
-                <small>{{challenge.description}}</small>
+                  <div class="card-block card-title">
+                    {% if challenge in all %}
+                      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
+                    {% else %}
+                      <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
+                    {% endif %}
+                      <h6>{{ challenge.name }}</h6>
+                    </a>
+                  </div>
+                  <div class="card-block">
+                    <small class="card-text">{{challenge.description}}</small>
+                  </div>
+
               </div>
             </div>
-          </div>
           {% endfor %}
+
         </div>
         {% endwith %}
 

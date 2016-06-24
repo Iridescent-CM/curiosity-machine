@@ -4,11 +4,29 @@
   background-color: white;
   border-radius: $base-border-radius;
   box-shadow: 0px 2px 5px 1px $main-shadow;
-  text-align: center;
   position: relative;
+  border-width: 0px;
+
   img {
     width: 100%;
     overflow: hidden;
+  }
+
+  .card-block {
+    padding: $small-spacing;
+  }
+
+  .card-title {
+    border-bottom: 2px solid $sand;
+    margin-bottom: 0px;
+    h6 a {
+      font-weight: $heavy-font-weight;
+      border-bottom: 0px;
+      margin-bottom: 0px;
+      color: $dark;
+      &:hover { color: tint($dark, 30%); }
+      &:focus { color: $primary-red; }
+    }
   }
 }
 
@@ -36,6 +54,7 @@
 
 .favorites-filter {
   position: absolute;
+  text-align: center;
   top: -8px;
   left: -8px;
   input[type='checkbox'] { display: none }
