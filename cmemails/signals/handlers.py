@@ -10,9 +10,20 @@ import re
 
 @receiver(signals.created_account)
 def send_welcome_email(sender, **kwargs):
+<<<<<<< HEAD
     if sender.profile.send_welcome:
         deliver_email('welcome', sender.profile)
     subscribe(sender)
+=======
+    if not getattr(sender, "skip_welcome_email", False):
+        if sender.profile.is_mentor:
+            send(template_name='mentor-welcome-email', to=sender, cc=settings.MENTOR_RELATIONSHIP_MANAGERS)
+        else:
+            deliver_email('welcome', sender.profile)
+
+    if not getattr(sender, "skip_mailing_list_subscription", False):
+        subscribe(sender)
+>>>>>>> develop
 
 @receiver(signals.underage_activation_confirmed)
 def send_activation_confirmation(sender, account, **kwargs):

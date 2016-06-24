@@ -39,6 +39,9 @@ tinys3==0.1.9
 #admin upload to s3
 django-s3direct==0.3.9
 
+# s3 file storage interface
+django-s3-storage==0.9.8
+
 #video encoding service
 zencoder==0.6.5
 

@@ -1,8 +1,20 @@
+from os.path import splitext, basename
 from django.db import models
-from challenges.models import Challenge
-from profiles.models import UserRole
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.files import File
+from django.conf import settings
+from django.utils.timezone import now
+from tempfile import TemporaryFile
+from datetime import timedelta
+from challenges.models import Challenge
+from profiles.models import UserRole, Profile
+from memberships.importer import BulkImporter, Status
+from memberships.validators import member_import_csv_validator
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class Membership(models.Model):
     name = models.CharField(unique=True, max_length=255, null=False, blank=False)
@@ -49,8 +61,76 @@ class MemberLimit(models.Model):
     def current(self):
         return self.membership.member_set.filter(user__profile__role=self.role).count()
 
-from django.db.models.signals import pre_save
+def member_import_path(instance, filename):
+    return "memberships/%d/import/%s" % (instance.membership.id, filename)
+
+class StaleManager(models.Manager):
+    def __init__(self, settings_key, *args, **kwargs):
+        self.default_days = int(getattr(settings, settings_key))
+        return super().__init__(*args, **kwargs)
+
+    def get_queryset(self):
+        return self.older_than(self.default_days)
+
+    def older_than(self, days=None):
+        qs =  super().get_queryset()
+        if days != None:
+            qs = qs.filter(updated_at__lt=self.threshold(days))
+        return qs
+
+    def threshold(self, days=None):
+        days = days if days != None else self.default_days
+        return now() - timedelta(days=days)
+
+class MemberImport(models.Model):
+    input = models.FileField(upload_to=member_import_path, validators=[member_import_csv_validator], help_text="Input file must be csv format, utf-8 encoding")
+    output = models.FileField(null=True, blank=True, upload_to=member_import_path)
+    membership = models.ForeignKey(Membership, null=False, on_delete=models.CASCADE)
+    status = models.SmallIntegerField(null=True, blank=True, choices=[(status.value, status.name) for status in Status])
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+    stale_objects = StaleManager("MEMBER_IMPORT_EXPIRATION_DAYS")
+
+    @staticmethod
+    def output_name(name):
+        return "%s_result%s" % splitext(name)
+
+    def process(self):
+        """
+        This method calls BulkImporter to do the heavy lifting (in a more easily testable way)
+        and maps the results back to the MemberImport object for persistence
+        """
+        try:
+            from memberships.forms import RowImportForm
+            importer = BulkImporter(RowImportForm, membership=self.membership)
+            with TemporaryFile(mode="w+t") as fp:
+                result = importer.call(self.input, fp)
+                self.status = result["final"].value
+                self.output.save(self.output_name(basename(self.input.name)), File(fp), save=False)
+                self.save()
+        except Exception as ex:
+            logger.warning("Unexpected exception processing member import file %s" % self.input.name, exc_info=ex)
+            self.status = Status.exception.value
+            self.save(update_fields=['status'])
+
+import django_rq
+from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
+
 @receiver(pre_save, sender=Member)
 def clean_first(sender, instance, **kwargs):
     instance.full_clean()
+
+@receiver(post_save, sender=MemberImport)
+def process(sender, instance, created, **kwargs):
+    if created:
+        django_rq.enqueue(instance.process)
+
+@receiver(post_delete, sender=MemberImport)
+def delete_files(sender, instance, **kwargs):
+    if instance.input.name:
+        instance.input.delete(save=False)
+    if instance.output.name:
+        instance.output.delete(save=False)
