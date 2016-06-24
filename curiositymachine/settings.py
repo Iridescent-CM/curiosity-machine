@@ -326,6 +326,7 @@ DOCEBO_MENTOR_URL = os.environ.get("DOCEBO_MENTOR_URL","http://www.iridescentuni
 
 # pagination
 CHALLENGES_PER_PAGE = os.environ.get("CHALLENGES_PER_PAGE", 9)
+MD_PAGE_SIZE = os.environ.get("MD_PAGE_SIZE", 16)
 DEFAULT_PER_PAGE = os.environ.get("DEFAULT_PER_PAGE", 12)
 
 # an impossible pattern below prevents blacklisting until actual patterns are provided through the env
