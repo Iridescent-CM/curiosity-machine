@@ -48,14 +48,14 @@
         <h3>Units</h3>
         <p class="text-center">Choose a series of Curiosity Machine design challenges, or create your own!</p>
       </div>
+    </div>
 
-      <div class="col-lg-12 units">
-
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
         <div class="card challenge-card">
           <a href="{% url 'units:unit' unit_id=11 %}" class="action-img">
             <img class="card-img-top" src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/c1432a04cb8f694b9d7d74f28e7863f0' width=300 height=170 crop='fill' %}" alt="Flight Unit">
           </a>
-
           <div class="card-block card-title">
             <h6>
               <a href="{% url 'units:unit' unit_id=11 %}">
@@ -63,50 +63,50 @@
               </a>
             </h6>
           </div>
-
           <div class="card-block">
             <p class="card-text">Inspire young students to make observations and find solutions to problems.</p>
           </div>
         </div>
+      </div>
 
-
-        <div class="card">
-          <div class="card-block card-header card-linked-header">
-            <a href="{% url 'units:unit' unit_id=11 %}">Kindergarten-2nd Grade Engineering Design Process</a>
-          </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card challenge-card">
           <a href="{% url 'units:unit' unit_id=11 %}" class="action-img">
-            <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/c1432a04cb8f694b9d7d74f28e7863f0' width=300 height=170 crop='fill' %}" alt="Flight Unit">
+            <img class="card-img-top" src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/ec1c2ec8086227732540b5f8bcb79d8e' width=300 height=170 crop='fill' %}" alt="Summer of Invention Unit">
           </a>
-          <div class="card-block">
-            <p class="card-text">Inspire young students to make observations and find solutions to problems.</p>
+          <div class="card-block card-title">
+            <h6>
+              <a href="{% url 'units:unit' unit_id=13 %}">
+                3rd-5th Grade Engineering Design Process
+              </a>
+            </h6>
           </div>
-        </div>
-
-        <div class="card">
-          <div class="card-block card-header card-linked-header">
-            <a href="{% url 'units:unit' unit_id=13 %}">3rd-5th Grade Engineering Design Process</a>
-          </div>
-          <a href="{% url 'units:unit' unit_id=13 %}" class="action-img">
-            <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/ec1c2ec8086227732540b5f8bcb79d8e' width=300 height=170 crop='fill' %}" alt="Summer of Invention Unit">
-          </a>
           <div class="card-block">
             <p class="card-text">Inspire elementary students to design for constraints and test solutions.</p>
           </div>
         </div>
+      </div>
 
-        <div class="card">
-          <div class="card-block card-header card-linked-header">
-            <a href="{% url 'units:unit' unit_id=2 %}" class="action-img">6th-8th Grade Engineering Sampler</a>
-          </div>
-          <a href="{% url 'units:unit' unit_id=2 %}" class="action-img">
-            <img src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/06653476d73be4481ff06e29c1f563d0' width=300 height=170 crop='fill' %}" alt="BioBots Unit">
+      <div class="col-lg-4 col-md-6">
+        <div class="card challenge-card">
+          <a href="{% url 'units:unit' unit_id=11 %}" class="action-img">
+            <img class="card-img-top" src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/06653476d73be4481ff06e29c1f563d0' width=300 height=170 crop='fill' %}" alt="BioBots Unit">
           </a>
+          <div class="card-block card-title">
+            <h6>
+              <a href="{% url 'units:unit' unit_id=2 %}" class="action-img">
+                6th-8th Grade Engineering Sampler
+              </a>
+            </h6>
+          </div>
           <div class="card-block">
             <p class="card-text">A collection of design challenges that explore different types of engineering.</p>
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="row">
       <div class="col-lg-8 col-lg-push-2 col-md-10 col-md-push-1 m-t-lg">
         <h3 class="m-y-md">NGSS Alignment</h3>
         <p>Want to do hands-on projects and hit standards at the same time? Curiosity Machine has you covered. Our design challenges are aligned to elementary NGSS standards, and middle school alignment is on the way.</p>

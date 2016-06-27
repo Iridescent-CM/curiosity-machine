@@ -19,13 +19,15 @@
   .card-title {
     border-bottom: 2px solid $sand;
     margin-bottom: 0px;
-    h6 a {
-      font-weight: $heavy-font-weight;
-      border-bottom: 0px;
+    h6 {
       margin-bottom: 0px;
-      color: $dark;
-      &:hover { color: tint($dark, 30%); }
-      &:focus { color: $primary-red; }
+      a {
+        font-weight: $heavy-font-weight;
+        border-bottom: 0px;
+        color: $dark;
+        &:hover { color: tint($dark, 30%); }
+        &:focus { color: $primary-red; }
+      }
     }
   }
 }

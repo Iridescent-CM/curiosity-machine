@@ -5019,15 +5019,16 @@ i {
   .challenge-card .card-title {
     border-bottom: 2px solid #E5E1D9;
     margin-bottom: 0px; }
-    .challenge-card .card-title h6 a {
-      font-weight: 700;
-      border-bottom: 0px;
-      margin-bottom: 0px;
-      color: #333333; }
-      .challenge-card .card-title h6 a:hover {
-        color: #707070; }
-      .challenge-card .card-title h6 a:focus {
-        color: #F55932; }
+    .challenge-card .card-title h6 {
+      margin-bottom: 0px; }
+      .challenge-card .card-title h6 a {
+        font-weight: 700;
+        border-bottom: 0px;
+        color: #333333; }
+        .challenge-card .card-title h6 a:hover {
+          color: #707070; }
+        .challenge-card .card-title h6 a:focus {
+          color: #F55932; }
 
 .inspired-by {
   width: 100%;
@@ -5521,6 +5522,9 @@ footer {
 
 #index-page #how-video-modal {
   padding: 40px 20px 20px 20px; }
+
+#educator-about-page .card {
+  margin: 1.5em auto; }
 
 #faq-about-page strong {
   display: inline-block;

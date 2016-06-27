@@ -81,13 +81,15 @@
                   </a>
 
                   <div class="card-block card-title">
-                    {% if challenge in all %}
-                      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
-                    {% else %}
-                      <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
-                    {% endif %}
-                      <h6>{{ challenge.name }}</h6>
-                    </a>
+                    <h6>
+                      {% if challenge in all %}
+                        <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
+                      {% else %}
+                        <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
+                      {% endif %}
+                        {{ challenge.name }}
+                      </a>
+                    </h6>
                   </div>
                   <div class="card-block">
                     <small class="card-text">{{challenge.description}}</small>
