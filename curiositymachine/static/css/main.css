@@ -5170,6 +5170,14 @@ a .challenge-card-title p:hover {
   width: 100%;
   height: auto; }
 
+.table {
+  background-color: #FFFCF7;
+  border: solid 2px #E5E1D9; }
+  .table thead th {
+    border-color: #E5E1D9; }
+  .table td {
+    border-color: #E5E1D9; }
+
 header {
   background-color: #FFFCF7;
   font-family: "Raleway", Helvetica, sans-serif; }

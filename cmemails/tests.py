@@ -205,13 +205,15 @@ def test_send_student_challenge_share_encouragement():
         assert "challengename" in send.call_args[1]['merge_vars']
         assert "inspiration_url" in send.call_args[1]['merge_vars']
 
-def test_send_welcome_email_ccs_mentor_relationship_managers():
+def test_send_welcome_email_skips_excluded_user_types():
     mentor = profiles.factories.MentorFactory.build()
+    none = profiles.factories.UserFactory.build()
 
-    with mock.patch('cmemails.signals.handlers.send') as send:
+    with mock.patch('cmemails.signals.handlers.send') as send, mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
         signals.handlers.send_welcome_email(mentor)
-        assert len(send.mock_calls) == 1
-        assert 'cc' in send.call_args[1]
+        signals.handlers.send_welcome_email(none)
+        assert not send.called
+        assert not deliver_email.called
 
 def test_handler_approved_training_task():
     with mock.patch('cmemails.signals.handlers.send') as send:
