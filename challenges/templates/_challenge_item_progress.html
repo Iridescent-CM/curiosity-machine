@@ -3,7 +3,23 @@
 {% load staticfiles %}
 
 <li>
-  <div class="panel panel-default">
+  <div class="panel panel-unit">
+    <div class="panel-img">
+      <div class="image-container">
+        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">
+
+          {% if progress.student.profile.image %}
+            <img src="{% resized progress.student.profile.image.url  width=300 height=190 crop='fill' %}" />
+          {% elif progress.challenge.image %}
+            <img src="{% resized progress.challenge.image.url width=300 height=190 crop='fill' %}">
+          {% elif progress.challenge.video.encodings_generated %}
+            <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=190 crop='fill' %}">
+          {% endif %}
+
+        </a>
+      </div>
+    </div>
+
     <div class="panel-heading">
       <h3 class="panel-title">
         {% with count=progress|unread_count:request.user %}
@@ -11,24 +27,11 @@
             <span title="{{count}} unread messages" class="unread">{{count}}</span>
           {% endif %}
         {% endwith %}
-        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{progress.student.username}} </a>
+        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{ progress.challenge.name }} by {{progress.student.username}}</a>
       </h3>
-      <div class="image-container">
-        <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}"> 
-
-          {% if progress.student.profile.image %}
-            <img src="{% resized progress.student.profile.image.url  width=300 height=200 crop='fill' %}" />
-          {% elif progress.challenge.image %}
-            <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}">
-          {% elif progress.challenge.video.encodings_generated %}
-            <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}">
-          {% endif %}
-
-        </a>
     </div>
-    </div>
+
     <div class="panel-body">
-      <h4><a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{ progress.challenge.name }}</a></h4>
       <p>Started: {{ progress.started }}</p>
       {% if not progress.mentor %}
         <form action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
@@ -37,5 +40,6 @@
         </form>
       {% endif %}
     </div>
+
   </div>
 </li>
