@@ -20,7 +20,7 @@
       {% for progress in progresses %}
         <div class="col-lg-3 col-sm-6">
           <div class="unread-offset">
-            <div class="panel panel-unit">
+            <div class="panel panel-custom">
               <div class="panel-img">
                 <div class="image-container">
                   <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">

@@ -32,7 +32,7 @@
       <div class="row">
         {% for challenge in challenges %}
           <div class="col-xs-6 col-sm-6 col-md-4">
-            <div class="panel panel-unit">
+            <div class="panel panel-custom">
               <div class="image-container">
                 <a href="{% url 'challenges:preview_inspiration' challenge.id %}">
                   <img src="{% resized challenge.image.url width=300 height=250 crop='fit' %}">

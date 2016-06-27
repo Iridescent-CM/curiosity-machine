@@ -33,7 +33,7 @@
             {% with progress=partnership.example_progress source=partnership.source count=partnership.unclaimed %}
 
               <li>
-                <div class="panel panel-unit">
+                <div class="panel panel-custom">
                   <div class="panel-img">
                     <div class="image-container">
                       <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">
@@ -65,7 +65,7 @@
             {% with progress=non_partnership.example_progress source=non_partnership.source count=non_partnership.unclaimed %}
 
             <li>
-              <div class="panel panel-unit">
+              <div class="panel panel-custom">
                 <div class="panel-img">
                   <div class="image-container">
                     <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">
