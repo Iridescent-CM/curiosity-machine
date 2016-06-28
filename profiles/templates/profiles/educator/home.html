@@ -13,15 +13,11 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <a href="/memberships/1">{{ membership.name }}</a>
+              <a href="{% url 'memberships:membership' membership_id=membership.id %}">{{ membership.name }}</a>
             </h3>
           </div>
           <div class="panel-body">
-            <p>Students: {{ membership.students.length }}</p>
-            <p>Design Challenges: {{ membership.challenges.length }}</p>
-          </div>
-          <div class="panel-footer">
-            <a href="/memberships/1" class="btn btn-primary">View</a>
+            <a href="{% url 'memberships:membership' membership_id=membership.id %}" class="btn btn-primary">View</a>
           </div>
         </div>
       </li>
