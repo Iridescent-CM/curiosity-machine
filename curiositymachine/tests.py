@@ -508,10 +508,19 @@ def test_signal_student_started_first_project():
     challenge = Challenge.objects.create(name='challenge')
     first_progress = Progress.objects.create(student=user, challenge=challenge)
 
-    challenge2 = Challenge.objects.create(name='challenge2')
-    second_progress = Progress.objects.create(student=user, challenge=challenge2)
+    assert not handler.called
+
+    first_progress.comments.create(user=user, text="comment", stage=1)
 
     handler.assert_called_once_with(signal=signals.started_first_project, progress=first_progress, sender=user)
+    handler.reset_mock()
+
+    challenge2 = Challenge.objects.create(name='challenge2')
+    second_progress = Progress.objects.create(student=user, challenge=challenge2)
+    second_progress.comments.create(user=user, text="comment", stage=1)
+
+    assert not handler.called
+
 
 @pytest.mark.django_db
 def test_signal_student_posted_comment():

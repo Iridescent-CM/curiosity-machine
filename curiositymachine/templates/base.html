@@ -78,7 +78,7 @@
   </script>
   {% endif %}
 </head>
-<body>
+<body id="{% block body-id %}{% endblock %}">
   {% if SITE_MESSAGE %}
     <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }}" role="alert">
       {{ SITE_MESSAGE|safe }}

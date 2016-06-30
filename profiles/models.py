@@ -105,6 +105,10 @@ class Profile(models.Model):
     def is_parent(self):
         return UserRole(self.role) == UserRole.parent
 
+    @property
+    def send_welcome(self):
+        return UserRole(self.role) not in [UserRole.none, UserRole.mentor]
+
     def is_underage(self):
         return self.age < 13
     is_underage.boolean = True
