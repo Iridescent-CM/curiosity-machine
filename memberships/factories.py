@@ -1,5 +1,6 @@
 import factory
 import factory.django
+import factory.fuzzy
 from factory import post_generation
 
 from . import models
