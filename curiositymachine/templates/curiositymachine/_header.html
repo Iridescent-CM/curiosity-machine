@@ -34,7 +34,7 @@
         <div class="modal-footer">
           <a href="{% url "password_reset_recover" %}">Forgot your password?</a>
           <a class="btn btn-link" data-dismiss="modal" aria-hidden="true">Cancel</a>
-          <input type="submit" value="Log in" class="btn btn-primary" />
+          <input type="submit" value="Log In" class="btn btn-primary" />
           <input type="hidden" name="next" value="{{ next|default:'/' }}" />
         </div>
       </form>
@@ -64,7 +64,7 @@
             </p>
           </div>
           <div class="col-sm-3 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-            <a class="btn btn-primary btn-block" href="{% url 'profiles:join_as_mentor' %}">
+            <a class="btn btn-primary btn-block" href="{% url 'mentor' %}">
               Mentor
             </a>
             <p class="button-help">

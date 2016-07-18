@@ -5,6 +5,8 @@ from images.models import Image
 from django.http import Http404
 from django.contrib.auth.models import User, AnonymousUser
 from curiositymachine import signals
+from profiles.factories import EducatorFactory
+from memberships.factories import MembershipFactory
 
 def test_form_required_fields_on_creation():
     f = forms.educator.EducatorUserAndProfileForm()
@@ -197,3 +199,13 @@ def test_join(rf):
     response = views.educator.join(request)
     assert response.status_code == 302
     assert User.objects.filter(username='user').count() == 1
+
+@pytest.mark.django_db
+def test_educator_dashboard_context_has_memberships(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    memberships = [MembershipFactory(members=[educator]), MembershipFactory(members=[educator])]
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home", follow=True)
+    assert set(response.context["memberships"]) == set(memberships)
+

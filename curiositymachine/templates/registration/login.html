@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="login-top-panel">
-  <h1>Login</h1>
+  <h1>Log In</h1>
 </div>
 
 <div class="container">
@@ -23,7 +23,7 @@
     <form method="post" id="login-page-form" action="{% url 'login' %}">
         {% include "registration/_login_form.html" %}
 
-        <p><input type="submit" class="btn btn-primary login-btn" value="Login" class="btn btn-primary btn-lg" /> <small><a href="{% url "password_reset_recover" %}">Forgot your password?</a></small></p>
+        <p><input type="submit" class="btn btn-primary login-btn" value="Log In" class="btn btn-primary btn-lg" /> <small><a href="{% url "password_reset_recover" %}">Forgot your password?</a></small></p>
 
         {% if next %}
             <input type="hidden" name="next" value="{{ next }}" />
