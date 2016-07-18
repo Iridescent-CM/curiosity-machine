@@ -4704,6 +4704,9 @@ i {
 .light-type {
   color: #FFFCF7; }
 
+.green-type {
+  color: #8FB559; }
+
 .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
   outline: none;
   box-shadow: inset 0 0 0 2px #FFFCF7; }
@@ -5085,29 +5088,6 @@ i {
   .remove-example:active, .remove-example:focus {
     color: white; }
 
-.challenge-card-title {
-  text-align: center;
-  padding: 10px 10px 2px 10px;
-  background-color: #949494;
-  color: white;
-  font-family: "Raleway", Helvetica, sans-serif;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px; }
-
-a .challenge-card-title p:hover {
-  border-bottom: 0px;
-  text-decoration: none; }
-
-.challenge-card-description {
-  text-align: left;
-  padding: 10px; }
-
-.challenge-card-action {
-  text-align: center;
-  border-bottom: 0px;
-  text-transform: uppercase;
-  font-weight: 700; }
-
 .card-module .card-block-title {
   background-color: #E5E1D9; }
   .card-module .card-block-title h1, .card-module .card-block-title h2, .card-module .card-block-title h3, .card-module .card-block-title h4 {
@@ -5185,6 +5165,14 @@ a .challenge-card-title p:hover {
 .videocontent video {
   width: 100%;
   height: auto; }
+
+.table {
+  background-color: #FFFCF7;
+  border: solid 2px #E5E1D9; }
+  .table thead th {
+    border-color: #E5E1D9; }
+  .table td {
+    border-color: #E5E1D9; }
 
 header {
   background-color: #FFFCF7;
@@ -5465,6 +5453,19 @@ footer {
 
 .policy-pages .article p {
   margin-bottom: 1.5em; }
+
+.membership-pages .jumbotron-sand {
+  background-color: #E5E1D9; }
+  .membership-pages .jumbotron-sand h3 {
+    font-weight: 400; }
+
+.membership-pages .all-challenges-cards {
+  margin-bottom: 3em; }
+  .membership-pages .all-challenges-cards .challenge-card {
+    display: block;
+    vertical-align: top;
+    margin: 10px auto;
+    min-height: 400px; }
 
 #index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern {
   padding-top: 6em; }

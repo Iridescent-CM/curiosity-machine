@@ -4,6 +4,28 @@
 {% block content %}
   <h1>Welcome {{user.username}}</h1>
 
+  {% if memberships %}
+  <h2>My Memberships</h2>
+  <div class="tab-content membership-list">
+    <ul>
+      {% for membership in memberships %}
+      <li>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <a href="{% url 'memberships:membership' membership_id=membership.id %}">{{ membership.name }}</a>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <a href="{% url 'memberships:membership' membership_id=membership.id %}" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
   <h2>
     My Groups
     <a class="btn btn-primary btn-xs" href="{% url 'groups:create' %}">Create group</a>
@@ -33,7 +55,7 @@
       {% endfor %}
     </ul>
   </div>
-  
+
   <p>
     For questions or training information, email
     <a href="mailto:curiosity@iridescentlearning.org?subject=Units Training" target="_top">curiosity@iridescentlearning.org</a>.

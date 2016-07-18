@@ -44,4 +44,5 @@ def home(request):
         'form': GroupForm(),
         'groups': request.user.cm_groups.all(),
         'units': Unit.objects.filter(draft=False).order_by('id'),
+        'memberships': request.user.membership_set.all()
     })

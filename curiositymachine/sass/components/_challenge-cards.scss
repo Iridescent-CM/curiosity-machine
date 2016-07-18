@@ -96,33 +96,6 @@
   }
 }
 
-.challenge-card-title {
-  text-align: center;
-  padding: 10px 10px 2px 10px;
-  background-color: $gray;
-  color: white;
-  font-family: $heading-font-family;
-  border-top-left-radius: $base-border-radius;
-  border-top-right-radius: $base-border-radius;
-}
-
-a .challenge-card-title p:hover {
-  border-bottom: 0px;
-  text-decoration: none;
-}
-
-.challenge-card-description {
-  text-align: left;
-  padding: 10px;
-}
-
-.challenge-card-action {
-  text-align: center;
-  border-bottom: 0px;
-  text-transform: uppercase;
-  font-weight: $heavy-font-weight;
-}
-
 //
 // Card Modules
 //
