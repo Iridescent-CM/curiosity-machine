@@ -1,0 +1,61 @@
+{% extends "memberships/_membership-hub.html" %}
+{% load resized %}
+
+{% block title %}{{ membership.name }}{% endblock %}
+{% block body-classes %}membership-pages{% endblock %}
+{% block membership-page %}Design Challenges{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div class="container all-challenges-cards m-b-lg">
+
+    <div class="row text-center">
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges %}
+    </div>
+
+    <div class="row">
+
+      {% for challenge in challenges %}
+        <div class="col-lg-3 col-sm-6">
+          <div class="challenge-card">
+
+            <div class="challenge-card-title">
+              <p>{{ challenge.name }}</p>
+            </div>
+
+            <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
+              {% if challenge.image %}
+                <img src="{% resized challenge.image.url width=300 height=170 crop='fill' %}">
+              {% elif challenge.video.encodings_generated %}
+                {{ challenge.video.output_videos.all.0.thumbnail }}
+              {% endif %}
+            </a>
+
+            <div class="challenge-card-description">
+              <p><small>{{ challenge.description }}</small></p>
+              <p><small><a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">View design challenge &rarr;</a></small></p>
+              <p><small><a href="#">View student's progress &rarr;</a></small></p>
+            </div>
+
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:2 %}
+          <div class="clearfix{% if not forloop.counter|divisibleby:4 %} hidden-md-up{% endif %}"></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="row text-center">
+      {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges %}
+    </div>
+
+  </div>
+
+  <!-- <ul>
+    {% for student in membership.members.all %}
+      <li>{{ student.username }}</li>
+    {% endfor %}
+  </ul> -->
+
+{% endblock %}

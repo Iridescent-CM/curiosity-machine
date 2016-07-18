@@ -9,7 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 class MembershipDetailView(DetailView):
     model = Membership
     pk_url_kwarg = 'membership_id'
-    template_name = 'memberships/membership.html'
+    template_name = 'memberships/educator/membership.html'
     context_object_name = 'membership'
 
     @method_decorator(login_required)
