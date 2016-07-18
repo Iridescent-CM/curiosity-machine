@@ -113,6 +113,7 @@ urlpatterns = patterns('',
     url(r'^units/', include('units.urls', namespace='units', app_name='units'), name='units'),
     url(r'^s3direct/', include('s3direct.urls')),
     url(r'^groups/', include('groups.urls', namespace='groups', app_name='groups'), name='groups'),
+    url(r'^memberships/', include('memberships.urls', namespace='memberships', app_name='memberships'), name='memberships'),
     url(r'^health_check/', public(views.health_check)),
     url(r'^log/', public(views.log), name='log'),
 )

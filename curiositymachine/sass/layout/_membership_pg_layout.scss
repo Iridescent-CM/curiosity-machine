@@ -1,0 +1,19 @@
+.membership-pages {
+
+  .jumbotron-sand {
+    background-color: $sand;
+    h3 {
+      font-weight: $base-font-weight;
+    }
+  }
+
+  .all-challenges-cards {
+    .challenge-card {
+      display: block;
+      vertical-align: top;
+      margin: 10px auto;
+      min-height: 400px;
+    }
+    margin-bottom: $large-spacing;
+  }
+}
