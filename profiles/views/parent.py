@@ -4,7 +4,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.db import transaction
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from curiositymachine.decorators import feature_flag
 from curiositymachine.views.generic import UserJoinView
 from django.core.urlresolvers import reverse

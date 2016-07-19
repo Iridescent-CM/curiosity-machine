@@ -3,10 +3,13 @@ import mock
 from profiles import forms, models, views
 from images.models import Image
 from django.http import Http404
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 from curiositymachine import signals
 from profiles.factories import EducatorFactory
 from memberships.factories import MembershipFactory
+
+User = get_user_model()
 
 def test_form_required_fields_on_creation():
     f = forms.educator.EducatorUserAndProfileForm()

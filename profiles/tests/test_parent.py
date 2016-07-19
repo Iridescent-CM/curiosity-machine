@@ -2,8 +2,11 @@ import pytest
 import mock
 from datetime import datetime
 from profiles import forms, models, decorators
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import PermissionDenied
+
+User = get_user_model()
 
 @pytest.fixture
 def parent():

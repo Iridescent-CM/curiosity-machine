@@ -6,10 +6,12 @@ from memberships.models import Member
 from memberships.forms import RowImportForm
 
 from django.forms.models import modelform_factory
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from profiles.models import Profile
 
 from datetime import date
+
+User = get_user_model()
 
 def test_valid_profile_data_with_default_form():
     examples = [

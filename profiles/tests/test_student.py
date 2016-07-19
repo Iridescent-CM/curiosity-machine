@@ -2,11 +2,13 @@ import pytest
 import mock
 from datetime import datetime
 from django.utils.timezone import now
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from dateutil.relativedelta import relativedelta
 from profiles import forms, models, views, decorators
 from profiles.factories import StudentFactory
+
+User = get_user_model()
 
 @pytest.fixture
 def parent():

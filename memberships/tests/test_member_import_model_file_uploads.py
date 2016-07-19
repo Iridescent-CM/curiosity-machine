@@ -3,7 +3,8 @@ from django_rq import get_worker, get_queue
 
 from memberships.factories import MembershipFactory
 from memberships.importer import Status
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 from memberships.models import MemberImport, Membership
 

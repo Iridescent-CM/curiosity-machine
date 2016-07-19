@@ -1,7 +1,9 @@
 import pytest
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from challenges.models import Challenge, Progress
 from profiles.models import UserRole
+
+User = get_user_model()
 
 STUDENT_USERNAME = "student"
 STUDENT_EMAIL = "student@example.com"

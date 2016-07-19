@@ -1,7 +1,8 @@
 import pytest
 import mock
 from datetime import datetime
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 from profiles.models import Profile, UserRole
 from django.utils.timezone import now
 from datetime import timedelta
@@ -10,6 +11,8 @@ from django.conf import settings
 from profiles.tests import student, mentor, progress, challenge, loggedInMentor, STUDENT_USERNAME, STUDENT_EMAIL
 from profiles import views
 from profiles.factories import ProfileFactory
+
+User = get_user_model()
 
 @pytest.mark.django_db
 def test_gets_ok(client, mentor):

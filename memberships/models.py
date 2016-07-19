@@ -1,6 +1,5 @@
 from os.path import splitext, basename
 from django.db import models
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.conf import settings
@@ -22,7 +21,7 @@ class Membership(models.Model):
     notes = models.TextField(null=True, blank=True)
 
     challenges = models.ManyToManyField(Challenge, blank=True)
-    members = models.ManyToManyField(User, through='Member', through_fields=('membership', 'user'), blank=True)
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Member', through_fields=('membership', 'user'), blank=True)
 
     def limit_for(self, role):
         obj = self.memberlimit_set.filter(role=role).first()
@@ -38,7 +37,7 @@ class Member(models.Model):
         unique_together = ("membership", "user")
 
     membership = models.ForeignKey(Membership)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     def clean(self):
         role = self.user.profile.role

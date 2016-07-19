@@ -188,7 +188,8 @@ def test_exception_row_results_in_partial_save():
         assert result["final"] == Status.exception
 
 from django.forms.models import modelform_factory
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 @pytest.mark.django_db
 def test_no_records_saved_when_invalid_record_exists():
