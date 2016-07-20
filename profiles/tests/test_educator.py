@@ -61,6 +61,7 @@ def test_form_checks_password_confirmation():
     assert 'password' in errors.keys()
     assert 'do not match' in str(errors['password'])
 
+@pytest.mark.django_db
 def test_form_validates_username():
     f = forms.educator.EducatorUserAndProfileForm({
         'username': 'user!'

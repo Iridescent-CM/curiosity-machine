@@ -65,6 +65,7 @@ def test_mentor_join_form_clean_password_strength():
     assert 'password' in f.errors
     assert 'must be at least 6 characters long' in f.errors['password'].as_text()
 
+@pytest.mark.django_db
 def test_mentor_join_form_clean_username_illegal_characters():
     f = forms.mentor.MentorUserAndProfileForm(data={
         'username': 'me!'

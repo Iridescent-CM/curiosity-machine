@@ -177,6 +177,12 @@ class UserAndProfileForm(forms.ModelForm):
             confirm_password = confirm_password.strip()
         return confirm_password
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError('A user with that username already exists.', code='duplicate')
+        return username
+
     def clean(self):
         super(UserAndProfileForm, self).clean()
 
