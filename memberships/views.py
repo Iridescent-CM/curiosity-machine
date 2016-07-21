@@ -29,3 +29,34 @@ class MembershipDetailView(DetailView):
             challenges = paginator.page(paginator.num_pages)
         context["challenges"]=challenges
         return context
+
+class MembershipDesignChallengeView(DetailView):
+    model = Membership
+    pk_url_kwarg = 'membership_id'
+    template_name = 'memberships/educator/design-challenges.html'
+    context_object_name = 'membership'
+
+    @method_decorator(login_required)
+    @method_decorator(educator_only)
+    def dispatch(self, *args, **kwargs):
+        return super(MembershipDesignChallengeView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        page = self.request.GET.get('page')
+        paginator = Paginator(context["membership"].challenges.all(), settings.MD_PAGE_SIZE)
+        try:
+            challenges = paginator.page(page)
+        except PageNotAnInteger:
+            challenges = paginator.page(1)
+        except EmptyPage:
+            challenges = paginator.page(paginator.num_pages)
+        context["challenges"]=challenges
+        return context
+
+# the view below needs to include the DC info in it
+class MembershipStudentProgressView(DetailView):
+    model = Membership
+    pk_url_kwarg = 'membership_id'
+    template_name = 'memberships/educator/design-challenge-individual.html'
+    context_object_name = 'membership'
