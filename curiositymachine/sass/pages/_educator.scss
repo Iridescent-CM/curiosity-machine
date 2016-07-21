@@ -1,51 +1,5 @@
 #educator-about-page {
-  .units {
-    text-align: center;
-    .card {
-      display: inline-block;
-      vertical-align: top;
-      width: 260px;
-      min-height: 355px;
-      background-color: white;
-      border-radius: $base-border-radius;
-      box-shadow: 0px 2px 5px 1px $main-shadow;
-      margin: 10px 20px;
-      border-width: 0px;
-
-      .card-block {
-        border-width: 0px;
-      }
-
-      .card-header {
-        background-color: $gray;
-        color: white;
-
-        &.card-linked-header {
-          padding: 0;
-          a {
-            display: inline-block;
-            width: 100%;
-            padding: 0.75rem 1.25rem;
-          }
-        }
-
-        a {
-          color: white;
-          transition: none;
-          border-bottom: none;
-
-          &:active,
-          &:focus,
-          &:hover {
-            text-decoration: none;
-          }
-        }
-      }
-
-      .card-text {
-        text-align: left;
-        font-size: 0.875em;
-      }
-    }
+  .card {
+    margin: $base-spacing auto;
   }
 }

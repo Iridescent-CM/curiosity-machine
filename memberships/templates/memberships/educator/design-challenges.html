@@ -23,21 +23,25 @@
 
       {% for challenge in challenges %}
         <div class="col-lg-3 col-sm-6">
-          <div class="challenge-card">
-
-            <div class="challenge-card-title">
-              <p>{{ challenge.name }}</p>
-            </div>
+          <div class="card challenge-card">
 
             <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
               {% if challenge.image %}
-                <img src="{% resized challenge.image.url width=300 height=170 crop='fill' %}">
+                <img class="card-img-top" src="{% resized challenge.image.url width=300 height=170 crop='fill' %}">
               {% elif challenge.video.encodings_generated %}
                 {{ challenge.video.output_videos.all.0.thumbnail }}
               {% endif %}
             </a>
 
-            <div class="challenge-card-description">
+            <div class="card-block card-title">
+              <h6>
+                <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
+                  {{ challenge.name }}
+                </a>
+              </h6>
+            </div>
+
+            <div class="card-block">
               <p><small>{{ challenge.description }}</small></p>
               <p><small><a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">View design challenge &rarr;</a></small></p>
               <!-- below url is wrong -->

@@ -5012,11 +5012,26 @@ i {
   background-color: white;
   border-radius: 4px;
   box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
-  text-align: center;
-  position: relative; }
+  position: relative;
+  border-width: 0px; }
   .challenge-card img {
     width: 100%;
     overflow: hidden; }
+  .challenge-card .card-block {
+    padding: 0.75em; }
+  .challenge-card .card-title {
+    border-bottom: 2px solid #E5E1D9;
+    margin-bottom: 0px; }
+    .challenge-card .card-title h6 {
+      margin-bottom: 0px; }
+      .challenge-card .card-title h6 a {
+        font-weight: 700;
+        border-bottom: 0px;
+        color: #333333; }
+        .challenge-card .card-title h6 a:hover {
+          color: #707070; }
+        .challenge-card .card-title h6 a:focus {
+          color: #F55932; }
 
 .inspired-by {
   width: 100%;
@@ -5039,6 +5054,7 @@ i {
 
 .favorites-filter {
   position: absolute;
+  text-align: center;
   top: -8px;
   left: -8px; }
   .favorites-filter input[type='checkbox'] {
@@ -5071,29 +5087,6 @@ i {
     color: #c44728; }
   .remove-example:active, .remove-example:focus {
     color: white; }
-
-.challenge-card-title {
-  text-align: center;
-  padding: 10px 10px 2px 10px;
-  background-color: #949494;
-  color: white;
-  font-family: "Raleway", Helvetica, sans-serif;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px; }
-
-a .challenge-card-title p:hover {
-  border-bottom: 0px;
-  text-decoration: none; }
-
-.challenge-card-description {
-  text-align: left;
-  padding: 10px; }
-
-.challenge-card-action {
-  text-align: center;
-  border-bottom: 0px;
-  text-transform: uppercase;
-  font-weight: 700; }
 
 .card-module .card-block-title {
   background-color: #E5E1D9; }
@@ -5553,38 +5546,8 @@ footer {
 #index-page #how-video-modal {
   padding: 40px 20px 20px 20px; }
 
-#educator-about-page .units {
-  text-align: center; }
-  #educator-about-page .units .card {
-    display: inline-block;
-    vertical-align: top;
-    width: 260px;
-    min-height: 355px;
-    background-color: white;
-    border-radius: 4px;
-    box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
-    margin: 10px 20px;
-    border-width: 0px; }
-    #educator-about-page .units .card .card-block {
-      border-width: 0px; }
-    #educator-about-page .units .card .card-header {
-      background-color: #949494;
-      color: white; }
-      #educator-about-page .units .card .card-header.card-linked-header {
-        padding: 0; }
-        #educator-about-page .units .card .card-header.card-linked-header a {
-          display: inline-block;
-          width: 100%;
-          padding: 0.75rem 1.25rem; }
-      #educator-about-page .units .card .card-header a {
-        color: white;
-        transition: none;
-        border-bottom: none; }
-        #educator-about-page .units .card .card-header a:active, #educator-about-page .units .card .card-header a:focus, #educator-about-page .units .card .card-header a:hover {
-          text-decoration: none; }
-    #educator-about-page .units .card .card-text {
-      text-align: left;
-      font-size: 0.875em; }
+#educator-about-page .card {
+  margin: 1.5em auto; }
 
 #faq-about-page strong {
   display: inline-block;
