@@ -4,7 +4,7 @@ from ..forms.common import UserAndProfileForm
 
 
 @pytest.mark.django_db
-def test_foo():
+def test_case_insensitive_username_duplicates_dont_validate():
 
     class DerivedForm(UserAndProfileForm):
         class Meta(UserAndProfileForm.Meta):

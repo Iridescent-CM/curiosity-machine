@@ -62,6 +62,13 @@ def test_user_password_value_set_as_password():
     assert user.check_password("123123")
 
 @pytest.mark.django_db
+def test_case_insensitive_username_duplicates_dont_validate():
+    user = RowImportForm.userFormClass({"username": "username", "password": "123123"}).save()
+    form = RowImportForm.userFormClass({"username": "USERNAME", "password": "123123"})
+    assert not form.is_valid()
+    assert form.errors.as_data()["username"][0].code == 'duplicate'
+
+@pytest.mark.django_db
 def test_form_saves_user_and_profile_form_class_data():
     membership = MembershipFactory.build()
     f = RowImportForm(

@@ -15,6 +15,12 @@ class RowUserForm(forms.ModelForm):
         model = User
         fields = ['username', 'password', 'first_name', 'last_name']
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError('A user with that username already exists.', code='duplicate')
+        return username
+
     def save(self, commit=True):
         user = super().save(commit=False)
         if "password" in self.cleaned_data:
