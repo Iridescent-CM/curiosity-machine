@@ -5479,7 +5479,11 @@ footer {
 .membership-pages .jumbotron-sand {
   background-color: #E5E1D9; }
   .membership-pages .jumbotron-sand h3 {
-    font-weight: 400; }
+    font-weight: 400;
+    display: inline-block; }
+  .membership-pages .jumbotron-sand a {
+    display: inline-block;
+    float: right; }
 
 .membership-pages .all-challenges-cards {
   margin-bottom: 3em; }
