@@ -13,24 +13,23 @@ from datetime import date
 
 def test_valid_profile_data_with_default_form():
     examples = [
-        {"birthday":"01/01/1990", "approved":"1"},
+        {"birthday":"01/01/1990", "approved":"yes"},
     ]
 
     for example in examples:
         assert RowImportForm.profileFormClass(example).errors.as_data() == {}
 
 def test_profile_approved_values():
-    profile = RowImportForm.profileFormClass({"approved": "y"}).save(commit=False)
-    assert profile.approved
-
-    profile = RowImportForm.profileFormClass({"approved": "1"}).save(commit=False)
-    assert profile.approved
-
-    profile = RowImportForm.profileFormClass({"approved": ""}).save(commit=False)
-    assert not profile.approved
-
-    profile = RowImportForm.profileFormClass({}).save(commit=False)
-    assert not profile.approved
+    assert RowImportForm.profileFormClass({"approved": "y"}).save(commit=False).approved
+    assert RowImportForm.profileFormClass({"approved": "yes"}).save(commit=False).approved
+    assert RowImportForm.profileFormClass({"approved": "Y"}).save(commit=False).approved
+    assert RowImportForm.profileFormClass({"approved": "YES"}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"approved": "n"}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"approved": "no"}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"approved": "N"}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"approved": "NO"}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"approved": ""}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({}).save(commit=False).approved
 
 def test_profile_birthday_values():
     profile = RowImportForm.profileFormClass({"birthday": "01/01/1990"}).save(commit=False)
@@ -43,7 +42,7 @@ def test_profile_birthday_values():
     assert profile.birthday == date(month=1, day=1, year=1990)
 
 def test_profile_has_student_role():
-    profile = RowImportForm.profileFormClass({"birthday":"01/01/1990", "approved":"1"}).save(commit=False)
+    profile = RowImportForm.profileFormClass({"birthday":"01/01/1990", "approved":"yes"}).save(commit=False)
     assert profile.is_student
 
 @pytest.mark.django_db
