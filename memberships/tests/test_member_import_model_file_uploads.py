@@ -33,6 +33,23 @@ def test_valid_example_file():
     assert membership.members.count() > 0
 
 @pytest.mark.django_db
+def test_fancy_valid_example_file():
+    queue = get_queue()
+    queue.empty()
+
+    membership = MembershipFactory()
+    with open("%s/data/fancy.csv" % os.path.dirname(os.path.abspath(__file__)), mode='rb') as fp:
+        member_import = MemberImport(input=SimpleUploadedFile("file.csv", fp.read()), membership=membership)
+    member_import.save()
+    get_worker().work(burst=True)
+
+    member_import = MemberImport.objects.all().first()
+    assert Status(member_import.status) == Status.saved
+
+    membership = Membership.objects.all().first()
+    assert membership.members.count() > 0
+
+@pytest.mark.django_db
 def test_file_with_extra_columns_can_be_valid():
     queue = get_queue()
     queue.empty()

@@ -11,6 +11,27 @@ from profiles.models import Profile
 
 from datetime import date
 
+def test_row_import_form_normalizes_fancy_fieldnames():
+    form = RowImportForm({
+        " Username ": "user",
+        " Password ": "123123",
+    })
+    assert form.data == {
+        "username": "user",
+        "password": "123123",
+    }
+
+def test_row_import_form_maps_fieldnames():
+    form = RowImportForm(
+        {
+            " User Name ": "user",
+        },
+        fieldname_mappings={"user_name": "whatever"}
+    )
+    assert form.data == {
+        "whatever": "user",
+    }
+
 def test_valid_profile_data_with_default_form():
     examples = [
         {"birthday":"01/01/1990", "approved":"yes"},
