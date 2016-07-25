@@ -4608,6 +4608,12 @@ a.bg-danger:focus, a.bg-danger:hover {
 .icon-boeing-logo:before {
   content: "\e614"; }
 
+.icon-cross:before {
+  content: "\e901"; }
+
+.icon-check:before {
+  content: "\e902"; }
+
 body {
   background-color: #FFFCF7;
   color: #333333;
