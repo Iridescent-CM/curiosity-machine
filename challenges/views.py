@@ -81,7 +81,7 @@ def start_building(request, challenge_id):
     }))
 
 def require_login_for(request, challenge):
-    return not (request.user.is_authenticated() or challenge.public)
+    return not request.user.is_authenticated()
 
 class InspirationAnonymousPreview(TemplateView):
     template_name = "challenges/edp/preview/inspiration_anonymous.html"

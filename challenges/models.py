@@ -58,7 +58,6 @@ class Challenge(models.Model):
     reflect_questions = models.ManyToManyField(Question)
     favorited = models.ManyToManyField(User, through='Favorite', through_fields=('challenge', 'student'), related_name="favorite_challenges")
     draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown in the main challenge list")
-    public = models.BooleanField(default=False, null=False, help_text="Public challenges are previewable without an account")
 
     def get_absolute_url(self):
         return reverse('challenges:preview_inspiration', kwargs={

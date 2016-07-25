@@ -497,21 +497,8 @@ def test_examples_view_for_non_student(client):
     assert not d('#student-example-pending')
 
 @pytest.mark.django_db
-def test_examples_view_for_anonymous_on_public_challenge(client):
-    challenge = ChallengeFactory(public=True)
-
-    response = client.get('/challenges/%d/examples/' % (challenge.id), follow=False)
-
-    assert response.status_code == 200
-    d = pq(response.content)
-    assert not d('#student-not-started')
-    assert not d('#student-in-progress')
-    assert not d('#student-completed')
-    assert not d('#student-example-pending')
-
-@pytest.mark.django_db
-def test_examples_view_for_anonymous_on_private_challenge(client):
-    challenge = ChallengeFactory(public=False)
+def test_examples_view_for_anonymous(client):
+    challenge = ChallengeFactory()
 
     response = client.get('/challenges/%d/examples/' % (challenge.id), follow=False)
 

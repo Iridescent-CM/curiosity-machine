@@ -10,14 +10,6 @@ from profiles.models import UserRole
 from django import forms
 from django.db import models
 
-def make_public(modeladmin, request, queryset):
-    queryset.update(public=True)
-make_public.short_description = "Make selected challenges public"
-
-def make_private(modeladmin, request, queryset):
-    queryset.update(public=False)
-make_private.short_description = "Make selected challenges private"
-
 def make_draft(modeladmin, request, queryset):
     queryset.update(draft=True)
 make_draft.short_description = "Move selected challenges to draft status"
@@ -28,9 +20,9 @@ remove_draft.short_description = "Remove selected challenges from draft status"
 
 class ChallengeAdmin(admin.ModelAdmin):
     filter_horizontal = ('reflect_questions',)
-    list_display = ['__str__', 'name', 'draft', 'public']
-    list_filter = ['public', 'draft']
-    actions = [make_public, make_private, make_draft, remove_draft]
+    list_display = ['__str__', 'name', 'draft']
+    list_filter = ['draft']
+    actions = [make_draft, remove_draft]
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj
