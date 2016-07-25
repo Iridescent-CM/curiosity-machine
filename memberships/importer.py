@@ -106,12 +106,11 @@ class BulkImporter(object):
         valids, invalids = [], []
         for row in reader:
             form = self.modelformclass(row, **self.extra_form_kwargs)
-            reduced_row = {k: v for k, v in row.items() if k in form.fields}
 
             if form.is_valid():
-                valids.append((reduced_row, form))
+                valids.append((row, form))
             else:
-                invalids.append((reduced_row, form))
+                invalids.append((row, form))
 
         try_to_save = not invalids
         results = []
