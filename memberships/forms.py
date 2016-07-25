@@ -37,6 +37,11 @@ class RowUserForm(forms.ModelForm):
         model = User
         fields = ['username', 'password', 'first_name', 'last_name', 'email']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+
     def save(self, commit=True):
         user = super().save(commit=False)
         if "password" in self.cleaned_data:
@@ -56,6 +61,10 @@ class RowProfileForm(forms.ModelForm):
         fields = ['birthday', 'approved']
 
     approved = YesNoBooleanField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['birthday'].required = True
 
     def save(self, commit=False):
         profile = super().save(commit=False)
@@ -86,7 +95,8 @@ class RowImportForm(forms.Form):
             if hasattr(self, keyword):
                 setattr(self, keyword, kwargs.pop(keyword))
 
-        data = {self._uglify_fieldname(k): v for k, v in data.items()}
+        if data:
+            data = {self._uglify_fieldname(k): v for k, v in data.items()}
 
         self._forms = []
         for formclass in [self.userFormClass, self.profileFormClass]:

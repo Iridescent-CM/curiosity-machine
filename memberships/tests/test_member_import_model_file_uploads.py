@@ -2,7 +2,7 @@ import pytest
 from django_rq import get_worker, get_queue
 
 from memberships.factories import MembershipFactory
-from memberships.importer import Status
+from memberships.importer import Status, decode_lines
 from django.contrib.auth.models import User
 
 from memberships.models import MemberImport, Membership
@@ -10,6 +10,7 @@ from memberships.models import MemberImport, Membership
 from django.core.files.uploadedfile import SimpleUploadedFile
 from datetime import date
 import os
+import csv
 
 # It's useful to have actual files for some number of tests. They can be used
 # in manual QA, or be the basis for QA test files, and it's then best to ensure
@@ -81,6 +82,13 @@ def test_invalid_example_file():
 
     member_import = MemberImport.objects.all().first()
     assert Status(member_import.status) == Status.invalid
+
+    contents = member_import.output.read().decode('utf-8')
+    dialect = csv.Sniffer().sniff(contents)
+    member_import.output.open()
+    reader = csv.DictReader(decode_lines(member_import.output))
+    for row in reader:
+        assert row['errors'], "Error expected on each row, no error for: " + str(row)
 
     membership = Membership.objects.all().first()
     assert membership.members.count() == 0

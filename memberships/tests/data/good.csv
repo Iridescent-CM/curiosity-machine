@@ -1,3 +1,4 @@
-approved,birthday,first_name,last_name,password,username
+approved,birthday,first_name,last_name,password,username,email
 y,01/01/1990,first1,last1,123123,user1
-y,01/02/1990,,,123123,user2
+y,01/02/1990,first2,last2,123123,user2,email@example.com
+,01/01/1990,first1,last1,123123,user3

@@ -10,15 +10,25 @@ from django.contrib.auth.models import User
 from profiles.models import Profile
 
 from datetime import date
+from django.utils.timezone import now
+from dateutil.relativedelta import relativedelta
+
+def test_row_import_form_requires_fields():
+    form = RowImportForm()
+    assert form.fields['username'].required
+    assert form.fields['password'].required
+    assert form.fields['first_name'].required
+    assert form.fields['last_name'].required
+    assert form.fields['birthday'].required
 
 def test_row_import_form_normalizes_fancy_fieldnames():
     form = RowImportForm({
         " Username ": "user",
-        " Password ": "123123",
+        " Pass Word ": "123123",
     })
     assert form.data == {
         "username": "user",
-        "password": "123123",
+        "pass_word": "123123",
     }
 
 def test_row_import_form_maps_fieldnames():
@@ -41,16 +51,18 @@ def test_valid_profile_data_with_default_form():
         assert RowImportForm.profileFormClass(example).errors.as_data() == {}
 
 def test_profile_approved_values():
-    assert RowImportForm.profileFormClass({"approved": "y"}).save(commit=False).approved
-    assert RowImportForm.profileFormClass({"approved": "yes"}).save(commit=False).approved
-    assert RowImportForm.profileFormClass({"approved": "Y"}).save(commit=False).approved
-    assert RowImportForm.profileFormClass({"approved": "YES"}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"approved": "n"}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"approved": "no"}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"approved": "N"}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"approved": "NO"}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"approved": ""}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({}).save(commit=False).approved
+    birthday = now() - relativedelta(years=5)
+    birthday = birthday.strftime('%m/%d/%Y')
+    assert RowImportForm.profileFormClass({"approved": "y", "birthday": birthday}).save(commit=False).approved
+    assert RowImportForm.profileFormClass({"approved": "yes", "birthday": birthday}).save(commit=False).approved
+    assert RowImportForm.profileFormClass({"approved": "Y", "birthday": birthday}).save(commit=False).approved
+    assert RowImportForm.profileFormClass({"approved": "YES", "birthday": birthday}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"approved": "n", "birthday": birthday}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"approved": "no", "birthday": birthday}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"approved": "N", "birthday": birthday}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"approved": "NO", "birthday": birthday}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"approved": "", "birthday": birthday}).save(commit=False).approved
+    assert not RowImportForm.profileFormClass({"birthday": birthday}).save(commit=False).approved
 
 def test_profile_birthday_values():
     profile = RowImportForm.profileFormClass({"birthday": "01/01/1990"}).save(commit=False)
@@ -69,7 +81,6 @@ def test_profile_has_student_role():
 @pytest.mark.django_db
 def test_valid_user_data_with_default_form():
     examples = [
-        {"username":"username", "password":"password"},
         {"username":"username", "password":"password", "first_name":"first", "last_name":"last"},
     ]
 
@@ -78,7 +89,7 @@ def test_valid_user_data_with_default_form():
 
 @pytest.mark.django_db
 def test_user_password_value_set_as_password():
-    user = RowImportForm.userFormClass({"username": "username", "password": "123123"}).save()
+    user = RowImportForm.userFormClass({"username": "username", "password": "123123", "first_name":"first", "last_name":"last"}).save()
     assert user.check_password("123123")
 
 @pytest.mark.django_db
