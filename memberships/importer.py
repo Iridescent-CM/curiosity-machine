@@ -72,8 +72,10 @@ class BulkImporter(object):
         dialect = csv.Sniffer().sniff(contents)
         return csv.DictReader(decode_lines(f))
 
-    def _open_writer(self, f, fieldnames):
-        return csv.DictWriter(f, fieldnames=fieldnames)
+    def _open_writer(self, f, reader_fieldnames, output_fieldnames):
+        reduced_fieldnames = [x for x in reader_fieldnames if x in output_fieldnames]
+        extra_fieldnames = [x for x in output_fieldnames if x not in reduced_fieldnames]
+        return csv.DictWriter(f, fieldnames=reduced_fieldnames + sorted(extra_fieldnames))
 
     @staticmethod
     def summarize(status_counts):
@@ -104,12 +106,11 @@ class BulkImporter(object):
         valids, invalids = [], []
         for row in reader:
             form = self.modelformclass(row, **self.extra_form_kwargs)
-            reduced_row = {k: v for k, v in row.items() if k in form.fields}
 
             if form.is_valid():
-                valids.append((reduced_row, form))
+                valids.append((row, form))
             else:
-                invalids.append((reduced_row, form))
+                invalids.append((row, form))
 
         try_to_save = not invalids
         results = []
@@ -131,7 +132,7 @@ class BulkImporter(object):
                 results.append(ResultRow(Status.unsaved, row))
 
         if results:
-            writer = self._open_writer(outfile, results[0].fieldnames)
+            writer = self._open_writer(outfile, reader.fieldnames, results[0].fieldnames)
             writer.writeheader()
             for result_row in results:
                 writer.writerow(result_row.fields)
