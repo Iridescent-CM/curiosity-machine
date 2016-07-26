@@ -6,6 +6,7 @@ from .forms import ThemeForm, FilterForm
 from cmcomments.models import Comment
 from videos.models import Video
 from images.models import Image
+from profiles.models import UserRole
 from django import forms
 from django.db import models
 
@@ -86,9 +87,9 @@ class ProgressAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "student":
-            kwargs["queryset"] = User.objects.filter(profile__is_student=True)
+            kwargs["queryset"] = User.objects.filter(profile__role=UserRole.student.value)
         elif db_field.name == "mentor":
-            kwargs["queryset"] = User.objects.filter(profile__is_mentor=True)
+            kwargs["queryset"] = User.objects.filter(profile__role=UserRole.mentor.value)
         return super(ProgressAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 admin.site.register(Challenge, ChallengeAdmin)

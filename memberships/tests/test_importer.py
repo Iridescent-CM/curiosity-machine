@@ -72,6 +72,21 @@ def test_valid_data_processed_without_errors():
         assert fout.read().strip() == "1,2,3,errors\na,b,c,"
         assert result["statuses"] == {Status.saved: 1}
 
+def test_output_field_order_matches_input_field_order():
+    MockFormClass = MagicMock()
+    MockFormClass().is_valid.return_value = True
+    MockFormClass().fields = ['1','2','3']
+
+    with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
+        fin.write(b'3,1,2\na,b,c')
+        fin.seek(0)
+
+        strategy = BulkImporter(MockFormClass)
+        result = strategy.call(fin, fout)
+
+        fout.seek(0)
+        assert fout.read().strip() == "3,1,2,errors\na,b,c,"
+
 def test_error_column_blanked_out_if_input_has_column_value_but_record_is_valid():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = True
@@ -87,7 +102,7 @@ def test_error_column_blanked_out_if_input_has_column_value_but_record_is_valid(
         fout.seek(0)
         assert fout.read().strip() == "1,2,3,errors\na,b,c,"
 
-def test_only_fields_in_form_written_to_output():
+def test_even_fields_not_in_form_written_to_output():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = True
     MockFormClass().fields = ['1','2']
@@ -100,7 +115,7 @@ def test_only_fields_in_form_written_to_output():
         strategy.call(fin, fout)
 
         fout.seek(0)
-        assert fout.read().strip() == "1,2,errors\na,b,"
+        assert fout.read().strip() == "1,2,3,errors\na,b,c,"
 
 def test_invalid_data_processed_with_errors():
     MockFormClass = MagicMock()
@@ -236,4 +251,3 @@ def test_resultrow_fields():
     assert ResultRow(Status.invalid, row, "errors message").fields == {"a": "1", "b": "2", "errors": "errors message"}
     assert ResultRow(Status.unsaved, row).fields == {"a": "1", "b": "2"}
     assert ResultRow(Status.exception, row, "exception message").fields == {"a": "1", "b": "2", "errors": "exception message"}
-
