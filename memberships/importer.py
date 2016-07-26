@@ -1,5 +1,6 @@
 import csv
 from django.db import transaction, DataError
+from django.core.exceptions import ValidationError
 from enum import Enum
 import logging
 
@@ -98,7 +99,7 @@ class BulkImporter(object):
 
     def call(self, infile, outfile):
         """
-        infile  -  A readable binary mode file, assumed to be UTF-8 encoded, containing CSV data with header  
+        infile  -  A readable binary mode file, assumed to be UTF-8 encoded, containing CSV data with header
         outfile -  A writable text mode file for output
         """
         reader = self._open_reader(infile)
@@ -125,12 +126,17 @@ class BulkImporter(object):
             if try_to_save:
                 try:
                     with transaction.atomic():
-                        obj = form.save()
+                        # Clean again to check for uniqueness problems with
+                        # users already created enforced only through the form
+                        form.full_clean()
+                        if form.is_valid():
+                            obj = form.save()
+                            results.append(ResultRow(Status.saved, row))
+                        else:
+                            results.append(ResultRow(Status.invalid, row, form.errors))
                 except Exception as ex:
                     results.append(ResultRow(Status.exception, row, "Exception encountered while saving record", ex))
                     logger.warning("Exception saving row", exc_info=ex)
-                else:
-                    results.append(ResultRow(Status.saved, row))
             else:
                 results.append(ResultRow(Status.unsaved, row))
 
