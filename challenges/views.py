@@ -80,9 +80,6 @@ def start_building(request, challenge_id):
         'username': request.user.username,
     }))
 
-def require_login_for(request, challenge):
-    return not request.user.is_authenticated()
-
 class InspirationAnonymousPreview(TemplateView):
     template_name = "challenges/edp/preview/inspiration_anonymous.html"
 
@@ -186,9 +183,6 @@ class InspirationProgressDispatch(ViewDispatch):
 
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    if require_login_for(request, challenge):
-        raise LoginRequired()
-
     return render(request, 'challenges/preview/plan.html', {
         'challenge': challenge,
         'comment_form': CommentForm(),
@@ -196,9 +190,6 @@ def preview_plan(request, challenge_id):
 
 def preview_build(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    if require_login_for(request, challenge):
-        raise LoginRequired()
-
     return render(request, 'challenges/preview/build.html', {
         'challenge': challenge,
         'comment_form': CommentForm(),
@@ -206,9 +197,6 @@ def preview_build(request, challenge_id):
 
 def preview_reflect(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    if require_login_for(request, challenge):
-        raise LoginRequired()
-
     return render(request, 'challenges/preview/reflect.html', {
         'challenge': challenge,
         'comment_form': CommentForm(),
@@ -335,8 +323,6 @@ def favorite_challenges(request):
 class ExamplesView(View):
     def get(self, request, challenge_id=None, *args, **kwargs):
         challenge = get_object_or_404(Challenge, id=challenge_id)
-        if require_login_for(request, challenge):
-            raise LoginRequired()
 
         if request.user.is_authenticated():
             progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()

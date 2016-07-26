@@ -3,16 +3,15 @@ from curiositymachine.decorators import whitelist
 from challenges import views
 
 public = whitelist('public')
-defer = whitelist('maybe_public')
 
 urlpatterns = patterns('challenges.views',
     url(r'^$', public(views.challenges), name='challenges'),
     url(r'^(?P<challenge_id>\d+)/$', public(views.InspirationPreviewDispatch.as_view()), name='preview_inspiration'),
-    url(r'^(?P<challenge_id>\d+)/examples/$', defer(views.ExamplesView.as_view()), name='examples'),
+    url(r'^(?P<challenge_id>\d+)/examples/$', views.ExamplesView.as_view(), name='examples'),
     url(r'^(?P<challenge_id>\d+)/examples/delete/$', views.ExamplesDeleteView.as_view(), name='delete_example'),
-    url(r'^(?P<challenge_id>\d+)/plan/$', defer(views.preview_plan), name='preview_plan'),
-    url(r'^(?P<challenge_id>\d+)/build/$', defer(views.preview_build), name='preview_build'),
-    url(r'^(?P<challenge_id>\d+)/reflect/$', defer(views.preview_reflect), name='preview_reflect'),
+    url(r'^(?P<challenge_id>\d+)/plan/$', views.preview_plan, name='preview_plan'),
+    url(r'^(?P<challenge_id>\d+)/build/$', views.preview_build, name='preview_build'),
+    url(r'^(?P<challenge_id>\d+)/reflect/$', views.preview_reflect, name='preview_reflect'),
     url(r'^(?P<challenge_id>\d+)/start/$', 'start_building', name='start_building'),
     url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/$', 'redirect_to_stage', name='challenge_progress'),
     url(r'^(?P<challenge_id>\d+)/(?P<username>[\w.@+-]+)/inspiration/$', views.InspirationProgressDispatch.as_view(), name='inspiration_progress'),
