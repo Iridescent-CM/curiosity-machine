@@ -120,12 +120,10 @@ class BulkImporter(object):
 
         valids, invalids = [], []
         for row in reader:
-            row = fieldlabels_to_fieldnames(self.modelformclass(**self.extra_form_kwargs), row)
-
             if "errors" in row:
                 del row["errors"]
 
-            form = self.modelformclass(row, **self.extra_form_kwargs)
+            form = self.modelformclass(fieldlabels_to_fieldnames(self.modelformclass(**self.extra_form_kwargs), row), **self.extra_form_kwargs)
 
             if form.is_valid():
                 valids.append((row, form))
@@ -136,7 +134,8 @@ class BulkImporter(object):
         results = []
 
         for row, form in invalids:
-            results.append(ResultRow(Status.invalid, row, form.errors))
+            errors = fieldnames_to_fieldlabels(self.modelformclass(**self.extra_form_kwargs), form.errors)
+            results.append(ResultRow(Status.invalid, row, errors))
 
         for row, form in valids:
             if try_to_save:
@@ -152,13 +151,11 @@ class BulkImporter(object):
                 results.append(ResultRow(Status.unsaved, row))
 
         if results:
-            form = self.modelformclass(**self.extra_form_kwargs)
-            fieldlabels = fieldnames_to_fieldlabels(form, _build_fieldnames(reader.fieldnames, results[0].fieldnames))
+            fieldlabels = _build_fieldnames(reader.fieldnames, results[0].fieldnames)
             writer = self._open_writer(outfile, fieldlabels)
             writer.writeheader()
             for result_row in results:
-                row = fieldnames_to_fieldlabels(form, result_row.fields)
-                writer.writerow(row)
+                writer.writerow(result_row.fields)
 
         counts = {}
         for result_row in results:
