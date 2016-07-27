@@ -10,14 +10,6 @@ from memberships.models import Member
 from profiles.models import Profile, UserRole
 from django.contrib.auth.models import User
 
-def fieldlabels_to_fieldnames(form, data):
-    labels_to_names = {form.fields[field].label: field for field in form.fields}
-    return {labels_to_names.get(k, k): v for k, v in data.items()}
-
-def fieldnames_to_fieldlabels(form, data):
-    names_to_labels = {field: str(form.fields[field].label) for field in form.fields}
-    return {names_to_labels.get(k, k): v for k, v in data.items()}
-
 class YesNoBooleanField(forms.BooleanField):
     """
     Converts case-insensitive yes, no, y, n, or blank text input value to boolean
