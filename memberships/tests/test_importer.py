@@ -2,8 +2,15 @@ import pytest
 from mock import Mock, MagicMock, call, patch, sentinel
 
 from tempfile import TemporaryFile
+from django import forms
 
-from memberships.importer import BulkImporter, Status, ResultRow
+from memberships.importer import BulkImporter, Status, ResultRow, fieldlabels_to_fieldnames, fieldnames_to_fieldlabels
+
+class ExampleForm(forms.Form):
+    a = forms.IntegerField()
+    b = forms.IntegerField()
+    c = forms.IntegerField()
+
 
 def test_row_data_validity_checked_by_formclass():
     MockFormClass = MagicMock()
@@ -15,7 +22,7 @@ def test_row_data_validity_checked_by_formclass():
         strategy = BulkImporter(MockFormClass)
         strategy.call(fin, fout)
 
-        assert MockFormClass.call_args == call({'1':'a', '2':'b', '3':'c'})
+        assert call({'1':'a', '2':'b', '3':'c'}) in MockFormClass.call_args_list
         assert MockFormClass().is_valid.called
 
 def test_valid_data_calls_form_save():
@@ -45,99 +52,94 @@ def test_invalid_data_doesnt_call_form_save():
         assert not MockFormClass().save.called
 
 def test_extra_form_kwargs_passed_to_form():
-    MockFormClass = MagicMock()
+    MockFormClass = MagicMock(spec=ExampleForm)
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
-        fin.write(b'1,2,3\na,b,c')
+        fin.write(b'a,b,c\n1,2,3')
         fin.seek(0)
 
         strategy = BulkImporter(MockFormClass, extra1=1, extra2=2)
         strategy.call(fin, fout)
 
-        assert MockFormClass.call_args == call({'1':'a', '2':'b', '3':'c'}, extra1=1, extra2=2)
+        for call_args in MockFormClass.call_args_list:
+            assert call_args[1] == {'extra1': 1, 'extra2': 2}
 
 def test_valid_data_processed_without_errors():
-    MockFormClass = MagicMock()
+    MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = True
-    MockFormClass().fields = ['1','2','3']
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
-        fin.write(b'1,2,3\na,b,c')
+        fin.write(b'a,b,c\n1,2,3')
         fin.seek(0)
 
         strategy = BulkImporter(MockFormClass)
         result = strategy.call(fin, fout)
 
         fout.seek(0)
-        assert fout.read().strip() == "1,2,3,errors\na,b,c,"
+        assert fout.read().strip() == "a,b,c,errors\n1,2,3,"
         assert result["statuses"] == {Status.saved: 1}
 
 def test_output_field_order_matches_input_field_order():
-    MockFormClass = MagicMock()
+    MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = True
-    MockFormClass().fields = ['1','2','3']
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
-        fin.write(b'3,1,2\na,b,c')
+        fin.write(b'c,a,b\n1,2,3')
         fin.seek(0)
 
         strategy = BulkImporter(MockFormClass)
         result = strategy.call(fin, fout)
 
         fout.seek(0)
-        assert fout.read().strip() == "3,1,2,errors\na,b,c,"
+        assert fout.read().strip() == "c,a,b,errors\n1,2,3,"
 
 def test_error_column_blanked_out_if_input_has_column_value_but_record_is_valid():
-    MockFormClass = MagicMock()
+    MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = True
-    MockFormClass().fields = ['1','2','3']
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
-        fin.write(b'1,2,3,errors\na,b,c,error!')
+        fin.write(b'a,b,c,errors\n1,2,3,error!')
         fin.seek(0)
 
         strategy = BulkImporter(MockFormClass)
         strategy.call(fin, fout)
 
         fout.seek(0)
-        assert fout.read().strip() == "1,2,3,errors\na,b,c,"
+        assert fout.read().strip() == "a,b,c,errors\n1,2,3,"
 
 def test_even_fields_not_in_form_written_to_output():
-    MockFormClass = MagicMock()
+    MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = True
-    MockFormClass().fields = ['1','2']
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
-        fin.write(b'1,2,3\na,b,c')
+        fin.write(b'a,b,c,d,e\n1,2,3,4,5')
         fin.seek(0)
 
         strategy = BulkImporter(MockFormClass)
         strategy.call(fin, fout)
 
         fout.seek(0)
-        assert fout.read().strip() == "1,2,3,errors\na,b,c,"
+        assert fout.read().strip() == "a,b,c,d,e,errors\n1,2,3,4,5,"
 
 def test_invalid_data_processed_with_errors():
-    MockFormClass = MagicMock()
+    MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = False
-    MockFormClass().fields = ['1','2','3']
-    MockFormClass().errors = {'1': ['Error desc1', 'Error desc2'], '2': ['Error desc']}
+    MockFormClass().errors = {'a': ['Error desc1', 'Error desc2'], 'b': ['Error desc']}
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
-        fin.write(b'1,2,3\na,b,c')
+        fin.write(b'a,b,c\n1,2,3')
         fin.seek(0)
 
         strategy = BulkImporter(MockFormClass)
         result = strategy.call(fin, fout)
 
         fout.seek(0)
-        assert fout.read().strip() == "1,2,3,errors\na,b,c,1: Error desc1 Error desc2 2: Error desc"
+        assert fout.read().strip() == "a,b,c,errors\n1,2,3,a: Error desc1 Error desc2 b: Error desc"
         assert result["statuses"] == {Status.invalid: 1}
 
 def test_save_exception_processed_with_data():
-    MockFormClass = MagicMock()
+    MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = True
-    MockFormClass().fields = ['1','2','3']
     MockFormClass().save.side_effect = Exception("Boom")
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
@@ -249,3 +251,88 @@ def test_resultrow_fields():
     assert ResultRow(Status.invalid, row, "errors message").fields == {"a": "1", "b": "2", "errors": "errors message"}
     assert ResultRow(Status.unsaved, row).fields == {"a": "1", "b": "2"}
     assert ResultRow(Status.exception, row, "exception message").fields == {"a": "1", "b": "2", "errors": "exception message"}
+
+def test_fieldlabels_to_fieldnames():
+    class ExampleForm(forms.ModelForm):
+        class Meta:
+            model = User
+            fields = ['username', 'password']
+            labels = {
+                'username': 'User Name',
+                'password': 'Their Password'
+            }
+
+    assert fieldlabels_to_fieldnames(ExampleForm(), {
+        'User Name': 'exampleuser',
+        'Their Password': '123123',
+    }) == {
+        'username': 'exampleuser',
+        'password': '123123',
+    }
+
+def test_fieldlabels_to_fieldnames_passes_non_labels_through_unchanged():
+    class ExampleForm(forms.ModelForm):
+        class Meta:
+            model = User
+            fields = ['username', 'password', 'first_name']
+            labels = {
+                'username': 'User Name',
+                'password': 'Their Password',
+            }
+
+    assert fieldlabels_to_fieldnames(ExampleForm(), {
+        'User Name': 'exampleuser',
+        'Their Password': '123123',
+        'first_name': 'example',
+        'not a field': 'whatever'
+    }) == {
+        'username': 'exampleuser',
+        'password': '123123',
+        'first_name': 'example',
+        'not a field': 'whatever'
+    }
+
+def test_fieldnames_to_fieldlabels():
+    class ExampleForm(forms.ModelForm):
+        class Meta:
+            model = User
+            fields = ['username', 'password']
+            labels = {
+                'username': 'User Name',
+                'password': 'Their Password'
+            }
+
+    assert fieldnames_to_fieldlabels(ExampleForm(), {
+        'username': 'exampleuser',
+        'password': '123123',
+    }) == {
+        'User Name': 'exampleuser',
+        'Their Password': '123123',
+    }
+    assert fieldnames_to_fieldlabels(ExampleForm(), ['username', 'password']) == ['User Name', 'Their Password']
+
+def test_fieldnames_to_fieldlabels_maps_fields_to_auto_labels():
+    class ExampleForm(forms.ModelForm):
+        class Meta:
+            model = User
+            fields = ['first_name']
+
+    assert fieldnames_to_fieldlabels(ExampleForm(), {
+        'first_name': 'example'
+    }) == {
+        'First name': 'example'
+    }
+
+def test_fieldnames_to_fieldlabels_passes_non_fieldnames_through_unchanged():
+    class ExampleForm(forms.ModelForm):
+        class Meta:
+            model = User
+            fields = ['username']
+
+    assert fieldnames_to_fieldlabels(ExampleForm(), {
+        'username': 'exampleuser',
+        'whatever': 'whatever',
+    }) == {
+        'Username': 'exampleuser',
+        'whatever': 'whatever'
+    }

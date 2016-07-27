@@ -6,6 +6,18 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+def fieldlabels_to_fieldnames(form, data):
+    labels_to_names = {form.fields[field].label: field for field in form.fields}
+    return {labels_to_names.get(k, k): v for k, v in data.items()}
+
+def fieldnames_to_fieldlabels(form, data):
+    names_to_labels = {field: str(form.fields[field].label) for field in form.fields}
+    if isinstance(data, dict):
+        return {names_to_labels.get(k, k): v for k, v in data.items()}
+    else:
+        return [names_to_labels.get(i, i) for i in data]
+
+
 class Status(Enum):
     invalid = 0
     saved = 1
@@ -48,6 +60,11 @@ def decode_lines(f, encoding='utf-8'):
     for line in f:
         yield line.decode(encoding)
 
+def _build_fieldnames(reader_fieldnames, output_fieldnames):
+    reduced_fieldnames = [x for x in reader_fieldnames if x in output_fieldnames]
+    extra_fieldnames = [x for x in output_fieldnames if x not in reduced_fieldnames]
+    return reduced_fieldnames + sorted(extra_fieldnames)
+
 class BulkImporter(object):
     """
     Given a ModelForm, BulkImporter will create models from the rows of a CSV data file.
@@ -73,10 +90,8 @@ class BulkImporter(object):
         dialect = csv.Sniffer().sniff(contents)
         return csv.DictReader(decode_lines(f))
 
-    def _open_writer(self, f, reader_fieldnames, output_fieldnames):
-        reduced_fieldnames = [x for x in reader_fieldnames if x in output_fieldnames]
-        extra_fieldnames = [x for x in output_fieldnames if x not in reduced_fieldnames]
-        return csv.DictWriter(f, fieldnames=reduced_fieldnames + sorted(extra_fieldnames))
+    def _open_writer(self, f, fieldnames):
+        return csv.DictWriter(f, fieldnames=fieldnames)
 
     @staticmethod
     def summarize(status_counts):
@@ -106,6 +121,8 @@ class BulkImporter(object):
 
         valids, invalids = [], []
         for row in reader:
+            row = fieldlabels_to_fieldnames(self.modelformclass(**self.extra_form_kwargs), row)
+
             if "errors" in row:
                 del row["errors"]
 
@@ -141,10 +158,13 @@ class BulkImporter(object):
                 results.append(ResultRow(Status.unsaved, row))
 
         if results:
-            writer = self._open_writer(outfile, reader.fieldnames, results[0].fieldnames)
+            form = self.modelformclass(**self.extra_form_kwargs)
+            fieldlabels = fieldnames_to_fieldlabels(form, _build_fieldnames(reader.fieldnames, results[0].fieldnames))
+            writer = self._open_writer(outfile, fieldlabels)
             writer.writeheader()
             for result_row in results:
-                writer.writerow(result_row.fields)
+                row = fieldnames_to_fieldlabels(form, result_row.fields)
+                writer.writerow(row)
 
         counts = {}
         for result_row in results:

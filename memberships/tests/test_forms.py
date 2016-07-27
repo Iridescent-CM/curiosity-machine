@@ -3,9 +3,8 @@ import pytest
 from memberships.factories import MembershipFactory
 
 from memberships.models import Member
-from memberships.forms import RowImportForm, fieldlabels_to_fieldnames, fieldnames_to_fieldlabels
+from memberships.forms import RowImportForm
 
-from django import forms
 from django.forms.models import modelform_factory
 from django.contrib.auth import get_user_model
 from profiles.models import Profile
@@ -156,87 +155,3 @@ def test_saving_form_creates_all_objects():
     assert member.membership.id == membership.id
     assert member.user
     assert member.user.profile
-
-def test_fieldlabels_to_fieldnames():
-    class ExampleForm(forms.ModelForm):
-        class Meta:
-            model = User
-            fields = ['username', 'password']
-            labels = {
-                'username': 'User Name',
-                'password': 'Their Password'
-            }
-
-    assert fieldlabels_to_fieldnames(ExampleForm(), {
-        'User Name': 'exampleuser',
-        'Their Password': '123123',
-    }) == {
-        'username': 'exampleuser',
-        'password': '123123',
-    }
-
-def test_fieldlabels_to_fieldnames_passes_non_labels_through_unchanged():
-    class ExampleForm(forms.ModelForm):
-        class Meta:
-            model = User
-            fields = ['username', 'password', 'first_name']
-            labels = {
-                'username': 'User Name',
-                'password': 'Their Password',
-            }
-
-    assert fieldlabels_to_fieldnames(ExampleForm(), {
-        'User Name': 'exampleuser',
-        'Their Password': '123123',
-        'first_name': 'example',
-        'not a field': 'whatever'
-    }) == {
-        'username': 'exampleuser',
-        'password': '123123',
-        'first_name': 'example',
-        'not a field': 'whatever'
-    }
-
-def test_fieldnames_to_fieldlabels():
-    class ExampleForm(forms.ModelForm):
-        class Meta:
-            model = User
-            fields = ['username', 'password']
-            labels = {
-                'username': 'User Name',
-                'password': 'Their Password'
-            }
-
-    assert fieldnames_to_fieldlabels(ExampleForm(), {
-        'username': 'exampleuser',
-        'password': '123123',
-    }) == {
-        'User Name': 'exampleuser',
-        'Their Password': '123123',
-    }
-
-def test_fieldnames_to_fieldlabels_maps_fields_to_auto_labels():
-    class ExampleForm(forms.ModelForm):
-        class Meta:
-            model = User
-            fields = ['first_name']
-
-    assert fieldnames_to_fieldlabels(ExampleForm(), {
-        'first_name': 'example'
-    }) == {
-        'First name': 'example'
-    }
-
-def test_fieldnames_to_fieldlabels_passes_non_fieldnames_through_unchanged():
-    class ExampleForm(forms.ModelForm):
-        class Meta:
-            model = User
-            fields = ['username']
-
-    assert fieldnames_to_fieldlabels(ExampleForm(), {
-        'username': 'exampleuser',
-        'whatever': 'whatever',
-    }) == {
-        'Username': 'exampleuser',
-        'whatever': 'whatever'
-    }
