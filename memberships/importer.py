@@ -5,18 +5,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def fieldlabels_to_fieldnames(form, data):
-    labels_to_names = {form.fields[field].label: field for field in form.fields}
-    return {labels_to_names.get(k, k): v for k, v in data.items()}
-
-def fieldnames_to_fieldlabels(form, data):
-    names_to_labels = {field: str(form.fields[field].label) for field in form.fields}
-    if isinstance(data, dict):
-        return {names_to_labels.get(k, k): v for k, v in data.items()}
-    else:
-        return [names_to_labels.get(i, i) for i in data]
-
-
 class Status(Enum):
     invalid = 0
     saved = 1
@@ -83,6 +71,19 @@ class BulkImporter(object):
         self.modelformclass = modelformclass
         self.extra_form_kwargs = extra_form_kwargs
 
+    def fieldlabels_to_fieldnames(self, data):
+        form = self.modelformclass(**self.extra_form_kwargs)
+        labels_to_names = {form.fields[field].label: field for field in form.fields}
+        return {labels_to_names.get(k, k): v for k, v in data.items()}
+
+    def fieldnames_to_fieldlabels(self, data):
+        form = self.modelformclass(**self.extra_form_kwargs)
+        names_to_labels = {field: str(form.fields[field].label) for field in form.fields}
+        if isinstance(data, dict):
+            return {names_to_labels.get(k, k): v for k, v in data.items()}
+        else:
+            return [names_to_labels.get(i, i) for i in data]
+
     def _open_reader(self, f):
         contents = f.read().decode('utf-8')
         f.seek(0)
@@ -123,7 +124,7 @@ class BulkImporter(object):
             if "errors" in row:
                 del row["errors"]
 
-            form = self.modelformclass(fieldlabels_to_fieldnames(self.modelformclass(**self.extra_form_kwargs), row), **self.extra_form_kwargs)
+            form = self.modelformclass(self.fieldlabels_to_fieldnames(row), **self.extra_form_kwargs)
 
             if form.is_valid():
                 valids.append((row, form))
@@ -134,7 +135,7 @@ class BulkImporter(object):
         results = []
 
         for row, form in invalids:
-            errors = fieldnames_to_fieldlabels(self.modelformclass(**self.extra_form_kwargs), form.errors)
+            errors = self.fieldnames_to_fieldlabels(form.errors)
             results.append(ResultRow(Status.invalid, row, errors))
 
         for row, form in valids:
