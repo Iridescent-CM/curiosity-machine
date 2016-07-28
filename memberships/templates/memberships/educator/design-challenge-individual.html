@@ -1,0 +1,65 @@
+{% extends "memberships/_membership-hub.html" %}
+{% load resized %}
+
+{% block title %}{{ membership.name }}{% endblock %}
+{% block body-classes %}membership-pages{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div class="jumbotron-fluid  jumbotron-sand p-t-md m-b-lg">
+    <div class="container">
+      <!-- title of page should be title of DC -->
+      <h3 class="green-type">Build a Bridge</h3>
+      <!-- should link to DC -->
+      <a href="#" class="">View Design Challenge</a>
+    </div>
+  </div>
+
+  <div class="container all-challenges-cards m-b-lg">
+    <h3>In Progress</h3>
+
+    <div class="row">
+
+      <!-- for students with progress in this DC -->
+      <div class="col-lg-3 col-sm-6">
+        <div class="people-card">
+
+            <div class="people-card-title text-center">
+              <a href="#" class="action-img">
+                {% include "profiles/_avatar.html" with profile=mentor width=80 height=80 crop='thumb' gravity='faces' classes='img-block'%}
+              </a>
+              <p>
+                Lorelai Gilmore<br/>
+                <small><a href="#">lorelaigilmoreSH</a></small>
+              </p>
+            </div>
+
+          <div class="people-card-description">
+            <p><small>3 Posts</small></p>
+            <p><small><i class=""></i>Claimed by mentor</small></p>
+            <p><small><a href="#">View Progress &rarr;</a></small></p>
+          </div>
+        </div>
+      </div>
+
+      {% comment "uncomment me out when the forloop works" %}
+      {% if forloop.counter|divisibleby:2 %} -->
+        <div class="clearfix{% if not forloop.counter|divisibleby:4 %} hidden-md-up{% endif %}"></div>
+      {% endif %}
+      {% endcomment %}
+      <!-- end for -->
+
+    </div>
+
+    <hr class="m-b-lg">
+
+    <h3>Completed</h3>
+    <p>No students have completed this design challenge yet!</p>
+    <div class="row">
+
+    </div>
+  </div>
+
+
+{% endblock %}

@@ -4,6 +4,12 @@
     background-color: $sand;
     h3 {
       font-weight: $base-font-weight;
+      display: inline-block;
+    }
+
+    a {
+      display: inline-block;
+      float: right;
     }
   }
 
