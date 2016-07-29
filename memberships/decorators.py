@@ -9,5 +9,5 @@ def enforce_membership_challenge_access(view):
         if Membership.has_challenge_access(request.user, challenge_id):
             return view(request, *args, **kwargs)
         else:
-            return PermissionDenied
+            raise PermissionDenied
     return inner
