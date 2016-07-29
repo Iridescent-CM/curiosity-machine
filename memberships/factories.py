@@ -16,3 +16,9 @@ class MembershipFactory(factory.django.DjangoModelFactory):
         if extracted:
             for user in extracted:
                 models.Member.objects.create(membership=obj, user=user)
+
+    @post_generation
+    def challenges(obj, create, extracted, **kwargs):
+        if extracted:
+            for challenge in extracted:
+                obj.challenges.add(challenge) 

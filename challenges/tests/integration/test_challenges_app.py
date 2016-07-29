@@ -75,13 +75,15 @@ def test_challenges_filters_drafts(client, challenge, challenge2, student):
 
 @pytest.mark.django_db
 def test_start_building(rf, challenge, student):
+    challenge.free = True
+    challenge.save()
     request = rf.post('/challenges/1/start_building')
     request.user = student
-    response = start_building(request, challenge.id)
+    response = start_building(request, challenge_id=challenge.id)
     assert Progress.objects.filter(challenge=challenge, student=student).count() == 1
 
 @pytest.mark.django_db
-def test_preview_plan_renders_plan_preview(client, challenge, loggedInStudent):
+def test_preview_plan_renders_plan_preview(client, challenge, loggedInStaff):
     url = reverse('challenges:preview_plan', kwargs={
         'challenge_id': challenge.id
     })
@@ -90,7 +92,7 @@ def test_preview_plan_renders_plan_preview(client, challenge, loggedInStudent):
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_preview_build_renders_build_preview(client, challenge, loggedInStudent):
+def test_preview_build_renders_build_preview(client, challenge, loggedInStaff):
     url = reverse('challenges:preview_build', kwargs={
         'challenge_id': challenge.id
     })
@@ -99,7 +101,7 @@ def test_preview_build_renders_build_preview(client, challenge, loggedInStudent)
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_preview_reflect_renders_reflect_preview(client, challenge, loggedInStudent):
+def test_preview_reflect_renders_reflect_preview(client, challenge, loggedInStaff):
     url = reverse('challenges:preview_reflect', kwargs={
         'challenge_id': challenge.id
     })

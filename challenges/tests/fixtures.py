@@ -14,6 +14,12 @@ def loggedInStudent(client):
     return student
 
 @pytest.fixture
+def loggedInStaff(client):
+    staff = User.objects.create_superuser(username='staff', email='staff@example.com', password='password')
+    client.login(username='staff', password='password')
+    return staff
+
+@pytest.fixture
 def student_comment(student, progress):
     return Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
 

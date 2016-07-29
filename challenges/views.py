@@ -10,7 +10,7 @@ from django.conf import settings
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
-from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only
+from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only, student_only
 from curiositymachine.exceptions import LoginRequired
 from videos.models import Video
 from images.models import Image
@@ -20,6 +20,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.base import View, TemplateView
 from django.utils.decorators import method_decorator
+from memberships.decorators import enforce_membership_challenge_access
 
 def challenges(request):
     theme_name = request.GET.get('theme')
@@ -67,6 +68,8 @@ def challenges(request):
     })
 
 @require_POST
+@student_only
+@enforce_membership_challenge_access
 def start_building(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
 
@@ -181,6 +184,8 @@ class InspirationProgressDispatch(ViewDispatch):
         else:
             raise PermissionDenied()
 
+@login_required
+@enforce_membership_challenge_access
 def preview_plan(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     return render(request, 'challenges/preview/plan.html', {
@@ -188,6 +193,8 @@ def preview_plan(request, challenge_id):
         'comment_form': CommentForm(),
     })
 
+@login_required
+@enforce_membership_challenge_access
 def preview_build(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     return render(request, 'challenges/preview/build.html', {
@@ -195,6 +202,8 @@ def preview_build(request, challenge_id):
         'comment_form': CommentForm(),
     })
 
+@login_required
+@enforce_membership_challenge_access
 def preview_reflect(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     return render(request, 'challenges/preview/reflect.html', {

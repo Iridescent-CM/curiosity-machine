@@ -1,5 +1,6 @@
 from os.path import splitext, basename
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.files import File
@@ -23,6 +24,20 @@ class Membership(models.Model):
 
     challenges = models.ManyToManyField(Challenge, blank=True)
     members = models.ManyToManyField(User, through='Member', through_fields=('membership', 'user'), blank=True)
+
+    @classmethod
+    def has_challenge_access(cls, user, challenge_id):
+        if not user.is_authenticated():
+            return False
+
+        if user.is_staff or user.profile.is_mentor:
+            return True
+
+        foo =  Challenge.objects.filter(
+            Q(id=challenge_id, membership__members=user)
+            | Q(id=challenge_id, free=True)
+        ).exists()
+        return foo
 
     def limit_for(self, role):
         obj = self.memberlimit_set.filter(role=role).first()
