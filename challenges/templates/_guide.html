@@ -2,6 +2,7 @@
 {% block id %}guide-modal{% endblock %}
 {% block classes %}{% endblock %}
 {% block inner-classes %}modal-lg{% endblock %}
+{% load staticfiles %}
 
 {% block content %}
 <div class="modal-header">
@@ -14,6 +15,9 @@
   {% if request.user.is_authenticated and request.user.profile.is_mentor and challenge.mentor_guide %}
   <li><a href="#mentor-guide" data-toggle="tab">Mentor Guide</a></li>
   {% endif %}
+  <!-- if you have membership access to this DC -->
+  <li><a href="#lesson-plans" data-toggle="tab">Lesson Plans</a></li>
+  <!-- endif -->
 </ul>
 <div class="modal-body row clearfix tab-content">
 <div class="tab-pane fade in active" id="guide-how-to">
@@ -27,8 +31,24 @@
   <p>{{ challenge.mentor_guide|safe }}</p>
 </div>
 {% endif %}
+<!-- if you have membership access to this DC -->
+<div class="tab-pane fade" id="lesson-plans">
+  <!-- for resources uploaded to DC... -->
+  <div class="media lesson-plan">
+    <div class="media-left pull-left">
+      <img class="media-object" src="{% static 'images/edp/resource.png' %}" alt="...">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">Media heading</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat porta massa tempor molestie. Vestibulum id pretium odio. Praesent in tellus id massa ornare pulvinar. Maecenas ut libero ut urna venenatis volutpat. Ut quis lorem cursus, hendrerit augue et, blandit ipsum.</p>
+      <a href="#" class="btn btn-primary">Download</a>
+    </div>
+  </div>
+  <!-- endfor -->
+</div>
+<!-- endif -->
 
-  
+
 </div>
 <div class="modal-footer">
   {% if request.user.is_authenticated and request.user.profile.is_student and show_start_button %}
