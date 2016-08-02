@@ -33,11 +33,14 @@ class Membership(models.Model):
         if user.is_staff or user.profile.is_mentor:
             return True
 
-        foo =  Challenge.objects.filter(
+        return Challenge.objects.filter(
             Q(id=challenge_id, membership__members=user)
             | Q(id=challenge_id, free=True)
         ).exists()
-        return foo
+
+    @classmethod
+    def share_membership(cls, username1, username2):
+        return Member.objects.filter(user__username=username1, membership__members__username=username2).exists()
 
     def limit_for(self, role):
         obj = self.memberlimit_set.filter(role=role).first()

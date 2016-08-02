@@ -3,7 +3,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
-from groups.models import Membership, Role
+from groups.models import Membership as GroupMembership, Role as GroupRole
+from memberships.models import Membership
 
 def mentor_or_current_user(view):
     @wraps(view)
@@ -22,7 +23,8 @@ def current_user_or_approved_viewer(view):
         if (request.user.is_staff
                 or request.user.profile.is_mentor
                 or request.user.username == username
-                or Membership.users_share_any_group(request.user.username, Role.owner, username, Role.member)
+                or (not request.user.profile.is_student and Membership.share_membership(request.user.username, username))
+                or GroupMembership.users_share_any_group(request.user.username, GroupRole.owner, username, GroupRole.member)
                 or request.user.profile.is_parent_of(username, active=True, removed=False)):
             return view(request, *args, **kwargs)
         else:

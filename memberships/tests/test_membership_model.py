@@ -60,3 +60,11 @@ def test_has_challenge_access_user_type_exemptions():
 
     assert Membership.has_challenge_access(mentor, challenge.id)
     assert Membership.has_challenge_access(staff, challenge.id)
+
+@pytest.mark.django_db
+def test_share_membership():
+    users = UserFactory.create_batch(3)
+    membership = MembershipFactory(members=users[0:2])
+
+    assert Membership.share_membership(users[0].username, users[1].username)
+    assert not Membership.share_membership(users[0].username, users[2].username)

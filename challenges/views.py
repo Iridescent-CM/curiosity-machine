@@ -186,27 +186,9 @@ class InspirationProgressDispatch(ViewDispatch):
 
 @login_required
 @enforce_membership_challenge_access
-def preview_plan(request, challenge_id):
+def preview_stage(request, challenge_id, stage):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    return render(request, 'challenges/preview/plan.html', {
-        'challenge': challenge,
-        'comment_form': CommentForm(),
-    })
-
-@login_required
-@enforce_membership_challenge_access
-def preview_build(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-    return render(request, 'challenges/preview/build.html', {
-        'challenge': challenge,
-        'comment_form': CommentForm(),
-    })
-
-@login_required
-@enforce_membership_challenge_access
-def preview_reflect(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-    return render(request, 'challenges/preview/reflect.html', {
+    return render(request, 'challenges/preview/%s.html' % stage, {
         'challenge': challenge,
         'comment_form': CommentForm(),
     })

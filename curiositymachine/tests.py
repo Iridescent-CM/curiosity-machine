@@ -365,7 +365,8 @@ def test_challenge_access_decorator_allows_named_user(rf):
     response = wrapped(request, challenge_id=1, username='named')
     assert view.called
 
-@mock.patch('curiositymachine.decorators.Membership.users_share_any_group', force_true)
+@mock.patch('curiositymachine.decorators.GroupMembership.users_share_any_group', force_true)
+@mock.patch('curiositymachine.decorators.Membership.share_membership', force_false)
 def test_challenge_access_decorator_allows_connected_group_owners(rf):
     user = User()
     profile = Profile(user=user)
@@ -376,7 +377,8 @@ def test_challenge_access_decorator_allows_connected_group_owners(rf):
     response = wrapped(request, challenge_id=1, username='student')
     assert view.called
 
-@mock.patch('curiositymachine.decorators.Membership.users_share_any_group', force_false)
+@mock.patch('curiositymachine.decorators.GroupMembership.users_share_any_group', force_false)
+@mock.patch('curiositymachine.decorators.Membership.share_membership', force_false)
 @mock.patch('profiles.models.Profile.is_parent_of', force_true)
 def test_challenge_access_decorator_allows_connected_parent(rf):
     user = User()
@@ -388,7 +390,8 @@ def test_challenge_access_decorator_allows_connected_parent(rf):
     response = wrapped(request, challenge_id=1, username='student')
     assert view.called
 
-@mock.patch('curiositymachine.decorators.Membership.users_share_any_group', force_false)
+@mock.patch('curiositymachine.decorators.GroupMembership.users_share_any_group', force_false)
+@mock.patch('curiositymachine.decorators.Membership.share_membership', force_false)
 @mock.patch('profiles.models.Profile.is_parent_of', force_false)
 def test_challenge_access_decorator_redirects_other(rf):
     user = User(username='other')
