@@ -26,17 +26,15 @@ class Membership(models.Model):
     members = models.ManyToManyField(User, through='Member', through_fields=('membership', 'user'), blank=True)
 
     @classmethod
-    def has_challenge_access(cls, user, challenge_id):
-        if not user.is_authenticated():
-            return False
+    def filter_by_challenge_access(cls, user, challenge_ids):
+        if user.is_authenticated() and (user.is_staff or user.profile.is_mentor):
+            return challenge_ids
 
-        if user.is_staff or user.profile.is_mentor:
-            return True
+        query = Q(id__in=challenge_ids, free=True)
+        if user.is_authenticated():
+            query = query | Q(id__in=challenge_ids, membership__members=user)
 
-        return Challenge.objects.filter(
-            Q(id=challenge_id, membership__members=user)
-            | Q(id=challenge_id, free=True)
-        ).exists()
+        return Challenge.objects.filter(query).values_list('id', flat=True)
 
     @classmethod
     def share_membership(cls, username1, username2):

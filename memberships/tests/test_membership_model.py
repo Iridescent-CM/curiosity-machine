@@ -26,40 +26,41 @@ def test_limit_for():
     assert membership.limit_for(UserRole.student.value) == 1
 
 @pytest.mark.django_db
-def test_has_challenge_access():
-    challenge = ChallengeFactory()
+def test_filter_by_challenge_access():
+    challenge1 = ChallengeFactory()
+    challenge2 = ChallengeFactory()
     user = StudentFactory()
 
-    assert not Membership.has_challenge_access(user, challenge.id)
+    assert not Membership.filter_by_challenge_access(user, [challenge1.id, challenge2.id])
 
-    membership = MembershipFactory(members=[user], challenges=[challenge])
+    membership = MembershipFactory(members=[user], challenges=[challenge1])
 
-    assert Membership.has_challenge_access(user, challenge.id)
+    assert set(Membership.filter_by_challenge_access(user, [challenge1.id, challenge2.id])) == set([challenge1.id])
     
 @pytest.mark.django_db
-def test_has_challenge_access_for_free_challenge():
+def test_filter_by_challenge_access_for_free_challenge():
     challenge = ChallengeFactory(free=True)
     user = AnonymousUser()
     student = StudentFactory()
 
-    assert not Membership.has_challenge_access(user, challenge.id)
-    assert Membership.has_challenge_access(student, challenge.id)
+    assert set(Membership.filter_by_challenge_access(user, [challenge.id])) == set([challenge.id])
+    assert set(Membership.filter_by_challenge_access(student, [challenge.id])) == set([challenge.id])
 
 @pytest.mark.django_db
-def test_has_challenge_access_for_anonymous():
+def test_filter_by_challenge_access_for_anonymous():
     challenge = ChallengeFactory()
     user = AnonymousUser()
 
-    assert not Membership.has_challenge_access(user, challenge.id)
+    assert not Membership.filter_by_challenge_access(user, [challenge.id])
 
 @pytest.mark.django_db
-def test_has_challenge_access_user_type_exemptions():
+def test_filter_by_challenge_access_user_type_exemptions():
     challenge = ChallengeFactory()
     mentor = MentorFactory()
     staff = UserFactory(is_staff=True)
 
-    assert Membership.has_challenge_access(mentor, challenge.id)
-    assert Membership.has_challenge_access(staff, challenge.id)
+    assert set(Membership.filter_by_challenge_access(mentor, [challenge.id])) == set([challenge.id])
+    assert set(Membership.filter_by_challenge_access(staff, [challenge.id])) == set([challenge.id])
 
 @pytest.mark.django_db
 def test_share_membership():
