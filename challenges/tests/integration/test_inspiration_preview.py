@@ -5,9 +5,6 @@ from profiles.factories import StudentFactory, MentorFactory
 
 from django.core.urlresolvers import reverse
 
-pytestmark = pytest.mark.integration
-
-
 @pytest.mark.django_db
 def test_renders_anonymous_template_with_challenge_for_anonymous_user(client):
     challenge = ChallengeFactory()
