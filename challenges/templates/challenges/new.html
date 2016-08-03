@@ -92,7 +92,11 @@
                     </h6>
                   </div>
                   <div class="card-block">
-                    <small class="card-text">{{challenge.description}}</small>
+                    <p class="card-text"><small>{{challenge.description}}</small></p>
+
+                    {% if not challenge.accessible %}
+                    <p class="card-text"><small>Membership only</small></p>
+                    {% endif %}
                   </div>
 
               </div>

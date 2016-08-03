@@ -1,3 +1,8 @@
+#
+# NOTE:
+# This file should generally not be added to. Tests here should be split out to
+# more specifically scoped test files over time.
+
 # test libs
 import pytest
 from pyquery import PyQuery as pq
@@ -26,52 +31,10 @@ from challenges.templatetags.activity_count import activity_count
 from challenges.templatetags.user_has_started_challenge import user_has_started_challenge
 from cmcomments.models import Comment
 
-# mark all as integration tests for -m filtering
-pytestmark = pytest.mark.integration
-
 
 @pytest.mark.django_db
 def test_theme_str(theme):
     assert theme.__str__() == "Theme: name=MyTheme"
-
-@pytest.mark.django_db
-def test_challenges_response_code(rf, challenge, student):
-    request = rf.get('/challenges/')
-    request.user = AnonymousUser()
-    response = challenges(request)
-    assert response.status_code == 200
-
-@pytest.mark.django_db
-def test_challenges_render_challenges(client, challenge, student):
-    response = client.get('/challenges/', follow=True)
-    assert response.status_code == 200
-    assert response.context['challenges'][0] == challenge
-
-@pytest.mark.django_db
-def test_challenges_filters_by_name(client, challenge, challenge2, theme, student):
-    challenge.themes.add(theme)
-    challenge.save()
-
-    response = client.get('/challenges/')
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 2
-
-    response = client.get('/challenges/', {'theme': theme.name}, follow=True)
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 1
-
-@pytest.mark.django_db
-def test_challenges_filters_drafts(client, challenge, challenge2, student):
-    response = client.get('/challenges/')
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 2
-
-    challenge.draft = True
-    challenge.save()
-
-    response = client.get('/challenges/')
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 1
 
 @pytest.mark.django_db
 def test_start_building(rf, challenge, student):

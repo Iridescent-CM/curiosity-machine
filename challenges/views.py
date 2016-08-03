@@ -20,6 +20,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.base import View, TemplateView
 from django.utils.decorators import method_decorator
+from memberships.models import Membership
 from memberships.decorators import enforce_membership_challenge_access
 
 def challenges(request):
@@ -56,6 +57,10 @@ def challenges(request):
         challenges = paginator.page(1)
     except EmptyPage:
         challenges = paginator.page(paginator.num_pages)
+
+    accessible = Membership.filter_by_challenge_access(request.user, [c.id for c in challenges])
+    for challenge in challenges:
+        challenge.accessible = challenge.id in accessible
 
     return render(request, 'challenges/new.html', {
         'challenges': challenges,
