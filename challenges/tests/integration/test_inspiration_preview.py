@@ -1,7 +1,7 @@
 import pytest
 
 from challenges.factories import ChallengeFactory, ExampleFactory, ProgressFactory
-from profiles.factories import StudentFactory, MentorFactory
+from profiles.factories import StudentFactory, MentorFactory, EducatorFactory, ParentFactory
 
 from django.core.urlresolvers import reverse
 
@@ -75,3 +75,16 @@ def test_nonstudent_template_gets_examples(client):
 
     assert response.status_code == 200
     assert set(response.context['examples']) == set(examples)
+
+@pytest.mark.django_db
+def test_challenge_decorated_with_user_accessibility_for_all_types(client):
+    challenge = ChallengeFactory()
+
+    for i, Factory in enumerate([StudentFactory, MentorFactory, EducatorFactory, ParentFactory]):
+        user = StudentFactory(username="user%d" % i, password="password")
+
+        client.login(username="user%d" % i, password="password")
+        response = client.get("/challenges/%d/" % challenge.id, follow=True)
+
+        assert response.status_code == 200
+        assert hasattr(response.context["challenge"], "accessible")

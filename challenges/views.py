@@ -95,6 +95,7 @@ class InspirationAnonymousPreview(TemplateView):
         context = super(InspirationAnonymousPreview, self).get_context_data(**kwargs)
 
         challenge = get_object_or_404(Challenge, id=kwargs.get('challenge_id'))
+        challenge.accessible = bool(Membership.filter_by_challenge_access(self.request.user, [challenge.id]))
 
         context['challenge'] = challenge
         return context
