@@ -60,7 +60,7 @@ class RowProfileForm(forms.ModelForm):
         model = Profile
         fields = ['birthday', 'approved']
 
-    approved = YesNoBooleanField(required=False)
+    approved = YesNoBooleanField(required=False, label='Consent form')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -82,21 +82,10 @@ class RowImportForm(forms.Form):
     userFormClass = RowUserForm
     profileFormClass = RowProfileForm
 
-    fieldname_mappings = {
-        "consent_form": "approved"
-    }
-
-    def _uglify_fieldname(self, fieldname):
-        fieldname = fieldname.lower().strip().replace(' ', '_')
-        return self.fieldname_mappings.get(fieldname, fieldname)
-
     def __init__(self, data=None, *args, **kwargs):
         for keyword in list(kwargs.keys()):
             if hasattr(self, keyword):
                 setattr(self, keyword, kwargs.pop(keyword))
-
-        if data:
-            data = {self._uglify_fieldname(k): v for k, v in data.items()}
 
         self._forms = []
         for formclass in [self.userFormClass, self.profileFormClass]:
