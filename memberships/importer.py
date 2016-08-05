@@ -47,6 +47,11 @@ def decode_lines(f, encoding='utf-8'):
     for line in f:
         yield line.decode(encoding)
 
+def _build_fieldnames(reader_fieldnames, output_fieldnames):
+    reduced_fieldnames = [x for x in reader_fieldnames if x in output_fieldnames]
+    extra_fieldnames = [x for x in output_fieldnames if x not in reduced_fieldnames]
+    return reduced_fieldnames + sorted(extra_fieldnames)
+
 class BulkImporter(object):
     """
     Given a ModelForm, BulkImporter will create models from the rows of a CSV data file.
@@ -66,16 +71,27 @@ class BulkImporter(object):
         self.modelformclass = modelformclass
         self.extra_form_kwargs = extra_form_kwargs
 
+    def fieldlabels_to_fieldnames(self, data):
+        form = self.modelformclass(**self.extra_form_kwargs)
+        labels_to_names = {form.fields[field].label: field for field in form.fields}
+        return {labels_to_names.get(k, k): v for k, v in data.items()}
+
+    def fieldnames_to_fieldlabels(self, data):
+        form = self.modelformclass(**self.extra_form_kwargs)
+        names_to_labels = {field: str(form.fields[field].label) for field in form.fields}
+        if isinstance(data, dict):
+            return {names_to_labels.get(k, k): v for k, v in data.items()}
+        else:
+            return [names_to_labels.get(i, i) for i in data]
+
     def _open_reader(self, f):
         contents = f.read().decode('utf-8')
         f.seek(0)
         dialect = csv.Sniffer().sniff(contents)
         return csv.DictReader(decode_lines(f))
 
-    def _open_writer(self, f, reader_fieldnames, output_fieldnames):
-        reduced_fieldnames = [x for x in reader_fieldnames if x in output_fieldnames]
-        extra_fieldnames = [x for x in output_fieldnames if x not in reduced_fieldnames]
-        return csv.DictWriter(f, fieldnames=reduced_fieldnames + sorted(extra_fieldnames))
+    def _open_writer(self, f, fieldnames):
+        return csv.DictWriter(f, fieldnames=fieldnames)
 
     @staticmethod
     def summarize(status_counts):
@@ -105,7 +121,10 @@ class BulkImporter(object):
 
         valids, invalids = [], []
         for row in reader:
-            form = self.modelformclass(row, **self.extra_form_kwargs)
+            if "errors" in row:
+                del row["errors"]
+
+            form = self.modelformclass(self.fieldlabels_to_fieldnames(row), **self.extra_form_kwargs)
 
             if form.is_valid():
                 valids.append((row, form))
@@ -116,7 +135,8 @@ class BulkImporter(object):
         results = []
 
         for row, form in invalids:
-            results.append(ResultRow(Status.invalid, row, form.errors))
+            errors = self.fieldnames_to_fieldlabels(form.errors)
+            results.append(ResultRow(Status.invalid, row, errors))
 
         for row, form in valids:
             if try_to_save:
@@ -132,7 +152,8 @@ class BulkImporter(object):
                 results.append(ResultRow(Status.unsaved, row))
 
         if results:
-            writer = self._open_writer(outfile, reader.fieldnames, results[0].fieldnames)
+            fieldlabels = _build_fieldnames(reader.fieldnames, results[0].fieldnames)
+            writer = self._open_writer(outfile, fieldlabels)
             writer.writeheader()
             for result_row in results:
                 writer.writerow(result_row.fields)
