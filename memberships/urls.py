@@ -8,6 +8,9 @@ urlpatterns = patterns('memberships.views',
     # this url should have the DC id instead of "individual-dc" in it
     url(r'^(?P<membership_id>\d+)/individual-dc$', views.MembershipStudentProgressView.as_view(), name='individual-dc'),
 
+    # this url should have the student username instead of "individual-student" in it
+    # url(r'^(?P<membership_id>\d+)/student-individual$', views.MembershipStudentIndividualView.as_view(), name='student-individual'),
+
     # hub urls
     url(
         r'^(?P<membership_id>\d+)/students$',

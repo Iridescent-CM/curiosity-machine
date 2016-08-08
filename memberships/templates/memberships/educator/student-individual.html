@@ -1,0 +1,33 @@
+{% extends "memberships/_membership-hub.html" %}
+{% load resized %}
+
+{% block title %}{{ membership.name }} | Student Name{% endblock %}
+{% block body-classes %}membership-pages{% endblock %}
+{% block membership-page %}Students{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div class="jumbotron-fluid  jumbotron-sand m-b-lg">
+    <div class="container">
+      {% include "profiles/_avatar.html" with profile=mentor width=50 height=50 crop='thumb' gravity='faces' classes='img-block'%}
+      <h3 class="green-type">Lorelai Gilmore</h3>
+    </div>
+  </div>
+
+  <div class="container m-b-lg">
+    <h3>Design Challenges</h3>
+    <div class="row">
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="well">
+          <p>Stuff</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

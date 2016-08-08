@@ -5507,13 +5507,18 @@ footer {
       border-color: #566d35; }
 
 .membership-pages .jumbotron-sand {
-  background-color: #E5E1D9; }
+  background-color: #E5E1D9;
+  padding: 0.75em; }
   .membership-pages .jumbotron-sand h3 {
     font-weight: 400;
-    display: inline-block; }
+    display: inline-block;
+    margin-bottom: 0px; }
   .membership-pages .jumbotron-sand a {
     display: inline-block;
     float: right; }
+  .membership-pages .jumbotron-sand img {
+    border-radius: 50%;
+    margin-right: 0.75em; }
 
 .membership-pages .all-challenges-cards {
   margin-bottom: 3em; }
