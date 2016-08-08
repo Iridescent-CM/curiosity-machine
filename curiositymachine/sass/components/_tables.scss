@@ -10,3 +10,23 @@
     border-color: $sand;
   }
 }
+
+.table-membership-students {
+  @extend .table;
+  thead {
+    background-color: $primary-green;
+    color: $ivory;
+  }
+
+  .primary-row td {
+  }
+
+  .secondary-row td {
+    border-top: 0px;
+    padding: 0px;
+
+    .expanded-student-info {
+      padding: 12px;
+    }
+  }
+}

@@ -60,3 +60,10 @@ class MembershipStudentProgressView(DetailView):
     pk_url_kwarg = 'membership_id'
     template_name = 'memberships/educator/design-challenge-individual.html'
     context_object_name = 'membership'
+
+# the view below needs to include the Student info in it
+class MembershipStudentsView(DetailView):
+    model = Membership
+    pk_url_kwarg = 'membership_id'
+    template_name = 'memberships/educator/students.html'
+    context_object_name = 'membership'
