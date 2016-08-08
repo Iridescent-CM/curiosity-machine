@@ -25,6 +25,27 @@
     }
   }
 
+  .membership-only {
+    background-color: $ivory;
+    padding: $base-spacing;
+    border-radius: 50px;
+    margin-bottom: $base-spacing;
+
+    h4 {
+      margin-bottom: 0px;
+    }
+
+    i {
+      color: $ivory;
+      background-color: $primary-purple;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-block;
+      padding: 5px;
+    }
+  }
+
   @include media-breakpoint-down(md) {
     .hero {
       display: inherit !important;

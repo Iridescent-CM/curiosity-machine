@@ -4707,6 +4707,9 @@ i {
 .green-type {
   color: #8FB559; }
 
+.purple-type {
+  color: #6161AF; }
+
 .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
   outline: none;
   box-shadow: inset 0 0 0 2px #FFFCF7; }
@@ -5019,6 +5022,8 @@ i {
     overflow: hidden; }
   .challenge-card .card-block {
     padding: 0.75em; }
+    .challenge-card .card-block i {
+      margin-right: 5px; }
   .challenge-card .card-title {
     border-bottom: 2px solid #E5E1D9;
     margin-bottom: 0px; }
@@ -5788,6 +5793,22 @@ footer {
     vertical-align: middle; }
     #landing-page .hero .hero-text h3 {
       color: #b3e8ed; }
+
+#landing-page .membership-only {
+  background-color: #FFFCF7;
+  padding: 1.5em;
+  border-radius: 50px;
+  margin-bottom: 1.5em; }
+  #landing-page .membership-only h4 {
+    margin-bottom: 0px; }
+  #landing-page .membership-only i {
+    color: #FFFCF7;
+    background-color: #6161AF;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    padding: 5px; }
 
 @media (max-width: 61.9em) {
   #landing-page .hero {

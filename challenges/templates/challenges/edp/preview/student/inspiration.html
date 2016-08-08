@@ -7,7 +7,9 @@
       <input type="submit" value="Start Building" class="btn btn-secondary btn-lg" />
     </form>
   {% else %}
-    Membership Only
-    <a href="#">Learn more about memberships.</a>
+  <div class="membership-only">
+    <h4 class="purple-type"><i class="icon-star-full"></i> Membership Only</h4>
+  </div>
+  <a href="{% url 'about-membership' %}" class="a-secondary">Learn more about memberships.</a>
   {% endif %}
 {% endblock %}
