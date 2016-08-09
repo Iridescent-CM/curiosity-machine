@@ -13,6 +13,8 @@ from datetime import date
 from django.utils.timezone import now
 from dateutil.relativedelta import relativedelta
 
+User = get_user_model()
+
 def test_row_import_form_requires_fields():
     form = RowImportForm()
     assert form.fields['username'].required
@@ -41,8 +43,6 @@ def test_row_import_form_maps_fieldnames():
     assert form.data == {
         "whatever": "user",
     }
-
-User = get_user_model()
 
 def test_valid_profile_data_with_default_form():
     examples = [
