@@ -4,7 +4,7 @@ from mock import Mock, MagicMock, call, patch, sentinel
 from tempfile import TemporaryFile
 from django import forms
 
-from memberships.importer import BulkImporter, Status, ResultRow, fieldlabels_to_fieldnames, fieldnames_to_fieldlabels
+from memberships.importer import BulkImporter, Status, ResultRow
 
 class ExampleForm(forms.Form):
     a = forms.IntegerField()
@@ -262,12 +262,8 @@ def test_fieldlabels_to_fieldnames():
                 'password': 'Their Password'
             }
 
-<<<<<<< HEAD
-    assert fieldlabels_to_fieldnames(ExampleForm(), {
-=======
     importer = BulkImporter(ExampleForm)
     assert importer.fieldlabels_to_fieldnames({
->>>>>>> develop
         'User Name': 'exampleuser',
         'Their Password': '123123',
     }) == {
@@ -285,12 +281,8 @@ def test_fieldlabels_to_fieldnames_passes_non_labels_through_unchanged():
                 'password': 'Their Password',
             }
 
-<<<<<<< HEAD
-    assert fieldlabels_to_fieldnames(ExampleForm(), {
-=======
     importer = BulkImporter(ExampleForm)
     assert importer.fieldlabels_to_fieldnames({
->>>>>>> develop
         'User Name': 'exampleuser',
         'Their Password': '123123',
         'first_name': 'example',
@@ -312,23 +304,15 @@ def test_fieldnames_to_fieldlabels():
                 'password': 'Their Password'
             }
 
-<<<<<<< HEAD
-    assert fieldnames_to_fieldlabels(ExampleForm(), {
-=======
     importer = BulkImporter(ExampleForm)
     assert importer.fieldnames_to_fieldlabels({
->>>>>>> develop
         'username': 'exampleuser',
         'password': '123123',
     }) == {
         'User Name': 'exampleuser',
         'Their Password': '123123',
     }
-<<<<<<< HEAD
-    assert fieldnames_to_fieldlabels(ExampleForm(), ['username', 'password']) == ['User Name', 'Their Password']
-=======
     assert importer.fieldnames_to_fieldlabels(['username', 'password']) == ['User Name', 'Their Password']
->>>>>>> develop
 
 def test_fieldnames_to_fieldlabels_maps_fields_to_auto_labels():
     class ExampleForm(forms.ModelForm):
@@ -336,12 +320,8 @@ def test_fieldnames_to_fieldlabels_maps_fields_to_auto_labels():
             model = User
             fields = ['first_name']
 
-<<<<<<< HEAD
-    assert fieldnames_to_fieldlabels(ExampleForm(), {
-=======
     importer = BulkImporter(ExampleForm)
     assert importer.fieldnames_to_fieldlabels({
->>>>>>> develop
         'first_name': 'example'
     }) == {
         'First name': 'example'
@@ -353,12 +333,8 @@ def test_fieldnames_to_fieldlabels_passes_non_fieldnames_through_unchanged():
             model = User
             fields = ['username']
 
-<<<<<<< HEAD
-    assert fieldnames_to_fieldlabels(ExampleForm(), {
-=======
     importer = BulkImporter(ExampleForm)
     assert importer.fieldnames_to_fieldlabels({
->>>>>>> develop
         'username': 'exampleuser',
         'whatever': 'whatever',
     }) == {

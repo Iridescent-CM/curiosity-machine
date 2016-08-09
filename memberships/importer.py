@@ -6,18 +6,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def fieldlabels_to_fieldnames(form, data):
-    labels_to_names = {form.fields[field].label: field for field in form.fields}
-    return {labels_to_names.get(k, k): v for k, v in data.items()}
-
-def fieldnames_to_fieldlabels(form, data):
-    names_to_labels = {field: str(form.fields[field].label) for field in form.fields}
-    if isinstance(data, dict):
-        return {names_to_labels.get(k, k): v for k, v in data.items()}
-    else:
-        return [names_to_labels.get(i, i) for i in data]
-
-
 class Status(Enum):
     invalid = 0
     saved = 1
@@ -174,8 +162,7 @@ class BulkImporter(object):
             writer = self._open_writer(outfile, fieldlabels)
             writer.writeheader()
             for result_row in results:
-                row = fieldnames_to_fieldlabels(form, result_row.fields)
-                writer.writerow(row)
+                writer.writerow(result_row.fields)
 
         counts = {}
         for result_row in results:

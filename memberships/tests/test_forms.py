@@ -23,27 +23,6 @@ def test_row_import_form_requires_fields():
     assert form.fields['last_name'].required
     assert form.fields['birthday'].required
 
-def test_row_import_form_normalizes_fancy_fieldnames():
-    form = RowImportForm({
-        " Username ": "user",
-        " Pass Word ": "123123",
-    })
-    assert form.data == {
-        "username": "user",
-        "pass_word": "123123",
-    }
-
-def test_row_import_form_maps_fieldnames():
-    form = RowImportForm(
-        {
-            " User Name ": "user",
-        },
-        fieldname_mappings={"user_name": "whatever"}
-    )
-    assert form.data == {
-        "whatever": "user",
-    }
-
 def test_valid_profile_data_with_default_form():
     examples = [
         {"birthday":"01/01/1990", "approved":"yes"},
