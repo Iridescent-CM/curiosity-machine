@@ -4608,6 +4608,12 @@ a.bg-danger:focus, a.bg-danger:hover {
 .icon-boeing-logo:before {
   content: "\e614"; }
 
+.icon-cross:before {
+  content: "\e901"; }
+
+.icon-check:before {
+  content: "\e902"; }
+
 body {
   background-color: #FFFCF7;
   color: #333333;
@@ -5093,6 +5099,28 @@ i {
   .card-module .card-block-title h1, .card-module .card-block-title h2, .card-module .card-block-title h3, .card-module .card-block-title h4 {
     margin-bottom: 0px; }
 
+.user-card {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #E5E1D9;
+  margin-bottom: 1.5em;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5); }
+
+.user-card-title {
+  background-color: #efede8;
+  padding: 20px 20px 10px 20px; }
+  .user-card-title img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; }
+  .user-card-title p {
+    margin: 0.75em 0px;
+    word-break: break-all; }
+
+.user-card-description {
+  padding: 15px;
+  min-height: 120px; }
+
 .modal-close {
   color: #fff;
   font-size: 3em;
@@ -5457,7 +5485,11 @@ footer {
 .membership-pages .jumbotron-sand {
   background-color: #E5E1D9; }
   .membership-pages .jumbotron-sand h3 {
-    font-weight: 400; }
+    font-weight: 400;
+    display: inline-block; }
+  .membership-pages .jumbotron-sand a {
+    display: inline-block;
+    float: right; }
 
 .membership-pages .all-challenges-cards {
   margin-bottom: 3em; }
@@ -5639,32 +5671,13 @@ footer {
   color: white;
   margin-bottom: 1.5em; }
 
-#mentor-community-page .mentor-card {
-  width: 100%;
-  border-radius: 4px;
-  border: 1px solid #E5E1D9;
-  margin-bottom: 1.5em; }
-  #mentor-community-page .mentor-card a {
-    color: #333333; }
+#mentor-community-page .user-card h3 {
+  color: #F55932;
+  margin: 10px 0px 5px 0px;
+  word-break: break-all; }
 
-#mentor-community-page .mentor-card-title {
-  background-color: #f5f3f0;
-  padding: 20px 20px 10px 20px; }
-  #mentor-community-page .mentor-card-title img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 3px solid #E5E1D9; }
-  #mentor-community-page .mentor-card-title h3 {
-    color: #F55932;
-    margin: 10px 0px 5px 0px;
-    word-break: break-all; }
-
-#mentor-community-page .mentor-card-description {
-  padding: 15px;
-  min-height: 120px;
-  max-height: 120px;
-  overflow: auto; }
+#mentor-community-page .user-card a {
+  color: #333333; }
 
 #mentor-community-page .sign-up-panel {
   background-color: #F2B353;
