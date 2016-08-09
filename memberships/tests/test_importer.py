@@ -1,5 +1,5 @@
 import pytest
-from mock import Mock, MagicMock, call, patch, sentinel
+from mock import Mock, MagicMock, call
 
 from tempfile import TemporaryFile
 from django import forms
