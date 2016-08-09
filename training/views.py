@@ -6,13 +6,15 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from curiositymachine.decorators import mentor_only
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from .models import Module, Comment, Task
 from .forms import CommentForm
 from videos.models import Video
 from images.models import Image
 from profiles.models import UserRole
 from itertools import chain
+
+User = get_user_model()
 
 
 @login_required

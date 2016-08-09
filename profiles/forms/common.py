@@ -1,7 +1,7 @@
 from copy import copy
 from datetime import datetime, date
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.forms.models import fields_for_model, model_to_dict
 from django.forms.extras.widgets import SelectDateWidget
 from profiles.models import Profile
@@ -9,6 +9,8 @@ from images.models import Image
 from videos.models import Video
 from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget
+
+User = get_user_model()
 
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 
@@ -176,6 +178,12 @@ class UserAndProfileForm(forms.ModelForm):
         if confirm_password:
             confirm_password = confirm_password.strip()
         return confirm_password
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError('A user with that username already exists.', code='duplicate')
+        return username
 
     def clean(self):
         super(UserAndProfileForm, self).clean()

@@ -205,7 +205,8 @@ def test_exception_row_results_in_partial_save():
         assert result["final"] == Status.exception
 
 from django.forms.models import modelform_factory
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 @pytest.mark.django_db
 def test_no_records_saved_when_invalid_record_exists():
@@ -221,12 +222,10 @@ def test_no_records_saved_when_invalid_record_exists():
         assert User.objects.count() == 0
 
 @pytest.mark.django_db
-def test_some_records_saved_when_save_exception_happens():
+def test_some_records_saved_when_late_validation_error_happens():
     UserForm = modelform_factory(User, fields=['username', 'email'])
 
     with TemporaryFile() as fin, TemporaryFile(mode='w+t') as fout:
-        # a duplicate username is used to force the save exception, which is maybe something
-        # a more sophisticated importer would check for internally
         fin.write(b'username,email\na,a@example.com\nb,b@example.com\na,a_again@example.com')
         fin.seek(0)
 
@@ -235,7 +234,7 @@ def test_some_records_saved_when_save_exception_happens():
 
         fout.seek(0)
         assert set(User.objects.all().values_list('username', flat=True)) == set(['a', 'b'])
-        assert "Exception encountered" in fout.read()
+        assert "A user with that username already exists" in fout.read()
 
 def test_resultrow_header():
     row = {"a": "1", "b": "2"}

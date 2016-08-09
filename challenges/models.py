@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import Q
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.utils.timezone import now
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
@@ -45,7 +45,7 @@ class Challenge(models.Model):
     learn_more = models.TextField(help_text="HTML, shown in the guide")
     mentor_guide = models.TextField(help_text="HTML, shown in the mentor guide", null=True, blank=True)
     materials_list = models.TextField(help_text="HTML")
-    students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), related_name="challenges")
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Progress', through_fields=('challenge', 'student'), related_name="challenges")
     themes = models.ManyToManyField(Theme, blank=True, related_name='challenges')
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
@@ -56,7 +56,7 @@ class Challenge(models.Model):
     build_subheader = models.TextField(help_text="One line of plain text, shown below the build stage header")
     reflect_subheader = models.TextField(help_text="One line of plain text, shown below the reflect stage header")
     reflect_questions = models.ManyToManyField(Question)
-    favorited = models.ManyToManyField(User, through='Favorite', through_fields=('challenge', 'student'), related_name="favorite_challenges")
+    favorited = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Favorite', through_fields=('challenge', 'student'), related_name="favorite_challenges")
     draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown in the main challenge list")
     public = models.BooleanField(default=False, null=False, help_text="Public challenges are previewable without an account")
 
@@ -73,9 +73,9 @@ class Challenge(models.Model):
 
 class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)
-    student = models.ForeignKey(User, related_name='progresses')
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='progresses')
     started = models.DateTimeField(default=now)
-    mentor = models.ForeignKey(User, related_name='mentored_progresses', null=True, blank=True, on_delete=models.SET_NULL)
+    mentor = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='mentored_progresses', null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.DateTimeField(null=True, blank=True)
     _materials_list = models.TextField(help_text="HTML", blank=True, db_column="materials_list")
 
@@ -171,7 +171,7 @@ class Progress(models.Model):
 
 class Favorite(models.Model):
     challenge = models.ForeignKey(Challenge)
-    student = models.ForeignKey(User, related_name='favorites')
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='favorites')
 
     class Meta:
         verbose_name_plural = "Favorites"

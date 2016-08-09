@@ -3,9 +3,11 @@ from django.conf import settings
 from django.forms.extras.widgets import SelectDateWidget
 from curiositymachine.widgets import FilePickerInlineWidget, FilePickerPickWidget
 from django.utils.timezone import now
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from profiles.models import UserRole
 import re
+
+User = get_user_model()
 
 MIMETYPE_SCRIPT = """
     evt = arguments[0];

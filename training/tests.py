@@ -5,9 +5,11 @@ from .views import task as task_view
 from .views import comments, approve_task_progress
 from profiles.models import UserRole
 from profiles.tests import student, mentor
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.exceptions import PermissionDenied
+
+User = get_user_model()
 
 NEW_MENTOR_USERNAME = "newbie"
 NEW_MENTOR_EMAIL = "newbie@example.com"

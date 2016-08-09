@@ -8,7 +8,9 @@ from collections import OrderedDict
 
 from memberships.models import Member
 from profiles.models import Profile, UserRole
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class YesNoBooleanField(forms.BooleanField):
     """
@@ -41,6 +43,12 @@ class RowUserForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError('A user with that username already exists.', code='duplicate')
+        return username
 
     def save(self, commit=True):
         user = super().save(commit=False)

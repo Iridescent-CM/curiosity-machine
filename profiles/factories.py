@@ -8,6 +8,9 @@ from .signals import handlers
 from django.utils.timezone import now
 from dateutil.relativedelta import relativedelta
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 class ProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
@@ -17,7 +20,7 @@ class ProfileFactory(factory.django.DjangoModelFactory):
 @factory.django.mute_signals(handlers.post_save)
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.User
+        model = User
 
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
@@ -35,7 +38,7 @@ class MentorProfileFactory(factory.django.DjangoModelFactory):
 @factory.django.mute_signals(handlers.post_save)
 class MentorFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.User
+        model = User
 
     username = factory.fuzzy.FuzzyText(prefix="mentor_")
     email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
@@ -56,7 +59,7 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
 @factory.django.mute_signals(handlers.post_save)
 class StudentFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.User
+        model = User
 
     username = factory.fuzzy.FuzzyText(prefix="student_")
     email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
@@ -75,7 +78,7 @@ class EducatorProfileFactory(factory.django.DjangoModelFactory):
 @factory.django.mute_signals(handlers.post_save)
 class EducatorFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.User
+        model = User
 
     username = factory.fuzzy.FuzzyText(prefix="educator_")
     email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
@@ -94,7 +97,7 @@ class ParentProfileFactory(factory.django.DjangoModelFactory):
 @factory.django.mute_signals(handlers.post_save)
 class ParentFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.User
+        model = User
 
     username = factory.fuzzy.FuzzyText(prefix="parent_")
     email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)

@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect, QueryDict
 from django.shortcuts import get_object_or_404, render
 from .models import Group, Invitation
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from . import forms
 from curiositymachine.decorators import feature_flag, educator_only, student_only
 from .decorators import owners_only
@@ -12,6 +12,8 @@ from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, DeleteView, UpdateView
 from django.utils.decorators import method_decorator
+
+User = get_user_model()
 
 class GroupDetailView(DetailView):
 	model = Group

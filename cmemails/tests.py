@@ -3,7 +3,7 @@ import mock
 from . import mailer, signals
 from .mandrill import send_template
 from .mailchimp import subscribe
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.utils.timezone import now
 from datetime import date, timedelta
 from profiles.models import Profile, UserRole
@@ -13,6 +13,8 @@ import profiles.factories
 import challenges.factories
 import cmcomments.factories
 import training.factories
+
+User = get_user_model()
 
 @pytest.fixture
 def student():

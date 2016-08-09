@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import auth, messages
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from curiositymachine.decorators import mentor_only
 from curiositymachine.views.generic import UserJoinView
@@ -22,6 +22,8 @@ from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import operator
 import logging
+
+User = get_user_model()
 
 logger = logging.getLogger(__name__)
 
