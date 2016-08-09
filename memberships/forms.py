@@ -1,11 +1,35 @@
+import re
 from django import forms
 from django.forms.utils import ErrorDict
 from django.forms.models import modelform_factory
+from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
 from collections import OrderedDict
 
 from memberships.models import Member
 from profiles.models import Profile, UserRole
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class YesNoBooleanField(forms.BooleanField):
+    """
+    Converts case-insensitive yes, no, y, n, or blank text input value to boolean
+    """
+
+    widget = forms.TextInput
+
+    def to_python(self, value):
+        if value is None:
+            return False
+
+        if re.match('^(yes|y|no|n)?$', value, flags=re.IGNORECASE) is None:
+            raise ValidationError('Valid values are yes/y or no/n', code='invalid')
+
+        if value.lower() in ('y', 'yes'):
+            return True
+
+        return False
 
 class RowUserForm(forms.ModelForm):
     """
@@ -13,7 +37,18 @@ class RowUserForm(forms.ModelForm):
     """
     class Meta:
         model = User
-        fields = ['username', 'password', 'first_name', 'last_name']
+        fields = ['username', 'password', 'first_name', 'last_name', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError('A user with that username already exists.', code='duplicate')
+        return username
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -33,13 +68,18 @@ class RowProfileForm(forms.ModelForm):
         model = Profile
         fields = ['birthday', 'approved']
 
+    approved = YesNoBooleanField(required=False, label='Consent form')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['birthday'].required = True
+
     def save(self, commit=False):
         profile = super().save(commit=False)
         profile.role = UserRole.student.value
         if commit:
             profile.save()
         return profile
-
 
 class RowImportForm(forms.Form):
     """

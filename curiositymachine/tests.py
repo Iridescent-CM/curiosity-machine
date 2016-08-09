@@ -1,6 +1,7 @@
 import pytest
 import mock
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from profiles.models import Profile, UserRole
@@ -21,6 +22,8 @@ from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget, FilePickerImagePickWidget, FilePickerVideoPickWidget
 from django import forms
 from pyquery import PyQuery as pq
+
+User = get_user_model()
 
 def force_true(*args, **kwargs):
     return True

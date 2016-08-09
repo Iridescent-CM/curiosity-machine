@@ -101,6 +101,15 @@
 
               </div>
             </div>
+
+            {% if forloop.counter|divisibleby:2 %}
+              <div class="clearfix hidden-xl-up"></div>
+            {% endif %}
+
+            {% if forloop.counter|divisibleby:3 %}
+              <div class="clearfix hidden-xl-min-down"></div>
+            {% endif %}
+
           {% endfor %}
 
         </div>

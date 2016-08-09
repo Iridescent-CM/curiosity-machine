@@ -1,13 +1,13 @@
 from django.db import models
 from challenges.models import Progress, Stage, Example
 from django.utils.timezone import now
-from django.contrib.auth.models import User
+from django.conf import settings
 from videos.models import Video
 from images.models import Image
 
 class Comment(models.Model):
     challenge_progress = models.ForeignKey(Progress, related_name='comments')
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     text = models.TextField()
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="comments")
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="comments")

@@ -1,3 +1,6 @@
 approved,birthday,first_name,last_name,password,username
-1,01/01/1990,first1,last1,123123,
-1,01/01/1990,first1,last1,,user1
+y,01/01/1990,first1,last1,123123,
+y,01/01/1990,first1,last1,,user1
+y,01/01/1990,first1,,123123,user1
+y,01/01/1990,,last1,123123,user1
+y,,first1,last1,123123,user1

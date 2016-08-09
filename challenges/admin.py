@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.utils.encoding import force_text
 from .models import Challenge, Theme, Progress, Question, Example, Filter
 from .forms import ThemeForm, FilterForm
@@ -9,6 +9,8 @@ from images.models import Image
 from profiles.models import UserRole
 from django import forms
 from django.db import models
+
+User = get_user_model()
 
 def make_draft(modeladmin, request, queryset):
     queryset.update(draft=True)

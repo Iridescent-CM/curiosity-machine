@@ -1,8 +1,10 @@
 import pytest
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from cmcomments.models import Comment
 from challenges.models import Challenge, Progress, Theme, Favorite, Filter
 from profiles.models import UserRole
+
+User = get_user_model()
 
 @pytest.fixture
 def loggedInStudent(client):

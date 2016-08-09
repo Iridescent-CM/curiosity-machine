@@ -4,7 +4,9 @@ from django.utils.timezone import now
 from profiles import forms, models
 import profiles.factories
 import challenges.factories
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 @pytest.mark.django_db
 def test_gets_ok(client):
@@ -65,6 +67,7 @@ def test_mentor_join_form_clean_password_strength():
     assert 'password' in f.errors
     assert 'must be at least 6 characters long' in f.errors['password'].as_text()
 
+@pytest.mark.django_db
 def test_mentor_join_form_clean_username_illegal_characters():
     f = forms.mentor.MentorUserAndProfileForm(data={
         'username': 'me!'

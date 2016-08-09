@@ -5,7 +5,6 @@ from memberships.factories import MembershipFactory
 
 from memberships.models import MemberImport, Membership
 from memberships.importer import Status
-from django.contrib.auth.models import User
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.files.storage import default_storage
