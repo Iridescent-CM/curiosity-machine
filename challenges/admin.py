@@ -20,11 +20,19 @@ def remove_draft(modeladmin, request, queryset):
     queryset.update(draft=False)
 remove_draft.short_description = "Remove selected challenges from draft status"
 
+def make_free(modeladmin, request, queryset):
+    queryset.update(free=True)
+make_free.short_description = "Mark selected challenges as free"
+
+def remove_free(modeladmin, request, queryset):
+    queryset.update(free=False)
+remove_free.short_description = "Unmark selected challenges as free"
+
 class ChallengeAdmin(admin.ModelAdmin):
     filter_horizontal = ('reflect_questions',)
-    list_display = ['__str__', 'name', 'draft']
-    list_filter = ['draft']
-    actions = [make_draft, remove_draft]
+    list_display = ['__str__', 'name', 'draft', 'free']
+    list_filter = ['draft', 'free']
+    actions = [make_draft, remove_draft, make_free, remove_free]
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj
