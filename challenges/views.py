@@ -43,8 +43,10 @@ def challenges(request):
     filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
     themes = Theme.objects.all()
     favorite_ids = set()
+    started_challenges = []
     if request.user.is_authenticated():
         favorite_ids = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
+        started_challenges = request.user.challenges.filter(id__in=[c.id for c in challenges])
 
     if theme_name:
         challenges = challenges.filter(themes__name=theme_name)
@@ -61,6 +63,7 @@ def challenges(request):
     accessible = Membership.filter_by_challenge_access(request.user, [c.id for c in challenges])
     for challenge in challenges:
         challenge.accessible = challenge.id in accessible
+        challenge.started = challenge in started_challenges
 
     return render(request, 'challenges/new.html', {
         'challenges': challenges,
