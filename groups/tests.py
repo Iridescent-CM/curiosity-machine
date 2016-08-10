@@ -1,7 +1,8 @@
 import pytest
 import mock
 from mock import patch
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 from .models import Group, Membership, Role, Invitation
 from . import views
 from . import decorators
@@ -9,6 +10,8 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from profiles.models import Profile, UserRole
 from django.core.exceptions import PermissionDenied
+
+User = get_user_model()
 
 @pytest.fixture
 def student():

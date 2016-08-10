@@ -1,7 +1,9 @@
 import pytest
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from profiles.models import Profile
 from .models import Unit
+
+User = get_user_model()
 
 @pytest.fixture
 def unit():

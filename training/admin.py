@@ -1,8 +1,10 @@
 from django.contrib import admin
 from .models import Module, Comment, Task
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from images.models import Image
 from cmcomments.admin import CommentAdmin
+
+User = get_user_model()
 
 class ModuleAdmin(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):

@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.contrib import auth, messages
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError

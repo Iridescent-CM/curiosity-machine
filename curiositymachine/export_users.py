@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 import csv
 import tempfile
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.utils.timezone import now
 from django.core.exceptions import PermissionDenied
+
+User = get_user_model()
 
 def export_users(request):
     if not request.user.has_perms(['auth.change_user', 'cmcomments.change_comment', 'challenges.change_progress']):

@@ -1,7 +1,7 @@
 from django.db.models.signals import pre_save
 from django.db import models
 from django.utils.timezone import now
-from django.contrib.auth.models import User
+from django.conf import settings
 from videos.models import Video
 from images.models import Image
 
@@ -10,7 +10,7 @@ class Question(models.Model):
 	question_text = models.TextField(null=False, blank=False)
 
 class Answer(models.Model):
-    user = models.ForeignKey(User, null=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False)
     question = models.ForeignKey(Question)
     question_text = models.TextField(null=True, blank=False)
     answer_text = models.TextField(null=True, blank=True)

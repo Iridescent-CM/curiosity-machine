@@ -1,7 +1,7 @@
 import time
 from django.db import models
-from django.contrib.auth.models import User
 from enum import Enum
+from django.contrib.auth import get_user_model
 from django.db.models.signals import pre_save, post_save, post_delete
 from curiositymachine.helpers import random_string
 from cmemails import deliver_email
@@ -17,15 +17,15 @@ class Role(Enum):
 class Group(models.Model):
     name = models.CharField('name', max_length=80, null=True, blank=False)
     code = models.CharField('code', max_length=20, unique=True, null=True, blank=False)
-    member_users = models.ManyToManyField(User, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
-    invited_users = models.ManyToManyField(User, through='Invitation', through_fields=('group', 'user'), related_name="cm_group_invites")
+    member_users = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Membership', through_fields=('group', 'user'), related_name="cm_groups")
+    invited_users = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Invitation', through_fields=('group', 'user'), related_name="cm_group_invites")
     created = models.DateTimeField(default=now)
 
     def owners(self):
-        return User.objects.filter(cm_groups=self, memberships__role=Role.owner.value)
+        return get_user_model().objects.filter(cm_groups=self, memberships__role=Role.owner.value)
 
     def members(self):
-        return User.objects.filter(cm_groups=self, memberships__role=Role.member.value).prefetch_related('progresses__challenge')
+        return get_user_model().objects.filter(cm_groups=self, memberships__role=Role.member.value).prefetch_related('progresses__challenge')
 
     def add_member(self, user):
         if not Membership.objects.filter(group=self, user=user, role=Role.member.value).exists():
@@ -87,7 +87,7 @@ post_delete.connect(delete_invitations_and_members, sender=Group)
 
 class Membership(models.Model):
     group = models.ForeignKey(Group, related_name="memberships")
-    user = models.ForeignKey(User, related_name="memberships")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="memberships")
     role = models.SmallIntegerField(choices=[(role.value, role.name.capitalize()) for role in Role], default=Role.owner.value)
 
     def __str__(self):
@@ -121,7 +121,7 @@ post_delete.connect(delete_when_group_is_orphaned, sender=Membership)
 
 class Invitation(models.Model):
     group = models.ForeignKey(Group, related_name="group_invitations")
-    user = models.ForeignKey(User, related_name="user_invitations")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="user_invitations")
 
     class Meta:
         unique_together = ('group', 'user')

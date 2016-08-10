@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.utils.timezone import now
 from django.core.urlresolvers import reverse
 from videos.models import Video
@@ -45,7 +45,7 @@ class Task(models.Model):
     name = models.CharField(max_length=70)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="tasks")
     text = models.TextField(help_text="HTML")
-    mentors_done = models.ManyToManyField(User, blank=True, related_name='completed_tasks') # mentors listed here have completed the task
+    mentors_done = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='completed_tasks') # mentors listed here have completed the task
     completion_email_template = models.CharField(null=True, blank=True, max_length=70, help_text="Optional template name to send on task completion")
 
     class Meta:
@@ -68,7 +68,7 @@ class Task(models.Model):
 class Comment(models.Model):
     task = models.ForeignKey(Task, related_name='comments')
     thread = models.ForeignKey("Comment", related_name='replies', null=True, blank=True) # if this is null, the comment is the start of a new thread; otherwise this foreign key must point to another comment that is the start of a new thread
-    user = models.ForeignKey(User, related_name='mentor_training_comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='mentor_training_comments')
     text = models.TextField()
     created = models.DateTimeField(default=now)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="mentor_training_comments")
