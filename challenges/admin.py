@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.utils.encoding import force_text
-from .models import Challenge, Theme, Progress, Question, Example, Filter
+from .models import Challenge, Theme, Progress, Question, Example, Filter, LessonPlan, LessonPlanResource
 from .forms import ThemeForm, FilterForm
 from cmcomments.models import Comment
 from videos.models import Video
@@ -11,6 +11,26 @@ from django import forms
 from django.db import models
 
 User = get_user_model()
+
+class LessonPlanResourceInline(admin.TabularInline):
+    model = LessonPlanResource
+    extra = 1
+
+class LessonPlanAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'challenge')
+    inlines = (LessonPlanResourceInline,)
+
+admin.site.register(LessonPlan, LessonPlanAdmin)
+
+class LessonPlanInline(admin.TabularInline):
+    model = LessonPlan
+    show_change_link = True
+    extra = 1
+    fields = ('name', 'description', 'resources')
+    readonly_fields = ('name', 'description', 'resources',)
+
+    def resources(self, instance):
+        return ", ".join([str(x.url) for x in instance.lessonplanresource_set.all()])
 
 def make_draft(modeladmin, request, queryset):
     queryset.update(draft=True)
@@ -33,6 +53,7 @@ class ChallengeAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'name', 'draft', 'free']
     list_filter = ['draft', 'free']
     actions = [make_draft, remove_draft, make_free, remove_free]
+    inlines = (LessonPlanInline,)
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj

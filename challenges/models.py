@@ -270,3 +270,20 @@ class Filter(models.Model):
 
     def __repr__(self):
         return "Filter: id={}, name={}".format(self.id, self.name)
+
+# TODO: flesh out below, use AWS_S3_METADATA to set Content-Disposition to attachment on lesson plan resources,
+#       consider changing AWS_S3_MAX_AGE_SECONDS to something smaller than default, then set up admin to show
+#       resources as inlines on lesson plan
+
+class LessonPlan(models.Model):
+    name = models.CharField(max_length=128)
+    description = models.TextField()
+    challenge = models.ForeignKey(Challenge, null=True)
+
+    def __str__(self):
+        return "Lesson Plan: id={}, name={}".format(self.id, self.name)
+
+class LessonPlanResource(models.Model):
+    file = models.FileField(upload_to="lesson_plan/%Y/%m/%d/")
+    link_text = models.CharField(max_length=64, null=True)
+    lesson_plan = models.ForeignKey(LessonPlan)
