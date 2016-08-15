@@ -93,9 +93,28 @@
                   <div class="card-block">
                     <p class="card-text"><small>{{challenge.description}}</small></p>
 
-                    {% if not challenge.accessible and not challenge.started %}
-                      <p class="card-text purple-type"><small><i class="icon-lock"></i>Membership only</small></p>
+                    {% if flags.enable_membership_access_controls and flags.enable_build_it_messaging %}
+
+                      {% if challenge.accessible or challenge.started %}
+                      <p class="card-text purple-type">
+                        <small>
+                        {% if not request.user.is_authorized or request.user.profile.is_student %}
+                          Build it!
+                        {% else %}
+                          Preview
+                        {% endif %}
+                        </small>
+                      </p>
+                      {% endif %}
+
+                    {% elif flags.enable_membership_access_controls %}
+
+                      {% if not challenge.accessible and not challenge.started %}
+                        <p class="card-text purple-type"><small><i class="icon-lock"></i>Membership only</small></p>
+                      {% endif %}
+
                     {% endif %}
+
                   </div>
 
               </div>
