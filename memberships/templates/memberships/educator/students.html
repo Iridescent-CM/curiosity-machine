@@ -7,7 +7,7 @@
 {% block content %}
   {{ block.super }}
 
-  <div class="jumbotron-fluid  jumbotron-sand p-t-md m-b-lg">
+  <div class="jumbotron-fluid  jumbotron-sand m-b-lg">
     <div class="container">
       <h3 class="green-type">Student Membership Page</h3>
     </div>
@@ -24,7 +24,6 @@
           <td>Email</td>
           <td>Birthday</td>
           <td>Approved</td>
-          <td></td>
         </tr>
       </thead>
 
@@ -35,17 +34,7 @@
           <td><a href="{% url 'memberships:student-individual' membership_id=membership.id %}">lorelaigilmoresh</a></td>
           <td>lorelaigilmore@gilmoregirls.com</td>
           <td>11/21/2000</td>
-          <td><i class="icon-check"></i></td>
-          <td><a class="action-img" data-toggle="collapse" href="#lorelaiExpand" aria-expanded="false" aria-controls="lorelaiExpand"><i class="icon-down-arrow"></i></a></td>
-        </tr>
-        <tr class="secondary-row">
-          <td colspan="6">
-            <div class="collapse expanded-student-info" id="lorelaiExpand">
-              <a href="#">Reset Password</a>
-              &nbsp;
-              <a href="#">Remove from Membership</a>
-            </div>
-          </td>
+          <td><i class="icon-check green-type"></i></td>
         </tr>
 
         <tr>
@@ -54,8 +43,7 @@
           <td><a href="#">rorygilmoresh</a></td>
           <td>rorygilmore@gilmoregirls.com</td>
           <td>11/21/2000</td>
-          <td><i class="icon-cross"></i></td>
-          <td><a href="#"><i class="icon-down-arrow"></i></a></td>
+          <td><i class="icon-cross red-type"></i></td>
         </tr>
       </tbody>
 
