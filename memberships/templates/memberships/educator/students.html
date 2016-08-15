@@ -21,6 +21,7 @@
           <td>First Name</td>
           <td>Last Name</td>
           <td>Username</td>
+          <td>Email</td>
           <td>Birthday</td>
           <td>Approved</td>
           <td></td>
@@ -31,7 +32,8 @@
         <tr class="primary-row">
           <td>Lorelai</td>
           <td>Gilmore</td>
-          <td><a href="#">lorelaigilmoresh</a></td>
+          <td><a href="{% url 'memberships:student-individual' membership_id=membership.id %}">lorelaigilmoresh</a></td>
+          <td>lorelaigilmore@gilmoregirls.com</td>
           <td>11/21/2000</td>
           <td><i class="icon-check"></i></td>
           <td><a class="action-img" data-toggle="collapse" href="#lorelaiExpand" aria-expanded="false" aria-controls="lorelaiExpand"><i class="icon-down-arrow"></i></a></td>
@@ -50,6 +52,7 @@
           <td>Rory</td>
           <td>Gilmore</td>
           <td><a href="#">rorygilmoresh</a></td>
+          <td>rorygilmore@gilmoregirls.com</td>
           <td>11/21/2000</td>
           <td><i class="icon-cross"></i></td>
           <td><a href="#"><i class="icon-down-arrow"></i></a></td>
