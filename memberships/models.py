@@ -1,5 +1,6 @@
 from os.path import splitext, basename
 from django.db import models
+from django.db.models import Q
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.conf import settings
@@ -22,6 +23,27 @@ class Membership(models.Model):
 
     challenges = models.ManyToManyField(Challenge, blank=True)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Member', through_fields=('membership', 'user'), blank=True)
+
+    @classmethod
+    def filter_by_challenge_access(cls, user, challenge_ids):
+        if not settings.FEATURE_FLAGS.get('enable_membership_access_controls', False):
+            return challenge_ids
+
+        if user.is_authenticated() and (user.is_staff or user.profile.is_mentor):
+            return challenge_ids
+
+        query = Q(id__in=challenge_ids, free=True)
+        if user.is_authenticated():
+            query = query | Q(id__in=challenge_ids, membership__members=user)
+
+        return Challenge.objects.filter(query).values_list('id', flat=True)
+
+    @classmethod
+    def share_membership(cls, username1, username2):
+        if not settings.FEATURE_FLAGS.get('enable_membership_access_controls', False):
+            return False
+
+        return Member.objects.filter(user__username=username1, membership__members__username=username2).exists()
 
     def limit_for(self, role):
         obj = self.memberlimit_set.filter(role=role).first()

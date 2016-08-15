@@ -1,8 +1,15 @@
 {% extends "challenges/edp/inspiration_with_gallery.html" %}
 
 {% block jumbotron_message %}
+  {% if challenge.accessible %}
     <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
       {% csrf_token %}
       <input type="submit" value="Start Building" class="btn btn-secondary btn-lg" />
     </form>
+  {% else %}
+  <div class="membership-only">
+    <h4 class="purple-type"><i class="icon-lock"></i> Membership Only</h4>
+  </div>
+  <a href="{% url 'about-membership' %}" class="a-secondary">Learn more about memberships.</a>
+  {% endif %}
 {% endblock %}

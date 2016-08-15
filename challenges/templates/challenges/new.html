@@ -49,7 +49,6 @@
           {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
         </div>
 
-        {% with all=request.user.challenges.all %}
         <div class="row">
 
           {% for challenge in challenges %}
@@ -68,7 +67,7 @@
                     <label for="favorite-star-{{challenge.id}}"><i class="icon-star-full"></i></label>
                   </div>
                 {% endif %}
-                {% if challenge in all %}
+                {% if challenge.started %}
                   <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
                   {% else %}
                   <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
@@ -82,7 +81,7 @@
 
                   <div class="card-block card-title">
                     <h6>
-                      {% if challenge in all %}
+                      {% if challenge.started %}
                         <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
                       {% else %}
                         <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
@@ -92,7 +91,11 @@
                     </h6>
                   </div>
                   <div class="card-block">
-                    <small class="card-text">{{challenge.description}}</small>
+                    <p class="card-text"><small>{{challenge.description}}</small></p>
+
+                    {% if not challenge.accessible and not challenge.started %}
+                      <p class="card-text purple-type"><small><i class="icon-lock"></i>Membership only</small></p>
+                    {% endif %}
                   </div>
 
               </div>
@@ -109,7 +112,6 @@
           {% endfor %}
 
         </div>
-        {% endwith %}
 
         <div class="row text-center">
           {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}

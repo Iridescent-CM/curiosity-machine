@@ -1,0 +1,129 @@
+import pytest
+
+from challenges.factories import ProgressFactory
+from profiles.factories import UserFactory, MentorFactory, EducatorFactory, ParentFactory, ParentConnectionFactory, StudentFactory
+from groups.factories import GroupFactory
+from memberships.factories import MembershipFactory
+
+from django.core.urlresolvers import reverse
+
+@pytest.mark.django_db
+def test_requires_login(client):
+    progress = ProgressFactory()
+
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+    assert response.status_code == 302
+    assert 'login/?next' in response.url
+
+@pytest.mark.django_db
+def test_allows_staff(client):
+    progress = ProgressFactory()
+    user = UserFactory(is_staff=True, username="username", password="password")
+
+    client.login(username="username", password="password")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+
+@pytest.mark.django_db
+def test_allows_mentor(client):
+    progress = ProgressFactory()
+    user = MentorFactory(username="username", password="password")
+
+    client.login(username="username", password="password")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+
+@pytest.mark.django_db
+def test_allows_current_user(client):
+    progress = ProgressFactory()
+
+    client.login(username=progress.student.username, password="123123")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+
+@pytest.mark.django_db
+def test_allows_group_owner(client):
+    progress = ProgressFactory()
+    user = EducatorFactory(username="username", password="password")
+    group = GroupFactory(members=[progress.student], owners=[user])
+
+    client.login(username="username", password="password")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+
+@pytest.mark.django_db
+def test_allows_parent_of_user(client):
+    progress = ProgressFactory()
+    user = ParentFactory(username="username", password="password")
+    ParentConnectionFactory(parent_profile=user.profile, child_profile=progress.student.profile, active=True)
+
+    client.login(username="username", password="password")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+
+@pytest.mark.django_db
+def test_allows_educator_sharing_membership(client):
+    progress = ProgressFactory()
+    user = EducatorFactory(username="username", password="password")
+    MembershipFactory(members=[progress.student, user])
+
+    client.login(username="username", password="password")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+
+@pytest.mark.django_db
+def test_allows_parent_sharing_membership(client):
+    progress = ProgressFactory()
+    user = ParentFactory(username="username", password="password")
+    MembershipFactory(members=[progress.student, user])
+
+    client.login(username="username", password="password")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+
+@pytest.mark.django_db
+def test_does_not_allow_other_student(client):
+    progress = ProgressFactory()
+    user = StudentFactory(username="username", password="password")
+
+    client.login(username="username", password="password")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:preview_inspiration", kwargs={"challenge_id": progress.challenge.id}))
+
+@pytest.mark.django_db
+def test_does_not_allow_other_educator(client):
+    progress = ProgressFactory()
+    user = EducatorFactory(username="username", password="password")
+
+    client.login(username="username", password="password")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:preview_inspiration", kwargs={"challenge_id": progress.challenge.id}))
+
+@pytest.mark.django_db
+def test_does_not_allow_other_parent(client):
+    progress = ProgressFactory()
+    user = ParentFactory(username="username", password="password")
+
+    client.login(username="username", password="password")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))
+
+    assert response.status_code == 302
+    assert response.url.endswith(reverse("challenges:preview_inspiration", kwargs={"challenge_id": progress.challenge.id}))

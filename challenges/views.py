@@ -10,7 +10,7 @@ from django.conf import settings
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
-from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only
+from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only, student_only
 from curiositymachine.exceptions import LoginRequired
 from videos.models import Video
 from images.models import Image
@@ -20,6 +20,8 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.base import View, TemplateView
 from django.utils.decorators import method_decorator
+from memberships.models import Membership
+from memberships.decorators import enforce_membership_challenge_access
 
 def challenges(request):
     theme_name = request.GET.get('theme')
@@ -41,8 +43,10 @@ def challenges(request):
     filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
     themes = Theme.objects.all()
     favorite_ids = set()
+    started_challenges = []
     if request.user.is_authenticated():
         favorite_ids = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
+        started_challenges = request.user.challenges.filter(id__in=[c.id for c in challenges])
 
     if theme_name:
         challenges = challenges.filter(themes__name=theme_name)
@@ -56,6 +60,11 @@ def challenges(request):
     except EmptyPage:
         challenges = paginator.page(paginator.num_pages)
 
+    accessible = Membership.filter_by_challenge_access(request.user, [c.id for c in challenges])
+    for challenge in challenges:
+        challenge.accessible = challenge.id in accessible
+        challenge.started = challenge in started_challenges
+
     return render(request, 'challenges/new.html', {
         'challenges': challenges,
         'themes': themes,
@@ -67,6 +76,8 @@ def challenges(request):
     })
 
 @require_POST
+@student_only
+@enforce_membership_challenge_access
 def start_building(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
 
@@ -80,9 +91,6 @@ def start_building(request, challenge_id):
         'username': request.user.username,
     }))
 
-def require_login_for(request, challenge):
-    return not (request.user.is_authenticated() or challenge.public)
-
 class InspirationAnonymousPreview(TemplateView):
     template_name = "challenges/edp/preview/inspiration_anonymous.html"
 
@@ -90,6 +98,7 @@ class InspirationAnonymousPreview(TemplateView):
         context = super(InspirationAnonymousPreview, self).get_context_data(**kwargs)
 
         challenge = get_object_or_404(Challenge, id=kwargs.get('challenge_id'))
+        challenge.accessible = bool(Membership.filter_by_challenge_access(self.request.user, [challenge.id]))
 
         context['challenge'] = challenge
         return context
@@ -184,32 +193,11 @@ class InspirationProgressDispatch(ViewDispatch):
         else:
             raise PermissionDenied()
 
-def preview_plan(request, challenge_id):
+@login_required
+@enforce_membership_challenge_access
+def preview_stage(request, challenge_id, stage):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    if require_login_for(request, challenge):
-        raise LoginRequired()
-
-    return render(request, 'challenges/preview/plan.html', {
-        'challenge': challenge,
-        'comment_form': CommentForm(),
-    })
-
-def preview_build(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-    if require_login_for(request, challenge):
-        raise LoginRequired()
-
-    return render(request, 'challenges/preview/build.html', {
-        'challenge': challenge,
-        'comment_form': CommentForm(),
-    })
-
-def preview_reflect(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-    if require_login_for(request, challenge):
-        raise LoginRequired()
-
-    return render(request, 'challenges/preview/reflect.html', {
+    return render(request, 'challenges/preview/%s.html' % stage, {
         'challenge': challenge,
         'comment_form': CommentForm(),
     })
@@ -335,8 +323,6 @@ def favorite_challenges(request):
 class ExamplesView(View):
     def get(self, request, challenge_id=None, *args, **kwargs):
         challenge = get_object_or_404(Challenge, id=challenge_id)
-        if require_login_for(request, challenge):
-            raise LoginRequired()
 
         if request.user.is_authenticated():
             progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()

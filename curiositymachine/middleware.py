@@ -37,7 +37,11 @@ class LoginRequiredMiddleware:
             return HttpResponseForbidden()
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if not (request.user.is_authenticated() or whitelisted(view_func, 'public', 'maybe_public') or whitelist_regex.match(request.path.lstrip('/'))):
+        if not (
+            request.user.is_authenticated()
+            or whitelisted(view_func, 'public', 'maybe_public')
+            or whitelist_regex.match(request.path.lstrip('/'))
+        ):
             messages.add_message(
                 request,
                 messages.INFO,

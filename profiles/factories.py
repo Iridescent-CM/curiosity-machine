@@ -22,6 +22,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
+    username = factory.fuzzy.FuzzyText(prefix="user_")
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
     profile = factory.RelatedFactory(ProfileFactory, 'user')

@@ -1,3 +1,8 @@
+#
+# NOTE:
+# This file should generally not be added to. Tests here should be split out to
+# more specifically scoped test files over time.
+
 # test libs
 import pytest
 from pyquery import PyQuery as pq
@@ -26,62 +31,22 @@ from challenges.templatetags.activity_count import activity_count
 from challenges.templatetags.user_has_started_challenge import user_has_started_challenge
 from cmcomments.models import Comment
 
-# mark all as integration tests for -m filtering
-pytestmark = pytest.mark.integration
-
 
 @pytest.mark.django_db
 def test_theme_str(theme):
     assert theme.__str__() == "Theme: name=MyTheme"
 
 @pytest.mark.django_db
-def test_challenges_response_code(rf, challenge, student):
-    request = rf.get('/challenges/')
-    request.user = AnonymousUser()
-    response = challenges(request)
-    assert response.status_code == 200
-
-@pytest.mark.django_db
-def test_challenges_render_challenges(client, challenge, student):
-    response = client.get('/challenges/', follow=True)
-    assert response.status_code == 200
-    assert response.context['challenges'][0] == challenge
-
-@pytest.mark.django_db
-def test_challenges_filters_by_name(client, challenge, challenge2, theme, student):
-    challenge.themes.add(theme)
-    challenge.save()
-
-    response = client.get('/challenges/')
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 2
-
-    response = client.get('/challenges/', {'theme': theme.name}, follow=True)
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 1
-
-@pytest.mark.django_db
-def test_challenges_filters_drafts(client, challenge, challenge2, student):
-    response = client.get('/challenges/')
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 2
-
-    challenge.draft = True
-    challenge.save()
-
-    response = client.get('/challenges/')
-    assert response.status_code == 200
-    assert len(response.context['challenges']) == 1
-
-@pytest.mark.django_db
 def test_start_building(rf, challenge, student):
+    challenge.free = True
+    challenge.save()
     request = rf.post('/challenges/1/start_building')
     request.user = student
-    response = start_building(request, challenge.id)
+    response = start_building(request, challenge_id=challenge.id)
     assert Progress.objects.filter(challenge=challenge, student=student).count() == 1
 
 @pytest.mark.django_db
-def test_preview_plan_renders_plan_preview(client, challenge, loggedInStudent):
+def test_preview_plan_renders_plan_preview(client, challenge, loggedInStaff):
     url = reverse('challenges:preview_plan', kwargs={
         'challenge_id': challenge.id
     })
@@ -90,7 +55,7 @@ def test_preview_plan_renders_plan_preview(client, challenge, loggedInStudent):
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_preview_build_renders_build_preview(client, challenge, loggedInStudent):
+def test_preview_build_renders_build_preview(client, challenge, loggedInStaff):
     url = reverse('challenges:preview_build', kwargs={
         'challenge_id': challenge.id
     })
@@ -99,7 +64,7 @@ def test_preview_build_renders_build_preview(client, challenge, loggedInStudent)
     assert response.status_code == 200
 
 @pytest.mark.django_db
-def test_preview_reflect_renders_reflect_preview(client, challenge, loggedInStudent):
+def test_preview_reflect_renders_reflect_preview(client, challenge, loggedInStaff):
     url = reverse('challenges:preview_reflect', kwargs={
         'challenge_id': challenge.id
     })
@@ -497,21 +462,8 @@ def test_examples_view_for_non_student(client):
     assert not d('#student-example-pending')
 
 @pytest.mark.django_db
-def test_examples_view_for_anonymous_on_public_challenge(client):
-    challenge = ChallengeFactory(public=True)
-
-    response = client.get('/challenges/%d/examples/' % (challenge.id), follow=False)
-
-    assert response.status_code == 200
-    d = pq(response.content)
-    assert not d('#student-not-started')
-    assert not d('#student-in-progress')
-    assert not d('#student-completed')
-    assert not d('#student-example-pending')
-
-@pytest.mark.django_db
-def test_examples_view_for_anonymous_on_private_challenge(client):
-    challenge = ChallengeFactory(public=False)
+def test_examples_view_for_anonymous(client):
+    challenge = ChallengeFactory()
 
     response = client.get('/challenges/%d/examples/' % (challenge.id), follow=False)
 
