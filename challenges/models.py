@@ -272,10 +272,6 @@ class Filter(models.Model):
     def __repr__(self):
         return "Filter: id={}, name={}".format(self.id, self.name)
 
-# TODO: flesh out below, use AWS_S3_METADATA to set Content-Disposition to attachment on lesson plan resources,
-#       consider changing AWS_S3_MAX_AGE_SECONDS to something smaller than default, then set up admin to show
-#       resources as inlines on lesson plan
-
 class LessonPlan(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField()
