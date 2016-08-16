@@ -105,15 +105,7 @@
       });
     </script>
     {% if ga_code %}
-    <script>
-      var tracklinks = document.querySelectorAll('[data-ga-track="pageview"]');
-      Array.prototype.forEach.call(tracklinks, function(link) {
-        link.addEventListener("click", function(evt){
-          var page = link.getAttribute("data-ga-page");
-          ga('send', 'pageview', page);
-        });
-      });
-    </script>
+    <script src="{% static 'js/ga-track.js' %}"></script>
     {% endif %}
     <script type="text/javascript" src="{% static 'js/libs/bootstrap4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
