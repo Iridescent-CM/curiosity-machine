@@ -12,6 +12,7 @@ from django.db import connection
 from .validators import validate_color
 from curiositymachine import signals
 from functools import reduce
+from django_s3_storage.storage import S3Storage
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
@@ -283,7 +284,11 @@ class LessonPlan(models.Model):
     def __str__(self):
         return "Lesson Plan: id={}, name={}".format(self.id, self.name)
 
+lesson_plan_storage = S3Storage(aws_s3_metadata={
+    "Content-Disposition": "attachment"
+})
+
 class LessonPlanResource(models.Model):
-    file = models.FileField(upload_to="lesson_plan/%Y/%m/%d/")
+    file = models.FileField(upload_to="lesson_plan/%Y/%m/%d/", storage=lesson_plan_storage)
     link_text = models.CharField(max_length=64, null=True)
     lesson_plan = models.ForeignKey(LessonPlan)
