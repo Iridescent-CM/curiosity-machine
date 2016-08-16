@@ -92,30 +92,37 @@
                   </div>
                   <div class="card-block">
                     <p class="card-text"><small>{{challenge.description}}</small></p>
+                  </div>
 
-                    {% if flags.enable_membership_access_controls and flags.enable_build_it_messaging %}
+                  {% if flags.enable_membership_access_controls and flags.enable_build_it_messaging %}
 
-                      {% if challenge.accessible or challenge.started %}
-                      <p class="card-text purple-type">
+                    {% if challenge.accessible or challenge.started %}
+                      <div class="card-block card-details">
                         <small>
-                        {% if not request.user.is_authorized or request.user.profile.is_student %}
-                          Build it!
-                        {% else %}
-                          Preview
-                        {% endif %}
+                          <ul>
+                            {% if not request.user.is_authorized and request.user.profile.is_student %}
+                              <li>
+                                <span class="accessible-dc">Build it!</span>
+                              </li>
+                            {% else %}
+                              <li>
+                                <span class="accessible-dc">Preview!</span>
+                              </li>
+                            {% endif %}
+                          </ul>
                         </small>
-                      </p>
-                      {% endif %}
-
-                    {% elif flags.enable_membership_access_controls %}
-
-                      {% if not challenge.accessible and not challenge.started %}
-                        <p class="card-text purple-type"><small><i class="icon-lock"></i>Membership only</small></p>
-                      {% endif %}
-
+                      </div>
                     {% endif %}
 
-                  </div>
+                  {% elif flags.enable_membership_access_controls %}
+
+                    {% if not challenge.accessible and not challenge.started %}
+                      <div class="card-block">
+                        <p class="card-text purple-type"><small><i class="icon-lock"></i>Membership only</small></p>
+                      </div>
+                    {% endif %}
+
+                  {% endif %}
 
               </div>
             </div>

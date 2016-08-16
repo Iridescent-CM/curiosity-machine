@@ -8,12 +8,15 @@
     </form>
   {% else %}
     {% if flags.enable_build_it_messaging %}
-      You aren't in a membership with this design challenge
+    <div class="membership-only">
+      <p>Explore the full design challenge by joining a membership!</p>
+      <a href="{% url 'about-membership' %}">Learn more about memberships.</a>
+    </div>
     {% else %}
       <div class="membership-only">
         <h4 class="purple-type"><i class="icon-lock"></i> Membership Only</h4>
+        <a href="{% url 'about-membership' %}">Learn more about memberships.</a>
       </div>
-      <a href="{% url 'about-membership' %}" class="a-secondary">Learn more about memberships.</a>
     {% endif %}
   {% endif %}
 {% endblock %}
