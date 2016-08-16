@@ -104,6 +104,16 @@
         endpoint: "{% url 'log' %}"
       });
     </script>
+    {% if ga_code %}
+    <script>
+      var tracklinks = document.querySelectorAll('[data-ga-track="pageview"]');
+      Array.prototype.forEach.call(tracklinks, function(link) {
+        link.addEventListener("click", function(evt){
+          ga('send', 'pageview', link.href);
+        });
+      });
+    </script>
+    {% endif %}
     <script type="text/javascript" src="{% static 'js/libs/bootstrap4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/modals.js' %}"></script>
