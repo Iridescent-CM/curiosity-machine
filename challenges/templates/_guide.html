@@ -58,7 +58,7 @@
             <h4 class="media-heading">{{ lessonplan.name }}</h4>
             <p>{{ lessonplan.description }}</p>
             {% for resource in lessonplan.lessonplanresource_set.all %}
-            <a href="{{ resource.file.url }}" class="btn btn-primary" data-ga-track="pageview">
+            <a href="{{ resource.file.url }}" class="btn btn-primary" data-ga-track="pageview" data-ga-page="{{ resource.file }}">
               {{ resource.link_text|default:"Download" }}
             </a>
             {% endfor %}
