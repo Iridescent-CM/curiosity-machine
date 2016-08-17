@@ -1,0 +1,63 @@
+{% extends "memberships/_membership-hub.html" %}
+{% load resized %}
+
+{% block title %}{{ membership.name }} | Student Name{% endblock %}
+{% block body-classes %}membership-pages{% endblock %}
+{% block membership-page %}Students{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div class="jumbotron-fluid  jumbotron-sand m-b-lg">
+    <div class="container">
+      {% include "profiles/_avatar.html" with profile=mentor width=50 height=50 crop='thumb' gravity='faces' classes='img-block'%}
+      <h3 class="green-type">Lorelai Gilmore</h3>
+    </div>
+  </div>
+
+  <div class="container m-b-lg">
+    <h3>Design Challenges</h3>
+    <div class="row m-b-md">
+
+      <div class="col-lg-3 col-sm-6">
+        <div class="card challenge-card m-b-md">
+
+          <a href="#">
+            <img class="card-img-top" src="http://placehold.it/300x170">
+          </a>
+
+          <div class="card-block card-title">
+            <h6>
+              <a href="#">
+                Challenge Name
+              </a>
+            </h6>
+          </div>
+
+          <div class="card-block">
+            <p><small>Challenge description</small></p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Lorelai's Info</h3>
+        <dl>
+          <dt>USERNAME</dt>
+          <dd class="m-b">lorelaigilmoresh</dd>
+          <dt>BIRTHDAY</dt>
+          <dd class="m-b">stuff</dd>
+          <dt>EMAIL</dt>
+          <dd class="m-b"><a href="#">lorelaigilmore@girlmoregirls.com</a></dd>
+          <dt>APPROVED</dt>
+          <dd class="m-b"><i class="icon-check green-type"></i></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

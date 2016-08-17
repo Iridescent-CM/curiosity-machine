@@ -216,10 +216,10 @@ th {
     border-top-color: #000 !important; }
   .label {
     border: 1px solid #000; }
-  .table {
+  .table, .table-membership-students {
     border-collapse: collapse !important; }
-    .table td,
-    .table th {
+    .table td, .table-membership-students td,
+    .table th, .table-membership-students th {
       background-color: #fff !important; }
   .table-bordered th,
   .table-bordered td {
@@ -1199,22 +1199,22 @@ pre {
   .col-xl-offset-12 {
     margin-left: 100%; } }
 
-.table {
+.table, .table-membership-students {
   width: 100%;
   max-width: 100%;
   margin-bottom: 1rem; }
-  .table th,
-  .table td {
+  .table th, .table-membership-students th,
+  .table td, .table-membership-students td {
     padding: 0.75rem;
     line-height: 1.5;
     vertical-align: top;
     border-top: 1px solid #eceeef; }
-  .table thead th {
+  .table thead th, .table-membership-students thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #eceeef; }
-  .table tbody + tbody {
+  .table tbody + tbody, .table-membership-students tbody + tbody {
     border-top: 2px solid #eceeef; }
-  .table .table {
+  .table .table, .table-membership-students .table, .table .table-membership-students, .table-membership-students .table-membership-students {
     background-color: #fff; }
 
 .table-sm th,
@@ -5194,13 +5194,23 @@ i {
   width: 100%;
   height: auto; }
 
-.table {
+.table, .table-membership-students {
   background-color: #FFFCF7;
   border: solid 2px #E5E1D9; }
-  .table thead th {
+  .table thead th, .table-membership-students thead th {
     border-color: #E5E1D9; }
-  .table td {
+  .table td, .table-membership-students td {
     border-color: #E5E1D9; }
+
+.table-membership-students thead {
+  background-color: #8FB559;
+  color: #FFFCF7; }
+
+.table-membership-students .secondary-row td {
+  border-top: 0px;
+  padding: 0px; }
+  .table-membership-students .secondary-row td .expanded-student-info {
+    padding: 12px; }
 
 header {
   background-color: #FFFCF7;
@@ -5482,14 +5492,33 @@ footer {
 .policy-pages .article p {
   margin-bottom: 1.5em; }
 
+.membership-pages .nav-panel {
+  color: white; }
+  .membership-pages .nav-panel .nav .nav-item {
+    display: inline-block;
+    margin: 0 20px; }
+  .membership-pages .nav-panel .nav .nav-link {
+    transition-property: all; }
+    .membership-pages .nav-panel .nav .nav-link:link, .membership-pages .nav-panel .nav .nav-link:visited {
+      color: #FFFCF7;
+      border-bottom: 2px solid #FFFCF7; }
+    .membership-pages .nav-panel .nav .nav-link:hover, .membership-pages .nav-panel .nav .nav-link:active, .membership-pages .nav-panel .nav .nav-link.active {
+      color: #566d35;
+      border-color: #566d35; }
+
 .membership-pages .jumbotron-sand {
-  background-color: #E5E1D9; }
+  background-color: #E5E1D9;
+  padding: 0.75em; }
   .membership-pages .jumbotron-sand h3 {
     font-weight: 400;
-    display: inline-block; }
+    display: inline-block;
+    margin-bottom: 0px; }
   .membership-pages .jumbotron-sand a {
     display: inline-block;
     float: right; }
+  .membership-pages .jumbotron-sand img {
+    border-radius: 50%;
+    margin-right: 0.75em; }
 
 .membership-pages .all-challenges-cards {
   margin-bottom: 3em; }

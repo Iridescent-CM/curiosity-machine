@@ -1,0 +1,53 @@
+{% extends "memberships/_membership-hub.html" %}
+
+{% block title %}{{ membership.name }} | Students{% endblock %}
+{% block body-classes %}membership-pages{% endblock %}
+{% block membership-page %}Students{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div class="jumbotron-fluid  jumbotron-sand m-b-lg">
+    <div class="container">
+      <h3 class="green-type">Student Membership Page</h3>
+    </div>
+  </div>
+
+  <div class="container">
+    <table class="table-membership-students m-b-lg" width="100%">
+
+      <thead>
+        <tr>
+          <td>First Name</td>
+          <td>Last Name</td>
+          <td>Username</td>
+          <td>Email</td>
+          <td>Birthday</td>
+          <td>Approved</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="primary-row">
+          <td>Lorelai</td>
+          <td>Gilmore</td>
+          <td><a href="{% url 'memberships:student-individual' membership_id=membership.id %}">lorelaigilmoresh</a></td>
+          <td>lorelaigilmore@gilmoregirls.com</td>
+          <td>11/21/2000</td>
+          <td><i class="icon-check green-type"></i></td>
+        </tr>
+
+        <tr>
+          <td>Rory</td>
+          <td>Gilmore</td>
+          <td><a href="#">rorygilmoresh</a></td>
+          <td>rorygilmore@gilmoregirls.com</td>
+          <td>11/21/2000</td>
+          <td><i class="icon-cross red-type"></i></td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+{% endblock %}

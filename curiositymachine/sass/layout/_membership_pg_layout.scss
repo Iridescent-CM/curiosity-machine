@@ -1,15 +1,48 @@
 .membership-pages {
+  .nav-panel {
+    color: white;
+
+    .nav {
+      .nav-item {
+        display: inline-block;
+        margin: 0 20px;
+      }
+
+      .nav-link {
+        transition-property: all;
+        &:link,
+        &:visited {
+          color: $ivory;
+          border-bottom: 2px solid $ivory;
+        }
+        &:hover,
+        &:active,
+        &.active {
+          color: $primary-green-darkest;
+          border-color: $primary-green-darkest;
+        }
+      }
+    }
+  }
 
   .jumbotron-sand {
     background-color: $sand;
+    padding: $small-spacing;
+
     h3 {
       font-weight: $base-font-weight;
       display: inline-block;
+      margin-bottom: 0px;
     }
 
     a {
       display: inline-block;
       float: right;
+    }
+
+    img {
+      border-radius: 50%;
+      margin-right: $small-spacing;
     }
   }
 

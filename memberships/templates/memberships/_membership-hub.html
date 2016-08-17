@@ -12,9 +12,16 @@
         <a
           class="nav-link {% if active_nav == 'design-challenges' %}active{% endif %}"
           href="{% url 'memberships:design-challenges' membership_id=membership.id %}"
-          id="design-challenges-page-nav"
         >
           Design Challenges
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'membership-students' %}active{% endif %}"
+          href="{% url 'memberships:students' membership_id=membership.id %}"
+        >
+          Students
         </a>
       </li>
     </ul>
