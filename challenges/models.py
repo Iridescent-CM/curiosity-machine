@@ -272,19 +272,19 @@ class Filter(models.Model):
     def __repr__(self):
         return "Filter: id={}, name={}".format(self.id, self.name)
 
-class LessonPlan(models.Model):
+class Resource(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField()
     challenge = models.ForeignKey(Challenge, null=True)
 
     def __str__(self):
-        return "Lesson Plan: id={}, name={}".format(self.id, self.name)
+        return "Resource: id={}, name={}".format(self.id, self.name)
 
-lesson_plan_storage = S3Storage(aws_s3_metadata={
+resource_storage = S3Storage(aws_s3_metadata={
     "Content-Disposition": "attachment"
 })
 
-class LessonPlanResource(models.Model):
-    file = models.FileField(upload_to="lesson_plan/%Y/%m/%d/", storage=lesson_plan_storage)
+class ResourceFile(models.Model):
+    file = models.FileField(upload_to="challenge_resource/%Y/%m/%d/", storage=resource_storage)
     link_text = models.CharField(max_length=64, null=True)
-    lesson_plan = models.ForeignKey(LessonPlan)
+    resource = models.ForeignKey(Resource)

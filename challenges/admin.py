@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.utils.encoding import force_text
-from .models import Challenge, Theme, Progress, Question, Example, Filter, LessonPlan, LessonPlanResource
+from .models import Challenge, Theme, Progress, Question, Example, Filter, Resource, ResourceFile
 from .forms import ThemeForm, FilterForm
 from cmcomments.models import Comment
 from videos.models import Video
@@ -12,25 +12,25 @@ from django.db import models
 
 User = get_user_model()
 
-class LessonPlanResourceInline(admin.TabularInline):
-    model = LessonPlanResource
+class ResourceFileInline(admin.TabularInline):
+    model = ResourceFile
     extra = 1
 
-class LessonPlanAdmin(admin.ModelAdmin):
+class ResourceAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'challenge')
-    inlines = (LessonPlanResourceInline,)
+    inlines = (ResourceFileInline,)
 
-admin.site.register(LessonPlan, LessonPlanAdmin)
+admin.site.register(Resource, ResourceAdmin)
 
-class LessonPlanInline(admin.TabularInline):
-    model = LessonPlan
+class ResourceInline(admin.TabularInline):
+    model = Resource
     show_change_link = True
     extra = 1
     fields = ('name', 'description', 'resources')
     readonly_fields = ('name', 'description', 'resources',)
 
     def resources(self, instance):
-        return ", ".join([str(x.file) for x in instance.lessonplanresource_set.all()])
+        return ", ".join([str(x.file) for x in instance.resourcefile_set.all()])
 
 def make_draft(modeladmin, request, queryset):
     queryset.update(draft=True)
@@ -53,7 +53,7 @@ class ChallengeAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'name', 'draft', 'free']
     list_filter = ['draft', 'free']
     actions = [make_draft, remove_draft, make_free, remove_free]
-    inlines = (LessonPlanInline,)
+    inlines = (ResourceInline,)
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj

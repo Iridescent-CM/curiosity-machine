@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django_s3_storage.storage
 
 
 class Migration(migrations.Migration):
@@ -12,21 +13,21 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='LessonPlan',
+            name='Resource',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=128)),
                 ('description', models.TextField()),
                 ('challenge', models.ForeignKey(null=True, to='challenges.Challenge')),
             ],
         ),
         migrations.CreateModel(
-            name='LessonPlanResource',
+            name='ResourceFile',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('file', models.FileField(upload_to='lesson_plan/%Y/%m/%d/')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('file', models.FileField(storage=django_s3_storage.storage.S3Storage(aws_s3_metadata={'Content-Disposition': 'attachment'}), upload_to='challenge_resource/%Y/%m/%d/')),
                 ('link_text', models.CharField(null=True, max_length=64)),
-                ('lesson_plan', models.ForeignKey(to='challenges.LessonPlan')),
+                ('resource', models.ForeignKey(to='challenges.Resource')),
             ],
         ),
     ]

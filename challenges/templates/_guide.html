@@ -5,7 +5,7 @@
 {% load staticfiles %}
 
 {% block content %}
-  {% with lessonplans=challenge.lessonplan_set.all %}
+  {% with resources=challenge.resource_set.all %}
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       <h1>About This Challenge</h1>
@@ -25,9 +25,9 @@
       </li>
       {% endif %}
 
-      {% if request.user.is_authenticated and not request.user.profile.is_student and lessonplans %}
+      {% if request.user.is_authenticated and not request.user.profile.is_student and resources %}
       <li>
-        <a href="#lesson-plans" data-toggle="tab">Lesson Plans</a>
+        <a href="#resources" data-toggle="tab">Resources</a>
       </li>
       {% endif %}
     </ul>
@@ -48,18 +48,18 @@
       {% endif %}
 
       {% if request.user.is_authenticated and not request.user.profile.is_student %}
-      <div class="tab-pane fade" id="lesson-plans">
-        {% for lessonplan in lessonplans %}
+      <div class="tab-pane fade" id="resources">
+        {% for resource in resources %}
         <div class="media lesson-plan">
           <div class="media-left pull-left">
             <img class="media-object" src="{% static 'images/edp/resource.png' %}" alt="document icon">
           </div>
           <div class="media-body">
-            <h4 class="media-heading">{{ lessonplan.name }}</h4>
-            <p>{{ lessonplan.description }}</p>
-            {% for resource in lessonplan.lessonplanresource_set.all %}
-            <a href="{{ resource.file.url }}" class="btn btn-primary" data-ga-track="pageview" data-ga-page="{{ resource.file }}">
-              {{ resource.link_text|default:"Download" }}
+            <h4 class="media-heading">{{ resource.name }}</h4>
+            <p>{{ resource.description }}</p>
+            {% for resourcefile in resource.resourcefile_set.all %}
+            <a href="{{ resourcefile.file.url }}" class="btn btn-primary" data-ga-track="pageview" data-ga-page="{{ resourcefile.file }}">
+              {{ resourcefile.link_text|default:"Download" }}
             </a>
             {% endfor %}
           </div>
