@@ -50,7 +50,7 @@
       {% if request.user.is_authenticated and not request.user.profile.is_student %}
       <div class="tab-pane fade" id="resources">
         {% for resource in resources %}
-        <div class="media lesson-plan">
+        <div class="media-item">
           <div class="media-left pull-left">
             <img class="media-object" src="{% static 'images/edp/resource.png' %}" alt="document icon">
           </div>
