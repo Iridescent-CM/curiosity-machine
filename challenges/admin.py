@@ -30,7 +30,7 @@ class LessonPlanInline(admin.TabularInline):
     readonly_fields = ('name', 'description', 'resources',)
 
     def resources(self, instance):
-        return ", ".join([str(x.url) for x in instance.lessonplanresource_set.all()])
+        return ", ".join([str(x.file) for x in instance.lessonplanresource_set.all()])
 
 def make_draft(modeladmin, request, queryset):
     queryset.update(draft=True)
