@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.utils.encoding import force_text
+from django.utils.html import format_html
 from .models import Challenge, Theme, Progress, Question, Example, Filter, Resource, ResourceFile
 from .forms import ThemeForm, FilterForm
 from cmcomments.models import Comment
@@ -30,7 +31,15 @@ class ResourceInline(admin.TabularInline):
     readonly_fields = ('name', 'description', 'resources',)
 
     def resources(self, instance):
-        return ", ".join([str(x.file) for x in instance.resourcefile_set.all()])
+        return format_html(
+            "<ul>" 
+            + "".join(['<li><a href="%s">%s</a></li>' % (x.file.url, str(x.file)) for x in instance.resourcefile_set.all()])
+            + "</ul>"
+        )
+    resources.allow_tags = True
+
+    def has_add_permission(self, request):
+        return False
 
 def make_draft(modeladmin, request, queryset):
     queryset.update(draft=True)
