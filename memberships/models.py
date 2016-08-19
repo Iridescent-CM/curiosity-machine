@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 
 class Membership(models.Model):
     name = models.CharField(unique=True, max_length=255, null=False, blank=False)
+    display_name = models.CharField(max_length=255, null=False, help_text="The membership name users will see on the site.")
     expiration = models.DateField(null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
 
