@@ -12,6 +12,7 @@ from django.db import connection
 from .validators import validate_color
 from curiositymachine import signals
 from functools import reduce
+from django_s3_storage.storage import S3Storage
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
@@ -270,3 +271,20 @@ class Filter(models.Model):
 
     def __repr__(self):
         return "Filter: id={}, name={}".format(self.id, self.name)
+
+class Resource(models.Model):
+    name = models.CharField(max_length=128)
+    description = models.TextField()
+    challenge = models.ForeignKey(Challenge, null=True)
+
+    def __str__(self):
+        return "Resource: id={}, name={}".format(self.id, self.name)
+
+resource_storage = S3Storage(aws_s3_metadata={
+    "Content-Disposition": "attachment"
+})
+
+class ResourceFile(models.Model):
+    file = models.FileField(upload_to="challenge_resource/%Y/%m/%d/", storage=resource_storage)
+    link_text = models.CharField(max_length=64, null=True)
+    resource = models.ForeignKey(Resource)

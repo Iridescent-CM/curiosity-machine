@@ -104,6 +104,9 @@
         endpoint: "{% url 'log' %}"
       });
     </script>
+    {% if ga_code %}
+    <script src="{% static 'js/ga-track.js' %}"></script>
+    {% endif %}
     <script type="text/javascript" src="{% static 'js/libs/bootstrap4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/modals.js' %}"></script>
