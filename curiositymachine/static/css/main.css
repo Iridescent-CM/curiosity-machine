@@ -5852,14 +5852,6 @@ footer {
   background-color: #FFFCF7; }
   #landing-page .membership-only h4 {
     margin-bottom: 0px; }
-  #landing-page .membership-only i {
-    color: #FFFCF7;
-    background-color: #6161AF;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: inline-block;
-    padding: 5px; }
 
 @media (max-width: 61.9em) {
   #landing-page .hero {

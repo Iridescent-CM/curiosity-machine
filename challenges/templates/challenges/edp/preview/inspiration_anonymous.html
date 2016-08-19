@@ -1,20 +1,15 @@
 {% extends "challenges/edp/inspiration.html" %}
 
 {% block jumbotron_message %}
-  {% if flags.enable_membership_access_controls and flags.enable_build_it_messaging %}
 
-    {% if challenge.accessible %}
-      <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-secondary btn-lg">Log In</a>
-    {% else %}
-      <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-secondary btn-lg">Log In</a>
-      <div class="membership-only">
-        <p>Explore the full design challenge by joining a membership!</p>
-        <a href="{% url 'about-membership' %}">Learn more about memberships.</a>
-      </div>
-    {% endif %}
-
-  {% else %}
-    <p class="light-type m-b-md">Please log in as a student to work on design challenges.</p>
+  {% if challenge.accessible %}
     <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-secondary btn-lg">Log In</a>
+  {% else %}
+    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-secondary btn-lg">Log In</a>
+    <div class="membership-only">
+      <p>Explore the full design challenge by joining a membership!</p>
+      <a href="{% url 'about-membership' %}">Learn more about memberships.</a>
+    </div>
   {% endif %}
+
 {% endblock %}
