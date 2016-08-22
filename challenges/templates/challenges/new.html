@@ -98,19 +98,21 @@
 
                     {% if challenge.accessible or challenge.started %}
                       <div class="card-block card-details">
-                        <small>
                           <ul>
                             {% if not request.user.is_authorized and request.user.profile.is_student %}
                               <li>
-                                <span class="accessible-dc">Build it!</span>
+                                <small>
+                                  <span class="accessible-dc">Build it!</span>
+                                </small>
                               </li>
                             {% else %}
                               <li>
-                                <span class="accessible-dc">Preview!</span>
+                                <small>
+                                  <span class="accessible-dc">Preview!</span>
+                                </small>
                               </li>
                             {% endif %}
                           </ul>
-                        </small>
                       </div>
                     {% endif %}
 
