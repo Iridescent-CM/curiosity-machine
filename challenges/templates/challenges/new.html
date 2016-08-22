@@ -25,7 +25,9 @@
         </li>
         {% for membership in memberships %}
         <li {% if active_membership == membership %}class="active"{% endif %}>
-          <a href="{% url "challenges:challenges" %}?{% qstring membership=membership.id %}#challenges">{{ membership.display_name }}</a>
+          <a class="text-truncate" href="{% url "challenges:challenges" %}?{% qstring membership=membership.id %}#challenges">
+            {{ membership.display_name }}
+          </a>
         </li>
         {% endfor %}
         {% for filter in filters %}
