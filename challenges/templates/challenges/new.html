@@ -23,6 +23,7 @@
         <li {% if not active_filter and not active_theme_name and not active_membership %}class="active"{% endif %}>
           <a href="{% url "challenges:challenges" %}#challenges">All Challenges</a>
         </li>
+        {% if flags.enable_membership_access_controls %}
         {% for membership in memberships %}
         <li {% if active_membership == membership %}class="active"{% endif %}>
           <a class="text-truncate" href="{% url "challenges:challenges" %}?{% qstring membership=membership.id %}#challenges">
@@ -30,6 +31,7 @@
           </a>
         </li>
         {% endfor %}
+        {% endif %}
         {% for filter in filters %}
         <li {% if active_filter == filter %}class="active"{% endif %}>
           <a href="{% url "challenges:challenges" %}?{% qstring filter_id=filter.id %}#challenges">{{filter.name|safe}}</a>
