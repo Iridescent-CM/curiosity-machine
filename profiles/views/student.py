@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
@@ -37,8 +37,13 @@ def home(request):
     selected_membership = request.GET.get('membership')
     selected_membership_challenges = []
     if selected_membership:
-        selected_membership = int(selected_membership)
-        selected_membership_challenges = Challenge.objects.filter(membership__id=selected_membership).all()
+        try:
+            selected_membership = int(selected_membership)
+        except:
+            raise Http404
+        selected_membership_challenges = Challenge.objects.filter(
+            membership__id=selected_membership, membership__members=request.user
+        ).all()
     my_challenges_filters = [ 'active', 'completed' ]
     favorite_challenges = Favorite.objects.filter(student=request.user)
     progresses = Progress.objects.filter(student=request.user).select_related("challenge")
