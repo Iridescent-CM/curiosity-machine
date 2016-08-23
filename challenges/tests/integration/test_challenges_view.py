@@ -4,8 +4,8 @@ from challenges.tests.fixtures import *
 from profiles.tests import student, mentor
 
 from django.contrib.auth.models import AnonymousUser
-from challenges.factories import ChallengeFactory, ProgressFactory
-from profiles.factories import StudentFactory
+from challenges.factories import *
+from profiles.factories import *
 
 from challenges.views import challenges
 
@@ -66,3 +66,29 @@ def test_challenges_decorates_with_started_for_student(client):
     client.login(username="user", password="password")
     response = client.get('/challenges/')
     assert {c.id: c.started for c in response.context['challenges']} == { c1.id: False, c2.id: True }
+
+@pytest.mark.django_db
+def test_challenges_decorates_has_resources_for_non_student_users(client):
+    c1 = ChallengeFactory(draft=False)
+    c2 = ChallengeFactory(draft=False)
+    user = EducatorFactory(username="user", password="password")
+
+    client.login(username="user", password="password")
+    response = client.get('/challenges/')
+    for challenge in response.context['challenges']:
+        assert hasattr(challenge, 'has_resources')
+
+@pytest.mark.django_db
+def test_challenges_does_not_decorate_has_resources_for_student_or_anonymous(client):
+    c1 = ChallengeFactory(draft=False)
+    c2 = ChallengeFactory(draft=False)
+    user = StudentFactory(username="user", password="password")
+
+    response = client.get('/challenges/')
+    for challenge in response.context['challenges']:
+        assert not hasattr(challenge, 'has_resources')
+
+    client.login(username="user", password="password")
+    response = client.get('/challenges/')
+    for challenge in response.context['challenges']:
+        assert not hasattr(challenge, 'has_resources')

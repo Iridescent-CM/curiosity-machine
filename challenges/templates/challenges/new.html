@@ -95,30 +95,33 @@
                   </div>
 
                   {% if flags.enable_membership_access_controls %}
-
-                    {% if challenge.accessible or challenge.started %}
-                      <div class="card-block card-details">
-                          <ul>
-                            {% if not request.user.is_authorized and request.user.profile.is_student %}
-                              <li>
-                                <small>
-                                  <span class="accessible-dc">Build it!</span>
-                                </small>
-                              </li>
-                            {% else %}
-                              <li>
-                                <small>
-                                  <span class="accessible-dc">Preview!</span>
-                                </small>
-                              </li>
-                            {% endif %}
-                          </ul>
-                      </div>
-                    {% endif %}
-
-
+                  <div class="card-block card-details">
+                    <ul>
+                      {% if challenge.accessible or challenge.started %}
+                      {% if not request.user.is_authorized and request.user.profile.is_student %}
+                      <li>
+                        <small>
+                          <span class="accessible-dc">Build it!</span>
+                        </small>
+                      </li>
+                      {% else %}
+                      <li>
+                        <small>
+                          <span class="accessible-dc">Preview!</span>
+                        </small>
+                      </li>
+                      {% endif %}
+                      {% endif %}
+                      {% if challenge.has_resources %}
+                      <li>
+                        <small>
+                          <span class="has-resources">Has resources</span>
+                        </small>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  </div>
                   {% endif %}
-
               </div>
             </div>
 

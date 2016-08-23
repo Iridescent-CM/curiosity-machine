@@ -22,6 +22,7 @@ from django.views.generic.base import View, TemplateView
 from django.utils.decorators import method_decorator
 from memberships.models import Membership
 from memberships.decorators import enforce_membership_challenge_access
+from django.db.models import Count
 
 def challenges(request):
     theme_name = request.GET.get('theme')
@@ -51,6 +52,9 @@ def challenges(request):
     if theme_name:
         challenges = challenges.filter(themes__name=theme_name)
         title = theme_name
+
+    if request.user.is_authenticated() and not request.user.profile.is_student:
+        challenges = challenges.annotate(has_resources=Count('resource'))
 
     paginator = Paginator(challenges, settings.CHALLENGES_PER_PAGE)
     try:
