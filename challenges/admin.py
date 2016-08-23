@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.utils.encoding import force_text
-from .models import Challenge, Theme, Progress, Question, Example, Filter
+from django.utils.html import format_html
+from .models import Challenge, Theme, Progress, Question, Example, Filter, Resource, ResourceFile
 from .forms import ThemeForm, FilterForm
 from cmcomments.models import Comment
 from videos.models import Video
@@ -11,6 +12,34 @@ from django import forms
 from django.db import models
 
 User = get_user_model()
+
+class ResourceFileInline(admin.TabularInline):
+    model = ResourceFile
+    extra = 1
+
+class ResourceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'challenge')
+    inlines = (ResourceFileInline,)
+
+admin.site.register(Resource, ResourceAdmin)
+
+class ResourceInline(admin.TabularInline):
+    model = Resource
+    show_change_link = True
+    extra = 1
+    fields = ('name', 'description', 'resources')
+    readonly_fields = ('name', 'description', 'resources',)
+
+    def resources(self, instance):
+        return format_html(
+            "<ul>" 
+            + "".join(['<li><a href="%s">%s</a></li>' % (x.file.url, str(x.file)) for x in instance.resourcefile_set.all()])
+            + "</ul>"
+        )
+    resources.allow_tags = True
+
+    def has_add_permission(self, request):
+        return False
 
 def make_draft(modeladmin, request, queryset):
     queryset.update(draft=True)
@@ -33,6 +62,7 @@ class ChallengeAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'name', 'draft', 'free']
     list_filter = ['draft', 'free']
     actions = [make_draft, remove_draft, make_free, remove_free]
+    inlines = (ResourceInline,)
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj

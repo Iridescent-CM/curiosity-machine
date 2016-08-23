@@ -42,7 +42,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="join-modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+<div class="modal fade" id="join-modal" tabindex="-1" role="dialog" aria-labelledby="join-modal-label" aria-hidden="true">
   <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
     <span class="sr-only">Close</span>
@@ -50,7 +50,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="text-center">Get started. Create an account.</h1>
+        <h1 class="text-center" id="join-modal-label">Get started. Create an account.</h1>
       </div>
       <div class="modal-body">
         <p class="lead text-center">Join Curiosity Machine as a:</p>
@@ -151,7 +151,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link nav-mentors" href="{% url "profiles:mentors" %}" />Mentor Community<span class="sr-only">(current)</span></a>
+            <a class="nav-link nav-mentors" href="{% url "profiles:mentors" %}">Mentor Community<span class="sr-only">(current)</span></a>
           </li>
 
           <li class="nav-item">
@@ -193,7 +193,8 @@
 
           {% endif %}
 
-      </div>
-    </nav>
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>

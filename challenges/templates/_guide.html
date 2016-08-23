@@ -2,41 +2,81 @@
 {% block id %}guide-modal{% endblock %}
 {% block classes %}{% endblock %}
 {% block inner-classes %}modal-lg{% endblock %}
+{% load staticfiles %}
 
 {% block content %}
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-  <h1>About This Challenge</h1>
-</div>
-<ul class="nav nav-tabs upwards">
-  <li class="active"><a href="#guide-how-to" data-toggle="tab">How To Make It</a></li>
-  <li><a href="#guide-more-info" data-toggle="tab">Learn More</a></li>
-  {% if request.user.is_authenticated and request.user.profile.is_mentor and challenge.mentor_guide %}
-  <li><a href="#mentor-guide" data-toggle="tab">Mentor Guide</a></li>
-  {% endif %}
-</ul>
-<div class="modal-body row clearfix tab-content">
-<div class="tab-pane fade in active" id="guide-how-to">
-  <p>{{ challenge.how_to_make_it|safe }}</p>
-</div>
-<div class="tab-pane fade" id="guide-more-info">
-  <p>{{ challenge.learn_more|safe }}</p>
-</div>
-{% if request.user.is_authenticated and request.user.profile.is_mentor and challenge.mentor_guide %}
-<div class="tab-pane fade" id="mentor-guide">
-  <p>{{ challenge.mentor_guide|safe }}</p>
-</div>
-{% endif %}
+  {% with resources=challenge.resource_set.all %}
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h1>About This Challenge</h1>
+    </div>
+    <ul class="nav nav-tabs upwards">
+      <li class="active">
+        <a href="#guide-how-to" data-toggle="tab">How To Make It</a>
+      </li>
 
-  
-</div>
-<div class="modal-footer">
-  {% if request.user.is_authenticated and request.user.profile.is_student and show_start_button %}
-    <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
+      <li>
+        <a href="#guide-more-info" data-toggle="tab">Learn More</a>
+      </li>
+
+      {% if request.user.is_authenticated and request.user.profile.is_mentor and challenge.mentor_guide %}
+      <li>
+        <a href="#mentor-guide" data-toggle="tab">Mentor Guide</a>
+      </li>
+      {% endif %}
+
+      {% if request.user.is_authenticated and not request.user.profile.is_student and resources %}
+      <li>
+        <a href="#resources" data-toggle="tab">Resources</a>
+      </li>
+      {% endif %}
+    </ul>
+
+    <div class="modal-body row clearfix tab-content">
+      <div class="tab-pane fade in active" id="guide-how-to">
+        <p>{{ challenge.how_to_make_it|safe }}</p>
+      </div>
+
+      <div class="tab-pane fade" id="guide-more-info">
+        <p>{{ challenge.learn_more|safe }}</p>
+      </div>
+
+      {% if request.user.is_authenticated and request.user.profile.is_mentor and challenge.mentor_guide %}
+      <div class="tab-pane fade" id="mentor-guide">
+        <p>{{ challenge.mentor_guide|safe }}</p>
+      </div>
+      {% endif %}
+
+      {% if request.user.is_authenticated and not request.user.profile.is_student %}
+      <div class="tab-pane fade" id="resources">
+        {% for resource in resources %}
+        <div class="media-item">
+          <div class="media-left pull-left">
+            <img class="media-object" src="{% static 'images/edp/resource.png' %}" alt="document icon">
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{ resource.name }}</h4>
+            <p>{{ resource.description }}</p>
+            {% for resourcefile in resource.resourcefile_set.all %}
+            <a href="{{ resourcefile.file.url }}" class="btn btn-primary" data-ga-track="pageview" data-ga-page="{{ resourcefile.file }}">
+              {{ resourcefile.link_text|default:"Download" }}
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="modal-footer">
+      {% if request.user.is_authenticated and request.user.profile.is_student and show_start_button %}
+      <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
         {% csrf_token %}
         <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />
       </form>
-  {% endif %}
-</div>
+      {% endif %}
+    </div>
 
+  {% endwith %}
 {% endblock %}

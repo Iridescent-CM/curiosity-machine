@@ -26,23 +26,14 @@
   }
 
   .membership-only {
-    background-color: $ivory;
     padding: $base-spacing;
-    border-radius: 50px;
-    margin-bottom: $base-spacing;
+    border-radius: $base-border-radius;
+    margin: $small-spacing 0 $base-spacing ;
+    border: 1px solid $primary-blue-dark;
+    background-color: $ivory;
 
     h4 {
       margin-bottom: 0px;
-    }
-
-    i {
-      color: $ivory;
-      background-color: $primary-purple;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: inline-block;
-      padding: 5px;
     }
   }
 
