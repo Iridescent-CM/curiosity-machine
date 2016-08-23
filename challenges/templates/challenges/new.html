@@ -92,11 +92,32 @@
                   </div>
                   <div class="card-block">
                     <p class="card-text"><small>{{challenge.description}}</small></p>
-
-                    {% if not challenge.accessible and not challenge.started %}
-                      <p class="card-text purple-type"><small><i class="icon-lock"></i>Membership only</small></p>
-                    {% endif %}
                   </div>
+
+                  {% if flags.enable_membership_access_controls %}
+
+                    {% if challenge.accessible or challenge.started %}
+                      <div class="card-block card-details">
+                          <ul>
+                            {% if not request.user.is_authorized and request.user.profile.is_student %}
+                              <li>
+                                <small>
+                                  <span class="accessible-dc">Build it!</span>
+                                </small>
+                              </li>
+                            {% else %}
+                              <li>
+                                <small>
+                                  <span class="accessible-dc">Preview!</span>
+                                </small>
+                              </li>
+                            {% endif %}
+                          </ul>
+                      </div>
+                    {% endif %}
+
+
+                  {% endif %}
 
               </div>
             </div>
@@ -119,7 +140,7 @@
       </div>
     </div>
   </div>
-</div>
+
 
 {% endblock %}
 
