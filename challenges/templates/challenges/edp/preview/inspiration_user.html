@@ -1,12 +1,14 @@
 {% extends "challenges/edp/inspiration_with_gallery.html" %}
 
 {% block jumbotron_message %}
+
   {% if challenge.accessible %}
     <a href="{% url 'challenges:preview_plan' challenge_id=challenge.id %}" class="btn btn-secondary btn-lg">Preview Challenge</a>
   {% else %}
-  <div class="membership-only">
-    <h4 class="purple-type"><i class="icon-lock"></i> Membership Only</h4>
-  </div>
-  <a href="{% url 'about-membership' %}" class="a-secondary">Learn more about memberships.</a>
+    <div class="membership-only">
+      <p>Explore the full design challenge by joining a membership!</p>
+      <a href="{% url 'about-membership' %}">Learn more about memberships.</a>
+    </div>
   {% endif %}
+
 {% endblock %}

@@ -1,5 +1,5 @@
 .challenge-card {
-  min-height: 355px;
+  min-height: 375px;
   max-width: 260px;
   background-color: white;
   border-radius: $base-border-radius;
@@ -32,6 +32,12 @@
         &:hover { color: tint($dark, 30%); }
         &:focus { color: $primary-red; }
       }
+    }
+  }
+
+  .card-details {
+    ul li {
+      margin-bottom: 20px;
     }
   }
 }
@@ -77,6 +83,53 @@
   }
   input[type='checkbox']:checked + label {
     background-color: $primary-green;
+  }
+}
+
+//
+// DC Card Detail flags
+//
+.accessible-dc {
+  background-color: $primary-purple;
+  color: $ivory;
+  padding: 5px 30px 5px 20px;
+  position: absolute;
+  left: -10px;
+
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-right: 12px solid $ivory;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-right: 10px solid $primary-purple-dark;
+    border-bottom: 10px solid transparent;
+    border-left: 0px solid transparent;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    right: 100%;
+  }
+}
+
+.lesson-plan {
+  @extend .accessible-dc;
+  background-color: $primary-green;
+  &:before {
+    border-right-color: $primary-green-dark;
   }
 }
 
