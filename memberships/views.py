@@ -17,6 +17,17 @@ class MembershipDetailView(DetailView):
     def dispatch(self, *args, **kwargs):
         return super(MembershipDetailView, self).dispatch(*args, **kwargs)
 
+class MembershipChallengeListView(DetailView):
+    model = Membership
+    pk_url_kwarg = 'membership_id'
+    template_name = 'memberships/challenges/list.html'
+    context_object_name = 'membership'
+
+    @method_decorator(login_required)
+    @method_decorator(educator_only)
+    def dispatch(self, *args, **kwargs):
+        return super(MembershipChallengeListView, self).dispatch(*args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         page = self.request.GET.get('page')
