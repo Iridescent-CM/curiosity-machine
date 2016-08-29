@@ -52,7 +52,7 @@
           {% for progress in completed_progresses %}
             {% include "_challenge_item.html" with challenge=progress.challenge %}
           {% endfor %}
-        {% elif selected_membership_challenges %}
+        {% elif selected_membership %}
           {% for challenge in selected_membership_challenges %}
             {% include "_challenge_item.html" with challenge=challenge %}
           {% endfor %}
