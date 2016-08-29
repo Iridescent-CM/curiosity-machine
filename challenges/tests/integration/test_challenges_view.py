@@ -5,7 +5,8 @@ from profiles.tests import student, mentor
 
 from django.contrib.auth.models import AnonymousUser
 from challenges.factories import ChallengeFactory, ProgressFactory
-from profiles.factories import StudentFactory
+from profiles.factories import StudentFactory, UserFactory
+from memberships.factories import MembershipFactory
 
 from challenges.views import challenges
 
@@ -34,6 +35,32 @@ def test_challenges_filters_by_name(client, challenge, challenge2, theme, studen
     response = client.get('/challenges/', {'theme': theme.name}, follow=True)
     assert response.status_code == 200
     assert len(response.context['challenges']) == 1
+
+@pytest.mark.django_db
+def test_filters_by_membership(client):
+    challenges = ChallengeFactory.create_batch(2, draft=False)
+    user = UserFactory(username="username", password="password")
+    membership = MembershipFactory(challenges=[challenges[0]], members=[user])
+
+    client.login(username="username", password="password")
+
+    response = client.get('/challenges/')
+    assert response.status_code == 200
+    assert set(response.context['challenges']) == set(challenges)
+
+    response = client.get('/challenges/', {'membership': membership.id})
+    assert response.status_code == 200
+    assert set(response.context['challenges']) == set(challenges[0:1])
+
+@pytest.mark.django_db
+def test_404s_on_non_user_membership(client):
+    challenges = ChallengeFactory.create_batch(2, draft=False)
+    user = UserFactory(username="username", password="password")
+    membership = MembershipFactory(challenges=[challenges[0]])
+
+    client.login(username="username", password="password")
+    response = client.get('/challenges/', {'membership': membership.id})
+    assert response.status_code == 404
 
 @pytest.mark.django_db
 def test_challenges_filters_drafts(client, challenge, challenge2, student):

@@ -25,10 +25,12 @@
       </li>
       {% endif %}
 
+      {% if flags.enable_membership_access_controls %}
       {% if request.user.is_authenticated and not request.user.profile.is_student and resources %}
       <li>
         <a href="#resources" data-toggle="tab">Resources</a>
       </li>
+      {% endif %}
       {% endif %}
     </ul>
 
@@ -47,6 +49,7 @@
       </div>
       {% endif %}
 
+      {% if flags.enable_membership_access_controls %}
       {% if request.user.is_authenticated and not request.user.profile.is_student %}
       <div class="tab-pane fade" id="resources">
         {% for resource in resources %}
@@ -66,6 +69,7 @@
         </div>
         {% endfor %}
       </div>
+      {% endif %}
       {% endif %}
     </div>
 
