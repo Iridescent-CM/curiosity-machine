@@ -27,25 +27,34 @@ from django.db.models import Count
 def challenges(request):
     theme_name = request.GET.get('theme')
     filter_id = request.GET.get('filter_id')
+    membership_id = request.GET.get('membership')
     page = request.GET.get('page')
 
     title = "All"
     challenges = []
     filt = None
+    membership = None
 
     if (filter_id):
-        filt = Filter.objects.get(pk=filter_id)
+        filt = get_object_or_404(Filter, id=filter_id)
         challenges = filt.challenges
         title = filt.name
+    elif (membership_id):
+        user_memberships = Membership.objects.filter(members=request.user)
+        membership = get_object_or_404(user_memberships, id=membership_id)
+        challenges = membership.challenges
+        title = membership.display_name
     else:
         challenges = Challenge.objects
     challenges = challenges.filter(draft=False).select_related('image')
 
     filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
     themes = Theme.objects.all()
+    memberships = []
     favorite_ids = set()
     started_challenges = []
     if request.user.is_authenticated():
+        memberships = request.user.membership_set.all()
         favorite_ids = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
         started_challenges = request.user.challenges.filter(id__in=[c.id for c in challenges])
 
@@ -75,6 +84,8 @@ def challenges(request):
         'active_theme_name': theme_name,
         'filters': filters,
         'active_filter': filt,
+        'memberships': memberships,
+        'active_membership': membership,
         'favorite_ids': favorite_ids,
         'title': title + " Design Challenges"
     })

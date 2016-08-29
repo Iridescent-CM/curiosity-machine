@@ -56,6 +56,7 @@ class MembershipAdmin(admin.ModelAdmin):
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
     search_fields = ('membership__name', 'user__username')
+    raw_id_fields = ('membership', 'user',)
 
 admin.site.register(Membership, MembershipAdmin)
 admin.site.register(Member, MemberAdmin)
