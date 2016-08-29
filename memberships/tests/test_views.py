@@ -1,8 +1,9 @@
 import pytest
 from django.core.urlresolvers import reverse
 
-from memberships.factories import MembershipFactory
-from profiles.factories import EducatorFactory
+from memberships.factories import *
+from profiles.factories import *
+from challenges.factories import *
 
 @pytest.mark.django_db
 def test_membership_detail_view_context_data(client):
@@ -30,3 +31,32 @@ def test_membership_challenge_list_view_context_data(client):
     assert "membership" in response.context
     assert response.context["membership"] == membership
     assert "challenges" in response.context
+
+@pytest.mark.django_db
+def test_membership_challenge_detail_view_context_data(client):
+    student = StudentFactory()
+    educator = EducatorFactory(username="edu", password="123123")
+
+    challenge = ChallengeFactory()
+    progress1 = ProgressFactory(student=student, challenge=challenge)
+    progress2 = ProgressFactory()
+
+    membership = MembershipFactory(challenges=[challenge], members=[student])
+
+    client.login(username="edu", password="123123")
+    response = client.get(reverse(
+        'memberships:membership_challenge',
+        kwargs= {
+            "membership_id": membership.id,
+            "challenge_id": challenge.id
+        }
+    ), follow=True)
+
+    assert response.status_code == 200
+
+    assert "membership" in response.context
+    assert response.context["membership"] == membership
+    assert "challenge" in response.context
+    assert response.context["challenge"] == challenge
+    assert "progresses" in response.context
+    assert set(response.context["progresses"]) == set([progress1])
