@@ -104,10 +104,11 @@
                   </div>
 
                   {% if flags.enable_membership_access_controls %}
+                  {% if request.user.is_authenticated %}
                   <div class="card-block card-details">
                     <ul>
                       {% if challenge.accessible or challenge.started %}
-                      {% if not request.user.is_authorized and request.user.profile.is_student %}
+                      {% if request.user.profile.is_student %}
                       <li>
                         <small>
                           <span class="accessible-dc">Build it!</span>
@@ -121,7 +122,7 @@
                       </li>
                       {% endif %}
                       {% endif %}
-                      {% if challenge.has_resources %}
+                      {% if not request.user.profile.is_student and challenge.has_resources %}
                       <li>
                         <small>
                           <span class="has-resources">Has resources</span>
@@ -130,6 +131,7 @@
                       {% endif %}
                     </ul>
                   </div>
+                  {% endif %}
                   {% endif %}
               </div>
             </div>
