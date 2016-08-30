@@ -24,15 +24,15 @@
 
       {% for mentor in mentors %}
         <div class="col-lg-3 col-sm-6">
-          <div class="mentor-card">
+          <div class="user-card">
             <a href="{% url "profiles:mentor_profile" username=mentor.user.username %}">
-              <div class="mentor-card-title text-center">
+              <div class="user-card-title text-center">
                 {% include "profiles/_avatar.html" with profile=mentor width=80 height=80 crop='thumb' gravity='faces' classes='img-block'%}
                 <h3>{{mentor.user.username}}</h3>
                 <small>Joined {{mentor.user.date_joined|date:"F Y"}}</small>
               </div>
             </a>
-            <div class="mentor-card-description">
+            <div class="user-card-description">
               <p class="text-center">
                 {% if mentor.title %}{{mentor.title}}, {% endif%}
                 {{mentor.employer}}

@@ -17,7 +17,40 @@
 
 <div class="container all-challenges-cards m-b-lg">
   <div class="row">
-    Stuff.
+    {% for progress in progresses %}
+    <div class="col-lg-3 col-sm-6">
+      <div class="user-card">
+
+        <div class="user-card-title text-center">
+          <a href="#" class="action-img">
+            {% include "profiles/_avatar.html" with profile=progress.student.profile width=80 height=80 crop='thumb' gravity='faces' classes='img-block'%}
+          </a>
+          <p>
+            {{ progress.student.first_name }} {{progress.student.last_name }}<br/>
+            <small><a href="#">{{ progress.student.username }}</a></small>
+          </p>
+        </div>
+
+        <div class="user-card-description">
+          <p><small><i class="icon-check"></i>In Progress</small></p>
+          {% if progress.mentor %}
+          <p class="green-type"><small><i class="icon-check"></i>Mentored by {{ progress.mentor.username }}</small></p>
+          {% else %}
+          <p class="text-muted"><small><i class="icon-cross"></i>No mentor</small></p>
+          {% endif %}
+
+          <p><small><a href="#">View Progress &rarr;</a></small></p>
+        </div>
+      </div>
+    </div>
+
+    {% if forloop.counter|divisibleby:2 %}
+      <div class="clearfix hidden-md-up"></div>
+    {% elif forloop.counter|divisibleby:4 %}
+      <div class="clearfix"></div>
+    {% endif %}
+
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
