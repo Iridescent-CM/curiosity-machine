@@ -39,7 +39,11 @@
           <p class="text-muted"><small><i class="icon-cross"></i>No mentor</small></p>
           {% endif %}
 
-          <p><small><a href="#">View Progress &rarr;</a></small></p>
+          <p>
+            <small>
+              <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge.id username=progress.student.username %}">View Progress &rarr;</a>
+            </small>
+          </p>
         </div>
       </div>
     </div>

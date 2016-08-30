@@ -57,7 +57,7 @@ class Membership(models.Model):
         return None
 
     def __str__(self):
-        return self.name
+        return "id:%s, name:%s" % (self.id, self.name)
 
 class Member(models.Model):
     class Meta:

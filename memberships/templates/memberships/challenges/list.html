@@ -48,7 +48,11 @@
               <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">View design challenge &rarr;</a>
             </small>
           </p>
-          <p><small class="card-text"><a href="#">View student's progress &rarr;</a></small></p>
+          <p>
+            <small class="card-text">
+              <a href="{% url "memberships:membership_challenge" membership_id=membership.id challenge_id=challenge.id %}">View student's progress &rarr;</a>
+            </small>
+          </p>
         </div>
 
       </div>
