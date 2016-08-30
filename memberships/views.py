@@ -38,7 +38,8 @@ class MembershipChallengeListView(DetailView):
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         page = self.request.GET.get('page')
-        paginator = Paginator(context["membership"].challenges.all(), settings.MD_PAGE_SIZE)
+        challenges = context["membership"].challenges.select_related('image').all()
+        paginator = Paginator(challenges, settings.MD_PAGE_SIZE)
         try:
             challenges = paginator.page(page)
         except PageNotAnInteger:
@@ -67,7 +68,7 @@ class MembershipChallengeDetailView(DetailView):
         context['challenge'] = challenge
 
         membership_id = self.kwargs.get('membership_id')
-        progresses = challenge.progress_set.filter(student__membership__id=membership_id).all()
+        progresses = challenge.progress_set.select_related('student__profile', 'mentor').filter(student__membership__id=membership_id).all()
         context['progresses'] = progresses
 
         return context
