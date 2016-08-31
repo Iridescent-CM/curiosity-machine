@@ -16,6 +16,10 @@
 </div>
 
 <div class="container all-challenges-cards m-b-lg">
+  <div class="row text-center">
+    {% include "curiositymachine/_pagination_controls.html" with curr_page=progresses %}
+  </div>
+
   <div class="row">
     {% for progress in progresses %}
     <div class="col-lg-3 col-sm-6">
@@ -62,6 +66,10 @@
     {% empty %}
     <p>None of the students in this membership have started {{ challenge.name }} yet.</p>
     {% endfor %}
+  </div>
+
+  <div class="row text-center">
+    {% include "curiositymachine/_pagination_controls.html" with curr_page=progresses %}
   </div>
 </div>
 {% endblock %}

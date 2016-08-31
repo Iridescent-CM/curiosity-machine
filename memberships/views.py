@@ -87,7 +87,16 @@ class MembershipChallengeDetailView(DetailView):
             )
             .order_by("-started")
             .all())
-        # TODO: paginate progresses
+
+        page = self.request.GET.get('page')
+        paginator = Paginator(progresses, settings.MD_PAGE_SIZE)
+        try:
+            progresses = paginator.page(page)
+        except PageNotAnInteger:
+            progresses = paginator.page(1)
+        except EmptyPage:
+            progresses = paginator.page(paginator.num_pages)
+
         context['progresses'] = progresses
 
         return context
