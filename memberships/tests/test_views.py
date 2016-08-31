@@ -7,8 +7,8 @@ from challenges.factories import *
 
 @pytest.mark.django_db
 def test_membership_detail_view_context_data(client):
-    membership = MembershipFactory()
     educator = EducatorFactory(username="edu", password="123123")
+    membership = MembershipFactory(members=[educator])
 
     client.login(username="edu", password="123123")
     response = client.get(reverse('memberships:membership', kwargs= {"membership_id": membership.id}), follow=True)
@@ -20,8 +20,8 @@ def test_membership_detail_view_context_data(client):
 
 @pytest.mark.django_db
 def test_membership_challenge_list_view_context_data(client):
-    membership = MembershipFactory()
     educator = EducatorFactory(username="edu", password="123123")
+    membership = MembershipFactory(members=[educator])
 
     client.login(username="edu", password="123123")
     response = client.get(reverse('memberships:membership_challenges', kwargs= {"membership_id": membership.id}), follow=True)
@@ -41,7 +41,7 @@ def test_membership_challenge_detail_view_context_data(client):
     progress1 = ProgressFactory(student=student, challenge=challenge)
     progress2 = ProgressFactory()
 
-    membership = MembershipFactory(challenges=[challenge], members=[student])
+    membership = MembershipFactory(challenges=[challenge], members=[student, educator])
 
     client.login(username="edu", password="123123")
     response = client.get(reverse(

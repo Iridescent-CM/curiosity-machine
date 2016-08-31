@@ -11,6 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
 from django.db.models import Prefetch
 from profiles.models import UserRole
+from .decorators import members_only
 
 User = get_user_model()
 
@@ -22,7 +23,7 @@ class MembershipDetailView(DetailView):
 
     @method_decorator(login_required)
     @method_decorator(educator_only)
-    # TODO: @method_decorator(members_only)
+    @method_decorator(members_only)
     def dispatch(self, *args, **kwargs):
         return super(MembershipDetailView, self).dispatch(*args, **kwargs)
 
@@ -34,7 +35,7 @@ class MembershipChallengeListView(DetailView):
 
     @method_decorator(login_required)
     @method_decorator(educator_only)
-    # TODO: @method_decorator(members_only)
+    @method_decorator(members_only)
     def dispatch(self, *args, **kwargs):
         return super(MembershipChallengeListView, self).dispatch(*args, **kwargs)
 
@@ -60,7 +61,7 @@ class MembershipChallengeDetailView(DetailView):
 
     @method_decorator(login_required)
     @method_decorator(educator_only)
-    # TODO: @method_decorator(members_only)
+    @method_decorator(members_only)
     def dispatch(self, *args, **kwargs):
         return super(MembershipChallengeDetailView, self).dispatch(*args, **kwargs)
 
