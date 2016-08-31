@@ -1,0 +1,75 @@
+{% extends "memberships/layout/hub.html" %}
+{% load resized %}
+
+{% block title %}{{ membership.name }}{% endblock %}
+{% block body-classes %}membership-pages{% endblock %}
+
+{% block content %}
+
+{{ block.super }}
+
+<div class="jumbotron-fluid jumbotron-sand p-t-md m-b-lg">
+  <div class="container">
+    <h3 class="green-type">{{ challenge.name }}</h3>
+    <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">View Design Challenge</a>
+  </div>
+</div>
+
+<div class="container all-challenges-cards m-b-lg">
+  <div class="row text-center">
+    {% include "curiositymachine/_pagination_controls.html" with curr_page=progresses %}
+  </div>
+
+  <div class="row">
+    {% for progress in progresses %}
+    <div class="col-lg-3 col-sm-6">
+      <div class="user-card">
+
+        <div class="user-card-title text-center">
+          <a href="#" class="action-img">
+            {% include "profiles/_avatar.html" with profile=progress.student.profile width=80 height=80 crop='thumb' gravity='faces' classes='img-block'%}
+          </a>
+          <p>
+            {{ progress.student.first_name }} {{progress.student.last_name }}<br/>
+            <small><a href="#">{{ progress.student.username }}</a></small>
+          </p>
+        </div>
+
+        <div class="user-card-description">
+          {% if progress.student_reflect_comments %}
+          <p><small><i class="icon-check"></i>Completed</small></p>
+          {% else %}
+          <p><small><i class="icon-check"></i>In Progress</small></p>
+          {% endif %}
+
+          {% if progress.mentor %}
+          <p class="green-type"><small><i class="icon-check"></i>Mentored by {{ progress.mentor.username }}</small></p>
+          {% else %}
+          <p class="text-muted"><small><i class="icon-cross"></i>No mentor</small></p>
+          {% endif %}
+
+          <p>
+            <small>
+              <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge.id username=progress.student.username %}">View Progress &rarr;</a>
+            </small>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {% if forloop.counter|divisibleby:2 %}
+      <div class="clearfix hidden-md-up"></div>
+    {% elif forloop.counter|divisibleby:4 %}
+      <div class="clearfix"></div>
+    {% endif %}
+
+    {% empty %}
+    <p>None of the students in this membership have started {{ challenge.name }} yet.</p>
+    {% endfor %}
+  </div>
+
+  <div class="row text-center">
+    {% include "curiositymachine/_pagination_controls.html" with curr_page=progresses %}
+  </div>
+</div>
+{% endblock %}
