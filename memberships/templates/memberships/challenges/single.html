@@ -32,7 +32,12 @@
         </div>
 
         <div class="user-card-description">
+          {% if progress.student_reflect_comments %}
+          <p><small><i class="icon-check"></i>Completed</small></p>
+          {% else %}
           <p><small><i class="icon-check"></i>In Progress</small></p>
+          {% endif %}
+
           {% if progress.mentor %}
           <p class="green-type"><small><i class="icon-check"></i>Mentored by {{ progress.mentor.username }}</small></p>
           {% else %}
@@ -54,6 +59,8 @@
       <div class="clearfix"></div>
     {% endif %}
 
+    {% empty %}
+    <p>None of the students in this membership have started {{ challenge.name }} yet.</p>
     {% endfor %}
   </div>
 </div>

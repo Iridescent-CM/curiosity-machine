@@ -4,10 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from curiositymachine.decorators import feature_flag, educator_only, student_only
 from memberships.models import Membership
-from challenges.models import Challenge
+from challenges.models import Challenge, Stage
+from cmcomments.models import Comment
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
+from django.db.models import Prefetch
+from profiles.models import UserRole
 
 User = get_user_model()
 
@@ -68,7 +71,23 @@ class MembershipChallengeDetailView(DetailView):
         context['challenge'] = challenge
 
         membership_id = self.kwargs.get('membership_id')
-        progresses = challenge.progress_set.select_related('student__profile', 'mentor').filter(student__membership__id=membership_id).all()
+        # TODO: move the query below (or parts of it) somewhere usefully reusable
+        progresses = (challenge.progress_set
+            .select_related('student__profile', 'mentor')
+            .filter(student__membership__id=membership_id)
+            .prefetch_related(
+                Prefetch(
+                    'comments',
+                    queryset=Comment.objects.filter(
+                        stage=Stage.reflect.value,
+                        user__profile__role=UserRole.student.value
+                    ),
+                    to_attr='student_reflect_comments'
+                )
+            )
+            .order_by("-started")
+            .all())
+        # TODO: paginate progresses
         context['progresses'] = progresses
 
         return context

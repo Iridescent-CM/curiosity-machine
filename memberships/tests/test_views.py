@@ -56,7 +56,10 @@ def test_membership_challenge_detail_view_context_data(client):
 
     assert "membership" in response.context
     assert response.context["membership"] == membership
+
     assert "challenge" in response.context
     assert response.context["challenge"] == challenge
+
     assert "progresses" in response.context
     assert set(response.context["progresses"]) == set([progress1])
+    assert hasattr(response.context["progresses"][0], "student_reflect_comments")
