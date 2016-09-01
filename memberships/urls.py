@@ -9,4 +9,10 @@ urlpatterns = patterns('memberships.views',
         views.MembershipChallengeDetailView.as_view(),
         name='membership_challenge'
     ),
+    url(r'^(?P<membership_id>\d+)/students/$', views.MembershipStudentListView.as_view(), name='membership_students'),
+    url(
+        r'^(?P<membership_id>\d+)/students/(?P<student_id>\d+)/$',
+        views.MembershipStudentDetailView.as_view(),
+        name='membership_student'
+    ),
 )

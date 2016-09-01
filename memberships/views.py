@@ -101,3 +101,36 @@ class MembershipChallengeDetailView(DetailView):
         context['progresses'] = progresses
 
         return context
+
+class MembershipStudentListView(DetailView):
+    model = Membership
+    pk_url_kwarg = 'membership_id'
+    template_name = 'memberships/students/list.html'
+    context_object_name = 'membership'
+
+    @method_decorator(login_required)
+    @method_decorator(educator_only)
+    @method_decorator(members_only)
+    def dispatch(self, *args, **kwargs):
+        return super(MembershipStudentListView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        page = self.request.GET.get('page')
+        return context
+
+class MembershipStudentDetailView(DetailView):
+    model = Membership
+    pk_url_kwarg = 'membership_id'
+    template_name = 'memberships/students/single.html'
+    context_object_name = 'membership'
+
+    @method_decorator(login_required)
+    @method_decorator(educator_only)
+    @method_decorator(members_only)
+    def dispatch(self, *args, **kwargs):
+        return super(MembershipStudentDetailView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        return context

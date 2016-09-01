@@ -63,3 +63,37 @@ def test_membership_challenge_detail_view_context_data(client):
     assert "progresses" in response.context
     assert set(response.context["progresses"]) == set([progress1])
     assert hasattr(response.context["progresses"][0], "student_reflect_comments")
+
+@pytest.mark.django_db
+def test_membership_student_list_view_context_data(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    membership = MembershipFactory(members=[educator])
+
+    client.login(username="edu", password="123123")
+    response = client.get(reverse('memberships:membership_students', kwargs= {"membership_id": membership.id}), follow=True)
+
+    assert response.status_code == 200
+
+    assert "membership" in response.context
+    assert response.context["membership"] == membership
+
+@pytest.mark.django_db
+def test_membership_student_detail_view_context_data(client):
+    student = StudentFactory()
+    educator = EducatorFactory(username="edu", password="123123")
+
+    membership = MembershipFactory(members=[educator])
+
+    client.login(username="edu", password="123123")
+    response = client.get(reverse(
+        'memberships:membership_student',
+        kwargs= {
+            "membership_id": membership.id,
+            "student_id": student.id
+        }
+    ), follow=True)
+
+    assert response.status_code == 200
+
+    assert "membership" in response.context
+    assert response.context["membership"] == membership
