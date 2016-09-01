@@ -8,6 +8,8 @@ class ChallengeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Challenge
 
+    name = factory.fuzzy.FuzzyText(prefix="challenge-")
+
 class ProgressFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Progress

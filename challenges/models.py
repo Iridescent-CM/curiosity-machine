@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import Q
 from django.conf import settings
 from django.utils.timezone import now
 from django.core.urlresolvers import reverse
@@ -10,9 +9,11 @@ from enum import Enum
 from django.utils.safestring import mark_safe
 from django.db import connection
 from .validators import validate_color
-from curiositymachine import signals
-from functools import reduce
 from django_s3_storage.storage import S3Storage
+from django.db import models
+from django.db.models import Q
+from functools import reduce
+from curiositymachine import signals
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models

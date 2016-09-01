@@ -1,0 +1,55 @@
+{% extends "memberships/layout/hub.html" %}
+{% load resized %}
+
+{% block title %}{{ membership.name }}{% endblock %}
+{% block body-classes %}membership-pages{% endblock %}
+
+{% block content %}
+
+{{ block.super }}
+
+<div class="jumbotron-fluid  jumbotron-sand m-b-lg">
+  <div class="container">
+    <h3 class="green-type">Student Membership Page</h3>
+  </div>
+</div>
+
+<div class="container">
+  <table class="table-membership-students m-b-lg" width="100%">
+    <thead>
+      <tr>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Username</td>
+        <td>Email</td>
+        <td>Birthday</td>
+        <td>Approved</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+      <tr>
+        <td>{{ student.first_name }}</td>
+        <td>{{ student.last_name }}</td>
+        <td>
+          <a href="{% url 'memberships:membership_student' membership_id=membership.id student_id=student.id %}">
+            {{ student.username }}
+          </a>
+        </td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.profile.birthday|date:"m/d/Y" }}</td>
+        <td>
+          {% if student.profile.approved %}
+          <i class="icon-check green-type"></i>
+          {% else %}
+          <i class="icon-cross red-type"></i>
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan=6>There are no students in this membership.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

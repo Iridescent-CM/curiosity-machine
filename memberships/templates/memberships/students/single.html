@@ -1,0 +1,88 @@
+{% extends "memberships/layout/hub.html" %}
+{% load resized %}
+
+{% block title %}{{ membership.name }}{% endblock %}
+{% block body-classes %}membership-pages{% endblock %}
+
+{% block content %}
+
+{{ block.super }}
+
+<div class="jumbotron-fluid  jumbotron-sand m-b-lg">
+  <div class="container">
+    {% include "profiles/_avatar.html" with profile=student.profile width=50 height=50 crop='thumb' gravity='faces' classes='img-block'%}
+    <h3 class="green-type">{{ student.first_name }} {{ student.last_name }}</h3>
+  </div>
+</div>
+
+<div class="container m-b-lg">
+  <h3>Design Challenges</h3>
+
+  <div class="row text-center">
+    {% include "curiositymachine/_pagination_controls.html" with curr_page=progresses %}
+  </div>
+
+  <div class="row m-b-md">
+
+    {% for progress in progresses %}
+    <div class="col-lg-3 col-sm-6">
+      <div class="card challenge-card m-b-md">
+        {% with challenge=progress.challenge %}
+        <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=student.username%}" class="action-img">
+          {% if challenge.image %}
+          <img class="card-img-top" src="{% resized challenge.image.url width=300 height=170 crop='fill' %}">
+          {% elif challenge.video.encodings_generated %}
+          {{ challenge.video.output_videos.all.0.thumbnail }}
+          {% endif %}
+        </a>
+
+        <div class="card-block card-title">
+          <h6>
+            <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=student.username%}">
+              {{ challenge.name }}
+            </a>
+          </h6>
+        </div>
+        <div class="card-block">
+          <p><small>{{ challenge.description }}</small></p>
+        </div>
+        {% endwith %}
+      </div>
+    </div>
+
+    {% if forloop.counter|divisibleby:4 %}
+    <div class="clearfix"></div>
+    {% elif forloop.counter|divisibleby:2 %}
+    <div class="clearfix hidden-md-up"></div>
+    {% endif %}
+
+    {% empty %}
+    {{ student.first_name }} has not started any challenges.
+    {% endfor %}
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3>{{ student.first_name }}'s Info</h3>
+      <dl>
+        <dt>USERNAME</dt>
+        <dd class="m-b">{{ student.username }}</dd>
+        <dt>BIRTHDAY</dt>
+        <dd class="m-b">{{ student.profile.birthday|date:"m/d/Y" }}</dd>
+        <dt>EMAIL</dt>
+        <dd class="m-b"><a href="#">{{ student.email }}</a></dd>
+        <dt>APPROVED</dt>
+        <dd class="m-b">
+          {% if student.profile.approved %}
+          <i class="icon-check green-type"></i>
+          {% else %}
+          <i class="icon-cross red-type"></i>
+          {% endif %}
+        </dd>
+      </dl>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
