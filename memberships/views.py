@@ -117,6 +117,13 @@ class MembershipStudentListView(DetailView):
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         page = self.request.GET.get('page')
+
+        students = (context["membership"]
+            .members
+            .select_related('profile')
+            .filter(profile__role=UserRole.student.value)
+            .all())
+        context["students"] = students
         return context
 
 class MembershipStudentDetailView(DetailView):
