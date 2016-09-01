@@ -23,7 +23,9 @@
     <div class="tab-pane fade in active" id="challenges">
       <ul class="pipe-nav">
         <li>
-          <a href="{% url 'profiles:home' %}?filter=active" {% if not filter or filter == 'active' %}class="active"{% endif %}>
+          <a href="{% url 'profiles:home' %}?filter=active"
+            {% if not filter and not selected_membership or filter == 'active' %}class="active"{% endif %}
+          >
             Active ({{active_progresses|length}})
           </a>
         </li>
@@ -32,19 +34,27 @@
             Completed ({{completed_progresses|length}})
           </a>
         </li>
+        {% if flags.enable_membership_access_controls %}
+        {% for membership in memberships %}
         <li>
-          <a href="{% url 'profiles:home' %}?filter=all" {% if filter == 'all' %}class="active"{% endif %}>View All</a>
+          <a href="{% url 'profiles:home' %}?membership={{ membership.id }}"
+            {% if selected_membership == membership.id %}class="active"{% endif %}
+          >
+            {{ membership.name }}
+          </a>
         </li>
+        {% endfor %}
+        {% endif %}
       </ul>
 
       <ul class="challenges-list owl-carousel panel-carousel">
-        {% if filter == 'all' %}
-          {% for progress in progresses %}
-            {% include "_challenge_item.html" with challenge=progress.challenge %}
-          {% endfor %}
-        {% elif filter == 'completed' %}
+        {% if filter == 'completed' %}
           {% for progress in completed_progresses %}
             {% include "_challenge_item.html" with challenge=progress.challenge %}
+          {% endfor %}
+        {% elif selected_membership %}
+          {% for challenge in selected_membership_challenges %}
+            {% include "_challenge_item.html" with challenge=challenge %}
           {% endfor %}
         {% else %}
           {% for progress in active_progresses %}

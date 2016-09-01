@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.forms.student import StudentUserAndProfileForm
 from groups.forms import GroupJoinForm, GroupLeaveForm
 from groups.models import Invitation
-from challenges.models import Progress, Favorite
+from challenges.models import Progress, Favorite, Challenge
 from profiles.models import ParentConnection
 from curiositymachine.views.generic import ToggleView, SoftDeleteView, UserJoinView
 from django.db import transaction
@@ -34,12 +34,23 @@ join = transaction.atomic(StudentUserJoinView.as_view(
 @login_required
 def home(request):
     filter = request.GET.get('filter')
-    my_challenges_filters = [ 'active', 'completed', 'all' ]
+    selected_membership = request.GET.get('membership')
+    selected_membership_challenges = []
+    if selected_membership:
+        try:
+            selected_membership = int(selected_membership)
+        except:
+            raise Http404
+        selected_membership_challenges = Challenge.objects.filter(
+            membership__id=selected_membership, membership__members=request.user
+        ).all()
+    my_challenges_filters = [ 'active', 'completed' ]
     favorite_challenges = Favorite.objects.filter(student=request.user)
     progresses = Progress.objects.filter(student=request.user).select_related("challenge")
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
     connections = ParentConnection.objects.filter(child_profile=request.user.profile, removed=False)
+    memberships = request.user.membership_set.all()
     return render(request, "profiles/student/home.html", {
         'active_progresses': active_progresses, 
         'completed_progresses': completed_progresses, 
@@ -50,7 +61,10 @@ def home(request):
         'group_form': GroupJoinForm(),
         'groups': request.user.cm_groups.all(),
         'invitations': Invitation.objects.filter(user=request.user).all(),
-        'parent_connections': connections
+        'parent_connections': connections,
+        'selected_membership': selected_membership,
+        'selected_membership_challenges': selected_membership_challenges,
+        'memberships': memberships,
     })
 
 @login_required
