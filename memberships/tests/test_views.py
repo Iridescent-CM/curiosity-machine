@@ -83,9 +83,11 @@ def test_membership_student_list_view_context_data(client):
 @pytest.mark.django_db
 def test_membership_student_detail_view_context_data(client):
     student = StudentFactory()
+    progress1 = ProgressFactory(student=student)
+    progress2 = ProgressFactory()
     educator = EducatorFactory(username="edu", password="123123")
 
-    membership = MembershipFactory(members=[educator])
+    membership = MembershipFactory(members=[educator, student])
 
     client.login(username="edu", password="123123")
     response = client.get(reverse(
@@ -100,3 +102,7 @@ def test_membership_student_detail_view_context_data(client):
 
     assert "membership" in response.context
     assert response.context["membership"] == membership
+    assert "student" in response.context
+    assert response.context["student"] == student
+    assert "progresses" in response.context
+    assert set(response.context["progresses"]) == set([progress1])

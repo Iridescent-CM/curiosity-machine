@@ -57,10 +57,10 @@
       </div>
     </div>
 
-    {% if forloop.counter|divisibleby:2 %}
-      <div class="clearfix hidden-md-up"></div>
-    {% elif forloop.counter|divisibleby:4 %}
-      <div class="clearfix"></div>
+    {% if forloop.counter|divisibleby:4 %}
+    <div class="clearfix"></div>
+    {% elif forloop.counter|divisibleby:2 %}
+    <div class="clearfix hidden-md-up"></div>
     {% endif %}
 
     {% empty %}

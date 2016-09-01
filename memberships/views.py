@@ -116,8 +116,6 @@ class MembershipStudentListView(DetailView):
 
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        page = self.request.GET.get('page')
-
         students = (context["membership"]
             .members
             .select_related('profile')
@@ -140,4 +138,21 @@ class MembershipStudentDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
+
+        student = get_object_or_404(User.objects.select_related('profile'), pk=self.kwargs.get('student_id')) 
+        context["student"] = student
+
+        progresses = student.progresses.all()
+
+        page = self.request.GET.get('page')
+        paginator = Paginator(progresses, settings.DEFAULT_PER_PAGE)
+        try:
+            progresses = paginator.page(page)
+        except PageNotAnInteger:
+            progresses = paginator.page(1)
+        except EmptyPage:
+            progresses = paginator.page(paginator.num_pages)
+
+        context["progresses"] = progresses
+
         return context
