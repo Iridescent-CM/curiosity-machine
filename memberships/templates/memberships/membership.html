@@ -1,14 +1,14 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load resized %}
 
-{% block title %}{{ membership.name }}{% endblock %}
+{% block title %}{{ membership.display_name }}{% endblock %}
 {% block body-classes %}membership-pages{% endblock %}
 {% block content %}
 <div class="jumbotron-fluid jumbotron-green text-center nav-panel p-a-md m-b-0">
   <div class="container text-left">
     <a href="{% url 'profiles:home' %}" class="a-secondary">&larr; Back to Dashboard</a>
   </div>
-  <h1 class="m-b-md">{{ membership.name }}</h1>
+  <h1 class="m-b-md">{{ membership.display_name }}</h1>
   <nav>
     <ul class="nav">
       <li class="nav-item">

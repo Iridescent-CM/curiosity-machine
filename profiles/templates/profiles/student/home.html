@@ -40,7 +40,7 @@
           <a href="{% url 'profiles:home' %}?membership={{ membership.id }}"
             {% if selected_membership == membership.id %}class="active"{% endif %}
           >
-            {{ membership.name }}
+            {{ membership.display_name }}
           </a>
         </li>
         {% endfor %}
