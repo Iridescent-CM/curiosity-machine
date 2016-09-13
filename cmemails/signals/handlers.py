@@ -102,7 +102,15 @@ def send_student_mentor_response_notice(sender, comment, **kwargs):
     progress = comment.challenge_progress
 
     if sender.profile.is_mentor:
-        deliver_email('mentor_responded', progress.student.profile, progress=progress, mentor=progress.mentor.profile)
+        path = reverse('challenges:challenge_progress', kwargs={
+            "challenge_id": progress.challenge.id,
+            "username": progress.student.username,
+            "stage": Stage(comment.stage).name
+        })
+        send(template_name='student-mentor-feedback', to=progress.student, merge_vars={
+            "studentname": progress.student.username,
+            "button_url": url_for_template(path)
+        })
 
 @receiver(signals.approved_training_task)
 def send_training_task_approval_notice(sender, user, task, **kwargs):

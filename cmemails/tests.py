@@ -160,7 +160,7 @@ def test_send_student_mentor_reponse_notice_on_student_comment():
     progress = challenges.factories.ProgressFactory.build(mentor=mentor)
     comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
 
-    with mock.patch('cmemails.signals.handlers.deliver_email') as send:
+    with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_student_mentor_response_notice(comment.user, comment)
         assert len(send.mock_calls) == 0
 
@@ -170,10 +170,13 @@ def test_send_student_mentor_response_notice():
     progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
     comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=mentor)
 
-    with mock.patch('cmemails.signals.handlers.deliver_email') as send:
+    with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_student_mentor_response_notice(comment.user, comment)
         assert len(send.mock_calls) == 1
-        assert send.call_args[0][0] == 'mentor_responded'
+        assert send.call_args[1]['template_name'] == 'student-mentor-feedback'
+        assert "studentname" in send.call_args[1]['merge_vars']
+        assert "button_url" in send.call_args[1]['merge_vars']
+        assert "://" not in send.call_args[1]['merge_vars']['button_url'] # Mailchimp's WYSIWYG insists on adding the protocol
 
 def test_send_mentor_progress_completion_notice_no_mentor():
     student = profiles.factories.StudentFactory.build()
