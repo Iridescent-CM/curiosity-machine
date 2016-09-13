@@ -31,10 +31,6 @@ email_info = {
     #encouragement
     'mentor_encouragement': email_dict('encouragement', MENTOR, 'New Students Projects on Curiosity Machine!'),
 
-    #first project
-    'student_first_project': email_dict('first_project', STUDENT, 'Success! Your Curiosity Machine Project Was Submitted'), 
-    'underage_student_first_project': email_dict('first_project', UNDERAGE_STUDENT, 'Success! Your Child’s Curiosity Machine Project Was Submitted'),
-
     #mentor responded
     'student_mentor_responded': email_dict('mentor_responded', STUDENT, 'A Curiosity Machine Mentor Responded to Your Project'), 
     'underage_student_mentor_responded': email_dict('mentor_responded', UNDERAGE_STUDENT, "A Curiosity Machine Mentor Responded to Your Child's Project"),
