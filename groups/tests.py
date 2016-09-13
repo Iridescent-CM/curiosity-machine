@@ -213,19 +213,19 @@ def test_create(client, loggedInEducator):
 
 @pytest.mark.django_db
 def test_invite_member_sends_one_email(group, student):
-    with mock.patch('groups.models.deliver_email') as deliver_email:
+    with mock.patch('groups.models.send') as send:
         group.invite_member(student)
-        assert deliver_email.called
-        assert deliver_email.call_count == 1
+        assert send.called
+        assert send.call_count == 1
 
 @pytest.mark.django_db
 def test_invite_member_resends_one_email(group, student):
-    with mock.patch('groups.models.deliver_email') as deliver_email:
+    with mock.patch('groups.models.send') as send:
         group.invite_member(student)
         group.invite_member(student)
         assert Invitation.objects.count() == 1
-        assert deliver_email.called
-        assert deliver_email.call_count == 2
+        assert send.called
+        assert send.call_count == 2
 
 @pytest.mark.django_db
 def test_users_share_any_group(student, educator, group):
