@@ -136,10 +136,6 @@ class Profile(models.Model):
         else:
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
 
-    def deliver_inactive_email(self):
-        if self.birthday:
-            deliver_email('inactive', self)
-
     def is_parent_of(self, username, **kwargs):
         filters = {
             'parent_profile': self,
