@@ -22,8 +22,6 @@ def email(recipients, subject, context, template, cc_recipients=None):
 email_info = {
     #welcome
     'mentor_welcome': email_dict('welcome', MENTOR, 'Welcome to the Curiosity Machine!'),
-    'student_welcome': email_dict('welcome', STUDENT, 'Welcome to Curiosity Machine!'), 
-    'underage_student_welcome': email_dict('welcome', UNDERAGE_STUDENT, 'Activate Your Child’s Curiosity Machine Account'),
     'educator_welcome': email_dict('welcome', EDUCATOR, 'Welcome to Curiosity Machine'),
     'parent_welcome': email_dict('welcome', PARENT, 'Welcome to Curiosity Machine!'),
 
