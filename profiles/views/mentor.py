@@ -74,7 +74,7 @@ def home(request):
                 ).select_related(
                     "challenge__image"
                 ).order_by(
-                    "started"
+                    "-started"
                 ).first()
         } for obj in source_and_counts
     }
@@ -150,7 +150,7 @@ def unclaimed_progresses(request, **kwargs):
         ).exclude(
             comments=None
         ).order_by(
-            'started'
+            '-started'
         ).select_related(
            'challenge', 'student', 'student__profile', 'student__profile__image', 'challenge__image'
         )
@@ -162,7 +162,7 @@ def unclaimed_progresses(request, **kwargs):
         ).exclude(
                 comments=None
         ).order_by(
-                'started'
+                '-started'
         ).select_related(
                 'challenge', 'student', 'student__profile', 'student__profile__image', 'challenge__image'
         )
