@@ -79,6 +79,10 @@ urlpatterns = patterns('',
         name='faq'
     ),
 
+    # redirects
+    url(r'^terms-of-use/', RedirectView.as_view(url='http://iridescentlearning.org/terms-of-use/', permanent=True), name='terms-of-use'),
+    url(r'^privacy/', RedirectView.as_view(url='http://iridescentlearning.org/privacy-policy/', permanent=True), name='privacy'),
+
     # password reset URLs -- the "recover" one is modified and so resides in the profiles app
     url(r'^password/recover/(?P<signature>.+)/$', public(password_reset.views.recover_done),
         name='password_reset_sent'),
