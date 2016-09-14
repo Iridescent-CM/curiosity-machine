@@ -63,7 +63,8 @@ Again, the basic flow is:
     * The template name will stay the same, and a slug will be created from that
 * Optionally set the subject, from address, and from name if not previously set in Mandrill
 * Optionally write code that sends the email by referencing the slug name
-* Test in staging
+* Test in staging (or other non-production environment)
+    * You may need to put the Mandrill dashboard in test mode, depending on the API key your environment uses
 * Copy the template to a template prefixed by the production prefix (`production-` most likely)
 to make it live
 
