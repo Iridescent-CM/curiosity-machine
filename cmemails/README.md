@@ -1,4 +1,4 @@
-# Emails
+# Emails 📬
 
 This app handles:
 
