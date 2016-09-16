@@ -63,10 +63,12 @@ class Member(models.Model):
     class Meta:
         unique_together = ("membership", "user")
 
-    membership = models.ForeignKey(Membership)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    membership = models.ForeignKey(Membership, null=False, blank=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
 
     def clean(self):
+        if not self.user_id or not self.membership_id:
+            return
         role = self.user.profile.role
         limit = self.membership.limit_for(role)
         if limit != None:
