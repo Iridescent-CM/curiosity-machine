@@ -53,6 +53,13 @@ def test_filters_by_membership(client):
     assert set(response.context['challenges']) == set(challenges[0:1])
 
 @pytest.mark.django_db
+def test_redirects_to_login_for_anonymous(client):
+    membership = MembershipFactory()
+
+    response = client.get('/challenges/', {'membership': membership.id})
+    assert response.status_code == 302
+
+@pytest.mark.django_db
 def test_404s_on_non_user_membership(client):
     challenges = ChallengeFactory.create_batch(2, draft=False)
     user = UserFactory(username="username", password="password")

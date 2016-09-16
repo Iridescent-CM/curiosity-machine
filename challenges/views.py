@@ -23,12 +23,16 @@ from django.utils.decorators import method_decorator
 from memberships.models import Membership
 from memberships.decorators import enforce_membership_challenge_access
 from django.db.models import Count
+from urllib.parse import quote_plus
 
 def challenges(request):
     theme_name = request.GET.get('theme')
     filter_id = request.GET.get('filter_id')
     membership_id = request.GET.get('membership')
     page = request.GET.get('page')
+
+    if membership_id and not request.user.is_authenticated():
+        return HttpResponseRedirect('%s?next=%s' % (reverse('login'), quote_plus(request.get_full_path())))
 
     title = "All"
     challenges = []
