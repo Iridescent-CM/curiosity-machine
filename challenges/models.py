@@ -40,6 +40,10 @@ class Question(models.Model):
         return self.text[:297] + "..." if len(self.text) > 300 else self.text
 
 class Challenge(models.Model):
+
+    class Meta:
+        ordering = ["order"]
+
     name = models.TextField()
     description = models.TextField(help_text="One line of plain text, shown on the inspiration page")
     how_to_make_it = models.TextField(help_text="HTML, shown in the guide")
@@ -60,6 +64,8 @@ class Challenge(models.Model):
     favorited = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Favorite', through_fields=('challenge', 'student'), related_name="favorite_challenges")
     draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown in the main challenge list")
     free = models.BooleanField(default=False, null=False, help_text="Free challenges are available to users regardless of membership")
+
+    order = models.PositiveIntegerField(default = 1)
 
     def get_absolute_url(self):
         return reverse('challenges:preview_inspiration', kwargs={
