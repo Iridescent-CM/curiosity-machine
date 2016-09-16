@@ -220,15 +220,21 @@ def test_send_welcome_email_skips_excluded_user_types():
         assert not send.called
         assert not deliver_email.called
 
-def test_send_welcome_email_differentiates_underage_students():
+def test_send_welcome_email_differentiates_user_categories():
     student = profiles.factories.StudentFactory.build()
     underage = profiles.factories.StudentFactory.build(profile__underage=True)
+    educator = profiles.factories.EducatorFactory.build()
+    parent = profiles.factories.ParentFactory.build()
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_welcome_email(student)
         assert send.call_args[1]['template_name'] == 'student-welcome'
         signals.handlers.send_welcome_email(underage)
         assert send.call_args[1]['template_name'] == 'student-u13-welcome'
+        signals.handlers.send_welcome_email(educator)
+        assert send.call_args[1]['template_name'] == 'educator-welcome'
+        signals.handlers.send_welcome_email(parent)
+        assert send.call_args[1]['template_name'] == 'parent-welcome'
 
 def test_handler_approved_training_task():
     with mock.patch('cmemails.signals.handlers.send') as send:
