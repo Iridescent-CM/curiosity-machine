@@ -3,6 +3,6 @@
 
 # and some development-only extras
 django-debug-toolbar==1.2.2
-factory-boy==2.5.2
+factory-boy==2.7.0
 pyquery==1.2.11
 pytest-cov==2.2.1

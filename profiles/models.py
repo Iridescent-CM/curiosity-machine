@@ -5,7 +5,6 @@ from images.models import Image
 from videos.models import Video
 from datetime import date, timedelta
 from cmcomments.models import Comment
-from cmemails import deliver_email
 from django.utils.timezone import now
 from enum import Enum
 
@@ -135,10 +134,6 @@ class Profile(models.Model):
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__mentor=self.user, read=False).count()
         else:
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
-
-    def deliver_inactive_email(self):
-        if self.birthday:
-            deliver_email('inactive', self)
 
     def is_parent_of(self, username, **kwargs):
         filters = {

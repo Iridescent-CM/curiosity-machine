@@ -160,7 +160,7 @@ def test_send_student_mentor_reponse_notice_on_student_comment():
     progress = challenges.factories.ProgressFactory.build(mentor=mentor)
     comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
 
-    with mock.patch('cmemails.signals.handlers.deliver_email') as send:
+    with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_student_mentor_response_notice(comment.user, comment)
         assert len(send.mock_calls) == 0
 
@@ -170,10 +170,13 @@ def test_send_student_mentor_response_notice():
     progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
     comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=mentor)
 
-    with mock.patch('cmemails.signals.handlers.deliver_email') as send:
+    with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_student_mentor_response_notice(comment.user, comment)
         assert len(send.mock_calls) == 1
-        assert send.call_args[0][0] == 'mentor_responded'
+        assert send.call_args[1]['template_name'] == 'student-mentor-feedback'
+        assert "studentname" in send.call_args[1]['merge_vars']
+        assert "button_url" in send.call_args[1]['merge_vars']
+        assert "://" not in send.call_args[1]['merge_vars']['button_url'] # Mailchimp's WYSIWYG insists on adding the protocol
 
 def test_send_mentor_progress_completion_notice_no_mentor():
     student = profiles.factories.StudentFactory.build()
@@ -216,6 +219,22 @@ def test_send_welcome_email_skips_excluded_user_types():
         signals.handlers.send_welcome_email(none)
         assert not send.called
         assert not deliver_email.called
+
+def test_send_welcome_email_differentiates_user_categories():
+    student = profiles.factories.StudentFactory.build()
+    underage = profiles.factories.StudentFactory.build(profile__underage=True)
+    educator = profiles.factories.EducatorFactory.build()
+    parent = profiles.factories.ParentFactory.build()
+
+    with mock.patch('cmemails.signals.handlers.send') as send:
+        signals.handlers.send_welcome_email(student)
+        assert send.call_args[1]['template_name'] == 'student-welcome'
+        signals.handlers.send_welcome_email(underage)
+        assert send.call_args[1]['template_name'] == 'student-u13-welcome'
+        signals.handlers.send_welcome_email(educator)
+        assert send.call_args[1]['template_name'] == 'educator-welcome'
+        signals.handlers.send_welcome_email(parent)
+        assert send.call_args[1]['template_name'] == 'parent-welcome'
 
 def test_handler_approved_training_task():
     with mock.patch('cmemails.signals.handlers.send') as send:

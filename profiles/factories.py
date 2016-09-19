@@ -57,6 +57,11 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
     role = models.UserRole.student.value
     approved = True
 
+    class Params:
+        underage = factory.Trait(
+            birthday=now() - relativedelta(years=12)
+        )
+
 @factory.django.mute_signals(handlers.post_save)
 class StudentFactory(factory.django.DjangoModelFactory):
     class Meta:

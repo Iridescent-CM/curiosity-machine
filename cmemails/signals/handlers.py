@@ -2,7 +2,7 @@ from curiositymachine import signals
 from django.conf import settings
 from django.dispatch import receiver
 from django.core.urlresolvers import reverse
-from cmemails import deliver_email, send, subscribe
+from cmemails import send, subscribe
 from cmemails.mandrill import url_for_template
 from challenges.models import Stage
 import urllib.parse
@@ -10,20 +10,35 @@ import re
 
 @receiver(signals.created_account)
 def send_welcome_email(sender, **kwargs):
-    if not getattr(sender, "skip_welcome_email", False):
-        if sender.profile.send_welcome:
-            deliver_email('welcome', sender.profile)
+    if sender.profile.send_welcome and not getattr(sender, "skip_welcome_email", False):
+        if sender.profile.is_student:
+            template = 'student-u13-welcome' if sender.profile.is_underage() else 'student-welcome'
+            send(template_name=template, to=sender, merge_vars={
+                'studentname': sender.username
+            })
+        elif sender.profile.is_educator:
+            send(template_name='educator-welcome', to=sender, merge_vars={
+                'studentname': sender.username
+            })
+        elif sender.profile.is_parent:
+            send(template_name='parent-welcome', to=sender, merge_vars={
+                'studentname': sender.username
+            })
 
     if not getattr(sender, "skip_mailing_list_subscription", False):
         subscribe(sender)
 
 @receiver(signals.underage_activation_confirmed)
 def send_activation_confirmation(sender, account, **kwargs):
-    deliver_email('activation_confirmation', account.profile)
+    send(template_name='student-u13-account-activated', to=account, merge_vars={
+        'studentname': account.username
+    })
 
 @receiver(signals.started_first_project)
 def send_first_project_encouragement(sender, progress, **kwargs):
-    deliver_email('first_project', sender.profile)
+    send(template_name='student-submitted-first-project', to=sender, merge_vars={
+        'studentname': sender.username
+    })
 
 @receiver(signals.inspiration_gallery_submission_created)
 def send_example_submission_notice(sender, example, **kwargs):
@@ -96,7 +111,15 @@ def send_student_mentor_response_notice(sender, comment, **kwargs):
     progress = comment.challenge_progress
 
     if sender.profile.is_mentor:
-        deliver_email('mentor_responded', progress.student.profile, progress=progress, mentor=progress.mentor.profile)
+        path = reverse('challenges:challenge_progress', kwargs={
+            "challenge_id": progress.challenge.id,
+            "username": progress.student.username,
+            "stage": Stage(comment.stage).name
+        })
+        send(template_name='student-mentor-feedback', to=progress.student, merge_vars={
+            "studentname": progress.student.username,
+            "button_url": url_for_template(path)
+        })
 
 @receiver(signals.approved_training_task)
 def send_training_task_approval_notice(sender, user, task, **kwargs):

@@ -1,14 +1,17 @@
 import time
+import urllib.parse
 from django.db import models
 from enum import Enum
 from django.contrib.auth import get_user_model
 from django.db.models.signals import pre_save, post_save, post_delete
 from curiositymachine.helpers import random_string
-from cmemails import deliver_email
+from cmemails import send
+from cmemails.mandrill import url_for_template
 from django.conf import settings
 from django_simple_redis import redis
 from uuid import uuid4
 from django.utils.timezone import now
+from django.core.urlresolvers import reverse
 
 class Role(Enum):
     owner = 0
@@ -55,8 +58,17 @@ class Group(models.Model):
         if not self.member_users.filter(pk=user.id).exists():
             if Invitation.objects.filter(group=self, user=user).count() < 1:
                 invitation = Invitation.objects.create(group=self, user=user)
-            else:
-                deliver_email('group_invite', user.profile, group=self)
+
+            # FIXME: this feels like too many email innards here
+            path = reverse('groups:accept_invitation', kwargs={
+                'group_id': self.id
+            })
+            send(template_name='student-group-invitation', to=user, merge_vars={
+                'username': user.username,
+                'group_name': self.name,
+                'join_url': urllib.parse.urljoin(settings.SITE_URL, path),
+                'button_url': url_for_template(path)
+            })
 
     def __str__(self):
         return "Group={}".format(self.name)
@@ -136,9 +148,3 @@ class Invitation(models.Model):
 
     def __repr__(self):
         return "{} User={}".format(self.group, self.user)
-
-def send_email(sender, instance, created, **kwargs):
-    if created:
-        deliver_email('group_invite', instance.user.profile, group=instance.group)
-
-post_save.connect(send_email, sender=Invitation)
