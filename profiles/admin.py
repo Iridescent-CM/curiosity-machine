@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from images.models import Image
 from .admin_utils import StudentFilter
-from cmemails import deliver_email
 from curiositymachine import signals
 
 from .models import Profile, ParentConnection, UserRole

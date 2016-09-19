@@ -2,7 +2,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from challenges.models import Stage
 from cmcomments.models import Comment
-from cmemails import deliver_email
 from curiositymachine import signals
 
 @receiver(post_save, sender=Comment)

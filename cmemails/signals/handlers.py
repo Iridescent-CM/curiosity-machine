@@ -2,7 +2,7 @@ from curiositymachine import signals
 from django.conf import settings
 from django.dispatch import receiver
 from django.core.urlresolvers import reverse
-from cmemails import deliver_email, send, subscribe
+from cmemails import send, subscribe
 from cmemails.mandrill import url_for_template
 from challenges.models import Stage
 import urllib.parse
@@ -30,7 +30,9 @@ def send_welcome_email(sender, **kwargs):
 
 @receiver(signals.underage_activation_confirmed)
 def send_activation_confirmation(sender, account, **kwargs):
-    deliver_email('activation_confirmation', account.profile)
+    send(template_name='student-u13-account-activated', to=account, merge_vars={
+        'studentname': account.username
+    })
 
 @receiver(signals.started_first_project)
 def send_first_project_encouragement(sender, progress, **kwargs):

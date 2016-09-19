@@ -5,7 +5,6 @@ from images.models import Image
 from videos.models import Video
 from datetime import date, timedelta
 from cmcomments.models import Comment
-from cmemails import deliver_email
 from django.utils.timezone import now
 from enum import Enum
 
