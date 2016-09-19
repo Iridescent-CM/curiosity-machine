@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='challenge',
             name='order',
-            field=models.PositiveIntegerField(default=1),
+            field=models.PositiveIntegerField(blank=True, verbose_name='Order preference', help_text='Challenges will be shown in ascending numeric order, with blanks last', null=True),
         ),
     ]

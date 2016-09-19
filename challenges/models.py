@@ -65,7 +65,12 @@ class Challenge(models.Model):
     draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown in the main challenge list")
     free = models.BooleanField(default=False, null=False, help_text="Free challenges are available to users regardless of membership")
 
-    order = models.PositiveIntegerField(default = 1)
+    order = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text="Challenges will be shown in ascending numeric order, with blanks last",
+        verbose_name="Order preference"
+    )
 
     def get_absolute_url(self):
         return reverse('challenges:preview_inspiration', kwargs={
