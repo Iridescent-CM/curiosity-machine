@@ -58,5 +58,14 @@ class MemberAdmin(admin.ModelAdmin):
     search_fields = ('membership__name', 'user__username')
     raw_id_fields = ('membership', 'user',)
 
+    def get_form(self, request, obj=None, **kwargs):
+        kwargs.update({
+            'help_texts': {
+                'membership': 'Enter a membership ID, or use the magnifying glass to search',
+                'user': 'Enter a user ID, or use the magnifying glass to search'
+            }
+        })
+        return super().get_form(request, obj, **kwargs);
+
 admin.site.register(Membership, MembershipAdmin)
 admin.site.register(Member, MemberAdmin)
