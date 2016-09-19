@@ -109,7 +109,7 @@ class Progress(models.Model):
         where cmcomments_comment.challenge_progress_id IS NOT NULL
         and challenges_progress.mentor_id IS NULL
         group by DATE(challenges_progress.started)
-        order by started
+        order by started DESC
         """
         cursor = connection.cursor()
         cursor.execute(query)
