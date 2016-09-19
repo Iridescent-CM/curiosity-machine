@@ -18,11 +18,11 @@ def send_welcome_email(sender, **kwargs):
             })
         elif sender.profile.is_educator:
             send(template_name='educator-welcome', to=sender, merge_vars={
-                'studentname': sender.username
+                'username': sender.username
             })
         elif sender.profile.is_parent:
             send(template_name='parent-welcome', to=sender, merge_vars={
-                'studentname': sender.username
+                'username': sender.username
             })
 
     if not getattr(sender, "skip_mailing_list_subscription", False):
