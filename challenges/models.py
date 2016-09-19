@@ -42,7 +42,7 @@ class Question(models.Model):
 class Challenge(models.Model):
 
     class Meta:
-        ordering = ["order"]
+        ordering = ["order", "-id"]
 
     name = models.TextField()
     description = models.TextField(help_text="One line of plain text, shown on the inspiration page")
