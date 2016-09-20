@@ -214,11 +214,10 @@ def test_send_welcome_email_skips_excluded_user_types():
     mentor = profiles.factories.MentorFactory.build()
     none = profiles.factories.UserFactory.build()
 
-    with mock.patch('cmemails.signals.handlers.send') as send, mock.patch('cmemails.signals.handlers.deliver_email') as deliver_email:
+    with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_welcome_email(mentor)
         signals.handlers.send_welcome_email(none)
         assert not send.called
-        assert not deliver_email.called
 
 def test_send_welcome_email_differentiates_user_categories():
     student = profiles.factories.StudentFactory.build()
