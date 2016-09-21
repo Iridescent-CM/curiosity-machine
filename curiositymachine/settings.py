@@ -174,6 +174,14 @@ STATICFILES_FINDERS = (
 
 DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
 
+from django.contrib.messages import constants as message_constants
+MESSAGE_TAGS = {
+    message_constants.INFO: 'alert-info',
+    message_constants.SUCCESS: 'alert-success',
+    message_constants.WARNING: 'alert-warning',
+    message_constants.ERROR: 'alert-danger'
+}
+
 FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 
 # upload_to_s3 task settings

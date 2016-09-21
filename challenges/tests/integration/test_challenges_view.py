@@ -60,14 +60,22 @@ def test_redirects_to_login_for_anonymous(client):
     assert response.status_code == 302
 
 @pytest.mark.django_db
-def test_404s_on_non_user_membership(client):
+def test_404s_on_non_existant_membership(client):
+    user = UserFactory(username="username", password="password")
+
+    client.login(username="username", password="password")
+    response = client.get('/challenges/', {'membership': 1})
+    assert response.status_code == 404
+
+@pytest.mark.django_db
+def test_redirects_on_non_user_membership(client):
     challenges = ChallengeFactory.create_batch(2, draft=False)
     user = UserFactory(username="username", password="password")
     membership = MembershipFactory(challenges=[challenges[0]])
 
     client.login(username="username", password="password")
     response = client.get('/challenges/', {'membership': membership.id})
-    assert response.status_code == 404
+    assert response.status_code == 302
 
 @pytest.mark.django_db
 def test_challenges_filters_drafts(client, challenge, challenge2, student):

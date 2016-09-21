@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse, Http404
 from django.core.exceptions import ValidationError
@@ -20,7 +20,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.base import View, TemplateView
 from django.utils.decorators import method_decorator
-from memberships.models import Membership
+from memberships.models import Membership, Member
 from memberships.decorators import enforce_membership_challenge_access
 from django.db.models import Count
 from urllib.parse import quote_plus
@@ -85,8 +85,10 @@ def challenges(request):
 
     membership = None
     if (membership_id):
-        user_memberships = Membership.objects.filter(members=request.user)
-        membership = get_object_or_404(user_memberships, id=membership_id)
+        membership = get_object_or_404(Membership, id=membership_id)
+        if not Member.objects.filter(membership=membership, user=request.user).exists():
+            messages.error(request, "The page you are trying to view is only available to members of %s." % membership.display_name)
+            return redirect("challenges:challenges")
 
     filter_id = request.GET.get('filter_id')
     active_filter = None

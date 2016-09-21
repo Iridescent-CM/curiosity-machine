@@ -54,6 +54,16 @@
         {% include active_filter.header_template %}
       {% endif %}
       <div class="all-challenges-cards">
+
+        {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissable fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ message }}
+        </div>
+        {% endfor %}
+
         <div class="row text-center">
           {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
         </div>
