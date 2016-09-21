@@ -59,35 +59,12 @@ remove_free.short_description = "Unmark selected challenges as free"
 
 class ChallengeAdmin(admin.ModelAdmin):
     filter_horizontal = ('reflect_questions',)
-    list_display = ['__str__', 'name', 'draft', 'free']
+    list_display = ['__str__', 'name', 'draft', 'free', 'order']
     list_filter = ['draft', 'free']
+    list_editable = ['order']
+    raw_id_fields = ['video', 'image', 'landing_image']
     actions = [make_draft, remove_draft, make_free, remove_free]
     inlines = (ResourceInline,)
-
-    def get_form(self, request, obj=None, **kwargs):
-        request._obj_ = obj
-        return super(ChallengeAdmin, self).get_form(request, obj, **kwargs)
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if request.method == 'GET':
-            if db_field.name == 'video':
-                if request._obj_ is not None and request._obj_.video is not None:
-                    kwargs["queryset"] = Video.objects.filter(source_url = request._obj_.video.source_url)
-                else:
-                    kwargs["queryset"] = Video.objects.none()
-
-            if db_field.name == 'image':
-                if request._obj_ is not None and request._obj_.image is not None:
-                    kwargs["queryset"] = Image.objects.filter(source_url = request._obj_.image.source_url)
-                else:
-                    kwargs["queryset"] = Image.objects.none()
-
-            if db_field.name == 'landing_image':
-                if request._obj_ is not None and request._obj_.landing_image is not None:
-                    kwargs["queryset"] = Image.objects.filter(source_url = request._obj_.landing_image.source_url)
-                else:
-                    kwargs["queryset"] = Image.objects.none()
-        return super(ChallengeAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class CommentInline(admin.StackedInline):
