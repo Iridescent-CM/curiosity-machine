@@ -41,17 +41,6 @@
     </div>
     {% endif %}
 
-    <!-- student who has not started the design challenge -->
-    {% if request.user.profile.is_student and not progress %}
-    <div id="student-not-started" class="examples-page-alerts text-center p-a-md m-y-md">
-      <h3>Want to {{ challenge.name }}?</h3>
-      <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
-      {% csrf_token %}
-        <input type="submit" value="Start Building" class="btn btn-primary"/>
-      </form>
-    </div>
-    {% endif %}
-
     <!-- student who has started the challenge AND posted in Reflect progress -->
     {% if progress.completed and not user_example %}
     <div id="student-completed" class="examples-page-alerts text-center p-a-md m-y-md">

@@ -341,7 +341,6 @@ def test_examples_view_for_student_without_progress(client):
     assert not response.context['user_example']
 
     d = pq(response.content)
-    assert d('#student-not-started')
     assert not d('#student-in-progress')
     assert not d('#student-completed')
     assert not d('#student-example-pending')
@@ -360,7 +359,6 @@ def test_examples_view_for_student_with_progress_without_example(client):
     assert not response.context['user_example']
 
     d = pq(response.content)
-    assert not d('#student-not-started')
     assert d('#student-in-progress')
     assert not d('#student-completed')
     assert not d('#student-example-pending')
@@ -379,7 +377,6 @@ def test_examples_view_for_student_with_completed_progress_without_example(clien
     assert not response.context['user_example']
 
     d = pq(response.content)
-    assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert d('#student-completed')
     assert not d('#student-example-pending')
@@ -400,7 +397,6 @@ def test_examples_view_for_student_with_completed_progress_with_example_pending(
     assert example in response.context['examples']
 
     d = pq(response.content)
-    assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert not d('#student-completed')
     assert d('#student-example-pending')
@@ -421,7 +417,6 @@ def test_examples_view_for_student_with_completed_progress_with_example_approved
     assert example in response.context['examples']
 
     d = pq(response.content)
-    assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert not d('#student-completed')
     assert not d('#student-example-pending')
@@ -442,7 +437,6 @@ def test_examples_view_for_student_with_completed_progress_with_example_rejected
     assert example not in response.context['examples']
 
     d = pq(response.content)
-    assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert d('#student-completed')
     assert not d('#student-example-pending')
@@ -456,7 +450,6 @@ def test_examples_view_for_non_student(client):
     response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
 
     d = pq(response.content)
-    assert not d('#student-not-started')
     assert not d('#student-in-progress')
     assert not d('#student-completed')
     assert not d('#student-example-pending')
