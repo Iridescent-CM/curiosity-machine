@@ -96,7 +96,7 @@ def challenges(request):
     if (membership_id):
         membership = Membership.objects.filter(id=membership_id, members=request.user).first()
         if not membership:
-            messages.error(request, "Oops! You are not a part of that membership.")
+            messages.error(request, "Oops! You are not part of that membership.")
             return redirect("challenges:challenges")
 
     filter_id = _get_int_or_404(request.GET, 'filter_id')
