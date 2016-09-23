@@ -54,7 +54,9 @@ body {
   display: inline-block;
 }
 
-.errors, .error {
+.errors,
+.error,
+.alert-danger {
   color: red;
   text-transform: uppercase;
   font-weight: 600;
@@ -198,7 +200,8 @@ body {
   letter-spacing: 1px;
   text-transform: uppercase;color: white;
   z-index: 99999;
-  &.success{
+  &.success,
+	&.alert-success {
     background: rgba(147, 184, 104, 0.9);
     border-bottom: 1px solid #93b868;
   }
@@ -206,11 +209,13 @@ body {
     opacity: 1;
     display: block;
   }
-  &.error{
+  &.error,
+	&.alert-danger {
     background: rgba(204, 71, 72, 0.9);
     border-bottom: 1px solid #cc4748;
   }
-  &.info {
+  &.info,
+	&.alert-info {
     background: rgba(27, 178, 196, 0.9);
     border-bottom: 1px solid #1bb2c4;
   }
