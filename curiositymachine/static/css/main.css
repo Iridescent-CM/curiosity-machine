@@ -5841,6 +5841,24 @@ footer {
   border-radius: 50%;
   padding-top: 5px; }
 
+#landing-page .landing-scroll {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  bottom: -80px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #FFFCF7;
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+  border-bottom: 0px;
+  text-align: center;
+  padding-top: 7px; }
+
+@media (max-width: 33.9em) {
+  #landing-page .landing-scroll {
+    bottom: -50px; } }
+
 @media (max-width: 61.9em) {
   #landing-page .hero {
     display: inherit !important;
