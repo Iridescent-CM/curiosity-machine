@@ -5,3 +5,50 @@ Array.prototype.forEach.call(tracklinks, function(link) {
     ga('send', 'pageview', page);
   });
 });
+
+var trackVideos = document.querySelectorAll('[data-ga-track="video"]');
+Array.prototype.forEach.call(trackVideos, function(video) {
+  var label = video.getAttribute("data-ga-label");
+
+  video.addEventListener("loadstart", function(evt){
+    ga('send', {
+      hitType: 'event', 
+      eventCategory: 'Videos',
+      eventAction: 'Loading',
+      eventLabel: label
+    });
+  });
+  video.addEventListener("playing", function(evt){
+    ga('send', {
+      hitType: 'event', 
+      eventCategory: 'Videos',
+      eventAction: 'Play',
+      eventLabel: label
+    });
+  });
+  video.addEventListener("pause", function(evt){
+    ga('send', {
+      hitType: 'event', 
+      eventCategory: 'Videos',
+      eventAction: 'Pause',
+      eventLabel: label
+    });
+  });
+  video.addEventListener("seeked", function(evt){
+    ga('send', {
+      hitType: 'event', 
+      eventCategory: 'Videos',
+      eventAction: 'Seek',
+      eventLabel: label
+    });
+  });
+  video.addEventListener("ended", function(evt){
+    ga('send', {
+      hitType: 'event', 
+      eventCategory: 'Videos',
+      eventAction: 'Ended',
+      eventLabel: label
+    });
+  });
+
+});
