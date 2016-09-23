@@ -36,7 +36,7 @@
 <div class="container">
   {% block body_rows %}
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10 offset-md-1">
       <div class="card card-module m-b-lg">
         <div class="card-block card-block-title">
           <h4 class="card-title red-type">Inspiration Video</h4>
@@ -61,9 +61,12 @@
           </div>
         </div>
       </div>
-
     </div>
-    <div class="col-md-4">
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
       <div class="card card-module m-b-lg">
         <div class="card-block card-block-title">
           <h4 class="card-title red-type">Suggested Materials</h4>
@@ -73,6 +76,29 @@
         </div>
       </div>
     </div>
+
+    <div class="col-md-6">
+      <div class="card card-module m-b-lg">
+        <div class="card-block card-block-title">
+          <h4 class="card-title red-type">Difficulty Level</h4>
+        </div>
+        <div class="card-block">
+          <div class="row m-b">
+            <div class="col-xs-4 text-center">
+              <span class="inactive-level">1</span>
+            </div>
+            <div class="col-xs-4 text-center">
+              <span class="active-level"><h2>2</h2></span>
+            </div>
+            <div class="col-xs-4 text-center">
+              <span class="inactive-level">3</span>
+            </div>
+          </div>
+          <p>This design challenge may require moderate motor skills, understanding of some abstract concepts, or uncommon materials to build.</p>
+        </div>
+      </div>
+    </div>
+
   </div>
   {% endblock %}
 </div>

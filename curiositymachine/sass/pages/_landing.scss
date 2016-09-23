@@ -37,6 +37,27 @@
     }
   }
 
+  // difficulty levels
+  .inactive-level {
+    display: inline-block;
+    background-color: $sand;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-top: 10px;
+    padding-top: 5px;
+  }
+
+  .active-level {
+    display: inline-block;
+    background-color: $primary-blue;
+    color: $ivory;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    padding-top: 5px;
+  }
+
   @include media-breakpoint-down(md) {
     .hero {
       display: inherit !important;

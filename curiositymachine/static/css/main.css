@@ -5823,6 +5823,24 @@ footer {
   #landing-page .membership-only h4 {
     margin-bottom: 0px; }
 
+#landing-page .inactive-level {
+  display: inline-block;
+  background-color: #E5E1D9;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-top: 10px;
+  padding-top: 5px; }
+
+#landing-page .active-level {
+  display: inline-block;
+  background-color: #00B1C3;
+  color: #FFFCF7;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  padding-top: 5px; }
+
 @media (max-width: 61.9em) {
   #landing-page .hero {
     display: inherit !important;
