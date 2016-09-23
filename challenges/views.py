@@ -76,9 +76,18 @@ def _decorate_started(request, challenges):
             challenge.started = challenge in started_challenges
     return challenges
 
+def _get_int_or_404(params, key):
+    value = params.get(key)
+    if value:
+        try:
+            value = int(value)
+        except ValueError:
+            raise Http404
+    return value
+
 
 def challenges(request):
-    membership_id = request.GET.get('membership')
+    membership_id = _get_int_or_404(request.GET, 'membership')
 
     if membership_id and not request.user.is_authenticated():
         return HttpResponseRedirect('%s?next=%s' % (reverse('login'), quote_plus(request.get_full_path())))
@@ -90,10 +99,10 @@ def challenges(request):
             messages.error(request, "Oops! You are not a part of that membership.")
             return redirect("challenges:challenges")
 
-    filter_id = request.GET.get('filter_id')
+    filter_id = _get_int_or_404(request.GET, 'filter_id')
     active_filter = None
     if (filter_id):
-        active_filter = get_object_or_404(Filter, id=filter_id)
+        active_filter = get_object_or_404(Filter.objects.filter(visible=True), id=filter_id)
 
     active_theme_name = request.GET.get('theme')
 

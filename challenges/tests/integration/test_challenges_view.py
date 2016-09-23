@@ -24,7 +24,7 @@ def test_challenges_render_challenges(client, challenge, student):
     assert response.context['challenges'][0] == challenge
 
 @pytest.mark.django_db
-def test_challenges_filters_by_name(client, challenge, challenge2, theme, student):
+def test_challenges_filters_by_theme_name(client, challenge, challenge2, theme, student):
     challenge.themes.add(theme)
     challenge.save()
 
@@ -66,6 +66,16 @@ def test_redirects_on_non_existant_membership(client):
     client.login(username="username", password="password")
     response = client.get('/challenges/', {'membership': 1})
     assert response.status_code == 302
+
+@pytest.mark.django_db
+def test_404s_on_non_int_query_params(client):
+    client.login(username="username", password="password")
+
+    response = client.get('/challenges/', {'membership': 'x'})
+    assert response.status_code == 404
+
+    response = client.get('/challenges/', {'filter_id': 'x'})
+    assert response.status_code == 404
 
 @pytest.mark.django_db
 def test_redirects_on_non_user_membership(client):
