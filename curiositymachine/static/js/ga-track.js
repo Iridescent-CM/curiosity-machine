@@ -15,7 +15,8 @@ Array.prototype.forEach.call(trackVideos, function(video) {
       hitType: 'event', 
       eventCategory: 'Videos',
       eventAction: 'Loading',
-      eventLabel: label
+      eventLabel: label,
+      nonInteraction: true
     });
   });
   video.addEventListener("playing", function(evt){
@@ -47,7 +48,8 @@ Array.prototype.forEach.call(trackVideos, function(video) {
       hitType: 'event', 
       eventCategory: 'Videos',
       eventAction: 'Ended',
-      eventLabel: label
+      eventLabel: label,
+      nonInteraction: true
     });
   });
 
