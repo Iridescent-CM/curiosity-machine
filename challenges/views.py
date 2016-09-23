@@ -85,9 +85,9 @@ def challenges(request):
 
     membership = None
     if (membership_id):
-        membership = get_object_or_404(Membership, id=membership_id)
-        if not Member.objects.filter(membership=membership, user=request.user).exists():
-            messages.error(request, "The page you are trying to view is only available to members of %s." % membership.display_name)
+        membership = Membership.objects.filter(id=membership_id, members=request.user).first()
+        if not membership:
+            messages.error(request, "Oops! You are not a part of that membership.")
             return redirect("challenges:challenges")
 
     filter_id = request.GET.get('filter_id')
