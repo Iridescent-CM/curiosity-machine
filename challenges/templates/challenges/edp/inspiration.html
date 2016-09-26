@@ -85,15 +85,15 @@
         </div>
         <div class="card-block">
           <div class="row m-b">
+            {% for level in challenge_difficulties %}
             <div class="col-xs-4 text-center">
-              <span class="inactive-level">1</span>
+              {% if challenge.difficulty_level == level.0 %}
+              <span class="active-level"><h2>{{ level.1 }}</h2></span>
+              {% else %}
+              <span class="inactive-level">{{ level.1 }}</span>
+              {% endif %}
             </div>
-            <div class="col-xs-4 text-center">
-              <span class="active-level"><h2>2</h2></span>
-            </div>
-            <div class="col-xs-4 text-center">
-              <span class="inactive-level">3</span>
-            </div>
+            {% endfor %}
           </div>
           <p>This design challenge may require moderate motor skills, understanding of some abstract concepts, or uncommon materials to build.</p>
         </div>
