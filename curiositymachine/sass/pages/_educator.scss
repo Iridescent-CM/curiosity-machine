@@ -3,3 +3,44 @@
     margin: $base-spacing auto;
   }
 }
+
+#educator-dashboard {
+  .dashboard-avatar img {
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px 0px $main-shadow;
+  }
+
+  .jumbotron {
+    color: $ivory;
+
+    h1 {
+      margin-bottom: $small-spacing !important;
+    }
+  }
+
+  .edu-dash-nav {
+    border-bottom: 2px $dark solid;
+
+    ul {
+      list-style-type: none;
+      text-transform: uppercase;
+      font-size: 0.875em;
+      letter-spacing: 2px;
+      padding-left: 0px;
+      margin-bottom: 0px;
+
+      li {
+        display: inline-block;
+        // text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 5px solid $dark;
+
+        a {
+          margin: 0px 15px;
+          border-bottom: 0px;
+        }
+      }
+    }
+  }
+}
