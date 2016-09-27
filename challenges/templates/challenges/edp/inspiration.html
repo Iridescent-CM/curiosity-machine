@@ -95,7 +95,19 @@
             </div>
             {% endfor %}
           </div>
-          <p>This design challenge may require moderate motor skills, understanding of some abstract concepts, or uncommon materials to build.</p>
+          {% if challenge.difficulty_level == 1 %}
+          <p>
+            This design challenge requires simple motor skills, understanding of straightforward concepts, or common materials to build.
+          </p>
+          {% elif challenge.difficulty_level == 2 %}
+          <p>
+            This design challenge may require moderate motor skills, understanding of some abstract concepts, or uncommon materials to build.
+          </p>
+          {% elif challenge.difficulty_level == 3 %}
+          <p>
+            This design challenge may require complex motor skills, understanding of abstract concepts, or unusual materials to build.
+          </p>
+          {% endif %}
         </div>
       </div>
     </div>
