@@ -88,7 +88,7 @@
             {% for level in challenge_difficulties %}
             <div class="col-xs-4 text-center">
               {% if challenge.difficulty_level == level.0 %}
-              <span class="active-level"><h2>{{ level.1 }}</h2></span>
+              <span class="active-level">{{ level.1 }}</span>
               {% else %}
               <span class="inactive-level">{{ level.1 }}</span>
               {% endif %}

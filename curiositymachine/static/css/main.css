@@ -5839,7 +5839,9 @@ footer {
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  padding-top: 5px; }
+  font-size: 2em;
+  font-weight: 300;
+  font-family: "Raleway", Helvetica, sans-serif; }
 
 #landing-page .landing-scroll {
   display: block;
