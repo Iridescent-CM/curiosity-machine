@@ -110,24 +110,7 @@
     <script type="text/javascript" src="{% static 'js/libs/bootstrap4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/modals.js' %}"></script>
-
-    <!-- function for smooth scrolling to anchors  -->
-    <script>
-      $(function() {
-        $('a[href*="#"]:not([href="#"])').click(function() {
-          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-            var target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-            if (target.length) {
-              $('html, body').animate({
-                scrollTop: target.offset().top
-              }, 1000);
-              return false;
-            }
-          }
-        });
-      });
-    </script>
+    <script type="text/javascript" src="{% static 'js/libs/smoothscroll.js' %}"></script>
   {% endcompress %}
   {% block js %}{% endblock %}
 
