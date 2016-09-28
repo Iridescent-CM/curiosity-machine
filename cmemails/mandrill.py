@@ -57,7 +57,7 @@ def send_template(template_name, to=[], cc=[], merge_vars={}, **kwargs):
         })
         results = mandrill_client.messages.send_template(template_name=template_name, template_content=[], message=message)
 
-        unsent_results = [result in results where result['status'] != "sent"]
+        unsent_results = [result for result in results if result['status'] != "sent"]
         for result in unsent_results:
             logger.warning(
                 "Unsent message, recipient: %s status: %s reason: %s",
