@@ -60,7 +60,7 @@ def send_template(template_name, to=[], cc=[], merge_vars={}, **kwargs):
         unsent_results = [result for result in results if result['status'] != "sent"]
         for result in unsent_results:
             logger.warning(
-                "Unsent message, recipient: %s status: %s reason: %s",
+                "Unsent message, recipient=%s status=%s reason=%s",
                 result['email'],
                 result['status'],
                 result['reject_reason']
