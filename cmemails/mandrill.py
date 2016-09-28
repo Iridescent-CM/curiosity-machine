@@ -55,4 +55,13 @@ def send_template(template_name, to=[], cc=[], merge_vars={}, **kwargs):
           "global_merge_vars": [{"name": k, "content": v} for k, v in merge_vars.items()],
           "preserve_recipients": True
         })
-        result = mandrill_client.messages.send_template(template_name=template_name, template_content=[], message=message)
+        results = mandrill_client.messages.send_template(template_name=template_name, template_content=[], message=message)
+
+        unsent_results = [result in results where result['status'] != "sent"]
+        for result in unsent_results:
+            logger.warning(
+                "Unsent message, recipient: %s status: %s reason: %s",
+                result['email'],
+                result['status'],
+                result['reject_reason']
+            )
