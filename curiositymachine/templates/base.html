@@ -59,10 +59,6 @@
 
 
   <script type="text/javascript" src="{% static 'js/libs/modernizr.custom.05723.js' %}"></script>
-  <!--[if (gte IE 6)&(lte IE 8)]>
-  <script type="text/javascript" src="{% static 'js/libs/webshim-gh-pages/js-webshim/minified/polyfiller.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/libs/respond/src/respond.js' %}"></script>
-  <![endif]-->
 
   {% if ga_code %}
   <script>
@@ -160,16 +156,10 @@
     <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/owl-carousel/owl.carousel.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/mediaelement/mediaelement-and-player.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libs/mediaelement/mep-feature-googleanalytics.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libs/jquery.lettering.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libs/jquery.textillate.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/coppa.js' %}"></script>
     {% block js %}{% endblock %}
   {% endcompress %}
-  <!--[if (gte IE 6)&(lte IE 8)]>
-      <script type="text/javascript" src="{% static 'js/libs/selectivizr/selectivizr-min.js' %}"></script>
-  <![endif]-->
   {% if messages %}{% for message in messages %}
     <script type="text/javascript">
       $(function() {
