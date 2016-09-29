@@ -61,6 +61,11 @@
 
       ga('create', '{{ga_code}}', 'auto');
       ga('require', 'outboundLinkTracker');
+      ga('require', 'cleanUrlTracker', {
+        stripQuery: true,
+        queryDimensionIndex: 2,
+        trailingSlash: 'add'
+      });
       ga('set', 'dimension1', '{{ga_dimension_user_type}}');
       ga('send', 'pageview');
     </script>
