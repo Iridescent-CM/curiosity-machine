@@ -46,3 +46,23 @@ def home(request):
         'units': Unit.objects.filter(draft=False).order_by('id'),
         'memberships': request.user.membership_set.all()
     })
+
+@educator_only
+@login_required
+def home_students(request):
+    return render(request, "profiles/educator/home-students.html", {
+        'form': GroupForm(),
+        'groups': request.user.cm_groups.all(),
+        'units': Unit.objects.filter(draft=False).order_by('id'),
+        'memberships': request.user.membership_set.all()
+    })
+
+@educator_only
+@login_required
+def home_units(request):
+    return render(request, "profiles/educator/home-units.html", {
+        'form': GroupForm(),
+        'groups': request.user.cm_groups.all(),
+        'units': Unit.objects.filter(draft=False).order_by('id'),
+        'memberships': request.user.membership_set.all()
+    })

@@ -5148,6 +5148,63 @@ i {
   .card-module .card-block-title h1, .card-module .card-block-title h2, .card-module .card-block-title h3, .card-module .card-block-title h4 {
     margin-bottom: 0px; }
 
+.expandable-challenge-card {
+  background-color: #FFFCF7;
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+  min-height: 165px; }
+  .expandable-challenge-card .title {
+    min-height: 165px;
+    padding: 0.75em; }
+  .expandable-challenge-card .card-img-left {
+    float: left;
+    margin-right: 0.75em; }
+  .expandable-challenge-card h3 a {
+    color: #333333; }
+    .expandable-challenge-card h3 a:focus {
+      color: #F55932; }
+  .expandable-challenge-card .expandable-challenge-card-more-info {
+    padding: 0.75em 0.75em 1.5em 0.75em;
+    background-color: #FFFCF7;
+    border-top: 2px solid #E5E1D9;
+    color: #333333;
+    z-index: 2; }
+    .expandable-challenge-card .expandable-challenge-card-more-info h6 {
+      text-transform: capitalize;
+      font-size: 0.875em;
+      letter-spacing: 2px; }
+    .expandable-challenge-card .expandable-challenge-card-more-info ul.resources-list {
+      padding-left: 0px;
+      list-style-type: none; }
+      .expandable-challenge-card .expandable-challenge-card-more-info ul.resources-list li {
+        margin-bottom: 0.75em; }
+      .expandable-challenge-card .expandable-challenge-card-more-info ul.resources-list li:before {
+        content: "\e904";
+        font-family: 'curiosity-machine';
+        speak: none;
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        color: #FFFCF7;
+        background-color: #8FB559;
+        border-radius: 50%;
+        padding-left: 5px;
+        margin-right: 5px;
+        box-shadow: 0px 2px 2px 0px rgba(148, 148, 148, 0.5); }
+  .expandable-challenge-card .expandable-challenge-card-toggle {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 15px;
+    padding: 3px 7px;
+    background-color: #bcb19c;
+    z-index: 100;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    color: white;
+    border-bottom: 0px; }
+    .expandable-challenge-card .expandable-challenge-card-toggle:focus {
+      background-color: #F55932; }
+
 .modal-close {
   color: #fff;
   font-size: 3em;
@@ -5559,8 +5616,9 @@ footer {
 
 #educator-dashboard .jumbotron, #educator-dashboard .jumbotron-green, #educator-dashboard .jumbotron-dark, #educator-dashboard .jumbotron-dark-pattern {
   color: #FFFCF7; }
-  #educator-dashboard .jumbotron h1, #educator-dashboard .jumbotron-green h1, #educator-dashboard .jumbotron-dark h1, #educator-dashboard .jumbotron-dark-pattern h1 {
-    margin-bottom: 0.75em !important; }
+  #educator-dashboard .jumbotron ul, #educator-dashboard .jumbotron-green ul, #educator-dashboard .jumbotron-dark ul, #educator-dashboard .jumbotron-dark-pattern ul {
+    padding-left: 0px;
+    list-style-type: none; }
 
 #educator-dashboard .edu-dash-nav {
   border-bottom: 2px #333333 solid; }
@@ -5573,11 +5631,21 @@ footer {
     margin-bottom: 0px; }
     #educator-dashboard .edu-dash-nav ul li {
       display: inline-block;
-      padding-bottom: 10px;
-      border-bottom: 5px solid #333333; }
+      padding-bottom: 10px; }
       #educator-dashboard .edu-dash-nav ul li a {
         margin: 0px 15px;
-        border-bottom: 0px; }
+        border-bottom: 0px;
+        color: #333333; }
+        #educator-dashboard .edu-dash-nav ul li a:hover, #educator-dashboard .edu-dash-nav ul li a:focus {
+          color: #00B1C3; }
+    #educator-dashboard .edu-dash-nav ul .active {
+      border-bottom: 5px solid #00B1C3; }
+      #educator-dashboard .edu-dash-nav ul .active a {
+        color: #00B1C3; }
+  @media (max-width: 61.9em) {
+    #educator-dashboard .edu-dash-nav ul li {
+      width: 30%;
+      text-align: center; } }
 
 #faq-about-page strong {
   display: inline-block;

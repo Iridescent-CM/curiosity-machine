@@ -14,8 +14,9 @@
   .jumbotron {
     color: $ivory;
 
-    h1 {
-      margin-bottom: $small-spacing !important;
+    ul {
+      padding-left: 0px;
+      list-style-type: none;
     }
   }
 
@@ -32,14 +33,28 @@
 
       li {
         display: inline-block;
-        // text-align: center;
         padding-bottom: 10px;
-        border-bottom: 5px solid $dark;
 
         a {
           margin: 0px 15px;
           border-bottom: 0px;
+          color: $dark;
+          &:hover, &:focus {
+            color: $primary-blue;
+          }
         }
+      }
+
+      .active {
+        border-bottom: 5px solid $primary-blue;
+        a { color: $primary-blue; }
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      ul li {
+        width: 30%;
+        text-align: center;
       }
     }
   }
