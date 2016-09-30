@@ -11,6 +11,8 @@ from django.core.exceptions import PermissionDenied
 
 User = get_user_model()
 
+pytestmark = pytest.mark.skip(reason="deprecated")
+
 NEW_MENTOR_USERNAME = "newbie"
 NEW_MENTOR_EMAIL = "newbie@example.com"
 NEW_MENTOR_PASSWORD = "secret"
