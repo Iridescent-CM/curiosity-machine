@@ -80,7 +80,6 @@ INSTALLED_APPS = (
     'django_bleach',
     'training',
     'cmemails',
-    'tsl',
     'compressor',
     'units',
     's3direct',
