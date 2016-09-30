@@ -305,16 +305,21 @@ def test_send_template_skips_users_without_email():
     student = profiles.factories.StudentFactory.build(email=None)
     student2 = profiles.factories.StudentFactory.build()
     with mock.patch('mandrill.Mandrill') as mandrill:
+        mandrill().messages.send_template = mock.Mock(return_value=[])
+
         send_template(template_name='foo', to=student)
         assert len(mandrill().messages.send_template.mock_calls) == 0
         send_template(template_name='foo', to=student, cc="email@example.com")
         assert len(mandrill().messages.send_template.mock_calls) == 0
         send_template(template_name='foo', to=[student, student2])
+        print("YYYYYYYYYYYYYYYYYYYYYYYY", mandrill().messages.send_template.mock_calls)
         assert len(mandrill().messages.send_template.mock_calls) == 1
 
 def test_send_template_with_merge_vars():
     student = profiles.factories.StudentFactory.build()
     with mock.patch('mandrill.Mandrill') as mandrill:
+        mandrill().messages.send_template = mock.Mock(return_value=[])
+
         send_template(template_name="foo", to=student, merge_vars={"vars": "go here", "all": "of them"})
         assert len(mandrill().messages.send_template.mock_calls) == 1
         message = mandrill().messages.send_template.call_args[1]['message']
