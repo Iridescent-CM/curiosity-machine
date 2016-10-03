@@ -13,6 +13,7 @@ urlpatterns = patterns('profiles.views',
     url(r'^join_as_parent/$', whitelist('public')(views.parent.join), name='join_as_parent'),
     url(r'^join_as_parent/(?P<source>[^/]+)/$', whitelist('public')(views.parent.join), name='join_as_parent'),
     url(r'^home/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'home'}, name='home'),
+
     # urls for new educator dashboard pages
     url(r'^home-students/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'home_students'}, name='home_students'),
     url(r'^home-units/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'home_units'}, name='home_units'),

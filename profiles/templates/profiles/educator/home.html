@@ -4,60 +4,11 @@
 {% block body-id %}educator-dashboard{% endblock %}
 
 {% block content %}
-<div class="jumbotron-fluid jumbotron-dark-pattern m-b">
-  <div class="container">
-    <div class="row">
 
-      <div class="col-md-2 col-sm-12">
-        <div class="dashboard-avatar">
-          {% include "_avatar.html" with profile=request.user.profile  width=150 height=150 crop='thumb' gravity='faces' %}
-        </div>
-      </div>
-
-      <div class="col-md-8">
-        <h1>{{ user.username }}</h1>
-        <h3 class="hidden-sm-down">{{ user.first_name }} {{ user.last_name }}</h3>
-        <ul class="hidden-sm-down">
-          <li>{{ user.email }}</li>
-        </ul>
-      </div>
-
-      <div class="col-md-2">
-        <a href="{% url 'profiles:profile_edit' %}">edit profile</a>
-      </div>
-
-    </div>
-  </div>
-</div>
+{% include 'profiles/educator/dashboard/_header.html' %}
 
 <div class="container m-b-lg">
-  <div class="row m-b-lg">
-    <div class="col-md-12">
-      <nav class="edu-dash-nav">
-        <ul>
-
-          <li class="active">
-            <a href="{% url 'profiles:home' %}">
-              my design challenges
-            </a>
-          </li>
-
-          <li>
-            <a href="{% url 'profiles:home_students' %}">
-              my students
-            </a>
-          </li>
-
-          <li>
-            <a href="{% url 'profiles:home_units' %}">
-              units &amp; guides
-            </a>
-          </li>
-
-        </ul>
-      </nav>
-    </div>
-  </div>
+  {% include 'profiles/educator/dashboard/_navigation.html' %}
 
   <div class="row m-b">
     <div class="col-md-12">
@@ -169,14 +120,8 @@
 
   </div>
 
-  <div class="row m-t-lg">
-    <div class="col-md-12">
-      <div class="membership-blurb well dotted-well text-center">
-        <h2>Curiosity Machine is better with a Membership</h2>
-        <p>With a membership, you can view your students’ progress, access more design challenges and exclusive resources, and are also guaranteed access to all upcoming features. To learn more about what memberships offer, check out our memberships about page and fill out our interest form!</p>
-        <a href="#" class="btn btn-primary">Fill Out Interest Form</a>
-      </div>
-    </div>
+  <div class="m-t-lg">
+  {% include 'profiles/educator/dashboard/_membership-blurb.html' %}
   </div>
 
 </div>

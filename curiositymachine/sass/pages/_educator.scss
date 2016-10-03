@@ -20,6 +20,13 @@
     }
   }
 
+  // .edit-profile {
+  //   text-transform: uppercase;
+  //   font-size: 0.875em;
+  //   letter-spacing: 2px;
+  //   border-bottom: 0px;
+  // }
+
   @include media-breakpoint-down(sm) {
     .jumbotron {
       text-align: center;

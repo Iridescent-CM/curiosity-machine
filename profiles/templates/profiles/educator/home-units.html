@@ -5,57 +5,13 @@
 {% block body-id %}educator-dashboard{% endblock %}
 
 {% block content %}
-<div class="jumbotron-fluid jumbotron-dark-pattern m-b">
-  <div class="container">
-    <div class="row">
 
-      <div class="col-md-2 col-sm-12">
-        <div class="dashboard-avatar">
-          {% include "_avatar.html" with profile=request.user.profile  width=150 height=150 crop='thumb' gravity='faces' %}
-        </div>
-      </div>
+{% include 'profiles/educator/dashboard/_header.html' %}
 
-      <div class="col-md-8">
-        <h1>{{ user.username }}</h1>
-        <h3 class="hidden-sm-down">{{ user.first_name }} {{ user.last_name }}</h3>
-        <ul class="hidden-sm-down">
-          <li>{{ user.email }}</li>
-        </ul>
-      </div>
-
-      <div class="col-md-2">
-        <a href="{% url 'profiles:profile_edit' %}">edit profile</a>
-      </div>
-
-    </div>
-  </div>
-</div>
 <div class="container m-b-lg">
-  <div class="row m-b-lg">
-    <div class="col-md-12">
-      <nav class="edu-dash-nav">
-        <ul>
-          <li>
-            <a href="{% url 'profiles:home' %}">
-              my design challenges
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'profiles:home_students' %}">
-              my students
-            </a>
-          </li>
-          <li class="active">
-            <a href="{% url 'profiles:home_units' %}">
-              units &amp; guides
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
+  {% include 'profiles/educator/dashboard/_navigation.html' %}
 
-  <div class="row m-b-lg">
+  <div class="row m-b">
     <div class="col-md-12">
       <h1>Units &amp; Guides</h1>
     </div>
@@ -96,9 +52,9 @@
     {% endfor %}
   </div>
 
-  <div class="row">
+  <div class="row m-b-lg">
     <div class="col-md-12">
-      <h1>Downloads</h1>
+      <h1>Other Resources &amp; Downloads</h1>
 
       <ul>
         <li>
@@ -114,6 +70,8 @@
       </ul>
     </div>
   </div>
+
+  {% include 'profiles/educator/dashboard/_membership-blurb.html' %}
 
 </div>
 {% endblock %}
