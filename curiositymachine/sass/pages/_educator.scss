@@ -20,8 +20,17 @@
     }
   }
 
+  @include media-breakpoint-down(sm) {
+    .jumbotron {
+      text-align: center;
+    }
+    .dashboard-avatar {
+      display: inline-block;
+    }
+  }
+
   .edu-dash-nav {
-    border-bottom: 2px $dark solid;
+    border-bottom: 2px $sand solid;
 
     ul {
       list-style-type: none;
@@ -39,6 +48,8 @@
           margin: 0px 15px;
           border-bottom: 0px;
           color: $dark;
+          text-align: center;
+
           &:hover, &:focus {
             color: $primary-blue;
           }
@@ -53,9 +64,16 @@
 
     @include media-breakpoint-down(md) {
       ul li {
-        width: 30%;
+        width: 32%;
         text-align: center;
       }
+    }
+
+    @include media-breakpoint-down(sm) {
+      ul li {
+        width: 100%;
+      }
+      ul .active { border-bottom: 0px }
     }
   }
 }

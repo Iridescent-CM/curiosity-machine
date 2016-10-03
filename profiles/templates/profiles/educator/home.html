@@ -8,7 +8,7 @@
   <div class="container">
     <div class="row">
 
-      <div class="col-md-2">
+      <div class="col-md-2 col-sm-12">
         <div class="dashboard-avatar">
           {% include "_avatar.html" with profile=request.user.profile  width=150 height=150 crop='thumb' gravity='faces' %}
         </div>
@@ -16,8 +16,8 @@
 
       <div class="col-md-8">
         <h1>{{ user.username }}</h1>
-        <h3>{{ user.first_name }} {{ user.last_name }}</h3>
-        <ul>
+        <h3 class="hidden-sm-down">{{ user.first_name }} {{ user.last_name }}</h3>
+        <ul class="hidden-sm-down">
           <li>{{ user.email }}</li>
         </ul>
       </div>
@@ -171,7 +171,7 @@
 
   <div class="row m-t-lg">
     <div class="col-md-12">
-      <div class="membership-blurb well text-center">
+      <div class="membership-blurb well dotted-well text-center">
         <h2>Curiosity Machine is better with a Membership</h2>
         <p>With a membership, you can view your students’ progress, access more design challenges and exclusive resources, and are also guaranteed access to all upcoming features. To learn more about what memberships offer, check out our memberships about page and fill out our interest form!</p>
         <a href="#" class="btn btn-primary">Fill Out Interest Form</a>

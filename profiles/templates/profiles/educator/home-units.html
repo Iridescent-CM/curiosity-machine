@@ -1,5 +1,6 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load staticfiles %}
+{% load resized %}
 {% block title %}Curiosity Machine - Home{% endblock %}
 {% block body-id %}educator-dashboard{% endblock %}
 
@@ -8,7 +9,7 @@
   <div class="container">
     <div class="row">
 
-      <div class="col-md-2">
+      <div class="col-md-2 col-sm-12">
         <div class="dashboard-avatar">
           {% include "_avatar.html" with profile=request.user.profile  width=150 height=150 crop='thumb' gravity='faces' %}
         </div>
@@ -16,8 +17,8 @@
 
       <div class="col-md-8">
         <h1>{{ user.username }}</h1>
-        <h3>{{ user.first_name }} {{ user.last_name }}</h3>
-        <ul>
+        <h3 class="hidden-sm-down">{{ user.first_name }} {{ user.last_name }}</h3>
+        <ul class="hidden-sm-down">
           <li>{{ user.email }}</li>
         </ul>
       </div>
@@ -54,33 +55,64 @@
     </div>
   </div>
 
-  <div class="row">
-    <h1>Units &amp; Guides</h1>
+  <div class="row m-b-lg">
+    <div class="col-md-12">
+      <h1>Units &amp; Guides</h1>
+    </div>
 
-    <ul id="unit-carousel" class="challenges-list owl-carousel">
-      {% for unit in units %}
-        {% include "units/_unit_item.html" with unit=unit %}
-      {% empty %}
-        <li><h3>No units</h3></li>
-      {% endfor %}
-    </ul>
+    {% for unit in units %}
+      <div class="col-md-6 m-b">
+        <div class="expandable-challenge-card">
+          <div class="expandable-challenge-card-info">
+            <a href="{% url 'units:unit' unit.id %}" class="action-img">
+              {% if unit.image %}
+                <img class="card-img-left" src="{% resized unit.image.url width=165 height=165 crop='fill' %}" alt="Challenge Name">
+              {% endif %}
+            </a>
+            <div class="title">
+              <h3>
+                <a href="{% url 'units:unit' unit.id %}" class="action-img">
+                  {{ unit.name }}
+                </a>
+              </h3>
+
+              <a class="expandable-challenge-card-toggle" data-text-swap="- LESS INFO" data-toggle="collapse" href="#moreInfo1" aria-expanded="false" aria-controls="moreInfo1">
+                + MORE INFO
+              </a>
+            </div>
+          </div>
+          <div class="collapse" id="moreInfo1">
+            <div class="expandable-challenge-card-more-info">
+              <h6>DESCRIPTION</h6>
+              <p>{{ unit.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-md-12">
+        <h3>No units</h3>
+      </div>
+    {% endfor %}
   </div>
 
   <div class="row">
-    <h1>Downloads</h1>
+    <div class="col-md-12">
+      <h1>Downloads</h1>
 
-    <ul>
-      <li>
-        <a href="#">
-          list item 1
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          list item 1
-        </a>
-      </li>
-    </ul>
+      <ul>
+        <li>
+          <a href="#">
+            NGSS Alignment Standards
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            Parent permission form
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 
 </div>

@@ -5202,6 +5202,8 @@ i {
     letter-spacing: 2px;
     color: white;
     border-bottom: 0px; }
+    .expandable-challenge-card .expandable-challenge-card-toggle:hover {
+      background-color: #c6bdac; }
     .expandable-challenge-card .expandable-challenge-card-toggle:focus {
       background-color: #F55932; }
 
@@ -5285,6 +5287,10 @@ i {
     border-color: #E5E1D9; }
   .table td {
     border-color: #E5E1D9; }
+
+.dotted-well {
+  background-color: #efede8;
+  border: 3px dashed #bcb19c; }
 
 header {
   background-color: #FFFCF7;
@@ -5620,8 +5626,14 @@ footer {
     padding-left: 0px;
     list-style-type: none; }
 
+@media (max-width: 47.9em) {
+  #educator-dashboard .jumbotron, #educator-dashboard .jumbotron-green, #educator-dashboard .jumbotron-dark, #educator-dashboard .jumbotron-dark-pattern {
+    text-align: center; }
+  #educator-dashboard .dashboard-avatar {
+    display: inline-block; } }
+
 #educator-dashboard .edu-dash-nav {
-  border-bottom: 2px #333333 solid; }
+  border-bottom: 2px #E5E1D9 solid; }
   #educator-dashboard .edu-dash-nav ul {
     list-style-type: none;
     text-transform: uppercase;
@@ -5635,7 +5647,8 @@ footer {
       #educator-dashboard .edu-dash-nav ul li a {
         margin: 0px 15px;
         border-bottom: 0px;
-        color: #333333; }
+        color: #333333;
+        text-align: center; }
         #educator-dashboard .edu-dash-nav ul li a:hover, #educator-dashboard .edu-dash-nav ul li a:focus {
           color: #00B1C3; }
     #educator-dashboard .edu-dash-nav ul .active {
@@ -5644,8 +5657,13 @@ footer {
         color: #00B1C3; }
   @media (max-width: 61.9em) {
     #educator-dashboard .edu-dash-nav ul li {
-      width: 30%;
+      width: 32%;
       text-align: center; } }
+  @media (max-width: 47.9em) {
+    #educator-dashboard .edu-dash-nav ul li {
+      width: 100%; }
+    #educator-dashboard .edu-dash-nav ul .active {
+      border-bottom: 0px; } }
 
 #faq-about-page strong {
   display: inline-block;

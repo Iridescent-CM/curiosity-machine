@@ -244,6 +244,10 @@
     color: white;
     border-bottom: 0px;
 
+    &:hover {
+      background-color: darken($sand, 15%);
+    }
+
     &:focus {
       background-color: $primary-red;
     }
