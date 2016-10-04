@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.utils.encoding import force_text
 from django.utils.html import format_html
+from django.contrib.admin.options import InlineModelAdmin
 from .models import Challenge, Theme, Progress, Question, Example, Filter, Resource, ResourceFile
 from .forms import ThemeForm, FilterForm
 from cmcomments.models import Comment
@@ -13,7 +14,8 @@ from django.db import models
 
 User = get_user_model()
 
-class ResourceFileInline(admin.TabularInline):
+class ResourceFileInline(InlineModelAdmin):
+    template = "admin/edit_inline/tabular_with_help_text.html"
     model = ResourceFile
     extra = 1
 
