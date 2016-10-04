@@ -5665,6 +5665,9 @@ footer {
     #educator-dashboard .edu-dash-nav ul .active {
       border-bottom: 0px; } }
 
+#educator-dashboard .student-info > span {
+  display: inline-block; }
+
 #faq-about-page strong {
   display: inline-block;
   margin-top: 1.5em; }

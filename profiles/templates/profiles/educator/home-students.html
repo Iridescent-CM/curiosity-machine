@@ -10,9 +10,49 @@
 <div class="container m-b-lg">
   {% include 'profiles/educator/dashboard/_navigation.html' %}
 
-  <div class="row m-b">
+  <div class="row">
     <div class="col-md-12">
       <h1>My Students</h1>
+    </div>
+  </div>
+
+  <div class="row m-b">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="student-info">
+              {% include "_avatar.html" with profile=request.user.profile  width=40 height=40 crop='thumb' gravity='faces' %}
+            </td>
+            <td>
+              <span>{{ user.username }}</span>
+              <span>{{ user.first_name }} {{ user.last_name }}</span>
+            </td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
