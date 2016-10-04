@@ -1,6 +1,6 @@
 import pytest
 import mock
-from . import mailer, signals
+from . import signals
 from .mandrill import send_template
 from .mailchimp import subscribe
 from django.contrib.auth import get_user_model
@@ -23,102 +23,6 @@ def student():
     student.profile.birthday = now() - timedelta(days=(365 * 16))
     student.profile.save()
     return student
-
-@pytest.mark.django_db
-def test_override_subject(student):
-	assert mailer.deliver_email('welcome', student.profile) == None
-	assert mailer.deliver_email('welcome', student.profile, subject='test') == None
-
-@pytest.mark.django_db
-def test_deliver_email_returns_none_if_it_cant_determine_user_type():
-    user = User.objects.create_user(username='user', email='user@example.com', password='password')
-    assert mailer.deliver_email('key', user.profile) == None
-
-def test_deliver_email_looks_up_config_and_calls_email_if_it_can_determine_user_type():
-    user = User(email='foo@example.com')
-    profile = Profile(role=UserRole.mentor.value)
-    profile.user = user
-    config = {
-        'mentor_some_key': {
-            'subject': 'some subject',
-            'template':'template.html'
-        }
-    }
-    mailer.email = mock.MagicMock(return_value=None)
-    with mock.patch.dict(mailer.email_info, config):
-        mailer.deliver_email('some_key', profile)
-        assert mailer.email.called
-        positional = mailer.email.call_args[0]
-        assert positional[0] == [user.email]
-        assert positional[1] == 'some subject'
-        assert 'profile' in positional[2]
-        assert positional[2]['profile'] == profile
-        assert positional[3] == 'template.html'
-
-def test_determine_user_type_mentor():
-    user = User(email='foo@example.com')
-    profile = Profile(role=UserRole.mentor.value)
-    profile.user = user
-    assert mailer.determine_user_type(profile) == mailer.MENTOR
-
-def test_determine_user_type_student():
-    user = User(email='foo@example.com')
-    profile = Profile(role=UserRole.student.value, birthday=date(1900, 1, 1))
-    profile.user = user
-    assert mailer.determine_user_type(profile) == mailer.STUDENT
-
-def test_determine_user_type_underage():
-    user = User(email='foo@example.com')
-    profile = Profile(role=UserRole.student.value, birthday=date.today())
-    profile.user = user
-    assert mailer.determine_user_type(profile) == mailer.UNDERAGE_STUDENT
-
-def test_determine_user_type_educator():
-    user = User(email='foo@example.com')
-    profile = Profile(role=UserRole.educator.value)
-    profile.user = user
-    assert mailer.determine_user_type(profile) == mailer.EDUCATOR
-
-def test_deliver_email_can_override_subject_from_config():
-    user = User(email='foo@example.com')
-    profile = Profile(role=UserRole.mentor.value)
-    profile.user = user
-    config = {
-        'mentor_some_key': {
-            'subject': 'some subject',
-            'template':'template.html'
-        }
-    }
-    mailer.email = mock.MagicMock(return_value=None)
-    with mock.patch.dict(mailer.email_info, config):
-        mailer.deliver_email('some_key', profile, subject="new subject")
-        assert mailer.email.called
-        positional = mailer.email.call_args[0]
-        assert positional[1] == 'new subject'
-
-def test_deliver_email_named_arguments_become_email_context():
-    user = User(email='foo@example.com')
-    profile = Profile(role=UserRole.mentor.value)
-    profile.user = user
-    config = {
-        'mentor_some_key': {
-            'subject': 'some subject',
-            'template':'template.html'
-        }
-    }
-    mailer.email = mock.MagicMock(return_value=None)
-    with mock.patch.dict(mailer.email_info, config):
-        mailer.deliver_email('some_key', profile, progress=1, student=2, mentor=3, stage=4, task=5)
-        assert mailer.email.called
-        positional = mailer.email.call_args[0]
-        assert positional[2] == {
-            'progress': 1,
-            'student': 2,
-            'mentor': 3,
-            'stage': 4,
-            'task': 5,
-            'profile': profile
-        }
 
 def test_send_mentor_progress_update_notice_no_mentor():
     student = profiles.factories.StudentFactory.build()

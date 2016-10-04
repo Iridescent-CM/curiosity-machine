@@ -2,13 +2,7 @@
 
 This app handles:
 
-* an old, deprecated `deliver_email` method that 
-    * uses event names together with the user type to search for an email template,
-		* builds the message and recipient list,
-		* creates a Django `EmailMessage`,
-		* enqueues a worker job to send it, 
-		* and sends it through our Postmark add-on
-* new `send` and `subscribe` methods that
+* `send` and `subscribe` methods that
     * enqueue worker jobs that issue API calls against Mandrill/Mailchimp
 * `mandrill.py` and `mailchimp.py` libraries that encapsulate our interactions with those services
 * signal handlers that largely consolidate email-sending logic in one place
@@ -17,19 +11,6 @@ This app handles:
 		* send inactive user notifications and manage activity flags
 		* send pending example notifications
 * and maybe more if something got added without updating this doc!
-
-## Deprecated
-
-The following are deprecated and should be removed when no longer in use:
-
-* `templates/`: templating is now handled within Mailchimp/Mandrill
-* `static/`: when templates go, presumably the statics can go
-* `mailer.py`: it's a mess 
-* `tasks.py`: no longer needed when mailer is gone
-* `templates.py`: no longer needed when mailer is gone
-
-Additionally the Postmark add-on should not be needed when the above are all gone, unless
-we choose to continue sending simple admin emails through it, which may be useful.
 
 ## Mandrill/Mailchimp
 
