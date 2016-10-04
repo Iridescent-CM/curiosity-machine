@@ -12,7 +12,6 @@ from challenges.models import Stage
 import profiles.factories
 import challenges.factories
 import cmcomments.factories
-import training.factories
 
 User = get_user_model()
 
@@ -234,19 +233,6 @@ def test_send_welcome_email_differentiates_user_categories():
         assert send.call_args[1]['template_name'] == 'educator-welcome'
         signals.handlers.send_welcome_email(parent)
         assert send.call_args[1]['template_name'] == 'parent-welcome'
-
-def test_handler_approved_training_task():
-    with mock.patch('cmemails.signals.handlers.send') as send:
-        approver = profiles.factories.MentorFactory.build()
-        mentor = profiles.factories.MentorFactory.build()
-
-        task = training.factories.TaskFactory.build()
-        signals.handlers.send_training_task_approval_notice(approver, mentor, task)
-        assert len(send.mock_calls) == 0
-
-        task = training.factories.TaskFactory.build(completion_email_template='template')
-        signals.handlers.send_training_task_approval_notice(approver, mentor, task)
-        assert len(send.mock_calls) == 1
 
 def test_send_template_handles_single_recipient():
     student = profiles.factories.StudentFactory.build()

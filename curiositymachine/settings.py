@@ -78,7 +78,6 @@ INSTALLED_APPS = (
     'password_reset',
     'django_summernote',
     'django_bleach',
-    'training',
     'cmemails',
     'tsl',
     'compressor',
