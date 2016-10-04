@@ -79,7 +79,6 @@ INSTALLED_APPS = (
     'django_summernote',
     'django_bleach',
     'cmemails',
-    'tsl',
     'compressor',
     'units',
     's3direct',
