@@ -284,9 +284,18 @@ class Filter(models.Model):
         return "Filter: id={}, name={}".format(self.id, self.name)
 
 class Resource(models.Model):
-    name = models.CharField(max_length=128)
-    description = models.TextField()
-    challenge = models.ForeignKey(Challenge, null=True)
+    name = models.CharField(
+        max_length=128,
+        help_text='Title for the resource, e.g. “Grade 3-5 Mini Unit”.',
+    )
+    description = models.TextField(
+        help_text="Text that describes the resource. Should be < 50 words.",
+    )
+    challenge = models.ForeignKey(
+        Challenge,
+        null=True,
+        help_text="The challenge that this resource should be associated with.",
+    )
 
     def __str__(self):
         return "Resource: id={}, name={}".format(self.id, self.name)
@@ -297,5 +306,9 @@ resource_storage = S3Storage(aws_s3_metadata={
 
 class ResourceFile(models.Model):
     file = models.FileField(upload_to="challenge_resource/%Y/%m/%d/", storage=resource_storage)
-    link_text = models.CharField(max_length=64, null=True)
+    link_text = models.CharField(
+        max_length=64,
+        null=True,
+        help_text="Text that goes on a button. Keep it short (1 - 3 words).",
+    )
     resource = models.ForeignKey(Resource)
