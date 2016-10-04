@@ -61,7 +61,7 @@ django-summernote==0.5.8
 django-bleach==0.2.0
 
 #performance monitoring
-newrelic==2.50.0.39
+newrelic==2.70.0.51
 rollbar==0.12.1
 
 #captcha

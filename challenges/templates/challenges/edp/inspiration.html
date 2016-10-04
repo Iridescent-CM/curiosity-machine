@@ -50,7 +50,9 @@
                     preload="none"
                     controls
                     poster='{% if challenge.image %}{{ challenge.image.url }}{% else %}{{challenge.video.thumbnails.first.url}}{% endif %}'
-                    id="video-element-{{challenge.video.id}}">
+                    id="video-element-{{challenge.video.id}}"
+                    data-ga-track="video"
+                    data-ga-label="{{challenge.name}} inspiration video">
                     {% for v in challenge.video.encoded_videos.all %}
                       <source src="{{v.url}}" type="{{v.mime_type}}" />
                     {% endfor %}

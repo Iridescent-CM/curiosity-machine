@@ -24,7 +24,7 @@ def test_challenges_render_challenges(client, challenge, student):
     assert response.context['challenges'][0] == challenge
 
 @pytest.mark.django_db
-def test_challenges_filters_by_name(client, challenge, challenge2, theme, student):
+def test_challenges_filters_by_theme_name(client, challenge, challenge2, theme, student):
     challenge.themes.add(theme)
     challenge.save()
 
@@ -53,14 +53,39 @@ def test_filters_by_membership(client):
     assert set(response.context['challenges']) == set(challenges[0:1])
 
 @pytest.mark.django_db
-def test_404s_on_non_user_membership(client):
+def test_redirects_to_login_for_anonymous(client):
+    membership = MembershipFactory()
+
+    response = client.get('/challenges/', {'membership': membership.id})
+    assert response.status_code == 302
+
+@pytest.mark.django_db
+def test_redirects_on_non_existant_membership(client):
+    user = UserFactory(username="username", password="password")
+
+    client.login(username="username", password="password")
+    response = client.get('/challenges/', {'membership': 1})
+    assert response.status_code == 302
+
+@pytest.mark.django_db
+def test_404s_on_non_int_query_params(client):
+    client.login(username="username", password="password")
+
+    response = client.get('/challenges/', {'membership': 'x'})
+    assert response.status_code == 404
+
+    response = client.get('/challenges/', {'filter_id': 'x'})
+    assert response.status_code == 404
+
+@pytest.mark.django_db
+def test_redirects_on_non_user_membership(client):
     challenges = ChallengeFactory.create_batch(2, draft=False)
     user = UserFactory(username="username", password="password")
     membership = MembershipFactory(challenges=[challenges[0]])
 
     client.login(username="username", password="password")
     response = client.get('/challenges/', {'membership': membership.id})
-    assert response.status_code == 404
+    assert response.status_code == 302
 
 @pytest.mark.django_db
 def test_challenges_filters_drafts(client, challenge, challenge2, student):

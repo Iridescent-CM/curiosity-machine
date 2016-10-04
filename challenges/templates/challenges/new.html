@@ -54,6 +54,9 @@
         {% include active_filter.header_template %}
       {% endif %}
       <div class="all-challenges-cards">
+
+        {% include "curiositymachine/_messages.html" %}
+
         <div class="row text-center">
           {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
         </div>
