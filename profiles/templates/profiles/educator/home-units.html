@@ -2,7 +2,8 @@
 {% load staticfiles %}
 {% load resized %}
 {% block title %}Curiosity Machine - Home{% endblock %}
-{% block body-id %}educator-dashboard{% endblock %}
+{% block body-classes %}educator-dashboard{% endblock %}
+{% block body-id %}educator-dashboard-units{% endblock %}
 
 {% block content %}
 
@@ -17,7 +18,8 @@
     </div>
   </div>
 
-  <div class="row">
+  <!--  these expandable cards need to be 2 to a row -->
+  <div class="row m-b-lg">
     {% for unit in units %}
       <div class="col-md-6 m-b">
         <div class="expandable-challenge-card">

@@ -1,7 +1,8 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load staticfiles %}
 {% block title %}Curiosity Machine - Home{% endblock %}
-{% block body-id %}educator-dashboard{% endblock %}
+{% block body-classes %}educator-dashboard{% endblock %}
+{% block body-id %}educator-dashboard-students{% endblock %}
 
 {% block content %}
 
@@ -18,13 +19,14 @@
 
   <div class="row m-b">
     <div class="col-md-12">
-      <table class="table table-striped">
+      <table class="table table-striped student-table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th width="75px">#</th>
+            <th>Name / Username</th>
+            <th>Email</th>
+            <th>Birthday</th>
+            <th>Approved</th>
           </tr>
         </thead>
         <tbody>
@@ -33,23 +35,30 @@
               {% include "_avatar.html" with profile=request.user.profile  width=40 height=40 crop='thumb' gravity='faces' %}
             </td>
             <td>
-              <span>{{ user.username }}</span>
-              <span>{{ user.first_name }} {{ user.last_name }}</span>
+              <h4>{{ user.username }}</h4>
+              <p>{{ user.first_name }} {{ user.last_name }}</p>
             </td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <td>email</td>
+            <td>birthday</td>
+            <td>approved</td>
           </tr>
           <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
+            <td class="student-info">
+              {% include "_avatar.html" with profile=request.user.profile  width=40 height=40 crop='thumb' gravity='faces' %}
+            </td>
+            <td>name</td>
+            <td>email</td>
+            <td>birthday</td>
+            <td>approved</td>
           </tr>
           <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+            <td class="student-info">
+              {% include "_avatar.html" with profile=request.user.profile  width=40 height=40 crop='thumb' gravity='faces' %}
+            </td>
+            <td>name</td>
+            <td>email</td>
+            <td>birthday</td>
+            <td>approved</td>
           </tr>
         </tbody>
       </table>

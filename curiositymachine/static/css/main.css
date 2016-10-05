@@ -5615,58 +5615,70 @@ footer {
 #educator-about-page .card {
   margin: 1.5em auto; }
 
-#educator-dashboard .dashboard-avatar img {
+.educator-dashboard .dashboard-avatar img {
   background-color: white;
   border-radius: 50%;
   box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
 
-#educator-dashboard .jumbotron, #educator-dashboard .jumbotron-green, #educator-dashboard .jumbotron-dark, #educator-dashboard .jumbotron-dark-pattern {
+.educator-dashboard .jumbotron, .educator-dashboard .jumbotron-green, .educator-dashboard .jumbotron-dark, .educator-dashboard .jumbotron-dark-pattern {
   color: #FFFCF7; }
-  #educator-dashboard .jumbotron ul, #educator-dashboard .jumbotron-green ul, #educator-dashboard .jumbotron-dark ul, #educator-dashboard .jumbotron-dark-pattern ul {
+  .educator-dashboard .jumbotron ul, .educator-dashboard .jumbotron-green ul, .educator-dashboard .jumbotron-dark ul, .educator-dashboard .jumbotron-dark-pattern ul {
     padding-left: 0px;
     list-style-type: none; }
 
 @media (max-width: 47.9em) {
-  #educator-dashboard .jumbotron, #educator-dashboard .jumbotron-green, #educator-dashboard .jumbotron-dark, #educator-dashboard .jumbotron-dark-pattern {
+  .educator-dashboard .jumbotron, .educator-dashboard .jumbotron-green, .educator-dashboard .jumbotron-dark, .educator-dashboard .jumbotron-dark-pattern {
     text-align: center; }
-  #educator-dashboard .dashboard-avatar {
+  .educator-dashboard .dashboard-avatar {
     display: inline-block; } }
 
-#educator-dashboard .edu-dash-nav {
+.educator-dashboard .edu-dash-nav {
   border-bottom: 2px #E5E1D9 solid; }
-  #educator-dashboard .edu-dash-nav ul {
+  .educator-dashboard .edu-dash-nav ul {
     list-style-type: none;
     text-transform: uppercase;
     font-size: 0.875em;
     letter-spacing: 2px;
     padding-left: 0px;
     margin-bottom: 0px; }
-    #educator-dashboard .edu-dash-nav ul li {
+    .educator-dashboard .edu-dash-nav ul li {
       display: inline-block;
       padding-bottom: 10px; }
-      #educator-dashboard .edu-dash-nav ul li a {
+      .educator-dashboard .edu-dash-nav ul li a {
         margin: 0px 15px;
         border-bottom: 0px;
         color: #333333;
         text-align: center; }
-        #educator-dashboard .edu-dash-nav ul li a:hover, #educator-dashboard .edu-dash-nav ul li a:focus {
+        .educator-dashboard .edu-dash-nav ul li a:hover, .educator-dashboard .edu-dash-nav ul li a:focus {
           color: #00B1C3; }
-    #educator-dashboard .edu-dash-nav ul .active {
-      border-bottom: 5px solid #00B1C3; }
-      #educator-dashboard .edu-dash-nav ul .active a {
-        color: #00B1C3; }
   @media (max-width: 61.9em) {
-    #educator-dashboard .edu-dash-nav ul li {
+    .educator-dashboard .edu-dash-nav ul li {
       width: 32%;
       text-align: center; } }
   @media (max-width: 47.9em) {
-    #educator-dashboard .edu-dash-nav ul li {
+    .educator-dashboard .edu-dash-nav ul li {
       width: 100%; }
-    #educator-dashboard .edu-dash-nav ul .active {
+    .educator-dashboard .edu-dash-nav ul .active {
       border-bottom: 0px; } }
 
-#educator-dashboard .student-info > span {
-  display: inline-block; }
+.educator-dashboard .student-info img {
+  border-radius: 50%;
+  background-color: white; }
+
+#educator-dashboard-home .edu-dash-nav #active-edu-home {
+  border-bottom: 5px solid #00B1C3; }
+  #educator-dashboard-home .edu-dash-nav #active-edu-home a {
+    color: #00B1C3; }
+
+#educator-dashboard-students .edu-dash-nav #active-edu-students {
+  border-bottom: 5px solid #00B1C3; }
+  #educator-dashboard-students .edu-dash-nav #active-edu-students a {
+    color: #00B1C3; }
+
+#educator-dashboard-units .edu-dash-nav #active-edu-units {
+  border-bottom: 5px solid #00B1C3; }
+  #educator-dashboard-units .edu-dash-nav #active-edu-units a {
+    color: #00B1C3; }
 
 #faq-about-page strong {
   display: inline-block;

@@ -4,7 +4,7 @@
   }
 }
 
-#educator-dashboard {
+.educator-dashboard {
   .dashboard-avatar img {
     background-color: white;
     border-radius: 50%;
@@ -55,11 +55,6 @@
           }
         }
       }
-
-      .active {
-        border-bottom: 5px solid $primary-blue;
-        a { color: $primary-blue; }
-      }
     }
 
     @include media-breakpoint-down(md) {
@@ -77,7 +72,37 @@
     }
   }
 
-  .student-info > span {
-    display: inline-block;
+  .student-info {
+
+    img {
+      border-radius: 50%;
+      background-color: white;
+    }
+  }
+}
+
+// Highlights link to active page in navigation
+#educator-dashboard-home {
+  .edu-dash-nav {
+    #active-edu-home {
+      border-bottom: 5px solid $primary-blue;
+      a { color: $primary-blue; }
+    }
+  }
+}
+#educator-dashboard-students {
+  .edu-dash-nav {
+    #active-edu-students {
+      border-bottom: 5px solid $primary-blue;
+      a { color: $primary-blue; }
+    }
+  }
+}
+#educator-dashboard-units {
+  .edu-dash-nav {
+    #active-edu-units {
+      border-bottom: 5px solid $primary-blue;
+      a { color: $primary-blue; }
+    }
   }
 }
