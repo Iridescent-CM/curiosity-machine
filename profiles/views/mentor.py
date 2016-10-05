@@ -11,7 +11,6 @@ from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.models import Profile, UserRole
 from profiles.forms.mentor import MentorUserAndProfileForm, MentorUserAndProfileChangeForm
-from training.models import Module
 from challenges.models import Progress
 from django.db import transaction
 from datetime import date
@@ -37,11 +36,6 @@ join = transaction.atomic(UserJoinView.as_view(
 
 @login_required
 def home(request):
-    training_modules = Module.objects.filter(draft=False)
-    accessible_modules = training_modules
-    completed_modules = [module for module in training_modules if module.is_finished_by_mentor(request.user)]
-    uncompleted_modules = [module for module in training_modules if not module.is_finished_by_mentor(request.user)]
-
     startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
     progresses = Progress.objects.filter(
         mentor=request.user, started__gt=startdate
@@ -86,10 +80,6 @@ def home(request):
     return render(request, "profiles/mentor/home.html", {
         'progresses': progresses,
         'unclaimed_days': unclaimed_days,
-        'training_modules': training_modules,
-        'accessible_modules': accessible_modules,
-        'completed_modules': completed_modules,
-        'uncompleted_modules': uncompleted_modules,
         'progresses_by_partnership': partnerships,
         'non_partnership': non_partnerships
     })

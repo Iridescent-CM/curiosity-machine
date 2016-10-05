@@ -41,6 +41,8 @@ class Question(models.Model):
 
 class Challenge(models.Model):
 
+    DIFFICULTY_LEVELS = ((1, 1), (2, 2), (3, 3))
+
     class Meta:
         ordering = ["order", "-id"]
 
@@ -64,6 +66,11 @@ class Challenge(models.Model):
     favorited = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Favorite', through_fields=('challenge', 'student'), related_name="favorite_challenges")
     draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown in the main challenge list")
     free = models.BooleanField(default=False, null=False, help_text="Free challenges are available to users regardless of membership")
+    difficulty_level = models.PositiveSmallIntegerField(
+        choices=DIFFICULTY_LEVELS,
+        default=1,
+        help_text="From 1 (easy) to 3 (difficult)"
+    )
 
     order = models.PositiveIntegerField(
         null=True,

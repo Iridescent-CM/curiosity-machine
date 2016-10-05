@@ -156,6 +156,7 @@ class InspirationAnonymousPreview(TemplateView):
         challenge.accessible = bool(Membership.filter_by_challenge_access(self.request.user, [challenge.id]))
 
         context['challenge'] = challenge
+        context['challenge_difficulties'] = Challenge.DIFFICULTY_LEVELS
         return context
 
 class InspirationUserView(InspirationAnonymousPreview):

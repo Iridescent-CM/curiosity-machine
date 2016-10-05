@@ -5951,6 +5951,44 @@ footer {
   #landing-page .membership-only h4 {
     margin-bottom: 0px; }
 
+#landing-page .inactive-level {
+  display: inline-block;
+  background-color: #E5E1D9;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-top: 10px;
+  padding-top: 5px; }
+
+#landing-page .active-level {
+  display: inline-block;
+  background-color: #00B1C3;
+  color: #FFFCF7;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  font-size: 2em;
+  font-weight: 300;
+  font-family: "Raleway", Helvetica, sans-serif; }
+
+#landing-page .landing-scroll {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  bottom: -80px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #FFFCF7;
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+  border-bottom: 0px;
+  text-align: center;
+  padding-top: 7px; }
+
+@media (max-width: 33.9em) {
+  #landing-page .landing-scroll {
+    bottom: -50px; } }
+
 @media (max-width: 61.9em) {
   #landing-page .hero {
     display: inherit !important;

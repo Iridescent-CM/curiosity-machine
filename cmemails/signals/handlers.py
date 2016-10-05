@@ -18,11 +18,11 @@ def send_welcome_email(sender, **kwargs):
             })
         elif sender.profile.is_educator:
             send(template_name='educator-welcome', to=sender, merge_vars={
-                'studentname': sender.username
+                'username': sender.username
             })
         elif sender.profile.is_parent:
             send(template_name='parent-welcome', to=sender, merge_vars={
-                'studentname': sender.username
+                'username': sender.username
             })
 
     if not getattr(sender, "skip_mailing_list_subscription", False):
@@ -120,11 +120,6 @@ def send_student_mentor_response_notice(sender, comment, **kwargs):
             "studentname": progress.student.username,
             "button_url": url_for_template(path)
         })
-
-@receiver(signals.approved_training_task)
-def send_training_task_approval_notice(sender, user, task, **kwargs):
-    if task.completion_email_template:
-        send(template_name=task.completion_email_template, to=user)
 
 @receiver(signals.completed_training)
 def send_training_completion_notice(sender, approver, **kwargs):

@@ -7,7 +7,6 @@ from challenges.models import Progress, Stage
 from cmcomments.models import Comment
 from .forms import AnalyticsForm
 from django.core.exceptions import PermissionDenied
-from tsl.models import Answer
 from videos.models import Mime
 
 def analytics(request):
@@ -107,40 +106,6 @@ def generate_analytics(start_date, end_date):
                 comment.text,
                 video_url if comment.video else (comment.image.url if comment.image else "")
             ])
-
-        # TSL Answers
-        answers = Answer.objects.filter(
-            created__gte=start_date,
-            created__lte=end_date
-        ).select_related(
-            'user',
-            'user__profile',
-            'video',
-            'image',
-            'question'
-        ).prefetch_related(
-            'video__encoded_videos'
-        )
-        for answer in answers:
-            if answer.video:
-                video_url = answer.video.url
-                for video in answer.video.encoded_videos.all():
-                    if video.mime_type == Mime.mp4.value:
-                        video_url = video.url
-            array = [
-                answer.user_id,
-                answer.user.username,
-                "mentor" if answer.user.profile.is_mentor else "learner",
-                "tsl video" if answer.video else ("tsl image" if answer.image else "tsl text"),
-                None,
-                answer.created.strftime('%Y-%m-%d %H:%M:%S'),
-                answer.question.id,
-                answer.user_id,
-                None,
-                answer.answer_text,
-                video_url if answer.video else (answer.image.url if answer.image else "")
-            ]
-            writer.writerow(array)
 
         fp.seek(0)
         response = HttpResponse(fp, content_type='text/csv')
