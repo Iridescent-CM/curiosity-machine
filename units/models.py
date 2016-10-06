@@ -5,10 +5,12 @@ from django.core.urlresolvers import reverse
 from images.models import Image
 from challenges.models import Challenge
 from s3direct.fields import S3DirectField
+from .validators import validate_has_non_numeric
 
 
 class Unit(models.Model):
     name = models.TextField(blank=False, null=False, help_text="name of the unit")
+    slug = models.SlugField(blank=True, null=True, help_text="unit slug, allows accessing unit through alternate url, i.e. /units/{slug}", validators=[validate_has_non_numeric])
     description = models.TextField(blank=True, null=True, help_text="blurb for the unit")
     overview = models.TextField(blank=True, null=True, help_text="overview for the unit")
     challenges = models.ManyToManyField(Challenge, through='UnitChallenge', blank=True)

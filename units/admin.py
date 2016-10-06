@@ -18,7 +18,7 @@ class UnitAdmin(admin.ModelAdmin):
     list_display = ('id','name','description', 'draft')
     list_display_links = ('id', 'name',)
     list_filter = ['draft']
-    fields = ('name', 'description', 'overview', 'image', 'standards_alignment_image', 'draft')
+    fields = ('name', 'slug', 'description', 'overview', 'image', 'standards_alignment_image', 'draft')
     inlines = [
         UnitItemInline, ResourceInline
     ]
