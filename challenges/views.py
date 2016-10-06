@@ -113,6 +113,20 @@ class MembershipChallenges(FilterSet):
             "active": membership.id == self.applied
         } for membership in user_memberships]
 
+class CoreChallenges(FilterSet):
+    query_param = "free"
+
+    def apply(self):
+        self.applied = True
+        return "Free Design Challenges", Challenge.objects.filter(core=True), None
+
+    def get_template_contexts(self):
+        return [{
+            "text": "Free Challenges",
+            "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
+            "active": bool(self.applied)
+        }]
+
 class FilterChallenges(FilterSet):
     query_param = "filter_id"
 
@@ -149,6 +163,7 @@ class ThemeChallenges(FilterSet):
 def challenges(request):
     filtersets = [
         MembershipChallenges(request),
+        CoreChallenges(request),
         FilterChallenges(request),
         ThemeChallenges(request)
     ]
