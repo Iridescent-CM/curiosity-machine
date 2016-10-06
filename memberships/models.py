@@ -9,6 +9,7 @@ from tempfile import TemporaryFile
 from datetime import timedelta
 from challenges.models import Challenge
 from profiles.models import UserRole, Profile
+from units.models import Unit
 from memberships.importer import BulkImporter, Status
 from memberships.validators import member_import_csv_validator
 import logging
@@ -28,6 +29,7 @@ class Membership(models.Model):
 
     challenges = models.ManyToManyField(Challenge, blank=True)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Member', through_fields=('membership', 'user'), blank=True)
+    units = models.ManyToManyField(Unit, blank=True)
 
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
