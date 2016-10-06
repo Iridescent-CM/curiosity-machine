@@ -121,11 +121,6 @@ def send_student_mentor_response_notice(sender, comment, **kwargs):
             "button_url": url_for_template(path)
         })
 
-@receiver(signals.approved_training_task)
-def send_training_task_approval_notice(sender, user, task, **kwargs):
-    if task.completion_email_template:
-        send(template_name=task.completion_email_template, to=user)
-
 @receiver(signals.completed_training)
 def send_training_completion_notice(sender, approver, **kwargs):
     send(template_name='mentor-account-approved', to=sender)
