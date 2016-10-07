@@ -56,19 +56,18 @@
         }
       }
     }
+  }
 
-    @include media-breakpoint-down(md) {
-      ul li {
-        width: 32%;
-        text-align: center;
-      }
+  @include media-breakpoint-down(md) {
+    ul li {
+      width: 32%;
+      text-align: center;
     }
+  }
 
-    @include media-breakpoint-down(sm) {
-      ul li {
-        width: 100%;
-      }
-      ul .active { border-bottom: 0px }
+  @include media-breakpoint-down(sm) {
+    ul li {
+      width: 100%;
     }
   }
 
@@ -87,6 +86,8 @@
     #active-edu-home {
       border-bottom: 5px solid $primary-blue;
       a { color: $primary-blue; }
+
+      @include media-breakpoint-down(md) { border-bottom: 0px; }
     }
   }
 }
@@ -95,6 +96,8 @@
     #active-edu-students {
       border-bottom: 5px solid $primary-blue;
       a { color: $primary-blue; }
+
+      @include media-breakpoint-down(md) { border-bottom: 0px; }
     }
   }
 }
@@ -103,6 +106,8 @@
     #active-edu-units {
       border-bottom: 5px solid $primary-blue;
       a { color: $primary-blue; }
+
+      @include media-breakpoint-down(md) { border-bottom: 0px; }
     }
   }
 }
