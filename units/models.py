@@ -18,7 +18,7 @@ class Unit(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="image")
     standards_alignment_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="unit")
-    draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown on the main units page")
+    listed = models.BooleanField(default=False, null=False, help_text="This unit should be visible in the units listing for all users")
 
     def get_absolute_url(self):
         return reverse('units:unit', kwargs={
