@@ -1,7 +1,9 @@
 from django.contrib import admin
+from django.contrib.admin.options import InlineModelAdmin
 from django.http import HttpResponse
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
+from django.templatetags.static import static
 from memberships.models import Membership, Member, MemberLimit, MemberImport
 from memberships.importer import Status
 
@@ -29,7 +31,8 @@ class PastMemberImportInline(admin.TabularInline):
             key = Status(obj.status)
         return self.messages[key]
 
-class NewMemberImportInline(admin.StackedInline):
+class NewMemberImportInline(InlineModelAdmin):
+    template = "admin/edit_inline/stacked_with_help_text.html"
     model = MemberImport
     extra = 1
     max_num = 1
@@ -37,15 +40,18 @@ class NewMemberImportInline(admin.StackedInline):
     verbose_name = "New import"
     verbose_name_plural = "Import members"
     can_delete = False
+    help_text = 'Creates student users and adds them to this membership. Input file must be csv format, utf-8 encoding. Use <a href="%s">this template</a>.' % (static('CM_Account_Creation_Template_Aug2016.csv'),)
 
     def has_change_permission(self, request):
         return False
 
-class MemberLimitInline(admin.TabularInline):
+class MemberLimitInline(InlineModelAdmin):
+    template = "admin/edit_inline/tabular_with_help_text.html"
     model = MemberLimit
     extra = 1
     fields = ('membership', 'role', 'limit', 'current')
     readonly_fields = ('current',)
+    help_text = "Set the number of students and educators who can be added to this membership. If the limit is set to 0, no members can be added."
 
 class MembershipAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'expiration')
