@@ -78,6 +78,17 @@
       background-color: white;
     }
   }
+
+
+  .btn-unbtn {
+    background-color: $ivory;
+    border-width: 0px;
+    padding: 0px;
+    text-transform: uppercase;
+    font-size: 1em;
+    letter-spacing: 2px;
+    height: 22px;
+  }
 }
 
 // Highlights link to active page in navigation

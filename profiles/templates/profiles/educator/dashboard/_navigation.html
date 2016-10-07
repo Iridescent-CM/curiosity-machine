@@ -2,6 +2,18 @@
   <div class="col-md-12">
     <nav class="edu-dash-nav">
       <ul>
+        <!-- if you're in 2 memberships -->
+        <li>
+          <div class="dropdown">
+            <button class="btn btn-unbtn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Active Membership
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Inactive Membership</a>
+            </div>
+          </div>
+        </li>
+        <!-- endif -->
         <li id="active-edu-home">
           <a href="{% url 'profiles:home' %}">
             my design challenges

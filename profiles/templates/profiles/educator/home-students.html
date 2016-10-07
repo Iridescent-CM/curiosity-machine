@@ -19,10 +19,9 @@
 
   <div class="row m-b">
     <div class="col-md-12">
-      <table class="table table-striped student-table">
+      <table class="table student-table">
         <thead>
           <tr>
-            <th width="75px">#</th>
             <th>Name / Username</th>
             <th>Email</th>
             <th>Birthday</th>
@@ -31,10 +30,8 @@
         </thead>
         <tbody>
           <tr>
-            <td class="student-info">
-              {% include "_avatar.html" with profile=request.user.profile  width=40 height=40 crop='thumb' gravity='faces' %}
-            </td>
             <td>
+              {% include "_avatar.html" with profile=request.user.profile  width=40 height=40 crop='thumb' gravity='faces' %}
               <h4>{{ user.username }}</h4>
               <p>{{ user.first_name }} {{ user.last_name }}</p>
             </td>
@@ -43,18 +40,12 @@
             <td>approved</td>
           </tr>
           <tr>
-            <td class="student-info">
-              {% include "_avatar.html" with profile=request.user.profile  width=40 height=40 crop='thumb' gravity='faces' %}
-            </td>
             <td>name</td>
             <td>email</td>
             <td>birthday</td>
             <td>approved</td>
           </tr>
           <tr>
-            <td class="student-info">
-              {% include "_avatar.html" with profile=request.user.profile  width=40 height=40 crop='thumb' gravity='faces' %}
-            </td>
             <td>name</td>
             <td>email</td>
             <td>birthday</td>
