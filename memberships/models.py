@@ -29,7 +29,7 @@ class Membership(models.Model):
 
     challenges = models.ManyToManyField(Challenge, blank=True)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Member', through_fields=('membership', 'user'), blank=True)
-    units = models.ManyToManyField(Unit, blank=True)
+    extra_units = models.ManyToManyField(Unit, blank=True)
 
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
