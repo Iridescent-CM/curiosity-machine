@@ -121,11 +121,14 @@ class CoreChallenges(FilterSet):
         return "Free Design Challenges", Challenge.objects.filter(core=True), None
 
     def get_template_contexts(self):
-        return [{
-            "text": "Free Challenges",
-            "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
-            "active": bool(self.applied)
-        }]
+        if Challenge.objects.filter(core=True, draft=False).count() > 0:
+            return [{
+                "text": "Free Challenges",
+                "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
+                "active": bool(self.applied)
+            }]
+        else:
+            return []
 
 class FilterChallenges(FilterSet):
     query_param = "filter_id"

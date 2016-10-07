@@ -50,6 +50,7 @@ def test_core_challenges_apply(rf):
 
 @pytest.mark.django_db
 def test_core_challenges_template_context(rf):
+    core = ChallengeFactory.create_batch(1, core=True, free=True, draft=False)
     assert CoreChallenges().get_template_contexts() == [{
         "text": "Free Challenges",
         "full_url": "/challenges/?free=1#challenges",
@@ -63,3 +64,10 @@ def test_core_challenges_template_context(rf):
         "full_url": "/challenges/?free=1#challenges",
         "active": True
     }]
+
+@pytest.mark.django_db
+def test_core_challenges_template_context_empty_without_core_challenges(rf):
+    assert CoreChallenges().get_template_contexts() == []
+    core = ChallengeFactory.create_batch(1, core=True, free=True, draft=True)
+    assert CoreChallenges().get_template_contexts() == []
+
