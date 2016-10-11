@@ -18,18 +18,44 @@ logger = logging.getLogger(__name__)
 
 
 class Membership(models.Model):
-    name = models.CharField(unique=True, max_length=255, null=False, blank=False)
+    name = models.CharField(
+        unique=True,
+        max_length=255,
+        null=False,
+        blank=False,
+        help_text='Use this format: State-School Name-School Level-Grade Level e.g. “CA-Magnolia-ES-3”.',
+    )
     display_name = models.CharField(
         max_length=26,
         null=False,
-        help_text="The membership name users will see on the site (max 26 characters)."
+        help_text="The membership name users will see on the site (max 26 characters).",
     )
-    expiration = models.DateField(null=True, blank=True)
-    notes = models.TextField(null=True, blank=True)
+    expiration = models.DateField(
+        null=True,
+        blank=True,
+    )
+    notes = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Internal team notes that will not be displayed to users. Use this space to record information about a membership that doesn’t fit into other fields but is important for the team to know.",
+    )
 
-    challenges = models.ManyToManyField(Challenge, blank=True)
-    members = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Member', through_fields=('membership', 'user'), blank=True)
-    extra_units = models.ManyToManyField(Unit, blank=True)
+    challenges = models.ManyToManyField(
+        Challenge,
+        blank=True,
+        help_text="Users who are part of this membership will have access to the selected Challenges.",
+    )
+    members = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        through='Member',
+        through_fields=('membership', 'user'),
+        blank=True,
+    )
+    extra_units = models.ManyToManyField(
+        Unit,
+        blank=True,
+        help_text="Users who are part of this membership will have access to these units in addition to the standard listed units."
+    )
 
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
