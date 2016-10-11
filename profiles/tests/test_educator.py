@@ -204,6 +204,7 @@ def test_join(rf):
     assert response.status_code == 302
     assert User.objects.filter(username='user').count() == 1
 
+@pytest.mark.xfail(reason="rebuilding dashboard")
 @pytest.mark.django_db
 def test_educator_dashboard_context_has_memberships(client):
     educator = EducatorFactory(username="edu", password="123123")

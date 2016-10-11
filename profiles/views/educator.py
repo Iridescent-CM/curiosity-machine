@@ -1,17 +1,12 @@
 from django.shortcuts import render
-from django.contrib import auth, messages
-from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.db import transaction
-from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from profiles.forms import educator as forms
-from curiositymachine.decorators import feature_flag, educator_only
+from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
-from django.contrib.auth.decorators import login_required
 from django.utils.functional import lazy
-from groups.forms import GroupForm
-from units.models import Unit
 
 join = transaction.atomic(UserJoinView.as_view(
     form_class = forms.EducatorUserAndProfileForm,
@@ -40,9 +35,4 @@ def profile_edit(request):
 @educator_only
 @login_required
 def home(request):
-    return render(request, "profiles/educator/home.html", {
-        'form': GroupForm(),
-        'groups': request.user.cm_groups.all(),
-        'units': Unit.objects.filter(draft=False).order_by('id'),
-        'memberships': request.user.membership_set.all()
-    })
+    return render(request, "profiles/educator/home.html", {})
