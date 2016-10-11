@@ -19,6 +19,20 @@
 
   <div class="row m-b">
     <div class="col-md-12">
+      <div class=student-list>
+        <div class="student-list-item">
+          <a href="#">
+            {% include "_avatar.html" with profile=request.user.profile  width=36 height=36 crop='thumb' gravity='faces' %}
+          </a>
+          <span class="student-inline-name">
+            {{ user.first_name }} {{ user.last_name }}
+          </span>
+          <span class="student-inline-username">
+            {{ user.username }} &middot; stuff
+          </span>
+        </div>
+      </div>
+
       <table class="table student-table">
         <thead>
           <tr>
