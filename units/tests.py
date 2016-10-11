@@ -7,7 +7,7 @@ User = get_user_model()
 
 @pytest.fixture
 def unit():
-    return Unit.objects.create(name='unit1', draft=False)
+    return Unit.objects.create(name='unit1', listed=True)
 
 @pytest.fixture
 def educator():
