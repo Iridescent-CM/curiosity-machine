@@ -5651,6 +5651,8 @@ footer {
         text-align: center; }
         .educator-dashboard .edu-dash-nav ul li a:hover, .educator-dashboard .edu-dash-nav ul li a:focus {
           color: #00B1C3; }
+  .educator-dashboard .edu-dash-nav .dropdown a {
+    margin: 0px; }
 
 @media (max-width: 61.9em) {
   .educator-dashboard ul li {

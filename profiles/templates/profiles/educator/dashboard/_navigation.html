@@ -1,31 +1,29 @@
 <div class="row m-b-lg">
   <div class="col-md-12">
     <nav class="edu-dash-nav">
-      <ul>
+      <ul class="nav">
         <!-- if you're in 2 memberships -->
-        <li>
-          <div class="dropdown">
-            <button class="btn btn-unbtn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Active Membership
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Inactive Membership</a>
-            </div>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Active Membership name</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">other membership name</a>
+            <a class="dropdown-item" href="#">a third membership</a>
+            <a class="dropdown-item" href="#">so many</a>
           </div>
         </li>
         <!-- endif -->
-        <li id="active-edu-home">
-          <a href="{% url 'profiles:home' %}">
+        <li class="nav-item" id="active-edu-home">
+          <a class="nav-link" href="{% url 'profiles:home' %}">
             my design challenges
           </a>
         </li>
-        <li id="active-edu-students">
-          <a href="{% url 'profiles:home_students' %}">
+        <li class="nav-item" id="active-edu-students">
+          <a class="nav-link" href="{% url 'profiles:home_students' %}">
             my students
           </a>
         </li>
-        <li id="active-edu-units">
-          <a href="{% url 'profiles:home_units' %}">
+        <li class="nav-item" id="active-edu-units">
+          <a class="nav-link" href="{% url 'profiles:home_units' %}">
             units &amp; guides
           </a>
         </li>
