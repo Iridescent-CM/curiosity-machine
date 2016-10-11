@@ -40,9 +40,4 @@ def profile_edit(request):
 @educator_only
 @login_required
 def home(request):
-    return render(request, "profiles/educator/home.html", {
-        'form': GroupForm(),
-        'groups': request.user.cm_groups.all(),
-        'units': Unit.objects.filter(draft=False).order_by('id'),
-        'memberships': request.user.membership_set.all()
-    })
+    return render(request, "profiles/educator/home.html", {})
