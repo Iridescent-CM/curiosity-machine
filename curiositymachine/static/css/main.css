@@ -4722,6 +4722,9 @@ i {
 .purple-type {
   color: #6161AF; }
 
+.orange-type {
+  color: #F2B353; }
+
 .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
   outline: none;
   box-shadow: inset 0 0 0 2px #FFFCF7; }
@@ -5675,6 +5678,46 @@ footer {
   font-size: 1em;
   letter-spacing: 2px;
   height: 22px; }
+
+.educator-dashboard .student-list {
+  border-top: 1px solid #E5E1D9; }
+  .educator-dashboard .student-list .student-list-item {
+    padding: 10px;
+    border-bottom: 1px solid #E5E1D9; }
+    .educator-dashboard .student-list .student-list-item .student-list-avatar {
+      float: left;
+      border-bottom: 0px;
+      margin-right: 10px;
+      width: 48px;
+      height: 48px; }
+      .educator-dashboard .student-list .student-list-item .student-list-avatar img {
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+      .educator-dashboard .student-list .student-list-item .student-list-avatar .student-list-has-activity {
+        position: relative; }
+        .educator-dashboard .student-list .student-list-item .student-list-avatar .student-list-has-activity:after {
+          content: "";
+          position: absolute;
+          display: block;
+          width: 15px;
+          height: 15px;
+          background-color: #F55932;
+          border-radius: 50%;
+          border: 3px solid #FFFCF7;
+          right: -3px;
+          top: 0; }
+    .educator-dashboard .student-list .student-list-item .student-inline-name {
+      font-weight: 700; }
+    .educator-dashboard .student-list .student-list-item .student-list-manage {
+      position: absolute;
+      right: 2.5rem; }
+      .educator-dashboard .student-list .student-list-item .student-list-manage i {
+        position: relative;
+        font-size: 12px;
+        margin-left: 10px; }
+    .educator-dashboard .student-list .student-list-item .student-inline-empty {
+      color: #949494; }
 
 #educator-dashboard-home .edu-dash-nav #active-edu-home {
   border-bottom: 5px solid #00B1C3; }

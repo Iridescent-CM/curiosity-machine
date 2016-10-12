@@ -20,57 +20,80 @@
   <div class="row m-b">
     <div class="col-md-12">
       <div class=student-list>
+
         <div class="student-list-item">
-          <a href="#">
-            {% include "_avatar.html" with profile=request.user.profile  width=36 height=36 crop='thumb' gravity='faces' %}
+          <a href="#" class="student-list-avatar">
+            <div class="student-list-has-activity">
+              {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+            </div>
           </a>
           <span class="student-inline-name">
             {{ user.first_name }} {{ user.last_name }}
           </span>
+          <br>
           <span class="student-inline-username">
-            {{ user.username }} &middot; stuff
+            {{ user.username }} &middot; <span class="green-type">approved</span>
+          </span>
+          <span class="student-list-manage">
+            <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" class="action-img"><span class="hidden-md-down">More</span> <i class="icon-down-arrow"></i></a>
+          </span>
+
+          <div class="collapse" id="collapseExample">
+            <div class="p-t p-b">
+              <span class="student-inline-birthday">
+                <strong>Birthday:</strong> 1 / 2 / 1991
+              </span>
+              <br>
+              <span class="student-inline-email">
+                <strong>Email:</strong> {{ user.email }}
+              </span>
+              <br>
+              <a href="#">Reset Password</a> &middot; <a href="#">Remove from Membership</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="student-list-item">
+          <a href="#" class="student-list-avatar">
+            {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+          </a>
+          <span class="student-inline-name student-inline-empty">
+            <em>No name provided</em>
+          </span>
+          <br>
+          <span class="student-inline-username">
+            {{ user.username }} &middot; <span class="green-type">approved</span>
+          </span>
+          <span class="student-list-manage">
+            <span class="hidden-md-down">More</span> <i class="icon-down-arrow"></i>
           </span>
         </div>
+
+        <div class="student-list-item">
+          <a href="#" class="student-list-avatar">
+            <div class="student-list-has-activity">
+              {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+            </div>
+          </a>
+          <span class="student-inline-name">
+            {{ user.first_name }} {{ user.last_name }}
+          </span>
+          <br>
+          <span class="student-inline-username">
+            {{ user.username }} &middot; <span class="orange-type">not approved</span>
+          </span>
+          <span class="student-list-manage">
+            <span class="hidden-md-down">More</span> <i class="icon-down-arrow"></i>
+          </span>
+        </div>
+
+
       </div>
 
-      <table class="table student-table">
-        <thead>
-          <tr>
-            <th>Name / Username</th>
-            <th>Email</th>
-            <th>Birthday</th>
-            <th>Approved</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              {% include "_avatar.html" with profile=request.user.profile  width=40 height=40 crop='thumb' gravity='faces' %}
-              <h4>{{ user.username }}</h4>
-              <p>{{ user.first_name }} {{ user.last_name }}</p>
-            </td>
-            <td>email</td>
-            <td>birthday</td>
-            <td>approved</td>
-          </tr>
-          <tr>
-            <td>name</td>
-            <td>email</td>
-            <td>birthday</td>
-            <td>approved</td>
-          </tr>
-          <tr>
-            <td>name</td>
-            <td>email</td>
-            <td>birthday</td>
-            <td>approved</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </div>
 
-  {% include 'profiles/educator/dashboard/_membership-blurb.html' %}
+  <!-- this is where the include for the membership would go -->
 
 </div>
 
