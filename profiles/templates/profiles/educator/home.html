@@ -36,18 +36,8 @@
   <!-- begin navigation -->
   <div class="row m-b-lg">
     <div class="col-md-12">
-      <nav class="edu-dash-nav">
+      <nav class="educator-dashboard-navigation">
         <ul class="nav">
-          <!-- if you're in 2 memberships -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Active Membership name</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">other membership name</a>
-              <a class="dropdown-item" href="#">a third membership</a>
-              <a class="dropdown-item" href="#">so many</a>
-            </div>
-          </li>
-          <!-- endif -->
           <li class="nav-item" id="active-edu-home">
             <a class="nav-link" href="#">
               design challenges
@@ -69,71 +59,43 @@
   </div>
   <!-- end navigation -->
 
-  <div class="row">
+  <div class="row p-b">
     <div class="col-md-12">
-      <h1>Free Design Challenges</h1>
+      <h2>Free Design Challenges</h2>
       <p>Get started with one of our free design challenges! To view the educator resources associated with each of the challenges, click the Guide tab in the design challenge preview.</p>
     </div>
   </div>
 
-  <!--  these expandable cards need to be 2 to a row -->
   <div class="row">
+    <!--  these expandable cards need to be 2 to a row -->
 
     <div class="col-md-6 m-b">
-      <div class="expandable-challenge-card">
-        <div class="expandable-challenge-card-info">
+      <div class="expandable-card">
+        <div>
           <a href="#" class="action-img">
-            <img class="card-img-left" src="http://placehold.it/165x165" alt="Challenge Name">
+            <img class="pull-left m-r" src="http://placehold.it/165x165" alt="Challenge Name">
           </a>
-          <div class="title">
+          <div class="expandable-card-title">
             <h3>
               <a href="#" class="action-img">
                 Challenge Name
               </a>
             </h3>
 
-            <a class="expandable-challenge-card-toggle" data-text-swap="- LESS INFO" data-toggle="collapse" href="#moreInfo1" aria-expanded="false" aria-controls="moreInfo1">
-              + MORE INFO
+            <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo1" aria-expanded="false" aria-controls="moreInfo1">
+              &plus; MORE INFO
             </a>
           </div>
         </div>
+
         <div class="collapse" id="moreInfo1">
-          <div class="expandable-challenge-card-more-info">
-            <h6>DESCRIPTION</h6>
-            <p>Challenge Description</p>
-            <h6>RESOURCES</h6>
-            <ul class="resources-list">
-              <li>Grade 6-8 Mini-unit</li>
-              <li>Grade 3-5 Mini-unit</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+          <div class="expandable-card-more">
+            <span class="expandable-card-more-section-title">DESCRIPTION</span>
+            <!-- challenge description, 130 characters or less ideally -->
+            <p>Duis rutrum libero ipsum, tempor vehicula mi venenatis scelerisque. Praesent nec dignissim metus. Nunc vel justo justo. Curabitur.</p>
 
-    <div class="col-md-6 m-b">
-      <div class="expandable-challenge-card">
-        <div class="expandable-challenge-card-info">
-          <a href="#" class="action-img">
-            <img class="card-img-left" src="http://placehold.it/165x165" alt="Challenge Name">
-          </a>
-          <div class="title">
-            <h3>
-              <a href="#" class="action-img">
-                Challenge Name
-              </a>
-            </h3>
-
-            <a class="expandable-challenge-card-toggle" data-text-swap="- LESS INFO" data-toggle="collapse" href="#moreInfo2" aria-expanded="false" aria-controls="moreInfo2">
-              + MORE INFO
-            </a>
-          </div>
-        </div>
-        <div class="collapse" id="moreInfo2">
-          <div class="expandable-challenge-card-more-info">
-            <h6>DESCRIPTION</h6>
-            <p>Challenge Description</p>
-            <h6>RESOURCES</h6>
+            <!-- if there are resources, list here -->
+            <span class="expandable-card-more-section-title">RESOURCES</span>
             <ul class="resources-list">
               <li>Grade 6-8 Mini-unit</li>
               <li>Grade 3-5 Mini-unit</li>
@@ -144,41 +106,7 @@
     </div>
 
   </div>
-  <div class="row">
 
-    <div class="col-md-6 m-b">
-      <div class="expandable-challenge-card">
-        <div class="expandable-challenge-card-info">
-          <a href="#" class="action-img">
-            <img class="card-img-left" src="http://placehold.it/165x165" alt="Challenge Name">
-          </a>
-          <div class="title">
-            <h3>
-              <a href="#" class="action-img">
-                Challenge Name
-              </a>
-            </h3>
-
-            <a class="expandable-challenge-card-toggle" data-text-swap="- LESS INFO" data-toggle="collapse" href="#moreInfo3" aria-expanded="false" aria-controls="moreInfo3">
-              + MORE INFO
-            </a>
-          </div>
-        </div>
-        <div class="collapse" id="moreInfo3">
-          <div class="expandable-challenge-card-more-info">
-            <h6>DESCRIPTION</h6>
-            <p>Challenge Description</p>
-            <h6>RESOURCES</h6>
-            <ul class="resources-list">
-              <li>Grade 6-8 Mini-unit</li>
-              <li>Grade 3-5 Mini-unit</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
 
   <div class="m-t-lg">
     <!-- begin membership blurb -->
@@ -195,4 +123,19 @@
   </div>
 
 </div>
+{% endblock %}
+
+{% block js %}
+  <!-- script that makes "more" say "less" after you click in expandable cards -->
+  <script>
+  $("a").on("click", function() {
+    var el = $(this);
+    if (el.text() == el.data("text-swap")) {
+      el.text(el.data("text-original"));
+    } else {
+      el.data("text-original", el.text());
+      el.text(el.data("text-swap"));
+    }
+    });
+  </script>
 {% endblock %}
