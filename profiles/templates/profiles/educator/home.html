@@ -1,5 +1,198 @@
 {% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
 {% block title %}Curiosity Machine - Home{% endblock %}
+{% block body-classes %}educator-dashboard{% endblock %}
+{% block body-id %}educator-dashboard-home{% endblock %}
 
 {% block content %}
+
+<!-- begin header -->
+<div class="educator-dashboard-header p-b-md p-t-md m-b">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{% url 'profiles:profile_edit' %}" class="action-img pull-right"><i class="icon-art"></i> Edit Profile</a>
+        <div class="dashboard-avatar">
+          {% include "_avatar.html" with profile=request.user.profile  width=60 height=60 crop='thumb' gravity='faces' %}
+        </div>
+        {{ user.first_name }} {{ user.last_name }}
+        <br>
+        <span class="dashboard-inline-username">{{ user.username }}</span>
+      </div>
+    </div>
+    <div class="row m-t hidden-sm-down">
+      <div class="col-md-12">
+        <strong>Email:</strong> {{ user.email }}
+        <br>
+        <strong>Memberships:</strong> None
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end header -->
+
+<div class="container m-b-lg">
+
+  <!-- begin navigation -->
+  <div class="row m-b-lg">
+    <div class="col-md-12">
+      <nav class="edu-dash-nav">
+        <ul class="nav">
+          <!-- if you're in 2 memberships -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Active Membership name</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">other membership name</a>
+              <a class="dropdown-item" href="#">a third membership</a>
+              <a class="dropdown-item" href="#">so many</a>
+            </div>
+          </li>
+          <!-- endif -->
+          <li class="nav-item" id="active-edu-home">
+            <a class="nav-link" href="#">
+              design challenges
+            </a>
+          </li>
+          <li class="nav-item" id="active-edu-students">
+            <a class="nav-link" href="#">
+              students
+            </a>
+          </li>
+          <li class="nav-item" id="active-edu-units">
+            <a class="nav-link" href="#">
+              units &amp; guides
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <!-- end navigation -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Free Design Challenges</h1>
+      <p>Get started with one of our free design challenges! To view the educator resources associated with each of the challenges, click the Guide tab in the design challenge preview.</p>
+    </div>
+  </div>
+
+  <!--  these expandable cards need to be 2 to a row -->
+  <div class="row">
+
+    <div class="col-md-6 m-b">
+      <div class="expandable-challenge-card">
+        <div class="expandable-challenge-card-info">
+          <a href="#" class="action-img">
+            <img class="card-img-left" src="http://placehold.it/165x165" alt="Challenge Name">
+          </a>
+          <div class="title">
+            <h3>
+              <a href="#" class="action-img">
+                Challenge Name
+              </a>
+            </h3>
+
+            <a class="expandable-challenge-card-toggle" data-text-swap="- LESS INFO" data-toggle="collapse" href="#moreInfo1" aria-expanded="false" aria-controls="moreInfo1">
+              + MORE INFO
+            </a>
+          </div>
+        </div>
+        <div class="collapse" id="moreInfo1">
+          <div class="expandable-challenge-card-more-info">
+            <h6>DESCRIPTION</h6>
+            <p>Challenge Description</p>
+            <h6>RESOURCES</h6>
+            <ul class="resources-list">
+              <li>Grade 6-8 Mini-unit</li>
+              <li>Grade 3-5 Mini-unit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 m-b">
+      <div class="expandable-challenge-card">
+        <div class="expandable-challenge-card-info">
+          <a href="#" class="action-img">
+            <img class="card-img-left" src="http://placehold.it/165x165" alt="Challenge Name">
+          </a>
+          <div class="title">
+            <h3>
+              <a href="#" class="action-img">
+                Challenge Name
+              </a>
+            </h3>
+
+            <a class="expandable-challenge-card-toggle" data-text-swap="- LESS INFO" data-toggle="collapse" href="#moreInfo2" aria-expanded="false" aria-controls="moreInfo2">
+              + MORE INFO
+            </a>
+          </div>
+        </div>
+        <div class="collapse" id="moreInfo2">
+          <div class="expandable-challenge-card-more-info">
+            <h6>DESCRIPTION</h6>
+            <p>Challenge Description</p>
+            <h6>RESOURCES</h6>
+            <ul class="resources-list">
+              <li>Grade 6-8 Mini-unit</li>
+              <li>Grade 3-5 Mini-unit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col-md-6 m-b">
+      <div class="expandable-challenge-card">
+        <div class="expandable-challenge-card-info">
+          <a href="#" class="action-img">
+            <img class="card-img-left" src="http://placehold.it/165x165" alt="Challenge Name">
+          </a>
+          <div class="title">
+            <h3>
+              <a href="#" class="action-img">
+                Challenge Name
+              </a>
+            </h3>
+
+            <a class="expandable-challenge-card-toggle" data-text-swap="- LESS INFO" data-toggle="collapse" href="#moreInfo3" aria-expanded="false" aria-controls="moreInfo3">
+              + MORE INFO
+            </a>
+          </div>
+        </div>
+        <div class="collapse" id="moreInfo3">
+          <div class="expandable-challenge-card-more-info">
+            <h6>DESCRIPTION</h6>
+            <p>Challenge Description</p>
+            <h6>RESOURCES</h6>
+            <ul class="resources-list">
+              <li>Grade 6-8 Mini-unit</li>
+              <li>Grade 3-5 Mini-unit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="m-t-lg">
+    <!-- begin membership blurb -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="dotted-well text-center">
+          <h2>Curiosity Machine is better with a Membership</h2>
+          <p>With a membership, you can view your students’ progress, access more design challenges and exclusive resources, and are also guaranteed access to all upcoming features. To learn more about what memberships offer, check out our memberships about page and fill out our interest form!</p>
+          <a href="https://docs.google.com/forms/d/1DH10-vj1U7x93LTwPX6FoJRF1WyH2eRhVtZ46XkdD78/viewform" class="btn btn-primary">Fill Out Interest Form</a>
+        </div>
+      </div>
+    </div>
+    <!-- end membership blurb -->
+  </div>
+
+</div>
 {% endblock %}
