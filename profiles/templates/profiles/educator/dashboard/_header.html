@@ -1,25 +1,25 @@
-<div class="jumbotron-fluid jumbotron-dark-pattern m-b">
+<div class="educator-dashboard-header p-b-md p-t-md m-b">
   <div class="container">
+
     <div class="row">
-
-      <div class="col-lg-2 col-md-3 col-sm-12">
+      <div class="col-md-12">
+        <a href="{% url 'profiles:profile_edit' %}" class="action-img pull-right"><i class="icon-art"></i> Edit Profile</a>
         <div class="dashboard-avatar">
-          {% include "_avatar.html" with profile=request.user.profile  width=150 height=150 crop='thumb' gravity='faces' %}
+          {% include "_avatar.html" with profile=request.user.profile  width=60 height=60 crop='thumb' gravity='faces' %}
         </div>
+        {{ user.first_name }} {{ user.last_name }}
+        <br>
+        <span class="dashboard-inline-username">{{ user.username }}</span>
       </div>
-
-      <div class="col-lg-8 col-md-5 col-sm-12">
-        <h1>{{ user.username }}</h1>
-        <h3 class="hidden-sm-down">{{ user.first_name }} {{ user.last_name }}</h3>
-        <ul class="hidden-sm-down">
-          <li>{{ user.email }}</li>
-        </ul>
-      </div>
-
-      <div class="col-lg-2 col-md-4 col-sm-12">
-        <a href="{% url 'profiles:profile_edit' %}" class="btn btn-primary"><i class="icon-art"></i> EDIT PROFILE</a>
-      </div>
-
     </div>
+
+    <div class="row m-t hidden-sm-down">
+      <div class="col-md-12">
+        <strong>Email:</strong> {{ user.email }}
+        <br>
+        <strong>Memberships:</strong> None
+      </div>
+    </div>
+
   </div>
 </div>

@@ -5621,19 +5621,19 @@ footer {
 .educator-dashboard .dashboard-avatar img {
   background-color: white;
   border-radius: 50%;
-  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+  float: left;
+  margin-right: 10px; }
 
-.educator-dashboard .jumbotron, .educator-dashboard .jumbotron-green, .educator-dashboard .jumbotron-dark, .educator-dashboard .jumbotron-dark-pattern {
+.educator-dashboard .educator-dashboard-header {
+  background-color: #1f1f1f;
+  background-image: url("../images/design-challenge-repeating-pattern.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
   color: #FFFCF7; }
-  .educator-dashboard .jumbotron ul, .educator-dashboard .jumbotron-green ul, .educator-dashboard .jumbotron-dark ul, .educator-dashboard .jumbotron-dark-pattern ul {
-    padding-left: 0px;
-    list-style-type: none; }
-
-@media (max-width: 47.9em) {
-  .educator-dashboard .jumbotron, .educator-dashboard .jumbotron-green, .educator-dashboard .jumbotron-dark, .educator-dashboard .jumbotron-dark-pattern {
-    text-align: center; }
-  .educator-dashboard .dashboard-avatar {
-    display: inline-block; } }
+  .educator-dashboard .educator-dashboard-header .dashboard-inline-username {
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-size: 2em; }
 
 .educator-dashboard .edu-dash-nav {
   border-bottom: 2px #E5E1D9 solid; }
@@ -5669,15 +5669,6 @@ footer {
 .educator-dashboard .student-info img {
   border-radius: 50%;
   background-color: white; }
-
-.educator-dashboard .btn-unbtn {
-  background-color: #FFFCF7;
-  border-width: 0px;
-  padding: 0px;
-  text-transform: uppercase;
-  font-size: 1em;
-  letter-spacing: 2px;
-  height: 22px; }
 
 .educator-dashboard .student-list {
   border-top: 1px solid #E5E1D9; }

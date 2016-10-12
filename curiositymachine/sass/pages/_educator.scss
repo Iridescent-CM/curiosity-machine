@@ -9,23 +9,20 @@
     background-color: white;
     border-radius: 50%;
     box-shadow: 0px 2px 4px 0px $main-shadow;
+    float: left;
+    margin-right: 10px;
   }
 
-  .jumbotron {
+  .educator-dashboard-header {
+    background-color: shade($dark, 40%);
+    background-image: url("../images/design-challenge-repeating-pattern.png");
+    background-attachment: fixed;
+    background-repeat: repeat;
     color: $ivory;
 
-    ul {
-      padding-left: 0px;
-      list-style-type: none;
-    }
-  }
-
-  @include media-breakpoint-down(sm) {
-    .jumbotron {
-      text-align: center;
-    }
-    .dashboard-avatar {
-      display: inline-block;
+    .dashboard-inline-username {
+      font-family: $heading-font-family;
+      font-size: $base-font-size * 2;
     }
   }
 
@@ -76,22 +73,10 @@
   }
 
   .student-info {
-
     img {
       border-radius: 50%;
       background-color: white;
     }
-  }
-
-
-  .btn-unbtn {
-    background-color: $ivory;
-    border-width: 0px;
-    padding: 0px;
-    text-transform: uppercase;
-    font-size: 1em;
-    letter-spacing: 2px;
-    height: 22px;
   }
 
   .student-list {
@@ -147,7 +132,6 @@
         }
       }
 
-      //empties
       .student-inline-empty { color: $gray; }
     }
   }
