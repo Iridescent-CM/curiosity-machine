@@ -62,7 +62,7 @@ remove_free.short_description = "Unmark selected challenges as free"
 class ChallengeAdmin(admin.ModelAdmin):
     filter_horizontal = ('reflect_questions',)
     list_display = ['__str__', 'name', 'draft', 'free', 'order']
-    list_filter = ['draft', 'free']
+    list_filter = ['draft', 'free', 'core']
     list_editable = ['order']
     raw_id_fields = ['video', 'image', 'landing_image']
     actions = [make_draft, remove_draft, make_free, remove_free]

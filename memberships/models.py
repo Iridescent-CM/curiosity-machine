@@ -9,6 +9,7 @@ from tempfile import TemporaryFile
 from datetime import timedelta
 from challenges.models import Challenge
 from profiles.models import UserRole, Profile
+from units.models import Unit
 from memberships.importer import BulkImporter, Status
 from memberships.validators import member_import_csv_validator
 import logging
@@ -49,6 +50,11 @@ class Membership(models.Model):
         through='Member',
         through_fields=('membership', 'user'),
         blank=True,
+    )
+    extra_units = models.ManyToManyField(
+        Unit,
+        blank=True,
+        help_text="Users who are part of this membership will have access to these units in addition to the standard listed units."
     )
 
     @classmethod

@@ -66,6 +66,7 @@ class Challenge(models.Model):
     favorited = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Favorite', through_fields=('challenge', 'student'), related_name="favorite_challenges")
     draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown in the main challenge list")
     free = models.BooleanField(default=False, null=False, help_text="Free challenges are available to users regardless of membership")
+    core = models.BooleanField(default=False, null=False, help_text="Core challenges are considered part of the core offering for non-membership users")
     difficulty_level = models.PositiveSmallIntegerField(
         choices=DIFFICULTY_LEVELS,
         default=1,
@@ -78,6 +79,10 @@ class Challenge(models.Model):
         help_text="Challenges will be shown in ascending numeric order, with blanks last",
         verbose_name="Order preference"
     )
+
+    def clean(self):
+        if self.core and not self.free:
+            raise ValidationError("Core challenges should also be marked as free")
 
     def get_absolute_url(self):
         return reverse('challenges:preview_inspiration', kwargs={
