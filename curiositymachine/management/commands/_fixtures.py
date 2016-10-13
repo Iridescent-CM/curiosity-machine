@@ -10,10 +10,33 @@ def basic_users():
         password="123123",
     )
 
-    StudentFactory()
-    MentorFactory()
-    ParentFactory()
-    EducatorFactory()
+    StudentFactory(
+        email="child@mailinator.com",
+        username="child",
+        password="123123",
+        profile__underage=True
+    )
+    StudentFactory(
+        email="teen@mailinator.com",
+        username="teen",
+        password="123123",
+        profile__underage=False
+    )
+    MentorFactory(
+        email="mentor@mailinator.com",
+        username="mentor",
+        password="123123"
+    )
+    ParentFactory(
+        email="parent@mailinator.com",
+        username="parent",
+        password="123123"
+    )
+    EducatorFactory(
+        email="educator@mailinator.com",
+        username="educator",
+        password="123123"
+    )
 
 def basic_challenges():
     ChallengeFactory.create_batch(30, draft=False)
