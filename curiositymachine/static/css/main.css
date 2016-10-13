@@ -4620,6 +4620,9 @@ a.bg-danger:focus, a.bg-danger:hover {
 .icon-check:before {
   content: "\e902"; }
 
+.icon-brush:before {
+  content: "\e905"; }
+
 body {
   background-color: #FFFCF7;
   color: #333333;

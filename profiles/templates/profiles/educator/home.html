@@ -10,11 +10,13 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <a href="{% url 'profiles:profile_edit' %}" class="action-img pull-right"><i class="icon-art"></i> Edit Profile</a>
+        <a href="{% url 'profiles:profile_edit' %}" class="action-img pull-right"><i class="icon-brush"></i> Edit Profile</a>
         <div class="dashboard-avatar">
           {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
         </div>
-        {{ user.first_name }} {{ user.last_name }}
+        <!-- if both first and last name are empty -->
+        <em>No name provided</em>
+        <!-- {{ user.first_name }} {{ user.last_name }} -->
         <br>
         <span class="dashboard-inline-username">{{ user.username }}</span>
       </div>
