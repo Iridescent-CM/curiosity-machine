@@ -19,10 +19,12 @@ class Command(BaseCommand):
             help='List available fixture functions'
         )
 
+    def get_available(self):
+        return [func.__name__ for func in _fixtures.__dict__.values() if is_module_function(_fixtures, func)]
+
     def list_available(self):
-        available = [func.__name__ for func in _fixtures.__dict__.values() if is_module_function(_fixtures, func)]
         self.stdout.write("Available fixtures:")
-        for item in available:
+        for item in self.get_available():
             self.stdout.write("\t%s" % item)
 
     def handle(self, *args, **options):

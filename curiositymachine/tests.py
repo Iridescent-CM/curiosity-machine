@@ -705,3 +705,15 @@ def test_filepickervideopickwidget_returns_url_only():
         "fieldname_url": "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216",
         "fieldname_mimetype": "video/mp4"
     }, None, "fieldname") == "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216"
+
+## Test fixture management command
+#  TODO: move this to its own file
+from django.core.management import call_command
+from django.utils.six import StringIO
+from curiositymachine.management.commands.fixtures import Command
+@pytest.mark.parametrize("fixture", Command().get_available())
+@pytest.mark.django_db
+def test_fixtures_command(fixture):
+    out = StringIO()
+    call_command('fixtures', fixture, stdout=out)
+    assert 'OK' in out.getvalue()
