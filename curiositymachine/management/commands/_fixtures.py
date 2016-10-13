@@ -1,5 +1,8 @@
+import json, os
+from django.conf import settings
 from profiles.factories import *
 from challenges.factories import *
+from images.factories import *
 
 def basic_users():
     UserFactory(
@@ -41,6 +44,38 @@ def basic_users():
 def basic_challenges():
     ChallengeFactory.create_batch(30, draft=False)
 
+def better_challenges():
+    # uses a `python manage.py dumpdata` json fixture as the basis for driving the factories appropriately
+
+    with open(os.path.join(settings.BASE_DIR, 'curiositymachine/fixtures/staging.json')) as data_file:
+        data = json.load(data_file)
+
+    def pk_map(data, model, factory):
+        d = {}
+        for obj in data:
+            if obj['model'] == model:
+                d[obj['pk']] = factory(**obj['fields'])
+        return d
+
+    images = pk_map(data, 'images.image', ImageFactory)
+    questions = pk_map(data, 'challenges.question', QuestionFactory)
+
+    excluded_fields = [
+        'video',
+        'themes',
+    ]
+
+    def maybe_swap(k, v):
+        if k in ['image', 'landing_image'] and v:
+            return images[v]
+        elif k == 'reflect_questions' and v:
+            return [questions[pk] for pk in v]
+        return v
+
+    for obj in data:
+        if obj['model'] == 'challenges.challenge':
+            challenge = ChallengeFactory(**{k: maybe_swap(k, v) for k, v in obj['fields'].items() if k not in excluded_fields})
+
 def staging():
     basic_users()
-    basic_challenges()
+    better_challenges()

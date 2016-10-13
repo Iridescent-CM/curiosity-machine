@@ -26,6 +26,11 @@ class ChallengeFactory(factory.django.DjangoModelFactory):
     reflect_subheader = "subheader"
     image = factory.SubFactory('images.factories.ImageFactory')
 
+    @factory.post_generation
+    def reflect_questions(obj, create, extracted, **kwargs):
+        if extracted:
+            obj.reflect_questions.add(*extracted)
+
 
 class ProgressFactory(factory.django.DjangoModelFactory):
     class Meta:
