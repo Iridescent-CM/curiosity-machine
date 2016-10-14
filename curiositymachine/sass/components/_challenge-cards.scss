@@ -165,3 +165,82 @@
     }
   }
 }
+
+//
+// Expandable challenge cards for lists
+//
+.expandable-card {
+  background-color: $ivory;
+  box-shadow: 0px 2px 4px 0px $main-shadow;
+  min-height: 165px;
+
+  .expandable-card-title {
+    min-height: 165px;
+    padding: $small-spacing;
+  }
+
+  h3 a {
+    color: $dark;
+    &:hover { color: $action-color; }
+    &:focus { color: $primary-red; }
+  }
+
+  .expandable-card-toggle {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 15px;
+    padding: 3px 7px;
+    background-color: darken($sand, 20%);
+    z-index: 100;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    color: white;
+    border-bottom: 0px;
+
+    &:hover { background-color: darken($sand, 15%); }
+    &:focus { background-color: $primary-red; }
+  }
+
+  .expandable-card-more {
+    padding: $small-spacing $small-spacing $base-spacing $small-spacing;
+    background-color: $ivory;
+    border-top: 2px solid $sand;
+    color: $dark;
+    z-index: 2;
+
+    .expandable-card-more-section-title {
+      font-family: $heading-font-family;
+      display: inline-block;
+      margin-bottom: 5px;
+      text-transform: capitalize;
+      font-size: 0.875em;
+      letter-spacing: 2px;
+    }
+
+    // removes default bullet & adds edu resources book icon
+    ul.resources-list {
+      padding-left: 0px;
+      list-style-type: none;
+
+      li {
+        margin-bottom: $small-spacing;
+      }
+
+      li:before {
+        content: "\e904";
+        font-family: 'curiosity-machine';
+        speak: none;
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        color: $ivory;
+        background-color: $primary-green;
+        border-radius: 50%;
+        padding-left: 5px;
+        margin-right: 5px;
+        box-shadow: 0px 2px 2px 0px $main-shadow;
+      }
+    }
+  }
+}
