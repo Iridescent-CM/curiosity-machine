@@ -74,9 +74,22 @@ def better_challenges():
             return [themes[pk] for pk in v]
         return v
 
+    challenges = {}
     for obj in data:
         if obj['model'] == 'challenges.challenge':
-            challenge = ChallengeFactory(**{k: maybe_swap(k, v) for k, v in obj['fields'].items() if k not in excluded_fields})
+            fields = {k: maybe_swap(k, v) for k, v in obj['fields'].items() if k not in excluded_fields}
+            challenges[obj['pk']] = ChallengeFactory(**fields)
+
+    def maybe_swap(k, v):
+        if k == 'challenges' and v:
+            return [challenges[pk] for pk in v]
+        return v
+
+    filters = {}
+    for obj in data:
+        if obj['model'] == 'challenges.filter':
+            fields = {k: maybe_swap(k, v) for k, v in obj['fields'].items()}
+            filters[obj['pk']] = FilterFactory(**fields)
 
 def staging():
     basic_users()
