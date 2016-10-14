@@ -35,4 +35,14 @@ def profile_edit(request):
 @educator_only
 @login_required
 def home(request):
-    return render(request, "profiles/educator/home.html", {})
+    return render(request, "profiles/educator/dashboard/challenges.html", {})
+
+@educator_only
+@login_required
+def students_dashboard(request):
+    return render(request, "profiles/educator/dashboard/students.html", {})
+
+@educator_only
+@login_required
+def guides_dashboard(request):
+    return render(request, "profiles/educator/dashboard/guides.html", {})
