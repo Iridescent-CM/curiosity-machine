@@ -1,6 +1,7 @@
 import factory
 import factory.django
 import factory.fuzzy
+from factory import post_generation
 
 from . import models
 
@@ -56,3 +57,28 @@ class ExampleFactory(factory.django.DjangoModelFactory):
     challenge = factory.SubFactory('challenges.factories.ChallengeFactory')
     progress = factory.SubFactory('challenges.factories.ProgressFactory', challenge=factory.SelfAttribute('..challenge'))
     image = factory.SubFactory('images.factories.ImageFactory')
+
+class FilterFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Filter
+
+    name = factory.fuzzy.FuzzyText(prefix="filter-")
+    visible = True
+
+    @post_generation
+    def challenges(obj, create, extracted, **kwargs):
+        if extracted:
+            for challenge in extracted:
+                obj.challenges.add(challenge)
+
+class ThemeFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Theme
+
+    name = factory.fuzzy.FuzzyText(prefix="theme-")
+
+    @post_generation
+    def challenges(obj, create, extracted, **kwargs):
+        if extracted:
+            for challenge in extracted:
+                challenge.themes.add(obj)

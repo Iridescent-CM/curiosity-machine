@@ -5,10 +5,12 @@ from django.core.urlresolvers import reverse
 from images.models import Image
 from challenges.models import Challenge
 from s3direct.fields import S3DirectField
+from .validators import validate_has_non_numeric
 
 
 class Unit(models.Model):
     name = models.TextField(blank=False, null=False, help_text="name of the unit")
+    slug = models.SlugField(blank=True, null=True, help_text="name that goes in the URL where users access this unit, i.e. /units/{slug}", validators=[validate_has_non_numeric])
     description = models.TextField(blank=True, null=True, help_text="blurb for the unit")
     overview = models.TextField(blank=True, null=True, help_text="overview for the unit")
     challenges = models.ManyToManyField(Challenge, through='UnitChallenge', blank=True)
@@ -16,7 +18,7 @@ class Unit(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="image")
     standards_alignment_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="unit")
-    draft = models.BooleanField(default=True, null=False, help_text="Drafts are not shown on the main units page")
+    listed = models.BooleanField(default=False, null=False, help_text="This unit should be visible in the units listing for all users")
 
     def get_absolute_url(self):
         return reverse('units:unit', kwargs={
