@@ -28,6 +28,11 @@ class ChallengeFactory(factory.django.DjangoModelFactory):
     image = factory.SubFactory('images.factories.ImageFactory')
 
     @factory.post_generation
+    def themes(obj, create, extracted, **kwargs):
+        if extracted:
+            obj.themes.add(*extracted)
+
+    @factory.post_generation
     def reflect_questions(obj, create, extracted, **kwargs):
         if extracted:
             obj.reflect_questions.add(*extracted)

@@ -59,10 +59,10 @@ def better_challenges():
 
     images = pk_map(data, 'images.image', ImageFactory)
     questions = pk_map(data, 'challenges.question', QuestionFactory)
+    themes = pk_map(data, 'challenges.theme', ThemeFactory)
 
     excluded_fields = [
         'video',
-        'themes',
     ]
 
     def maybe_swap(k, v):
@@ -70,6 +70,8 @@ def better_challenges():
             return images[v]
         elif k == 'reflect_questions' and v:
             return [questions[pk] for pk in v]
+        elif k == 'themes' and v:
+            return [themes[pk] for pk in v]
         return v
 
     for obj in data:
