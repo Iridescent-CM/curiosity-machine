@@ -15,10 +15,10 @@ class ResourceInline(admin.StackedInline):
 
 class UnitAdmin(admin.ModelAdmin):
     model = Unit
-    list_display = ('id','name','description', 'draft')
+    list_display = ('id','name','description', 'listed')
     list_display_links = ('id', 'name',)
-    list_filter = ['draft']
-    fields = ('name', 'description', 'overview', 'image', 'standards_alignment_image', 'draft')
+    list_filter = ['listed']
+    fields = ('name', 'slug', 'description', 'overview', 'image', 'standards_alignment_image', 'listed')
     inlines = [
         UnitItemInline, ResourceInline
     ]

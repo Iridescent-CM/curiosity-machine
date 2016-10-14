@@ -57,7 +57,7 @@ class MembershipAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'expiration')
     search_fields = ('name',)
     inlines = [MemberLimitInline, NewMemberImportInline, PastMemberImportInline]
-    filter_horizontal = ['challenges']
+    filter_horizontal = ['challenges', 'extra_units']
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')

@@ -61,7 +61,7 @@
             <h4 class="media-heading">{{ resource.name }}</h4>
             <p>{{ resource.description }}</p>
             {% for resourcefile in resource.resourcefile_set.all %}
-            <a href="{{ resourcefile.file.url }}" class="btn btn-primary" data-ga-track="pageview" data-ga-page="{{ resourcefile.file }}">
+            <a href="{{ resourcefile.file.url }}" class="btn btn-primary" data-ga-track="pageview" data-ga-page="{{ resourcefile.file }}" ga-event-label="{{ resourcefile.file }}">
               {{ resourcefile.link_text|default:"Download" }}
             </a>
             {% endfor %}
