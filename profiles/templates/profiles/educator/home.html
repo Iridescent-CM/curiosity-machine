@@ -14,9 +14,11 @@
         <div class="dashboard-avatar">
           {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
         </div>
-        <!-- if both first and last name are empty -->
+        {% if user.first_name or user.last_name %}
+        {{ user.first_name }} {{ user.last_name }}
+        {% else %}
         <em>No name provided</em>
-        <!-- {{ user.first_name }} {{ user.last_name }} -->
+        {% endif %}
         <br>
         <span class="dashboard-inline-username">{{ user.username }}</span>
       </div>
