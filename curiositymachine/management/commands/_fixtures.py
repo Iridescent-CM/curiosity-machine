@@ -47,6 +47,8 @@ def basic_challenges():
 
 def better_challenges():
     # uses a `python manage.py dumpdata` json fixture as the basis for driving the factories appropriately
+    # to see included app.models: 
+    #   $ grep model curiositymachine/fixtures/staging.json | sort | uniq 
 
     with open(os.path.join(settings.BASE_DIR, 'curiositymachine/fixtures/staging.json')) as data_file:
         data = json.load(data_file)
