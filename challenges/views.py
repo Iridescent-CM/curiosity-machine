@@ -59,6 +59,7 @@ class FilterSet():
     def __init__(self, request=None):
         self.request = request
         self.applied = None
+        self.active = None
 
     @property
     def requested(self):
@@ -135,10 +136,10 @@ class FilterChallenges(FilterSet):
 
     def apply(self):
         filter_id = _get_int_or_404(self.request.GET, self.query_param)
-        active_filter = get_object_or_404(Filter.objects.filter(visible=True), id=filter_id)
+        self.active = get_object_or_404(Filter.objects.filter(visible=True), id=filter_id)
 
         self.applied = filter_id
-        return active_filter.name + " Design Challenges", active_filter.challenges, None
+        return self.active.name + " Design Challenges", self.active.challenges, None
 
     def get_template_contexts(self):
         filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
@@ -164,10 +165,11 @@ class ThemeChallenges(FilterSet):
         } for theme in Theme.objects.all()]
 
 def challenges(request):
+    filterChallenges = FilterChallenges(request)
     filtersets = [
         MembershipChallenges(request),
         CoreChallenges(request),
-        FilterChallenges(request),
+        filterChallenges,
         ThemeChallenges(request)
     ]
     default_filterset = UnfilteredChallenges()
@@ -194,11 +196,16 @@ def challenges(request):
 
     challenges = _paginate(challenges, request.GET.get('page'), settings.CHALLENGES_PER_PAGE)
 
+    header_template = None
+    if filterChallenges.active:
+        header_template = filterChallenges.active.header_template
+
     return render(request, 'challenges/new.html', {
         'title': title,
         'challenges': challenges,
         'favorite_ids': favorite_ids,
-        'filters': filter_controls
+        'filters': filter_controls,
+        'header_template': header_template,
     })
 
 @require_POST
