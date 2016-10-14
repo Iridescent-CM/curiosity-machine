@@ -3,6 +3,7 @@ from django.conf import settings
 from profiles.factories import *
 from challenges.factories import *
 from images.factories import *
+from videos.factories import *
 
 def basic_users():
     UserFactory(
@@ -50,46 +51,42 @@ def better_challenges():
     with open(os.path.join(settings.BASE_DIR, 'curiositymachine/fixtures/staging.json')) as data_file:
         data = json.load(data_file)
 
-    def pk_map(data, model, factory):
+    def lookup(lookups, k, v):
+        if v and k in lookups.keys():
+            lookup = lookups[k]
+            if type(v) == list:
+                return [lookup[pk] for pk in v]
+            else:
+                return lookup[v]
+        return v
+
+    def pk_map(data, model, factory, exclude=[], lookups={}):
         d = {}
         for obj in data:
             if obj['model'] == model:
-                d[obj['pk']] = factory(**obj['fields'])
+                fields = {k: lookup(lookups, k, v) for k, v in obj['fields'].items() if k not in exclude}
+                d[obj['pk']] = factory(**fields)
         return d
 
     images = pk_map(data, 'images.image', ImageFactory)
     questions = pk_map(data, 'challenges.question', QuestionFactory)
     themes = pk_map(data, 'challenges.theme', ThemeFactory)
-
-    excluded_fields = [
-        'video',
-    ]
-
-    def maybe_swap(k, v):
-        if k in ['image', 'landing_image'] and v:
-            return images[v]
-        elif k == 'reflect_questions' and v:
-            return [questions[pk] for pk in v]
-        elif k == 'themes' and v:
-            return [themes[pk] for pk in v]
-        return v
-
-    challenges = {}
-    for obj in data:
-        if obj['model'] == 'challenges.challenge':
-            fields = {k: maybe_swap(k, v) for k, v in obj['fields'].items() if k not in excluded_fields}
-            challenges[obj['pk']] = ChallengeFactory(**fields)
-
-    def maybe_swap(k, v):
-        if k == 'challenges' and v:
-            return [challenges[pk] for pk in v]
-        return v
-
-    filters = {}
-    for obj in data:
-        if obj['model'] == 'challenges.filter':
-            fields = {k: maybe_swap(k, v) for k, v in obj['fields'].items()}
-            filters[obj['pk']] = FilterFactory(**fields)
+    videos = pk_map(data, 'videos.video', VideoFactory, lookups={
+        'thumbnails': images
+    })
+    encodeds = pk_map(data, 'videos.encodedvideo', EncodedVideoFactory, lookups={
+        'video': videos
+    })
+    challenges = pk_map(data, 'challenges.challenge', ChallengeFactory, lookups={
+        'image': images,
+        'landing_image': images,
+        'reflect_questions': questions,
+        'themes': themes,
+        'video': videos
+    })
+    filters = pk_map(data, 'challenges.filter', FilterFactory, lookups={
+        'challenges': challenges
+    })
 
 def staging():
     basic_users()
