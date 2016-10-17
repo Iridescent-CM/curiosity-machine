@@ -1,5 +1,6 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load staticfiles %}
+{% load resized %}
 {% block title %}Curiosity Machine - Home{% endblock %}
 {% block body-classes %}educator-dashboard{% endblock %}
 
@@ -77,7 +78,7 @@
       <div class="expandable-card">
         <div>
           <a href="#" class="action-img">
-            <img class="pull-left m-r" src="http://placehold.it/165x165" alt="{{ challenge.name }}">
+            <img class="pull-left m-r" src="{% resized challenge.image.url width=165 height=165 crop='thumb' %}" alt="{{ challenge.name }}">
           </a>
           <div class="expandable-card-title">
             <h3>
