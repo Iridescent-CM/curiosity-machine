@@ -5,6 +5,15 @@ from factory import post_generation
 
 from . import models
 
+__all__ = [
+    'ChallengeFactory',
+    'ProgressFactory',
+    'ExampleFactory',
+    'FilterFactory',
+    'ThemeFactory',
+]
+
+
 class ChallengeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Challenge

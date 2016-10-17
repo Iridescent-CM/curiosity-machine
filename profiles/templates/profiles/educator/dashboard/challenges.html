@@ -98,12 +98,14 @@
             <span class="expandable-card-more-section-title">DESCRIPTION</span>
             <p>{{ challenge.description }}</p>
 
-            <!-- if there are resources, list here -->
+            {% if challenge.resource_set.count %}
             <span class="expandable-card-more-section-title">RESOURCES</span>
             <ul class="resources-list">
-              <li>Grade 6-8 Mini-unit</li>
-              <li>Grade 3-5 Mini-unit</li>
+              {% for resource in challenge.resource_set.all %}
+              <li>{{ resource.name }}</li>
+              {% endfor %}
             </ul>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -36,7 +36,7 @@ def profile_edit(request):
 @educator_only
 @login_required
 def home(request):
-    challenges = Challenge.objects.filter(draft=False, core=True).select_related('image')
+    challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
     return render(request, "profiles/educator/dashboard/challenges.html", {
         "challenges": challenges,
     })
