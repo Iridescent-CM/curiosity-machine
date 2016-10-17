@@ -2,79 +2,59 @@
 {% load staticfiles %}
 {% block title %}Curiosity Machine - Home{% endblock %}
 {% block body-classes %}educator-dashboard{% endblock %}
+{% block body-id %}educator-dashboard-guides{% endblock %}
 
 {% block content %}
 
-<!-- begin header -->
-<div class="educator-dashboard-header p-b-md p-t-md m-b">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <a href="{% url 'profiles:profile_edit' %}" class="action-img pull-right"><i class="icon-brush"></i> Edit Profile</a>
-        <div class="dashboard-avatar">
-          {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
-        </div>
-        {% if user.first_name or user.last_name %}
-        {{ user.first_name }} {{ user.last_name }}
-        {% else %}
-        <em>No name provided</em>
-        {% endif %}
-        <br>
-        <span class="dashboard-inline-username">{{ user.username }}</span>
-      </div>
-    </div>
-    <div class="row m-t hidden-sm-down">
-      <div class="col-md-12">
-        <strong>Email:</strong> {{ user.email }}
-        <br>
-        <strong>Memberships:</strong> None
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end header -->
+{% include 'profiles/educator/dashboard/_header.html' %}
 
 <div class="container m-b-lg">
 
-  <!-- begin navigation -->
-  <div class="row m-b-lg">
+  {% include 'profiles/educator/dashboard/_navigation.html' %}
+
+  <div class="row p-b">
     <div class="col-md-12">
-      <nav class="educator-dashboard-navigation">
-        <ul class="nav">
-          <li class="nav-item" id="active-edu-home">
-            <a class="nav-link" href="#">
-              design challenges
-            </a>
-          </li>
-          <li class="nav-item" id="active-edu-students">
-            <a class="nav-link" href="#">
-              students
-            </a>
-          </li>
-          <li class="nav-item" id="active-edu-units">
-            <a class="nav-link" href="#">
-              units &amp; guides
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <h2>Units &amp; Guides</h2>
+      <p>We provide units to help you structure how you can use design challenges in the classroom.</p>
     </div>
   </div>
-  <!-- end navigation -->
 
+  <div class="row">
+    <!--  these expandable cards need to be 2 to a row -->
 
-  <div class="m-t-lg">
-    <!-- begin membership blurb -->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="dotted-well text-center">
-          <h2>Curiosity Machine is better with a Membership</h2>
-          <p>With a membership, you can view your students’ progress, access more design challenges and exclusive resources, and are also guaranteed access to all upcoming features. To learn more about what memberships offer, check out our memberships about page and fill out our interest form!</p>
-          <a href="https://docs.google.com/forms/d/1DH10-vj1U7x93LTwPX6FoJRF1WyH2eRhVtZ46XkdD78/viewform" class="btn btn-primary">Fill Out Interest Form</a>
+    <div class="col-md-6 m-b">
+      <div class="expandable-card">
+        <div>
+          <a href="#" class="action-img">
+            <img class="pull-left m-r" src="http://placehold.it/165x165" alt="Unit Name">
+          </a>
+          <div class="expandable-card-title">
+            <h3>
+              <a href="#" class="action-img">
+                Unit Name
+              </a>
+            </h3>
+
+            <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo1" aria-expanded="false" aria-controls="moreInfo1">
+              &plus; MORE INFO
+            </a>
+          </div>
+        </div>
+
+        <div class="collapse" id="moreInfo1">
+          <div class="expandable-card-more">
+            <span class="expandable-card-more-section-title">DESCRIPTION</span>
+            <!-- unit description, 130 characters or less ideally -->
+            <p>Duis rutrum libero ipsum, tempor vehicula mi venenatis scelerisque. Praesent nec dignissim metus. Nunc vel justo justo. Curabitur.</p>
+          </div>
         </div>
       </div>
     </div>
-    <!-- end membership blurb -->
+
+  </div>
+
+  <div class="m-t-lg">
+    {% include 'profiles/educator/dashboard/_membership-blurb.html' %}
   </div>
 
 </div>

@@ -5663,6 +5663,30 @@ footer {
     .educator-dashboard .educator-dashboard-navigation ul li {
       width: 100%; } }
 
+.educator-dashboard #educator-dashboard-home .educator-dashboard-navigation ul #active-edu-home {
+  border-bottom: 5px solid #00B1C3; }
+  .educator-dashboard #educator-dashboard-home .educator-dashboard-navigation ul #active-edu-home a {
+    color: #00B1C3; }
+  @media (max-width: 61.9em) {
+    .educator-dashboard #educator-dashboard-home .educator-dashboard-navigation ul #active-edu-home {
+      border-bottom: 0px; } }
+
+.educator-dashboard #educator-dashboard-students .educator-dashboard-navigation ul #active-edu-students {
+  border-bottom: 5px solid #00B1C3; }
+  .educator-dashboard #educator-dashboard-students .educator-dashboard-navigation ul #active-edu-students a {
+    color: #00B1C3; }
+  @media (max-width: 61.9em) {
+    .educator-dashboard #educator-dashboard-students .educator-dashboard-navigation ul #active-edu-students {
+      border-bottom: 0px; } }
+
+.educator-dashboard #educator-dashboard-guides .educator-dashboard-navigation ul #active-edu-guides {
+  border-bottom: 5px solid #00B1C3; }
+  .educator-dashboard #educator-dashboard-guides .educator-dashboard-navigation ul #active-edu-guides a {
+    color: #00B1C3; }
+  @media (max-width: 61.9em) {
+    .educator-dashboard #educator-dashboard-guides .educator-dashboard-navigation ul #active-edu-guides {
+      border-bottom: 0px; } }
+
 #faq-about-page strong {
   display: inline-block;
   margin-top: 1.5em; }
