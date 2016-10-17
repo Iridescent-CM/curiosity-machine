@@ -14,18 +14,18 @@
         <div class="dashboard-avatar">
           {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
         </div>
-        {% if user.first_name or user.last_name %}
-        {{ user.first_name }} {{ user.last_name }}
+        {% if request.user.first_name or request.user.last_name %}
+        {{ request.user.first_name }} {{ request.user.last_name }}
         {% else %}
         <em>No name provided</em>
         {% endif %}
         <br>
-        <span class="dashboard-inline-username">{{ user.username }}</span>
+        <span class="dashboard-inline-username">{{ request.user.username }}</span>
       </div>
     </div>
     <div class="row m-t hidden-sm-down">
       <div class="col-md-12">
-        <strong>Email:</strong> {{ user.email }}
+        <strong>Email:</strong> {{ request.user.email }}
         <br>
         <strong>Memberships:</strong> None
       </div>
@@ -72,30 +72,30 @@
   <div class="row">
     <!--  these expandable cards need to be 2 to a row -->
 
+    {% for challenge in challenges %}
     <div class="col-md-6 m-b">
       <div class="expandable-card">
         <div>
           <a href="#" class="action-img">
-            <img class="pull-left m-r" src="http://placehold.it/165x165" alt="Challenge Name">
+            <img class="pull-left m-r" src="http://placehold.it/165x165" alt="{{ challenge.name }}">
           </a>
           <div class="expandable-card-title">
             <h3>
               <a href="#" class="action-img">
-                Challenge Name
+                {{ challenge.name }}
               </a>
             </h3>
 
-            <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo1" aria-expanded="false" aria-controls="moreInfo1">
+            <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo-{{ challenge.id }}" aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
               &plus; MORE INFO
             </a>
           </div>
         </div>
 
-        <div class="collapse" id="moreInfo1">
+        <div class="collapse" id="moreInfo-{{ challenge.id }}">
           <div class="expandable-card-more">
             <span class="expandable-card-more-section-title">DESCRIPTION</span>
-            <!-- challenge description, 130 characters or less ideally -->
-            <p>Duis rutrum libero ipsum, tempor vehicula mi venenatis scelerisque. Praesent nec dignissim metus. Nunc vel justo justo. Curabitur.</p>
+            <p>{{ challenge.description }}</p>
 
             <!-- if there are resources, list here -->
             <span class="expandable-card-more-section-title">RESOURCES</span>
@@ -107,6 +107,10 @@
         </div>
       </div>
     </div>
+    {% if forloop.counter|divisibleby:2 %}
+    <div class="clearfix"></div>
+    {% endif %}
+    {% endfor %}
 
   </div>
 
