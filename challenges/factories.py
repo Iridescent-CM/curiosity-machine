@@ -5,9 +5,38 @@ from factory import post_generation
 
 from . import models
 
+class QuestionFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Question
+
+    text = factory.fuzzy.FuzzyText(prefix="Question: ", suffix="?")
+
 class ChallengeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Challenge
+
+    name = factory.fuzzy.FuzzyText(prefix="challenge-") 
+    description = "description"
+    how_to_make_it = "how to make it"
+    learn_more = "learn more"
+    materials_list = "<ul><li>material 1</li><li>material 2</li><li>material 3</li></ul>"
+    plan_call_to_action = "call to action"
+    build_call_to_action = "call to action"
+    plan_subheader = "subheader"
+    build_subheader = "subheader"
+    reflect_subheader = "subheader"
+    image = factory.SubFactory('images.factories.ImageFactory')
+
+    @factory.post_generation
+    def themes(obj, create, extracted, **kwargs):
+        if extracted:
+            obj.themes.add(*extracted)
+
+    @factory.post_generation
+    def reflect_questions(obj, create, extracted, **kwargs):
+        if extracted:
+            obj.reflect_questions.add(*extracted)
+
 
 class ProgressFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -58,3 +87,11 @@ class ThemeFactory(factory.django.DjangoModelFactory):
         if extracted:
             for challenge in extracted:
                 challenge.themes.add(obj)
+
+class ResourceFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Resource
+
+class ResourceFileFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.ResourceFile
