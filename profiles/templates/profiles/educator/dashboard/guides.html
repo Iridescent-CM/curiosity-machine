@@ -2,15 +2,14 @@
 {% load staticfiles %}
 {% block title %}Curiosity Machine - Home{% endblock %}
 {% block body-classes %}educator-dashboard{% endblock %}
-{% block body-id %}educator-dashboard-guides{% endblock %}
 
 {% block content %}
 
-{% include 'profiles/educator/dashboard/_header.html' with activeGuides="active-nav" %}
+{% include 'profiles/educator/dashboard/_header.html' %}
 
 <div class="container m-b-lg">
 
-  {% include 'profiles/educator/dashboard/_navigation.html' %}
+  {% include 'profiles/educator/dashboard/_navigation.html' with activeGuides="active-nav" %}
 
   <div class="row p-b">
     <div class="col-md-12">
