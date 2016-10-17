@@ -79,35 +79,11 @@
   //
   // Highlights link to active page in navigation
   //
-  #educator-dashboard-home {
-    .educator-dashboard-navigation ul {
-      #active-edu-home {
-        border-bottom: 5px solid $primary-blue;
-        a { color: $primary-blue; }
+  #active-nav {
+    border-bottom: 5px solid $primary-blue;
+    a { color: $primary-blue; }
 
-        @include media-breakpoint-down(md) { border-bottom: 0px; }
-      }
-    }
-  }
-  #educator-dashboard-students {
-    .educator-dashboard-navigation ul {
-      #active-edu-students {
-        border-bottom: 5px solid $primary-blue;
-        a { color: $primary-blue; }
-
-        @include media-breakpoint-down(md) { border-bottom: 0px; }
-      }
-    }
-  }
-  #educator-dashboard-guides {
-    .educator-dashboard-navigation ul {
-      #active-edu-guides {
-        border-bottom: 5px solid $primary-blue;
-        a { color: $primary-blue; }
-
-        @include media-breakpoint-down(md) { border-bottom: 0px; }
-      }
-    }
+    @include media-breakpoint-down(md) { border-bottom: 0px; }
   }
   // end highlights
 }

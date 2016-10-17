@@ -2,17 +2,17 @@
   <div class="col-md-12">
     <nav class="educator-dashboard-navigation">
       <ul class="nav">
-        <li class="nav-item" id="active-edu-home">
+        <li class="nav-item" id="{{ activeChallenges }}">
           <a class="nav-link" href="{% url 'profiles:home' %}">
             design challenges
           </a>
         </li>
-        <li class="nav-item" id="active-edu-students">
+        <li class="nav-item" id="{{ activeStudents }}">
           <a class="nav-link" href="{% url 'profiles:educator_dashboard_students' %}">
             students
           </a>
         </li>
-        <li class="nav-item" id="active-edu-guides">
+        <li class="nav-item" id="{{ activeGuides }}">
           <a class="nav-link" href="{% url 'profiles:educator_dashboard_guides' %}">
             units &amp; guides
           </a>
