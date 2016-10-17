@@ -87,3 +87,11 @@ class ThemeFactory(factory.django.DjangoModelFactory):
         if extracted:
             for challenge in extracted:
                 challenge.themes.add(obj)
+
+class ResourceFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Resource
+
+class ResourceFileFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.ResourceFile

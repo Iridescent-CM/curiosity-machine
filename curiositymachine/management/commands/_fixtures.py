@@ -89,6 +89,12 @@ def better_challenges():
     filters = pk_map(data, 'challenges.filter', FilterFactory, lookups={
         'challenges': challenges
     })
+    resources = pk_map(data, 'challenges.resource', ResourceFactory, lookups={
+        'challenge': challenges
+    })
+    resourcefiles = pk_map(data, 'challenges.resourcefile', ResourceFileFactory, lookups={
+        'resource': resources
+    })
 
 def staging():
     basic_users()
