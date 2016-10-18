@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from profiles.forms import educator as forms
 from challenges.models import Challenge
+from units.models import Unit
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
 from django.utils.functional import lazy
@@ -49,4 +50,7 @@ def students_dashboard(request):
 @educator_only
 @login_required
 def guides_dashboard(request):
-    return render(request, "profiles/educator/dashboard/guides.html", {})
+    units = Unit.objects.filter(listed=True).select_related('image')
+    return render(request, "profiles/educator/dashboard/guides.html", {
+        "units": units
+    })
