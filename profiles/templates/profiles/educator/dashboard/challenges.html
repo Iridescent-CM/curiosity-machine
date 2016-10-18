@@ -1,5 +1,6 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load staticfiles %}
+{% load resized %}
 {% block title %}Curiosity Machine - Home{% endblock %}
 {% block body-classes %}educator-dashboard{% endblock %}
 
@@ -21,41 +22,47 @@
   <div class="row">
     <!--  these expandable cards need to be 2 to a row -->
 
+    {% for challenge in challenges %}
     <div class="col-md-6 m-b">
       <div class="expandable-card">
         <div>
-          <a href="#" class="action-img">
-            <img class="pull-left m-r" src="http://placehold.it/165x165" alt="Challenge Name">
+          <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
+            <img class="pull-left m-r" src="{% resized challenge.image.url width=165 height=165 crop='thumb' %}" alt="{{ challenge.name }}">
           </a>
           <div class="expandable-card-title">
             <h3>
-              <a href="#" class="action-img">
-                Challenge Name
+              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
+                {{ challenge.name }}
               </a>
             </h3>
 
-            <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo1" aria-expanded="false" aria-controls="moreInfo1">
+            <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo-{{ challenge.id }}" aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
               &plus; MORE INFO
             </a>
           </div>
         </div>
 
-        <div class="collapse" id="moreInfo1">
+        <div class="collapse" id="moreInfo-{{ challenge.id }}">
           <div class="expandable-card-more">
             <span class="expandable-card-more-section-title">DESCRIPTION</span>
-            <!-- challenge description, 130 characters or less ideally -->
-            <p>Duis rutrum libero ipsum, tempor vehicula mi venenatis scelerisque. Praesent nec dignissim metus. Nunc vel justo justo. Curabitur.</p>
+            <p>{{ challenge.description }}</p>
 
-            <!-- if there are resources, list here -->
+            {% if challenge.resource_set.count %}
             <span class="expandable-card-more-section-title">RESOURCES</span>
             <ul class="resources-list">
-              <li>Grade 6-8 Mini-unit</li>
-              <li>Grade 3-5 Mini-unit</li>
+              {% for resource in challenge.resource_set.all %}
+              <li>{{ resource.name }}</li>
+              {% endfor %}
             </ul>
+            {% endif %}
           </div>
         </div>
       </div>
     </div>
+    {% if forloop.counter|divisibleby:2 %}
+    <div class="clearfix"></div>
+    {% endif %}
+    {% endfor %}
 
   </div>
 

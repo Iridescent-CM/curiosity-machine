@@ -4,6 +4,7 @@ from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from profiles.forms import educator as forms
+from challenges.models import Challenge
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
 from django.utils.functional import lazy
@@ -35,7 +36,10 @@ def profile_edit(request):
 @educator_only
 @login_required
 def home(request):
-    return render(request, "profiles/educator/dashboard/challenges.html", {})
+    challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
+    return render(request, "profiles/educator/dashboard/challenges.html", {
+        "challenges": challenges,
+    })
 
 @educator_only
 @login_required

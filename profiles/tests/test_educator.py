@@ -8,6 +8,7 @@ from django.contrib.auth.models import AnonymousUser
 from curiositymachine import signals
 from profiles.factories import EducatorFactory
 from memberships.factories import MembershipFactory
+from challenges.factories import *
 
 User = get_user_model()
 
@@ -203,6 +204,16 @@ def test_join(rf):
     response = views.educator.join(request)
     assert response.status_code == 302
     assert User.objects.filter(username='user').count() == 1
+
+@pytest.mark.django_db
+def test_educator_dashboard_challenges_page_context_has_challenges(client):
+    challenges = ChallengeFactory.create_batch(3, draft=False)
+    core_challenges = ChallengeFactory.create_batch(3, core=True, free=True, draft=False)
+    educator = EducatorFactory(username="edu", password="123123")
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home", follow=True)
+    assert set(response.context["challenges"]) == set(core_challenges)
 
 @pytest.mark.xfail(reason="rebuilding dashboard")
 @pytest.mark.django_db

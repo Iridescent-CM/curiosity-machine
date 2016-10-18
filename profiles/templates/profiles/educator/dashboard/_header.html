@@ -6,18 +6,18 @@
         <div class="dashboard-avatar">
           {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
         </div>
-        {% if user.first_name or user.last_name %}
-        {{ user.first_name }} {{ user.last_name }}
+        {% if request.user.first_name or request.user.last_name %}
+        {{ request.user.first_name }} {{ request.user.last_name }}
         {% else %}
         <em>No name provided</em>
         {% endif %}
         <br>
-        <span class="dashboard-inline-username">{{ user.username }}</span>
+        <span class="dashboard-inline-username">{{ request.user.username }}</span>
       </div>
     </div>
     <div class="row m-t hidden-sm-down">
       <div class="col-md-12">
-        <strong>Email:</strong> {{ user.email }}
+        <strong>Email:</strong> {{ request.user.email }}
         <br>
         <strong>Memberships:</strong> None
       </div>
