@@ -5663,6 +5663,14 @@ footer {
     .educator-dashboard .educator-dashboard-navigation ul li {
       width: 100%; } }
 
+.educator-dashboard .active-nav {
+  border-bottom: 5px solid #00B1C3; }
+  .educator-dashboard .active-nav a {
+    color: #00B1C3; }
+  @media (max-width: 61.9em) {
+    .educator-dashboard .active-nav {
+      border-bottom: 0px; } }
+
 #faq-about-page strong {
   display: inline-block;
   margin-top: 1.5em; }
