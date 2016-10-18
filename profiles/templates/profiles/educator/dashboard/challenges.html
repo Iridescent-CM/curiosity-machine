@@ -77,12 +77,12 @@
     <div class="col-md-6 m-b">
       <div class="expandable-card">
         <div>
-          <a href="#" class="action-img">
+          <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
             <img class="pull-left m-r" src="{% resized challenge.image.url width=165 height=165 crop='thumb' %}" alt="{{ challenge.name }}">
           </a>
           <div class="expandable-card-title">
             <h3>
-              <a href="#" class="action-img">
+              <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
                 {{ challenge.name }}
               </a>
             </h3>
