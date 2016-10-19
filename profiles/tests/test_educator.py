@@ -9,6 +9,7 @@ from curiositymachine import signals
 from profiles.factories import EducatorFactory
 from memberships.factories import MembershipFactory
 from challenges.factories import *
+from units.factories import *
 
 User = get_user_model()
 
@@ -204,6 +205,16 @@ def test_join(rf):
     response = views.educator.join(request)
     assert response.status_code == 302
     assert User.objects.filter(username='user').count() == 1
+
+@pytest.mark.django_db
+def test_educator_dashboard_guides_page_context_has_units(client):
+    units = UnitFactory.create_batch(5, listed=False)
+    listed_units = UnitFactory.create_batch(5, listed=True)
+    educator = EducatorFactory(username="edu", password="123123")
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/guides", follow=True)
+    assert set(response.context["units"]) == set(listed_units)
 
 @pytest.mark.django_db
 def test_educator_dashboard_challenges_page_context_has_challenges(client):
