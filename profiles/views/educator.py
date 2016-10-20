@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from challenges.models import Challenge
+from units.models import Unit
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
 from django.utils.functional import lazy
@@ -56,6 +57,8 @@ def students_dashboard(request, membership_selection=None):
 @login_required
 @membership_selection
 def guides_dashboard(request, membership_selection=None):
+    units = Unit.objects.filter(listed=True).select_related('image')
     return render(request, "profiles/educator/dashboard/guides.html", {
+        "units": units,
         "membership_selection": membership_selection,
     })
