@@ -39,9 +39,18 @@ def profile_edit(request):
 @login_required
 @membership_selection
 def home(request, membership_selection=None):
-    challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
+    core_challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
+
+    membership_challenges = []
+    membership = None
+    if membership_selection and membership_selection["selected"]:
+        membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+        membership_challenges = membership.challenges.select_related('image').prefetch_related('resource_set')
+
     return render(request, "profiles/educator/dashboard/challenges.html", {
-        "challenges": challenges,
+        "membership": membership,
+        "membership_challenges": membership_challenges,
+        "core_challenges": core_challenges,
         "membership_selection": membership_selection,
     })
 
