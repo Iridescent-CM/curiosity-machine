@@ -5662,6 +5662,8 @@ footer {
   @media (max-width: 47.9em) {
     .educator-dashboard .educator-dashboard-navigation ul li {
       width: 100%; } }
+  .educator-dashboard .educator-dashboard-navigation .dropdown a {
+    margin: 0px; }
 
 .educator-dashboard .active-nav {
   border-bottom: 5px solid #00B1C3; }
