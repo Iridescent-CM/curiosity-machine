@@ -216,10 +216,10 @@ th {
     border-top-color: #000 !important; }
   .label {
     border: 1px solid #000; }
-  .table {
+  .table, .card-progress .table-progress {
     border-collapse: collapse !important; }
-    .table td,
-    .table th {
+    .table td, .card-progress .table-progress td,
+    .table th, .card-progress .table-progress th {
       background-color: #fff !important; }
   .table-bordered th,
   .table-bordered td {
@@ -1199,22 +1199,22 @@ pre {
   .col-xl-offset-12 {
     margin-left: 100%; } }
 
-.table {
+.table, .card-progress .table-progress {
   width: 100%;
   max-width: 100%;
   margin-bottom: 1rem; }
-  .table th,
-  .table td {
+  .table th, .card-progress .table-progress th,
+  .table td, .card-progress .table-progress td {
     padding: 0.75rem;
     line-height: 1.5;
     vertical-align: top;
     border-top: 1px solid #eceeef; }
-  .table thead th {
+  .table thead th, .card-progress .table-progress thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #eceeef; }
-  .table tbody + tbody {
+  .table tbody + tbody, .card-progress .table-progress tbody + tbody {
     border-top: 2px solid #eceeef; }
-  .table .table {
+  .table .table, .card-progress .table-progress .table, .table .card-progress .table-progress, .card-progress .table .table-progress, .card-progress .table-progress .table-progress {
     background-color: #fff; }
 
 .table-sm th,
@@ -2753,13 +2753,13 @@ input[type="button"].btn-block {
 .navbar-dark .navbar-divider {
   background-color: rgba(255, 255, 255, 0.075); }
 
-.card {
+.card, .card-progress {
   position: relative;
   margin-bottom: 0.75rem;
   border: 0.0625rem solid #e5e5e5;
   border-radius: 0.25rem; }
 
-.card-block {
+.card-block, .card-progress .card-block-title {
   padding: 1.25rem; }
 
 .card-title {
@@ -2779,10 +2779,10 @@ input[type="button"].btn-block {
 .card-link + .card-link {
   margin-left: 1.25rem; }
 
-.card > .list-group:first-child .list-group-item:first-child {
+.card > .list-group:first-child .list-group-item:first-child, .card-progress > .list-group:first-child .list-group-item:first-child {
   border-radius: 0.25rem 0.25rem 0 0; }
 
-.card > .list-group:last-child .list-group-item:last-child {
+.card > .list-group:last-child .list-group-item:last-child, .card-progress > .list-group:last-child .list-group-item:last-child {
   border-radius: 0 0 0.25rem 0.25rem; }
 
 .card-header {
@@ -2863,7 +2863,7 @@ input[type="button"].btn-block {
   display: table;
   table-layout: fixed;
   border-spacing: 1.25rem 0; }
-  .card-deck .card {
+  .card-deck .card, .card-deck .card-progress {
     display: table-cell;
     width: 1%;
     vertical-align: top; }
@@ -2876,30 +2876,31 @@ input[type="button"].btn-block {
   display: table;
   width: 100%;
   table-layout: fixed; }
-  .card-group .card {
+  .card-group .card, .card-group .card-progress {
     display: table-cell;
     vertical-align: top; }
-    .card-group .card + .card {
+    .card-group .card + .card, .card-group .card-progress + .card, .card-group .card + .card-progress, .card-group .card-progress + .card-progress {
       margin-left: 0;
       border-left: 0; }
-    .card-group .card:first-child .card-img-top {
+    .card-group .card:first-child .card-img-top, .card-group .card-progress:first-child .card-img-top {
       border-top-right-radius: 0; }
-    .card-group .card:first-child .card-img-bottom {
+    .card-group .card:first-child .card-img-bottom, .card-group .card-progress:first-child .card-img-bottom {
       border-bottom-right-radius: 0; }
-    .card-group .card:last-child .card-img-top {
+    .card-group .card:last-child .card-img-top, .card-group .card-progress:last-child .card-img-top {
       border-top-left-radius: 0; }
-    .card-group .card:last-child .card-img-bottom {
+    .card-group .card:last-child .card-img-bottom, .card-group .card-progress:last-child .card-img-bottom {
       border-bottom-left-radius: 0; }
-    .card-group .card:not(:first-child):not(:last-child) {
+    .card-group .card:not(:first-child):not(:last-child), .card-group .card-progress:not(:first-child):not(:last-child) {
       border-radius: 0; }
-      .card-group .card:not(:first-child):not(:last-child) .card-img-top,
-      .card-group .card:not(:first-child):not(:last-child) .card-img-bottom {
+      .card-group .card:not(:first-child):not(:last-child) .card-img-top, .card-group .card-progress:not(:first-child):not(:last-child) .card-img-top,
+      .card-group .card:not(:first-child):not(:last-child) .card-img-bottom,
+      .card-group .card-progress:not(:first-child):not(:last-child) .card-img-bottom {
         border-radius: 0; }
 
 .card-columns {
   column-count: 3;
   column-gap: 1.25rem; }
-  .card-columns .card {
+  .card-columns .card, .card-columns .card-progress {
     display: inline-block;
     width: 100%; }
 
@@ -4514,6 +4515,64 @@ a.bg-danger:focus, a.bg-danger:hover {
   padding-top: 6rem !important;
   padding-bottom: 6rem !important; }
 
+.tag {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem; }
+  .tag:empty {
+    display: none; }
+
+.btn .tag {
+  position: relative;
+  top: -1px; }
+
+a.tag:focus, a.tag:hover {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer; }
+
+.tag-pill {
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 10rem; }
+
+.tag-default {
+  background-color: #818a91; }
+  .tag-default[href]:focus, .tag-default[href]:hover {
+    background-color: #687077; }
+
+.tag-primary {
+  background-color: #0275d8; }
+  .tag-primary[href]:focus, .tag-primary[href]:hover {
+    background-color: #025aa5; }
+
+.tag-success {
+  background-color: #5cb85c; }
+  .tag-success[href]:focus, .tag-success[href]:hover {
+    background-color: #449d44; }
+
+.tag-info {
+  background-color: #5bc0de; }
+  .tag-info[href]:focus, .tag-info[href]:hover {
+    background-color: #31b0d5; }
+
+.tag-warning {
+  background-color: #f0ad4e; }
+  .tag-warning[href]:focus, .tag-warning[href]:hover {
+    background-color: #ec971f; }
+
+.tag-danger {
+  background-color: #d9534f; }
+  .tag-danger[href]:focus, .tag-danger[href]:hover {
+    background-color: #c9302c; }
+
 @font-face {
   font-family: 'curiosity-machine';
   src: url("../fonts/curiosity-machine.eot?6t4fb5");
@@ -5035,9 +5094,9 @@ i {
   .challenge-card img {
     width: 100%;
     overflow: hidden; }
-  .challenge-card .card-block {
+  .challenge-card .card-block, .challenge-card .card-progress .card-block-title, .card-progress .challenge-card .card-block-title {
     padding: 0.75em; }
-    .challenge-card .card-block i {
+    .challenge-card .card-block i, .challenge-card .card-progress .card-block-title i, .card-progress .challenge-card .card-block-title i {
       margin-right: 5px; }
   .challenge-card .card-title {
     border-bottom: 2px solid #E5E1D9;
@@ -5150,6 +5209,52 @@ i {
   background-color: #E5E1D9; }
   .card-module .card-block-title h1, .card-module .card-block-title h2, .card-module .card-block-title h3, .card-module .card-block-title h4 {
     margin-bottom: 0px; }
+
+.card-progress .card-block-title {
+  background-color: #00B1C3; }
+  .card-progress .card-block-title h3 {
+    display: inline;
+    color: #FFFCF7; }
+
+.card-progress .progress-details {
+  list-style-type: none;
+  padding-left: 0px; }
+  .card-progress .progress-details li {
+    display: inline-block;
+    width: 33%; }
+  .card-progress .progress-details .progress-type {
+    text-transform: uppercase;
+    font-size: 0.875em;
+    font-weight: 700;
+    color: #949494;
+    letter-spacing: 2px; }
+
+.card-progress .table-progress {
+  table-layout: fixed;
+  border-color: #FFFCF7 !important; }
+  .card-progress .table-progress th {
+    text-align: center; }
+  .card-progress .table-progress thead {
+    text-transform: uppercase;
+    font-size: 0.875em;
+    font-weight: 700;
+    color: #F55932;
+    letter-spacing: 2px; }
+    .card-progress .table-progress thead th {
+      padding: 5px;
+      border-top: 0px; }
+  .card-progress .table-progress tbody {
+    font-size: 1.25em;
+    border-color: #FFFCF7; }
+    .card-progress .table-progress tbody th {
+      border: solid 5px #FFFCF7;
+      padding: 6px; }
+  .card-progress .table-progress .active {
+    background-color: #8FB559;
+    color: #FFFCF7; }
+  .card-progress .table-progress .inactive {
+    background-color: #E5E1D9;
+    color: #949494; }
 
 .expandable-challenge-card {
   background-color: #FFFCF7;
@@ -5283,12 +5388,12 @@ i {
   width: 100%;
   height: auto; }
 
-.table {
+.table, .card-progress .table-progress {
   background-color: #FFFCF7;
   border: solid 2px #E5E1D9; }
-  .table thead th {
+  .table thead th, .card-progress .table-progress thead th {
     border-color: #E5E1D9; }
-  .table td {
+  .table td, .card-progress .table-progress td {
     border-color: #E5E1D9; }
 
 .dotted-well {
@@ -5615,7 +5720,7 @@ footer {
 #index-page #how-video-modal {
   padding: 40px 20px 20px 20px; }
 
-#educator-about-page .card {
+#educator-about-page .card, #educator-about-page .card-progress {
   margin: 1.5em auto; }
 
 .educator-dashboard .dashboard-avatar img {
@@ -5924,10 +6029,10 @@ footer {
     color: white;
     border-bottom-color: white; }
 
-#examples-page .card {
+#examples-page .card, #examples-page .card-progress {
   margin-bottom: 1.5em; }
 
-#examples-page .card-block {
+#examples-page .card-block, #examples-page .card-progress .card-block-title, .card-progress #examples-page .card-block-title {
   background-color: #f5f3f0;
   overflow: auto;
   word-break: break-all; }
@@ -5974,7 +6079,7 @@ footer {
   #examples-page .examples-page-alerts i {
     margin-right: 0.75em; }
 
-#examples-page .card {
+#examples-page .card, #examples-page .card-progress {
   max-width: 330px;
   margin: 1.5em auto; }
 

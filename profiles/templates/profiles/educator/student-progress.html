@@ -14,8 +14,8 @@
 <div class="container">
 
   <div class="col-md-3">
-    <div class="card">
-      <div class="card-block text-center">
+    <div class="card card-module">
+      <div class="card-block card-block-title text-center">
         <img class="rounded-circle" src="http://placehold.it/60x60">
         <p>
           Katniss Everdeen
@@ -34,17 +34,32 @@
   </div>
 
   <div class="col-md-9">
-    <div class="card">
-      <div class="card-block">
-        <h3 class="card-title pull-left">Build a Robotic Face</h3>
-        <a href="#" class="pull-right">View all students &rarr;</a>
+    <div class="card-progress">
+      <div class="card-block-title">
+        <h3 class="card-title">Build a Robotic Face</h3>
+        <a href="#" class="a-secondary pull-right">View all students &rarr;</a>
       </div>
       <div class="card-block">
-        <p>Latest post: Wednesday, Oct 12 <span class="tag tag-pill tag-default">TODAY</span></p>
-        <p>Online mentor: No mentor</p>
-        <p>Total posts: 11</p>
 
-        <table class="table">
+        <row class="progress-details">
+          <div class="col-md-4 m-b">
+            <span class="progress-type">latest post</span>
+            <br>
+            Wednesday, Oct 12 <span class="tag tag-pill tag-success">TODAY</span></p>
+          </div>
+          <div class="col-md-4 m-b">
+            <span class="progress-type">online mentor</span>
+            <br>
+            No mentor
+          </div>
+          <div class="col-md-4 m-b">
+            <span class="progress-type">total posts</span>
+            <br>
+            11
+          </div>
+        </row>
+
+        <table class="table-progress table-sm">
           <thead>
             <tr>
               <th>Plan</th>
@@ -56,11 +71,11 @@
           </thead>
           <tbody>
             <tr>
-              <th>2</th>
-              <td>5</td>
-              <td>3</td>
-              <td><i class="icon-check"></i></td>
-              <td><i class="icon-cross"></i></td>
+              <th class="active">2</th>
+              <th class="active">5</td>
+              <th class="active">3</td>
+              <th class="active"><i class="icon-check"></i></td>
+              <th class="inactive"><i class="icon-cross"></i></td>
             </tr>
           </tbody>
         </table>
