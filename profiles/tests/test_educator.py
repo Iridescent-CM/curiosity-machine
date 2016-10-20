@@ -2,7 +2,6 @@ import pytest
 import mock
 from profiles import forms, models, views
 from images.models import Image
-from django.http import Http404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from curiositymachine import signals
@@ -215,13 +214,12 @@ def test_educator_dashboard_challenges_page_context_has_challenges(client):
     response = client.get("/home", follow=True)
     assert set(response.context["challenges"]) == set(core_challenges)
 
-@pytest.mark.xfail(reason="rebuilding dashboard")
 @pytest.mark.django_db
-def test_educator_dashboard_context_has_memberships(client):
+def test_educator_dashboard_page_contexts_have_membership_selection_helper(client):
     educator = EducatorFactory(username="edu", password="123123")
     memberships = [MembershipFactory(members=[educator]), MembershipFactory(members=[educator])]
 
     client.login(username="edu", password="123123")
-    response = client.get("/home", follow=True)
-    assert set(response.context["memberships"]) == set(memberships)
-
+    for url in ["/home", "/home/students", "/home/guides"]:
+        response = client.get(url, follow=True)
+        assert "membership_selection" in response.context

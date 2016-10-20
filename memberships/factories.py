@@ -9,7 +9,8 @@ class MembershipFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Membership
 
-    name = factory.fuzzy.FuzzyText(prefix="membership-")
+    name = factory.fuzzy.FuzzyText(prefix="name ")
+    display_name = factory.fuzzy.FuzzyText(prefix="display name ")
 
     @post_generation
     def members(obj, create, extracted, **kwargs):

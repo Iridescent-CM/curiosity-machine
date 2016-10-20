@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from profiles.forms import educator as forms
+from ..forms import educator as forms
+from ..decorators import membership_selection
 from challenges.models import Challenge
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
@@ -35,18 +36,26 @@ def profile_edit(request):
 
 @educator_only
 @login_required
-def home(request):
+@membership_selection
+def home(request, membership_selection=None):
     challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
     return render(request, "profiles/educator/dashboard/challenges.html", {
         "challenges": challenges,
+        "membership_selection": membership_selection,
     })
 
 @educator_only
 @login_required
-def students_dashboard(request):
-    return render(request, "profiles/educator/dashboard/students.html", {})
+@membership_selection
+def students_dashboard(request, membership_selection=None):
+    return render(request, "profiles/educator/dashboard/students.html", {
+        "membership_selection": membership_selection,
+    })
 
 @educator_only
 @login_required
-def guides_dashboard(request):
-    return render(request, "profiles/educator/dashboard/guides.html", {})
+@membership_selection
+def guides_dashboard(request, membership_selection=None):
+    return render(request, "profiles/educator/dashboard/guides.html", {
+        "membership_selection": membership_selection,
+    })
