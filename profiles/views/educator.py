@@ -66,3 +66,23 @@ def home_units(request):
         'units': Unit.objects.filter(draft=False).order_by('id'),
         'memberships': request.user.membership_set.all()
     })
+
+@educator_only
+@login_required
+def studentprogress(request):
+    return render(request, "profiles/educator/student-progress.html", {
+        'form': GroupForm(),
+        'groups': request.user.cm_groups.all(),
+        'units': Unit.objects.filter(draft=False).order_by('id'),
+        'memberships': request.user.membership_set.all()
+    })
+
+@educator_only
+@login_required
+def dcprogress(request):
+    return render(request, "profiles/educator/dc-progress.html", {
+        'form': GroupForm(),
+        'groups': request.user.cm_groups.all(),
+        'units': Unit.objects.filter(draft=False).order_by('id'),
+        'memberships': request.user.membership_set.all()
+    })
