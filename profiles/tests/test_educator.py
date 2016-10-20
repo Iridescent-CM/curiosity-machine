@@ -216,14 +216,36 @@ def test_educator_dashboard_guides_page_context_has_units(client):
     assert set(response.context["units"]) == set(listed_units)
 
 @pytest.mark.django_db
-def test_educator_dashboard_challenges_page_context_has_challenges(client):
+def test_educator_dashboard_guides_page_context_has_extra_units(client):
+    units = UnitFactory.create_batch(5, listed=False)
+    educator = EducatorFactory(username="edu", password="123123")
+    membership = MembershipFactory(members=[educator], extra_units=units)
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/guides", follow=True)
+    assert set(response.context["extra_units"]) == set(units)
+    assert response.context["membership"] == membership
+
+@pytest.mark.django_db
+def test_educator_dashboard_challenges_page_context_has_core_challenges(client):
     challenges = ChallengeFactory.create_batch(3, draft=False)
     core_challenges = ChallengeFactory.create_batch(3, core=True, free=True, draft=False)
     educator = EducatorFactory(username="edu", password="123123")
 
     client.login(username="edu", password="123123")
     response = client.get("/home", follow=True)
-    assert set(response.context["challenges"]) == set(core_challenges)
+    assert set(response.context["core_challenges"]) == set(core_challenges)
+
+@pytest.mark.django_db
+def test_educator_dashboard_challenges_page_context_has_membership_challenges(client):
+    challenges = ChallengeFactory.create_batch(3, draft=False)
+    educator = EducatorFactory(username="edu", password="123123")
+    membership = MembershipFactory(members=[educator], challenges=challenges)
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home", follow=True)
+    assert set(response.context["membership_challenges"]) == set(challenges)
+    assert response.context["membership"] == membership
 
 @pytest.mark.django_db
 def test_educator_dashboard_page_contexts_have_membership_selection_helper(client):
