@@ -87,7 +87,8 @@ def membership_selection(view):
             "count": len(memberships),
             "selected": active,
             "all": memberships,
-            "names": ", ".join([o["display_name"] for o in memberships]) or "None"
+            "names": ", ".join([o["display_name"] for o in memberships]) or "None",
+            "no_memberships": len(memberships) == 0,
         }
         return view(request, *args, **kwargs)
     return inner

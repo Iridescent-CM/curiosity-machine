@@ -18,9 +18,11 @@
     </div>
   </div>
 
+  {% if membership_selection.no_memberships %}
   <div class="m-t-lg">
     {% include 'profiles/educator/dashboard/_membership-blurb.html' %}
   </div>
+  {% endif %}
 
 </div>
 {% endblock %}
