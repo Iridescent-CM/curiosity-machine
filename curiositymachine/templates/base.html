@@ -75,6 +75,9 @@
       trailingSlash: 'add'
     });
     ga('set', 'dimension1', '{{ga_dimension_user_type}}');
+    {% if ga_user_id %}
+    ga('set', 'userId', {{ga_user_id}});
+    {% endif %}
     ga('send', 'pageview');
   </script>
   {% endif %}
