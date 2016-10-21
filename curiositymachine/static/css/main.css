@@ -5697,6 +5697,12 @@ footer {
         margin-left: 10px; }
     .educator-dashboard .student-list .student-list-item .student-inline-empty {
       color: #949494; }
+    .educator-dashboard .student-list .student-list-item .less {
+      display: none; }
+    .educator-dashboard .student-list .student-list-item .togglemoreless .more {
+      display: none; }
+    .educator-dashboard .student-list .student-list-item .togglemoreless .less {
+      display: inherit; }
 
 #faq-about-page strong {
   display: inline-block;

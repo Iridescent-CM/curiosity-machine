@@ -44,9 +44,14 @@
           <span class="student-inline-username">
             {{ user.username }} &middot; <span class="green-type">approved</span>
           </span>
-          <span class="student-list-manage">
-            <a class="action-img" data-text-swap="Less" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              <span class="hidden-md-down">More</span> <i class="icon-right-arrow"></i>
+          <span class="student-list-manage" text-swap>
+            <a class="action-img" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <span class="more">
+                <span class="hidden-md-down">More</span> <i class="icon-right-arrow"></i>
+              </span>
+              <span class="less">
+                <span class="hidden-md-down">Less</span> <i class="icon-up-arrow"></i>
+              </span>
             </a>
           </span>
 
@@ -78,6 +83,10 @@
 {% block js %}
   <!-- script that makes "more" say "less" after you click in expandable cards -->
   <script>
+  $( "span[text-swap]" ).click(function() {
+    $( this ).toggleClass( "togglemoreless" );
+  });
+
   $("a[data-text-swap]").on("click", function() {
     var el = $(this);
     if (el.text() == el.data("text-swap")) {
