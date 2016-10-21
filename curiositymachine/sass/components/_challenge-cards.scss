@@ -175,9 +175,22 @@
   .card-block-title {
     @extend .card-block;
     background-color: $primary-blue;
+    border-radius: 4px 4px 0px 0px;
+
     h3 {
       display: inline;
       color: $ivory;
+    }
+
+    a { float: right; }
+  }
+
+  @include media-breakpoint-down(md) {
+    .card-block-title {
+      text-align: center;
+
+      h3 { display: block; }
+      a { float: none; }
     }
   }
 

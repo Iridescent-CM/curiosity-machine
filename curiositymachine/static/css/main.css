@@ -5211,10 +5211,21 @@ i {
     margin-bottom: 0px; }
 
 .card-progress .card-block-title {
-  background-color: #00B1C3; }
+  background-color: #00B1C3;
+  border-radius: 4px 4px 0px 0px; }
   .card-progress .card-block-title h3 {
     display: inline;
     color: #FFFCF7; }
+  .card-progress .card-block-title a {
+    float: right; }
+
+@media (max-width: 61.9em) {
+  .card-progress .card-block-title {
+    text-align: center; }
+    .card-progress .card-block-title h3 {
+      display: block; }
+    .card-progress .card-block-title a {
+      float: none; } }
 
 .card-progress .progress-details {
   list-style-type: none;
