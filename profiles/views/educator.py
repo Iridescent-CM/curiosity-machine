@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from profiles.forms import educator as forms
+from ..forms import educator as forms
+from ..decorators import membership_selection
 from challenges.models import Challenge
 from units.models import Unit
 from curiositymachine.decorators import educator_only
@@ -36,21 +37,46 @@ def profile_edit(request):
 
 @educator_only
 @login_required
-def home(request):
-    challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
+@membership_selection
+def home(request, membership_selection=None):
+    core_challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
+
+    membership_challenges = []
+    membership = None
+    if membership_selection and membership_selection["selected"]:
+        membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+        membership_challenges = membership.challenges.select_related('image').prefetch_related('resource_set')
+
     return render(request, "profiles/educator/dashboard/challenges.html", {
-        "challenges": challenges,
+        "membership": membership,
+        "membership_challenges": membership_challenges,
+        "core_challenges": core_challenges,
+        "membership_selection": membership_selection,
     })
 
 @educator_only
 @login_required
-def students_dashboard(request):
-    return render(request, "profiles/educator/dashboard/students.html", {})
+@membership_selection
+def students_dashboard(request, membership_selection=None):
+    return render(request, "profiles/educator/dashboard/students.html", {
+        "membership_selection": membership_selection,
+    })
 
 @educator_only
 @login_required
-def guides_dashboard(request):
+@membership_selection
+def guides_dashboard(request, membership_selection=None):
     units = Unit.objects.filter(listed=True).select_related('image')
+
+    extra_units = []
+    membership = None
+    if membership_selection and membership_selection["selected"]:
+        membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+        extra_units = membership.extra_units.order_by('id').select_related('image')
+
     return render(request, "profiles/educator/dashboard/guides.html", {
-        "units": units
+        "units": units,
+        "membership": membership,
+        "extra_units": extra_units,
+        "membership_selection": membership_selection,
     })

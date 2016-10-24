@@ -1,6 +1,5 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load staticfiles %}
-{% load resized %}
 {% block title %}Curiosity Machine - Home{% endblock %}
 {% block body-classes %}educator-dashboard{% endblock %}
 
@@ -11,6 +10,26 @@
 <div class="container m-b-lg">
 
   {% include 'profiles/educator/dashboard/_navigation.html' with activeNav="guides" %}
+
+  {% if extra_units %}
+  <div class="row p-b">
+    <div class="col-md-12">
+      <h2>{{ membership.display_name }} Units &amp; Guides</h2>
+      <p>We provide units to help you structure how you can use design challenges in the classroom.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    {% for unit in extra_units %}
+    <div class="col-md-6 m-b">
+      {% include "profiles/educator/dashboard/_unit_card.html" with unit=unit %}
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+    <div class="clearfix"></div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
 
   <div class="row p-b">
     <div class="col-md-12">
@@ -23,31 +42,7 @@
 
     {% for unit in units %}
     <div class="col-md-6 m-b">
-      <div class="expandable-card">
-        <div>
-          <a href="{% url "units:unit" unit_id=unit.id %}" class="action-img">
-            <img class="pull-left m-r" src="{% resized unit.image.url width=165 height=165 crop='thumb' %}" alt="{{ unit.name }}">
-          </a>
-          <div class="expandable-card-title">
-            <h3>
-              <a href="{% url "units:unit" unit_id=unit.id %}" class="action-img">
-                {{ unit.name }}
-              </a>
-            </h3>
-
-            <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo-{{ unit.id }}" aria-expanded="false" aria-controls="moreInfo-{{ unit.id }}">
-              &plus; MORE INFO
-            </a>
-          </div>
-        </div>
-
-        <div class="collapse" id="moreInfo-{{ unit.id }}">
-          <div class="expandable-card-more">
-            <span class="expandable-card-more-section-title">DESCRIPTION</span>
-            <p>{{ unit.description }}</p>
-          </div>
-        </div>
-      </div>
+      {% include "profiles/educator/dashboard/_unit_card.html" with unit=unit %}
     </div>
     {% if forloop.counter|divisibleby:2 %}
     <div class="clearfix"></div>
@@ -56,9 +51,11 @@
 
   </div>
 
+  {% if membership_selection.no_memberships %}
   <div class="m-t-lg">
     {% include 'profiles/educator/dashboard/_membership-blurb.html' %}
   </div>
+  {% endif %}
 
 </div>
 {% endblock %}
