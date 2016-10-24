@@ -37,7 +37,7 @@
             {{ student.username }} &middot; <span class="green-type">approved</span>
           </span>
           <span class="student-list-manage" text-swap>
-            <a class="action-img" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <a class="action-img" data-toggle="collapse" href="#collapse-{{ student.id }}" aria-expanded="false" aria-controls="collapse-{{ student.id }}">
               <span class="more">
                 <span class="hidden-md-down">More</span> <i class="icon-right-arrow"></i>
               </span>
@@ -47,7 +47,7 @@
             </a>
           </span>
 
-          <div class="collapse" id="collapseExample">
+          <div class="collapse" id="collapse-{{ student.id }}">
             <div class="p-t p-b">
               <span class="student-inline-birthday">
                 <strong>Birthday:</strong> {{ student.profile.birthday|date:"m/d/Y" }}
@@ -81,26 +81,17 @@
 {% endblock %}
 
 {% block js %}
-  <!-- script that makes "more" say "less" after you click in expandable cards -->
   <script>
-  $('#collapseExample').on('hidden.bs.collapse', function () {
-    $( ".more" ).removeClass( "hidden-xl-down" );
-    $( ".less" ).addClass( "hidden-xl-down" );
+  $('.collapse').on('hidden.bs.collapse', function () {
+    var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
+    $trigger.find( ".more" ).removeClass( "hidden-xl-down" );
+    $trigger.find( ".less" ).addClass( "hidden-xl-down" );
   })
 
-  $('#collapseExample').on('show.bs.collapse', function () {
-    $( ".more" ).addClass( "hidden-xl-down" );
-    $( ".less" ).removeClass( "hidden-xl-down" );
+  $('.collapse').on('show.bs.collapse', function () {
+    var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
+    $trigger.find( ".more" ).addClass( "hidden-xl-down" );
+    $trigger.find( ".less" ).removeClass( "hidden-xl-down" );
   })
-
-  $("a[data-text-swap]").on("click", function() {
-    var el = $(this);
-    if (el.text() == el.data("text-swap")) {
-      el.text(el.data("text-original"));
-    } else {
-      el.data("text-original", el.text());
-      el.text(el.data("text-swap"));
-    }
-    });
   </script>
 {% endblock %}
