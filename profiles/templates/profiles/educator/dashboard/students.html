@@ -19,7 +19,7 @@
   </div>
 
   {% for student in students %}
-  <div class="row m-t-lg m-b-lg">
+  <div class="row">
     <div class="col-md-12">
       <div class="student-list">
 
@@ -34,7 +34,12 @@
           </span>
           <br>
           <span class="student-inline-username">
-            {{ student.username }} &middot; <span class="green-type">approved</span>
+            {{ student.username }} &middot;
+            {% if student.profile.approved %}
+            <span class="green-type">approved</span>
+            {% else %}
+            <span class="orange-type">not approved</span>
+            {% endif %}
           </span>
           <span class="student-list-manage" text-swap>
             <a class="action-img" data-toggle="collapse" href="#collapse-{{ student.id }}" aria-expanded="false" aria-controls="collapse-{{ student.id }}">
@@ -50,11 +55,21 @@
           <div class="collapse" id="collapse-{{ student.id }}">
             <div class="p-t p-b">
               <span class="student-inline-birthday">
-                <strong>Birthday:</strong> {{ student.profile.birthday|date:"m/d/Y" }}
+                <strong>Birthday:</strong>
+                {% if student.profile.birthday %}
+                {{ student.profile.birthday|date:"m/d/Y" }}
+                {% else %}
+                <em>No birthday provided</em>
+                {% endif %}
               </span>
               <br>
               <span class="student-inline-email">
-                <strong>Email:</strong> {{ student.email }}
+                <strong>Email:</strong>
+                {% if student.email %}
+                {{ student.email }}
+                {% else %}
+                <em>No email provided</em>
+                {% endif %}
               </span>
             </div>
           </div>
