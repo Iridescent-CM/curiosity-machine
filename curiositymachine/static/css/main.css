@@ -5671,6 +5671,33 @@ footer {
     .educator-dashboard .active-nav {
       border-bottom: 0px; } }
 
+.educator-dashboard .student-list {
+  border-top: 1px solid #E5E1D9; }
+  .educator-dashboard .student-list .student-list-item {
+    padding: 10px;
+    border-bottom: 1px solid #E5E1D9; }
+    .educator-dashboard .student-list .student-list-item .student-list-avatar {
+      float: left;
+      border-bottom: 0px;
+      margin-right: 10px;
+      width: 48px;
+      height: 48px; }
+      .educator-dashboard .student-list .student-list-item .student-list-avatar img {
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+    .educator-dashboard .student-list .student-list-item .student-inline-name {
+      font-weight: 700; }
+    .educator-dashboard .student-list .student-list-item .student-list-manage {
+      position: absolute;
+      right: 2.5rem; }
+      .educator-dashboard .student-list .student-list-item .student-list-manage i {
+        position: relative;
+        font-size: 12px;
+        margin-left: 10px; }
+    .educator-dashboard .student-list .student-list-item .student-inline-empty {
+      color: #949494; }
+
 #faq-about-page strong {
   display: inline-block;
   margin-top: 1.5em; }
