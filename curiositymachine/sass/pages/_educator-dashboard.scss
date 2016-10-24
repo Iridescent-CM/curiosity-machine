@@ -145,12 +145,6 @@
       }
 
       .student-inline-empty { color: $gray; }
-
-      .less { display: none; }
-      .togglemoreless {
-        .more { display: none; }
-        .less { display: inherit; }
-      }
     }
   }
   // end student table

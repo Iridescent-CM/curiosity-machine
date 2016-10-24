@@ -49,7 +49,7 @@
               <span class="more">
                 <span class="hidden-md-down">More</span> <i class="icon-right-arrow"></i>
               </span>
-              <span class="less">
+              <span class="less hidden-xl-down">
                 <span class="hidden-md-down">Less</span> <i class="icon-up-arrow"></i>
               </span>
             </a>
@@ -83,9 +83,15 @@
 {% block js %}
   <!-- script that makes "more" say "less" after you click in expandable cards -->
   <script>
-  $( "span[text-swap]" ).click(function() {
-    $( this ).toggleClass( "togglemoreless" );
-  });
+  $('#collapseExample').on('hidden.bs.collapse', function () {
+    $( ".more" ).removeClass( "hidden-xl-down" );
+    $( ".less" ).addClass( "hidden-xl-down" );
+  })
+
+  $('#collapseExample').on('show.bs.collapse', function () {
+    $( ".more" ).addClass( "hidden-xl-down" );
+    $( ".less" ).removeClass( "hidden-xl-down" );
+  })
 
   $("a[data-text-swap]").on("click", function() {
     var el = $(this);
