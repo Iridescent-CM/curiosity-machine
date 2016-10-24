@@ -19,6 +19,7 @@ def test_membership_selection_no_memberships(rf):
     assert result["selected"] == None
     assert result["names"] == "None"
     assert result["no_memberships"] 
+    assert not result["memberships"]
 
 def test_membership_selection_one_membership(rf):
     view = mock.MagicMock()
@@ -36,6 +37,7 @@ def test_membership_selection_one_membership(rf):
     assert result["selected"] == {"id": 5, "display_name": "name"}
     assert result["names"] == "name"
     assert not result["no_memberships"] 
+    assert result["memberships"]
 
 def test_membership_selection_many_memberships(rf):
     view = mock.MagicMock()
@@ -53,6 +55,8 @@ def test_membership_selection_many_memberships(rf):
     assert result["selected"] == {"id": 5, "display_name": "name"}
     assert result["names"] == "name, name"
     assert not result["no_memberships"] 
+    assert result["memberships"]
+
 
 def test_membership_selection_through_default(rf):
     view = mock.MagicMock()

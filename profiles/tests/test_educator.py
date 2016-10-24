@@ -248,6 +248,14 @@ def test_educator_dashboard_challenges_page_context_has_membership_challenges(cl
     assert response.context["membership"] == membership
 
 @pytest.mark.django_db
+def test_educator_dashboard_students_page_context_has_no_students(client):
+    educator = EducatorFactory(username="edu", password="123123")
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/", follow=True)
+    assert response.context["students"] == []
+
+@pytest.mark.django_db
 def test_educator_dashboard_students_page_context_has_membership_students(client):
     educator = EducatorFactory(username="edu", password="123123")
     other_educators = EducatorFactory.create_batch(4)

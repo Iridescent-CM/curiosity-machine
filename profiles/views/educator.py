@@ -61,6 +61,7 @@ def home(request, membership_selection=None):
 @membership_selection
 def students_dashboard(request, membership_selection=None):
     membership = None
+    students = []
     if membership_selection and membership_selection["selected"]:
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
         students = membership.members.filter(profile__role=UserRole.student.value).select_related('profile')
