@@ -59,7 +59,7 @@ def connected_child_only(view):
 def membership_selection(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        memberships = request.user.membership_set.values('id', 'display_name')
+        memberships = request.user.membership_set.order_by('display_name').values('id', 'display_name')
         active = None
         if memberships:
             active = None
