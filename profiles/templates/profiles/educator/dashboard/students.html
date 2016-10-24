@@ -18,6 +18,61 @@
     </div>
   </div>
 
+  <!-- begin empty student table message -->
+  <div class="row">
+    <div class="col-md-12">
+      <p>Your membership doesn't have any students in it! Reach out to your membership coordinator to get your student accounts connected to your membership.</p>
+    </div>
+  </div>
+  <!-- end message -->
+
+  <!-- begin table only educators in memberships see -->
+  <div class="row m-t-lg m-b-lg">
+    <div class="col-md-12">
+      <div class="student-list">
+
+        <div class="student-list-item">
+          <a href="#" class="student-list-avatar" disabled>
+            <div class="student-list-has-activity">
+              {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+            </div>
+          </a>
+          <span class="student-inline-name">
+            {{ user.first_name }} {{ user.last_name }}
+          </span>
+          <br>
+          <span class="student-inline-username">
+            {{ user.username }} &middot; <span class="green-type">approved</span>
+          </span>
+          <span class="student-list-manage" text-swap>
+            <a class="action-img" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <span class="more">
+                <span class="hidden-md-down">More</span> <i class="icon-right-arrow"></i>
+              </span>
+              <span class="less hidden-xl-down">
+                <span class="hidden-md-down">Less</span> <i class="icon-up-arrow"></i>
+              </span>
+            </a>
+          </span>
+
+          <div class="collapse" id="collapseExample">
+            <div class="p-t p-b">
+              <span class="student-inline-birthday">
+                <strong>Birthday:</strong> 1 / 2 / 1991
+              </span>
+              <br>
+              <span class="student-inline-email">
+                <strong>Email:</strong> {{ user.email }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- end table only educators in memberships see -->
+
   {% if membership_selection.no_memberships %}
   <div class="m-t-lg">
     {% include 'profiles/educator/dashboard/_membership-blurb.html' %}
@@ -30,6 +85,16 @@
 {% block js %}
   <!-- script that makes "more" say "less" after you click in expandable cards -->
   <script>
+  $('#collapseExample').on('hidden.bs.collapse', function () {
+    $( ".more" ).removeClass( "hidden-xl-down" );
+    $( ".less" ).addClass( "hidden-xl-down" );
+  })
+
+  $('#collapseExample').on('show.bs.collapse', function () {
+    $( ".more" ).addClass( "hidden-xl-down" );
+    $( ".less" ).removeClass( "hidden-xl-down" );
+  })
+
   $("a[data-text-swap]").on("click", function() {
     var el = $(this);
     if (el.text() == el.data("text-swap")) {
