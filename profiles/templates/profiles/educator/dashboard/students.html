@@ -30,7 +30,11 @@
             </div>
           </a>
           <span class="student-inline-name">
+            {% if student.first_name or student.last_name %}
             {{ student.first_name }} {{ student.last_name }}
+            {% else %}
+            <em>No name provided</em>
+            {% endif %}
           </span>
           <br>
           <span class="student-inline-username">
