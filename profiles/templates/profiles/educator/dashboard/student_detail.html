@@ -12,7 +12,11 @@
     <div class="row">
       <h2 class="text-center">Student Progress</h2>
     </div>
-    <div class="row">
+
+    <!--
+    Commented out search bar. can either delete or uncomment if using. note: currently breaks on mobile
+    -->
+    <!-- <div class="row">
       <form class="form-inline pull-right">
         <div class="form-group">
           <label class="sr-only" for="exampleSearch">Names or usernames</label>
@@ -20,7 +24,8 @@
           <button type="submit" class="btn btn-primary">Search</button>
         </div>
       </form>
-    </div>
+    </div> -->
+
   </div>
 </div>
 
@@ -30,7 +35,9 @@
     <div class="col-md-3">
       <div class="card card-module">
         <div class="card-block card-block-title text-center">
-          {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
+          <div class="card-avatar">
+            {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
+          </div>
           <p>
             nala
             <br>
@@ -45,17 +52,6 @@
           </p>
         </div>
       </div>
-
-      <span class="tag tag-pill tag-success">TODAY</span><br>
-      <span class="tag tag-pill tag-success">YESTERDAY</span><br>
-      <span class="tag tag-pill tag-success">2 DAYS</span><br>
-      <span class="tag tag-pill tag-success">3 DAYS</span><br>
-      <span class="tag tag-pill tag-success">4 DAYS</span><br>
-      <span class="tag tag-pill tag-warning">5 DAYS</span><br>
-      <span class="tag tag-pill tag-warning">6 DAYS</span><br>
-      <span class="tag tag-pill tag-warning">A WEEK</span><br>
-      <span class="tag tag-pill tag-default">OVER A WEEK</span><br>
-      <span class="tag tag-pill tag-default">OVER A MONTH</span><br>
 
     </div>
 

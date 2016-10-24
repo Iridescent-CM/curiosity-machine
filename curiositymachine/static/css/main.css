@@ -5211,6 +5211,10 @@ i {
 
 .card-module .card-block-title {
   background-color: #E5E1D9; }
+  .card-module .card-block-title .card-avatar img {
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #FFFCF7; }
   .card-module .card-block-title h1, .card-module .card-block-title h2, .card-module .card-block-title h3, .card-module .card-block-title h4 {
     margin-bottom: 0px; }
 
