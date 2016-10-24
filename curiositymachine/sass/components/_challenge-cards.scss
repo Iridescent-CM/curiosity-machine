@@ -171,6 +171,7 @@
 //
 .card-progress {
   @extend .card;
+  box-shadow: $base-box-shadow;
 
   .card-block-title {
     @extend .card-block;

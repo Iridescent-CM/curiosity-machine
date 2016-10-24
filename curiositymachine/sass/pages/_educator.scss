@@ -168,3 +168,15 @@
     }
   }
 }
+
+#dcprogress {
+
+  .post-quantity {
+    background-color: $primary-green;
+    font-size: 1.25em;
+    font-weight: $heavy-font-weight;
+    height: 48px;
+    padding-top: $small-spacing/2;
+  }
+
+}
