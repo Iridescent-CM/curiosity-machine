@@ -5,7 +5,7 @@ from images.models import Image
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from curiositymachine import signals
-from profiles.factories import EducatorFactory
+from profiles.factories import *
 from memberships.factories import MembershipFactory
 from challenges.factories import *
 from units.factories import *
@@ -246,6 +246,18 @@ def test_educator_dashboard_challenges_page_context_has_membership_challenges(cl
     response = client.get("/home", follow=True)
     assert set(response.context["membership_challenges"]) == set(challenges)
     assert response.context["membership"] == membership
+
+@pytest.mark.django_db
+def test_educator_dashboard_students_page_context_has_membership_students(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    other_educators = EducatorFactory.create_batch(4)
+    students = StudentFactory.create_batch(10)
+    membership = MembershipFactory(members=[educator] + other_educators + students)
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/", follow=True)
+    assert response.context["membership"] == membership
+    assert set(response.context["students"]) == set(students)
 
 @pytest.mark.django_db
 def test_educator_dashboard_page_contexts_have_membership_selection_helper(client):
