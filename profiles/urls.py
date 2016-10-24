@@ -26,4 +26,7 @@ urlpatterns = patterns('profiles.views',
     url(r'^connection/(?P<connection_id>\d+)/$', views.parent.ChildDetailView.as_view(), name='connection'),
     url(r'^connection/(?P<connection_id>\d+)/remove/$', views.dispatch, {'action': 'remove_connection'}, name='remove_connection'),
     url(r'^connection/(?P<connection_id>\d+)/toggle/$', views.student.ParentConnectionToggleView.as_view(), name='toggle_connection'),
+
+    # change me later
+    url(r'^studentprogress/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'studentprogress'}, name='studentprogress'),
 )

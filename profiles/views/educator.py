@@ -80,3 +80,14 @@ def guides_dashboard(request, membership_selection=None):
         "extra_units": extra_units,
         "membership_selection": membership_selection,
     })
+
+# change me later
+@educator_only
+@login_required
+def studentprogress(request):
+    return render(request, "profiles/educator/student-progress.html", {
+        # 'form': GroupForm(),
+        # 'groups': request.user.cm_groups.all(),
+        # 'units': Unit.objects.filter(draft=False).order_by('id'),
+        # 'memberships': request.user.membership_set.all()
+    })

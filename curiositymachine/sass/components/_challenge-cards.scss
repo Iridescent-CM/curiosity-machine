@@ -244,3 +244,88 @@
     }
   }
 }
+
+//
+// Student Progress Cards
+//
+.card-progress {
+  @extend .card;
+  box-shadow: $base-box-shadow;
+
+  .card-block-title {
+    @extend .card-block;
+    background-color: $primary-blue;
+    border-radius: 4px 4px 0px 0px;
+
+    h3 {
+      display: inline;
+      color: $ivory;
+    }
+
+    a { float: right; }
+  }
+
+  @include media-breakpoint-down(md) {
+    .card-block-title {
+      text-align: center;
+
+      h3 { display: block; }
+      a { float: none; }
+    }
+  }
+
+  .progress-details {
+    list-style-type: none;
+    padding-left: 0px;
+
+    li {
+      display: inline-block;
+      width: 33%;
+    }
+
+    .progress-type {
+      text-transform: uppercase;
+      font-size: 0.875em;
+      font-weight: $heavy-font-weight;
+      color: $gray;
+      letter-spacing: 2px;
+    }
+  }
+
+  .table-progress {
+    @extend .table;
+    table-layout: fixed;
+    border-color: $ivory !important;
+    th { text-align: center; }
+
+    thead {
+      text-transform: uppercase;
+      font-size: 0.875em;
+      font-weight: $heavy-font-weight;
+      color: $primary-red;
+      letter-spacing: 2px;
+      th {
+        padding: 5px;
+        border-top: 0px;
+      }
+    }
+
+    tbody {
+      font-size: 1.25em;
+      border-color: $ivory;
+      th {
+        border: solid 5px $ivory;
+        padding: 6px;
+      }
+    }
+
+    .active {
+      background-color: $primary-green;
+      color: $ivory;
+    }
+    .inactive {
+      background-color: $sand;
+      color: $gray;
+    }
+  }
+}

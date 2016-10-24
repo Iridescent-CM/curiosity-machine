@@ -60,6 +60,7 @@ $ivory: #FFFCF7;
 
 // Shadow Colors
 $main-shadow: rgba(148, 148, 148, .5);
+$base-box-shadow: 0px 2px 4px 0px $main-shadow;
 
 // Font Colors
 $base-font-color: $dark;
@@ -77,3 +78,23 @@ $base-background-color: $ivory;
 // Animations
 $base-duration: 150ms;
 $base-timing: ease;
+
+// Tags
+$tag-default-bg:            $gray-light !default;
+$tag-primary-bg:            $brand-primary !default;
+$tag-success-bg:            $brand-success !default;
+$tag-info-bg:               $brand-info !default;
+$tag-warning-bg:            $brand-warning !default;
+$tag-danger-bg:             $brand-danger !default;
+
+$tag-color:                 #fff !default;
+$tag-link-hover-color:      #fff !default;
+$tag-font-size:             75% !default;
+$tag-font-weight:           bold !default;
+$tag-padding-x:             .4em !default;
+$tag-padding-y:             .25em !default;
+
+$tag-pill-padding-x:        .6em !default;
+// Use a higher than normal value to ensure completely rounded edges when
+// customizing padding or font-size on labels.
+$tag-pill-border-radius:    10rem !default;
