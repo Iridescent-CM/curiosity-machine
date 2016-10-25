@@ -5,8 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from ..forms import educator as forms
 from ..decorators import membership_selection
+from ..models import UserRole
 from challenges.models import Challenge
 from units.models import Unit
+from memberships.models import Member
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
 from django.utils.functional import lazy
@@ -58,7 +60,14 @@ def home(request, membership_selection=None):
 @login_required
 @membership_selection
 def students_dashboard(request, membership_selection=None):
+    membership = None
+    students = []
+    if membership_selection and membership_selection["selected"]:
+        membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+        students = membership.members.filter(profile__role=UserRole.student.value).select_related('profile')
     return render(request, "profiles/educator/dashboard/students.html", {
+        "membership": membership,
+        "students": students,
         "membership_selection": membership_selection,
     })
 
