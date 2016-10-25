@@ -24,3 +24,9 @@
   background-attachment: fixed;
   background-repeat: repeat;
 }
+
+.jumbotron-small {
+  @extend .jumbotron;
+  padding-top: $base-spacing;
+  padding-bottom: $base-spacing;
+}

@@ -73,6 +73,13 @@ def students_dashboard(request, membership_selection=None):
 
 @educator_only
 @login_required
+def student_detail(request, student_id):
+    return render(request, "profiles/educator/dashboard/student_detail.html", {
+        "student_id": student_id
+    })
+
+@educator_only
+@login_required
 @membership_selection
 def guides_dashboard(request, membership_selection=None):
     units = Unit.objects.filter(listed=True).select_related('image')
