@@ -33,7 +33,7 @@
       <div class="student-list">
 
         <div class="student-list-item">
-          <a href="#" class="student-list-avatar" disabled>
+          <a href="{% url 'profiles:educator_dashboard_student_detail' student_id=student.id %}" class="student-list-avatar">
             <div class="student-list-has-activity">
               {% include "_avatar.html" with profile=student.profile  width=48 height=48 crop='thumb' gravity='faces' %}
             </div>
@@ -47,7 +47,7 @@
           </span>
           <br>
           <span class="student-inline-username">
-            {{ student.username }} &middot;
+            <a href="{% url 'profiles:educator_dashboard_student_detail' student_id=student.id %}">{{ student.username }}</a> &middot;
             {% if student.profile.approved %}
             <span class="green-type">approved</span>
             {% else %}
