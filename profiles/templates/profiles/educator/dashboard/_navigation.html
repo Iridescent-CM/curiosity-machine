@@ -2,6 +2,18 @@
   <div class="col-md-12">
     <nav class="educator-dashboard-navigation">
       <ul class="nav">
+        {% if membership_selection.count > 1 %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            {{ membership_selection.selected.display_name }}
+          </a>
+          <div class="dropdown-menu">
+            {% for membership in membership_selection.all %}
+            <a class="dropdown-item" href="?m={{ membership.id }}">{{ membership.display_name }}</a>
+            {% endfor %}
+          </div>
+        </li>
+        {% endif %}
         <li class="nav-item {% if activeNav == "challenges" %}active-nav{% endif %}">
           <a class="nav-link" href="{% url 'profiles:home' %}">
             design challenges

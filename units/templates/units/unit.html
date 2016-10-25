@@ -5,11 +5,6 @@
 {% block title %}Curiosity Machine Units: {{ unit.name }}{% endblock %}
 
 {% block content %}
-<ol class="breadcrumb">
-  <li><a href="{% url 'root' %}">Home</a></li>
-  <li><a href="{% url 'units:units' %}">Units</a></li>
-  <li>{{ unit.name }}</li>
-</ol>
 <div class="unit-info">
   <h1>{{ unit.name }}</h1>
 
