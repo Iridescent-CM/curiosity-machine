@@ -4,7 +4,7 @@
 {% block body-id %}dcprogress{% endblock %}
 
 {% block content %}
-
+<div class="content">
 <div class="jumbotron-small jumbotron-green jumbotron-fluid">
   <div class="container">
     <div class="row m-b text-center text-md-left">
@@ -17,7 +17,9 @@
     </div>
     <div class="row">
       <div class="col-md-6 m-b text-center text-md-left">
-        Active students: <strong>12</strong> <span class="hidden-sm-down">&middot;</span><span class="hidden-md-up"><br><br></span> <a href="#" class="a-secondary">Explore Build a Robotic Face &rarr;</a>
+        <span class="active-students">
+          Active students: <strong>12</strong> <span class="hidden-sm-down">&middot;</span><span class="hidden-md-up"><br><br></span> <a href="#" class="a-secondary">Explore Build a Robotic Face &rarr;</a>
+        </span>
       </div>
       <div class="col-md-6 m-b text-center text-md-right">
         <div class="dropdown">
@@ -36,11 +38,30 @@
   </div>
 </div>
 
+<div class="container fixme">
+  <div class="row dc-progress-header p-b m-b hidden-sm-down">
+    <div class="col-md-2 text-center">
+    </div>
+    <div class="col-md-2 text-center">
+      plan
+    </div>
+    <div class="col-md-2 text-center">
+      build
+    </div>
+    <div class="col-md-2 text-center">
+      test
+    </div>
+    <div class="col-md-2 text-center">
+      reflect
+    </div>
+    <div class="col-md-2 text-center">
+      gallery
+    </div>
+  </div>
+</div>
 <div class="container">
-  <div class="row m-t-lg m-b-lg">
-
+  <div class="row m-b">
     <div class="col-md-2">
-      <span class="orange-type">2</span>
       <div class="student-list-item">
         <a href="#" class="student-list-avatar action-img pull-left">
           <div class="student-list-has-activity">
@@ -82,10 +103,60 @@
     </div>
 
     <div class="col-md-2 text-center">
-      <div class="d-block light-type post-quantity">
+      <div class="d-block light-type post-empty">
         <i class="icon-cross"></i>
       </div>
     </div>
+  </div>
+
+  <div class="row m-b">
+    <div class="col-md-2">
+      <div class="student-list-item">
+        <a href="#" class="student-list-avatar action-img pull-left">
+          <div class="student-list-has-activity">
+            {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+          </div>
+        </a>
+        <span class="student-inline-name d-inline">
+          {{ user.first_name }} {{ user.last_name }}
+        </span>
+        <br>
+        <span class="student-inline-username d-inline">
+          {{ user.username }}
+        </span>
+      </div>
+    </div>
+
+    <div class="col-md-2 text-center">
+      <div class="d-block light-type post-quantity">
+        1
+      </div>
+    </div>
+
+    <div class="col-md-2 text-center">
+      <div class="d-block light-type post-quantity">
+        3
+      </div>
+    </div>
+
+    <div class="col-md-2 text-center">
+      <div class="d-block light-type post-quantity">
+        4
+      </div>
+    </div>
+
+    <div class="col-md-2 text-center">
+      <div class="d-block light-type post-quantity">
+        <span class="yellow-type">2</span>
+      </div>
+    </div>
+
+    <div class="col-md-2 text-center">
+      <div class="d-block light-type post-empty">
+        <i class="icon-cross"></i>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -106,11 +177,32 @@
         </div>
       </div> -->
 
-  </div>
+
+</div>
 </div>
 
 {% endblock %}
 
 {% block js %}
+<script>
+var fixmeTop = $('.fixme').offset().top;       // get initial position of the element
 
+$(window).scroll(function() {                  // assign scroll event listener
+
+  var currentScroll = $(window).scrollTop(); // get current position
+
+  if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+      $('.fixme').css({                      // scroll to that element or below it
+          position: 'fixed',
+          top: '0',
+          width: '100%'
+      });
+  } else {                                   // apply position: static
+      $('.fixme').css({                      // if you scroll above it
+          position: 'static'
+      });
+  }
+
+});
+</script>
 {% endblock %}

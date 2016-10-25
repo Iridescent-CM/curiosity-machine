@@ -5862,12 +5862,33 @@ footer {
     #educator-dashboard-units .edu-dash-nav #active-edu-units {
       border-bottom: 0px; } }
 
-#dcprogress .post-quantity {
+#dcprogress .content {
+  margin-bottom: 3000px; }
+
+#dcprogress .active-students {
+  padding-top: 6px;
+  display: inline-block; }
+
+#dcprogress .post-quantity, #dcprogress .post-empty {
   background-color: #8FB559;
   font-size: 1.25em;
   font-weight: 700;
   height: 48px;
   padding-top: 0.375em; }
+
+#dcprogress .post-empty {
+  background-color: #E5E1D9;
+  color: #949494; }
+
+#dcprogress .dc-progress-header {
+  border-bottom: 2px solid #E5E1D9;
+  text-transform: uppercase;
+  color: #F55932;
+  letter-spacing: 2px; }
+
+#dcprogress .fix-header {
+  position: fixed;
+  top: 0px; }
 
 #faq-about-page strong {
   display: inline-block;

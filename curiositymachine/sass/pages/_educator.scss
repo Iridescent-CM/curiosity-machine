@@ -170,6 +170,14 @@
 }
 
 #dcprogress {
+  .content {
+    margin-bottom: 3000px;
+  }
+
+  .active-students {
+    padding-top: 6px;
+    display: inline-block;
+  }
 
   .post-quantity {
     background-color: $primary-green;
@@ -178,5 +186,24 @@
     height: 48px;
     padding-top: $small-spacing/2;
   }
+
+  .post-empty {
+    @extend .post-quantity;
+    background-color: $sand;
+    color: $gray;
+  }
+
+  .dc-progress-header {
+    border-bottom: 2px solid $sand;
+    text-transform: uppercase;
+    color: $primary-red;
+    letter-spacing: 2px;
+  }
+
+  .fix-header {
+    position: fixed;
+    top: 0px;
+  }
+
 
 }
