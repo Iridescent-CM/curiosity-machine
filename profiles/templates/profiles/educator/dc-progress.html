@@ -38,33 +38,35 @@
   </div>
 </div>
 
-<div class="container fixme">
-  <div class="row dc-progress-header p-b m-b hidden-sm-down">
-    <div class="col-md-2 text-center">
-    </div>
-    <div class="col-md-2 text-center">
-      plan
-    </div>
-    <div class="col-md-2 text-center">
-      build
-    </div>
-    <div class="col-md-2 text-center">
-      test
-    </div>
-    <div class="col-md-2 text-center">
-      reflect
-    </div>
-    <div class="col-md-2 text-center">
-      gallery
+<div class="fixme">
+  <div class="container">
+    <div class="row dc-progress-header p-a hidden-sm-down">
+      <div class="col-md-2 text-center">
+      </div>
+      <div class="col-md-2 text-center">
+        plan
+      </div>
+      <div class="col-md-2 text-center">
+        build
+      </div>
+      <div class="col-md-2 text-center">
+        test
+      </div>
+      <div class="col-md-2 text-center">
+        reflect
+      </div>
+      <div class="col-md-2 text-center">
+        gallery
+      </div>
     </div>
   </div>
 </div>
 <div class="container">
-  <div class="row m-b">
+  <div class="row m-t m-b">
     <div class="col-md-2">
       <div class="student-list-item">
         <a href="#" class="student-list-avatar action-img pull-left">
-          <div class="student-list-has-activity">
+          <div class="hidden-lg-down">
             {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
           </div>
         </a>
@@ -113,7 +115,7 @@
     <div class="col-md-2">
       <div class="student-list-item">
         <a href="#" class="student-list-avatar action-img pull-left">
-          <div class="student-list-has-activity">
+          <div class="hidden-lg-down">
             {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
           </div>
         </a>
@@ -195,7 +197,7 @@ $(window).scroll(function() {                  // assign scroll event listener
       $('.fixme').css({                      // scroll to that element or below it
           position: 'fixed',
           top: '0',
-          width: '100%'
+          width: '100%',
       });
   } else {                                   // apply position: static
       $('.fixme').css({                      // if you scroll above it

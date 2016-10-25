@@ -5890,6 +5890,10 @@ footer {
   position: fixed;
   top: 0px; }
 
+#dcprogress .fixme {
+  z-index: 500;
+  background-color: #FFFCF7; }
+
 #faq-about-page strong {
   display: inline-block;
   margin-top: 1.5em; }
