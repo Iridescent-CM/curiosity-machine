@@ -5869,12 +5869,32 @@ footer {
   padding-top: 6px;
   display: inline-block; }
 
+#dcprogress .post-type {
+  display: inline-block;
+  width: 48%;
+  text-transform: uppercase;
+  color: #F55932;
+  letter-spacing: 2px; }
+
 #dcprogress .post-quantity, #dcprogress .post-empty {
   background-color: #8FB559;
   font-size: 1.25em;
   font-weight: 700;
   height: 48px;
   padding-top: 0.375em; }
+  @media (max-width: 47.9em) {
+    #dcprogress .post-quantity, #dcprogress .post-empty {
+      width: 48%;
+      display: inline-block; } }
+
+@media (max-width: 47.9em) {
+  #dcprogress .student-list-item {
+    text-align: center;
+    margin-bottom: 0.75em; } }
+
+#dcprogress .student-list-avatar img {
+  border-radius: 50%;
+  background-color: #FFFCF7; }
 
 #dcprogress .post-empty {
   background-color: #E5E1D9;

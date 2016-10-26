@@ -179,12 +179,39 @@
     display: inline-block;
   }
 
+  .post-type {
+    display: inline-block;
+    width: 48%;
+    text-transform: uppercase;
+    color: $primary-red;
+    letter-spacing: 2px;
+  }
+
   .post-quantity {
     background-color: $primary-green;
     font-size: 1.25em;
     font-weight: $heavy-font-weight;
     height: 48px;
     padding-top: $small-spacing/2;
+
+    @include media-breakpoint-down(sm) {
+      width: 48%;
+      display: inline-block;
+    }
+  }
+
+  .student-list-item {
+    @include media-breakpoint-down(sm) {
+      text-align: center;
+      margin-bottom: $small-spacing;
+    }
+  }
+
+  .student-list-avatar {
+    img {
+      border-radius: 50%;
+      background-color: $ivory;
+    }
   }
 
   .post-empty {
