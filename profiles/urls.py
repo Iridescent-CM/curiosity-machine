@@ -15,6 +15,8 @@ urlpatterns = patterns('profiles.views',
     url(r'^home/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'home'}, name='home'),
     url(r'^home/students/$', views.educator.students_dashboard, name='educator_dashboard_students'),
     url(r'^home/students/(?P<student_id>\d+)/$', views.educator.student_detail, name='educator_dashboard_student_detail'),
+    # change me
+    url(r'^dcprogress/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'dcprogress'}, name='dcprogress'),
     url(r'^home/guides/$', views.educator.guides_dashboard, name='educator_dashboard_guides'),
     url(r'^profile-edit/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'profile_edit'}, name='profile_edit'),
     url(r'^mentors/$', whitelist('public')(views.mentor.list_all), name='mentors'),
