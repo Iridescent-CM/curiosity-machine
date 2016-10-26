@@ -5,6 +5,8 @@
 @import 'utils/utilities-responsive';
 
 @import 'vendors-extensions/bootstrap/utilities-spacing';
+@import 'vendors-extensions/bootstrap/tags';
+@import 'vendors-extensions/bootstrap/display';
 
 @import 'base/fonts';
 @import 'base/typography';
@@ -18,6 +20,7 @@
 @import 'components/site-message';
 @import 'components/videos';
 @import 'components/tables';
+@import 'components/wells';
 
 @import 'layout/header';
 @import 'layout/footer';

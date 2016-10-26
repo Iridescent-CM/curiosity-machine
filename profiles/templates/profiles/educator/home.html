@@ -1,76 +1,130 @@
-{% extends "base.html" %}
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
 {% block title %}Curiosity Machine - Home{% endblock %}
+{% block body-classes %}educator-dashboard{% endblock %}
+{% block body-id %}educator-dashboard-home{% endblock %}
 
 {% block content %}
-  <h1>Welcome {{user.username}}</h1>
 
-  {% if flags.enable_membership_educator_dashboard %}
-  {% if memberships %}
-  <h2>My Memberships</h2>
-  <div class="tab-content membership-list">
-    <ul>
-      {% for membership in memberships %}
-      <li>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <a href="{% url 'memberships:membership' membership_id=membership.id %}">{{ membership.display_name }}</a>
+{% include 'profiles/educator/dashboard/_header.html' %}
+
+<div class="container m-b-lg">
+  {% include 'profiles/educator/dashboard/_navigation.html' %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Free Design Challenges</h1>
+      <p>Get started with one of our free design challenges! To view the educator resources associated with each of the challenges, click the Guide tab in the design challenge preview.</p>
+    </div>
+  </div>
+
+  <!--  these expandable cards need to be 2 to a row -->
+  <div class="row">
+
+    <div class="col-md-6 m-b">
+      <div class="expandable-challenge-card">
+        <div class="expandable-challenge-card-info">
+          <a href="#" class="action-img">
+            <img class="card-img-left" src="http://placehold.it/165x165" alt="Challenge Name">
+          </a>
+          <div class="title">
+            <h3>
+              <a href="#" class="action-img">
+                Challenge Name
+              </a>
             </h3>
-          </div>
-          <div class="panel-body">
-            <a href="{% url 'memberships:membership' membership_id=membership.id %}" class="btn btn-primary">View</a>
+
+            <a class="expandable-challenge-card-toggle" data-text-swap="- LESS INFO" data-toggle="collapse" href="#moreInfo1" aria-expanded="false" aria-controls="moreInfo1">
+              + MORE INFO
+            </a>
           </div>
         </div>
-      </li>
-      {% endfor %}
-    </ul>
+        <div class="collapse" id="moreInfo1">
+          <div class="expandable-challenge-card-more-info">
+            <h6>DESCRIPTION</h6>
+            <p>Challenge Description</p>
+            <h6>RESOURCES</h6>
+            <ul class="resources-list">
+              <li>Grade 6-8 Mini-unit</li>
+              <li>Grade 3-5 Mini-unit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 m-b">
+      <div class="expandable-challenge-card">
+        <div class="expandable-challenge-card-info">
+          <a href="#" class="action-img">
+            <img class="card-img-left" src="http://placehold.it/165x165" alt="Challenge Name">
+          </a>
+          <div class="title">
+            <h3>
+              <a href="#" class="action-img">
+                Challenge Name
+              </a>
+            </h3>
+
+            <a class="expandable-challenge-card-toggle" data-text-swap="- LESS INFO" data-toggle="collapse" href="#moreInfo2" aria-expanded="false" aria-controls="moreInfo2">
+              + MORE INFO
+            </a>
+          </div>
+        </div>
+        <div class="collapse" id="moreInfo2">
+          <div class="expandable-challenge-card-more-info">
+            <h6>DESCRIPTION</h6>
+            <p>Challenge Description</p>
+            <h6>RESOURCES</h6>
+            <ul class="resources-list">
+              <li>Grade 6-8 Mini-unit</li>
+              <li>Grade 3-5 Mini-unit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  {% endif %}
-  {% endif %}
+  <div class="row">
 
-  <h2>
-    My Groups
-    <a class="btn btn-primary btn-xs" href="{% url 'groups:create' %}">Create group</a>
-  </h2>
-  <div class="tab-content">
-    {% if groups %}
-      <ul id="group-carousel" class="groups-list owl-carousel">
-        {% for group in groups %}
-          <li>{% include "groups/_group_panel.html" %}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <h3 class="tab-empty">Use the button above to create your first group.</h3>
-    {% endif %}
+    <div class="col-md-6 m-b">
+      <div class="expandable-challenge-card">
+        <div class="expandable-challenge-card-info">
+          <a href="#" class="action-img">
+            <img class="card-img-left" src="http://placehold.it/165x165" alt="Challenge Name">
+          </a>
+          <div class="title">
+            <h3>
+              <a href="#" class="action-img">
+                Challenge Name
+              </a>
+            </h3>
+
+            <a class="expandable-challenge-card-toggle" data-text-swap="- LESS INFO" data-toggle="collapse" href="#moreInfo3" aria-expanded="false" aria-controls="moreInfo3">
+              + MORE INFO
+            </a>
+          </div>
+        </div>
+        <div class="collapse" id="moreInfo3">
+          <div class="expandable-challenge-card-more-info">
+            <h6>DESCRIPTION</h6>
+            <p>Challenge Description</p>
+            <h6>RESOURCES</h6>
+            <ul class="resources-list">
+              <li>Grade 6-8 Mini-unit</li>
+              <li>Grade 3-5 Mini-unit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <h2>Design Challenge Units</h2>
-  <p>
-    Get your Curiosity Course started! Choose one of the units below.
-  </p>
-  <div class="tab-content">
-    <ul id="unit-carousel" class="challenges-list owl-carousel">
-      {% for unit in units %}
-        {% include "units/_unit_item.html" with unit=unit %}
-      {% empty %}
-        <li><h3>No units</h3></li>
-      {% endfor %}
-    </ul>
+  <div class="m-t-lg">
+  {% include 'profiles/educator/dashboard/_membership-blurb.html' %}
   </div>
 
-  <p>
-    For questions or training information, email
-    <a href="mailto:curiosity@iridescentlearning.org?subject=Units Training" target="_top">curiosity@iridescentlearning.org</a>.
-  </p>
-{% endblock %}
-
-{% block js %}
-  <script>
-    $(document).ready(function () {
-      {% if groups %}
-      $('#group-carousel').initPanelCarousel();
-      {% endif %}
-      $('#unit-carousel').initPanelCarousel();
-    });
-  </script>
+</div>
 {% endblock %}
