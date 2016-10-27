@@ -5,6 +5,17 @@ from factory import post_generation
 
 from . import models
 
+__all__ = [
+    'QuestionFactory',
+    'ChallengeFactory',
+    'ProgressFactory',
+    'ExampleFactory',
+    'FilterFactory',
+    'ThemeFactory',
+    'ResourceFactory',
+    'ResourceFileFactory',
+]
+
 class QuestionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Question
