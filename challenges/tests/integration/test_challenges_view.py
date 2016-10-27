@@ -144,3 +144,10 @@ def test_challenges_does_not_decorate_has_resources_for_student_or_anonymous(cli
     response = client.get('/challenges/')
     for challenge in response.context['challenges']:
         assert not hasattr(challenge, 'has_resources')
+
+@pytest.mark.django_db
+def test_shows_filter_header_template(client):
+    f = FilterFactory(header_template='challenges/filters/test.html')
+    response = client.get('/challenges/', {"filter_id": f.id})
+
+    assert b'test header_template' in response.content

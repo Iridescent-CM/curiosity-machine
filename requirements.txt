@@ -81,3 +81,6 @@ django-staticflatpages==0.3.1
 django-widget-tweaks==1.4.1
 
 mandrill==1.0.57
+
+# this is needed to run the fixtures command on staging
+factory-boy==2.7.0
