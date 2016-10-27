@@ -12,6 +12,8 @@ __all__ = [
     'FilterFactory',
     'ThemeFactory',
     'QuestionFactory',
+    'ResourceFactory',
+    'ResourceFileFactory',
 ]
 
 class QuestionFactory(factory.django.DjangoModelFactory):
