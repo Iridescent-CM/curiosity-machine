@@ -1,9 +1,7 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% block title %}Curiosity Machine - Design Challenge Detail{% endblock %}
-{% block body-id %}dcprogress{% endblock %}
 
 {% block content %}
-<!-- <div class="content"> -->
 <div class="jumbotron-small jumbotron-green jumbotron-fluid">
   <div class="container">
     <div class="row m-b text-center text-md-left">
@@ -16,9 +14,7 @@
     </div>
     <div class="row">
       <div class="col-md-6 m-b text-center text-md-left">
-        <span class="active-students">
           Active students: <strong>12</strong> <span class="hidden-sm-down">&middot;</span><span class="hidden-md-up"><br><br></span> <a href="#" class="a-secondary">Explore Build a Robotic Face &rarr;</a>
-        </span>
       </div>
       <div class="col-md-6 m-b text-center text-md-right">
         <div class="dropdown">
@@ -37,168 +33,123 @@
   </div>
 </div>
 
-<div class="fixme">
+<div class="dc-progress-table">
+  <div class="fixedheader">
+    <div class="container">
+      <div class="row dc-progress-header p-a hidden-sm-down">
+        <div class="col-md-2 text-center">
+        </div>
+        <div class="col-md-2 text-center">
+          plan
+        </div>
+        <div class="col-md-2 text-center">
+          build
+        </div>
+        <div class="col-md-2 text-center">
+          test
+        </div>
+        <div class="col-md-2 text-center">
+          reflect
+        </div>
+        <div class="col-md-2 text-center">
+          gallery
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
-    <div class="row dc-progress-header p-a hidden-sm-down">
-      <div class="col-md-2 text-center">
+    <!-- for students in students... -->
+    <div class="row m-t m-b">
+      <div class="col-md-2">
+        <div class="student-list-item">
+          <!-- links to student detail view -->
+          <a href="#" class="student-list-avatar action-img pull-left">
+            <div class="hidden-lg-down">
+              <!-- student avatar, not user avatar -->
+              {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+            </div>
+          </a>
+          {{ user.first_name }} {{ user.last_name }}
+          <br>
+          <!-- links to student detail view -->
+          <a href="#">
+            {{ user.username }}
+          </a>
+        </div>
       </div>
+
       <div class="col-md-2 text-center">
-        plan
+        <div class="hidden-md-up post-type">
+          plan
+        </div>
+        <div class="light-type post-quantity">
+          1
+        </div>
       </div>
+
       <div class="col-md-2 text-center">
-        build
+        <div class="hidden-md-up post-type">
+          build
+        </div>
+        <div class="light-type post-quantity">
+          3
+        </div>
       </div>
+
       <div class="col-md-2 text-center">
-        test
+        <div class="hidden-md-up post-type">
+          test
+        </div>
+        <div class="light-type post-quantity">
+          4
+        </div>
       </div>
+
       <div class="col-md-2 text-center">
-        reflect
+        <div class="hidden-md-up post-type">
+          reflect
+        </div>
+        <div class="light-type post-quantity">
+          2
+        </div>
       </div>
+
       <div class="col-md-2 text-center">
-        gallery
+        <div class="hidden-md-up post-type">
+          gallery
+        </div>
+        <div class="light-type post-empty">
+          <!-- either "icon-cross" or "icon check" -->
+          <!-- if "icon-check", switch "post-empty" to "post-quantity" etc -->
+          <i class="icon-cross"></i>
+        </div>
       </div>
     </div>
+    <!-- endfor -->
+
   </div>
 </div>
-<div class="container">
-  <div class="row m-t m-b">
-    <div class="col-md-2">
-      <div class="student-list-item">
-        <a href="#" class="student-list-avatar action-img pull-left">
-          <div class="hidden-lg-down">
-            {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
-          </div>
-        </a>
-        <span class="student-inline-name d-inline">
-          {{ user.first_name }} {{ user.last_name }}
-        </span>
-        <br>
-        <span class="student-inline-username d-inline">
-          {{ user.username }}
-        </span>
-      </div>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <div class="hidden-md-up post-type">
-        plan
-      </div>
-      <div class="light-type post-quantity">
-        1
-      </div>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <div class="hidden-md-up post-type">
-        build
-      </div>
-      <div class="light-type post-quantity">
-        3
-      </div>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <div class="hidden-md-up post-type">
-        test
-      </div>
-      <div class="light-type post-quantity">
-        4
-      </div>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <div class="hidden-md-up post-type">
-        reflect
-      </div>
-      <div class="light-type post-quantity">
-        <span class="yellow-type">2</span>
-      </div>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <div class="hidden-md-up post-type">
-        gallery
-      </div>
-      <div class="light-type post-empty">
-        <i class="icon-cross"></i>
-      </div>
-    </div>
-  </div>
-
-  <div class="row m-b">
-    <div class="col-md-2">
-      <div class="student-list-item">
-        <a href="#" class="student-list-avatar action-img pull-left">
-          <div class="hidden-lg-down">
-            {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
-          </div>
-        </a>
-        <span class="student-inline-name d-inline">
-          {{ user.first_name }} {{ user.last_name }}
-        </span>
-        <br>
-        <span class="student-inline-username d-inline">
-          {{ user.username }}
-        </span>
-      </div>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <div class="d-block light-type post-quantity">
-        1
-      </div>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <div class="d-block light-type post-quantity">
-        3
-      </div>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <div class="d-block light-type post-quantity">
-        4
-      </div>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <div class="d-block light-type post-quantity">
-        <span class="yellow-type">2</span>
-      </div>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <div class="d-block light-type post-empty">
-        <i class="icon-cross"></i>
-      </div>
-    </div>
-  </div>
-
-</div>
-<!-- </div> -->
 
 {% endblock %}
 
 {% block js %}
 <script>
-var fixmeTop = $('.fixme').offset().top;       // get initial position of the element
+var fixmeTop = $('.fixedheader').offset().top;
 
-$(window).scroll(function() {                  // assign scroll event listener
-
-  var currentScroll = $(window).scrollTop(); // get current position
-
-  if (currentScroll >= fixmeTop) {           // apply position: fixed if you
-      $('.fixme').css({                      // scroll to that element or below it
-          position: 'fixed',
-          top: '0',
-          width: '100%',
-      });
-  } else {                                   // apply position: static
-      $('.fixme').css({                      // if you scroll above it
-          position: 'static'
-      });
+$(window).scroll(function() {
+  var currentScroll = $(window).scrollTop();
+  if (currentScroll >= fixmeTop) {
+    $('.fixedheader').css({
+      position: 'fixed',
+      top: '0',
+      width: '100%',
+    });
+  } else {
+    $('.fixedheader').css({
+      position: 'static'
+    });
   }
-
 });
 </script>
 {% endblock %}
