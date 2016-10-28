@@ -12,8 +12,13 @@
         </a>
       </h3>
 
-      <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo-{{ unit.id }}" aria-expanded="false" aria-controls="moreInfo-{{ unit.id }}">
-        &plus; MORE INFO
+      <a class="expandable-card-toggle" data-toggle="collapse" href="#moreInfo-{{ unit.id }}" aria-expanded="false" aria-controls="moreInfo-{{ unit.id }}">
+        <span class="show">
+          &plus; MORE INFO
+        </span>
+        <span class="hide hidden-xl-down">
+          &minus; LESS INFO
+        </span>
       </a>
     </div>
   </div>

@@ -11,9 +11,16 @@
         </a>
       </h3>
 
-      <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo-{{ challenge.id }}" aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
-        &plus; MORE INFO
+      <a class="expandable-card-toggle" data-toggle="collapse" href="#moreInfo-{{ challenge.id }}" aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
+        <span class="show">
+          &plus; MORE INFO
+        </span>
+        <span class="hide hidden-xl-down">
+          &minus; LESS INFO
+        </span>
       </a>
+
+
     </div>
   </div>
 

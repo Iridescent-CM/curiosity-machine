@@ -1,9 +1,11 @@
-$("a[data-text-swap]").on("click", function() {
-  var el = $(this);
-  if (el.text() == el.data("text-swap")) {
-    el.text(el.data("text-original"));
-  } else {
-    el.data("text-original", el.text());
-    el.text(el.data("text-swap"));
-  }
-});
+$('.collapse').on('hidden.bs.collapse', function () {
+  var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
+  $trigger.find( ".show" ).removeClass( "hidden-xl-down" );
+  $trigger.find( ".hide" ).addClass( "hidden-xl-down" );
+})
+
+$('.collapse').on('show.bs.collapse', function () {
+  var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
+  $trigger.find( ".show" ).addClass( "hidden-xl-down" );
+  $trigger.find( ".hide" ).removeClass( "hidden-xl-down" );
+})
