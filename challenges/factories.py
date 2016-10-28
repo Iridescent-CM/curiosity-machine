@@ -6,12 +6,12 @@ from factory import post_generation
 from . import models
 
 __all__ = [
+    'QuestionFactory',
     'ChallengeFactory',
     'ProgressFactory',
     'ExampleFactory',
     'FilterFactory',
     'ThemeFactory',
-    'QuestionFactory',
     'ResourceFactory',
     'ResourceFileFactory',
 ]
