@@ -5420,51 +5420,6 @@ i {
   .table td, .card-progress .table-progress td {
     border-color: #E5E1D9; }
 
-.dc-progress-table .dc-progress-header {
-  border-bottom: 2px solid #E5E1D9;
-  text-transform: uppercase;
-  color: #F55932;
-  letter-spacing: 2px; }
-
-@media (max-width: 47.9em) {
-  .dc-progress-table .student-list-item {
-    text-align: center;
-    margin-bottom: 0.75em; } }
-
-.dc-progress-table .student-list-avatar img {
-  border-radius: 50%;
-  background-color: #FFFCF7; }
-
-.dc-progress-table .post-type {
-  display: inline-block;
-  width: 48%;
-  text-transform: uppercase;
-  color: #F55932;
-  letter-spacing: 2px; }
-  @media (max-width: 47.9em) {
-    .dc-progress-table .post-type {
-      text-align: right;
-      padding-right: 0.75em; } }
-
-.dc-progress-table .post-quantity, .dc-progress-table .post-empty {
-  background-color: #8FB559;
-  font-size: 1.25em;
-  font-weight: 700;
-  height: 48px;
-  padding-top: 0.375em; }
-  @media (max-width: 47.9em) {
-    .dc-progress-table .post-quantity, .dc-progress-table .post-empty {
-      width: 48%;
-      display: inline-block; } }
-
-.dc-progress-table .post-empty {
-  background-color: #E5E1D9;
-  color: #949494; }
-
-.dc-progress-table .fixedheader {
-  z-index: 500;
-  background-color: #FFFCF7; }
-
 header {
   background-color: #FFFCF7;
   font-family: "Raleway", Helvetica, sans-serif; }
@@ -5867,6 +5822,51 @@ footer {
         margin-left: 10px; }
     .educator-dashboard .student-list .student-list-item .student-inline-empty {
       color: #949494; }
+
+.dc-progress-table .dc-progress-header {
+  border-bottom: 2px solid #E5E1D9;
+  text-transform: uppercase;
+  color: #F55932;
+  letter-spacing: 2px; }
+
+@media (max-width: 47.9em) {
+  .dc-progress-table .student-list-item {
+    text-align: center;
+    margin-bottom: 0.75em; } }
+
+.dc-progress-table .student-list-avatar img {
+  border-radius: 50%;
+  background-color: #FFFCF7; }
+
+.dc-progress-table .post-type {
+  display: inline-block;
+  width: 48%;
+  text-transform: uppercase;
+  color: #F55932;
+  letter-spacing: 2px; }
+  @media (max-width: 47.9em) {
+    .dc-progress-table .post-type {
+      text-align: right;
+      padding-right: 0.75em; } }
+
+.dc-progress-table .post-quantity, .dc-progress-table .post-empty {
+  background-color: #8FB559;
+  font-size: 1.25em;
+  font-weight: 700;
+  height: 48px;
+  padding-top: 0.375em; }
+  @media (max-width: 47.9em) {
+    .dc-progress-table .post-quantity, .dc-progress-table .post-empty {
+      width: 48%;
+      display: inline-block; } }
+
+.dc-progress-table .post-empty {
+  background-color: #E5E1D9;
+  color: #949494; }
+
+.dc-progress-table .fixedheader {
+  z-index: 500;
+  background-color: #FFFCF7; }
 
 #faq-about-page strong {
   display: inline-block;
