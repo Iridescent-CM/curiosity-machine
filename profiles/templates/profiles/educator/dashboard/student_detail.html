@@ -25,9 +25,13 @@
             {% include "_avatar.html" with profile=student.profile width=60 height=60 crop='thumb' gravity='faces' %}
           </div>
           <p>
+            {% if student.first_name or student.last_name %}
             {{ student.first_name }}
             <br>
             {{ student.last_name }}
+            {% else %}
+            <em>No name provided</em>
+            {% endif %}
           </p>
         </div>
         <div class="card-block">
@@ -58,7 +62,11 @@
             <div class="col-md-4 m-b">
               <span class="progress-type">online mentor</span>
               <br>
+              {% if progress.mentor %}
+              {{ progress.mentor.username }}
+              {% else %}
               No mentor
+              {% endif %}
             </div>
             <div class="col-md-4 m-b">
               <span class="progress-type">total posts</span>
