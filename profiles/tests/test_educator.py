@@ -299,7 +299,7 @@ def test_educator_dashboard_student_detail_page_context_has_progress_annotations
     response = client.get("/home/students/%d/" % student.id, follow=True)
     assert response.context["progresses"][0].total_student_comments == 5
     assert response.context["progresses"][0].latest_student_comment == latest
-    assert response.context["progresses"][0].student_comment_stages == {1:3, 2:1, 4:1}
+    assert response.context["progresses"][0].student_comment_counts_by_stage == [3, 1, 0, 1]
 
 @pytest.mark.django_db
 def test_educator_dashboard_student_detail_page_total_student_comments_progress_annotation_ignores_mentor_comments(client):
@@ -317,7 +317,7 @@ def test_educator_dashboard_student_detail_page_total_student_comments_progress_
     assert response.context["progresses"][0].total_student_comments == 1
 
 @pytest.mark.django_db
-def test_educator_dashboard_student_detail_page_student_comment_stages_progress_annotation_ignores_mentor_comments(client):
+def test_educator_dashboard_student_detail_page_student_comment_counts_by_stage_progress_annotation_ignores_mentor_comments(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
@@ -329,7 +329,7 @@ def test_educator_dashboard_student_detail_page_student_comment_stages_progress_
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"][0].student_comment_stages == {1:1}
+    assert response.context["progresses"][0].student_comment_counts_by_stage == [1, 0, 0, 0]
 
 @pytest.mark.django_db
 def test_educator_dashboard_student_detail_page_latest_student_comment_progress_annotation_ignores_mentor_comments(client):

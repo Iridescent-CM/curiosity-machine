@@ -87,10 +87,13 @@
             </thead>
             <tbody>
               <tr>
-                <th class="active">{{ progress.student_comment_stages.1|default:0 }}</th>
-                <th class="active">{{ progress.student_comment_stages.2|default:0 }}</td>
-                <th class="active">{{ progress.student_comment_stages.3|default:0 }}</td>
-                <th class="active">{{ progress.student_comment_stages.4|default:0 }}</td>
+                {% for count in progress.student_comment_counts_by_stage %}
+                {% if count %}
+                <th class="active">{{ count }}</th>
+                {% else %}
+                <th class="inactive"> <i class="icon-cross"></i> </th>
+                {% endif %}
+                {% endfor %}
                 <th class="inactive"><i class="icon-cross"></i></td>
               </tr>
             </tbody>

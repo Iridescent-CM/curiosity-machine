@@ -90,13 +90,13 @@ def student_detail(request, student_id):
         else:
             progress.latest_post = None
 
-        student_comment_stages = {}
+        counts_by_stage = [0, 0, 0, 0, 0];
         for comment in student_comments:
-            student_comment_stages[comment.stage] = student_comment_stages.get(comment.stage, 0) + 1
-        progress.student_comment_stages = student_comment_stages
+            counts_by_stage[comment.stage] = counts_by_stage[comment.stage] + 1
+        progress.student_comment_counts_by_stage = counts_by_stage[1:] # FIXME: you can't comment in the inspiration stage, but this way of doing it is opaque.
 
-        progress.complete = student_comment_stages.get(4, 0) != 0
-    
+        progress.complete = counts_by_stage[4] != 0
+
     return render(request, "profiles/educator/dashboard/student_detail.html", {
         "student": student,
         "progresses": progresses,
