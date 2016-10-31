@@ -97,9 +97,8 @@ def guides_dashboard(request, membership_selection=None):
         "membership_selection": membership_selection,
     })
 
-# change meeeeee
 @educator_only
 @login_required
-def dcprogress(request):
+def challenge_detail(request, challenge_id):
     return render(request, "profiles/educator/dashboard/dc_detail.html", {
     })
