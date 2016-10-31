@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Prefetch, Count
+import operator
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
@@ -83,8 +84,9 @@ class Reversed:
     def __init__(self, value):
         self.value = value
 
-    def __lt__(self, other):
-        return other.value < self.value
+for x in ['__lt__', '__le__', '__eq__', '__ne__', '__ge__', '__gt__']:
+    op = getattr(operator, x)
+    setattr(Reversed, x, lambda self, other, op=op: op(other.value, self.value))
 
 def latest_student_comment_sort(o):
     """
@@ -94,18 +96,20 @@ def latest_student_comment_sort(o):
     if o.latest_student_comment:
         return (0, Reversed(o.latest_student_comment.created), o.challenge.name)
     else:
-        return (1, o.challenge.name)
+        return (1, o.challenge.name)    # this case is irrelevant if the page doesn't show uncommented progresses
 
 @educator_only
 @login_required
 def student_detail(request, student_id):
     student = get_object_or_404(User.objects.select_related('profile'), pk=student_id)
     progresses = (student.progresses
+        .filter(comments__isnull=False)
         .select_related('challenge', 'mentor')
         .prefetch_related(
             'comments',
             Prefetch('example_set', queryset=Example.objects.status(approved=True), to_attr='approved_examples')
         )
+        .distinct()
         .all())
 
     for progress in progresses:

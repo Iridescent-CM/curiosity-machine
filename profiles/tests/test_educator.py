@@ -275,7 +275,7 @@ def test_educator_dashboard_student_detail_page_context_has_progresses(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
     membership = MembershipFactory(members=[educator, student])
-    progresses = ProgressFactory.create_batch(5, student = student)
+    progresses = ProgressFactory.create_batch(5, student=student, comment=True)
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
@@ -387,28 +387,26 @@ def test_educator_dashboard_student_detail_page_context_progresses_sort_by_activ
 
     challengeA = ChallengeFactory(name="Challenge A", draft=False)
     challengeB = ChallengeFactory(name="Challenge B", draft=False)
-    challengeC = ChallengeFactory(name="Challenge C", draft=False)
     progressA = ProgressFactory(student=student, challenge=challengeA, mentor=mentor)
     progressB = ProgressFactory(student=student, challenge=challengeB, mentor=mentor)
-    progressC = ProgressFactory(student=student, challenge=challengeC, mentor=mentor)
-
-    client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"] == [progressA, progressB, progressC]
-
-    CommentFactory(challenge_progress=progressC, user=student)
-    response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"] == [progressC, progressA, progressB]
-
-    CommentFactory(challenge_progress=progressB, user=mentor)
-    response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"] == [progressC, progressA, progressB]
 
     rightnow = now()
-    CommentFactory(challenge_progress=progressC, user=student, created=rightnow)
+    client.login(username="edu", password="123123")
+
+    CommentFactory(challenge_progress=progressA, user=student, created=rightnow - timedelta(minutes=3))
+    CommentFactory(challenge_progress=progressB, user=student, created=rightnow - timedelta(minutes=4))
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert [p.id for p in response.context["progresses"]] == [p.id for p in [progressA, progressB]]
+
+    CommentFactory(challenge_progress=progressA, user=student, created=rightnow - timedelta(minutes=2))
+    CommentFactory(challenge_progress=progressB, user=student, created=rightnow - timedelta(minutes=1))
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert [p.id for p in response.context["progresses"]] == [p.id for p in [progressB, progressA]]
+
+    CommentFactory(challenge_progress=progressA, user=student, created=rightnow)
     CommentFactory(challenge_progress=progressB, user=student, created=rightnow)
     response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"] == [progressB, progressC, progressA]
+    assert [p.id for p in response.context["progresses"]] == [p.id for p in [progressA, progressB]]
 
 @pytest.mark.django_db
 def test_educator_dashboard_students_page_context_has_no_students(client):
