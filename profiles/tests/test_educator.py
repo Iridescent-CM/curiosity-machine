@@ -248,6 +248,26 @@ def test_educator_dashboard_challenges_page_context_has_membership_challenges(cl
     assert response.context["membership"] == membership
 
 @pytest.mark.django_db
+def test_educator_dashboard_student_detail_page_context_has_connected_student(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    student = StudentFactory(username="student", password="123123")
+    membership = MembershipFactory(members=[educator, student])
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert response.context["student"] == student
+
+@pytest.mark.xfail(reason="not yet implemented")
+@pytest.mark.django_db
+def test_educator_dashboard_student_detail_page_context_404s_on_non_connected_student(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    student = StudentFactory(username="student", password="123123")
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert response.status_code == 404
+
+@pytest.mark.django_db
 def test_educator_dashboard_students_page_context_has_no_students(client):
     educator = EducatorFactory(username="edu", password="123123")
 

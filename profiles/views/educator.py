@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.db import transaction
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from ..forms import educator as forms
@@ -12,6 +13,8 @@ from memberships.models import Member
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
 from django.utils.functional import lazy
+
+User = get_user_model()
 
 join = transaction.atomic(UserJoinView.as_view(
     form_class = forms.EducatorUserAndProfileForm,
@@ -74,8 +77,9 @@ def students_dashboard(request, membership_selection=None):
 @educator_only
 @login_required
 def student_detail(request, student_id):
+    student = get_object_or_404(User, pk=student_id)
     return render(request, "profiles/educator/dashboard/student_detail.html", {
-        "student_id": student_id
+        "student": student
     })
 
 @educator_only

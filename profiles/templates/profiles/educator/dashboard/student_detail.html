@@ -22,12 +22,12 @@
       <div class="card card-module">
         <div class="card-block card-block-title text-center">
           <div class="card-avatar">
-            {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
+            {% include "_avatar.html" with profile=student.profile width=60 height=60 crop='thumb' gravity='faces' %}
           </div>
           <p>
-            nala
+            {{ student.first_name }}
             <br>
-            katnisseverdeen
+            {{ student.last_name }}
           </p>
         </div>
         <div class="card-block">
