@@ -38,7 +38,7 @@
           <p>
             Started: <strong>{{ progresses|length }}</strong>
             <br>
-            Completed: <strong>1</strong>
+            Completed: <strong>{{ completed_count }}</strong>
           </p>
         </div>
       </div>
@@ -57,7 +57,11 @@
             <div class="col-md-4 m-b">
               <span class="progress-type">latest post</span>
               <br>
-              {{ progress.latest_student_comment.created|date:"l, M d" }} <span class="tag tag-pill tag-success">TODAY</span></p>
+              {% if progress.latest_student_comment %}
+              {{ progress.latest_student_comment.created|date:"l, M d" }} {% comment %}<span class="tag tag-pill tag-success">TODAY</span></p>{% endcomment %}
+              {% else %}
+              <em>No posts yet</em>
+              {% endif %}
             </div>
             <div class="col-md-4 m-b">
               <span class="progress-type">online mentor</span>
@@ -94,7 +98,11 @@
                 <th class="inactive"> <i class="icon-cross"></i> </th>
                 {% endif %}
                 {% endfor %}
+                {% if progress.approved_examples %}
+                <th class="active"><i class="icon-check"></i></td>
+                {% else %}
                 <th class="inactive"><i class="icon-cross"></i></td>
+                {% endif %}
               </tr>
             </tbody>
           </table>
@@ -102,6 +110,8 @@
           <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}" class="btn btn-primary">View Process &rarr;</a>
         </div>
       </div>
+      {% empty %}
+      <p>{{ student.username }} hasn't started any design challenges yet</p>
       {% endfor %}
 
     </div>

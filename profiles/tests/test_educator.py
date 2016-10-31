@@ -360,6 +360,25 @@ def test_educator_dashboard_student_detail_page_context_has_completed_count(clie
     assert response.context["completed_count"] == 1
 
 @pytest.mark.django_db
+def test_educator_dashboard_student_detail_page_context_has_approved_example_count(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    student = StudentFactory(username="student")
+    student2 = StudentFactory(username="student2")
+    membership = MembershipFactory(members=[educator, student, student2])
+
+    progress = ProgressFactory(student=student, completed=True)
+    approved = ExampleFactory(challenge=progress.challenge, progress=progress, approved=True)
+    ExampleFactory(challenge=progress.challenge, progress=progress, approved=False)
+    ExampleFactory(challenge=progress.challenge, progress=progress)
+    ProgressFactory(student=student2, completed=True)
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert response.context["progresses"][0].approved_examples == [approved]
+    response = client.get("/home/students/%d/" % student2.id, follow=True)
+    assert response.context["progresses"][0].approved_examples == []
+
+@pytest.mark.django_db
 def test_educator_dashboard_students_page_context_has_no_students(client):
     educator = EducatorFactory(username="edu", password="123123")
 

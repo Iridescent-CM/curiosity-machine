@@ -4,11 +4,11 @@ from django.db import transaction
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.db.models import Count, Max
+from django.db.models import Prefetch, Count
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
-from challenges.models import Challenge
+from challenges.models import Challenge, Example
 from units.models import Unit
 from memberships.models import Member
 from curiositymachine.decorators import educator_only
@@ -79,7 +79,13 @@ def students_dashboard(request, membership_selection=None):
 @login_required
 def student_detail(request, student_id):
     student = get_object_or_404(User.objects.select_related('profile'), pk=student_id)
-    progresses = student.progresses.select_related('challenge').prefetch_related('comments').all()
+    progresses = (student.progresses
+        .select_related('challenge', 'mentor')
+        .prefetch_related(
+            'comments',
+            Prefetch('example_set', queryset=Example.objects.status(approved=True), to_attr='approved_examples')
+        )
+        .all())
 
     for progress in progresses:
         student_comments = [c for c in progress.comments.all() if c.user_id == student.id]
