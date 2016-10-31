@@ -78,27 +78,29 @@ def students_dashboard(request, membership_selection=None):
 @educator_only
 @login_required
 def student_detail(request, student_id):
-    student = get_object_or_404(User, pk=student_id)
-    progresses = student.progresses.all()
+    student = get_object_or_404(User.objects.select_related('profile'), pk=student_id)
+    progresses = student.progresses.select_related('challenge').prefetch_related('comments').all()
 
     for progress in progresses:
-        comments = progress.comments.filter(user=student).all()
-        progress.total_student_comments = len(comments)
+        student_comments = [c for c in progress.comments.all() if c.user_id == student.id]
+        progress.total_student_comments = len(student_comments)
 
-        if comments:
-            progress.latest_student_comment = max(comments, key=lambda o: o.created)
+        if student_comments:
+            progress.latest_student_comment = max(student_comments, key=lambda o: o.created)
         else:
             progress.latest_post = None
 
         student_comment_stages = {}
-        for comment in comments:
+        for comment in student_comments:
             student_comment_stages[comment.stage] = student_comment_stages.get(comment.stage, 0) + 1
         progress.student_comment_stages = student_comment_stages
+
+        progress.complete = student_comment_stages.get(4, 0) != 0
     
     return render(request, "profiles/educator/dashboard/student_detail.html", {
         "student": student,
         "progresses": progresses,
-        "completed_count": len([p for p in progresses if p.completed])
+        "completed_count": len([p for p in progresses if p.complete])
     })
 
 @educator_only
