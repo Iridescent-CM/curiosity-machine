@@ -4,6 +4,12 @@ import factory.fuzzy
 
 from . import models
 from challenges.models import Stage
+from django.conf import settings
+
+__all__ = [
+    "CommentFactory",
+    "ReflectionCommentFactory",
+]
 
 class CommentFactory(factory.django.DjangoModelFactory):
     class Meta:

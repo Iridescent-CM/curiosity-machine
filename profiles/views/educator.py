@@ -4,6 +4,7 @@ from django.db import transaction
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models import Count, Max
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
@@ -78,8 +79,26 @@ def students_dashboard(request, membership_selection=None):
 @login_required
 def student_detail(request, student_id):
     student = get_object_or_404(User, pk=student_id)
+    progresses = student.progresses.all()
+
+    for progress in progresses:
+        comments = progress.comments.filter(user=student).all()
+        progress.total_student_comments = len(comments)
+
+        if comments:
+            progress.latest_student_comment = max(comments, key=lambda o: o.created)
+        else:
+            progress.latest_post = None
+
+        student_comment_stages = {}
+        for comment in comments:
+            student_comment_stages[comment.stage] = student_comment_stages.get(comment.stage, 0) + 1
+        progress.student_comment_stages = student_comment_stages
+    
     return render(request, "profiles/educator/dashboard/student_detail.html", {
-        "student": student
+        "student": student,
+        "progresses": progresses,
+        "completed_count": len([p for p in progresses if p.completed])
     })
 
 @educator_only
