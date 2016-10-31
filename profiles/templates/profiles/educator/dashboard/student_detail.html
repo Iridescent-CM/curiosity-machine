@@ -22,50 +22,62 @@
       <div class="card card-module">
         <div class="card-block card-block-title text-center">
           <div class="card-avatar">
-            {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
+            {% include "_avatar.html" with profile=student.profile width=60 height=60 crop='thumb' gravity='faces' %}
           </div>
           <p>
-            nala
+            {% if student.first_name or student.last_name %}
+            {{ student.first_name }}
             <br>
-            katnisseverdeen
+            {{ student.last_name }}
+            {% else %}
+            <em>No name provided</em>
+            {% endif %}
           </p>
         </div>
         <div class="card-block">
           <p>
-            Started: <strong>5</strong>
+            Started: <strong>{{ progresses|length }}</strong>
             <br>
-            Completed: <strong>1</strong>
+            Completed: <strong>{{ completed_count }}</strong>
           </p>
         </div>
       </div>
-
     </div>
 
     <div class="col-md-9">
+      {% for progress in progresses %}
       <div class="card-progress m-b">
         <div class="card-block-title">
-          <h3 class="card-title">Build a Robotic Face</h3>
-          <a href="#" class="a-secondary">View all students &rarr;</a>
+          <h3 class="card-title">{{ progress.challenge.name }}</h3>
+          <a href="{% url "profiles:educator_dashboard_students" %}" class="a-secondary">View all students &rarr;</a>
         </div>
         <div class="card-block">
 
-          <row class="progress-details">
+          <div class="row progress-details">
             <div class="col-md-4 m-b">
               <span class="progress-type">latest post</span>
               <br>
-              Wednesday, Oct 12 <span class="tag tag-pill tag-success">TODAY</span></p>
+              {% if progress.latest_student_comment %}
+              {{ progress.latest_student_comment.created|date:"l, M d" }} {% comment %}<span class="tag tag-pill tag-success">TODAY</span></p>{% endcomment %}
+              {% else %}
+              <em>No posts yet</em>
+              {% endif %}
             </div>
             <div class="col-md-4 m-b">
               <span class="progress-type">online mentor</span>
               <br>
+              {% if progress.mentor %}
+              {{ progress.mentor.username }}
+              {% else %}
               No mentor
+              {% endif %}
             </div>
             <div class="col-md-4 m-b">
               <span class="progress-type">total posts</span>
               <br>
-              11
+              {{ progress.total_student_comments }}
             </div>
-          </row>
+          </div>
 
           <table class="table-progress table-sm">
             <thead>
@@ -79,70 +91,30 @@
             </thead>
             <tbody>
               <tr>
-                <th class="active">11</th>
-                <th class="active">15</td>
-                <th class="active">25</td>
-                <th class="active">2</td>
+                {% for count in progress.student_comment_counts_by_stage %}
+                {% if count %}
+                <th class="active">{{ count }}</th>
+                {% else %}
+                <th class="inactive"> <i class="icon-cross"></i> </th>
+                {% endif %}
+                {% endfor %}
+                {% if progress.approved_examples %}
+                <th class="active"><i class="icon-check"></i></td>
+                {% else %}
                 <th class="inactive"><i class="icon-cross"></i></td>
+                {% endif %}
               </tr>
             </tbody>
           </table>
 
-          <a href="#" class="btn btn-primary">View Process &rarr;</a>
+          <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}" class="btn btn-primary">View Process &rarr;</a>
         </div>
       </div>
+      {% empty %}
+      <p>{{ student.username }} hasn't started any design challenges yet</p>
+      {% endfor %}
 
-      <div class="card-progress m-b">
-        <div class="card-block-title">
-          <h3 class="card-title">Build a "No Wire" Circuit</h3>
-          <a href="#" class="a-secondary">View all students &rarr;</a>
-        </div>
-        <div class="card-block">
-
-          <row class="progress-details">
-            <div class="col-md-4 m-b">
-              <span class="progress-type">latest post</span>
-              <br>
-              Monday, Oct 10 <span class="tag tag-pill tag-warning">3 DAYS AGO</span></p>
-            </div>
-            <div class="col-md-4 m-b">
-              <span class="progress-type">online mentor</span>
-              <br>
-              No mentor
-            </div>
-            <div class="col-md-4 m-b">
-              <span class="progress-type">total posts</span>
-              <br>
-              11
-            </div>
-          </row>
-
-          <table class="table-progress table-sm">
-            <thead>
-              <tr>
-                <th>P<span class="hidden-sm-down">lan</span></th>
-                <th>B<span class="hidden-sm-down">uild</span></th>
-                <th>T<span class="hidden-sm-down">est</span></th>
-                <th>R<span class="hidden-sm-down">eflect</span></th>
-                <th>G<span class="hidden-sm-down">allery Post</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th class="active">11</th>
-                <th class="active">15</td>
-                <th class="active">25</td>
-                <th class="active">2</td>
-                <th class="inactive"><i class="icon-cross"></i></td>
-              </tr>
-            </tbody>
-          </table>
-
-          <a href="#" class="btn btn-primary">View Process &rarr;</a>
-        </div>
-      </div>
     </div>
-
   </div>
 </div>
 
