@@ -96,3 +96,9 @@ def guides_dashboard(request, membership_selection=None):
         "extra_units": extra_units,
         "membership_selection": membership_selection,
     })
+
+@educator_only
+@login_required
+def challenge_detail(request, challenge_id):
+    return render(request, "profiles/educator/dashboard/dc_detail.html", {
+    })
