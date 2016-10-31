@@ -75,6 +75,27 @@ def students_dashboard(request, membership_selection=None):
         "membership_selection": membership_selection,
     })
 
+class Reversed:
+    """
+    Reverses the natural sort order of the value
+    """
+
+    def __init__(self, value):
+        self.value = value
+
+    def __lt__(self, other):
+        return other.value < self.value
+
+def latest_student_comment_sort(o):
+    """
+    Sorts by most recent latest_student_comment creation date first, then breaks ties with challenge name.
+    Objects without a latest_student_comment come after objects with.
+    """
+    if o.latest_student_comment:
+        return (0, Reversed(o.latest_student_comment.created), o.challenge.name)
+    else:
+        return (1, o.challenge.name)
+
 @educator_only
 @login_required
 def student_detail(request, student_id):
@@ -94,7 +115,7 @@ def student_detail(request, student_id):
         if student_comments:
             progress.latest_student_comment = max(student_comments, key=lambda o: o.created)
         else:
-            progress.latest_post = None
+            progress.latest_student_comment = None
 
         counts_by_stage = [0, 0, 0, 0, 0];
         for comment in student_comments:
@@ -102,6 +123,9 @@ def student_detail(request, student_id):
         progress.student_comment_counts_by_stage = counts_by_stage[1:] # FIXME: you can't comment in the inspiration stage, but this way of doing it is opaque.
 
         progress.complete = counts_by_stage[4] != 0
+
+
+    progresses = sorted(progresses, key=latest_student_comment_sort)
 
     return render(request, "profiles/educator/dashboard/student_detail.html", {
         "student": student,

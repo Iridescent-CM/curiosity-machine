@@ -379,6 +379,38 @@ def test_educator_dashboard_student_detail_page_context_has_approved_example_cou
     assert response.context["progresses"][0].approved_examples == []
 
 @pytest.mark.django_db
+def test_educator_dashboard_student_detail_page_context_progresses_sort_by_activity(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    student = StudentFactory(username="student")
+    mentor = MentorFactory(username="mentor")
+    membership = MembershipFactory(members=[educator, student])
+
+    challengeA = ChallengeFactory(name="Challenge A", draft=False)
+    challengeB = ChallengeFactory(name="Challenge B", draft=False)
+    challengeC = ChallengeFactory(name="Challenge C", draft=False)
+    progressA = ProgressFactory(student=student, challenge=challengeA, mentor=mentor)
+    progressB = ProgressFactory(student=student, challenge=challengeB, mentor=mentor)
+    progressC = ProgressFactory(student=student, challenge=challengeC, mentor=mentor)
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert response.context["progresses"] == [progressA, progressB, progressC]
+
+    CommentFactory(challenge_progress=progressC, user=student)
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert response.context["progresses"] == [progressC, progressA, progressB]
+
+    CommentFactory(challenge_progress=progressB, user=mentor)
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert response.context["progresses"] == [progressC, progressA, progressB]
+
+    rightnow = now()
+    CommentFactory(challenge_progress=progressC, user=student, created=rightnow)
+    CommentFactory(challenge_progress=progressB, user=student, created=rightnow)
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert response.context["progresses"] == [progressB, progressC, progressA]
+
+@pytest.mark.django_db
 def test_educator_dashboard_students_page_context_has_no_students(client):
     educator = EducatorFactory(username="edu", password="123123")
 
