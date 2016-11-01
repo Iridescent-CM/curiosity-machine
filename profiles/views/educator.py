@@ -9,7 +9,8 @@ import operator
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
-from challenges.models import Challenge, Example
+from challenges.models import Challenge, Example, Stage
+from cmcomments.models import Comment
 from units.models import Unit
 from memberships.models import Member
 from curiositymachine.decorators import educator_only
@@ -158,6 +159,34 @@ def guides_dashboard(request, membership_selection=None):
 
 @educator_only
 @login_required
-def challenge_detail(request, challenge_id):
+@membership_selection
+def challenge_detail(request, challenge_id, membership_selection=None):
+
+    if membership_selection and membership_selection["selected"]:
+        membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+        challenge = get_object_or_404(membership.challenges, pk=challenge_id) # FIXME: what if we're outside a membership?
+        comments = (Comment.objects
+            .filter(
+                user__in=membership.members.all(),
+                user__profile__role=UserRole.student.value,
+                challenge_progress__challenge_id=challenge.id)
+            .select_related('user', 'user__profile'))
+        student_ids_with_examples = (Example.objects
+            .filter(
+                approved=True,
+                progress__challenge_id=challenge.id,
+                progress__student__in=membership.members.all())
+            .values_list('progress__student__id', flat=True))
+
+        totals = {}
+        for comment in comments:
+            if comment.user not in totals:
+                totals[comment.user] = {}
+            stagename = Stage(comment.stage).name
+            totals[comment.user][stagename] = totals[comment.user].get(stagename, 0) + 1
+
     return render(request, "profiles/educator/dashboard/dc_detail.html", {
+        "challenge": challenge,
+        "totals": totals,
+        "student_ids_with_examples": student_ids_with_examples,
     })

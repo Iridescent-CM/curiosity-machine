@@ -10,11 +10,13 @@
       </div>
     </div>
     <div class="row">
-      <h2 class="text-center">Build a Robotic Face</h2>
+      <h2 class="text-center">{{ challenge.name }}</h2>
     </div>
     <div class="row">
       <div class="col-md-6 m-b text-center text-md-left">
-          Active students: <strong>12</strong> <span class="hidden-sm-down">&middot;</span><span class="hidden-md-up"><br><br></span> <a href="#" class="a-secondary">Explore Build a Robotic Face &rarr;</a>
+        Active students: <strong>12</strong> <span class="hidden-sm-down">&middot;</span>
+        <span class="hidden-md-up"><br><br></span>
+        <a href="#" class="a-secondary">{{ challenge.name }} &rarr;</a>
       </div>
       <div class="col-md-6 m-b text-center text-md-right">
         <div class="dropdown">
@@ -60,6 +62,7 @@
 
   <div class="container">
     <!-- for students in students... -->
+    {% for student, totals in totals.items %}
     <div class="row m-t m-b">
       <div class="col-md-2">
         <div class="student-list-item">
@@ -67,14 +70,14 @@
           <a href="#" class="student-list-avatar action-img pull-left">
             <div class="hidden-lg-down">
               <!-- student avatar, not user avatar -->
-              {% include "_avatar.html" with profile=request.user.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+              {% include "_avatar.html" with profile=student.profile  width=48 height=48 crop='thumb' gravity='faces' %}
             </div>
           </a>
-          {{ user.first_name }} {{ user.last_name }}
+          {{ student.first_name }} {{ student.last_name }}
           <br>
           <!-- links to student detail view -->
           <a href="#">
-            {{ user.username }}
+            {{ student.username }}
           </a>
         </div>
       </div>
@@ -84,7 +87,7 @@
           plan
         </div>
         <div class="light-type post-quantity">
-          1
+          {{ totals.plan|default:0 }}
         </div>
       </div>
 
@@ -93,7 +96,7 @@
           build
         </div>
         <div class="light-type post-quantity">
-          3
+          {{ totals.build|default:0 }}
         </div>
       </div>
 
@@ -102,7 +105,7 @@
           test
         </div>
         <div class="light-type post-quantity">
-          4
+          {{ totals.test|default:0 }}
         </div>
       </div>
 
@@ -111,7 +114,7 @@
           reflect
         </div>
         <div class="light-type post-quantity">
-          2
+          {{ totals.reflect|default:0 }}
         </div>
       </div>
 
@@ -119,14 +122,19 @@
         <div class="hidden-md-up post-type">
           gallery
         </div>
+        {% if student.id in student_ids_with_examples %}
+        <div class="light-type post-quantity">
+          <i class="icon-check"></i>
+        </div>
+        {% else %}
         <div class="light-type post-empty">
-          <!-- either "icon-cross" or "icon check" -->
-          <!-- if "icon-check", switch "post-empty" to "post-quantity" etc -->
           <i class="icon-cross"></i>
         </div>
+        {% endif %}
       </div>
     </div>
     <!-- endfor -->
+    {% endfor %}
 
   </div>
 </div>
