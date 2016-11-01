@@ -293,6 +293,16 @@ def test_challenge_detail_page_context_does_not_have_gallery_post_indicator_othe
     assert len(response.context["student_ids_with_examples"]) == 0
 
 @pytest.mark.django_db
+def test_challenge_detail_page_context_has_challenge_links(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    challenges = ChallengeFactory.create_batch(5)
+    membership = MembershipFactory(members=[educator], challenges=challenges)
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/challenges/%d/" % challenges[0].id, follow=True)
+    assert set(response.context["challenge_links"]) == set(challenges)
+
+@pytest.mark.django_db
 def test_page_contexts_have_membership_selection_helper(client):
     educator = EducatorFactory(username="edu", password="123123")
     memberships = [MembershipFactory(members=[educator]), MembershipFactory(members=[educator])]

@@ -187,6 +187,7 @@ def challenge_detail(request, challenge_id, membership_selection=None):
 
     return render(request, "profiles/educator/dashboard/dc_detail.html", {
         "challenge": challenge,
+        "challenge_links": membership.challenges.order_by('name').all(),
         "totals": totals,
         "student_ids_with_examples": student_ids_with_examples,
     })

@@ -14,9 +14,9 @@
     </div>
     <div class="row">
       <div class="col-md-6 m-b text-center text-md-left">
-        Active students: <strong>12</strong> <span class="hidden-sm-down">&middot;</span>
+        Active students: <strong>{{ totals|length }}</strong> <span class="hidden-sm-down">&middot;</span>
         <span class="hidden-md-up"><br><br></span>
-        <a href="#" class="a-secondary">{{ challenge.name }} &rarr;</a>
+        <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-secondary">{{ challenge.name }} &rarr;</a>
       </div>
       <div class="col-md-6 m-b text-center text-md-right">
         <div class="dropdown">
@@ -25,9 +25,9 @@
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Build a "No Wire" Circuit</a>
-            <a class="dropdown-item" href="#">Construct a Crane</a>
-            <a class="dropdown-item" href="#">Engineer an Air-Powered Spinning Machine</a>
+            {% for challenge in challenge_links %}
+            <a class="dropdown-item" href="{% url "profiles:educator_dashboard_challenge_detail" challenge_id=challenge.id %}">{{ challenge.name }}</a>
+            {% endfor %}
           </div>
         </div>
       </div>
