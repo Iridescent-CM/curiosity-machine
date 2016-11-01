@@ -1,4 +1,5 @@
 {% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
 {% block title %}Curiosity Machine - Student Progress{% endblock %}
 
 {% block content %}
@@ -79,7 +80,7 @@
             </div>
           </div>
 
-          <table class="table-progress table-sm">
+          <table class="table-progress table-sm" style="display: none">
             <thead>
               <tr>
                 <th>P<span class="hidden-sm-down">lan</span></th>
@@ -106,6 +107,7 @@
               </tr>
             </tbody>
           </table>
+          <div class="graph" data-pid="{{ progress.id }}"></div>
 
           <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}" class="btn btn-primary">View Process &rarr;</a>
         </div>
@@ -118,4 +120,37 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block css %}
+  
+{% endblock %}
+
+{% block js %}
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="{% static "js/progress_chart.js" %}"></script>
+  <script>
+      var chart = progressChart();
+
+      function graphAll (err, data) {
+
+        var entries = d3.nest()
+          .key(function(d) { return d["challenge_progress_id"]; })
+          .sortValues(function(a, b) {
+            return d3.ascending(a["created"], b["created"])
+          })
+          .entries(data);
+        
+        d3.selectAll(".graph")
+          .data(
+            entries,
+            function(d) { 
+              var key = d ? d['key'] : this.getAttribute('data-pid');
+              return key;
+            })
+          .call(chart);
+      }
+
+      d3.json("/foo/", graphAll);
+  </script>
 {% endblock %}
