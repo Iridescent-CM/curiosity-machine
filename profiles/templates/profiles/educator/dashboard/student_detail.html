@@ -80,35 +80,13 @@
             </div>
           </div>
 
-          <table class="table-progress table-sm" style="display: none">
-            <thead>
-              <tr>
-                <th>P<span class="hidden-sm-down">lan</span></th>
-                <th>B<span class="hidden-sm-down">uild</span></th>
-                <th>T<span class="hidden-sm-down">est</span></th>
-                <th>R<span class="hidden-sm-down">eflect</span></th>
-                <th>G<span class="hidden-sm-down">allery Post</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {% for count in progress.student_comment_counts_by_stage %}
-                {% if count %}
-                <th class="active">{{ count }}</th>
-                {% else %}
-                <th class="inactive"> <i class="icon-cross"></i> </th>
-                {% endif %}
-                {% endfor %}
-                {% if progress.approved_examples %}
-                <th class="active"><i class="icon-check"></i></td>
-                {% else %}
-                <th class="inactive"><i class="icon-cross"></i></td>
-                {% endif %}
-              </tr>
-            </tbody>
-          </table>
-          <div class="graph" data-pid="{{ progress.id }}"></div>
+        </div>
 
+        <div class="card-block" style="background-color: white; padding: 0;">
+          <div class="graph" data-pid="{{ progress.id }}"></div>
+        </div>
+
+        <div class="card-block">
           <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}" class="btn btn-primary">View Process &rarr;</a>
         </div>
       </div>

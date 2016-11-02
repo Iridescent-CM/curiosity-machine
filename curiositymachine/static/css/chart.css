@@ -1,9 +1,11 @@
 .card-block:not(.graph) {
   background-color: whitesmoke;
 }
+/*
 svg {
-  border: 1px dashed gainsboro;
+  //border: 1px dashed gainsboro;
 }
+*/
 
 /* SVG */
 
