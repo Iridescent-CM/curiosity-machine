@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Prefetch, Count
+from collections import OrderedDict
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
@@ -159,9 +160,14 @@ def challenge_detail(request, challenge_id, membership_selection=None):
         totals = {}
         for comment in comments:
             if comment.user not in totals:
-                totals[comment.user] = {}
+                totals[comment.user] = OrderedDict.fromkeys([
+                    Stage.plan.name,
+                    Stage.build.name,
+                    Stage.test.name,
+                    Stage.reflect.name,
+                ], 0)
             stagename = Stage(comment.stage).name
-            totals[comment.user][stagename] = totals[comment.user].get(stagename, 0) + 1
+            totals[comment.user][stagename] = totals[comment.user].get(stagename) + 1
 
     return render(request, "profiles/educator/dashboard/dc_detail.html", {
         "challenge": challenge,
