@@ -5,10 +5,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Prefetch, Count
-import operator
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
+from ..sorting import latest_student_comment_sort
 from challenges.models import Challenge, Example, Stage
 from cmcomments.models import Comment
 from units.models import Unit
@@ -76,28 +76,6 @@ def students_dashboard(request, membership_selection=None):
         "students": students,
         "membership_selection": membership_selection,
     })
-
-class Reversed:
-    """
-    Reverses the natural sort order of the value
-    """
-
-    def __init__(self, value):
-        self.value = value
-
-for x in ['__lt__', '__le__', '__eq__', '__ne__', '__ge__', '__gt__']:
-    op = getattr(operator, x)
-    setattr(Reversed, x, lambda self, other, op=op: op(other.value, self.value))
-
-def latest_student_comment_sort(o):
-    """
-    Sorts by most recent latest_student_comment creation date first, then breaks ties with challenge name.
-    Objects without a latest_student_comment come after objects with.
-    """
-    if o.latest_student_comment:
-        return (0, Reversed(o.latest_student_comment.created), o.challenge.name)
-    else:
-        return (1, o.challenge.name)    # this case is irrelevant if the page doesn't show uncommented progresses
 
 @educator_only
 @login_required
