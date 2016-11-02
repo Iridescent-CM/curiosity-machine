@@ -103,9 +103,9 @@ def student_detail(request, student_id):
         counts_by_stage = [0, 0, 0, 0, 0];
         for comment in student_comments:
             counts_by_stage[comment.stage] = counts_by_stage[comment.stage] + 1
-        progress.student_comment_counts_by_stage = counts_by_stage[1:] # FIXME: you can't comment in the inspiration stage, but this way of doing it is opaque.
+        progress.student_comment_counts_by_stage = counts_by_stage[1:] # inspiration stage can't have comments
 
-        progress.complete = counts_by_stage[4] != 0
+        progress.complete = counts_by_stage[Stage.reflect.value] != 0
 
 
     progresses = sorted(progresses, key=latest_student_comment_sort)
