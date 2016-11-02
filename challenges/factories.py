@@ -2,8 +2,11 @@ import factory
 import factory.django
 import factory.fuzzy
 from factory import post_generation
+import random
 
 from . import models
+
+from cmcomments.factories import CommentFactory
 
 __all__ = [
     'QuestionFactory',
@@ -59,11 +62,24 @@ class ProgressFactory(factory.django.DjangoModelFactory):
     @factory.post_generation
     def comment(obj, create, extracted, **kwargs):
         if extracted:
+            if not create:
+                raise NotImplementedError('only CREATE strategy is handled so far, not BUILD')
+
             obj.comments.create(user=obj.student, text="First post!", stage=1)
+            if isinstance(extracted, int) and extracted > 1:
+                for idx in range(1, extracted):
+                    if obj.mentor:
+                        user = random.choice([obj.student, obj.mentor])
+                    else:
+                        user = obj.student
+                    obj.comments.add(CommentFactory(challenge_progress=obj, user=user))
 
     @factory.post_generation
     def completed(obj, create, extracted, **kwargs):
         if extracted:
+            if not create:
+                raise NotImplementedError('only CREATE strategy is handled so far, not BUILD')
+
             obj.comments.create(user=obj.student, text="Reflection", stage=4, question_text="Reflect question text")
 
 class ExampleFactory(factory.django.DjangoModelFactory):

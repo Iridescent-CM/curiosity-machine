@@ -1,17 +1,24 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.db import transaction
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models import Prefetch, Count
+from collections import OrderedDict
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
-from challenges.models import Challenge
+from ..sorting import latest_student_comment_sort
+from challenges.models import Challenge, Example, Stage
+from cmcomments.models import Comment
 from units.models import Unit
 from memberships.models import Member
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
 from django.utils.functional import lazy
+
+User = get_user_model()
 
 join = transaction.atomic(UserJoinView.as_view(
     form_class = forms.EducatorUserAndProfileForm,
@@ -74,8 +81,40 @@ def students_dashboard(request, membership_selection=None):
 @educator_only
 @login_required
 def student_detail(request, student_id):
+    student = get_object_or_404(User.objects.select_related('profile'), pk=student_id)
+    progresses = (student.progresses
+        .filter(comments__isnull=False)
+        .select_related('challenge', 'mentor')
+        .prefetch_related(
+            'comments',
+            Prefetch('example_set', queryset=Example.objects.status(approved=True), to_attr='approved_examples')
+        )
+        .distinct()
+        .all())
+
+    for progress in progresses:
+        student_comments = [c for c in progress.comments.all() if c.user_id == student.id]
+        progress.total_student_comments = len(student_comments)
+
+        if student_comments:
+            progress.latest_student_comment = max(student_comments, key=lambda o: o.created)
+        else:
+            progress.latest_student_comment = None
+
+        counts_by_stage = [0, 0, 0, 0, 0];
+        for comment in student_comments:
+            counts_by_stage[comment.stage] = counts_by_stage[comment.stage] + 1
+        progress.student_comment_counts_by_stage = counts_by_stage[1:] # inspiration stage can't have comments
+
+        progress.complete = counts_by_stage[Stage.reflect.value] != 0
+
+
+    progresses = sorted(progresses, key=latest_student_comment_sort)
+
     return render(request, "profiles/educator/dashboard/student_detail.html", {
-        "student_id": student_id
+        "student": student,
+        "progresses": progresses,
+        "completed_count": len([p for p in progresses if p.complete])
     })
 
 @educator_only
@@ -99,6 +138,40 @@ def guides_dashboard(request, membership_selection=None):
 
 @educator_only
 @login_required
-def challenge_detail(request, challenge_id):
+@membership_selection
+def challenge_detail(request, challenge_id, membership_selection=None):
+
+    if membership_selection and membership_selection["selected"]:
+        membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+        challenge = get_object_or_404(membership.challenges, pk=challenge_id) # FIXME: what if we're outside a membership?
+        comments = (Comment.objects
+            .filter(
+                user__in=membership.members.all(),
+                user__profile__role=UserRole.student.value,
+                challenge_progress__challenge_id=challenge.id)
+            .select_related('user', 'user__profile'))
+        student_ids_with_examples = (Example.objects
+            .filter(
+                approved=True,
+                progress__challenge_id=challenge.id,
+                progress__student__in=membership.members.all())
+            .values_list('progress__student__id', flat=True))
+
+        totals = {}
+        for comment in comments:
+            if comment.user not in totals:
+                totals[comment.user] = OrderedDict.fromkeys([
+                    Stage.plan.name,
+                    Stage.build.name,
+                    Stage.test.name,
+                    Stage.reflect.name,
+                ], 0)
+            stagename = Stage(comment.stage).name
+            totals[comment.user][stagename] = totals[comment.user].get(stagename) + 1
+
     return render(request, "profiles/educator/dashboard/dc_detail.html", {
+        "challenge": challenge,
+        "challenge_links": membership.challenges.order_by('name').all(),
+        "totals": totals,
+        "student_ids_with_examples": student_ids_with_examples,
     })
