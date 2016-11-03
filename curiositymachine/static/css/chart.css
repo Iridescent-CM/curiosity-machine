@@ -1,0 +1,70 @@
+.card-block:not(.graph) {
+  background-color: whitesmoke;
+}
+/*
+svg {
+  //border: 1px dashed gainsboro;
+}
+*/
+
+/* SVG */
+
+.stage-plan .colorbar {
+  fill: #F5F8F1;
+}
+.stage-build .colorbar {
+  fill: #F1F1F8;
+}
+.stage-test .colorbar {
+  fill: #FFF0ED;
+}
+.stage-reflect .colorbar {
+  fill: #E8F8FA;
+}
+
+.stage-plan {
+  fill: #9CB86B;
+}
+.stage-build {
+  fill: #6773B4;
+}
+.stage-test {
+  fill: #F96844;
+}
+.stage-reflect {
+  fill: #1EB9C8;
+}
+
+.summary {
+  font-weight: 900;
+}
+
+.stage-plan .summary {
+  fill: #9CB86B;
+}
+.stage-build .summary {
+  fill: #6773B4;
+}
+.stage-test .summary {
+  fill: #F96844;
+}
+.stage-reflect .summary {
+  fill: #1EB9C8;
+}
+
+.graphline {
+  stroke: #d8d6d4;
+  fill: transparent;
+  stroke-width: 2px;
+}
+
+.mentorline {
+  stroke: gray;
+  fill: transparent;
+  stroke-width: 1px;
+}
+
+text {
+  font-size: 10px;
+  fill: dimgray;
+}

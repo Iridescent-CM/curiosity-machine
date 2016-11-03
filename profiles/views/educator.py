@@ -175,3 +175,16 @@ def challenge_detail(request, challenge_id, membership_selection=None):
         "totals": totals,
         "student_ids_with_examples": student_ids_with_examples,
     })
+
+from cmcomments.models import Comment
+from django.http import JsonResponse
+
+def serialize(obj):
+    obj["created"] = obj["created"].isoformat()
+    return obj
+
+def graph_data(request):
+    comments = Comment.objects.values('challenge_progress_id', 'user_id', 'created', 'stage', 'user__profile__role').all()
+    return JsonResponse([serialize(c) for c in comments], safe=False)
+
+
