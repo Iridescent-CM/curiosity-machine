@@ -11,6 +11,10 @@
         </a>
       </h3>
 
+      {% if membership %}
+      <a href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}">Students with progress &rarr;</a>
+      {% endif %}
+
       <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo-{{ challenge.id }}" aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
         &plus; MORE INFO
       </a>
