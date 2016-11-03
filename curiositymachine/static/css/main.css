@@ -5823,6 +5823,9 @@ footer {
     .educator-dashboard .student-list .student-list-item .student-inline-empty {
       color: #949494; }
 
+.dropdown-design-challenge {
+  display: inline-block; }
+
 .dc-progress-table .dc-progress-header {
   border-bottom: 2px solid #E5E1D9;
   text-transform: uppercase;

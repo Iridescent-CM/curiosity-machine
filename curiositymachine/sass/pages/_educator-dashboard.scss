@@ -152,8 +152,11 @@
 //
 // Design Challenge Progress Table
 //
-.dc-progress-table {
+.dropdown-design-challenge {
+  display: inline-block;
+}
 
+.dc-progress-table {
   .dc-progress-header {
     border-bottom: 2px solid $sand;
     text-transform: uppercase;

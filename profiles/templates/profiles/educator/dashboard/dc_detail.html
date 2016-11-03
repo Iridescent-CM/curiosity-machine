@@ -9,17 +9,17 @@
 <div class="container">
   {% include 'profiles/educator/dashboard/_navigation.html' with activeNav="challenges" %}
 
-  <div class="row">
+  <div class="row m-b-sm">
     <div class="col-md-12">
       <h2>{{ challenge.name }}</h2>
     </div>
   </div>
 
-  <div class="row m-b">
+  <div class="row">
     <div class="col-md-12">
-      <div class="dropdown">
+      <div class="dropdown dropdown-design-challenge">
         <a class="dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Choose Design Dhallenge
+          Choose Design Challenge
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           {% for challenge in challenge_links %}
@@ -27,14 +27,6 @@
           {% endfor %}
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      Active students: <strong>{{ totals|length }}</strong> <span class="hidden-sm-down">&middot;</span>
-      <span class="hidden-md-up"><br><br></span>
-      <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">{{ challenge.name }} &rarr;</a>
     </div>
   </div>
 </div>
