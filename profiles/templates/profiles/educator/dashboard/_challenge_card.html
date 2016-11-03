@@ -11,7 +11,7 @@
         </a>
       </h3>
 
-      {% if membership %}
+      {% if show_detail_links == "true" %}
       <a href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}">View all student progress &rarr;</a>
       {% endif %}
 
