@@ -156,6 +156,55 @@
   display: inline-block;
 }
 
+  .student-list-item {
+    @include media-breakpoint-down(sm) {
+      text-align: center;
+      margin-bottom: $small-spacing;
+    }
+  }
+
+  .student-list-avatar {
+    img {
+      border-radius: 50%;
+      background-color: $ivory;
+      margin-right: 10px;
+    }
+  }
+
+.table-dc-progress {
+  @extend .table;
+  text-align: center;
+  border-style: none;
+
+  thead {
+    color: $primary-red;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    th { border-style: none; }
+  }
+
+  .active {
+    background-color: $primary-green;
+    color: $ivory;
+    font-size: 1.25rem;
+  }
+
+  .inactive {
+    background-color: $sand;
+    color: $gray;
+    font-size: 1.25rem;
+  }
+
+  th {
+    border: 2px solid $ivory;
+    padding: 8px 0px;
+    text-align: center;
+    vertical-align: middle;
+    width: 16.6%;
+  }
+}
+
 .dc-progress-table {
   .dc-progress-header {
     border-bottom: 2px solid $sand;

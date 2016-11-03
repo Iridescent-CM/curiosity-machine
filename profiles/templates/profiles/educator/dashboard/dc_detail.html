@@ -31,6 +31,77 @@
   </div>
 </div>
 
+<div class="container m-t">
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      <table class="table-dc-progress">
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Build</th>
+            <th>Test</th>
+            <th>Reflect</th>
+            <th>Gallery</th>
+            <th></th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+  {% for student, totals in totals.items %}
+  <div class="row m-b">
+    <div class="col-md-3">
+      <div class="student-list-item">
+        <a href="{% url "profiles:educator_dashboard_student_detail" student_id=student.id %}" class="student-list-avatar action-img pull-left">
+          <div class="hidden-lg-down">
+            {% include "_avatar.html" with profile=student.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+          </div>
+        </a>
+        {% if student.first_name or student.last_name %}
+        {{ student.first_name }} {{ student.last_name }}
+        {% else %}
+        <em>No name provided</em>
+        {% endif %}
+        <br>
+        <a href="{% url "profiles:educator_dashboard_student_detail" student_id=student.id %}">
+          {{ student.username }}
+        </a>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <table class="table-dc-progress">
+        <tbody>
+          <tr>
+
+            {% for stage, count in totals.items %}
+            {% if count %}
+            <th class="active">{{ count }}</th>
+            {% else %}
+            <th class="inactive"><i class="icon-cross"></i></th>
+            {% endif %}
+            {% endfor %}
+
+            {% if student.id in student_ids_with_examples %}
+            <th class="active"><i class="icon-check"></i></th>
+            {% else %}
+            <th class="inactive"><i class="icon-cross"></i></th>
+            {% endif %}
+
+            <th class=""><a href="#">View &rarr;</a></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
+
+
 <div class="dc-progress-table">
   <div class="fixedheader">
     <div class="container">

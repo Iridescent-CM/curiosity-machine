@@ -216,10 +216,10 @@ th {
     border-top-color: #000 !important; }
   .label {
     border: 1px solid #000; }
-  .table, .card-progress .table-progress {
+  .table, .card-progress .table-progress, .table-dc-progress {
     border-collapse: collapse !important; }
-    .table td, .card-progress .table-progress td,
-    .table th, .card-progress .table-progress th {
+    .table td, .card-progress .table-progress td, .table-dc-progress td,
+    .table th, .card-progress .table-progress th, .table-dc-progress th {
       background-color: #fff !important; }
   .table-bordered th,
   .table-bordered td {
@@ -1199,22 +1199,22 @@ pre {
   .col-xl-offset-12 {
     margin-left: 100%; } }
 
-.table, .card-progress .table-progress {
+.table, .card-progress .table-progress, .table-dc-progress {
   width: 100%;
   max-width: 100%;
   margin-bottom: 1rem; }
-  .table th, .card-progress .table-progress th,
-  .table td, .card-progress .table-progress td {
+  .table th, .card-progress .table-progress th, .table-dc-progress th,
+  .table td, .card-progress .table-progress td, .table-dc-progress td {
     padding: 0.75rem;
     line-height: 1.5;
     vertical-align: top;
     border-top: 1px solid #eceeef; }
-  .table thead th, .card-progress .table-progress thead th {
+  .table thead th, .card-progress .table-progress thead th, .table-dc-progress thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #eceeef; }
-  .table tbody + tbody, .card-progress .table-progress tbody + tbody {
+  .table tbody + tbody, .card-progress .table-progress tbody + tbody, .table-dc-progress tbody + tbody {
     border-top: 2px solid #eceeef; }
-  .table .table, .card-progress .table-progress .table, .table .card-progress .table-progress, .card-progress .table .table-progress, .card-progress .table-progress .table-progress {
+  .table .table, .card-progress .table-progress .table, .table-dc-progress .table, .table .card-progress .table-progress, .card-progress .table .table-progress, .card-progress .table-progress .table-progress, .table-dc-progress .card-progress .table-progress, .card-progress .table-dc-progress .table-progress, .table .table-dc-progress, .card-progress .table-progress .table-dc-progress, .table-dc-progress .table-dc-progress {
     background-color: #fff; }
 
 .table-sm th,
@@ -5412,12 +5412,12 @@ i {
   width: 100%;
   height: auto; }
 
-.table, .card-progress .table-progress {
+.table, .card-progress .table-progress, .table-dc-progress {
   background-color: #FFFCF7;
   border: solid 2px #E5E1D9; }
-  .table thead th, .card-progress .table-progress thead th {
+  .table thead th, .card-progress .table-progress thead th, .table-dc-progress thead th {
     border-color: #E5E1D9; }
-  .table td, .card-progress .table-progress td {
+  .table td, .card-progress .table-progress td, .table-dc-progress td {
     border-color: #E5E1D9; }
 
 header {
@@ -5825,6 +5825,41 @@ footer {
 
 .dropdown-design-challenge {
   display: inline-block; }
+
+@media (max-width: 47.9em) {
+  .student-list-item {
+    text-align: center;
+    margin-bottom: 0.75em; } }
+
+.student-list-avatar img {
+  border-radius: 50%;
+  background-color: #FFFCF7;
+  margin-right: 10px; }
+
+.table-dc-progress {
+  text-align: center;
+  border-style: none; }
+  .table-dc-progress thead {
+    color: #F55932;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    text-transform: uppercase; }
+    .table-dc-progress thead th {
+      border-style: none; }
+  .table-dc-progress .active {
+    background-color: #8FB559;
+    color: #FFFCF7;
+    font-size: 1.25rem; }
+  .table-dc-progress .inactive {
+    background-color: #E5E1D9;
+    color: #949494;
+    font-size: 1.25rem; }
+  .table-dc-progress th {
+    border: 2px solid #FFFCF7;
+    padding: 8px 0px;
+    text-align: center;
+    vertical-align: middle;
+    width: 16.6%; }
 
 .dc-progress-table .dc-progress-header {
   border-bottom: 2px solid #E5E1D9;
