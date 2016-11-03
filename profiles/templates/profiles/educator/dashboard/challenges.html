@@ -22,7 +22,7 @@
   <div class="row m-b-lg">
     {% for challenge in membership_challenges %}
     <div class="col-md-6 m-b">
-      {% include 'profiles/educator/dashboard/_challenge_card.html' with challenge=challenge show_detail_links="true" %}
+      {% include 'profiles/educator/dashboard/_challenge_card.html' with challenge=challenge show_detail_links=True %}
     </div>
     {% if forloop.counter|divisibleby:2 %}
     <div class="clearfix"></div>
