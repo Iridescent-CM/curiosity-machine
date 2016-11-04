@@ -42,6 +42,7 @@
       li {
         display: inline-block;
         padding-bottom: 10px;
+        border-bottom: 5px solid $ivory;
 
         a {
           margin: 0px 15px;
@@ -79,8 +80,8 @@
   // Highlights link to active page in navigation
   //
   .active-nav {
-    border-bottom: 5px solid $primary-blue;
-    a { color: $primary-blue; }
+    border-bottom-color: $primary-blue !important;
+    a { color: $primary-blue !important; }
 
     @include media-breakpoint-down(md) { border-bottom: 0px; }
   }
