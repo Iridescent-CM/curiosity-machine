@@ -7,7 +7,8 @@
 {% include 'profiles/educator/dashboard/_header.html' %}
 
 <div class="container">
-  {% include 'profiles/educator/dashboard/_navigation.html' %}
+  {% url "profiles:home" as base_url %}
+  {% include 'profiles/educator/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
 
   <div class="row m-b-sm">
     <div class="col-md-12">
