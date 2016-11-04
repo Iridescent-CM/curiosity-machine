@@ -23,7 +23,6 @@
       font-size: $base-font-size * 2;
     }
   }
-  // end dashboard header styles
 
   //
   // Dashboard navigation
@@ -74,7 +73,6 @@
       margin: 0px;
     }
   }
-  // end dashboard navigation styles
 
   //
   // Highlights link to active page in navigation
@@ -85,10 +83,9 @@
 
     @include media-breakpoint-down(md) { border-bottom: 0px; }
   }
-  // end highlights
 
   //
-  // Student Table
+  // Students List Page
   //
   .student-list {
     border-top: 1px solid $sand;
@@ -129,10 +126,6 @@
         // }
       }
 
-      .student-inline-name {
-        font-weight: $heavy-font-weight;
-      }
-
       .student-list-manage {
         position: absolute;
         right: 2.5rem;
@@ -147,69 +140,77 @@
       .student-inline-empty { color: $gray; }
     }
   }
-  // end student table
-}
 
-//
-// Design Challenge Progress Table
-//
-.dropdown-design-challenge {
-  display: inline-block;
-}
+  //
+  // Student Detail Page
+  //
+  .card-avatar img {
+    box-shadow: 0px 2px 4px 0px $main-shadow;
+  }
 
-.fixedheader {
-  z-index: 500;
-  background-color: $ivory;
-}
+  //
+  // Design Challenge Detail Page
+  //
+  .dropdown-design-challenge {
+    display: inline-block;
+  }
 
-.dc-progress {
-  .student-list-item {
-    @include media-breakpoint-down(sm) {
-      text-align: center;
-      margin-bottom: $small-spacing;
+  .fixedheader {
+    z-index: 500;
+    transition: transform 3s $base-timing;
+  }
+
+  .dc-progress {
+    height: 350px;
+
+    .student-list-item {
+      @include media-breakpoint-down(sm) {
+        margin-bottom: $small-spacing;
+      }
+    }
+
+    .student-list-avatar {
+      img {
+        border-radius: 50%;
+        background-color: $ivory;
+        margin-right: 10px;
+        box-shadow: 0px 2px 4px 0px $main-shadow;
+      }
     }
   }
 
-  .student-list-avatar {
-    img {
-      border-radius: 50%;
-      background-color: $ivory;
-      margin-right: 10px;
-    }
-  }
-}
-
-.table-dc-progress {
-  @extend .table;
-  text-align: center;
-  border-style: none;
-  margin-bottom: 0px;
-
-  thead {
-    color: $primary-red;
-    font-size: 0.875em;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    th { border-color: $ivory; }
-  }
-
-  .active {
-    background-color: $primary-green;
-    color: $ivory;
-    font-size: 1.25rem;
-  }
-
-  .inactive {
-    background-color: $sand;
-    color: $gray;
-    font-size: 1.25rem;
-  }
-
-  th {
-    border: 2px solid $ivory;
-    padding: 8px 0px;
+  .table-dc-progress {
+    @extend .table;
     text-align: center;
-    vertical-align: middle;
-    width: 16.6%;
+    border-style: none;
+    margin-bottom: 0px;
+
+    thead {
+      color: $primary-red;
+      font-size: 0.875em;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      th { border-color: $ivory; }
+    }
+
+    .active {
+      background-color: $primary-green;
+      color: $ivory;
+      font-size: 1.25rem;
+    }
+
+    .inactive {
+      background-color: $sand;
+      color: $gray;
+      font-size: 1.25rem;
+    }
+
+    th {
+      border: 2px solid $ivory;
+      padding: 8px 0px;
+      text-align: center;
+      vertical-align: middle;
+      width: 16.6%;
+    }
   }
 }

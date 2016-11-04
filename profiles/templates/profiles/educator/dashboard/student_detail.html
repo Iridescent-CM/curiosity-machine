@@ -26,15 +26,15 @@
           <div class="card-avatar">
             {% include "_avatar.html" with profile=student.profile width=60 height=60 crop='thumb' gravity='faces' %}
           </div>
-          <p>
-            {% if student.first_name or student.last_name %}
-            {{ student.first_name }}
-            <br>
-            {{ student.last_name }}
-            {% else %}
-            <em>No name provided</em>
-            {% endif %}
-          </p>
+          {% if student.first_name or student.last_name %}
+          {{ student.first_name }}
+          <br>
+          {{ student.last_name }}
+          {% else %}
+          <em>No name provided</em>
+          {% endif %}
+          <br>
+          {{ student.username }}
         </div>
         <div class="card-block">
           <p>
