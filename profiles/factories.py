@@ -7,6 +7,7 @@ from .signals import handlers
 
 from django.utils.timezone import now
 from dateutil.relativedelta import relativedelta
+from django.utils.dateparse import parse_date
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -16,6 +17,11 @@ class ProfileFactory(factory.django.DjangoModelFactory):
         model = models.Profile
 
     user = factory.SubFactory('profiles.factories.UserFactory', profile=None)
+
+    @factory.post_generation
+    def birthday(obj, create, extracted, **kwargs):
+        if extracted and isinstance(extracted, str):
+            obj.birthday = parse_date(extracted)
 
 @factory.django.mute_signals(handlers.post_save)
 class UserFactory(factory.django.DjangoModelFactory):
