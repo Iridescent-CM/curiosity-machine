@@ -161,8 +161,7 @@
   }
 
   .dc-progress {
-    height: 350px;
-
+    
     .student-list-item {
       @include media-breakpoint-down(sm) {
         margin-bottom: $small-spacing;

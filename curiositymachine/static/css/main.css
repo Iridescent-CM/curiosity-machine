@@ -5832,16 +5832,15 @@ footer {
   z-index: 500;
   transition: transform 3s ease; }
 
-.educator-dashboard .dc-progress {
-  height: 350px; }
-  @media (max-width: 47.9em) {
-    .educator-dashboard .dc-progress .student-list-item {
-      margin-bottom: 0.75em; } }
-  .educator-dashboard .dc-progress .student-list-avatar img {
-    border-radius: 50%;
-    background-color: #FFFCF7;
-    margin-right: 10px;
-    box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+@media (max-width: 47.9em) {
+  .educator-dashboard .dc-progress .student-list-item {
+    margin-bottom: 0.75em; } }
+
+.educator-dashboard .dc-progress .student-list-avatar img {
+  border-radius: 50%;
+  background-color: #FFFCF7;
+  margin-right: 10px;
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
 
 .educator-dashboard .table-dc-progress {
   text-align: center;
