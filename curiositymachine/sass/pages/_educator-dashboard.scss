@@ -156,6 +156,12 @@
   display: inline-block;
 }
 
+.fixedheader {
+  z-index: 500;
+  background-color: $ivory;
+}
+
+.dc-progress {
   .student-list-item {
     @include media-breakpoint-down(sm) {
       text-align: center;
@@ -170,18 +176,20 @@
       margin-right: 10px;
     }
   }
+}
 
 .table-dc-progress {
   @extend .table;
   text-align: center;
   border-style: none;
+  margin-bottom: 0px;
 
   thead {
     color: $primary-red;
     font-size: 0.875em;
     letter-spacing: 2px;
     text-transform: uppercase;
-    th { border-style: none; }
+    th { border-color: $ivory; }
   }
 
   .active {
@@ -202,65 +210,5 @@
     text-align: center;
     vertical-align: middle;
     width: 16.6%;
-  }
-}
-
-.dc-progress-table {
-  .dc-progress-header {
-    border-bottom: 2px solid $sand;
-    text-transform: uppercase;
-    color: $primary-red;
-    letter-spacing: 2px;
-  }
-
-  .student-list-item {
-    @include media-breakpoint-down(sm) {
-      text-align: center;
-      margin-bottom: $small-spacing;
-    }
-  }
-
-  .student-list-avatar {
-    img {
-      border-radius: 50%;
-      background-color: $ivory;
-    }
-  }
-
-  .post-type {
-    display: inline-block;
-    width: 48%;
-    text-transform: uppercase;
-    color: $primary-red;
-    letter-spacing: 2px;
-
-    @include media-breakpoint-down(sm) {
-      text-align: right;
-      padding-right: $small-spacing;
-    }
-  }
-
-  .post-quantity {
-    background-color: $primary-green;
-    font-size: 1.25em;
-    font-weight: $heavy-font-weight;
-    height: 48px;
-    padding-top: $small-spacing/2;
-
-    @include media-breakpoint-down(sm) {
-      width: 48%;
-      display: inline-block;
-    }
-  }
-
-  .post-empty {
-    @extend .post-quantity;
-    background-color: $sand;
-    color: $gray;
-  }
-
-  .fixedheader {
-    z-index: 500;
-    background-color: $ivory;
   }
 }

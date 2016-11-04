@@ -5826,26 +5826,31 @@ footer {
 .dropdown-design-challenge {
   display: inline-block; }
 
+.fixedheader {
+  z-index: 500;
+  background-color: #FFFCF7; }
+
 @media (max-width: 47.9em) {
-  .student-list-item {
+  .dc-progress .student-list-item {
     text-align: center;
     margin-bottom: 0.75em; } }
 
-.student-list-avatar img {
+.dc-progress .student-list-avatar img {
   border-radius: 50%;
   background-color: #FFFCF7;
   margin-right: 10px; }
 
 .table-dc-progress {
   text-align: center;
-  border-style: none; }
+  border-style: none;
+  margin-bottom: 0px; }
   .table-dc-progress thead {
     color: #F55932;
     font-size: 0.875em;
     letter-spacing: 2px;
     text-transform: uppercase; }
     .table-dc-progress thead th {
-      border-style: none; }
+      border-color: #FFFCF7; }
   .table-dc-progress .active {
     background-color: #8FB559;
     color: #FFFCF7;
@@ -5860,51 +5865,6 @@ footer {
     text-align: center;
     vertical-align: middle;
     width: 16.6%; }
-
-.dc-progress-table .dc-progress-header {
-  border-bottom: 2px solid #E5E1D9;
-  text-transform: uppercase;
-  color: #F55932;
-  letter-spacing: 2px; }
-
-@media (max-width: 47.9em) {
-  .dc-progress-table .student-list-item {
-    text-align: center;
-    margin-bottom: 0.75em; } }
-
-.dc-progress-table .student-list-avatar img {
-  border-radius: 50%;
-  background-color: #FFFCF7; }
-
-.dc-progress-table .post-type {
-  display: inline-block;
-  width: 48%;
-  text-transform: uppercase;
-  color: #F55932;
-  letter-spacing: 2px; }
-  @media (max-width: 47.9em) {
-    .dc-progress-table .post-type {
-      text-align: right;
-      padding-right: 0.75em; } }
-
-.dc-progress-table .post-quantity, .dc-progress-table .post-empty {
-  background-color: #8FB559;
-  font-size: 1.25em;
-  font-weight: 700;
-  height: 48px;
-  padding-top: 0.375em; }
-  @media (max-width: 47.9em) {
-    .dc-progress-table .post-quantity, .dc-progress-table .post-empty {
-      width: 48%;
-      display: inline-block; } }
-
-.dc-progress-table .post-empty {
-  background-color: #E5E1D9;
-  color: #949494; }
-
-.dc-progress-table .fixedheader {
-  z-index: 500;
-  background-color: #FFFCF7; }
 
 #faq-about-page strong {
   display: inline-block;
