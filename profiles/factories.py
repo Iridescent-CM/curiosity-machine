@@ -18,10 +18,13 @@ class ProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('profiles.factories.UserFactory', profile=None)
 
-    @factory.post_generation
-    def birthday(obj, create, extracted, **kwargs):
-        if extracted and isinstance(extracted, str):
-            obj.birthday = parse_date(extracted)
+    @classmethod
+    def _adjust_kwargs(cls, **kwargs):
+        if "birthday" in kwargs:
+            val = kwargs["birthday"]
+            if isinstance(val, str):
+                kwargs["birthday"] = parse_date(val)
+        return kwargs
 
 @factory.django.mute_signals(handlers.post_save)
 class UserFactory(factory.django.DjangoModelFactory):
