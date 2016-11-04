@@ -5148,6 +5148,9 @@ i {
   .card-module .card-block-title h1, .card-module .card-block-title h2, .card-module .card-block-title h3, .card-module .card-block-title h4 {
     margin-bottom: 0px; }
 
+.card-module .card-footer {
+  background-color: #f2f0ec; }
+
 .modal-close {
   color: #fff;
   font-size: 3em;
