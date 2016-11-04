@@ -80,7 +80,8 @@ def students_dashboard(request, membership_selection=None):
 
 @educator_only
 @login_required
-def student_detail(request, student_id):
+@membership_selection
+def student_detail(request, student_id, membership_selection=None):
     student = get_object_or_404(User.objects.select_related('profile'), pk=student_id)
     progresses = (student.progresses
         .filter(comments__isnull=False)
@@ -114,7 +115,8 @@ def student_detail(request, student_id):
     return render(request, "profiles/educator/dashboard/student_detail.html", {
         "student": student,
         "progresses": progresses,
-        "completed_count": len([p for p in progresses if p.complete])
+        "completed_count": len([p for p in progresses if p.complete]),
+        "membership_selection": membership_selection,
     })
 
 @educator_only
@@ -174,4 +176,5 @@ def challenge_detail(request, challenge_id, membership_selection=None):
         "challenge_links": membership.challenges.order_by('name').all(),
         "totals": totals,
         "student_ids_with_examples": student_ids_with_examples,
+        "membership_selection": membership_selection,
     })

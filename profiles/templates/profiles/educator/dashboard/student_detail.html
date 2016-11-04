@@ -1,17 +1,19 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% block title %}Curiosity Machine - Student Progress{% endblock %}
+{% block body-classes %}educator-dashboard{% endblock %}
 
 {% block content %}
 
-<div class="jumbotron-small jumbotron-green jumbotron-fluid">
-  <div class="container">
-    <div class="row m-b text-center text-md-left">
-      <a href="{% url 'profiles:educator_dashboard_students' %}" class="a-secondary">&larr; Back to Students</a>
-    </div>
-    <div class="row">
-      <h2 class="text-center">Student Progress</h2>
-    </div>
+{% include 'profiles/educator/dashboard/_header.html' %}
 
+<div class="container">
+  {% url "profiles:educator_dashboard_students" as base_url %}
+  {% include 'profiles/educator/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{ student.username }}'s Progress</h2>
+    </div>
   </div>
 </div>
 
