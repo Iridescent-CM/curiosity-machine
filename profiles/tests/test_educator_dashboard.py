@@ -288,6 +288,22 @@ def test_challenge_details_page_shows_unstarted_students(client):
     assert set(response.context["totals"].keys()) == set([student])
 
 @pytest.mark.django_db
+def test_challenge_details_page_orders_students(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    challenge = ChallengeFactory()
+    students = [
+        StudentFactory(first_name='', username='b_user'),
+        StudentFactory(first_name='', username='a_user'),
+        StudentFactory(first_name='b'),
+        StudentFactory(first_name='a'),
+    ]
+    membership = MembershipFactory(members=students + [educator], challenges=[challenge])
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
+    assert [s.id for s in response.context["totals"].keys()] == [s.id for s in reversed(students)]
+
+@pytest.mark.django_db
 def test_challenge_detail_page_context_has_gallery_post_indicator_for_approved_example(client):
     educator = EducatorFactory(username="edu", password="123123")
     student1 = StudentFactory()

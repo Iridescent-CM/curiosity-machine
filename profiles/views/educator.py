@@ -149,7 +149,14 @@ def challenge_detail(request, challenge_id, membership_selection=None):
     if membership_selection and membership_selection["selected"]:
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
         challenge = get_object_or_404(membership.challenges, pk=challenge_id) # FIXME: what if we're outside a membership?
-        students = membership.members.filter(profile__role=UserRole.student.value).select_related('profile__image').all()
+        students = (membership.members
+            .filter(profile__role=UserRole.student.value)
+            .extra(
+                select={"has_first_name": "(first_name <> '') IS TRUE"},
+                order_by=["-has_first_name", "first_name", "username"]
+            )
+            .select_related('profile__image')
+            .all())
         comments = (Comment.objects
             .filter(
                 user__in=students,
@@ -162,7 +169,7 @@ def challenge_detail(request, challenge_id, membership_selection=None):
                 progress__student__in=students)
             .values_list('progress__student__id', flat=True))
 
-        totals = dict(
+        totals = OrderedDict(
             (
                 student,
                 OrderedDict.fromkeys([
