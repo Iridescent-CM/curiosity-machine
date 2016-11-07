@@ -3,7 +3,7 @@
 {% block jumbotron_message %}
 
   {% if challenge.accessible %}
-    <a href="{% url 'challenges:preview_plan' challenge_id=challenge.id %}" class="btn btn-secondary btn-lg">Preview Challenge</a>
+    <a href="{% url 'challenges:preview_plan' challenge_id=challenge.id %}" class="btn btn-secondary btn-lg">View Challenge</a>
   {% else %}
     <div class="membership-only">
       <p>Explore the full design challenge by joining a membership!</p>
