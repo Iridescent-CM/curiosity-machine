@@ -202,7 +202,14 @@
       font-size: 0.875em;
       letter-spacing: 2px;
       text-transform: uppercase;
-      th { border-color: $ivory; }
+
+      th {
+        border: 2px solid $ivory;
+        padding: 8px 0px;
+        text-align: center;
+        vertical-align: middle;
+        width: 16.6%;
+      }
     }
 
     .active {
@@ -217,7 +224,7 @@
       font-size: 1.25rem;
     }
 
-    th {
+    td {
       border: 2px solid $ivory;
       padding: 8px 0px;
       text-align: center;

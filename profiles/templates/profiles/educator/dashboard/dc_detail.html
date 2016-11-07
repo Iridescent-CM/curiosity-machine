@@ -94,19 +94,19 @@
 
             {% for stage, count in totals.items %}
               {% if count %}
-                <th class="active">{{ count }}</th>
+                <td class="active">{{ count }}</td>
               {% else %}
-                <th class="inactive"><i class="icon-cross"></i></th>
+                <td class="inactive"><i class="icon-cross"></i></td>
               {% endif %}
             {% endfor %}
 
             {% if student.id in student_ids_with_examples %}
-              <th class="active"><i class="icon-check"></i></th>
+              <td class="active"><i class="icon-check"></i></td>
             {% else %}
-              <th class="inactive"><i class="icon-cross"></i></th>
+              <td class="inactive"><i class="icon-cross"></i></td>
             {% endif %}
 
-            <th class=""><a href="#">View &rarr;</a></th>
+            <td><a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=student.username %}">View &rarr;</a></td>
           </tr>
         </tbody>
       </table>

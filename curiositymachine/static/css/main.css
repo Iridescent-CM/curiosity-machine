@@ -5862,7 +5862,11 @@ footer {
     letter-spacing: 2px;
     text-transform: uppercase; }
     .educator-dashboard .table-dc-progress thead th {
-      border-color: #FFFCF7; }
+      border: 2px solid #FFFCF7;
+      padding: 8px 0px;
+      text-align: center;
+      vertical-align: middle;
+      width: 16.6%; }
   .educator-dashboard .table-dc-progress .active {
     background-color: #8FB559;
     color: #FFFCF7;
@@ -5871,7 +5875,7 @@ footer {
     background-color: #E5E1D9;
     color: #949494;
     font-size: 1.25rem; }
-  .educator-dashboard .table-dc-progress th {
+  .educator-dashboard .table-dc-progress td {
     border: 2px solid #FFFCF7;
     padding: 8px 0px;
     text-align: center;
