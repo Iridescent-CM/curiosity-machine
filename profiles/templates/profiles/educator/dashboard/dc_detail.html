@@ -33,7 +33,7 @@
   <hr>
 </div>
 
-<div class="fixedheader">
+<div class="dcprogressheader">
   <div class="container">
     <div class="row hidden-sm-down">
       <div class="col-md-3">
@@ -120,26 +120,16 @@
 
 {% block js %}
 <script>
-var fixmeTop = $('.fixedheader').offset().top;
+var fixmeTop = $('.dcprogressheader').offset().top;
 
 $(window).scroll(function() {
   var currentScroll = $(window).scrollTop();
   if (currentScroll >= fixmeTop) {
-    $('.fixedheader').css({
-      position: 'fixed',
-      top: '0px',
-      width: '100%',
-    });
-    $('.dc-progress').css({
-      'padding-top': '41px',
-    });
+    $('.dcprogressheader').addClass( "fixedheader" );
+    $('.dc-progress').addClass( "fixedheader-height");
   } else {
-    $('.fixedheader').css({
-      position: 'static'
-    });
-    $('.dc-progress').css({
-      'padding-top': '0px',
-    });
+    $('.dcprogressheader').removeClass( "fixedheader" );
+    $('.dc-progress').removeClass( "fixedheader-height");
   }
 });
 </script>

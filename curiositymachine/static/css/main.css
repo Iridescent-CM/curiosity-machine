@@ -5828,9 +5828,19 @@ footer {
 .educator-dashboard .dropdown-design-challenge {
   display: inline-block; }
 
+.educator-dashboard .dcprogressheader {
+  z-index: 500; }
+
 .educator-dashboard .fixedheader {
-  z-index: 500;
-  transition: transform 3s ease; }
+  position: fixed;
+  top: 0;
+  width: 100%; }
+
+.educator-dashboard .fixedheader-height {
+  padding-top: 41px; }
+  @media (max-width: 47.9em) {
+    .educator-dashboard .fixedheader-height {
+      padding-top: 0px; } }
 
 @media (max-width: 47.9em) {
   .educator-dashboard .dc-progress .student-list-item {
