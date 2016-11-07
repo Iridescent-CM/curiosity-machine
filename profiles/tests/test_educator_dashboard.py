@@ -277,6 +277,17 @@ def test_challenge_detail_page_context_has_totals_per_student(client):
     # TODO: test actual totals, except they might be going away so maybe not?
 
 @pytest.mark.django_db
+def test_challenge_details_page_shows_unstarted_students(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    challenge = ChallengeFactory()
+    student = StudentFactory()
+    membership = MembershipFactory(members=[student, educator], challenges=[challenge])
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
+    assert set(response.context["totals"].keys()) == set([student])
+
+@pytest.mark.django_db
 def test_challenge_detail_page_context_has_gallery_post_indicator_for_approved_example(client):
     educator = EducatorFactory(username="edu", password="123123")
     student1 = StudentFactory()

@@ -149,35 +149,39 @@ def challenge_detail(request, challenge_id, membership_selection=None):
     if membership_selection and membership_selection["selected"]:
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
         challenge = get_object_or_404(membership.challenges, pk=challenge_id) # FIXME: what if we're outside a membership?
+        students = membership.members.filter(profile__role=UserRole.student.value).select_related('profile__image').all()
         comments = (Comment.objects
             .filter(
-                user__in=membership.members.all(),
-                user__profile__role=UserRole.student.value,
+                user__in=students,
                 challenge_progress__challenge_id=challenge.id)
             .select_related('user', 'user__profile'))
         student_ids_with_examples = (Example.objects
             .filter(
                 approved=True,
                 progress__challenge_id=challenge.id,
-                progress__student__in=membership.members.all())
+                progress__student__in=students)
             .values_list('progress__student__id', flat=True))
 
-        totals = {}
-        for comment in comments:
-            if comment.user not in totals:
-                totals[comment.user] = OrderedDict.fromkeys([
+        totals = dict(
+            (
+                student,
+                OrderedDict.fromkeys([
                     Stage.plan.name,
                     Stage.build.name,
                     Stage.test.name,
                     Stage.reflect.name,
                 ], 0)
+            ) 
+            for student in students
+        )
+        for comment in comments:
             stagename = Stage(comment.stage).name
             totals[comment.user][stagename] = totals[comment.user].get(stagename) + 1
 
-    return render(request, "profiles/educator/dashboard/dc_detail.html", {
-        "challenge": challenge,
-        "challenge_links": membership.challenges.order_by('name').all(),
-        "totals": totals,
-        "student_ids_with_examples": student_ids_with_examples,
-        "membership_selection": membership_selection,
-    })
+        return render(request, "profiles/educator/dashboard/dc_detail.html", {
+            "challenge": challenge,
+            "challenge_links": membership.challenges.order_by('name').all(),
+            "totals": totals,
+            "student_ids_with_examples": student_ids_with_examples,
+            "membership_selection": membership_selection,
+        })
