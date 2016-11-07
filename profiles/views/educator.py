@@ -83,41 +83,44 @@ def students_dashboard(request, membership_selection=None):
 @membership_selection
 def student_detail(request, student_id, membership_selection=None):
     student = get_object_or_404(User.objects.select_related('profile'), pk=student_id)
-    progresses = (student.progresses
-        .filter(comments__isnull=False)
-        .select_related('challenge', 'mentor')
-        .prefetch_related(
-            'comments',
-            Prefetch('example_set', queryset=Example.objects.status(approved=True), to_attr='approved_examples')
-        )
-        .distinct()
-        .all())
+    membership = None
+    if membership_selection and membership_selection["selected"]:
+        membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+        progresses = (student.progresses
+            .filter(comments__isnull=False, challenge__in=membership.challenges.all())
+            .select_related('challenge', 'mentor')
+            .prefetch_related(
+                'comments',
+                Prefetch('example_set', queryset=Example.objects.status(approved=True), to_attr='approved_examples')
+            )
+            .distinct()
+            .all())
 
-    for progress in progresses:
-        student_comments = [c for c in progress.comments.all() if c.user_id == student.id]
-        progress.total_student_comments = len(student_comments)
+        for progress in progresses:
+            student_comments = [c for c in progress.comments.all() if c.user_id == student.id]
+            progress.total_student_comments = len(student_comments)
 
-        if student_comments:
-            progress.latest_student_comment = max(student_comments, key=lambda o: o.created)
-        else:
-            progress.latest_student_comment = None
+            if student_comments:
+                progress.latest_student_comment = max(student_comments, key=lambda o: o.created)
+            else:
+                progress.latest_student_comment = None
 
-        counts_by_stage = [0, 0, 0, 0, 0];
-        for comment in student_comments:
-            counts_by_stage[comment.stage] = counts_by_stage[comment.stage] + 1
-        progress.student_comment_counts_by_stage = counts_by_stage[1:] # inspiration stage can't have comments
+            counts_by_stage = [0, 0, 0, 0, 0];
+            for comment in student_comments:
+                counts_by_stage[comment.stage] = counts_by_stage[comment.stage] + 1
+            progress.student_comment_counts_by_stage = counts_by_stage[1:] # inspiration stage can't have comments
 
-        progress.complete = counts_by_stage[Stage.reflect.value] != 0
+            progress.complete = counts_by_stage[Stage.reflect.value] != 0
 
 
-    progresses = sorted(progresses, key=latest_student_comment_sort)
+        progresses = sorted(progresses, key=latest_student_comment_sort)
 
-    return render(request, "profiles/educator/dashboard/student_detail.html", {
-        "student": student,
-        "progresses": progresses,
-        "completed_count": len([p for p in progresses if p.complete]),
-        "membership_selection": membership_selection,
-    })
+        return render(request, "profiles/educator/dashboard/student_detail.html", {
+            "student": student,
+            "progresses": progresses,
+            "completed_count": len([p for p in progresses if p.complete]),
+            "membership_selection": membership_selection,
+        })
 
 @educator_only
 @login_required
