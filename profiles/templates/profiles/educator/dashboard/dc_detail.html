@@ -3,7 +3,6 @@
 {% block body-classes %}educator-dashboard{% endblock %}
 
 {% block content %}
-
 {% include 'profiles/educator/dashboard/_header.html' %}
 
 <div class="container">
@@ -30,110 +29,107 @@
       </div>
     </div>
   </div>
+
+  <hr>
 </div>
 
-<div class="dc-progress-table">
-  <div class="fixedheader">
-    <div class="container">
-      <div class="row dc-progress-header p-a hidden-sm-down">
-        <div class="col-md-2 text-center">
-        </div>
-        <div class="col-md-2 text-center">
-          plan
-        </div>
-        <div class="col-md-2 text-center">
-          build
-        </div>
-        <div class="col-md-2 text-center">
-          test
-        </div>
-        <div class="col-md-2 text-center">
-          reflect
-        </div>
-        <div class="col-md-2 text-center">
-          gallery
-        </div>
-      </div>
-    </div>
-  </div>
-
+<div class="dcprogressheader">
   <div class="container">
-    {% for student, totals in totals.items %}
-    <div class="row m-t m-b">
-      <div class="col-md-2">
-        <div class="student-list-item">
-          <a href="{% url "profiles:educator_dashboard_student_detail" student_id=student.id %}" class="student-list-avatar action-img pull-left">
-            <div class="hidden-lg-down">
-              {% include "_avatar.html" with profile=student.profile  width=48 height=48 crop='thumb' gravity='faces' %}
-            </div>
-          </a>
-          {% if student.first_name or student.last_name %}
-          {{ student.first_name }} {{ student.last_name }}
-          {% else %}
-          <em>No name provided</em>
-          {% endif %}
-          <br>
-          <a href="{% url "profiles:educator_dashboard_student_detail" student_id=student.id %}">
-            {{ student.username }}
-          </a>
-        </div>
+    <div class="row hidden-sm-down">
+      <div class="col-md-3">
       </div>
-
-      {% for stage, count in totals.items %}
-      <div class="col-md-2 text-center">
-        <div class="hidden-md-up post-type">
-          {{ stage }}
-        </div>
-        {% if count %}
-        <div class="light-type post-quantity">
-          {{ count }}
-        </div>
-        {% else %}
-        <div class="light-type post-empty">
-          0
-        </div>
-        {% endif %}
-      </div>
-      {% endfor %}
-
-      <div class="col-md-2 text-center">
-        <div class="hidden-md-up post-type">
-          gallery
-        </div>
-        {% if student.id in student_ids_with_examples %}
-        <div class="light-type post-quantity">
-          <i class="icon-check"></i>
-        </div>
-        {% else %}
-        <div class="light-type post-empty">
-          <i class="icon-cross"></i>
-        </div>
-        {% endif %}
+      <div class="col-md-9">
+        <table class="table-dc-progress">
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Build</th>
+              <th>Test</th>
+              <th>Reflect</th>
+              <th>Gallery</th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
       </div>
     </div>
-    {% endfor %}
-
   </div>
+</div>
+
+<div class="container m-t m-b-lg dc-progress">
+  {% for student, totals in totals.items %}
+  <div class="row m-b-lg">
+    <div class="col-md-3">
+      <div class="student-list-item">
+        <a href="{% url "profiles:educator_dashboard_student_detail" student_id=student.id %}" class="student-list-avatar action-img pull-left">
+          <div class="hidden-lg-down">
+            {% include "_avatar.html" with profile=student.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+          </div>
+        </a>
+        {% if student.first_name or student.last_name %}
+        {{ student.first_name }} {{ student.last_name }}
+        {% else %}
+        <em>No name provided</em>
+        {% endif %}
+        <br>
+        <a href="{% url "profiles:educator_dashboard_student_detail" student_id=student.id %}">
+          {{ student.username }}
+        </a>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <table class="table-dc-progress">
+        <thead class="hidden-md-up">
+          <tr>
+            <th>P</th>
+            <th>B</th>
+            <th>T</th>
+            <th>R</th>
+            <th>G</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+
+            {% for stage, count in totals.items %}
+              {% if count %}
+                <td class="active">{{ count }}</td>
+              {% else %}
+                <td class="inactive"><i class="icon-cross"></i></td>
+              {% endif %}
+            {% endfor %}
+
+            {% if student.id in student_ids_with_examples %}
+              <td class="active"><i class="icon-check"></i></td>
+            {% else %}
+              <td class="inactive"><i class="icon-cross"></i></td>
+            {% endif %}
+
+            <td><a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=student.username %}">View &rarr;</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endfor %}
+
 </div>
 
 {% endblock %}
 
 {% block js %}
 <script>
-var fixmeTop = $('.fixedheader').offset().top;
+var fixmeTop = $('.dcprogressheader').offset().top;
 
 $(window).scroll(function() {
   var currentScroll = $(window).scrollTop();
   if (currentScroll >= fixmeTop) {
-    $('.fixedheader').css({
-      position: 'fixed',
-      top: '0',
-      width: '100%',
-    });
+    $('.dcprogressheader').addClass( "fixedheader" );
+    $('.dc-progress').addClass( "fixedheader-height");
   } else {
-    $('.fixedheader').css({
-      position: 'static'
-    });
+    $('.dcprogressheader').removeClass( "fixedheader" );
+    $('.dc-progress').removeClass( "fixedheader-height");
   }
 });
 </script>
