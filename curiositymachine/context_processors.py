@@ -36,9 +36,14 @@ def google_analytics(request):
             usertype = "Other"
             logger.warn("User categorized as Other for Google Analytics: {}".format(request.user.username))
 
+    userid = None
+    if request.user.is_authenticated():
+        userid = request.user.id
+
     return {
         'ga_code': settings.GA_CODE,
-        'ga_dimension_user_type': usertype
+        'ga_dimension_user_type': usertype,
+        'ga_user_id': userid
     }
 
 def feature_flags(request):

@@ -9,7 +9,7 @@
           </a>
           <div class="dropdown-menu">
             {% for membership in membership_selection.all %}
-            <a class="dropdown-item" href="?m={{ membership.id }}">{{ membership.display_name }}</a>
+            <a class="dropdown-item" href="{{ membership_selection_base_url }}?m={{ membership.id }}">{{ membership.display_name }}</a>
             {% endfor %}
           </div>
         </li>
