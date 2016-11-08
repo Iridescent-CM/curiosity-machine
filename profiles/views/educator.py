@@ -71,11 +71,14 @@ def students_dashboard(request, membership_selection=None):
     students = []
     if membership_selection and membership_selection["selected"]:
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+        sorter = StudentSorter(query=request.GET)
         students = membership.members.filter(profile__role=UserRole.student.value).select_related('profile')
+        students = sorter.sort(students)
     return render(request, "profiles/educator/dashboard/students.html", {
         "membership": membership,
         "students": students,
         "membership_selection": membership_selection,
+        "sorter": sorter,
     })
 
 @educator_only
