@@ -9,7 +9,7 @@ from collections import OrderedDict
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
-from ..sorting import latest_student_comment_sort
+from ..sorting import latest_student_comment_sort, StudentSorter
 from challenges.models import Challenge, Example, Stage
 from cmcomments.models import Comment
 from units.models import Unit
@@ -149,14 +149,11 @@ def challenge_detail(request, challenge_id, membership_selection=None):
     if membership_selection and membership_selection["selected"]:
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
         challenge = get_object_or_404(membership.challenges, pk=challenge_id) # FIXME: what if we're outside a membership?
-        students = (membership.members
-            .filter(profile__role=UserRole.student.value)
-            .extra(
-                select={"has_first_name": "(first_name <> '') IS TRUE"},
-                order_by=["-has_first_name", "first_name", "username"]
-            )
-            .select_related('profile__image')
-            .all())
+
+        students = membership.members.filter(profile__role=UserRole.student.value)
+        students = StudentSorter().sort(students)
+        students = students.select_related('profile__image').all()
+
         comments = (Comment.objects
             .filter(
                 user__in=students,
