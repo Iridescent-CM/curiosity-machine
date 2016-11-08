@@ -150,8 +150,9 @@ def challenge_detail(request, challenge_id, membership_selection=None):
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
         challenge = get_object_or_404(membership.challenges, pk=challenge_id) # FIXME: what if we're outside a membership?
 
+        sorter = StudentSorter(query=request.GET)
         students = membership.members.filter(profile__role=UserRole.student.value)
-        students = StudentSorter().sort(students)
+        students = sorter.sort(students)
         students = students.select_related('profile__image').all()
 
         comments = (Comment.objects
@@ -188,4 +189,5 @@ def challenge_detail(request, challenge_id, membership_selection=None):
             "totals": totals,
             "student_ids_with_examples": student_ids_with_examples,
             "membership_selection": membership_selection,
+            "sorter": sorter,
         })

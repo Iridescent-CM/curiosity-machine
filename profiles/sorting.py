@@ -23,21 +23,70 @@ def latest_student_comment_sort(o):
     else:
         return (1, o.challenge.name)    # this case is irrelevant if the page doesn't show uncommented progresses
 
+from enum import Enum
+
 class StudentSorter():
-    def __init__(self, strategy=None):
-        #TODO: make this take a query object or something? it turns query params into proper sorting
-        self.strategy = strategy or 'first_name'
+
+    class Strategy(Enum):
+        first_name = 0
+        f = 0
+        last_name = 1
+        l = 1
+        username = 2
+        u = 2
+
+        @property
+        def display_name(self):
+            return self.name.capitalize().replace('_', ' ')
+
+    def __init__(self, strategy=None, param="sort", query=None):
+        self.param = param
+
+        if strategy != None and not isinstance(strategy, self.Strategy):
+            raise TypeError('strategy argument must be a StudentSorter.Strategy')
+
+        if query != None and param in query:
+            self.strategy = self.Strategy[query[param]]
+        else:
+            self.strategy = strategy or self.Strategy.first_name
+
+    def strategies(self, base_url=''):
+        return [
+            {
+                "name": self.Strategy[short].display_name,
+                "url": "%s?%s=%s" % (base_url, self.param, short)
+            }
+            for short in ['f', 'l', 'u']
+        ]
+
+    def selected(self):
+        return self.strategy.display_name
 
     def sort(self, qs):
-        if self.strategy == 'first_name':
+        if self.strategy == self.Strategy.first_name:
             return qs.extra(
-                select={"has_first_name": "(first_name <> '') IS TRUE"},
-                order_by=["-has_first_name", "first_name", "username"]
+                select={
+                    "has_first_name": "(first_name <> '') IS TRUE",
+                    "lower_first_name": "lower(first_name)",
+                    "lower_username": "lower(username)",
+                },
+                order_by=["-has_first_name", "lower_first_name", "lower_username"]
             )
-        elif self.strategy == 'last_name':
+        elif self.strategy == self.Strategy.last_name:
             return qs.extra(
-                select={"has_last_name": "(last_name <> '') IS TRUE"},
-                order_by=["-has_last_name", "last_name", "username"]
+                select={
+                    "has_last_name": "(last_name <> '') IS TRUE",
+                    "lower_last_name": "lower(last_name)",
+                    "lower_username": "lower(username)",
+                },
+                order_by=["-has_last_name", "lower_last_name", "lower_username"]
             )
-        elif self.strategy == 'username':
-            return qs.order_by('username')
+        elif self.strategy == self.Strategy.username:
+            return qs.extra(
+                select={
+                    "lower_username": "lower(username)",
+                },
+                order_by=["lower_username"]
+            )
+        else:
+            raise NotImplementedError('No sort strategy for %s' % self.strategy)
