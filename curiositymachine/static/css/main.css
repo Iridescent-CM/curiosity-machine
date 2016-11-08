@@ -5651,6 +5651,17 @@ footer {
       content: "Hide"; }
     #challenges-page .filter-theme-toggle.collapsed:before {
       content: "Show"; }
+  #challenges-page .free-challenges .card-block {
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    color: #FFFCF7;
+    padding-bottom: 0px; }
+  #challenges-page .free-challenges img {
+    margin-right: 10px; }
+  #challenges-page .geo-background {
+    background-image: url("../images/challenges/geometry.png");
+    background-repeat: repeat; }
   @media (min-width: 48em) {
     #challenges-page .design-challenge-list.collapse, #challenges-page .collapse.design-challenge-highlights {
       display: block; }

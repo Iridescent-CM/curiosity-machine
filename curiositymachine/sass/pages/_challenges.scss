@@ -128,6 +128,24 @@
     }
   }
 
+  .free-challenges {
+    .card-block {
+      font-family: $heading-font-family;
+      font-weight: $light-font-weight;
+      font-size: 24px;
+      color: $ivory;
+      padding-bottom: 0px;
+    }
+
+    img {
+      margin-right: 10px;
+    }
+  }
+  .geo-background {
+    background-image: url("../images/challenges/geometry.png");
+    background-repeat: repeat;
+  }
+
   @include media-breakpoint-up(md) {
     .design-challenge-list.collapse {
       display: block;
