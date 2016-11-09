@@ -59,8 +59,8 @@
             <div class="col-md-4 m-b">
               <span class="progress-type">latest post</span>
               <br>
-              {% if progress.latest_student_comment %}
-              {{ progress.latest_student_comment.created|date:"l, M d" }} {% comment %}<span class="tag tag-pill tag-success">TODAY</span></p>{% endcomment %}
+              {% if progress.latest_user_comment %}
+              {{ progress.latest_user_comment.created|date:"l, M d" }} {% comment %}<span class="tag tag-pill tag-success">TODAY</span></p>{% endcomment %}
               {% else %}
               <em>No posts yet</em>
               {% endif %}
@@ -77,7 +77,7 @@
             <div class="col-md-4 m-b">
               <span class="progress-type">total posts</span>
               <br>
-              {{ progress.total_student_comments }}
+              {{ progress.total_user_comments }}
             </div>
           </div>
 
@@ -93,7 +93,7 @@
             </thead>
             <tbody>
               <tr>
-                {% for count in progress.student_comment_counts_by_stage %}
+                {% for count in progress.user_comment_counts_by_stage %}
                 {% if count %}
                 <th class="active">{{ count }}</th>
                 {% else %}

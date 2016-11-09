@@ -110,12 +110,12 @@ def test_student_detail_page_context_has_progress_annotations(client):
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"][0].total_student_comments == 5
-    assert response.context["progresses"][0].latest_student_comment == latest
-    assert response.context["progresses"][0].student_comment_counts_by_stage == [3, 1, 0, 1]
+    assert response.context["progresses"][0].total_user_comments == 5
+    assert response.context["progresses"][0].latest_user_comment == latest
+    assert response.context["progresses"][0].user_comment_counts_by_stage == [3, 1, 0, 1]
 
 @pytest.mark.django_db
-def test_student_detail_page_total_student_comments_progress_annotation_ignores_mentor_comments(client):
+def test_student_detail_page_total_user_comments_progress_annotation_ignores_mentor_comments(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
@@ -128,10 +128,10 @@ def test_student_detail_page_total_student_comments_progress_annotation_ignores_
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"][0].total_student_comments == 1
+    assert response.context["progresses"][0].total_user_comments == 1
 
 @pytest.mark.django_db
-def test_student_detail_page_student_comment_counts_by_stage_progress_annotation_ignores_mentor_comments(client):
+def test_student_detail_page_user_comment_counts_by_stage_progress_annotation_ignores_mentor_comments(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
@@ -144,10 +144,10 @@ def test_student_detail_page_student_comment_counts_by_stage_progress_annotation
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"][0].student_comment_counts_by_stage == [1, 0, 0, 0]
+    assert response.context["progresses"][0].user_comment_counts_by_stage == [1, 0, 0, 0]
 
 @pytest.mark.django_db
-def test_student_detail_page_latest_student_comment_progress_annotation_ignores_mentor_comments(client):
+def test_student_detail_page_latest_user_comment_progress_annotation_ignores_mentor_comments(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
@@ -160,7 +160,7 @@ def test_student_detail_page_latest_student_comment_progress_annotation_ignores_
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"][0].latest_student_comment == latest_student
+    assert response.context["progresses"][0].latest_user_comment == latest_student
 
 @pytest.mark.django_db
 def test_student_detail_page_context_has_completed_count(client):

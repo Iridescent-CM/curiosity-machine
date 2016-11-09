@@ -9,7 +9,8 @@ from collections import OrderedDict
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
-from ..sorting import latest_student_comment_sort, StudentSorter
+from ..sorting import latest_user_comment_sort, StudentSorter
+from ..annotators import UserCommentSummary
 from challenges.models import Challenge, Example, Stage
 from cmcomments.models import Comment
 from units.models import Unit
@@ -69,6 +70,7 @@ def home(request, membership_selection=None):
 def students_dashboard(request, membership_selection=None):
     membership = None
     students = []
+    sorter = None
     if membership_selection and membership_selection["selected"]:
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
         sorter = StudentSorter(query=request.GET)
@@ -100,23 +102,8 @@ def student_detail(request, student_id, membership_selection=None):
             .all())
 
         for progress in progresses:
-            student_comments = [c for c in progress.comments.all() if c.user_id == student.id]
-            progress.total_student_comments = len(student_comments)
-
-            if student_comments:
-                progress.latest_student_comment = max(student_comments, key=lambda o: o.created)
-            else:
-                progress.latest_student_comment = None
-
-            counts_by_stage = [0, 0, 0, 0, 0];
-            for comment in student_comments:
-                counts_by_stage[comment.stage] = counts_by_stage[comment.stage] + 1
-            progress.student_comment_counts_by_stage = counts_by_stage[1:] # inspiration stage can't have comments
-
-            progress.complete = counts_by_stage[Stage.reflect.value] != 0
-
-
-        progresses = sorted(progresses, key=latest_student_comment_sort)
+            UserCommentSummary(progress.comments.all(), student.id).annotate(progress)
+        progresses = sorted(progresses, key=latest_user_comment_sort)
 
         return render(request, "profiles/educator/dashboard/student_detail.html", {
             "student": student,
