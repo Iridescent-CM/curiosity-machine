@@ -30,11 +30,6 @@ def test_latest_user_comment_sort():
 
     assert sorted(mocks, key=latest_user_comment_sort) == list(reversed(mocks))
 
-def test_student_sorter_strategy_short_names():
-    assert StudentSorter.Strategy.first_name == StudentSorter.Strategy.f
-    assert StudentSorter.Strategy.last_name == StudentSorter.Strategy.l
-    assert StudentSorter.Strategy.username == StudentSorter.Strategy.u
-
 @pytest.mark.django_db
 def test_student_sorter_by_first_name():
     users = [
@@ -85,34 +80,64 @@ def test_student_sorter_by_username():
         .all())
     assert sorted_ids == [u.id for u in reversed(users)]
 
+def test_progress_sorter_by_most_recent_comment():
+    progresses = [MagicMock() for i in range(5)]
+    progresses[0].latest_user_comment = None
+    progresses[0].challenge.name = 'B'
+    progresses[1].latest_user_comment = None
+    progresses[1].challenge.name = 'A'
+    progresses[2].latest_user_comment.created = now() - timedelta(days=2)
+    progresses[2].challenge.name = 'B'
+    progresses[3].latest_user_comment.created = now() - timedelta(days=2)
+    progresses[3].challenge.name = 'A'
+    progresses[4].latest_user_comment.created = now() - timedelta(days=1)
+    progresses[4].challenge.name = 'Z'
+
+    sorted_progresses = ProgressSorter(ProgressSorter.Strategy.most_recent_comment).sort(progresses)
+    assert sorted_progresses == list(reversed(progresses))
+
+def test_progress_sorter_by_challenge_name():
+    progresses = [MagicMock() for i in range(3)]
+    progresses[0].challenge.name = 'C'
+    progresses[1].challenge.name = 'b'
+    progresses[2].challenge.name = 'A'
+
+    sorted_progresses = ProgressSorter(ProgressSorter.Strategy.challenge_name).sort(progresses)
+    assert sorted_progresses == list(reversed(progresses))
+
+class DemoSorter(Sorter):
+    class Strategy(Sorter.Strategy):
+        thing_a = 0
+        a = 0
+        thing_b = 1
+        b = 1
+
+    default = Strategy.thing_a
+    shortnames = ['a', 'b']
+
 def test_strategy_type_error():
     with pytest.raises(TypeError):
-        StudentSorter(strategy='nope')
+        Sorter(strategy='nope')
 
-def test_student_sorter_from_query():
-    StudentSorter(query=QueryDict('')).strategy == StudentSorter.Strategy.first_name
-    StudentSorter(query=QueryDict('sort=f')).strategy == StudentSorter.Strategy.first_name
-    StudentSorter(query=QueryDict('sort=l')).strategy == StudentSorter.Strategy.last_name
-    StudentSorter(query=QueryDict('sort=u')).strategy == StudentSorter.Strategy.username
-    StudentSorter(query=QueryDict('sort=l&sort=f')).strategy == StudentSorter.Strategy.first_name
-    StudentSorter(param="foo", query=QueryDict('foo=f')).strategy == StudentSorter.Strategy.first_name
+def test_sorter_from_query():
+    DemoSorter(query=QueryDict('')).strategy == DemoSorter.Strategy.thing_a
+    DemoSorter(query=QueryDict('sort=a')).strategy == DemoSorter.Strategy.thing_a
+    DemoSorter(query=QueryDict('sort=b')).strategy == DemoSorter.Strategy.thing_b
+    DemoSorter(query=QueryDict('sort=a&sort=b')).strategy == DemoSorter.Strategy.thing_b
+    DemoSorter(param="foo", query=QueryDict('foo=a')).strategy == DemoSorter.Strategy.thing_a
 
-def test_student_sorter_context_helpers():
-    assert StudentSorter().strategies() == [
-        {"name": "First name", "url": "?sort=f"},
-        {"name": "Last name", "url": "?sort=l"},
-        {"name": "Username", "url": "?sort=u"},
+def test_sorter_context_helpers():
+    assert DemoSorter().strategies() == [
+        {"name": "Thing a", "url": "?sort=a"},
+        {"name": "Thing b", "url": "?sort=b"},
     ]
-    assert StudentSorter(param="foo").strategies() == [
-        {"name": "First name", "url": "?foo=f"},
-        {"name": "Last name", "url": "?foo=l"},
-        {"name": "Username", "url": "?foo=u"},
+    assert DemoSorter(param="foo").strategies() == [
+        {"name": "Thing a", "url": "?foo=a"},
+        {"name": "Thing b", "url": "?foo=b"},
     ]
-    assert StudentSorter().strategies(base_url="http://base.url") == [
-        {"name": "First name", "url": "http://base.url?sort=f"},
-        {"name": "Last name", "url": "http://base.url?sort=l"},
-        {"name": "Username", "url": "http://base.url?sort=u"},
+    assert DemoSorter().strategies(base_url="http://base.url") == [
+        {"name": "Thing a", "url": "http://base.url?sort=a"},
+        {"name": "Thing b", "url": "http://base.url?sort=b"},
     ]
-    assert StudentSorter().selected() == "First name"
-    assert StudentSorter(StudentSorter.Strategy.last_name).selected() == "Last name"
-    assert StudentSorter(StudentSorter.Strategy.username).selected() == "Username"
+    assert DemoSorter().selected() == "Thing a"
+    assert DemoSorter(DemoSorter.Strategy.thing_b).selected() == "Thing b"

@@ -9,7 +9,7 @@ from collections import OrderedDict
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
-from ..sorting import latest_user_comment_sort, StudentSorter
+from ..sorting import StudentSorter, ProgressSorter
 from ..annotators import UserCommentSummary
 from challenges.models import Challenge, Example, Stage
 from cmcomments.models import Comment
@@ -103,13 +103,15 @@ def student_detail(request, student_id, membership_selection=None):
 
         for progress in progresses:
             UserCommentSummary(progress.comments.all(), student.id).annotate(progress)
-        progresses = sorted(progresses, key=latest_user_comment_sort)
+        sorter = ProgressSorter(query=request.GET)
+        progresses = sorter.sort(progresses)
 
         return render(request, "profiles/educator/dashboard/student_detail.html", {
             "student": student,
             "progresses": progresses,
             "completed_count": len([p for p in progresses if p.complete]),
             "membership_selection": membership_selection,
+            "sorter": sorter,
         })
 
 @educator_only

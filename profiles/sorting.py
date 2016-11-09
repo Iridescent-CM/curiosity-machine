@@ -1,4 +1,5 @@
 import operator
+from enum import Enum
 
 class Reversed:
     """
@@ -23,18 +24,9 @@ def latest_user_comment_sort(o):
     else:
         return (1, o.challenge.name)    # this case is irrelevant if the page doesn't show uncommented progresses
 
-from enum import Enum
-
-class StudentSorter():
+class Sorter():
 
     class Strategy(Enum):
-        first_name = 0
-        f = 0
-        last_name = 1
-        l = 1
-        username = 2
-        u = 2
-
         @property
         def display_name(self):
             return self.name.capitalize().replace('_', ' ')
@@ -43,12 +35,12 @@ class StudentSorter():
         self.param = param
 
         if strategy != None and not isinstance(strategy, self.Strategy):
-            raise TypeError('strategy argument must be a StudentSorter.Strategy')
+            raise TypeError('strategy argument must be a %s.Strategy' % self.__class__)
 
         if query != None and param in query:
             self.strategy = self.Strategy[query[param]]
         else:
-            self.strategy = strategy or self.Strategy.first_name
+            self.strategy = strategy or self.default
 
     def strategies(self, base_url=''):
         return [
@@ -56,11 +48,27 @@ class StudentSorter():
                 "name": self.Strategy[short].display_name,
                 "url": "%s?%s=%s" % (base_url, self.param, short)
             }
-            for short in ['f', 'l', 'u']
+            for short in self.shortnames
         ]
 
     def selected(self):
         return self.strategy.display_name
+
+    def sort(self, *args):
+        raise NotImplementedError('No sort strategy for %s' % self.strategy)
+
+class StudentSorter(Sorter):
+
+    class Strategy(Sorter.Strategy):
+        first_name = 0
+        f = 0
+        last_name = 1
+        l = 1
+        username = 2
+        u = 2
+
+    default = Strategy.first_name
+    shortnames = ['f', 'l', 'u']
 
     def sort(self, qs):
         if self.strategy == self.Strategy.first_name:
@@ -89,4 +97,23 @@ class StudentSorter():
                 order_by=["lower_username"]
             )
         else:
-            raise NotImplementedError('No sort strategy for %s' % self.strategy)
+            return super().sort(qs)
+
+class ProgressSorter(Sorter):
+
+    class Strategy(Sorter.Strategy):
+        most_recent_comment = 0
+        m = 0
+        challenge_name = 1
+        c = 1
+
+    default = Strategy.most_recent_comment
+    shortnames = ['m', 'c']
+
+    def sort(self, l):
+        if self.strategy == self.Strategy.most_recent_comment:
+            return sorted(l, key=latest_user_comment_sort)
+        elif self.strategy == self.Strategy.challenge_name:
+            return sorted(l, key=lambda o: o.challenge.name.lower())
+        else:
+            return super().sort(qs)
