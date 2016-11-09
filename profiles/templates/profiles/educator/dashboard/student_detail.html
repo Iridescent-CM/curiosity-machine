@@ -1,4 +1,5 @@
 {% extends "curiositymachine/layout/base.html" %}
+{% load datepills %}
 {% block title %}Curiosity Machine - Student Progress{% endblock %}
 {% block body-classes %}educator-dashboard{% endblock %}
 
@@ -60,7 +61,7 @@
               <span class="progress-type">latest post</span>
               <br>
               {% if progress.latest_student_comment %}
-              {{ progress.latest_student_comment.created|date:"l, M d" }} {% comment %}<span class="tag tag-pill tag-success">TODAY</span></p>{% endcomment %}
+              {{ progress.latest_student_comment.created|date:"l, M d" }} {% datepill progress.latest_student_comment.created %}
               {% else %}
               <em>No posts yet</em>
               {% endif %}
