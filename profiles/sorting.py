@@ -25,6 +25,15 @@ def latest_user_comment_sort(o):
         return (1, o.challenge.name)    # this case is irrelevant if the page doesn't show uncommented progresses
 
 class Sorter():
+    """
+    Base class for sorters that specify sort strategies, implement the algorithms, and manage
+    some querystring processing and context data helpers.
+
+    Subclasses should contain an inner subclass of the Strategy enum that contains strategy names and
+    short names. A default strategy should be set as `default` on the class and the shortnames should
+    be listed as `shortnames`. An implementation of `def sort(self, obj)` should also be provided that
+    does sorting. Unhandled strategies can be sent up to `super()`.
+    """
 
     class Strategy(Enum):
         @property
@@ -71,6 +80,9 @@ class StudentSorter(Sorter):
     shortnames = ['f', 'l', 'u']
 
     def sort(self, qs):
+        """
+        Expects a User queryset and adds sorting based on strategy. 
+        """
         if self.strategy == self.Strategy.first_name:
             return qs.extra(
                 select={
@@ -111,6 +123,9 @@ class ProgressSorter(Sorter):
     shortnames = ['m', 'c']
 
     def sort(self, l):
+        """
+        Expects a list of Progresses decorated with `latest_user_comment` and sorts based on strategy.
+        """
         if self.strategy == self.Strategy.most_recent_comment:
             return sorted(l, key=latest_user_comment_sort)
         elif self.strategy == self.Strategy.challenge_name:
