@@ -12,17 +12,17 @@
   {% include 'profiles/educator/dashboard/_navigation.html' with activeNav="students" %}
 
   <div class="row p-b">
-    <div class="col-md-8">
+    <div class="col-md-12">
       {% if membership_selection.no_memberships %}
       <h2>Students</h2>
       <p>In a <a href="{% url 'about-membership' %}">membership</a>, this page will list your students and allow you to see their progress on design challenges.</p>
       {% else %}
       <h2>{{ membership.display_name }} Students</h2>
       {% endif %}
-    </div>
-    <div class="col-md-4">
+
+      {% if students %}
       <div class="dropdown pull-right">
-        <a class="dropdown-toggle" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="dropdown-toggle action-img" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sort by {{ sorter.selected|lower }}
         </a>
         <div class="dropdown-menu" aria-labelledby="sortDropdown">
@@ -31,6 +31,7 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
     </div>
   </div>
 

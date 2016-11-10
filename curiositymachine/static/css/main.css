@@ -5824,6 +5824,16 @@ footer {
     .educator-dashboard .student-list .student-list-item .student-inline-empty {
       color: #949494; }
 
+.dc-sort-options {
+  text-align: right; }
+  @media (max-width: 47.9em) {
+    .dc-sort-options {
+      text-align: left;
+      margin-top: 0.75em; }
+      .dc-sort-options .dropdown-menu {
+        right: auto;
+        left: 0; } }
+
 .dropdown-design-challenge {
   display: inline-block; }
 

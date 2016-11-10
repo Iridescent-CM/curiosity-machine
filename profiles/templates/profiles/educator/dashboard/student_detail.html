@@ -10,13 +10,11 @@
   {% url "profiles:educator_dashboard_students" as base_url %}
   {% include 'profiles/educator/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
 
-  <div class="row">
-    <div class="col-md-8">
+  <div class="row p-b">
+    <div class="col-md-12">
       <h2>{{ student.username }}'s Progress</h2>
-    </div>
-    <div class="col-md-4">
       <div class="dropdown pull-right">
-        <a class="dropdown-toggle" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="dropdown-toggle action-img" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sort by {{ sorter.selected|lower }}
         </a>
         <div class="dropdown-menu" aria-labelledby="sortDropdown">

@@ -153,6 +153,20 @@
 //
 // Design Challenge Progress Table
 //
+.dc-sort-options {
+  text-align: right;
+
+  @include media-breakpoint-down(sm) {
+    text-align: left;
+    margin-top: $small-spacing;
+
+    .dropdown-menu {
+      right: auto;
+      left: 0;
+    }
+  }
+}
+
 .dropdown-design-challenge {
   display: inline-block;
 }
