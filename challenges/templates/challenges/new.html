@@ -97,12 +97,6 @@
                           <span class="accessible-dc">Build it!</span>
                         </small>
                       </li>
-                      {% else %}
-                      <li>
-                        <small>
-                          <span class="accessible-dc">Preview!</span>
-                        </small>
-                      </li>
                       {% endif %}
                       {% endif %}
                       {% if not request.user.profile.is_student and challenge.has_resources %}

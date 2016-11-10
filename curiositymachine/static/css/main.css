@@ -216,10 +216,10 @@ th {
     border-top-color: #000 !important; }
   .label {
     border: 1px solid #000; }
-  .table, .card-progress .table-progress {
+  .table, .card-progress .table-progress, .educator-dashboard .table-dc-progress {
     border-collapse: collapse !important; }
-    .table td, .card-progress .table-progress td,
-    .table th, .card-progress .table-progress th {
+    .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td,
+    .table th, .card-progress .table-progress th, .educator-dashboard .table-dc-progress th {
       background-color: #fff !important; }
   .table-bordered th,
   .table-bordered td {
@@ -1199,22 +1199,22 @@ pre {
   .col-xl-offset-12 {
     margin-left: 100%; } }
 
-.table, .card-progress .table-progress {
+.table, .card-progress .table-progress, .educator-dashboard .table-dc-progress {
   width: 100%;
   max-width: 100%;
   margin-bottom: 1rem; }
-  .table th, .card-progress .table-progress th,
-  .table td, .card-progress .table-progress td {
+  .table th, .card-progress .table-progress th, .educator-dashboard .table-dc-progress th,
+  .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td {
     padding: 0.75rem;
     line-height: 1.5;
     vertical-align: top;
     border-top: 1px solid #eceeef; }
-  .table thead th, .card-progress .table-progress thead th {
+  .table thead th, .card-progress .table-progress thead th, .educator-dashboard .table-dc-progress thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #eceeef; }
-  .table tbody + tbody, .card-progress .table-progress tbody + tbody {
+  .table tbody + tbody, .card-progress .table-progress tbody + tbody, .educator-dashboard .table-dc-progress tbody + tbody {
     border-top: 2px solid #eceeef; }
-  .table .table, .card-progress .table-progress .table, .table .card-progress .table-progress, .card-progress .table .table-progress, .card-progress .table-progress .table-progress {
+  .table .table, .card-progress .table-progress .table, .educator-dashboard .table-dc-progress .table, .table .card-progress .table-progress, .card-progress .table .table-progress, .card-progress .table-progress .table-progress, .educator-dashboard .table-dc-progress .card-progress .table-progress, .card-progress .educator-dashboard .table-dc-progress .table-progress, .table .educator-dashboard .table-dc-progress, .educator-dashboard .table .table-dc-progress, .card-progress .table-progress .educator-dashboard .table-dc-progress, .educator-dashboard .card-progress .table-progress .table-dc-progress, .educator-dashboard .table-dc-progress .table-dc-progress {
     background-color: #fff; }
 
 .table-sm th,
@@ -5218,6 +5218,9 @@ i {
   .card-module .card-block-title h1, .card-module .card-block-title h2, .card-module .card-block-title h3, .card-module .card-block-title h4 {
     margin-bottom: 0px; }
 
+.card-module .card-footer {
+  background-color: #f2f0ec; }
+
 .expandable-card {
   background-color: #FFFCF7;
   box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
@@ -5412,12 +5415,12 @@ i {
   width: 100%;
   height: auto; }
 
-.table, .card-progress .table-progress {
+.table, .card-progress .table-progress, .educator-dashboard .table-dc-progress {
   background-color: #FFFCF7;
   border: solid 2px #E5E1D9; }
-  .table thead th, .card-progress .table-progress thead th {
+  .table thead th, .card-progress .table-progress thead th, .educator-dashboard .table-dc-progress thead th {
     border-color: #E5E1D9; }
-  .table td, .card-progress .table-progress td {
+  .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td {
     border-color: #E5E1D9; }
 
 header {
@@ -5812,8 +5815,6 @@ footer {
         background-color: #fff;
         border-radius: 50%;
         box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
-    .educator-dashboard .student-list .student-list-item .student-inline-name {
-      font-weight: 700; }
     .educator-dashboard .student-list .student-list-item .student-list-manage {
       position: absolute;
       right: 2.5rem; }
@@ -5824,63 +5825,75 @@ footer {
     .educator-dashboard .student-list .student-list-item .student-inline-empty {
       color: #949494; }
 
-.dc-sort-options {
+.educator-dashboard .card-avatar img {
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+
+.educator-dashboard .dc-sort-options {
   text-align: right; }
   @media (max-width: 47.9em) {
-    .dc-sort-options {
+    .educator-dashboard .dc-sort-options {
       text-align: left;
       margin-top: 0.75em; }
-      .dc-sort-options .dropdown-menu {
+      .educator-dashboard .dc-sort-options .dropdown-menu {
         right: auto;
         left: 0; } }
 
-.dropdown-design-challenge {
+.educator-dashboard .dropdown-design-challenge {
   display: inline-block; }
 
-.dc-progress-table .dc-progress-header {
-  border-bottom: 2px solid #E5E1D9;
-  text-transform: uppercase;
-  color: #F55932;
-  letter-spacing: 2px; }
+.educator-dashboard .dcprogressheader {
+  z-index: 500; }
+
+.educator-dashboard .fixedheader {
+  position: fixed;
+  top: 0;
+  width: 100%; }
+
+.educator-dashboard .fixedheader-height {
+  padding-top: 41px; }
+  @media (max-width: 47.9em) {
+    .educator-dashboard .fixedheader-height {
+      padding-top: 0px; } }
 
 @media (max-width: 47.9em) {
-  .dc-progress-table .student-list-item {
-    text-align: center;
+  .educator-dashboard .dc-progress .student-list-item {
     margin-bottom: 0.75em; } }
 
-.dc-progress-table .student-list-avatar img {
+.educator-dashboard .dc-progress .student-list-avatar img {
   border-radius: 50%;
-  background-color: #FFFCF7; }
+  background-color: #FFFCF7;
+  margin-right: 10px;
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
 
-.dc-progress-table .post-type {
-  display: inline-block;
-  width: 48%;
-  text-transform: uppercase;
-  color: #F55932;
-  letter-spacing: 2px; }
-  @media (max-width: 47.9em) {
-    .dc-progress-table .post-type {
-      text-align: right;
-      padding-right: 0.75em; } }
-
-.dc-progress-table .post-quantity, .dc-progress-table .post-empty {
-  background-color: #8FB559;
-  font-size: 1.25em;
-  font-weight: 700;
-  height: 48px;
-  padding-top: 0.375em; }
-  @media (max-width: 47.9em) {
-    .dc-progress-table .post-quantity, .dc-progress-table .post-empty {
-      width: 48%;
-      display: inline-block; } }
-
-.dc-progress-table .post-empty {
-  background-color: #E5E1D9;
-  color: #949494; }
-
-.dc-progress-table .fixedheader {
-  z-index: 500;
-  background-color: #FFFCF7; }
+.educator-dashboard .table-dc-progress {
+  text-align: center;
+  border-style: none;
+  margin-bottom: 0px; }
+  .educator-dashboard .table-dc-progress thead {
+    color: #F55932;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    text-transform: uppercase; }
+    .educator-dashboard .table-dc-progress thead th {
+      border: 2px solid #FFFCF7;
+      padding: 8px 0px;
+      text-align: center;
+      vertical-align: middle;
+      width: 16.6%; }
+  .educator-dashboard .table-dc-progress .active {
+    background-color: #8FB559;
+    color: #FFFCF7;
+    font-size: 1.25rem; }
+  .educator-dashboard .table-dc-progress .inactive {
+    background-color: #E5E1D9;
+    color: #949494;
+    font-size: 1.25rem; }
+  .educator-dashboard .table-dc-progress td {
+    border: 2px solid #FFFCF7;
+    padding: 8px 0px;
+    text-align: center;
+    vertical-align: middle;
+    width: 16.6%; }
 
 #faq-about-page strong {
   display: inline-block;
