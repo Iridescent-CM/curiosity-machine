@@ -1,0 +1,66 @@
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="card card-module m-b-lg">
+      <div class="card-block card-block-title">
+        <h4 class="card-title red-type">Suggested Materials</h4>
+      </div>
+      <div class="card-block">
+        {{ challenge.materials_list | safe }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card card-module m-b-lg">
+      <div class="card-block card-block-title">
+        <h4 class="card-title red-type">Difficulty Level</h4>
+      </div>
+      <div class="card-block">
+        <div class="row m-b">
+          {% for level in challenge_difficulties %}
+          <div class="col-xs-4 text-center">
+            {% if challenge.difficulty_level == level.0 %}
+            <span class="active-level">{{ level.1 }}</span>
+            {% else %}
+            <span class="inactive-level">{{ level.1 }}</span>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% if challenge.difficulty_level == 1 %}
+        <p>
+          This design challenge requires simple motor skills, understanding of straightforward concepts, or common materials to build.
+        </p>
+        {% elif challenge.difficulty_level == 2 %}
+        <p>
+          This design challenge may require moderate motor skills, understanding of some abstract concepts, or uncommon materials to build.
+        </p>
+        {% elif challenge.difficulty_level == 3 %}
+        <p>
+          This design challenge may require complex motor skills, understanding of abstract concepts, or unusual materials to build.
+        </p>
+        {% endif %}
+      </div>
+      <div class="card-footer text-center">
+        <small><em>(This is the difficulty level for a typical 4th grade classroom. Modify as needed for other age groups.)</em></small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card card-module m-b-lg">
+      <div class="card-block card-block-title">
+        <h4 class="card-title red-type">Educator Resources</h4>
+      </div>
+      <div class="card-block text-center">
+        <span class="resources-book"><i class="icon-open-book"></i></span>
+        This design challenge has downloadable resources available.
+      </div>
+      <div class="card-footer">
+        <small><em>Educators, mentors, and parents with access to this design challenge can download resources.</em></small>
+      </div>
+    </div>
+  </div>
+
+</div>
