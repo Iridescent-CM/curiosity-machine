@@ -12,3 +12,25 @@
   {% endif %}
 
 {% endblock %}
+
+{% block resources %}
+{% if user.profile.is_student %}
+{{ super }}
+{% else %}
+<div class="col-md-4">
+  <div class="card card-module m-b-lg">
+    <div class="card-block card-block-title">
+      <h4 class="card-title red-type">Educator Resources</h4>
+    </div>
+    <div class="card-block">
+      <h4>Resource Title</h4>
+      <p>resource description</p>
+      <ul>
+        <li><a href="#">link 1</a></li>
+        <li><a href="#">link 2</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

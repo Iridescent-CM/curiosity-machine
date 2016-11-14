@@ -69,7 +69,7 @@
 
   <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-{{ col_width|default:6 }}">
       <div class="card card-module m-b-lg">
         <div class="card-block card-block-title">
           <h4 class="card-title red-type">Suggested Materials</h4>
@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-{{ col_width|default:6 }}">
       <div class="card card-module m-b-lg">
         <div class="card-block card-block-title">
           <h4 class="card-title red-type">Difficulty Level</h4>
@@ -116,6 +116,25 @@
         </div>
       </div>
     </div>
+
+    {% if resources %}
+    {% block resources %}
+    <div class="col-md-4">
+      <div class="card card-module m-b-lg">
+        <div class="card-block card-block-title">
+          <h4 class="card-title red-type">Educator Resources</h4>
+        </div>
+        <div class="card-block text-center">
+          <span class="resources-book"><i class="icon-open-book"></i></span>
+          This design challenge has downloadable resources available.
+        </div>
+        <div class="card-footer">
+          <small><em>Educators, mentors, and parents with access to this design challenge can download resources.</em></small>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+    {% endif %}
 
   </div>
   {% endblock %}

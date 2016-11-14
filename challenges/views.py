@@ -232,8 +232,11 @@ class InspirationAnonymousPreview(TemplateView):
 
         challenge = get_object_or_404(Challenge, id=kwargs.get('challenge_id'))
         challenge.accessible = bool(Membership.filter_by_challenge_access(self.request.user, [challenge.id]))
+        resources = challenge.resource_set.all()
 
         context['challenge'] = challenge
+        context['resources'] = resources
+        context['col_width'] = 4 if resources else 6
         context['challenge_difficulties'] = Challenge.DIFFICULTY_LEVELS
         return context
 
