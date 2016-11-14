@@ -1,4 +1,5 @@
 {% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
 {% block title %}Curiosity Machine - Student Progress{% endblock %}
 {% block body-classes %}educator-dashboard{% endblock %}
 
@@ -80,35 +81,11 @@
               {{ progress.total_student_comments }}
             </div>
           </div>
+        </div>
 
-          <table class="table-progress table-sm">
-            <thead>
-              <tr>
-                <th>P<span class="hidden-sm-down">lan</span></th>
-                <th>B<span class="hidden-sm-down">uild</span></th>
-                <th>T<span class="hidden-sm-down">est</span></th>
-                <th>R<span class="hidden-sm-down">eflect</span></th>
-                <th>G<span class="hidden-sm-down">allery Post</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {% for count in progress.student_comment_counts_by_stage %}
-                {% if count %}
-                <th class="active">{{ count }}</th>
-                {% else %}
-                <th class="inactive"> <i class="icon-cross"></i> </th>
-                {% endif %}
-                {% endfor %}
-                {% if progress.approved_examples %}
-                <th class="active"><i class="icon-check"></i></td>
-                {% else %}
-                <th class="inactive"><i class="icon-cross"></i></td>
-                {% endif %}
-              </tr>
-            </tbody>
-          </table>
+        <div class="graph" data-pid="{{ progress.id }}"></div>
 
+        <div class="card-block">
           <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}" class="btn btn-primary">View Process &rarr;</a>
         </div>
       </div>
@@ -120,4 +97,33 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block js %}
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="{% static "js/progress_chart.js" %}"></script>
+  <script>
+      var chart = progressChart();
+
+      function graphAll (err, data) {
+
+        var entries = d3.nest()
+          .key(function(d) { return d["challenge_progress_id"]; })
+          .sortValues(function(a, b) {
+            return d3.ascending(a["created"], b["created"])
+          })
+          .entries(data);
+        
+        d3.selectAll(".graph")
+          .data(
+            entries,
+            function(d) { 
+              var key = d ? d['key'] : this.getAttribute('data-pid');
+              return key;
+            })
+          .call(chart);
+      }
+
+      d3.json("{{ graph_data_url|safe }}", graphAll);
+  </script>
 {% endblock %}

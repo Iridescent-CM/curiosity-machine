@@ -84,3 +84,5 @@ mandrill==1.0.57
 
 # this is needed to run the fixtures command on staging
 factory-boy==2.7.0
+
+djangorestframework==3.5.2

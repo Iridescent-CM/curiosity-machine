@@ -5765,6 +5765,46 @@ i {
   .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td {
     border-color: #E5E1D9; }
 
+.graph {
+  background: white; }
+  .graph svg .stage-plan {
+    fill: #9CB86B; }
+    .graph svg .stage-plan .colorbar {
+      fill: #F5F8F1; }
+    .graph svg .stage-plan .summary {
+      fill: #9CB86B; }
+  .graph svg .stage-build {
+    fill: #6773B4; }
+    .graph svg .stage-build .colorbar {
+      fill: #F1F1F8; }
+    .graph svg .stage-build .summary {
+      fill: #6773B4; }
+  .graph svg .stage-test {
+    fill: #F96844; }
+    .graph svg .stage-test .colorbar {
+      fill: #FFF0ED; }
+    .graph svg .stage-test .summary {
+      fill: #F96844; }
+  .graph svg .stage-reflect {
+    fill: #1EB9C8; }
+    .graph svg .stage-reflect .colorbar {
+      fill: #E8F8FA; }
+    .graph svg .stage-reflect .summary {
+      fill: #1EB9C8; }
+  .graph svg .summary {
+    font-weight: 900; }
+  .graph svg .graphline {
+    stroke: #d8d6d4;
+    fill: transparent;
+    stroke-width: 2px; }
+  .graph svg .mentorline {
+    stroke: gray;
+    fill: transparent;
+    stroke-width: 1px; }
+  .graph svg text {
+    font-size: 10px;
+    fill: dimgray; }
+
 header {
   background-color: #FFFCF7;
   font-family: "Raleway", Helvetica, sans-serif; }
