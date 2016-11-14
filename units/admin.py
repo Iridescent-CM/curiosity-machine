@@ -22,6 +22,7 @@ class UnitAdmin(admin.ModelAdmin):
     inlines = [
         UnitItemInline, ResourceInline
     ]
+    raw_id_fields = ('image', 'standards_alignment_image')
 
 class ResourceAdmin(admin.ModelAdmin):
     model = Resource
