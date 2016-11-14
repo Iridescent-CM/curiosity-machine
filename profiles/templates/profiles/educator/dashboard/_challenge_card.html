@@ -15,7 +15,7 @@
       <a href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}">View all student progress &rarr;</a>
       {% endif %}
 
-      <a class="expandable-card-toggle" data-toggle="collapse" href="#moreInfo-{{ challenge.id }}" aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
+      <a class="expandable-card-toggle" data-text-swap data-toggle="collapse" href="#moreInfo-{{ challenge.id }}" aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
         <span class="show">
           &plus; MORE INFO
         </span>
