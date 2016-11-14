@@ -5874,4 +5874,9 @@ footer {
   #landing-page .hero-img img {
     border-radius: 0 0 4px 4px !important; } }
 
+#landing-page .resources-book {
+  display: block;
+  color: #8FB559;
+  font-size: 2.5rem; }
+
 /*# sourceMappingURL=main.css.map */
