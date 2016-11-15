@@ -94,4 +94,10 @@
       border-radius: 0 0 $base-border-radius $base-border-radius !important;
     }
   }
+
+  .resources-book {
+    display: block;
+    color: $primary-green;
+    font-size: 2.5rem;
+  }
 }
