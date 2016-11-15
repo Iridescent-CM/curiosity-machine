@@ -73,22 +73,33 @@ def test_student_detail_page_context_404s_on_non_connected_student(client):
     assert response.status_code == 404
 
 @pytest.mark.django_db
-def test_student_detail_page_context_has_progresses(client):
+def test_student_detail_page_context_has_membership_progresses(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
-    membership = MembershipFactory(members=[educator, student])
     progresses = ProgressFactory.create_batch(5, student=student, comment=True)
+    membership = MembershipFactory(members=[educator, student], challenges=[p.challenge for p in progresses])
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
     assert set(response.context["progresses"]) == set(progresses)
 
 @pytest.mark.django_db
+def test_student_detail_page_context_does_not_have_other_progresses(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    student = StudentFactory(username="student", password="123123")
+    progresses = ProgressFactory.create_batch(5, student=student, comment=True)
+    membership = MembershipFactory(members=[educator, student], challenges=[p.challenge for p in progresses[:2]])
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert set(response.context["progresses"]) == set(progresses[:2])
+
+@pytest.mark.django_db
 def test_student_detail_page_context_has_progress_annotations(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
-    membership = MembershipFactory(members=[educator, student])
     progress = ProgressFactory(student=student)
+    membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
 
     latest = CommentFactory(challenge_progress=progress, user=student, created=now(), stage=4)
     yesterday = now() - timedelta(days=1)
@@ -99,63 +110,67 @@ def test_student_detail_page_context_has_progress_annotations(client):
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"][0].total_student_comments == 5
-    assert response.context["progresses"][0].latest_student_comment == latest
-    assert response.context["progresses"][0].student_comment_counts_by_stage == [3, 1, 0, 1]
+    assert response.context["progresses"][0].total_user_comments == 5
+    assert response.context["progresses"][0].latest_user_comment == latest
+    assert response.context["progresses"][0].user_comment_counts_by_stage == [3, 1, 0, 1]
 
 @pytest.mark.django_db
-def test_student_detail_page_total_student_comments_progress_annotation_ignores_mentor_comments(client):
+def test_student_detail_page_total_user_comments_progress_annotation_ignores_mentor_comments(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
-    membership = MembershipFactory(members=[educator, student])
 
     progress = ProgressFactory(student=student, mentor=mentor)
     CommentFactory(challenge_progress=progress, user=mentor)
     CommentFactory(challenge_progress=progress, user=student)
 
+    membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
+
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"][0].total_student_comments == 1
+    assert response.context["progresses"][0].total_user_comments == 1
 
 @pytest.mark.django_db
-def test_student_detail_page_student_comment_counts_by_stage_progress_annotation_ignores_mentor_comments(client):
+def test_student_detail_page_user_comment_counts_by_stage_progress_annotation_ignores_mentor_comments(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
-    membership = MembershipFactory(members=[educator, student])
 
     progress = ProgressFactory(student=student, mentor=mentor)
     CommentFactory(challenge_progress=progress, user=mentor, stage=1)
     CommentFactory(challenge_progress=progress, user=student, stage=1)
 
+    membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
+
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"][0].student_comment_counts_by_stage == [1, 0, 0, 0]
+    assert response.context["progresses"][0].user_comment_counts_by_stage == [1, 0, 0, 0]
 
 @pytest.mark.django_db
-def test_student_detail_page_latest_student_comment_progress_annotation_ignores_mentor_comments(client):
+def test_student_detail_page_latest_user_comment_progress_annotation_ignores_mentor_comments(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
-    membership = MembershipFactory(members=[educator, student])
 
     progress = ProgressFactory(student=student, mentor=mentor)
     latest = CommentFactory(challenge_progress=progress, user=mentor, created=now(), stage=4)
     latest_student = CommentFactory(challenge_progress=progress, user=student, created=now() - timedelta(hours=1), stage=4)
 
+    membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
+
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["progresses"][0].latest_student_comment == latest_student
+    assert response.context["progresses"][0].latest_user_comment == latest_student
 
 @pytest.mark.django_db
 def test_student_detail_page_context_has_completed_count(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
-    membership = MembershipFactory(members=[educator, student])
 
-    ProgressFactory(student=student)
-    ProgressFactory(student=student, completed=True)
+    p1 = ProgressFactory(student=student)
+    p2 = ProgressFactory(student=student, completed=True)
+    
+    membership = MembershipFactory(members=[educator, student], challenges=[p1.challenge, p2.challenge])
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
@@ -166,13 +181,14 @@ def test_student_detail_page_context_has_approved_example_count(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
     student2 = StudentFactory(username="student2")
-    membership = MembershipFactory(members=[educator, student, student2])
 
     progress = ProgressFactory(student=student, completed=True)
     approved = ExampleFactory(challenge=progress.challenge, progress=progress, approved=True)
     ExampleFactory(challenge=progress.challenge, progress=progress, approved=False)
     ExampleFactory(challenge=progress.challenge, progress=progress)
-    ProgressFactory(student=student2, completed=True)
+    progress2 = ProgressFactory(student=student2, completed=True)
+
+    membership = MembershipFactory(members=[educator, student, student2], challenges=[progress.challenge, progress2.challenge])
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
@@ -185,12 +201,13 @@ def test_student_detail_page_context_progresses_sort_by_activity(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
-    membership = MembershipFactory(members=[educator, student])
 
     challengeA = ChallengeFactory(name="Challenge A", draft=False)
     challengeB = ChallengeFactory(name="Challenge B", draft=False)
     progressA = ProgressFactory(student=student, challenge=challengeA, mentor=mentor)
     progressB = ProgressFactory(student=student, challenge=challengeB, mentor=mentor)
+
+    membership = MembershipFactory(members=[educator, student], challenges=[challengeA, challengeB])
 
     rightnow = now()
     client.login(username="edu", password="123123")
@@ -258,6 +275,33 @@ def test_challenge_detail_page_context_has_totals_per_student(client):
     response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
     assert set(response.context["totals"].keys()) == set(students)
     # TODO: test actual totals, except they might be going away so maybe not?
+
+@pytest.mark.django_db
+def test_challenge_details_page_shows_unstarted_students(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    challenge = ChallengeFactory()
+    student = StudentFactory()
+    membership = MembershipFactory(members=[student, educator], challenges=[challenge])
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
+    assert set(response.context["totals"].keys()) == set([student])
+
+@pytest.mark.django_db
+def test_challenge_details_page_orders_students(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    challenge = ChallengeFactory()
+    students = [
+        StudentFactory(first_name='', username='b_user'),
+        StudentFactory(first_name='', username='a_user'),
+        StudentFactory(first_name='b'),
+        StudentFactory(first_name='a'),
+    ]
+    membership = MembershipFactory(members=students + [educator], challenges=[challenge])
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
+    assert [s.id for s in response.context["totals"].keys()] == [s.id for s in reversed(students)]
 
 @pytest.mark.django_db
 def test_challenge_detail_page_context_has_gallery_post_indicator_for_approved_example(client):
