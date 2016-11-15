@@ -103,7 +103,7 @@ MAILCHIMP_LIST_IDS = {}
 # Access to S3 development bucket
 AWS_ACCESS_KEY_ID = 'AKIAIFGEY6CNUQ7YYCHQ'
 AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'devcuriositymachine'
+AWS_S3_BUCKET_NAME = AWS_STORAGE_BUCKET_NAME = 'devcuriositymachine'
 
 # The filepicker key and secret are also used in staging. You can set up your own
 # account and replace these if desired.
