@@ -19,6 +19,19 @@
       {% else %}
       <h2>{{ membership.display_name }} Students</h2>
       {% endif %}
+
+      {% if students %}
+      <div class="dropdown pull-right">
+        <a class="dropdown-toggle action-img" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort by {{ sorter.selected|lower }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="sortDropdown">
+          {% for strategy in sorter.strategies %}
+          <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
 
