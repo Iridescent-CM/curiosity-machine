@@ -78,8 +78,8 @@ def test_student_detail_page_context_404s_on_non_connected_student(client):
 def test_student_detail_page_context_has_graph_data_url(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
-    membership = MembershipFactory(members=[educator, student])
     progress = ProgressFactory(student=student, comment=True)
+    membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)

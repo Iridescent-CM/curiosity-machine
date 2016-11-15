@@ -109,7 +109,7 @@ def student_detail(request, student_id, membership_selection=None):
         sorter = ProgressSorter(query=request.GET)
         progresses = sorter.sort(progresses)
 
-        graph_data_url = "%s?%s" % (reverse('profiles:progress_graph_data'), "&".join(["id=%d" %p.id for p in progresses]))
+        graph_data_url = "%s?%s" % (reverse('profiles:progress_graph_data'), "&".join(["id=%d" % p.id for p in progresses]))
 
         return render(request, "profiles/educator/dashboard/student_detail.html", {
             "student": student,
