@@ -62,11 +62,19 @@ def test_student_detail_page_context_has_connected_student(client):
     response = client.get("/home/students/%d/" % student.id, follow=True)
     assert response.context["student"] == student
 
-@pytest.mark.xfail(reason="not yet implemented")
 @pytest.mark.django_db
-def test_student_detail_page_context_404s_on_non_connected_student(client):
+def test_student_detail_page_403s_on_non_membership_educator(client):
+    educator = EducatorFactory(username="edu", password="123123")
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/1/", follow=True)
+    assert response.status_code == 403
+
+@pytest.mark.django_db
+def test_student_detail_page_404s_on_non_connected_student(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
+    membership = MembershipFactory(members=[educator])
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
@@ -247,11 +255,23 @@ def test_students_page_context_has_membership_students(client):
     assert response.context["membership"] == membership
     assert set(response.context["students"]) == set(students)
 
-@pytest.mark.xfail(reason="not yet implemented")
+@pytest.mark.django_db
+def test_challenge_detail_page_403s_on_non_membership_educator(client):
+    educator = EducatorFactory(username="edu", password="123123")
+
+    client.login(username="edu", password="123123")
+    assert client.get("/home/challenges/1/", follow=True).status_code == 403
+
 @pytest.mark.django_db
 def test_challenge_detail_page_404s_on_non_membership_challenge(client):
-    # not even sure what the right behavior is here yet
-    pytest.fail()
+    educator = EducatorFactory(username="edu", password="123123")
+    challenge1 = ChallengeFactory()
+    challenge2 = ChallengeFactory()
+    membership = MembershipFactory(members=[educator], challenges=[challenge1])
+
+    client.login(username="edu", password="123123")
+    assert client.get("/home/challenges/%d/" % challenge1.id, follow=True).status_code == 200
+    assert client.get("/home/challenges/%d/" % challenge2.id, follow=True).status_code == 404
 
 @pytest.mark.django_db
 def test_challenge_detail_page_context_has_challenge(client):
