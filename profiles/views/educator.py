@@ -18,6 +18,10 @@ from memberships.models import Member
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
 from django.utils.functional import lazy
+from rest_framework import generics, permissions
+from ..serializers import CommentSerializer
+from rest_framework.renderers import JSONRenderer
+from rest_framework.permissions import IsAuthenticated
 
 User = get_user_model()
 
@@ -106,12 +110,15 @@ def student_detail(request, student_id, membership_selection=None):
         sorter = ProgressSorter(query=request.GET)
         progresses = sorter.sort(progresses)
 
+        graph_data_url = "%s?%s" % (reverse('profiles:progress_graph_data'), "&".join(["id=%d" % p.id for p in progresses]))
+
         return render(request, "profiles/educator/dashboard/student_detail.html", {
             "student": student,
             "progresses": progresses,
             "completed_count": len([p for p in progresses if p.complete]),
             "membership_selection": membership_selection,
             "sorter": sorter,
+            "graph_data_url": graph_data_url,
         })
 
 @educator_only
@@ -183,3 +190,23 @@ def challenge_detail(request, challenge_id, membership_selection=None):
             "membership_selection": membership_selection,
             "sorter": sorter,
         })
+
+class IsEducator(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.profile.is_educator
+
+class CommentList(generics.ListAPIView):
+    renderer_classes = (JSONRenderer,)
+    serializer_class = CommentSerializer
+    permission_classes = (IsAuthenticated, IsEducator)
+
+    def get_queryset(self):
+        queryset = Comment.objects.none()
+        ids = self.request.query_params.getlist('id', None)
+        if ids is not None:
+            queryset = (Comment.objects
+                .filter(challenge_progress__student__membership__members=self.request.user)
+                .filter(challenge_progress_id__in=ids)
+                .all()
+            )
+        return queryset
