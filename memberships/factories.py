@@ -5,6 +5,11 @@ from factory import post_generation
 
 from . import models
 
+__all__ = [
+    'MembershipFactory',
+    'MemberFactory'
+]
+
 class MembershipFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Membership
@@ -29,3 +34,7 @@ class MembershipFactory(factory.django.DjangoModelFactory):
         if extracted:
             for unit in extracted:
                 obj.extra_units.add(unit)
+
+class MemberFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Member
