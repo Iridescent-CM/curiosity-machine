@@ -5658,7 +5658,8 @@ footer {
     color: #FFFCF7;
     padding-bottom: 0px; }
   #challenges-page .free-challenges img {
-    margin-right: 10px; }
+    margin-right: 10px;
+    width: 120px; }
   #challenges-page .geo-background {
     background-image: url("../images/challenges/geometry.png");
     background-repeat: repeat; }
