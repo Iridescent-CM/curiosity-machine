@@ -4,6 +4,7 @@ from cmcomments.factories import *
 from images.factories import *
 from memberships.factories import *
 from profiles.factories import *
+from units.factories import *
 from videos.factories import *
 
 def lookup(lookups, k, v):
@@ -88,4 +89,9 @@ def load_fixture(f):
         'user': users,
         'image': images,
         'video': videos,
+    })
+
+    units = pk_map(data, 'units.unit', UnitFactory, lookups={
+        'image': images,
+        'standards_alignment_image': images,
     })
