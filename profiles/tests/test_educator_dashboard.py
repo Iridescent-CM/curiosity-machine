@@ -267,14 +267,12 @@ def test_challenge_detail_page_context_has_challenge(client):
 def test_challenge_detail_page_context_has_totals_per_student(client):
     educator = EducatorFactory(username="edu", password="123123")
     challenge = ChallengeFactory()
-    progresses = ProgressFactory.create_batch(10, challenge=challenge, comment=5)
-    students = [p.student for p in progresses]
-    membership = MembershipFactory(members=students + [educator], challenges=[challenge])
+    progress = ProgressFactory(challenge=challenge, comment=5)
+    membership = MembershipFactory(members=[progress.student, educator], challenges=[challenge])
 
     client.login(username="edu", password="123123")
     response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
-    assert set(response.context["totals"].keys()) == set(students)
-    # TODO: test actual totals, except they might be going away so maybe not?
+    assert response.context["students"][0].user_comment_counts_by_stage
 
 @pytest.mark.django_db
 def test_challenge_details_page_shows_unstarted_students(client):
@@ -285,7 +283,7 @@ def test_challenge_details_page_shows_unstarted_students(client):
 
     client.login(username="edu", password="123123")
     response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
-    assert set(response.context["totals"].keys()) == set([student])
+    assert response.context["students"][0].user_comment_counts_by_stage == [0, 0, 0, 0]
 
 @pytest.mark.django_db
 def test_challenge_details_page_orders_students(client):
@@ -301,7 +299,7 @@ def test_challenge_details_page_orders_students(client):
 
     client.login(username="edu", password="123123")
     response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
-    assert [s.id for s in response.context["totals"].keys()] == [s.id for s in reversed(students)]
+    assert [s.id for s in response.context["students"]]== [s.id for s in reversed(students)]
 
 @pytest.mark.django_db
 def test_challenge_detail_page_context_has_gallery_post_indicator_for_approved_example(client):

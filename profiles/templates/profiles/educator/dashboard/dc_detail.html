@@ -69,7 +69,7 @@
 </div>
 
 <div class="container m-t m-b-lg dc-progress">
-  {% for student, totals in totals.items %}
+  {% for student in students %}
   <div class="row m-b-lg">
     <div class="col-md-3">
       <div class="student-list-item">
@@ -104,7 +104,7 @@
         <tbody>
           <tr>
 
-            {% for stage, count in totals.items %}
+            {% for count in student.user_comment_counts_by_stage %}
               {% if count %}
                 <td class="active">{{ count }}</td>
               {% else %}

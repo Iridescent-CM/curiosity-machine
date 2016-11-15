@@ -159,26 +159,13 @@ def challenge_detail(request, challenge_id, membership_selection=None):
                 progress__student__in=students)
             .values_list('progress__student__id', flat=True))
 
-        totals = OrderedDict(
-            (
-                student,
-                OrderedDict.fromkeys([
-                    Stage.plan.name,
-                    Stage.build.name,
-                    Stage.test.name,
-                    Stage.reflect.name,
-                ], 0)
-            ) 
-            for student in students
-        )
-        for comment in comments:
-            stagename = Stage(comment.stage).name
-            totals[comment.user][stagename] = totals[comment.user].get(stagename) + 1
+        for student in students:
+            UserCommentSummary(comments, student.id).annotate(student)
 
         return render(request, "profiles/educator/dashboard/dc_detail.html", {
             "challenge": challenge,
             "challenge_links": membership.challenges.order_by('name').all(),
-            "totals": totals,
+            "students": students,
             "student_ids_with_examples": student_ids_with_examples,
             "membership_selection": membership_selection,
             "sorter": sorter,
