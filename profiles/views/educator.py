@@ -19,6 +19,10 @@ from memberships.models import Member
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
 from django.utils.functional import lazy
+from rest_framework import generics, permissions
+from ..serializers import CommentSerializer
+from rest_framework.renderers import JSONRenderer
+from rest_framework.permissions import IsAuthenticated
 
 User = get_user_model()
 
@@ -87,25 +91,6 @@ def students_dashboard(request, membership_selection=None):
 @educator_only
 @login_required
 @membership_selection
-def guides_dashboard(request, membership_selection=None):
-    units = Unit.objects.filter(listed=True).select_related('image')
-
-    extra_units = []
-    membership = None
-    if membership_selection and membership_selection["selected"]:
-        membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
-        extra_units = membership.extra_units.order_by('id').select_related('image')
-
-    return render(request, "profiles/educator/dashboard/guides.html", {
-        "units": units,
-        "membership": membership,
-        "extra_units": extra_units,
-        "membership_selection": membership_selection,
-    })
-
-@educator_only
-@login_required
-@membership_selection
 def student_detail(request, student_id, membership_selection=None):
     if not (membership_selection and membership_selection["selected"]):
         raise PermissionDenied
@@ -127,12 +112,34 @@ def student_detail(request, student_id, membership_selection=None):
     sorter = ProgressSorter(query=request.GET)
     progresses = sorter.sort(progresses)
 
+    graph_data_url = "%s?%s" % (reverse('profiles:progress_graph_data'), "&".join(["id=%d" % p.id for p in progresses]))
+
     return render(request, "profiles/educator/dashboard/student_detail.html", {
         "student": student,
         "progresses": progresses,
         "completed_count": len([p for p in progresses if p.complete]),
         "membership_selection": membership_selection,
         "sorter": sorter,
+        "graph_data_url": graph_data_url,
+    })
+
+@educator_only
+@login_required
+@membership_selection
+def guides_dashboard(request, membership_selection=None):
+    units = Unit.objects.filter(listed=True).select_related('image')
+
+    extra_units = []
+    membership = None
+    if membership_selection and membership_selection["selected"]:
+        membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+        extra_units = membership.extra_units.order_by('id').select_related('image')
+
+    return render(request, "profiles/educator/dashboard/guides.html", {
+        "units": units,
+        "membership": membership,
+        "extra_units": extra_units,
+        "membership_selection": membership_selection,
     })
 
 @educator_only
@@ -173,3 +180,23 @@ def challenge_detail(request, challenge_id, membership_selection=None):
         "membership_selection": membership_selection,
         "sorter": sorter,
     })
+
+class IsEducator(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.profile.is_educator
+
+class CommentList(generics.ListAPIView):
+    renderer_classes = (JSONRenderer,)
+    serializer_class = CommentSerializer
+    permission_classes = (IsAuthenticated, IsEducator)
+
+    def get_queryset(self):
+        queryset = Comment.objects.none()
+        ids = self.request.query_params.getlist('id', None)
+        if ids is not None:
+            queryset = (Comment.objects
+                .filter(challenge_progress__student__membership__members=self.request.user)
+                .filter(challenge_progress_id__in=ids)
+                .all()
+            )
+        return queryset

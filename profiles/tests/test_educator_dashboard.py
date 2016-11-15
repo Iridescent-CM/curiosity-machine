@@ -1,8 +1,10 @@
 import pytest
 import mock
 
+import json
 from django.utils.timezone import now
 from datetime import timedelta
+from django.core.urlresolvers import reverse
 
 from units.factories import *
 from profiles.factories import *
@@ -79,6 +81,17 @@ def test_student_detail_page_404s_on_non_connected_student(client):
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
     assert response.status_code == 404
+
+@pytest.mark.django_db
+def test_student_detail_page_context_has_graph_data_url(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    student = StudentFactory(username="student", password="123123")
+    progress = ProgressFactory(student=student, comment=True)
+    membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert response.context["graph_data_url"] == reverse("profiles:progress_graph_data") + "?id=%d" % progress.id
 
 @pytest.mark.django_db
 def test_student_detail_page_context_has_membership_progresses(client):
@@ -373,3 +386,52 @@ def test_page_contexts_have_membership_selection_helper(client):
     for url in ["/home", "/home/students", "/home/guides"]:
         response = client.get(url, follow=True)
         assert "membership_selection" in response.context
+
+@pytest.mark.django_db
+def test_graph_data_endpoint_returns_json(client):
+    educator = EducatorFactory(username="edu", password="123123")
+
+    client.login(username="edu", password="123123")
+    response = client.get(reverse("profiles:progress_graph_data"))
+    assert response['Content-Type'] == "application/json"
+
+@pytest.mark.django_db
+def test_graph_data_endpoint_requires_authentication_as_educator(client):
+    user = UserFactory(username="user", password="123123")
+    progress = ProgressFactory(comment=True)
+
+    assert client.get(reverse("profiles:progress_graph_data")).status_code == 403
+    client.login(username="user", password="123123")
+    assert client.get(reverse("profiles:progress_graph_data")).status_code == 403
+
+@pytest.mark.django_db
+def test_graph_data_endpoint_returns_requested_data(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    progress = ProgressFactory(comment=True)
+    progress2 = ProgressFactory(comment=True)
+    membership = MembershipFactory(members=[educator, progress.student, progress2.student])
+
+    client.login(username="edu", password="123123")
+
+    response = client.get(reverse("profiles:progress_graph_data"))
+    assert json.loads(response.content.decode('utf-8')) == []
+
+    response = client.get(reverse("profiles:progress_graph_data"), {'id': progress.id})
+    data = json.loads(response.content.decode('utf-8'))
+    assert len(data) == 1
+    assert data[0]["challenge_progress_id"] == progress.id
+    assert data[0]["user_id"] == progress.student.id
+
+    response = client.get(reverse("profiles:progress_graph_data"), {'id': [progress.id, progress2.id]})
+    data = json.loads(response.content.decode('utf-8'))
+    assert len(data) == 2
+
+@pytest.mark.django_db
+def test_graph_data_endpoint_omits_data_without_membership_connection(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    progress = ProgressFactory(comment=True)
+    progress2 = ProgressFactory(comment=True)
+
+    client.login(username="edu", password="123123")
+    response = client.get(reverse("profiles:progress_graph_data"), {'id': [progress.id, progress2.id]})
+    assert json.loads(response.content.decode('utf-8')) == []

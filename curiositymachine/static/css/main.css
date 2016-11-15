@@ -5423,6 +5423,47 @@ i {
   .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td {
     border-color: #E5E1D9; }
 
+.graph {
+  background: white;
+  border: 1px solid #E5E1D9; }
+  .graph svg .stage-plan {
+    fill: #8FB559; }
+    .graph svg .stage-plan .colorbar {
+      fill: #f4f8ee; }
+    .graph svg .stage-plan .summary {
+      fill: #8FB559; }
+  .graph svg .stage-build {
+    fill: #6161AF; }
+    .graph svg .stage-build .colorbar {
+      fill: #efeff7; }
+    .graph svg .stage-build .summary {
+      fill: #6161AF; }
+  .graph svg .stage-test {
+    fill: #F55932; }
+    .graph svg .stage-test .colorbar {
+      fill: #feeeeb; }
+    .graph svg .stage-test .summary {
+      fill: #F55932; }
+  .graph svg .stage-reflect {
+    fill: #1EB9C8; }
+    .graph svg .stage-reflect .colorbar {
+      fill: #e6f7f9; }
+    .graph svg .stage-reflect .summary {
+      fill: #1EB9C8; }
+  .graph svg .summary {
+    font-weight: 700; }
+  .graph svg .graphline {
+    stroke: #d8d6d4;
+    fill: transparent;
+    stroke-width: 2px; }
+  .graph svg .mentorline {
+    stroke: #949494;
+    fill: transparent;
+    stroke-width: 1px; }
+  .graph svg text {
+    font-size: 12px;
+    fill: #333333; }
+
 header {
   background-color: #FFFCF7;
   font-family: "Raleway", Helvetica, sans-serif; }
