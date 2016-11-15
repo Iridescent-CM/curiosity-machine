@@ -115,3 +115,9 @@ ZENCODER_API_KEY = '81382e6f5779989ca5d9f97ca9e271d6'
 
 # put Cloudinary URL in the environment, so image sizes aren't all wrong
 os.environ['CLOUDINARY_URL'] = 'cloudinary://288919217452943:y0vtMjjVXEUUDr5vesV1_zc4z3c@hhm2kh41m'
+
+# Provide feature flag defaults, then reload flags from env as overrides
+FEATURE_FLAGS = {
+    # set your "enable_whatever_flag": True/False here
+}
+FEATURE_FLAGS.update({k.lower(): process_false_string(v) for k, v in os.environ.items() if k.startswith('ENABLE_')})
