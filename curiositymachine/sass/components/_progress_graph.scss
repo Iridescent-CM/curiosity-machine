@@ -1,41 +1,42 @@
 .graph {
   background: white;
+  border: 1px solid $sand;
 
   svg {
     .stage-plan {
-      fill: #9CB86B;
+      fill: $primary-green;
       .colorbar {
-        fill: #F5F8F1;
+        fill: tint($primary-green, 90%);
       }
       .summary {
-        fill: #9CB86B;
+        fill: $primary-green;
       }
     }
 
     .stage-build {
-      fill: #6773B4;
+      fill: $primary-purple;
       .colorbar {
-        fill: #F1F1F8;
+        fill: tint($primary-purple, 90%);
       }
       .summary {
-        fill: #6773B4;
+        fill: $primary-purple;
       }
     }
 
     .stage-test {
-      fill: #F96844;
+      fill: $primary-red;
       .colorbar {
-        fill: #FFF0ED;
+        fill: tint($primary-red, 90%);
       }
       .summary {
-        fill: #F96844;
+        fill: $primary-red;
       }
     }
 
     .stage-reflect {
       fill: #1EB9C8;
       .colorbar {
-        fill: #E8F8FA;
+        fill: tint($primary-blue, 90%);
       }
       .summary {
         fill: #1EB9C8;
@@ -43,7 +44,7 @@
     }
 
     .summary {
-      font-weight: 900;
+      font-weight: $heavy-font-weight;
     }
 
     .graphline {
@@ -53,14 +54,14 @@
     }
 
     .mentorline {
-      stroke: gray;
+      stroke: $gray;
       fill: transparent;
       stroke-width: 1px;
     }
 
     text {
-      font-size: 10px;
-      fill: dimgray;
+      font-size: 12px;
+      fill: $dark;
     }
   }
 }
