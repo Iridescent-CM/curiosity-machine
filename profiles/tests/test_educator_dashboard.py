@@ -378,10 +378,20 @@ def test_graph_data_endpoint_returns_json(client):
     assert response['Content-Type'] == "application/json"
 
 @pytest.mark.django_db
+def test_graph_data_endpoint_requires_authentication_as_educator(client):
+    user = UserFactory(username="user", password="123123")
+    progress = ProgressFactory(comment=True)
+
+    assert client.get(reverse("profiles:progress_graph_data")).status_code == 403
+    client.login(username="user", password="123123")
+    assert client.get(reverse("profiles:progress_graph_data")).status_code == 403
+
+@pytest.mark.django_db
 def test_graph_data_endpoint_returns_requested_data(client):
     educator = EducatorFactory(username="edu", password="123123")
     progress = ProgressFactory(comment=True)
     progress2 = ProgressFactory(comment=True)
+    membership = MembershipFactory(members=[educator, progress.student, progress2.student])
 
     client.login(username="edu", password="123123")
 
@@ -398,12 +408,12 @@ def test_graph_data_endpoint_returns_requested_data(client):
     data = json.loads(response.content.decode('utf-8'))
     assert len(data) == 2
 
-@pytest.mark.xfail(reason="not yet implemented")
 @pytest.mark.django_db
-def test_graph_data_endpoint_enforces_access_restrictions(client):
+def test_graph_data_endpoint_omits_data_without_membership_connection(client):
     educator = EducatorFactory(username="edu", password="123123")
     progress = ProgressFactory(comment=True)
+    progress2 = ProgressFactory(comment=True)
 
     client.login(username="edu", password="123123")
-    response = client.get(reverse("profiles:progress_graph_data"), {'id': progress.id})
-    assert response.status_code == 404
+    response = client.get(reverse("profiles:progress_graph_data"), {'id': [progress.id, progress2.id]})
+    assert json.loads(response.content.decode('utf-8')) == []

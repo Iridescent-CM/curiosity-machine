@@ -18,9 +18,10 @@ from memberships.models import Member
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
 from django.utils.functional import lazy
-from rest_framework import generics
+from rest_framework import generics, permissions
 from ..serializers import CommentSerializer
 from rest_framework.renderers import JSONRenderer
+from rest_framework.permissions import IsAuthenticated
 
 User = get_user_model()
 
@@ -190,13 +191,22 @@ def challenge_detail(request, challenge_id, membership_selection=None):
             "sorter": sorter,
         })
 
+class IsEducator(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.profile.is_educator
+
 class CommentList(generics.ListAPIView):
     renderer_classes = (JSONRenderer,)
     serializer_class = CommentSerializer
+    permission_classes = (IsAuthenticated, IsEducator)
 
     def get_queryset(self):
         queryset = Comment.objects.none()
         ids = self.request.query_params.getlist('id', None)
         if ids is not None:
-            queryset = Comment.objects.filter(challenge_progress_id__in=ids).all()
+            queryset = (Comment.objects
+                .filter(challenge_progress__student__membership__members=self.request.user)
+                .filter(challenge_progress_id__in=ids)
+                .all()
+            )
         return queryset
