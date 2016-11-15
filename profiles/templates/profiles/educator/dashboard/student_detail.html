@@ -63,7 +63,9 @@
       <div class="card-progress m-b">
         <div class="card-block-title">
           <h3 class="card-title">{{ progress.challenge.name }}</h3>
-          <a href="{% url "profiles:educator_dashboard_students" %}" class="a-secondary">View all students &rarr;</a>
+          <a href="{% url "profiles:educator_dashboard_challenge_detail" challenge_id=progress.challenge.id %}" class="a-secondary">
+            View all students &rarr;
+          </a>
         </div>
         <div class="card-block">
 
