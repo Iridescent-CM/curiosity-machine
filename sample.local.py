@@ -112,3 +112,6 @@ FILEPICKER_API_SECRET = 'A3KXG3UOK5HPTLKML6AIBJ54XA'
 
 # Zencoder integration-only api key
 ZENCODER_API_KEY = '81382e6f5779989ca5d9f97ca9e271d6'
+
+# put Cloudinary URL in the environment, so image sizes aren't all wrong
+os.environ['CLOUDINARY_URL'] = 'cloudinary://288919217452943:y0vtMjjVXEUUDr5vesV1_zc4z3c@hhm2kh41m'
