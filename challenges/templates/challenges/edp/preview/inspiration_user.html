@@ -23,12 +23,19 @@
       <h4 class="card-title red-type">Educator Resources</h4>
     </div>
     <div class="card-block">
-      <h4>Resource Title</h4>
-      <p>resource description</p>
-      <ul>
-        <li><a href="#">link 1</a></li>
-        <li><a href="#">link 2</a></li>
-      </ul>
+      {% for resource in resources %}
+        <h4>{{ resource.name }}</h4>
+        <p>{{ resource.description }}</p>
+        <ul>
+          {% for resourcefile in resource.resourcefile_set.all %}
+          <li>
+            <a href="{{ resourcefile.file.url }}" data-ga-track="pageview" data-ga-page="{{ resourcefile.file }}" ga-event-label="{{ resourcefile.file }}">
+              {{ resourcefile.link_text|default:"Download" }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
     </div>
   </div>
 </div>
