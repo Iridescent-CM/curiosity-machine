@@ -151,3 +151,9 @@ def test_shows_filter_header_template(client):
     response = client.get('/challenges/', {"filter_id": f.id})
 
     assert b'test header_template' in response.content
+
+@pytest.mark.django_db
+def test_shows_core_challenges_header_template(client):
+    response = client.get('/challenges/', {"free": 1})
+
+    assert 'challenges/filters/free.html' in [t.name for t in response.templates]

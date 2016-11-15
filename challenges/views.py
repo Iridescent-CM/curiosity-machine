@@ -166,9 +166,10 @@ class ThemeChallenges(FilterSet):
 
 def challenges(request):
     filterChallenges = FilterChallenges(request)
+    coreChallenges = CoreChallenges(request)
     filtersets = [
         MembershipChallenges(request),
-        CoreChallenges(request),
+        coreChallenges,
         filterChallenges,
         ThemeChallenges(request)
     ]
@@ -199,6 +200,8 @@ def challenges(request):
     header_template = None
     if filterChallenges.active:
         header_template = filterChallenges.active.header_template
+    elif coreChallenges.applied:
+        header_template = "challenges/filters/free.html"
 
     return render(request, 'challenges/new.html', {
         'title': title,
