@@ -83,6 +83,16 @@ def test_student_detail_page_404s_on_non_connected_student(client):
     assert response.status_code == 404
 
 @pytest.mark.django_db
+def test_student_detail_page_404s_on_non_student_membership_member(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    educator2 = EducatorFactory(username="educator2", password="123123")
+    membership = MembershipFactory(members=[educator, educator2])
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/%d/" % educator2.id, follow=True)
+    assert response.status_code == 404
+
+@pytest.mark.django_db
 def test_student_detail_page_context_has_graph_data_url(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")

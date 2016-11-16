@@ -96,7 +96,8 @@ def student_detail(request, student_id, membership_selection=None):
         raise PermissionDenied
 
     membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
-    student = get_object_or_404(membership.members.select_related('profile'), pk=student_id)
+    membership_students = membership.members.select_related('profile').filter(profile__role=UserRole.student.value)
+    student = get_object_or_404(membership_students, pk=student_id)
     progresses = (student.progresses
         .filter(comments__isnull=False, challenge__in=membership.challenges.all())
         .select_related('challenge', 'mentor')
