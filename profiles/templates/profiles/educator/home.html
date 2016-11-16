@@ -4,6 +4,8 @@
 {% block content %}
   <h1>Welcome {{user.username}}</h1>
 
+  <div class="alert alert-warning text-center" role="alert"><strong>The dashboard is changing soon!</strong> We're making you a brand new dashboard, lucky you! We're getting rid of groups so quit using them.</div>
+
   {% if flags.enable_membership_educator_dashboard %}
   {% if memberships %}
   <h2>My Memberships</h2>
@@ -30,7 +32,7 @@
 
   <h2>
     My Groups
-    <a class="btn btn-primary btn-xs" href="{% url 'groups:create' %}">Create group</a>
+    <!-- <a class="btn btn-primary btn-xs" href="{% url 'groups:create' %}">Create group</a> -->
   </h2>
   <div class="tab-content">
     {% if groups %}
