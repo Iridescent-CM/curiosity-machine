@@ -103,7 +103,7 @@ MAILCHIMP_LIST_IDS = {}
 # Access to S3 development bucket
 AWS_ACCESS_KEY_ID = 'AKIAIFGEY6CNUQ7YYCHQ'
 AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'devcuriositymachine'
+AWS_S3_BUCKET_NAME = AWS_STORAGE_BUCKET_NAME = 'devcuriositymachine'
 
 # The filepicker key and secret are also used in staging. You can set up your own
 # account and replace these if desired.
@@ -112,3 +112,12 @@ FILEPICKER_API_SECRET = 'A3KXG3UOK5HPTLKML6AIBJ54XA'
 
 # Zencoder integration-only api key
 ZENCODER_API_KEY = '81382e6f5779989ca5d9f97ca9e271d6'
+
+# put Cloudinary URL in the environment, so image sizes aren't all wrong
+os.environ['CLOUDINARY_URL'] = 'cloudinary://288919217452943:y0vtMjjVXEUUDr5vesV1_zc4z3c@hhm2kh41m'
+
+# Provide feature flag defaults, then reload flags from env as overrides
+FEATURE_FLAGS = {
+    # set your "enable_whatever_flag": True/False here
+}
+FEATURE_FLAGS.update({k.lower(): process_false_string(v) for k, v in os.environ.items() if k.startswith('ENABLE_')})
