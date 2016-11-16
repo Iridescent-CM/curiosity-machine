@@ -15,7 +15,7 @@
 
 {% block resources %}
 {% if user.profile.is_student or not challenge.accessible %}
-{{ super }}
+{{ block.super }}
 {% else %}
 <div class="col-md-4">
   <div class="card card-module m-b-lg">
