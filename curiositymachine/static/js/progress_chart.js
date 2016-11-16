@@ -129,7 +129,7 @@ function progressChart() {
 
       // mentor legend
       var yOffset = 4;
-      var legendWidth = 10;
+      var legendWidth = 15;
       var padding = 6;
       main.append("line")
         .attr("x1", xBar)
