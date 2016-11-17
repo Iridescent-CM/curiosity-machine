@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Curiosity Machine - Home{% endblock %}
+
+{% block content %}
+  <h1>Welcome {{user.username}}</h1>
+
+  <div class="alert alert-warning text-center" role="alert"><strong>This page is changing soon.</strong> Look out for a new educator dashboard with access to free resources.</div>
+
+  {% if flags.enable_membership_educator_dashboard %}
+  {% if memberships %}
+  <h2>My Memberships</h2>
+  <div class="tab-content membership-list">
+    <ul>
+      {% for membership in memberships %}
+      <li>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <a href="{% url 'memberships:membership' membership_id=membership.id %}">{{ membership.display_name }}</a>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <a href="{% url 'memberships:membership' membership_id=membership.id %}" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% endif %}
+
+  <h2>
+    My Groups
+    <a class="btn btn-primary btn-xs" href="{% url 'groups:create' %}">Create group</a>
+  </h2>
+  <div class="tab-content">
+    {% if groups %}
+      <ul id="group-carousel" class="groups-list owl-carousel">
+        {% for group in groups %}
+          <li>{% include "groups/_group_panel.html" %}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <h3 class="tab-empty">Use the button above to create your first group.</h3>
+    {% endif %}
+  </div>
+
+  <h2>Design Challenge Units</h2>
+  <p>
+    Get your Curiosity Course started! Choose one of the units below.
+  </p>
+  <div class="tab-content">
+    <ul id="unit-carousel" class="challenges-list owl-carousel">
+      {% for unit in units %}
+        {% include "units/_unit_item.html" with unit=unit %}
+      {% empty %}
+        <li><h3>No units</h3></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <p>
+    For questions or training information, email
+    <a href="mailto:curiosity@iridescentlearning.org?subject=Units Training" target="_top">curiosity@iridescentlearning.org</a>.
+  </p>
+{% endblock %}
+
+{% block js %}
+  <script>
+    $(document).ready(function () {
+      {% if groups %}
+      $('#group-carousel').initPanelCarousel();
+      {% endif %}
+      $('#unit-carousel').initPanelCarousel();
+    });
+  </script>
+{% endblock %}

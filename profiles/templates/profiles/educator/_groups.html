@@ -1,0 +1,17 @@
+<h2>Groups</h2>
+{% if groups|length %}
+<ul>
+	{% for group in groups %}
+	<li><a href="{% url 'groups:group' group_id=group.id %}">{{ group.name}}</a>
+	</li>
+	{% endfor %}
+<ul>
+{% endif %}
+<hr />
+<h3> Create A Group</h3>
+
+<form action="{% url "groups:create"  %}" method="POST">
+  {% csrf_token %}
+  {{ form.name }}
+  <button class="btn btn-primary" type="submit">Create</button>
+</form>
