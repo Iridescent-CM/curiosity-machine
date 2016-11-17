@@ -34,6 +34,17 @@ def test_guides_page_context_has_extra_units(client):
     assert response.context["membership"] == membership
 
 @pytest.mark.django_db
+def test_guides_page_context_units_do_not_duplicate_extra_units(client):
+    listed_units = UnitFactory.create_batch(5, listed=True)
+    educator = EducatorFactory(username="edu", password="123123")
+    membership = MembershipFactory(members=[educator], extra_units=listed_units)
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/guides", follow=True)
+    assert not response.context["units"]
+    assert set(response.context["extra_units"]) == set(listed_units)
+
+@pytest.mark.django_db
 def test_challenges_page_context_has_core_challenges(client):
     challenges = ChallengeFactory.create_batch(3, draft=False)
     core_challenges = ChallengeFactory.create_batch(3, core=True, free=True, draft=False)

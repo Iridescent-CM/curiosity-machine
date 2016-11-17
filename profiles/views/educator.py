@@ -136,6 +136,7 @@ def guides_dashboard(request, membership_selection=None):
     if membership_selection and membership_selection["selected"]:
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
         extra_units = membership.extra_units.order_by('id').select_related('image')
+        units = units.exclude(id__in=extra_units.values('id'))
 
     return render(request, "profiles/educator/dashboard/guides.html", {
         "units": units,
