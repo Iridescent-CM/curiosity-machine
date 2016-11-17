@@ -35,10 +35,9 @@ function progressChart() {
       var vbx = width + 2 * xPadding;
       var vby = height + 2 * yPadding;
 
-      var svg = d3.select(this)
-        .append("svg")
-        .classed("svg-content", true)
-        .attr("preserveAspectRatio", "xMinYMin meet")
+      var svg = this.tagName == 'svg' ? d3.select(this) : d3.select(this).append("svg");
+
+      svg.attr("preserveAspectRatio", "xMinYMin meet")
         .attr("viewBox", "0 0 " + vbx + " " + vby);
 
       /* main padding group */
