@@ -46,7 +46,7 @@
           <em>No name provided</em>
           {% endif %}
           <br>
-          {{ student.username }}
+          <strong>{{ student.username }}</strong>
         </div>
         <div class="card-block">
           <p>
@@ -64,7 +64,7 @@
         <div class="card-block-title">
           <h3 class="card-title">{{ progress.challenge.name }}</h3>
           <a href="{% url "profiles:educator_dashboard_challenge_detail" challenge_id=progress.challenge.id %}" class="a-secondary">
-            View all students &rarr;
+            View all student progress &rarr;
           </a>
         </div>
         <div class="card-block">
@@ -110,7 +110,7 @@
         </div>
 
         <div class="card-block">
-          <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}" class="btn btn-primary">View Process &rarr;</a>
+          <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}" class="btn btn-primary">View &rarr;</a>
         </div>
       </div>
       {% empty %}

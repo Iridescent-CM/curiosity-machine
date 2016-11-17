@@ -27,7 +27,7 @@
       <p>{{ challenge.description }}</p>
 
       {% if challenge.resource_set.count %}
-      <span class="expandable-card-more-section-title">RESOURCES</span>
+      <span class="expandable-card-more-section-title">EDUCATOR RESOURCES</span>
       <ul class="resources-list">
         {% for resource in challenge.resource_set.all %}
         <li>{{ resource.name }}</li>
