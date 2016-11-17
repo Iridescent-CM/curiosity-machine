@@ -64,14 +64,32 @@ def test_student_detail_page_context_has_connected_student(client):
     response = client.get("/home/students/%d/" % student.id, follow=True)
     assert response.context["student"] == student
 
-@pytest.mark.xfail(reason="not yet implemented")
 @pytest.mark.django_db
-def test_student_detail_page_context_404s_on_non_connected_student(client):
+def test_student_detail_page_403s_on_non_membership_educator(client):
+    educator = EducatorFactory(username="edu", password="123123")
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/1/", follow=True)
+    assert response.status_code == 403
+
+@pytest.mark.django_db
+def test_student_detail_page_404s_on_non_connected_student(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
+    membership = MembershipFactory(members=[educator])
 
     client.login(username="edu", password="123123")
     response = client.get("/home/students/%d/" % student.id, follow=True)
+    assert response.status_code == 404
+
+@pytest.mark.django_db
+def test_student_detail_page_404s_on_non_student_membership_member(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    educator2 = EducatorFactory(username="educator2", password="123123")
+    membership = MembershipFactory(members=[educator, educator2])
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home/students/%d/" % educator2.id, follow=True)
     assert response.status_code == 404
 
 @pytest.mark.django_db
@@ -260,11 +278,23 @@ def test_students_page_context_has_membership_students(client):
     assert response.context["membership"] == membership
     assert set(response.context["students"]) == set(students)
 
-@pytest.mark.xfail(reason="not yet implemented")
+@pytest.mark.django_db
+def test_challenge_detail_page_403s_on_non_membership_educator(client):
+    educator = EducatorFactory(username="edu", password="123123")
+
+    client.login(username="edu", password="123123")
+    assert client.get("/home/challenges/1/", follow=True).status_code == 403
+
 @pytest.mark.django_db
 def test_challenge_detail_page_404s_on_non_membership_challenge(client):
-    # not even sure what the right behavior is here yet
-    pytest.fail()
+    educator = EducatorFactory(username="edu", password="123123")
+    challenge1 = ChallengeFactory()
+    challenge2 = ChallengeFactory()
+    membership = MembershipFactory(members=[educator], challenges=[challenge1])
+
+    client.login(username="edu", password="123123")
+    assert client.get("/home/challenges/%d/" % challenge1.id, follow=True).status_code == 200
+    assert client.get("/home/challenges/%d/" % challenge2.id, follow=True).status_code == 404
 
 @pytest.mark.django_db
 def test_challenge_detail_page_context_has_challenge(client):
@@ -280,14 +310,12 @@ def test_challenge_detail_page_context_has_challenge(client):
 def test_challenge_detail_page_context_has_totals_per_student(client):
     educator = EducatorFactory(username="edu", password="123123")
     challenge = ChallengeFactory()
-    progresses = ProgressFactory.create_batch(10, challenge=challenge, comment=5)
-    students = [p.student for p in progresses]
-    membership = MembershipFactory(members=students + [educator], challenges=[challenge])
+    progress = ProgressFactory(challenge=challenge, comment=5)
+    membership = MembershipFactory(members=[progress.student, educator], challenges=[challenge])
 
     client.login(username="edu", password="123123")
     response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
-    assert set(response.context["totals"].keys()) == set(students)
-    # TODO: test actual totals, except they might be going away so maybe not?
+    assert response.context["students"][0].user_comment_counts_by_stage
 
 @pytest.mark.django_db
 def test_challenge_details_page_shows_unstarted_students(client):
@@ -298,7 +326,7 @@ def test_challenge_details_page_shows_unstarted_students(client):
 
     client.login(username="edu", password="123123")
     response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
-    assert set(response.context["totals"].keys()) == set([student])
+    assert response.context["students"][0].user_comment_counts_by_stage == [0, 0, 0, 0]
 
 @pytest.mark.django_db
 def test_challenge_details_page_orders_students(client):
@@ -314,7 +342,7 @@ def test_challenge_details_page_orders_students(client):
 
     client.login(username="edu", password="123123")
     response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
-    assert [s.id for s in response.context["totals"].keys()] == [s.id for s in reversed(students)]
+    assert [s.id for s in response.context["students"]]== [s.id for s in reversed(students)]
 
 @pytest.mark.django_db
 def test_challenge_detail_page_context_has_gallery_post_indicator_for_approved_example(client):
