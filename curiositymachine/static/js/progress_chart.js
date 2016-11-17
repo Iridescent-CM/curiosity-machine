@@ -127,6 +127,22 @@ function progressChart() {
         .attr("y", y(0))
         .text("Total posts:");
 
+      // mentor legend
+      var yOffset = 4;
+      var legendWidth = 15;
+      var padding = 6;
+      main.append("line")
+        .attr("x1", xBar)
+        .attr("y1", y(0) - yOffset)
+        .attr("x2", xBar + legendWidth)
+        .attr("y2", y(0) - yOffset)
+        .attr("class", "mentorline");
+
+      main.append("text")
+        .attr("x", xBar + legendWidth + padding)
+        .attr("y", y(0))
+        .text("Mentor Posts");
+
       /* graph */
       // line
       var line = d3.line()
@@ -170,7 +186,7 @@ function progressChart() {
         })
         .attr("r", dotSize / 2 * hBar);
 
-      // draw bars
+      // draw mentor bars
       group.selectAll("line")
         .data(values)
         .enter()
