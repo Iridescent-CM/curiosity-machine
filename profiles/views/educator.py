@@ -4,12 +4,14 @@ from django.db import transaction
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch, Count
 from collections import OrderedDict
 from ..forms import educator as forms
 from ..decorators import membership_selection
 from ..models import UserRole
-from ..sorting import latest_student_comment_sort
+from ..sorting import StudentSorter, ProgressSorter
+from ..annotators import UserCommentSummary
 from challenges.models import Challenge, Example, Stage
 from cmcomments.models import Comment
 from units.models import Unit
@@ -17,6 +19,10 @@ from memberships.models import Member
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
 from django.utils.functional import lazy
+from rest_framework import generics, permissions
+from ..serializers import CommentSerializer
+from rest_framework.renderers import JSONRenderer
+from rest_framework.permissions import IsAuthenticated
 
 User = get_user_model()
 
@@ -69,22 +75,31 @@ def home(request, membership_selection=None):
 def students_dashboard(request, membership_selection=None):
     membership = None
     students = []
+    sorter = None
     if membership_selection and membership_selection["selected"]:
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+        sorter = StudentSorter(query=request.GET)
         students = membership.members.filter(profile__role=UserRole.student.value).select_related('profile')
+        students = sorter.sort(students)
     return render(request, "profiles/educator/dashboard/students.html", {
         "membership": membership,
         "students": students,
         "membership_selection": membership_selection,
+        "sorter": sorter,
     })
 
 @educator_only
 @login_required
 @membership_selection
 def student_detail(request, student_id, membership_selection=None):
-    student = get_object_or_404(User.objects.select_related('profile'), pk=student_id)
+    if not (membership_selection and membership_selection["selected"]):
+        raise PermissionDenied
+
+    membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+    membership_students = membership.members.select_related('profile').filter(profile__role=UserRole.student.value)
+    student = get_object_or_404(membership_students, pk=student_id)
     progresses = (student.progresses
-        .filter(comments__isnull=False)
+        .filter(comments__isnull=False, challenge__in=membership.challenges.all())
         .select_related('challenge', 'mentor')
         .prefetch_related(
             'comments',
@@ -94,29 +109,19 @@ def student_detail(request, student_id, membership_selection=None):
         .all())
 
     for progress in progresses:
-        student_comments = [c for c in progress.comments.all() if c.user_id == student.id]
-        progress.total_student_comments = len(student_comments)
+        UserCommentSummary(progress.comments.all(), student.id).annotate(progress)
+    sorter = ProgressSorter(query=request.GET)
+    progresses = sorter.sort(progresses)
 
-        if student_comments:
-            progress.latest_student_comment = max(student_comments, key=lambda o: o.created)
-        else:
-            progress.latest_student_comment = None
-
-        counts_by_stage = [0, 0, 0, 0, 0];
-        for comment in student_comments:
-            counts_by_stage[comment.stage] = counts_by_stage[comment.stage] + 1
-        progress.student_comment_counts_by_stage = counts_by_stage[1:] # inspiration stage can't have comments
-
-        progress.complete = counts_by_stage[Stage.reflect.value] != 0
-
-
-    progresses = sorted(progresses, key=latest_student_comment_sort)
+    graph_data_url = "%s?%s" % (reverse('profiles:progress_graph_data'), "&".join(["id=%d" % p.id for p in progresses]))
 
     return render(request, "profiles/educator/dashboard/student_detail.html", {
         "student": student,
         "progresses": progresses,
         "completed_count": len([p for p in progresses if p.complete]),
         "membership_selection": membership_selection,
+        "sorter": sorter,
+        "graph_data_url": graph_data_url,
     })
 
 @educator_only
@@ -142,39 +147,57 @@ def guides_dashboard(request, membership_selection=None):
 @login_required
 @membership_selection
 def challenge_detail(request, challenge_id, membership_selection=None):
+    if not (membership_selection and membership_selection["selected"]):
+        raise PermissionDenied
 
-    if membership_selection and membership_selection["selected"]:
-        membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
-        challenge = get_object_or_404(membership.challenges, pk=challenge_id) # FIXME: what if we're outside a membership?
-        comments = (Comment.objects
-            .filter(
-                user__in=membership.members.all(),
-                user__profile__role=UserRole.student.value,
-                challenge_progress__challenge_id=challenge.id)
-            .select_related('user', 'user__profile'))
-        student_ids_with_examples = (Example.objects
-            .filter(
-                approved=True,
-                progress__challenge_id=challenge.id,
-                progress__student__in=membership.members.all())
-            .values_list('progress__student__id', flat=True))
+    membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
+    challenge = get_object_or_404(membership.challenges, pk=challenge_id)
 
-        totals = {}
-        for comment in comments:
-            if comment.user not in totals:
-                totals[comment.user] = OrderedDict.fromkeys([
-                    Stage.plan.name,
-                    Stage.build.name,
-                    Stage.test.name,
-                    Stage.reflect.name,
-                ], 0)
-            stagename = Stage(comment.stage).name
-            totals[comment.user][stagename] = totals[comment.user].get(stagename) + 1
+    sorter = StudentSorter(query=request.GET)
+    students = membership.members.filter(profile__role=UserRole.student.value)
+    students = sorter.sort(students)
+    students = students.select_related('profile__image').all()
+
+    comments = (Comment.objects
+        .filter(
+            user__in=students,
+            challenge_progress__challenge_id=challenge.id)
+        .select_related('user', 'user__profile'))
+    student_ids_with_examples = (Example.objects
+        .filter(
+            approved=True,
+            progress__challenge_id=challenge.id,
+            progress__student__in=students)
+        .values_list('progress__student__id', flat=True))
+
+    for student in students:
+        UserCommentSummary(comments, student.id).annotate(student)
 
     return render(request, "profiles/educator/dashboard/dc_detail.html", {
         "challenge": challenge,
         "challenge_links": membership.challenges.order_by('name').all(),
-        "totals": totals,
+        "students": students,
         "student_ids_with_examples": student_ids_with_examples,
         "membership_selection": membership_selection,
+        "sorter": sorter,
     })
+
+class IsEducator(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.profile.is_educator
+
+class CommentList(generics.ListAPIView):
+    renderer_classes = (JSONRenderer,)
+    serializer_class = CommentSerializer
+    permission_classes = (IsAuthenticated, IsEducator)
+
+    def get_queryset(self):
+        queryset = Comment.objects.none()
+        ids = self.request.query_params.getlist('id', None)
+        if ids is not None:
+            queryset = (Comment.objects
+                .filter(challenge_progress__student__membership__members=self.request.user)
+                .filter(challenge_progress_id__in=ids)
+                .all()
+            )
+        return queryset

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 import inspect
-from . import _fixtures
+from .. import fixtures
 
 def is_module_function(mod, func):
     return inspect.isfunction(func) and inspect.getmodule(func) == mod
@@ -20,7 +20,7 @@ class Command(BaseCommand):
         )
 
     def get_available(self):
-        return [func.__name__ for func in _fixtures.__dict__.values() if is_module_function(_fixtures, func)]
+        return [func.__name__ for func in fixtures.__dict__.values() if is_module_function(fixtures, func)]
 
     def list_available(self):
         self.stdout.write("Available fixtures:")
@@ -33,7 +33,7 @@ class Command(BaseCommand):
             return
 
         for name in options['fixture']:
-            fixture = getattr(_fixtures, name)
+            fixture = getattr(fixtures, name)
             fixture()
             self.stdout.write('%s: OK' % name)
 

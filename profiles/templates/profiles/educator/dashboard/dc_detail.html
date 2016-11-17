@@ -15,15 +15,27 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
+  <div class="row p-b">
+    <div class="col-md-6">
       <div class="dropdown dropdown-design-challenge">
-        <a class="dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="dropdown-toggle action-img" href="#" id="challengesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Choose Design Challenge
         </a>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <div class="dropdown-menu" aria-labelledby="challengesDropdown">
           {% for challenge in challenge_links %}
           <a class="dropdown-item" href="{% url "profiles:educator_dashboard_challenge_detail" challenge_id=challenge.id %}">{{ challenge.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 dc-sort-options">
+      <div class="dropdown">
+        <a class="dropdown-toggle action-img" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort by {{ sorter.selected|lower }}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sortDropdown">
+          {% for strategy in sorter.strategies %}
+          <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
           {% endfor %}
         </div>
       </div>
@@ -57,7 +69,7 @@
 </div>
 
 <div class="container m-t m-b-lg dc-progress">
-  {% for student, totals in totals.items %}
+  {% for student in students %}
   <div class="row m-b-lg">
     <div class="col-md-3">
       <div class="student-list-item">
@@ -92,7 +104,7 @@
         <tbody>
           <tr>
 
-            {% for stage, count in totals.items %}
+            {% for count in student.user_comment_counts_by_stage %}
               {% if count %}
                 <td class="active">{{ count }}</td>
               {% else %}
