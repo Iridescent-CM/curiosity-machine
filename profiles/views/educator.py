@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch, Count
+from django.conf import settings
 from collections import OrderedDict
 from ..forms import educator as forms
 from ..decorators import membership_selection
@@ -23,6 +24,7 @@ from rest_framework import generics, permissions
 from ..serializers import CommentSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated
+from groups.forms import GroupForm
 
 User = get_user_model()
 
@@ -54,6 +56,14 @@ def profile_edit(request):
 @login_required
 @membership_selection
 def home(request, membership_selection=None):
+    if not settings.FEATURE_FLAGS.get('enable_new_educator_dashboard', False):
+        return render(request, "profiles/educator/home.html", {
+            'form': GroupForm(),
+            'groups': request.user.cm_groups.all(),
+            'units': Unit.objects.filter(listed=True).order_by('id'),
+            'memberships': request.user.membership_set.all()
+        })
+
     core_challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
 
     membership_challenges = []
