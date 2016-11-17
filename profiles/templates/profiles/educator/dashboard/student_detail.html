@@ -96,7 +96,18 @@
           </div>
         </div>
 
-        <div class="graph" data-pid="{{ progress.id }}"></div>
+        <div class="graph">
+          <img class="spinner" src="{% static "images/load-bot-gear.gif" %}" alt="Loading" />
+          {% comment %} TODO: reconcile sizing here with sizing in the chart library {% endcomment %}
+          <svg viewBox="0 0 700 205" data-pid="{{ progress.id }}"></svg>
+          <div class="error-message">
+            <img src="{% static "images/worried-bot.svg" %}" alt="Error" />
+            <p>
+              <strong>Oh no!</strong><br />
+              We're having trouble displaying this student's progress. Try reloading the page.
+            </p>
+          </div>
+        </div>
 
         <div class="card-block">
           <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}" class="btn btn-primary">View Process &rarr;</a>
@@ -114,29 +125,46 @@
 
 {% block js %}
   <script src="https://d3js.org/d3.v4.min.js"></script>
+  {% if flags.enable_ajax_debug %}
+  <script src="{% static "js/d3_ajax_controls.js" %}"></script>
+  {% endif %}
   <script src="{% static "js/progress_chart.js" %}"></script>
   <script>
-      var chart = progressChart();
+    function markParent(classname) {
+      return function () {
+        var el = this;
+        el.parentNode.classList.add(classname);
+      };
+    }
 
-      function graphAll (err, data) {
+    var chart = progressChart();
 
-        var entries = d3.nest()
-          .key(function(d) { return d["challenge_progress_id"]; })
-          .sortValues(function(a, b) {
-            return d3.ascending(a["created"], b["created"])
-          })
-          .entries(data);
-        
-        d3.selectAll(".graph")
-          .data(
-            entries,
-            function(d) { 
-              var key = d ? d['key'] : this.getAttribute('data-pid');
-              return key;
-            })
-          .call(chart);
+    function graphAll (err, data) {
+      var svgs = d3.selectAll("[data-pid]");
+
+      if (err) {
+        svgs.each(markParent('error'));
+        return;
       }
 
-      d3.json("{{ graph_data_url|safe }}", graphAll);
+      var entries = d3.nest()
+        .key(function(d) { return d["challenge_progress_id"]; })
+        .sortValues(function(a, b) {
+          return d3.ascending(a["created"], b["created"])
+        })
+        .entries(data);
+
+      d3.selectAll("[data-pid]")
+        .data(
+          entries,
+          function(d) {
+            var key = d ? d['key'] : this.getAttribute('data-pid');
+            return key;
+          })
+        .call(chart)
+        .each(markParent('loaded'));
+    }
+
+    d3.json("{{ graph_data_url|safe }}", graphAll);
   </script>
 {% endblock %}

@@ -5425,7 +5425,46 @@ i {
 
 .graph {
   background: white;
-  border: 1px solid #E5E1D9; }
+  border: 1px solid #E5E1D9;
+  position: relative;
+  overflow: hidden; }
+  .graph .spinner {
+    width: 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    transition: opacity 0.1s; }
+  .graph.loaded .spinner,
+  .graph.error .spinner {
+    opacity: 0; }
+  .graph .error-message {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.1s; }
+    .graph .error-message img {
+      width: 10%;
+      transform: rotate(12deg);
+      margin: 15px 0 15px 11px; }
+    .graph .error-message p {
+      margin: 0 2px; }
+    @media (max-width: 33.9em) {
+      .graph .error-message {
+        font-size: 0.8em; }
+        .graph .error-message img {
+          margin: 5px 0 10px 11px; } }
+  .graph.error .error-message {
+    opacity: 1; }
+  .graph svg {
+    opacity: 0;
+    transition: opacity 0.1s; }
+  .graph.loaded svg {
+    opacity: 1; }
   .graph svg .stage-plan {
     fill: #8FB559; }
     .graph svg .stage-plan .colorbar {

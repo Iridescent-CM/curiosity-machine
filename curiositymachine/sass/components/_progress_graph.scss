@@ -1,6 +1,60 @@
 .graph {
   background: white;
   border: 1px solid $sand;
+  position: relative;
+  overflow: hidden;
+
+  .spinner {
+    width: 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    transition: opacity 0.1s;
+  }
+  &.loaded .spinner,
+  &.error .spinner {
+    opacity: 0;
+  }
+
+  .error-message {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.1s;
+
+    img {
+      width: 10%;
+      transform: rotate(12deg);
+      margin: 15px 0 15px 11px;
+    }
+
+    p {
+      margin: 0 2px;
+    }
+
+    @include media-breakpoint-down(xs) {
+      font-size: 0.8em;
+      img {
+        margin: 5px 0 10px 11px;
+      }
+    }
+  }
+  &.error .error-message {
+    opacity: 1;
+  }
+
+  svg {
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+  &.loaded svg {
+    opacity: 1;
+  }
 
   svg {
     .stage-plan {
