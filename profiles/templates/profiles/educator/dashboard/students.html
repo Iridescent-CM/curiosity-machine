@@ -11,31 +11,30 @@
 
   {% include 'profiles/educator/dashboard/_navigation.html' with activeNav="students" %}
 
+  {% if membership_selection.no_memberships %}
   <div class="row p-b">
-    {% if membership_selection.no_memberships %}
     <div class="col-md-12">
       <h2>Students</h2>
-      <p><strong>This page is membership only!</strong> With a membership, you can view your students’ progress, access more design challenges and exclusive resources, and are also guaranteed access to all upcoming features. To learn more about what memberships offer, check out our about page and fill out our interest form!</p>
+      <p><strong>This page is membership only.</strong> With a membership, you can view your students’ progress, access more design challenges and exclusive resources, and are also guaranteed access to all upcoming features. To learn more about what memberships offer, check out our about page and fill out our interest form.</p>
       <div class="text-center">
         <a href="#" class="btn btn-primary">Fill out Interest Form</a>
       </div>
     </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-10 col-md-offset-1 m-t">
-      <!-- <p class="text-center"><em>Join a membership to see all of your students and their progress on Curiosity Machine design challenges. If you're interested in assessing your students work through the platform, <a href="#">fill out our interest form!</a></em></p> -->
-      <img src="{% static 'images/student-mship-ftrs-2.png' %}">
+      <img src="{% static 'images/dashboards/membership-student-features.png' %}">
     </div>
-    {% else %}
+  </div>
+
+  {% else %}
+  <div class="row p-b">
     <div class="col-md-12">
       <h2>{{ membership.display_name }} Students</h2>
     </div>
-    {% endif %}
   </div>
 
-  {% if membership_selection.no_memberships %}
-  <div class="m-t-lg">
-    <!-- {% include 'profiles/educator/dashboard/_membership-blurb.html' %} -->
-  </div>
-  {% else %}
   {% for student in students %}
   <div class="row">
     <div class="col-md-12">
