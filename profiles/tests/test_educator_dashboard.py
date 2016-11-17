@@ -55,6 +55,17 @@ def test_challenges_page_context_has_membership_challenges(client):
     assert response.context["membership"] == membership
 
 @pytest.mark.django_db
+def test_challenges_page_context_core_challenges_does_not_duplicate_membership_challenges(client):
+    core_challenges = ChallengeFactory.create_batch(3, core=True, free=True, draft=False)
+    educator = EducatorFactory(username="edu", password="123123")
+    membership = MembershipFactory(members=[educator], challenges=core_challenges)
+
+    client.login(username="edu", password="123123")
+    response = client.get("/home", follow=True)
+    assert not response.context["core_challenges"]
+    assert set(response.context["membership_challenges"]) == set(core_challenges)
+
+@pytest.mark.django_db
 def test_student_detail_page_context_has_connected_student(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
