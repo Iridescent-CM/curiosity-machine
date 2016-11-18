@@ -128,7 +128,7 @@ def student_detail(request, student_id, membership_selection=None):
 @login_required
 @membership_selection
 def guides_dashboard(request, membership_selection=None):
-    units = Unit.objects.filter(listed=True).select_related('image')
+    units = Unit.objects.filter(listed=True).order_by('id').select_related('image')
 
     extra_units = []
     membership = None
