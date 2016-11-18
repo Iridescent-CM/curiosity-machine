@@ -15,16 +15,18 @@
   <div class="row p-b">
     <div class="col-md-12">
       <h2>Students</h2>
-      <p><strong>This page is membership only.</strong> With a membership, you can view your students’ progress, access more design challenges and exclusive resources, and are also guaranteed access to all upcoming features. To learn more about what memberships offer, check out our about page and fill out our interest form.</p>
-      <div class="text-center">
-        <a href="https://docs.google.com/forms/d/1DH10-vj1U7x93LTwPX6FoJRF1WyH2eRhVtZ46XkdD78/viewform" class="btn btn-primary">Fill out Interest Form</a>
+      <div class="dotted-well text-center">
+        <h3>Connect your classroom</h3>
+        <p>Keep track of student activity on design challenges with a Curiosity Machine membership. <a href="{% url 'about-membership' %}">Learn more about memberships</a> and fill out the interest form below.</p>
+        <div class="text-center">
+          <a href="https://docs.google.com/forms/d/1DH10-vj1U7x93LTwPX6FoJRF1WyH2eRhVtZ46XkdD78/viewform" class="btn btn-primary">View Form</a>
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1 m-t-lg">
+            <img src="{% static 'images/dashboards/membership-student-features.png' %}">
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1 m-t">
-      <img src="{% static 'images/dashboards/membership-student-features.png' %}">
     </div>
   </div>
 

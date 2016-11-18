@@ -15,7 +15,6 @@
   <div class="row p-b">
     <div class="col-md-12">
       <h2>{{ membership.display_name }} Units &amp; Guides</h2>
-      <p>We provide units to help you structure how you can use design challenges in the classroom.</p>
     </div>
   </div>
 
@@ -31,10 +30,10 @@
   </div>
   {% endif %}
 
+  {% if units %}
   <div class="row p-b">
     <div class="col-md-12">
       <h2>Units &amp; Guides</h2>
-      <p>We provide units to help you structure how you can use design challenges in the classroom.</p>
     </div>
   </div>
 
@@ -50,6 +49,7 @@
     {% endfor %}
 
   </div>
+  {% endif %}
 
   <div class="row m-t-lg p-b">
     <div class="col-md-12">
@@ -73,12 +73,6 @@
       </ul>
     </div>
   </div>
-
-  {% if membership_selection.no_memberships %}
-  <div class="m-t-lg">
-    {% include 'profiles/educator/dashboard/_membership-blurb.html' %}
-  </div>
-  {% endif %}
 
 </div>
 {% endblock %}

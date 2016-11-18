@@ -61,6 +61,7 @@ def home(request, membership_selection=None):
     if membership_selection and membership_selection["selected"]:
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
         membership_challenges = membership.challenges.select_related('image').prefetch_related('resource_set')
+        core_challenges = core_challenges.exclude(id__in=membership_challenges.values('id'))
 
     return render(request, "profiles/educator/dashboard/challenges.html", {
         "membership": membership,
@@ -135,6 +136,7 @@ def guides_dashboard(request, membership_selection=None):
     if membership_selection and membership_selection["selected"]:
         membership = request.user.membership_set.get(pk=membership_selection["selected"]["id"])
         extra_units = membership.extra_units.order_by('id').select_related('image')
+        units = units.exclude(id__in=extra_units.values('id'))
 
     return render(request, "profiles/educator/dashboard/guides.html", {
         "units": units,
