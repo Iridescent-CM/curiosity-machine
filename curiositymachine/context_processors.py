@@ -40,10 +40,15 @@ def google_analytics(request):
     if request.user.is_authenticated():
         userid = request.user.id
 
+    free_user = None
+    if request.user.is_authenticated():
+        free_user = request.user.membership_set.count() > 0
+
     return {
         'ga_code': settings.GA_CODE,
         'ga_dimension_user_type': usertype,
-        'ga_user_id': userid
+        'ga_user_id': userid,
+        'ga_dimension_free_user': free_user,
     }
 
 def feature_flags(request):
