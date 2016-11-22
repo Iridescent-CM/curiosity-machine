@@ -81,7 +81,7 @@
     border-bottom-color: $primary-blue !important;
     a { color: $primary-blue !important; }
 
-    @include media-breakpoint-down(md) { border-bottom: 0px; }
+    @include media-breakpoint-down(md) { border-bottom: 0px !important; }
   }
 
   //

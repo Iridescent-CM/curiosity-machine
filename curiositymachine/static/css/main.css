@@ -5879,7 +5879,7 @@ footer {
     color: #00B1C3 !important; }
   @media (max-width: 61.9em) {
     .educator-dashboard .active-nav {
-      border-bottom: 0px; } }
+      border-bottom: 0px !important; } }
 
 .educator-dashboard .student-list {
   border-top: 1px solid #E5E1D9; }
