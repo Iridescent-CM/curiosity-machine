@@ -11,15 +11,29 @@
 
   {% include 'profiles/educator/dashboard/_navigation.html' with activeNav="students" %}
 
+  {% if membership_selection.no_memberships %}
   <div class="row p-b">
     <div class="col-md-12">
-      {% if membership_selection.no_memberships %}
       <h2>Students</h2>
-      <p>In a <a href="{% url 'about-membership' %}">membership</a>, this page will list your students and allow you to see their progress on design challenges.</p>
-      {% else %}
-      <h2>{{ membership.display_name }} Students</h2>
-      {% endif %}
+      <div class="dotted-well text-center">
+        <h3>Connect your classroom</h3>
+        <p>Keep track of student activity on design challenges with a Curiosity Machine membership. <a href="{% url 'about-membership' %}">Learn more about memberships</a> and fill out the interest form below.</p>
+        <div class="text-center">
+          <a href="https://docs.google.com/forms/d/1DH10-vj1U7x93LTwPX6FoJRF1WyH2eRhVtZ46XkdD78/viewform" class="btn btn-primary">View Form</a>
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1 m-t-lg">
+            <img src="{% static 'images/dashboards/membership-student-features.png' %}">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  {% else %}
+  <div class="row p-b">
+    <div class="col-md-12">
+      <h2>{{ membership.display_name }} Students</h2>
       {% if students %}
       <div class="dropdown pull-right">
         <a class="dropdown-toggle action-img" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,11 +49,8 @@
     </div>
   </div>
 
-  {% if membership_selection.no_memberships %}
-  <div class="m-t-lg">
-    {% include 'profiles/educator/dashboard/_membership-blurb.html' %}
-  </div>
-  {% else %}
+
+
   {% for student in students %}
   <div class="row">
     <div class="col-md-12">
