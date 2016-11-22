@@ -42,7 +42,7 @@ def google_analytics(request):
 
     free_user = None
     if request.user.is_authenticated():
-        free_user = request.user.membership_set.count() > 0
+        free_user = "Membership" if request.user.membership_set.count() > 0 else "Free"
 
     return {
         'ga_code': settings.GA_CODE,
