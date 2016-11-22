@@ -69,6 +69,7 @@
       ga('set', 'dimension1', '{{ga_dimension_user_type}}');
       {% if request.user.is_authenticated %}
       ga('set', 'dimension3', '{{ga_dimension_user_type}}');
+      ga('set', 'dimension4', '{{ga_dimension_free_user}}');
       {% endif %}
       {% if ga_user_id %}
       ga('set', 'userId', {{ga_user_id}});
