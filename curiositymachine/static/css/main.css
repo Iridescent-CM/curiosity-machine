@@ -5221,7 +5221,6 @@ i {
 .card-module .card-footer {
   background-color: #f2f0ec; }
 
-<<<<<<< HEAD
 .expandable-card {
   background-color: #FFFCF7;
   box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
@@ -5339,8 +5338,6 @@ i {
       background-color: #E5E1D9;
       color: #949494; }
 
-=======
->>>>>>> develop
 .modal-close {
   color: #fff;
   font-size: 3em;
@@ -6075,7 +6072,7 @@ footer {
       content: "Hide"; }
     #challenges-page .filter-theme-toggle.collapsed:before {
       content: "Show"; }
-  #challenges-page .free-challenges .card-block {
+  #challenges-page .free-challenges .card-block, #challenges-page .free-challenges .card-progress .card-block-title, .card-progress #challenges-page .free-challenges .card-block-title {
     font-family: "Raleway", Helvetica, sans-serif;
     font-weight: 300;
     font-size: 24px;
