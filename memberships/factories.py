@@ -5,11 +5,17 @@ from factory import post_generation
 
 from . import models
 
+__all__ = [
+    'MembershipFactory',
+    'MemberFactory'
+]
+
 class MembershipFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Membership
 
-    name = factory.fuzzy.FuzzyText(prefix="membership-")
+    name = factory.fuzzy.FuzzyText(prefix="name ")
+    display_name = factory.fuzzy.FuzzyText(prefix="display name ")
 
     @post_generation
     def members(obj, create, extracted, **kwargs):
@@ -21,4 +27,14 @@ class MembershipFactory(factory.django.DjangoModelFactory):
     def challenges(obj, create, extracted, **kwargs):
         if extracted:
             for challenge in extracted:
-                obj.challenges.add(challenge) 
+                obj.challenges.add(challenge)
+
+    @post_generation
+    def extra_units(obj, create, extracted, **kwargs):
+        if extracted:
+            for unit in extracted:
+                obj.extra_units.add(unit)
+
+class MemberFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Member

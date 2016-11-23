@@ -216,10 +216,10 @@ th {
     border-top-color: #000 !important; }
   .label {
     border: 1px solid #000; }
-  .table {
+  .table, .card-progress .table-progress, .educator-dashboard .table-dc-progress {
     border-collapse: collapse !important; }
-    .table td,
-    .table th {
+    .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td,
+    .table th, .card-progress .table-progress th, .educator-dashboard .table-dc-progress th {
       background-color: #fff !important; }
   .table-bordered th,
   .table-bordered td {
@@ -1199,22 +1199,22 @@ pre {
   .col-xl-offset-12 {
     margin-left: 100%; } }
 
-.table {
+.table, .card-progress .table-progress, .educator-dashboard .table-dc-progress {
   width: 100%;
   max-width: 100%;
   margin-bottom: 1rem; }
-  .table th,
-  .table td {
+  .table th, .card-progress .table-progress th, .educator-dashboard .table-dc-progress th,
+  .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td {
     padding: 0.75rem;
     line-height: 1.5;
     vertical-align: top;
     border-top: 1px solid #eceeef; }
-  .table thead th {
+  .table thead th, .card-progress .table-progress thead th, .educator-dashboard .table-dc-progress thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #eceeef; }
-  .table tbody + tbody {
+  .table tbody + tbody, .card-progress .table-progress tbody + tbody, .educator-dashboard .table-dc-progress tbody + tbody {
     border-top: 2px solid #eceeef; }
-  .table .table {
+  .table .table, .card-progress .table-progress .table, .educator-dashboard .table-dc-progress .table, .table .card-progress .table-progress, .card-progress .table .table-progress, .card-progress .table-progress .table-progress, .educator-dashboard .table-dc-progress .card-progress .table-progress, .card-progress .educator-dashboard .table-dc-progress .table-progress, .table .educator-dashboard .table-dc-progress, .educator-dashboard .table .table-dc-progress, .card-progress .table-progress .educator-dashboard .table-dc-progress, .educator-dashboard .card-progress .table-progress .table-dc-progress, .educator-dashboard .table-dc-progress .table-dc-progress {
     background-color: #fff; }
 
 .table-sm th,
@@ -2753,13 +2753,13 @@ input[type="button"].btn-block {
 .navbar-dark .navbar-divider {
   background-color: rgba(255, 255, 255, 0.075); }
 
-.card {
+.card, .card-progress {
   position: relative;
   margin-bottom: 0.75rem;
   border: 0.0625rem solid #e5e5e5;
   border-radius: 0.25rem; }
 
-.card-block {
+.card-block, .card-progress .card-block-title {
   padding: 1.25rem; }
 
 .card-title {
@@ -2779,10 +2779,10 @@ input[type="button"].btn-block {
 .card-link + .card-link {
   margin-left: 1.25rem; }
 
-.card > .list-group:first-child .list-group-item:first-child {
+.card > .list-group:first-child .list-group-item:first-child, .card-progress > .list-group:first-child .list-group-item:first-child {
   border-radius: 0.25rem 0.25rem 0 0; }
 
-.card > .list-group:last-child .list-group-item:last-child {
+.card > .list-group:last-child .list-group-item:last-child, .card-progress > .list-group:last-child .list-group-item:last-child {
   border-radius: 0 0 0.25rem 0.25rem; }
 
 .card-header {
@@ -2863,7 +2863,7 @@ input[type="button"].btn-block {
   display: table;
   table-layout: fixed;
   border-spacing: 1.25rem 0; }
-  .card-deck .card {
+  .card-deck .card, .card-deck .card-progress {
     display: table-cell;
     width: 1%;
     vertical-align: top; }
@@ -2876,30 +2876,31 @@ input[type="button"].btn-block {
   display: table;
   width: 100%;
   table-layout: fixed; }
-  .card-group .card {
+  .card-group .card, .card-group .card-progress {
     display: table-cell;
     vertical-align: top; }
-    .card-group .card + .card {
+    .card-group .card + .card, .card-group .card-progress + .card, .card-group .card + .card-progress, .card-group .card-progress + .card-progress {
       margin-left: 0;
       border-left: 0; }
-    .card-group .card:first-child .card-img-top {
+    .card-group .card:first-child .card-img-top, .card-group .card-progress:first-child .card-img-top {
       border-top-right-radius: 0; }
-    .card-group .card:first-child .card-img-bottom {
+    .card-group .card:first-child .card-img-bottom, .card-group .card-progress:first-child .card-img-bottom {
       border-bottom-right-radius: 0; }
-    .card-group .card:last-child .card-img-top {
+    .card-group .card:last-child .card-img-top, .card-group .card-progress:last-child .card-img-top {
       border-top-left-radius: 0; }
-    .card-group .card:last-child .card-img-bottom {
+    .card-group .card:last-child .card-img-bottom, .card-group .card-progress:last-child .card-img-bottom {
       border-bottom-left-radius: 0; }
-    .card-group .card:not(:first-child):not(:last-child) {
+    .card-group .card:not(:first-child):not(:last-child), .card-group .card-progress:not(:first-child):not(:last-child) {
       border-radius: 0; }
-      .card-group .card:not(:first-child):not(:last-child) .card-img-top,
-      .card-group .card:not(:first-child):not(:last-child) .card-img-bottom {
+      .card-group .card:not(:first-child):not(:last-child) .card-img-top, .card-group .card-progress:not(:first-child):not(:last-child) .card-img-top,
+      .card-group .card:not(:first-child):not(:last-child) .card-img-bottom,
+      .card-group .card-progress:not(:first-child):not(:last-child) .card-img-bottom {
         border-radius: 0; }
 
 .card-columns {
   column-count: 3;
   column-gap: 1.25rem; }
-  .card-columns .card {
+  .card-columns .card, .card-columns .card-progress {
     display: inline-block;
     width: 100%; }
 
@@ -3100,7 +3101,7 @@ a.label:focus, a.label:hover {
   .label-danger[href]:focus, .label-danger[href]:hover {
     background-color: #c9302c; }
 
-.jumbotron, .jumbotron-green, .jumbotron-dark, .jumbotron-dark-pattern {
+.jumbotron, .jumbotron-green, .jumbotron-dark, .jumbotron-dark-pattern, .jumbotron-small {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
   background-color: #eceeef;
@@ -3110,7 +3111,7 @@ a.label:focus, a.label:hover {
   border-top-color: #d0d5d8; }
 
 @media (min-width: 34em) {
-  .jumbotron, .jumbotron-green, .jumbotron-dark, .jumbotron-dark-pattern {
+  .jumbotron, .jumbotron-green, .jumbotron-dark, .jumbotron-dark-pattern, .jumbotron-small {
     padding: 4rem 2rem; } }
 
 .jumbotron-fluid {
@@ -4514,6 +4515,64 @@ a.bg-danger:focus, a.bg-danger:hover {
   padding-top: 6rem !important;
   padding-bottom: 6rem !important; }
 
+.tag {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem; }
+  .tag:empty {
+    display: none; }
+
+.btn .tag {
+  position: relative;
+  top: -1px; }
+
+a.tag:focus, a.tag:hover {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer; }
+
+.tag-pill {
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 10rem; }
+
+.tag-default {
+  background-color: #818a91; }
+  .tag-default[href]:focus, .tag-default[href]:hover {
+    background-color: #687077; }
+
+.tag-primary {
+  background-color: #0275d8; }
+  .tag-primary[href]:focus, .tag-primary[href]:hover {
+    background-color: #025aa5; }
+
+.tag-success {
+  background-color: #5cb85c; }
+  .tag-success[href]:focus, .tag-success[href]:hover {
+    background-color: #449d44; }
+
+.tag-info {
+  background-color: #5bc0de; }
+  .tag-info[href]:focus, .tag-info[href]:hover {
+    background-color: #31b0d5; }
+
+.tag-warning {
+  background-color: #f0ad4e; }
+  .tag-warning[href]:focus, .tag-warning[href]:hover {
+    background-color: #ec971f; }
+
+.tag-danger {
+  background-color: #d9534f; }
+  .tag-danger[href]:focus, .tag-danger[href]:hover {
+    background-color: #c9302c; }
+
 @font-face {
   font-family: 'curiosity-machine';
   src: url("../fonts/curiosity-machine.eot?6t4fb5");
@@ -4619,6 +4678,9 @@ a.bg-danger:focus, a.bg-danger:hover {
 
 .icon-check:before {
   content: "\e902"; }
+
+.icon-brush:before {
+  content: "\e905"; }
 
 body {
   background-color: #FFFCF7;
@@ -5015,11 +5077,15 @@ i {
 .hr-orange {
   background-color: #F2B353; }
 
-.well {
+.well, .dotted-well {
   background-color: #F5F5F5;
   border: 2px solid #E3E3E3;
   padding: 20px;
   border-radius: 4px; }
+
+.dotted-well {
+  background-color: #efede8;
+  border: 3px dashed #bcb19c; }
 
 .challenge-card {
   min-height: 375px;
@@ -5032,9 +5098,9 @@ i {
   .challenge-card img {
     width: 100%;
     overflow: hidden; }
-  .challenge-card .card-block {
+  .challenge-card .card-block, .challenge-card .card-progress .card-block-title, .card-progress .challenge-card .card-block-title {
     padding: 0.75em; }
-    .challenge-card .card-block i {
+    .challenge-card .card-block i, .challenge-card .card-progress .card-block-title i, .card-progress .challenge-card .card-block-title i {
       margin-right: 5px; }
   .challenge-card .card-title {
     border-bottom: 2px solid #E5E1D9;
@@ -5145,11 +5211,132 @@ i {
 
 .card-module .card-block-title {
   background-color: #E5E1D9; }
+  .card-module .card-block-title .card-avatar img {
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #FFFCF7; }
   .card-module .card-block-title h1, .card-module .card-block-title h2, .card-module .card-block-title h3, .card-module .card-block-title h4 {
     margin-bottom: 0px; }
 
 .card-module .card-footer {
   background-color: #f2f0ec; }
+
+.expandable-card {
+  background-color: #FFFCF7;
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+  min-height: 165px; }
+  .expandable-card .expandable-card-title {
+    min-height: 165px;
+    padding: 0.75em; }
+  .expandable-card h3 a {
+    color: #333333; }
+    .expandable-card h3 a:hover {
+      color: #00B1C3; }
+    .expandable-card h3 a:focus {
+      color: #F55932; }
+  .expandable-card .expandable-card-toggle {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 15px;
+    padding: 3px 7px;
+    background-color: #bcb19c;
+    z-index: 100;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    color: white;
+    border-bottom: 0px; }
+    .expandable-card .expandable-card-toggle:hover {
+      background-color: #c6bdac; }
+    .expandable-card .expandable-card-toggle:focus {
+      background-color: #F55932; }
+  .expandable-card .expandable-card-more {
+    padding: 0.75em 0.75em 1.5em 0.75em;
+    background-color: #FFFCF7;
+    border-top: 2px solid #E5E1D9;
+    color: #333333;
+    z-index: 2; }
+    .expandable-card .expandable-card-more .expandable-card-more-section-title {
+      font-family: "Raleway", Helvetica, sans-serif;
+      display: inline-block;
+      margin-bottom: 5px;
+      text-transform: capitalize;
+      font-size: 0.875em;
+      letter-spacing: 2px; }
+    .expandable-card .expandable-card-more ul.resources-list {
+      padding-left: 0px;
+      list-style-type: none; }
+      .expandable-card .expandable-card-more ul.resources-list li {
+        margin-bottom: 0.75em; }
+      .expandable-card .expandable-card-more ul.resources-list li:before {
+        content: "\e904";
+        font-family: 'curiosity-machine';
+        speak: none;
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        color: #FFFCF7;
+        background-color: #8FB559;
+        border-radius: 50%;
+        padding-left: 5px;
+        margin-right: 5px;
+        box-shadow: 0px 2px 2px 0px rgba(148, 148, 148, 0.5); }
+
+.card-progress {
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+  .card-progress .card-block-title {
+    background-color: #00B1C3;
+    border-radius: 4px 4px 0px 0px; }
+    .card-progress .card-block-title h3 {
+      display: inline;
+      color: #FFFCF7; }
+    .card-progress .card-block-title a {
+      float: right; }
+  @media (max-width: 61.9em) {
+    .card-progress .card-block-title {
+      text-align: center; }
+      .card-progress .card-block-title h3 {
+        display: block; }
+      .card-progress .card-block-title a {
+        float: none; } }
+  .card-progress .progress-details {
+    list-style-type: none;
+    padding-left: 0px; }
+    .card-progress .progress-details li {
+      display: inline-block;
+      width: 33%; }
+    .card-progress .progress-details .progress-type {
+      text-transform: uppercase;
+      font-size: 0.875em;
+      font-weight: 700;
+      color: #949494;
+      letter-spacing: 2px; }
+  .card-progress .table-progress {
+    table-layout: fixed;
+    border-color: #FFFCF7 !important; }
+    .card-progress .table-progress th {
+      text-align: center; }
+    .card-progress .table-progress thead {
+      text-transform: uppercase;
+      font-size: 0.875em;
+      font-weight: 700;
+      color: #F55932;
+      letter-spacing: 2px; }
+      .card-progress .table-progress thead th {
+        padding: 5px;
+        border-top: 0px; }
+    .card-progress .table-progress tbody {
+      font-size: 1.25em;
+      border-color: #FFFCF7; }
+      .card-progress .table-progress tbody th {
+        border: solid 5px #FFFCF7;
+        padding: 6px; }
+    .card-progress .table-progress .active {
+      background-color: #8FB559;
+      color: #FFFCF7; }
+    .card-progress .table-progress .inactive {
+      background-color: #E5E1D9;
+      color: #949494; }
 
 .modal-close {
   color: #fff;
@@ -5216,6 +5403,10 @@ i {
   background-attachment: fixed;
   background-repeat: repeat; }
 
+.jumbotron-small {
+  padding-top: 1.5em;
+  padding-bottom: 1.5em; }
+
 #site-message {
   border-radius: 0;
   margin-bottom: 0; }
@@ -5224,13 +5415,94 @@ i {
   width: 100%;
   height: auto; }
 
-.table {
+.table, .card-progress .table-progress, .educator-dashboard .table-dc-progress {
   background-color: #FFFCF7;
   border: solid 2px #E5E1D9; }
-  .table thead th {
+  .table thead th, .card-progress .table-progress thead th, .educator-dashboard .table-dc-progress thead th {
     border-color: #E5E1D9; }
-  .table td {
+  .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td {
     border-color: #E5E1D9; }
+
+.graph {
+  background: white;
+  border: 1px solid #E5E1D9;
+  position: relative;
+  overflow: hidden; }
+  .graph .spinner {
+    width: 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    transition: opacity 0.1s; }
+  .graph.loaded .spinner,
+  .graph.error .spinner {
+    opacity: 0; }
+  .graph .error-message {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.1s; }
+    .graph .error-message img {
+      width: 10%;
+      transform: rotate(12deg);
+      margin: 15px 0 15px 11px; }
+    .graph .error-message p {
+      margin: 0 2px; }
+    @media (max-width: 33.9em) {
+      .graph .error-message {
+        font-size: 0.8em; }
+        .graph .error-message img {
+          margin: 5px 0 10px 11px; } }
+  .graph.error .error-message {
+    opacity: 1; }
+  .graph svg {
+    opacity: 0;
+    transition: opacity 0.1s; }
+  .graph.loaded svg {
+    opacity: 1; }
+  .graph svg .stage-plan {
+    fill: #8FB559; }
+    .graph svg .stage-plan .colorbar {
+      fill: #f4f8ee; }
+    .graph svg .stage-plan .summary {
+      fill: #8FB559; }
+  .graph svg .stage-build {
+    fill: #6161AF; }
+    .graph svg .stage-build .colorbar {
+      fill: #efeff7; }
+    .graph svg .stage-build .summary {
+      fill: #6161AF; }
+  .graph svg .stage-test {
+    fill: #F55932; }
+    .graph svg .stage-test .colorbar {
+      fill: #feeeeb; }
+    .graph svg .stage-test .summary {
+      fill: #F55932; }
+  .graph svg .stage-reflect {
+    fill: #1EB9C8; }
+    .graph svg .stage-reflect .colorbar {
+      fill: #e6f7f9; }
+    .graph svg .stage-reflect .summary {
+      fill: #1EB9C8; }
+  .graph svg .summary {
+    font-weight: 700; }
+  .graph svg .graphline {
+    stroke: #d8d6d4;
+    fill: transparent;
+    stroke-width: 2px; }
+  .graph svg .mentorline {
+    stroke: #949494;
+    fill: transparent;
+    stroke-width: 1px;
+    stroke-dasharray: 5,5; }
+  .graph svg text {
+    font-size: 12px;
+    fill: #333333; }
 
 header {
   background-color: #FFFCF7;
@@ -5495,7 +5767,7 @@ footer {
     margin: 10px auto;
     min-height: 400px; }
 
-#index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern {
+#index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern, #index-page .jumbotron-small {
   padding-top: 6em; }
 
 #index-page .home-top-panel {
@@ -5552,8 +5824,157 @@ footer {
 #index-page #how-video-modal {
   padding: 40px 20px 20px 20px; }
 
-#educator-about-page .card {
+#educator-about-page .card, #educator-about-page .card-progress {
   margin: 1.5em auto; }
+
+.educator-dashboard .educator-dashboard-header {
+  background-color: #1f1f1f;
+  background-image: url("../images/design-challenge-repeating-pattern.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
+  color: #FFFCF7; }
+  .educator-dashboard .educator-dashboard-header .dashboard-avatar img {
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+    float: left;
+    margin-right: 10px; }
+  .educator-dashboard .educator-dashboard-header .dashboard-inline-username {
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-size: 2em; }
+
+.educator-dashboard .educator-dashboard-navigation {
+  border-bottom: 2px #E5E1D9 solid; }
+  .educator-dashboard .educator-dashboard-navigation ul {
+    list-style-type: none;
+    text-transform: uppercase;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    padding-left: 0px;
+    margin-bottom: 0px; }
+    .educator-dashboard .educator-dashboard-navigation ul li {
+      display: inline-block;
+      padding-bottom: 10px;
+      border-bottom: 5px solid #FFFCF7; }
+      .educator-dashboard .educator-dashboard-navigation ul li a {
+        margin: 0px 15px;
+        border-bottom: 0px;
+        color: #333333;
+        text-align: center; }
+        .educator-dashboard .educator-dashboard-navigation ul li a:hover, .educator-dashboard .educator-dashboard-navigation ul li a:focus {
+          color: #00B1C3; }
+  @media (max-width: 61.9em) {
+    .educator-dashboard .educator-dashboard-navigation ul li {
+      width: 32%;
+      text-align: center; } }
+  @media (max-width: 47.9em) {
+    .educator-dashboard .educator-dashboard-navigation ul li {
+      width: 100%; } }
+  .educator-dashboard .educator-dashboard-navigation .dropdown a {
+    margin: 0px; }
+
+.educator-dashboard .active-nav {
+  border-bottom-color: #00B1C3 !important; }
+  .educator-dashboard .active-nav a {
+    color: #00B1C3 !important; }
+  @media (max-width: 61.9em) {
+    .educator-dashboard .active-nav {
+      border-bottom: 0px !important; } }
+
+.educator-dashboard .student-list {
+  border-top: 1px solid #E5E1D9; }
+  .educator-dashboard .student-list .student-list-item {
+    padding: 10px;
+    border-bottom: 1px solid #E5E1D9; }
+    .educator-dashboard .student-list .student-list-item .student-list-avatar {
+      float: left;
+      border-bottom: 0px;
+      margin-right: 10px;
+      width: 48px;
+      height: 48px; }
+      .educator-dashboard .student-list .student-list-item .student-list-avatar img {
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+    .educator-dashboard .student-list .student-list-item .student-list-manage {
+      position: absolute;
+      right: 2.5rem; }
+      .educator-dashboard .student-list .student-list-item .student-list-manage i {
+        position: relative;
+        font-size: 12px;
+        margin-left: 10px; }
+    .educator-dashboard .student-list .student-list-item .student-inline-empty {
+      color: #949494; }
+
+.educator-dashboard .card-avatar img {
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+
+.educator-dashboard .dc-sort-options {
+  text-align: right; }
+  @media (max-width: 47.9em) {
+    .educator-dashboard .dc-sort-options {
+      text-align: left;
+      margin-top: 0.75em; }
+      .educator-dashboard .dc-sort-options .dropdown-menu {
+        right: auto;
+        left: 0; } }
+
+.educator-dashboard .dropdown-design-challenge {
+  display: inline-block; }
+
+.educator-dashboard .dcprogressheader {
+  z-index: 500; }
+
+.educator-dashboard .fixedheader {
+  position: fixed;
+  top: 0;
+  width: 100%; }
+
+.educator-dashboard .fixedheader-height {
+  padding-top: 41px; }
+  @media (max-width: 47.9em) {
+    .educator-dashboard .fixedheader-height {
+      padding-top: 0px; } }
+
+@media (max-width: 47.9em) {
+  .educator-dashboard .dc-progress .student-list-item {
+    margin-bottom: 0.75em; } }
+
+.educator-dashboard .dc-progress .student-list-avatar img {
+  border-radius: 50%;
+  background-color: #FFFCF7;
+  margin-right: 10px;
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+
+.educator-dashboard .table-dc-progress {
+  text-align: center;
+  border-style: none;
+  margin-bottom: 0px; }
+  .educator-dashboard .table-dc-progress thead {
+    color: #F55932;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    text-transform: uppercase; }
+    .educator-dashboard .table-dc-progress thead th {
+      border: 2px solid #FFFCF7;
+      padding: 8px 0px;
+      text-align: center;
+      vertical-align: middle;
+      width: 16.6%; }
+  .educator-dashboard .table-dc-progress .active {
+    background-color: #8FB559;
+    color: #FFFCF7;
+    font-size: 1.25rem; }
+  .educator-dashboard .table-dc-progress .inactive {
+    background-color: #E5E1D9;
+    color: #949494;
+    font-size: 1.25rem; }
+  .educator-dashboard .table-dc-progress td {
+    border: 2px solid #FFFCF7;
+    padding: 8px 0px;
+    text-align: center;
+    vertical-align: middle;
+    width: 16.6%; }
 
 #faq-about-page strong {
   display: inline-block;
@@ -5651,7 +6072,7 @@ footer {
       content: "Hide"; }
     #challenges-page .filter-theme-toggle.collapsed:before {
       content: "Show"; }
-  #challenges-page .free-challenges .card-block {
+  #challenges-page .free-challenges .card-block, #challenges-page .free-challenges .card-progress .card-block-title, .card-progress #challenges-page .free-challenges .card-block-title {
     font-family: "Raleway", Helvetica, sans-serif;
     font-weight: 300;
     font-size: 24px;
@@ -5757,10 +6178,10 @@ footer {
     color: white;
     border-bottom-color: white; }
 
-#examples-page .card {
+#examples-page .card, #examples-page .card-progress {
   margin-bottom: 1.5em; }
 
-#examples-page .card-block {
+#examples-page .card-block, #examples-page .card-progress .card-block-title, .card-progress #examples-page .card-block-title {
   background-color: #f5f3f0;
   overflow: auto;
   word-break: break-all; }
@@ -5807,7 +6228,7 @@ footer {
   #examples-page .examples-page-alerts i {
     margin-right: 0.75em; }
 
-#examples-page .card {
+#examples-page .card, #examples-page .card-progress {
   max-width: 330px;
   margin: 1.5em auto; }
 

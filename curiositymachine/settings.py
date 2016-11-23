@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     'groups',
     'memberships',
     'widget_tweaks',
+    'rest_framework',
 )
 
 SITE_ID = 1

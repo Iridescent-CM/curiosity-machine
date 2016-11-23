@@ -1,0 +1,87 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% block title %}Curiosity Machine - Home{% endblock %}
+{% block body-classes %}educator-dashboard{% endblock %}
+
+{% block content %}
+
+{% include 'profiles/educator/dashboard/_header.html' %}
+
+<div class="container m-b-lg">
+
+  {% include 'profiles/educator/dashboard/_navigation.html' with activeNav="challenges" %}
+
+  {% if membership and membership_challenges %}
+  <div class="row p-b">
+    <div class="col-md-12">
+      <h2>{{ membership.display_name }} Design Challenges</h2>
+    </div>
+  </div>
+
+  <div class="row m-b-lg">
+    {% for challenge in membership_challenges %}
+    <div class="col-lg-6 col-md-12 m-b">
+      {% include 'profiles/educator/dashboard/_challenge_card.html' with challenge=challenge show_detail_links=True %}
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+    <div class="clearfix"></div>
+    {% endif %}
+    {% endfor %}
+
+  </div>
+  {% endif %}
+
+
+  {% if core_challenges %}
+  <div class="row p-b">
+    <div class="col-md-12">
+      <h2>Free Design Challenges</h2>
+    </div>
+  </div>
+
+  <div class="row">
+
+    {% for challenge in core_challenges %}
+    <div class="col-lg-6 col-md-12 m-b">
+      {% include 'profiles/educator/dashboard/_challenge_card.html' with challenge=challenge %}
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+    <div class="clearfix"></div>
+    {% endif %}
+    {% endfor %}
+
+  </div>
+  {% endif %}
+
+
+  {% if membership_selection.no_memberships %}
+  <div class="m-t-lg">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="dotted-well text-center">
+          <h3>Want more design challenges?</h3>
+          <p>Access more design challenges with a Curiosity Machine membership. <a href="{% url 'about-membership' %}">Learn more about memberships</a> and fill out the interest form below.</p>
+          <a href="https://docs.google.com/forms/d/1DH10-vj1U7x93LTwPX6FoJRF1WyH2eRhVtZ46XkdD78/viewform" class="btn btn-primary">View Form</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block js %}
+  <!-- script that makes "more" say "less" after you click in expandable cards -->
+  <script>
+  $("a[data-text-swap]").on("click", function() {
+    var el = $(this);
+    if (el.text() == el.data("text-swap")) {
+      el.text(el.data("text-original"));
+    } else {
+      el.data("text-original", el.text());
+      el.text(el.data("text-swap"));
+    }
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,250 @@
+.educator-dashboard {
+
+  //
+  // Dashboard header styles
+  //
+  .educator-dashboard-header {
+    background-color: shade($dark, 40%);
+    background-image: url("../images/design-challenge-repeating-pattern.png");
+    background-attachment: fixed;
+    background-repeat: repeat;
+    color: $ivory;
+
+    .dashboard-avatar img {
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0px 2px 4px 0px $main-shadow;
+      float: left;
+      margin-right: 10px;
+    }
+
+    .dashboard-inline-username {
+      font-family: $heading-font-family;
+      font-size: $base-font-size * 2;
+    }
+  }
+
+  //
+  // Dashboard navigation
+  //
+  .educator-dashboard-navigation {
+    border-bottom: 2px $sand solid;
+
+    ul {
+      list-style-type: none;
+      text-transform: uppercase;
+      font-size: 0.875em;
+      letter-spacing: 2px;
+      padding-left: 0px;
+      margin-bottom: 0px;
+
+      li {
+        display: inline-block;
+        padding-bottom: 10px;
+        border-bottom: 5px solid $ivory;
+
+        a {
+          margin: 0px 15px;
+          border-bottom: 0px;
+          color: $dark;
+          text-align: center;
+
+          &:hover, &:focus {
+            color: $primary-blue;
+          }
+        }
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      ul li {
+        width: 32%;
+        text-align: center;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      ul li {
+        width: 100%;
+      }
+    }
+
+    .dropdown a {
+      margin: 0px;
+    }
+  }
+
+  //
+  // Highlights link to active page in navigation
+  //
+  .active-nav {
+    border-bottom-color: $primary-blue !important;
+    a { color: $primary-blue !important; }
+
+    @include media-breakpoint-down(md) { border-bottom: 0px !important; }
+  }
+
+  //
+  // Students List Page
+  //
+  .student-list {
+    border-top: 1px solid $sand;
+
+    .student-list-item {
+      padding: 10px;
+      border-bottom: 1px solid $sand;
+
+      .student-list-avatar {
+        float: left;
+        border-bottom: 0px;
+        margin-right: 10px;
+        width: 48px;
+        height: 48px;
+
+        img {
+          background-color: #fff;
+          border-radius: 50%;
+          box-shadow: 0px 2px 4px 0px $main-shadow;
+        }
+
+        // Adds notifying highlight if student has unseen activity; can leave commented out for now
+        // .student-list-has-activity {
+        //   position: relative;
+        //
+        //   &:after {
+        //     content: "";
+        //     position: absolute;
+        //     display: block;
+        //     width: 15px;
+        //     height: 15px;
+        //     background-color: $primary-red;
+        //     border-radius: 50%;
+        //     border: 3px solid $ivory;
+        //     right: -3px;
+        //     top: 0;
+        //   }
+        // }
+      }
+
+      .student-list-manage {
+        position: absolute;
+        right: 2.5rem;
+
+        i {
+          position: relative;
+          font-size: 12px;
+          margin-left: 10px;
+        }
+      }
+
+      .student-inline-empty { color: $gray; }
+    }
+  }
+
+  //
+  // Student Detail Page
+  //
+  .card-avatar img {
+    box-shadow: 0px 2px 4px 0px $main-shadow;
+  }
+
+
+  //
+  // Design Challenge Detail Page
+  //
+  .dc-sort-options {
+    text-align: right;
+
+    @include media-breakpoint-down(sm) {
+      text-align: left;
+      margin-top: $small-spacing;
+
+      .dropdown-menu {
+        right: auto;
+        left: 0;
+      }
+    }
+  }
+
+  .dropdown-design-challenge {
+    display: inline-block;
+  }
+
+  .dcprogressheader {
+    z-index: 500;
+  }
+
+  .fixedheader {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  .fixedheader-height {
+    padding-top: 41px;
+
+    @include media-breakpoint-down(sm) {
+      padding-top: 0px;
+    }
+  }
+
+  .dc-progress {
+
+    .student-list-item {
+      @include media-breakpoint-down(sm) {
+        margin-bottom: $small-spacing;
+      }
+    }
+
+    .student-list-avatar {
+      img {
+        border-radius: 50%;
+        background-color: $ivory;
+        margin-right: 10px;
+        box-shadow: 0px 2px 4px 0px $main-shadow;
+      }
+    }
+  }
+
+  .table-dc-progress {
+    @extend .table;
+    text-align: center;
+    border-style: none;
+    margin-bottom: 0px;
+
+    thead {
+      color: $primary-red;
+      font-size: 0.875em;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      th {
+        border: 2px solid $ivory;
+        padding: 8px 0px;
+        text-align: center;
+        vertical-align: middle;
+        width: 16.6%;
+      }
+    }
+
+    .active {
+      background-color: $primary-green;
+      color: $ivory;
+      font-size: 1.25rem;
+    }
+
+    .inactive {
+      background-color: $sand;
+      color: $gray;
+      font-size: 1.25rem;
+    }
+
+    td {
+      border: 2px solid $ivory;
+      padding: 8px 0px;
+      text-align: center;
+      vertical-align: middle;
+      width: 16.6%;
+    }
+  }
+}

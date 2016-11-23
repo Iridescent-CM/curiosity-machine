@@ -4,6 +4,12 @@ import factory.fuzzy
 
 from . import models
 from challenges.models import Stage
+from django.conf import settings
+
+__all__ = [
+    "CommentFactory",
+    "ReflectionCommentFactory",
+]
 
 class CommentFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -11,7 +17,7 @@ class CommentFactory(factory.django.DjangoModelFactory):
 
     text = factory.fuzzy.FuzzyText(prefix='comment text ')
     stage = factory.fuzzy.FuzzyChoice([
-        Stage.inspiration.value,
+        #Stage.inspiration.value, # this is not a stage that gets commented in
         Stage.plan.value,
         Stage.build.value,
         Stage.test.value

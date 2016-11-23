@@ -1,0 +1,26 @@
+<div class="educator-dashboard-header p-b-md p-t-md m-b">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{% url 'profiles:profile_edit' %}" class="action-img pull-right"><i class="icon-brush"></i> Edit Profile</a>
+        <div class="dashboard-avatar">
+          {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
+        </div>
+        {% if request.user.first_name or request.user.last_name %}
+        {{ request.user.first_name }} {{ request.user.last_name }}
+        {% else %}
+        <em>No name provided</em>
+        {% endif %}
+        <br>
+        <span class="dashboard-inline-username">{{ request.user.username }}</span>
+      </div>
+    </div>
+    <div class="row m-t hidden-sm-down">
+      <div class="col-md-12">
+        <strong>Email:</strong> {{ request.user.email }}
+        <br>
+        <strong>Memberships:</strong> {{ membership_selection.names }}
+      </div>
+    </div>
+  </div>
+</div>

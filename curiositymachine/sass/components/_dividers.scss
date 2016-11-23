@@ -25,3 +25,9 @@
   padding: 20px;
   border-radius: $base-border-radius;
 }
+
+.dotted-well {
+  @extend .well;
+  background-color: lighten($sand, 5%);
+  border: 3px dashed darken($sand, 20%);
+}

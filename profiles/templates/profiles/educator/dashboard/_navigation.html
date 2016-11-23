@@ -1,0 +1,35 @@
+<div class="row m-b-lg">
+  <div class="col-md-12">
+    <nav class="educator-dashboard-navigation">
+      <ul class="nav">
+        {% if membership_selection.count > 1 %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            {{ membership_selection.selected.display_name }}
+          </a>
+          <div class="dropdown-menu">
+            {% for membership in membership_selection.all %}
+            <a class="dropdown-item" href="{{ membership_selection_base_url }}?m={{ membership.id }}">{{ membership.display_name }}</a>
+            {% endfor %}
+          </div>
+        </li>
+        {% endif %}
+        <li class="nav-item {% if activeNav == "challenges" %}active-nav{% endif %}">
+          <a class="nav-link" href="{% url 'profiles:home' %}">
+            design challenges
+          </a>
+        </li>
+        <li class="nav-item {% if activeNav == "students" %}active-nav{% endif %}">
+          <a class="nav-link" href="{% url 'profiles:educator_dashboard_students' %}">
+            students
+          </a>
+        </li>
+        <li class="nav-item {% if activeNav == "guides" %}active-nav{% endif %}">
+          <a class="nav-link" href="{% url 'profiles:educator_dashboard_guides' %}">
+            units &amp; guides
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
