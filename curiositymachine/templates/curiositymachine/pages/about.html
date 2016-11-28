@@ -10,28 +10,28 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-lg-push-2 col-md-10 col-md-push-1 m-t-lg">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
         <h2>How Do Children Succeed?</h2>
-        <h3 class="m-b-lg">With curiosity, creativity, and persistence.</h3>
+        <h3 class="mb-3">With curiosity, creativity, and persistence.</h3>
         <p>Like any other skill, it takes practice! We’re here to help you learn.</p>
         <p>At Curiosity Machine, we practice by building hands-on engineering design challenges. We believe that through building, you learn not only how something works, but why it works.</p>
         <p>And when a design doesn't work, why not? You’ll have to try new ideas, learn from your mistakes, and find your own solutions. Keep building, keep practicing, and with time you'll surprise yourself with your creative inventions.</p>
         <p>Sounds challenging? We agree! That’s why we created Curiosity Machine. We support students, parents, educators, and mentors to build, learn, and teach using the engineering design process.</p>
         <p>Together, we inspire children to succeed by being curious, creative, and persistent.</p>
 
-        <div class="row m-y-lg">
-          <div class="col-md-10 col-md-push-1">
+        <div class="row my-3">
+          <div class="col-md-10 offset-md-1">
             <div class="embed-responsive embed-responsive-16by9">
               <iframe width="560" height="315" src="https://www.youtube.com/embed/XBAE46x2qio" frameborder="0" allowfullscreen></iframe>
             </div>
           </div>
         </div>
 
-        <hr class="hr-red m-b-lg"/>
+        <hr class="hr-red mb-3"/>
 
         <h2>How Curiosity Machine Works</h2>
         <h3>Create a student account and...</h3>
-        <div class="row m-t-lg">
+        <div class="row mt-3">
           <div class="col-lg-6">
             <h4><span class="numbered-bullet">1</span> Find Inspiration</h4>
             <p>What makes scientists and engineers curious? Watch videos of the experts sharing their research and inventions.</p>
@@ -50,7 +50,7 @@
           </div>
         </div>
 
-        <hr class="hr-red m-b-lg"/>
+        <hr class="hr-red mb-3"/>
 
         <h2>Curiosity Machine Supports You to Support Your Students</h2>
         <p><a href="{% url "parents" %}">Parents:</a> connect to your child’s account and learn how to build together</p>
@@ -68,7 +68,7 @@
           <li>Scale up or down for students K-12</li>
           <li>Have many possible solutions &mdash; there’s never one right answer!</li>
         </ul>
-        <div class="m-b-lg text-center">
+        <div class="mb-3 text-xs-center">
           <a href="{% url 'challenges:challenges' %}" class="btn btn-primary">Browse Challenges</a>
         </div>
         <img class="img-rounded" src="{% static 'images/about/about-design-challenges.jpg' %}" alt="Mom and daughter build together">
@@ -76,8 +76,8 @@
     </div>
   </div>
 
-  <div class="container-fluid home-support-panel p-y-lg">
-    <div class="container text-center">
+  <div class="container-fluid home-support-panel py-3">
+    <div class="container text-xs-center">
       <h3>Supported by:</h3>
       <a href="http://www.boeing.com/" class="action-img"><img src="{% static 'images/logos/boeing-logo.png' %}" alt="Boeing logo"></a>
       <a href="http://www.nsf.gov/" class="action-img"><img src="{% static 'images/logos/nsf-logo.png' %}" alt="National Science Foundation logo" height="70"></a>
@@ -89,7 +89,7 @@
     </div>
   </div>
 
-  <div class="sign-up-panel p-y-xl">
+  <div class="sign-up-panel py-3">
     <div class="container">
       <h2>Create a Student Account!</h1>
       <a href="{% url "profiles:join" %}" class="btn btn-red-secondary text-uppercase">sign up</a>

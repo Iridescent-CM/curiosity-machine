@@ -5,14 +5,14 @@
 {% block body-classes %}password-change{% endblock %}
 
 {% block content %}
-<div class="container-fluid text-center jumbotron-green">
+<div class="container-fluid text-xs-center jumbotron-green">
   <h1>Password Reset</h1>
 </div>
-<div class="container m-b-xl">
-  <p class="text-center">
+<div class="container mb-3">
+  <p class="text-xs-center">
     Your password has successfully been reset.
     {% if not request.user.is_authenticated %}
-      You can use it right now 
+      You can use it right now
       to <a href="#" data-toggle="modal" data-target="#login-modal">log in</a>.
     {% endif %}
   </p>

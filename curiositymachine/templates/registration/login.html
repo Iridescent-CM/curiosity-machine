@@ -10,7 +10,7 @@
 
   {% if messages %}
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8 offset-md-2">
       {% for message in messages %}
       <div class="alert alert-info" role="alert">{{message}}</div>
       {% endfor %}
@@ -18,7 +18,7 @@
   </div>
   {% endif %}
 
-  <div class="col-md-4 col-md-offset-4 page-content">
+  <div class="col-md-4 offset-md-4 page-content">
 
     <form method="post" id="login-page-form" action="{% url 'login' %}">
         {% include "registration/_login_form.html" %}

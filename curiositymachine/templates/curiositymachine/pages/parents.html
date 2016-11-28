@@ -8,11 +8,11 @@
 {% block content %}
   {{ block.super }}
 
-  <div class="container p-b-lg">
+  <div class="container pb-3">
     <div class="row">
-      <div class="col-lg-8 col-lg-push-2 col-md-10 col-md-push-1 m-t-lg">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
         <h2>Build Something Great Together</h2>
-        <h3 class="m-b-lg">Join your child to plan, build, and test design challenges.</h3>
+        <h3 class="mb-3">Join your child to plan, build, and test design challenges.</h3>
         <p>This practice will help your child learn from her own mistakes and develop:</p>
           <ul>
             <li><strong>Curiosity</strong> to ask questions and understand how the world around her works</li>
@@ -21,9 +21,9 @@
           </ul>
         <p>With a parent account, you can follow each step of every design your child builds and watch your child’s portfolio of completed projects grow. It’s free to sign up!</p>
 
-        <img class="img-rounded" src="{% static 'images/about/family-make.jpg' %}" alt="Family builds together">
+        <img src="{% static 'images/about/family-make.jpg' %}" alt="Family builds together">
 
-        <hr class="hr-red m-b-lg"/>
+        <hr class="hr-red mb-3"/>
 
         <h2>Support Your Child’s Critical Thinking Skills</h2>
         <p>Our Creative Parent’s Toolbox includes 6 training presentations that cover a variety of topics to set you and your child up for success:</p>
@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <div class="sign-up-panel p-y-xl">
+  <div class="sign-up-panel py-3">
     <h2>Create a Parent Account!</h2>
     <a href="{% url "profiles:join_as_parent" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
   </div>

@@ -6,12 +6,12 @@
 
 {% block content %}
   {% if invalid %}
-    <div class="container-fluid text-center jumbotron-green">
+    <div class="container-fluid text-xs-center jumbotron-green">
       <h1>New Password</h1>
     </div>
 
-    <div class="container m-b-xl">
-      <p class="text-center">
+    <div class="container mb-3">
+      <p class="text-xs-center">
         Sorry, this password reset link is invalid. You can still <a href="{% url "password_reset_recover" %}">request a new one</a>.
       </p>
     </div>

@@ -5,11 +5,11 @@
 {% block body-classes %}password-change{% endblock %}
 
 {% block content %}
-<div class="container-fluid text-center jumbotron-green">
+<div class="container-fluid text-xs-center jumbotron-green">
   <h1>Reset Password</h1>
 </div>
-<div class="container m-b-xl">
-  <p class="text-center">
+<div class="container mb-3">
+  <p class="text-xs-center">
     An email was sent to <strong>{{ email }}</strong> {{ timestamp|timesince }} ago. Use the link in it to set a new password.
   </p>
 </div>
