@@ -70,18 +70,3 @@
 
 </div>
 {% endblock %}
-
-{% block js %}
-  <!-- script that makes "more" say "less" after you click in expandable cards -->
-  <script>
-  $("a[data-text-swap]").on("click", function() {
-    var el = $(this);
-    if (el.text() == el.data("text-swap")) {
-      el.text(el.data("text-original"));
-    } else {
-      el.data("text-original", el.text());
-      el.text(el.data("text-swap"));
-    }
-    });
-  </script>
-{% endblock %}

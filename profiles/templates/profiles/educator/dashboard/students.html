@@ -80,10 +80,10 @@
           </span>
           <span class="student-list-manage" text-swap>
             <a class="action-img" data-toggle="collapse" href="#collapse-{{ student.id }}" aria-expanded="false" aria-controls="collapse-{{ student.id }}">
-              <span class="more">
+              <span class="show">
                 <span class="hidden-sm-down">More</span> <i class="icon-right-arrow"></i>
               </span>
-              <span class="less hidden-xl-down">
+              <span class="hide hidden-xl-down">
                 <span class="hidden-sm-down">Less</span> <i class="icon-up-arrow"></i>
               </span>
             </a>
@@ -128,7 +128,7 @@
 {% endblock %}
 
 {% block js %}
-  <script>
+  <!-- <script>
   $('.collapse').on('hidden.bs.collapse', function () {
     var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
     $trigger.find( ".more" ).removeClass( "hidden-xl-down" );
@@ -140,5 +140,5 @@
     $trigger.find( ".more" ).addClass( "hidden-xl-down" );
     $trigger.find( ".less" ).removeClass( "hidden-xl-down" );
   })
-  </script>
+  </script> -->
 {% endblock %}
