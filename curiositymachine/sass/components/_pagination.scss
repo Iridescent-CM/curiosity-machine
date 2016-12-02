@@ -8,17 +8,19 @@
   li span {
     border-color: $sand;
     color: $primary-blue;
-    padding: 10px 14px;
     &:hover {
       color: $primary-blue-dark;
     }
   }
   .active a,
   .active a:hover,
+  .active .page-link,
+  .active .page-link:hover,
   .active span,
   .active span:hover {
     background-color: $primary-blue;
     border-color: $sand;
+    color: $sand;
   }
   .disabled a,
   .disabled span {

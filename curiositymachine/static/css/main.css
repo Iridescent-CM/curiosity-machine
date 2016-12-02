@@ -5858,18 +5858,20 @@ i {
 .pagination li a,
 .pagination li span {
   border-color: #E5E1D9;
-  color: #00B1C3;
-  padding: 10px 14px; }
+  color: #00B1C3; }
   .pagination li a:hover,
   .pagination li span:hover {
     color: #008e9c; }
 
 .pagination .active a,
 .pagination .active a:hover,
+.pagination .active .page-link,
+.pagination .active .page-link:hover,
 .pagination .active span,
 .pagination .active span:hover {
   background-color: #00B1C3;
-  border-color: #E5E1D9; }
+  border-color: #E5E1D9;
+  color: #E5E1D9; }
 
 .pagination .disabled a, .pagination .disabled a:focus, .pagination .disabled a:hover,
 .pagination .disabled span,

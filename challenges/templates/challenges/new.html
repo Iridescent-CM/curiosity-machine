@@ -29,7 +29,7 @@
     </div>
 
     <div class="col-md-7 col-lg-8 col-xl-9">
-      <h4 class="all-challenges-header text-center" id="challenges">{{title|safe}}</h4>
+      <h4 class="all-challenges-header text-xs-center" id="challenges">{{title|safe}}</h4>
       {% if header_template %}
         {% include header_template %}
       {% endif %}
@@ -37,7 +37,7 @@
 
         {% include "curiositymachine/_messages.html" %}
 
-        <div class="row text-center">
+        <div class="row text-xs-center">
           {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
         </div>
 
