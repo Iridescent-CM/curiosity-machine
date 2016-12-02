@@ -24,6 +24,7 @@
   }
   .disabled a,
   .disabled span {
+    color: $gray;
     @include plain-hover-focus {
       cursor: default;
     }

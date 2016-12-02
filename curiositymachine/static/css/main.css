@@ -5873,11 +5873,14 @@ i {
   border-color: #E5E1D9;
   color: #E5E1D9; }
 
-.pagination .disabled a, .pagination .disabled a:focus, .pagination .disabled a:hover,
-.pagination .disabled span,
-.pagination .disabled span:focus,
-.pagination .disabled span:hover {
-  cursor: default; }
+.pagination .disabled a,
+.pagination .disabled span {
+  color: #949494; }
+  .pagination .disabled a, .pagination .disabled a:focus, .pagination .disabled a:hover,
+  .pagination .disabled span,
+  .pagination .disabled span:focus,
+  .pagination .disabled span:hover {
+    cursor: default; }
 
 .jumbotron-green {
   background-color: #8FB559;
