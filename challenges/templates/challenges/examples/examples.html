@@ -34,7 +34,7 @@
 
     <!-- student who has started the design challenge but not posted in Reflect progress -->
     {% if progress and not progress.completed %}
-    <div id="student-in-progress" class="examples-page-alerts text-center p-a-md m-y-md">
+    <div id="student-in-progress" class="examples-page-alerts text-xs-center pa-2 my-2">
       <h3>You are working on this design challenge!</h3>
       <p>Complete your project and post in Reflect. Then you can share your design here!</p>
       <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Keep Working</a>
@@ -43,7 +43,7 @@
 
     <!-- student who has started the challenge AND posted in Reflect progress -->
     {% if progress.completed and not user_example %}
-    <div id="student-completed" class="examples-page-alerts text-center p-a-md m-y-md">
+    <div id="student-completed" class="examples-page-alerts text-xs-center p-2 my-2">
       <h3>Add your project!</h3>
       <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
       <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
@@ -60,7 +60,7 @@
               <h3>Choose a Photo</h3>
             </div>
             <form id="submit-form" method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
-              <div class="modal-body text-center">
+              <div class="modal-body text-xs-center">
                 <div class="row">
                   {% csrf_token %}
                   <div class="col-md-12">
@@ -90,7 +90,7 @@
               </button>
               <h3>Choose a Photo</h3>
             </div>
-            <div class="modal-body text-center">
+            <div class="modal-body text-xs-center">
               <div class="row">
                 <div class="col-md-12">
                   <p>You didn't post any photos to {{ challenge.name }}! Add a photo of your project, and then come back to share it in the Inspiration Gallery.</p>
@@ -111,12 +111,12 @@
 
     <!-- A Pending Example submission -->
     {% if user_example and not user_example.approved %}
-    <div id="student-example-pending" class="alert alert-info m-t-md text-center" role="alert">
+    <div id="student-example-pending" class="alert alert-info mt-2 text-xs-center" role="alert">
       <strong>Thanks for submitting your project!</strong> After we approve your photo, it will show up in the gallery for everyone to see.
     </div>
     {% endif %}
 
-    <div class="row text-center">
+    <div class="row text-xs-center">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=examples anchor="examples" %}
     </div>
 
@@ -136,7 +136,7 @@
               &times;
           </a>
           {% endif %}
-          <div class="card-block text-center">
+          <div class="card-block text-xs-center">
             <p class="card-title">{{ example.progress.student.username }}</p>
           </div>
         </div>
@@ -151,7 +151,7 @@
               </button>
               <h3>{{ example.progress.student.username }}'s {{ challenge.name }}</h3>
             </div>
-            <div class="modal-body text-center">
+            <div class="modal-body text-xs-center">
               <img src="{% resized example.image.url %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
             </div>
           </div>
@@ -168,7 +168,7 @@
               </button>
               <h3>Remove your project?</h3>
             </div>
-            <div class="modal-body text-center">
+            <div class="modal-body text-xs-center">
               <p>This will remove your project from the Inspiration Gallery. You can always re-submit your project if you change your mind!</p>
             </div>
             <div class="modal-footer">
@@ -190,7 +190,7 @@
 
       {% empty %}
 
-      <div class="text-center p-a-md m-y-md">
+      <div class="text-xs-center p-2 my-2">
         <h3>There aren't any examples yet!</h3>
         <img src="{% static 'images/examples/inspiration-gallery-bot.png' %}" alt="The robot is having trouble hanging the art. Please add your own work to help the struggling robot.">
       </div>
@@ -199,7 +199,7 @@
 
     </div>
 
-    <div class="row text-center">
+    <div class="row text-xs-center">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=examples anchor="examples" %}
     </div>
 

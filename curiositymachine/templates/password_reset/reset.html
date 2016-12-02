@@ -16,12 +16,12 @@
       </p>
     </div>
   {% else %}
-    <div class="container-fluid text-center jumbotron-green">
+    <div class="container-fluid text-xs-center jumbotron-green">
       <h1>New Password for {{username}}</h1>
     </div>
 
     <div class="container m-b-xl">
-      <p class="text-center">Type your new password twice to confirm it.</p>
+      <p class="text-xs-center">Type your new password twice to confirm it.</p>
       <form method="post" action="{% url "password_reset_reset" token %}">
         {% csrf_token %}
         <div class="form-body">
@@ -39,7 +39,7 @@
               <small class="text-muted help-block">{{ error }}</small>
             {% endfor %}
           </fieldset>
-          <input type="submit" class="btn btn-primary btn-lg pull-right" value="Save" class="default" />
+          <input type="submit" class="btn btn-primary btn-lg float-xs-right" value="Save" class="default" />
         </div>
       </form>
     </div>

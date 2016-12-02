@@ -7,12 +7,12 @@
 
 {% include 'profiles/educator/dashboard/_header.html' %}
 
-<div class="container m-b-lg">
+<div class="container mb-3">
 
   {% include 'profiles/educator/dashboard/_navigation.html' with activeNav="guides" %}
 
   {% if extra_units %}
-  <div class="row p-b">
+  <div class="row pb-1">
     <div class="col-md-12">
       <h2>{{ membership.display_name }} Units &amp; Guides</h2>
     </div>
@@ -20,7 +20,7 @@
 
   <div class="row">
     {% for unit in extra_units %}
-    <div class="col-md-6 m-b">
+    <div class="col-md-6 mb-1">
       {% include "profiles/educator/dashboard/_unit_card.html" with unit=unit %}
     </div>
     {% if forloop.counter|divisibleby:2 %}
@@ -31,7 +31,7 @@
   {% endif %}
 
   {% if units %}
-  <div class="row p-b">
+  <div class="row pb-1">
     <div class="col-md-12">
       <h2>Units &amp; Guides</h2>
     </div>
@@ -40,7 +40,7 @@
   <div class="row">
 
     {% for unit in units %}
-    <div class="col-md-6 m-b">
+    <div class="col-md-6 mb-1">
       {% include "profiles/educator/dashboard/_unit_card.html" with unit=unit %}
     </div>
     {% if forloop.counter|divisibleby:2 %}
@@ -51,7 +51,7 @@
   </div>
   {% endif %}
 
-  <div class="row m-t-lg p-b">
+  <div class="row mt-3 pb-1">
     <div class="col-md-12">
       <h2>Resources</h2>
       <ul>

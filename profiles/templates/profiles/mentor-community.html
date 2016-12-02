@@ -10,30 +10,30 @@
   </div>
 
   <div class="container">
-    <div class="row text-center">
-      <a href="{% url "mentor" %}" class="m-y">Learn more about mentoring</a>
+    <div class="row text-xs-center my-1">
+      <a href="{% url "mentor" %}">Learn more about mentoring</a>
     </div>
   </div>
 
   <div class="container" id="mentors">
-    <div class="row text-center">
+    <div class="row text-xs-center">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=mentors anchor="mentors"%}
     </div>
 
-    <div class="row m-y">
+    <div class="row my-1">
 
       {% for mentor in mentors %}
         <div class="col-lg-3 col-sm-6">
           <div class="mentor-card">
             <a href="{% url "profiles:mentor_profile" username=mentor.user.username %}">
-              <div class="mentor-card-title text-center">
+              <div class="mentor-card-title text-xs-center">
                 {% include "profiles/_avatar.html" with profile=mentor width=80 height=80 crop='thumb' gravity='faces' classes='img-block'%}
                 <h3>{{mentor.user.username}}</h3>
                 <small>Joined {{mentor.user.date_joined|date:"F Y"}}</small>
               </div>
             </a>
             <div class="mentor-card-description">
-              <p class="text-center">
+              <p class="text-xs-center">
                 {% if mentor.title %}{{mentor.title}}, {% endif%}
                 {{mentor.employer}}
               </p>
@@ -47,12 +47,12 @@
 
     </div>
 
-    <div class="row text-center">
+    <div class="row text-xs-center">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=mentors anchor="mentors"%}
     </div>
   </div>
 
-  <div class="sign-up-panel p-y-xl">
+  <div class="sign-up-panel py-3">
     <h2>Interesting in mentoring? Complete this interest form!</h2>
     <a href="http://goo.gl/forms/CYzaS5AOufWZi8kh1" target="_blank" class="btn btn-orange-secondary text-uppercase">View Form</a>
   </div>

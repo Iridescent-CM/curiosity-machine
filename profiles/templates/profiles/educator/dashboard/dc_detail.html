@@ -9,13 +9,13 @@
   {% url "profiles:home" as base_url %}
   {% include 'profiles/educator/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
 
-  <div class="row m-b-sm">
+  <div class="row mb-1">
     <div class="col-md-12">
       <h2>{{ challenge.name }}</h2>
     </div>
   </div>
 
-  <div class="row p-b">
+  <div class="row pb-1">
     <div class="col-md-6">
       <div class="dropdown dropdown-design-challenge">
         <a class="dropdown-toggle action-img" href="#" id="challengesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,12 +68,12 @@
   </div>
 </div>
 
-<div class="container m-t m-b-lg dc-progress">
+<div class="container mt-1 mb-3 dc-progress">
   {% for student in students %}
-  <div class="row m-b-lg">
+  <div class="row mb-2">
     <div class="col-md-3">
       <div class="student-list-item">
-        <a href="{% url "profiles:educator_dashboard_student_detail" student_id=student.id %}" class="student-list-avatar action-img pull-left">
+        <a href="{% url "profiles:educator_dashboard_student_detail" student_id=student.id %}" class="student-list-avatar action-img float-xs-left">
           <div class="hidden-lg-down">
             {% include "_avatar.html" with profile=student.profile  width=48 height=48 crop='thumb' gravity='faces' %}
           </div>
