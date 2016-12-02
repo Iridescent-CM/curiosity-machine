@@ -20,6 +20,29 @@ python manage.py runserver
 
 This gets you basically operational. The site won't be terribly intersting with an empty database though.
 
+## Configuration
+
+In development, copying `sample.local.py` to `curiositymachine/local.py` hopefully provides a reasonable starting point,
+although it has the tendency to lag behind the current state of the app config. Please issue pull requests with fixes
+and improvements as you realize they are needed.
+
+### Environment variables
+
+`curiositymachine/settings.py` contains the full app config with some amount of commentary. Many settings are
+pulled from environment variables as we do not use environment-specific configuration files outside of development.
+Some of those variables allow the case-insensitive word "false" to count as False, though it's recommended to use
+the empty string for false and "1" to mean true, which will work if that additional parameter processing gets removed.
+
+### Feature flags
+
+Also, as mentioned in that file, we have a pattern for feature flags where variables beginning with `ENABLE_`
+are processed into a `FEATURE_FLAGS` dictionary and made available throughout the project to toggle different
+behavior. Your best bet to see what feature flags the code currently relies on is to grep for it, or something similar:
+
+```console
+$ grep -ir --include .*py --include .*html --exclude-dir node_modules enable_ .`
+```
+
 ## When Requirements Get Added
 
 From time to time requirements will get added, updated, or removed from the project. In this case running
@@ -42,12 +65,12 @@ database name (or export `DATABASE_URL` to your environment).
 DATABASE_URL=postgres://user:password@localhost:5432/db_name DEBUG=1 python manage.py runserver
 ```
 
-At this point you'll have content, but be lacking many images. (At least 
+At this point you'll have content, but be lacking many images. (At least
 until [#87](https://github.com/Iridescent-CM/curiosity-machine/issues/87) gets addressed.)
 
 ### Job Queues
 
-Jobs like sending email are handled with [django_rq]. 
+Jobs like sending email are handled with [django_rq].
 Run redis, then run the following command to launch a worker.
 
 ```sh
@@ -78,4 +101,4 @@ or to generate an HTML report in `./htmlcov/index.html` use `make cov` or `make 
 
 ## Error Pages
 
-Error pages under `curiositymachine/static/errors/` can be used on Heroku as specified [here](https://devcenter.heroku.com/articles/error-pages). 
+Error pages under `curiositymachine/static/errors/` can be used on Heroku as specified [here](https://devcenter.heroku.com/articles/error-pages).
