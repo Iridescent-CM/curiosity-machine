@@ -20,7 +20,7 @@
       <h1>New Password for {{username}}</h1>
     </div>
 
-    <div class="container m-b-xl">
+    <div class="container mb-3">
       <p class="text-xs-center">Type your new password twice to confirm it.</p>
       <form method="post" action="{% url "password_reset_reset" token %}">
         {% csrf_token %}
