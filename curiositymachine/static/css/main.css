@@ -6013,7 +6013,8 @@ header {
 
 .logo-sm {
   height: 30px;
-  margin-top: 15px; }
+  margin-top: 10px;
+  margin-bottom: 10px; }
 
 .avatar img {
   width: 40px;
@@ -6043,6 +6044,8 @@ header {
   .navbar .nav-item .btn {
     padding: 7px 17px;
     margin-top: 9px; }
+  .navbar .nav-item .btn-primary {
+    color: #fff; }
 
 .navbar-toggler {
   text-transform: uppercase;
@@ -6052,17 +6055,24 @@ header {
   float: right;
   border: 0px;
   background-color: transparent;
-  cursor: pointer; }
+  background-image: none !important;
+  cursor: pointer;
+  color: #00B1C3 !important; }
 
 @media (min-width: 992px) {
   .navbar-toggleable-md {
     display: block !important; } }
 
+@media (max-width: 575px) {
+  .navbar-toggler {
+    width: inherit;
+    height: inherit;
+    padding-right: 0px; } }
+
 /* Small screen nav styling */
 @media (max-width: 991px) {
   .navbar-toggler {
-    line-height: 60px;
-    padding: 0; }
+    line-height: 35px; }
   .navbar-brand .logo {
     height: 60px;
     margin: 0; }
