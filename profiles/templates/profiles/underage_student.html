@@ -1,18 +1,18 @@
 {% extends "curiositymachine/layout/base.html" %}
 
 {% block content %}
-  <div class="container-fluid text-center jumbotron-green">
+  <div class="container-fluid text-xs-center jumbotron-green">
     <h1>Activate Your Child’s Account</h1>
   </div>
 
   <div class="container">
 
     <div class="row">
-      <div class="col-lg-8 col-lg-push-2 m-b-md">
+      <div class="col-lg-8 offset-lg-2 mb-2">
         <p>
-          Curiosity Machine users can post pictures and videos of their projects and interact with mentors in the Curiosity Machine community. To activate an account for a user under 13 years old, a parent or guardian must send us a signed consent form. This is in accordance with the <a href="https://en.wikipedia.org/wiki/Children's_Online_Privacy_Protection_Act">Children’s Online Privacy Protection Act</a> (COPPA). 
+          Curiosity Machine users can post pictures and videos of their projects and interact with mentors in the Curiosity Machine community. To activate an account for a user under 13 years old, a parent or guardian must send us a signed consent form. This is in accordance with the <a href="https://en.wikipedia.org/wiki/Children's_Online_Privacy_Protection_Act">Children’s Online Privacy Protection Act</a> (COPPA).
         </p>
-        <div class="text-center">
+        <div class="text-xs-center">
           <a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf" class="btn btn-primary">
             Download Parent Consent Form
           </a>
@@ -21,15 +21,15 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-6 col-lg-push-3 m-b-md">
-        <p class="text-center">
-          To activate the account of your child under 13 years old, please send us a completed Parent Consent Form: 
+      <div class="col-lg-6 offset-lg-3 mb-2">
+        <p class="text-xs-center">
+          To activate the account of your child under 13 years old, please send us a completed Parent Consent Form:
         </p>
         <dl>
           <dt>Via E-mail</dt>
           <dd>
             Send to <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>
-            You can print the document, sign, scan or photograph, and email it to us or complete the consent form electronically using Adobe Acrobat Reader.  
+            You can print the document, sign, scan or photograph, and email it to us or complete the consent form electronically using Adobe Acrobat Reader.
           </dd>
           <dt>Via Fax</dt>
           <dd>Fax to (888) 519-0108 with the title “COPPA Parent Consent”</dd>
@@ -40,12 +40,12 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-8 col-lg-push-2 text-center m-b-lg">
+      <div class="col-lg-8 offset-lg-2 text-xs-center mb-3">
         <p>
           When we receive your Parent Consent Form, we will unlock your child’s account.
         </p>
         <p>
-          In the meantime, you can check out our design challenges and decide what to build first! 
+          In the meantime, you can check out our design challenges and decide what to build first!
         </p>
         <div>
           <a href="{% url "challenges:challenges" %}" class="btn btn-primary">
