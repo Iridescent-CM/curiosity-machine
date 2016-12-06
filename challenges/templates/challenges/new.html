@@ -12,7 +12,7 @@
 
   <div class="container">
     <div class="challenges-navigation col-md-5 col-lg-4 col-xl-3">
-      <h4 class="all-challenges-header text-center hidden-md-min-down">Categories</h4>
+      <h4 class="all-challenges-header text-center hidden-sm-down">Categories</h4>
       <button class="filter-theme-toggle collapsed hidden-md-up btn btn-block btn-green"
         data-toggle="collapse" data-target="#filter-theme-list"
         aria-expanded="false" aria-controls="filter-theme-list"
@@ -118,7 +118,7 @@
             {% endif %}
 
             {% if forloop.counter|divisibleby:3 %}
-              <div class="clearfix hidden-xl-min-down"></div>
+              <div class="clearfix hidden-lg-down"></div>
             {% endif %}
 
           {% endfor %}
