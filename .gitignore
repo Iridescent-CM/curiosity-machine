@@ -4,6 +4,7 @@ staticfiles
 *.pot
 *.pyc
 .DS_Store
+.agignore
 curiositymachine/local.py
 **/node_modules
 .coverage
