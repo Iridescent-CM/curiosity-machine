@@ -7,22 +7,22 @@
 
 {% include 'profiles/educator/dashboard/_header.html' %}
 
-<div class="container m-b-lg">
+<div class="container mb-3">
 
   {% include 'profiles/educator/dashboard/_navigation.html' with activeNav="students" %}
 
   {% if membership_selection.no_memberships %}
-  <div class="row p-b">
+  <div class="row pb-1">
     <div class="col-md-12">
       <h2>Students</h2>
-      <div class="dotted-well text-center">
+      <div class="dotted-well text-xs-center">
         <h3>Connect your classroom</h3>
         <p>Keep track of student activity on design challenges with a Curiosity Machine membership. <a href="{% url 'about-membership' %}">Learn more about memberships</a> and fill out the interest form below.</p>
-        <div class="text-center">
+        <div class="text-xs-center">
           <a href="https://docs.google.com/forms/d/1DH10-vj1U7x93LTwPX6FoJRF1WyH2eRhVtZ46XkdD78/viewform" class="btn btn-primary">View Form</a>
         </div>
         <div class="row">
-          <div class="col-md-10 col-md-offset-1 m-t-lg">
+          <div class="col-md-10 offset-md-1 mt-3">
             <img src="{% static 'images/dashboards/membership-student-features.png' %}">
           </div>
         </div>
@@ -31,11 +31,11 @@
   </div>
 
   {% else %}
-  <div class="row p-b">
+  <div class="row pb-1">
     <div class="col-md-12">
       <h2>{{ membership.display_name }} Students</h2>
       {% if students %}
-      <div class="dropdown pull-right">
+      <div class="dropdown float-xs-right">
         <a class="dropdown-toggle action-img" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sort by {{ sorter.selected|lower }}
         </a>
@@ -90,7 +90,7 @@
           </span>
 
           <div class="collapse" id="collapse-{{ student.id }}">
-            <div class="p-t p-b">
+            <div class="py-1">
               <span class="student-inline-birthday">
                 <strong>Birthday:</strong>
                 {% if student.profile.birthday %}

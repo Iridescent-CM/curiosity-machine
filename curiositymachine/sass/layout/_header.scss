@@ -14,7 +14,8 @@ header {
 
 .logo-sm {
   height: 30px;
-  margin-top: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .avatar img {
@@ -52,6 +53,9 @@ header {
       padding: 7px 17px;
       margin-top: 9px;
     }
+    .btn-primary {
+      color: #fff;
+    }
   }
 }
 
@@ -63,7 +67,9 @@ header {
   float: right;
   border: 0px;
   background-color: transparent;
+  background-image: none !important;
   cursor: pointer;
+  color: $primary-blue !important;
 }
 
 .navbar-toggleable-md {
@@ -72,11 +78,18 @@ header {
   }
 }
 
+@include media-breakpoint-down(xs) {
+  .navbar-toggler {
+    width: inherit;
+    height: inherit;
+    padding-right: 0px;
+  }
+}
+
 /* Small screen nav styling */
 @include media-breakpoint-down(md) {
   .navbar-toggler {
-    line-height: 60px;
-    padding: 0;
+    line-height: 35px;
   }
 
   .navbar-brand {

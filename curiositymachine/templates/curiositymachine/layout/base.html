@@ -80,7 +80,7 @@
 </head>
 <body id="{% block body-id %}{% endblock %}" class="{% block body-classes %}{% endblock %}">
   <noscript>
-    <p class="alert alert-danger m-b-0">
+    <p class="alert alert-danger mb-0">
       For full functionality of this site it is necessary to enable JavaScript.
       Here are the <a href="http://www.enable-javascript.com/" target="_blank">
       instructions how to enable JavaScript in your web browser</a>.
@@ -95,7 +95,7 @@
     </p>
   <![endif]-->
   {% if SITE_MESSAGE %}
-    <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }} m-b-0" role="alert">
+    <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }} mb-0" role="alert">
       {{ SITE_MESSAGE|safe }}
     </div>
   {% endif %}

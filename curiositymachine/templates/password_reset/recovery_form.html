@@ -5,11 +5,11 @@
 {% block body-classes %}password-change{% endblock %}
 
 {% block content %}
-<div class="container-fluid text-center jumbotron-green">
+<div class="container-fluid text-xs-center jumbotron-green">
   <h1>Reset Password</h1>
 </div>
-<div class="container m-b-xl">
-  <p class="text-center">
+<div class="container mb-3">
+  <p class="text-xs-center">
     Type in your username and we'll send a link to your email to reset your password.
   </p>
   <form method="post" action="{{ url }}">
@@ -22,7 +22,7 @@
           <small class="text-muted help-block">{{ error }}</small>
         {% endfor %}
       </fieldset>
-      <input type="submit" class="btn btn-primary btn-lg pull-right" value="Send" class="default" />
+      <input type="submit" class="btn btn-primary btn-lg float-xs-right" value="Send" class="default" />
     </div>
   </form>
 </div>

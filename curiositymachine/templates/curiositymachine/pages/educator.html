@@ -8,11 +8,11 @@
 {% block content %}
   {{ block.super }}
 
-  <div class="container p-b-lg">
+  <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-lg-push-2 col-md-10 col-md-push-1 m-t-lg">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
         <h2>Bring Engineering to Your Classroom</h2>
-        <h3 class="m-b-lg">Teach hands-on science with simple materials.</h3>
+        <h3 class="mb-3">Teach hands-on science with simple materials.</h3>
         <p>With the engineering design process as a guide, your students will plan, build, and test their designs. They’ll document each step on Curiosity Machine, where you can create groups and add your students to see their progress.</p>
 
         <p>Educators everywhere are using Curiosity Machine in:</p>
@@ -26,7 +26,7 @@
 
         <img class="img-rounded" src="{% static 'images/about/classroom-example.jpg' %}" alt="Teacher and child build together">
 
-        <hr class="hr-red m-b-lg"/>
+        <hr class="hr-red mb-3"/>
 
         <h2>Curiosity Machine for Schools: Become a Member</h2>
         <p>Anyone can create an account and access Curiosity Machine’s videos, design challenges, and Educator resources for free.</p>
@@ -38,15 +38,15 @@
           <li>Support from Curiosity Machine staff</li>
         </ul>
 
-        <div class="text-center">
+        <div class="text-xs-center">
           <a class="btn btn-primary" href="{% url "about-membership" %}">Become a Member</a>
         </div>
 
-        <hr class="hr-red m-b-lg"/>
+        <hr class="hr-red mb-3"/>
 
         <h2>Educator Resources</h2>
         <h3>Units</h3>
-        <p class="text-center">Choose a series of Curiosity Machine design challenges, or create your own!</p>
+        <p class="text-xs-center">Choose a series of Curiosity Machine design challenges, or create your own!</p>
       </div>
     </div>
 
@@ -107,15 +107,15 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-8 col-lg-push-2 col-md-10 col-md-push-1 m-t-lg">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-3">
         <h3 class="m-y-md">NGSS Alignment</h3>
         <p>Want to do hands-on projects and hit standards at the same time? Curiosity Machine has you covered. Our design challenges are aligned to elementary NGSS standards, and middle school alignment is on the way.</p>
 
-        <div class="text-center">
+        <div class="text-xs-center">
           <a href="https://s3.amazonaws.com/curiositymachine/statics/Curiosity_Machine_NGSS_Alignment_K-8.pdf" class="btn btn-primary" data-ga-track="pageview" data-ga-page="ngss-k-8">View NGSS K-8 Alignment</a>
         </div>
 
-        <h3 class="m-t-lg">More Resources</h3>
+        <h3 class="mt-3">More Resources</h3>
         <ul>
           <li><a href="https://s3.amazonaws.com/curiositymachine/statics/guide-to-great-submissions.pdf">Guide to Great Submissions</a></li>
           <li><a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">Under 13 Consent Form</a></li>
@@ -126,7 +126,7 @@
     </div>
   </div>
 
-  <div class="sign-up-panel p-y-xl">
+  <div class="sign-up-panel py-3">
     <h2>Create an Educator Account!</h2>
     <a href="{% url "profiles:join_as_educator" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
   </div>

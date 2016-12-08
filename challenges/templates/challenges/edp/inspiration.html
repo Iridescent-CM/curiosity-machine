@@ -13,11 +13,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron-fluid jumbotron-dark-pattern m-b-lg">
+<div class="jumbotron-fluid jumbotron-dark-pattern mb-3">
   <div class="container">
     <div class="hero">
-      <div class="hero-text text-center p-a-md">
-        <h1 class="light-type m-b-md">{{ challenge.name }}</h1>
+      <div class="hero-text text-xs-center p-2">
+        <h1 class="light-type mb-2">{{ challenge.name }}</h1>
         <h3>{{ challenge.description }}</h3>
         {% block jumbotron_message %}
         {% endblock %}
@@ -37,8 +37,8 @@
 <div class="container">
   {% block body_rows %}
   <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <div class="card card-module m-b-lg" id="inspiration-video">
+    <div class="col-md-10 offset-md-1">
+      <div class="card card-module mb-3" id="inspiration-video">
         <div class="card-block card-block-title">
           <h4 class="card-title red-type">Inspiration Video</h4>
         </div>
@@ -70,7 +70,7 @@
   <div class="row">
 
     <div class="col-md-{{ col_width|default:6 }}">
-      <div class="card card-module m-b-lg">
+      <div class="card card-module mb-3">
         <div class="card-block card-block-title">
           <h4 class="card-title red-type">Suggested Materials</h4>
         </div>
@@ -81,14 +81,14 @@
     </div>
 
     <div class="col-md-{{ col_width|default:6 }}">
-      <div class="card card-module m-b-lg">
+      <div class="card card-module mb-3">
         <div class="card-block card-block-title">
           <h4 class="card-title red-type">Difficulty Level</h4>
         </div>
         <div class="card-block">
           <div class="row m-b">
             {% for level in challenge_difficulties %}
-            <div class="col-xs-4 text-center">
+            <div class="col-xs-4 text-xs-center">
               {% if challenge.difficulty_level == level.0 %}
               <span class="active-level">{{ level.1 }}</span>
               {% else %}
@@ -111,7 +111,7 @@
           </p>
           {% endif %}
         </div>
-        <div class="card-footer text-center">
+        <div class="card-footer text-xs-center">
           <small><em>(This is the difficulty level for a typical 4th grade classroom. Modify as needed for other age groups.)</em></small>
         </div>
       </div>
@@ -120,11 +120,11 @@
     {% if resources %}
     {% block resources %}
     <div class="col-md-4">
-      <div class="card card-module m-b-lg">
+      <div class="card card-module mb-3">
         <div class="card-block card-block-title">
           <h4 class="card-title red-type">Educator Resources</h4>
         </div>
-        <div class="card-block text-center">
+        <div class="card-block text-xs-center">
           <span class="resources-book"><i class="icon-open-book"></i></span>
           This design challenge has downloadable resources available.
         </div>
