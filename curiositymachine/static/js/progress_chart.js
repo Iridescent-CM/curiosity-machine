@@ -1,6 +1,21 @@
+/* Progress charts!
+ * Code organized as described in https://bost.ocks.org/mike/chart/
+ *
+ * Example usages:
+ *
+ *   var chart = progressChart();
+ *   d3.selectAll("svg")
+ *     .data(...)
+ *     .call(chart);
+ *
+ *   var chart = progressChart()
+ *     .domainMax(10)                // actual config options may change, this illustrates call pattern
+ *     .dotSize(.5);                 // see code below for available config
+ *   d3.selectAll("svg")
+ *     .data(...)
+ *     .call(chart);
+ */
 function progressChart() {
-  var width = 600;
-  var height = 175;
   var domainMax = 20;
   var dotSize = 0.4; // diameter as % of color bar height
 
@@ -8,12 +23,21 @@ function progressChart() {
   var yPadding = 15;
   var stages = ["Plan", "Build", "Test", "Reflect"];
 
+  /* chart(selection)
+   * Expects selection of svgs with viewBoxes set to desired size
+   */
   function chart(selection) {
     selection.each(function(entry, i) {
       var values = entry["values"].map(function(val, idx){
         val["idx"] = idx;
         return val;
       });
+
+      /* svg */
+      var svg = d3.select(this);
+      var viewBox = svg.property("viewBox").baseVal;
+      var width = viewBox.width - (2 * xPadding);
+      var height = viewBox.height - (2 * yPadding);
 
       /* scales */
       var x = d3.scaleLinear()
@@ -30,15 +54,6 @@ function progressChart() {
       var isStudentPost = function(d) { return d["user_role"] == 1; };
       var giveX = function(d, i) { return x(getIndex(d)); };
       var giveY = function (d) { return y(getStageValue(d)); };
-
-      /* svg */
-      var vbx = width + 2 * xPadding;
-      var vby = height + 2 * yPadding;
-
-      var svg = this.tagName == 'svg' ? d3.select(this) : d3.select(this).append("svg");
-
-      svg.attr("preserveAspectRatio", "xMinYMin meet")
-        .attr("viewBox", "0 0 " + vbx + " " + vby);
 
       /* main padding group */
       var main = svg.append("g")
@@ -205,18 +220,6 @@ function progressChart() {
 
     });
   }
-
-  chart.width = function(value) {
-    if (!arguments.length) return width;
-    width = value;
-    return chart;
-  };
-
-  chart.height = function(value) {
-    if (!arguments.length) return height;
-    height = value;
-    return chart;
-  };
 
   chart.domainMax = function(value) {
     if (!arguments.length) return domainMax;

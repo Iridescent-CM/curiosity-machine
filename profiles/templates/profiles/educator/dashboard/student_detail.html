@@ -98,8 +98,7 @@
 
         <div class="graph">
           <img class="spinner" src="{% static "images/load-bot-gear.gif" %}" alt="Loading" />
-          {% comment %} TODO: reconcile sizing here with sizing in the chart library {% endcomment %}
-          <svg viewBox="0 0 700 205" data-pid="{{ progress.id }}"></svg>
+          <svg viewBox="0 0 700 205" preserveAspectRatio="xMinYMin meet" data-pid="{{ progress.id }}"></svg>
           <div class="error-message">
             <img src="{% static "images/worried-bot.svg" %}" alt="Error" />
             <p>
