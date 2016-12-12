@@ -184,33 +184,6 @@ $(document).ready(function() {
     itemsScaleUp : false
   });
 
-  // $('.theme-carousel').owlCarousel({
-  //   items : 6,
-  //   itemsCustom : false,
-  //   itemsDesktop : [1199,6],
-  //   itemsDesktopSmall : [980,4],
-  //   itemsTablet: [768,3],
-  //   itemsTabletSmall: false,
-  //   itemsMobile : [479,1],
-  //   singleItem : false,
-  //   itemsScaleUp : false
-  // });
-
-  //====== end carousel setup
-
-  // $('.image-gallery .image-container').on('click', function() {
-  //   var image = $(this).clone();
-  //   var modalContent = $('#galleryModal .modal-content');
-  //   var header = '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h2>&nbsp;</h2></div>';
-  //   console.log(header);
-  //   modalContent.empty();
-  //
-  //   modalContent.append(header);
-  //   modalContent.append(image);
-  //   image.wrap('<div class="modal-body"></div>');
-  //
-  // });
-
   //this shows or hides the button on challenge details page depending on if the video is playing
 
   $('.challenge-details-hero .cm-mejs-player').on('pause', function() {
