@@ -32,6 +32,7 @@ TEMPLATE_DEBUG = DEBUG
 TEST_RUNNER = "django_pytest.test_runner.TestRunner"
 
 DEBUG_TOOLBAR = os.environ.get('DEBUG_TOOLBAR', False)
+DEBUG_HTML = os.environ.get('DEBUG_HTML', False)
 
 COMPRESS_ENABLED = process_false_string(os.environ.get('COMPRESS_ENABLED', False)) # no compression by default for now
 
@@ -383,3 +384,10 @@ if ROLLBAR_SERVER_SIDE_ACCESS_TOKEN:
 # Conditionally install the debug toolbar
 if DEBUG and DEBUG_TOOLBAR:
     INSTALLED_APPS += ('debug_toolbar',)
+
+if DEBUG and DEBUG_HTML:
+    HTMLVALIDATOR_ENABLED = True
+    HTMLVALIDATOR_FAILFAST = os.environ.get("HTMLVALIDATOR_FAILFAST", False)
+    HTMLVALIDATOR_OUTPUT = 'stdout'  # default is 'file'
+    HTMLVALIDATOR_VNU_URL = 'http://localhost:8888/' # run with `java -cp vnu.jar nu.validator.servlet.Main 8888`
+    MIDDLEWARE_CLASSES += ("htmlvalidator.middleware.HTMLValidator",)
