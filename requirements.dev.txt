@@ -2,6 +2,6 @@
 -r ./requirements.txt
 
 # and some development-only extras
-django-debug-toolbar==1.2.2
+django-debug-toolbar==1.5
 pyquery==1.2.11
 pytest-cov==2.2.1
