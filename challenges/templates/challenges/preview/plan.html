@@ -27,7 +27,6 @@
         <div class="panel panel-bubble edp-comments">
           <div class="panel-body">
             <h3>Post your plan!</h3>
-            {% include "_comment_action_list_guest.html" %}
           </div>
         </div>
 
@@ -55,7 +54,7 @@
               <div class="current-materials">
                 {{ challenge.materials_list|safe }}<br>
               </div>
-              <button class="btn btn-primary" data-toggle="modal" data-target="#guest-modal">Edit Materials</button>
+              <button class="btn btn-primary" disabled="disabled">Edit Materials</button>
             </div>
           </div>
         </div><!-- materials-list -->
