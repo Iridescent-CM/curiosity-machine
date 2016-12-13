@@ -2,12 +2,12 @@
 
 <div class="expandable-card">
   <div>
-    <a href="{% url "units:unit" unit_id=unit.id %}" class="action-img">
+    <a href="{% url "units:unit" unit_id=unit.id %}" class="a-borderless">
       <img class="float-xs-left mr-1" src="{% resized unit.image.url width=165 height=165 crop='thumb' %}" alt="{{ unit.name }}">
     </a>
     <div class="expandable-card-title">
       <h3>
-        <a href="{% url "units:unit" unit_id=unit.id %}" class="action-img">
+        <a href="{% url "units:unit" unit_id=unit.id %}" class="a-borderless">
           {{ unit.name }}
         </a>
       </h3>

@@ -126,13 +126,13 @@
       <div class="col-lg-3 col-sm-6">
         <div class="card">
           <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
-            <img class="card-img-top action-img" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+            <img class="card-img-top a-borderless" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
             {% if not example.approved %}
               <div class="pending"><em>Pending Approval!</em></div>
             {% endif %}
           </a>
           {% if example == user_example %}
-          <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="action-img remove-example">
+          <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="a-borderless remove-example">
               &times;
           </a>
           {% endif %}
