@@ -148,6 +148,10 @@
     </div>
   </footer>
 
+  <!-- global modals -->
+  {% include "profiles/join_modal.html" %}
+  {% include "registration/_login_modal.html" with form=login_form %}
+
   <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
   {% compress js %}
     <script src="{% static 'js/log.js' %}"></script>
