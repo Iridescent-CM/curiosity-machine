@@ -59,9 +59,6 @@ class Membership(models.Model):
 
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
-        if not settings.FEATURE_FLAGS.get('enable_membership_access_controls', False):
-            return challenge_ids
-
         if user.is_authenticated() and (user.is_staff or user.profile.is_mentor):
             return challenge_ids
 
@@ -73,9 +70,6 @@ class Membership(models.Model):
 
     @classmethod
     def share_membership(cls, username1, username2):
-        if not settings.FEATURE_FLAGS.get('enable_membership_access_controls', False):
-            return False
-
         return Member.objects.filter(user__username=username1, membership__members__username=username2).exists()
 
     def limit_for(self, role):
