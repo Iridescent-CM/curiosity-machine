@@ -52,7 +52,7 @@ the following command should get your environment up to date:
 pip install -r requirements.txt
 ```
 
-### Data
+## Data
 
 One quick way to get going is to clone the Heroku staging database to your local machine and use that, assuming you're
 a contributor to the project on Heroku. This can be achieved with the [Heroku Toolbelt](https://toolbelt.heroku.com/) and
@@ -68,7 +68,7 @@ DATABASE_URL=postgres://user:password@localhost:5432/db_name DEBUG=1 python mana
 At this point you'll have content, but be lacking many images. (At least
 until [#87](https://github.com/Iridescent-CM/curiosity-machine/issues/87) gets addressed.)
 
-### Job Queues
+## Job Queues
 
 Jobs like sending email are handled with [django_rq].
 Run redis, then run the following command to launch a worker.
@@ -91,6 +91,19 @@ python manage.py rqscheduler
 ```
 
 [rq-scheduler]: https://github.com/ui/rq-scheduler
+
+## Project conventions
+
+We don't have a ton of formal conventions, outside of "be reasonable", but we have one in particular to document here for now.
+
+### Template formatting
+
+For indendation, I like the advice [in this conversation](http://stackoverflow.com/questions/18456549/django-template-indentation-guideline#answer-31034928):
+
+1. Django tag does NOT increase the indentation level
+2. HTML tag does increase the indentation level
+
+If template logic is complicated enough to be hard to read without additional indentation, it probably belongs in the view, not the template.
 
 ## Tests
 
