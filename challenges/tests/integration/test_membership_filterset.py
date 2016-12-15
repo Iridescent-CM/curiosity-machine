@@ -54,6 +54,19 @@ def test_apply_on_inaccessible_memberships(rf):
     assert request._messages.add.called
 
 @pytest.mark.django_db
+def test_apply_on_inactive_memberships(rf):
+    membership = MembershipFactory(is_active=False)
+
+    request = rf.get('/challenges/', {"membership": membership.id})
+    request.user = UserFactory()
+    request._messages = MagicMock()
+
+    f = MembershipChallenges(request)
+    title, challenges, response = f.apply()
+    assert type(response) == HttpResponseRedirect
+    assert request._messages.add.called
+
+@pytest.mark.django_db
 def test_apply_successful(rf):
     user = UserFactory()
     challenges = ChallengeFactory.create_batch(3)
@@ -93,3 +106,15 @@ def test_builds_template_context(rf):
             "full_url": "/challenges/?membership=%d#challenges" % membership2.id
         }
     ]
+
+@pytest.mark.django_db
+def test_template_context_skips_inactive(rf):
+    user = UserFactory()
+    membership1 = MembershipFactory(members=[user], is_active=False)
+
+    request = rf.get('/challenges/')
+    request.user = user
+    request._messages = MagicMock()
+
+    f = MembershipChallenges(request)
+    assert f.get_template_contexts() == []

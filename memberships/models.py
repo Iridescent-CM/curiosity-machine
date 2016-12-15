@@ -70,13 +70,13 @@ class Membership(models.Model):
 
         query = Q(id__in=challenge_ids, free=True)
         if user.is_authenticated():
-            query = query | Q(id__in=challenge_ids, membership__members=user)
+            query = query | Q(id__in=challenge_ids, membership__members=user, membership__is_active=True)
 
         return Challenge.objects.filter(query).values_list('id', flat=True)
 
     @classmethod
     def share_membership(cls, username1, username2):
-        return Member.objects.filter(user__username=username1, membership__members__username=username2).exists()
+        return Member.objects.filter(user__username=username1, membership__members__username=username2, membership__is_active=True).exists()
 
     def limit_for(self, role):
         obj = self.memberlimit_set.filter(role=role).first()

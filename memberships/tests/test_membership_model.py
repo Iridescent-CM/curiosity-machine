@@ -63,9 +63,28 @@ def test_filter_by_challenge_access_user_type_exemptions():
     assert set(Membership.filter_by_challenge_access(staff, [challenge.id])) == set([challenge.id])
 
 @pytest.mark.django_db
+def test_filter_by_challenge_access_for_inactive_membership():
+    challenge1 = ChallengeFactory()
+    challenge2 = ChallengeFactory()
+    user = StudentFactory()
+    membership = MembershipFactory(members=[user], challenges=[challenge1])
+
+    assert set(Membership.filter_by_challenge_access(user, [challenge1.id, challenge2.id])) == set([challenge1.id])
+    membership.is_active = False
+    membership.save()
+    assert not Membership.filter_by_challenge_access(user, [challenge1.id, challenge2.id])
+
+@pytest.mark.django_db
 def test_share_membership():
     users = UserFactory.create_batch(3)
     membership = MembershipFactory(members=users[0:2])
 
     assert Membership.share_membership(users[0].username, users[1].username)
     assert not Membership.share_membership(users[0].username, users[2].username)
+
+@pytest.mark.django_db
+def test_share_membership_for_inactive():
+    users = UserFactory.create_batch(2)
+    membership = MembershipFactory(members=users, is_active=False)
+
+    assert not Membership.share_membership(users[0].username, users[1].username)
