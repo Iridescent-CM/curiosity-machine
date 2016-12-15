@@ -117,7 +117,7 @@ or to generate an HTML report in `./htmlcov/index.html` use `make cov` or `make 
 To validate HTML while running tests or using the app, set ```DEBUG_HTML=1``` in your environment to turn on `django-html-validator`.
 
 By default it is configured here to expect a local validation server to be running at port 8888. Download the validator jar 
-from https://github.com/validator/validator/releases and run it with `java -cp vnu.jar nu.validator.servlet.Main 8888`. Validation
+from https://github.com/validator/validator/releases and run it with `java -cp /path/to/vnu.jar nu.validator.servlet.Main 8888` where `/path/to/vnu.jar` is the path to wherever you've put the downloaded jar file. Validation
 output will dump to stdout. 
 
 ## Error Pages
