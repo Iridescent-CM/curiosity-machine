@@ -34,6 +34,12 @@ class Membership(models.Model):
         null=True,
         blank=True,
     )
+    is_active = models.BooleanField(
+        "Active",
+        null=False,
+        default=True,
+        help_text="Designates whether a membership is considered active. Unselect this when a membership expires instead of deleting it."
+    )
     notes = models.TextField(
         null=True,
         blank=True,
