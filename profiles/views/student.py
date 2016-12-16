@@ -50,7 +50,7 @@ def home(request):
     completed_progresses = [progress for progress in progresses if progress.completed]
     active_progresses = [progress for progress in progresses if not progress.completed]
     connections = ParentConnection.objects.filter(child_profile=request.user.profile, removed=False)
-    memberships = request.user.membership_set.all()
+    memberships = request.user.membership_set.filter(is_active=True)
     return render(request, "profiles/student/home.html", {
         'active_progresses': active_progresses, 
         'completed_progresses': completed_progresses, 
