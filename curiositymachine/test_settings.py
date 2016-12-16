@@ -23,5 +23,4 @@ MEDIA_ROOT = gettempdir()
 #       with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_whatever': True}):
 #               ...
 FEATURE_FLAGS={
-    'enable_new_educator_dashboard': True,
 }

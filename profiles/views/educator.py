@@ -56,14 +56,6 @@ def profile_edit(request):
 @login_required
 @membership_selection
 def home(request, membership_selection=None):
-    if not settings.FEATURE_FLAGS.get('enable_new_educator_dashboard', False):
-        return render(request, "profiles/educator/home.html", {
-            'form': GroupForm(),
-            'groups': request.user.cm_groups.all(),
-            'units': Unit.objects.filter(listed=True).order_by('id'),
-            'memberships': request.user.membership_set.all()
-        })
-
     core_challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
 
     membership_challenges = []
