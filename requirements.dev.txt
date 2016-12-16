@@ -5,3 +5,4 @@
 django-debug-toolbar==1.5
 pyquery==1.2.11
 pytest-cov==2.2.1
+django-html-validator==0.4.7
