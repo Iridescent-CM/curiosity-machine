@@ -62,7 +62,7 @@
                 {% if challenge.started %}
                   <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
                   {% else %}
-                  <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
+                  <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
                 {% endif %}
                 {% if challenge.image %}
                   <img class="card-img-top" src="{% resized challenge.image.url width=300 height=190 crop='fill' %}" alt="{{challenge.name}}">

@@ -11,7 +11,6 @@ module.exports = function(grunt) {
         },
         files: {
           "./curiositymachine/static/css/base.css": "./curiositymachine/static/less/cm_bootstrap.less",
-          "./curiositymachine/static/css/filepicker.css": "./curiositymachine/static/less/pages/filepicker.less",
         }
       }
     },

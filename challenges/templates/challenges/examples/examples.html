@@ -34,7 +34,7 @@
 
     <!-- student who has started the design challenge but not posted in Reflect progress -->
     {% if progress and not progress.completed %}
-    <div id="student-in-progress" class="examples-page-alerts text-xs-center pa-2 my-2">
+    <div id="student-in-progress" class="examples-page-alerts text-xs-center p-2 my-2">
       <h3>You are working on this design challenge!</h3>
       <p>Complete your project and post in Reflect. Then you can share your design here!</p>
       <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Keep Working</a>
@@ -126,13 +126,13 @@
       <div class="col-lg-3 col-sm-6">
         <div class="card">
           <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
-            <img class="card-img-top action-img" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+            <img class="card-img-top a-borderless" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
             {% if not example.approved %}
               <div class="pending"><em>Pending Approval!</em></div>
             {% endif %}
           </a>
           {% if example == user_example %}
-          <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="action-img remove-example">
+          <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="a-borderless remove-example">
               &times;
           </a>
           {% endif %}

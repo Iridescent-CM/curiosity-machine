@@ -1,12 +1,12 @@
 {% load resized %}
 <div class="expandable-card">
   <div>
-    <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
+    <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
       <img class="float-xs-left mr-1" src="{% resized challenge.image.url width=165 height=165 crop='thumb' %}" alt="{{ challenge.name }}">
     </a>
     <div class="expandable-card-title">
       <h3>
-        <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="action-img">
+        <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
           {{ challenge.name }}
         </a>
       </h3>

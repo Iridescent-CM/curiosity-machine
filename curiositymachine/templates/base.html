@@ -110,8 +110,8 @@
   <footer class="temp-footer">
     <div class="container-fluid newsletter-panel">
       <div class="text-center">
-        <a href="https://twitter.com/Curious_Machine" class="action-img"><i class="icon-twitter social-icons"></i></a>
-        <a href="https://www.facebook.com/curiositymachine" class="action-img"><i class="icon-facebook social-icons"></i></a>
+        <a href="https://twitter.com/Curious_Machine" class="a-borderless"><i class="icon-twitter social-icons"></i></a>
+        <a href="https://www.facebook.com/curiositymachine" class="a-borderless"><i class="icon-facebook social-icons"></i></a>
         <h4>Newsletter</h4>
         <p>Stay up to date with Curiosity Machine. We'll never spam you or share your email.</p>
         <form action="//iridescentlearning.us4.list-manage.com/subscribe/post?u=b10254bbb5db780d1af913317&amp;id=5c4692fa5b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
@@ -132,7 +132,7 @@
     <div class="container-fluid footer-panel">
       <div class="row">
         <div class="col-sm-6 text-center text-md-left">
-          <a href="/" class="action-img logo">
+          <a href="/" class="a-borderless logo">
             <img src="{% static 'images/cm-logo.svg' %}" alt="Curiosity Machine Iridescent">
           </a>
           <p class="help">Need help? Email <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.</p>
@@ -151,7 +151,6 @@
   <!-- global modals -->
   {% include "profiles/join_modal.html" %}
   {% include "registration/_login_modal.html" with form=login_form %}
-  <!-- /global modals -->
 
   <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
   {% compress js %}

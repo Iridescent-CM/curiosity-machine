@@ -36,7 +36,7 @@
       <h2>{{ membership.display_name }} Students</h2>
       {% if students %}
       <div class="dropdown float-xs-right">
-        <a class="dropdown-toggle action-img" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="dropdown-toggle a-borderless" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sort by {{ sorter.selected|lower }}
         </a>
         <div class="dropdown-menu" aria-labelledby="sortDropdown">
@@ -79,7 +79,7 @@
             {% endif %}
           </span>
           <span class="student-list-manage" text-swap>
-            <a class="action-img" data-toggle="collapse" href="#collapse-{{ student.id }}" aria-expanded="false" aria-controls="collapse-{{ student.id }}">
+            <a class="a-borderless" data-toggle="collapse" href="#collapse-{{ student.id }}" aria-expanded="false" aria-controls="collapse-{{ student.id }}">
               <span class="more">
                 <span class="hidden-sm-down">More</span> <i class="icon-right-arrow"></i>
               </span>

@@ -8,8 +8,6 @@ body {
   height: 100%;
 }
 
-.menu-img {width: 100%;}
-
 .temp-header {
   font-family: @headings-font-family;
 }
@@ -43,12 +41,6 @@ body {
   }
 }
 
-//wrap anythign that needs to extend past the left and right gutters with this
-.no-gutters {
-  margin-left: -(@grid-side-gutters);
-  margin-right: -(@grid-side-gutters);
-}
-
 .logo {
   width: 210px;
   display: inline-block;
@@ -63,16 +55,6 @@ body {
   .errorlist {
     padding-left: 1em;
   }
-}
-
-.become-mentor-link {
-  float: right;
-  color: #44b1f5;
-  margin-right: 200px;
-}
-
-.float-left {
-  float: left;
 }
 
 /* widgets? */
@@ -151,7 +133,6 @@ body {
     }
   }
   label {
-    // float: left;
     border-radius: 3px;
     margin: 0;
     color: lighten(@green, 5%);
@@ -271,133 +252,9 @@ body {
   }
 }
 
-.top-avatar {
-    background: rgb(128,206,255); /* Old browsers */
-    background: -moz-linear-gradient(left,  rgba(128,206,255,1) 14%, rgba(128,206,255,1) 14%, rgba(68,177,245,1) 15%, rgba(68,177,245,1) 28%, rgba(132,175,73,1) 29%, rgba(132,175,73,1) 47%, rgba(128,124,119,1) 48%, rgba(128,124,119,1) 61%, rgba(241,98,67,1) 62%, rgba(241,98,67,1) 79%, rgba(128,206,255,1) 80%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(14%,rgba(128,206,255,1)), color-stop(14%,rgba(128,206,255,1)), color-stop(15%,rgba(68,177,245,1)), color-stop(28%,rgba(68,177,245,1)), color-stop(29%,rgba(132,175,73,1)), color-stop(47%,rgba(132,175,73,1)), color-stop(48%,rgba(128,124,119,1)), color-stop(61%,rgba(128,124,119,1)), color-stop(62%,rgba(241,98,67,1)), color-stop(79%,rgba(241,98,67,1)), color-stop(80%,rgba(128,206,255,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left,  rgba(128,206,255,1) 14%,rgba(128,206,255,1) 14%,rgba(68,177,245,1) 15%,rgba(68,177,245,1) 28%,rgba(132,175,73,1) 29%,rgba(132,175,73,1) 47%,rgba(128,124,119,1) 48%,rgba(128,124,119,1) 61%,rgba(241,98,67,1) 62%,rgba(241,98,67,1) 79%,rgba(128,206,255,1) 80%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left,  rgba(128,206,255,1) 14%,rgba(128,206,255,1) 14%,rgba(68,177,245,1) 15%,rgba(68,177,245,1) 28%,rgba(132,175,73,1) 29%,rgba(132,175,73,1) 47%,rgba(128,124,119,1) 48%,rgba(128,124,119,1) 61%,rgba(241,98,67,1) 62%,rgba(241,98,67,1) 79%,rgba(128,206,255,1) 80%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(left,  rgba(128,206,255,1) 14%,rgba(128,206,255,1) 14%,rgba(68,177,245,1) 15%,rgba(68,177,245,1) 28%,rgba(132,175,73,1) 29%,rgba(132,175,73,1) 47%,rgba(128,124,119,1) 48%,rgba(128,124,119,1) 61%,rgba(241,98,67,1) 62%,rgba(241,98,67,1) 79%,rgba(128,206,255,1) 80%); /* IE10+ */
-    background: linear-gradient(to right,  rgba(128,206,255,1) 14%,rgba(128,206,255,1) 14%,rgba(68,177,245,1) 15%,rgba(68,177,245,1) 28%,rgba(132,175,73,1) 29%,rgba(132,175,73,1) 47%,rgba(128,124,119,1) 48%,rgba(128,124,119,1) 61%,rgba(241,98,67,1) 62%,rgba(241,98,67,1) 79%,rgba(128,206,255,1) 80%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ceff', endColorstr='#80ceff',GradientType=1 ); /* IE6-9 */
-    padding-top: 8px;
-    border-radius: 7px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,.3);
-    position: relative;
-    .image-wrapper {
-      padding: 13px 5px 5px 5px;
-      background: @bg-color;
-      .border-bottom-radius(7px);
-      text-align: center;
-      img {
-        width: 80px;
-      }
-      span {
-        display: block;
-        text-align: center;
-        font-weight: 600;
-      }
-    }
-    &:before {
-      content: '';
-      background: url('../images/tag-small.png') top left no-repeat;
-      width: 25px;
-      height: 30px;
-      display: block;
-      position: absolute;
-      left: 50%;
-      margin-left: -12px;
-      top: -8px;
-    }
-}
-
-//gallery modals
-
-#galleryModal {
-  img {
-    width: 100%;
-  }
-}
-
 .image-gallery {
   .image-container img {cursor: pointer}
 }
-
-.introvideocontent {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-  video, .cm-mejs-player {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-////========================
-//// home pge
-
-.home-hero {
-  margin: 0 -(@grid-side-gutters);
-  margin-top: -120px;
-  margin-bottom: 15px;
-  height: 550px;
-  padding: 120px 0 0 65px;
-  background: url('../images/collage2.png') 500px 0px no-repeat, -moz-linear-gradient(top,  rgba(214,227,223,0) 0%, rgba(214,227,223,0) 25%, rgba(214,227,223,1) 100%); /* FF3.6+ */
-  background: url('../images/collage2.png') 500px 0px no-repeat, -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(214,227,223,0)), color-stop(25%,rgba(214,227,223,0)), color-stop(100%,rgba(214,227,223,1))); /* Chrome,Safari4+ */
-  background: url('../images/collage2.png') 500px 0px no-repeat, -webkit-linear-gradient(top,  rgba(214,227,223,0) 0%,rgba(214,227,223,0) 25%,rgba(214,227,223,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: url('../images/collage2.png') 500px 0px no-repeat, -o-linear-gradient(top,  rgba(214,227,223,0) 0%,rgba(214,227,223,0) 25%,rgba(214,227,223,1) 100%); /* Opera 11.10+ */
-  background: url('../images/collage2.png') 500px 0px no-repeat, -ms-linear-gradient(top,  rgba(214,227,223,0) 0%,rgba(214,227,223,0) 25%,rgba(214,227,223,1) 100%); /* IE10+ */
-  background: url('../images/collage2.png') 500px 0px no-repeat, linear-gradient(to bottom,  rgba(214,227,223,0) 0%,rgba(214,227,223,0) 25%,rgba(214,227,223,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00d6e3df', endColorstr='#d6e3df',GradientType=0 ); /* IE6-9 */
-
-  .no-cssgradients & {
-    background: url('../images/collage2.png') 500px 0px no-repeat;
-  }
-
-  h1 {
-    font-size: 70px;
-    font-weight: 300;
-    font-family: "Raleway Dots", "Raleway";
-    line-height: 90px;
-  }
-  h2 {
-    font-size: 22px;
-    line-height: 1.2;
-    margin: 0;
-    &:nth-child(3) {color: @blue;}
-    &:nth-child(4) {color: @green;}
-  }
-  .login-buttons {
-    padding: 0;
-    margin-top: 30px;
-    li {
-      list-style-type: none;
-      float: left;
-      margin-right: 20px;
-      .btn, .btn-link {
-        font-size: 20px;
-      }
-    }
-  }
-}
-
-// educator home
-.membership-list {
-  padding: 30px 0px 15px;
-
-  ul {
-    list-style-type: none;
-    li {
-      max-width: 265px;
-    }
-  }
-}
-
-
 
 //////==========================
 /////  challenges list page
@@ -435,52 +292,6 @@ ol.owl-carousel {
     padding: 3px 10px 0 10px;
   }
 }
-
-.theme-wrapper {
-  padding: 0 (@grid-gutter-width / 2);
-}
-
-.theme-carousel {
-  position: relative;
-  padding-left: 0;
-  .owl-item {
-    padding: 5px;
-    li {
-      list-style-type: none;
-      border: 2px solid transparent;
-      padding: 2px;
-      border-radius: @border-radius-base + 2;
-      &.active {
-        border: 2px solid @orange;
-      }
-      a {
-        background: @green;
-        display: block;
-        height: 100px;
-        border-radius: @border-radius-base;
-        color: #fff;
-        position: relative;
-        .theme-name {
-          position: absolute;
-          left: 10px;
-          bottom: 5px;
-        }
-        .theme-icon {
-          position: absolute;
-          top: 3px;
-          right: 10px;
-          font-size: 70px;
-        }
-        box-shadow: 2px 2px 2px rgba(0,0,0,.2);
-      }
-    }
-  }
-}
-
-.challenge-browser {
-  margin-top: 40px;
-}
-
 
 ////============================
 ///    challenge details
@@ -587,34 +398,6 @@ ol.owl-carousel {
     }
   }
 }
-
-.action-list-tsl {
-  padding: 0;
-  clear: both;
-  margin-left: 100px;
-  li {
-    float: left;
-    width: 33%;
-    padding: 0 5px;
-    list-style-type: none;
-    text-align: center;
-    .btn {
-      background: @green;
-      color: #fff;
-      font-size: 30px;
-      width: 75px;
-      height: 75px;
-      line-height: 1;
-      padding: 15px;
-      .gray-light & {
-        background: @gray-light;
-      }
-    }
-  }
-}
-
-
-
 
 .challenge-content {
   margin-top: 120px;
@@ -805,108 +588,6 @@ margin-left: auto;
   top: 20px;
 }
 
-//////  mentor-training
-
-#mentor-training {
-  .panel-comment {
-    position: relative;
-  }
-  .replies {
-    //margin-left: 50px;
-    background:@bg-color-dark;
-    padding: 25px 25px 25px 50px;
-    margin-top: -20px;
-    .border-bottom-radius(@border-radius-large);
-  }
-  section {
-    margin-bottom: 40px;
-  }
-  form textarea {
-    width: 100%;
-    height: 170px;
-  }
-  .mentor-training-comment {
-   // margin-right: 125px;
-    margin-bottom: 25px;
-  }
-  .btn-approve {
-    display: block;
-    text-align: center;
-    width: 100%;
-  }
-}
-
-//// mentors list
-.join-date {
-  float: right;
-  font-size: @font-size-small;
-  padding-top: 3px;
-}
-
-.mentor-list {
-  padding: 0 0 0 0;
-  margin: 0;
-  > li {
-    padding-right: 20px;
-    list-style-type: none;
-    width: 25%;
-    float: left;
-    .image-container img {
-      width: 100%;
-    }
-  }
-  > li:nth-child(4n+1) {
-    clear: both;
-  }
-}
-
-.questions-tsl {
-  list-style-type: none;
-  font-size: 18px;
-  > li {
-    margin-bottom: 20px;
-  }
-}
-
-.answer-options {
-    margin-top:20px;
-    margin-left:200px;
-}
-
-.send-btn {
-  float: right;
-  width: 520px;
-  height: 50px;
-  margin-right: 280px;
-}
-
-.answer-display {
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-
-#id_answer {
-  width: 850px;
-}
-
-.subheader-tsl {
-  font-size: 18px;
-  margin-bottom: 50px;
-}
-
-.btn-guest-modal {
-  margin-left: 170px;
-}
-
-.guest-modal-subheader {
-  font-size: 22px;
-}
-
-.guest-buttons {
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
 // units
 .unit-info {
   .image-wrapper {
@@ -1039,40 +720,6 @@ h2 a.btn:first-child {
 #join-modal .button-help {
   color: @text-muted;
   margin-top: 1em;
-}
-
-////========================
-//// parent training pages
-
-.google-slideshow-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-}
-.google-slideshow-container iframe {
-    position: absolute;
-    top:0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-.margin-top-20 {
-  margin-top: 20px;
-}
-.parent-training-separator {
-  margin: 30px auto 40px auto;
-  height: 2px;
-  width: 100%;
-  background-color: #f16243;
-}
-
-////========================
-//// inspiration gallery
-
-.ig-button {
-  margin: 20px 0px 40px 0px;
 }
 
 ////========================
