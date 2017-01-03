@@ -95,7 +95,7 @@ class MembershipChallenges(FilterSet):
         if not self.request.user.is_authenticated():
             return None, None, HttpResponseRedirect('%s?next=%s' % (reverse('login'), quote_plus(self.request.get_full_path())))
 
-        membership = Membership.objects.filter(id=membership_id, members=self.request.user).first()
+        membership = Membership.objects.filter(id=membership_id, members=self.request.user, is_active=True).first()
         if not membership:
             messages.error(self.request, "Oops! You are not part of that membership.")
             return None, None, redirect("challenges:challenges")
@@ -106,7 +106,7 @@ class MembershipChallenges(FilterSet):
     def get_template_contexts(self):
         user_memberships = []
         if self.request.user.is_authenticated():
-            user_memberships = self.request.user.membership_set.all()
+            user_memberships = self.request.user.membership_set.filter(is_active=True)
 
         return [{
             "text": membership.display_name,

@@ -34,7 +34,6 @@
             Completed ({{completed_progresses|length}})
           </a>
         </li>
-        {% if flags.enable_membership_access_controls %}
         {% for membership in memberships %}
         <li>
           <a href="{% url 'profiles:home' %}?membership={{ membership.id }}"
@@ -44,7 +43,6 @@
           </a>
         </li>
         {% endfor %}
-        {% endif %}
       </ul>
 
       <ul class="challenges-list owl-carousel panel-carousel">
