@@ -84,16 +84,11 @@ class MemberLimitInline(InlineModelAdmin):
     help_text = "Set the number of students and educators who can be added to this membership. If the limit is set to 0, no members can be added."
 
 class MembershipAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'expiration', '_active')
+    list_display = ('id', 'name', 'expiration', 'is_active')
     list_filter = (ExpirationFilter,)
     search_fields = ('name',)
     inlines = [MemberLimitInline, NewMemberImportInline, PastMemberImportInline]
     filter_horizontal = ['challenges', 'extra_units']
-
-    def _active(self, obj):
-        return not (obj.expiration and obj.expiration < now().date())
-    _active.short_description = 'Active'
-    _active.boolean = True
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
