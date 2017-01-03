@@ -1,48 +1,72 @@
-{% extends "base.html" %}
+{% extends "curiositymachine/layout/base.html" %}
 
 {% block js %}
   {{ form.media }}
 {% endblock %}
 
 {% block content %}
-<h1>{{request.user.username }}'s Profile</h1>
-<form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div class="row profile-info">
-    <div class="col-md-4">
-      {% include "profiles/formfield.html" with field=form.email %}
-      {% if form.password %}
-      {% include "profiles/formfield.html" with field=form.password %}
-      {% include "profiles/formfield.html" with field=form.confirm_password %}
-      {% else %}
-      <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
-      {% endif %}
-    </div>
-    <div class="col-md-4">
-      {% include "profiles/formfield.html" with field=form.first_name %}
-      {% include "profiles/formfield.html" with field=form.last_name %}
-      {% include "profiles/formfield.html" with field=form.city %}
-    </div>
-    <div class="col-md-4">
-      {% with field=form.image_url %}
-        <div class="form-group">
-          {{field.label_tag}}
-          {% include "_avatar.html" with profile=request.user.profile width=327 height=327 crop='fit' %}
-          {{field}}
-          <div class="errors">{{field.errors}}</div>
+<div class="text-xs-center">
+  <h1>Account Settings</h1>
+</div>
+
+<div class="container mb-3">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card card-module">
+        <div class="card-block-title text-xs-center p-1">
+          <h4>Profile Info</h4>
         </div>
-      {% endwith %}
+        <div class="card-block">
+          <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="text-xs-center">
+              {% with field=form.image_url %}
+                <div class="form-group">
+                  {{ field.label_tag }}
+                  {% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' %}
+                  {{ field }}
+                  <div class="errors">{{ field.errors }}</div>
+                </div>
+              {% endwith %}
+            </div>
+
+            <div class="account-settings-form">
+              {% include "profiles/formfield.html" with field=form.email %}
+              {% include "profiles/formfield.html" with field=form.first_name %}
+              {% include "profiles/formfield.html" with field=form.last_name %}
+              {% include "profiles/formfield.html" with field=form.city %}
+            </div>
+
+            <hr>
+
+            {% if form.password %}
+            {% include "profiles/formfield.html" with field=form.password %}
+            {% include "profiles/formfield.html" with field=form.confirm_password %}
+            {% else %}
+            <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
+            {% endif %}
+
+            {{ form.non_field_errors }}
+
+            <button type="submit" class="btn btn-primary float-xs-right">Save</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card card-module">
+        <div class="card-block-title text-xs-center p-1">
+          <h4>Membership Info</h4>
+        </div>
+        <div class="card-block">
+        </div>
+        <div class="card-footer">
+        </div>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      {{ form.non_field_errors }}
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
-    </div>
-  </div>
-</form>
+</div>
 {% endblock %}

@@ -248,3 +248,15 @@
     }
   }
 }
+
+.account-settings-form {
+  .form-group {
+    label {
+      display: block;
+    }
+    input {
+      display: block;
+      padding: $small-spacing/2;
+    }
+  }
+}

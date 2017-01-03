@@ -6375,6 +6375,13 @@ footer {
     vertical-align: middle;
     width: 16.6%; }
 
+.account-settings-form .form-group label {
+  display: block; }
+
+.account-settings-form .form-group input {
+  display: block;
+  padding: 0.375em; }
+
 #challenges-page {
   background-color: #E5E1D9; }
   #challenges-page .challenges-top-panel {
