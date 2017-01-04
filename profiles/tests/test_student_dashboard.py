@@ -18,6 +18,17 @@ def test_dashboard_includes_memberships(client):
     assert set(response.context["memberships"]) == set(memberships)
 
 @pytest.mark.django_db
+def test_dashboard_skips_inactive_memberships(client):
+    student = StudentFactory(username="user", password="password")
+    membership = MembershipFactory(members=[student], is_active=False)
+
+    client.login(username="user", password="password")
+    response = client.get(reverse("profiles:home"))
+
+    assert response.status_code == 200
+    assert not response.context["memberships"]
+
+@pytest.mark.django_db
 def test_membership_filter_404s_on_bad_query_parameter(client):
     student = StudentFactory(username="user", password="password")
 

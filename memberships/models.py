@@ -34,6 +34,12 @@ class Membership(models.Model):
         null=True,
         blank=True,
     )
+    is_active = models.BooleanField(
+        "Active",
+        null=False,
+        default=True,
+        help_text="Designates whether a membership is considered active. Unselect this when a membership expires instead of deleting it."
+    )
     notes = models.TextField(
         null=True,
         blank=True,
@@ -59,24 +65,18 @@ class Membership(models.Model):
 
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
-        if not settings.FEATURE_FLAGS.get('enable_membership_access_controls', False):
-            return challenge_ids
-
         if user.is_authenticated() and (user.is_staff or user.profile.is_mentor):
             return challenge_ids
 
         query = Q(id__in=challenge_ids, free=True)
         if user.is_authenticated():
-            query = query | Q(id__in=challenge_ids, membership__members=user)
+            query = query | Q(id__in=challenge_ids, membership__members=user, membership__is_active=True)
 
         return Challenge.objects.filter(query).values_list('id', flat=True)
 
     @classmethod
     def share_membership(cls, username1, username2):
-        if not settings.FEATURE_FLAGS.get('enable_membership_access_controls', False):
-            return False
-
-        return Member.objects.filter(user__username=username1, membership__members__username=username2).exists()
+        return Member.objects.filter(user__username=username1, membership__members__username=username2, membership__is_active=True).exists()
 
     def limit_for(self, role):
         obj = self.memberlimit_set.filter(role=role).first()

@@ -1,4 +1,6 @@
 {% extends "curiositymachine/layout/base.html" %}
+{% block title %}Design Challenges{% endblock %}
+
 {% load staticfiles %}
 {% load qstring %}
 {% load resized %}
@@ -86,7 +88,6 @@
                     <p class="card-text"><small>{{challenge.description}}</small></p>
                   </div>
 
-                  {% if flags.enable_membership_access_controls %}
                   {% if request.user.is_authenticated %}
                   <div class="card-block card-details">
                     <ul>
@@ -108,7 +109,6 @@
                       {% endif %}
                     </ul>
                   </div>
-                  {% endif %}
                   {% endif %}
               </div>
             </div>

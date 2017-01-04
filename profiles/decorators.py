@@ -2,6 +2,7 @@ from functools import wraps
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import Http404
 from profiles.models import ParentConnection
+from memberships.models import Membership
 
 def parents_only(view):
     @wraps(view)
@@ -56,40 +57,80 @@ def connected_child_only(view):
         raise PermissionDenied
     return inner
 
-def membership_selection(view):
-    @wraps(view)
-    def inner(request, *args, **kwargs):
-        memberships = request.user.membership_set.order_by('display_name').values('id', 'display_name')
-        active = None
-        if memberships:
-            active = None
+class MembershipSelection():
+    """
+    For use in a view decorator. When given a request, determines if the request user has active
+    memberships and which should be considered selected, along with providing some logic helpers.
+    """
 
-            qparam = request.GET.get('m')
+    session_param = 'active_membership'
+    query_param = 'm'
+
+    def __init__(self, request, memberships=None):
+        """
+        Takes request and optional list of membership dicts. If memberships are passed in, they
+        are not queried from the database based on the request user.
+        """
+        if memberships is None:
+            self.all = self._get_membership_selections_map(request.user)
+        else:
+            self.all = memberships
+
+        self.selected = None
+        if self.all:
+            qparam = request.GET.get(self.query_param)
             if qparam:
                 try:
                     qparam = int(qparam)
-                    active = next(d for d in memberships if d['id'] == qparam)
-                    request.session['active_membership'] = qparam
+                    self.selected = next(d for d in self.all if d['id'] == qparam)
+                    request.session[self.session_param] = qparam
                 except:
                     raise Http404
 
-            elif "active_membership" in request.session:
+            elif self.session_param in request.session:
                 try:
-                    active = next(d for d in memberships if d['id'] == request.session.get('active_membership'))
+                    self.selected = next(d for d in self.all if d['id'] == request.session.get(self.session_param))
                 except:
-                    del request.session['active_membership']
-                    active = memberships[0]
+                    del request.session[self.session_param]
+                    self.selected = self.all[0]
 
             else:
-                active = memberships[0]
+                self.selected = self.all[0]
 
-        kwargs['membership_selection'] = {
-            "count": len(memberships),
-            "selected": active,
-            "all": memberships,
-            "names": ", ".join([o["display_name"] for o in memberships]) or "None",
-            "no_memberships": len(memberships) == 0,
-            "memberships": len(memberships) != 0,
-        }
+    def _get_membership_selections_map(self, user):
+        """
+        Gets active membership value dicts for user
+        """
+        return user.membership_set.filter(is_active=True).order_by('display_name').values('id', 'display_name')
+
+    def get_selected_membership(self):
+        """
+        Gets full model for selected membership
+        """
+        return Membership.objects.get(pk=self.selected["id"])
+
+    @property
+    def count(self):
+        # is this needed?
+        return len(self.all)
+
+    @property
+    def names(self):
+        return ", ".join([o["display_name"] for o in self.all]) or "None"
+
+    @property
+    def no_memberships(self):
+        # rename to empty?
+        return self.count == 0
+
+    @property
+    def memberships(self):
+        # rename to has_memberships? just use not empty?
+        return self.count != 0
+
+def membership_selection(view):
+    @wraps(view)
+    def inner(request, *args, **kwargs):
+        kwargs['membership_selection'] = MembershipSelection(request)
         return view(request, *args, **kwargs)
     return inner
