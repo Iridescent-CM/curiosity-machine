@@ -23,8 +23,9 @@
             <div class="text-xs-center">
               {% with field=form.image_url %}
                 <div class="form-group">
-                  {{ field.label_tag }}
-                  {% include "_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' %}
+                  <div class="profile-change mb-1">
+                    {% include "profiles/_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' classes='rounded-circle' %}
+                  </div>
                   {{ field }}
                   <div class="errors">{{ field.errors }}</div>
                 </div>
