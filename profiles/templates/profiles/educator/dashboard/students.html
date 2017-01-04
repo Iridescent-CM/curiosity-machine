@@ -33,18 +33,38 @@
   {% else %}
   <div class="row pb-1">
     <div class="col-md-12">
-      <h2>{{ membership.display_name }} Students</h2>
+      <h2>All Students</h2> <!-- Group name -->
       {% if students %}
-      <div class="dropdown float-xs-right">
-        <a class="dropdown-toggle a-borderless" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Sort by {{ sorter.selected|lower }}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="sortDropdown">
-          {% for strategy in sorter.strategies %}
-          <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
-          {% endfor %}
+
+      <div class="well-shadow mb-1">
+
+        <div class="dropdown dropdown-design-challenge">
+          <a class="dropdown-toggle a-borderless" href="#" id="challengesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Choose group
+          </a>
+          <div class="dropdown-menu" aria-labelledby="challengesDropdown">
+            <!-- for group in membership -->
+            <a class="dropdown-item" href="#">All students</a>
+            <a class="dropdown-item" href="#">Group A</a>
+            <a class="dropdown-item" href="#">Group B</a>
+            <a class="dropdown-item" href="#">Ungrouped</a>
+            <!-- endfor -->
+          </div>
         </div>
+
+        <div class="dropdown float-md-right">
+          <a class="dropdown-toggle a-borderless" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort by {{ sorter.selected|lower }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="sortDropdown">
+            {% for strategy in sorter.strategies %}
+            <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
+            {% endfor %}
+          </div>
+        </div>
+
       </div>
+
       {% endif %}
     </div>
   </div>

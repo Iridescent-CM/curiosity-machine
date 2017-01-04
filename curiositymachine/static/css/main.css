@@ -5480,6 +5480,12 @@ i {
   background-color: #efede8;
   border: 3px dashed #bcb19c; }
 
+.well-shadow {
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 0.75em;
+  box-shadow: 0px 2px 4px 1px rgba(148, 148, 148, 0.5); }
+
 .challenge-card {
   min-height: 375px;
   max-width: 260px;
@@ -6315,7 +6321,8 @@ footer {
   box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
 
 .educator-dashboard .dc-sort-options {
-  text-align: right; }
+  text-align: right;
+  display: inline-block; }
   @media (max-width: 767px) {
     .educator-dashboard .dc-sort-options {
       text-align: left;
