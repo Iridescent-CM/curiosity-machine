@@ -13,18 +13,20 @@
       </a>
     </h3>
 
+    {% if show_detail_links %}
     <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdown-{{ challenge.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         View student progress
       </a>
 
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-{{ challenge.id }}">
-        <a class="dropdown-item" href="#">All Students</a>
+      <div class="dropdown-menu text-capitalize" aria-labelledby="dropdownMenuLink-{{ challenge.id }}">
+        <a class="dropdown-item" href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}">All Students</a>
         <a class="dropdown-item" href="#">Group 1</a>
         <a class="dropdown-item" href="#">Group 2</a>
         <a class="dropdown-item" href="#">Ungrouped</a>
       </div>
     </div>
+    {% endif %}
 
   </div>
 
