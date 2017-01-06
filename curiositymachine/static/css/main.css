@@ -5620,24 +5620,20 @@ i {
 .card-module .card-footer {
   background-color: #f2f0ec; }
 
-.expandable-card {
+.vertical-expandable-card {
   background-color: #FFFCF7;
-  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
-  min-height: 165px; }
-  .expandable-card .expandable-card-title {
-    min-height: 165px;
-    padding: 0.75em; }
-  .expandable-card h3 a {
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+  .vertical-expandable-card h3 a {
     color: #333333; }
-    .expandable-card h3 a:hover {
+    .vertical-expandable-card h3 a:hover {
       color: #00B1C3; }
-    .expandable-card h3 a:focus {
+    .vertical-expandable-card h3 a:focus {
       color: #F55932; }
-  .expandable-card .expandable-card-toggle {
+  .vertical-expandable-card .expandable-card-toggle {
     display: block;
     position: absolute;
     bottom: 0px;
-    right: 15px;
+    right: 0px;
     padding: 3px 7px;
     background-color: #bcb19c;
     z-index: 100;
@@ -5645,29 +5641,29 @@ i {
     letter-spacing: 2px;
     color: white;
     border-bottom: 0px; }
-    .expandable-card .expandable-card-toggle:hover {
+    .vertical-expandable-card .expandable-card-toggle:hover {
       background-color: #c6bdac; }
-    .expandable-card .expandable-card-toggle:focus {
+    .vertical-expandable-card .expandable-card-toggle:focus {
       background-color: #F55932; }
-  .expandable-card .expandable-card-more {
+  .vertical-expandable-card .expandable-card-more {
     padding: 0.75em 0.75em 1.5em 0.75em;
     background-color: #FFFCF7;
     border-top: 2px solid #E5E1D9;
     color: #333333;
     z-index: 2; }
-    .expandable-card .expandable-card-more .expandable-card-more-section-title {
+    .vertical-expandable-card .expandable-card-more .expandable-card-more-section-title {
       font-family: "Raleway", Helvetica, sans-serif;
       display: inline-block;
       margin-bottom: 5px;
       text-transform: capitalize;
       font-size: 0.875em;
       letter-spacing: 2px; }
-    .expandable-card .expandable-card-more ul.resources-list {
+    .vertical-expandable-card .expandable-card-more ul.resources-list {
       padding-left: 0px;
       list-style-type: none; }
-      .expandable-card .expandable-card-more ul.resources-list li {
+      .vertical-expandable-card .expandable-card-more ul.resources-list li {
         margin-bottom: 0.75em; }
-      .expandable-card .expandable-card-more ul.resources-list li:before {
+      .vertical-expandable-card .expandable-card-more ul.resources-list li:before {
         content: "\e904";
         font-family: 'curiosity-machine';
         speak: none;
