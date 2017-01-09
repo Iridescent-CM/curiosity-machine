@@ -62,12 +62,9 @@ class MembershipAdmin(admin.ModelAdmin):
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
     search_fields = ('membership__name', 'user__username')
-    raw_id_fields = ('membership', 'user',)
-    filter_horizontal = ('groups',)
+    raw_id_fields = ('membership', 'user', 'groups')
 
     def get_form(self, request, obj=None, **kwargs):
-        if obj is None:
-            kwargs['exclude'] = ['groups']
         kwargs.update({
             'help_texts': {
                 'membership': 'Enter a membership ID, or use the magnifying glass to search',
