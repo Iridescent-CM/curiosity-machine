@@ -75,6 +75,7 @@ class MemberAdmin(admin.ModelAdmin):
 
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'membership')
+    search_fields = ('membership__name', 'name')
 
 admin.site.register(Membership, MembershipAdmin)
 admin.site.register(Member, MemberAdmin)

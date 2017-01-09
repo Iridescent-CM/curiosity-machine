@@ -33,6 +33,6 @@ class MembershipAdmin(admin.ModelAdmin):
     list_filter = ['role']
     search_fields = ['group__name', 'user__username']
 
-admin.site.register(models.Group, GroupAdmin)
-admin.site.register(models.Invitation, InvitationAdmin)
-admin.site.register(models.Membership, MembershipAdmin)
+#admin.site.register(models.Group, GroupAdmin)
+#admin.site.register(models.Invitation, InvitationAdmin)
+#admin.site.register(models.Membership, MembershipAdmin)
