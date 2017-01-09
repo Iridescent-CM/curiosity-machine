@@ -87,12 +87,23 @@ class Membership(models.Model):
     def __str__(self):
         return self.name
 
+class Group(models.Model):
+    class Meta:
+        unique_together = ("membership", "name")
+
+    membership = models.ForeignKey(Membership, null=False, blank=False)
+    name = models.CharField(unique=True, max_length=255, null=False, blank=False)
+
+    def __str__(self):
+        return "%s: %s" % (self.membership, self.name)
+
 class Member(models.Model):
     class Meta:
         unique_together = ("membership", "user")
 
     membership = models.ForeignKey(Membership, null=False, blank=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
+    groups = models.ManyToManyField(Group, blank=True)
 
     def clean(self):
         if not self.user_id or not self.membership_id:

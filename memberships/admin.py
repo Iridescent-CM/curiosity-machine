@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
-from memberships.models import Membership, Member, MemberLimit, MemberImport
+from memberships.models import *
 from memberships.importer import Status
 
 class PastMemberImportInline(admin.TabularInline):
@@ -63,8 +63,11 @@ class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
     search_fields = ('membership__name', 'user__username')
     raw_id_fields = ('membership', 'user',)
+    filter_horizontal = ('groups',)
 
     def get_form(self, request, obj=None, **kwargs):
+        if obj is None:
+            kwargs['exclude'] = ['groups']
         kwargs.update({
             'help_texts': {
                 'membership': 'Enter a membership ID, or use the magnifying glass to search',
@@ -73,5 +76,9 @@ class MemberAdmin(admin.ModelAdmin):
         })
         return super().get_form(request, obj, **kwargs);
 
+class GroupAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'membership')
+
 admin.site.register(Membership, MembershipAdmin)
 admin.site.register(Member, MemberAdmin)
+admin.site.register(Group, GroupAdmin)
