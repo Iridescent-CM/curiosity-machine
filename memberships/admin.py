@@ -62,7 +62,7 @@ class MembershipAdmin(admin.ModelAdmin):
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
     search_fields = ('membership__name', 'user__username')
-    raw_id_fields = ('membership', 'user', 'groups')
+    raw_id_fields = ('membership', 'user')
 
     def get_form(self, request, obj=None, **kwargs):
         kwargs.update({
@@ -77,6 +77,19 @@ class GroupAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'membership')
     search_fields = ('membership__name', 'name')
 
+class GroupMemberAdmin(admin.ModelAdmin):
+    list_display = ('id', '_membership_name', '_group_name', '_member_name')
+
+    def _membership_name(self, obj):
+        return str(obj.group.membership)
+
+    def _group_name(self, obj):
+        return obj.group.name
+
+    def _member_name(self, obj):
+        return obj.member.user
+
 admin.site.register(Membership, MembershipAdmin)
 admin.site.register(Member, MemberAdmin)
 admin.site.register(Group, GroupAdmin)
+admin.site.register(GroupMember, GroupMemberAdmin)
