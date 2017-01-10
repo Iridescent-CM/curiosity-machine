@@ -1,5 +1,5 @@
 {% extends "curiositymachine/layout/base.html" %}
-{% block title %}My Profile{% endblock %}
+{% block title %}Account Settings{% endblock %}
 
 {% block js %}
   {{ form.media }}
@@ -11,6 +11,15 @@
 </div>
 
 <div class="container mb-3">
+
+  <!-- should only appear if profile has been successfully updated -->
+  <div class="alert alert-success alert-dismissible show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    Your profile has been successfully updated.
+  </div>
+
   <div class="row">
     <div class="col-md-8">
       <div class="card card-module">
