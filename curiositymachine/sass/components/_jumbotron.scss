@@ -30,3 +30,13 @@
   padding-top: $base-spacing;
   padding-bottom: $base-spacing;
 }
+
+.jumbotron-blue {
+  @extend .jumbotron;
+  background-color: $primary-blue;
+  color: $ivory;
+
+  h1 {
+    margin-bottom: 0;
+  }
+}
