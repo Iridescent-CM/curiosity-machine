@@ -105,6 +105,8 @@ class GroupMember(models.Model):
     def clean(self):
         if self.member.membership != self.group.membership:
             raise ValidationError("Group and member must be part of the same membership")
+        if not self.member.user.profile.is_student:
+            raise ValidationError("Only students can be members of a group")
 
     def __str__(self):
         return "%s-%s: %s" % (self.group.membership, self.group.name, self.member.user)
@@ -200,6 +202,7 @@ import django_rq
 from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 
+@receiver(pre_save, sender=GroupMember)
 @receiver(pre_save, sender=Member)
 def clean_first(sender, instance, **kwargs):
     instance.full_clean()

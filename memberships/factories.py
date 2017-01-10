@@ -7,7 +7,8 @@ from . import models
 
 __all__ = [
     'MembershipFactory',
-    'MemberFactory'
+    'MemberFactory',
+    'GroupFactory'
 ]
 
 class MembershipFactory(factory.django.DjangoModelFactory):
@@ -38,3 +39,12 @@ class MembershipFactory(factory.django.DjangoModelFactory):
 class MemberFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Member
+
+    membership = factory.SubFactory('memberships.factories.MembershipFactory')
+
+class GroupFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Group
+
+    name = factory.fuzzy.FuzzyText(prefix="group ")
+    membership = factory.SubFactory('memberships.factories.MembershipFactory')
