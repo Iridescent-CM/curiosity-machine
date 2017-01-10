@@ -76,17 +76,19 @@ class MemberAdmin(admin.ModelAdmin):
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'membership')
     search_fields = ('membership__name', 'name')
+    raw_id_fields = ('membership',)
 
 class GroupMemberAdmin(admin.ModelAdmin):
-    list_display = ('id', '_membership_name', '_group_name', '_member_name')
+    list_display = ('id', 'membership_name', 'group_name', 'member_name')
+    raw_id_fields = ('group', 'member')
 
-    def _membership_name(self, obj):
+    def membership_name(self, obj):
         return str(obj.group.membership)
 
-    def _group_name(self, obj):
+    def group_name(self, obj):
         return obj.group.name
 
-    def _member_name(self, obj):
+    def member_name(self, obj):
         return obj.member.user
 
 admin.site.register(Membership, MembershipAdmin)
