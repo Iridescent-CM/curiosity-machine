@@ -6,6 +6,36 @@ from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
 from memberships.models import Membership, Member, MemberLimit, MemberImport
 from memberships.importer import Status
+from django.utils.timezone import now
+from datetime import timedelta
+
+class ExpirationFilter(admin.SimpleListFilter):
+    title = 'Expiration'
+
+    parameter_name = 'expiry'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('expired', 'Expired'),
+            ('week', 'Expires within 1 week'),
+            ('month', 'Expires within 1 month'),
+            ('none', 'No expiration'),
+            ('unexpired', 'All unexpired'),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        t = now()
+        if value == 'expired':
+            return queryset.filter(expiration__lt=t)
+        elif value == 'week':
+            return queryset.exclude(expiration__lt=t).filter(expiration__lt=t + timedelta(weeks=1))
+        elif value == 'month':
+            return queryset.exclude(expiration__lt=t).filter(expiration__lt=t + timedelta(days=31))
+        elif value == 'unexpired':
+            return queryset.exclude(expiration__lt=t)
+        elif value == 'none':
+            return queryset.filter(expiration__isnull=True)
 
 class PastMemberImportInline(admin.TabularInline):
     model = MemberImport
@@ -54,7 +84,8 @@ class MemberLimitInline(InlineModelAdmin):
     help_text = "Set the number of students and educators who can be added to this membership. If the limit is set to 0, no members can be added."
 
 class MembershipAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'expiration')
+    list_display = ('id', 'name', 'expiration', 'is_active')
+    list_filter = (ExpirationFilter, 'is_active')
     search_fields = ('name',)
     inlines = [MemberLimitInline, NewMemberImportInline, PastMemberImportInline]
     filter_horizontal = ['challenges', 'extra_units']
