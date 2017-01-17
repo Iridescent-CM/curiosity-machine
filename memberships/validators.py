@@ -2,6 +2,10 @@ from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
 from django.conf import settings
 import csv
+import logging
+import sys
+
+logger = logging.getLogger(__name__)
 
 def member_import_csv_validator(csv_file):
     """
@@ -19,10 +23,12 @@ def member_import_csv_validator(csv_file):
     except UnicodeDecodeError:
         raise ValidationError("File does not appear to be UTF-8 encoded")
     except:
+        logger.info("Unknown error while decoding file: %s" % sys.exc_info()[1])
         raise ValidationError("Unknown error while decoding file")
 
     sniffer = csv.Sniffer()
     try:
         dialect = sniffer.sniff(contents)
-    except csv.Error:
+    except csv.Error as err:
+        logger.info("Not a valid CSV file: %s" % err)
         raise ValidationError("Not a valid CSV file")

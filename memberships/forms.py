@@ -6,7 +6,7 @@ from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from collections import OrderedDict
 
-from memberships.models import Member
+from memberships.models import Member, Group, GroupMember
 from profiles.models import Profile, UserRole
 from django.contrib.auth import get_user_model
 
@@ -81,14 +81,21 @@ class RowProfileForm(forms.ModelForm):
             profile.save()
         return profile
 
+class RowGroupsForm(forms.Form):
+    """
+    Collects group name(s) for user in a csv row
+    """
+    groups = forms.CharField(required=False, label='Groups')
+
 class RowImportForm(forms.Form):
     """
-    Provides a single ModelForm-ish facade on top of User and Profile forms
-    to build connected User, Profile, and Member objects from csv row
+    Provides a single ModelForm-ish facade on top of User, Profile, and Group forms
+    to build connected User, Profile, Member, Group, and GroupMember objects from csv row
     """
     membership = None
     userFormClass = RowUserForm
     profileFormClass = RowProfileForm
+    groupFormClass = RowGroupsForm
 
     def __init__(self, data=None, *args, **kwargs):
         for keyword in list(kwargs.keys()):
@@ -96,7 +103,7 @@ class RowImportForm(forms.Form):
                 setattr(self, keyword, kwargs.pop(keyword))
 
         self._forms = []
-        for formclass in [self.userFormClass, self.profileFormClass]:
+        for formclass in [self.userFormClass, self.profileFormClass, self.groupFormClass]:
             self._forms.append(formclass(data))
 
         return super().__init__(data, *args, **kwargs)
@@ -128,11 +135,20 @@ class RowImportForm(forms.Form):
 
         cleaned_data = self.cleaned_data
 
-        userForm, profileForm = self._forms
+        userForm, profileForm, groupForm = self._forms
         profile = profileForm.save(commit=False)
         user = userForm.save(commit=False)
         user.profile = profile
         member = Member(membership=self.membership, user=user)
+
+        groups = []
+        names = []
+        if cleaned_data['groups']:
+            names = [s.strip() for s in cleaned_data['groups'].split(',')]
+        for name in names:
+            group = Group(membership=self.membership, name=name)
+            groupmember = GroupMember(group=group, member=member)
+            groups.append((group, groupmember))
 
         if commit:
             user.save()
@@ -140,5 +156,11 @@ class RowImportForm(forms.Form):
             profile.save()
             member.user = user
             member.save()
+
+            for group, groupmember in groups:
+                group, created = Group.objects.get_or_create(membership=group.membership, name=group.name)
+                groupmember.group = group
+                groupmember.member = member
+                groupmember.save()
 
         return member

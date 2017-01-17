@@ -1,6 +1,6 @@
 import pytest
 
-from memberships.factories import MembershipFactory
+from memberships.factories import *
 
 from memberships.models import Member
 from memberships.forms import RowImportForm
@@ -115,7 +115,7 @@ def test_form_reports_user_and_profile_form_class_errors():
     assert "gender" in f.errors.keys()
 
 @pytest.mark.django_db
-def test_saving_form_creates_all_objects():
+def test_saving_form_creates_member_user_and_profile_objects():
     membership = MembershipFactory()
     f = RowImportForm(
         {
@@ -134,3 +134,60 @@ def test_saving_form_creates_all_objects():
     assert member.membership.id == membership.id
     assert member.user
     assert member.user.profile
+
+@pytest.mark.django_db
+def test_saving_form_adds_member_to_group():
+    membership = MembershipFactory()
+    f = RowImportForm(
+        {
+            "username": "username",
+            "password": "password",
+            "birthday": "01/01/1990",
+            "first_name": "first",
+            "last_name": "last",
+            "groups": "group 1, group 2"
+        },
+        membership=membership
+    )
+    member = f.save()
+
+    assert member.group_set.count() == 2
+    assert set(member.group_set.values_list('name', flat=True)) == set(['group 1', 'group 2'])
+
+@pytest.mark.django_db
+def test_saving_form_adds_member_to_group():
+    membership = MembershipFactory()
+    f = RowImportForm(
+        {
+            "username": "username",
+            "password": "password",
+            "birthday": "01/01/1990",
+            "first_name": "first",
+            "last_name": "last",
+            "groups": "group 1, group 2"
+        },
+        membership=membership
+    )
+    member = f.save()
+
+    assert member.group_set.count() == 2
+    assert set(member.group_set.values_list('name', flat=True)) == set(['group 1', 'group 2'])
+
+@pytest.mark.django_db
+def test_saving_form_reuses_existing_group():
+    membership = MembershipFactory()
+    group = GroupFactory(name='group', membership=membership)
+    f = RowImportForm(
+        {
+            "username": "username",
+            "password": "password",
+            "birthday": "01/01/1990",
+            "first_name": "first",
+            "last_name": "last",
+            "groups": "group"
+        },
+        membership=membership
+    )
+    member = f.save()
+
+    assert member.group_set.first() == group
