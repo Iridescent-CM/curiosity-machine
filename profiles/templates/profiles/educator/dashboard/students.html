@@ -33,7 +33,7 @@
   {% else %}
   <div class="row pb-1">
     <div class="col-md-12">
-      <h2>All Students</h2> <!-- Group name -->
+      <h2>{{ group_selector.selected.text }}</h2>
       {% if students %}
 
       <div class="well-shadow mb-1">
@@ -43,12 +43,9 @@
             Choose group
           </a>
           <div class="dropdown-menu text-capitalize" aria-labelledby="challengesDropdown">
-            <!-- for group in membership -->
-            <a class="dropdown-item" href="#">All students</a>
-            <a class="dropdown-item" href="#">Group A</a>
-            <a class="dropdown-item" href="#">Group B</a>
-            <a class="dropdown-item" href="#">Ungrouped</a>
-            <!-- endfor -->
+            {% for group in group_selector.options %}
+            <a class="dropdown-item" href="#">{{ group.text }}</a>
+            {% endfor %}
           </div>
         </div>
 

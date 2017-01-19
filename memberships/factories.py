@@ -48,3 +48,10 @@ class GroupFactory(factory.django.DjangoModelFactory):
 
     name = factory.fuzzy.FuzzyText(prefix="group ")
     membership = factory.SubFactory('memberships.factories.MembershipFactory')
+
+    @post_generation
+    def members(obj, create, extracted, **kwargs):
+        if extracted:
+            for user in extracted:
+                member = models.Member.objects.get(membership=obj.membership, user=user)
+                models.GroupMember.objects.create(group=obj, member=member)

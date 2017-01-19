@@ -25,6 +25,7 @@ from ..serializers import CommentSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated
 from groups.forms import GroupForm
+from profiles.helpers.selectors import GroupSelector
 
 User = get_user_model()
 
@@ -79,14 +80,17 @@ def students_dashboard(request, membership_selection=None):
     membership = None
     students = []
     sorter = None
+    gs = None
     if membership_selection and membership_selection.selected:
         membership = membership_selection.selected
         sorter = StudentSorter(query=request.GET)
-        students = membership.members.filter(profile__role=UserRole.student.value).select_related('profile__image')
+        gs = GroupSelector(membership, query=request.GET)
+        students = gs.selected.queryset.select_related('profile__image')
         students = sorter.sort(students)
     return render(request, "profiles/educator/dashboard/students.html", {
         "membership": membership,
         "students": students,
+        "group_selector": gs,
         "membership_selection": membership_selection,
         "sorter": sorter,
     })
