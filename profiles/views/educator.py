@@ -25,7 +25,7 @@ from ..serializers import CommentSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated
 from groups.forms import GroupForm
-from profiles.helpers.selectors import GroupSelector
+from memberships.helpers.selectors import GroupSelector
 
 User = get_user_model()
 
