@@ -20,10 +20,12 @@
       </a>
 
       <div class="dropdown-menu text-capitalize" aria-labelledby="dropdownMenuLink-{{ challenge.id }}">
-        <a class="dropdown-item" href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}">All Students</a>
-        <a class="dropdown-item" href="#">Group 1</a>
-        <a class="dropdown-item" href="#">Group 2</a>
-        <a class="dropdown-item" href="#">Ungrouped</a>
+        <!-- <a class="dropdown-item" href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}">All Students</a> -->
+        {% for group in group_selector.options %}
+        <a class="dropdown-item" href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}?{{ group.GET.urlencode }}">
+          {{ group.text }}
+        </a>
+        {% endfor %}
       </div>
     </div>
     {% endif %}

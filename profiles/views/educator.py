@@ -61,8 +61,10 @@ def home(request, membership_selection=None):
 
     membership_challenges = []
     membership = None
+    gs = None
     if membership_selection and membership_selection.selected:
         membership = membership_selection.selected
+        gs = GroupSelector(membership)
         membership_challenges = membership.challenges.select_related('image').prefetch_related('resource_set')
         core_challenges = core_challenges.exclude(id__in=membership_challenges.values('id'))
 
@@ -71,6 +73,7 @@ def home(request, membership_selection=None):
         "membership_challenges": membership_challenges,
         "core_challenges": core_challenges,
         "membership_selection": membership_selection,
+        "group_selector": gs,
     })
 
 @educator_only
