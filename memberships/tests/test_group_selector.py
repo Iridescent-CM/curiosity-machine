@@ -5,11 +5,14 @@ from ..helpers.selectors import SelectorOption, GroupSelector
 from memberships.factories import *
 from profiles.factories import *
 
-def test_holds_named_args():
-    s = SelectorOption(query_param='x', query_value=1, text='hi')
+from django.http import QueryDict
+
+def test_holds_extra_named_args():
+    s = SelectorOption(query_param='x', query_value=1, text='hi', extra='something')
     assert s.query_param == 'x'
     assert s.query_value == 1
     assert s.text == 'hi'
+    assert s.extra == 'something'
 
 def test_equality_based_on_arg_values():
     assert SelectorOption(query_param='x', query_value=1, text='hi') == SelectorOption(query_param='x', query_value=1, text='hi')
@@ -17,6 +20,11 @@ def test_equality_based_on_arg_values():
     assert SelectorOption(query_param='x', query_value=1, text='hi') != SelectorOption(query_param='y', query_value=1, text='hi')
     assert SelectorOption(query_param='x', query_value=1, text='hi') != SelectorOption(query_param='x', query_value=2, text='hi')
     assert SelectorOption(query_param='x', query_value=1, text='hi') != SelectorOption(query_param='x', query_value=1, text='bye')
+
+def test_updates_query_string():
+    assert SelectorOption(query_param='x', query_value='1', text='hi', query=QueryDict()).GET == QueryDict('x=1')
+    assert SelectorOption(query_param='x', query_value='1', text='hi', query=QueryDict('x=5')).GET == QueryDict('x=1')
+    assert SelectorOption(query_param='x', query_value='1', text='hi', query=QueryDict('a=5')).GET == QueryDict('a=5&x=1')
 
 @pytest.mark.django_db
 def test_default_selector_option_template_attrs():
@@ -28,10 +36,12 @@ def test_default_selector_option_template_attrs():
     assert gs.options[0].text == "All Students"
     assert gs.options[0].query_param == "x"
     assert gs.options[0].query_value == "all"
+    assert gs.options[0].GET == QueryDict('x=all')
 
     assert gs.options[1].text == "Ungrouped"
     assert gs.options[1].query_param == "x"
     assert gs.options[1].query_value == "none"
+    assert gs.options[1].GET == QueryDict('x=none')
 
 @pytest.mark.django_db
 def test_all_students_queryset_gets_all_students():
@@ -66,6 +76,7 @@ def test_group_selector_option_template_attrs():
     assert gs.options[1].text == "group name"
     assert gs.options[1].query_param == "x"
     assert gs.options[1].query_value == group.id
+    assert gs.options[1].GET == QueryDict('x=%d' % group.id)
 
 @pytest.mark.django_db
 def test_group_selector_option_ordering():
@@ -93,6 +104,12 @@ def test_group_queryset_gets_group_students():
     assert set(gs.options[1].queryset.all()) == set(students[0:5])
     assert gs.options[2].text == 'b'
     assert set(gs.options[2].queryset.all()) == set(students[5:])
+
+@pytest.mark.django_db
+def test_passes_query_params_through():
+    membership = MembershipFactory()
+    gs = GroupSelector(membership, query=QueryDict('a=1&b=2'), query_param='x')
+    assert gs.options[0].GET == QueryDict('a=1&b=2&x=all')
 
 @pytest.mark.django_db
 def test_selects_from_query_params():

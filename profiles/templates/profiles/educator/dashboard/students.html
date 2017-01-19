@@ -44,7 +44,7 @@
           </a>
           <div class="dropdown-menu text-capitalize" aria-labelledby="challengesDropdown">
             {% for group in group_selector.options %}
-            <a class="dropdown-item" href="#">{{ group.text }}</a>
+            <a class="dropdown-item" href="?{{ group.GET.urlencode }}">{{ group.text }}</a>
             {% endfor %}
           </div>
         </div>
