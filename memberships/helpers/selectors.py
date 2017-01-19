@@ -1,6 +1,6 @@
 from ..models import UserRole
 from collections import OrderedDict
-from django.http import QueryDict
+from django.http import QueryDict, Http404
 
 class SelectorOption():
     def __init__(self, query_param=None, query_value=None, query=QueryDict(), text=None, **kwargs):
@@ -73,4 +73,8 @@ class GroupSelector():
             key = 'all'
         else:
             key = self.query.get(self.query_param, 'all')
-        return self._map[key]
+
+        try:
+            return self._map[key]
+        except:
+            raise Http404()

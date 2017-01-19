@@ -5,7 +5,7 @@ from ..helpers.selectors import SelectorOption, GroupSelector
 from memberships.factories import *
 from profiles.factories import *
 
-from django.http import QueryDict
+from django.http import QueryDict, Http404
 
 def test_holds_extra_named_args():
     s = SelectorOption(query_param='x', query_value=1, text='hi', extra='something')
@@ -119,4 +119,9 @@ def test_selects_from_query_params():
     assert GroupSelector(membership, query={'g': 'all'}).selected.text == 'All Students'
     assert GroupSelector(membership, query={'g': 'none'}).selected.text == 'Ungrouped'
     assert GroupSelector(membership, query={'g': str(group.id)}).selected.text == group.name
-    # assert GroupSelector(membership, query={'g': group.id+1}).selected.text == group.name
+
+@pytest.mark.django_db
+def test_bad_selection_404s():
+    membership = MembershipFactory()
+    with pytest.raises(Http404):
+        GroupSelector(membership, query={'g': '1'}).selected
