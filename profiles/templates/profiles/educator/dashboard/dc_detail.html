@@ -11,7 +11,7 @@
 
   <div class="row mb-1">
     <div class="col-md-12">
-      <h3>All Students</h3>
+      <h3>{{ group_selector.selected.text }}</h3>
       <h2>{{ challenge.name }}</h2>
     </div>
   </div>
@@ -37,12 +37,9 @@
             Choose group
           </a>
           <div class="dropdown-menu text-capitalize" aria-labelledby="challengesDropdown">
-            <!-- for group in membership -->
-            <a class="dropdown-item" href="#">All students</a>
-            <a class="dropdown-item" href="#">Group A</a>
-            <a class="dropdown-item" href="#">Group B</a>
-            <a class="dropdown-item" href="#">Ungrouped</a>
-            <!-- endfor -->
+            {% for group in group_selector.options %}
+            <a class="dropdown-item" href="?{{ group.GET.urlencode }}">{{ group.text }}</a>
+            {% endfor %}
           </div>
         </div>
 

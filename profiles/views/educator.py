@@ -162,7 +162,8 @@ def challenge_detail(request, challenge_id, membership_selection=None):
     challenge = get_object_or_404(membership.challenges, pk=challenge_id)
 
     sorter = StudentSorter(query=request.GET)
-    students = membership.members.filter(profile__role=UserRole.student.value)
+    gs = GroupSelector(membership, query=request.GET)
+    students = gs.selected.queryset.select_related('profile__image')
     students = sorter.sort(students)
     students = students.select_related('profile__image').all()
 
@@ -188,6 +189,7 @@ def challenge_detail(request, challenge_id, membership_selection=None):
         "student_ids_with_examples": student_ids_with_examples,
         "membership_selection": membership_selection,
         "sorter": sorter,
+        "group_selector": gs,
     })
 
 class IsEducator(permissions.BasePermission):
