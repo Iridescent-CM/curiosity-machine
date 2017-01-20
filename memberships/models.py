@@ -80,6 +80,9 @@ class Membership(models.Model):
         help_text="Users who are part of this membership will have access to these units in addition to the standard listed units."
     )
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     objects = MembershipQuerySet().as_manager()
 
     @classmethod
@@ -143,6 +146,9 @@ class Member(models.Model):
 
     membership = models.ForeignKey(Membership, null=False, blank=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "%s: %s" % (self.membership, self.user)
