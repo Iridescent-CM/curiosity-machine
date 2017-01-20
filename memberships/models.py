@@ -17,6 +17,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class MembershipQuerySet(models.QuerySet):
+
+    def expired(self, expiration=None, **kwargs):
+        if expiration is None:
+            expiration = now().date()
+        return self.filter(expiration__lt=expiration)
+
 class Membership(models.Model):
     name = models.CharField(
         unique=True,
@@ -62,6 +69,8 @@ class Membership(models.Model):
         blank=True,
         help_text="Users who are part of this membership will have access to these units in addition to the standard listed units."
     )
+
+    objects = MembershipQuerySet().as_manager()
 
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
