@@ -82,14 +82,14 @@ class MembershipSelection():
             if qparam:
                 try:
                     qparam = int(qparam)
-                    self.selected = next(d for d in self.all if d['id'] == qparam)
+                    self.selected = next(d for d in self.all if d.id == qparam)
                     request.session[self.session_param] = qparam
                 except:
                     raise Http404
 
             elif self.session_param in request.session:
                 try:
-                    self.selected = next(d for d in self.all if d['id'] == request.session.get(self.session_param))
+                    self.selected = next(d for d in self.all if d.id == request.session.get(self.session_param))
                 except:
                     del request.session[self.session_param]
                     self.selected = self.all[0]
@@ -101,13 +101,13 @@ class MembershipSelection():
         """
         Gets active membership value dicts for user
         """
-        return user.membership_set.filter(is_active=True).order_by('display_name').values('id', 'display_name')
+        return user.membership_set.filter(is_active=True).order_by('display_name')
 
     def get_selected_membership(self):
         """
         Gets full model for selected membership
         """
-        return Membership.objects.get(pk=self.selected["id"])
+        return Membership.objects.get(pk=self.selected.id)
 
     @property
     def count(self):
@@ -116,7 +116,7 @@ class MembershipSelection():
 
     @property
     def names(self):
-        return ", ".join([o["display_name"] for o in self.all]) or "None"
+        return ", ".join([o.display_name for o in self.all]) or "None"
 
     @property
     def no_memberships(self):

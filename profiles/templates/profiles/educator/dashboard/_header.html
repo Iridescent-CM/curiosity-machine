@@ -22,5 +22,16 @@
         <strong>Memberships:</strong> {{ membership_selection.names }}
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        {% for membership in membership_selection.all %}
+        {% if membership.show_expiring_notice %}
+        <div class="alert alert-info" role="alert">
+          {{ membership.display_name }} is expiring on {{ membership.expiration }}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>

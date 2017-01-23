@@ -1,4 +1,5 @@
 import pytest
+import mock
 
 from profiles.factories import UserFactory, StudentFactory, MentorFactory
 from challenges.factories import ChallengeFactory
@@ -120,3 +121,21 @@ def test_expiring_manager_method():
 
     assert set(Membership.objects.expiring()) == set([today, tomorrow])
     assert set(Membership.objects.expiring(cutoff=rightnow)) == set([today])
+
+def test_show_expiring_notice():
+    inayear = datetime.now().date() + timedelta(days=365)
+    inaweek = datetime.now().date() + timedelta(days=7)
+    today = datetime.now().date()
+    yesterday = datetime.now().date() - timedelta(days=1)
+
+    assert not MembershipFactory.build().show_expiring_notice()
+    assert not MembershipFactory.build(expiration=inayear).show_expiring_notice()
+    assert MembershipFactory.build(expiration=inaweek).show_expiring_notice()
+    assert MembershipFactory.build(expiration=today).show_expiring_notice()
+    assert not MembershipFactory.build(expiration=yesterday).show_expiring_notice()
+    assert not MembershipFactory.build(expiration=inaweek, is_active=False).show_expiring_notice()
+
+    with mock.patch('memberships.models.settings') as settings:
+        settings.MEMBERSHIP_EXPIRATION_NOTICE_DAYS = 5
+        assert not MembershipFactory.build(expiration=inaweek).show_expiring_notice()
+        assert MembershipFactory.build(expiration=today).show_expiring_notice()
