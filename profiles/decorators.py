@@ -103,12 +103,6 @@ class MembershipSelection():
         """
         return user.membership_set.filter(is_active=True).order_by('display_name')
 
-    def get_selected_membership(self):
-        """
-        Gets full model for selected membership
-        """
-        return Membership.objects.get(pk=self.selected.id)
-
     @property
     def count(self):
         # is this needed?
