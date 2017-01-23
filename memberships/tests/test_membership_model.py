@@ -99,3 +99,24 @@ def test_expired_manager_method():
 
     assert set(Membership.objects.expired()) == set([yesterday])
     assert set(Membership.objects.expired(expiration=rightnow + timedelta(days=1))) == set([yesterday, today])
+
+@pytest.mark.django_db
+def test_expired_with_cutoff_manager_method():
+    rightnow = datetime.now()
+    today = MembershipFactory(expiration=rightnow)
+    yesterday = MembershipFactory(expiration=rightnow - timedelta(days=1))
+    twodaysago = MembershipFactory(expiration=rightnow - timedelta(days=2))
+
+    assert set(Membership.objects.expired()) == set([yesterday, twodaysago])
+    assert set(Membership.objects.expired(cutoff=rightnow - timedelta(days=1))) == set([yesterday])
+
+@pytest.mark.django_db
+def test_expiring_manager_method():
+    rightnow = datetime.now()
+    yesterday = MembershipFactory(expiration=rightnow - timedelta(days=1))
+    today = MembershipFactory(expiration=rightnow)
+    tomorrow = MembershipFactory(expiration=rightnow + timedelta(days=1))
+    twomonths = MembershipFactory(expiration=rightnow + timedelta(days=60))
+
+    assert set(Membership.objects.expiring()) == set([today, tomorrow])
+    assert set(Membership.objects.expiring(cutoff=rightnow)) == set([today])

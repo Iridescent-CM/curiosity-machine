@@ -19,10 +19,20 @@ logger = logging.getLogger(__name__)
 
 class MembershipQuerySet(models.QuerySet):
 
-    def expired(self, expiration=None, **kwargs):
+    def expired(self, expiration=None, cutoff=None):
         if expiration is None:
             expiration = now().date()
-        return self.filter(expiration__lt=expiration)
+        if cutoff is None:
+            return self.filter(expiration__lt=expiration)
+        else:
+            return self.filter(expiration__range=(cutoff, expiration - timedelta(days=1)))
+
+    def expiring(self, expiration=None, cutoff=None):
+        if expiration is None:
+            expiration = now().date()
+        if cutoff is None:
+            cutoff = expiration + timedelta(days=30)
+        return self.filter(expiration__range=(expiration, cutoff))
 
 class Membership(models.Model):
     name = models.CharField(
