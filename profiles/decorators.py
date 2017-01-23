@@ -3,6 +3,9 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import Http404
 from profiles.models import ParentConnection
 from memberships.models import Membership
+from django.utils.timezone import now
+from datetime import timedelta
+from django.conf import settings
 
 def parents_only(view):
     @wraps(view)
@@ -71,6 +74,8 @@ class MembershipSelection():
         Takes request and optional list of membership dicts. If memberships are passed in, they
         are not queried from the database based on the request user.
         """
+        self.request = request
+
         if memberships is None:
             self.all = self._get_membership_selections_map(request.user)
         else:
@@ -121,6 +126,11 @@ class MembershipSelection():
     def memberships(self):
         # rename to has_memberships? just use not empty?
         return self.count != 0
+
+    @property
+    def recently_expired(self):
+        cutoff = now().date() - timedelta(days=settings.MEMBERSHIP_EXPIRED_NOTICE_DAYS)
+        return self.request.user.membership_set.expired(cutoff=cutoff)
 
 def membership_selection(view):
     @wraps(view)

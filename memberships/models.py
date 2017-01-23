@@ -108,7 +108,7 @@ class Membership(models.Model):
         return (self.is_active 
             and self.expiration 
             and self.expiration >= today
-            and (self.expiration - today) < timedelta(days=settings.MEMBERSHIP_EXPIRATION_NOTICE_DAYS))
+            and (self.expiration - today) < timedelta(days=settings.MEMBERSHIP_EXPIRING_NOTICE_DAYS))
 
     def __str__(self):
         return self.name

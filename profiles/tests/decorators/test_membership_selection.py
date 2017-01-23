@@ -1,6 +1,8 @@
 import pytest
 import mock
 from django.http import Http404
+from django.utils.timezone import now
+from datetime import timedelta
 from ...decorators import MembershipSelection
 
 from ...factories import *
@@ -127,3 +129,23 @@ def test_membership_selection_skips_inactive_memberships(rf):
 
     ms = MembershipSelection(request)
     assert not ms.all
+
+@pytest.mark.django_db
+def test_membership_selection_recently_expired(rf):
+    today = now().date()
+    yesterday = today - timedelta(days=1)
+    lastweek = today - timedelta(days=7)
+    twomonthsago = today - timedelta(days=61)
+    user = UserFactory()
+    memberships = [
+        MembershipFactory(expiration=today, members=[user]),
+        MembershipFactory(expiration=yesterday, members=[user]),
+        MembershipFactory(expiration=lastweek, members=[user]),
+        MembershipFactory(expiration=twomonthsago, members=[user]),
+    ]
+    request = rf.get('/home')
+    request.session = {}
+    request.user = user
+
+    ms = MembershipSelection(request)
+    assert set(ms.recently_expired) == set(memberships[1:3])

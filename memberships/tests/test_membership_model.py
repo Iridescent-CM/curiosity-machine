@@ -136,6 +136,6 @@ def test_show_expiring_notice():
     assert not MembershipFactory.build(expiration=inaweek, is_active=False).show_expiring_notice()
 
     with mock.patch('memberships.models.settings') as settings:
-        settings.MEMBERSHIP_EXPIRATION_NOTICE_DAYS = 5
+        settings.MEMBERSHIP_EXPIRING_NOTICE_DAYS = 5
         assert not MembershipFactory.build(expiration=inaweek).show_expiring_notice()
         assert MembershipFactory.build(expiration=today).show_expiring_notice()

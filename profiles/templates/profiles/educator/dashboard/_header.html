@@ -31,6 +31,12 @@
         </div>
         {% endif %}
         {% endfor %}
+
+        {% for membership in membership_selection.recently_expired %}
+        <div class="alert alert-info" role="alert">
+          {{ membership.display_name }} recently expired.
+        </div>
+        {% endfor %}
       </div>
     </div>
   </div>
