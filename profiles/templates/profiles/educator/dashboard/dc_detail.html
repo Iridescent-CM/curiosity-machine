@@ -27,7 +27,10 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="challengesDropdown">
             {% for challenge in challenge_links %}
-            <a class="dropdown-item" href="{% url "profiles:educator_dashboard_challenge_detail" challenge_id=challenge.id %}">{{ challenge.name }}</a>
+            <a
+              class="dropdown-item"
+              href="{% url "profiles:educator_dashboard_challenge_detail" challenge_id=challenge.id %}?{{ request.GET.urlencode }}"
+              >{{ challenge.name }}</a>
             {% endfor %}
           </div>
         </div>
