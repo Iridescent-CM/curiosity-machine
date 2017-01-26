@@ -1,6 +1,8 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% block title %}Account Settings{% endblock %}
 
+{% load widget_tweaks %}
+
 {% block js %}
   {{ form.media }}
 {% endblock %}
@@ -13,12 +15,15 @@
 <div class="container mb-3">
 
   <!-- should only appear if profile has been successfully updated -->
-  <div class="alert alert-success alert-dismissible show" role="alert">
+  {% if messages %}{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible show" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    Your profile has been successfully updated.
+    {{ message }}
   </div>
+  {% endfor %}{% endif %}
+
 
   <div class="row">
     <div class="col-md-8 offset-md-2">
@@ -43,10 +48,57 @@
             </div>
 
             <div class="account-settings-form">
-              {% include "profiles/formfield.html" with field=form.email %}
-              {% include "profiles/formfield.html" with field=form.first_name %}
-              {% include "profiles/formfield.html" with field=form.last_name %}
-              {% include "profiles/formfield.html" with field=form.city %}
+              <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
+                {{ form.email.label_tag }}
+                {{ form.email|add_class:"form-control" }}
+                {% if show_help %}
+                  <p class="help-block">{{ form.email.help_text }}</p>
+                {% endif %}
+                <div class="errors">
+                  {% for error in form.email.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
+                {{ form.first_name.label_tag }}
+                {{ form.first_name|add_class:"form-control" }}
+                {% if show_help %}
+                  <p class="help-block">{{ form.first_name.help_text }}</p>
+                {% endif %}
+                <div class="errors">
+                  {% for error in form.first_name.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
+                {{ form.last_name.label_tag }}
+                {{ form.last_name|add_class:"form-control" }}
+                {% if show_help %}
+                  <p class="help-block">{{ form.last_name.help_text }}</p>
+                {% endif %}
+                <div class="errors">
+                  {% for error in form.last_name.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
+                {{ form.city.label_tag }}
+                {{ form.city|add_class:"form-control" }}
+                {% if show_help %}
+                  <p class="help-block">{{ form.city.help_text }}</p>
+                {% endif %}
+                <div class="errors">
+                  {% for error in form.city.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
             </div>
 
             <hr>
