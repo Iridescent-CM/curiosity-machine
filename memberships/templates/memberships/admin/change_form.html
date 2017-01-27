@@ -1,0 +1,7 @@
+{% extends 'admin/change_form.html' %}
+{% load admin_urls %}
+
+{% block object-tools-items %}
+  <li><a href="{% url opts|admin_urlname:'report' object_id=original.pk %}">Report</a></li>
+  {{ block.super }}
+{% endblock %}

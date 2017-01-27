@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib.admin.options import InlineModelAdmin
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
+from django.contrib import messages
 from memberships.models import *
 from memberships.importer import Status
 from django.utils.timezone import now
@@ -89,6 +90,19 @@ class MembershipAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     inlines = [MemberLimitInline, NewMemberImportInline, PastMemberImportInline]
     filter_horizontal = ['challenges', 'extra_units']
+    change_form_template = 'memberships/admin/change_form.html'
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            url(r'^(?P<object_id>\d+)/report/$', self.run_report, name="memberships_membership_report"),
+        ]
+        return my_urls + urls
+
+    def run_report(self, request, object_id):
+        messages.success(request, 'Report will be emailed to %s' % request.user.email)
+        # run report task
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
