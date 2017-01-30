@@ -1,70 +1,146 @@
-{% extends "base.html" %}
-{% block title %}My Profile{% endblock %}
+{% extends "curiositymachine/layout/base.html" %}
+{% block title %}Account Settings{% endblock %}
+
+{% load widget_tweaks %}
 
 {% block js %}
   {{ form.media }}
 {% endblock %}
 
 {% block content %}
-<h1>{{request.user.username }}'s Profile</h1>
-  <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
-    {% csrf_token %}
-    <div class="clearfix">
-      <div class="profile-fields">
-        <div class="col-md-4 student-column">
-          <h3>Student</h3>
-          <div class="birthday-field">
-            {{form.birthday.label_tag}}
-            {{form.birthday}}
-            <div class="errors">{{ form.birthday.errors }}</div>
-          </div>
+<div class="jumbotron-blue jumbotron-fluid text-xs-center">
+  <h1>Account Settings</h1>
+</div>
 
-          <div>
-            <br>
+<div class="container mb-3">
+
+  {% if messages %}{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+  {% endfor %}{% endif %}
+
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card card-module">
+        <div class="card-block-title text-xs-center p-1">
+          <h4>Profile Info</h4>
+        </div>
+
+        <div class="card-block">
+          <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
+            {% csrf_token %}
+
+            <div class="text-xs-center">
+              {% with field=form.image_url %}
+                <div class="form-group">
+                  <div class="profile-change mb-1">
+                    {% include "profiles/_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' classes='rounded-circle' %}
+                  </div>
+                  {{ field }}
+                  <div class="errors">{{ field.errors }}</div>
+                </div>
+              {% endwith %}
+            </div>
+
+            <div class="account-settings-form">
+              <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
+                {{ form.email.label_tag }}
+                {{ form.email|add_class:"form-control" }}
+                {% if show_help %}
+                  <p class="help-block">{{ form.email.help_text }}</p>
+                {% endif %}
+                <div class="errors">
+                  {% for error in form.email.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group {% if form.birthday.errors %} has-danger {% endif %}">
+                {{ form.birthday.label_tag }}
+                {{ form.birthday|add_class:"form-control" }}
+                {% if show_help %}
+                  <p class="help-block">{{ form.birthday.help_text }}</p>
+                {% endif %}
+                <div class="errors">
+                  {% for error in form.birthday.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group {% if form.city.errors %} has-danger {% endif %}">
+                {{ form.city.label_tag }}
+                {{ form.city|add_class:"form-control" }}
+                {% if show_help %}
+                  <p class="help-block">{{ form.city.help_text }}</p>
+                {% endif %}
+                <div class="errors">
+                  {% for error in form.city.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="{% if request.user.profile.age >= 13 %} style="display:none" {% endif %}">
+                <hr>
+
+                <h3>Parent Info</h3>
+
+                <div class="form-group {% if form.parent_first_name.errors %} has-danger {% endif %}">
+                  {{ form.parent_first_name.label_tag }}
+                  {{ form.parent_first_name|add_class:"form-control" }}
+                  {% if show_help %}
+                    <p class="help-block">{{ form.parent_first_name.help_text }}</p>
+                  {% endif %}
+                  <div class="errors">
+                    {% for error in form.parent_first_name.errors.as_data %}
+                    <div class="form-control-feedback">{{ error.message }}</div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+                <div class="form-group {% if form.parent_last_name.errors %} has-danger {% endif %}">
+                  {{ form.parent_last_name.label_tag }}
+                  {{ form.parent_last_name|add_class:"form-control" }}
+                  {% if show_help %}
+                    <p class="help-block">{{ form.parent_last_name.help_text }}</p>
+                  {% endif %}
+                  <div class="errors">
+                    {% for error in form.parent_last_name.errors.as_data %}
+                    <div class="form-control-feedback">{{ error.message }}</div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+
+              {{ form.source }}
+              {{ form.welcome }}
+              {{ form.non_field_errors }}
+
+            </div>
+
+            <hr>
+
+            {% if form.password %}
+            {% include "profiles/formfield.html" with field=form.password %}
+            {% include "profiles/formfield.html" with field=form.confirm_password %}
+            {% else %}
             <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
-          </div>
-        </div>
+            {% endif %}
 
-        <div class="col-md-4 student-column">
-          <h3>&nbsp;</h3>
-          <div>
-            {{form.email.label_tag}}
-            {{form.email}}
-            <div class="errors">{{ form.email.errors }}</div>
-          </div>
-          <div>
-            {{form.city.label_tag}}
-            {{form.city}}
-            <div class="errors">{{ form.city.errors }}</div>
-          </div>
-           <div>
-            {{form.image_url.label_tag}}
-            {% include "_avatar.html" with profile=request.user.profile %}
-            {{form.image_url}}
-            <div class="errors">{{ form.image_url.errors }}</div>
-          </div>
-        </div>
+            {{ form.non_field_errors }}
 
-        <div class="col-md-4 parent-info" {% if request.user.profile.age >= 13 %} style="display:none" {% endif %} >
-          <h3>Parent</h3>
-          <div>
-            {{form.parent_first_name.label_tag}}
-            {{form.parent_first_name}}
-            <div class="errors">{{ form.parent_first_name.errors }}</div>
-          </div>
-          <div>
-            {{form.parent_last_name.label_tag}}
-            {{form.parent_last_name}}
-            <div class="errors">{{ form.parent_last_name.errors }}</div>
-          </div>
+            <button type="submit" class="btn btn-primary float-xs-right">Save</button>
+          </form>
         </div>
-
-        {{ form.source }}
-        {{ form.welcome }}
-        {{ form.non_field_errors }}
 
       </div>
     </div>
-    <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
-  </form>
+  </div>
+</div>
 {% endblock %}
