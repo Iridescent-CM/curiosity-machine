@@ -3448,13 +3448,13 @@ a.tag:focus, a.tag:hover {
   .tag-danger[href]:focus, .tag-danger[href]:hover {
     background-color: #c9302c; }
 
-.jumbotron, .jumbotron-green, .jumbotron-dark, .jumbotron-dark-pattern, .jumbotron-small {
+.jumbotron, .jumbotron-green, .jumbotron-dark, .jumbotron-dark-pattern, .jumbotron-small, .jumbotron-blue {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
   background-color: #eceeef;
   border-radius: 0.3rem; }
   @media (min-width: 576px) {
-    .jumbotron, .jumbotron-green, .jumbotron-dark, .jumbotron-dark-pattern, .jumbotron-small {
+    .jumbotron, .jumbotron-green, .jumbotron-dark, .jumbotron-dark-pattern, .jumbotron-small, .jumbotron-blue {
       padding: 4rem 2rem; } }
 
 .jumbotron-hr {
@@ -5799,6 +5799,12 @@ i {
   padding-top: 1.5em;
   padding-bottom: 1.5em; }
 
+.jumbotron-blue {
+  background-color: #00B1C3;
+  color: #FFFCF7; }
+  .jumbotron-blue h1 {
+    margin-bottom: 0; }
+
 #site-message {
   border-radius: 0;
   margin-bottom: 0; }
@@ -6169,7 +6175,7 @@ footer {
     margin: 10px auto;
     min-height: 400px; }
 
-#index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern, #index-page .jumbotron-small {
+#index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern, #index-page .jumbotron-small, #index-page .jumbotron-blue {
   padding-top: 6em; }
 
 #index-page .home-top-panel {
