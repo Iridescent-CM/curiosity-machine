@@ -27,14 +27,14 @@
         {% for membership in membership_selection.all %}
         {% if membership.show_expiring_notice %}
         <div class="alert alert-info" role="alert">
-          {{ membership.display_name }} is expiring on {{ membership.expiration }}
+          <strong>{{ membership.display_name }}</strong> is expiring on {{ membership.expiration }}. <a href="mailto:curiosity@iridescentlearning.org">Contact us</a> to renew your membership.
         </div>
         {% endif %}
         {% endfor %}
 
         {% for membership in membership_selection.recently_expired %}
         <div class="alert alert-info" role="alert">
-          {{ membership.display_name }} recently expired.
+          <strong>{{ membership.display_name }}</strong> expired on {{ membership.expiration }}. <a href="mailto:curiosity@iridescentlearning.org">Contact us</a> to renew your membership.
         </div>
         {% endfor %}
       </div>
