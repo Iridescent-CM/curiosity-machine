@@ -9,6 +9,7 @@ from profiles.models import UserRole
 
 from django.db.utils import IntegrityError
 from django.contrib.auth.models import AnonymousUser
+from datetime import timedelta, datetime
 
 @pytest.mark.django_db
 def test_uniqueness():
@@ -88,3 +89,13 @@ def test_share_membership_for_inactive():
     membership = MembershipFactory(members=users, is_active=False)
 
     assert not Membership.share_membership(users[0].username, users[1].username)
+
+@pytest.mark.django_db
+def test_expired_manager_method():
+    rightnow = datetime.now()
+    yesterday = MembershipFactory(expiration=rightnow - timedelta(days=1))
+    today = MembershipFactory(expiration=rightnow)
+    tomorrow = MembershipFactory(expiration=rightnow + timedelta(days=1))
+
+    assert set(Membership.objects.expired()) == set([yesterday])
+    assert set(Membership.objects.expired(expiration=rightnow + timedelta(days=1))) == set([yesterday, today])

@@ -17,6 +17,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class MembershipQuerySet(models.QuerySet):
+
+    def expired(self, expiration=None, **kwargs):
+        if expiration is None:
+            expiration = now().date()
+        return self.filter(expiration__lt=expiration)
+
 class Membership(models.Model):
     name = models.CharField(
         unique=True,
@@ -63,6 +70,8 @@ class Membership(models.Model):
         help_text="Users who are part of this membership will have access to these units in addition to the standard listed units."
     )
 
+    objects = MembershipQuerySet().as_manager()
+
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
         if user.is_authenticated() and (user.is_staff or user.profile.is_mentor):
@@ -87,12 +96,39 @@ class Membership(models.Model):
     def __str__(self):
         return self.name
 
+class Group(models.Model):
+    class Meta:
+        unique_together = ("membership", "name")
+
+    membership = models.ForeignKey(Membership, null=False, blank=False)
+    name = models.CharField(unique=True, max_length=255, null=False, blank=False)
+    members = models.ManyToManyField('Member', blank=True, through='GroupMember')
+
+    def __str__(self):
+        return "%s: %s" % (self.membership, self.name)
+
+class GroupMember(models.Model):
+    group = models.ForeignKey(Group, null=False, blank=False)
+    member = models.ForeignKey('Member', null=False, blank=False)
+
+    def clean(self):
+        if self.member.membership != self.group.membership:
+            raise ValidationError("Group and member must be part of the same membership")
+        if not self.member.user.profile.is_student:
+            raise ValidationError("Only students can be members of a group")
+
+    def __str__(self):
+        return "%s-%s: %s" % (self.group.membership, self.group.name, self.member.user)
+
 class Member(models.Model):
     class Meta:
         unique_together = ("membership", "user")
 
     membership = models.ForeignKey(Membership, null=False, blank=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
+
+    def __str__(self):
+        return "%s: %s" % (self.membership, self.user)
 
     def clean(self):
         if not self.user_id or not self.membership_id:
@@ -175,6 +211,7 @@ import django_rq
 from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 
+@receiver(pre_save, sender=GroupMember)
 @receiver(pre_save, sender=Member)
 def clean_first(sender, instance, **kwargs):
     instance.full_clean()
