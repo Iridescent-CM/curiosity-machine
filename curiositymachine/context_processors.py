@@ -62,7 +62,8 @@ def template_globals(request):
         "SITE_URL": settings.SITE_URL,
         "DOCEBO_MENTOR_URL": settings.DOCEBO_MENTOR_URL,
         "ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN": settings.ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN,
-        "ROLLBAR_ENV": settings.ROLLBAR_ENV
+        "ROLLBAR_ENV": settings.ROLLBAR_ENV,
+        "CEO_ALERT": settings.CEO_ALERT,
     }
 
 def staff_alerts(request):
