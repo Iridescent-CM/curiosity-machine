@@ -4901,6 +4901,12 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   .hidden-print {
     display: none !important; } }
 
+.bg-secondary {
+  background-color: #E5E1D9 !important; }
+
+a.bg-secondary:focus, a.bg-secondary:hover {
+  background-color: #d0c9bb !important; }
+
 @font-face {
   font-family: 'curiosity-machine';
   src: url("../fonts/curiosity-machine.eot?6t4fb5");

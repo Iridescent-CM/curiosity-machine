@@ -182,6 +182,8 @@ MESSAGE_TAGS = {
     message_constants.ERROR: 'alert-danger'
 }
 
+CEO_ALERT = process_false_string(os.getenv("CEO_ALERT", False))
+
 FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 
 # upload_to_s3 task settings
