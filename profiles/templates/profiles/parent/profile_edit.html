@@ -51,7 +51,7 @@
                 {{ form.email.label_tag }}
                 {{ form.email|add_class:"form-control" }}
                 {% if show_help %}
-                  <p class="help-block">{{ form.email.help_text }}</p>
+                  <p class="form-text text-muted">{{ form.email.help_text }}</p>
                 {% endif %}
                 <div class="errors">
                   {% for error in form.email.errors.as_data %}
@@ -61,11 +61,11 @@
               </div>
             </div>
 
-            <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
+            <div class="form-group {% if form.first_name.errors %} has-danger {% endif %}">
               {{ form.first_name.label_tag }}
               {{ form.first_name|add_class:"form-control" }}
               {% if show_help %}
-                <p class="help-block">{{ form.first_name.help_text }}</p>
+                <p class="form-text text-muted">{{ form.first_name.help_text }}</p>
               {% endif %}
               <div class="errors">
                 {% for error in form.first_name.errors.as_data %}
@@ -74,11 +74,11 @@
               </div>
             </div>
 
-            <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
+            <div class="form-group {% if form.last_name.errors %} has-danger {% endif %}">
               {{ form.last_name.label_tag }}
               {{ form.last_name|add_class:"form-control" }}
               {% if show_help %}
-                <p class="help-block">{{ form.last_name.help_text }}</p>
+                <p class="form-text text-muted">{{ form.last_name.help_text }}</p>
               {% endif %}
               <div class="errors">
                 {% for error in form.last_name.errors.as_data %}
@@ -87,11 +87,11 @@
               </div>
             </div>
 
-            <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
+            <div class="form-group {% if form.city.errors %} has-danger {% endif %}">
               {{ form.city.label_tag }}
               {{ form.city|add_class:"form-control" }}
               {% if show_help %}
-                <p class="help-block">{{ form.city.help_text }}</p>
+                <p class="form-text text-muted">{{ form.city.help_text }}</p>
               {% endif %}
               <div class="errors">
                 {% for error in form.city.errors.as_data %}
