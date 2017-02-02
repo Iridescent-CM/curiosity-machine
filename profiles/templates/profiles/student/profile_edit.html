@@ -60,17 +60,8 @@
                 </div>
               </div>
 
-              <div class="form-group {% if form.birthday.errors %} has-danger {% endif %}">
-                {{ form.birthday.label_tag }}
-                {{ form.birthday|add_class:"form-control" }}
-                {% if show_help %}
-                  <p class="help-block">{{ form.birthday.help_text }}</p>
-                {% endif %}
-                <div class="errors">
-                  {% for error in form.birthday.errors.as_data %}
-                  <div class="form-control-feedback">{{ error.message }}</div>
-                  {% endfor %}
-                </div>
+              <div class="mb-1">
+                Birthday: {{ user.profile.birthday|date:"F d, Y" }}
               </div>
 
               <div class="form-group {% if form.city.errors %} has-danger {% endif %}">
