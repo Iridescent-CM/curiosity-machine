@@ -50,9 +50,6 @@
               <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
                 {{ form.email.label_tag }}
                 {{ form.email|add_class:"form-control" }}
-                {% if show_help %}
-                  <p class="form-text text-muted">{{ form.email.help_text }}</p>
-                {% endif %}
                 <div class="errors">
                   {% for error in form.email.errors.as_data %}
                   <div class="form-control-feedback">{{ error.message }}</div>
@@ -63,9 +60,6 @@
               <div class="form-group {% if form.city.errors %} has-danger {% endif %}">
                 {{ form.city.label_tag }}
                 {{ form.city|add_class:"form-control" }}
-                {% if show_help %}
-                  <p class="form-text text-muted">{{ form.city.help_text }}</p>
-                {% endif %}
                 <div class="errors">
                   {% for error in form.city.errors.as_data %}
                   <div class="form-control-feedback">{{ error.message }}</div>
@@ -76,9 +70,6 @@
               <div class="form-group {% if form.title.errors %} has-danger {% endif %}">
                 {{ form.title.label_tag }}
                 {{ form.title|add_class:"form-control" }}
-                {% if show_help %}
-                  <p class="form-text text-muted">{{ form.title.help_text }}</p>
-                {% endif %}
                 <div class="errors">
                   {% for error in form.title.errors.as_data %}
                   <div class="form-control-feedback">{{ error.message }}</div>
@@ -89,9 +80,6 @@
               <div class="form-group {% if form.employer.errors %} has-danger {% endif %}">
                 {{ form.employer.label_tag }}
                 {{ form.employer|add_class:"form-control" }}
-                {% if show_help %}
-                  <p class="form-text text-muted">{{ form.employer.help_text }}</p>
-                {% endif %}
                 <div class="errors">
                   {% for error in form.employer.errors.as_data %}
                   <div class="form-control-feedback">{{ error.message }}</div>
@@ -102,9 +90,6 @@
               <div class="form-group {% if form.expertise.errors %} has-danger {% endif %}">
                 {{ form.expertise.label_tag }}
                 {{ form.expertise|add_class:"form-control" }}
-                {% if show_help %}
-                  <p class="form-text text-muted">{{ form.expertise.help_text }}</p>
-                {% endif %}
                 <div class="errors">
                   {% for error in form.expertise.errors.as_data %}
                   <div class="form-control-feedback">{{ error.message }}</div>
@@ -115,9 +100,6 @@
               <div class="form-group {% if form.about_me.errors %} has-danger {% endif %}">
                 {{ form.about_me.label_tag }}
                 {{ form.about_me|add_class:"form-control" }}
-                {% if show_help %}
-                  <p class="form-text text-muted">{{ form.about_me.help_text }}</p>
-                {% endif %}
                 <div class="errors">
                   {% for error in form.about_me.errors.as_data %}
                   <div class="form-control-feedback">{{ error.message }}</div>
@@ -137,9 +119,6 @@
               <div class="form-group {% if form.about_research.errors %} has-danger {% endif %}">
                 {{ form.about_research.label_tag }}
                 {{ form.about_research|add_class:"form-control" }}
-                {% if show_help %}
-                  <p class="form-text text-muted">{{ form.about_research.help_text }}</p>
-                {% endif %}
                 <div class="errors">
                   {% for error in form.about_research.errors.as_data %}
                   <div class="form-control-feedback">{{ error.message }}</div>
