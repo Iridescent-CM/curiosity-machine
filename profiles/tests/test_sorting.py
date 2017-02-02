@@ -135,9 +135,11 @@ def test_sorter_context_helpers():
         {"name": "Thing a", "url": "?foo=a"},
         {"name": "Thing b", "url": "?foo=b"},
     ]
-    assert DemoSorter().strategies(base_url="http://base.url") == [
-        {"name": "Thing a", "url": "http://base.url?sort=a"},
-        {"name": "Thing b", "url": "http://base.url?sort=b"},
-    ]
     assert DemoSorter().selected() == "Thing a"
     assert DemoSorter(DemoSorter.Strategy.thing_b).selected() == "Thing b"
+
+def test_sorter_context_helper_preserves_other_query_params():
+    for s in DemoSorter(query=QueryDict('a=1&b=2')).strategies():
+        assert "a=1" in s["url"]
+        assert "b=2" in s["url"]
+        assert "sort=" in s["url"]

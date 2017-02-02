@@ -182,6 +182,8 @@ MESSAGE_TAGS = {
     message_constants.ERROR: 'alert-danger'
 }
 
+CEO_ALERT = process_false_string(os.getenv("CEO_ALERT", False))
+
 FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
 
 # upload_to_s3 task settings
@@ -334,6 +336,8 @@ TEMPLATE_LOADERS = (
 )
 
 MEMBER_IMPORT_EXPIRATION_DAYS = os.environ.get("MEMBER_IMPORT_EXPIRATION_DAYS", 7)
+MEMBERSHIP_EXPIRING_NOTICE_DAYS = os.environ.get("MEMBER_EXPIRING_NOTICE_DAYS", 30)
+MEMBERSHIP_EXPIRED_NOTICE_DAYS = os.environ.get("MEMBER_EXPIRED_NOTICE_DAYS", 30)
 EMAIL_INACTIVE_DAYS_MENTOR = os.environ.get("EMAIL_INACTIVE_DAYS_MENTOR", 7)
 EMAIL_INACTIVE_DAYS_STUDENT = os.environ.get("EMAIL_INACTIVE_DAYS_STUDENT", 14)
 GA_CODE = os.environ.get("GA_CODE", None)

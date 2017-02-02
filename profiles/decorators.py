@@ -3,6 +3,9 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import Http404
 from profiles.models import ParentConnection
 from memberships.models import Membership
+from django.utils.timezone import now
+from datetime import timedelta
+from django.conf import settings
 
 def parents_only(view):
     @wraps(view)
@@ -71,6 +74,8 @@ class MembershipSelection():
         Takes request and optional list of membership dicts. If memberships are passed in, they
         are not queried from the database based on the request user.
         """
+        self.request = request
+
         if memberships is None:
             self.all = self._get_membership_selections_map(request.user)
         else:
@@ -82,14 +87,14 @@ class MembershipSelection():
             if qparam:
                 try:
                     qparam = int(qparam)
-                    self.selected = next(d for d in self.all if d['id'] == qparam)
+                    self.selected = next(d for d in self.all if d.id == qparam)
                     request.session[self.session_param] = qparam
                 except:
                     raise Http404
 
             elif self.session_param in request.session:
                 try:
-                    self.selected = next(d for d in self.all if d['id'] == request.session.get(self.session_param))
+                    self.selected = next(d for d in self.all if d.id == request.session.get(self.session_param))
                 except:
                     del request.session[self.session_param]
                     self.selected = self.all[0]
@@ -101,13 +106,7 @@ class MembershipSelection():
         """
         Gets active membership value dicts for user
         """
-        return user.membership_set.filter(is_active=True).order_by('display_name').values('id', 'display_name')
-
-    def get_selected_membership(self):
-        """
-        Gets full model for selected membership
-        """
-        return Membership.objects.get(pk=self.selected["id"])
+        return user.membership_set.filter(is_active=True).order_by('display_name')
 
     @property
     def count(self):
@@ -116,7 +115,7 @@ class MembershipSelection():
 
     @property
     def names(self):
-        return ", ".join([o["display_name"] for o in self.all]) or "None"
+        return ", ".join([o.display_name for o in self.all]) or "None"
 
     @property
     def no_memberships(self):
@@ -127,6 +126,11 @@ class MembershipSelection():
     def memberships(self):
         # rename to has_memberships? just use not empty?
         return self.count != 0
+
+    @property
+    def recently_expired(self):
+        cutoff = now().date() - timedelta(days=settings.MEMBERSHIP_EXPIRED_NOTICE_DAYS)
+        return self.request.user.membership_set.expired(cutoff=cutoff)
 
 def membership_selection(view):
     @wraps(view)

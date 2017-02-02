@@ -17,6 +17,23 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class MembershipQuerySet(models.QuerySet):
+
+    def expired(self, expiration=None, cutoff=None):
+        if expiration is None:
+            expiration = now().date()
+        if cutoff is None:
+            return self.filter(expiration__lt=expiration)
+        else:
+            return self.filter(expiration__range=(cutoff, expiration - timedelta(days=1)))
+
+    def expiring(self, expiration=None, cutoff=None):
+        if expiration is None:
+            expiration = now().date()
+        if cutoff is None:
+            cutoff = expiration + timedelta(days=30)
+        return self.filter(expiration__range=(expiration, cutoff))
+
 class Membership(models.Model):
     name = models.CharField(
         unique=True,
@@ -63,6 +80,11 @@ class Membership(models.Model):
         help_text="Users who are part of this membership will have access to these units in addition to the standard listed units."
     )
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = MembershipQuerySet().as_manager()
+
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
         if user.is_authenticated() and (user.is_staff or user.profile.is_mentor):
@@ -84,8 +106,39 @@ class Membership(models.Model):
             return obj.limit
         return None
 
+    def show_expiring_notice(self):
+        today = now().date()
+        return (self.is_active 
+            and self.expiration 
+            and self.expiration >= today
+            and (self.expiration - today) < timedelta(days=settings.MEMBERSHIP_EXPIRING_NOTICE_DAYS))
+
     def __str__(self):
         return self.name
+
+class Group(models.Model):
+    class Meta:
+        unique_together = ("membership", "name")
+
+    membership = models.ForeignKey(Membership, null=False, blank=False)
+    name = models.CharField(unique=True, max_length=255, null=False, blank=False)
+    members = models.ManyToManyField('Member', blank=True, through='GroupMember')
+
+    def __str__(self):
+        return "%s: %s" % (self.membership, self.name)
+
+class GroupMember(models.Model):
+    group = models.ForeignKey(Group, null=False, blank=False)
+    member = models.ForeignKey('Member', null=False, blank=False)
+
+    def clean(self):
+        if self.member.membership != self.group.membership:
+            raise ValidationError("Group and member must be part of the same membership")
+        if not self.member.user.profile.is_student:
+            raise ValidationError("Only students can be members of a group")
+
+    def __str__(self):
+        return "%s-%s: %s" % (self.group.membership, self.group.name, self.member.user)
 
 class Member(models.Model):
     class Meta:
@@ -93,6 +146,12 @@ class Member(models.Model):
 
     membership = models.ForeignKey(Membership, null=False, blank=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "%s: %s" % (self.membership, self.user)
 
     def clean(self):
         if not self.user_id or not self.membership_id:
@@ -130,9 +189,9 @@ class StaleManager(models.Manager):
 
     def older_than(self, days=None):
         qs =  super().get_queryset()
-        if days != None:
-            qs = qs.filter(updated_at__lt=self.threshold(days))
-        return qs
+        if days is None:
+            days = self.default_days
+        return qs.filter(updated_at__lt=self.threshold(days))
 
     def threshold(self, days=None):
         days = days if days != None else self.default_days
@@ -175,6 +234,7 @@ import django_rq
 from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 
+@receiver(pre_save, sender=GroupMember)
 @receiver(pre_save, sender=Member)
 def clean_first(sender, instance, **kwargs):
     instance.full_clean()

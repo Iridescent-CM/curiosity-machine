@@ -177,17 +177,12 @@
 }
 
 //
-// Expandable challenge cards for lists
+// Vertical expandable card
 //
-.expandable-card {
+
+.vertical-expandable-card {
   background-color: $ivory;
   box-shadow: 0px 2px 4px 0px $main-shadow;
-  min-height: 165px;
-
-  .expandable-card-title {
-    min-height: 165px;
-    padding: $small-spacing;
-  }
 
   h3 a {
     color: $dark;
@@ -199,7 +194,7 @@
     display: block;
     position: absolute;
     bottom: 0px;
-    right: 15px;
+    right: 0px;
     padding: 3px 7px;
     background-color: darken($sand, 20%);
     z-index: 100;
