@@ -53,9 +53,6 @@
                 {% if request.user.profile.age <= 13 %}
                 <p class="form-text text-muted">If you're under 13, this can be your parent's email.</p>
                 {% endif %}
-                {% if show_help %}
-                  <p class="form-text text-muted">{{ form.email.help_text }}</p>
-                {% endif %}
                 <div class="errors">
                   {% for error in form.email.errors.as_data %}
                   <div class="form-control-feedback">{{ error.message }}</div>
@@ -70,9 +67,6 @@
               <div class="form-group {% if form.city.errors %} has-danger {% endif %}">
                 {{ form.city.label_tag }}
                 {{ form.city|add_class:"form-control" }}
-                {% if show_help %}
-                  <p class="form-text text-muted">{{ form.city.help_text }}</p>
-                {% endif %}
                 <div class="errors">
                   {% for error in form.city.errors.as_data %}
                   <div class="form-control-feedback">{{ error.message }}</div>
@@ -88,9 +82,6 @@
                 <div class="form-group {% if form.parent_first_name.errors %} has-danger {% endif %}">
                   {{ form.parent_first_name.label_tag }}
                   {{ form.parent_first_name|add_class:"form-control" }}
-                  {% if show_help %}
-                    <p class="form-text text-muted">{{ form.parent_first_name.help_text }}</p>
-                  {% endif %}
                   <div class="errors">
                     {% for error in form.parent_first_name.errors.as_data %}
                     <div class="form-control-feedback">{{ error.message }}</div>
@@ -101,9 +92,6 @@
                 <div class="form-group {% if form.parent_last_name.errors %} has-danger {% endif %}">
                   {{ form.parent_last_name.label_tag }}
                   {{ form.parent_last_name|add_class:"form-control" }}
-                  {% if show_help %}
-                    <p class="form-text text-muted">{{ form.parent_last_name.help_text }}</p>
-                  {% endif %}
                   <div class="errors">
                     {% for error in form.parent_last_name.errors.as_data %}
                     <div class="form-control-feedback">{{ error.message }}</div>
