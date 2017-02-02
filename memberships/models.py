@@ -113,6 +113,14 @@ class Membership(models.Model):
             and self.expiration >= today
             and (self.expiration - today) < timedelta(days=settings.MEMBERSHIP_EXPIRING_NOTICE_DAYS))
 
+    @property
+    def educators(self):
+        return self.members.filter(profile__role=UserRole.educator.value)
+
+    @property
+    def students(self):
+        return self.members.filter(profile__role=UserRole.student.value)
+
     def __str__(self):
         return self.name
 
