@@ -183,9 +183,9 @@ class StaleManager(models.Manager):
 
     def older_than(self, days=None):
         qs =  super().get_queryset()
-        if days != None:
-            qs = qs.filter(updated_at__lt=self.threshold(days))
-        return qs
+        if days is None:
+            days = self.default_days
+        return qs.filter(updated_at__lt=self.threshold(days))
 
     def threshold(self, days=None):
         days = days if days != None else self.default_days

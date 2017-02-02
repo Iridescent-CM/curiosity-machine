@@ -97,8 +97,12 @@ def test_stale_manager_older_than():
     MemberImport.objects.all().update(
         updated_at = now() - timedelta(days=default_days + 1)
     )
+    MemberImport.objects.create(
+        input = SimpleUploadedFile("file2.csv", b'file contents'),
+        membership = membership
+    )
 
-    assert MemberImport.objects.count() == 1
+    assert MemberImport.objects.count() == 2
     assert MemberImport.stale_objects.older_than().count() == 1
     assert MemberImport.stale_objects.older_than(default_days).count() == 1
     assert MemberImport.stale_objects.older_than(default_days + 2).count() == 0
