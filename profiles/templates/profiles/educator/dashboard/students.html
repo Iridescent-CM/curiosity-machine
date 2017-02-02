@@ -33,18 +33,35 @@
   {% else %}
   <div class="row pb-1">
     <div class="col-md-12">
-      <h2>{{ membership.display_name }} Students</h2>
+      <h2>{{ group_selector.selected.text }}</h2>
       {% if students %}
-      <div class="dropdown float-xs-right">
-        <a class="dropdown-toggle a-borderless" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Sort by {{ sorter.selected|lower }}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="sortDropdown">
-          {% for strategy in sorter.strategies %}
-          <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
-          {% endfor %}
+
+      <div class="well-shadow mb-1">
+
+        <div class="dropdown dropdown-design-challenge">
+          <a class="dropdown-toggle a-borderless" href="#" id="challengesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Choose group
+          </a>
+          <div class="dropdown-menu text-capitalize" aria-labelledby="challengesDropdown">
+            {% for group in group_selector.options %}
+            <a class="dropdown-item" href="?{{ group.GET.urlencode }}">{{ group.text }}</a>
+            {% endfor %}
+          </div>
         </div>
+
+        <div class="dropdown float-md-right">
+          <a class="dropdown-toggle a-borderless" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort by {{ sorter.selected|lower }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="sortDropdown">
+            {% for strategy in sorter.strategies %}
+            <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
+            {% endfor %}
+          </div>
+        </div>
+
       </div>
+
       {% endif %}
     </div>
   </div>

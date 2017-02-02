@@ -25,6 +25,7 @@ from ..serializers import CommentSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated
 from groups.forms import GroupForm
+from memberships.helpers.selectors import GroupSelector
 
 User = get_user_model()
 
@@ -60,8 +61,10 @@ def home(request, membership_selection=None):
 
     membership_challenges = []
     membership = None
+    gs = None
     if membership_selection and membership_selection.selected:
         membership = membership_selection.selected
+        gs = GroupSelector(membership)
         membership_challenges = membership.challenges.select_related('image').prefetch_related('resource_set')
         core_challenges = core_challenges.exclude(id__in=membership_challenges.values('id'))
 
@@ -70,6 +73,7 @@ def home(request, membership_selection=None):
         "membership_challenges": membership_challenges,
         "core_challenges": core_challenges,
         "membership_selection": membership_selection,
+        "group_selector": gs,
     })
 
 @educator_only
@@ -79,14 +83,17 @@ def students_dashboard(request, membership_selection=None):
     membership = None
     students = []
     sorter = None
+    gs = None
     if membership_selection and membership_selection.selected:
         membership = membership_selection.selected
         sorter = StudentSorter(query=request.GET)
-        students = membership.members.filter(profile__role=UserRole.student.value).select_related('profile__image')
+        gs = GroupSelector(membership, query=request.GET)
+        students = gs.selected.queryset.select_related('profile__image')
         students = sorter.sort(students)
     return render(request, "profiles/educator/dashboard/students.html", {
         "membership": membership,
         "students": students,
+        "group_selector": gs,
         "membership_selection": membership_selection,
         "sorter": sorter,
     })
@@ -158,7 +165,8 @@ def challenge_detail(request, challenge_id, membership_selection=None):
     challenge = get_object_or_404(membership.challenges, pk=challenge_id)
 
     sorter = StudentSorter(query=request.GET)
-    students = membership.members.filter(profile__role=UserRole.student.value)
+    gs = GroupSelector(membership, query=request.GET)
+    students = gs.selected.queryset.select_related('profile__image')
     students = sorter.sort(students)
     students = students.select_related('profile__image').all()
 
@@ -184,6 +192,7 @@ def challenge_detail(request, challenge_id, membership_selection=None):
         "student_ids_with_examples": student_ids_with_examples,
         "membership_selection": membership_selection,
         "sorter": sorter,
+        "group_selector": gs,
     })
 
 class IsEducator(permissions.BasePermission):

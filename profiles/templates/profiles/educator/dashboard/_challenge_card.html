@@ -1,24 +1,41 @@
 {% load resized %}
-<div class="expandable-card">
-  <div>
-    <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
-      <img class="float-xs-left mr-1" src="{% resized challenge.image.url width=165 height=165 crop='thumb' %}" alt="{{ challenge.name }}">
-    </a>
-    <div class="expandable-card-title">
-      <h3>
-        <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
-          {{ challenge.name }}
-        </a>
-      </h3>
 
-      {% if show_detail_links %}
-      <a href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}">View all student progress &rarr;</a>
-      {% endif %}
+<div class="card vertical-expandable-card">
 
-      <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo-{{ challenge.id }}" aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
-        &plus; MORE INFO
+  <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
+    <img class="card-img-top mr-1" src="{% resized challenge.image.url width=545 height=240 crop='fill' %}" alt="{{ challenge.name }}">
+  </a>
+
+  <div class="card-block">
+    <h3>
+      <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
+        {{ challenge.name }}
       </a>
+    </h3>
+
+    {% if show_detail_links %}
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdown-{{ challenge.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        View student progress
+      </a>
+
+      <div class="dropdown-menu text-capitalize" aria-labelledby="dropdownMenuLink-{{ challenge.id }}">
+        <!-- <a class="dropdown-item" href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}">All Students</a> -->
+        {% for group in group_selector.options %}
+        <a class="dropdown-item" href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}?{{ group.GET.urlencode }}">
+          {{ group.text }}
+        </a>
+        {% endfor %}
+      </div>
     </div>
+    {% endif %}
+
+  </div>
+
+  <div class="card-block">
+    <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo-{{ challenge.id }}" aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
+      &plus; MORE INFO
+    </a>
   </div>
 
   <div class="collapse" id="moreInfo-{{ challenge.id }}">
@@ -36,4 +53,5 @@
       {% endif %}
     </div>
   </div>
+
 </div>

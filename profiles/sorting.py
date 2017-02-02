@@ -1,5 +1,6 @@
 import operator
 from enum import Enum
+from django.http import QueryDict
 
 class Reversed:
     """
@@ -46,19 +47,25 @@ class Sorter():
         if strategy != None and not isinstance(strategy, self.Strategy):
             raise TypeError('strategy argument must be a %s.Strategy' % self.__class__)
 
+        self.query = query
         if query != None and param in query:
             self.strategy = self.Strategy[query[param]]
         else:
             self.strategy = strategy or self.default
 
-    def strategies(self, base_url=''):
-        return [
-            {
+    def strategies(self):
+        strats = []
+        for short in self.shortnames:
+            if self.query:
+                qd = self.query.copy()
+            else:
+                qd = QueryDict(mutable=True)
+            qd[self.param] = short
+            strats.append({
                 "name": self.Strategy[short].display_name,
-                "url": "%s?%s=%s" % (base_url, self.param, short)
-            }
-            for short in self.shortnames
-        ]
+                "url": "?%s" % qd.urlencode()
+            })
+        return strats
 
     def selected(self):
         return self.strategy.display_name
