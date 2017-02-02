@@ -61,7 +61,7 @@ def home(request, membership_selection=None):
     membership_challenges = []
     membership = None
     if membership_selection and membership_selection.selected:
-        membership = membership_selection.get_selected_membership()
+        membership = membership_selection.selected
         membership_challenges = membership.challenges.select_related('image').prefetch_related('resource_set')
         core_challenges = core_challenges.exclude(id__in=membership_challenges.values('id'))
 
@@ -80,7 +80,7 @@ def students_dashboard(request, membership_selection=None):
     students = []
     sorter = None
     if membership_selection and membership_selection.selected:
-        membership = membership_selection.get_selected_membership()
+        membership = membership_selection.selected
         sorter = StudentSorter(query=request.GET)
         students = membership.members.filter(profile__role=UserRole.student.value).select_related('profile__image')
         students = sorter.sort(students)
@@ -98,7 +98,7 @@ def student_detail(request, student_id, membership_selection=None):
     if not (membership_selection and membership_selection.selected):
         raise PermissionDenied
 
-    membership = membership_selection.get_selected_membership()
+    membership = membership_selection.selected
     membership_students = membership.members.select_related('profile__image').filter(profile__role=UserRole.student.value)
     student = get_object_or_404(membership_students, pk=student_id)
     progresses = (student.progresses
@@ -136,7 +136,7 @@ def guides_dashboard(request, membership_selection=None):
     extra_units = []
     membership = None
     if membership_selection and membership_selection.selected:
-        membership = membership_selection.get_selected_membership()
+        membership = membership_selection.selected
         extra_units = membership.extra_units.order_by('id').select_related('image')
         units = units.exclude(id__in=extra_units.values('id'))
 
@@ -154,7 +154,7 @@ def challenge_detail(request, challenge_id, membership_selection=None):
     if not (membership_selection and membership_selection.selected):
         raise PermissionDenied
 
-    membership = membership_selection.get_selected_membership()
+    membership = membership_selection.selected
     challenge = get_object_or_404(membership.challenges, pk=challenge_id)
 
     sorter = StudentSorter(query=request.GET)

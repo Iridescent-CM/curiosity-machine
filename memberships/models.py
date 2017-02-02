@@ -17,6 +17,23 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class MembershipQuerySet(models.QuerySet):
+
+    def expired(self, expiration=None, cutoff=None):
+        if expiration is None:
+            expiration = now().date()
+        if cutoff is None:
+            return self.filter(expiration__lt=expiration)
+        else:
+            return self.filter(expiration__range=(cutoff, expiration - timedelta(days=1)))
+
+    def expiring(self, expiration=None, cutoff=None):
+        if expiration is None:
+            expiration = now().date()
+        if cutoff is None:
+            cutoff = expiration + timedelta(days=30)
+        return self.filter(expiration__range=(expiration, cutoff))
+
 class Membership(models.Model):
     name = models.CharField(
         unique=True,
@@ -63,6 +80,8 @@ class Membership(models.Model):
         help_text="Users who are part of this membership will have access to these units in addition to the standard listed units."
     )
 
+    objects = MembershipQuerySet().as_manager()
+
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
         if user.is_authenticated() and (user.is_staff or user.profile.is_mentor):
@@ -83,6 +102,13 @@ class Membership(models.Model):
         if obj:
             return obj.limit
         return None
+
+    def show_expiring_notice(self):
+        today = now().date()
+        return (self.is_active 
+            and self.expiration 
+            and self.expiration >= today
+            and (self.expiration - today) < timedelta(days=settings.MEMBERSHIP_EXPIRING_NOTICE_DAYS))
 
     def __str__(self):
         return self.name
