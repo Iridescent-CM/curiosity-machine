@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
-from memberships.models import Membership, Member, MemberLimit, MemberImport
+from memberships.models import *
 from memberships.importer import Status
 from django.utils.timezone import now
 from datetime import timedelta
@@ -93,7 +93,7 @@ class MembershipAdmin(admin.ModelAdmin):
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')
     search_fields = ('membership__name', 'user__username')
-    raw_id_fields = ('membership', 'user',)
+    raw_id_fields = ('membership', 'user')
 
     def get_form(self, request, obj=None, **kwargs):
         kwargs.update({
@@ -104,5 +104,25 @@ class MemberAdmin(admin.ModelAdmin):
         })
         return super().get_form(request, obj, **kwargs);
 
+class GroupAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'membership')
+    search_fields = ('membership__name', 'name')
+    raw_id_fields = ('membership',)
+
+class GroupMemberAdmin(admin.ModelAdmin):
+    list_display = ('id', 'membership_name', 'group_name', 'member_name')
+    raw_id_fields = ('group', 'member')
+
+    def membership_name(self, obj):
+        return str(obj.group.membership)
+
+    def group_name(self, obj):
+        return obj.group.name
+
+    def member_name(self, obj):
+        return obj.member.user
+
 admin.site.register(Membership, MembershipAdmin)
 admin.site.register(Member, MemberAdmin)
+admin.site.register(Group, GroupAdmin)
+admin.site.register(GroupMember, GroupMemberAdmin)
