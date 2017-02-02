@@ -154,6 +154,7 @@
   //
   .dc-sort-options {
     text-align: right;
+    display: inline-block;
 
     @include media-breakpoint-down(sm) {
       text-align: left;
