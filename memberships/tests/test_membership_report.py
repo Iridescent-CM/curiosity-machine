@@ -32,3 +32,16 @@ def test_report_output():
     assert "id,name" in out
     for c in challenges:
         assert "%s,%s" % (c.id, c.name) in out
+
+@pytest.mark.django_db
+def test_dialect_and_line_terminators():
+    output = StringIO()
+    MembershipReport(MembershipFactory(), dialect="excel").write(output)
+    out = output.getvalue()
+    assert "\r\n" in out
+
+    output = StringIO()
+    MembershipReport(MembershipFactory(), dialect="unix").write(output)
+    out = output.getvalue()
+    assert "\n" in out
+    assert "\r" not in out
