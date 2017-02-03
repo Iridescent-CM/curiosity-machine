@@ -1,14 +1,17 @@
 from django.contrib import admin
 from django.contrib.admin.options import InlineModelAdmin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
 from django.contrib import messages
+from django.core.files.storage import default_storage
+from django.core.files import File
 from memberships.models import *
 from memberships.importer import Status
 from django.utils.timezone import now
 from datetime import timedelta
+from .tasks import *
 
 class ExpirationFilter(admin.SimpleListFilter):
     title = 'Expiration'
@@ -95,14 +98,28 @@ class MembershipAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            url(r'^(?P<object_id>\d+)/report/$', self.run_report, name="memberships_membership_report"),
+            url(r'^(?P<object_id>\d+)/report/$',
+                self.admin_site.admin_view(self.run_report),
+                name="memberships_membership_report"
+            ),
+            url(r'^(?P<object_id>\d+)/report/(?P<filename>.+)$',
+                self.admin_site.admin_view(self.get_report),
+                name="memberships_membership_get_report"
+            ),
         ]
         return my_urls + urls
 
     def run_report(self, request, object_id):
-        messages.success(request, 'Report will be emailed to %s' % request.user.email)
-        # run report task
+        messages.success(request, 'Report link will be emailed to %s' % request.user.email)
+        queue_membership_report(object_id, request.user.email)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+
+    def get_report(self, request, object_id, filename):
+        filename = MembershipReport.build_path(object_id, filename=filename)
+        if default_storage.exists(filename):
+            return HttpResponseRedirect(default_storage.url(filename))
+        else:
+            raise Http404("File not found: %s" % filename)
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('id', 'membership', 'user')

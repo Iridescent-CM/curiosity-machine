@@ -17,6 +17,7 @@ def test_report_output():
     output = StringIO()
     MembershipReport(membership).write(output)
     out = output.getvalue()
+    print(out)
 
     assert "educators" in out
     assert "id,username,email,first_name,last_name" in out
@@ -38,10 +39,21 @@ def test_dialect_and_line_terminators():
     output = StringIO()
     MembershipReport(MembershipFactory(), dialect="excel").write(output)
     out = output.getvalue()
+    print(out)
     assert "\r\n" in out
 
     output = StringIO()
     MembershipReport(MembershipFactory(), dialect="unix").write(output)
     out = output.getvalue()
+    print(out)
     assert "\n" in out
     assert "\r" not in out
+
+def test_build_path():
+    assert MembershipReport.build_path(1, filename='name.csv') == '/memberships/1/reports/name.csv'
+
+def test_path_and_filename_properties():
+    membership = MembershipFactory.build(id=5, name='membership name')
+    report = MembershipReport(membership)
+    assert report.filename == 'membership-name.csv'
+    assert report.path == '/memberships/5/reports/membership-name.csv'
