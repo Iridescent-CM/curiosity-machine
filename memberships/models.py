@@ -50,12 +50,13 @@ class Membership(models.Model):
     expiration = models.DateField(
         null=True,
         blank=True,
+        help_text="Expired memberships will be automatically made inactive.",
     )
     is_active = models.BooleanField(
         "Active",
         null=False,
         default=True,
-        help_text="Designates whether a membership is considered active. Unselect this when a membership expires instead of deleting it."
+        help_text="Designates whether a membership is considered active. Unselect this when a membership expires instead of deleting it. To restore an inactive membership, enable this and update the expiration date."
     )
     notes = models.TextField(
         null=True,
