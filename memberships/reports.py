@@ -5,6 +5,7 @@ from django.utils.timezone import now
 class MembershipReport():
 
     dialect = csv.excel
+    date_format = '%Y-%m-%d %H:%M:%S'
 
     def __init__(self, membership, dialect=None):
         if dialect:
@@ -25,7 +26,12 @@ class MembershipReport():
         return name + '.csv'
 
     def write(self, fp):
-        fp.write(self.membership.name + " " + now().strftime('%Y-%m-%d %H:%M:%S'))
+        fp.write(self.membership.name)
+        fp.write(self.dialect.lineterminator)
+        fp.write("Report run: " + now().strftime(self.date_format))
+        fp.write(self.dialect.lineterminator)
+        fp.write("Membership created: " + self.membership.created_at.strftime(self.date_format))
+        fp.write(self.dialect.lineterminator)
         fp.write(self.dialect.lineterminator)
         fp.write("educators")
         fp.write(self.dialect.lineterminator)
