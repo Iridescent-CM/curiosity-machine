@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
 from django.contrib import messages
 from django.core.files.storage import default_storage
-from django.core.files import File
 from memberships.models import *
 from memberships.importer import Status
 from django.utils.timezone import now
