@@ -50,7 +50,7 @@
               <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
                 {{ form.email.label_tag }}
                 {{ form.email|add_class:"form-control" }}
-                {% if request.user.profile.age <= 13 %}
+                {% if request.user.profile.is_underage %}
                 <p class="form-text text-muted">If you're under 13, this can be your parent's email.</p>
                 {% endif %}
                 <div class="errors">
@@ -74,31 +74,32 @@
                 </div>
               </div>
 
-              <div class="{% if request.user.profile.age >= 13 %} hidden-xl-down {% endif %}">
-                <hr>
+              {% if request.user.profile.is_underage %}
+              <hr>
 
-                <h3>Parent Info</h3>
+              <h3>Parent Info</h3>
 
-                <div class="form-group {% if form.parent_first_name.errors %} has-danger {% endif %}">
-                  {{ form.parent_first_name.label_tag }}
-                  {{ form.parent_first_name|add_class:"form-control" }}
-                  <div class="errors">
-                    {% for error in form.parent_first_name.errors.as_data %}
-                    <div class="form-control-feedback">{{ error.message }}</div>
-                    {% endfor %}
-                  </div>
-                </div>
-
-                <div class="form-group {% if form.parent_last_name.errors %} has-danger {% endif %}">
-                  {{ form.parent_last_name.label_tag }}
-                  {{ form.parent_last_name|add_class:"form-control" }}
-                  <div class="errors">
-                    {% for error in form.parent_last_name.errors.as_data %}
-                    <div class="form-control-feedback">{{ error.message }}</div>
-                    {% endfor %}
-                  </div>
+              <div class="form-group {% if form.parent_first_name.errors %} has-danger {% endif %}">
+                {{ form.parent_first_name.label_tag }}
+                {{ form.parent_first_name|add_class:"form-control" }}
+                <div class="errors">
+                  {% for error in form.parent_first_name.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
                 </div>
               </div>
+
+              <div class="form-group {% if form.parent_last_name.errors %} has-danger {% endif %}">
+                {{ form.parent_last_name.label_tag }}
+                {{ form.parent_last_name|add_class:"form-control" }}
+                <div class="errors">
+                  {% for error in form.parent_last_name.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+
 
               {{ form.source }}
               {{ form.welcome }}
