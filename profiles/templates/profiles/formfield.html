@@ -1,8 +1,6 @@
-{% load widget_tweaks %}
-
 <div class="form-group">
   {{ field.label_tag }}
-  {{ field|add_class:"form-control" }}
+  {{ field }}
   {% if show_help %}
     <p class="help-block">{{ field.help_text }}</p>
   {% endif %}
