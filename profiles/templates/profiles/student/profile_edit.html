@@ -60,9 +60,17 @@
                 </div>
               </div>
 
-              <div class="mb-1">
-                Birthday: {{ user.profile.birthday|date:"F d, Y" }}
-              </div>
+              <fieldset disabled>
+                <div class="form-group {% if form.birthday.errors %} has-danger {% endif %}">
+                  {{ form.birthday.label_tag }}
+                  {{ form.birthday|add_class:"form-control"|attr:"id:disabledSelect" }}
+                  <div class="errors">
+                    {% for error in form.birthday.errors.as_data %}
+                    <div class="form-control-feedback">{{ error.message }}</div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </fieldset>
 
               <div class="form-group {% if form.city.errors %} has-danger {% endif %}">
                 {{ form.city.label_tag }}
@@ -74,7 +82,7 @@
                 </div>
               </div>
 
-              {% if request.user.profile.is_underage %}
+
               <hr>
 
               <h3>Parent Info</h3>
@@ -98,7 +106,7 @@
                   {% endfor %}
                 </div>
               </div>
-              {% endif %}
+
 
 
               {{ form.source }}
