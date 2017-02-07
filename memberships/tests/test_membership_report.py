@@ -35,6 +35,40 @@ def test_report_output():
         assert "%s,%s" % (c.id, c.name) in out
 
 @pytest.mark.django_db
+def test_submission_count_per_challenge():
+    students = StudentFactory.create_batch(4)
+    challenges = ChallengeFactory.create_batch(10)
+    ProgressFactory(student=students[0], challenge=challenges[0], comment=1)
+    ProgressFactory(student=students[0], challenge=challenges[1], comment=5)
+    ProgressFactory(student=students[1], challenge=challenges[1], comment=5)
+    membership = MembershipFactory(members=students, challenges=challenges)
+
+    output = StringIO()
+    MembershipReport(membership).write(output)
+    out = output.getvalue()
+    print(out)
+
+    assert "%s,%s,1" % (challenges[0].id, challenges[0].name) in out
+    assert "%s,%s,2" % (challenges[1].id, challenges[1].name) in out
+
+@pytest.mark.django_db
+def test_submission_count_per_student():
+    students = StudentFactory.create_batch(4)
+    challenges = ChallengeFactory.create_batch(10)
+    ProgressFactory(student=students[0], challenge=challenges[0], comment=1)
+    ProgressFactory(student=students[0], challenge=challenges[1], comment=5)
+    ProgressFactory(student=students[1], challenge=challenges[1], comment=5)
+    membership = MembershipFactory(members=students, challenges=challenges)
+
+    output = StringIO()
+    MembershipReport(membership).write(output)
+    out = output.getvalue()
+    print(out)
+
+    assert "%s,,,1" % students[1].email in out
+    assert "%s,,,2" % students[0].email in out
+
+@pytest.mark.django_db
 def test_dialect_and_line_terminators():
     output = StringIO()
     MembershipReport(MembershipFactory(), dialect="excel").write(output)
