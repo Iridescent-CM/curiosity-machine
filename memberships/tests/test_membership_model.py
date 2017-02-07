@@ -1,7 +1,7 @@
 import pytest
 import mock
 
-from profiles.factories import UserFactory, StudentFactory, MentorFactory
+from profiles.factories import *
 from challenges.factories import ChallengeFactory
 from memberships.factories import MembershipFactory
 
@@ -139,3 +139,13 @@ def test_show_expiring_notice():
         settings.MEMBERSHIP_EXPIRING_NOTICE_DAYS = 5
         assert not MembershipFactory.build(expiration=inaweek).show_expiring_notice()
         assert MembershipFactory.build(expiration=today).show_expiring_notice()
+
+@pytest.mark.django_db
+def test_user_type_members_helpers():
+    students = StudentFactory.create_batch(5)
+    educators = EducatorFactory.create_batch(4)
+
+    membership = MembershipFactory(members=students+educators)
+
+    assert set(membership.educators.all()) == set(educators)
+    assert set(membership.students.all()) == set(students)
