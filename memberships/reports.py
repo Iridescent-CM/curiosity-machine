@@ -61,21 +61,27 @@ class MembershipReport():
         extra_headers = ['submissions']
         writer = csv.DictWriter(fp, model_headers + extra_headers, dialect=self.dialect)
         writer.writeheader()
+        total = 0
         for d in self.membership.students.values(*model_headers).all():
             d['submissions'] = Progress.objects.filter(
                 student=d["id"],
                 comments__user=d["id"],
                 challenge__membership=self.membership
             ).distinct().count()
+            total += d['submissions']
             writer.writerow(d)
+        writer.writerow({'submissions': total})
 
     def _write_challenges(self, fp):
         headers = ['id', 'name', 'submissions']
         writer = csv.DictWriter(fp, headers, dialect=self.dialect)
         writer.writeheader()
+        total = 0
         for d in self.membership.challenges.values('id', 'name').all():
             d['submissions'] = User.objects.filter(
                 membership=self.membership.id,
                 comment__challenge_progress__challenge=d['id']
             ).distinct().count()
+            total += d['submissions']
             writer.writerow(d)
+        writer.writerow({'submissions': total})
