@@ -44,6 +44,14 @@ def test_default_selector_option_template_attrs():
     assert gs.options[1].GET == QueryDict('x=none')
 
 @pytest.mark.django_db
+def test_has_groups():
+    membership = MembershipFactory()
+    assert not GroupSelector(membership).has_groups
+
+    GroupFactory(membership=membership)
+    assert GroupSelector(membership).has_groups
+
+@pytest.mark.django_db
 def test_all_students_queryset_gets_all_students():
     students = StudentFactory.create_batch(10)
     educators = EducatorFactory.create_batch(2)
