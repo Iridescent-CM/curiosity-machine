@@ -12,22 +12,58 @@
     </div>
     <ul class="nav nav-tabs upwards">
       <li class="active">
-        <a href="#guide-how-to" data-toggle="tab">How To Make It</a>
+        <a
+          href="#guide-how-to"
+          data-toggle="tab"
+          ga-on="click"
+          ga-event-category="Tab"
+          ga-event-action="select"
+          ga-event-label="How to make it"
+        >
+          How To Make It
+        </a>
       </li>
 
       <li>
-        <a href="#guide-more-info" data-toggle="tab">Learn More</a>
+        <a
+          href="#guide-more-info"
+          data-toggle="tab"
+          ga-on="click"
+          ga-event-category="Tab"
+          ga-event-action="select"
+          ga-event-label="Learn more"
+        >
+          Learn More
+        </a>
       </li>
 
       {% if request.user.is_authenticated and request.user.profile.is_mentor and challenge.mentor_guide %}
       <li>
-        <a href="#mentor-guide" data-toggle="tab">Mentor Guide</a>
+        <a
+          href="#mentor-guide"
+          data-toggle="tab"
+          ga-on="click"
+          ga-event-category="Tab"
+          ga-event-action="select"
+          ga-event-label="Mentor guide"
+        >
+          Mentor Guide
+        </a>
       </li>
       {% endif %}
 
       {% if request.user.is_authenticated and not request.user.profile.is_student and resources %}
       <li>
-        <a href="#resources" data-toggle="tab">Resources</a>
+        <a
+          href="#resources"
+          data-toggle="tab"
+          ga-on="click"
+          ga-event-category="Tab"
+          ga-event-action="select"
+          ga-event-label="Resources"
+        >
+          Resources
+        </a>
       </li>
       {% endif %}
     </ul>
