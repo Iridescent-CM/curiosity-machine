@@ -109,8 +109,8 @@ class Membership(models.Model):
 
     def show_expiring_notice(self):
         today = now().date()
-        return (self.is_active 
-            and self.expiration 
+        return (self.is_active
+            and self.expiration
             and self.expiration >= today
             and (self.expiration - today) < timedelta(days=settings.MEMBERSHIP_EXPIRING_NOTICE_DAYS))
 

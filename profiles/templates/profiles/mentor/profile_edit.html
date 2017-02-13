@@ -1,115 +1,161 @@
-{% extends "base.html" %}
-{% block title %}My Profile{% endblock %}
+{% extends "curiositymachine/layout/base.html" %}
+{% block title %}Account Settings{% endblock %}
+
+{% load widget_tweaks %}
 
 {% block js %}
   {{ form.media }}
 {% endblock %}
 
 {% block content %}
-<h1>{{request.user.username }}'s Profile</h1>
-  <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
-    {% csrf_token %}
-    <div class="clearfix">
-      <div class="row">
-        <div class="col-md-12">
-          <h2>Account details</h2>
-        </div>
-      </div>
+<div class="jumbotron-blue jumbotron-fluid text-xs-center">
+  <h1>Account Settings</h1>
+</div>
 
-      <div class="row profile-fields">
-        <div class="col-md-4">
-          <div>
-            {{form.email.label_tag}}
-            {{form.email}}
-            <div class="errors">{{ form.email.errors }}</div>
-          </div>
-          {% if form.password %}
-          <div>
-            {{form.password.label_tag}}
-            {{form.password}}
-            <div class="errors">{{ form.password.errors }}</div>
-          </div>
-          <div>
-            {{form.confirm_password.label_tag}}
-            {{form.confirm_password}}
-            <div class="errors">{{ form.confirm_password.errors }}</div>
-          </div>
-          {% else %}
-          <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
-          {% endif %}
-        </div>
-        <div class="col-md-4">
-          <div>
-            {{form.city.label_tag}}
-            {{form.city}}
-            <div class="errors">{{ form.city.errors }}</div>
-          </div>
-        </div>
-      </div>
+<div class="container mb-3">
 
-      <div class="row">
-        <div class="col-md-12">
-          <h2>Profile details</h2>
-        </div>
-      </div>
+  {% if messages %}{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+  {% endfor %}{% endif %}
 
-      <div class="row profile-fields">
-        <div class="col-md-4">
-          <div>
-            {{form.title.label_tag}}
-            {{form.title}}
-            <div class="errors">{{ form.title.errors }}</div>
-          </div>
-          <div>
-            {{form.employer.label_tag}}
-            {{form.employer}}
-            <div class="errors">{{ form.employer.errors }}</div>
-          </div>
-          <div>
-            {{form.expertise.label_tag}}
-            {{form.expertise}}
-            <div class="errors">{{ form.expertise.errors }}</div>
-          </div>
-           <div>
-            {{form.image_url.label_tag}}
-            {% include "_avatar.html" with profile=request.user.profile width=330 height=330 crop='fill' %}
-            {{form.image_url}}
-            <div class="errors">{{ form.image_url.errors }}</div>
-          </div>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card card-module">
+        <div class="card-block-title text-xs-center p-1">
+          <h4>Profile Info</h4>
         </div>
 
-        <div class="col-md-4">
-          <div>
-            {{form.about_me.label_tag}}
-            <textarea id="{{form.about_me.id_for_label}}" name="{{form.about_me.html_name}}">{{ form.about_me.value }}</textarea>
-            <div class="errors">{{ form.about_me.errors }}</div>
-          </div>
-          <div>
-            {{form.about_me_filepicker_url.label_tag}}
-            {% include "_img_or_video.html" with video=request.user.profile.about_me_video image=request.user.profile.about_me_image crop='fit' width=317 %}
-            {{form.about_me_filepicker_url}}
-            {{form.about_me_filepicker_mimetype}}
-          </div>
-        </div>
+        <div class="card-block">
+          <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
+            {% csrf_token %}
 
-        <div class="col-md-4">
-          <div>
-            {{form.about_research.label_tag}}
-            <textarea id="{{form.about_research.id_for_label}}" name="{{form.about_research.html_name}}">{{ form.about_research.value }}</textarea>
-            <div class="errors">{{ form.about_research.errors }}</div>
-          </div>
-          <div>
-            {{form.about_research_filepicker_url.label_tag}}
-            {% include "_img_or_video.html" with video=request.user.profile.about_research_video image=request.user.profile.about_research_image crop='fit' width=317 %}
-            {{form.about_research_filepicker_url}}
-            {{form.about_research_filepicker_mimetype}}
-          </div>
-        </div>
+            <div class="text-xs-center">
+              {% with field=form.image_url %}
+                <div class="form-group">
+                  <div class="profile-change mb-1">
+                    {% include "profiles/_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' classes='rounded-circle' %}
+                  </div>
+                  {{ field }}
+                  <div class="errors">{{ field.errors }}</div>
+                </div>
+              {% endwith %}
+            </div>
 
-        {{ form.non_field_errors }}
+            <div class="account-settings-form">
+              <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
+                {{ form.email.label_tag }}
+                {{ form.email|add_class:"form-control" }}
+                <div class="errors">
+                  {% for error in form.email.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group {% if form.city.errors %} has-danger {% endif %}">
+                {{ form.city.label_tag }}
+                {{ form.city|add_class:"form-control" }}
+                <div class="errors">
+                  {% for error in form.city.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group {% if form.title.errors %} has-danger {% endif %}">
+                {{ form.title.label_tag }}
+                {{ form.title|add_class:"form-control" }}
+                <div class="errors">
+                  {% for error in form.title.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group {% if form.employer.errors %} has-danger {% endif %}">
+                {{ form.employer.label_tag }}
+                {{ form.employer|add_class:"form-control" }}
+                <div class="errors">
+                  {% for error in form.employer.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group {% if form.expertise.errors %} has-danger {% endif %}">
+                {{ form.expertise.label_tag }}
+                {{ form.expertise|add_class:"form-control" }}
+                <div class="errors">
+                  {% for error in form.expertise.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group {% if form.about_me.errors %} has-danger {% endif %}">
+                {{ form.about_me.label_tag }}
+                {{ form.about_me|add_class:"form-control" }}
+                <div class="errors">
+                  {% for error in form.about_me.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              {{form.about_me_filepicker_url.label_tag}}
+              <div class="text-xs-center">
+                <div class="mb-1">
+                  {% include "_img_or_video.html" with video=request.user.profile.about_me_video image=request.user.profile.about_me_image crop='fit' %}
+                </div>
+                {{form.about_me_filepicker_url}}
+                {{form.about_me_filepicker_mimetype}}
+              </div>
+
+              <div class="form-group {% if form.about_research.errors %} has-danger {% endif %}">
+                {{ form.about_research.label_tag }}
+                {{ form.about_research|add_class:"form-control" }}
+                <div class="errors">
+                  {% for error in form.about_research.errors.as_data %}
+                  <div class="form-control-feedback">{{ error.message }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+
+              {{form.about_research_filepicker_url.label_tag}}
+              <div class="text-xs-center">
+                <div class="mb-1">
+                  {% include "_img_or_video.html" with video=request.user.profile.about_research_video image=request.user.profile.about_research_image crop='fit' %}
+                </div>
+                {{form.about_research_filepicker_url}}
+                {{form.about_research_filepicker_mimetype}}
+              </div>
+
+            </div>
+
+            <hr>
+
+            {% if form.password %}
+            {% include "profiles/formfield.html" with field=form.password %}
+            {% include "profiles/formfield.html" with field=form.confirm_password %}
+            {% else %}
+            <a href="{% url "password_change" %}" class="btn btn-primary">Change password</a>
+            {% endif %}
+
+            {{ form.non_field_errors }}
+
+            <button type="submit" class="btn btn-primary float-xs-right">Save</button>
+          </form>
+        </div>
 
       </div>
     </div>
-    <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
-  </form>
+  </div>
+
+</div>
 {% endblock %}
