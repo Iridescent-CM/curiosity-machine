@@ -64,6 +64,10 @@ class GroupSelector():
         )
 
     @property
+    def has_groups(self):
+        return len(self.options) > 2
+
+    @property
     def options(self):
         return list(self._map.values())
 

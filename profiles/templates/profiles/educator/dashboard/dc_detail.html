@@ -22,7 +22,13 @@
       <div class="well-shadow mb-1">
 
         <div class="dropdown dropdown-design-challenge mr-1">
-          <a class="dropdown-toggle a-borderless" href="#" id="challengesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="dropdown-toggle a-borderless"
+            href="#"
+            id="challengesDropdown"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
             Choose design challenge
           </a>
           <div class="dropdown-menu" aria-labelledby="challengesDropdown">
@@ -35,8 +41,15 @@
           </div>
         </div>
 
+        {% if group_selector.has_groups %}
         <div class="dropdown dropdown-design-challenge mr-1">
-          <a class="dropdown-toggle a-borderless" href="#" id="challengesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="dropdown-toggle a-borderless"
+            href="#"
+            id="challengesDropdown"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
             Choose group
           </a>
           <div class="dropdown-menu text-capitalize" aria-labelledby="challengesDropdown">
@@ -45,6 +58,7 @@
             {% endfor %}
           </div>
         </div>
+        {% endif %}
 
         <div class="float-md-right dc-sort-options">
           <div class="dropdown">

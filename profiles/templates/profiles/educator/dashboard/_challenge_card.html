@@ -14,26 +14,45 @@
     </h3>
 
     {% if show_detail_links %}
+    {% if group_selector.has_groups %}
     <div class="dropdown">
-      <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdown-{{ challenge.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <a class="btn btn-secondary dropdown-toggle"
+        href="#"
+        id="dropdown-{{ challenge.id }}"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
         View student progress
       </a>
 
       <div class="dropdown-menu text-capitalize" aria-labelledby="dropdownMenuLink-{{ challenge.id }}">
-        <!-- <a class="dropdown-item" href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}">All Students</a> -->
         {% for group in group_selector.options %}
-        <a class="dropdown-item" href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}?{{ group.GET.urlencode }}">
+        <a class="dropdown-item"
+          href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}?{{ group.GET.urlencode }}"
+        >
           {{ group.text }}
         </a>
         {% endfor %}
       </div>
     </div>
+    {% else %}
+    <a href="{% url 'profiles:educator_dashboard_challenge_detail' challenge_id=challenge.id %}">
+      View all student progress &rarr;
+    </a>
+    {% endif %}
     {% endif %}
 
   </div>
 
   <div class="card-block">
-    <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#moreInfo-{{ challenge.id }}" aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
+    <a class="expandable-card-toggle"
+      data-text-swap="&minus; LESS INFO"
+      data-toggle="collapse"
+      href="#moreInfo-{{ challenge.id }}"
+      aria-expanded="false"
+      aria-controls="moreInfo-{{ challenge.id }}"
+    >
       &plus; MORE INFO
     </a>
   </div>
