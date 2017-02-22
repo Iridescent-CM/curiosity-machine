@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 import password_reset.views
 import password_reset.forms
+from smtplib import SMTPRecipientsRefused
 import logging
 
 from . import student
@@ -41,7 +42,7 @@ class Recover(password_reset.views.Recover):
     def send_notification(self):
         try:
             super().send_notification()
-        except smtplib.SMTPRecipientsRefused as ex:
+        except SMTPRecipientsRefused as ex:
             # swallow (but log) SMTPRecipientsRefused errors
             logger.warning("Password reset recipients refused", exc_info=ex)
         except:
