@@ -33,6 +33,16 @@
   {% else %}
   <div class="row pb-1">
     <div class="col-md-12">
+
+      {% if messages %}{% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message }}
+      </div>
+      {% endfor %}{% endif %}
+
       <h2>{{ group_selector.selected.text }}</h2>
       {% if students %}
 
@@ -139,6 +149,8 @@
                 <em>No email provided</em>
                 {% endif %}
               </span>
+              <br>
+              <a class="btn btn-primary" href="{% url "profiles:educator_dashboard_student_password_reset" student_id=student.id %}" role="button">Set Password</a>
             </div>
           </div>
         </div>
