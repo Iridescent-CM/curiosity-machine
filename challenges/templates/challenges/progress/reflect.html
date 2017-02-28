@@ -67,6 +67,20 @@
         {% if request.user.profile.is_mentor %}
           <h3>{{progress.student.username}}'s progress</h3>
         {% else %}
+          {% if quiz_form %}
+          {% url "challenges:quizzes:quizzes" challenge_id=challenge.id username=progress.student.username stage='reflect' as action_url %}
+          <div class="panel panel-bubble teal right reflect-quiz-box edp-comments">
+            <div class="panel-body">
+              <h1>Reflect Quiz</h1>
+              <p>You've finished your challenge. Take the quiz and see how much you've learned!</p>
+              <form method="POST" action="{{ action_url }}">
+                {% csrf_token %}
+                {{ quiz_form }}
+                <input type="submit" class="btn btn-primary pull-right" data-debounce="true" />
+              </form>
+            </div>
+          </div>
+          {% else %}
           <div class="panel panel-bubble teal right reflect-box edp-comments">
             <div class="panel-body">
               <h1>Reflect</h1>
@@ -102,6 +116,7 @@
                 {% endif %}
             </div>
           </div>
+          {% endif %}
         {% endif %}
 
         {% for comment in comments %}

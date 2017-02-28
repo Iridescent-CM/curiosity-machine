@@ -20,6 +20,7 @@ from memberships.models import Membership
 from memberships.decorators import enforce_membership_challenge_access
 from django.db.models import Count
 from urllib.parse import quote_plus
+from quizzes.forms import QuizForm
 
 def _paginate(qs, page, perPage):
     paginator = Paginator(qs, perPage)
@@ -385,12 +386,19 @@ def challenge_progress(request, challenge_id, username, stage=None):
         })
 
     progress.get_unread_comments_for_user(request.user).update(read=True)
+
+    quiz = challenge.quiz_set.exclude(is_active=False).exclude(result__user=request.user).first()
+    quiz_form = None
+    if quiz:
+        quiz_form = QuizForm(model=quiz)
+
     return render(request, "challenges/progress/%s.html" % stageToShow.name, {
         'challenge': challenge,
         'progress': progress,
         'comment_form': CommentForm(),
         'comments': progress.comments.all(),
-        'materials_form': MaterialsForm(progress=progress)
+        'materials_form': MaterialsForm(progress=progress),
+        'quiz_form': quiz_form,
     })
 
 @mentor_only
