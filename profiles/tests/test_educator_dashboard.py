@@ -224,7 +224,7 @@ def test_student_detail_page_context_has_completed_count(client):
 
     p1 = ProgressFactory(student=student)
     p2 = ProgressFactory(student=student, completed=True)
-    
+
     membership = MembershipFactory(members=[educator, student], challenges=[p1.challenge, p2.challenge])
 
     client.login(username="edu", password="123123")
@@ -489,6 +489,27 @@ def test_educator_changes_student_password(client):
     assert response.url.endswith('/home/students/')
     assert authenticate(username='student', password='987987')
     assert authenticate(username='ed', password='123123')
+
+@pytest.mark.django_db
+def test_educator_change_student_password_404s_for_bad_targets(client):
+    educator = EducatorFactory(username='ed', password='123123')
+    student = StudentFactory(username='student', password='123123')
+    membership = MembershipFactory(members=[educator, student])
+    educator2 = EducatorFactory(username='ed2', password='123123')
+    student2 = StudentFactory(username='student2', password='123123')
+
+    client.login(username='ed', password='123123')
+
+    response = client.post('/home/students/%d/password/' % student2.id, {
+        "new_password1": '987987',
+        "new_password2": '987987',
+    })
+    assert response.status_code == 404
+    response = client.post('/home/students/%d/password/' % educator2.id, {
+        "new_password1": '987987',
+        "new_password2": '987987',
+    })
+    assert response.status_code == 404
 
 @pytest.mark.django_db
 def test_change_student_password_sends_signal(client):
