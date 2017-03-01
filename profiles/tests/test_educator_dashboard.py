@@ -493,9 +493,9 @@ def test_educator_changes_student_password(client):
 @pytest.mark.django_db
 def test_educator_change_student_password_404s_for_bad_targets(client):
     educator = EducatorFactory(username='ed', password='123123')
-    student = StudentFactory(username='student', password='123123')
-    membership = MembershipFactory(members=[educator, student])
     educator2 = EducatorFactory(username='ed2', password='123123')
+    student = StudentFactory(username='student', password='123123')
+    membership = MembershipFactory(members=[educator, educator2, student])
     student2 = StudentFactory(username='student2', password='123123')
 
     client.login(username='ed', password='123123')
