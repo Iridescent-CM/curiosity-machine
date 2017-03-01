@@ -150,7 +150,8 @@
                 {% endif %}
               </span>
               <br>
-              <a class="btn btn-primary" href="{% url "profiles:educator_dashboard_student_password_reset" student_id=student.id %}" role="button">Set Password</a>
+              {% url "profiles:educator_dashboard_student_password_reset" student_id=student.id as button_url %}
+              <a class="btn btn-primary mt-1" href="{{ button_url }}" role="button">Reset Password</a>
             </div>
           </div>
         </div>
