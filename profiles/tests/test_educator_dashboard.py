@@ -5,6 +5,8 @@ import json
 from django.utils.timezone import now
 from datetime import timedelta
 from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate
+from curiositymachine import signals
 
 from units.factories import *
 from profiles.factories import *
@@ -467,3 +469,40 @@ def test_graph_data_endpoint_omits_data_without_membership_connection(client):
     client.login(username="edu", password="123123")
     response = client.get(reverse("profiles:progress_graph_data"), {'id': [progress.id, progress2.id]})
     assert json.loads(response.content.decode('utf-8')) == []
+
+@pytest.mark.django_db
+def test_educator_changes_student_password(client):
+    educator = EducatorFactory(username='ed', password='123123')
+    student = StudentFactory(username='student', password='123123')
+    membership = MembershipFactory(members=[educator, student])
+
+    assert authenticate(username='student', password='123123')
+    assert authenticate(username='ed', password='123123')
+
+    client.login(username='ed', password='123123')
+    response = client.post('/home/students/%d/password/' % student.id, {
+        "new_password1": '987987',
+        "new_password2": '987987',
+    })
+
+    assert response.status_code == 302
+    assert response.url.endswith('/home/students/')
+    assert authenticate(username='student', password='987987')
+    assert authenticate(username='ed', password='123123')
+
+@pytest.mark.django_db
+def test_change_student_password_sends_signal(client):
+    handler = mock.MagicMock()
+    signal = signals.student_password_changed
+    signal.connect(handler)
+
+    educator = EducatorFactory(username='ed', password='123123')
+    student = StudentFactory(username='student', password='123123')
+    membership = MembershipFactory(members=[educator, student])
+    client.login(username='ed', password='123123')
+    response = client.post('/home/students/%d/password/' % student.id, {
+        "new_password1": '987987',
+        "new_password2": '987987',
+    })
+
+    handler.assert_called_once()
