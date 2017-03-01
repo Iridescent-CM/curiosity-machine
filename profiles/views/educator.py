@@ -20,6 +20,7 @@ from units.models import Unit
 from memberships.models import Member
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
+from curiositymachine import signals
 from django.utils.functional import lazy
 from rest_framework import generics, permissions
 from ..serializers import CommentSerializer
@@ -66,6 +67,7 @@ def password_reset(request, student_id, membership_selection=None):
         form = SetPasswordForm(student, data=request.POST)
         if form.is_valid():
             form.save()
+            signals.student_password_changed.send(sender=student, student=student, resetter=request.user)
             messages.success(request, "%s's password successfully changed." % student.username)
             return redirect('profiles:educator_dashboard_students')
     else:
