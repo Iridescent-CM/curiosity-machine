@@ -124,3 +124,9 @@ def send_student_mentor_response_notice(sender, comment, **kwargs):
 @receiver(signals.completed_training)
 def send_training_completion_notice(sender, approver, **kwargs):
     send(template_name='mentor-account-approved', to=sender)
+
+@receiver(signals.student_password_changed)
+def send_student_password_change_notice(sender, student, resetter, **kwargs):
+    send(template_name='student-password-reset-in-membership', to=student, merge_vars={
+        'studentname': student.username
+    })
