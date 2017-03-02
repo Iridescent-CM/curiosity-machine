@@ -13,6 +13,18 @@
 
   <h1>Welcome {{ request.user.username}}</h1>
 
+  {% if request.user.profile.should_add_email %}
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      Account action needed
+    </div>
+    <div class="panel-body">
+      Add an email address! If you ever forget your password, we'll use your email address to send you a new one.
+      Update your email in <a href="{% url "profiles:profile_edit" %}">account settings</a>.
+    </div>
+  </div>
+  {% endif %}
+
   <ul class="nav nav-justified nav-tabs">
     <li {% if filter in my_challenges_filters or filter != 'favorites' %}class="active"{% endif %}>
       <a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a>

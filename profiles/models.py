@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.utils.functional import cached_property
 from images.models import Image
 from videos.models import Video
 from datetime import date, timedelta
@@ -106,6 +107,14 @@ class Profile(models.Model):
     @property
     def send_welcome(self):
         return UserRole(self.role) not in [UserRole.none, UserRole.mentor]
+
+    @cached_property
+    def in_active_membership(self):
+        return self.user.membership_set.filter(is_active=True).count() > 0
+
+    @property
+    def should_add_email(self):
+        return not self.user.email and not self.in_active_membership
 
     def is_underage(self):
         return self.age < 13

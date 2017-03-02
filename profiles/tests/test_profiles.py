@@ -10,7 +10,8 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from profiles.tests import student, mentor, progress, challenge, loggedInMentor, STUDENT_USERNAME, STUDENT_EMAIL
 from profiles import views
-from profiles.factories import ProfileFactory
+from profiles.factories import *
+from memberships.factories import *
 
 User = get_user_model()
 
@@ -143,4 +144,39 @@ def test_user_type():
     assert ProfileFactory.build(role=UserRole.student.value, birthday=now()).user_type == 'underage student'
     assert ProfileFactory.build(role=UserRole.educator.value).user_type == 'educator'
     assert ProfileFactory.build(role=UserRole.parent.value).user_type == 'parent'
+
+@pytest.mark.django_db
+def test_in_active_membership():
+    student = StudentFactory()
+    student2 = StudentFactory()
+    student3 = StudentFactory()
+    MembershipFactory(members=[student])
+    MembershipFactory(is_active=False, members=[student3])
+
+    assert student.profile.in_active_membership
+    assert not student2.profile.in_active_membership
+    assert not student3.profile.in_active_membership
+
+@pytest.mark.django_db
+def test_should_add_email():
+    student = StudentFactory(email='')
+    student2 = StudentFactory(email='')
+    student3 = StudentFactory(email='')
+    MembershipFactory(members=[student])
+    MembershipFactory(is_active=False, members=[student3])
+
+    assert not student.profile.should_add_email
+    assert student2.profile.should_add_email
+    assert student3.profile.should_add_email
+
+    student.email = 'email@email.com'
+    student.save()
+    student2.email = 'email@email.com'
+    student2.save()
+    student3.email = 'email@email.com'
+    student3.save()
+
+    assert not student.profile.should_add_email
+    assert not student2.profile.should_add_email
+    assert not student3.profile.should_add_email
 
