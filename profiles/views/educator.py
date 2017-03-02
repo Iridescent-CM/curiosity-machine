@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import SetPasswordForm
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch, Count
@@ -19,6 +20,7 @@ from units.models import Unit
 from memberships.models import Member
 from curiositymachine.decorators import educator_only
 from curiositymachine.views.generic import UserJoinView
+from curiositymachine import signals
 from django.utils.functional import lazy
 from rest_framework import generics, permissions
 from ..serializers import CommentSerializer
@@ -50,6 +52,30 @@ def profile_edit(request):
         form = forms.EducatorUserAndProfileForm(instance=request.user, prefix='educator')
 
     return render(request, 'profiles/educator/profile_edit.html', {
+        'form': form
+    })
+
+@educator_only
+@login_required
+@membership_selection
+def password_reset(request, student_id, membership_selection=None):
+    membership = membership_selection.selected
+    membership_students = membership.members.select_related('profile__image').filter(profile__role=UserRole.student.value)
+    student = get_object_or_404(membership_students, pk=student_id)
+
+    if request.method == 'POST':
+        form = SetPasswordForm(student, data=request.POST)
+        if form.is_valid():
+            form.save()
+            signals.student_password_changed.send(sender=student, student=student, resetter=request.user)
+            messages.success(request, "%s's password successfully changed." % student.username)
+            return redirect('profiles:educator_dashboard_students')
+    else:
+        form = SetPasswordForm(student)
+
+    return render(request, 'profiles/educator/dashboard/student_password.html', {
+        'student': student,
+        "membership_selection": membership_selection,
         'form': form
     })
 
