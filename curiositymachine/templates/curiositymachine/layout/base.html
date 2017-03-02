@@ -75,6 +75,9 @@
       {% if ga_user_id %}
       ga('set', 'userId', {{ga_user_id}});
       {% endif %}
+      {% if ga_membership_grouping %}
+      ga('set', 'contentGroup2', {{ga_membership_grouping}});
+      {% endif %}
       ga('send', 'pageview');
     </script>
   {% endif %}
