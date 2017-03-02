@@ -2,12 +2,16 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 import password_reset.views
 import password_reset.forms
+from smtplib import SMTPRecipientsRefused
+import logging
 
 from . import student
 from . import mentor
 from . import educator
 from . import staff
 from . import parent
+
+logger = logging.getLogger(__name__)
 
 @login_required
 def dispatch(request, action, *args, **kwargs):
@@ -34,5 +38,14 @@ def dispatch(request, action, *args, **kwargs):
 
 class Recover(password_reset.views.Recover):
     search_fields = ['username'] # search only on username, not on email. this is important because email is not a unique field in this app!
+
+    def send_notification(self):
+        try:
+            super().send_notification()
+        except SMTPRecipientsRefused as ex:
+            # swallow (but log) SMTPRecipientsRefused errors
+            logger.warning("Password reset recipients refused", exc_info=ex)
+        except:
+            raise
 
 recover = Recover.as_view()

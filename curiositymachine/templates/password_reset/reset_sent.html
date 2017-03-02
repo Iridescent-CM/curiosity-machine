@@ -8,9 +8,12 @@
 <div class="jumbotron-fluid jumbotron-green text-xs-center">
   <h1>Reset Password</h1>
 </div>
-<div class="container mb-3">
-  <p class="text-xs-center">
+<div class="container mb-3 text-xs-center">
+  <p>
     An email was sent to <strong>{{ email }}</strong> {{ timestamp|timesince }} ago. Use the link in it to set a new password.
+  </p>
+  <p>
+    If you do not receive a password reset email, please <a href="mailto:curiosity@iridescentlearning.org">contact us</a>.
   </p>
 </div>
 {% endblock %}
