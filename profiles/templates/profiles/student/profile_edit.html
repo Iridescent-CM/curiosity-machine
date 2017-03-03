@@ -46,6 +46,16 @@
               {% endwith %}
             </div>
 
+              {% if request.user.profile.should_add_email %}
+              <div class="card card-outline-danger text-xs-center" role="alert">
+                <div class="card-block text-danger">
+                  <h4 class="card-title">
+                    Add an email address!
+                  </h4>
+                  If you forget your password, we'll use your email address to send you a new one.
+                </div>
+              </div>
+              {% endif %}
             <div class="account-settings-form">
               <div class="form-group {% if form.email.errors %} has-danger {% endif %}">
                 {{ form.email.label_tag }}
