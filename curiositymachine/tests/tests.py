@@ -5,15 +5,15 @@ from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from profiles.models import Profile, UserRole
-from .middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
-from .views import root
-from .views.generic import UserJoinView
+from ..middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
+from ..views import root
+from ..views.generic import UserJoinView
 from challenges.models import Progress, Challenge, Example
-from .helpers import random_string
+from ..helpers import random_string
 from curiositymachine import decorators
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
-from . import signals
+from .. import signals
 import challenges.factories
 import profiles.factories
 import cmcomments.factories

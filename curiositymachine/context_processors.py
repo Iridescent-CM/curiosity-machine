@@ -41,14 +41,17 @@ def google_analytics(request):
         userid = request.user.id
 
     free_user = None
+    membership_grouping = None
     if request.user.is_authenticated():
         free_user = "Membership" if request.user.profile.in_active_membership else "Free"
+        membership_grouping = "-".join([str(id) for id in request.user.membership_set.filter(is_active=True).order_by('id').values_list('id', flat=True)])
 
     return {
         'ga_code': settings.GA_CODE,
         'ga_dimension_user_type': usertype,
         'ga_user_id': userid,
         'ga_dimension_free_user': free_user,
+        'ga_membership_grouping': membership_grouping,
     }
 
 def feature_flags(request):
