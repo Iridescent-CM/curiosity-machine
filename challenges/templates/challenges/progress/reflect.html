@@ -76,7 +76,9 @@
               <form method="POST" action="{{ action_url }}">
                 {% csrf_token %}
                 {{ quiz_form }}
-                <input type="submit" class="btn btn-primary pull-right" data-debounce="true" />
+                <input type="submit" class="btn btn-primary pull-right" data-debounce="true" 
+                  {% if not request.user.profile.is_student %}disabled="disabled"{% endif %} 
+                />
               </form>
             </div>
           </div>

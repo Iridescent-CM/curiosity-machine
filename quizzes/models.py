@@ -2,7 +2,9 @@ from django.db import models
 from django.conf import settings
 from challenges.models import Challenge
 
-ANSWER_CHOICES = ((1, 1), (2, 2), (3, 3), (4, 4))
+QUESTION_COUNT = 4
+MAX_ANSWERS = 6
+ANSWER_CHOICES = [(i, i) for i in range(1, MAX_ANSWERS+1)]
 
 class Quiz(models.Model):
     """
@@ -20,6 +22,8 @@ class Quiz(models.Model):
     answer_1_2 = models.TextField()
     answer_1_3 = models.TextField()
     answer_1_4 = models.TextField()
+    answer_1_5 = models.TextField()
+    answer_1_6 = models.TextField()
     correct_answer_1 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
 
     question_2 = models.TextField()
@@ -27,6 +31,8 @@ class Quiz(models.Model):
     answer_2_2 = models.TextField()
     answer_2_3 = models.TextField()
     answer_2_4 = models.TextField()
+    answer_2_5 = models.TextField()
+    answer_2_6 = models.TextField()
     correct_answer_2 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
 
     question_3 = models.TextField()
@@ -34,6 +40,8 @@ class Quiz(models.Model):
     answer_3_2 = models.TextField()
     answer_3_3 = models.TextField()
     answer_3_4 = models.TextField()
+    answer_3_5 = models.TextField()
+    answer_3_6 = models.TextField()
     correct_answer_3 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
 
     question_4 = models.TextField()
@@ -41,6 +49,8 @@ class Quiz(models.Model):
     answer_4_2 = models.TextField()
     answer_4_3 = models.TextField()
     answer_4_4 = models.TextField()
+    answer_4_5 = models.TextField()
+    answer_4_6 = models.TextField()
     correct_answer_4 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
 
     def __str__(self):

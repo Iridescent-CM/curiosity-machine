@@ -13,10 +13,10 @@ class QuizAdmin(admin.ModelAdmin):
                 'fields': ('challenge', 'is_active')
             }),
         )
-        for i in range(1, 5):
+        for i in range(1, QUESTION_COUNT + 1):
             fieldsets = fieldsets + (
                 ('Question %d' % i, {
-                    'fields': ('question_%d' % i,) + tuple('answer_%d_%d' % (i, j) for j in range(1, 5)) + ('correct_answer_%d' % i,)
+                    'fields': ('question_%d' % i,) + tuple('answer_%d_%d' % (i, j) for j in range(1, MAX_ANSWERS+1)) + ('correct_answer_%d' % i,)
                 }),
             )
         self.fieldsets = fieldsets
