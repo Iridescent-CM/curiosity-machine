@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.conf import settings
-from django.utils.timezone import now
+from django.utils.timezone import now, localtime
 from tempfile import TemporaryFile
 from datetime import timedelta
 from challenges.models import Challenge
@@ -21,7 +21,7 @@ class MembershipQuerySet(models.QuerySet):
 
     def expired(self, expiration=None, cutoff=None):
         if expiration is None:
-            expiration = now().date()
+            expiration = localtime(now()).date()
         if cutoff is None:
             return self.filter(expiration__lt=expiration)
         else:
@@ -29,7 +29,7 @@ class MembershipQuerySet(models.QuerySet):
 
     def expiring(self, expiration=None, cutoff=None):
         if expiration is None:
-            expiration = now().date()
+            expiration = localtime(now()).date()
         if cutoff is None:
             cutoff = expiration + timedelta(days=30)
         return self.filter(expiration__range=(expiration, cutoff))
