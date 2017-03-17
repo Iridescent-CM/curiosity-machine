@@ -17,44 +17,51 @@ class Quiz(models.Model):
     challenge = models.ForeignKey(Challenge)
     is_active = models.BooleanField(default=False, help_text="Enable this option to show this quiz to students")
 
-    question_1 = models.TextField()
-    answer_1_1 = models.TextField()
-    answer_1_2 = models.TextField()
-    answer_1_3 = models.TextField()
-    answer_1_4 = models.TextField()
-    answer_1_5 = models.TextField()
-    answer_1_6 = models.TextField()
-    correct_answer_1 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
+    question_1 = models.TextField(null=True, blank=True)
+    answer_1_1 = models.TextField(null=True, blank=True)
+    answer_1_2 = models.TextField(null=True, blank=True)
+    answer_1_3 = models.TextField(null=True, blank=True)
+    answer_1_4 = models.TextField(null=True, blank=True)
+    answer_1_5 = models.TextField(null=True, blank=True)
+    answer_1_6 = models.TextField(null=True, blank=True)
+    correct_answer_1 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True, blank=True)
 
-    question_2 = models.TextField()
-    answer_2_1 = models.TextField()
-    answer_2_2 = models.TextField()
-    answer_2_3 = models.TextField()
-    answer_2_4 = models.TextField()
-    answer_2_5 = models.TextField()
-    answer_2_6 = models.TextField()
-    correct_answer_2 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
+    question_2 = models.TextField(null=True, blank=True)
+    answer_2_1 = models.TextField(null=True, blank=True)
+    answer_2_2 = models.TextField(null=True, blank=True)
+    answer_2_3 = models.TextField(null=True, blank=True)
+    answer_2_4 = models.TextField(null=True, blank=True)
+    answer_2_5 = models.TextField(null=True, blank=True)
+    answer_2_6 = models.TextField(null=True, blank=True)
+    correct_answer_2 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True, blank=True)
 
-    question_3 = models.TextField()
-    answer_3_1 = models.TextField()
-    answer_3_2 = models.TextField()
-    answer_3_3 = models.TextField()
-    answer_3_4 = models.TextField()
-    answer_3_5 = models.TextField()
-    answer_3_6 = models.TextField()
-    correct_answer_3 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
+    question_3 = models.TextField(null=True, blank=True)
+    answer_3_1 = models.TextField(null=True, blank=True)
+    answer_3_2 = models.TextField(null=True, blank=True)
+    answer_3_3 = models.TextField(null=True, blank=True)
+    answer_3_4 = models.TextField(null=True, blank=True)
+    answer_3_5 = models.TextField(null=True, blank=True)
+    answer_3_6 = models.TextField(null=True, blank=True)
+    correct_answer_3 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True, blank=True)
 
-    question_4 = models.TextField()
-    answer_4_1 = models.TextField()
-    answer_4_2 = models.TextField()
-    answer_4_3 = models.TextField()
-    answer_4_4 = models.TextField()
-    answer_4_5 = models.TextField()
-    answer_4_6 = models.TextField()
-    correct_answer_4 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
+    question_4 = models.TextField(null=True, blank=True)
+    answer_4_1 = models.TextField(null=True, blank=True)
+    answer_4_2 = models.TextField(null=True, blank=True)
+    answer_4_3 = models.TextField(null=True, blank=True)
+    answer_4_4 = models.TextField(null=True, blank=True)
+    answer_4_5 = models.TextField(null=True, blank=True)
+    answer_4_6 = models.TextField(null=True, blank=True)
+    correct_answer_4 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True, blank=True)
 
     def __str__(self):
         return "Quiz: id={}".format(self.id)
+
+    def quiz_length(self):
+        total = 0
+        for i in range(1, QUESTION_COUNT+1):
+            if getattr(self, "question_%d" % i):
+                total += 1
+        return total
 
     def question_text(self, idx):
         return getattr(self, "question_%d" % idx)
@@ -74,10 +81,10 @@ class Result(models.Model):
     quiz = models.ForeignKey(Quiz)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
-    answer_1 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
-    answer_2 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
-    answer_3 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
-    answer_4 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES)
+    answer_1 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True)
+    answer_2 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True)
+    answer_3 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True)
+    answer_4 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True)
 
     def __str__(self):
         return "Result: id={} quiz={} username={}".format(self.id, self.quiz.id, self.user.username)
@@ -85,27 +92,29 @@ class Result(models.Model):
     @property
     def score(self):
         score = 0
-        for i in range(1, 5):
+        for i in range(1, self.quiz.quiz_length()+1):
+            print("XXXXXXXXXXX", i)
             if self.answer_correct(i):
                 score += 1
         return score
 
     @property
     def score_text(self):
-        return "%d/4 Correct" % self.score
+        return "%d/%d Correct" % (self.score, self.quiz.quiz_length())
 
     @property
     def comment_text(self):
         text = ""
-        for i in range(1, 5):
-            text += self.quiz.question_text(i) + "\n"
-            text += self.quiz.answer_text(i, self.selected_answer(i)) + "\n"
-            if self.answer_correct(i): 
-                text += "Correct!\n"
-            else:
-                text += "Incorrect\n"
-                text += "Correct answer: " + self.quiz.correct_answer_text(i) + "\n"
-            text += "\n"
+        for i in range(1, QUESTION_COUNT+1):
+            if self.selected_answer(i) is not None:
+                text += self.quiz.question_text(i) + "\n"
+                text += self.quiz.answer_text(i, self.selected_answer(i)) + "\n"
+                if self.answer_correct(i): 
+                    text += "Correct!\n"
+                else:
+                    text += "Incorrect\n"
+                    text += "Correct answer: " + self.quiz.correct_answer_text(i) + "\n"
+                text += "\n"
         return text
 
     def selected_answer(self, idx):
