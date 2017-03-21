@@ -29,7 +29,7 @@ def make_comment(request, challenge_id, username, stage):
             text=result.comment_text,
             challenge_progress=progress,
             stage=stage.value,
-            question_text=result.score_text,
+            question_text="Reflection quiz"
         )
         comment.save()
     else:

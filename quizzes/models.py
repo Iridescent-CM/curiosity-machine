@@ -53,6 +53,9 @@ class Quiz(models.Model):
     answer_4_6 = models.TextField(null=True, blank=True)
     correct_answer_4 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True, blank=True)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return "Quiz: id={}".format(self.id)
 
@@ -86,6 +89,9 @@ class Result(models.Model):
     answer_3 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True)
     answer_4 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return "Result: id={} quiz={} username={}".format(self.id, self.quiz.id, self.user.username)
 
@@ -93,7 +99,6 @@ class Result(models.Model):
     def score(self):
         score = 0
         for i in range(1, self.quiz.quiz_length()+1):
-            print("XXXXXXXXXXX", i)
             if self.answer_correct(i):
                 score += 1
         return score
@@ -107,14 +112,8 @@ class Result(models.Model):
         text = ""
         for i in range(1, QUESTION_COUNT+1):
             if self.selected_answer(i) is not None:
-                text += self.quiz.question_text(i) + "\n"
-                text += self.quiz.answer_text(i, self.selected_answer(i)) + "\n"
-                if self.answer_correct(i): 
-                    text += "Correct!\n"
-                else:
-                    text += "Incorrect\n"
-                    text += "Correct answer: " + self.quiz.correct_answer_text(i) + "\n"
-                text += "\n"
+                text += "Q: " + self.quiz.question_text(i) + "\n"
+                text += "A: " + self.quiz.answer_text(i, self.selected_answer(i)) + "\n\n"
         return text
 
     def selected_answer(self, idx):
