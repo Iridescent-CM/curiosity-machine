@@ -10,7 +10,12 @@ from profiles.models import UserRole
 
 from django.db.utils import IntegrityError
 from django.contrib.auth.models import AnonymousUser
-from datetime import timedelta, datetime
+from datetime import timedelta
+from django.utils.timezone import now, localtime
+
+@pytest.fixture
+def rightnow():
+    return localtime(now())
 
 @pytest.mark.django_db
 def test_uniqueness():
@@ -92,8 +97,7 @@ def test_share_membership_for_inactive():
     assert not Membership.share_membership(users[0].username, users[1].username)
 
 @pytest.mark.django_db
-def test_expired_manager_method():
-    rightnow = datetime.now()
+def test_expired_manager_method(rightnow):
     yesterday = MembershipFactory(expiration=rightnow - timedelta(days=1))
     today = MembershipFactory(expiration=rightnow)
     tomorrow = MembershipFactory(expiration=rightnow + timedelta(days=1))
@@ -102,8 +106,7 @@ def test_expired_manager_method():
     assert set(Membership.objects.expired(expiration=rightnow + timedelta(days=1))) == set([yesterday, today])
 
 @pytest.mark.django_db
-def test_expired_with_cutoff_manager_method():
-    rightnow = datetime.now()
+def test_expired_with_cutoff_manager_method(rightnow):
     today = MembershipFactory(expiration=rightnow)
     yesterday = MembershipFactory(expiration=rightnow - timedelta(days=1))
     twodaysago = MembershipFactory(expiration=rightnow - timedelta(days=2))
@@ -112,8 +115,7 @@ def test_expired_with_cutoff_manager_method():
     assert set(Membership.objects.expired(cutoff=rightnow - timedelta(days=1))) == set([yesterday])
 
 @pytest.mark.django_db
-def test_expiring_manager_method():
-    rightnow = datetime.now()
+def test_expiring_manager_method(rightnow):
     yesterday = MembershipFactory(expiration=rightnow - timedelta(days=1))
     today = MembershipFactory(expiration=rightnow)
     tomorrow = MembershipFactory(expiration=rightnow + timedelta(days=1))
@@ -123,10 +125,10 @@ def test_expiring_manager_method():
     assert set(Membership.objects.expiring(cutoff=rightnow)) == set([today])
 
 def test_show_expiring_notice():
-    inayear = datetime.now().date() + timedelta(days=365)
-    inaweek = datetime.now().date() + timedelta(days=7)
-    today = datetime.now().date()
-    yesterday = datetime.now().date() - timedelta(days=1)
+    inayear = localtime(now()).date() + timedelta(days=365)
+    inaweek = localtime(now()).date() + timedelta(days=7)
+    today = localtime(now()).date()
+    yesterday = localtime(now()).date() - timedelta(days=1)
 
     assert not MembershipFactory.build().show_expiring_notice()
     assert not MembershipFactory.build(expiration=inayear).show_expiring_notice()
