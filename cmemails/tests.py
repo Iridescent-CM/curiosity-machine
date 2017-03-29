@@ -202,7 +202,6 @@ def test_send_template_skips_users_without_email():
         send_template(template_name='foo', to=student, cc="email@example.com")
         assert len(mandrill().messages.send_template.mock_calls) == 0
         send_template(template_name='foo', to=[student, student2])
-        print("YYYYYYYYYYYYYYYYYYYYYYYY", mandrill().messages.send_template.mock_calls)
         assert len(mandrill().messages.send_template.mock_calls) == 1
 
 def test_send_template_with_merge_vars():

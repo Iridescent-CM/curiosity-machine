@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     's3direct',
     'groups',
     'memberships',
+    'quizzes',
     'widget_tweaks',
     'rest_framework',
 )
