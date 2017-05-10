@@ -1,6 +1,11 @@
 from .settings import *
 import os
 
+try:
+    REDIS_TEST_URL
+except NameError:
+    REDIS_TEST_URL = os.getenv('REDIS_TEST_URL', "")
+
 if not REDIS_TEST_URL:
     raise Exception("Set REDIS_TEST_URL in the environment or your local.py")
 

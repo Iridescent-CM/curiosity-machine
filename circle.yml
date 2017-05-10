@@ -1,0 +1,14 @@
+machine:
+  python:
+    version: 3.3.5
+  services:
+    - redis
+  environment:
+    REDIS_TEST_URL: redis://localhost:6379/1
+    DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/circle_test
+dependencies:
+  override:
+    - pip install -r requirements.dev.txt
+test:
+  override:
+    - py.test --ignore=venv
