@@ -71,12 +71,6 @@ urlpatterns = patterns('',
         {'active_nav': 'community-guidelines'},
         name='community-guidelines'
     ),
-    url(
-        r'^faq/',
-        public(TemplateView.as_view(template_name="curiositymachine/pages/faq.html")),
-        {'active_nav': 'faq'},
-        name='faq'
-    ),
 
     # redirects
     url(
@@ -88,6 +82,11 @@ urlpatterns = patterns('',
         r'^privacy/',
         public(RedirectView.as_view(url='http://iridescentlearning.org/privacy-policy/', permanent=True)),
         name='privacy'
+    ),
+    url(
+        r'^faq/',
+        public(RedirectView.as_view(url='https://iridescentsupport.zendesk.com/hc/en-us/categories/115000091368-Curiosity-Machine', permanent=True)),
+        name='faq'
     ),
 
     # password reset URLs -- the "recover" one is modified and so resides in the profiles app
