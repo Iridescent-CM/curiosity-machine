@@ -223,10 +223,10 @@ RQ_QUEUES = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = os.environ.get("POSTMARK_SMTP_SERVER", "")
-EMAIL_PORT = 25
-EMAIL_HOST_USER = os.environ.get("POSTMARK_API_KEY", "")
-EMAIL_HOST_PASSWORD = os.environ.get("POSTMARK_API_KEY", "")
+EMAIL_HOST = os.environ.get("MANDRILL_SMTP_SERVER", "")
+EMAIL_PORT = os.environ.get("MANDRILL_SMTP_PORT", "")
+EMAIL_HOST_USER = os.environ.get("MANDRILL_SMTP_USERNAME", "")
+EMAIL_HOST_PASSWORD = os.environ.get("MANDRILL_API_KEY", "")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
