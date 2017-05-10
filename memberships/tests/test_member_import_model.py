@@ -10,13 +10,18 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.utils.timezone import now
-from django_rq import get_worker, get_queue
+from django_rq import get_queue
+from rq import SimpleWorker
 from django_s3_storage.storage import S3Storage
 from datetime import timedelta
 import os
 
 def test_output_name():
     assert MemberImport.output_name("a/b/c/file.ext") == "a/b/c/file_result.ext"
+
+def get_worker():
+    queue = get_queue()
+    return SimpleWorker([queue], connection=queue.connection)
 
 @pytest.mark.django_db
 def test_saving_a_new_member_import_processes_the_input_file_in_a_worker():

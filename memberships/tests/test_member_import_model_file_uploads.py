@@ -1,5 +1,6 @@
 import pytest
-from django_rq import get_worker, get_queue
+from django_rq import get_queue
+from rq import SimpleWorker
 
 from memberships.factories import MembershipFactory
 from django.contrib.auth import get_user_model
@@ -17,6 +18,10 @@ import csv
 # It's useful to have actual files for some number of tests. They can be used
 # in manual QA, or be the basis for QA test files, and it's then best to ensure
 # they are valid or invalid as expected.
+
+def get_worker():
+    queue = get_queue()
+    return SimpleWorker([queue], connection=queue.connection)
 
 @pytest.mark.django_db
 def test_valid_example_file():
