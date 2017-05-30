@@ -334,3 +334,67 @@
     }
   }
 }
+
+// Pricing cards
+.card-pricing {
+  @extend .card;
+  box-shadow: $base-box-shadow;
+  border-width: 0px;
+  text-align: center;
+
+  .card-block {
+    min-height: 300px;
+  }
+
+  .card-title {
+    padding: $small-spacing;
+    border-radius: 0.25rem 0.25rem 0 0;
+    margin-bottom: 0px;
+    h3 { margin-bottom: 0px; }
+  }
+
+  .card-title-highlight {
+    @extend .card-title;
+    background-color: $primary-blue;
+    color: $ivory;
+  }
+
+  .price {
+    font-weight: $heavy-font-weight;
+    font-size: 2rem;
+  }
+
+  .card-footer {
+    background-color: #fff;
+    border-top-width: 0px;
+  }
+  .card-footer-highlight {
+    background-color: $primary-blue;
+    color: $ivory;
+  }
+}
+
+.add-on {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  box-shadow: $base-box-shadow;
+  padding: $base-spacing;
+  position: relative;
+  margin-bottom: $base-spacing;
+
+  .add-on-trigger {
+    display: inline-block;
+    background-color: $primary-blue;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    i {
+      display: inline-block;
+      padding-top: 7px;
+    }
+  }
+
+  p {margin-bottom: 0px;}
+}

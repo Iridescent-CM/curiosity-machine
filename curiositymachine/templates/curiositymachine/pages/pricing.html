@@ -1,0 +1,261 @@
+{% extends "curiositymachine/layout/about_pg_layout.html" %}
+{% load staticfiles %}
+{% load resized %}
+
+{% block title %}Pricing{% endblock %}
+{% block body-id %}pricing-about-page{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+        <h2>Access design challenges of your choice with a year of membership</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="card-pricing">
+          <div class="card-title card-title-highlight">
+            <h3>Free Account</h3>
+          </div>
+          <div class="card-block">
+            <div class="price mb-1">$0</div>
+            <p>Core offerings:</p>
+            <p class="font-italic">5 Free Design Challenges</p>
+            <p class="font-italic">Associated Educator Resources</p>
+            <p class="font-italic">Submit ideas with the Engineering Design Process</p>
+          </div>
+          <div class="card-footer card-footer-highlight">
+            <a href="{% url "profiles:join" %}" class="btn btn-secondary">Join Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="card-pricing">
+          <div class="card-title">
+            <h3>Family &amp; Classroom</h3>
+          </div>
+          <div class="card-block">
+            <div class="price mb-1">$250 / year</div>
+            <p>Core offerings <span class="font-weight-bold">plus</span>:</p>
+            <p class="font-italic">1 Educator or Parent Account</p>
+            <p class="font-italic">Student accounts for your children or students</p>
+            <p class="font-italic">Purchase with credit card</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Get Started</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="card-pricing">
+          <div class="card-title">
+            <h3>School</h3>
+          </div>
+          <div class="card-block">
+            <div class="price mb-1">$1000 / year</div>
+            <p>Core offerings <span class="font-weight-bold">plus</span>:</p>
+            <p class="font-italic">All educators at your school</p>
+            <p class="font-italic">All students at your school</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Get Started</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="card-pricing">
+          <div class="card-title">
+            <h3>District</h3>
+          </div>
+          <div class="card-block">
+            <div class="price mb-1">Price Varies</div>
+            <p>Core offerings <span class="font-weight-bold">plus</span>:</p>
+            <p class="font-italic">Customized set-up, designed for your district</p>
+          </div>
+          <div class="card-footer">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6-Ifvi6dUZ21Hh396JdF3Hp5QTdDnPFtDDzwBl_JvYjPRcg/viewform" target="_blank" class="btn btn-primary">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+        <h2>Optional add ons</h2>
+        <p class="text-xs-center">In addition to the core offerings, somethingorother about add ons.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="add-on">
+          <div class="row">
+            <div class="col-lg-11">
+              <span class="font-weight-bold">In-Person Training for Teachers</span> &middot; $3500
+              <p>Learn to build design challenges and gain familiarity with Curiosity Machine from Iridescent staff members.</p>
+            </div>
+            <div class="col-lg-1 text-xs-right">
+              <div class="add-on-trigger text-xs-center">
+                <a class="a-secondary a-borderless" data-toggle="collapse" href="#collapseAddOn1" aria-expanded="false" aria-controls="collapseAddOn1"><i class="icon-down-arrow"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="collapse" id="collapseAddOn1">
+                <div class="mt-1">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="add-on">
+          <div class="row">
+            <div class="col-lg-11">
+              <span class="font-weight-bold">In-Person Training for Parents</span> &middot; $3500
+              <p>Learn to build design challenges and gain familiarity with Curiosity Machine from Iridescent staff members.</p>
+            </div>
+            <div class="col-lg-1 text-xs-right">
+              <div class="add-on-trigger text-xs-center">
+                <a class="a-secondary a-borderless" data-toggle="collapse" href="#collapseAddOn2" aria-expanded="false" aria-controls="collapseAddOn2"><i class="icon-down-arrow"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="collapse" id="collapseAddOn2">
+                <div class="mt-1">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="add-on">
+          <div class="row">
+            <div class="col-lg-11">
+              <span class="font-weight-bold">Design Challenge Webinar Training</span> &middot; $1000
+              <p>Build a design challenge with Iridescent staff from the comfort of your own home or classroom.</p>
+            </div>
+            <div class="col-lg-1 text-xs-right">
+              <div class="add-on-trigger text-xs-center">
+                <a class="a-secondary a-borderless" data-toggle="collapse" href="#collapseAddOn3" aria-expanded="false" aria-controls="collapseAddOn3"><i class="icon-down-arrow"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="collapse" id="collapseAddOn3">
+                <div class="mt-1">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="add-on">
+          <div class="row">
+            <div class="col-lg-11">
+              <span class="font-weight-bold">Get Started Consultation</span> &middot; $300
+              <p>Attend a personalized webinar and get recommendations on the best design challenges for your students.</p>
+            </div>
+            <div class="col-lg-1 text-xs-right">
+              <div class="add-on-trigger text-xs-center">
+                <a class="a-secondary a-borderless" data-toggle="collapse" href="#collapseAddOn4" aria-expanded="false" aria-controls="collapseAddOn4"><i class="icon-down-arrow"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="collapse" id="collapseAddOn4">
+                <div class="mt-1">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="add-on">
+          <div class="row">
+            <div class="col-lg-11">
+              <span class="font-weight-bold">Design Challenge Resource Package</span> &middot; $250
+              <p>Receive an adaptable design challenge slide deck and customized student engineering design portfolio.</p>
+            </div>
+            <div class="col-lg-1 text-xs-right">
+              <div class="add-on-trigger text-xs-center">
+                <a class="a-secondary a-borderless" data-toggle="collapse" href="#collapseAddOn5" aria-expanded="false" aria-controls="collapseAddOn5"><i class="icon-down-arrow"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="collapse" id="collapseAddOn5">
+                <div class="mt-1">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="add-on">
+          <div class="row">
+            <div class="col-lg-11">
+              <span class="font-weight-bold">Design Challenge Specialized Unit</span> &middot; $500 per topic or theme
+              <p>Receive a series of design challenges and resources selected for your classroom.</p>
+            </div>
+            <div class="col-lg-1 text-xs-right">
+              <div class="add-on-trigger text-xs-center">
+                <a class="a-secondary a-borderless" data-toggle="collapse" href="#collapseAddOn6" aria-expanded="false" aria-controls="collapseAddOn6"><i class="icon-down-arrow"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="collapse" id="collapseAddOn6">
+                <div class="mt-1">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+        <h2>FAQs</h2>
+
+        <h4>Which membership is right for me?</h4>
+        <p class="mb-2">We are happy to meet to discuss school or multi-site memberships and add ons. We are unable to meet to discuss a classroom membership</p>
+
+        <h4>Can I pay by purchase order?</h4>
+        <p class="mb-2">We will work with you on a purchase order for school and multi-site memberships. We are unable to accommodate purchase orders for classroom memberships.</p>
+
+        <h4>My school doesn't have the budget, how can I use Curiosity Machine?</h4>
+        <p class="mb-2">Feel free to <a href="{% url "profiles:join" %}">sign up</a> and complete our free design challenges.</p>
+
+        <h4>How do I connect all student, parent or educator accounts to my membership?</h4>
+        <p class="mb-2">Follow the instructions to complete a membership account form. We can create the accounts for your membership based on the information you send us.</p>
+
+        <h4>Can students under the age of 13 use Curiosity Machine?</h4>
+        <p class="mb-2">If you would like your students to submit online but they are under the age of 13, there is a very convoluted and annoying process you must adhere to.</p>
+
+        <div class="mt-2 text-xs-center">
+          <a class="btn btn-primary" href="https://iridescentsupport.zendesk.com/hc/en-us/categories/115000091368-Curiosity-Machine">View all FAQs</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sign-up-panel py-3">
+    <div class="container">
+      <h2>Create a Student Account!</h1>
+      <a href="{% url "profiles:join" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
+    </div>
+  </div>
+{% endblock %}
