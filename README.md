@@ -116,10 +116,30 @@ or to generate an HTML report in `./htmlcov/index.html` use `make cov` or `make 
 
 To validate HTML while running tests or using the app, set ```DEBUG_HTML=1``` in your environment to turn on `django-html-validator`.
 
-By default it is configured here to expect a local validation server to be running at port 8888. Download the validator jar 
+By default it is configured here to expect a local validation server to be running at port 8888. Download the validator jar
 from https://github.com/validator/validator/releases and run it with `java -cp /path/to/vnu.jar nu.validator.servlet.Main 8888` where `/path/to/vnu.jar` is the path to wherever you've put the downloaded jar file. Validation
-output will dump to stdout. 
+output will dump to stdout.
 
 ## Error Pages
 
 Error pages under `curiositymachine/static/errors/` can be used on Heroku as specified [here](https://devcenter.heroku.com/articles/error-pages).
+
+## Stylesheets
+
+Curiosity Machine is currently using two stylesheet libraries simultaneously. Older pages reference Bootstrap v3 in `curiositymachine/static/less` and newer pages reference Bootstrap v4.0.0-alpha.5 in `curiositymachine/sass`. Ideally, new pages and re-designs of existing pages will all reference the newer sass files and eventually phase out the older less files.
+
+Each library has its own base template that new pages on CM extend:
+
+- New: `{% extends "curiositymachine/layout/base.html" %}`
+- Old: `{% extends 'base.html' %}`
+
+Visually, you can tell the difference between “old” and “new” templates by whether or not there is a dark `body` containing the page content. Newer pages do _not_ have this. (Currently, most of the pages on Curiosity Machine reference the newer template, the main exception being the engineering design process pages.)
+
+### Header & footer
+
+The header and footer are visually consistent across both old and new templates. Consequently when they change, they need to be updated in two places.
+
+- New header: `curiositymachine/templates/curiositymachine/_header.html`
+- New footer: `curiositymachine/templates/curiositymachine/_footer.html`
+- Old header: `curiositymachine/templates/_user_nav.html`
+- Old footer: inside `curiositymachine/templates/base.html`
