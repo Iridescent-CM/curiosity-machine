@@ -60,7 +60,7 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="usermenu">
-              <li><a class="dropdown-item" href="{% url 'profiles:home' %}">My Dashboard</a></li>
+              <li><a class="dropdown-item" href="{% url 'profiles:home' %}">My Control Panel</a></li>
               <li><a class="dropdown-item" href="{% url 'profiles:profile_edit' %}">Account Settings</a></li>
               {% if request.user.is_staff %}
                 <li><a class="dropdown-item" href="{% url "admin:index" %}">View Admin</a></li>
