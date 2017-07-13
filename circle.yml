@@ -12,3 +12,9 @@ dependencies:
 test:
   override:
     - py.test --ignore=venv
+
+deployment:
+  staging:
+    branch: develop
+    heroku:
+      appname: curiositystaging
