@@ -3068,7 +3068,7 @@ tbody.collapse.in {
   .navbar-toggleable-md {
     display: block !important; } }
 
-.card, .card-progress {
+.card, .card-progress, .card-pricing {
   position: relative;
   display: block;
   margin-bottom: 0.75rem;
@@ -3083,7 +3083,7 @@ tbody.collapse.in {
     display: table;
     clear: both; }
 
-.card-title {
+.card-title, .card-pricing .card-title-highlight {
   margin-bottom: 0.75rem; }
 
 .card-subtitle {
@@ -3099,11 +3099,11 @@ tbody.collapse.in {
 .card-link + .card-link {
   margin-left: 1.25rem; }
 
-.card > .list-group:first-child .list-group-item:first-child, .card-progress > .list-group:first-child .list-group-item:first-child {
+.card > .list-group:first-child .list-group-item:first-child, .card-progress > .list-group:first-child .list-group-item:first-child, .card-pricing > .list-group:first-child .list-group-item:first-child {
   border-top-right-radius: 0.25rem;
   border-top-left-radius: 0.25rem; }
 
-.card > .list-group:last-child .list-group-item:last-child, .card-progress > .list-group:last-child .list-group-item:last-child {
+.card > .list-group:last-child .list-group-item:last-child, .card-progress > .list-group:last-child .list-group-item:last-child, .card-pricing > .list-group:last-child .list-group-item:last-child {
   border-bottom-right-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem; }
 
@@ -3206,6 +3206,8 @@ tbody.collapse.in {
 .card-inverse .card-header,
 .card-inverse .card-footer,
 .card-inverse .card-title,
+.card-inverse .card-pricing .card-title-highlight, .card-pricing
+.card-inverse .card-title-highlight,
 .card-inverse .card-blockquote {
   color: #fff; }
 
@@ -3249,7 +3251,7 @@ tbody.collapse.in {
     margin-bottom: 0.75rem;
     table-layout: fixed;
     border-spacing: 1.25rem 0; }
-    .card-deck .card, .card-deck .card-progress {
+    .card-deck .card, .card-deck .card-progress, .card-deck .card-pricing {
       display: table-cell;
       margin-bottom: 0;
       vertical-align: top; }
@@ -3262,38 +3264,39 @@ tbody.collapse.in {
     display: table;
     width: 100%;
     table-layout: fixed; }
-    .card-group .card, .card-group .card-progress {
+    .card-group .card, .card-group .card-progress, .card-group .card-pricing {
       display: table-cell;
       vertical-align: top; }
-      .card-group .card + .card, .card-group .card-progress + .card, .card-group .card + .card-progress, .card-group .card-progress + .card-progress {
+      .card-group .card + .card, .card-group .card-progress + .card, .card-group .card-pricing + .card, .card-group .card + .card-progress, .card-group .card-progress + .card-progress, .card-group .card-pricing + .card-progress, .card-group .card + .card-pricing, .card-group .card-progress + .card-pricing, .card-group .card-pricing + .card-pricing {
         margin-left: 0;
         border-left: 0; }
-      .card-group .card:first-child, .card-group .card-progress:first-child {
+      .card-group .card:first-child, .card-group .card-progress:first-child, .card-group .card-pricing:first-child {
         border-bottom-right-radius: 0;
         border-top-right-radius: 0; }
-        .card-group .card:first-child .card-img-top, .card-group .card-progress:first-child .card-img-top {
+        .card-group .card:first-child .card-img-top, .card-group .card-progress:first-child .card-img-top, .card-group .card-pricing:first-child .card-img-top {
           border-top-right-radius: 0; }
-        .card-group .card:first-child .card-img-bottom, .card-group .card-progress:first-child .card-img-bottom {
+        .card-group .card:first-child .card-img-bottom, .card-group .card-progress:first-child .card-img-bottom, .card-group .card-pricing:first-child .card-img-bottom {
           border-bottom-right-radius: 0; }
-      .card-group .card:last-child, .card-group .card-progress:last-child {
+      .card-group .card:last-child, .card-group .card-progress:last-child, .card-group .card-pricing:last-child {
         border-bottom-left-radius: 0;
         border-top-left-radius: 0; }
-        .card-group .card:last-child .card-img-top, .card-group .card-progress:last-child .card-img-top {
+        .card-group .card:last-child .card-img-top, .card-group .card-progress:last-child .card-img-top, .card-group .card-pricing:last-child .card-img-top {
           border-top-left-radius: 0; }
-        .card-group .card:last-child .card-img-bottom, .card-group .card-progress:last-child .card-img-bottom {
+        .card-group .card:last-child .card-img-bottom, .card-group .card-progress:last-child .card-img-bottom, .card-group .card-pricing:last-child .card-img-bottom {
           border-bottom-left-radius: 0; }
-      .card-group .card:not(:first-child):not(:last-child), .card-group .card-progress:not(:first-child):not(:last-child) {
+      .card-group .card:not(:first-child):not(:last-child), .card-group .card-progress:not(:first-child):not(:last-child), .card-group .card-pricing:not(:first-child):not(:last-child) {
         border-radius: 0; }
-        .card-group .card:not(:first-child):not(:last-child) .card-img-top, .card-group .card-progress:not(:first-child):not(:last-child) .card-img-top,
+        .card-group .card:not(:first-child):not(:last-child) .card-img-top, .card-group .card-progress:not(:first-child):not(:last-child) .card-img-top, .card-group .card-pricing:not(:first-child):not(:last-child) .card-img-top,
         .card-group .card:not(:first-child):not(:last-child) .card-img-bottom,
-        .card-group .card-progress:not(:first-child):not(:last-child) .card-img-bottom {
+        .card-group .card-progress:not(:first-child):not(:last-child) .card-img-bottom,
+        .card-group .card-pricing:not(:first-child):not(:last-child) .card-img-bottom {
           border-radius: 0; } }
 
 @media (min-width: 576px) {
   .card-columns {
     column-count: 3;
     column-gap: 1.25rem; }
-    .card-columns .card, .card-columns .card-progress {
+    .card-columns .card, .card-columns .card-progress, .card-columns .card-pricing {
       display: inline-block;
       width: 100%; } }
 
@@ -5501,18 +5504,18 @@ i {
     padding: 0.75em; }
     .challenge-card .card-block i, .challenge-card .card-progress .card-block-title i, .card-progress .challenge-card .card-block-title i {
       margin-right: 5px; }
-  .challenge-card .card-title {
+  .challenge-card .card-title, .challenge-card .card-pricing .card-title-highlight, .card-pricing .challenge-card .card-title-highlight {
     border-bottom: 2px solid #E5E1D9;
     margin-bottom: 0px; }
-    .challenge-card .card-title h6 {
+    .challenge-card .card-title h6, .challenge-card .card-pricing .card-title-highlight h6, .card-pricing .challenge-card .card-title-highlight h6 {
       margin-bottom: 0px; }
-      .challenge-card .card-title h6 a {
+      .challenge-card .card-title h6 a, .challenge-card .card-pricing .card-title-highlight h6 a, .card-pricing .challenge-card .card-title-highlight h6 a {
         font-weight: 700;
         border-bottom: 0px;
         color: #333333; }
-        .challenge-card .card-title h6 a:hover {
+        .challenge-card .card-title h6 a:hover, .challenge-card .card-pricing .card-title-highlight h6 a:hover, .card-pricing .challenge-card .card-title-highlight h6 a:hover {
           color: #707070; }
-        .challenge-card .card-title h6 a:focus {
+        .challenge-card .card-title h6 a:focus, .challenge-card .card-pricing .card-title-highlight h6 a:focus, .card-pricing .challenge-card .card-title-highlight h6 a:focus {
           color: #F55932; }
   .challenge-card .card-details ul li {
     margin-bottom: 20px; }
@@ -5732,6 +5735,51 @@ i {
     .card-progress .table-progress .inactive {
       background-color: #E5E1D9;
       color: #949494; }
+
+.card-pricing {
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+  border-width: 0px;
+  text-align: center; }
+  .card-pricing .card-block, .card-pricing .card-progress .card-block-title, .card-progress .card-pricing .card-block-title {
+    min-height: 300px; }
+  .card-pricing .card-title, .card-pricing .card-title-highlight {
+    padding: 0.75em;
+    border-radius: 0.25rem 0.25rem 0 0;
+    margin-bottom: 0px; }
+    .card-pricing .card-title h3, .card-pricing .card-title-highlight h3 {
+      margin-bottom: 0px; }
+  .card-pricing .card-title-highlight {
+    background-color: #00B1C3;
+    color: #FFFCF7; }
+  .card-pricing .price {
+    font-weight: 700;
+    font-size: 2rem; }
+  .card-pricing .card-footer {
+    background-color: #fff;
+    border-top-width: 0px; }
+  .card-pricing .card-footer-highlight {
+    background-color: #00B1C3;
+    color: #FFFCF7; }
+
+.add-on {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+  padding: 1.5em;
+  position: relative;
+  margin-bottom: 1.5em; }
+  .add-on .add-on-trigger {
+    display: inline-block;
+    background-color: #00B1C3;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; }
+    .add-on .add-on-trigger i {
+      display: inline-block;
+      padding-top: 7px; }
+  .add-on p {
+    margin-bottom: 0px; }
 
 .modal-close {
   color: #fff;
@@ -6588,7 +6636,7 @@ footer {
     color: white;
     border-bottom-color: white; }
 
-#examples-page .card, #examples-page .card-progress {
+#examples-page .card, #examples-page .card-progress, #examples-page .card-pricing {
   margin-bottom: 1.5em; }
 
 #examples-page .card-block, #examples-page .card-progress .card-block-title, .card-progress #examples-page .card-block-title {
@@ -6638,7 +6686,7 @@ footer {
   #examples-page .examples-page-alerts i {
     margin-right: 0.75em; }
 
-#examples-page .card, #examples-page .card-progress {
+#examples-page .card, #examples-page .card-progress, #examples-page .card-pricing {
   max-width: 330px;
   margin: 1.5em auto; }
 

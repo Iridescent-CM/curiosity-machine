@@ -71,6 +71,12 @@ urlpatterns = patterns('',
         {'active_nav': 'community-guidelines'},
         name='community-guidelines'
     ),
+    url(
+        r'^pricing/',
+        public(TemplateView.as_view(template_name="curiositymachine/pages/pricing.html")),
+        {'active_nav': 'pricing'},
+        name='pricing'
+    ),
 
     # redirects
     url(
