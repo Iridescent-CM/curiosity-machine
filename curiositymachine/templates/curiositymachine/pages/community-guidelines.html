@@ -5,7 +5,9 @@
 {% block body-id %}community-guidelines-about-page{% endblock %}
 
 {% block content %}
-  {{ block.super }}
+  {% with active_nav='community-guidelines' %}
+    {{ block.super }}
+  {% endwith %}
 
   <div class="container">
     <div class="row">

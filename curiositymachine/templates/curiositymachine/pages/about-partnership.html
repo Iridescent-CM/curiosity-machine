@@ -6,7 +6,9 @@
 {% block body-id %}partnership-about-page{% endblock %}
 
 {% block content %}
-  {{ block.super }}
+  {% with active_nav='partnership' %}
+    {{ block.super }}
+  {% endwith %}
 
   <div class="container">
     <div class="row">

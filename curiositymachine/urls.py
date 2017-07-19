@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.views import login, logout, password_change
 from django.views.generic.base import RedirectView, TemplateView
@@ -6,13 +7,30 @@ from django.utils.functional import lazy
 from django.core.urlresolvers import reverse
 from curiositymachine.decorators import whitelist
 from . import views
+import re
+import os
 import password_reset.views
 import profiles.urls
 import profiles.views
 
 public = whitelist('public')
 
-urlpatterns = patterns('',
+PAGES_DIR = os.path.join(settings.BASE_DIR, 'curiositymachine/templates/curiositymachine/pages')
+
+def pages_urls():
+    templates = [f for f in os.listdir(PAGES_DIR) if os.path.isfile(os.path.join(PAGES_DIR, f))]
+    urls = []
+    for template in templates:
+        name = os.path.splitext(template)[0]
+        path_re = "^%s/$" % name
+        urls.append(url(
+            path_re,
+            public(TemplateView.as_view(template_name="curiositymachine/pages/%s" % template)),
+            name=name
+        ))
+    return urls
+
+urls = [
     url(r'^$', public(views.root), name='root'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/analytics/$', 'curiositymachine.analytics.analytics', name="analytics"),
@@ -22,56 +40,12 @@ urlpatterns = patterns('',
     url(r'^', include('profiles.urls', namespace='profiles', app_name='profiles')),
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
+]
 
-    # about pages
-    url(
-        r'^about/',
-        public(TemplateView.as_view(template_name="curiositymachine/pages/about.html")),
-        {'active_nav': 'about'},
-        name='about'
-    ),
-    url(
-        r'^educator/',
-        public(TemplateView.as_view(template_name="curiositymachine/pages/educator.html")),
-        {'active_nav': 'educator'},
-        name='educator'
-    ),
-    url(
-        r'^mentor/',
-        public(TemplateView.as_view(template_name="curiositymachine/pages/mentor.html")),
-        {'active_nav': 'mentor'},
-        name='mentor'
-    ),
-    url(
-        r'^parents/',
-        public(TemplateView.as_view(template_name="curiositymachine/pages/parents.html")),
-        {'active_nav': 'parents'},
-        name='parents'
-    ),
-    url(
-        r'^about-membership/',
-        public(TemplateView.as_view(template_name="curiositymachine/pages/about-membership.html")),
-        {'active_nav': 'membership'},
-        name='about-membership'
-    ),
-    url(
-        r'^about-partnership/',
-        public(TemplateView.as_view(template_name="curiositymachine/pages/about-partnership.html")),
-        {'active_nav': 'partnership'},
-        name='about-partnership'
-    ),
-    url(
-        r'^about-technical-communication/',
-        public(TemplateView.as_view(template_name="curiositymachine/pages/about-technical-communication.html")),
-        name='about-technical-communication'
-    ),
-    url(
-        r'^community-guidelines/',
-        public(TemplateView.as_view(template_name="curiositymachine/pages/about-community-guidelines.html")),
-        {'active_nav': 'community-guidelines'},
-        name='community-guidelines'
-    ),
+# about pages, static pages
+urls += pages_urls()
 
+urls += [
     # redirects
     url(
         r'^terms-of-use/',
@@ -111,4 +85,5 @@ urlpatterns = patterns('',
     url(r'^groups/', include('groups.urls', namespace='groups', app_name='groups'), name='groups'),
     url(r'^health_check/', public(views.health_check)),
     url(r'^log/', public(views.log), name='log'),
-)
+]
+urlpatterns = patterns('', *urls)

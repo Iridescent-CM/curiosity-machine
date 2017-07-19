@@ -6,7 +6,9 @@
 {% block body-id %}membership-about-page{% endblock %}
 
 {% block content %}
-  {{ block.super }}
+  {% with active_nav='membership' %}
+    {{ block.super }}
+  {% endwith %}
 
   <div class="container">
     <div class="row">
