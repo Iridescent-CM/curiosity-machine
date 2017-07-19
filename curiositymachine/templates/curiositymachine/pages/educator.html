@@ -5,7 +5,9 @@
 {% block title %}Educators{% endblock %}
 
 {% block content %}
-  {{ block.super }}
+  {% with active_nav='educator' %}
+    {{ block.super }}
+  {% endwith %}
 
   <div class="container">
     <div class="row">

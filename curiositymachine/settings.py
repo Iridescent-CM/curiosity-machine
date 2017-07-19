@@ -69,7 +69,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'staticflatpages',
     'profiles',
     'challenges',
     'cmcomments',
@@ -107,7 +106,6 @@ MIDDLEWARE_CLASSES = (
     'curiositymachine.middleware.LastActiveMiddleware',
     'curiositymachine.middleware.FirstLoginMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'staticflatpages.middleware.StaticFlatpageFallbackMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

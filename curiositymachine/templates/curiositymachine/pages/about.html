@@ -6,7 +6,9 @@
 {% block body-id %}about-page{% endblock %}
 
 {% block content %}
-  {{ block.super }}
+  {% with active_nav='about' %}
+    {{ block.super }}
+  {% endwith %}
 
   <div class="container">
     <div class="row">
