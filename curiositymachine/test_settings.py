@@ -1,7 +1,8 @@
 import os
 
 from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
+if find_dotenv():
+    load_dotenv(find_dotenv())
 
 # Swap in REDIS_TEST_URL for REDIS_URL
 if not os.getenv('REDIS_TEST_URL'):

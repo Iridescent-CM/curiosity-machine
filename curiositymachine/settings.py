@@ -6,7 +6,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 ## dotenv
 # Get a .env file from another developer for reasonable development defaults
 from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
+if find_dotenv():
+    load_dotenv(find_dotenv())
 
 
 ## Debug, tests, dev tools
