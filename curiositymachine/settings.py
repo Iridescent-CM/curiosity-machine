@@ -33,6 +33,7 @@ TEST_RUNNER = "django_pytest.test_runner.TestRunner"
 
 DEBUG_TOOLBAR = os.environ.get('DEBUG_TOOLBAR', False)
 DEBUG_HTML = os.environ.get('DEBUG_HTML', False)
+USE_DJANGO_EXTENSIONS = os.environ.get('USE_DJANGO_EXTENSIONS', False)
 
 COMPRESS_ENABLED = process_false_string(os.environ.get('COMPRESS_ENABLED', False)) # no compression by default for now
 
