@@ -86,3 +86,5 @@ mandrill==1.0.57
 factory-boy==2.8.1
 
 djangorestframework==3.5.2
+
+python-dotenv==0.6.4

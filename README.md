@@ -8,10 +8,9 @@ Using `virtualenv` and `virtualenvwrapper`:
 git clone git@github.com:Iridescent-CM/curiosity-machine.git
 cd curiosity-machine
 mkvirtualenv -a . -r ./requirements.txt -p /path/to/python3 cm
-cp sample.local.py curiositymachine/local.py
 ```
 
-Edit the new `local.py` as appropriate, and
+Get a .env from another developer and put it in your `curiosity-machine` directory, then
 
 ```sh
 python manage.py migrate
@@ -22,9 +21,8 @@ This gets you basically operational. The site won't be terribly intersting with 
 
 ## Configuration
 
-In development, copying `sample.local.py` to `curiositymachine/local.py` hopefully provides a reasonable starting point,
-although it has the tendency to lag behind the current state of the app config. Please issue pull requests with fixes
-and improvements as you realize they are needed.
+In development, getting a `.env` from another developer should give you reasonable configuration defaults
+to run the app locally.
 
 ### Environment variables
 

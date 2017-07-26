@@ -1,21 +1,14 @@
-from .settings import *
 import os
 
-try:
-    REDIS_TEST_URL
-except NameError:
-    REDIS_TEST_URL = os.getenv('REDIS_TEST_URL', "")
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
-if not REDIS_TEST_URL:
-    raise Exception("Set REDIS_TEST_URL in the environment or your local.py")
+# Swap in REDIS_TEST_URL for REDIS_URL
+if not os.getenv('REDIS_TEST_URL'):
+    raise Exception("Set REDIS_TEST_URL in the environment or your .env")
+os.environ['REDIS_URL'] = os.getenv('REDIS_TEST_URL', "")
 
-REDIS_URL = REDIS_TEST_URL
-RQ_QUEUES = {
-    'default': {
-        'URL': REDIS_URL,
-        'DB': None # take from REDIS_URL instead
-    }
-}
+from .settings import *
 
 # We generally don't want to rely on S3 for tests (and can override settings when we do)
 DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
