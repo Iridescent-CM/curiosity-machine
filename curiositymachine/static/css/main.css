@@ -6390,6 +6390,51 @@ footer {
     vertical-align: middle;
     width: 16.6%; }
 
+.educator-dashboard.educator-dashboard-conversation .reflect-question {
+  color: #1EB9C8; }
+
+.educator-dashboard.educator-dashboard-conversation .pickwidget-preview {
+  max-width: 100px;
+  max-height: 100px;
+  vertical-align: top;
+  padding: 0.25rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem; }
+
+.educator-dashboard.educator-dashboard-conversation #id_visual_media_container {
+  display: inline-block; }
+
+.educator-dashboard.educator-dashboard-conversation input[type="submit"] {
+  float: right; }
+
+.educator-dashboard.educator-dashboard-conversation textarea {
+  width: 100%;
+  height: 100px; }
+
+.educator-dashboard.educator-dashboard-conversation .student-comment.stage-plan-comment .card-header {
+  background-color: #f4f8ee; }
+
+.educator-dashboard.educator-dashboard-conversation .student-comment.stage-build-comment .card-header {
+  /*
+      color: white;
+      background-color: #6161AF;
+      */
+  background-color: #efeff7; }
+
+.educator-dashboard.educator-dashboard-conversation .student-comment.stage-test-comment .card-header {
+  /*
+      color: white;
+      background-color: #F55932;
+      */
+  background-color: #feeeeb; }
+
+.educator-dashboard.educator-dashboard-conversation .student-comment.stage-reflect-comment .card-header {
+  /*
+      color: white;
+      background-color: #1EB9C8;
+      */
+  background-color: #e6f7f9; }
+
 #challenges-page {
   background-color: #E5E1D9; }
   #challenges-page .challenges-top-panel {

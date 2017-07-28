@@ -16,6 +16,7 @@ from ..sorting import StudentSorter, ProgressSorter
 from ..annotators import UserCommentSummary
 from challenges.models import Challenge, Example, Stage
 from cmcomments.models import Comment
+from cmcomments.forms import CommentForm
 from units.models import Unit
 from memberships.models import Member
 from curiositymachine.decorators import educator_only
@@ -241,3 +242,21 @@ class CommentList(generics.ListAPIView):
                 .all()
             )
         return queryset
+
+@educator_only
+@login_required
+@membership_selection
+def conversation(request, student_id, challenge_id, membership_selection=None):
+    if not (membership_selection and membership_selection.selected):
+        raise PermissionDenied
+
+    membership = membership_selection.selected
+    student = get_object_or_404(membership.members, pk=student_id)
+    progress = get_object_or_404(student.progresses, challenge_id=challenge_id)
+    return render(request, "profiles/educator/dashboard/conversation.html", {
+        "membership_selection": membership_selection,
+        "student": student,
+        "progress": progress,
+        "comments": progress.comments.order_by("-created").all(),
+        "comment_form": CommentForm(),
+    })

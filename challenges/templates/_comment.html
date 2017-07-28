@@ -16,6 +16,20 @@
       {% include "_comment_content.html" %}
     </div>
   </div>
+{% elif comment.user.profile.is_educator %}
+  <span class="mentor-comment">EDUCATOR MESSAGE</span>
+  <span class="comment-date">{{ comment.created|timesince }}</span>
+  <div class="mentor-info comment">
+    <div class="avatar-container">
+      {% include "_avatar.html" with profile=comment.user.profile width=50 height=50 crop='fill' %}
+    </div>
+    <p>{{comment.user.username}}<br><strong>Educator</strong></p>
+  </div>
+  <div class="panel panel-bubble blue comment">
+    <div class="panel-body">
+      {% include "_comment_content.html" %}
+    </div>
+  </div>
 {% else %}
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="panel panel-comment comment">
