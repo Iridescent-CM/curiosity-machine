@@ -300,7 +300,15 @@ S3DIRECT_DESTINATIONS = {
     'unit-resources': (
         'units/resources',
         lambda u: u.is_staff,
-    )
+    ),
+    'admin-videos': (
+        'videos/sources',
+        lambda u: u.is_staff,
+    ),
+    'admin-images': (
+        'images/sources',
+        lambda u: u.is_staff,
+    ),
 }
 S3_URL_BASE = "http://s3.amazonaws.com"
 

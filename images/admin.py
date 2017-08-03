@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from .models import Image
-from curiositymachine.widgets import FilePickerImagePickWidget
+from s3direct.widgets import S3DirectWidget
 from django.conf import settings
 
 class ImageAdminForm(forms.ModelForm):
@@ -9,10 +9,7 @@ class ImageAdminForm(forms.ModelForm):
         model = Image
         fields = ('source_url',)
         widgets = {
-            'source_url': FilePickerImagePickWidget(attrs={
-                'data-fp-services': 'WEBCAM,COMPUTER',
-                'data-fp-opento': 'COMPUTER'
-            })
+            'source_url': S3DirectWidget(dest='admin-images')
         }
 
 class ImageAdmin(admin.ModelAdmin):

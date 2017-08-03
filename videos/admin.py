@@ -1,7 +1,7 @@
 from django.contrib import admin
 from videos.models import Video, EncodedVideo
 from django import forms
-from curiositymachine.widgets import FilePickerVideoPickWidget
+from s3direct.widgets import S3DirectWidget
 from django.conf import settings
 import json
 
@@ -10,10 +10,7 @@ class VideoAdminForm(forms.ModelForm):
         model = Video
         fields = ('source_url',)
         widgets = {
-            'source_url': FilePickerVideoPickWidget(attrs={
-                'data-fp-services': 'VIDEO,COMPUTER',
-                'data-fp-opento': 'COMPUTER'
-            })
+            'source_url': S3DirectWidget(dest='admin-videos')
         }
 
 class VideoAdmin(admin.ModelAdmin):
