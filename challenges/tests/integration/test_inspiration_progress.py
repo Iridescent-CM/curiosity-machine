@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 
 from challenges.factories import ChallengeFactory, ExampleFactory, ProgressFactory
 from profiles.factories import StudentFactory, MentorFactory, EducatorFactory, ParentFactory, ParentConnectionFactory
-from groups.factories import GroupFactory
 
 pytestmark = pytest.mark.integration
 
