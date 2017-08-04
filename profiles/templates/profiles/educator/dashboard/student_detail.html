@@ -110,6 +110,12 @@
 
         <div class="card-block">
           <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}" class="btn btn-primary">View &rarr;</a>
+          {% if flags.enable_educator_feedback %}
+          <a
+            href="{% url "profiles:educator_dashboard_progress_conversation" student_id=student.id challenge_id=progress.challenge_id %}"
+            class="btn btn-secondary"
+          >Give feedback</a>
+          {% endif %}
         </div>
       </div>
       {% empty %}

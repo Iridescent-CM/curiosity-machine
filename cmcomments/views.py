@@ -8,7 +8,7 @@ from challenges.models import Challenge, Progress, Stage, Example
 from django.contrib import messages
 from cmcomments.models import Comment
 from cmcomments.forms import CommentForm
-from curiositymachine.decorators import mentor_or_current_user, mentor_only
+from curiositymachine.decorators import current_user_or_approved_viewer
 from videos.models import Video
 from images.models import Image
 import django_rq
@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 @require_POST
 @login_required
-@mentor_or_current_user
+@current_user_or_approved_viewer
 def comments(request, challenge_id, username, stage):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
