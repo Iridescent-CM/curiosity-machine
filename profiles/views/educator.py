@@ -19,7 +19,7 @@ from cmcomments.models import Comment
 from cmcomments.forms import CommentForm
 from units.models import Unit
 from memberships.models import Member
-from curiositymachine.decorators import educator_only
+from curiositymachine.decorators import educator_only, feature_flag
 from curiositymachine.views.generic import UserJoinView
 from curiositymachine import signals
 from django.utils.functional import lazy
@@ -246,6 +246,7 @@ class CommentList(generics.ListAPIView):
 @educator_only
 @login_required
 @membership_selection
+@feature_flag('enable_educator_feedback')
 def conversation(request, student_id, challenge_id, membership_selection=None):
     if not (membership_selection and membership_selection.selected):
         raise PermissionDenied
