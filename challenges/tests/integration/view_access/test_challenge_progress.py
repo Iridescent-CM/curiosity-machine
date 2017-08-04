@@ -2,7 +2,6 @@ import pytest
 
 from challenges.factories import ProgressFactory
 from profiles.factories import UserFactory, MentorFactory, EducatorFactory, ParentFactory, ParentConnectionFactory, StudentFactory
-from groups.factories import GroupFactory
 from memberships.factories import MembershipFactory
 
 from django.core.urlresolvers import reverse
@@ -40,17 +39,6 @@ def test_allows_current_user(client):
     progress = ProgressFactory()
 
     client.login(username=progress.student.username, password="123123")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
-
-    assert response.status_code == 200
-
-@pytest.mark.django_db
-def test_allows_group_owner(client):
-    progress = ProgressFactory()
-    user = EducatorFactory(username="username", password="password")
-    group = GroupFactory(members=[progress.student], owners=[user])
-
-    client.login(username="username", password="password")
     response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
 
     assert response.status_code == 200

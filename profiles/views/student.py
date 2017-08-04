@@ -6,8 +6,6 @@ from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.forms.student import StudentUserAndProfileForm
-from groups.forms import GroupJoinForm, GroupLeaveForm
-from groups.models import Invitation
 from challenges.models import Progress, Favorite, Challenge
 from profiles.models import ParentConnection
 from curiositymachine.views.generic import ToggleView, SoftDeleteView, UserJoinView
@@ -58,9 +56,6 @@ def home(request):
         'filter': filter, 
         'my_challenges_filters': my_challenges_filters, 
         'favorite_challenges': favorite_challenges,
-        'group_form': GroupJoinForm(),
-        'groups': request.user.cm_groups.all(),
-        'invitations': Invitation.objects.filter(user=request.user).all(),
         'parent_connections': connections,
         'selected_membership': selected_membership,
         'selected_membership_challenges': selected_membership_challenges,

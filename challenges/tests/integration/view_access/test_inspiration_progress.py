@@ -2,7 +2,6 @@ import pytest
 
 from challenges.factories import ChallengeFactory, ProgressFactory
 from profiles.factories import UserFactory, MentorFactory, EducatorFactory, ParentFactory, ParentConnectionFactory, StudentFactory
-from groups.factories import GroupFactory
 from memberships.factories import MembershipFactory
 
 from django.core.urlresolvers import reverse
@@ -51,7 +50,7 @@ def test_connected_educator_access_granted(client):
     challenge = ChallengeFactory()
     progress = ProgressFactory(challenge=challenge)
     educator = EducatorFactory(username='user', password='123123')
-    group = GroupFactory(owners=[educator], members=[progress.student])
+    MembershipFactory(members=[progress.student, educator])
 
     client.login(username='user', password='123123')
     response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=False)
