@@ -1,22 +1,43 @@
 from django.contrib import admin
 from videos.models import Video, EncodedVideo
 from django import forms
-from curiositymachine.widgets import FilePickerVideoPickWidget
+from s3direct.widgets import S3DirectWidget
 from django.conf import settings
+import json
 
 class VideoAdminForm(forms.ModelForm):
     class Meta:
         model = Video
         fields = ('source_url',)
         widgets = {
-            'source_url': FilePickerVideoPickWidget(attrs={
-                'data-fp-services': 'VIDEO,COMPUTER',
-                'data-fp-opento': 'COMPUTER'
-            })
+            'source_url': S3DirectWidget(dest='admin-videos')
         }
 
 class VideoAdmin(admin.ModelAdmin):
-    fields = ('source_url',)
+    fieldsets = (
+        (None, {
+            'fields': ('source_url', 'url_link')
+        }),
+        ('Debug info', {
+            'fields': ('job_details',),
+            'classes': ('collapse',)
+        }),
+    )
+    readonly_fields = ('url_link', 'job_details')
+    list_display = ('id', 'url_link', 'source_url_link')
+
+    def url_link(self, obj):
+        return '<a href="%s">%s</a>' % (obj.url, obj.url)
+    url_link.allow_tags = True
+
+    def source_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (obj.source_url, obj.source_url)
+    source_url_link.allow_tags = True
+
+    def job_details(self, obj):
+        return '<pre><code>\n%s</code></pre>' % (json.dumps(json.loads(obj.raw_job_details), indent=4, sort_keys=True))
+    job_details.allow_tags = True
+
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             return VideoAdminForm

@@ -9,6 +9,7 @@ from .models import Video, EncodedVideo
 from images.models import Image
 from django.db import IntegrityError
 import logging
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +31,7 @@ def check_video_job_progress(video, job_id): # repeats itself every TIME_BETWEEN
     job = client.job.details(job_id)
 
     #record the raw job details in the database -- use update() here in order to avoid any concurrency problems if the video obj is stale
-    Video.objects.filter(id=video.id).update(raw_job_details=str(job.body))
+    Video.objects.filter(id=video.id).update(raw_job_details=json.dumps(job.body))
 
     outputs = job.body['job']["output_media_files"]
     unfinished = False
