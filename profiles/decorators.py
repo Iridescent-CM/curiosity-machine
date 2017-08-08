@@ -1,11 +1,12 @@
 from functools import wraps
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import Http404
-from profiles.models import ParentConnection
+from profiles.models import ParentConnection, ImpactSurvey
 from memberships.models import Membership
 from django.utils.timezone import now
 from datetime import timedelta
 from django.conf import settings
+from django.forms import modelform_factory
 
 def parents_only(view):
     @wraps(view)
@@ -137,4 +138,16 @@ def membership_selection(view):
     def inner(request, *args, **kwargs):
         kwargs['membership_selection'] = MembershipSelection(request)
         return view(request, *args, **kwargs)
+    return inner
+
+def impact_survey(view):
+    @wraps(view)
+    def inner(request, *args, **kwargs):
+        form = modelform_factory(ImpactSurvey, exclude=['user'])
+        v = view(request, *args, **kwargs)
+        try:
+            v.context_data['impact_form'] = form(instance=ImpactSurvey.objects.filter(user=request.user).first())
+        except AttributeError as e:
+            raise TypeError("impact_survey decorator can only be used on views returning TemplateResponse")
+        return v
     return inner

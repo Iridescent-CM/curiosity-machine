@@ -10,34 +10,6 @@ $(document).ready(function() {
       }
     }
   });
-
-  $(document).ajaxError(function(event, XMLHttpRequest, ajaxOptions) {
-    console.group('Ajax Error');
-    console.log('Request: ', ajaxOptions.url);
-    console.log('Response', {response : XMLHttpRequest.responseText});
-    console.dir(ajaxOptions);
-    console.dir(XMLHttpRequest);
-    console.groupEnd();
-  });
-
-  $(document).ajaxSuccess(function(event, XMLHttpRequest, ajaxOptions) {
-    console.group('Ajax Success');
-    console.log('Request: ', ajaxOptions.url);
-    console.log('Response', {response : XMLHttpRequest.responseText});
-    console.dir(ajaxOptions);
-    console.dir(XMLHttpRequest);
-    console.groupEnd();
-  });
-  
-  $(document).ajaxSend(function(event, XMLHttpRequest, ajaxOptions) {
-    console.group('Ajax Send');
-    console.log('Request: ', ajaxOptions.url);
-    console.dir(ajaxOptions);
-    console.dir(XMLHttpRequest);
-    console.groupEnd();
-  });  
-
-
 });
 
 function csrfSafeMethod(method) {

@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <div class="educator-dashboard-header py-2 mb-1">
   <div class="container">
     <div class="row">
@@ -37,6 +38,65 @@
           <strong>{{ membership.display_name }}</strong> expired on {{ membership.expiration }}. <a href="mailto:curiosity@iridescentlearning.org">Contact us</a> to renew your membership.
         </div>
         {% endfor %}
+      </div>
+    </div>
+    <div class="row mt-1">
+      <div class="card" style="background: black;">
+        <div class="card-block">
+          <h3>Your impact</h3>
+          <p>
+            Flavour sweet and caramelization mazagran lungo, cultivar french press foam arabica steamed aromatic. French press seasonal percolator americano steamed espresso skinny. Single origin irish, steamed cinnamon mazagran cultivar milk cappuccino foam that.
+          </p>
+          <div class="collapse" id="impact-collapse">
+            <form id="impact-survey" action="{% url "profiles:update_impact_survey" %}" method="post" data-remote="true">
+              {% csrf_token %}
+              <h4>I use Curiosity Machine with...</h4>
+              <div class="form-group row">
+                <label class="col-xs-12 col-md-3">
+                  # students
+                  {{ impact_form.student_count|add_class:"form-control" }}
+                </label>
+                <label class="col-xs-12 col-md-3">
+                  # teachers
+                  {{ impact_form.teacher_count|add_class:"form-control" }}
+                </label>
+              </div>
+              <h4>I have taught...</h4>
+              <div class="form-group row">
+                <label class="col-xs-12 col-md-3">
+                  # design challenges
+                  {{ impact_form.challenge_count|add_class:"form-control" }}
+                </label>
+                <label class="col-xs-6 col-md-3">
+                  In the classroom
+                  {{ impact_form.in_classroom|add_class:"form-control" }}
+                </label>
+                <label class="col-xs-6 col-md-3">
+                  Out of the classroom
+                  {{ impact_form.out_of_classroom|add_class:"form-control" }}
+                </label>
+              </div>
+              <h4>My students take about...</h4>
+              <div class="form-group row">
+                <label class="col-xs-12 col-md-3">
+                  Hours per challenge
+                  {{ impact_form.hours_per_challenge|add_class:"form-control" }}
+                </label>
+              </div>
+              <div class="form-group row">
+                <div class="col-xs-12 col-md-9">
+                    <input type="submit" value="Save" class="btn btn-primary" data-disable-with="Saving...">
+                </div>
+              </div>
+            </form>
+          </div>
+          <a
+            data-toggle="collapse" href="#impact-collapse"
+            class="btn btn-secondary"
+            aria-expanded="false" aria-controls="impact-collapse"
+            data-text-swap="Hide"
+          >Show</a>
+        </div>
       </div>
     </div>
   </div>

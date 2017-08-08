@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 from profiles import views
 
 from curiositymachine.decorators import whitelist
@@ -20,6 +20,7 @@ urlpatterns = patterns('profiles.views',
     url(r'^home/challenges/(?P<challenge_id>\d+)/$', views.educator.challenge_detail, name='educator_dashboard_challenge_detail'),
     url(r'^home/guides/$', views.educator.guides_dashboard, name='educator_dashboard_guides'),
     url(r'^data/progress_posts/$', whitelist('public')(views.educator.CommentList.as_view()), name='progress_graph_data'),
+    url(r'^data/impact_survey/$', whitelist('public')(views.educator.ImpactSurveyView.as_view()), name='update_impact_survey'),
     url(r'^profile-edit/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'profile_edit'}, name='profile_edit'),
     url(r'^mentors/$', whitelist('public')(views.mentor.list_all), name='mentors'),
     url(r'^mentors/(?P<username>[^/]+)/$', whitelist('public')(views.mentor.show_profile), name='mentor_profile'),

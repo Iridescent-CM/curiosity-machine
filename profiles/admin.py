@@ -5,7 +5,7 @@ from images.models import Image
 from .admin_utils import StudentFilter
 from curiositymachine import signals
 
-from .models import Profile, ParentConnection, UserRole
+from .models import Profile, ParentConnection, UserRole, ImpactSurvey
 
 User = get_user_model()
 
@@ -234,3 +234,4 @@ class MentorAdmin(admin.ModelAdmin):
     email.admin_order_field = "user__email"
 
 admin.site.register(Mentor, MentorAdmin)
+admin.site.register(ImpactSurvey)

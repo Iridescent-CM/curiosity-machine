@@ -10,8 +10,8 @@ from django.db.models import Prefetch, Count
 from django.conf import settings
 from collections import OrderedDict
 from ..forms import educator as forms
-from ..decorators import membership_selection
-from ..models import UserRole
+from ..decorators import membership_selection, impact_survey
+from ..models import UserRole, ImpactSurvey
 from ..sorting import StudentSorter, ProgressSorter
 from ..annotators import UserCommentSummary
 from challenges.models import Challenge, Example, Stage
@@ -28,6 +28,7 @@ from ..serializers import CommentSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated
 from memberships.helpers.selectors import GroupSelector
+from django.template.response import TemplateResponse
 
 User = get_user_model()
 
@@ -58,6 +59,7 @@ def profile_edit(request):
 @educator_only
 @login_required
 @membership_selection
+@impact_survey
 def password_reset(request, student_id, membership_selection=None):
     membership = membership_selection.selected
     membership_students = membership.members.select_related('profile__image').filter(profile__role=UserRole.student.value)
@@ -73,7 +75,7 @@ def password_reset(request, student_id, membership_selection=None):
     else:
         form = SetPasswordForm(student)
 
-    return render(request, 'profiles/educator/dashboard/student_password.html', {
+    return TemplateResponse(request, 'profiles/educator/dashboard/student_password.html', {
         'student': student,
         "membership_selection": membership_selection,
         'form': form
@@ -82,6 +84,7 @@ def password_reset(request, student_id, membership_selection=None):
 @educator_only
 @login_required
 @membership_selection
+@impact_survey
 def home(request, membership_selection=None):
     core_challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
 
@@ -94,7 +97,7 @@ def home(request, membership_selection=None):
         membership_challenges = membership.challenges.select_related('image').prefetch_related('resource_set')
         core_challenges = core_challenges.exclude(id__in=membership_challenges.values('id'))
 
-    return render(request, "profiles/educator/dashboard/challenges.html", {
+    return TemplateResponse(request, "profiles/educator/dashboard/challenges.html", {
         "membership": membership,
         "membership_challenges": membership_challenges,
         "core_challenges": core_challenges,
@@ -105,6 +108,7 @@ def home(request, membership_selection=None):
 @educator_only
 @login_required
 @membership_selection
+@impact_survey
 def students_dashboard(request, membership_selection=None):
     membership = None
     students = []
@@ -116,7 +120,7 @@ def students_dashboard(request, membership_selection=None):
         gs = GroupSelector(membership, query=request.GET)
         students = gs.selected.queryset.select_related('profile__image')
         students = sorter.sort(students)
-    return render(request, "profiles/educator/dashboard/students.html", {
+    return TemplateResponse(request, "profiles/educator/dashboard/students.html", {
         "membership": membership,
         "students": students,
         "group_selector": gs,
@@ -127,6 +131,7 @@ def students_dashboard(request, membership_selection=None):
 @educator_only
 @login_required
 @membership_selection
+@impact_survey
 def student_detail(request, student_id, membership_selection=None):
     if not (membership_selection and membership_selection.selected):
         raise PermissionDenied
@@ -151,7 +156,7 @@ def student_detail(request, student_id, membership_selection=None):
 
     graph_data_url = "%s?%s" % (reverse('profiles:progress_graph_data'), "&".join(["id=%d" % p.id for p in progresses]))
 
-    return render(request, "profiles/educator/dashboard/student_detail.html", {
+    return TemplateResponse(request, "profiles/educator/dashboard/student_detail.html", {
         "student": student,
         "progresses": progresses,
         "completed_count": len([p for p in progresses if p.complete]),
@@ -163,6 +168,7 @@ def student_detail(request, student_id, membership_selection=None):
 @educator_only
 @login_required
 @membership_selection
+@impact_survey
 def guides_dashboard(request, membership_selection=None):
     units = Unit.objects.filter(listed=True).order_by('id').select_related('image')
 
@@ -173,7 +179,7 @@ def guides_dashboard(request, membership_selection=None):
         extra_units = membership.extra_units.order_by('id').select_related('image')
         units = units.exclude(id__in=extra_units.values('id'))
 
-    return render(request, "profiles/educator/dashboard/guides.html", {
+    return TemplateResponse(request, "profiles/educator/dashboard/guides.html", {
         "units": units,
         "membership": membership,
         "extra_units": extra_units,
@@ -183,6 +189,7 @@ def guides_dashboard(request, membership_selection=None):
 @educator_only
 @login_required
 @membership_selection
+@impact_survey
 def challenge_detail(request, challenge_id, membership_selection=None):
     if not (membership_selection and membership_selection.selected):
         raise PermissionDenied
@@ -211,7 +218,7 @@ def challenge_detail(request, challenge_id, membership_selection=None):
     for student in students:
         UserCommentSummary(comments, student.id).annotate(student)
 
-    return render(request, "profiles/educator/dashboard/dc_detail.html", {
+    return TemplateResponse(request, "profiles/educator/dashboard/dc_detail.html", {
         "challenge": challenge,
         "challenge_links": membership.challenges.order_by('name').all(),
         "students": students,
@@ -245,6 +252,7 @@ class CommentList(generics.ListAPIView):
 @educator_only
 @login_required
 @membership_selection
+@impact_survey
 @feature_flag('enable_educator_feedback')
 def conversation(request, student_id, challenge_id, membership_selection=None):
     if not (membership_selection and membership_selection.selected):
@@ -253,10 +261,30 @@ def conversation(request, student_id, challenge_id, membership_selection=None):
     membership = membership_selection.selected
     student = get_object_or_404(membership.members, pk=student_id)
     progress = get_object_or_404(student.progresses, challenge_id=challenge_id)
-    return render(request, "profiles/educator/dashboard/conversation.html", {
+    return TemplateResponse(request, "profiles/educator/dashboard/conversation.html", {
         "membership_selection": membership_selection,
         "student": student,
         "progress": progress,
         "comments": progress.comments.order_by("-created").all(),
         "comment_form": CommentForm(),
     })
+
+from django.views.generic import View
+from django.http import JsonResponse, HttpResponse
+from django.forms import modelform_factory
+import time
+
+class ImpactSurveyView(View):
+    http_method_names=['post']
+
+    def post(self, request, *args, **kwargs):
+        #time.sleep(5)
+        factory = modelform_factory(ImpactSurvey, exclude=['user'])
+        survey = ImpactSurvey.objects.get_or_create(user=request.user)[0]
+        form = factory(data=request.POST, instance=survey)
+        #return HttpResponse(status=500)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"status": "ok"})
+        else:
+            return JsonResponse({"status": "not ok"})

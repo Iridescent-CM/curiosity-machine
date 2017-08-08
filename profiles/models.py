@@ -167,3 +167,15 @@ class ParentConnection(models.Model):
             self.child_profile.user.username,
             self.id
         )
+
+class ImpactSurvey(models.Model):
+    student_count = models.PositiveIntegerField(default=0, blank=True)
+    teacher_count = models.PositiveIntegerField(default=0, blank=True)
+    challenge_count = models.PositiveIntegerField(default=0, blank=True)
+    in_classroom = models.BooleanField(default=False)
+    out_of_classroom = models.BooleanField(default=False)
+    hours_per_challenge = models.PositiveIntegerField(default=0, blank=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
