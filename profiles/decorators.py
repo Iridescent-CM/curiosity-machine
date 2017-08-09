@@ -4,6 +4,8 @@ from django.shortcuts import Http404
 from profiles.models import ParentConnection, ImpactSurvey
 from .forms import ImpactSurveyForm
 from memberships.models import Membership
+from django.http import HttpResponse
+from django.template.response import TemplateResponse
 from django.utils.timezone import now
 from datetime import timedelta
 from django.conf import settings
@@ -144,10 +146,8 @@ def impact_survey(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
         v = view(request, *args, **kwargs)
-        try:
+        if isinstance(v, TemplateResponse):
             obj = ImpactSurvey.objects.filter(user=request.user).first()
             v.context_data['impact_form'] = ImpactSurveyForm(instance=obj)
-        except AttributeError as e:
-            raise TypeError("impact_survey decorator can only be used on views returning TemplateResponse")
         return v
     return inner
