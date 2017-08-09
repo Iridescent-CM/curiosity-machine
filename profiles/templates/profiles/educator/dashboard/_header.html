@@ -41,14 +41,17 @@
       </div>
     </div>
     <div class="row mt-1">
-      <div class="card" style="background: black;">
+      <div class="card" style="background: #333;">
         <div class="card-block">
           <h3>Your impact</h3>
           <p>
             Flavour sweet and caramelization mazagran lungo, cultivar french press foam arabica steamed aromatic. French press seasonal percolator americano steamed espresso skinny. Single origin irish, steamed cinnamon mazagran cultivar milk cappuccino foam that.
           </p>
           <div class="collapse" id="impact-collapse">
-            <form id="impact-survey" action="{% url "profiles:update_impact_survey" %}" method="post" data-remote="true">
+            <form id="impact-survey" class="mb-3"
+                action="{% url "profiles:update_impact_survey" %}"
+                method="post" data-remote="true"
+            >
               {% csrf_token %}
               <h4>I use Curiosity Machine with...</h4>
               <div class="form-group row">
@@ -86,6 +89,7 @@
               <div class="form-group row">
                 <div class="col-xs-12 col-md-9">
                     <input type="submit" value="Save" class="btn btn-primary" data-disable-with="Saving...">
+                    <span id="impact-survey-msg" class="ml-2"></span>
                 </div>
               </div>
             </form>

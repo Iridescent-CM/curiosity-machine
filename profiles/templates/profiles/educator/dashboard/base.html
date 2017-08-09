@@ -12,11 +12,22 @@
 
 {% block js %}
   <script>
-    $('#impact-survey').on('ajax:success', function(data, stat, xhr) {
-      console.log('ajax success');
-    });
-    $('#impact-survey').on('ajax:error', function(xhr, stat, err) {
-      console.log('ajax error');
+    $(function() {
+      var $form = $('#impact-survey');
+      var $display = $('#impact-survey-msg');
+
+      $form.on('ajax:before change', function() {
+        $display.removeClass('text-success text-danger');
+        $display.text('');
+      });
+      $form.on('ajax:success', function(data, stat, xhr) {
+        $display.addClass('text-success');
+        $display.text('Saved!');
+      });
+      $form.on('ajax:error', function(xhr, stat, err) {
+        $display.addClass('text-danger');
+        $display.text('Save failed. Please try again.');
+      });
     });
   </script>
 {% endblock %}
