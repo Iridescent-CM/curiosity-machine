@@ -1,14 +1,9 @@
-{% extends "curiositymachine/layout/base.html" %}
+{% extends "profiles/educator/dashboard/base.html" %}
 {% load staticfiles %}
 {% load datepills %}
 {% block title %}{{ student.username }}'s Progress{% endblock %}
-{% block body-classes %}educator-dashboard{% endblock %}
 
 {% block content %}
-
-{% include 'profiles/educator/dashboard/_header.html' %}
-
-<div class="container">
   {% url "profiles:educator_dashboard_students" as base_url %}
   {% include 'profiles/educator/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
 
@@ -124,11 +119,10 @@
 
     </div>
   </div>
-</div>
-
 {% endblock %}
 
 {% block js %}
+  {{ block.super }}
   <script src="https://d3js.org/d3.v4.min.js"></script>
   {% if flags.enable_ajax_debug %}
   <script src="{% static "js/d3_ajax_controls.js" %}"></script>

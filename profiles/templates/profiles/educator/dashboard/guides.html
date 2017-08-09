@@ -1,15 +1,8 @@
-{% extends "curiositymachine/layout/base.html" %}
+{% extends "profiles/educator/dashboard/base.html" %}
 {% load staticfiles %}
-{% block title %}My Dashboard{% endblock %}
-{% block body-classes %}educator-dashboard{% endblock %}
 
 {% block content %}
-
-{% include 'profiles/educator/dashboard/_header.html' %}
-
-<div class="container mb-3">
-
-  {% include 'profiles/educator/dashboard/_navigation.html' with activeNav="guides" %}
+  {% include 'profiles/educator/dashboard/_navigation.html' %}
 
   {% if extra_units %}
   <div class="row pb-1">
@@ -86,6 +79,4 @@
       </ul>
     </div>
   </div>
-
-</div>
 {% endblock %}

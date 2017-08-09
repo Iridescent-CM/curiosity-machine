@@ -10,6 +10,7 @@ from django.db.models import Prefetch, Count
 from django.conf import settings
 from collections import OrderedDict
 from ..forms import educator as forms
+from ..forms import ImpactSurveyForm
 from ..decorators import membership_selection, impact_survey
 from ..models import UserRole, ImpactSurvey
 from ..sorting import StudentSorter, ProgressSorter
@@ -271,20 +272,19 @@ def conversation(request, student_id, challenge_id, membership_selection=None):
 
 from django.views.generic import View
 from django.http import JsonResponse, HttpResponse
-from django.forms import modelform_factory
 import time
 
 class ImpactSurveyView(View):
     http_method_names=['post']
 
     def post(self, request, *args, **kwargs):
-        #time.sleep(5)
-        factory = modelform_factory(ImpactSurvey, exclude=['user'])
         survey = ImpactSurvey.objects.get_or_create(user=request.user)[0]
-        form = factory(data=request.POST, instance=survey)
-        #return HttpResponse(status=500)
+        form = ImpactSurveyForm(data=request.POST, instance=survey)
         if form.is_valid():
             form.save()
             return JsonResponse({"status": "ok"})
         else:
-            return JsonResponse({"status": "not ok"})
+            return JsonResponse({
+                "status": "invalid",
+                "errors": form.errors
+            }, status=400)

@@ -1,15 +1,8 @@
-{% extends "curiositymachine/layout/base.html" %}
+{% extends "profiles/educator/dashboard/base.html" %}
 {% load staticfiles %}
-{% block title %}My Dashboard{% endblock %}
-{% block body-classes %}educator-dashboard{% endblock %}
 
 {% block content %}
-
-{% include 'profiles/educator/dashboard/_header.html' %}
-
-<div class="container mb-3">
-
-  {% include 'profiles/educator/dashboard/_navigation.html' with activeNav="students" %}
+  {% include 'profiles/educator/dashboard/_navigation.html' %}
 
   {% if membership_selection.no_memberships %}
   <div class="row pb-1">
@@ -167,22 +160,21 @@
   </div>
   {% endfor %}
   {% endif %}
-
-</div>
 {% endblock %}
 
 {% block js %}
+  {{ block.super }}
   <script>
-  $('.collapse').on('hidden.bs.collapse', function () {
-    var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
-    $trigger.find( ".more" ).removeClass( "hidden-xl-down" );
-    $trigger.find( ".less" ).addClass( "hidden-xl-down" );
-  })
+    $('.collapse').on('hidden.bs.collapse', function () {
+      var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
+      $trigger.find( ".more" ).removeClass( "hidden-xl-down" );
+      $trigger.find( ".less" ).addClass( "hidden-xl-down" );
+    })
 
-  $('.collapse').on('show.bs.collapse', function () {
-    var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
-    $trigger.find( ".more" ).addClass( "hidden-xl-down" );
-    $trigger.find( ".less" ).removeClass( "hidden-xl-down" );
-  })
+    $('.collapse').on('show.bs.collapse', function () {
+      var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
+      $trigger.find( ".more" ).addClass( "hidden-xl-down" );
+      $trigger.find( ".less" ).removeClass( "hidden-xl-down" );
+    })
   </script>
 {% endblock %}
