@@ -22,6 +22,10 @@
       font-family: $heading-font-family;
       font-size: $base-font-size * 2;
     }
+
+    .card {
+      background-color: $dark;
+    }
   }
 
   //
@@ -275,7 +279,7 @@
       height: 100px;
     }
 
-    .student-comment
+    .student-comment {
       &.stage-plan-comment .card-header {
         background-color: #f4f8ee;
       }

@@ -6255,6 +6255,8 @@ footer {
   .educator-dashboard .educator-dashboard-header .dashboard-inline-username {
     font-family: "Raleway", Helvetica, sans-serif;
     font-size: 2em; }
+  .educator-dashboard .educator-dashboard-header .card, .educator-dashboard .educator-dashboard-header .card-progress {
+    background-color: #333333; }
 
 .educator-dashboard .educator-dashboard-navigation {
   border-bottom: 2px #E5E1D9 solid; }
@@ -6390,9 +6392,6 @@ footer {
     vertical-align: middle;
     width: 16.6%; }
 
-.educator-dashboard.educator-dashboard-conversation .reflect-question {
-  color: #1EB9C8; }
-
 .educator-dashboard.educator-dashboard-conversation .pickwidget-preview {
   max-width: 100px;
   max-height: 100px;
@@ -6415,24 +6414,12 @@ footer {
   background-color: #f4f8ee; }
 
 .educator-dashboard.educator-dashboard-conversation .student-comment.stage-build-comment .card-header {
-  /*
-      color: white;
-      background-color: #6161AF;
-      */
   background-color: #efeff7; }
 
 .educator-dashboard.educator-dashboard-conversation .student-comment.stage-test-comment .card-header {
-  /*
-      color: white;
-      background-color: #F55932;
-      */
   background-color: #feeeeb; }
 
 .educator-dashboard.educator-dashboard-conversation .student-comment.stage-reflect-comment .card-header {
-  /*
-      color: white;
-      background-color: #1EB9C8;
-      */
   background-color: #e6f7f9; }
 
 #challenges-page {
