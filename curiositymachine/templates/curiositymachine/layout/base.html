@@ -132,17 +132,7 @@
     <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/modals.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/smoothscroll.js' %}"></script>
-    <script>
-      $("a[data-text-swap]").on("click", function() {
-        var el = $(this);
-        if (el.text() == el.data("text-swap")) {
-          el.text(el.data("text-original"));
-        } else {
-          el.data("text-original", el.text());
-          el.text(el.data("text-swap"));
-        }
-      });
-    </script>
+    <script type="text/javascript" src="{% static 'js/textswap.js' %}"></script>
   {% endcompress %}
   {% block js %}{% endblock %}
 

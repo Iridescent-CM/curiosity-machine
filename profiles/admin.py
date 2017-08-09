@@ -234,4 +234,28 @@ class MentorAdmin(admin.ModelAdmin):
     email.admin_order_field = "user__email"
 
 admin.site.register(Mentor, MentorAdmin)
-admin.site.register(ImpactSurvey)
+
+class ImpactSurveyAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'user',
+        'student_count',
+        'teacher_count',
+        'challenge_count',
+        'hours_per_challenge',
+        'in_classroom',
+        'out_of_classroom',
+    )
+    raw_id_fields = ('user',)
+    readonly_fields = (
+        'id',
+        'user',
+        'student_count',
+        'teacher_count',
+        'challenge_count',
+        'hours_per_challenge',
+        'in_classroom',
+        'out_of_classroom',
+    )
+
+admin.site.register(ImpactSurvey, ImpactSurveyAdmin)

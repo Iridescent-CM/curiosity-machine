@@ -1,35 +1,35 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from django.db import transaction
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import SetPasswordForm
-from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
-from django.db.models import Prefetch, Count
-from django.conf import settings
-from collections import OrderedDict
-from ..forms import educator as forms
-from ..forms import ImpactSurveyForm
-from ..decorators import membership_selection, impact_survey
-from ..models import UserRole, ImpactSurvey
-from ..sorting import StudentSorter, ProgressSorter
-from ..annotators import UserCommentSummary
-from challenges.models import Challenge, Example, Stage
-from cmcomments.models import Comment
-from cmcomments.forms import CommentForm
-from units.models import Unit
-from memberships.models import Member
-from curiositymachine.decorators import educator_only, feature_flag
-from curiositymachine.views.generic import UserJoinView
-from curiositymachine import signals
+from django.core.urlresolvers import reverse
+from django.db import transaction
+from django.db.models import Prefetch
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.template.response import TemplateResponse
+from django.utils.decorators import method_decorator
 from django.utils.functional import lazy
+from django.views.generic import View
 from rest_framework import generics, permissions
-from ..serializers import CommentSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated
+from ..annotators import UserCommentSummary
+from ..decorators import membership_selection, impact_survey
+from ..forms import educator as forms
+from ..forms import ImpactSurveyForm
+from ..models import UserRole, ImpactSurvey
+from ..serializers import CommentSerializer
+from ..sorting import StudentSorter, ProgressSorter
+from cmcomments.forms import CommentForm
+from cmcomments.models import Comment
+from challenges.models import Challenge, Example
+from curiositymachine import signals
+from curiositymachine.decorators import educator_only, feature_flag
+from curiositymachine.views.generic import UserJoinView
 from memberships.helpers.selectors import GroupSelector
-from django.template.response import TemplateResponse
+from units.models import Unit
 
 User = get_user_model()
 
@@ -270,13 +270,11 @@ def conversation(request, student_id, challenge_id, membership_selection=None):
         "comment_form": CommentForm(),
     })
 
-from django.views.generic import View
-from django.http import JsonResponse, HttpResponse
-import time
-
 class ImpactSurveyView(View):
     http_method_names=['post']
 
+    @method_decorator(educator_only)
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         survey = ImpactSurvey.objects.get_or_create(user=request.user)[0]
         form = ImpactSurveyForm(data=request.POST, instance=survey)
