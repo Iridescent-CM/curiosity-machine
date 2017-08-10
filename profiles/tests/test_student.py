@@ -42,7 +42,7 @@ def test_gets_ok(client):
 def test_form_required_fields_on_creation_all_ages():
     f = forms.student.StudentUserAndProfileForm()
 
-    required = ['username', 'password', 'confirm_password', 'birthday', 'city']
+    required = ['username', 'password', 'confirm_password', 'birthday', 'city', 'email']
     for name, field in f.fields.items():
         if name in required:
             assert field.required, "%s should be required and isn't" % name
@@ -52,7 +52,7 @@ def test_form_required_fields_on_creation_all_ages():
 
     assert len(required) == 0, "required fields %s not in form" % ",".join(required)
 
-def test_form_requires_parent_and_email_for_underage():
+def test_form_requires_parent_for_underage():
     bday = now() - relativedelta(years=12)
     f = forms.student.StudentUserAndProfileForm(data={
         'birthday_year': bday.year,
@@ -61,7 +61,6 @@ def test_form_requires_parent_and_email_for_underage():
     })
     assert 'parent_first_name' in f.errors
     assert 'parent_last_name' in f.errors
-    assert 'email' in f.errors
 
     bday = now() - relativedelta(years=13, days=1)
     f = forms.student.StudentUserAndProfileForm(data={
@@ -71,7 +70,6 @@ def test_form_requires_parent_and_email_for_underage():
     })
     assert 'parent_first_name' not in f.errors
     assert 'parent_last_name' not in f.errors
-    assert 'email' not in f.errors
 
 def test_form_clean_birthday_set():
     # values are widget initial values
@@ -89,10 +87,11 @@ def test_form_sets_student_role_for_all():
         'username': 'teen',
         'password': '123123',
         'confirm_password': '123123',
+        'email': 'email@example.com',
         'city': 'mycity',
         'birthday_year': bday.year,
         'birthday_month': bday.month,
-        'birthday_day': bday.day
+        'birthday_day': bday.day,
     })
     assert f.is_valid()
     user = f.save()
@@ -122,6 +121,7 @@ def test_over_13_student_accounts_auto_approve():
         'username': 'teen',
         'password': '123123',
         'confirm_password': '123123',
+        'email': 'email@example.com',
         'city': 'mycity',
         'birthday_year': bday.year,
         'birthday_month': bday.month,

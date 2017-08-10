@@ -18,7 +18,7 @@ class StudentUserAndProfileForm(UserAndProfileForm):
     profile_fields_force = {
         'role': UserRole.student.value
     }
-    make_required = ['city', 'birthday'] # under/over 13 requirement differences enforced in clean()
+    make_required = ['city', 'birthday', 'email'] # under/over 13 requirement differences enforced in clean()
 
     form_fields = ['image_url', 'welcome']
 
@@ -43,7 +43,7 @@ class StudentUserAndProfileForm(UserAndProfileForm):
             return self._clean()
 
     def _clean_underage(self):
-        for fieldname in ['email', 'parent_first_name', 'parent_last_name']:
+        for fieldname in ['parent_first_name', 'parent_last_name']:
             if not self.cleaned_data.get(fieldname):
                 msg = self.fields[fieldname].error_messages['required']
                 self.add_error(fieldname, msg)
