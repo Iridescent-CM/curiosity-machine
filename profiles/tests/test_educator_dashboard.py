@@ -7,7 +7,9 @@ from datetime import timedelta
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate
 from curiositymachine import signals
+from django.forms.models import model_to_dict
 
+from profiles.models import ImpactSurvey
 from units.factories import *
 from profiles.factories import *
 from memberships.factories import *
@@ -527,3 +529,67 @@ def test_change_student_password_sends_signal(client):
     })
 
     handler.assert_called_once()
+
+@pytest.mark.django_db
+def test_impact_survey_endpoint_requires_login(client):
+    assert client.post(
+        '/data/impact_survey/',
+        model_to_dict(ImpactSurveyFactory())
+    ).status_code == 403
+
+@pytest.mark.django_db
+def test_impact_survey_endpoint_requires_educator(client):
+    MentorFactory(username='mentor', password='123123')
+    client.login(username='mentor', password='123123')
+    assert client.post(
+        '/data/impact_survey/',
+        model_to_dict(ImpactSurveyFactory())
+    ).status_code == 403
+
+    StudentFactory(username='student', password='123123')
+    client.login(username='student', password='123123')
+    assert client.post(
+        '/data/impact_survey/',
+        model_to_dict(ImpactSurveyFactory())
+    ).status_code == 403
+
+@pytest.mark.django_db
+def test_impact_survey_endpoint_creates_model(client):
+    user = EducatorFactory(username='user', password='123123')
+    client.login(username='user', password='123123')
+
+    assert ImpactSurvey.objects.filter(user=user).count() == 0
+
+    client.post(
+        '/data/impact_survey/',
+        model_to_dict(ImpactSurveyFactory(student_count=101))
+    )
+
+    assert ImpactSurvey.objects.filter(user=user).count() == 1
+    assert ImpactSurvey.objects.filter(user=user).first().student_count == 101
+
+@pytest.mark.django_db
+def test_impact_survey_endpoint_updates_model(client):
+    user = EducatorFactory(username='user', password='123123')
+    client.login(username='user', password='123123')
+
+    client.post(
+        '/data/impact_survey/',
+        model_to_dict(ImpactSurveyFactory(student_count=101))
+    )
+    client.post(
+        '/data/impact_survey/',
+        model_to_dict(ImpactSurveyFactory(student_count=102))
+    )
+
+    assert ImpactSurvey.objects.filter(user=user).count() == 1
+    assert ImpactSurvey.objects.filter(user=user).first().student_count == 102
+
+@pytest.mark.django_db
+def test_impact_survey_endpoint_400s_for_bad_data(client):
+    user = EducatorFactory(username='user', password='123123')
+    client.login(username='user', password='123123')
+
+    d = model_to_dict(ImpactSurveyFactory())
+    d['student_count'] = "ten"
+    assert client.post('/data/impact_survey/', d).status_code == 400
