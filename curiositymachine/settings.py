@@ -176,7 +176,7 @@ EMAIL_PORT = os.environ.get("MANDRILL_SMTP_PORT", "")
 EMAIL_HOST_USER = os.environ.get("MANDRILL_SMTP_USERNAME", "")
 EMAIL_HOST_PASSWORD = os.environ.get("MANDRILL_API_KEY", "")
 
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
 EMAIL_USE_SSL = False
 
 # Bleach

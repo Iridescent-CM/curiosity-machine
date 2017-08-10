@@ -61,22 +61,44 @@ def test_profile_has_student_role():
 
 @pytest.mark.django_db
 def test_valid_user_data_with_default_form():
-    examples = [
-        {"username":"username", "password":"password", "first_name":"first", "last_name":"last"},
-    ]
+    examples = [{
+        "username":"username",
+        "password":"password",
+        "first_name":"first",
+        "last_name":"last",
+        "email":"email@example.com"
+    }]
 
     for example in examples:
         assert RowImportForm.userFormClass(example).errors.as_data() == {}
 
 @pytest.mark.django_db
 def test_user_password_value_set_as_password():
-    user = RowImportForm.userFormClass({"username": "username", "password": "123123", "first_name":"first", "last_name":"last"}).save()
+    user = RowImportForm.userFormClass({
+        "username": "username",
+        "password": "123123",
+        "first_name":"first",
+        "last_name":"last",
+        "email":"email@example.com"
+    }).save()
     assert user.check_password("123123")
 
 @pytest.mark.django_db
 def test_case_insensitive_username_duplicates_dont_validate():
-    user = RowImportForm.userFormClass({"username": "username", "password": "123123", "first_name": "first", "last_name": "last"}).save()
-    form = RowImportForm.userFormClass({"username": "USERNAME", "password": "123123", "first_name": "first", "last_name": "last"})
+    user = RowImportForm.userFormClass({
+        "username": "username",
+        "password": "123123",
+        "first_name": "first",
+        "last_name": "last",
+        "email":"email@example.com"
+    }).save()
+    form = RowImportForm.userFormClass({
+        "username": "USERNAME",
+        "password": "123123",
+        "first_name": "first",
+        "last_name": "last",
+        "email":"email@example.com"
+    })
     assert not form.is_valid()
     assert form.errors.as_data()["username"][0].code == 'duplicate'
 
@@ -145,25 +167,7 @@ def test_saving_form_adds_member_to_group():
             "birthday": "01/01/1990",
             "first_name": "first",
             "last_name": "last",
-            "groups": "group 1, group 2"
-        },
-        membership=membership
-    )
-    member = f.save()
-
-    assert member.group_set.count() == 2
-    assert set(member.group_set.values_list('name', flat=True)) == set(['group 1', 'group 2'])
-
-@pytest.mark.django_db
-def test_saving_form_adds_member_to_group():
-    membership = MembershipFactory()
-    f = RowImportForm(
-        {
-            "username": "username",
-            "password": "password",
-            "birthday": "01/01/1990",
-            "first_name": "first",
-            "last_name": "last",
+            "email":"email@example.com",
             "groups": "group 1, group 2"
         },
         membership=membership
@@ -184,6 +188,7 @@ def test_saving_form_reuses_existing_group():
             "birthday": "01/01/1990",
             "first_name": "first",
             "last_name": "last",
+            "email":"email@example.com",
             "groups": "group"
         },
         membership=membership

@@ -165,7 +165,7 @@ def test_should_add_email():
     MembershipFactory(members=[student])
     MembershipFactory(is_active=False, members=[student3])
 
-    assert not student.profile.should_add_email
+    assert student.profile.should_add_email
     assert student2.profile.should_add_email
     assert student3.profile.should_add_email
 
