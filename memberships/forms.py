@@ -43,6 +43,7 @@ class RowUserForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
+        self.fields['email'].required = True
 
     def clean_username(self):
         username = self.cleaned_data.get('username')

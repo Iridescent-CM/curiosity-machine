@@ -1,2 +1,2 @@
-approved,birthday,first_name,last_name,password,username,title,employer,garbage
-y,01/01/1990,first1,last1,123123,user1,mytitle,"some employer",8
+approved,birthday,first_name,last_name,password,username,email,title,employer,garbage
+y,01/01/1990,first1,last1,123123,user1,email@example.com,mytitle,"some employer",8
