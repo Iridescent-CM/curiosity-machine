@@ -123,3 +123,16 @@ class ParentFactory(factory.django.DjangoModelFactory):
 class ParentConnectionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.ParentConnection
+
+class ImpactSurveyFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.ImpactSurvey
+
+    user = factory.SubFactory('profiles.factories.UserFactory', profile=None)
+
+    student_count = factory.fuzzy.FuzzyInteger(0,100)
+    teacher_count = factory.fuzzy.FuzzyInteger(0,100)
+    challenge_count = factory.fuzzy.FuzzyInteger(0,100)
+    hours_per_challenge = factory.fuzzy.FuzzyInteger(0,100)
+    in_classroom = factory.fuzzy.FuzzyChoice([True, False])
+    out_of_classroom = factory.fuzzy.FuzzyChoice([True, False])

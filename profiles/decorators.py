@@ -1,8 +1,11 @@
 from functools import wraps
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import Http404
-from profiles.models import ParentConnection
+from profiles.models import ParentConnection, ImpactSurvey
+from .forms import ImpactSurveyForm
 from memberships.models import Membership
+from django.http import HttpResponse
+from django.template.response import TemplateResponse
 from django.utils.timezone import now
 from datetime import timedelta
 from django.conf import settings
@@ -137,4 +140,14 @@ def membership_selection(view):
     def inner(request, *args, **kwargs):
         kwargs['membership_selection'] = MembershipSelection(request)
         return view(request, *args, **kwargs)
+    return inner
+
+def impact_survey(view):
+    @wraps(view)
+    def inner(request, *args, **kwargs):
+        v = view(request, *args, **kwargs)
+        if isinstance(v, TemplateResponse):
+            obj = ImpactSurvey.objects.filter(user=request.user).first()
+            v.context_data['impact_form'] = ImpactSurveyForm(instance=obj)
+        return v
     return inner

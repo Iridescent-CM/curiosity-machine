@@ -1,11 +1,7 @@
-{% extends "curiositymachine/layout/base.html" %}
+{% extends "profiles/educator/dashboard/base.html" %}
 {% block title %}{{ challenge.name }}'s Students{% endblock %}
-{% block body-classes %}educator-dashboard{% endblock %}
 
 {% block content %}
-{% include 'profiles/educator/dashboard/_header.html' %}
-
-<div class="container">
   {% url "profiles:home" as base_url %}
   {% include 'profiles/educator/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
 
@@ -161,24 +157,22 @@
     </div>
   </div>
   {% endfor %}
-
-</div>
-
 {% endblock %}
 
 {% block js %}
-<script>
-var fixmeTop = $('.dcprogressheader').offset().top;
+  {{ block.super }}
+  <script>
+    var fixmeTop = $('.dcprogressheader').offset().top;
 
-$(window).scroll(function() {
-  var currentScroll = $(window).scrollTop();
-  if (currentScroll >= fixmeTop) {
-    $('.dcprogressheader').addClass( "fixedheader" );
-    $('.dc-progress').addClass( "fixedheader-height");
-  } else {
-    $('.dcprogressheader').removeClass( "fixedheader" );
-    $('.dc-progress').removeClass( "fixedheader-height");
-  }
-});
-</script>
+    $(window).scroll(function() {
+      var currentScroll = $(window).scrollTop();
+      if (currentScroll >= fixmeTop) {
+        $('.dcprogressheader').addClass( "fixedheader" );
+        $('.dc-progress').addClass( "fixedheader-height");
+      } else {
+        $('.dcprogressheader').removeClass( "fixedheader" );
+        $('.dc-progress').removeClass( "fixedheader-height");
+      }
+    });
+  </script>
 {% endblock %}

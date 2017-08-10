@@ -22,4 +22,5 @@ MEDIA_ROOT = gettempdir()
 #       with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_whatever': True}):
 #               ...
 FEATURE_FLAGS={
+    'ENABLE_IMPACT_SURVEY': 1
 }
