@@ -114,7 +114,7 @@ class Profile(models.Model):
 
     @property
     def should_add_email(self):
-        return not self.user.email and not self.in_active_membership
+        return not self.user.email
 
     def is_underage(self):
         return self.age < 13
