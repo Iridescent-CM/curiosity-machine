@@ -128,6 +128,7 @@ class Educator(Profile):
 class EducatorAdmin(admin.ModelAdmin):
     fields = [
         'user',
+        'organization',
         'city',
         'image',
         'approved',
@@ -135,7 +136,7 @@ class EducatorAdmin(admin.ModelAdmin):
         'last_inactive_email_sent_on',
     ]
     raw_id_fields = ['image']
-    list_display = ['user', 'email', 'id']
+    list_display = ['user', 'email', 'id', 'organization']
     search_fields = [
         'user__username',
         'user__email',

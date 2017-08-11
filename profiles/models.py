@@ -28,6 +28,7 @@ class Profile(models.Model):
     employer = models.TextField(blank=True, help_text="This is a mentor only field.")
     expertise = models.TextField(blank=True, help_text="This is a mentor only field.")
     about_me = models.TextField(blank=True, help_text="This is a mentor only field.")
+    organization = models.CharField(max_length=50, null=True, blank=True, help_text="This is an educator field.")
     about_me_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_me_image")
     about_me_video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_me_video")
 

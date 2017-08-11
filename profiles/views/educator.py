@@ -44,14 +44,14 @@ join = transaction.atomic(UserJoinView.as_view(
 @transaction.atomic
 def profile_edit(request):
     if request.method == 'POST':
-        form = forms.EducatorUserAndProfileForm(data=request.POST, instance=request.user, prefix='educator')
+        form = forms.EducatorUserAndProfileChangeForm(data=request.POST, instance=request.user, prefix='educator')
         if form.is_valid():
             form.save();
             messages.success(request, 'Profile has been updated.')
         else:
             messages.error(request, 'Correct errors below.')
     else:
-        form = forms.EducatorUserAndProfileForm(instance=request.user, prefix='educator')
+        form = forms.EducatorUserAndProfileChangeForm(instance=request.user, prefix='educator')
 
     return render(request, 'profiles/educator/profile_edit.html', {
         'form': form

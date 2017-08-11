@@ -5,12 +5,13 @@ from profiles.models import UserRole
 class EducatorUserAndProfileForm(UserAndProfileForm):
     profile_fields = [
         'city',
-        'source'
+        'source',
+        'organization'
     ]
     profile_fields_force = {
         'role': UserRole.educator.value
     }
-    make_required = ['email', 'city']
+    make_required = ['email', 'city', 'organization']
 
     form_fields = ['image_url', 'welcome']
 
@@ -22,3 +23,6 @@ class EducatorUserAndProfileForm(UserAndProfileForm):
             'first_name',
             'last_name'
         ]
+
+class EducatorUserAndProfileChangeForm(EducatorUserAndProfileForm):
+    make_required = ['email', 'city']
