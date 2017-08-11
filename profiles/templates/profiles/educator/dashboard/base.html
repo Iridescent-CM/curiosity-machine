@@ -13,20 +13,31 @@
 {% block js %}
   <script>
     $(function() {
+      var $collapse = $('#impact-collapse');
+      var $trigger = $('#impact-collapse-trigger');
+      var $msgs = $('.submit-message');
+
+      $collapse.on('hide.bs.collapse', function () {
+        $trigger.text($trigger.data('show-text'));
+      });
+      $collapse.on('show.bs.collapse', function () {
+        $trigger.text($trigger.data('hide-text'));
+      });
+
       var $form = $('#impact-survey');
-      var $display = $('#impact-survey-msg');
+      var $stat = $('#impact-survey-status');
 
       $form.on('ajax:before change', function() {
-        $display.removeClass('text-success text-danger');
-        $display.text('');
+        $stat.removeClass('text-success text-danger');
+        $stat.text('');
       });
       $form.on('ajax:success', function(data, stat, xhr) {
-        $display.addClass('text-success');
-        $display.text('Saved!');
+        $collapse.collapse('hide');
+        $msgs.addClass('submitted');
       });
       $form.on('ajax:error', function(xhr, stat, err) {
-        $display.addClass('text-danger');
-        $display.text('Save failed. Please try again.');
+        $stat.addClass('text-danger');
+        $stat.text('Save failed. Please try again.');
       });
     });
   </script>

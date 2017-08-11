@@ -294,4 +294,21 @@
       }
     }
   }
+
+  .submit-message {
+    .before-submit {
+      display: initial;
+    }
+    .after-submit {
+      display: none;
+    }
+  }
+  .submit-message.submitted {
+    .before-submit {
+      display: none;
+    }
+    .after-submit {
+      display: initial;
+    }
+  }
 }

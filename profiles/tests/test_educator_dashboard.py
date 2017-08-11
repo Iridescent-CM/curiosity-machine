@@ -564,26 +564,12 @@ def test_impact_survey_endpoint_creates_model(client):
         '/data/impact_survey/',
         model_to_dict(ImpactSurveyFactory(student_count=101))
     )
-
-    assert ImpactSurvey.objects.filter(user=user).count() == 1
-    assert ImpactSurvey.objects.filter(user=user).first().student_count == 101
-
-@pytest.mark.django_db
-def test_impact_survey_endpoint_updates_model(client):
-    user = EducatorFactory(username='user', password='123123')
-    client.login(username='user', password='123123')
-
-    client.post(
-        '/data/impact_survey/',
-        model_to_dict(ImpactSurveyFactory(student_count=101))
-    )
     client.post(
         '/data/impact_survey/',
         model_to_dict(ImpactSurveyFactory(student_count=102))
     )
 
-    assert ImpactSurvey.objects.filter(user=user).count() == 1
-    assert ImpactSurvey.objects.filter(user=user).first().student_count == 102
+    assert ImpactSurvey.objects.filter(user=user).count() == 2
 
 @pytest.mark.django_db
 def test_impact_survey_endpoint_400s_for_bad_data(client):

@@ -6422,6 +6422,18 @@ footer {
 .educator-dashboard.educator-dashboard-conversation .student-comment.stage-reflect-comment .card-header {
   background-color: #e6f7f9; }
 
+.educator-dashboard .submit-message .before-submit {
+  display: initial; }
+
+.educator-dashboard .submit-message .after-submit {
+  display: none; }
+
+.educator-dashboard .submit-message.submitted .before-submit {
+  display: none; }
+
+.educator-dashboard .submit-message.submitted .after-submit {
+  display: initial; }
+
 #challenges-page {
   background-color: #E5E1D9; }
   #challenges-page .challenges-top-panel {
