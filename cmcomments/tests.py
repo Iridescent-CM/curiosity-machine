@@ -20,26 +20,6 @@ def student_comment(student, progress):
     return Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
 
 @pytest.mark.django_db
-def test_unread_comment_count_for_mentors(mentor, student, mentor_comment):
-    assert not mentor_comment.read
-    assert mentor.profile.get_unread_comment_count() == 0
-    assert student.profile.get_unread_comment_count() == 1
-
-    mentor_comment.read = True
-    mentor_comment.save()
-    assert student.profile.get_unread_comment_count() == 0
-
-@pytest.mark.django_db
-def test_unread_comment_count_for_mentors(mentor, student, student_comment):
-    assert not student_comment.read
-    assert mentor.profile.get_unread_comment_count() == 1
-    assert student.profile.get_unread_comment_count() == 0
-
-    student_comment.read = True
-    student_comment.save()
-    assert mentor.profile.get_unread_comment_count() == 0
-
-@pytest.mark.django_db
 def test_is_first_reflect_post():
     student = StudentFactory()
     progress = ProgressFactory(student=student)
