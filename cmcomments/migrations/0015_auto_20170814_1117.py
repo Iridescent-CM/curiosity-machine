@@ -23,6 +23,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('cmcomments', '0014_auto_20160506_1138'),
+        ('notifications', '0005_auto_20160504_1520'),
     ]
 
     operations = [
