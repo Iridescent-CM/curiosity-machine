@@ -385,7 +385,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
             'examples': Example.objects.for_gallery_preview(challenge=challenge),
         })
 
-    progress.get_unread_comments_for_user(request.user).update(read=True)
+    progress.get_unread_comments_for_user(request.user).mark_all_as_read()
 
     quiz = challenge.quiz_set.exclude(is_active=False).exclude(result__user=request.user).first()
     quiz_form = None

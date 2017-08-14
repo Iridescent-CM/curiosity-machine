@@ -5,13 +5,14 @@ from django.contrib.auth.views import login, logout, password_change
 from django.views.generic.base import RedirectView, TemplateView
 from django.utils.functional import lazy
 from django.core.urlresolvers import reverse
-from curiositymachine.decorators import whitelist
-from . import views
-import re
-import os
+import notifications.urls
 import password_reset.views
+from . import views
+from curiositymachine.decorators import whitelist
 import profiles.urls
 import profiles.views
+import re
+import os
 
 public = whitelist('public')
 
@@ -82,6 +83,7 @@ urls += [
     url(r'^summernote/', include('django_summernote.urls')),
     url(r'^units/', include('units.urls', namespace='units', app_name='units'), name='units'),
     url(r'^s3direct/', include('s3direct.urls')),
+    url('^notifications/', include(notifications.urls, namespace='notifications')),
     url(r'^health_check/', public(views.health_check)),
     url(r'^log/', public(views.log), name='log'),
 ]

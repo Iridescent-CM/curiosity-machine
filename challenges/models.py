@@ -1,18 +1,18 @@
-from django.db import models
-from django.db.models import Q
 from django.conf import settings
-from django.utils.timezone import now
-from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
-from videos.models import Video
-from images.models import Image
-from enum import Enum
+from django.core.urlresolvers import reverse
+from django.db import models, connection
+from django.db.models import Q
 from django.utils.safestring import mark_safe
-from django.db import connection
+from django.utils.timezone import now
+from django_s3_storage.storage import S3Storage
 from .validators import validate_color
 from curiositymachine import signals
+from images.models import Image
+from videos.models import Video
+from enum import Enum
 from functools import reduce
-from django_s3_storage.storage import S3Storage
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
@@ -156,12 +156,7 @@ class Progress(models.Model):
         return reverse('challenges:challenge_progress', kwargs={'challenge_id': self.challenge_id, 'username': self.student.username,})
 
     def get_unread_comments_for_user(self, user):
-        if user == self.mentor:
-            return self.comments.filter(read=False, user=self.student)
-        elif user == self.student:
-            return self.comments.filter(read=False, user=self.mentor)
-        else:
-            return self.comments.none()
+        return user.notifications.filter(target_object_id=self.id, target_content_type=ContentType.objects.get_for_model(self)).unread()
 
     def get_student_images(self):
         return Image.objects.filter(comments__user=self.student, comments__challenge_progress=self)
