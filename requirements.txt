@@ -88,3 +88,5 @@ factory-boy==2.8.1
 djangorestframework==3.5.2
 
 python-dotenv==0.6.4
+
+django-notifications-hq==1.3
