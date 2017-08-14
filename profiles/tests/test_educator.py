@@ -15,7 +15,7 @@ User = get_user_model()
 def test_form_required_fields_on_creation():
     f = forms.educator.EducatorUserAndProfileForm()
 
-    required = ['username', 'email', 'password', 'confirm_password', 'city']
+    required = ['username', 'email', 'password', 'confirm_password', 'city', 'organization']
     for name, field in f.fields.items():
         if name in required:
             assert field.required, "%s should be required and isn't" % name
@@ -29,7 +29,7 @@ def test_form_required_fields_on_edit():
     user = User()
     profile = models.Profile()
     profile.user = user
-    f = forms.educator.EducatorUserAndProfileForm(instance=user)
+    f = forms.educator.EducatorUserAndProfileChangeForm(instance=user)
 
     required = ['email', 'city']
     for name, field in f.fields.items():
@@ -93,7 +93,8 @@ def test_creates_user_with_profile():
         'confirm_password': '123123',
         'username': 'example',
         'email': 'email@example.com',
-        'city': 'mycity'
+        'city': 'mycity',
+        'organization': 'my org',
     })
     assert f.is_valid()
     user = f.save()
@@ -109,13 +110,15 @@ def test_modifies_exisiting_user_and_profile():
         'username': 'example',
         'email': 'email@example.com',
         'city': 'mycity',
+        'organization': 'my org',
     })
     user = f.save()
     f = forms.educator.EducatorUserAndProfileForm(
         instance=user,
         data={
             'email': 'new@example.com',
-            'city': 'newcity'
+            'city': 'newcity',
+            'organization': 'new org',
         }
     )
     user = f.save()
@@ -131,7 +134,8 @@ def test_sets_educator_role():
         'confirm_password': '123123',
         'username': 'example',
         'email': 'email@example.com',
-        'city': 'mycity'
+        'city': 'mycity',
+        'organization': 'my org',
     })
     user = f.save()
     assert user.profile.is_educator
@@ -166,7 +170,8 @@ def test_educator_profile_change_form_creates_image_from_image_url():
         'confirm_password': '123123',
         'username': 'example',
         'email': 'email@example.com',
-        'city': 'mycity'
+        'city': 'mycity',
+        'organization': 'my org',
     })
     user = f.save(commit=False)
     assert type(user.profile.image) == Image
@@ -197,7 +202,8 @@ def test_join(rf):
         'educator-email': 'email@example.com',
         'educator-password': '123123',
         'educator-confirm_password': '123123',
-        'educator-city': 'city'
+        'educator-city': 'city',
+        'educator-organization': 'my org',
     })
     request.session = mock.MagicMock()
     request.user = AnonymousUser()
