@@ -276,7 +276,7 @@ class ImpactSurveyView(View):
     @method_decorator(educator_only)
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        survey = ImpactSurvey.objects.get_or_create(user=request.user)[0]
+        survey = ImpactSurvey.objects.create(user=request.user)
         form = ImpactSurveyForm(data=request.POST, instance=survey)
         if form.is_valid():
             form.save()

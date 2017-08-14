@@ -45,9 +45,18 @@
       <div class="card">
         <div class="card-block">
           <h3>Your impact</h3>
-          <p>
-            Flavour sweet and caramelization mazagran lungo, cultivar french press foam arabica steamed aromatic. French press seasonal percolator americano steamed espresso skinny. Single origin irish, steamed cinnamon mazagran cultivar milk cappuccino foam that.
-          </p>
+          <div id="impact-survey-msg" class="my-1 submit-message">
+            <p class="before-submit">
+              {% if first_impact_survey %}
+              Help us understand how you use Curiosity Machine by answering these questions! Your data will cultivar french press foam arabica steamed aromatic.
+              {% else %}
+              Has your usage of Curiosity Machine changed? You can submit your data again! Your data will cultivar french press foam arabica steamed aromatic.
+              {% endif %}
+            </p>
+            <p class="after-submit">
+              Thanks for helping us understand how you use Curiosity Machine! If your usage changes, you can submit your data again.
+            </p>
+          </div>
           <div class="collapse" id="impact-collapse">
             <form id="impact-survey" class="mb-3"
                 action="{% url "profiles:update_impact_survey" %}"
@@ -87,19 +96,26 @@
                   {{ impact_form.hours_per_challenge|add_class:"form-control" }}
                 </label>
               </div>
+              <h4>Anything else you want to tell us?</h4>
+              <div class="form-group row">
+                <label class="col-xs-12 col-md-6">
+                  {{ impact_form.comment|add_class:"form-control"|attr:"placeholder:Add your comments here" }}
+                </label>
+              </div>
               <div class="form-group row">
                 <div class="col-xs-12 col-md-9">
                     <input type="submit" value="Save" class="btn btn-primary" data-disable-with="Saving...">
-                    <span id="impact-survey-msg" class="ml-2"></span>
+                    <span id="impact-survey-status" class="ml-2"></span>
                 </div>
               </div>
             </form>
           </div>
           <a
             data-toggle="collapse" href="#impact-collapse"
+            id="impact-collapse-trigger"
+            data-show-text='Show' data-hide-text='Hide'
             class="btn btn-secondary"
             aria-expanded="false" aria-controls="impact-collapse"
-            data-text-swap="Hide"
           >Show</a>
         </div>
       </div>

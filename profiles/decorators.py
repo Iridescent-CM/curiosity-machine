@@ -147,7 +147,7 @@ def impact_survey(view):
     def inner(request, *args, **kwargs):
         v = view(request, *args, **kwargs)
         if isinstance(v, TemplateResponse):
-            obj = ImpactSurvey.objects.filter(user=request.user).first()
-            v.context_data['impact_form'] = ImpactSurveyForm(instance=obj)
+            v.context_data['first_impact_survey'] = not ImpactSurvey.objects.filter(user=request.user).exists()
+            v.context_data['impact_form'] = ImpactSurveyForm()
         return v
     return inner
