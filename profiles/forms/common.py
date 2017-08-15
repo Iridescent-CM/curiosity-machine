@@ -110,7 +110,8 @@ class UserAndProfileForm(forms.ModelForm):
         labels = {
             'title': "What Is My Profession",
             'employer': "Where Do I Work?",
-            'expertise': "Expertise In"
+            'expertise': "Expertise In",
+            'organization': "School/Organization",
         }
 
         error_messages = {
