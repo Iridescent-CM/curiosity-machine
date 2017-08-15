@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     'quizzes',
     'widget_tweaks',
     'rest_framework',
+    'notifications',
 )
 
 SITE_ID = 1

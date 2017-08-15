@@ -139,12 +139,6 @@ class Profile(models.Model):
         self.approved = True
         self.save(update_fields=['approved'])
 
-    def get_unread_comment_count(self):
-        if self.is_mentor:
-            return Comment.objects.exclude(user=self.user).filter(challenge_progress__mentor=self.user, read=False).count()
-        else:
-            return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
-
     def is_parent_of(self, username, **kwargs):
         filters = {
             'parent_profile': self,

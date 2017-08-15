@@ -12,7 +12,6 @@ class Comment(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="comments")
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="comments")
     created = models.DateTimeField(default=now)
-    read = models.BooleanField(default=False, db_index=True)
     stage = models.SmallIntegerField(choices=[(stage.value, stage.name) for stage in Stage], default=Stage.build.value)
     question_text = models.TextField(help_text="If the comment is in direct reply to a question, this will contain the full text of the question.")
 

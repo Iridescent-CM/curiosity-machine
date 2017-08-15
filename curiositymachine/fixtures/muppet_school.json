@@ -9864,7 +9864,6 @@
     "created": "2016-11-03T22:28:17.687Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh. Quisque pellentesque mauris sit amet erat blandit varius. Pellentesque elementum mauris vel arcu tempor, sed vehicula lorem viverra. Nulla quis posuere enim. In molestie nisi justo, in faucibus nunc consequat ac. Vestibulum porta viverra metus vitae eleifend. Mauris et consequat justo. Proin tincidunt leo quis nisl consequat mattis. Fusce massa ex, sollicitudin sit amet luctus ut, sagittis sed quam. Vestibulum dictum porta nisi sit amet porta. Morbi leo arcu, imperdiet id ante eget, laoreet lacinia turpis.\r\n\r\n",
     "user": 16,
-    "read": false,
     "question_text": "",
     "challenge_progress": 3
   },
@@ -9879,7 +9878,6 @@
     "created": "2016-11-03T22:28:51.206Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 16,
-    "read": false,
     "question_text": "",
     "challenge_progress": 3
   },
@@ -9894,7 +9892,6 @@
     "created": "2016-11-03T22:28:57.119Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 16,
-    "read": false,
     "question_text": "",
     "challenge_progress": 3
   },
@@ -9909,7 +9906,6 @@
     "created": "2016-11-03T22:29:20.856Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 16,
-    "read": false,
     "question_text": "",
     "challenge_progress": 3
   },
@@ -9924,7 +9920,6 @@
     "created": "2016-11-03T22:29:42.111Z",
     "text": "",
     "user": 16,
-    "read": false,
     "question_text": "",
     "challenge_progress": 3
   },
@@ -9939,7 +9934,6 @@
     "created": "2016-11-03T22:29:47.846Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 16,
-    "read": false,
     "question_text": "Why does pushing down on your syringe cause your submarine to go up in the water?",
     "challenge_progress": 3
   },
@@ -9954,7 +9948,6 @@
     "created": "2016-11-03T22:31:27.947Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 16,
-    "read": false,
     "question_text": "",
     "challenge_progress": 4
   },
@@ -9969,7 +9962,6 @@
     "created": "2016-11-03T22:31:40.130Z",
     "text": "",
     "user": 16,
-    "read": false,
     "question_text": "",
     "challenge_progress": 4
   },
@@ -9984,7 +9976,6 @@
     "created": "2016-11-03T22:38:26.178Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 15,
-    "read": false,
     "question_text": "",
     "challenge_progress": 5
   },
@@ -9999,7 +9990,6 @@
     "created": "2016-11-03T22:38:42.913Z",
     "text": "",
     "user": 15,
-    "read": false,
     "question_text": "",
     "challenge_progress": 5
   },
@@ -10014,7 +10004,6 @@
     "created": "2016-11-03T22:38:47.458Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 15,
-    "read": false,
     "question_text": "",
     "challenge_progress": 5
   },
@@ -10029,7 +10018,6 @@
     "created": "2016-11-03T22:38:57.660Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 15,
-    "read": false,
     "question_text": "Why does pushing down on your syringe cause your submarine to go up in the water?",
     "challenge_progress": 5
   },
@@ -10044,7 +10032,6 @@
     "created": "2016-11-03T22:39:21.950Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 15,
-    "read": false,
     "question_text": "",
     "challenge_progress": 6
   },
@@ -10059,7 +10046,6 @@
     "created": "2016-11-03T22:39:27.686Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 15,
-    "read": false,
     "question_text": "",
     "challenge_progress": 6
   },
@@ -10074,7 +10060,6 @@
     "created": "2016-11-03T22:39:31.366Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 15,
-    "read": false,
     "question_text": "",
     "challenge_progress": 6
   },
@@ -10089,7 +10074,6 @@
     "created": "2016-11-03T22:39:36.686Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 15,
-    "read": false,
     "question_text": "",
     "challenge_progress": 6
   },
@@ -10104,7 +10088,6 @@
     "created": "2016-11-03T22:40:07.045Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 15,
-    "read": false,
     "question_text": "",
     "challenge_progress": 6
   },
@@ -10119,7 +10102,6 @@
     "created": "2016-11-03T22:40:13.922Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 15,
-    "read": false,
     "question_text": "",
     "challenge_progress": 6
   },
@@ -10134,7 +10116,6 @@
     "created": "2016-11-03T22:40:19.134Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 15,
-    "read": false,
     "question_text": "What materials did you use for conductors and insulators in your design? Why?",
     "challenge_progress": 6
   },
@@ -10149,7 +10130,6 @@
     "created": "2016-11-03T22:43:20.599Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 9,
-    "read": false,
     "question_text": "",
     "challenge_progress": 7
   },
@@ -10164,7 +10144,6 @@
     "created": "2016-11-03T22:43:23.263Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 9,
-    "read": false,
     "question_text": "",
     "challenge_progress": 7
   },
@@ -10179,7 +10158,6 @@
     "created": "2016-11-03T22:43:36.716Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 9,
-    "read": false,
     "question_text": "",
     "challenge_progress": 7
   },
@@ -10194,7 +10172,6 @@
     "created": "2016-11-03T22:44:01.529Z",
     "text": "",
     "user": 9,
-    "read": false,
     "question_text": "",
     "challenge_progress": 7
   },
@@ -10209,7 +10186,6 @@
     "created": "2016-11-03T22:44:17.330Z",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex vitae lacus semper tincidunt. Curabitur vulputate erat efficitur, dignissim magna non, pulvinar turpis. Nam luctus tincidunt ante, ut sollicitudin nibh.",
     "user": 9,
-    "read": false,
     "question_text": "",
     "challenge_progress": 8
   },
@@ -10224,7 +10200,6 @@
     "created": "2016-11-04T03:38:57.714Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 9
   },
@@ -10239,7 +10214,6 @@
     "created": "2016-11-04T03:39:47.897Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 9
   },
@@ -10254,7 +10228,6 @@
     "created": "2016-11-04T03:39:51.443Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 9
   },
@@ -10269,7 +10242,6 @@
     "created": "2016-11-04T03:39:54.389Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 9
   },
@@ -10284,7 +10256,6 @@
     "created": "2016-11-04T03:40:11.753Z",
     "text": "",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 9
   },
@@ -10299,7 +10270,6 @@
     "created": "2016-11-04T03:40:17.591Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 9
   },
@@ -10314,7 +10284,6 @@
     "created": "2016-11-04T03:40:22.611Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 9
   },
@@ -10329,7 +10298,6 @@
     "created": "2016-11-04T03:40:38.888Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 9
   },
@@ -10344,7 +10312,6 @@
     "created": "2016-11-04T03:40:43.367Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 9
   },
@@ -10359,7 +10326,6 @@
     "created": "2016-11-04T03:41:02.684Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "Why does pushing down on your syringe cause your submarine to go up in the water?",
     "challenge_progress": 9
   },
@@ -10374,7 +10340,6 @@
     "created": "2016-11-04T03:42:07.515Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 10
   },
@@ -10389,7 +10354,6 @@
     "created": "2016-11-04T03:42:12.042Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 10
   },
@@ -10404,7 +10368,6 @@
     "created": "2016-11-04T03:42:16.042Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 12,
-    "read": false,
     "question_text": "",
     "challenge_progress": 10
   },
@@ -10419,7 +10382,6 @@
     "created": "2016-11-04T03:44:20.825Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10434,7 +10396,6 @@
     "created": "2016-11-04T03:44:25.243Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10449,7 +10410,6 @@
     "created": "2016-11-04T03:44:30.887Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10464,7 +10424,6 @@
     "created": "2016-11-04T03:44:34.263Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10479,7 +10438,6 @@
     "created": "2016-11-04T03:44:37.712Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10494,7 +10452,6 @@
     "created": "2016-11-04T03:44:51.294Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10509,7 +10466,6 @@
     "created": "2016-11-04T03:44:54.975Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10524,7 +10480,6 @@
     "created": "2016-11-04T03:45:00.322Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10539,7 +10494,6 @@
     "created": "2016-11-04T03:45:05.259Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10554,7 +10508,6 @@
     "created": "2016-11-04T03:45:08.533Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10569,7 +10522,6 @@
     "created": "2016-11-04T03:45:13.046Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10584,7 +10536,6 @@
     "created": "2016-11-04T03:45:16.430Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 11
   },
@@ -10599,7 +10550,6 @@
     "created": "2016-11-04T03:45:29.661Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "Why does pushing down on your syringe cause your submarine to go up in the water?",
     "challenge_progress": 11
   },
@@ -10614,7 +10564,6 @@
     "created": "2016-11-04T03:45:47.006Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10629,7 +10578,6 @@
     "created": "2016-11-04T03:45:49.819Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10644,7 +10592,6 @@
     "created": "2016-11-04T03:46:07.378Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10659,7 +10606,6 @@
     "created": "2016-11-04T03:46:11.936Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10674,7 +10620,6 @@
     "created": "2016-11-04T03:46:14.405Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10689,7 +10634,6 @@
     "created": "2016-11-04T03:46:25.157Z",
     "text": "",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10704,7 +10648,6 @@
     "created": "2016-11-04T03:46:30.232Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10719,7 +10662,6 @@
     "created": "2016-11-04T03:46:36.756Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10734,7 +10676,6 @@
     "created": "2016-11-04T03:46:40.373Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10749,7 +10690,6 @@
     "created": "2016-11-04T03:46:45.055Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10764,7 +10704,6 @@
     "created": "2016-11-04T03:46:52.958Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10779,7 +10718,6 @@
     "created": "2016-11-04T03:47:59.921Z",
     "text": "",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10794,7 +10732,6 @@
     "created": "2016-11-04T03:48:04.828Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10809,7 +10746,6 @@
     "created": "2016-11-04T03:48:08.324Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10824,7 +10760,6 @@
     "created": "2016-11-04T03:48:12.467Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "",
     "challenge_progress": 12
   },
@@ -10839,7 +10774,6 @@
     "created": "2016-11-04T03:48:17.674Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "What materials did you use for conductors and insulators in your design? Why?",
     "challenge_progress": 12
   },
@@ -10854,7 +10788,6 @@
     "created": "2016-11-04T03:48:29.955Z",
     "text": "Sed in aliquet lectus. Nulla tincidunt turpis enim, nec tincidunt lorem elementum vel. Donec ut diam ut elit vehicula auctor. Sed sapien nulla, ultricies vel dui id, pellentesque commodo sem. ",
     "user": 14,
-    "read": false,
     "question_text": "What materials did you use for conductors and insulators in your design? Why?",
     "challenge_progress": 12
   },
@@ -10869,7 +10802,6 @@
     "created": "2016-11-04T03:53:02.001Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -10884,7 +10816,6 @@
     "created": "2016-11-04T03:53:14.484Z",
     "text": "",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -10899,7 +10830,6 @@
     "created": "2016-11-04T03:53:17.631Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -10914,7 +10844,6 @@
     "created": "2016-11-04T03:53:21.691Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -10929,7 +10858,6 @@
     "created": "2016-11-04T03:53:25.133Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -10944,7 +10872,6 @@
     "created": "2016-11-04T03:53:28.435Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -10959,7 +10886,6 @@
     "created": "2016-11-04T03:53:32.076Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -10974,7 +10900,6 @@
     "created": "2016-11-04T03:53:35.290Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -10989,7 +10914,6 @@
     "created": "2016-11-04T03:53:38.525Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -11004,7 +10928,6 @@
     "created": "2016-11-04T03:53:41.864Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -11019,7 +10942,6 @@
     "created": "2016-11-04T03:53:46.256Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -11034,7 +10956,6 @@
     "created": "2016-11-04T03:53:51.134Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -11049,7 +10970,6 @@
     "created": "2016-11-04T03:53:54.819Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -11064,7 +10984,6 @@
     "created": "2016-11-04T03:53:58.154Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -11079,7 +10998,6 @@
     "created": "2016-11-04T03:54:01.389Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -11094,7 +11012,6 @@
     "created": "2016-11-04T03:54:05.526Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 13
   },
@@ -11109,7 +11026,6 @@
     "created": "2016-11-04T03:54:18.701Z",
     "text": "",
     "user": 11,
-    "read": false,
     "question_text": "What materials did you use for conductors and insulators in your design? Why?",
     "challenge_progress": 13
   },
@@ -11124,7 +11040,6 @@
     "created": "2016-11-04T03:55:06.355Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 11,
-    "read": false,
     "question_text": "",
     "challenge_progress": 14
   },
@@ -11139,7 +11054,6 @@
     "created": "2016-11-04T03:59:09.165Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 18,
-    "read": false,
     "question_text": "",
     "challenge_progress": 15
   },
@@ -11154,7 +11068,6 @@
     "created": "2016-11-04T03:59:28.863Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 18,
-    "read": false,
     "question_text": "",
     "challenge_progress": 16
   },
@@ -11169,7 +11082,6 @@
     "created": "2016-11-04T04:00:35.876Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 17
   },
@@ -11184,7 +11096,6 @@
     "created": "2016-11-04T04:00:41.285Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 17
   },
@@ -11199,7 +11110,6 @@
     "created": "2016-11-04T04:00:44.557Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 17
   },
@@ -11214,7 +11124,6 @@
     "created": "2016-11-04T04:00:48.932Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 17
   },
@@ -11229,7 +11138,6 @@
     "created": "2016-11-04T04:00:52.250Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 17
   },
@@ -11244,7 +11152,6 @@
     "created": "2016-11-04T04:01:00.796Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 17
   },
@@ -11259,7 +11166,6 @@
     "created": "2016-11-04T04:01:12.968Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "Why does pushing down on your syringe cause your submarine to go up in the water?",
     "challenge_progress": 17
   },
@@ -11274,7 +11180,6 @@
     "created": "2016-11-04T04:01:48.876Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11289,7 +11194,6 @@
     "created": "2016-11-04T04:01:51.798Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11304,7 +11208,6 @@
     "created": "2016-11-04T04:01:57.460Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11319,7 +11222,6 @@
     "created": "2016-11-04T04:02:01.619Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11334,7 +11236,6 @@
     "created": "2016-11-04T04:02:05.540Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11349,7 +11250,6 @@
     "created": "2016-11-04T04:02:09.572Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11364,7 +11264,6 @@
     "created": "2016-11-04T04:02:12.410Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11379,7 +11278,6 @@
     "created": "2016-11-04T04:02:27.866Z",
     "text": "",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11394,7 +11292,6 @@
     "created": "2016-11-04T04:02:32.045Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11409,7 +11306,6 @@
     "created": "2016-11-04T04:02:35.872Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11424,7 +11320,6 @@
     "created": "2016-11-04T04:02:40.402Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11439,7 +11334,6 @@
     "created": "2016-11-04T04:02:44.350Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11454,7 +11348,6 @@
     "created": "2016-11-04T04:02:47.249Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11469,7 +11362,6 @@
     "created": "2016-11-04T04:02:50.637Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11484,7 +11376,6 @@
     "created": "2016-11-04T04:02:54.586Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11499,7 +11390,6 @@
     "created": "2016-11-04T04:02:59.203Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11514,7 +11404,6 @@
     "created": "2016-11-04T04:03:03.415Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11529,7 +11418,6 @@
     "created": "2016-11-04T04:03:06.840Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "",
     "challenge_progress": 18
   },
@@ -11544,7 +11432,6 @@
     "created": "2016-11-04T04:03:21.843Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 13,
-    "read": false,
     "question_text": "What materials did you use for conductors and insulators in your design? Why?",
     "challenge_progress": 18
   },
@@ -11559,7 +11446,6 @@
     "created": "2016-11-04T04:04:21.812Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 10,
-    "read": false,
     "question_text": "",
     "challenge_progress": 19
   },
@@ -11574,7 +11460,6 @@
     "created": "2016-11-04T04:04:26.874Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 10,
-    "read": false,
     "question_text": "",
     "challenge_progress": 19
   },
@@ -11589,7 +11474,6 @@
     "created": "2016-11-04T04:04:31.777Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 10,
-    "read": false,
     "question_text": "",
     "challenge_progress": 19
   },
@@ -11604,7 +11488,6 @@
     "created": "2016-11-04T04:04:35.638Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 10,
-    "read": false,
     "question_text": "",
     "challenge_progress": 19
   },
@@ -11619,7 +11502,6 @@
     "created": "2016-11-04T04:04:47.346Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 10,
-    "read": false,
     "question_text": "",
     "challenge_progress": 19
   },
@@ -11634,7 +11516,6 @@
     "created": "2016-11-04T04:04:51.091Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 10,
-    "read": false,
     "question_text": "Why does pushing down on your syringe cause your submarine to go up in the water?",
     "challenge_progress": 19
   },
@@ -11649,7 +11530,6 @@
     "created": "2016-11-04T04:05:04.167Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 10,
-    "read": false,
     "question_text": "",
     "challenge_progress": 20
   },
@@ -11664,7 +11544,6 @@
     "created": "2016-11-04T04:05:06.755Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 10,
-    "read": false,
     "question_text": "",
     "challenge_progress": 20
   },
@@ -11679,7 +11558,6 @@
     "created": "2016-11-04T04:05:09.588Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 10,
-    "read": false,
     "question_text": "",
     "challenge_progress": 20
   },
@@ -11694,7 +11572,6 @@
     "created": "2016-11-04T04:06:42.875Z",
     "text": "Donec scelerisque laoreet lectus, nec egestas erat vehicula at. Donec ullamcorper posuere tristique. Suspendisse venenatis sapien at porta efficitur. ",
     "user": 16,
-    "read": false,
     "question_text": "What materials did you use for conductors and insulators in your design? Why?",
     "challenge_progress": 4
   },
