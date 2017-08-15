@@ -3,9 +3,9 @@
 {% block content %}
   <h1 class="full-width">
     Welcome to Family Science.
-		<br/>
-		<small>Create an account to start exploring and engineering.</small>
-	</h1>
+    <br/>
+    <small>Create an account to start exploring and engineering.</small>
+  </h1>
   <form method='post' action="{{ action }}" enctype="multipart/form-data" id="join-form" class="default-form clearfix" data-prefix='{{form.prefix}}'>
     {% csrf_token %}
     <div class="clearfix">
@@ -13,12 +13,12 @@
       <div class="profile-fields">
         <div class="col-md-4 student-column">
           <h3>Family account</h3>
-					{% comment %}
-					These are family accounts, so the following just forces an age over 13 to bypass parental consent.
-					{% endcomment %}
-					<input type="hidden" id="id_student-birthday_year" name="student-birthday_year" value="2000">
-					<input type="hidden" id="id_student-birthday_month" name="student-birthday_month" value="1">
-					<input type="hidden" id="id_student-birthday_day" name="student-birthday_day" value="1">
+          {% comment %}
+          These are family accounts, so the following just forces an age over 13 to bypass parental consent.
+          {% endcomment %}
+          <input type="hidden" id="id_student-birthday_year" name="student-birthday_year" value="2000">
+          <input type="hidden" id="id_student-birthday_month" name="student-birthday_month" value="1">
+          <input type="hidden" id="id_student-birthday_day" name="student-birthday_day" value="1">
 
           <div>
             {{form.username.label_tag}}
