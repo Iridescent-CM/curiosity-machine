@@ -81,7 +81,6 @@ INSTALLED_APPS = (
     'compressor',
     'units',
     's3direct',
-    'groups',
     'memberships',
     'quizzes',
     'widget_tweaks',
