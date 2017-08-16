@@ -2,6 +2,11 @@
 
 {% load widget_tweaks %}
 
+{% block under_nav_header_content %}
+  <h1>Document your design process</h1>
+  <p>{{ challenge.build_subheader }}</p>
+{% endblock %}
+
 {% block left_panel %}
   <div class="panel blue">
     <div class="panel-body">

@@ -24,10 +24,13 @@
   <div class="challenge-content">
     {% block under_nav_header %}
     <header class="challenge-header">
-      <h1>Plan your project</h1>
-      <p>{{ challenge.plan_subheader }}</p>
+      {% block under_nav_header_content %}
+      {% endblock %}
     </header>
     {% endblock %}
+
+    {% block congrats_panel %}{% endblock %}
+
     <div class="row">
 
       <div class="col-md-5">

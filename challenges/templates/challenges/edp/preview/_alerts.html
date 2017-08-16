@@ -1,0 +1,13 @@
+{% if request.user.profile.is_student %}
+  <div class="alert alert-info text-center preview-page-alerts">
+    <strong>You're previewing this challenge.</strong> Start building if you want to post!<br/>
+    <form name="Start Building" action="{% url 'challenges:start_building' challenge_id=challenge.id %}" method='POST'>
+      {% csrf_token %}
+      <input type="submit" value="Start Building" class="btn btn-primary" />
+    </form>
+  </div>
+{% else %}
+  <div class="alert alert-info text-center preview-page-alerts">
+    <strong>Only students can post their design challenge progress.</strong> For resources and help, check out the Guide tab.
+  </div>
+{% endif %}

@@ -1,0 +1,33 @@
+{% extends "challenges/edp/progress/reflect.html" %}
+
+{% load widget_tweaks %}
+
+{% block congrats_panel %}
+  {% if progress.completed %}
+    <div class="panel white congratulations-panel">
+      <div class="panel-body text-center">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 congratulations-panel-content">
+            <h2>Congratulations!</h2>
+            <p>
+              You just completed a design challenge! Now you can post a picture of your project to the Inspiration Gallery
+              to share with the community.
+            </p>
+            <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary">Go to the Inspiration Gallery</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block reflect_form %}
+  {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' as comment_url %}
+  <form method="POST" action="{{ comment_url }}">
+    {% csrf_token %}
+    {{ comment_form.text|attr:"placeholder:Write your reflection here. You can also add a photo or video below." }}
+    {{ comment_form.visual_media }}
+    {{ comment_form.question_text|add_class:'question-text' }}
+    <input type="submit" class="btn btn-primary pull-right" data-debounce="true" />
+  </form>
+{% endblock %}

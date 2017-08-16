@@ -1,0 +1,30 @@
+{% extends "challenges/edp/reflect.html" %}
+
+{% block js %}
+  {{ block.super }}
+  {{ comment_form.media }}
+{% endblock %}
+
+{% block top_header %}
+  <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
+{% endblock %}
+
+{% block draft_message %}
+  <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
+{% endblock %}
+
+{% block middle_panel %}
+  <div class="avatar-container">
+    {% include "_avatar.html" with profile=progress.student.profile width=50 height=50 crop='fill' %}
+  </div>
+{% endblock %}
+
+{% block comments %}
+  {% for comment in comments %}
+    {% include "_comment.html" %}
+  {% endfor %}
+{% endblock %}
+
+{% block guide %}
+  {% include "_guide.html" %}
+{% endblock %}

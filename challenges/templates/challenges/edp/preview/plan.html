@@ -4,9 +4,7 @@
 {% load resized %}
 
 {% block alerts %}
-  <div class="alert alert-info text-center preview-page-alerts">
-    <strong>Only students can post their design challenge progress.</strong> For resources and help, check out the Guide tab.
-  </div>
+  {% include 'challenges/edp/preview/_alerts.html' %}
 {% endblock %}
 
 {% block draft_message %}

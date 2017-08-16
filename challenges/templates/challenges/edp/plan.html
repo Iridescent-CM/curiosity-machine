@@ -3,6 +3,11 @@
 {% load widget_tweaks %}
 {% load resized %}
 
+{% block under_nav_header_content %}
+  <h1>Plan your project</h1>
+  <p>{{ challenge.plan_subheader }}</p>
+{% endblock %}
+
 {% block left_panel %}
   {% block commenting_bubble %}
   <div class="panel panel-bubble edp-comments">
