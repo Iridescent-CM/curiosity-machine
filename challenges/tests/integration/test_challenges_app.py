@@ -51,7 +51,7 @@ def test_preview_plan_renders_plan_preview(client, challenge, loggedInStaff):
         'challenge_id': challenge.id
     })
     response = client.get(url)
-    assert 'challenges/preview/plan.html' in [tmpl.name for tmpl in response.templates]
+    assert 'challenges/edp/preview/plan.html' in [tmpl.name for tmpl in response.templates]
     assert response.status_code == 200
 
 @pytest.mark.django_db
@@ -60,7 +60,7 @@ def test_preview_build_renders_build_preview(client, challenge, loggedInStaff):
         'challenge_id': challenge.id
     })
     response = client.get(url)
-    assert 'challenges/preview/build.html' in [tmpl.name for tmpl in response.templates]
+    assert 'challenges/edp/preview/build.html' in [tmpl.name for tmpl in response.templates]
     assert response.status_code == 200
 
 @pytest.mark.django_db
@@ -69,7 +69,7 @@ def test_preview_reflect_renders_reflect_preview(client, challenge, loggedInStaf
         'challenge_id': challenge.id
     })
     response = client.get(url)
-    assert 'challenges/preview/reflect.html' in [tmpl.name for tmpl in response.templates]
+    assert 'challenges/edp/preview/reflect.html' in [tmpl.name for tmpl in response.templates]
     assert response.status_code == 200
 
 @pytest.mark.django_db
@@ -210,7 +210,7 @@ def test_challenge_progress_renders_stage_templates(client, student_comment, log
             'stage': stage.name
         })
         response = client.get(url)
-        assert 'challenges/progress/%s.html' % stage.name in [tmpl.name for tmpl in response.templates]
+        assert 'challenges/edp/progress/%s.html' % stage.name in [tmpl.name for tmpl in response.templates]
         assert response.status_code == 200
 
 @pytest.mark.django_db
