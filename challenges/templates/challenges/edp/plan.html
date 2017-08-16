@@ -34,6 +34,7 @@
 
       <div class="col-md-5">
         {% block left_panel %}
+        {% block commenting_bubble %}
         <div class="panel panel-bubble edp-comments">
           <div class="panel-body">
             <h3>Post your plan!</h3>
@@ -46,6 +47,7 @@
             {% endblock %}
           </div>
         </div>
+        {% endblock %}
 
         {% if challenge.plan_call_to_action %}
           <div class="panel blue">

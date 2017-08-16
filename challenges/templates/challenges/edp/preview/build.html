@@ -1,0 +1,16 @@
+{% extends 'challenges/edp/build.html' %}
+
+{% load staticfiles %}
+{% load resized %}
+
+{% block alerts %}
+  {% include 'challenges/preview/_alerts.html' %}
+{% endblock %}
+
+{% block draft_message %}
+  <h2><small>We're improving this challenge. Keep an eye out for changes.</small></h2>
+{% endblock %}
+
+{% block guide %}
+  {% include "_guide.html" with show_start_button=True %}
+{% endblock %}

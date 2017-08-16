@@ -1,0 +1,25 @@
+{% extends "challenges/edp/progress/build.html" %}
+
+{% load widget_tweaks %}
+
+{% block step_form %}
+  {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
+  <form method="POST" action="{{ comment_url }}">
+    {% csrf_token %}
+    <div class="form-group">
+      <ul class="switch">
+        <li>
+          <input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
+          <label for="buildSelector">Building</label>
+        </li>
+        <li>
+          <input type="radio" name="stepSelector" id="testSelector" value="test">
+          <label for="testSelector">Testing</label>
+        </li>
+      </ul>
+    </div>
+    {{ comment_form.text|attr:"placeholder:Tell us about your design here. You can also add a photo or video below." }}
+    {{ comment_form.visual_media }}
+    <input type="submit" class="btn btn-primary pull-right" data-debounce="true" />
+  </form>
+{% endblock %}
