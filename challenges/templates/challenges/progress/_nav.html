@@ -34,7 +34,7 @@
         </a>
         <span class="arrows"></span>
       </li>
-      <li class="reflect {%  if stage == 'reflect' %}selected{% endif %}">
+      <li class="reflect {% if stage == 'reflect' %}selected{% endif %}">
           <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='reflect' %}">
             <span class="btn">Reflect</span>
           </a>

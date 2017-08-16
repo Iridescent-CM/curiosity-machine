@@ -346,6 +346,13 @@ def preview_stage(request, challenge_id, stage):
         {
             'challenge': challenge,
             'comment_form': CommentForm(),
+            'edp_nav': {
+                'stage': stage,
+                'inspiration': reverse("challenges:preview_inspiration", kwargs={"challenge_id": challenge.id}),
+                'plan': reverse("challenges:preview_plan", kwargs={"challenge_id": challenge.id}),
+                'build': reverse("challenges:preview_build", kwargs={"challenge_id": challenge.id}),
+                'reflect': reverse("challenges:preview_reflect", kwargs={"challenge_id": challenge.id}),
+            },
         }
     )
 
@@ -410,6 +417,13 @@ def challenge_progress(request, challenge_id, username, stage=None):
         'comments': progress.comments.all(),
         'materials_form': MaterialsForm(progress=progress),
         'quiz_form': quiz_form,
+        'edp_nav': {
+            'stage': stageToShow.name,
+            'inspiration': reverse("challenges:inspiration_progress", kwargs={"challenge_id": challenge.id, "username": username}),
+            'plan': reverse("challenges:challenge_progress", kwargs={"challenge_id": challenge.id, "username": username, "stage": "plan"}),
+            'build': reverse("challenges:challenge_progress", kwargs={"challenge_id": challenge.id, "username": username, "stage": "build"}),
+            'reflect': reverse("challenges:challenge_progress", kwargs={"challenge_id": challenge.id, "username": username, "stage": "reflect"}),
+        },
     })
 
 @mentor_only
