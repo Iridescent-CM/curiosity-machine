@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load resized %}
+
+{% block title %}{{ challenge.name }}{% endblock %}
+
+{% block js %}
+  <script src="{% static "js/challenges.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+  {% block top_header %}
+  <h1>{{ challenge.name }}</h1>
+  {% endblock %}
+
+  {% block alerts %}{% endblock %}
+
+  {% if challenge.draft %}
+  {% block draft_message %}{% endblock %}
+  {% endif %}
+
+  {% include "challenges/preview/_nav.html" with stage="plan" %}
+
+  <div class="challenge-content">
+    {% block under_nav_header %}
+    <header class="challenge-header">
+      <h1>Plan your project</h1>
+      <p>{{ challenge.plan_subheader }}</p>
+    </header>
+    {% endblock %}
+    <div class="row">
+
+      <div class="col-md-5">
+        {% block left_panel %}
+        <div class="panel panel-bubble edp-comments">
+          <div class="panel-body">
+            <h3>Post your plan!</h3>
+            {% block post_your_plan %}
+            <form>
+              {{ comment_form.text|attr:"disabled:disabled" }}
+              {{ comment_form.visual_media|attr:"disabled:disabled" }}
+              <input type="submit" disabled="disabled" class="btn btn-primary pull-right" />
+            </form>
+            {% endblock %}
+          </div>
+        </div>
+
+        {% if challenge.plan_call_to_action %}
+          <div class="panel blue">
+            <div class="panel-body">
+              {{challenge.plan_call_to_action}}
+            </div>
+          </div>
+        {% endif %}
+        {% endblock %}
+      </div>
+
+      <div class="col-md-1">
+        {% block middle_panel %}
+        <img src="{% resized MEDIA_URL|add:'images/placeholder.png' width=60 height=80 %}"
+          width=60 height=80 />
+        {% endblock %}
+      </div>
+
+      <div class="col-md-6">
+        {% block right_panel %}
+        {% block right_panel_head %}
+        {% endblock %}
+
+        <div class="materials-list panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Suggested list of materials</h3>
+          </div>
+          <div class="panel-body">
+            <div class="current-materials">
+              <div class="current-materials">
+                {% block materials_list %}
+                {{ challenge.materials_list|safe }}<br>
+                {% endblock %}
+              </div>
+              {% block edit_materials_button %}
+              <button class="btn btn-primary" disabled="disabled">Edit Materials</button>
+              {% endblock %}
+            </div>
+            {% block materials_form %}{% endblock %}
+          </div>
+        </div>
+        {% block comments %}{% endblock %}
+        {% block ready_to_build %}{% endblock %}
+        {% endblock %}
+      </div>
+    </div>
+
+    {% block guide %}{% endblock %}
+  </div>
+{% endblock %}

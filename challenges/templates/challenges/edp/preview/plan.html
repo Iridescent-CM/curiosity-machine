@@ -1,0 +1,27 @@
+{% extends 'challenges/edp/plan.html' %}
+
+{% load staticfiles %}
+{% load resized %}
+
+{% block alerts %}
+  <div class="alert alert-info text-center preview-page-alerts">
+    <strong>Only students can post their design challenge progress.</strong> For resources and help, check out the Guide tab.
+  </div>
+{% endblock %}
+
+{% block draft_message %}
+  <h2><small>We're improving this challenge. Keep an eye out for changes.</small></h2>
+{% endblock %}
+
+{% block ready_to_build %}
+  <a class="btn btn-lg btn-primary start-link"
+    href="#"
+    disabled="disabled"
+  >
+    Ready to Build
+  </a>
+{% endblock %}
+
+{% block guide %}
+  {% include "_guide.html" with show_start_button=True %}
+{% endblock %}

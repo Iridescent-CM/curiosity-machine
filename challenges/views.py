@@ -338,10 +338,16 @@ class InspirationProgressDispatch(ViewDispatch):
 @enforce_membership_challenge_access
 def preview_stage(request, challenge_id, stage):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    return render(request, 'challenges/preview/%s.html' % stage, {
-        'challenge': challenge,
-        'comment_form': CommentForm(),
-    })
+    return render(request,
+        [
+            'challenges/edp/preview/%s/%s.html' % (request.user.profile.user_type, stage),
+            'challenges/edp/preview/%s.html' % stage,
+        ],
+        {
+            'challenge': challenge,
+            'comment_form': CommentForm(),
+        }
+    )
 
 @login_required
 @current_user_or_approved_viewer
@@ -392,7 +398,12 @@ def challenge_progress(request, challenge_id, username, stage=None):
     if quiz:
         quiz_form = QuizForm(model=quiz)
 
-    return render(request, "challenges/progress/%s.html" % stageToShow.name, {
+    return render(request,
+        [
+            "challenges/edp/progress/%s/%s.html" % (request.user.profile.user_type, stageToShow.name),
+            "challenges/edp/progress/%s.html" % stageToShow.name,
+        ],     
+        {
         'challenge': challenge,
         'progress': progress,
         'comment_form': CommentForm(),
