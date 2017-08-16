@@ -47,7 +47,7 @@ def test_send_mentor_progress_update_notice():
     student = profiles.factories.StudentFactory.build()
     mentor = profiles.factories.MentorFactory.build()
     progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
-    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student, stage=Stage.inspiration.value)
+    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student, stage=Stage.plan.value)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_mentor_progress_update_notice(comment.user, comment)
