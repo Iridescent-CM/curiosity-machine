@@ -4,7 +4,7 @@
 
 {% block left_panel %}
   {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
-  {% include "_mentor_panel.html" with comment_url=comment_url %}
+  {% include "challenges/edp/progress/_mentor_panel.html" with comment_url=comment_url %}
 {% endblock %}
 
 {% block right_panel_head %}

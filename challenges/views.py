@@ -204,7 +204,7 @@ def challenges(request):
     elif coreChallenges.applied:
         header_template = "challenges/filters/free.html"
 
-    return render(request, 'challenges/new.html', {
+    return render(request, 'challenges/list.html', {
         'title': title,
         'challenges': challenges,
         'favorite_ids': favorite_ids,
@@ -391,12 +391,6 @@ def challenge_progress(request, challenge_id, username, stage=None):
 
     if stageToShow == Stage.test:
         stageToShow = Stage.build
-    elif stageToShow == Stage.inspiration:
-        return render(request, 'challenges/progress/inspiration.html', {
-            'challenge': challenge,
-            'progress': progress,
-            'examples': Example.objects.for_gallery_preview(challenge=challenge),
-        })
 
     progress.get_unread_comments_for_user(request.user).mark_all_as_read()
 

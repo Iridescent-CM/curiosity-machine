@@ -1,7 +1,0 @@
-<div class="challenge-details-hero">
-  {% if challenge.video %}
-    {% include "_video.html" with video=challenge.video poster_url=challenge.image.url %}
-  {% elif challenge.image %}
-    <img src={{ challenge.image.url }} />
-  {% endif %}
-</div>
