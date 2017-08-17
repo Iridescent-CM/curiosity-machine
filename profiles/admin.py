@@ -258,6 +258,7 @@ class ImpactSurveyAdmin(admin.ModelAdmin):
         'hours_per_challenge',
         'in_classroom',
         'out_of_classroom',
+        'comment',
         'created_at',
     )
 
