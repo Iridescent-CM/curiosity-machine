@@ -246,6 +246,7 @@ class ImpactSurveyAdmin(admin.ModelAdmin):
         'hours_per_challenge',
         'in_classroom',
         'out_of_classroom',
+        'created_at',
     )
     raw_id_fields = ('user',)
     readonly_fields = (
@@ -257,6 +258,7 @@ class ImpactSurveyAdmin(admin.ModelAdmin):
         'hours_per_challenge',
         'in_classroom',
         'out_of_classroom',
+        'created_at',
     )
 
 admin.site.register(ImpactSurvey, ImpactSurveyAdmin)
