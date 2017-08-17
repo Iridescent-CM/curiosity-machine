@@ -180,3 +180,13 @@ def test_should_add_email():
     assert not student2.profile.should_add_email
     assert not student3.profile.should_add_email
 
+@pytest.mark.django_db
+def test_show_classroom_survey():
+    student = StudentFactory(profile__source='')
+    student2 = StudentFactory(profile__source='something')
+    student3 = StudentFactory(profile__source='family_science')
+
+    assert student.profile.show_classroom_survey
+    assert student2.profile.show_classroom_survey
+    assert not student3.profile.show_classroom_survey
+

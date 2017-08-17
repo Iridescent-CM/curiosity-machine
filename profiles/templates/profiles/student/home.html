@@ -128,6 +128,7 @@
     </div>
   {% endif %}
 
+  {% if request.user.profile.show_classroom_survey %}
     <div class="row">
       <div class="col-md-12">
         <h2>Classroom Survey</h2>
@@ -135,6 +136,7 @@
         <a href="https://www.surveymonkey.com/r/VVG6ZLQ" class="btn btn-primary" target="_blank">Take Survey</a>
       </div>
     </div>
+  {% endif %}
 
   {% endwith %}
 {% endblock %}

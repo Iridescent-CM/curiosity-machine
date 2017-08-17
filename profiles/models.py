@@ -117,6 +117,10 @@ class Profile(models.Model):
     def should_add_email(self):
         return not self.user.email
 
+    @property
+    def show_classroom_survey(self):
+        return not (self.source and self.source in ['family_science'])
+
     def is_underage(self):
         return self.age < 13
     is_underage.boolean = True
