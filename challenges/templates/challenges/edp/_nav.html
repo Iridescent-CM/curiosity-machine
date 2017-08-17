@@ -1,4 +1,4 @@
-<div class="nav-wrapper {{stage}}-selected">
+<div class="nav-wrapper {{edp_nav.stage}}-selected">
   <nav class="challenge-nav primary">
     <ul>
       <li class="guide">
@@ -14,28 +14,28 @@
           <span class="btn" >Guide</span>
         </a>
       </li>
-      <li class="inspiration {% if stage == 'inspiration' %}selected{% endif %}">
-        <a href="{% url 'challenges:preview_inspiration' challenge_id=challenge.id %}">
+      <li class="inspiration {% if edp_nav.stage == 'inspiration' %}selected{% endif %}">
+        <a href="{{ edp_nav.inspiration }}">
           <span class="btn">Inspiration</span>
         </a>
         <span class="arrows"></span>
       </li>
-      <li class="plan {% if stage == 'plan' %}selected{% endif %}">
-        <a href="{% url 'challenges:preview_plan' challenge_id=challenge.id %}">
+      <li class="plan {% if edp_nav.stage == 'plan' %}selected{% endif %}">
+        <a href="{{ edp_nav.plan }}">
           <span class="btn">Plan</span>
         </a>
         <span class="arrows"></span>
       </li>
-      <li class="build {% if stage == 'build' and not progress.approved %}selected{% endif %}">
-        <a href="{% url 'challenges:preview_build' challenge_id=challenge.id %}">
+      <li class="build {% if edp_nav.stage == 'build' and not progress.approved %}selected{% endif %}">
+        <a href="{{ edp_nav.build }}">
           <div>
             <span class="btn">Build</span><span class="btn test">Test</span><span class="btn redesign">Redesign</span>
           </div>
         </a>
         <span class="arrows"></span>
       </li>
-      <li class="reflect {% if stage == 'reflect' %}selected{% endif %}">
-        <a href="{% url 'challenges:preview_reflect' challenge_id=challenge.id %}">
+      <li class="reflect {% if edp_nav.stage == 'reflect' %}selected{% endif %}">
+        <a href="{{ edp_nav.reflect }}">
           <span class="btn">Reflect</span>
         </a>
         <span class="arrows"></span>

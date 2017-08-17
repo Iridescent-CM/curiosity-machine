@@ -1,0 +1,20 @@
+{% extends "challenges/edp/reflect.html" %}
+
+{% load resized %}
+
+{% block alerts %}
+  {% include 'challenges/edp/preview/_alerts.html' %}
+{% endblock %}
+
+{% block draft_message %}
+  <h2><small>We're improving this challenge. Keep an eye out for changes.</small></h2>
+{% endblock %}
+
+{% block middle_panel %}
+  <img src="{% resized MEDIA_URL|add:'images/placeholder.png' width=60 height=80 %}"
+    width=60 height=80 />
+{% endblock %}
+
+{% block guide %}
+  {% include "challenges/edp/_guide.html" with show_start_button=True %}
+{% endblock %}

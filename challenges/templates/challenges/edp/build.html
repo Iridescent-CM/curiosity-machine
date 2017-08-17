@@ -1,0 +1,50 @@
+{% extends 'challenges/edp/layout.html' %}
+
+{% load widget_tweaks %}
+
+{% block under_nav_header_content %}
+  <h1>Document your design process</h1>
+  <p>{{ challenge.build_subheader }}</p>
+{% endblock %}
+
+{% block left_panel %}
+  <div class="panel blue">
+    <div class="panel-body">
+      {{challenge.build_call_to_action}}
+    </div>
+  </div>
+{% endblock %}
+
+{% block right_panel %}
+  {% block right_panel_head %}
+  {% endblock %}
+
+  {% block commenting_bubble %}
+  <div class="panel panel-bubble right edp-comments">
+    <div class="panel-body">
+      <h3>What step are you on?</h3>
+      {% block step_form %}
+      <form>
+        <div class="form-group">
+          <ul class="switch">
+            <li>
+              <input type="radio" name="stepSelector" id="buildSelector" value="build" checked>
+              <label for="buildSelector">Building</label>
+            </li>
+            <li>
+              <input type="radio" name="stepSelector" id="testSelector" value="test">
+              <label for="testSelector">Testing</label>
+            </li>
+          </ul>
+        </div>
+        {{ comment_form.text|attr:"disabled:disabled" }}
+        {{ comment_form.visual_media|attr:"disabled:disabled" }}
+        <input type="submit" disabled="disabled" class="btn btn-primary pull-right" />
+      </form>
+      {% endblock %}
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block comments %}{% endblock %}
+{% endblock %}

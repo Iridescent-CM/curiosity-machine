@@ -13,7 +13,7 @@
   </div>
   <div class="panel panel-bubble blue comment">
     <div class="panel-body">
-      {% include "_comment_content.html" %}
+      {% include "challenges/edp/progress/_comment_content.html" %}
     </div>
   </div>
 {% elif comment.user.profile.is_educator %}
@@ -27,7 +27,7 @@
   </div>
   <div class="panel panel-bubble blue comment">
     <div class="panel-body">
-      {% include "_comment_content.html" %}
+      {% include "challenges/edp/progress/_comment_content.html" %}
     </div>
   </div>
 {% else %}
@@ -37,7 +37,7 @@
       <h3 class="panel-title">{{ comment.get_stage_display }}</h3>
     </div>
     <div class="panel-body paper">
-      {% include "_comment_content.html" %}
+      {% include "challenges/edp/progress/_comment_content.html" %}
     </div>
   </div>
 {% endif %}

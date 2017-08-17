@@ -204,7 +204,7 @@ def challenges(request):
     elif coreChallenges.applied:
         header_template = "challenges/filters/free.html"
 
-    return render(request, 'challenges/new.html', {
+    return render(request, 'challenges/list.html', {
         'title': title,
         'challenges': challenges,
         'favorite_ids': favorite_ids,
@@ -338,10 +338,23 @@ class InspirationProgressDispatch(ViewDispatch):
 @enforce_membership_challenge_access
 def preview_stage(request, challenge_id, stage):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    return render(request, 'challenges/preview/%s.html' % stage, {
-        'challenge': challenge,
-        'comment_form': CommentForm(),
-    })
+    return render(request,
+        [
+            'challenges/edp/preview/%s/%s.html' % (request.user.profile.user_type, stage),
+            'challenges/edp/preview/%s.html' % stage,
+        ],
+        {
+            'challenge': challenge,
+            'comment_form': CommentForm(),
+            'edp_nav': {
+                'stage': stage,
+                'inspiration': reverse("challenges:preview_inspiration", kwargs={"challenge_id": challenge.id}),
+                'plan': reverse("challenges:preview_plan", kwargs={"challenge_id": challenge.id}),
+                'build': reverse("challenges:preview_build", kwargs={"challenge_id": challenge.id}),
+                'reflect': reverse("challenges:preview_reflect", kwargs={"challenge_id": challenge.id}),
+            },
+        }
+    )
 
 @login_required
 @current_user_or_approved_viewer
@@ -378,12 +391,6 @@ def challenge_progress(request, challenge_id, username, stage=None):
 
     if stageToShow == Stage.test:
         stageToShow = Stage.build
-    elif stageToShow == Stage.inspiration:
-        return render(request, 'challenges/progress/inspiration.html', {
-            'challenge': challenge,
-            'progress': progress,
-            'examples': Example.objects.for_gallery_preview(challenge=challenge),
-        })
 
     progress.get_unread_comments_for_user(request.user).mark_all_as_read()
 
@@ -392,13 +399,25 @@ def challenge_progress(request, challenge_id, username, stage=None):
     if quiz:
         quiz_form = QuizForm(model=quiz)
 
-    return render(request, "challenges/progress/%s.html" % stageToShow.name, {
+    return render(request,
+        [
+            "challenges/edp/progress/%s/%s.html" % (request.user.profile.user_type, stageToShow.name),
+            "challenges/edp/progress/%s.html" % stageToShow.name,
+        ],     
+        {
         'challenge': challenge,
         'progress': progress,
         'comment_form': CommentForm(),
         'comments': progress.comments.all(),
         'materials_form': MaterialsForm(progress=progress),
         'quiz_form': quiz_form,
+        'edp_nav': {
+            'stage': stageToShow.name,
+            'inspiration': reverse("challenges:inspiration_progress", kwargs={"challenge_id": challenge.id, "username": username}),
+            'plan': reverse("challenges:challenge_progress", kwargs={"challenge_id": challenge.id, "username": username, "stage": "plan"}),
+            'build': reverse("challenges:challenge_progress", kwargs={"challenge_id": challenge.id, "username": username, "stage": "build"}),
+            'reflect': reverse("challenges:challenge_progress", kwargs={"challenge_id": challenge.id, "username": username, "stage": "reflect"}),
+        },
     })
 
 @mentor_only

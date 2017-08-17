@@ -1,0 +1,60 @@
+{% extends 'challenges/edp/layout.html' %}
+
+{% load widget_tweaks %}
+{% load resized %}
+
+{% block under_nav_header_content %}
+  <h1>Plan your project</h1>
+  <p>{{ challenge.plan_subheader }}</p>
+{% endblock %}
+
+{% block left_panel %}
+  {% block commenting_bubble %}
+  <div class="panel panel-bubble edp-comments">
+    <div class="panel-body">
+      <h3>Post your plan!</h3>
+      {% block post_your_plan %}
+      <form>
+        {{ comment_form.text|attr:"disabled:disabled" }}
+        {{ comment_form.visual_media|attr:"disabled:disabled" }}
+        <input type="submit" disabled="disabled" class="btn btn-primary pull-right" />
+      </form>
+      {% endblock %}
+    </div>
+  </div>
+  {% endblock %}
+
+  {% if challenge.plan_call_to_action %}
+    <div class="panel blue">
+      <div class="panel-body">
+        {{challenge.plan_call_to_action}}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block right_panel %}
+  {% block right_panel_head %}
+  {% endblock %}
+
+  <div class="materials-list panel">
+    <div class="panel-heading">
+      <h3 class="panel-title">Suggested list of materials</h3>
+    </div>
+    <div class="panel-body">
+      <div class="current-materials">
+        <div class="current-materials">
+          {% block materials_list %}
+          {{ challenge.materials_list|safe }}<br>
+          {% endblock %}
+        </div>
+        {% block edit_materials_button %}
+        <button class="btn btn-primary" disabled="disabled">Edit Materials</button>
+        {% endblock %}
+      </div>
+      {% block materials_form %}{% endblock %}
+    </div>
+  </div>
+  {% block comments %}{% endblock %}
+  {% block ready_to_build %}{% endblock %}
+{% endblock %}

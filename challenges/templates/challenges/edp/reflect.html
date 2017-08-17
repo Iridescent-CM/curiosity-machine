@@ -1,0 +1,72 @@
+{% extends "challenges/edp/layout.html" %}
+
+{% load widget_tweaks %}
+
+{% block under_nav_header_content %}
+  <h1>Document your design process</h1>
+  <p>{{ challenge.reflect_subheader }}</p>
+{% endblock %}
+
+{% block left_panel %}
+  <div class="panel blue">
+    <div class="panel-body">
+      <p>You've made great progress on this challenge. I think you are ready to move on to the next step.</p>
+      <p><strong>Reflect on your design.</strong></p>
+    </div>
+  </div>
+{% endblock %}
+
+{% block right_panel %}
+  {% block right_panel_head %}
+  {% endblock %}
+
+  {% block commenting_bubble %}
+  {% if quiz_form %}
+  {% url "challenges:quizzes:quizzes" challenge_id=challenge.id username=progress.student.username stage='reflect' as action_url %}
+  <div class="panel panel-bubble teal right reflect-quiz-box edp-comments">
+    <div class="panel-body">
+      <h1>Reflect Quiz</h1>
+      <p>You've finished your challenge. Take the quiz and see how much you've learned!</p>
+      <form method="POST" action="{{ action_url }}">
+        {% csrf_token %}
+        {{ quiz_form }}
+        <input type="submit" class="btn btn-primary pull-right" data-debounce="true" 
+          {% if not request.user.profile.is_student %}disabled="disabled"{% endif %} 
+        />
+      </form>
+    </div>
+  </div>
+  {% else %}
+  <div class="panel panel-bubble teal right reflect-box edp-comments">
+    <div class="panel-body">
+      <h1>Reflect</h1>
+      <p>Are you finished with your project? Reflect on your work by answering a question below! Then you'll be able to share your design in the <a href="{% url "challenges:examples" challenge_id=challenge.id %}"><strong>Inspiration Gallery</strong></a>.</p>
+
+      <ul class="challenge-reflect-questions" style="display: none;">
+        {% for question in challenge.reflect_questions.all %}
+          <li>{{ question }}</li>
+        {% endfor %}
+      </ul>
+
+      <div class="reflect-question">
+        <h3 class="question"></h3>
+        <p class="refresh" title="answer a different question">
+          <span class="glyphicon glyphicon-refresh"></span> Try another question.
+        </p>
+      </div>
+
+      {% block reflect_form %}
+      <form>
+        {{ comment_form.text|attr:"disabled:disabled"|add_class:"form-control" }}
+        {{ comment_form.visual_media|attr:"disabled:disabled" }}
+        <input type="submit" disabled="disabled" class="btn btn-primary pull-right" />
+      </form>
+      {% endblock %}
+
+    </div>
+  </div>
+  {% endif %}
+  {% endblock %}
+
+  {% block comments %}{% endblock %}
+{% endblock %}

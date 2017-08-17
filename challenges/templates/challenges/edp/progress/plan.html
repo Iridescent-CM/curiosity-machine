@@ -1,0 +1,48 @@
+{% extends 'challenges/edp/plan.html' %}
+
+{% block js %}
+  {{ block.super }}
+  {{ comment_form.media }}
+{% endblock %}
+
+{% block top_header %}
+  <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
+{% endblock %}
+
+{% block draft_message %}
+  <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
+{% endblock %}
+
+{% block middle_panel %}
+  <div class="avatar-container">
+    {% include "_avatar.html" with profile=progress.student.profile width=50 height=50 crop='fill' %}
+  </div>
+{% endblock %}
+
+{% block materials_list %}
+  {{ progress.materials_list|safe }}<br>
+{% endblock %}
+
+{% block materials_form %}
+  <form class="materials-form"
+    action="{% url 'challenges:change_materials' challenge_id=challenge.id username=progress.student.username %}"
+    method="POST"
+  >
+    {% csrf_token %}
+    <div>
+      {{materials_form.materials}}
+      <div class="errors">{{ materials_form.materials.errors }}</div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary" />
+  </form>
+{% endblock %}
+
+{% block comments %}
+  {% for comment in comments %}
+    {% include "challenges/edp/progress/_comment.html" %}
+  {% endfor %}
+{% endblock %}
+
+{% block guide %}
+  {% include "challenges/edp/_guide.html" %}
+{% endblock %}

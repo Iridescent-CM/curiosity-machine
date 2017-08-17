@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}{{ challenge.name }}{% endblock %}
+
+{% block js %}
+  <script src="{% static "js/challenges.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+  {% block top_header %}
+  <h1>{{ challenge.name }}</h1>
+  {% endblock %}
+
+  {% block alerts %}{% endblock %}
+
+  {% if challenge.draft %}
+  {% block draft_message %}{% endblock %}
+  {% endif %}
+
+  {% include "challenges/edp/_nav.html" %}
+
+  <div class="challenge-content">
+    {% block under_nav_header %}
+    <header class="challenge-header">
+      {% block under_nav_header_content %}
+      {% endblock %}
+    </header>
+    {% endblock %}
+
+    {% block congrats_panel %}{% endblock %}
+
+    <div class="row">
+
+      <div class="col-md-5">
+        {% block left_panel %}
+        {% endblock %}
+      </div>
+
+      <div class="col-md-1">
+        {% block middle_panel %}
+        {% endblock %}
+      </div>
+
+      <div class="col-md-6">
+        {% block right_panel %}
+        {% endblock %}
+      </div>
+    </div>
+
+    {% block guide %}{% endblock %}
+  </div>
+{% endblock %}

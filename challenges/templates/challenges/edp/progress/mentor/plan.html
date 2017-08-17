@@ -1,0 +1,16 @@
+{% extends "challenges/edp/progress/plan.html" %}
+
+{% load widget_tweaks %}
+
+{% block under_nav_header %}{% endblock %}
+{% block edit_materials_button %}{% endblock %}
+{% block ready_to_build %}{% endblock %}
+
+{% block left_panel %}
+  {% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username stage='plan' as comment_url %}
+  {% include "challenges/edp/progress/_mentor_panel.html" with comment_url=comment_url %}
+{% endblock %}
+
+{% block right_panel_head %}
+  <h3>{{progress.student.username}}'s plan</h3>
+{% endblock %}
