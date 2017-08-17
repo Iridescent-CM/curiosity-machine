@@ -6766,4 +6766,21 @@ footer {
   color: #8FB559;
   font-size: 2.5rem; }
 
+#membership-about-page .figure {
+  max-width: 800px; }
+
+#membership-about-page .blockquote {
+  font-size: 1rem; }
+
+#membership-about-page .carousel {
+  margin-bottom: 65px; }
+
+#membership-about-page .carousel-indicators {
+  margin-bottom: 0;
+  bottom: -45px; }
+  #membership-about-page .carousel-indicators li {
+    border: 1px solid #333; }
+  #membership-about-page .carousel-indicators .active {
+    background-color: #333; }
+
 /*# sourceMappingURL=main.css.map */

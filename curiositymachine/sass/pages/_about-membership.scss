@@ -1,3 +1,26 @@
 #membership-about-page {
+  .figure {
+    max-width: 800px;
+  }
 
+  .blockquote {
+    font-size: 1rem;
+  }
+
+  .carousel {
+    margin-bottom: 65px;
+  }
+
+  .carousel-indicators {
+    margin-bottom: 0;
+    bottom: -45px;
+
+    li {
+      border: 1px solid #333;
+    }
+
+    .active {
+      background-color: #333;
+    }
+  }
 }
