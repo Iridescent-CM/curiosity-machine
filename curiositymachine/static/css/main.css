@@ -6766,6 +6766,14 @@ footer {
   color: #8FB559;
   font-size: 2.5rem; }
 
+#membership-about-page .price-table .card-header {
+  background-color: #524FAA;
+  color: white;
+  font-weight: bold; }
+
+#membership-about-page .price-table .list-unstyled li {
+  margin: 1em 0; }
+
 #membership-about-page .figure {
   max-width: 800px; }
 

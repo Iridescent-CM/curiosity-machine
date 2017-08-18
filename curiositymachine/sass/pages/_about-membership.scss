@@ -1,4 +1,18 @@
 #membership-about-page {
+  .price-table {
+    .card-header {
+      background-color: #524FAA;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .list-unstyled {
+      li {
+        margin: 1em 0;
+      }
+    }
+  }
+
   .figure {
     max-width: 800px;
   }
