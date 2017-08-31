@@ -108,7 +108,7 @@ class Membership(models.Model):
         return None
 
     def show_expiring_notice(self):
-        today = now().date()
+        today = localtime(now()).date()
         return (self.is_active 
             and self.expiration 
             and self.expiration >= today

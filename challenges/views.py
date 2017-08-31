@@ -341,6 +341,7 @@ def preview_stage(request, challenge_id, stage):
     return render(request,
         [
             'challenges/edp/preview/%s/%s.html' % (request.user.profile.user_type, stage),
+            'challenges/edp/preview/%s/%s.html' % (request.user.profile.role_name, stage),
             'challenges/edp/preview/%s.html' % stage,
         ],
         {
@@ -402,6 +403,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
     return render(request,
         [
             "challenges/edp/progress/%s/%s.html" % (request.user.profile.user_type, stageToShow.name),
+            "challenges/edp/progress/%s/%s.html" % (request.user.profile.role_name, stageToShow.name),
             "challenges/edp/progress/%s.html" % stageToShow.name,
         ],     
         {
