@@ -41,7 +41,15 @@ behavior. Your best bet to see what feature flags the code currently relies on i
 $ grep -ir --include .*py --include .*html --exclude-dir node_modules enable_ .`
 ```
 
-## When Requirements Get Added
+## Requirements
+
+There are three requirements files:
+
+* `requirements.txt`: contains requirements to run the app with fixed version numbers. Generated from truncated output of `pip freeze -r requirements.compat.txt`.
+* `requirements.dev.txt`: contains additional requirements useful for development.
+* `requirements.compat.txt`: app requirements with compatible version specifiers. Use this to periodically check for patches.
+
+### When Requirements Get Added
 
 From time to time requirements will get added, updated, or removed from the project. In this case running
 the following command should get your environment up to date:
