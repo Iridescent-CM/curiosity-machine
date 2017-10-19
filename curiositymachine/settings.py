@@ -76,7 +76,6 @@ INSTALLED_APPS = (
     'django_rq',
     'password_reset',
     'django_summernote',
-    'django_bleach',
     'cmemails',
     'compressor',
     'units',
@@ -178,20 +177,6 @@ EMAIL_HOST_PASSWORD = os.environ.get("MANDRILL_API_KEY", "")
 
 EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
 EMAIL_USE_SSL = False
-
-# Bleach
-BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'br', 'strike', 'li', 'ul', 'div', 'ol', 'span', 'blockquote', 'pre', 'img']
-BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'class']
-BLEACH_LIB_ATTRIBUTES = {
-                            '*': ['title', 'style'],
-                            'a': ['id', 'href', 'fpfilekey', 'rel', 'class', 'number', 'data-height', 'data-width'],
-                            'img': ['src', 'alt', 'width', 'height', 'data-height', 'data-width', 'data-upload', 'class', 'id', 'data-original', 'data-key'],
-                            'div' : ['class']
-                        }
-BLEACH_ALLOWED_STYLES = ['font-family', 'font-weight', 'text-decoration', 'font-variant']
-BLEACH_STRIP_TAGS = True
-BLEACH_STRIP_COMMENTS = True
-BLEACH_DEFAULT_WIDGET = 'django_summernote.widgets.SummernoteWidget'
 
 # Summernote
 SUMMERNOTE_CONFIG = {
