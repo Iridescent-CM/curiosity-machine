@@ -188,7 +188,8 @@ def test_join_sends_signal(rf):
         'educator-email': 'email@example.com',
         'educator-password': '123123',
         'educator-confirm_password': '123123',
-        'educator-city': 'city'
+        'educator-city': 'city',
+        'educator-organization': 'my org',
     })
     request.session = mock.MagicMock()
     response = views.educator.join(request)

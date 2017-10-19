@@ -7,7 +7,7 @@ from curiositymachine.views.generic import UserJoinView
 from django.http import HttpResponseRedirect, Http404
 from django.db import IntegrityError
 from django.db.models import Count
-from django.forms.util import ErrorList
+from django.forms.utils import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.models import Profile, UserRole
 from profiles.forms.mentor import MentorUserAndProfileForm, MentorUserAndProfileChangeForm

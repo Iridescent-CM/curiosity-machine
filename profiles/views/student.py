@@ -3,7 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, Http404
 from django.db import IntegrityError
-from django.forms.util import ErrorList
+from django.forms.utils import ErrorList
 from django.core.urlresolvers import reverse
 from profiles.forms.student import StudentUserAndProfileForm
 from challenges.models import Progress, Favorite, Challenge
