@@ -2,12 +2,12 @@
 -r ./requirements.txt
 
 # and some development-only extras
-coverage
-django-debug-toolbar~=1.5
-django-extensions~=1.7.5
-django-html-validator~=0.4.7
-mock~=1.0.1
-pretend~=1.0.7
-pyquery~=1.2.11
-pytest-cov~=2.2.1
-pytest-django~=2.9.1
+coverage==4.4.1
+django-debug-toolbar==1.8
+django-extensions==1.9.6
+django-html-validator==0.4.8
+mock==2.0.0
+pretend==1.0.8
+pyquery==1.2.17
+pytest-cov==2.5.1
+pytest-django==3.1.2

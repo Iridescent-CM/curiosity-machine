@@ -12,6 +12,7 @@ class ExampleForm(forms.Form):
     c = forms.IntegerField()
 
 
+@pytest.mark.django_db
 def test_row_data_validity_checked_by_formclass():
     MockFormClass = MagicMock()
 
@@ -25,6 +26,7 @@ def test_row_data_validity_checked_by_formclass():
         assert call({'1':'a', '2':'b', '3':'c'}) in MockFormClass.call_args_list
         assert MockFormClass().is_valid.called
 
+@pytest.mark.django_db
 def test_valid_data_calls_form_save():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = True
@@ -51,6 +53,7 @@ def test_invalid_data_doesnt_call_form_save():
 
         assert not MockFormClass().save.called
 
+@pytest.mark.django_db
 def test_extra_form_kwargs_passed_to_form():
     MockFormClass = MagicMock(spec=ExampleForm)
 
@@ -64,6 +67,7 @@ def test_extra_form_kwargs_passed_to_form():
         for call_args in MockFormClass.call_args_list:
             assert call_args[1] == {'extra1': 1, 'extra2': 2}
 
+@pytest.mark.django_db
 def test_valid_data_processed_without_errors():
     MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = True
@@ -79,6 +83,7 @@ def test_valid_data_processed_without_errors():
         assert fout.read().strip() == "a,b,c,errors\n1,2,3,"
         assert result["statuses"] == {Status.saved: 1}
 
+@pytest.mark.django_db
 def test_output_field_order_matches_input_field_order():
     MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = True
@@ -93,6 +98,7 @@ def test_output_field_order_matches_input_field_order():
         fout.seek(0)
         assert fout.read().strip() == "c,a,b,errors\n1,2,3,"
 
+@pytest.mark.django_db
 def test_error_column_blanked_out_if_input_has_column_value_but_record_is_valid():
     MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = True
@@ -107,6 +113,7 @@ def test_error_column_blanked_out_if_input_has_column_value_but_record_is_valid(
         fout.seek(0)
         assert fout.read().strip() == "a,b,c,errors\n1,2,3,"
 
+@pytest.mark.django_db
 def test_even_fields_not_in_form_written_to_output():
     MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = True
@@ -137,6 +144,7 @@ def test_invalid_data_processed_with_errors():
         assert fout.read().strip() == "a,b,c,errors\n1,2,3,a: Error desc1 Error desc2 b: Error desc"
         assert result["statuses"] == {Status.invalid: 1}
 
+@pytest.mark.django_db
 def test_save_exception_processed_with_data():
     MockFormClass = MagicMock(spec=ExampleForm)
     MockFormClass().is_valid.return_value = True
@@ -153,6 +161,7 @@ def test_save_exception_processed_with_data():
         assert fout.read().strip() == "1,2,3,errors\na,b,c,Exception encountered while saving record"
         assert result["statuses"] == {Status.exception: 1}
 
+@pytest.mark.django_db
 def test_all_saved_rows_results_in_saved():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = True
@@ -186,6 +195,7 @@ def test_invalid_row_results_in_unsaved_rows():
         }
         assert result["final"] == Status.invalid
 
+@pytest.mark.django_db
 def test_exception_row_results_in_partial_save():
     MockFormClass = MagicMock()
     MockFormClass().is_valid.return_value = True
