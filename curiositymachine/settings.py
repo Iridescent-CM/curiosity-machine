@@ -12,7 +12,6 @@ if find_dotenv():
 
 ## Debug, tests, dev tools
 DEBUG = os.environ.get('DEBUG', False) # debug saves a LOT of info and should never be left on in production
-TEMPLATE_DEBUG = DEBUG
 
 DEBUG_TOOLBAR = os.environ.get('DEBUG_TOOLBAR', False)
 DEBUG_HTML = os.environ.get('DEBUG_HTML', False)
@@ -106,28 +105,34 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    "django.core.context_processors.request",
-    "curiositymachine.context_processors.login_and_join_forms",
-    "curiositymachine.context_processors.google_analytics",
-    "curiositymachine.context_processors.feature_flags",
-    "curiositymachine.context_processors.template_globals",
-    "curiositymachine.context_processors.staff_alerts",
-)
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'apptemplates.Loader',
-)
-
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'OPTIONS': {
+            'context_processors': [
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
+                "curiositymachine.context_processors.login_and_join_forms",
+                "curiositymachine.context_processors.google_analytics",
+                "curiositymachine.context_processors.feature_flags",
+                "curiositymachine.context_processors.template_globals",
+                "curiositymachine.context_processors.staff_alerts",
+            ],
+            'loaders': [
+                'apptemplates.Loader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ]
+        },
+    },
+]
 
 from django.contrib.messages import constants as message_constants
 MESSAGE_TAGS = {

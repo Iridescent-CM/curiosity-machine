@@ -1,9 +1,9 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 from profiles import views
 
 from curiositymachine.decorators import whitelist
 
-urlpatterns = patterns('profiles.views',
+urlpatterns = [
     url(r'^join/$', whitelist('public')(views.student.join), name='join'),
     url(r'^join/(?P<source>[^/]+)/$', whitelist('public')(views.student.join), name='join'),
     url(r'^join_as_mentor/$', whitelist('public')(views.mentor.join), name='join_as_mentor'),
@@ -32,4 +32,4 @@ urlpatterns = patterns('profiles.views',
     url(r'^connection/(?P<connection_id>\d+)/$', views.parent.ChildDetailView.as_view(), name='connection'),
     url(r'^connection/(?P<connection_id>\d+)/remove/$', views.dispatch, {'action': 'remove_connection'}, name='remove_connection'),
     url(r'^connection/(?P<connection_id>\d+)/toggle/$', views.student.ParentConnectionToggleView.as_view(), name='toggle_connection'),
-)
+]

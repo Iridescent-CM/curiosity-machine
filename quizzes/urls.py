@@ -1,6 +1,6 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from .views import *
 
-urlpatterns = patterns('quizzes.views',
+urlpatterns = [
     url(r'^$', make_comment, name='quizzes')
-)
+]

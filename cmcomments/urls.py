@@ -1,5 +1,6 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from . import views
 
-urlpatterns = patterns('cmcomments.views',
-    url(r'^$', 'comments', name='comments')
-)
+urlpatterns = [
+    url(r'^$', views.comments, name='comments')
+]

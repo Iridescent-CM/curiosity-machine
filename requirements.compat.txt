@@ -8,9 +8,9 @@ whitenoise~=1.0.6
 
 redis~=2.10.5
 django-simple-redis~=0.0.1
-django-rq~=0.6.2
-rq-scheduler~=0.5.0
-rq~=0.7.1
+django-rq
+rq-scheduler
+rq
 
 djangorestframework~=3.5.2
 django-apptemplates
