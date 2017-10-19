@@ -1,6 +1,6 @@
 import pytest
 from django.contrib.auth import get_user_model
-from profiles.models import Profile
+from profiles.models import Profile, UserRole
 from .models import Unit
 
 User = get_user_model()
@@ -13,7 +13,7 @@ def unit():
 def educator():
     educator = User(username="educator")
     educator.set_password('secret')
-    educator_profile = Profile(is_educator=True)
+    educator_profile = Profile(role=UserRole.educator.value)
     educator_profile.user = educator
     educator.save()
     educator_profile.user = educator
