@@ -528,7 +528,7 @@ class ExamplesView(View):
             raise Http404("Image not found for this challenge")
         if Example.objects.from_progress(progress=progress).status(approved=True, pending=True).exists():
             return HttpResponse(status=409, reason="Example already exists")
-        example = Example(challenge=challenge, progress=progress, image=image)
+        example = Example(progress=progress, image=image)
         example.save()
         return HttpResponseRedirect(reverse('challenges:examples', kwargs={
             'challenge_id': challenge.id,

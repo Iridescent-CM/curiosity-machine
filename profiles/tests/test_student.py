@@ -13,7 +13,7 @@ User = get_user_model()
 @pytest.fixture
 def parent():
     parent = User(username="parent")
-    parent_profile = models.Profile(is_parent=True)
+    parent_profile = models.Profile(role=models.UserRole.parent.value)
     parent_profile.user = parent
     parent.save()
     parent_profile.user = parent
