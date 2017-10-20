@@ -106,6 +106,7 @@ class UserJoinView(CreateView):
         kwargs = super(UserJoinView, self).get_form_kwargs()
         if 'data' in kwargs:
             data = kwargs['data']
+            data = data.copy()
             request = self.request
 
             source_field = 'source'
