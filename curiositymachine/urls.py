@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.views import login, logout, password_change
@@ -9,6 +9,8 @@ import notifications.urls
 import password_reset.views
 from . import views
 from curiositymachine.decorators import whitelist
+from curiositymachine.analytics import analytics
+from curiositymachine.export_users import export_users
 import profiles.urls
 import profiles.views
 import re
@@ -31,11 +33,11 @@ def pages_urls():
         ))
     return urls
 
-urls = [
+urlpatterns = [
     url(r'^$', public(views.root), name='root'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^admin/analytics/$', 'curiositymachine.analytics.analytics', name="analytics"),
-    url(r'^admin/export_users/$', 'curiositymachine.export_users.export_users', name="export_users"),
+    url(r'^admin/analytics/$', analytics, name="analytics"),
+    url(r'^admin/export_users/$', export_users, name="export_users"),
     url(r'^login/$', public(login), name='login'),
     url(r'^logout/$', public(logout), name="logout"),
     url(r'^', include('profiles.urls', namespace='profiles', app_name='profiles')),
@@ -44,9 +46,9 @@ urls = [
 ]
 
 # about pages, static pages
-urls += pages_urls()
+urlpatterns += pages_urls()
 
-urls += [
+urlpatterns += [
     # redirects
     url(
         r'^terms-of-use/',
@@ -87,4 +89,3 @@ urls += [
     url(r'^health_check/', public(views.health_check)),
     url(r'^log/', public(views.log), name='log'),
 ]
-urlpatterns = patterns('', *urls)
