@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/analytics/$', analytics, name="analytics"),
     url(r'^admin/export_users/$', export_users, name="export_users"),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^login/$', public(login), name='login'),
     url(r'^logout/$', public(logout), name="logout"),
     url(r'^', include('profiles.urls', namespace='profiles', app_name='profiles')),
