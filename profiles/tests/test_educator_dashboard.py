@@ -240,9 +240,9 @@ def test_student_detail_page_context_has_approved_example_count(client):
     student2 = StudentFactory(username="student2")
 
     progress = ProgressFactory(student=student, completed=True)
-    approved = ExampleFactory(challenge=progress.challenge, progress=progress, approved=True)
-    ExampleFactory(challenge=progress.challenge, progress=progress, approved=False)
-    ExampleFactory(challenge=progress.challenge, progress=progress)
+    approved = ExampleFactory(progress=progress, approved=True)
+    ExampleFactory(progress=progress, approved=False)
+    ExampleFactory(progress=progress)
     progress2 = ProgressFactory(student=student2, completed=True)
 
     membership = MembershipFactory(members=[educator, student, student2], challenges=[progress.challenge, progress2.challenge])
@@ -376,7 +376,7 @@ def test_challenge_detail_page_context_has_gallery_post_indicator_for_approved_e
     student1 = StudentFactory()
     challenge = ChallengeFactory()
     progress1 = ProgressFactory(student=student1, challenge=challenge)
-    ExampleFactory(challenge=challenge, progress=progress1, approved=True)
+    ExampleFactory(progress=progress1, approved=True)
 
     membership = MembershipFactory(members=[student1, educator], challenges=[challenge])
 
@@ -394,8 +394,8 @@ def test_challenge_detail_page_context_does_not_have_gallery_post_indicator_othe
     progress1 = ProgressFactory(student=student1, challenge=challenge)
     progress2 = ProgressFactory(student=student2, challenge=challenge)
     progress3 = ProgressFactory(student=student3, challenge=challenge)
-    ExampleFactory(challenge=challenge, progress=progress1, approved=False)
-    ExampleFactory(challenge=challenge, progress=progress2)
+    ExampleFactory(progress=progress1, approved=False)
+    ExampleFactory(progress=progress2)
 
     membership = MembershipFactory(members=[student1, student2, student3, educator], challenges=[challenge])
 
