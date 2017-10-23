@@ -386,7 +386,7 @@ def test_examples_view_for_student_with_completed_progress_with_example_pending(
     challenge = ChallengeFactory()
     student = StudentFactory(username="student", password="password")
     progress = ProgressFactory(challenge=challenge, student=student, completed=True)
-    example = ExampleFactory(challenge=challenge, progress=progress)
+    example = ExampleFactory(progress=progress)
 
     client.login(username="student", password="password")
     response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
@@ -406,7 +406,7 @@ def test_examples_view_for_student_with_completed_progress_with_example_approved
     challenge = ChallengeFactory()
     student = StudentFactory(username="student", password="password")
     progress = ProgressFactory(challenge=challenge, student=student, completed=True)
-    example = ExampleFactory(challenge=challenge, progress=progress, approved=True)
+    example = ExampleFactory(progress=progress, approved=True)
 
     client.login(username="student", password="password")
     response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
@@ -426,7 +426,7 @@ def test_examples_view_for_student_with_completed_progress_with_example_rejected
     challenge = ChallengeFactory()
     student = StudentFactory(username="student", password="password")
     progress = ProgressFactory(challenge=challenge, student=student, completed=True)
-    example = ExampleFactory(challenge=challenge, progress=progress, approved=False)
+    example = ExampleFactory(progress=progress, approved=False)
 
     client.login(username="student", password="password")
     response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
@@ -468,7 +468,7 @@ def test_examples_view_for_approved_example_visibile_by_others(client):
     challenge = ChallengeFactory()
     student = StudentFactory(username="student", password="password")
     progress = ProgressFactory(challenge=challenge, student=student)
-    example = ExampleFactory(challenge=challenge, progress=progress, approved=True)
+    example = ExampleFactory(progress=progress, approved=True)
 
     viewer = StudentFactory(username="student2", password="password")
 
@@ -482,7 +482,7 @@ def test_examples_view_for_pending_example_not_visible_by_others(client):
     challenge = ChallengeFactory()
     student = StudentFactory(username="student", password="password")
     progress = ProgressFactory(challenge=challenge, student=student)
-    example = ExampleFactory(challenge=challenge, progress=progress)
+    example = ExampleFactory(progress=progress)
 
     viewer = StudentFactory(username="student2", password="password")
 
@@ -496,7 +496,7 @@ def test_examples_view_for_rejected_example_not_visible_by_others(client):
     challenge = ChallengeFactory()
     student = StudentFactory(username="student", password="password")
     progress = ProgressFactory(challenge=challenge, student=student)
-    example = ExampleFactory(challenge=challenge, progress=progress, approved=False)
+    example = ExampleFactory(progress=progress, approved=False)
 
     viewer = StudentFactory(username="student2", password="password")
 
@@ -577,7 +577,7 @@ def test_examples_view_when_adding_new_example_already_exists_error(client):
     progress = ProgressFactory(challenge=challenge, student=user)
     image = ImageFactory()
     comment = CommentFactory(user=user, challenge_progress=progress, image=image)
-    example = ExampleFactory(challenge=challenge, progress=progress, image=image)
+    example = ExampleFactory(progress=progress, image=image)
     image2 = ImageFactory()
     comment2 = CommentFactory(user=user, challenge_progress=progress, image=image2)
 
@@ -592,7 +592,7 @@ def test_examples_view_when_adding_new_example_already_exists_error(client):
 def test_examples_delete_view_deletes_example(client):
     user = StudentFactory(username="user", password="password")
     progress = ProgressFactory(student=user)
-    example = ExampleFactory(challenge=progress.challenge, progress=progress)
+    example = ExampleFactory(progress=progress)
 
     client.login(username=user.username, password='password')
     response = client.post('/challenges/%d/examples/delete/' % (progress.challenge.id), {
@@ -607,7 +607,7 @@ def test_examples_delete_view_deletes_example(client):
 def test_examples_delete_view_cannot_delete_other_users_example(client):
     user = StudentFactory(username="user", password="password")
     progress = ProgressFactory(student=user)
-    example = ExampleFactory(challenge=progress.challenge, progress=progress)
+    example = ExampleFactory(progress=progress)
 
     user2 = StudentFactory(username="user2", password="password")
     client.login(username=user2.username, password='password')
@@ -624,13 +624,13 @@ def test_example_queryset_from_progress():
     user = StudentFactory(username="user", password="password")
     challenge = ChallengeFactory()
     progress = ProgressFactory(challenge=challenge, student=user)
-    approved = ExampleFactory(challenge=challenge, progress=progress, approved=True)
-    pending = ExampleFactory(challenge=challenge, progress=progress, approved=None)
-    rejected = ExampleFactory(challenge=challenge, progress=progress, approved=False)
+    approved = ExampleFactory(progress=progress, approved=True)
+    pending = ExampleFactory(progress=progress, approved=None)
+    rejected = ExampleFactory(progress=progress, approved=False)
 
     challenge2 = ChallengeFactory()
     progress2 = ProgressFactory(challenge=challenge2, student=user)
-    approved2 = ExampleFactory(challenge=challenge2, progress=progress2, approved=True)
+    approved2 = ExampleFactory(progress=progress2, approved=True)
 
     assert approved in Example.objects.from_progress(progress=progress)
     assert pending in Example.objects.from_progress(progress=progress)
@@ -642,9 +642,9 @@ def test_example_queryset_status():
     user = StudentFactory(username="user", password="password")
     challenge = ChallengeFactory()
     progress = ProgressFactory(challenge=challenge, student=user)
-    approved = ExampleFactory(challenge=challenge, progress=progress, approved=True)
-    pending = ExampleFactory(challenge=challenge, progress=progress, approved=None)
-    rejected = ExampleFactory(challenge=challenge, progress=progress, approved=False)
+    approved = ExampleFactory(progress=progress, approved=True)
+    pending = ExampleFactory(progress=progress, approved=None)
+    rejected = ExampleFactory(progress=progress, approved=False)
 
     assert approved in Example.objects.status(approved=True)
     assert pending not in Example.objects.status(approved=True)
@@ -671,9 +671,9 @@ def test_example_queryset_for_gallery():
     user = StudentFactory(username="user", password="password")
     challenge = ChallengeFactory()
     progress = ProgressFactory(challenge=challenge, student=user)
-    approved = ExampleFactory(challenge=challenge, progress=progress, approved=True)
-    pending = ExampleFactory(challenge=challenge, progress=progress, approved=None)
-    rejected = ExampleFactory(challenge=challenge, progress=progress, approved=False)
+    approved = ExampleFactory(progress=progress, approved=True)
+    pending = ExampleFactory(progress=progress, approved=None)
+    rejected = ExampleFactory(progress=progress, approved=False)
 
     assert approved in Example.objects.for_gallery(challenge_id=challenge.id).all()
     assert pending not in Example.objects.for_gallery(challenge_id=challenge.id).all()
@@ -690,7 +690,7 @@ def test_example_queryset_for_gallery():
 @pytest.mark.django_db
 def test_example_queryset_for_gallery_preview_returns_subset():
     challenge = ChallengeFactory()
-    examples = ExampleFactory.create_batch(5, challenge=challenge, approved=True)
+    examples = ExampleFactory.create_batch(5, progress__challenge=challenge, approved=True)
 
     assert Example.objects.for_gallery_preview(challenge=challenge).count() == 4
     assert set(Example.objects.for_gallery_preview(challenge=challenge)).issubset(set(examples))
@@ -700,7 +700,7 @@ def test_example_queryset_reject():
     user = StudentFactory(username="user", password="password")
     challenge = ChallengeFactory()
     progress = ProgressFactory(challenge=challenge, student=user)
-    pending = ExampleFactory(challenge=challenge, progress=progress, approved=None)
+    pending = ExampleFactory(progress=progress, approved=None)
 
     assert Example.objects.status(pending=True).reject() == 1
     assert Example.objects.get(pk=pending.id).approved == False
@@ -717,7 +717,7 @@ def test_example_queryset_approve():
     user = StudentFactory(username="user", password="password")
     challenge = ChallengeFactory()
     progress = ProgressFactory(challenge=challenge, student=user)
-    pending = ExampleFactory(challenge=challenge, progress=progress, approved=None)
+    pending = ExampleFactory(progress=progress, approved=None)
 
     assert Example.objects.status(pending=True).approve() == 1
     assert Example.objects.get(pk=pending.id).approved == True

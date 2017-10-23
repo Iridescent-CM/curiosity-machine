@@ -40,7 +40,7 @@ def test_renders_student_template_with_challenge_for_student_user_without_progre
 @pytest.mark.django_db
 def test_student_template_gets_examples(client):
     challenge = ChallengeFactory()
-    examples = ExampleFactory.create_batch(2, challenge=challenge, approved=True)
+    examples = ExampleFactory.create_batch(2, progress__challenge=challenge, approved=True)
     user = StudentFactory(username='user', password='123123')
 
     client.login(username='user', password='123123')
@@ -79,7 +79,7 @@ def test_renders_nonstudent_template_with_challenge_for_nonstudent_user(client):
 @pytest.mark.django_db
 def test_nonstudent_template_gets_examples(client):
     challenge = ChallengeFactory()
-    examples = ExampleFactory.create_batch(2, challenge=challenge, approved=True)
+    examples = ExampleFactory.create_batch(2, progress__challenge=challenge, approved=True)
     user = MentorFactory(username='user', password='123123')
 
     client.login(username='user', password='123123')

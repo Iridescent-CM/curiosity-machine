@@ -85,10 +85,8 @@ class ProgressFactory(factory.django.DjangoModelFactory):
 class ExampleFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Example
-        exclude = ('challenge',)
 
-    challenge = factory.SubFactory('challenges.factories.ChallengeFactory')
-    progress = factory.SubFactory('challenges.factories.ProgressFactory', challenge=factory.SelfAttribute('..challenge'))
+    progress = factory.SubFactory('challenges.factories.ProgressFactory')
     image = factory.SubFactory('images.factories.ImageFactory')
 
 class FilterFactory(factory.django.DjangoModelFactory):
