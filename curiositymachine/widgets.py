@@ -42,7 +42,7 @@ class FilePickerPickWidget(Widget):
             "name": name,
             "value": value,
             "button_text": self.text,
-            "attrs": flatatt(self.build_attrs(attrs))
+            "attrs": flatatt(self.build_attrs(self.attrs, attrs))
         }
         return render_to_string('widgets/pickwidget.html', context)
 

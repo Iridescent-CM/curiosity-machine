@@ -1,4 +1,4 @@
-Django~=1.9.0
+Django~=1.11.0
 
 psycopg2~=2.6.1
 dj-database-url~=0.2.2
@@ -42,4 +42,4 @@ newrelic~=2.70.0.51
 rollbar~=0.12.1
 
 # this is needed to run the fixtures command on staging
-factory-boy~=2.8.1
+factory-boy~=2.8.0
