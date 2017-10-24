@@ -5,26 +5,32 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+def add_all(source, membership_id):
+    membership = Membership.objects.get(pk=membership_id)
+    profiles = Profile.objects.filter(source=source).exclude(user__membership=membership)
+    for profile in profiles:
+        user = profile.user
+        Member.objects.create(membership=membership, user=user)
+        logger.info("Added %s to %s" % (user, membership))
+
 class Command(BaseCommand):
-    help = 'Add accounts with source to membership'
+    help = 'Add accounts with sources to memberships'
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "source",
+            "specifiers",
             action="store",
-            help="source value to match"
-        )
-        parser.add_argument(
-            "membership_id",
-            action="store",
-            type=int,
-            help="id of membership"
+            nargs="+",
+            help="source:membership_id pairs"
         )
 
     def handle(self, *args, **options):
-        membership = Membership.objects.get(pk=options['membership_id'])
-        profiles = Profile.objects.filter(source=options['source']).exclude(user__membership=membership)
-        for profile in profiles:
-            user = profile.user
-            Member.objects.create(membership=membership, user=user)
-            logger.info("Added %s to %s" % (user, membership))
+        for specifier in options['specifiers']:
+            try:
+                (source, membership_id) = specifier.split(':')
+                add_all(source, membership_id)
+            except ValueError:
+                raise CommandError(
+                    ("Unable to parse specifier %s. Specifiers should be " +
+                    "the source and membership id joined by a colon.") % specifier
+                )
