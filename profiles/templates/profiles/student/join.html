@@ -73,6 +73,9 @@
 
       {{ form.source }}
       {{ form.welcome }}
+      {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />
+      {% endif %}
       {{ form.non_field_errors }}
     </div>
   </div>

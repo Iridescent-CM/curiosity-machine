@@ -21,12 +21,13 @@ class StudentUserJoinView(UserJoinView):
         if self.object.profile.is_underage():
             return reverse('profiles:underage_student')
         else:
-            return '/'
+            return super().get_success_url()
 
 join = transaction.atomic(StudentUserJoinView.as_view(
     form_class = StudentUserAndProfileForm,
     prefix = 'student',
-    logged_in_redirect = lazy(reverse, str)('profiles:home')
+    logged_in_redirect = lazy(reverse, str)('profiles:home'),
+    success_url = '/'
 ))
 
 @login_required
