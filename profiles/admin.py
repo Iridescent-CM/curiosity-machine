@@ -16,7 +16,7 @@ class ProfileInline(admin.StackedInline):
 
 class UserAdminWithProfile(UserAdmin):
     inlines = [ ProfileInline, ]
-    list_display = ('id', 'username', 'email', 'source', 'first_name', 'last_name', 'is_staff', 'date_joined')
+    list_display = ('id', 'username', 'email', 'source', 'first_name', 'last_name', 'is_staff', 'date_joined', 'city')
     list_display_links = ('username', 'id')
     list_filter = (
         'is_superuser',
@@ -25,11 +25,15 @@ class UserAdminWithProfile(UserAdmin):
         StudentFilter
     )
     list_select_related = ('profile',)
-    search_fields = ('username', 'email', 'first_name', 'last_name', 'profile__source')
+    search_fields = ('username', 'email', 'first_name', 'last_name', 'profile__source', 'city')
 
     def source(self, obj):
         return obj.profile.source
     source.admin_order_field = "profile__source"
+
+    def city(self, obj):
+        return obj.profile.city
+    city.admin_order_field = "profile__city"
 
     def save_related(self, request, form, formsets, change):
         if len(formsets):
