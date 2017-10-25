@@ -5,6 +5,7 @@ from profiles.factories import *
 from memberships.factories import *
 
 from ...context_processors import google_analytics
+from ...context_processors.google_analytics import add_event
 
 class TestContentGrouping:
     @pytest.mark.django_db
@@ -84,3 +85,19 @@ class TestFreeUserDimension:
         request.user = student
         context = google_analytics(request)
         assert context["ga_dimension_free_user"] == "Membership"
+
+class TestEvents:
+    def test_add_event_puts_events_in_context(self, rf):
+        request = rf.get('/')
+        request.user = AnonymousUser()
+        request.session = {}
+
+        add_event(request, 'cat', 'act', 'lab')
+        add_event(request, 'cat2', 'act2', 'lab2')
+
+        context = google_analytics(request)
+
+        events = context["ga_events"]()
+        assert len(events) == 2
+        assert {'category': 'cat', 'action':'act', 'label':'lab'} in events
+        assert {'category': 'cat2', 'action':'act2', 'label':'lab2'} in events
