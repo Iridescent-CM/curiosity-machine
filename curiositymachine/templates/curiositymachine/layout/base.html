@@ -81,9 +81,9 @@
       {% for evt in ga_events %}
         ga('send', {
           hitType: 'event',
-          eventCategory: evt.category,
-          eventAction: evt.action,
-          eventLabel: evt.label
+          eventCategory: '{{ evt.category }}',
+          eventAction: '{{ evt.action }}',
+          eventLabel: '{{ evt.label }}'
         });
       {% endfor %}
     </script>
