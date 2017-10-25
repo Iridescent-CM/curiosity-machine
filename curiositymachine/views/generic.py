@@ -1,3 +1,4 @@
+from curiositymachine.context_processors.google_analytics import add_event
 from django.http import HttpResponseRedirect, Http404
 from django.views.generic.edit import DeleteView, CreateView
 from django.views.generic.detail import SingleObjectMixin
@@ -136,5 +137,6 @@ class UserJoinView(CreateView):
         form.save()
         user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
         auth.login(self.request, user)
+        add_event(self.request, 'account', 'create', user.profile.user_type)
         return user
         

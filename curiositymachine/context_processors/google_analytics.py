@@ -1,20 +1,20 @@
-from profiles.forms import mentor, educator, parent, student
-from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
-from challenges.models import Example
 import logging
 
 logger = logging.getLogger(__name__)
 
-def login_and_join_forms(request):
-    return {
-        'login_form': AuthenticationForm(),
-        'join_form': student.StudentUserAndProfileForm(prefix="student"),
-        'mentor_join_form': mentor.MentorUserAndProfileForm(prefix="mentor"),
-        'educator_join_form': educator.EducatorUserAndProfileForm(prefix="educator"),
-        'parent_join_form': parent.ParentUserAndProfileForm(prefix="parent")
-    }
+__all__ = ['google_analytics']
 
+SESSION_KEY = '_ga_events'
+
+def add_event(request, category, action, label):
+    if SESSION_KEY not in request.session:
+        request.session[SESSION_KEY] = []
+    request.session[SESSION_KEY].append({
+        'category': category,
+        'action': action,
+        'label': label
+    })
 
 def google_analytics(request):
     if not request.user.is_authenticated():
@@ -46,34 +46,15 @@ def google_analytics(request):
         free_user = "Membership" if request.user.profile.in_active_membership else "Free"
         membership_grouping = "-".join([str(id) for id in request.user.membership_set.filter(is_active=True).order_by('id').values_list('id', flat=True)])
 
+    def get_events():
+        return request.session.pop(SESSION_KEY, [])
+
     return {
         'ga_code': settings.GA_CODE,
         'ga_dimension_user_type': usertype,
         'ga_user_id': userid,
         'ga_dimension_free_user': free_user,
         'ga_membership_grouping': membership_grouping,
+        'ga_events': get_events,
     }
 
-def feature_flags(request):
-    return { 'flags': settings.FEATURE_FLAGS }
-
-def template_globals(request):
-    return {
-        "REQUEST_A_MENTOR_LINK": settings.REQUEST_A_MENTOR_LINK,
-        "SITE_MESSAGE": settings.SITE_MESSAGE,
-        "SITE_MESSAGE_LEVEL": settings.SITE_MESSAGE_LEVEL,
-        "SITE_URL": settings.SITE_URL,
-        "DOCEBO_MENTOR_URL": settings.DOCEBO_MENTOR_URL,
-        "ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN": settings.ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN,
-        "ROLLBAR_ENV": settings.ROLLBAR_ENV,
-    }
-
-def staff_alerts(request):
-    if request.user.is_authenticated() and request.user.is_staff:
-        return {
-            "staff_alerts": {
-                "pending_examples": Example.objects.filter(approved__isnull=True).count()
-            }
-        }
-    else:
-        return {}

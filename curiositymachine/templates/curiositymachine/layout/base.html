@@ -78,6 +78,14 @@
       ga('set', 'contentGroup2', '{{ga_membership_grouping}}');
       {% endif %}
       ga('send', 'pageview');
+      {% for evt in ga_events %}
+        ga('send', {
+          hitType: 'event',
+          eventCategory: evt.category,
+          eventAction: evt.action,
+          eventLabel: evt.label
+        });
+      {% endfor %}
     </script>
   {% endif %}
 </head>
