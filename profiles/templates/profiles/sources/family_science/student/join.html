@@ -6,7 +6,17 @@
     <br/>
     <small>Create an account to start exploring and engineering.</small>
   </h1>
-  <form method='post' action="{{ action }}" enctype="multipart/form-data" id="join-form" class="default-form clearfix" data-prefix='{{form.prefix}}'>
+  <p>
+    Thanks for creating an account! In 10 minutes you can start using your
+    Family Science Online membership.
+  </p>
+  <form method='post'
+    action="{{ action }}"
+    enctype="multipart/form-data"
+    id="join-form"
+    class="default-form clearfix"
+    data-prefix='{{form.prefix}}'
+  >
     {% csrf_token %}
     <div class="clearfix">
 
@@ -61,7 +71,13 @@
         {{ form.non_field_errors }}
       </div>
     </div>
-    <p>By joining Curiosity Machine, you confirm that you accept our <a target="_blank" href="http://iridescentlearning.org/terms-of-use/">Terms of Use</a>.</p>
+    <p>
+      By joining Curiosity Machine, you confirm that you accept our
+      <a target="_blank" href="http://iridescentlearning.org/terms-of-use/">
+        Terms of Use
+      </a>
+      .
+    </p>
     <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
   </form>
 {% endblock %}
