@@ -25,7 +25,7 @@ class UserAdminWithProfile(UserAdmin):
         StudentFilter
     )
     list_select_related = ('profile',)
-    search_fields = ('username', 'email', 'first_name', 'last_name', 'profile__source', 'city')
+    search_fields = ('username', 'email', 'first_name', 'last_name', 'profile__source', 'profile__city')
 
     def source(self, obj):
         return obj.profile.source
