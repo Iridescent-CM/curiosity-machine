@@ -1,0 +1,57 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% block title %}AI Challenge{% endblock %}
+
+{% load staticfiles %}
+{% load resized %}
+
+{% block body-id %}AI-challenge-page{% endblock %}
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+      <h2>Welcome to the Curiosity Machine AI Family Challenge!</h2>
+      <h3 class="mb-3">Artificial Intelligence should be accessible to everyone.</h3>
+      <div class="text-xs-center mb-3">
+      </div>
+      <p>The Curiosity Machine AI Family Challenge invites families to learn about Artificial Intelligence technology. Over the next 2 years, 3rd-8th grade students and their families will explore core concepts of AI research, apply AI tools to solve problems in their communities and have the opportunity to enter their ideas into a global competition.</p>
+    </div>
+  </div>
+
+  <hr class="hr-red mb-3"/>
+
+
+  <h2>How does it work?</h2>
+  <p>Stage 1: Families will learn the foundations of Artificial Intelligence. Families will build hands-on projects that make core concepts tangible and prepare them for the remainder of the program.
+  Families will continue learning about AI, building hands-on projects, and submit their work online through the Curiosity Machine platform.</p>
+
+  <p>Stage 2: Families at in-person sites and individuals building online will identify problems in their local communities that AI tools could help address and begin building solutions to those problems.</p>
+
+  <p>Stage 3: We will host a series of regional celebration events for families to share their projects. The strongest projects will move on to the global competition, where families will have the opportunity to win scholarships and prizes.</p>
+
+  <hr class="hr-red mb-3"/>
+
+  <h2>Why should I participate?</h2>
+<ul>
+  <li>Access to a curriculum with background information on AI, machine learning, data science, software, documentation and projects that have been created for  social good</li>
+  <li>Have fun learning and competing in challenges that offer scholarships to winners and finalists </li>
+  <li>Ability to attend regional launch events, family programs, and regional/global competition events </li>
+  <li>Exposure to a mentor community that will support families participating in the competition </li>
+
+  <hr class="hr-red mb-3"/>
+
+  <h2>How do I get started?</h2>
+  <p>Create your student and parent accounts now!</p>
+
+  <p>You'll get notified when the competition opens up for participants.</p>
+
+  <p>In the meantime, you can start learning by building some of our free design challenges. If you have any questions, contact us at curiosity@iridescentlearning.org</p>
+
+
+  <div class="text-xs-center">
+    <a class="btn btn-primary" href="{% url "about-membership" %}">Become a Member</a>
+  </div>
+
+  <hr class="hr-red mb-3"/>
+{% endblock %}
