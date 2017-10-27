@@ -81,6 +81,17 @@ class UserJoinView(CreateView):
         return super(UserJoinView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
+        redirect_to = self.request.POST.get(
+            'next',
+            self.request.GET.get('next', '')
+        )
+        redirect_is_safe = is_safe_url(
+            url=redirect_to,
+            require_https=self.request.is_secure()
+        )
+        if redirect_to and redirect_is_safe:
+            return redirect_to
+
         if self.welcome and self.source:
             return '/welcome/' + self.source
 
@@ -91,6 +102,7 @@ class UserJoinView(CreateView):
         context['source'] = self.source
         context['welcome'] = self.welcome
         context['action'] = self.request.path
+        context['next'] = self.request.POST.get('next', self.request.GET.get('next', ''))
         return context
 
     def get_initial(self):
