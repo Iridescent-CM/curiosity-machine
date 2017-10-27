@@ -1,0 +1,35 @@
+#ai-challenge-page {
+  dl {
+    text-align: center;
+    dd {
+      margin-bottom: 1.5em;
+    }
+  }
+
+  .header {
+    color: white;
+    background: url("../images/design-challenge-repeating-pattern-white.png");
+    background-color: #00B1C3;
+    background-attachment: fixed;
+    background-repeat: repeat;
+  }
+
+  h2 {
+    color: $primary-red;
+  }
+  h2, h3 {
+    text-align: center;
+  }
+
+  .sign-up-panel {
+    background-color: #00B1C3;
+    text-align: center;
+    h2 {
+      color: white;
+    }
+
+    a {
+      width: 200px;
+    }
+  }
+}

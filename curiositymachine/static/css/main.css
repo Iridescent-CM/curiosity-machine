@@ -6791,4 +6791,30 @@ footer {
   #membership-about-page .carousel-indicators .active {
     background-color: #333; }
 
+#ai-challenge-page dl {
+  text-align: center; }
+  #ai-challenge-page dl dd {
+    margin-bottom: 1.5em; }
+
+#ai-challenge-page .header {
+  color: white;
+  background: url("../images/design-challenge-repeating-pattern-white.png");
+  background-color: #00B1C3;
+  background-attachment: fixed;
+  background-repeat: repeat; }
+
+#ai-challenge-page h2 {
+  color: #F55932; }
+
+#ai-challenge-page h2, #ai-challenge-page h3 {
+  text-align: center; }
+
+#ai-challenge-page .sign-up-panel {
+  background-color: #00B1C3;
+  text-align: center; }
+  #ai-challenge-page .sign-up-panel h2 {
+    color: white; }
+  #ai-challenge-page .sign-up-panel a {
+    width: 200px; }
+
 /*# sourceMappingURL=main.css.map */
