@@ -17,6 +17,8 @@ def resized(source, options_dict={}, **options):
     # unfortunately, the pycloudinary library only throws bare Exception() instances and not a subclass, so it's impossible to do
     # this safely (see issue #32 on pycloudinary github).  Instead we'll have to resort to an if/else clause that checks to see if
     # cloudinary is configured.
+    if not settings.SSLIFY_DISABLE:
+        options['secure'] = True
     if cloudinary.config().cloud_name:
         return cloudinary.CloudinaryImage(source).build_url(**options)
     else:

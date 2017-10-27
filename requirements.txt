@@ -28,7 +28,7 @@ tinys3==0.1.12
 django-s3direct==0.3.15
 django-s3-storage==0.9.11
 zencoder==0.6.5
-cloudinary==1.0.21
+cloudinary==1.8.0
 mandrill==1.0.57
 newrelic==2.70.0.51
 rollbar==0.12.1
