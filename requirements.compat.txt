@@ -20,7 +20,7 @@ django-password-reset~=0.7
 django-recaptcha~=1.0
 django-sslify>=0.2
 django-staticflatpages~=0.3.1
-django-summernote~=0.8
+django-summernote~=0.8,!=0.8.8.2
 django-widget-tweaks~=1.4.1
 
 python-dateutil~=2.3
