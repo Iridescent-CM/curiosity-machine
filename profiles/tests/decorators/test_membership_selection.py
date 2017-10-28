@@ -1,7 +1,7 @@
 import pytest
 import mock
 from django.http import Http404
-from django.utils.timezone import now
+from django.utils.timezone import now, localtime
 from datetime import timedelta
 from ...decorators import MembershipSelection
 
@@ -132,7 +132,7 @@ def test_membership_selection_skips_inactive_memberships(rf):
 
 @pytest.mark.django_db
 def test_membership_selection_recently_expired(rf):
-    today = now().date()
+    today = localtime(now()).date()
     yesterday = today - timedelta(days=1)
     lastweek = today - timedelta(days=7)
     twomonthsago = today - timedelta(days=61)

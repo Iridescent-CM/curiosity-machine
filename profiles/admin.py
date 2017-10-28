@@ -47,16 +47,12 @@ class UserAdminWithProfile(UserAdmin):
                     elif profile.is_mentor:
                         signals.completed_training.send(sender=profile.user, approver=request.user)
 
-    def get_form(self, request, obj=None, **kwargs):
-        request._obj_ = obj
-        return super().get_form(request, obj, **kwargs)
-
-    def get_formsets(self, request, obj=None):
+    def get_formsets_with_inlines(self, request, obj=None):
         for inline in self.get_inline_instances(request, obj):
             # hide ProfileInline in the add view
             if isinstance(inline, ProfileInline) and obj is None:
                 continue
-            yield inline.get_formset(request, obj)
+            yield inline.get_formset(request, obj), inline
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdminWithProfile)
