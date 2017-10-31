@@ -26,10 +26,8 @@
         </p>
  
         <div class="text-sm-center mt-3">
-        {% with source="aichallenge" %}
           <a href="{% url "profiles:join" source=source %}" class="btn btn-primary text-uppercase mx-1">student sign up</a>
           <a href="{% url "profiles:join_as_parent" source=source %}" class="btn btn-primary text-uppercase mx-1">parent sign up</a>
-        {% endwith %}
         </div>
 
         <hr class="hr-red mb-3"/>
