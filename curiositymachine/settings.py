@@ -304,7 +304,7 @@ S3DIRECT_DESTINATIONS = {
         lambda u: u.is_staff,
     ),
 }
-S3_URL_BASE = "http://s3.amazonaws.com"
+S3_URL_BASE = "https://s3.amazonaws.com"
 
 AWS_REGION = S3DIRECT_REGION
 
