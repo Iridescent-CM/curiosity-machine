@@ -6791,4 +6791,14 @@ footer {
   #membership-about-page .carousel-indicators .active {
     background-color: #333; }
 
+#mentor-about-page .table, #mentor-about-page .card-progress .table-progress, .card-progress #mentor-about-page .table-progress, #mentor-about-page .educator-dashboard .table-dc-progress, .educator-dashboard #mentor-about-page .table-dc-progress {
+  width: 100%; }
+  #mentor-about-page .table th, #mentor-about-page .card-progress .table-progress th, .card-progress #mentor-about-page .table-progress th, #mentor-about-page .educator-dashboard .table-dc-progress th, .educator-dashboard #mentor-about-page .table-dc-progress th {
+    width: 50%; }
+
+#about-ai-challenge-page dl {
+  text-align: center; }
+  #about-ai-challenge-page dl dd {
+    margin-bottom: 1.5em; }
+
 /*# sourceMappingURL=main.css.map */
