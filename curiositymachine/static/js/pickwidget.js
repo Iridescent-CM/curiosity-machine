@@ -14,12 +14,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         var opts = {
           mimetypes: el.getAttribute('data-fp-mimetypes').split(','),
+          webcam: {}
         };
         opts.openTo = el.hasAttribute('data-fp-opento') ? el.getAttribute('data-fp-opento') : undefined;
         opts.services = el.hasAttribute('data-fp-services') ? el.getAttribute('data-fp-services').split(',') : undefined;
         opts.conversions = el.hasAttribute('data-fp-conversions') ? el.getAttribute('data-fp-conversions').split(',') : undefined;
         opts.cropRatio = el.hasAttribute('data-fp-cropratio') ? el.getAttribute('data-fp-cropratio') : undefined;
         opts.cropForce = el.hasAttribute('data-fp-cropforce');
+        opts.webcam.videoLen = el.hasAttribute('data-fp-video-length') ? el.getAttribute('data-fp-video-length') : undefined;
 
         filepicker.pick(
           opts,

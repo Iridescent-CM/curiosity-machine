@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget
 
@@ -11,6 +12,7 @@ class CommentForm(forms.Form):
                 "data-fp-opento": 'WEBCAM',
                 "data-fp-services": 'VIDEO,WEBCAM,COMPUTER,CONVERT',
                 "data-fp-conversions": 'crop,rotate',
+                "data-fp-video-length": settings.FILEPICKER_MAX_VIDEO_LENGTH_SECONDS,
             }
         ),
         mimetypes="video/*,image/*",

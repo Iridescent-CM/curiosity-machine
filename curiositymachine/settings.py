@@ -281,6 +281,7 @@ FEATURE_FLAGS = {k.lower(): v for k, v in os.environ.items() if k.startswith('EN
 
 # Filepicker
 FILEPICKER_API_KEY = os.getenv("FILEPICKER_API_KEY", "")
+FILEPICKER_MAX_VIDEO_LENGTH_SECONDS = os.getenv("FILEPICKER_MAX_VIDEO_LENGTH", 60*2)
 
 # AWS, S3
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
