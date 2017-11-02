@@ -42,7 +42,10 @@
                 </li>
               {% endif %}
               <li class="list-group-item">
-                <a href="{% url 'logout' %}?next=/">Log Out</a>
+                <form action="{% url 'logout' %}?next=/" method="POST">
+                  {% csrf_token %}
+                  <input type=submit class="btn-link" value="Log Out"/>
+                </form>
               </li>
             </ul>
           </li>
@@ -69,7 +72,12 @@
                   {% if staff_alerts.pending_examples %}<span class="badge">{{staff_alerts.pending_examples}}</span>{% endif %}
                 </a></li>
               {% endif %}
-              <li><a class="dropdown-item" href="{% url 'logout' %}?next=/">Log Out</a></li>
+              <li>
+                <form action="{% url 'logout' %}?next=/" method="POST">
+                  {% csrf_token %}
+                  <input type=submit class="dropdown-item btn-link" value="Log Out"/>
+                </form>
+              </li>
             </ul>
           </li>
           {% else %}
