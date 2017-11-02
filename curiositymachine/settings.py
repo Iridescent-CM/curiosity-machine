@@ -157,6 +157,7 @@ ROOT_URLCONF = 'curiositymachine.urls'
 WSGI_APPLICATION = 'curiositymachine.wsgi.application'
 
 LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
 
 CSRF_FAILURE_VIEW = 'curiositymachine.views.csrf_failure_handler'
 

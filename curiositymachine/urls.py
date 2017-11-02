@@ -1,20 +1,20 @@
-from django.conf.urls import include, url
-from django.conf import settings
-from django.contrib import admin
-from django.contrib.auth.views import login, logout, password_change
-from django.views.generic.base import RedirectView, TemplateView
-from django.utils.functional import lazy
-from django.core.urlresolvers import reverse
 import notifications.urls
-import password_reset.views
-from . import views
-from curiositymachine.decorators import whitelist
-from curiositymachine.analytics import analytics
-from curiositymachine.export_users import export_users
-import profiles.urls
-import profiles.views
-import re
 import os
+import password_reset.views
+import profiles.views
+
+from allauth.account.views import login, logout
+from curiositymachine.analytics import analytics
+from curiositymachine.decorators import whitelist
+from curiositymachine.export_users import export_users
+from django.conf import settings
+from django.conf.urls import include, url
+from django.contrib import admin
+from django.contrib.auth.views import password_change
+from django.core.urlresolvers import reverse
+from django.utils.functional import lazy
+from django.views.generic.base import RedirectView, TemplateView
+from . import views
 
 public = whitelist('public')
 
@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^admin/export_users/$', export_users, name="export_users"),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^login/$', public(login), name='login'),
-    url(r'^logout/$', public(logout), name="logout"),
+    url(r'^logout/$', public(logout), name='logout'),
     url(r'^', include('profiles.urls', namespace='profiles', app_name='profiles')),
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)

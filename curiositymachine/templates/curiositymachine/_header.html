@@ -16,10 +16,10 @@
           <div class="row">
             {% csrf_token %}
             <div class="col-xs-12">
-              {{ login_form.username.label_tag }}
+              {{ login_form.login.label_tag }}
             </div>
             <div class="col-xs-12">
-              {{ login_form.username }}
+              {{ login_form.login }}
             </div>
           </div>
           <div class="row">
@@ -139,7 +139,10 @@
                 </li>
               {% endif %}
               <li class="list-group-item">
-                <a href="{% url 'logout' %}?next=/">Log Out</a>
+                <form action="{% url 'logout' %}?next=/" method="POST">
+                  {% csrf_token %}
+                  <input type=submit class="btn-link" value="Log Out"/>
+                </form>
               </li>
             </ul>
           </li>
@@ -176,7 +179,10 @@
                   {% endif %}
                 </a>
               {% endif %}
-              <a class="dropdown-item" href="{% url 'logout' %}?next=/">Log Out</a>
+              <form action="{% url 'logout' %}?next=/" method="POST">
+                {% csrf_token %}
+                <input type=submit class="dropdown-item" value="Log Out"/>
+              </form>
             </div>
           </li>
 
