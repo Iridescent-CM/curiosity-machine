@@ -138,7 +138,7 @@ def test_sets_educator_role():
         'organization': 'my org',
     })
     user = f.save()
-    assert user.profile.is_educator
+    assert user.extra.is_educator
 
 def test_form_checks_password_confirmation():
     errors = forms.educator.EducatorUserAndProfileForm({

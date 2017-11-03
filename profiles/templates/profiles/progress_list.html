@@ -7,7 +7,7 @@
   {% block breadcrumbs %}
   {% endblock %}
 
-  {% if request.user.profile.approved %}
+  {% if request.user.extra.approved %}
     <div class="row">
       <div class="col-sm-12">
         {% block pagetitle %}{% endblock %}

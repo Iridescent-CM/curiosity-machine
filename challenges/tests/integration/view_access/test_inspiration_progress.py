@@ -14,7 +14,7 @@ def test_anonymous_user_access_denied(client):
     response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=True)
 
     assert response.status_code == 200
-    assert "registration/login.html" == response.templates[0].name
+    assert "account/login.html" == response.templates[0].name
 
 @pytest.mark.django_db
 def test_allows_staff(client):

@@ -145,9 +145,9 @@ class Progress(models.Model):
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
-        if self.student.profile.is_mentor:
+        if self.student.extra.is_mentor:
             raise ValidationError("Mentors can not start a challenge")
-        if self.mentor and not self.mentor.profile.is_mentor:
+        if self.mentor and not self.mentor.extra.is_mentor:
             raise ValidationError("The mentor of a challenge must be a mentor")
         else:
             super(Progress, self).save(*args, **kwargs)
@@ -198,7 +198,7 @@ class Favorite(models.Model):
     def save(self, *args, **kwargs):
         if Favorite.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("This challenge is already on your favorites")
-        if self.student.profile.is_mentor:
+        if self.student.extra.is_mentor:
             raise ValidationError("Mentors can not favorite a challenge")
         else:
             super(Favorite, self).save(*args, **kwargs)

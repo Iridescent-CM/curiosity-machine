@@ -21,14 +21,14 @@ class UserAdminWithProfile(UserAdmin):
     list_filter = (
         'is_superuser',
         'is_staff',
-        'profile__role',
+        #'profile__role',
         StudentFilter
     )
     list_select_related = ('profile',)
     search_fields = ('username', 'email', 'first_name', 'last_name', 'profile__source', 'profile__city')
 
     def source(self, obj):
-        return obj.profile.source
+        return obj.extra.source
     source.admin_order_field = "profile__source"
 
     def city(self, obj):
@@ -41,7 +41,7 @@ class UserAdminWithProfile(UserAdmin):
             if change:
                 old_profile = Profile.objects.get(pk=profile.id)
                 super(UserAdminWithProfile, self).save_related(request, form, formsets, change)
-                if not old_profile.approved and profile.approved:
+                if not old_extra.approved and profile.approved:
                     if profile.is_student and profile.birthday and profile.is_underage():
                         signals.underage_activation_confirmed.send(sender=request.user, account=profile.user)
                     elif profile.is_mentor:

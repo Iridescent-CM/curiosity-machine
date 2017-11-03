@@ -88,7 +88,7 @@ class Membership(models.Model):
 
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
-        if user.is_authenticated() and (user.is_staff or user.profile.is_mentor):
+        if user.is_authenticated() and (user.is_staff or user.extra.is_mentor):
             return challenge_ids
 
         query = Q(id__in=challenge_ids, free=True)
@@ -143,7 +143,7 @@ class GroupMember(models.Model):
     def clean(self):
         if self.member.membership != self.group.membership:
             raise ValidationError("Group and member must be part of the same membership")
-        if not self.member.user.profile.is_student:
+        if not self.member.user.extra.is_student:
             raise ValidationError("Only students can be members of a group")
 
     def __str__(self):
@@ -165,7 +165,7 @@ class Member(models.Model):
     def clean(self):
         if not self.user_id or not self.membership_id:
             return
-        role = self.user.profile.role
+        role = self.user.extra.role
         limit = self.membership.limit_for(role)
         if limit != None:
             count = (self.membership.member_set

@@ -26,6 +26,13 @@ class ProfileFactory(factory.django.DjangoModelFactory):
                 kwargs["birthday"] = parse_date(val)
         return kwargs
 
+class UserExtraFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.UserExtra
+
+    user = factory.SubFactory('profiles.factories.UserFactory', extra=None)
+    approved = True
+
 @factory.django.mute_signals(handlers.post_save)
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -34,6 +41,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     username = factory.fuzzy.FuzzyText(prefix="user_")
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
+    extra = factory.RelatedFactory(UserExtraFactory, 'user')
     profile = factory.RelatedFactory(ProfileFactory, 'user')
 
 class MentorProfileFactory(factory.django.DjangoModelFactory):
@@ -42,8 +50,6 @@ class MentorProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('profiles.factories.MentorFactory', profile=None)
     city = 'city'
-    role = models.UserRole.mentor.value
-    approved = True
 
 @factory.django.mute_signals(handlers.post_save)
 class MentorFactory(factory.django.DjangoModelFactory):
@@ -54,6 +60,7 @@ class MentorFactory(factory.django.DjangoModelFactory):
     email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
+    extra = factory.RelatedFactory(UserExtraFactory, 'user',role=models.UserRole.mentor.value)
     profile = factory.RelatedFactory(MentorProfileFactory, 'user')
 
 class StudentProfileFactory(factory.django.DjangoModelFactory):
@@ -63,8 +70,6 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory('profiles.factories.StudentFactory', profile=None)
     city = 'city'
     birthday = now() - relativedelta(years=14)
-    role = models.UserRole.student.value
-    approved = True
 
     class Params:
         underage = factory.Trait(
@@ -80,15 +85,14 @@ class StudentFactory(factory.django.DjangoModelFactory):
     email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
+    extra = factory.RelatedFactory(UserExtraFactory, 'user',role=models.UserRole.student.value)
     profile = factory.RelatedFactory(StudentProfileFactory, 'user')
 
 class EducatorProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
 
-    role = models.UserRole.educator.value
     city = 'city'
-    approved = True
 
 @factory.django.mute_signals(handlers.post_save)
 class EducatorFactory(factory.django.DjangoModelFactory):
@@ -99,15 +103,14 @@ class EducatorFactory(factory.django.DjangoModelFactory):
     email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
+    extra = factory.RelatedFactory(UserExtraFactory, 'user',role=models.UserRole.educator.value)
     profile = factory.RelatedFactory(EducatorProfileFactory, 'user')
 
 class ParentProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
 
-    role = models.UserRole.parent.value
     city = 'city'
-    approved = True
 
 @factory.django.mute_signals(handlers.post_save)
 class ParentFactory(factory.django.DjangoModelFactory):
@@ -118,6 +121,7 @@ class ParentFactory(factory.django.DjangoModelFactory):
     email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
+    extra = factory.RelatedFactory(UserExtraFactory, 'user',role=models.UserRole.parent.value)
     profile = factory.RelatedFactory(ParentProfileFactory, 'user')
 
 class ParentConnectionFactory(factory.django.DjangoModelFactory):

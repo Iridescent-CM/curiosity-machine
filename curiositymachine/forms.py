@@ -87,7 +87,7 @@ class AnalyticsForm(forms.Form):
 def validate_users_exist(recipients):
     existing = User.objects.filter(
         username__in=recipients,
-        profile__role=UserRole.student.value
+        extra__role=UserRole.student.value
     ).values_list('username', flat=True)
     nonexisting = list(set(recipients) - set(existing))
     if nonexisting:

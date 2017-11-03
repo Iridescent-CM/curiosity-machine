@@ -119,7 +119,7 @@ def test_form_ignores_unspecified_profile_fields():
         'title': 'title'
     })
     user = f.save()
-    assert not user.profile.is_student
+    assert not user.extra.is_student
     assert user.profile.title == ''
 
 def test_connect_form_requires_usernames():

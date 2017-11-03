@@ -1,7 +1,7 @@
 {% extends "deprecated_base.html" %}
 
 {% block content %}
-  {% if request.user.profile.approved %}
+  {% if request.user.extra.approved %}
   <h2>Unclaimed Student Challenges for {{grouping}}</h2>
   <ul class="nav nav-justified nav-tabs"></ul>
   <div class="tab-content">

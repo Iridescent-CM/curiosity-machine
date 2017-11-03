@@ -31,7 +31,7 @@
         {% csrf_token %}
         {{ quiz_form }}
         <input type="submit" class="btn btn-primary pull-right" data-debounce="true" 
-          {% if not request.user.profile.is_student %}disabled="disabled"{% endif %} 
+          {% if not request.user.extra.is_student %}disabled="disabled"{% endif %}
         />
       </form>
     </div>

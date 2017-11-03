@@ -91,7 +91,7 @@ def test_post_to_join_as_mentor_strips_source(client):
         'mentor-city': 'city',
         'mentor-source': 'source'
     })
-    assert not User.objects.get(username='username').profile.source
+    assert not User.objects.get(username='username').extra.source
 
 @pytest.mark.django_db
 def test_post_to_join_as_mentor_with_source_adds_source(client):
@@ -102,4 +102,4 @@ def test_post_to_join_as_mentor_with_source_adds_source(client):
         'mentor-confirm_password': 'password',
         'mentor-city': 'city'
     })
-    assert User.objects.get(username='username').profile.source == 'source'
+    assert User.objects.get(username='username').extra.source == 'source'

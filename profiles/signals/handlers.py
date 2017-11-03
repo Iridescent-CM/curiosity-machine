@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
-from profiles.models import Profile
+from profiles.models import Profile, UserExtra
 from curiositymachine import signals
 
 User = get_user_model()
@@ -11,8 +11,9 @@ def create_user_profile(sender, instance, created, **kwargs):
     if kwargs.get('raw'):
         return
     if created:
-        if not hasattr(instance, "profile") and not kwargs.get('raw'):
-            Profile.objects.create(user=instance)
+        if not hasattr(instance, "extra") and not kwargs.get('raw'):
+            #Profile.objects.create(user=instance)
+            UserExtra.objects.create(user=instance)
         signals.created_account.send(sender=instance)
 
 @receiver(post_save, sender=Profile)

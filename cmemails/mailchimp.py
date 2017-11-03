@@ -7,11 +7,11 @@ logger = logging.getLogger(__name__)
 
 def choose_list(user):
     list_id = None
-    if user.profile.user_type:
-        list_id = settings.MAILCHIMP_LIST_IDS.get(user.profile.user_type, None)
+    if user.extra.user_type:
+        list_id = settings.MAILCHIMP_LIST_IDS.get(user.extra.user_type, None)
 
     if not list_id:
-        logger.info("No mailing list configured for user type %s (user=%s)" % (user.profile.user_type, user))
+        logger.info("No mailing list configured for user type %s (user=%s)" % (user.extra.user_type, user))
 
     return list_id
 
@@ -51,7 +51,7 @@ def subscribe(user):
     else:
         logger.info(
             "User %s email %s type %s subscribed to mailing list id %s"
-            % (user.username, user.email, user.profile.user_type, list_id)
+            % (user.username, user.email, user.extra.user_type, list_id)
         )
 
 def _put(*args, **kwargs):

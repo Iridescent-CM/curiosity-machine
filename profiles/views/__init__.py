@@ -15,13 +15,13 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def dispatch(request, action, *args, **kwargs):
-    if request.user.profile.is_mentor:
+    if request.user.extra.is_mentor:
         module = mentor
-    elif request.user.profile.is_student:
+    elif request.user.extra.is_student:
         module = student
-    elif request.user.profile.is_educator:
+    elif request.user.extra.is_educator:
         module = educator
-    elif request.user.profile.is_parent:
+    elif request.user.extra.is_parent:
         module = parent
     elif request.user.is_staff:
         module = staff
@@ -63,7 +63,7 @@ choose_profile = ChooseProfileTemplateView.as_view()
 class HomeRedirectView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
-        role = UserRole(self.request.user.profile.role)
+        role = UserRole(self.request.user.extra.role)
         if role == UserRole.none:
             return reverse("profiles:profiles")
         else:

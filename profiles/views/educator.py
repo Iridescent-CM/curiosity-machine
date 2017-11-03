@@ -231,7 +231,7 @@ def challenge_detail(request, challenge_id, membership_selection=None):
 
 class IsEducator(permissions.BasePermission):
     def has_permission(self, request, view):
-        return request.user.profile.is_educator
+        return request.user.extra.is_educator
 
 class CommentList(generics.ListAPIView):
     renderer_classes = (JSONRenderer,)

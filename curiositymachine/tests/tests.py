@@ -13,8 +13,8 @@ from curiositymachine import decorators
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
 from .. import signals
-import challenges.factories
-import profiles.factories
+from challenges.factories import *
+from profiles.factories import *
 import cmcomments.factories
 from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget, FilePickerImagePickWidget, FilePickerVideoPickWidget
@@ -30,8 +30,7 @@ def force_false(*args, **kwargs):
     return False
 
 def test_underage_student_middleware_redirects_request(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.student.value)
+    user = StudentFactory.build(profile__underage=True, extra__approved=False)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -40,24 +39,21 @@ def test_underage_student_middleware_redirects_request(rf):
     assert response.url == reverse('profiles:underage_student')
 
 def test_underage_student_middleware_skips_approved_profiles(rf):
-    user = User()
-    profile = Profile(user=user, approved=True)
+    user = UserFactory.build(extra__approved=True)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_underage_student_middleware_skips_mentors(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.mentor.value)
+    user = MentorFactory.build()
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_underage_student_middleware_skips_staff(rf):
-    user = User(is_staff=True)
-    profile = Profile(user=user)
+    user = UserFactory.build(is_staff=True)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -71,8 +67,7 @@ def test_underage_student_middleware_skips_unauthenticated_user(rf):
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_underage_student_middleware_allows_whitelisted_views(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.student.value)
+    user = StudentFactory.build(profile__underage=True, extra__approved=False)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -87,8 +82,7 @@ def test_underage_student_middleware_allows_whitelisted_views(rf):
     assert not middleware.process_view(request, view, None, None)
 
 def test_unapproved_mentor_middleware_redirects(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.mentor.value)
+    user = MentorFactory.build(extra__approved=False)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -97,16 +91,14 @@ def test_unapproved_mentor_middleware_redirects(rf):
     assert response.url == reverse('profiles:home')
 
 def test_unapproved_mentor_middleware_skips_approved(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.mentor.value, approved=True)
+    user = MentorFactory.build(extra__approved=True)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_unapproved_mentor_middleware_skips_whitelisted(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.mentor.value)
+    user = MentorFactory.build(extra__approved=False)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -121,16 +113,14 @@ def test_unapproved_mentor_middleware_skips_whitelisted(rf):
     assert not middleware.process_view(request, view, None, None)
 
 def test_unapproved_mentor_middleware_skips_non_mentor(rf):
-    user = User()
-    profile = Profile(user=user)
+    user = UserFactory.build()
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_unapproved_mentor_middleware_skips_staff(rf):
-    user = User(is_staff=True)
-    profile = Profile(user=user, role=UserRole.mentor.value)
+    user = MentorFactory.build(is_staff=True)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -182,8 +172,7 @@ def test_login_required_middleware_redirects_login_required_exceptions(rf):
     assert response.url == reverse('login') + '?next=/some/path'
 
 def test_root_redirects_student_without_progress_to_challenges(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.student.value)
+    user = StudentFactory.build()
     request = rf.get('/some/path')
     request.user = user
     response = root(request)
@@ -192,9 +181,8 @@ def test_root_redirects_student_without_progress_to_challenges(rf):
 
 @pytest.mark.django_db
 def test_root_redirects_student_with_progress_to_home(rf):
-    user = User.objects.create(username='user', email='useremail')
-    challenge = Challenge.objects.create(name='challenge')
-    progress = Progress.objects.create(student=user, challenge=challenge)
+    user = StudentFactory.build()
+    progress = ProgressFactory.build()
     request = rf.get('/some/path')
     request.user = user
     response = root(request)
@@ -216,8 +204,7 @@ def test_mentor_only_denies_view_for_anonymous_user(rf):
         response = wrapped(request)
 
 def test_mentor_only_denies_view_for_non_mentor_or_staff(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.student.value)
+    user = StudentFactory.build()
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -226,8 +213,7 @@ def test_mentor_only_denies_view_for_non_mentor_or_staff(rf):
         response = wrapped(request)
 
 def test_mentor_only_calls_view_for_mentor(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.mentor.value)
+    user = MentorFactory.build()
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -236,8 +222,7 @@ def test_mentor_only_calls_view_for_mentor(rf):
     assert view.called
 
 def test_mentor_only_calls_view_for_staff(rf):
-    user = User(is_staff=True)
-    profile = Profile(user=user)
+    user = UserFactory.build(is_staff=True)
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -255,8 +240,7 @@ def test_student_only_denies_view_for_anonymous_user(rf):
         response = wrapped(request)
 
 def test_student_only_denies_view_for_non_student_or_staff(rf):
-    user = User()
-    profile = Profile(user=user)
+    user = UserFactory.build()
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -265,8 +249,7 @@ def test_student_only_denies_view_for_non_student_or_staff(rf):
         response = wrapped(request)
 
 def test_student_only_calls_view_for_student(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.student.value)
+    user = StudentFactory.build()
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -275,8 +258,7 @@ def test_student_only_calls_view_for_student(rf):
     assert view.called
 
 def test_student_only_calls_view_for_staff(rf):
-    user = User(is_staff=True)
-    profile = Profile(user=user)
+    user = UserFactory.build(is_staff=True)
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -294,8 +276,7 @@ def test_educator_only_denies_view_for_anonymous_user(rf):
         response = wrapped(request)
 
 def test_educator_only_denies_view_for_non_educator_or_staff(rf):
-    user = User()
-    profile = Profile(user=user)
+    user = UserFactory.build()
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -304,8 +285,7 @@ def test_educator_only_denies_view_for_non_educator_or_staff(rf):
         response = wrapped(request)
 
 def test_educator_only_calls_view_for_educator(rf):
-    user = User()
-    profile = Profile(user=user, role=UserRole.educator.value)
+    user = EducatorFactory.build()
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -314,8 +294,7 @@ def test_educator_only_calls_view_for_educator(rf):
     assert view.called
 
 def test_educator_only_calls_view_for_staff(rf):
-    user = User(is_staff=True)
-    profile = Profile(user=user)
+    user = UserFactory.build(is_staff=True)
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -347,8 +326,7 @@ def test_feature_flag_calls_view_if_flag_true(rf):
         assert view.called
 
 def test_challenge_access_decorator_allows_any_mentor(rf):
-    mentor = User()
-    profile = Profile(user=mentor, role=UserRole.mentor.value)
+    mentor = MentorFactory.build()
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = mentor
@@ -357,8 +335,7 @@ def test_challenge_access_decorator_allows_any_mentor(rf):
     assert view.called
 
 def test_challenge_access_decorator_allows_named_user(rf):
-    user = User(username='named')
-    profile = Profile(user=user)
+    user = UserFactory.build(username='named')
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -369,8 +346,7 @@ def test_challenge_access_decorator_allows_named_user(rf):
 @mock.patch('curiositymachine.decorators.Membership.share_membership', force_false)
 @mock.patch('profiles.models.Profile.is_parent_of', force_true)
 def test_challenge_access_decorator_allows_connected_parent(rf):
-    user = User()
-    profile = Profile(user=user)
+    user = UserFactory.build()
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -381,8 +357,7 @@ def test_challenge_access_decorator_allows_connected_parent(rf):
 @mock.patch('curiositymachine.decorators.Membership.share_membership', force_true)
 @mock.patch('profiles.models.Profile.is_parent_of', force_false)
 def test_challenge_access_decorator_allows_membership_parent(rf):
-    user = User()
-    profile = Profile(user=user)
+    user = UserFactory.build()
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -393,8 +368,7 @@ def test_challenge_access_decorator_allows_membership_parent(rf):
 @mock.patch('curiositymachine.decorators.Membership.share_membership', force_true)
 @mock.patch('profiles.models.Profile.is_parent_of', force_false)
 def test_challenge_access_decorator_allows_membership_educator(rf):
-    user = User()
-    profile = Profile(user=user)
+    user = UserFactory.build()
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -405,8 +379,7 @@ def test_challenge_access_decorator_allows_membership_educator(rf):
 @mock.patch('curiositymachine.decorators.Membership.share_membership', force_false)
 @mock.patch('profiles.models.Profile.is_parent_of', force_false)
 def test_challenge_access_decorator_redirects_other(rf):
-    user = User(username='other')
-    profile = Profile(user=user, role=UserRole.student.value)
+    user = StudentFactory.build(username='other')
     view = mock.MagicMock()
     request = rf.get('/some/path')
     request.user = user
@@ -443,7 +416,7 @@ def test_signal_student_posted_comment():
     handler = mock.MagicMock()
     signals.posted_comment.connect(handler)
 
-    progress = challenges.factories.ProgressFactory()
+    progress = ProgressFactory()
     comment = progress.comments.create(user=progress.student, text="comment", stage=1)
 
     handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.student, comment=comment)
@@ -453,8 +426,8 @@ def test_signal_mentor_posted_comment():
     handler = mock.MagicMock()
     signals.posted_comment.connect(handler)
 
-    mentor = profiles.factories.MentorFactory()
-    progress = challenges.factories.ProgressFactory(mentor=mentor)
+    mentor = MentorFactory()
+    progress = ProgressFactory(mentor=mentor)
     comment = progress.comments.create(user=progress.mentor, text="comment", stage=1)
 
     handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.mentor, comment=comment)
@@ -468,8 +441,8 @@ def test_signal_progress_considered_complete():
     handler2 = mock.MagicMock()
     signals.posted_comment.connect(handler2)
 
-    progress = challenges.factories.ProgressFactory()
-    mentor = profiles.factories.MentorFactory()
+    progress = ProgressFactory()
+    mentor = MentorFactory()
     first_reflect_post = cmcomments.factories.ReflectionCommentFactory(challenge_progress=progress, user=progress.student)
 
     handler.assert_called_once_with(signal=signal, sender=progress.student, progress=progress)
@@ -491,7 +464,7 @@ def test_signal_inspiration_gallery_submission_created():
     signal = signals.inspiration_gallery_submission_created
     signal.connect(handler)
 
-    example = challenges.factories.ExampleFactory()
+    example = ExampleFactory()
 
     handler.assert_called_once_with(signal=signal, sender=example.progress.student, example=example)
 
@@ -501,8 +474,8 @@ def test_signal_inspiration_gallery_submissions_rejected():
     signal = signals.inspiration_gallery_submissions_rejected
     signal.connect(handler)
 
-    example = challenges.factories.ExampleFactory()
-    user = profiles.factories.UserFactory()
+    example = ExampleFactory()
+    user = UserFactory()
     qs = Example.objects.all()
     qs.reject(user=user)
 
@@ -514,8 +487,8 @@ def test_signal_inspiration_gallery_submissions_approved():
     signal = signals.inspiration_gallery_submissions_approved
     signal.connect(handler)
 
-    example = challenges.factories.ExampleFactory()
-    user = profiles.factories.UserFactory()
+    example = ExampleFactory()
+    user = UserFactory()
     qs = Example.objects.all()
     qs.approve(user=user)
 

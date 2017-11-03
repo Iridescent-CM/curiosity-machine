@@ -18,8 +18,8 @@ User = get_user_model()
 @pytest.fixture
 def student():
     student = User.objects.create_user(username='student', email='student@example.com', password='password')
-    student.profile.approved = True
-    student.profile.role = UserRole.student.value
+    student.extra.approved = True
+    student.extra.role = UserRole.student.value
     student.profile.birthday = now() - timedelta(days=(365 * 16))
     student.profile.save()
     return student

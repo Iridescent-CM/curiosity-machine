@@ -182,7 +182,7 @@ def challenges(request):
 
     challenges = challenges.filter(draft=False).select_related('image')
 
-    if request.user.is_authenticated() and not request.user.profile.is_student:
+    if request.user.is_authenticated() and not request.user.extra.is_student:
         challenges = challenges.annotate(has_resources=Count('resource'))
 
     challenges = _decorate_access(request, challenges)
@@ -254,7 +254,7 @@ class InspirationUserView(InspirationAnonymousPreview):
         return context
 
     def get_user_role(self):
-        return self.request.user.profile.role_name
+        return self.request.user.extra.role_name
 
     def get_template_names(self):
         return [
@@ -315,7 +315,7 @@ class InspirationPreviewDispatch(ViewDispatch):
     @staticmethod
     def select_view_class(user):
         if user.is_authenticated():
-            if user.profile.is_student:
+            if user.extra.is_student:
                 return InspirationStudentPreview
             else:
                 return InspirationUserPreview
@@ -327,7 +327,7 @@ class InspirationProgressDispatch(ViewDispatch):
     @staticmethod
     def select_view_class(user):
         if user.is_authenticated():
-            if user.profile.is_student:
+            if user.extra.is_student:
                 return InspirationStudentProgress
             else:
                 return InspirationUserProgress
@@ -340,8 +340,8 @@ def preview_stage(request, challenge_id, stage):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     return render(request,
         [
-            'challenges/edp/preview/%s/%s.html' % (request.user.profile.user_type, stage),
-            'challenges/edp/preview/%s/%s.html' % (request.user.profile.role_name, stage),
+            'challenges/edp/preview/%s/%s.html' % (request.user.extra.user_type, stage),
+            'challenges/edp/preview/%s/%s.html' % (request.user.extra.role_name, stage),
             'challenges/edp/preview/%s.html' % stage,
         ],
         {
@@ -402,8 +402,8 @@ def challenge_progress(request, challenge_id, username, stage=None):
 
     return render(request,
         [
-            "challenges/edp/progress/%s/%s.html" % (request.user.profile.user_type, stageToShow.name),
-            "challenges/edp/progress/%s/%s.html" % (request.user.profile.role_name, stageToShow.name),
+            "challenges/edp/progress/%s/%s.html" % (request.user.extra.user_type, stageToShow.name),
+            "challenges/edp/progress/%s/%s.html" % (request.user.extra.role_name, stageToShow.name),
             "challenges/edp/progress/%s.html" % stageToShow.name,
         ],     
         {

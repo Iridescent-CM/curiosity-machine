@@ -9,7 +9,7 @@
   <h1>Welcome {{user.username}}</h1>
   {% include "profiles/mentor/_profile_info.html" with profile=user.profile %}
 
-  {% if request.user.profile.approved %}
+  {% if request.user.extra.approved %}
     <h2>Recent Challenges I'm Mentoring</h2>
     <div class="tab-content">
       <ul class="challenges-list owl-carousel panel-carousel">

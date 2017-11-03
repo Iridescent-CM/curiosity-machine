@@ -10,17 +10,17 @@ import re
 
 @receiver(signals.created_account)
 def send_welcome_email(sender, **kwargs):
-    if sender.profile.send_welcome and not getattr(sender, "skip_welcome_email", False):
-        if sender.profile.is_student:
+    if sender.extra.send_welcome and not getattr(sender, "skip_welcome_email", False):
+        if sender.extra.is_student:
             template = 'student-u13-welcome' if sender.profile.is_underage() else 'student-welcome'
             send(template_name=template, to=sender, merge_vars={
                 'studentname': sender.username
             })
-        elif sender.profile.is_educator:
+        elif sender.extra.is_educator:
             send(template_name='educator-welcome', to=sender, merge_vars={
                 'username': sender.username
             })
-        elif sender.profile.is_parent:
+        elif sender.extra.is_parent:
             send(template_name='parent-welcome', to=sender, merge_vars={
                 'username': sender.username
             })
@@ -95,7 +95,7 @@ def send_mentor_progress_update_notice(sender, comment, **kwargs):
     if not progress.mentor:
         return
 
-    if sender.profile.is_student:
+    if sender.extra.is_student:
         path = reverse('challenges:challenge_progress', kwargs={
             "challenge_id": progress.challenge.id,
             "username": sender.username,
@@ -110,7 +110,7 @@ def send_mentor_progress_update_notice(sender, comment, **kwargs):
 def send_student_mentor_response_notice(sender, comment, **kwargs):
     progress = comment.challenge_progress
 
-    if sender.profile.is_mentor:
+    if sender.extra.is_mentor:
         path = reverse('challenges:challenge_progress', kwargs={
             "challenge_id": progress.challenge.id,
             "username": progress.student.username,

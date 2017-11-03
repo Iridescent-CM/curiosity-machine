@@ -5,7 +5,7 @@
       {{ comment.get_stage_display|title }}
       {% elif comment.user == user %}
       Your feedback
-      {% elif comment.user.profile.is_mentor %}
+      {% elif comment.user.extra.is_mentor %}
       Mentor feedback
       {% else %}
       Educator feedback

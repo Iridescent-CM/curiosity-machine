@@ -65,8 +65,8 @@ class UnderageStudentSandboxMiddleware:
     def process_view(self, request, view, view_args, view_kwargs):
         if (request.user.is_authenticated()
                 and not request.user.is_staff
-                and request.user.profile.is_student
-                and not request.user.profile.approved):
+                and request.user.extra.is_student
+                and not request.user.extra.approved):
             if not whitelisted(view, 'public', 'maybe_public', 'underage'):
                 return HttpResponseRedirect(reverse('profiles:underage_student'))
 
@@ -77,8 +77,8 @@ class UnapprovedMentorSandboxMiddleware:
     def process_view(self, request, view, view_args, view_kwargs):
         if (request.user.is_authenticated()
                 and not request.user.is_staff
-                and request.user.profile.is_mentor
-                and not request.user.profile.approved):
+                and request.user.extra.is_mentor
+                and not request.user.extra.approved):
             if not whitelisted(view, 'public', 'maybe_public', 'unapproved_mentors') and not whitelist_regex.match(request.path.lstrip('/')):
                 return HttpResponseRedirect(reverse('profiles:home'))
 
@@ -88,7 +88,7 @@ class LastActiveMiddleware:
     """
     def process_request(self, request):
         if request.user.is_authenticated():
-            request.user.profile.set_active()
+            request.user.extra.set_active()
         return None
 
 class FirstLoginMiddleware:
@@ -96,9 +96,9 @@ class FirstLoginMiddleware:
     Maintains first_login flag used to detect first login
     """
     def process_response(self, request, response):
-        if hasattr(request, 'user') and request.user.is_authenticated() and request.user.profile.first_login:
+        if hasattr(request, 'user') and request.user.is_authenticated() and request.user.extra.first_login:
             # assume successful response means they'll be seeing the intro video
             if response.status_code == 200:
-                request.user.profile.first_login = False
-                request.user.profile.save(update_fields=['first_login'])
+                request.user.extra.first_login = False
+                request.user.extra.save(update_fields=['first_login'])
         return response

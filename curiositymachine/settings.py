@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'profiles',
+    'students',
     'challenges',
     'cmcomments',
     'videos',

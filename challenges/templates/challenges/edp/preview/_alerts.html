@@ -1,4 +1,4 @@
-{% if request.user.profile.is_student %}
+{% if request.user.extra.is_student %}
   <div class="alert alert-info text-center preview-page-alerts">
     <strong>You're previewing this challenge.</strong> Start building if you want to post!<br/>
     <form name="Start Building" action="{% url 'challenges:start_building' challenge_id=challenge.id %}" method='POST'>

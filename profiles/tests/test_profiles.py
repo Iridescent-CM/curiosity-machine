@@ -32,9 +32,9 @@ def test_gets_ok(client, mentor):
 def test_new_user_has_default_typeless_profile():
     user = User.objects.create(username=STUDENT_USERNAME, email=STUDENT_EMAIL)
     assert user.profile
-    assert UserRole(user.profile.role) == UserRole.none
-    assert not user.profile.is_student
-    assert not user.profile.is_mentor
+    assert UserRole(user.extra.role) == UserRole.none
+    assert not user.extra.is_student
+    assert not user.extra.is_mentor
 
 @pytest.mark.django_db
 def test_old_progress_dont_show(client, loggedInMentor, progress):

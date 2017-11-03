@@ -77,7 +77,7 @@ class RowProfileForm(forms.ModelForm):
 
     def save(self, commit=False):
         profile = super().save(commit=False)
-        profile.role = UserRole.student.value
+        extra.role = UserRole.student.value
         if commit:
             profile.save()
         return profile

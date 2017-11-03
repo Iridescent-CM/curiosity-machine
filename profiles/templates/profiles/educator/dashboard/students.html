@@ -106,7 +106,7 @@
           <br>
           <span class="student-inline-username">
             <a href="{% url 'profiles:educator_dashboard_student_detail' student_id=student.id %}">{{ student.username }}</a> &middot;
-            {% if student.profile.approved %}
+            {% if student.extra.approved %}
             <span class="green-type">approved</span>
             {% else %}
             <span class="orange-type">not approved</span>

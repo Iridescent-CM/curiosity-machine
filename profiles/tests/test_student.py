@@ -95,7 +95,7 @@ def test_form_sets_student_role_for_all():
     })
     assert f.is_valid()
     user = f.save()
-    assert user.profile.is_student
+    assert user.extra.is_student
 
     bday = now() - relativedelta(years=12)
     f = forms.student.StudentUserAndProfileForm(data={
@@ -112,7 +112,7 @@ def test_form_sets_student_role_for_all():
     })
     assert f.is_valid()
     user = f.save()
-    assert user.profile.is_student
+    assert user.extra.is_student
 
 @pytest.mark.django_db
 def test_over_13_student_accounts_auto_approve():
@@ -129,7 +129,7 @@ def test_over_13_student_accounts_auto_approve():
     })
     assert f.is_valid()
     user = f.save()
-    assert user.profile.approved
+    assert user.extra.approved
 
     bday = now() - relativedelta(years=12)
     f = forms.student.StudentUserAndProfileForm(data={
@@ -146,7 +146,7 @@ def test_over_13_student_accounts_auto_approve():
     })
     assert f.is_valid()
     user = f.save()
-    assert not user.profile.approved
+    assert not user.extra.approved
 
 @pytest.mark.django_db
 def test_connected_child_only_decorator(rf, parent, child):
