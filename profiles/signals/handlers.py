@@ -16,9 +16,9 @@ def create_user_profile(sender, instance, created, **kwargs):
             UserExtra.objects.create(user=instance)
         signals.created_account.send(sender=instance)
 
-@receiver(post_save, sender=Profile)
+@receiver(post_save, sender=UserExtra)
 def auto_approve_non_coppa_students(sender, instance, created, **kwargs):
     if created and not kwargs.get('raw'):
-        if instance.is_student and not instance.is_underage():
+        if instance.is_student and not instance.user.profile.is_underage():
             instance.approved = True
             instance.save(update_fields=['approved'])
