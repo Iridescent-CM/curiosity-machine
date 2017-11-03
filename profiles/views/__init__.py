@@ -49,3 +49,24 @@ class Recover(password_reset.views.Recover):
             raise
 
 recover = Recover.as_view()
+
+################# New stuff
+from django.urls import reverse
+from django.views.generic.base import TemplateView, RedirectView
+from ..models import UserRole
+
+class ChooseProfileTemplateView(TemplateView):
+    template_name = "profiles/choose_profile.html"
+
+choose_profile = ChooseProfileTemplateView.as_view()
+
+class HomeRedirectView(RedirectView):
+
+    def get_redirect_url(self, *args, **kwargs):
+        role = UserRole(self.request.user.profile.role)
+        if role == UserRole.none:
+            return reverse("profiles:profiles")
+        else:
+            return reverse("%ss:home" % role.name, args=args, kwargs=kwargs)
+
+home = HomeRedirectView.as_view()

@@ -1,9 +1,15 @@
 from django.conf.urls import url, include
-from profiles import views
+from profiles import views # deprecated
+from .views import *
 
 from curiositymachine.decorators import whitelist
 
 urlpatterns = [
+    url(r'^profiles/$', choose_profile, name="profiles"),
+    url(r'^home/$', home, name="home"),
+
+    ### urls below are deprecated
+
     url(r'^join/$', whitelist('public')(views.student.join), name='join'),
     url(r'^join/(?P<source>[^/]+)/$', whitelist('public')(views.student.join), name='join'),
     url(r'^join_as_mentor/$', whitelist('public')(views.mentor.join), name='join_as_mentor'),
@@ -12,7 +18,7 @@ urlpatterns = [
     url(r'^join_as_educator/(?P<source>[^/]+)/$', whitelist('public')(views.educator.join), name='join_as_educator'),
     url(r'^join_as_parent/$', whitelist('public')(views.parent.join), name='join_as_parent'),
     url(r'^join_as_parent/(?P<source>[^/]+)/$', whitelist('public')(views.parent.join), name='join_as_parent'),
-    url(r'^home/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'home'}, name='home'),
+    #url(r'^home/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'home'}, name='home'),
     url(r'^home/students/$', views.educator.students_dashboard, name='educator_dashboard_students'),
     url(r'^home/students/(?P<student_id>\d+)/$', views.educator.student_detail, name='educator_dashboard_student_detail'),
     url(r'^home/students/(?P<student_id>\d+)/challenge/(?P<challenge_id>\d+)/$', views.educator.conversation, name='educator_dashboard_progress_conversation'),

@@ -152,12 +152,14 @@ MESSAGE_TAGS = {
 
 AUTH_USER_MODEL = 'auth.User'
 
+ACCOUNT_ADAPTER = 'curiositymachine.allauth_adapter.AllAuthAdapter'
+
 ROOT_URLCONF = 'curiositymachine.urls'
 
 WSGI_APPLICATION = 'curiositymachine.wsgi.application'
 
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'account_login'
+LOGIN_REDIRECT_URL = 'root'
 
 CSRF_FAILURE_VIEW = 'curiositymachine.views.csrf_failure_handler'
 
