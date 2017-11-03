@@ -71,10 +71,10 @@ def load_fixture(f):
     }, build=True)
     for user in users.values():
         user.save()
-        user.profile.user = user # i hate this so much
-        user.profile.save()
-        user.extra.user = user
+        user.extra.user = user # i hate this so much
         user.extra.save()
+        user.profile.user = user # i hate all of this so much
+        user.profile.save()
 
     memberships = pk_map(data, 'memberships.membership', MembershipFactory, lookups={
         'challenges': challenges    

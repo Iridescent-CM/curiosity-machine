@@ -181,8 +181,8 @@ def test_root_redirects_student_without_progress_to_challenges(rf):
 
 @pytest.mark.django_db
 def test_root_redirects_student_with_progress_to_home(rf):
-    user = StudentFactory.build()
-    progress = ProgressFactory.build()
+    user = StudentFactory()
+    progress = ProgressFactory(student=user)
     request = rf.get('/some/path')
     request.user = user
     response = root(request)

@@ -63,7 +63,7 @@ def profile_edit(request):
 @impact_survey
 def password_reset(request, student_id, membership_selection=None):
     membership = membership_selection.selected
-    membership_students = membership.members.select_related('profile__image').filter(profile__role=UserRole.student.value)
+    membership_students = membership.members.select_related('profile__image').filter(extra__role=UserRole.student.value)
     student = get_object_or_404(membership_students, pk=student_id)
 
     if request.method == 'POST':
@@ -138,7 +138,7 @@ def student_detail(request, student_id, membership_selection=None):
         raise PermissionDenied
 
     membership = membership_selection.selected
-    membership_students = membership.members.select_related('profile__image').filter(profile__role=UserRole.student.value)
+    membership_students = membership.members.select_related('profile__image').filter(extra__role=UserRole.student.value)
     student = get_object_or_404(membership_students, pk=student_id)
     progresses = (student.progresses
         .filter(comments__isnull=False, challenge__in=membership.challenges.all())

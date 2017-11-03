@@ -116,11 +116,11 @@ class Membership(models.Model):
 
     @property
     def educators(self):
-        return self.members.filter(profile__role=UserRole.educator.value)
+        return self.members.filter(extra__role=UserRole.educator.value)
 
     @property
     def students(self):
-        return self.members.filter(profile__role=UserRole.student.value)
+        return self.members.filter(extra__role=UserRole.student.value)
 
     def __str__(self):
         return self.name
@@ -170,7 +170,7 @@ class Member(models.Model):
         if limit != None:
             count = (self.membership.member_set
                 .exclude(id=self.id)
-                .filter(user__profile__role=role)).count()
+                .filter(user__extra__role=role)).count()
             if count >= limit:
                 raise ValidationError("%s membership in %s limited to %d" % (UserRole(role).name, self.membership, limit))
 
@@ -183,7 +183,7 @@ class MemberLimit(models.Model):
 
     @property
     def current(self):
-        return self.membership.member_set.filter(user__profile__role=self.role).count()
+        return self.membership.member_set.filter(user__extra__role=self.role).count()
 
 def member_import_path(instance, filename):
     return "memberships/%d/import/%s" % (instance.membership.id, filename)

@@ -7,7 +7,7 @@ from memberships.forms import RowImportForm
 
 from django.forms.models import modelform_factory
 from django.contrib.auth import get_user_model
-from profiles.models import Profile
+from profiles.models import Profile, UserExtra
 
 from datetime import date
 from django.utils.timezone import now
@@ -31,19 +31,17 @@ def test_valid_profile_data_with_default_form():
     for example in examples:
         assert RowImportForm.profileFormClass(example).errors.as_data() == {}
 
-def test_profile_approved_values():
-    birthday = now() - relativedelta(years=5)
-    birthday = birthday.strftime('%m/%d/%Y')
-    assert RowImportForm.profileFormClass({"approved": "y", "birthday": birthday}).save(commit=False).approved
-    assert RowImportForm.profileFormClass({"approved": "yes", "birthday": birthday}).save(commit=False).approved
-    assert RowImportForm.profileFormClass({"approved": "Y", "birthday": birthday}).save(commit=False).approved
-    assert RowImportForm.profileFormClass({"approved": "YES", "birthday": birthday}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"approved": "n", "birthday": birthday}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"approved": "no", "birthday": birthday}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"approved": "N", "birthday": birthday}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"approved": "NO", "birthday": birthday}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"approved": "", "birthday": birthday}).save(commit=False).approved
-    assert not RowImportForm.profileFormClass({"birthday": birthday}).save(commit=False).approved
+def test_extra_approved_values():
+    assert RowImportForm.extraFormClass({"approved": "y"}).save(commit=False).approved
+    assert RowImportForm.extraFormClass({"approved": "yes"}).save(commit=False).approved
+    assert RowImportForm.extraFormClass({"approved": "Y"}).save(commit=False).approved
+    assert RowImportForm.extraFormClass({"approved": "YES"}).save(commit=False).approved
+    assert not RowImportForm.extraFormClass({"approved": "n"}).save(commit=False).approved
+    assert not RowImportForm.extraFormClass({"approved": "no"}).save(commit=False).approved
+    assert not RowImportForm.extraFormClass({"approved": "N"}).save(commit=False).approved
+    assert not RowImportForm.extraFormClass({"approved": "NO"}).save(commit=False).approved
+    assert not RowImportForm.extraFormClass({"approved": ""}).save(commit=False).approved
+    assert not RowImportForm.extraFormClass({}).save(commit=False).approved
 
 def test_profile_birthday_values():
     profile = RowImportForm.profileFormClass({"birthday": "01/01/1990"}).save(commit=False)
@@ -55,9 +53,9 @@ def test_profile_birthday_values():
     profile = RowImportForm.profileFormClass({"birthday": "1990-01-01"}).save(commit=False)
     assert profile.birthday == date(month=1, day=1, year=1990)
 
-def test_profile_has_student_role():
-    profile = RowImportForm.profileFormClass({"birthday":"01/01/1990", "approved":"yes"}).save(commit=False)
-    assert profile.is_student
+def test_extra_has_student_role():
+    extra = RowImportForm.extraFormClass({"approved":"yes"}).save(commit=False)
+    assert extra.is_student
 
 @pytest.mark.django_db
 def test_valid_user_data_with_default_form():
@@ -147,6 +145,7 @@ def test_saving_form_creates_member_user_and_profile_objects():
         membership=membership,
         userFormClass=modelform_factory(User, fields=['username']),
         profileFormClass=modelform_factory(Profile, fields=['city']),
+        extraFormClass=modelform_factory(UserExtra, fields=['approved']),
     )
     member = f.save()
 

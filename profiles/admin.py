@@ -21,7 +21,7 @@ class UserAdminWithProfile(UserAdmin):
     list_filter = (
         'is_superuser',
         'is_staff',
-        #'profile__role',
+        'extra__role',
         StudentFilter
     )
     list_select_related = ('profile',)

@@ -8,7 +8,7 @@ from challenges.models import Stage
 import urllib.parse
 import re
 
-@receiver(signals.created_account)
+#@receiver(signals.created_account) broken because created_account no longer guarantees a profile
 def send_welcome_email(sender, **kwargs):
     if sender.extra.send_welcome and not getattr(sender, "skip_welcome_email", False):
         if sender.extra.is_student:
