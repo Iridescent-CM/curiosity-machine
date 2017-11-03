@@ -103,7 +103,10 @@ def list_all(request):
     List of current mentors
     '''
     page = request.GET.get('page')
-    mentors = Profile.objects.filter(role=UserRole.mentor.value, approved=True).select_related('user').order_by('-user__date_joined')
+    mentors = (Profile.objects
+        .filter(user__extra__role=UserRole.mentor.value, user__extra__approved=True)
+        .select_related('user')
+        .order_by('-user__date_joined'))
 
     paginator = Paginator(mentors, settings.DEFAULT_PER_PAGE)
     try:
@@ -121,8 +124,8 @@ def show_profile(request, username):
     '''
     Page for viewing a mentor's profile
     '''
-    user = get_object_or_404(User, username=username)
-    profile = get_object_or_404(Profile, user=user, role=UserRole.mentor.value)
+    user = get_object_or_404(User.objects.filter(extra__role=UserRole.mentor.value), username=username)
+    profile = get_object_or_404(Profile, user=user)
 
     return render(request, "profiles/mentor/profile.html", {'mentor': user, 'mentor_profile': profile,})
 
