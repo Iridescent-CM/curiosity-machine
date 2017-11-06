@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib import messages
 from curiositymachine.exceptions import LoginRequired
+import profiles.models
 import re
 
 whitelist_regex = re.compile('(' + ')|('.join([r for r in settings.WHITELIST_URLS]) + ')')
@@ -81,6 +82,15 @@ class UnapprovedMentorSandboxMiddleware:
                 and not request.user.extra.approved):
             if not whitelisted(view, 'public', 'maybe_public', 'unapproved_mentors') and not whitelist_regex.match(request.path.lstrip('/')):
                 return HttpResponseRedirect(reverse('profiles:home'))
+
+class UserProxyMiddleware:
+    """
+    Middleware that changes request.user to User proxy model
+    """
+    def process_request(self, request):
+        if request.user.is_authenticated():
+            request.user.__class__ = profiles.models.User
+        return None
 
 class LastActiveMiddleware:
     """

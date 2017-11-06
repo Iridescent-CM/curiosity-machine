@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.utils.functional import cached_property
 from images.models import Image
@@ -98,6 +99,16 @@ class UserExtra(models.Model):
     def update_inactive_email_sent_on_and_save(self):
         self.last_inactive_email_sent_on = now()
         self.save(update_fields=['last_inactive_email_sent_on'])
+
+class User(get_user_model()):
+    class Meta:
+        proxy = True
+
+    @property
+    def profile(self):
+        if self.studentprofile:
+            return self.studentprofile
+        return super().profile
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
