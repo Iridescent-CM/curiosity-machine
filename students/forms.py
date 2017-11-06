@@ -1,13 +1,17 @@
 from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget
-from datetime import datetime
+from datetime import datetime, date
 from django import forms
-from django.forms.extras.widgets import SelectDateWidget
 from images.models import Image
 from profiles.models import UserRole
 from .models import StudentProfile
 
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
+
+# TODO: consolidate this with StudentProfile methods somewhere
+def age(birthday):
+    today = date.today()
+    return today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
 
 class NewStudentProfileForm(forms.ModelForm):
     class Meta:
@@ -20,11 +24,11 @@ class NewStudentProfileForm(forms.ModelForm):
         ]
 
     birthday = forms.DateField(
-        widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES),
+        widget=forms.extras.SelectDateWidget(years=BIRTH_YEAR_CHOICES),
     )
-    parent_first_name = forms.TextInput()
-    parent_last_name = forms.TextInput()
-    city = forms.TextInput()
+    parent_first_name = forms.CharField(required=False)
+    parent_last_name = forms.CharField(required=False)
+    city = forms.CharField(required=False)
 
     image_url = MediaURLField(
         label="Photo",
@@ -38,6 +42,33 @@ class NewStudentProfileForm(forms.ModelForm):
         }),
         required=False
     )
+
+    def clean_birthday(self):
+        birthday = self.cleaned_data['birthday']
+        if birthday == date(date.today().year, 1, 1):
+            # birthday hasn't been set
+            raise forms.ValidationError('Please set your birthday.')
+        return birthday
+
+    def clean(self):
+        super().clean()
+
+        birthday = self.cleaned_data.get('birthday')
+        if not birthday or age(birthday) < 13:
+            return self._clean_underage()
+        else:
+            return self._clean()
+
+    def _clean_underage(self):
+        for fieldname in ['parent_first_name', 'parent_last_name']:
+            if not self.cleaned_data.get(fieldname):
+                msg = self.fields[fieldname].error_messages['required']
+                self.add_error(fieldname, msg)
+
+        return self.cleaned_data
+
+    def _clean(self):
+        return self.cleaned_data
 
     def save(self, commit=True):
         if not commit:

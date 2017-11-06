@@ -153,8 +153,17 @@ MESSAGE_TAGS = {
 }
 
 AUTH_USER_MODEL = 'auth.User'
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 6,
+        }
+    },
+]
 
 ACCOUNT_ADAPTER = 'curiositymachine.allauth_adapter.AllAuthAdapter'
+ACCOUNT_USERNAME_VALIDATORS = 'curiositymachine.validators.username_validators'
 
 ROOT_URLCONF = 'curiositymachine.urls'
 
@@ -354,7 +363,7 @@ ROLLBAR_SERVER_SIDE_ACCESS_TOKEN = os.environ.get("ROLLBAR_SERVER_SIDE_ACCESS_TO
 ROLLBAR_ENV = os.environ.get("ROLLBAR_ENV", "default")
 
 
-## Conditional apps or middleware 
+## Conditional apps or middleware
 
 if ROLLBAR_SERVER_SIDE_ACCESS_TOKEN:
     from django.http import Http404
