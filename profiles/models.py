@@ -87,6 +87,10 @@ class UserExtra(models.Model):
     def send_welcome(self):
         return UserRole(self.role) not in [UserRole.none, UserRole.mentor]
 
+    @property
+    def show_classroom_survey(self):
+        return not (self.source and self.source in ['family_science'])
+
     def set_active(self):
         self.last_active_on = now()
         return self.save(update_fields=['last_active_on'])
@@ -132,10 +136,6 @@ class Profile(models.Model):
     @property
     def should_add_email(self):
         return not self.user.email
-
-    @property
-    def show_classroom_survey(self):
-        return not (self.source and self.source in ['family_science'])
 
     def is_underage(self):
         return self.age < 13

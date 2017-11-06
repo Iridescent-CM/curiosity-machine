@@ -1,5 +1,9 @@
 {% extends "curiositymachine/layout/base.html" %}
 
+{% block js %}
+  {{ form.media }}
+{% endblock %}
+
 {% block content %}
 <form action="{% url "students:create_profile" %}" method="POST">
   {% csrf_token %}
