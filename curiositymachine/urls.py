@@ -79,7 +79,7 @@ urlpatterns += [
     url(r'^password/change$',
         public(password_change),
         {
-            "post_change_redirect": lazy(reverse, str)('profiles:profile_edit')
+            "post_change_redirect": lazy(reverse, str)('profiles:edit_profile')
         },
         name='password_change'
     ),

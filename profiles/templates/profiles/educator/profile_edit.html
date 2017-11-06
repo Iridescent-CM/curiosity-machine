@@ -31,7 +31,7 @@
           <h4>Profile Info</h4>
         </div>
         <div class="card-block">
-          <form method='post' action="{% url 'profiles:profile_edit' %}" enctype="multipart/form-data">
+          <form method='post' action="{% url 'profiles:edit_profile' %}" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="text-xs-center">

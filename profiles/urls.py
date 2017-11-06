@@ -6,6 +6,7 @@ from curiositymachine.decorators import whitelist
 
 urlpatterns = [
     url(r'^profiles/$', choose_profile, name="profiles"),
+    url(r'^profile/edit/$', edit_profile, name="edit_profile"),
     url(r'^home/$', home, name="home"),
 
     ### urls below are deprecated
@@ -27,7 +28,7 @@ urlpatterns = [
     url(r'^home/guides/$', views.educator.guides_dashboard, name='educator_dashboard_guides'),
     url(r'^data/progress_posts/$', whitelist('public')(views.educator.CommentList.as_view()), name='progress_graph_data'),
     url(r'^data/impact_survey/$', whitelist('public')(views.educator.ImpactSurveyView.as_view()), name='update_impact_survey'),
-    url(r'^profile-edit/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'profile_edit'}, name='profile_edit'),
+    #url(r'^profile-edit/$', whitelist('unapproved_mentors')(views.dispatch), {'action': 'profile_edit'}, name='profile_edit'),
     url(r'^mentors/$', whitelist('public')(views.mentor.list_all), name='mentors'),
     url(r'^mentors/(?P<username>[^/]+)/$', whitelist('public')(views.mentor.show_profile), name='mentor_profile'),
     url(r'^underage/$', whitelist('underage')(views.student.underage), name='underage_student'),

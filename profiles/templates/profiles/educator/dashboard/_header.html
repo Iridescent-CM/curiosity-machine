@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <a href="{% url 'profiles:profile_edit' %}" class="a-borderless float-xs-right">Account Settings</a>
+        <a href="{% url 'profiles:edit_profile' %}" class="a-borderless float-xs-right">Account Settings</a>
         <div class="dashboard-avatar">
           {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
         </div>

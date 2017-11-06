@@ -60,13 +60,15 @@ class ChooseProfileTemplateView(TemplateView):
 
 choose_profile = ChooseProfileTemplateView.as_view()
 
-class HomeRedirectView(RedirectView):
+class ProfileRedirectView(RedirectView):
+    viewname = None
 
     def get_redirect_url(self, *args, **kwargs):
         role = UserRole(self.request.user.extra.role)
         if role == UserRole.none:
             return reverse("profiles:profiles")
         else:
-            return reverse("%ss:home" % role.name, args=args, kwargs=kwargs)
+            return reverse("%ss:%s" % (role.name, self.viewname), args=args, kwargs=kwargs)
 
-home = HomeRedirectView.as_view()
+home = login_required(ProfileRedirectView.as_view(viewname="home"))
+edit_profile = login_required(ProfileRedirectView.as_view(viewname="edit_profile"))
