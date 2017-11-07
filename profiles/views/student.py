@@ -19,7 +19,7 @@ from curiositymachine.decorators import feature_flag
 class StudentUserJoinView(UserJoinView):
     def get_success_url(self):
         if self.object.profile.is_underage():
-            return reverse('profiles:underage_student')
+            return reverse('students:underage')
         else:
             return super().get_success_url()
 

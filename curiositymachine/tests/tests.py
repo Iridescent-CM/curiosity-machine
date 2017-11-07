@@ -36,7 +36,7 @@ def test_underage_student_middleware_redirects_request(rf):
     request.user = user
     response = middleware.process_view(request, mock.MagicMock(), None, None)
     assert isinstance(response, HttpResponseRedirect)
-    assert response.url == reverse('profiles:underage_student')
+    assert response.url == reverse('students:underage')
 
 def test_underage_student_middleware_skips_approved_profiles(rf):
     user = UserFactory.build(extra__approved=True)
