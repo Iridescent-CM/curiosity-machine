@@ -31,10 +31,10 @@ class FilePickerField(forms.URLField):
 
     def widget_attrs(self, widget):
         attrs = {
-            'data-fp-apikey': self.apikey, 
-            'data-fp-mimetypes': self.mimetypes, 
-            'data-fp-openTo': self.openTo, 
-            'data-fp-services': self.services, 
+            'data-fp-apikey': self.apikey,
+            'data-fp-mimetypes': self.mimetypes,
+            'data-fp-openTo': self.openTo,
+            'data-fp-services': self.services,
             'data-fp-button-class': 'btn btn-primary'
         }
         if self.mimetype_widget:
@@ -44,7 +44,7 @@ class FilePickerField(forms.URLField):
 # deprecated: use MediaURLField
 class FilePickerURLField(FilePickerField):
     widget = FilePickerInlineWidget
-    
+
 class MediaURLField(forms.fields.MultiValueField):
     """
     A field for use with FilePickerPickWidget, which returns both media URL and
@@ -105,3 +105,16 @@ class StudentUsernamesField(forms.Field):
         if not value:
             return []
         return list(val for val in re.split("[\s;,]+", value) if val)
+
+class SignupExtraForm(forms.Form):
+
+    source = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput
+    )
+
+    def signup(self, request, user):
+        source = self.cleaned_data.get('source')
+        if source:
+            user.extra.source = source
+            user.extra.save()

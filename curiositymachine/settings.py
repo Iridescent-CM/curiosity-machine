@@ -164,6 +164,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ACCOUNT_ADAPTER = 'curiositymachine.allauth_adapter.AllAuthAdapter'
 ACCOUNT_USERNAME_VALIDATORS = 'curiositymachine.validators.username_validators'
+ACCOUNT_SIGNUP_FORM_CLASS = 'curiositymachine.forms.SignupExtraForm'
 
 ROOT_URLCONF = 'curiositymachine.urls'
 

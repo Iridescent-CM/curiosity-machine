@@ -1,3 +1,4 @@
+from allauth.account.views import SignupView
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
@@ -62,3 +63,12 @@ def csrf_failure_handler(request, reason=""):
         'more': _("More information is available with DEBUG=True."),
     }
 	return render(request, 'error/csrf.html', ctx)
+
+class SourceSignupView(SignupView):
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial.update(self.kwargs)
+        return initial
+
+signup_with_source = SourceSignupView.as_view()
