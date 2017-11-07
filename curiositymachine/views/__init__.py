@@ -66,9 +66,20 @@ def csrf_failure_handler(request, reason=""):
 
 class SourceSignupView(SignupView):
 
+    def get(self, request, *args, **kwargs):
+        self.source = kwargs.get('source', None)
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.source = request.POST.get('source', kwargs.get('source', None))
+        return super().post(request, *args, **kwargs)
+
+    def get_template_names(self):
+        return ["account/%s/signup.html" % self.source, self.template_name]
+
     def get_initial(self):
         initial = super().get_initial()
-        initial.update(self.kwargs)
+        initial['source'] = self.source
         return initial
 
 signup_with_source = SourceSignupView.as_view()
