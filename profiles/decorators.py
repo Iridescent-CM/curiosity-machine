@@ -13,7 +13,7 @@ from django.conf import settings
 def parents_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        if request.user.is_authenticated() and (request.user.profile.is_parent or request.user.is_staff):
+        if request.user.is_authenticated() and (request.user.extra.is_parent or request.user.is_staff):
             return view(request, *args, **kwargs)
         else:
             raise PermissionDenied

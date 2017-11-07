@@ -106,8 +106,10 @@ class User(get_user_model()):
 
     @property
     def profile(self):
-        if self.studentprofile:
+        if hasattr(self, "studentprofile"):
             return self.studentprofile
+        elif hasattr(self, "parentprofile"):
+            return self.parentprofile
         return super().profile
 
 class Profile(models.Model):

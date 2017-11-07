@@ -1,0 +1,129 @@
+{% extends "deprecated_base.html" %}
+{% block title %}My Dashboard{% endblock %}
+
+{% load staticfiles %}
+
+{% block content %}
+  <h2>
+    Your children
+    <a class="btn btn-primary btn-sm" href="{% url 'profiles:connect' %}">Add your child</a>
+  </h2>
+  <p>
+    Link your child's account to view their progress. Children must accept your invitation before you can see them.
+  </p>
+  <div class="tab-content">
+    {% if children %}
+      <ul id="child-carousel" class="owl-carousel">
+        {% for connection in children %}
+          <li>
+            {% if connection.active %}
+              <a href="{% url 'profiles:connection' connection.id %}">
+                <div class="panel panel-custom parent-connection">
+                  <div clas="panel-img">
+                    {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
+                  </div>
+                  <div class="panel-body">
+                    <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">
+                      {{ connection.child_profile.user.username }}
+                    </h4>
+                  </div>
+                </div>
+              </a>
+            {% else %}
+              <a data-toggle="modal" data-target="#inactive-parent-connection-{{forloop.counter}}">
+                <div class="panel panel-custom parent-connection is-off">
+                  <div class="panel-img">
+                    {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
+                  </div>
+                  <div class="panel-body">
+                    <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">
+                      {{ connection.child_profile.user.username }}
+                    </h4>
+                  </div>
+                </div>
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <h3 class="tab-empty">Use the button above to add your child's account.</h3>
+    {% endif %}
+  </div>
+
+  <h2>Parent Training</h2>
+  <p>
+    Learn how to encourage children to imagine, invent, and engineer through these six short presentations. These training modules cover the basics of physics and strategies to support your child in innovative thinking.
+  </p>
+  <div class="tab-content">
+    <ul id="training-carousel" class="owl-carousel">
+      {% for training in trainings %}
+        <li>
+          <div class="panel panel-custom">
+            <div class="panel-img">
+              <div class="image-container">
+                <a href="{{ training.link }}">
+                  <img class="img-responsive" src="{% static training.imagePath %}" />
+                </a>
+              </div>
+            </div>
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <a href="{{ training.link }}">{{training.title}}</a>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <div class="description">
+                {{ training.description|default:"example training module explanation" }}
+              </div>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% for connection in children %}
+    {% if not connection.active %}
+      <div class="modal fade" id="inactive-parent-connection-{{forloop.counter}}" tabindex="-1"
+        role="dialog" aria-labelledby="inactive-parent-connection-label" aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="inactive-parent-connection-label">You can't see this child yet.</h4>
+            </div>
+            <div class="modal-body text-center">
+              <p>To see your child's progress, they must accept your invitation in their profile.</p>
+              <ul class="list-unstyled">
+                <li><a class="btn btn-primary" href="{% url "logout" %}?next={% url "login" %}">Log out and have your child log in</a></li>
+                <li><a class="btn btn-link" href="{% url "profiles:remove_connection" connection_id=connection.id %}">Remove this child</a></li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+
+{% block js %}
+  <script>
+    $(document).ready(function () {
+      $('#child-carousel').initPanelCarousel({
+        items: 6,
+        itemsDesktop: [1199,6],
+        itemsDesktopSmall : [980,5],
+        itemsTablet: [768,3],
+        itemsTabletSmall: false,
+        itemsMobile: [479,2],
+      });
+    });
+    $('#training-carousel').initPanelCarousel();
+  </script>
+{% endblock %}
