@@ -4,7 +4,8 @@ from django.utils.functional import lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from challenges.models import Progress, Favorite, Challenge
-from profiles.models import UserRole, ParentConnection
+from parents.models import ParentConnection
+from profiles.models import UserRole
 from .forms import *
 from .models import StudentProfile
 
@@ -62,8 +63,7 @@ class HomeView(TemplateView):
         context["active_progresses"] = [progress for progress in progresses if not progress.completed]
         context["progresses"] = progresses
 
-        # TODO: ParentConnection needs to be updated to work on StudentProfiles
-        #context["parent_connections"] = ParentConnection.objects.filter(child_profile=request.user.profile, removed=False)
+        context["parent_connections"] = ParentConnection.objects.filter(child_profile=request.user.studentprofile, removed=False)
         context["memberships"] = request.user.membership_set.filter(is_active=True)
 
         return context

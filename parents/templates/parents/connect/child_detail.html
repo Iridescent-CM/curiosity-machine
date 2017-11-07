@@ -1,0 +1,63 @@
+{% extends "deprecated_base.html" %}
+{% load activity_count %}
+
+{% block title %}{{ connection.child_profile.user.username }}{% endblock %}
+
+{% block content %}
+  {% block breadcrumb %}
+    <ol class="breadcrumb">
+      <li><a href="{% url 'root' %}">Home</a></li>
+      <li>{{ connection.child_profile.user.username }}</li>
+    </ol>
+  {% endblock %}
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
+          <h4 class="text-overflow" title="{{ connection.child_profile.user.username }}">{{ connection.child_profile.user.username }}</h4>
+        </div>
+      </div>
+      <a href="{% url "parents:remove_connection" connection_id=connection.id %}">Remove this child</a>
+    </div>
+    <div class="col-sm-10">
+      <h1>Challenges</h1>
+      <div class="row">
+        {% for progress in connection.child_profile.user.progresses.all %}
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title two-lines-fixed">{{ progress.challenge.name }}</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table text-center">
+                <thead>
+                  <tr>
+                    <th>Plan</th>
+                    <th>Build/Test</th>
+                    <th>Reflect</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td><span class="badge plan">{% activity_count progress connection.child_profile.user "plan" %}</span></td>
+                  <td><span class="badge build">{% activity_count progress connection.child_profile.user "build" "test" %}</span></td>
+                  <td><span class="badge reflect">{% activity_count progress connection.child_profile.user "reflect" %}</span></td>
+                </tr>
+              </table>
+              <dl class="">
+                <dt>Mentor feedback</dt><dd>{% activity_count progress progress.mentor %}</dd>
+                <dt>Latest activity on</dt><dd>{{ progress.most_recent.created|date:"DATE_FORMAT"|default:"None" }}</dd>
+              </dl>
+              <a class="btn btn-default"
+                href="{% url 'challenges:challenge_progress' progress.challenge.id connection.child_profile.user.username %}"
+                role="button">View Challenge</a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">This student hasn't started any challenges</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -6,7 +6,7 @@
 {% block content %}
   <h2>
     Your children
-    <a class="btn btn-primary btn-sm" href="{% url 'profiles:connect' %}">Add your child</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'parents:connect' %}">Add your child</a>
   </h2>
   <p>
     Link your child's account to view their progress. Children must accept your invitation before you can see them.
@@ -17,7 +17,7 @@
         {% for connection in children %}
           <li>
             {% if connection.active %}
-              <a href="{% url 'profiles:connection' connection.id %}">
+              <a href="{% url 'parents:view_child' connection.id %}">
                 <div class="panel panel-custom parent-connection">
                   <div clas="panel-img">
                     {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
@@ -100,7 +100,7 @@
               <p>To see your child's progress, they must accept your invitation in their profile.</p>
               <ul class="list-unstyled">
                 <li><a class="btn btn-primary" href="{% url "logout" %}?next={% url "login" %}">Log out and have your child log in</a></li>
-                <li><a class="btn btn-link" href="{% url "profiles:remove_connection" connection_id=connection.id %}">Remove this child</a></li>
+                <li><a class="btn btn-link" href="{% url "parents:remove_connection" connection_id=connection.id %}">Remove this child</a></li>
               </ul>
             </div>
             <div class="modal-footer">

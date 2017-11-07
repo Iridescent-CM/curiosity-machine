@@ -1,6 +1,7 @@
-from curiositymachine.forms import MediaURLField
+from curiositymachine.forms import MediaURLField, StudentUsernamesField
 from curiositymachine.widgets import FilePickerPickWidget
 from django import forms
+from django.db.models import F
 from profiles.models import UserRole
 from .models import *
 
@@ -54,3 +55,34 @@ class EditStudentProfileForm(forms.ModelForm):
     class Meta:
         model = ParentProfile
         fields = '__all__'
+
+class ConnectForm(forms.ModelForm):
+    class Meta:
+        model = ParentProfile
+        fields = []
+
+    usernames = StudentUsernamesField(
+        required=True,
+        help_text="Enter one or more usernames separated by commas. Usernames are case sensitive."
+    )
+
+    def save(self, commit=True):
+        profiles = StudentProfile.objects.filter(user__username__in=self.cleaned_data["usernames"])
+        for profile in profiles:
+            updated = ParentConnection.objects.filter(
+                parent_profile=self.instance,
+                child_profile=profile,
+            ).update(
+                removed=False,
+                active=False,
+                retries=F("retries") + 1
+            )
+            if updated == 0:
+                ParentConnection.objects.create(
+                    parent_profile=self.instance,
+                    child_profile=profile,
+                    removed=False,
+                    active=False,
+                    retries=0
+                )
+        return self.instance

@@ -1,8 +1,13 @@
+from curiositymachine.views.generic import ToggleView, SoftDeleteView
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
+from profiles.decorators import only_for_role
+from .decorators import *
 from .forms import *
 from .models import *
 
@@ -56,3 +61,51 @@ class HomeView(TemplateView):
         )
 
 home = login_required(HomeView.as_view())
+
+class NewConnectionView(UpdateView):
+    model = ParentProfile
+    form_class = ConnectForm
+    success_url = lazy(reverse, str)('parents:home')
+    template_name = "parents/connect/connect_form.html"
+
+    def get_object(self, queryset=None):
+        return self.request.user.parentprofile
+
+connect = only_for_role('parent')(NewConnectionView.as_view())
+
+class ChildView(DetailView):
+    model = ParentConnection
+    pk_url_kwarg = 'connection_id'
+    template_name = 'parents/connect/child_detail.html'
+    context_object_name = 'connection'
+
+view_child = active_connected_parent_only(ChildView.as_view())
+
+def reverse_with_anchor(view, anchor):
+    return "{}#{}".format(reverse(view), anchor)
+
+class ToggleConnectionView(ToggleView):
+    model = ParentConnection
+    pk_url_kwarg = 'connection_id'
+    success_url = lazy(reverse_with_anchor, str)('profiles:home', 'parents')
+
+    def toggle(self, obj):
+        obj.active = not obj.active
+        obj.save(update_fields=['active'])
+        if obj.active:
+            messages.success(self.request, "{} can now see your progress".format(obj.parent_profile.user.username))
+        else:
+            messages.success(self.request, "{} can no longer see your progress".format(obj.parent_profile.user.username))
+
+toggle_connection = connected_child_only(ToggleConnectionView.as_view())
+
+class DeleteConnectionView(SoftDeleteView):
+    model = ParentConnection
+    pk_url_kwarg = 'connection_id'
+    success_url = lazy(reverse, str)('profiles:home')
+    deletion_field = 'removed'
+
+    def get_template_names(self):
+        return ["parents/connect/%s_confirm_delete.html" % self.request.user.extra.user_type]
+
+remove_connection = connected_only(DeleteConnectionView.as_view())

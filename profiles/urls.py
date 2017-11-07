@@ -35,8 +35,8 @@ urlpatterns = [
     url(r'^unclaimed_progresses/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})$', views.mentor.unclaimed_progresses, name='unclaimed_progresses'),
     url(r'^unclaimed_progresses/$', views.mentor.unclaimed_progresses, name='unclaimed_progresses_base'),
     url(r'^claimed_progresses/$', views.mentor.claimed_progresses, name='claimed_progresses'),
-    url(r'^connect/$', views.parent.ParentConnectionCreateView.as_view(), name='connect'),
-    url(r'^connection/(?P<connection_id>\d+)/$', views.parent.ChildDetailView.as_view(), name='connection'),
-    url(r'^connection/(?P<connection_id>\d+)/remove/$', views.dispatch, {'action': 'remove_connection'}, name='remove_connection'),
-    url(r'^connection/(?P<connection_id>\d+)/toggle/$', views.student.ParentConnectionToggleView.as_view(), name='toggle_connection'),
+    #url(r'^connect/$', views.parent.ParentConnectionCreateView.as_view(), name='connect'),
+    #url(r'^connection/(?P<connection_id>\d+)/$', views.parent.ChildDetailView.as_view(), name='connection'),
+    #url(r'^connection/(?P<connection_id>\d+)/remove/$', views.dispatch, {'action': 'remove_connection'}, name='remove_connection'),
+    #url(r'^connection/(?P<connection_id>\d+)/toggle/$', views.student.ParentConnectionToggleView.as_view(), name='toggle_connection'),
 ]
