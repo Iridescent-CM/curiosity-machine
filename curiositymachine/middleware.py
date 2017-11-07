@@ -69,7 +69,7 @@ class UnderageStudentSandboxMiddleware:
                 and request.user.extra.is_student
                 and not request.user.extra.approved):
             if not whitelisted(view, 'public', 'maybe_public', 'underage'):
-                return HttpResponseRedirect(reverse('profiles:underage_student'))
+                return HttpResponseRedirect(reverse('students:underage'))
 
 class UnapprovedMentorSandboxMiddleware:
     """

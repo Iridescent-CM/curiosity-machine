@@ -69,3 +69,5 @@ class HomeView(TemplateView):
         return context
 
 home = login_required(HomeView.as_view())
+
+underage = TemplateView.as_view(template_name='students/underage.html')

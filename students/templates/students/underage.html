@@ -1,0 +1,62 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% block title %}Activate Account{% endblock %}
+
+{% block content %}
+  <div class="container-fluid text-xs-center jumbotron-green">
+    <h1>Activate Your Child’s Account</h1>
+  </div>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 mb-2">
+        <p class="mb-2">
+          Curiosity Machine users can post pictures and videos of their projects and interact with mentors in the Curiosity Machine community. To activate an account for a user under 13 years old, a parent or guardian must send us a signed consent form. This is in accordance with the <a href="https://en.wikipedia.org/wiki/Children's_Online_Privacy_Protection_Act">Children’s Online Privacy Protection Act</a> (COPPA).
+        </p>
+        <div class="text-xs-center">
+          <a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf" class="btn btn-primary mb-1">
+            Download Parent Consent Form (English)
+          </a>
+          <br>
+          <a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy-esp.pdf" class="btn btn-primary">
+            Descargar el Consentimiento de los Padres (Espa&ntilde;ol)
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3 mb-2">
+        <p class="text-xs-center">
+          To activate the account of your child under 13 years old, please send us a completed Parent Consent Form:
+        </p>
+        <dl>
+          <dt>Via E-mail</dt>
+          <dd>
+            Send to <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>
+            You can print the document, sign, scan or photograph, and email it to us or complete the consent form electronically using Adobe Acrobat Reader.
+          </dd>
+          <dt>Via Mail</dt>
+          <dd>Iridescent, 532 W. 22nd Street, Los Angeles, CA 90007</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 text-xs-center mb-3">
+        <p>
+          When we receive your Parent Consent Form, we will unlock your child’s account.
+        </p>
+        <p>
+          In the meantime, you can check out our design challenges and decide what to build first!
+        </p>
+        <div>
+          <a href="{% url "challenges:challenges" %}" class="btn btn-primary">
+            Browse Design Challenges
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
