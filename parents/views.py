@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic.edit import UpdateView
 from profiles.decorators import only_for_role
 from profiles.views import CreateProfileView
 from .decorators import *

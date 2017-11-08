@@ -74,6 +74,7 @@ INSTALLED_APPS = (
     'profiles',
     'students',
     'parents',
+    'mentors',
     'challenges',
     'cmcomments',
     'videos',

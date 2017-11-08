@@ -1,0 +1,137 @@
+{% extends "deprecated_base.html" %}
+{% block title %}My Dashboard{% endblock %}
+
+{% load staticfiles %}
+{% load resized %}
+
+{% block content %}
+
+  <h1>Welcome {{user.username}}</h1>
+  {% include "profiles/mentor/_profile_info.html" with profile=user.profile %}
+
+  {% if request.user.extra.approved %}
+    <h2>Recent Challenges I'm Mentoring</h2>
+    <div class="tab-content">
+      <ul class="challenges-list owl-carousel panel-carousel">
+        {% for progress in progresses %}
+          {% include "_challenge_item_progress.html" %}
+        {% empty %}
+          <h3>You are not mentoring any challenges right now</h3>
+        {% endfor %}
+      </ul>
+      <div class="text-center">
+        <a href="{% url "profiles:claimed_progresses" %}"
+            class="btn btn-primary"
+            {% if not progresses %}disabled="disabled"{% endif %}
+        >See all</a>
+      </div>
+    </div>
+
+    <h2>Claim a Challenge by Partnership</h2>
+    <div class="tab-content">
+      <ul class="challenges-list owl-carousel panel-carousel">
+        {% if progresses_by_partnership or non_partnership %}
+          {% for partnership in progresses_by_partnership %}
+            {% with progress=partnership.example_progress source=partnership.source count=partnership.unclaimed %}
+
+              <li>
+                <div class="panel panel-custom">
+                  <div class="panel-img">
+                    <div class="image-container">
+                      <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">
+                        {% if progress.challenge.image %}
+                          <img src="{% resized progress.challenge.image.url width=300 height=190 crop='fill' %}">
+                        {% elif progress.challenge.video.encodings_generated %}
+                          <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=190 crop='fill' %}">
+                        {% elif progress.student.profile.image %}
+                          <img src="{% resized progress.student.profile.image.url width=300 height=190 crop='fill' %}" />
+                        {% endif %}
+                      </a>
+                    </div>
+                  </div>
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{source}}</a>
+                    </div>
+                  </div>
+                  <div class="panel-body text-center">
+                    <h2><a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{count}}</a></h2>
+                    <p>Unclaimed</p>
+                  </div>
+                </div>
+              </li>
+
+            {% endwith %}
+          {% endfor %}
+          {% if non_partnership %}
+            {% with progress=non_partnership.example_progress source=non_partnership.source count=non_partnership.unclaimed %}
+
+            <li>
+              <div class="panel panel-custom">
+                <div class="panel-img">
+                  <div class="image-container">
+                    <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">
+                      {% if progress.challenge.image %}
+                        <img src="{% resized progress.challenge.image.url width=300 height=190 crop='fill' %}">
+                      {% elif progress.challenge.video.encodings_generated %}
+                        <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=190 crop='fill' %}">
+                      {% elif progress.student.profile.image %}
+                        <img src="{% resized progress.student.profile.image.url  width=300 height=190 crop='fill' %}" />
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">other</a>
+                  </div>
+                </div>
+                <div class="panel-body text-center">
+                  <h2><a href="{% url 'profiles:unclaimed_progresses_base' %}?source={{source}}">{{count}}</a></h2>
+                  <p>Unclaimed</p>
+                </div>
+              </div>
+            </li>
+
+            {% endwith %}
+          {% endif %}
+        {% else %}
+          <h3>There are currently no unclaimed student challenges</h3>
+        {% endif %}
+      </ul>
+    </div>
+
+    <h2>Claim a Challenge by Date</h2>
+    <div class="tab-content">
+      <ul class="challenges-list owl-carousel panel-carousel">
+        {% for day_with_progress in unclaimed_days %}
+          {% include "_challenge_item_day.html" with aggregate=day_with_progress.0 progress=day_with_progress.1 %}
+        {% empty %}
+      <h3>There are currently no unclaimed student challenges</h3>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {% if flags.enable_docebo_training %}
+  <h2>Mentor Training</h2>
+  <div class="tab-content">
+    <ul class="challenges-list owl-carousel panel-carousel">
+      <li>
+        <div class="panel panel-default training-module">
+          <a href="{{ DOCEBO_MENTOR_URL }}">
+            <div class="image-container">
+              <img src="{% static 'images/mentors/iridescent-academy.jpg' %}">
+            </div>
+          </a>
+          <div class="panel-body">
+            <p>We updated our mentor training to make it more interactive! Make an account on our training site to get started.</p>
+            <a href="{{ DOCEBO_MENTOR_URL }}" target="_blank" class="btn btn-primary">Create Account</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  {% endif %}
+
+{% endblock %}
