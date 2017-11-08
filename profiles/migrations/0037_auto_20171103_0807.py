@@ -9,8 +9,9 @@ def copy_to_extra(apps, schema_editor):
     Profile = apps.get_model("profiles", "Profile")
     UserExtra = apps.get_model("profiles", "UserExtra")
     fieldnames = [f.get_attname() for f in UserExtra._meta.get_fields()]
+    fieldnames.remove('id')
     for data in Profile.objects.values(*fieldnames):
-        UserExtra.objects.get_or_create(**data)
+        UserExtra.objects.create(**data)
 
 def copy_from_extra(apps, schema_editor):
     Profile = apps.get_model("profiles", "Profile")
