@@ -1,27 +1,20 @@
+from challenges.models import Progress, Favorite, Challenge
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView, UpdateView
-from challenges.models import Progress, Favorite, Challenge
+from django.views.generic.edit import FormView, UpdateView
 from parents.models import ParentConnection
-from profiles.models import UserRole
+from profiles.views import CreateProfileView
 from .forms import *
 from .models import StudentProfile
 
-class CreateProfileView(CreateView):
-    model = StudentProfile
+class CreateView(CreateProfileView):
     form_class = NewStudentProfileForm
+    template_name = "students/studentprofile_form.html"
     success_url = lazy(reverse, str)("challenges:challenges")
 
-    def get_initial(self):
-        initial = super().get_initial()
-        initial.update({
-            "user": self.request.user
-        })
-        return initial
-
-create = CreateProfileView.as_view()
+create = CreateView.as_view()
 
 class EditProfileView(UpdateView):
     model = StudentProfile

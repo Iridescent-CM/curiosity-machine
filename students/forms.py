@@ -3,6 +3,7 @@ from curiositymachine.widgets import FilePickerPickWidget
 from datetime import datetime, date
 from django import forms
 from images.models import Image
+from profiles.forms import ProfileModelForm
 from profiles.models import UserRole
 from .models import StudentProfile
 
@@ -13,7 +14,7 @@ def age(birthday):
     today = date.today()
     return today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
 
-class NewStudentProfileForm(forms.ModelForm):
+class NewStudentProfileForm(ProfileModelForm):
     class Meta:
         model = StudentProfile
         fields = [
@@ -70,29 +71,15 @@ class NewStudentProfileForm(forms.ModelForm):
     def _clean(self):
         return self.cleaned_data
 
-    def save(self, commit=True):
-        if not commit:
-            # Save without commit is weird since so many related models are updated
-            raise NotImplementedError("Save without commit not yet implemented.")
-
-        user = self.initial.get('user')
-        if not user:
-            raise NotImplementedError("Save cannot be called unless User provided in form initials.")
-
-        obj = super().save(commit=False)
-        obj.user = user
-
+    def save_related(self, obj):
         if self.cleaned_data.get("image_url"):
             img = Image(source_url=self.cleaned_data['image_url']['url'])
             img.save()
             obj.image = img
-
-        obj.save()
-
-        obj.user.extra.role = UserRole.student.value
-        obj.user.extra.save()
-
         return obj
+
+    def get_role(self):
+        return UserRole.student
 
 # TODO: build out the actual thing
 class EditStudentProfileForm(forms.ModelForm):

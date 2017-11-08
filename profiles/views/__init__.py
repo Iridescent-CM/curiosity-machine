@@ -45,8 +45,11 @@ class Recover(password_reset.views.Recover):
 recover = Recover.as_view()
 
 ################# New stuff
+from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 from django.views.generic.base import TemplateView, RedirectView
+from django.views.generic.edit import FormView
+from inspect import signature
 from ..models import UserRole
 
 class ChooseProfileTemplateView(TemplateView):
@@ -66,3 +69,14 @@ class ProfileRedirectView(RedirectView):
 
 home = login_required(ProfileRedirectView.as_view(viewname="home"))
 edit_profile = login_required(ProfileRedirectView.as_view(viewname="edit_profile"))
+
+class CreateProfileView(FormView):
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)

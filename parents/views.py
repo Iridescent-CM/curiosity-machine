@@ -5,25 +5,19 @@ from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import FormView, UpdateView
 from profiles.decorators import only_for_role
+from profiles.views import CreateProfileView
 from .decorators import *
 from .forms import *
 from .models import *
 
-class CreateProfileView(CreateView):
-    model = ParentProfile
+class CreateView(CreateProfileView):
     form_class = NewParentProfileForm
+    template_name = "parents/parentprofile_form.html"
     success_url = lazy(reverse, str)("parents:home")
 
-    def get_initial(self):
-        initial = super().get_initial()
-        initial.update({
-            "user": self.request.user
-        })
-        return initial
-
-create = CreateProfileView.as_view()
+create = CreateView.as_view()
 
 class EditProfileView(UpdateView):
     model = ParentProfile
