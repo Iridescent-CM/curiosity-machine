@@ -130,6 +130,6 @@
 
   <div class="sign-up-panel py-3">
     <h2>Create an Educator Account!</h2>
-    <a href="{% url "profiles:join_as_educator" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
+    <a href="{% url "account_signup" %}?next={% url "educators:create_profile" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
   </div>
 {% endblock %}

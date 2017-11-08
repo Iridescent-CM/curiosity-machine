@@ -41,6 +41,6 @@
 
   <div class="sign-up-panel py-3">
     <h2>Create a Parent Account!</h2>
-    <a href="{% url "profiles:join_as_parent" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
+    <a href="{% url "account_signup" %}?next={% url "parents:create_profile" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
   </div>
 {% endblock %}
