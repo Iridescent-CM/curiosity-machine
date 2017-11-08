@@ -125,7 +125,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
-                "curiositymachine.context_processors.login_and_join_forms",
+                "curiositymachine.context_processors.login_form",
                 "curiositymachine.context_processors.google_analytics",
                 "curiositymachine.context_processors.feature_flags",
                 "curiositymachine.context_processors.template_globals",

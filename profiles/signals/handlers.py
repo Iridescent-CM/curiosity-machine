@@ -15,7 +15,7 @@ def create_user_profile(sender, instance, created, **kwargs):
             UserExtra.objects.create(user=instance)
         signals.created_account.send(sender=instance)
 
-# move this it at this point
+# TODO: move this it at this point
 from students.models import StudentProfile
 
 @receiver(post_save, sender=StudentProfile)

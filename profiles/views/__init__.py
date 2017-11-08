@@ -5,11 +5,9 @@ import password_reset.forms
 from smtplib import SMTPRecipientsRefused
 import logging
 
-from . import student
 from . import mentor
 from . import educator
 from . import staff
-from . import parent
 
 logger = logging.getLogger(__name__)
 
@@ -17,12 +15,8 @@ logger = logging.getLogger(__name__)
 def dispatch(request, action, *args, **kwargs):
     if request.user.extra.is_mentor:
         module = mentor
-    elif request.user.extra.is_student:
-        module = student
     elif request.user.extra.is_educator:
         module = educator
-    elif request.user.extra.is_parent:
-        module = parent
     elif request.user.is_staff:
         module = staff
     else:
