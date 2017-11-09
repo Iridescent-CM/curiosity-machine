@@ -110,6 +110,8 @@ class User(get_user_model()):
             return self.studentprofile
         elif hasattr(self, "parentprofile"):
             return self.parentprofile
+        elif hasattr(self, "mentorprofile"):
+            return self.mentorprofile
         return super().profile
 
 class Profile(models.Model):

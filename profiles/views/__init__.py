@@ -5,7 +5,6 @@ import password_reset.forms
 from smtplib import SMTPRecipientsRefused
 import logging
 
-from . import mentor
 from . import educator
 from . import staff
 
@@ -13,9 +12,7 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def dispatch(request, action, *args, **kwargs):
-    if request.user.extra.is_mentor:
-        module = mentor
-    elif request.user.extra.is_educator:
+    if request.user.extra.is_educator:
         module = educator
     elif request.user.is_staff:
         module = staff
