@@ -1,11 +1,11 @@
-{% extends "profiles/educator/dashboard/base.html" %}
+{% extends "educators/dashboard/base.html" %}
 {% load staticfiles %}
 {% load datepills %}
 {% block title %}{{ student.username }}'s Progress{% endblock %}
 
 {% block content %}
-  {% url "profiles:educator_dashboard_students" as base_url %}
-  {% include 'profiles/educator/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
+  {% url "educators:students" as base_url %}
+  {% include 'educators/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
 
   <div class="row pb-1">
     <div class="col-md-12">
@@ -58,7 +58,7 @@
       <div class="card-progress mb-1">
         <div class="card-block-title">
           <h3 class="card-title">{{ progress.challenge.name }}</h3>
-          <a href="{% url "profiles:educator_dashboard_challenge_detail" challenge_id=progress.challenge.id %}" class="a-secondary">
+          <a href="{% url "educators:challenge" challenge_id=progress.challenge.id %}" class="a-secondary">
             View all student progress &rarr;
           </a>
         </div>

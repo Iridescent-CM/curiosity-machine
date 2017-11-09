@@ -1,8 +1,8 @@
-{% extends "profiles/educator/dashboard/base.html" %}
+{% extends "educators/dashboard/base.html" %}
 {% load staticfiles %}
 
 {% block content %}
-  {% include 'profiles/educator/dashboard/_navigation.html' %}
+  {% include 'educators/dashboard/_navigation.html' %}
 
   {% if membership_selection.no_memberships %}
   <div class="row pb-1">
@@ -91,7 +91,7 @@
       <div class="student-list">
 
         <div class="student-list-item">
-          <a href="{% url 'profiles:educator_dashboard_student_detail' student_id=student.id %}" class="student-list-avatar">
+          <a href="{% url 'educators:student' student_id=student.id %}" class="student-list-avatar">
             <div class="student-list-has-activity">
               {% include "_avatar.html" with profile=student.profile  width=48 height=48 crop='thumb' gravity='faces' %}
             </div>
@@ -105,7 +105,7 @@
           </span>
           <br>
           <span class="student-inline-username">
-            <a href="{% url 'profiles:educator_dashboard_student_detail' student_id=student.id %}">{{ student.username }}</a> &middot;
+            <a href="{% url 'educators:student' student_id=student.id %}">{{ student.username }}</a> &middot;
             {% if student.extra.approved %}
             <span class="green-type">approved</span>
             {% else %}
@@ -143,7 +143,7 @@
                 {% endif %}
               </span>
               <br>
-              {% url "profiles:educator_dashboard_student_password_reset" student_id=student.id as button_url %}
+              {% url "educators:student_password_reset" student_id=student.id as button_url %}
               <a class="btn btn-primary mt-1" href="{{ button_url }}" role="button">Reset Password</a>
             </div>
           </div>

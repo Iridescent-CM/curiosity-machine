@@ -15,18 +15,18 @@
           </div>
         </li>
         {% endif %}
-        <li class="nav-item {% ifactive "profiles:home" "active-nav" %}">
-          <a class="nav-link" href="{% url 'profiles:home' %}">
+        <li class="nav-item {% ifactive "educators:home" "active-nav" %}">
+          <a class="nav-link" href="{% url 'educators:home' %}">
             design challenges
           </a>
         </li>
-        <li class="nav-item {% ifactive "profiles:educator_dashboard_students" "active-nav" %}">
-          <a class="nav-link" href="{% url 'profiles:educator_dashboard_students' %}">
+        <li class="nav-item {% ifactive "educators:students" "active-nav" %}">
+          <a class="nav-link" href="{% url 'educators:students' %}">
             students
           </a>
         </li>
-        <li class="nav-item {% ifactive "profiles:educator_dashboard_guides" "active-nav" %}">
-          <a class="nav-link" href="{% url 'profiles:educator_dashboard_guides' %}">
+        <li class="nav-item {% ifactive "educators:guides" "active-nav" %}">
+          <a class="nav-link" href="{% url 'educators:guides' %}">
             units &amp; guides
           </a>
         </li>

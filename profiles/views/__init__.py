@@ -5,16 +5,13 @@ import password_reset.forms
 from smtplib import SMTPRecipientsRefused
 import logging
 
-from . import educator
 from . import staff
 
 logger = logging.getLogger(__name__)
 
 @login_required
 def dispatch(request, action, *args, **kwargs):
-    if request.user.extra.is_educator:
-        module = educator
-    elif request.user.is_staff:
+    if request.user.is_staff:
         module = staff
     else:
         raise Http404()

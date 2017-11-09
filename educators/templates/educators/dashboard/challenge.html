@@ -1,9 +1,9 @@
-{% extends "profiles/educator/dashboard/base.html" %}
+{% extends "educators/dashboard/base.html" %}
 {% block title %}{{ challenge.name }}'s Students{% endblock %}
 
 {% block content %}
-  {% url "profiles:home" as base_url %}
-  {% include 'profiles/educator/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
+  {% url "educators:home" as base_url %}
+  {% include 'educators/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
 
   <div class="row mb-1">
     <div class="col-md-12">
@@ -31,7 +31,7 @@
             {% for challenge in challenge_links %}
             <a
               class="dropdown-item"
-              href="{% url "profiles:educator_dashboard_challenge_detail" challenge_id=challenge.id %}?{{ request.GET.urlencode }}"
+              href="{% url "educators:challenge" challenge_id=challenge.id %}?{{ request.GET.urlencode }}"
               >{{ challenge.name }}</a>
             {% endfor %}
           </div>
@@ -105,7 +105,7 @@
   <div class="row mb-2">
     <div class="col-md-3">
       <div class="student-list-item">
-        <a href="{% url "profiles:educator_dashboard_student_detail" student_id=student.id %}" class="student-list-avatar a-borderless float-xs-left">
+        <a href="{% url "educators:student" student_id=student.id %}" class="student-list-avatar a-borderless float-xs-left">
           <div class="hidden-lg-down">
             {% include "_avatar.html" with profile=student.profile  width=48 height=48 crop='thumb' gravity='faces' %}
           </div>
@@ -116,7 +116,7 @@
         <em>No name provided</em>
         {% endif %}
         <br>
-        <a href="{% url "profiles:educator_dashboard_student_detail" student_id=student.id %}">
+        <a href="{% url "educators:student" student_id=student.id %}">
           {{ student.username }}
         </a>
       </div>

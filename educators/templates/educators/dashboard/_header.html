@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <a href="{% url 'profiles:edit_profile' %}" class="a-borderless float-xs-right">Account Settings</a>
+        <a href="{% url 'educators:edit_profile' %}" class="a-borderless float-xs-right">Account Settings</a>
         <div class="dashboard-avatar">
           {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
         </div>
@@ -55,7 +55,7 @@
           </div>
           <div class="collapse" id="impact-collapse">
             <form id="impact-survey" class="mb-3"
-                action="{% url "profiles:update_impact_survey" %}"
+                action="{% url "educators:update_impact_survey" %}"
                 method="post" data-remote="true"
             >
               {% csrf_token %}

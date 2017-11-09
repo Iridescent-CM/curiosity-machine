@@ -1,8 +1,8 @@
-{% extends "profiles/educator/dashboard/base.html" %}
+{% extends "educators/dashboard/base.html" %}
 {% load staticfiles %}
 
 {% block content %}
-  {% include 'profiles/educator/dashboard/_navigation.html' %}
+  {% include 'educators/dashboard/_navigation.html' %}
 
   {% if extra_units %}
   <div class="row pb-1">
@@ -15,7 +15,7 @@
 
     {% for unit in extra_units %}
     <div class="col-lg-4 col-md-6 mb-1">
-      {% include "profiles/educator/dashboard/_unit_card.html" with unit=unit %}
+      {% include "educators/dashboard/_unit_card.html" with unit=unit %}
     </div>
     {% if forloop.counter|divisibleby:3 %}
       <div class="clearfix hidden-md-down"></div>
@@ -38,7 +38,7 @@
 
     {% for unit in units %}
     <div class="col-lg-4 col-md-6 mb-1">
-      {% include "profiles/educator/dashboard/_unit_card.html" with unit=unit %}
+      {% include "educators/dashboard/_unit_card.html" with unit=unit %}
     </div>
     {% if forloop.counter|divisibleby:3 %}
       <div class="clearfix hidden-md-down"></div>

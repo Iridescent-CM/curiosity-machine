@@ -1,7 +1,5 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from . import educator
-from .impact_survey_form import ImpactSurveyForm
 
 class ProfileModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

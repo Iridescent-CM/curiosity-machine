@@ -1,8 +1,8 @@
-{% extends "profiles/educator/dashboard/base.html" %}
+{% extends "educators/dashboard/base.html" %}
 {% load staticfiles %}
 
 {% block content %}
-  {% include 'profiles/educator/dashboard/_navigation.html' %}
+  {% include 'educators/dashboard/_navigation.html' %}
 
   {% if membership and membership_challenges %}
   <div class="row pb-1">
@@ -14,7 +14,7 @@
   <div class="row mb-3">
     {% for challenge in membership_challenges %}
     <div class="col-lg-4 col-md-6 mb-1">
-      {% include 'profiles/educator/dashboard/_challenge_card.html' with challenge=challenge show_detail_links=True %}
+      {% include 'educators/dashboard/_challenge_card.html' with challenge=challenge show_detail_links=True %}
     </div>
 
     {% if forloop.counter|divisibleby:3 %}
@@ -42,7 +42,7 @@
 
     {% for challenge in core_challenges %}
     <div class="col-lg-4 col-md-6 mb-1">
-      {% include 'profiles/educator/dashboard/_challenge_card.html' with challenge=challenge %}
+      {% include 'educators/dashboard/_challenge_card.html' with challenge=challenge %}
     </div>
 
     {% if forloop.counter|divisibleby:3 %}

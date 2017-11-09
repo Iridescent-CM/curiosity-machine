@@ -88,7 +88,7 @@ class StudentSorter(Sorter):
 
     def sort(self, qs):
         """
-        Expects a User queryset and adds sorting based on strategy. 
+        Expects a User queryset and adds sorting based on strategy.
         """
         if self.strategy == self.Strategy.first_name:
             return qs.extra(

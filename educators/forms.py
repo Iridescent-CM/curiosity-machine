@@ -50,3 +50,8 @@ class EditEducatorProfileForm(forms.ModelForm):
     class Meta:
         model = EducatorProfile
         fields = '__all__'
+
+class ImpactSurveyForm(forms.ModelForm):
+    class Meta:
+        model = ImpactSurvey
+        exclude = ('user',)
