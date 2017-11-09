@@ -1,15 +1,13 @@
-import pytest
-from mock import MagicMock
-
-from django.utils.timezone import now
 from datetime import timedelta
-from django.http.request import QueryDict
 from django.contrib.auth import get_user_model
-User = get_user_model()
-
+from django.http.request import QueryDict
+from django.utils.timezone import now
+from mock import MagicMock
 from profiles.factories import *
-
 from ..sorting import *
+import pytest
+
+User = get_user_model()
 
 def test_reversed():
     l = [1,2,3,4]

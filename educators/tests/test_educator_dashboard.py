@@ -1,20 +1,19 @@
-import pytest
-import mock
-
 import json
-from django.utils.timezone import now
-from datetime import timedelta
-from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate
-from curiositymachine import signals
-from django.forms.models import model_to_dict
-
-from profiles.models import ImpactSurvey
-from units.factories import *
-from profiles.factories import *
-from memberships.factories import *
+import mock
+import pytest
 from challenges.factories import *
 from cmcomments.factories import *
+from curiositymachine import signals
+from datetime import timedelta
+from django.contrib.auth import authenticate
+from django.core.urlresolvers import reverse
+from django.forms.models import model_to_dict
+from django.urls import reverse
+from django.utils.timezone import now
+from memberships.factories import *
+from profiles.factories import *
+from units.factories import *
+from ..models import *
 
 @pytest.mark.django_db
 def test_guides_page_context_has_units(client):
@@ -23,7 +22,7 @@ def test_guides_page_context_has_units(client):
     educator = EducatorFactory(username="edu", password="123123")
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/guides", follow=True)
+    response = client.get(reverse("educators:guides"), follow=True)
     assert set(response.context["units"]) == set(listed_units)
 
 @pytest.mark.django_db
@@ -33,7 +32,7 @@ def test_guides_page_context_has_extra_units(client):
     membership = MembershipFactory(members=[educator], extra_units=units)
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/guides", follow=True)
+    response = client.get(reverse("educators:guides"), follow=True)
     assert set(response.context["extra_units"]) == set(units)
     assert response.context["membership"] == membership
 
@@ -44,7 +43,7 @@ def test_guides_page_context_units_do_not_duplicate_extra_units(client):
     membership = MembershipFactory(members=[educator], extra_units=listed_units)
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/guides", follow=True)
+    response = client.get(reverse("educators:guides"), follow=True)
     assert not response.context["units"]
     assert set(response.context["extra_units"]) == set(listed_units)
 
@@ -55,7 +54,7 @@ def test_challenges_page_context_has_core_challenges(client):
     educator = EducatorFactory(username="edu", password="123123")
 
     client.login(username="edu", password="123123")
-    response = client.get("/home", follow=True)
+    response = client.get(reverse("educators:home"), follow=True)
     assert set(response.context["core_challenges"]) == set(core_challenges)
 
 @pytest.mark.django_db
@@ -65,7 +64,7 @@ def test_challenges_page_context_has_membership_challenges(client):
     membership = MembershipFactory(members=[educator], challenges=challenges)
 
     client.login(username="edu", password="123123")
-    response = client.get("/home", follow=True)
+    response = client.get(reverse("educators:home"), follow=True)
     assert set(response.context["membership_challenges"]) == set(challenges)
     assert response.context["membership"] == membership
 
@@ -76,7 +75,7 @@ def test_challenges_page_context_core_challenges_does_not_duplicate_membership_c
     membership = MembershipFactory(members=[educator], challenges=core_challenges)
 
     client.login(username="edu", password="123123")
-    response = client.get("/home", follow=True)
+    response = client.get(reverse("educators:home"), follow=True)
     assert not response.context["core_challenges"]
     assert set(response.context["membership_challenges"]) == set(core_challenges)
 
@@ -87,7 +86,10 @@ def test_student_detail_page_context_has_connected_student(client):
     membership = MembershipFactory(members=[educator, student])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert response.context["student"] == student
 
 @pytest.mark.django_db
@@ -95,7 +97,10 @@ def test_student_detail_page_403s_on_non_membership_educator(client):
     educator = EducatorFactory(username="edu", password="123123")
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/1/", follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": 1}),
+        follow=True
+    )
     assert response.status_code == 403
 
 @pytest.mark.django_db
@@ -105,7 +110,10 @@ def test_student_detail_page_404s_on_non_connected_student(client):
     membership = MembershipFactory(members=[educator])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert response.status_code == 404
 
 @pytest.mark.django_db
@@ -115,7 +123,10 @@ def test_student_detail_page_404s_on_non_student_membership_member(client):
     membership = MembershipFactory(members=[educator, educator2])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % educator2.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": educator2.id}),
+        follow=True
+    )
     assert response.status_code == 404
 
 @pytest.mark.django_db
@@ -126,8 +137,11 @@ def test_student_detail_page_context_has_graph_data_url(client):
     membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
-    assert response.context["graph_data_url"] == reverse("profiles:progress_graph_data") + "?id=%d" % progress.id
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
+    assert response.context["graph_data_url"] == reverse("educators:progress_graph_data") + "?id=%d" % progress.id
 
 @pytest.mark.django_db
 def test_student_detail_page_context_has_membership_progresses(client):
@@ -137,7 +151,10 @@ def test_student_detail_page_context_has_membership_progresses(client):
     membership = MembershipFactory(members=[educator, student], challenges=[p.challenge for p in progresses])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert set(response.context["progresses"]) == set(progresses)
 
 @pytest.mark.django_db
@@ -148,7 +165,10 @@ def test_student_detail_page_context_does_not_have_other_progresses(client):
     membership = MembershipFactory(members=[educator, student], challenges=[p.challenge for p in progresses[:2]])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert set(response.context["progresses"]) == set(progresses[:2])
 
 @pytest.mark.django_db
@@ -166,7 +186,10 @@ def test_student_detail_page_context_has_progress_annotations(client):
     CommentFactory(challenge_progress=progress, user=student, created=yesterday, stage=2)
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert response.context["progresses"][0].total_user_comments == 5
     assert response.context["progresses"][0].latest_user_comment == latest
     assert response.context["progresses"][0].user_comment_counts_by_stage == [3, 1, 0, 1]
@@ -184,7 +207,10 @@ def test_student_detail_page_total_user_comments_progress_annotation_ignores_men
     membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert response.context["progresses"][0].total_user_comments == 1
 
 @pytest.mark.django_db
@@ -200,7 +226,10 @@ def test_student_detail_page_user_comment_counts_by_stage_progress_annotation_ig
     membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert response.context["progresses"][0].user_comment_counts_by_stage == [1, 0, 0, 0]
 
 @pytest.mark.django_db
@@ -216,7 +245,10 @@ def test_student_detail_page_latest_user_comment_progress_annotation_ignores_men
     membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert response.context["progresses"][0].latest_user_comment == latest_student
 
 @pytest.mark.django_db
@@ -230,7 +262,10 @@ def test_student_detail_page_context_has_completed_count(client):
     membership = MembershipFactory(members=[educator, student], challenges=[p1.challenge, p2.challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert response.context["completed_count"] == 1
 
 @pytest.mark.django_db
@@ -248,9 +283,15 @@ def test_student_detail_page_context_has_approved_example_count(client):
     membership = MembershipFactory(members=[educator, student, student2], challenges=[progress.challenge, progress2.challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert response.context["progresses"][0].approved_examples == [approved]
-    response = client.get("/home/students/%d/" % student2.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student2.id}),
+        follow=True
+    )
     assert response.context["progresses"][0].approved_examples == []
 
 @pytest.mark.django_db
@@ -271,17 +312,26 @@ def test_student_detail_page_context_progresses_sort_by_activity(client):
 
     CommentFactory(challenge_progress=progressA, user=student, created=rightnow - timedelta(minutes=3))
     CommentFactory(challenge_progress=progressB, user=student, created=rightnow - timedelta(minutes=4))
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert [p.id for p in response.context["progresses"]] == [p.id for p in [progressA, progressB]]
 
     CommentFactory(challenge_progress=progressA, user=student, created=rightnow - timedelta(minutes=2))
     CommentFactory(challenge_progress=progressB, user=student, created=rightnow - timedelta(minutes=1))
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert [p.id for p in response.context["progresses"]] == [p.id for p in [progressB, progressA]]
 
     CommentFactory(challenge_progress=progressA, user=student, created=rightnow)
     CommentFactory(challenge_progress=progressB, user=student, created=rightnow)
-    response = client.get("/home/students/%d/" % student.id, follow=True)
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": student.id}),
+        follow=True
+    )
     assert [p.id for p in response.context["progresses"]] == [p.id for p in [progressA, progressB]]
 
 @pytest.mark.django_db
@@ -289,7 +339,7 @@ def test_students_page_context_has_no_students(client):
     educator = EducatorFactory(username="edu", password="123123")
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/", follow=True)
+    response = client.get(reverse("educators:students"), follow=True)
     assert response.context["students"] == []
 
 @pytest.mark.django_db
@@ -300,7 +350,7 @@ def test_students_page_context_has_membership_students(client):
     membership = MembershipFactory(members=[educator] + other_educators + students)
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/students/", follow=True)
+    response = client.get(reverse("educators:students"), follow=True)
     assert response.context["membership"] == membership
     assert set(response.context["students"]) == set(students)
 
@@ -309,7 +359,10 @@ def test_challenge_detail_page_403s_on_non_membership_educator(client):
     educator = EducatorFactory(username="edu", password="123123")
 
     client.login(username="edu", password="123123")
-    assert client.get("/home/challenges/1/", follow=True).status_code == 403
+    assert client.get(
+        reverse("educators:challenge", kwargs={"challenge_id": 1}),
+        follow=True
+    ).status_code == 403
 
 @pytest.mark.django_db
 def test_challenge_detail_page_404s_on_non_membership_challenge(client):
@@ -319,8 +372,14 @@ def test_challenge_detail_page_404s_on_non_membership_challenge(client):
     membership = MembershipFactory(members=[educator], challenges=[challenge1])
 
     client.login(username="edu", password="123123")
-    assert client.get("/home/challenges/%d/" % challenge1.id, follow=True).status_code == 200
-    assert client.get("/home/challenges/%d/" % challenge2.id, follow=True).status_code == 404
+    assert client.get(
+        reverse("educators:challenge", kwargs={"challenge_id": challenge1.id}),
+        follow=True
+    ).status_code == 200
+    assert client.get(
+        reverse("educators:challenge", kwargs={"challenge_id": challenge2.id}),
+        follow=True
+    ).status_code == 404
 
 @pytest.mark.django_db
 def test_challenge_detail_page_context_has_challenge(client):
@@ -329,7 +388,10 @@ def test_challenge_detail_page_context_has_challenge(client):
     membership = MembershipFactory(members=[educator], challenges=[challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
+    response = client.get(
+        reverse("educators:challenge", kwargs={"challenge_id": challenge.id}),
+        follow=True
+    )
     assert response.context["challenge"] == challenge
 
 @pytest.mark.django_db
@@ -340,7 +402,10 @@ def test_challenge_detail_page_context_has_totals_per_student(client):
     membership = MembershipFactory(members=[progress.student, educator], challenges=[challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
+    response = client.get(
+        reverse("educators:challenge", kwargs={"challenge_id": challenge.id}),
+        follow=True
+    )
     assert response.context["students"][0].user_comment_counts_by_stage
 
 @pytest.mark.django_db
@@ -351,7 +416,10 @@ def test_challenge_details_page_shows_unstarted_students(client):
     membership = MembershipFactory(members=[student, educator], challenges=[challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
+    response = client.get(
+        reverse("educators:challenge", kwargs={"challenge_id": challenge.id}),
+        follow=True
+    )
     assert response.context["students"][0].user_comment_counts_by_stage == [0, 0, 0, 0]
 
 @pytest.mark.django_db
@@ -367,7 +435,10 @@ def test_challenge_details_page_orders_students(client):
     membership = MembershipFactory(members=students + [educator], challenges=[challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
+    response = client.get(
+        reverse("educators:challenge", kwargs={"challenge_id": challenge.id}),
+        follow=True
+    )
     assert [s.id for s in response.context["students"]]== [s.id for s in reversed(students)]
 
 @pytest.mark.django_db
@@ -381,7 +452,10 @@ def test_challenge_detail_page_context_has_gallery_post_indicator_for_approved_e
     membership = MembershipFactory(members=[student1, educator], challenges=[challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
+    response = client.get(
+        reverse('educators:challenge', kwargs={"challenge_id": challenge.id}),
+        follow=True
+    )
     assert set(response.context["student_ids_with_examples"]) == set([student1.id])
 
 @pytest.mark.django_db
@@ -400,7 +474,10 @@ def test_challenge_detail_page_context_does_not_have_gallery_post_indicator_othe
     membership = MembershipFactory(members=[student1, student2, student3, educator], challenges=[challenge])
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/challenges/%d/" % challenge.id, follow=True)
+    response = client.get(
+        reverse("educators:challenge", kwargs={"challenge_id": challenge.id}),
+        follow=True
+    )
     assert len(response.context["student_ids_with_examples"]) == 0
 
 @pytest.mark.django_db
@@ -410,7 +487,10 @@ def test_challenge_detail_page_context_has_challenge_links(client):
     membership = MembershipFactory(members=[educator], challenges=challenges)
 
     client.login(username="edu", password="123123")
-    response = client.get("/home/challenges/%d/" % challenges[0].id, follow=True)
+    response = client.get(
+        reverse("educators:challenge", kwargs={"challenge_id": challenges[0].id}),
+        follow=True
+    )
     assert set(response.context["challenge_links"]) == set(challenges)
 
 @pytest.mark.django_db
@@ -419,7 +499,11 @@ def test_page_contexts_have_membership_selection_helper(client):
     memberships = [MembershipFactory(members=[educator]), MembershipFactory(members=[educator])]
 
     client.login(username="edu", password="123123")
-    for url in ["/home", "/home/students", "/home/guides"]:
+    for url in [
+        reverse("educators:home"),
+        reverse("educators:students"),
+        reverse("educators:guides")
+    ]:
         response = client.get(url, follow=True)
         assert "membership_selection" in response.context
 
@@ -428,7 +512,7 @@ def test_graph_data_endpoint_returns_json(client):
     educator = EducatorFactory(username="edu", password="123123")
 
     client.login(username="edu", password="123123")
-    response = client.get(reverse("profiles:progress_graph_data"))
+    response = client.get(reverse("educators:progress_graph_data"))
     assert response['Content-Type'] == "application/json"
 
 @pytest.mark.django_db
@@ -436,9 +520,9 @@ def test_graph_data_endpoint_requires_authentication_as_educator(client):
     user = UserFactory(username="user", password="123123")
     progress = ProgressFactory(comment=True)
 
-    assert client.get(reverse("profiles:progress_graph_data")).status_code == 403
+    assert client.get(reverse("educators:progress_graph_data")).status_code == 403
     client.login(username="user", password="123123")
-    assert client.get(reverse("profiles:progress_graph_data")).status_code == 403
+    assert client.get(reverse("educators:progress_graph_data")).status_code == 403
 
 @pytest.mark.django_db
 def test_graph_data_endpoint_returns_requested_data(client):
@@ -449,16 +533,16 @@ def test_graph_data_endpoint_returns_requested_data(client):
 
     client.login(username="edu", password="123123")
 
-    response = client.get(reverse("profiles:progress_graph_data"))
+    response = client.get(reverse("educators:progress_graph_data"))
     assert json.loads(response.content.decode('utf-8')) == []
 
-    response = client.get(reverse("profiles:progress_graph_data"), {'id': progress.id})
+    response = client.get(reverse("educators:progress_graph_data"), {'id': progress.id})
     data = json.loads(response.content.decode('utf-8'))
     assert len(data) == 1
     assert data[0]["challenge_progress_id"] == progress.id
     assert data[0]["user_id"] == progress.student.id
 
-    response = client.get(reverse("profiles:progress_graph_data"), {'id': [progress.id, progress2.id]})
+    response = client.get(reverse("educators:progress_graph_data"), {'id': [progress.id, progress2.id]})
     data = json.loads(response.content.decode('utf-8'))
     assert len(data) == 2
 
@@ -469,7 +553,7 @@ def test_graph_data_endpoint_omits_data_without_membership_connection(client):
     progress2 = ProgressFactory(comment=True)
 
     client.login(username="edu", password="123123")
-    response = client.get(reverse("profiles:progress_graph_data"), {'id': [progress.id, progress2.id]})
+    response = client.get(reverse("educators:progress_graph_data"), {'id': [progress.id, progress2.id]})
     assert json.loads(response.content.decode('utf-8')) == []
 
 @pytest.mark.django_db
@@ -482,10 +566,13 @@ def test_educator_changes_student_password(client):
     assert authenticate(username='ed', password='123123')
 
     client.login(username='ed', password='123123')
-    response = client.post('/home/students/%d/password/' % student.id, {
-        "new_password1": '987987',
-        "new_password2": '987987',
-    })
+    response = client.post(
+        reverse("educators:student_password_reset", kwargs={"student_id": student.id}),
+        {
+            "password1": '987987',
+            "password2": '987987',
+        }
+    )
 
     assert response.status_code == 302
     assert response.url.endswith('/home/students/')
@@ -502,15 +589,21 @@ def test_educator_change_student_password_404s_for_bad_targets(client):
 
     client.login(username='ed', password='123123')
 
-    response = client.post('/home/students/%d/password/' % student2.id, {
-        "new_password1": '987987',
-        "new_password2": '987987',
-    })
+    response = client.post(
+        reverse("educators:student_password_reset", kwargs={"student_id": student2.id}),
+        {
+            "password1": '987987',
+            "password2": '987987',
+        }
+    )
     assert response.status_code == 404
-    response = client.post('/home/students/%d/password/' % educator2.id, {
-        "new_password1": '987987',
-        "new_password2": '987987',
-    })
+    response = client.post(
+        reverse("educators:student_password_reset", kwargs={"student_id": educator2.id}),
+        {
+            "password1": '987987',
+            "password2": '987987',
+        }
+    )
     assert response.status_code == 404
 
 @pytest.mark.django_db
@@ -523,17 +616,20 @@ def test_change_student_password_sends_signal(client):
     student = StudentFactory(username='student', password='123123')
     membership = MembershipFactory(members=[educator, student])
     client.login(username='ed', password='123123')
-    response = client.post('/home/students/%d/password/' % student.id, {
-        "new_password1": '987987',
-        "new_password2": '987987',
-    })
+    response = client.post(
+        reverse("educators:student_password_reset", kwargs={"student_id": student.id}),
+        {
+            "password1": '987987',
+            "password2": '987987',
+        }
+    )
 
     handler.assert_called_once()
 
 @pytest.mark.django_db
 def test_impact_survey_endpoint_requires_login(client):
     assert client.post(
-        '/data/impact_survey/',
+        reverse("educators:update_impact_survey"),
         model_to_dict(ImpactSurveyFactory())
     ).status_code == 403
 
@@ -542,14 +638,14 @@ def test_impact_survey_endpoint_requires_educator(client):
     MentorFactory(username='mentor', password='123123')
     client.login(username='mentor', password='123123')
     assert client.post(
-        '/data/impact_survey/',
+        reverse("educators:update_impact_survey"),
         model_to_dict(ImpactSurveyFactory())
     ).status_code == 403
 
     StudentFactory(username='student', password='123123')
     client.login(username='student', password='123123')
     assert client.post(
-        '/data/impact_survey/',
+        reverse("educators:update_impact_survey"),
         model_to_dict(ImpactSurveyFactory())
     ).status_code == 403
 
@@ -561,11 +657,11 @@ def test_impact_survey_endpoint_creates_model(client):
     assert ImpactSurvey.objects.filter(user=user).count() == 0
 
     client.post(
-        '/data/impact_survey/',
+        reverse("educators:update_impact_survey"),
         model_to_dict(ImpactSurveyFactory(student_count=101))
     )
     client.post(
-        '/data/impact_survey/',
+        reverse("educators:update_impact_survey"),
         model_to_dict(ImpactSurveyFactory(student_count=102))
     )
 
@@ -578,4 +674,4 @@ def test_impact_survey_endpoint_400s_for_bad_data(client):
 
     d = model_to_dict(ImpactSurveyFactory())
     d['student_count'] = "ten"
-    assert client.post('/data/impact_survey/', d).status_code == 400
+    assert client.post(reverse("educators:update_impact_survey"), d).status_code == 400

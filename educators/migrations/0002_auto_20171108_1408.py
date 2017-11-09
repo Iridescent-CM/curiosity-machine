@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('educators', '0001_initial'),
+        ('profiles', '0037_auto_20171103_0807'),
     ]
 
     operations = [

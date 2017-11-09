@@ -1,12 +1,9 @@
 import pytest
-from mock import Mock
-
-from django.utils.timezone import now
-from datetime import timedelta
-
 from cmcomments.factories import *
+from datetime import timedelta
+from django.utils.timezone import now
+from mock import Mock
 from profiles.factories import *
-
 from ..annotators import UserCommentSummary
 
 def test_progress_total_with_no_comments():

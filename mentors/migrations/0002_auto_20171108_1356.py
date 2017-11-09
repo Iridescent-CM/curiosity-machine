@@ -30,6 +30,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('mentors', '0001_initial'),
+        ('profiles', '0037_auto_20171103_0807'),
     ]
 
     operations = [

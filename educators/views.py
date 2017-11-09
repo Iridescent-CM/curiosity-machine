@@ -1,6 +1,10 @@
 from allauth.account.forms import SetPasswordForm
 from challenges.models import Challenge, Example
 from cmcomments.models import Comment
+from curiositymachine import signals
+from curiositymachine.decorators import whitelist
+from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -8,6 +12,7 @@ from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import FormView, TemplateView, UpdateView, View
 from memberships.helpers.selectors import GroupSelector
+from profiles.decorators import only_for_role
 from profiles.views import CreateProfileView
 from rest_framework import generics, permissions
 from rest_framework.renderers import JSONRenderer
@@ -212,6 +217,12 @@ class StudentPasswordResetView(FormView):
 
     def form_valid(self, form):
         form.save()
+        signals.student_password_changed.send(
+            sender=self.student,
+            student=self.student,
+            resetter=self.request.user
+        )
+        messages.success(self.request, "%s's password successfully changed." % self.student.username)
         return super().form_valid(form)
 
 student_password_reset = impact_survey(StudentPasswordResetView.as_view())
@@ -258,7 +269,9 @@ class ImpactSurveySubmitView(View):
                 "errors": form.errors
             }, status=400)
 
-impact_data = ImpactSurveySubmitView.as_view()
+impact_data = whitelist('public')(
+    only_for_role('educator')(
+        ImpactSurveySubmitView.as_view()))
 
 class IsEducator(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -281,4 +294,4 @@ class CommentList(generics.ListAPIView):
             )
         return queryset
 
-comments = CommentList.as_view()
+comments = whitelist('public')(CommentList.as_view())

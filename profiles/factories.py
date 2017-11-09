@@ -12,6 +12,8 @@ from django.utils.dateparse import parse_date
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
+# TODO: move role factories to role apps
+
 class ProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
