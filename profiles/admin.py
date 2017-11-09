@@ -35,18 +35,6 @@ class UserAdminWithProfile(UserAdmin):
         return obj.profile.city
     city.admin_order_field = "profile__city"
 
-    def save_related(self, request, form, formsets, change):
-        if len(formsets):
-            profile = formsets[0].instance.profile
-            if change:
-                old_profile = Profile.objects.get(pk=profile.id)
-                super(UserAdminWithProfile, self).save_related(request, form, formsets, change)
-                if not old_extra.approved and profile.approved:
-                    if profile.is_student and profile.birthday and profile.is_underage():
-                        signals.underage_activation_confirmed.send(sender=request.user, account=profile.user)
-                    elif profile.is_mentor:
-                        signals.completed_training.send(sender=profile.user, approver=request.user)
-
     def get_formsets_with_inlines(self, request, obj=None):
         for inline in self.get_inline_instances(request, obj):
             # hide ProfileInline in the add view

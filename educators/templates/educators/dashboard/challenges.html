@@ -1,0 +1,75 @@
+{% extends "profiles/educator/dashboard/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+  {% include 'profiles/educator/dashboard/_navigation.html' %}
+
+  {% if membership and membership_challenges %}
+  <div class="row pb-1">
+    <div class="col-md-12">
+      <h2>{{ membership.display_name }} Design Challenges</h2>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    {% for challenge in membership_challenges %}
+    <div class="col-lg-4 col-md-6 mb-1">
+      {% include 'profiles/educator/dashboard/_challenge_card.html' with challenge=challenge show_detail_links=True %}
+    </div>
+
+    {% if forloop.counter|divisibleby:3 %}
+      <div class="clearfix hidden-md-down"></div>
+    {% endif %}
+
+    {% if forloop.counter|divisibleby:2 %}
+      <div class="clearfix hidden-lg-up"></div>
+    {% endif %}
+
+    {% endfor %}
+
+  </div>
+  {% endif %}
+
+
+  {% if core_challenges %}
+  <div class="row pb-1">
+    <div class="col-md-12">
+      <h2>Free Design Challenges</h2>
+    </div>
+  </div>
+
+  <div class="row">
+
+    {% for challenge in core_challenges %}
+    <div class="col-lg-4 col-md-6 mb-1">
+      {% include 'profiles/educator/dashboard/_challenge_card.html' with challenge=challenge %}
+    </div>
+
+    {% if forloop.counter|divisibleby:3 %}
+      <div class="clearfix hidden-md-down"></div>
+    {% endif %}
+
+    {% if forloop.counter|divisibleby:2 %}
+      <div class="clearfix hidden-lg-up"></div>
+    {% endif %}
+
+    {% endfor %}
+
+  </div>
+  {% endif %}
+
+
+  {% if membership_selection.no_memberships %}
+  <div class="mt-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="dotted-well text-xs-center">
+          <h3>Want more design challenges?</h3>
+          <p>Access more design challenges with a Curiosity Machine membership. <a href="{% url 'about-membership' %}">Learn more about memberships</a> and fill out the interest form below.</p>
+          <a href="https://docs.google.com/forms/d/1DH10-vj1U7x93LTwPX6FoJRF1WyH2eRhVtZ46XkdD78/viewform" class="btn btn-primary">View Form</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

@@ -46,6 +46,7 @@ urlpatterns = [
     url(r'^student/', include('students.urls', namespace='students', app_name='students')),
     url(r'^parent/', include('parents.urls', namespace='parents', app_name='parents')),
     url(r'^mentor/', include('mentors.urls', namespace='mentors', app_name='mentors')),
+    url(r'^educator/', include('educators.urls', namespace='educators', app_name='educators')),
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
 ]

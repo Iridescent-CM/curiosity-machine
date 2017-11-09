@@ -6,8 +6,7 @@ from curiositymachine.decorators import whitelist
 
 urlpatterns = [
     url(r'^profiles/$', choose_profile, name="profiles"),
-    url(r'^profile/edit/$', edit_profile, name="edit_profile"),
-    url(r'^home/$', home, name="home"),
+    url(r'^profile/edit/$', edit_profile, name="edit_profile"), url(r'^home/$', home, name="home"),
 
     ### urls below are deprecated
 
@@ -19,9 +18,6 @@ urlpatterns = [
     url(r'^home/guides/$', views.educator.guides_dashboard, name='educator_dashboard_guides'),
     url(r'^data/progress_posts/$', whitelist('public')(views.educator.CommentList.as_view()), name='progress_graph_data'),
     url(r'^data/impact_survey/$', whitelist('public')(views.educator.ImpactSurveyView.as_view()), name='update_impact_survey'),
-    url(r'^mentors/$', whitelist('public')(views.mentor.list_all), name='mentors'),
-    url(r'^mentors/(?P<username>[^/]+)/$', whitelist('public')(views.mentor.show_profile), name='mentor_profile'),
-    url(r'^unclaimed_progresses/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})$', views.mentor.unclaimed_progresses, name='unclaimed_progresses'),
-    url(r'^unclaimed_progresses/$', views.mentor.unclaimed_progresses, name='unclaimed_progresses_base'),
-    url(r'^claimed_progresses/$', views.mentor.claimed_progresses, name='claimed_progresses'),
+    #url(r'^unclaimed_progresses/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})$', views.mentor.unclaimed_progresses, name='unclaimed_progresses'),
+    #url(r'^unclaimed_progresses/$', views.mentor.unclaimed_progresses, name='unclaimed_progresses_base'),
 ]

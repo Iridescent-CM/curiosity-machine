@@ -52,7 +52,7 @@
           {% endif %}
 
           <li class="nav-item"><a href="{% url "challenges:challenges" %}" class="nav-link nav-challenges">Challenges</a></li>
-          <li class="nav-item"><a href="{% url "profiles:mentors" %}" class="nav-link nav-mentors">Mentor Community</a></li>
+          <li class="nav-item"><a href="{% url "mentors:list" %}" class="nav-link nav-mentors">Mentor Community</a></li>
           <li class="nav-item"><a href="{% url "about" %}" class="nav-link nav-about">About Us</a></li>
 
           {% if request.user.is_authenticated %}

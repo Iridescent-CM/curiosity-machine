@@ -1,10 +1,14 @@
 from challenges.models import Progress
+from curiositymachine.decorators import whitelist
+from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
-from django.db.models import Count
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Count, DateField
+from django.db.models.functions import TruncDate
 from django.utils.timezone import now
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import UpdateView
+from django.views.generic import TemplateView, UpdateView, DetailView, ListView
+from profiles.models import UserRole
 from .forms import *
 
 class EditProfileView(UpdateView):
@@ -25,7 +29,7 @@ class HomeView(TemplateView):
 
         startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
         progresses = Progress.objects.filter(
-            mentor=request.user, started__gt=startdate
+            mentor=request.user#, started__gt=startdate
         ).select_related(
             'challenge',
             'challenge__image',
@@ -38,7 +42,24 @@ class HomeView(TemplateView):
             '-started'
         )[:4]
 
-        unclaimed_days = [(day, Progress.unclaimed(day[0])[0]) for day in Progress.unclaimed_days()]
+        unclaimed_days_and_counts = (Progress.objects
+            .filter(mentor__isnull=True)
+            .exclude(comments=None)
+            .annotate(start_day=TruncDate('started'))
+            .values_list('start_day')
+            .annotate(Count('id'))
+            .order_by('-start_day'))
+
+        unclaimed_days = []
+        for data in unclaimed_days_and_counts:
+            progress = (Progress.objects
+                .filter(mentor__isnull=True)
+                .exclude(comments=None)
+                .annotate(start_day=TruncDate('started'))
+                .filter(start_day=data[0])
+                .order_by('-started')
+                .first())
+            unclaimed_days.append((data, progress))
 
         claimable_progresses = Progress.objects.filter(
             mentor__isnull=True
@@ -73,3 +94,110 @@ class HomeView(TemplateView):
         return context
 
 home = HomeView.as_view()
+
+class ListView(ListView):
+    template_name = "mentors/list.html"
+    queryset = (MentorProfile.objects
+        .filter(user__extra__role=UserRole.mentor.value, user__extra__approved=True)
+        .select_related('user'))
+    ordering = '-user__date_joined'
+    paginate_by = settings.DEFAULT_PER_PAGE
+    context_object_name = 'mentors'
+
+list_all = whitelist('public')(ListView.as_view())
+
+class PublicProfileView(DetailView):
+    model = MentorProfile
+    slug_field = 'user__username'
+    slug_url_kwarg = 'username'
+    context_object_name = 'profile'
+    template_name = 'mentors/public_profile.html'
+
+    def get_queryset(self):
+        return MentorProfile.objects.filter(user__extra__role=UserRole.mentor.value)
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(
+            mentor=self.object.user,
+            **kwargs
+        )
+
+public_profile = whitelist('public')(PublicProfileView.as_view())
+
+class ClaimedView(ListView):
+    template_name = "mentors/claimed.html"
+    ordering = ('-started', 'id')
+    paginate_by = settings.DEFAULT_PER_PAGE
+    context_object_name = 'progresses'
+    extra_context = {
+        'claimed': True
+    }
+
+    def get_queryset(self):
+        self.queryset = (Progress.objects
+            .filter(mentor=self.request.user)
+            .select_related(
+                'challenge', 'mentor', 'student', 'student__profile',
+                'student__profile__image', 'challenge__image'))
+        return super().get_queryset()
+
+claimed = ClaimedView.as_view()
+
+class UnclaimedBySourceView(ListView):
+    template_name = "mentors/unclaimed.html"
+    ordering = "-started"
+    paginate_by = settings.DEFAULT_PER_PAGE
+    context_object_name = "progresses"
+
+    def get_queryset(self):
+        self.queryset = (Progress.objects
+            .filter(mentor__isnull=True, student__extra__source=self.request.GET['source'])
+            .exclude(comments=None)
+            .select_related(
+                'challenge', 'student', 'student__profile',
+                'student__profile__image', 'challenge__image'))
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        grouping = self.request.GET['source']
+        if grouping == '':
+            grouping = "other"
+        return super().get_context_data(
+            grouping=grouping,
+            **kwargs
+        )
+
+unclaimed_by_source = UnclaimedBySourceView.as_view()
+
+class UnclaimedByDateView(ListView):
+    template_name = "mentors/unclaimed.html"
+    ordering = "-started"
+    paginate_by = settings.DEFAULT_PER_PAGE
+    context_object_name = "progresses"
+
+    def dispatch(self, request, *args, **kwargs):
+        self.selected_date = date(
+            int(self.kwargs['year']),
+            int(self.kwargs['month']),
+            int(self.kwargs['day'])
+        )
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        self.queryset = (Progress.objects
+            .filter(mentor__isnull=True)
+            .annotate(start_day=TruncDate('started'))
+            .filter(start_day=self.selected_date)
+            .exclude(comments=None)
+            .select_related(
+                'challenge', 'student', 'student__profile',
+                'student__profile__image', 'challenge__image'))
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(
+            grouping=self.selected_date,
+            **kwargs
+        )
+
+unclaimed_by_date = UnclaimedByDateView.as_view()

@@ -1,14 +1,13 @@
-from curiositymachine.forms import MediaURLField, StudentUsernamesField
+from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget
 from django import forms
-from django.db.models import F
 from profiles.forms import ProfileModelForm
 from profiles.models import UserRole
 from .models import *
 
-class NewParentProfileForm(ProfileModelForm):
+class NewEducatorProfileForm(ProfileModelForm):
     class Meta:
-        model = ParentProfile
+        model = EducatorProfile
         fields = [
             'city',
         ]
@@ -45,40 +44,9 @@ class NewParentProfileForm(ProfileModelForm):
             self.user.last_name = self.cleaned_data['last_name']
 
     def get_role(self):
-        return UserRole.parent
+        return UserRole.educator
 
-class EditParentProfileForm(forms.ModelForm):
+class EditEducatorProfileForm(forms.ModelForm):
     class Meta:
-        model = ParentProfile
+        model = EducatorProfile
         fields = '__all__'
-
-class ConnectForm(forms.ModelForm):
-    class Meta:
-        model = ParentProfile
-        fields = []
-
-    usernames = StudentUsernamesField(
-        required=True,
-        help_text="Enter one or more usernames separated by commas. Usernames are case sensitive."
-    )
-
-    def save(self, commit=True):
-        profiles = StudentProfile.objects.filter(user__username__in=self.cleaned_data["usernames"])
-        for profile in profiles:
-            updated = ParentConnection.objects.filter(
-                parent_profile=self.instance,
-                child_profile=profile,
-            ).update(
-                removed=False,
-                active=False,
-                retries=F("retries") + 1
-            )
-            if updated == 0:
-                ParentConnection.objects.create(
-                    parent_profile=self.instance,
-                    child_profile=profile,
-                    removed=False,
-                    active=False,
-                    retries=0
-                )
-        return self.instance
