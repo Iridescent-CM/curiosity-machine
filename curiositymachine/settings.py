@@ -169,6 +169,7 @@ ACCOUNT_ADAPTER = 'curiositymachine.allauth_adapter.AllAuthAdapter'
 ACCOUNT_USERNAME_VALIDATORS = 'curiositymachine.validators.username_validators'
 ACCOUNT_SIGNUP_FORM_CLASS = 'curiositymachine.forms.SignupExtraForm'
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+ACCOUNT_UNIQUE_EMAIL = False
 
 ROOT_URLCONF = 'curiositymachine.urls'
 

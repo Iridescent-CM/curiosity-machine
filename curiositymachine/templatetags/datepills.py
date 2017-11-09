@@ -3,7 +3,7 @@ from django.utils.timezone import now
 
 register = template.Library()
 
-@register.inclusion_tag('profiles/datepill.html')
+@register.inclusion_tag('curiositymachine/datepill.html')
 def datepill(dt, now=now()):
     days = (now.date() - dt.date()).days
     text = ""

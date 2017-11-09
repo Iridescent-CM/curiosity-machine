@@ -1,13 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 import password_reset.views
-import password_reset.forms
 from smtplib import SMTPRecipientsRefused
-import logging
 
+# TODO: handle staff views in new app?
 from . import staff
-
-logger = logging.getLogger(__name__)
 
 @login_required
 def dispatch(request, action, *args, **kwargs):
@@ -22,6 +19,7 @@ def dispatch(request, action, *args, **kwargs):
     else:
         raise Http404()
 
+# TODO: move to allauth password recovery
 ### password recovery
 
 class Recover(password_reset.views.Recover):

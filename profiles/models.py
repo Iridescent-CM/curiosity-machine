@@ -23,6 +23,7 @@ class BaseProfile(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='%(class)s')
 
+# TODO: move source templates
 class UserExtra(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='extra')
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in UserRole], default=UserRole.none.value)
