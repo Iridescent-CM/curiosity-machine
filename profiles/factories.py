@@ -65,31 +65,6 @@ class MentorFactory(factory.django.DjangoModelFactory):
     extra = factory.RelatedFactory(UserExtraFactory, 'user',role=models.UserRole.mentor.value)
     profile = factory.RelatedFactory(MentorProfileFactory, 'user')
 
-class StudentProfileFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = models.Profile
-
-    user = factory.SubFactory('profiles.factories.StudentFactory', profile=None)
-    city = 'city'
-    birthday = now() - relativedelta(years=14)
-
-    class Params:
-        underage = factory.Trait(
-            birthday=now() - relativedelta(years=12)
-        )
-
-@factory.django.mute_signals(handlers.post_save)
-class StudentFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = User
-
-    username = factory.fuzzy.FuzzyText(prefix="student_")
-    email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
-    password = factory.PostGenerationMethodCall('set_password', '123123')
-
-    extra = factory.RelatedFactory(UserExtraFactory, 'user',role=models.UserRole.student.value)
-    profile = factory.RelatedFactory(StudentProfileFactory, 'user')
-
 class EducatorProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Profile
@@ -107,28 +82,6 @@ class EducatorFactory(factory.django.DjangoModelFactory):
 
     extra = factory.RelatedFactory(UserExtraFactory, 'user',role=models.UserRole.educator.value)
     profile = factory.RelatedFactory(EducatorProfileFactory, 'user')
-
-class ParentProfileFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = models.Profile
-
-    city = 'city'
-
-@factory.django.mute_signals(handlers.post_save)
-class ParentFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = User
-
-    username = factory.fuzzy.FuzzyText(prefix="parent_")
-    email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
-    password = factory.PostGenerationMethodCall('set_password', '123123')
-
-    extra = factory.RelatedFactory(UserExtraFactory, 'user',role=models.UserRole.parent.value)
-    profile = factory.RelatedFactory(ParentProfileFactory, 'user')
-
-class ParentConnectionFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = models.ParentConnection
 
 class ImpactSurveyFactory(factory.django.DjangoModelFactory):
     class Meta:
