@@ -1,9 +1,0 @@
-{% extends "deprecated_base.html" %}
-{% block title %}{{ mentor.username }}{% endblock %}
-
-{% block content %}
-
-<h1>{{mentor.username}}</h1>
-{% include "profiles/mentor/_profile_info.html" with profile=mentor_profile %}
-
-{% endblock %}
