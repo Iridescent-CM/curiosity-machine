@@ -15,30 +15,31 @@ class Command(BaseCommand):
     """
 
     help = 'Import members to membership from csv file for testing (not for production)'
-    args = '<membership id> <file path(s)>'
-    option_list = BaseCommand.option_list + (
-        make_option(
+
+    def add_arguments(self, parser):
+        parser.add_argument("id", metavar="<membership id>")
+        parser.add_argument("paths", metavar="<file path>", nargs="+")
+        parser.add_argument(
             "-w", "--worker",
             action="store_true",
             dest="worker",
             default=False,
             help="Run worker in burst mode as well"
-        ),
-        make_option(
+        )
+        parser.add_argument(
             "-o", "--output",
             action="store_true",
             dest="dump_output",
             default=False,
             help="Dump output file contents to STDOUT"
-        ),
-        make_option(
+        )
+        parser.add_argument(
             "-t", "--transaction",
             action="store_true",
             dest="transaction",
             default=False,
             help="Run imports inside a transaction and roll back before exiting"
-        ),
-    )
+        )
 
     def handle(self, *args, **options):
         queue = get_queue()
@@ -47,11 +48,8 @@ class Command(BaseCommand):
                 raise CommandError("Queue is not empty")
                 # require an empty queue so that cleanup doesn't delete pending jobs
 
-        if not len(args) >= 2:
-            raise CommandError("Provide membership id and at least one input filename")
-
         try:
-            int(args[0])
+            int(options["id"])
         except:
             raise CommandError("Provide membership id as first argument")
 
@@ -65,8 +63,8 @@ class Command(BaseCommand):
             queue.empty()
 
     def run(self, *args, **options):
-        membership_id = args[0]
-        filenames = args[1:]
+        membership_id = options["id"]
+        filenames = options["paths"]
 
         processing = []
         for filename in filenames:

@@ -8,33 +8,36 @@ logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     help = 'Copy Mandrill template'
-    args = '<source name> <target name>'
-    option_list = BaseCommand.option_list + (
-        make_option(
+
+    def add_arguments(self, parser):
+        parser.add_argument("source", metavar="<source name>")
+        parser.add_argument("target", metavar="<target name>", nargs="?")
+        parser.add_argument(
             "-d", "--draft",
             action="store_false",
             dest="publish",
             default=True,
             help="Make target template a draft instead of publishing"
-        ),
-        make_option(
+        )
+        parser.add_argument(
             "-p", "--prefix",
             action="store",
             dest="prefix",
             help="Ignore <target name>, if provided, and use <prefix + source name> as target"
         )
-    )
 
     def handle(self, *args, **options):
-        if not ((options["prefix"] and len(args) >= 1) or len(args) == 2):
+        if not ((options["source"] and options["target"])
+            or (options["source"] and options["prefix"])
+        ):
             raise CommandError('Provide source and target template names')
 
-        source_name = args[0]
+        source_name = options["source"]
 
         if options["prefix"]:
             target_name = options["prefix"] + source_name
         else:
-            target_name = args[1]
+            target_name = options["target"]
 
         mandrill_client = mandrill.Mandrill(settings.MANDRILL_API_KEY)
         try:

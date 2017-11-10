@@ -4,15 +4,15 @@ from memberships.models import MemberImport
 
 class Command(BaseCommand):
     help = 'Delete stale member import objects'
-    option_list = BaseCommand.option_list + (
-        make_option(
+
+    def add_arguments(self, parser):
+        parser.add_argument(
             "-a", "--age",
             action="store",
             dest="age",
-            type="int",
+            type=int,
             help="Set the age in days for staleness"
-        ),
-    )
+        )
 
     def handle(self, *args, **options):
         age = options.get("age", None)
