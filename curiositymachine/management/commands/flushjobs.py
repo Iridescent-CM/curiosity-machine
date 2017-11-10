@@ -4,12 +4,14 @@ import django_rq
 
 class Command(BaseCommand):
     help = 'Flush all scheduled jobs without executing them'
-    option_list = BaseCommand.option_list + (
-        make_option('--dry-run',
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--dry-run',
             action='store_true',
             dest='dry-run',
             default=False,
-            help='Show scheduled jobs without actually flushing them'),
+            help='Show scheduled jobs without actually flushing them'
         )
 
     def handle(self, *args, **options):

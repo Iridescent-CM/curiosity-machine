@@ -4,25 +4,25 @@ import importlib
 
 class Command(BaseCommand):
     help = 'Create models from factories'
-    args = '<path.to.ModelFactory>'
-    option_list = BaseCommand.option_list + (
-        make_option(
+
+    def add_arguments(self, parser):
+        parser.add_argument("path", metavar="<path.to.ModelFactory>", type=str)
+
+        parser.add_argument(
             "-k", "--kwarg",
-            action="append", dest="factory_kwargs", type="string",
+            action="append", dest="factory_kwargs", type=str,
             help="Keyword argument to pass to the factory; use multiple times for multiple kwargs", metavar="key=value"
-        ),
-        make_option(
+        )
+
+        parser.add_argument(
             "-c", "--count",
-            action="store", dest="count", type="int", default=1,
+            action="store", dest="count", type=int, default=1,
             help="Number of times to run factory"
         )
-    )
 
     def handle(self, *args, **options):
-        if len(args) < 1:
-            raise CommandError("Specify a factory path")
         try:
-            factorypath = args[0]
+            factorypath = options['path']
             components = factorypath.split('.')
             modulepath = '.'.join(components[0:-1])
             factoryname = components[-1]

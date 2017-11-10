@@ -5,12 +5,14 @@ import redis as r
 
 class Command(BaseCommand):
     help = 'Flush Redis keys in db'
-    option_list = BaseCommand.option_list + (
-        make_option('--dry-run',
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--dry-run',
             action='store_true',
             dest='dry-run',
             default=False,
-            help='Show keys without actually flushing them'),
+            help='Show keys without actually flushing them'
         )
 
     def handle(self, *args, **options):
