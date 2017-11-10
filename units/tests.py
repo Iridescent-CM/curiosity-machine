@@ -1,9 +1,10 @@
 import pytest
 from django.contrib.auth import get_user_model
-from profiles.models import Profile, UserRole
-from .models import Unit
+from educators.factories import *
 from profiles.factories import *
+from profiles.models import Profile, UserRole
 from .factories import *
+from .models import Unit
 
 User = get_user_model()
 

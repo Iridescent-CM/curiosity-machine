@@ -1,15 +1,13 @@
 import pytest
-from mock import MagicMock
-
-from profiles.tests import student, mentor
+from challenges.factories import ProgressFactory
 from challenges.tests.fixtures import progress, challenge
-
+from curiositymachine import signals
+from mentors.factories import MentorFactory
+from mock import MagicMock
+from students.factories import StudentFactory
+from profiles.tests import student, mentor
 from .models import Comment
 from .factories import CommentFactory, ReflectionCommentFactory
-from challenges.factories import ProgressFactory
-from profiles.factories import StudentFactory, MentorFactory
-
-from curiositymachine import signals
 
 @pytest.fixture
 def mentor_comment(mentor, progress):

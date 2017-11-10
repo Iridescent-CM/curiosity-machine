@@ -1,11 +1,11 @@
 import pytest
-from io import StringIO
-
-from ..reports import *
-
-from ..factories import *
-from profiles.factories import *
 from challenges.factories import *
+from educators.factories import *
+from io import StringIO
+from profiles.factories import *
+from students.factories import *
+from ..factories import *
+from ..reports import *
 
 @pytest.mark.django_db
 def test_report_output():

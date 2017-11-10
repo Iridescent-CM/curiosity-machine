@@ -1,12 +1,11 @@
-import pytest
 import mock
+import pytest
+from datetime import timedelta
 from django.http import Http404
 from django.utils.timezone import now, localtime
-from datetime import timedelta
-from ...decorators import MembershipSelection
-
-from ...factories import *
 from memberships.factories import *
+from profiles.factories import *
+from ..decorators import MembershipSelection
 
 def test_membership_selection_no_memberships(rf):
     request = rf.get('/home')

@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from cmcomments.models import Comment
 from challenges.models import Challenge, Progress, Theme, Favorite, Filter
 from profiles.models import UserRole
-from profiles.factories import *
+from students.factories import *
 
 User = get_user_model()
 

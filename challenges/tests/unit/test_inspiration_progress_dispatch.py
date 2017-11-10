@@ -1,10 +1,9 @@
 import pytest
-
+from challenges.views import InspirationProgressDispatch, InspirationStudentProgress, InspirationUserProgress
 from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import PermissionDenied
-
-from challenges.views import InspirationProgressDispatch, InspirationStudentProgress, InspirationUserProgress
-from profiles.factories import StudentFactory, MentorFactory
+from mentors.factories import MentorFactory
+from students.factories import StudentFactory
 
 pytestmark = pytest.mark.unit
 

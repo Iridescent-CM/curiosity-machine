@@ -1,9 +1,11 @@
 import pytest
-
 from challenges.factories import *
-from profiles.factories import StudentFactory, MentorFactory, EducatorFactory, ParentFactory
-
 from django.core.urlresolvers import reverse
+from educators.factories import *
+from mentors.factories import *
+from parents.factories import *
+from profiles.factories import *
+from students.factories import *
 
 @pytest.mark.django_db
 def test_renders_anonymous_template_with_challenge_for_anonymous_user(client):

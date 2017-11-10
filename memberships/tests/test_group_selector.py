@@ -1,11 +1,9 @@
 import pytest
-
-from ..helpers.selectors import SelectorOption, GroupSelector
-
-from memberships.factories import *
-from profiles.factories import *
-
 from django.http import QueryDict, Http404
+from educators.factories import *
+from memberships.factories import *
+from students.factories import *
+from ..helpers.selectors import SelectorOption, GroupSelector
 
 def test_holds_extra_named_args():
     s = SelectorOption(query_param='x', query_value=1, text='hi', extra='something')

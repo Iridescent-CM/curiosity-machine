@@ -1,10 +1,11 @@
 import pytest
-
 from challenges.factories import ChallengeFactory
-from profiles.factories import StudentFactory, MentorFactory, EducatorFactory, ParentFactory
-from memberships.factories import MembershipFactory
-
 from django.core.urlresolvers import reverse
+from educators.factories import EducatorFactory
+from memberships.factories import MembershipFactory
+from mentors.factories import MentorFactory
+from parents.factories import ParentFactory
+from students.factories import StudentFactory
 
 @pytest.mark.django_db
 def test_requires_login(client):

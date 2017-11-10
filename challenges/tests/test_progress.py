@@ -1,10 +1,9 @@
 import pytest
-
-from challenges.models import Progress
-
 from challenges.factories import ProgressFactory
+from challenges.models import Progress
 from cmcomments.factories import ReflectionCommentFactory
-from profiles.factories import StudentFactory, MentorFactory
+from mentors.factories import MentorFactory
+from students.factories import StudentFactory
 
 @pytest.mark.django_db
 def test_completed():

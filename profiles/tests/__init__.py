@@ -1,8 +1,9 @@
 import pytest
-from django.contrib.auth import get_user_model
 from challenges.models import Challenge, Progress
+from django.contrib.auth import get_user_model
+from mentors.factories import *
 from profiles.models import UserRole
-from profiles.factories import *
+from students.factories import *
 
 User = get_user_model()
 

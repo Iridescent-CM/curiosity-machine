@@ -1,25 +1,29 @@
-import pytest
 import mock
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AnonymousUser
-from django.http import HttpResponseRedirect, Http404
-from django.core.urlresolvers import reverse
-from profiles.models import Profile, UserRole
-from ..middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
-from ..views import root
-from challenges.models import Progress, Challenge, Example
-from ..helpers import random_string
-from curiositymachine import decorators
-from django.core.exceptions import PermissionDenied
-from django.conf import settings
-from .. import signals
+import pytest
 from challenges.factories import *
-from profiles.factories import *
-import cmcomments.factories
+from challenges.models import Progress, Challenge, Example
+from cmcomments.factories import *
+from curiositymachine import decorators
 from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget, FilePickerImagePickWidget, FilePickerVideoPickWidget
 from django import forms
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
+from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, Http404
+from educators.factories import *
+from mentors.factories import *
+from parents.factories import *
+from profiles.factories import *
+from profiles.models import Profile, UserRole
 from pyquery import PyQuery as pq
+from students.factories import *
+from .. import signals
+from ..helpers import random_string
+from ..middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
+from ..views import root
 
 User = get_user_model()
 
@@ -343,13 +347,18 @@ def test_challenge_access_decorator_allows_named_user(rf):
     response = wrapped(request, challenge_id=1, username='named')
     assert view.called
 
-@mock.patch('curiositymachine.decorators.Membership.share_membership', force_false)
-@mock.patch('profiles.models.Profile.is_parent_of', force_true)
+@pytest.mark.django_db
 def test_challenge_access_decorator_allows_connected_parent(rf):
-    user = UserFactory.build()
+    parent = ParentFactory()
+    child = StudentFactory(username="student")
+    ParentConnectionFactory(
+        parent_profile=parent.parentprofile,
+        child_profile=child.studentprofile,
+        active=True
+    )
     view = mock.MagicMock()
     request = rf.get('/some/path')
-    request.user = user
+    request.user = parent
     wrapped = decorators.current_user_or_approved_viewer(view)
     response = wrapped(request, challenge_id=1, username='student')
     assert view.called
@@ -443,7 +452,7 @@ def test_signal_progress_considered_complete():
 
     progress = ProgressFactory()
     mentor = MentorFactory()
-    first_reflect_post = cmcomments.factories.ReflectionCommentFactory(challenge_progress=progress, user=progress.student)
+    first_reflect_post = ReflectionCommentFactory(challenge_progress=progress, user=progress.student)
 
     handler.assert_called_once_with(signal=signal, sender=progress.student, progress=progress)
     handler2.assert_not_called()

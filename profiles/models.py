@@ -76,7 +76,7 @@ class UserExtra(models.Model):
         elif self.is_mentor:
             return 'mentor'
         elif self.is_student:
-            if self.user.profile.birthday and self.user.profile.is_underage():
+            if self.user.studentprofile.birthday and self.user.studentprofile.is_underage():
                 return 'underage student'
             else:
                 return 'student'

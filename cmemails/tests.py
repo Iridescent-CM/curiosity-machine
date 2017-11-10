@@ -1,53 +1,49 @@
-import pytest
 import mock
-from . import signals
-from .mandrill import send_template
-from .mailchimp import subscribe
-from django.contrib.auth import get_user_model
-from django.utils.timezone import now
-from datetime import date, timedelta
-from profiles.models import Profile, UserRole
-from images.models import Image
+import pytest
+from challenges.factories import *
 from challenges.models import Stage
-import profiles.factories
-import challenges.factories
-import cmcomments.factories
-
-User = get_user_model()
+from cmcomments.factories import *
+from datetime import date, timedelta
+from django.utils.timezone import now
+from educators.factories import *
+from images.models import Image
+from mentors.factories import *
+from parents.factories import *
+from profiles.factories import *
+from profiles.models import Profile, UserRole
+from students.factories import *
+from . import signals
+from .mailchimp import subscribe
+from .mandrill import send_template
 
 @pytest.fixture
 def student():
-    student = User.objects.create_user(username='student', email='student@example.com', password='password')
-    student.extra.approved = True
-    student.extra.role = UserRole.student.value
-    student.profile.birthday = now() - timedelta(days=(365 * 16))
-    student.profile.save()
-    return student
+    return StudentFactory(username='student', email='student@example.com', password='password')
 
 def test_send_mentor_progress_update_notice_no_mentor():
-    student = profiles.factories.StudentFactory.build()
-    progress = challenges.factories.ProgressFactory.build()
-    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
+    student = StudentFactory.build()
+    progress = ProgressFactory.build()
+    comment = CommentFactory.build(challenge_progress=progress, user=student)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_mentor_progress_update_notice(comment.user, comment)
         assert len(send.mock_calls) == 0
 
 def test_send_mentor_progress_update_notice_on_mentor_comment():
-    student = profiles.factories.StudentFactory.build()
-    mentor = profiles.factories.MentorFactory.build()
-    progress = challenges.factories.ProgressFactory.build(mentor=mentor)
-    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=mentor)
+    student = StudentFactory.build()
+    mentor = MentorFactory.build()
+    progress = ProgressFactory.build(mentor=mentor)
+    comment = CommentFactory.build(challenge_progress=progress, user=mentor)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_mentor_progress_update_notice(comment.user, comment)
         assert len(send.mock_calls) == 0
 
 def test_send_mentor_progress_update_notice():
-    student = profiles.factories.StudentFactory.build()
-    mentor = profiles.factories.MentorFactory.build()
-    progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
-    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student, stage=Stage.plan.value)
+    student = StudentFactory.build()
+    mentor = MentorFactory.build()
+    progress = ProgressFactory.build(mentor=mentor, challenge__id=5)
+    comment = CommentFactory.build(challenge_progress=progress, user=student, stage=Stage.plan.value)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_mentor_progress_update_notice(comment.user, comment)
@@ -58,20 +54,20 @@ def test_send_mentor_progress_update_notice():
         assert "://" not in send.call_args[1]['merge_vars']['progress_url'] # Mailchimp's WYSIWYG insists on adding the protocol
 
 def test_send_student_mentor_reponse_notice_on_student_comment():
-    student = profiles.factories.StudentFactory.build()
-    mentor = profiles.factories.MentorFactory.build()
-    progress = challenges.factories.ProgressFactory.build(mentor=mentor)
-    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=student)
+    student = StudentFactory.build()
+    mentor = MentorFactory.build()
+    progress = ProgressFactory.build(mentor=mentor)
+    comment = CommentFactory.build(challenge_progress=progress, user=student)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_student_mentor_response_notice(comment.user, comment)
         assert len(send.mock_calls) == 0
 
 def test_send_student_mentor_response_notice():
-    student = profiles.factories.StudentFactory.build()
-    mentor = profiles.factories.MentorFactory.build()
-    progress = challenges.factories.ProgressFactory.build(mentor=mentor, challenge__id=5)
-    comment = cmcomments.factories.CommentFactory.build(challenge_progress=progress, user=mentor)
+    student = StudentFactory.build()
+    mentor = MentorFactory.build()
+    progress = ProgressFactory.build(mentor=mentor, challenge__id=5)
+    comment = CommentFactory.build(challenge_progress=progress, user=mentor)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_student_mentor_response_notice(comment.user, comment)
@@ -82,17 +78,17 @@ def test_send_student_mentor_response_notice():
         assert "://" not in send.call_args[1]['merge_vars']['button_url'] # Mailchimp's WYSIWYG insists on adding the protocol
 
 def test_send_mentor_progress_completion_notice_no_mentor():
-    student = profiles.factories.StudentFactory.build()
-    progress = challenges.factories.ProgressFactory.build()
+    student = StudentFactory.build()
+    progress = ProgressFactory.build()
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_mentor_progress_completion_notice(student, progress)
         assert len(send.mock_calls) == 0
 
 def test_send_mentor_progress_completion_notice():
-    student = profiles.factories.StudentFactory.build()
-    mentor = profiles.factories.MentorFactory.build()
-    progress = challenges.factories.ProgressFactory.build(student=student, mentor=mentor, challenge__id=5)
+    student = StudentFactory.build()
+    mentor = MentorFactory.build()
+    progress = ProgressFactory.build(student=student, mentor=mentor, challenge__id=5)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_mentor_progress_completion_notice(student, progress)
@@ -102,8 +98,8 @@ def test_send_mentor_progress_completion_notice():
         assert "progress_url" in send.call_args[1]['merge_vars']
 
 def test_send_student_challenge_share_encouragement():
-    student = profiles.factories.StudentFactory.build()
-    progress = challenges.factories.ProgressFactory.build(student=student, challenge__id=5)
+    student = StudentFactory.build()
+    progress = ProgressFactory.build(student=student, challenge__id=5)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_student_challenge_share_encouragement(student, progress)
@@ -114,8 +110,8 @@ def test_send_student_challenge_share_encouragement():
         assert "inspiration_url" in send.call_args[1]['merge_vars']
 
 def test_send_welcome_email_skips_excluded_user_types():
-    mentor = profiles.factories.MentorFactory.build()
-    none = profiles.factories.UserFactory.build()
+    mentor = MentorFactory.build()
+    none = UserFactory.build()
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_welcome_email(mentor)
@@ -123,10 +119,10 @@ def test_send_welcome_email_skips_excluded_user_types():
         assert not send.called
 
 def test_send_welcome_email_differentiates_user_categories():
-    student = profiles.factories.StudentFactory.build()
-    underage = profiles.factories.StudentFactory.build(profile__underage=True)
-    educator = profiles.factories.EducatorFactory.build()
-    parent = profiles.factories.ParentFactory.build()
+    student = StudentFactory.build()
+    underage = StudentFactory.build(profile__underage=True)
+    educator = EducatorFactory.build()
+    parent = ParentFactory.build()
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_welcome_email(student)
@@ -139,7 +135,7 @@ def test_send_welcome_email_differentiates_user_categories():
         assert send.call_args[1]['template_name'] == 'parent-welcome'
 
 def test_send_template_handles_single_recipient():
-    student = profiles.factories.StudentFactory.build()
+    student = StudentFactory.build()
 
     with mock.patch('mandrill.Mandrill') as mandrill:
         send_template(template_name='foo', to=student)
@@ -154,7 +150,7 @@ def test_send_template_handles_single_recipient():
             })
 
 def test_send_template_handles_multiple_recipients():
-    students = profiles.factories.StudentFactory.build_batch(2)
+    students = StudentFactory.build_batch(2)
 
     with mock.patch('mandrill.Mandrill') as mandrill:
         send_template(template_name='foo', to=students)
@@ -162,7 +158,7 @@ def test_send_template_handles_multiple_recipients():
         assert ('message' in kwargs and len(kwargs['message']['to']) == 2)
 
 def test_send_template_handles_single_cc():
-    student = profiles.factories.StudentFactory.build()
+    student = StudentFactory.build()
 
     with mock.patch('mandrill.Mandrill') as mandrill:
         send_template(template_name='foo', to=student, cc="someemail@example.com")
@@ -175,7 +171,7 @@ def test_send_template_handles_single_cc():
         } in kwargs['message']['to']
 
 def test_send_template_handles_multiple_ccs():
-    student = profiles.factories.StudentFactory.build()
+    student = StudentFactory.build()
 
     with mock.patch('mandrill.Mandrill') as mandrill:
         send_template(template_name='foo', to=student, cc=["someemail@example.com", "someotheremail@example.com"])
@@ -192,8 +188,8 @@ def test_send_template_handles_multiple_ccs():
         } in kwargs['message']['to']
 
 def test_send_template_skips_users_without_email():
-    student = profiles.factories.StudentFactory.build(email=None)
-    student2 = profiles.factories.StudentFactory.build()
+    student = StudentFactory.build(email=None)
+    student2 = StudentFactory.build()
     with mock.patch('mandrill.Mandrill') as mandrill:
         mandrill().messages.send_template = mock.Mock(return_value=[])
 
@@ -205,7 +201,7 @@ def test_send_template_skips_users_without_email():
         assert len(mandrill().messages.send_template.mock_calls) == 1
 
 def test_send_template_with_merge_vars():
-    student = profiles.factories.StudentFactory.build()
+    student = StudentFactory.build()
     with mock.patch('mandrill.Mandrill') as mandrill:
         mandrill().messages.send_template = mock.Mock(return_value=[])
 
@@ -220,14 +216,14 @@ def test_send_template_with_merge_vars():
         assert all(x in message["global_merge_vars"] for x in expected)
 
 def test_mailchimp_subscribe_does_nothing_without_api_key():
-    student = profiles.factories.StudentFactory.build()
+    student = StudentFactory.build()
     with mock.patch('cmemails.mailchimp.requests') as requests:
         with mock.patch('cmemails.mailchimp.settings') as settings:
             settings.MAILCHIMP_API_KEY = None
             subscribe(student)
 
 def test_mailchimp_subscribe_does_nothing_without_list_id_for_user_type():
-    student = profiles.factories.StudentFactory.build()
+    student = StudentFactory.build()
     with mock.patch('cmemails.mailchimp.requests') as requests:
         with mock.patch('cmemails.mailchimp.settings') as settings:
             settings.MAILCHIMP_LIST_IDS = {}
@@ -235,7 +231,7 @@ def test_mailchimp_subscribe_does_nothing_without_list_id_for_user_type():
             assert len(requests.put.mock_calls) == 0
 
 def test_mailchimp_subscribe_does_nothing_without_email():
-    student = profiles.factories.StudentFactory.build(email='')
+    student = StudentFactory.build(email='')
     with mock.patch('cmemails.mailchimp.requests') as requests:
         with mock.patch('cmemails.mailchimp.settings') as settings:
             settings.MAILCHIMP_DATA_CENTER = 'x'
@@ -247,8 +243,8 @@ def test_mailchimp_subscribe_does_nothing_without_email():
             assert len(requests.put.mock_calls) == 0
 
 def test_mailchimp_subscribe_subscribes_user():
-    student = profiles.factories.StudentFactory.build()
-    mentor = profiles.factories.MentorFactory.build()
+    student = StudentFactory.build()
+    mentor = MentorFactory.build()
     with mock.patch('cmemails.mailchimp._put') as put:
         with mock.patch('cmemails.mailchimp.settings') as settings:
             settings.MAILCHIMP_DATA_CENTER = 'x'

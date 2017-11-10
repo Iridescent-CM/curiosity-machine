@@ -57,7 +57,7 @@ class ProgressFactory(factory.django.DjangoModelFactory):
         model = models.Progress
 
     challenge = factory.SubFactory('challenges.factories.ChallengeFactory')
-    student = factory.SubFactory('profiles.factories.StudentFactory')
+    student = factory.SubFactory('students.factories.StudentFactory')
 
     @factory.post_generation
     def comment(obj, create, extracted, **kwargs):

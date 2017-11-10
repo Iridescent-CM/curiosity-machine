@@ -1,14 +1,12 @@
 import pytest
-
-from challenges.tests.fixtures import *
-from profiles.tests import student, mentor
-
-from django.contrib.auth.models import AnonymousUser
 from challenges.factories import *
-from profiles.factories import *
-from memberships.factories import *
-
+from challenges.tests.fixtures import *
 from challenges.views import challenges
+from django.contrib.auth.models import AnonymousUser
+from educators.factories import *
+from memberships.factories import *
+from profiles.factories import *
+from profiles.tests import student, mentor
 
 @pytest.mark.django_db
 def test_challenges_accessible_to_anonymous_user(rf, challenge, student):

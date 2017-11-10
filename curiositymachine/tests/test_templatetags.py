@@ -1,9 +1,7 @@
 import pytest
-
-from django.utils.timezone import now
 from datetime import timedelta, datetime
-
-from profiles.templatetags.datepills import datepill
+from django.utils.timezone import now
+from ..templatetags.datepills import datepill
 
 def test_datepill_day_rounding():
     rightnow = datetime(2000, 1, 15, 12)        # noon
