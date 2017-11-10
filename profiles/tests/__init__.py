@@ -37,9 +37,10 @@ def progress(student, mentor, challenge):
 
 @pytest.fixture
 def loggedInMentor(client):
-    mentor = User.objects.create_user(username='mentor2', email='mentor@example.com', password='password')
-    mentor.extra.approved = True
-    mentor.extra.role = UserRole.mentor.value
-    mentor.extra.save()
+    mentor = MentorFactory(
+        username='mentor2',
+        email='mentor@example.com',
+        password='password'
+    )
     client.login(username='mentor2', password='password')
     return mentor

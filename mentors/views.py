@@ -29,7 +29,7 @@ class HomeView(TemplateView):
 
         startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
         progresses = Progress.objects.filter(
-            mentor=request.user#, started__gt=startdate
+            mentor=request.user, started__gt=startdate
         ).select_related(
             'challenge',
             'challenge__image',
