@@ -84,10 +84,10 @@ def test_dialect_and_line_terminators():
     assert "\r" not in out
 
 def test_build_path():
-    assert MembershipReport.build_path(1, filename='name.csv') == '/memberships/1/reports/name.csv'
+    assert MembershipReport.build_path(1, filename='name.csv') == 'memberships/1/reports/name.csv'
 
 def test_path_and_filename_properties():
     membership = MembershipFactory.build(id=5, name='membership name')
     report = MembershipReport(membership)
     assert report.filename == 'membership-name.csv'
-    assert report.path == '/memberships/5/reports/membership-name.csv'
+    assert report.path == 'memberships/5/reports/membership-name.csv'

@@ -18,7 +18,7 @@ class MembershipReport():
 
     @staticmethod
     def build_path(object_id, filename):
-        return '/memberships/%s/reports/%s' % (object_id, filename)
+        return 'memberships/%s/reports/%s' % (object_id, filename)
 
     @property
     def path(self):
