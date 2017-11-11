@@ -1,22 +1,20 @@
+from curiositymachine import signals
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from images.models import Image
 from .admin_utils import StudentFilter
-from curiositymachine import signals
-
-from .models import Profile, ParentConnection, UserRole, ImpactSurvey
+from .models import *
 
 User = get_user_model()
 
-class ProfileInline(admin.StackedInline):
-    model = Profile
-    raw_id_fields = ('image', 'about_me_image', 'about_me_video', 'about_research_image', 'about_research_video')
+class UserExtraInline(admin.StackedInline):
+    model = UserExtra
     exclude = ('first_login',)
 
-class UserAdminWithProfile(UserAdmin):
-    inlines = [ ProfileInline, ]
-    list_display = ('id', 'username', 'email', 'source', 'first_name', 'last_name', 'is_staff', 'date_joined', 'city')
+class UserAdminWithExtra(UserAdmin):
+    inlines = [ UserExtraInline, ]
+    list_display = ('id', 'username', 'email', 'source', 'first_name', 'last_name', 'is_staff', 'date_joined')
     list_display_links = ('username', 'id')
     list_filter = (
         'is_superuser',
@@ -24,26 +22,26 @@ class UserAdminWithProfile(UserAdmin):
         'extra__role',
         StudentFilter
     )
-    list_select_related = ('profile',)
-    search_fields = ('username', 'email', 'first_name', 'last_name', 'profile__source', 'profile__city')
+    list_select_related = ('extra',)
+    search_fields = ('username', 'email', 'first_name', 'last_name', 'extra__source',)
 
     def source(self, obj):
         return obj.extra.source
-    source.admin_order_field = "profile__source"
+    source.admin_order_field = "extra__source"
 
     def city(self, obj):
-        return obj.profile.city
-    city.admin_order_field = "profile__city"
+        return obj.extra.city
+    city.admin_order_field = "extra__city"
 
     def get_formsets_with_inlines(self, request, obj=None):
         for inline in self.get_inline_instances(request, obj):
             # hide ProfileInline in the add view
-            if isinstance(inline, ProfileInline) and obj is None:
+            if isinstance(inline, UserExtraInline) and obj is None:
                 continue
             yield inline.get_formset(request, obj), inline
 
 admin.site.unregister(User)
-admin.site.register(User, UserAdminWithProfile)
+admin.site.register(User, UserAdminWithExtra)
 
 class ParentConnectionAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'parent', 'parent_email', 'child', 'child_email', 'active', 'removed']
