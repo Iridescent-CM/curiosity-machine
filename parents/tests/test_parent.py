@@ -21,6 +21,9 @@ def parent():
 def child():
     return StudentFactory(username="child")
 
+def test_user_type():
+    assert ParentFactory.build().extra.user_type == 'parent'
+
 def test_connect_form_requires_usernames():
     form = ConnectForm(data={})
     assert not form.is_valid()
@@ -118,4 +121,19 @@ def test_active_connected_parent_only_decorator(rf, parent, child):
     connection.active = True
     connection.save()
     response = decorators.active_connected_parent_only(view)(request, connection_id=connection.id)
+    assert view.called
+
+@pytest.mark.django_db
+def test_connected_child_only_decorator(rf, parent, child):
+    connection = ParentConnection.objects.create(child_profile=child.studentprofile, parent_profile=parent.parentprofile)
+    request = rf.get('/path')
+    view = mock.Mock()
+    request.user = parent
+    UserProxyMiddleware().process_request(request)
+    with pytest.raises(PermissionDenied):
+        response = decorators.connected_child_only(view)(request, connection_id=connection.id)
+        assert not view.called
+    request.user = child
+    UserProxyMiddleware().process_request(request)
+    response = decorators.connected_child_only(view)(request, connection_id=connection.id)
     assert view.called

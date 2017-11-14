@@ -120,7 +120,7 @@ def test_send_welcome_email_skips_excluded_user_types():
 
 def test_send_welcome_email_differentiates_user_categories():
     student = StudentFactory.build()
-    underage = StudentFactory.build(profile__underage=True)
+    underage = StudentFactory.build(studentprofile__underage=True)
     educator = EducatorFactory.build()
     parent = ParentFactory.build()
 

@@ -23,6 +23,9 @@ class BaseProfile(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='%(class)s')
 
+class NullProfile(object):
+    pass
+
 # TODO: move source templates
 class UserExtra(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='extra')
@@ -70,6 +73,10 @@ class UserExtra(models.Model):
         return UserRole(self.role) == UserRole.parent
 
     @property
+    def should_add_email(self):
+        return not self.user.email
+
+    @property
     def user_type(self):
         if self.user.is_superuser:
             return 'admin'
@@ -113,8 +120,11 @@ class User(get_user_model()):
             return self.parentprofile
         elif hasattr(self, "mentorprofile"):
             return self.mentorprofile
-        return super().profile
+        elif hasattr(self, "educatorprofile"):
+            return self.educatorprofile
+        return NullProfile()
 
+# TODO: remove this model, when comfortable
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
     birthday = models.DateField(blank=True,null=True)

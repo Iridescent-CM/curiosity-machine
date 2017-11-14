@@ -34,7 +34,7 @@ def force_false(*args, **kwargs):
     return False
 
 def test_underage_student_middleware_redirects_request(rf):
-    user = StudentFactory.build(profile__underage=True, extra__approved=False)
+    user = StudentFactory.build(studentprofile__underage=True, extra__approved=False)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -71,7 +71,7 @@ def test_underage_student_middleware_skips_unauthenticated_user(rf):
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_underage_student_middleware_allows_whitelisted_views(rf):
-    user = StudentFactory.build(profile__underage=True, extra__approved=False)
+    user = StudentFactory.build(studentprofile__underage=True, extra__approved=False)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user

@@ -24,13 +24,13 @@ def basic_users():
         email="child@mailinator.com",
         username="child",
         password="123123",
-        profile__underage=True
+        studentprofile__underage=True
     )
     StudentFactory(
         email="teen@mailinator.com",
         username="teen",
         password="123123",
-        profile__underage=False
+        studentprofile__underage=False
     )
     MentorFactory(
         email="mentor@mailinator.com",

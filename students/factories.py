@@ -37,4 +37,5 @@ class StudentFactory(factory.django.DjangoModelFactory):
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
     extra = factory.RelatedFactory(UserExtraFactory, 'user',role=UserRole.student.value)
-    profile = factory.RelatedFactory(StudentProfileFactory, 'user')
+    studentprofile = factory.RelatedFactory(StudentProfileFactory, 'user')
+

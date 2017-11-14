@@ -1,10 +1,9 @@
 import pytest
 
-from django.core.urlresolvers import reverse
-
-from profiles.factories import *
 from challenges.factories import *
+from django.core.urlresolvers import reverse
 from memberships.factories import *
+from students.factories import *
 
 @pytest.mark.django_db
 def test_dashboard_includes_memberships(client):
@@ -12,7 +11,7 @@ def test_dashboard_includes_memberships(client):
     memberships = MembershipFactory.create_batch(2, members=[student])
 
     client.login(username="user", password="password")
-    response = client.get(reverse("profiles:home"))
+    response = client.get(reverse("students:home"))
 
     assert response.status_code == 200
     assert set(response.context["memberships"]) == set(memberships)
@@ -23,7 +22,7 @@ def test_dashboard_skips_inactive_memberships(client):
     membership = MembershipFactory(members=[student], is_active=False)
 
     client.login(username="user", password="password")
-    response = client.get(reverse("profiles:home"))
+    response = client.get(reverse("students:home"))
 
     assert response.status_code == 200
     assert not response.context["memberships"]
@@ -33,7 +32,7 @@ def test_membership_filter_404s_on_bad_query_parameter(client):
     student = StudentFactory(username="user", password="password")
 
     client.login(username="user", password="password")
-    response = client.get(reverse("profiles:home") + "?membership=x")
+    response = client.get(reverse("students:home") + "?membership=x")
 
     assert response.status_code == 404
 
@@ -44,7 +43,7 @@ def test_membership_filter_includes_membership_challenges(client):
     membership = MembershipFactory(challenges=challenges, members=[student])
 
     client.login(username="user", password="password")
-    response = client.get(reverse("profiles:home") + "?membership=%d" % membership.id)
+    response = client.get(reverse("students:home") + "?membership=%d" % membership.id)
 
     assert response.status_code == 200
     assert response.context["selected_membership"] == membership.id
@@ -57,7 +56,7 @@ def test_membership_filter_shows_no_challenges_on_non_member_membership(client):
     membership = MembershipFactory(challenges=challenges)
 
     client.login(username="user", password="password")
-    response = client.get(reverse("profiles:home") + "?membership=%d" % membership.id)
+    response = client.get(reverse("students:home") + "?membership=%d" % membership.id)
 
     assert response.status_code == 200
     assert not response.context["selected_membership_challenges"]

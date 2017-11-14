@@ -1,5 +1,6 @@
 from challenges.models import Progress, Favorite, Challenge
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import Http404
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic.base import TemplateView
