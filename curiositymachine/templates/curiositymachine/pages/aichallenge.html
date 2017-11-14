@@ -1,4 +1,5 @@
 {% extends "curiositymachine/layout/about_pg_layout.html" %}
+{% load staticfiles %}
 {% block title %}AI Family Challenge{% endblock %}
 
 {% block body-id %}ai-challenge-page{% endblock %}
@@ -9,25 +10,42 @@
     <div class="row">
       <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-3">
         <h2>Welcome to the<br/>Curiosity Machine AI Family Challenge!</h2>
-        <h3 class="mb-3">Your child is the future. So is artificial intelligence.</h3>
+        <h3 class="mb-2">Your child is the future. So is artificial intelligence.</h3>
 
-        <p>We encourage you to create both your student and parent accounts now!<p>
-
-        <ul>
-          <li>You will be able to <a href="https://iridescentsupport.zendesk.com/hc/en-us/articles/115005587467-How-do-I-see-what-my-child-is-working-on-">connect</a> your accounts through the dashboards</li>
-          <li>You will have access to special design challenges to start building before the official competition</li>
-          <li>We will share unique resources to help you work with your child</li>
-          <li>We will send important updates and deadline reminders regarding the timeline</li>
-        </ul>
+        <div class="embed-responsive embed-responsive-16by9 mt-1 mb-2">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/Y6ZeRbqhMig" allowfullscreen></iframe>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 mb-2">
+            <p class="text-sm-center">Make your child's account now!</p>
+            <ul>
+              <li>You will have access to special design challenges to start building before the official competition</li>
+              <li>We will share unique resources to help you work with your child</li>
+              <li>We will send important updates and deadline reminders regarding the timeline</li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <p class="text-sm-center">Be one of our partner sites!</p>
+            <ul>
+              <li>We will help you create a sustainable STEM learning community and build your capacity as a leader</li>
+              <li>Distinguish your organization from others by engaging families with innovative science</li>
+              <li>Help families develop a lifelong learning mindset-- essential to thrive in this Information Age</li>
+            </ul>
+          </div>
+        </div>
 
         <p>
           Start learning by building some of our free design challenges. If you have any questions, contact us at
           <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
         </p>
- 
+
         <div class="text-sm-center mt-3">
-          <a href="{% url "profiles:join" source=source %}" class="btn btn-primary text-uppercase mx-1">student sign up</a>
-          <a href="{% url "profiles:join_as_parent" source=source %}" class="btn btn-primary text-uppercase mx-1">parent sign up</a>
+          <a href="{% url "profiles:join" source=source %}" class="btn btn-primary text-uppercase mx-1" target="_blank">student sign up</a>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeuptfe5zMp5KpadIkNQcj81vtMRBzqdlW9RU8VHAOT48bLJg/viewform"
+            class="btn btn-primary text-uppercase mx-1"
+            target="_blank"
+          >partner sign up</a>
         </div>
 
         <hr class="hr-red mb-3"/>
@@ -35,39 +53,16 @@
         <p>
           The World Economic Forum estimates that 65 percent of children entering primary school today will work in completely new jobs that don’t exist yet. With this new initiative, Iridescent aims to demystify Artificial Intelligence (AI) and AI tools for students and families and provide early introductions to the technology that is reshaping the workforce and encourage them to continue to learn about and engage with AI.
         </p>
-
         <p>
-          The Curiosity Machine AI Family Challenge invites families to learn about Artificial Intelligence technology. Over the next 2 years, 3rd-8th grade students and their families will explore core concepts of AI research, apply AI tools to solve problems in their communities and have the opportunity to enter their ideas into a global competition.
+          The Curiosity Machine AI Family Challenge invites you to learn about Artificial Intelligence technology. Throughout 2018, children ages 8 to 15 and their families will explore core concepts of AI and use these tools to solve problems in their communities. Everyone will have the opportunity to enter their ideas into a global competition.
         </p>
 
         <hr class="hr-red mb-3"/>
 
 
-        <h2>How does it work?</h2>
-        <dl>
-          <dt>Stage 1:</dt>
-          <dd>
-            Families will learn the foundations of Artificial Intelligence, build hands-on projects, and submit their work online through the Curiosity Machine platform.
-          </dd>
-          <dt>Stage 2:</dt>
-          <dd>
-            Families at in-person sites and individuals building online will identify problems in their local communities that AI tools could help solve and begin building solutions to those problems.
-          </dd>
-          <dt>Stage 3:</dt>
-          <dd>
-            We will host a series of regional celebration events for families to share their projects. The strongest projects will move on to the global competition, where families will have the opportunity to win scholarships and prizes.
-          </dd>
-        </dl>
+        <h2>AI Family Challenge<br />Timeline</h2>
+        <img src="{% static 'images/about/ai-timeline.png' %}" alt="CM AI Family Challenge">
 
-        <hr class="hr-red mb-3"/>
-
-        <h2>Why should I participate?</h2>
-        <ul>
-          <li>Access to a curriculum with background information on AI, machine learning, data science, software, documentation and projects that have been created for  social good</li>
-          <li>Have fun learning and competing in challenges that offer scholarships to winners and finalists </li>
-          <li>Ability to attend regional launch events, family programs, and regional/global competition events </li>
-          <li>Exposure to a mentor community that will support families participating in the competition </li>
-        </ul>
       </div>
     </div>
   </div>
@@ -80,7 +75,7 @@
         href="http://iridescentlearning.org/artificial-intelligence/the-curiosity-machine-ai-family-challenge/"
         class="btn btn-red-secondary text-uppercase"
         target="_blank"
-      >Learn More</a>
+      > Learn More</a>
     </div>
   </div>
 {% endwith %}
