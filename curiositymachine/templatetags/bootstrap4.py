@@ -4,9 +4,12 @@ register = template.Library()
 
 @register.inclusion_tag('curiositymachine/templatetags/bootstrap4/form_group.html')
 def form_group(field, **kwargs):
-    return {
+    context = {
         "field": field,
+        "field_class": "form-control",
     }
+    context.update(kwargs)
+    return context
 
 @register.inclusion_tag('curiositymachine/templatetags/bootstrap4/form_check.html')
 def form_check(field, **kwargs):

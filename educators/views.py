@@ -10,10 +10,10 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.functional import lazy
-from django.views.generic import FormView, TemplateView, UpdateView, View
+from django.views.generic import CreateView, FormView, TemplateView, UpdateView, View
 from memberships.helpers.selectors import GroupSelector
 from profiles.decorators import only_for_role
-from profiles.views import CreateProfileView
+from profiles.views import UserKwargMixin
 from rest_framework import generics, permissions
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated
@@ -25,21 +25,25 @@ from .models import *
 from .serializers import *
 from .sorting import *
 
-class CreateView(CreateProfileView):
-    form_class = NewEducatorProfileForm
+class CreateView(UserKwargMixin, CreateView):
+    form_class = EducatorProfileForm
     template_name = "educators/educatorprofile_form.html"
     success_url = lazy(reverse, str)("educators:home")
 
 create = CreateView.as_view()
 
-class EditProfileView(UpdateView):
+class EditView(UserKwargMixin, UpdateView):
+    form_class = EducatorProfileForm
     model = EducatorProfile
-    fields = '__all__'
+
+    def get_success_url(self):
+        messages.success(self.request, "Your changes were saved.")
+        return reverse("educators:edit_profile")
 
     def get_object(self, queryset=None):
         return self.request.user.educatorprofile
 
-edit = EditProfileView.as_view()
+edit = EditView.as_view()
 
 class ChallengesView(TemplateView):
     template_name = "educators/dashboard/challenges.html"

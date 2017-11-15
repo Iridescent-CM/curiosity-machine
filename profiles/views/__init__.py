@@ -62,12 +62,13 @@ class ProfileRedirectView(RedirectView):
 home = login_required(ProfileRedirectView.as_view(viewname="home"))
 edit_profile = login_required(ProfileRedirectView.as_view(viewname="edit_profile"))
 
-class CreateProfileView(FormView):
-
+class UserKwargMixin():
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+class CreateProfileView(UserKwargMixin, FormView):
 
     def form_valid(self, form):
         form.save()
