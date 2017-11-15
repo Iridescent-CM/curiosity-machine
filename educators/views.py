@@ -26,15 +26,15 @@ from .serializers import *
 from .sorting import *
 
 class CreateView(UserKwargMixin, CreateView):
+    model = EducatorProfile
     form_class = EducatorProfileForm
-    template_name = "educators/educatorprofile_form.html"
     success_url = lazy(reverse, str)("educators:home")
 
 create = CreateView.as_view()
 
 class EditView(UserKwargMixin, UpdateView):
-    form_class = EducatorProfileForm
     model = EducatorProfile
+    form_class = EducatorProfileForm
 
     def get_success_url(self):
         messages.success(self.request, "Your changes were saved.")

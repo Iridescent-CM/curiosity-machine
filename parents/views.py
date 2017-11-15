@@ -3,30 +3,32 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.functional import lazy
-from django.views.generic.base import TemplateView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import UpdateView
+from django.views.generic import CreateView, DetailView, TemplateView, UpdateView
 from profiles.decorators import only_for_role
-from profiles.views import CreateProfileView
+from profiles.views import UserKwargMixin
 from .decorators import *
 from .forms import *
 from .models import *
 
-class CreateView(CreateProfileView):
-    form_class = NewParentProfileForm
-    template_name = "parents/parentprofile_form.html"
+class CreateView(UserKwargMixin, CreateView):
+    model = ParentProfile
+    form_class = ParentProfileForm
     success_url = lazy(reverse, str)("parents:home")
 
 create = CreateView.as_view()
 
-class EditProfileView(UpdateView):
+class EditView(UserKwargMixin, UpdateView):
     model = ParentProfile
-    fields = '__all__'
+    form_class = ParentProfileForm
+
+    def get_success_url(self):
+        messages.success(self.request, "Your changes were saved.")
+        return reverse("parents:edit_profile")
 
     def get_object(self, queryset=None):
         return self.request.user.parentprofile
 
-edit = EditProfileView.as_view()
+edit = EditView.as_view()
 
 class HomeView(TemplateView):
     template_name = "parents/home.html"
