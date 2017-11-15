@@ -1,0 +1,169 @@
+{% extends "educators/dashboard/base.html" %}
+{% load staticfiles %}
+{% load datepills %}
+{% block title %}{{ student.username }}'s Progress{% endblock %}
+
+{% block content %}
+  {% url "educators:students" as base_url %}
+  {% include 'educators/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
+
+  <div class="row pb-1">
+    <div class="col-md-12">
+      <h2>{{ student.username }}'s Progress</h2>
+      <div class="dropdown float-xs-right">
+        <a class="dropdown-toggle a-borderless" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort by {{ sorter.selected|lower }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="sortDropdown">
+          {% for strategy in sorter.strategies %}
+          <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row mb-3">
+
+    <div class="col-md-3">
+      <div class="card card-module">
+        <div class="card-block card-block-title text-xs-center">
+          <div class="card-avatar">
+            {% include "_avatar.html" with profile=student.profile width=60 height=60 crop='thumb' gravity='faces' %}
+          </div>
+          {% if student.first_name or student.last_name %}
+          {{ student.first_name }}
+          <br>
+          {{ student.last_name }}
+          {% else %}
+          <em>No name provided</em>
+          {% endif %}
+          <br>
+          <strong>{{ student.username }}</strong>
+        </div>
+        <div class="card-block">
+          <p>
+            Started: <strong>{{ progresses|length }}</strong>
+            <br>
+            Completed: <strong>{{ completed_count }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      {% for progress in progresses %}
+      <div class="card-progress mb-1">
+        <div class="card-block-title">
+          <h3 class="card-title">{{ progress.challenge.name }}</h3>
+          <a href="{% url "educators:challenge" challenge_id=progress.challenge.id %}" class="a-secondary">
+            View all student progress &rarr;
+          </a>
+        </div>
+        <div class="card-block">
+
+          <div class="row progress-details">
+            <div class="col-md-4 mb-1">
+              <span class="progress-type">latest post</span>
+              <br>
+              {% if progress.latest_user_comment %}
+              {{ progress.latest_user_comment.created|date:"l, M d" }} {% datepill progress.latest_user_comment.created %}
+              {% else %}
+              <em>No posts yet</em>
+              {% endif %}
+            </div>
+            <div class="col-md-4 mb-1">
+              <span class="progress-type">online mentor</span>
+              <br>
+              {% if progress.mentor %}
+              {{ progress.mentor.username }}
+              {% else %}
+              No mentor
+              {% endif %}
+            </div>
+            <div class="col-md-4 mb-1">
+              <span class="progress-type">total posts</span>
+              <br>
+              {{ progress.total_user_comments }}
+            </div>
+          </div>
+        </div>
+
+        <div class="graph">
+          <img class="spinner" src="{% static "images/load-bot-gear.gif" %}" alt="Loading" />
+          <svg viewBox="0 0 700 205" preserveAspectRatio="xMinYMin meet" data-pid="{{ progress.id }}"></svg>
+          <div class="error-message">
+            <img src="{% static "images/worried-bot.svg" %}" alt="Error" />
+            <p>
+              <strong>Oh no!</strong><br />
+              We're having trouble displaying this student's progress. Try reloading the page.
+            </p>
+          </div>
+        </div>
+
+        <div class="card-block">
+          <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}" class="btn btn-primary">View &rarr;</a>
+          {% if flags.enable_educator_feedback %}
+          <a
+            href="{% url "profiles:educator_dashboard_progress_conversation" student_id=student.id challenge_id=progress.challenge_id %}"
+            class="btn btn-secondary"
+          >Give feedback</a>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <p>{{ student.username }} hasn't started any design challenges yet</p>
+      {% endfor %}
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  {% if flags.enable_ajax_debug %}
+  <script src="{% static "js/d3_ajax_controls.js" %}"></script>
+  {% endif %}
+  <script src="{% static "js/progress_chart.js" %}"></script>
+  <script>
+    function markParent(classname) {
+      return function () {
+        var el = this;
+        el.parentNode.classList.add(classname);
+      };
+    }
+
+    var chart = progressChart();
+
+    function graphAll (err, data) {
+      var svgs = d3.selectAll("[data-pid]");
+
+      if (err) {
+        svgs.each(markParent('error'));
+        return;
+      }
+
+      var entries = d3.nest()
+        .key(function(d) { return d["challenge_progress_id"]; })
+        .sortValues(function(a, b) {
+          return d3.ascending(a["created"], b["created"])
+        })
+        .entries(data);
+
+      d3.selectAll("[data-pid]")
+        .data(
+          entries,
+          function(d) {
+            var key = d ? d['key'] : this.getAttribute('data-pid');
+            return key;
+          })
+        .call(chart)
+        .each(markParent('loaded'));
+    }
+
+    d3.json("{{ graph_data_url|safe }}", graphAll);
+  </script>
+{% endblock %}

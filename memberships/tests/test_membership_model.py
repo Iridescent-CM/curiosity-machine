@@ -1,17 +1,17 @@
-import pytest
 import mock
-
-from profiles.factories import *
+import pytest
 from challenges.factories import ChallengeFactory
-from memberships.factories import MembershipFactory
-
-from memberships.models import Membership
-from profiles.models import UserRole
-
-from django.db.utils import IntegrityError
-from django.contrib.auth.models import AnonymousUser
 from datetime import timedelta
+from django.contrib.auth.models import AnonymousUser
+from django.db.utils import IntegrityError
 from django.utils.timezone import now, localtime
+from educators.factories import *
+from memberships.factories import MembershipFactory
+from memberships.models import Membership
+from mentors.factories import *
+from profiles.factories import *
+from profiles.models import UserRole
+from students.factories import *
 
 @pytest.fixture
 def rightnow():

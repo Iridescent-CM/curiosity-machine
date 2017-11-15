@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from collections import OrderedDict
 
 from memberships.models import Member, Group, GroupMember
-from profiles.models import Profile, UserRole
+from profiles.models import Profile, UserRole, UserExtra
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -67,20 +67,28 @@ class RowProfileForm(forms.ModelForm):
     """
     class Meta:
         model = Profile
-        fields = ['birthday', 'approved']
-
-    approved = YesNoBooleanField(required=False, label='Consent form')
+        fields = ['birthday']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['birthday'].required = True
 
+class RowUserExtraForm(forms.ModelForm):
+    """
+    Validates extra fields and builds object from a csv row
+    """
+    class Meta:
+        model = UserExtra
+        fields = ['approved']
+
+    approved = YesNoBooleanField(required=False, label='Consent form')
+
     def save(self, commit=False):
-        profile = super().save(commit=False)
-        profile.role = UserRole.student.value
+        obj = super().save(commit=False)
+        obj.role = UserRole.student.value
         if commit:
-            profile.save()
-        return profile
+            obj.save()
+        return obj
 
 class RowGroupsForm(forms.Form):
     """
@@ -96,6 +104,7 @@ class RowImportForm(forms.Form):
     membership = None
     userFormClass = RowUserForm
     profileFormClass = RowProfileForm
+    extraFormClass = RowUserExtraForm
     groupFormClass = RowGroupsForm
 
     def __init__(self, data=None, *args, **kwargs):
@@ -104,7 +113,7 @@ class RowImportForm(forms.Form):
                 setattr(self, keyword, kwargs.pop(keyword))
 
         self._forms = []
-        for formclass in [self.userFormClass, self.profileFormClass, self.groupFormClass]:
+        for formclass in [self.userFormClass, self.profileFormClass, self.extraFormClass, self.groupFormClass]:
             self._forms.append(formclass(data))
 
         return super().__init__(data, *args, **kwargs)
@@ -136,10 +145,12 @@ class RowImportForm(forms.Form):
 
         cleaned_data = self.cleaned_data
 
-        userForm, profileForm, groupForm = self._forms
+        userForm, profileForm, extraForm, groupForm = self._forms
         profile = profileForm.save(commit=False)
+        extra = extraForm.save(commit=False)
         user = userForm.save(commit=False)
         user.profile = profile
+        user.extra = extra
         member = Member(membership=self.membership, user=user)
 
         groups = []
@@ -153,6 +164,8 @@ class RowImportForm(forms.Form):
 
         if commit:
             user.save()
+            user.extra = extra
+            extra.save()
             user.profile = profile
             profile.save()
             member.user = user

@@ -1,10 +1,12 @@
 import pytest
-
 from challenges.factories import ChallengeFactory, ProgressFactory
-from profiles.factories import UserFactory, MentorFactory, EducatorFactory, ParentFactory, ParentConnectionFactory, StudentFactory
-from memberships.factories import MembershipFactory
-
 from django.core.urlresolvers import reverse
+from educators.factories import EducatorFactory
+from memberships.factories import MembershipFactory
+from mentors.factories import MentorFactory
+from parents.factories import ParentFactory, ParentConnectionFactory
+from profiles.factories import UserFactory
+from students.factories import StudentFactory
 
 @pytest.mark.django_db
 def test_anonymous_user_access_denied(client):
@@ -14,7 +16,7 @@ def test_anonymous_user_access_denied(client):
     response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=True)
 
     assert response.status_code == 200
-    assert "registration/login.html" == response.templates[0].name
+    assert "account/login.html" == response.templates[0].name
 
 @pytest.mark.django_db
 def test_allows_staff(client):
@@ -76,7 +78,7 @@ def test_connected_parent_access_granted(client):
     challenge = ChallengeFactory()
     progress = ProgressFactory(challenge=challenge)
     parent = ParentFactory(username='user', password='123123')
-    ParentConnectionFactory(parent_profile=parent.profile, child_profile=progress.student.profile, active=True)
+    ParentConnectionFactory(parent_profile=parent.parentprofile, child_profile=progress.student.studentprofile, active=True)
 
     client.login(username='user', password='123123')
     response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=False)

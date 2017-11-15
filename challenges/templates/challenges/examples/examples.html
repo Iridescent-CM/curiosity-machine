@@ -23,7 +23,7 @@
 {% block content %}
   <div class="examples-top-panel">
     <div class="container">
-      {% if request.user.is_authenticated and request.user.profile.is_student %}
+      {% if request.user.is_authenticated and request.user.extra.is_student %}
       <h3><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a></h3>
       {% else %}
       <h3><a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">{{ challenge.name }}</a></h3>
@@ -48,7 +48,7 @@
     <div id="student-completed" class="examples-page-alerts text-xs-center p-2 my-2">
       <h3>Add your project!</h3>
       <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
-      <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.profile.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
+      <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.extra.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
 
 
       <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

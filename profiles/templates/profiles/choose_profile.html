@@ -1,0 +1,25 @@
+{% extends "curiositymachine/layout/base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <h1>I want to be a...</h1>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col-md-3">
+      <a class="btn btn-primary" href="{% url "students:create_profile" %}">Student</a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" href="#">Mentor</a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" href="{% url "educators:create_profile" %}">Educator</a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" href="{% url "parents:create_profile" %}">Parent</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

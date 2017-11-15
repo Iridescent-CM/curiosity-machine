@@ -1,29 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 import password_reset.views
-import password_reset.forms
 from smtplib import SMTPRecipientsRefused
-import logging
 
-from . import student
-from . import mentor
-from . import educator
+# TODO: handle staff views in new app?
 from . import staff
-from . import parent
-
-logger = logging.getLogger(__name__)
 
 @login_required
 def dispatch(request, action, *args, **kwargs):
-    if request.user.profile.is_mentor:
-        module = mentor
-    elif request.user.profile.is_student:
-        module = student
-    elif request.user.profile.is_educator:
-        module = educator
-    elif request.user.profile.is_parent:
-        module = parent
-    elif request.user.is_staff:
+    if request.user.is_staff:
         module = staff
     else:
         raise Http404()
@@ -34,6 +19,7 @@ def dispatch(request, action, *args, **kwargs):
     else:
         raise Http404()
 
+# TODO: move to allauth password recovery
 ### password recovery
 
 class Recover(password_reset.views.Recover):
@@ -49,3 +35,40 @@ class Recover(password_reset.views.Recover):
             raise
 
 recover = Recover.as_view()
+
+################# New stuff
+from django.core.exceptions import ImproperlyConfigured
+from django.urls import reverse
+from django.views.generic.base import TemplateView, RedirectView
+from django.views.generic.edit import FormView
+from inspect import signature
+from ..models import UserRole
+
+class ChooseProfileTemplateView(TemplateView):
+    template_name = "profiles/choose_profile.html"
+
+choose_profile = ChooseProfileTemplateView.as_view()
+
+class ProfileRedirectView(RedirectView):
+    viewname = None
+
+    def get_redirect_url(self, *args, **kwargs):
+        role = UserRole(self.request.user.extra.role)
+        if role == UserRole.none:
+            return reverse("profiles:profiles")
+        else:
+            return reverse("%ss:%s" % (role.name, self.viewname), args=args, kwargs=kwargs)
+
+home = login_required(ProfileRedirectView.as_view(viewname="home"))
+edit_profile = login_required(ProfileRedirectView.as_view(viewname="edit_profile"))
+
+class CreateProfileView(FormView):
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)

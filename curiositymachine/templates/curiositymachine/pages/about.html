@@ -94,7 +94,7 @@
   <div class="sign-up-panel py-3">
     <div class="container">
       <h2>Create a Student Account!</h2>
-      <a href="{% url "profiles:join" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
+      <a href="{% url "account_signup" %}?next={% url "students:create_profile" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
     </div>
   </div>
 {% endblock %}

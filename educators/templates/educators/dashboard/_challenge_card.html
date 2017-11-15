@@ -1,0 +1,76 @@
+{% load resized %}
+
+<div class="card vertical-expandable-card">
+
+  <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
+    <img class="card-img-top mr-1" src="{% resized challenge.image.url width=545 height=240 crop='fill' %}" alt="{{ challenge.name }}">
+  </a>
+
+  <div class="card-block">
+    <h3>
+      <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
+        {{ challenge.name }}
+      </a>
+    </h3>
+
+    {% if show_detail_links %}
+    {% if group_selector.has_groups %}
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle"
+        href="#"
+        id="dropdown-{{ challenge.id }}"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        View student progress
+      </a>
+
+      <div class="dropdown-menu text-capitalize" aria-labelledby="dropdownMenuLink-{{ challenge.id }}">
+        {% for group in group_selector.options %}
+        <a class="dropdown-item"
+          href="{% url 'educators:challenge' challenge_id=challenge.id %}?{{ group.GET.urlencode }}"
+        >
+          {{ group.text }}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <a href="{% url 'educators:challenge' challenge_id=challenge.id %}">
+      View all student progress &rarr;
+    </a>
+    {% endif %}
+    {% endif %}
+
+  </div>
+
+  <div class="card-block">
+    <a class="expandable-card-toggle"
+      data-text-swap="&minus; LESS INFO"
+      data-toggle="collapse"
+      href="#moreInfo-{{ challenge.id }}"
+      aria-expanded="false"
+      aria-controls="moreInfo-{{ challenge.id }}"
+    >
+      &plus; MORE INFO
+    </a>
+  </div>
+
+  <div class="collapse" id="moreInfo-{{ challenge.id }}">
+    <div class="expandable-card-more">
+      <span class="expandable-card-more-section-title">DESCRIPTION</span>
+      <p>{{ challenge.description }}</p>
+
+      {% if challenge.resource_set.count %}
+      <span class="expandable-card-more-section-title">EDUCATOR RESOURCES</span>
+      <ul class="resources-list">
+        {% for resource in challenge.resource_set.all %}
+        <li>{{ resource.name }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+
+</div>

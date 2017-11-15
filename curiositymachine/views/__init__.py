@@ -1,3 +1,4 @@
+from allauth.account.views import SignupView
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
@@ -10,7 +11,7 @@ import rollbar
 def root(request):
     # redirect to home if logged in unless you are a student with no challenges
     if request.user.is_authenticated():
-        if (not request.user.profile.is_student or request.user.progresses.exists()):
+        if (not request.user.extra.is_student or request.user.progresses.exists()):
             return HttpResponseRedirect(reverse('profiles:home'))
         else:
             return HttpResponseRedirect(reverse('challenges:challenges'))
@@ -62,3 +63,23 @@ def csrf_failure_handler(request, reason=""):
         'more': _("More information is available with DEBUG=True."),
     }
 	return render(request, 'error/csrf.html', ctx)
+
+class SourceSignupView(SignupView):
+
+    def get(self, request, *args, **kwargs):
+        self.source = kwargs.get('source', None)
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.source = request.POST.get('source', kwargs.get('source', None))
+        return super().post(request, *args, **kwargs)
+
+    def get_template_names(self):
+        return ["account/%s/signup.html" % self.source, self.template_name]
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['source'] = self.source
+        return initial
+
+signup_with_source = SourceSignupView.as_view()

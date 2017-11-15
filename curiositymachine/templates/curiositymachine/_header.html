@@ -16,10 +16,10 @@
           <div class="row">
             {% csrf_token %}
             <div class="col-xs-12">
-              {{ login_form.username.label_tag }}
+              {{ login_form.login.label_tag }}
             </div>
             <div class="col-xs-12">
-              {{ login_form.username }}
+              {{ login_form.login }}
             </div>
           </div>
           <div class="row">
@@ -56,7 +56,7 @@
         <p class="lead text-xs-center">Join Curiosity Machine as a:</p>
         <div class="row text-xs-center">
           <div class="col-sm-3 offset-sm-0 col-xs-8 offset-xs-2">
-            <a class="btn btn-primary btn-block" href="{% url 'profiles:join' %}">
+            <a class="btn btn-primary btn-block" href="{% url 'account_signup' %}?next={% url 'students:create_profile' %}">
               Student
             </a>
             <p class="button-help">
@@ -72,7 +72,7 @@
             </p>
           </div>
           <div class="col-sm-3 offset-sm-0 col-xs-8 offset-xs-2">
-            <a class="btn btn-primary btn-block" href="{% url 'profiles:join_as_educator' %}">
+            <a class="btn btn-primary btn-block" href="{% url 'account_signup' %}">
               Educator
             </a>
             <p class="button-help">
@@ -80,7 +80,7 @@
             </p>
           </div>
           <div class="col-sm-3 offset-sm-0 col-xs-8 offset-xs-2">
-            <a class="btn btn-primary btn-block" href="{% url 'profiles:join_as_parent' %}">
+            <a class="btn btn-primary btn-block" href="{% url 'account_signup' %}?next={% url 'parents:create_profile' %}">
               Parent
             </a>
             <p class="button-help">
@@ -123,7 +123,7 @@
                 <a href="{% url 'profiles:home' %}">My Dashboard</a>
               </li>
               <li class="list-group-item">
-                <a href="{% url 'profiles:profile_edit' %}">Account Settings</a>
+                <a href="{% url 'profiles:edit_profile' %}">Account Settings</a>
               </li>
               {% if request.user.is_staff %}
                 <li class="list-group-item">
@@ -139,7 +139,10 @@
                 </li>
               {% endif %}
               <li class="list-group-item">
-                <a href="{% url 'logout' %}?next=/">Log Out</a>
+                <form action="{% url 'logout' %}?next=/" method="POST">
+                  {% csrf_token %}
+                  <input type=submit class="btn-link" value="Log Out"/>
+                </form>
               </li>
             </ul>
           </li>
@@ -151,7 +154,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link nav-mentors" href="{% url "profiles:mentors" %}">Mentor Community<span class="sr-only">(current)</span></a>
+            <a class="nav-link nav-mentors" href="{% url "mentors:list" %}">Mentor Community<span class="sr-only">(current)</span></a>
           </li>
 
           <li class="nav-item">
@@ -166,7 +169,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="usermenu">
               <a class="dropdown-item" href="{% url 'profiles:home' %}">My Dashboard</a>
-              <a class="dropdown-item" href="{% url 'profiles:profile_edit' %}">Account Settings</a>
+              <a class="dropdown-item" href="{% url 'profiles:edit_profile' %}">Account Settings</a>
               {% if request.user.is_staff %}
                 <a class="dropdown-item" href="{% url "admin:index" %}">View Admin</a>
                 <a class="dropdown-item" href="{% url "admin:challenges_example_changelist" %}">
@@ -176,7 +179,10 @@
                   {% endif %}
                 </a>
               {% endif %}
-              <a class="dropdown-item" href="{% url 'logout' %}?next=/">Log Out</a>
+              <form action="{% url 'logout' %}?next=/" method="POST">
+                {% csrf_token %}
+                <input type=submit class="dropdown-item" value="Log Out"/>
+              </form>
             </div>
           </li>
 

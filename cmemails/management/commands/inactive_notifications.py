@@ -6,10 +6,10 @@ class Command(BaseCommand):
     help = 'Send out email notifications for inactive users'
 
     def handle(self, *args, **options):
-        profiles = Profile.inactive_students()
-        for profile in profiles:
+        extras = UserExtra.inactive_students()
+        for extra in extras:
             # TODO: this might be better as a bulk send
-            send(template_name='student-inactive-2-weeks', to=profile.user, merge_vars={
-                'studentname': profile.user.username
+            send(template_name='student-inactive-2-weeks', to=extra.user, merge_vars={
+                'studentname': extra.user.username
             })
-            profile.update_inactive_email_sent_on_and_save()
+            extra.update_inactive_email_sent_on_and_save()

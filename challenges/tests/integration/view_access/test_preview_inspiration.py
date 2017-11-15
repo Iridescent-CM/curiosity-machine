@@ -1,9 +1,10 @@
 import pytest
-
 from challenges.factories import ChallengeFactory
-from profiles.factories import StudentFactory, MentorFactory, ParentFactory, EducatorFactory
-
 from django.core.urlresolvers import reverse
+from educators.factories import EducatorFactory
+from mentors.factories import MentorFactory
+from parents.factories import ParentFactory
+from students.factories import StudentFactory
 
 @pytest.mark.django_db
 def test_anonymous_can_access(client):

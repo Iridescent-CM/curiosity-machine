@@ -1,0 +1,7 @@
+{% load widget_tweaks %}
+<div class="form-check {% if field.errors %}has-danger{% endif %}">
+  <label class="form-check-label">
+    {% render_field field class="form-check-input" %}
+    {{ field.label }}
+  </label>
+</div>

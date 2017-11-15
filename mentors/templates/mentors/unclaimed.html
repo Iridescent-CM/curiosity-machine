@@ -1,0 +1,21 @@
+{% extends "mentors/progress_list.html" %}
+{% block title %}Unclaimed Challenges{% endblock %}
+
+{% block body-id %}progress-list{% endblock %}
+{% load unread_count %}
+{% load resized %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'root' %}">Home</a></li>
+  <li>Unclaimed Challenges</li>
+</ol>
+{% endblock %}
+
+{% block pagetitle %}
+<h2>Claim a Challenge from {{grouping}}</h2>
+{% endblock %}
+
+{% block emptytext %}
+<h3>There are currently no unclaimed student challenges for {{grouping}}</h3>
+{% endblock %}

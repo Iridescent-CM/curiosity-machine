@@ -66,9 +66,14 @@ def load_fixture(f):
         'user': users,     
         'image': images,
     }, build=True)
+    extras = pk_map(data, 'profiles.userextra', UserExtraFactory, lookups={
+        'user': users,
+    }, build=True)
     for user in users.values():
         user.save()
-        user.profile.user = user # i hate this so much
+        user.extra.user = user # i hate this so much
+        user.extra.save()
+        user.profile.user = user # i hate all of this so much
         user.profile.save()
 
     memberships = pk_map(data, 'memberships.membership', MembershipFactory, lookups={

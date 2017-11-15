@@ -1,11 +1,8 @@
 import pytest
-
-from memberships.models import Membership, MemberLimit, Member
-
-from profiles.models import UserRole
-from profiles.factories import StudentFactory
-
 from django.db.utils import IntegrityError
+from memberships.models import Membership, MemberLimit, Member
+from profiles.models import UserRole
+from students.factories import StudentFactory
 
 @pytest.mark.django_db
 def test_member_limit_uniqueness():

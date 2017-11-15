@@ -1,0 +1,82 @@
+{% extends "educators/dashboard/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+  {% include 'educators/dashboard/_navigation.html' %}
+
+  {% if extra_units %}
+  <div class="row pb-1">
+    <div class="col-md-12">
+      <h2>{{ membership.display_name }} Units &amp; Guides</h2>
+    </div>
+  </div>
+
+  <div class="row">
+
+    {% for unit in extra_units %}
+    <div class="col-lg-4 col-md-6 mb-1">
+      {% include "educators/dashboard/_unit_card.html" with unit=unit %}
+    </div>
+    {% if forloop.counter|divisibleby:3 %}
+      <div class="clearfix hidden-md-down"></div>
+    {% endif %}
+    {% if forloop.counter|divisibleby:2 %}
+      <div class="clearfix hidden-lg-up"></div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if units %}
+  <div class="row pb-1">
+    <div class="col-md-12">
+      <h2>Units &amp; Guides</h2>
+    </div>
+  </div>
+
+  <div class="row">
+
+    {% for unit in units %}
+    <div class="col-lg-4 col-md-6 mb-1">
+      {% include "educators/dashboard/_unit_card.html" with unit=unit %}
+    </div>
+    {% if forloop.counter|divisibleby:3 %}
+      <div class="clearfix hidden-md-down"></div>
+    {% endif %}
+    {% if forloop.counter|divisibleby:2 %}
+      <div class="clearfix hidden-lg-up"></div>
+    {% endif %}
+    {% endfor %}
+
+  </div>
+  {% endif %}
+
+  <div class="row mt-3 pb-1">
+    <div class="col-md-12">
+      <h2>Resources</h2>
+      <ul class="mb-2">
+        <li>
+          <a href="https://s3.amazonaws.com/curiositymachine/statics/student-design-portfolio.pdf">Student Design Portfolio</a>
+        </li>
+        <li>
+          <a href="https://s3.amazonaws.com/curiositymachine/statics/guide-to-great-submissions.pdf">Guide to Great Submissions</a>
+        </li>
+        <li>
+          <a href="http://iridescentlearning.org/wp-content/uploads/2014/09/CM-Login.pdf">Create Account Instructions</a>
+        </li>
+        <li>
+          <a href="https://s3.amazonaws.com/curiositymachine/statics/Curiosity_Machine_NGSS_Alignment_K-8.pdf">NGSS K-8 Alignment</a>
+        </li>
+      </ul>
+      <h3>Consent Forms</h3>
+      <ul>
+        <li>
+          <a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">Under 13 Consent Form (English)</a>
+        </li>
+        <li>
+          <a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy-esp.pdf">Consentimento de los Padres (Español)</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}

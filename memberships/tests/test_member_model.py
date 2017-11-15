@@ -1,11 +1,9 @@
 import pytest
-
+from django.core.exceptions import ValidationError
+from educators.factories import *
 from memberships.models import Member, Membership, MemberLimit
 from profiles.models import UserRole
-
-from profiles.factories import StudentFactory, EducatorFactory
-
-from django.core.exceptions import ValidationError
+from students.factories import *
 
 @pytest.mark.django_db
 def test_member_clean_enforces_limit():

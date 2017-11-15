@@ -1,0 +1,121 @@
+{% load widget_tweaks %}
+<div class="educator-dashboard-header py-2 mb-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{% url 'educators:edit_profile' %}" class="a-borderless float-xs-right">Account Settings</a>
+        <div class="dashboard-avatar">
+          {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
+        </div>
+        {% if request.user.first_name or request.user.last_name %}
+        {{ request.user.first_name }} {{ request.user.last_name }}
+        {% else %}
+        <em>No name provided</em>
+        {% endif %}
+        <br>
+        <span class="dashboard-inline-username">{{ request.user.username }}</span>
+      </div>
+    </div>
+    <div class="row mt-1 hidden-sm-down">
+      <div class="col-md-12">
+        <strong>Email:</strong> {{ request.user.email }}
+        <br>
+        <strong>Memberships:</strong> {{ membership_selection.names }}
+      </div>
+    </div>
+    <div class="row mt-1">
+      <div class="col-md-12">
+        {% for membership in membership_selection.all %}
+        {% if membership.show_expiring_notice %}
+        <div class="alert alert-info" role="alert">
+          <strong>{{ membership.display_name }}</strong> is expiring on {{ membership.expiration }}. <a href="mailto:curiosity@iridescentlearning.org">Contact us</a> to renew your membership.
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% for membership in membership_selection.recently_expired %}
+        <div class="alert alert-info" role="alert">
+          <strong>{{ membership.display_name }}</strong> expired on {{ membership.expiration }}. <a href="mailto:curiosity@iridescentlearning.org">Contact us</a> to renew your membership.
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% if flags.enable_impact_survey %}
+    <div class="row mt-1">
+      <div class="card">
+        <div class="card-block">
+          <h3>Your impact</h3>
+          <div id="impact-survey-msg" class="my-1 submit-message">
+            <p class="before-submit">
+              Share your Curiosity Machine experience! This information helps us improve and offer our resources to more people.
+            </p>
+            <p class="after-submit">
+              Thanks for helping us understand how you use Curiosity Machine! If your usage changes, you can submit your data again.
+            </p>
+          </div>
+          <div class="collapse" id="impact-collapse">
+            <form id="impact-survey" class="mb-3"
+                action="{% url "educators:update_impact_survey" %}"
+                method="post" data-remote="true"
+            >
+              {% csrf_token %}
+              <h4>I use Curiosity Machine with...</h4>
+              <div class="form-group row">
+                <label class="col-xs-12 col-md-3">
+                  # students
+                  {{ impact_form.student_count|add_class:"form-control" }}
+                </label>
+                <label class="col-xs-12 col-md-3">
+                  # teachers
+                  {{ impact_form.teacher_count|add_class:"form-control" }}
+                </label>
+              </div>
+              <h4>I have taught...</h4>
+              <div class="form-group row">
+                <label class="col-xs-12 col-md-3">
+                  # design challenges
+                  {{ impact_form.challenge_count|add_class:"form-control" }}
+                </label>
+                <label class="col-xs-6 col-md-3">
+                  In the classroom
+                  {{ impact_form.in_classroom|add_class:"form-check" }}
+                </label>
+                <label class="col-xs-6 col-md-3">
+                  Out of the classroom
+                  {{ impact_form.out_of_classroom|add_class:"form-check" }}
+                </label>
+              </div>
+              <h4>My students take about...</h4>
+              <div class="form-group row">
+                <label class="col-xs-12 col-md-3">
+                  Hours per challenge
+                  {{ impact_form.hours_per_challenge|add_class:"form-control" }}
+                </label>
+              </div>
+              <h4>Anything else you want to tell us?</h4>
+              <div class="form-group row">
+                <label class="col-xs-12 col-md-6">
+                  {{ impact_form.comment|add_class:"form-control"|attr:"placeholder:Add your comments here" }}
+                </label>
+              </div>
+              <div class="form-group row">
+                <div class="col-xs-12 col-md-9">
+                    <input type="submit" value="Save" class="btn btn-primary" data-disable-with="Saving...">
+                    <span id="impact-survey-status" class="ml-2"></span>
+                </div>
+              </div>
+            </form>
+          </div>
+          <a
+            data-toggle="collapse" href="#impact-collapse"
+            id="impact-collapse-trigger"
+            data-show-text='Show' data-hide-text='Hide'
+            class="btn btn-secondary"
+            aria-expanded="false" aria-controls="impact-collapse"
+          >Show</a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>

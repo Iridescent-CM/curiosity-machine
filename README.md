@@ -137,7 +137,7 @@ Curiosity Machine is currently using two stylesheet libraries simultaneously. Ol
 Each library has its own base template that new pages on CM extend:
 
 - New: `{% extends "curiositymachine/layout/base.html" %}`
-- Old: `{% extends 'base.html' %}`
+- Old: `{% extends 'deprecated_base.html' %}`
 
 Visually, you can tell the difference between “old” and “new” templates by whether or not there is a dark `body` containing the page content. Newer pages do _not_ have this. (Currently, most of the pages on Curiosity Machine reference the newer template, the main exception being the engineering design process pages.)
 

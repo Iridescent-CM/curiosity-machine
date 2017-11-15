@@ -33,7 +33,7 @@ class GroupSelector():
         else:
             self.query = QueryDict()
 
-        student_qs = self.membership.members.filter(profile__role=UserRole.student.value)
+        student_qs = self.membership.members.filter(extra__role=UserRole.student.value)
 
         self._map = OrderedDict()
         self._map['all'] = SelectorOption(

@@ -96,9 +96,9 @@ class ProgressAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "student":
-            kwargs["queryset"] = User.objects.filter(profile__role=UserRole.student.value)
+            kwargs["queryset"] = User.objects.filter(extra__role=UserRole.student.value)
         elif db_field.name == "mentor":
-            kwargs["queryset"] = User.objects.filter(profile__role=UserRole.mentor.value)
+            kwargs["queryset"] = User.objects.filter(extra__role=UserRole.mentor.value)
         return super(ProgressAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 admin.site.register(Challenge, ChallengeAdmin)

@@ -1,9 +1,10 @@
 import pytest
-
-from django.core.urlresolvers import reverse
-
 from challenges.factories import ChallengeFactory, ExampleFactory, ProgressFactory
-from profiles.factories import StudentFactory, MentorFactory, EducatorFactory, ParentFactory, ParentConnectionFactory
+from django.core.urlresolvers import reverse
+from educators.factories import EducatorFactory
+from mentors.factories import MentorFactory
+from parents.factories import ParentFactory, ParentConnectionFactory
+from students.factories import StudentFactory
 
 pytestmark = pytest.mark.integration
 

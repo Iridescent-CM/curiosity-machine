@@ -96,7 +96,7 @@ def generate_analytics(start_date, end_date):
             writer.writerow([
                 comment.user_id,
                 comment.user.username,
-                "mentor" if comment.user.profile.is_mentor else "learner",
+                "mentor" if comment.user.extra.is_mentor else "learner",
                 "video" if comment.video else ("image" if comment.image else "text"),
                 Stage(comment.stage).name,
                 comment.created.strftime('%Y-%m-%d %H:%M:%S'),

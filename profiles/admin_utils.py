@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 class StudentFilter(admin.SimpleListFilter):
     # Human-readable title which will be displayed in the
     # right admin sidebar just above the filter options.
-    title = _('Age Category')
+    title = _('Student Age Category')
 
     # Parameter for the filter that will be used in the URL query.
     parameter_name = 'age_category'
@@ -35,8 +35,8 @@ class StudentFilter(admin.SimpleListFilter):
         # to decide how to filter the queryset.
         n = now()
         thirteen_years_ago = n - relativedelta(years=13)
-        queryset.filter(profile__birthday__isnull=False)
+        queryset.filter(studentprofile__birthday__isnull=False)
         if self.value() == 'underage':
-            return queryset.filter(profile__birthday__gt=thirteen_years_ago)
+            return queryset.filter(studentprofile__birthday__gt=thirteen_years_ago)
         if self.value() == '14plus':
-            return queryset.filter(profile__birthday__lte=thirteen_years_ago)
+            return queryset.filter(studentprofile__birthday__lte=thirteen_years_ago)

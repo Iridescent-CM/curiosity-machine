@@ -12,10 +12,12 @@ from challenges.tests.fixtures import *
 from profiles.tests import student, mentor # TODO: move to profiles.tests.fixtures
 
 # factories
-from challenges.factories import ChallengeFactory, ProgressFactory, ExampleFactory
-from profiles.factories import StudentFactory, MentorFactory
-from cmcomments.factories import CommentFactory
-from images.factories import ImageFactory
+from challenges.factories import *
+from cmcomments.factories import *
+from images.factories import *
+from mentors.factories import *
+from profiles.factories import *
+from students.factories import *
 
 # django modules
 from django.contrib.auth.models import AnonymousUser

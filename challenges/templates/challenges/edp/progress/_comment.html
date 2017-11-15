@@ -1,6 +1,6 @@
 {% load cmtemplatetags %}
 
-{% if comment.user.profile.is_mentor %}
+{% if comment.user.extra.is_mentor %}
   <span class="mentor-comment">MENTOR MESSAGE</span>
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">
@@ -16,7 +16,7 @@
       {% include "challenges/edp/progress/_comment_content.html" %}
     </div>
   </div>
-{% elif comment.user.profile.is_educator %}
+{% elif comment.user.extra.is_educator %}
   <span class="mentor-comment">EDUCATOR MESSAGE</span>
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">

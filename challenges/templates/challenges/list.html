@@ -47,7 +47,7 @@
           {% for challenge in challenges %}
             <div class="col-sm-6 col-md-12 col-lg-6 col-xl-4">
               <div class="card challenge-card">
-                {% if request.user.is_authenticated and request.user.profile.is_student %}
+                {% if request.user.is_authenticated and request.user.extra.is_student %}
                   <div class="favorites-filter">
                     <input type="checkbox"
                       name="favorite-star-{{challenge.id}}"
@@ -91,7 +91,7 @@
                   <div class="card-block card-details">
                     <ul>
                       {% if challenge.accessible or challenge.started %}
-                      {% if request.user.profile.is_student %}
+                      {% if request.user.extra.is_student %}
                       <li>
                         <small>
                           <span class="accessible-dc">Build it!</span>
@@ -99,7 +99,7 @@
                       </li>
                       {% endif %}
                       {% endif %}
-                      {% if not request.user.profile.is_student and challenge.has_resources %}
+                      {% if not request.user.extra.is_student and challenge.has_resources %}
                       <li>
                         <small>
                           <span class="has-resources">Educator Resources</span>

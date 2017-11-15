@@ -3,15 +3,17 @@ from django.contrib.auth import get_user_model
 from cmcomments.models import Comment
 from challenges.models import Challenge, Progress, Theme, Favorite, Filter
 from profiles.models import UserRole
+from students.factories import *
 
 User = get_user_model()
 
 @pytest.fixture
 def loggedInStudent(client):
-    student = User.objects.create_user(username='loggedinstudent', email='loggedinstudent@example.com', password='password')
-    student.profile.role = UserRole.student.value
-    student.profile.approved = True
-    student.profile.save()
+    student = StudentFactory(
+        username='loggedinstudent',
+        email='loggedinstudent@example.com',
+        password='password'
+    )
     client.login(username='loggedinstudent', password='password')
     return student
 

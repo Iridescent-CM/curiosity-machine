@@ -1,0 +1,44 @@
+{% extends "curiositymachine/layout/base.html" %}
+
+{% block title %}My Dashboard{% endblock %}
+{% block body-classes %}educator-dashboard{% endblock %}
+
+{% block container %}
+  {% include 'educators/dashboard/_header.html' %}
+  <div class="container mb-3">
+    {% block content %}{% endblock %}
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script>
+    $(function() {
+      var $collapse = $('#impact-collapse');
+      var $trigger = $('#impact-collapse-trigger');
+      var $msgs = $('.submit-message');
+
+      $collapse.on('hide.bs.collapse', function () {
+        $trigger.text($trigger.data('show-text'));
+      });
+      $collapse.on('show.bs.collapse', function () {
+        $trigger.text($trigger.data('hide-text'));
+      });
+
+      var $form = $('#impact-survey');
+      var $stat = $('#impact-survey-status');
+
+      $form.on('ajax:before change', function() {
+        $stat.removeClass('text-success text-danger');
+        $stat.text('');
+      });
+      $form.on('ajax:success', function(data, stat, xhr) {
+        $collapse.collapse('hide');
+        $msgs.addClass('submitted');
+      });
+      $form.on('ajax:error', function(xhr, stat, err) {
+        $stat.addClass('text-danger');
+        $stat.text('Save failed. Please try again.');
+      });
+    });
+  </script>
+{% endblock %}

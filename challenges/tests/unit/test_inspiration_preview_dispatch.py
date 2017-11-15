@@ -1,7 +1,8 @@
 import pytest
-from django.contrib.auth.models import AnonymousUser
 from challenges.views import InspirationPreviewDispatch, InspirationStudentPreview, InspirationUserPreview, InspirationAnonymousPreview
-from profiles.factories import StudentFactory, MentorFactory
+from django.contrib.auth.models import AnonymousUser
+from mentors.factories import MentorFactory
+from students.factories import StudentFactory
 
 pytestmark = pytest.mark.unit
 

@@ -28,7 +28,7 @@
                 <a href="{% url 'profiles:home' %}">My Dashboard</a>
               </li>
               <li class="list-group-item">
-                <a href="{% url 'profiles:profile_edit' %}">Account Settings</a>
+                <a href="{% url 'profiles:edit_profile' %}">Account Settings</a>
               </li>
               {% if request.user.is_staff %}
                 <li class="list-group-item">
@@ -42,14 +42,17 @@
                 </li>
               {% endif %}
               <li class="list-group-item">
-                <a href="{% url 'logout' %}?next=/">Log Out</a>
+                <form action="{% url 'logout' %}?next=/" method="POST">
+                  {% csrf_token %}
+                  <input type=submit class="btn-link" value="Log Out"/>
+                </form>
               </li>
             </ul>
           </li>
           {% endif %}
 
           <li class="nav-item"><a href="{% url "challenges:challenges" %}" class="nav-link nav-challenges">Challenges</a></li>
-          <li class="nav-item"><a href="{% url "profiles:mentors" %}" class="nav-link nav-mentors">Mentor Community</a></li>
+          <li class="nav-item"><a href="{% url "mentors:list" %}" class="nav-link nav-mentors">Mentor Community</a></li>
           <li class="nav-item"><a href="{% url "about" %}" class="nav-link nav-about">About Us</a></li>
 
           {% if request.user.is_authenticated %}
@@ -61,7 +64,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="usermenu">
               <li><a class="dropdown-item" href="{% url 'profiles:home' %}">My Dashboard</a></li>
-              <li><a class="dropdown-item" href="{% url 'profiles:profile_edit' %}">Account Settings</a></li>
+              <li><a class="dropdown-item" href="{% url 'profiles:edit_profile' %}">Account Settings</a></li>
               {% if request.user.is_staff %}
                 <li><a class="dropdown-item" href="{% url "admin:index" %}">View Admin</a></li>
                 <li><a class="dropdown-item" href="{% url "admin:challenges_example_changelist" %}">
@@ -69,7 +72,12 @@
                   {% if staff_alerts.pending_examples %}<span class="badge">{{staff_alerts.pending_examples}}</span>{% endif %}
                 </a></li>
               {% endif %}
-              <li><a class="dropdown-item" href="{% url 'logout' %}?next=/">Log Out</a></li>
+              <li>
+                <form action="{% url 'logout' %}?next=/" method="POST">
+                  {% csrf_token %}
+                  <input type=submit class="dropdown-item btn-link" value="Log Out"/>
+                </form>
+              </li>
             </ul>
           </li>
           {% else %}

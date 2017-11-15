@@ -1,24 +1,20 @@
 import pytest
 from django.contrib.auth import get_user_model
+from educators.factories import *
+from profiles.factories import *
 from profiles.models import Profile, UserRole
+from .factories import *
 from .models import Unit
 
 User = get_user_model()
 
 @pytest.fixture
 def unit():
-    return Unit.objects.create(name='unit1', listed=True)
+    return UnitFactory(name='unit1', listed=True)
 
 @pytest.fixture
 def educator():
-    educator = User(username="educator")
-    educator.set_password('secret')
-    educator_profile = Profile(role=UserRole.educator.value)
-    educator_profile.user = educator
-    educator.save()
-    educator_profile.user = educator
-    educator_profile.save()
-    return educator
+    return EducatorFactory(username="educator", password='secret')
 
 @pytest.mark.django_db
 def test_units_accessible_by_educator(client, unit, educator):

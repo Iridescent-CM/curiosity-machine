@@ -1,0 +1,46 @@
+<div class="row profile-info">
+  <div class="col-md-3 col-sm-3 col-xs-5">
+    {% include "_avatar.html" with profile=profile width=260 height=260 crop='fill' %}
+    {% if request.user == profile.user %}
+    <a href="{% url 'profiles:edit_profile' %}" class="btn btn-primary btn-block">Edit Profile</a>
+    {% endif %}
+  </div>
+  <div class="col-md-9 col-sm-9 col-xs-7">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        {% if profile.title %}
+        <p>
+          <strong>I am a </strong> {{profile.title}}
+        </p>
+        {% endif %}
+        {% if profile.employer %}
+        <p>
+          <strong>I work at </strong> {{profile.employer}}
+        </p>
+        {% endif %}
+      </div>
+      <div class="col-md-6 col-sm-6">
+        {% if profile.expertise %}
+        <h4>Expert in</h4>
+        <p>{{profile.expertise}}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        {% if profile.about_me or profile.about_me_video or profile.about_me_image %}
+        <h4>About me!</h4>
+        <p>{{profile.about_me}}</p>
+        {% include "_img_or_video.html" with video=profile.about_me_video image=profile.about_me_image crop='fit' width=372 %}
+        {% endif %}
+      </div>
+      <div class="col-md-6 col-sm-6">
+        {% if profile.about_research or profile.about_research_video or profile.about_research_image  %}
+        <h4>I'm curious about</h4>
+        <p>{{profile.about_research}}</p>
+        {% include "_img_or_video.html" with video=profile.about_research_video image=profile.about_research_image crop='fit' width=372 %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -68,7 +68,14 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'profiles',
+    'students',
+    'parents',
+    'mentors',
+    'educators',
     'challenges',
     'cmcomments',
     'videos',
@@ -97,6 +104,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'curiositymachine.middleware.UserProxyMiddleware',
     'curiositymachine.middleware.LoginRequiredMiddleware',
     "curiositymachine.middleware.UnderageStudentSandboxMiddleware",
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
@@ -119,7 +127,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
-                "curiositymachine.context_processors.login_and_join_forms",
+                "curiositymachine.context_processors.login_form",
                 "curiositymachine.context_processors.google_analytics",
                 "curiositymachine.context_processors.feature_flags",
                 "curiositymachine.context_processors.template_globals",
@@ -134,6 +142,11 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 from django.contrib.messages import constants as message_constants
 MESSAGE_TAGS = {
     message_constants.INFO: 'alert-info',
@@ -143,12 +156,27 @@ MESSAGE_TAGS = {
 }
 
 AUTH_USER_MODEL = 'auth.User'
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 6,
+        }
+    },
+]
+
+ACCOUNT_ADAPTER = 'curiositymachine.allauth_adapter.AllAuthAdapter'
+ACCOUNT_USERNAME_VALIDATORS = 'curiositymachine.validators.username_validators'
+ACCOUNT_SIGNUP_FORM_CLASS = 'curiositymachine.forms.SignupExtraForm'
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+ACCOUNT_UNIQUE_EMAIL = False
 
 ROOT_URLCONF = 'curiositymachine.urls'
 
 WSGI_APPLICATION = 'curiositymachine.wsgi.application'
 
-LOGIN_URL = '/login/'
+LOGIN_URL = 'account_login'
+LOGIN_REDIRECT_URL = 'root'
 
 CSRF_FAILURE_VIEW = 'curiositymachine.views.csrf_failure_handler'
 
@@ -269,7 +297,7 @@ DEFAULT_PER_PAGE = os.environ.get("DEFAULT_PER_PAGE", 12)
 # URL blacklist/whitelist
 # an impossible pattern below prevents blacklisting until actual patterns are provided through the env
 BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))
-WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?').split(','))
+WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?,accounts/?').split(','))
 
 # Feature flags
 # Any environment variable beginning with ENABLE_ will end up in template contexts
@@ -341,7 +369,7 @@ ROLLBAR_SERVER_SIDE_ACCESS_TOKEN = os.environ.get("ROLLBAR_SERVER_SIDE_ACCESS_TO
 ROLLBAR_ENV = os.environ.get("ROLLBAR_ENV", "default")
 
 
-## Conditional apps or middleware 
+## Conditional apps or middleware
 
 if ROLLBAR_SERVER_SIDE_ACCESS_TOKEN:
     from django.http import Http404

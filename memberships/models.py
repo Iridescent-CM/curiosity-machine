@@ -88,7 +88,7 @@ class Membership(models.Model):
 
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
-        if user.is_authenticated() and (user.is_staff or user.profile.is_mentor):
+        if user.is_authenticated() and (user.is_staff or user.extra.is_mentor):
             return challenge_ids
 
         query = Q(id__in=challenge_ids, free=True)
@@ -116,11 +116,11 @@ class Membership(models.Model):
 
     @property
     def educators(self):
-        return self.members.filter(profile__role=UserRole.educator.value)
+        return self.members.filter(extra__role=UserRole.educator.value)
 
     @property
     def students(self):
-        return self.members.filter(profile__role=UserRole.student.value)
+        return self.members.filter(extra__role=UserRole.student.value)
 
     def __str__(self):
         return self.name
@@ -143,7 +143,7 @@ class GroupMember(models.Model):
     def clean(self):
         if self.member.membership != self.group.membership:
             raise ValidationError("Group and member must be part of the same membership")
-        if not self.member.user.profile.is_student:
+        if not self.member.user.extra.is_student:
             raise ValidationError("Only students can be members of a group")
 
     def __str__(self):
@@ -165,12 +165,12 @@ class Member(models.Model):
     def clean(self):
         if not self.user_id or not self.membership_id:
             return
-        role = self.user.profile.role
+        role = self.user.extra.role
         limit = self.membership.limit_for(role)
         if limit != None:
             count = (self.membership.member_set
                 .exclude(id=self.id)
-                .filter(user__profile__role=role)).count()
+                .filter(user__extra__role=role)).count()
             if count >= limit:
                 raise ValidationError("%s membership in %s limited to %d" % (UserRole(role).name, self.membership, limit))
 
@@ -183,7 +183,7 @@ class MemberLimit(models.Model):
 
     @property
     def current(self):
-        return self.membership.member_set.filter(user__profile__role=self.role).count()
+        return self.membership.member_set.filter(user__extra__role=self.role).count()
 
 def member_import_path(instance, filename):
     return "memberships/%d/import/%s" % (instance.membership.id, filename)

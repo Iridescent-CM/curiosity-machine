@@ -13,6 +13,7 @@ rq-scheduler
 rq
 
 djangorestframework~=3.5.2
+django-allauth~=0.33.0
 django-apptemplates
 django-compressor~=1.4
 django-notifications-hq~=1.3

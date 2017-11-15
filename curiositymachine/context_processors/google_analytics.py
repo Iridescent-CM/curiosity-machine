@@ -23,13 +23,13 @@ def google_analytics(request):
         usertype = "Staff"
     else:
         usertype = ""
-        if request.user.profile.is_student:
+        if request.user.extra.is_student:
             usertype += "Student"
-        if request.user.profile.is_mentor:
+        if request.user.extra.is_mentor:
             usertype += "Mentor"
-        if request.user.profile.is_educator:
+        if request.user.extra.is_educator:
             usertype += "Educator"
-        if request.user.profile.is_parent:
+        if request.user.extra.is_parent:
             usertype += "Parent"
 
         if not usertype:
@@ -43,7 +43,7 @@ def google_analytics(request):
     free_user = None
     membership_grouping = None
     if request.user.is_authenticated():
-        free_user = "Membership" if request.user.profile.in_active_membership else "Free"
+        free_user = "Membership" if request.user.extra.in_active_membership else "Free"
         membership_grouping = "-".join([str(id) for id in request.user.membership_set.filter(is_active=True).order_by('id').values_list('id', flat=True)])
 
     def get_events():

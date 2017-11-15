@@ -1,0 +1,142 @@
+{% extends "deprecated_base.html" %}
+{% block title %}My Dashboard{% endblock %}
+
+{% load staticfiles %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/favorites.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+  {% with all=request.user.challenges.all %}
+
+  <h1>Welcome {{ request.user.username}}</h1>
+
+  {% if request.user.profile.should_add_email %}
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      Account action needed
+    </div>
+    <div class="panel-body">
+      Add an email address! If you forget your password, we'll use your email address to send you a new one.
+      Update your email in <a href="{% url "students:edit_profile" %}">account settings</a>.
+    </div>
+  </div>
+  {% endif %}
+
+  <ul class="nav nav-justified nav-tabs">
+    <li {% if filter in my_challenges_filters or filter != 'favorites' %}class="active"{% endif %}>
+      <a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a>
+    </li>
+    <li {% if filter == 'favorites' %}class="active"{% endif %}>
+      <a data-target="#favorites" class="favorites" href="{% url 'challenges:favorite_challenges' %}">Favorites</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="challenges">
+      <ul class="pipe-nav">
+        <li>
+          <a href="{% url 'students:home' %}?filter=active"
+            {% if not filter and not selected_membership or filter == 'active' %}class="active"{% endif %}
+          >
+            Active ({{active_progresses|length}})
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'students:home' %}?filter=completed" {% if filter == 'completed' %}class="active"{% endif %}>
+            Completed ({{completed_progresses|length}})
+          </a>
+        </li>
+        {% for membership in memberships %}
+        <li>
+          <a href="{% url 'students:home' %}?membership={{ membership.id }}"
+            {% if selected_membership == membership.id %}class="active"{% endif %}
+          >
+            {{ membership.display_name }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <ul class="challenges-list owl-carousel panel-carousel">
+        {% if filter == 'completed' %}
+          {% for progress in completed_progresses %}
+            {% include "_challenge_item.html" with challenge=progress.challenge %}
+          {% endfor %}
+        {% elif selected_membership %}
+          {% for challenge in selected_membership_challenges %}
+            {% include "_challenge_item.html" with challenge=challenge %}
+          {% endfor %}
+        {% else %}
+          {% for progress in active_progresses %}
+            {% include "_challenge_item.html" with challenge=progress.challenge %}
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="tab-pane fade" id="favorites">
+      <ul class="challenges-list owl-carousel panel-carousel">
+        {% for favorite in favorite_challenges %}
+          {% include "_challenge_item.html" with challenge=favorite.challenge %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {% if parent_connections %}
+    <div class="row">
+      <div class="col-md-12">
+        <h2 id="parents">Parents</h2>
+        <table class="table table-middle">
+          <thead><tr>
+            <th>Name</th>
+            <th>Can they see my progress?</th>
+            <th></th>
+            <th></th>
+          </tr></thead>
+          {% for connection in parent_connections %}
+            <tr>
+              <td>{{ connection.parent_profile.user.username }}</td>
+              <td>
+                {% if connection.active %}
+                  Yes
+                {% else %}
+                  No
+                {% endif %}
+              </td>
+              <td>
+                <form action="{% url "parents:toggle_connection" connection_id=connection.id %}" method="POST">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary">
+                    {% if connection.active %}
+                      Turn off
+                    {% else %}
+                      Turn on
+                    {% endif %}
+                  </button>
+                </form>
+              </td>
+              <td>
+                <a class="btn btn-link" href="{% url "parents:remove_connection" connection_id=connection.id %}">REMOVE</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if request.user.extra.show_classroom_survey %}
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Classroom Survey</h2>
+        <p>Do you use Curiosity Machine at your school? Help us make Curiosity Machine better by taking this short survey.</p><br/>
+        <a href="https://www.surveymonkey.com/r/VVG6ZLQ" class="btn btn-primary" target="_blank">Take Survey</a>
+      </div>
+    </div>
+  {% endif %}
+
+  {% endwith %}
+{% endblock %}

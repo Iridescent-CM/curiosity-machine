@@ -9,7 +9,7 @@ def create_comment(sender, instance, created, **kwargs):
     if created:
         comment = instance
 
-        if comment.user.profile.is_student and comment.is_first_reflect_post():
+        if comment.user.extra.is_student and comment.is_first_reflect_post():
             signals.progress_considered_complete.send(sender=comment.user, progress=comment.challenge_progress)
         else:
             signals.posted_comment.send(sender=comment.user, comment=comment)

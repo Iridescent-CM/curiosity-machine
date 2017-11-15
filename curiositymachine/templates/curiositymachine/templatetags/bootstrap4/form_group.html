@@ -1,0 +1,19 @@
+{% load widget_tweaks %}
+{% with WIDGET_ERROR_CLASS="form-control-danger" %}
+<div class="form-group {% if field.errors %}has-danger{% endif %}">
+  <label for="{{ field.id_for_label }}">
+    {{ field.label }}:
+  </label>
+  {% render_field field class="form-control" %}
+  {% if field.help_text %}
+  <small class="form-text text-muted">
+    {{ field.help_text }}
+  </small>
+  {% endif %}
+  {% if field.errors %}
+  {% for error in field.errors %}
+    <div class="form-control-feedback">{{ error }}</div>
+  {% endfor %}
+  {% endif %}
+</div>
+{% endwith %}

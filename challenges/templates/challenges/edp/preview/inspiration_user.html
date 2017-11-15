@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block resources %}
-{% if user.profile.is_student or not challenge.accessible %}
+{% if user.extra.is_student or not challenge.accessible %}
 {{ block.super }}
 {% else %}
 <div class="col-md-4">

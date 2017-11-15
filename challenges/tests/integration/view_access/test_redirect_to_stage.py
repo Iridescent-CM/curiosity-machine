@@ -1,10 +1,12 @@
 import pytest
-
 from challenges.factories import ProgressFactory
-from profiles.factories import UserFactory, MentorFactory, EducatorFactory, ParentFactory, ParentConnectionFactory, StudentFactory
-from memberships.factories import MembershipFactory
-
 from django.core.urlresolvers import reverse
+from educators.factories import EducatorFactory
+from memberships.factories import MembershipFactory
+from mentors.factories import MentorFactory
+from parents.factories import ParentFactory, ParentConnectionFactory
+from profiles.factories import UserFactory
+from students.factories import StudentFactory
 
 @pytest.mark.django_db
 def test_requires_login(client):
@@ -50,7 +52,7 @@ def test_allows_current_user(client):
 def test_allows_parent_of_user(client):
     progress = ProgressFactory()
     user = ParentFactory(username="username", password="password")
-    ParentConnectionFactory(parent_profile=user.profile, child_profile=progress.student.profile, active=True)
+    ParentConnectionFactory(parent_profile=user.parentprofile, child_profile=progress.student.studentprofile, active=True)
 
     client.login(username="username", password="password")
     response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username}))

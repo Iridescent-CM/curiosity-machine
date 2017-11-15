@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.utils.functional import cached_property
 from images.models import Image
@@ -16,41 +17,24 @@ class UserRole(Enum):
     educator = 3
     parent = 4
 
-class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
+class BaseProfile(models.Model):
+    class Meta:
+        abstract = True
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='%(class)s')
+
+class NullProfile(object):
+    pass
+
+# TODO: move source templates
+class UserExtra(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='extra')
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in UserRole], default=UserRole.none.value)
-    birthday = models.DateField(blank=True,null=True)
-    gender = models.CharField(max_length=1,blank=True)
-    city = models.TextField(blank=True)
-    parent_first_name = models.TextField(blank=True)
-    parent_last_name = models.TextField(blank=True)
-    title = models.TextField(blank=True, help_text="This is a mentor only field.")
-    employer = models.TextField(blank=True, help_text="This is a mentor only field.")
-    expertise = models.TextField(blank=True, help_text="This is a mentor only field.")
-    about_me = models.TextField(blank=True, help_text="This is a mentor only field.")
-    organization = models.CharField(max_length=50, null=True, blank=True, help_text="This is an educator field.")
-    about_me_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_me_image")
-    about_me_video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_me_video")
-
-    about_research = models.TextField(blank=True, help_text="This is a mentor only field.")
-    about_research_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_research_image")
-    about_research_video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_research_video")
-
-    image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
+    source = models.CharField(max_length=50, null=False, blank=True, default="")
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
-    #this field will be cleared once the user becomes active
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
     first_login = models.BooleanField(default=True)
-    source = models.CharField(max_length=50, null=False, blank=True, default="")
-
-    child_profiles = models.ManyToManyField(
-        "self",
-        through="ParentConnection",
-        through_fields=('parent_profile', 'child_profile'),
-        related_name="parent_profiles",
-        symmetrical=False,
-    )
 
     @classmethod
     def inactive_mentors(cls):
@@ -64,26 +48,9 @@ class Profile(models.Model):
          enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
          return cls.objects.filter(last_active_on__lt=enddate,role=UserRole.student.value, last_inactive_email_sent_on=None)
 
-    @property
-    def age(self):
-        today = date.today()
-        return today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day)) #subtract a year if birthday hasn't occurred yet
-
-    @property
-    def user_type(self):
-        if self.user.is_superuser:
-            return 'admin'
-        elif self.is_mentor:
-            return 'mentor'
-        elif self.is_student:
-            if self.birthday and self.is_underage():
-                return 'underage student'
-            else:
-                return 'student'
-        elif self.is_educator:
-            return 'educator'
-        elif self.is_parent:
-            return 'parent'
+    @cached_property
+    def in_active_membership(self):
+        return self.user.membership_set.filter(is_active=True).count() > 0
 
     @property
     def role_name(self):
@@ -106,42 +73,102 @@ class Profile(models.Model):
         return UserRole(self.role) == UserRole.parent
 
     @property
-    def send_welcome(self):
-        return UserRole(self.role) not in [UserRole.none, UserRole.mentor]
-
-    @cached_property
-    def in_active_membership(self):
-        return self.user.membership_set.filter(is_active=True).count() > 0
-
-    @property
     def should_add_email(self):
         return not self.user.email
 
     @property
+    def user_type(self):
+        if self.user.is_superuser:
+            return 'admin'
+        elif self.is_mentor:
+            return 'mentor'
+        elif self.is_student:
+            if self.user.studentprofile.birthday and self.user.studentprofile.is_underage():
+                return 'underage student'
+            else:
+                return 'student'
+        elif self.is_educator:
+            return 'educator'
+        elif self.is_parent:
+            return 'parent'
+
+    @property
+    def send_welcome(self):
+        return UserRole(self.role) not in [UserRole.none, UserRole.mentor]
+
+    @property
     def show_classroom_survey(self):
         return not (self.source and self.source in ['family_science'])
-
-    def is_underage(self):
-        return self.age < 13
-    is_underage.boolean = True
-
 
     def set_active(self):
         self.last_active_on = now()
         return self.save(update_fields=['last_active_on'])
 
     def update_inactive_email_sent_on_and_save(self):
-
         self.last_inactive_email_sent_on = now()
         self.save(update_fields=['last_inactive_email_sent_on'])
 
+class User(get_user_model()):
+    class Meta:
+        proxy = True
+
+    @property
+    def profile(self):
+        if hasattr(self, "studentprofile"):
+            return self.studentprofile
+        elif hasattr(self, "parentprofile"):
+            return self.parentprofile
+        elif hasattr(self, "mentorprofile"):
+            return self.mentorprofile
+        elif hasattr(self, "educatorprofile"):
+            return self.educatorprofile
+        return NullProfile()
+
+# TODO: remove this model, when comfortable
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='profile')
+    birthday = models.DateField(blank=True,null=True)
+    gender = models.CharField(max_length=1,blank=True)
+    city = models.TextField(blank=True)
+    parent_first_name = models.TextField(blank=True)
+    parent_last_name = models.TextField(blank=True)
+    title = models.TextField(blank=True, help_text="This is a mentor only field.")
+    employer = models.TextField(blank=True, help_text="This is a mentor only field.")
+    expertise = models.TextField(blank=True, help_text="This is a mentor only field.")
+    about_me = models.TextField(blank=True, help_text="This is a mentor only field.")
+    organization = models.CharField(max_length=50, null=True, blank=True, help_text="This is an educator field.")
+    about_me_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_me_image")
+    about_me_video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_me_video")
+
+    about_research = models.TextField(blank=True, help_text="This is a mentor only field.")
+    about_research_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_research_image")
+    about_research_video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="about_research_video")
+
+    image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
+
+    child_profiles = models.ManyToManyField(
+        "self",
+        through="ParentConnection",
+        through_fields=('parent_profile', 'child_profile'),
+        related_name="parent_profiles",
+        symmetrical=False,
+    )
+
+    @property
+    def age(self):
+        today = date.today()
+        return today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day)) #subtract a year if birthday hasn't occurred yet
+
+    @property
+    def should_add_email(self):
+        return not self.user.email
+
+    def is_underage(self):
+        return self.age < 13
+    is_underage.boolean = True
+
     def __str__(self):
         return "Profile: id={}, user_id={}".format(self.id, self.user_id)
-
-    # marks as approved and saves immediately, updating only the approved field
-    def approve_and_save(self):
-        self.approved = True
-        self.save(update_fields=['approved'])
 
     def is_parent_of(self, username, **kwargs):
         filters = {

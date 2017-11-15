@@ -1,9 +1,7 @@
 import pytest
-
 from django.contrib.auth.models import AnonymousUser
-from profiles.factories import *
 from memberships.factories import *
-
+from students.factories import *
 from ...context_processors import google_analytics
 from ...context_processors.google_analytics import add_event
 

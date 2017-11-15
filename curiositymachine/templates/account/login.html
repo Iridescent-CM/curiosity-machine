@@ -1,0 +1,52 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load account socialaccount %}
+{% load bootstrap4 %}
+
+{% block title %}Log In{% endblock %}
+
+{% block container %}
+<div class="container-fluid text-xs-center jumbotron-green">
+  <h1>Log In</h1>
+</div>
+<div class="container mt-3">
+  {% block content %}
+  <div class="row">
+    <div class="col-xs-6 offset-xs-3 mb-3">
+      {% get_providers as socialaccount_providers %}
+      {% if socialaccount_providers %}
+      <p>
+        Please log in with one
+        of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+        for a {{ site_name }} account and log in below:
+      </p>
+      <div class="socialaccount_ballot">
+          <ul class="socialaccount_providers">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+          </ul>
+          <div class="login-or">or</div>
+      </div>
+      {% include "socialaccount/snippets/login_extra.html" %}
+      {% else %}
+      <p>
+        If you have not created an account yet, then please
+        <a href="{{ signup_url }}">sign up</a> first.
+      </p>
+      {% endif %}
+
+      <form class="login" method="POST" action="{% url 'account_login' %}" novalidate>
+        {% csrf_token %}
+        {% form_errors form %}
+        {% form_group form.login %}
+        {% form_group form.password %}
+        {% form_check form.remember %}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <a href="{% url 'account_reset_password' %}">Forgot your password?</a>
+        <button class="btn btn-primary ml-1" type="submit">Log In</button>
+      </form>
+    </div>
+  </div>
+  {% endblock %}
+</div>
+{% endblock %}

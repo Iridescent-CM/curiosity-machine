@@ -1,8 +1,12 @@
 import os
-from django.conf import settings
-from profiles.factories import *
 from challenges.factories import *
+from django.conf import settings
+from educators.factories import *
 from images.factories import *
+from mentors.factories import *
+from parents.factories import *
+from profiles.factories import *
+from students.factories import *
 from videos.factories import *
 
 from .utils import load_fixture
@@ -20,13 +24,13 @@ def basic_users():
         email="child@mailinator.com",
         username="child",
         password="123123",
-        profile__underage=True
+        studentprofile__underage=True
     )
     StudentFactory(
         email="teen@mailinator.com",
         username="teen",
         password="123123",
-        profile__underage=False
+        studentprofile__underage=False
     )
     MentorFactory(
         email="mentor@mailinator.com",
