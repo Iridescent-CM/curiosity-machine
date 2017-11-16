@@ -115,7 +115,7 @@ class ChallengeView(TemplateView):
         })
         return super().get_context_data(**kwargs)
 
-challenge = impact_survey(ChallengeView.as_view())
+challenge = ChallengeView.as_view()
 
 class StudentsView(TemplateView):
     template_name = "educators/dashboard/students.html"
@@ -145,7 +145,7 @@ class StudentsView(TemplateView):
         return super().get_context_data(**kwargs)
 
 # TODO: make all role views role-only
-students = impact_survey(StudentsView.as_view())
+students = StudentsView.as_view()
 
 class StudentView(TemplateView):
     template_name = "educators/dashboard/student.html"
@@ -185,7 +185,7 @@ class StudentView(TemplateView):
         })
         return super().get_context_data(**kwargs)
 
-student = impact_survey(StudentView.as_view())
+student = StudentView.as_view()
 
 class StudentPasswordResetView(FormView):
     template_name = "educators/dashboard/password_reset.html"
@@ -225,7 +225,7 @@ class StudentPasswordResetView(FormView):
         messages.success(self.request, "%s's password successfully changed." % self.student.username)
         return super().form_valid(form)
 
-student_password_reset = impact_survey(StudentPasswordResetView.as_view())
+student_password_reset = StudentPasswordResetView.as_view()
 
 class GuidesView(TemplateView):
     template_name = "educators/dashboard/guides.html"
@@ -252,7 +252,7 @@ class GuidesView(TemplateView):
         return super().get_context_data(**kwargs)
 
 # TODO: make impact survey and membership selection part of a dashboard mixin?
-guides = impact_survey(GuidesView.as_view())
+guides = GuidesView.as_view()
 
 class ImpactSurveySubmitView(View):
     http_method_names=['post']
