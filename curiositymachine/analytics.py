@@ -77,7 +77,7 @@ def generate_analytics(start_date, end_date):
         comments = Comment.objects.filter(
             created__gte=start_date,
             created__lte=end_date,
-            challenge_progress=progresses
+            challenge_progress__in=progresses
         ).select_related(
             'image',
             'video',
