@@ -1,30 +1,19 @@
-{% extends "curiositymachine/layout/base.html" %}
+{% extends "account/base.html" %}
 {% load bootstrap4 %}
 
-{% block title %}Sign Up{% endblock %}
+{% block pagehead %}Sign Up{% endblock %}
 
-{% block container %}
-<div class="container-fluid text-xs-center jumbotron-green">
-  <h1>Sign Up</h1>
-</div>
-<div class="container mt-3">
-  {% block content %}
-  <div class="row">
-    <div class="col-xs-6 offset-xs-3 mb-3">
-      <p>Already have an account? Then please <a href="{{ login_url }}">log in</a>.</p>
+{% block content %}
+  <p>Already have an account? Then please <a href="{{ login_url }}">log in</a>.</p>
 
-      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-        {% csrf_token %}
-        {% form_group form.username %}
-        {% form_group form.password1 %}
-        {% form_group form.password2 %}
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-      </form>
-    </div>
-  </div>
-  {% endblock %}
-</div>
+  <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    {% form_group form.username %}
+    {% form_group form.password1 %}
+    {% form_group form.password2 %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+  </form>
 {% endblock %}
