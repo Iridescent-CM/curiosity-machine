@@ -3,6 +3,7 @@ import factory.django
 import factory.fuzzy
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth import get_user_model
+from django.utils.dateparse import parse_date
 from django.utils.timezone import now
 from profiles.factories import *
 from profiles.models import UserRole
@@ -26,6 +27,14 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
         underage = factory.Trait(
             birthday=now() - relativedelta(years=12)
         )
+
+    @classmethod
+    def _adjust_kwargs(cls, **kwargs):
+        if "birthday" in kwargs:
+            val = kwargs["birthday"]
+            if isinstance(val, str):
+                kwargs["birthday"] = parse_date(val)
+        return kwargs
 
 @factory.django.mute_signals(handlers.post_save)
 class StudentFactory(factory.django.DjangoModelFactory):

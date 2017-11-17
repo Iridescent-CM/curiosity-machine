@@ -1,9 +1,13 @@
 import json
 from challenges.factories import *
 from cmcomments.factories import *
+from educators.factories import *
 from images.factories import *
 from memberships.factories import *
+from mentors.factories import *
+from parents.factories import *
 from profiles.factories import *
+from students.factories import *
 from units.factories import *
 from videos.factories import *
 
@@ -29,8 +33,8 @@ def pk_map(data, model, factory, exclude=[], lookups={}, build=False):
 
 def load_fixture(f):
     # uses a `python manage.py dumpdata` json fixture as the basis for driving the factories appropriately
-    # to see included app.models in a fixture: 
-    #   $ grep model curiositymachine/fixtures/staging.json | sort | uniq 
+    # to see included app.models in a fixture:
+    #   $ grep model curiositymachine/fixtures/staging.json | sort | uniq
 
     with open(f) as data_file:
         data = json.load(data_file)
@@ -63,7 +67,23 @@ def load_fixture(f):
 
     users = pk_map(data, 'auth.user', UserFactory, exclude=['groups', 'user_permissions', 'password'], build=True)
     profiles = pk_map(data, 'profiles.profile', ProfileFactory, lookups={
-        'user': users,     
+        'user': users,
+        'image': images,
+    }, build=True)
+    studentprofiles = pk_map(data, 'students.studentprofile', StudentProfileFactory, lookups={
+        'user': users,
+        'image': images,
+    }, build=True)
+    educatorprofiles = pk_map(data, 'educators.educatorprofile', EducatorProfileFactory, lookups={
+        'user': users,
+        'image': images,
+    }, build=True)
+    parentprofiles = pk_map(data, 'parents.parentprofile', ParentProfileFactory, lookups={
+        'user': users,
+        'image': images,
+    }, build=True)
+    mentorprofiles = pk_map(data, 'mentors.mentorprofile', MentorProfileFactory, lookups={
+        'user': users,
         'image': images,
     }, build=True)
     extras = pk_map(data, 'profiles.userextra', UserExtraFactory, lookups={
@@ -75,9 +95,21 @@ def load_fixture(f):
         user.extra.save()
         user.profile.user = user # i hate all of this so much
         user.profile.save()
+        if user.extra.is_student:
+            user.studentprofile.user = user
+            user.studentprofile.save()
+        if user.extra.is_educator:
+            user.educatorprofile.user = user
+            user.educatorprofile.save()
+        if user.extra.is_parent:
+            user.parentprofile.user = user
+            user.parentprofile.save()
+        if user.extra.is_mentor:
+            user.mentorprofile.user = user
+            user.mentorprofile.save()
 
     memberships = pk_map(data, 'memberships.membership', MembershipFactory, lookups={
-        'challenges': challenges    
+        'challenges': challenges
     })
     members = pk_map(data, 'memberships.member', MemberFactory, lookups={
         'membership': memberships,
