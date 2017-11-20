@@ -4,8 +4,6 @@ from django.shortcuts import Http404
 from django.template.response import TemplateResponse
 from django.utils.timezone import now
 from functools import wraps
-from .forms import ImpactSurveyForm
-from .models import ImpactSurvey
 
 class MembershipSelection():
     """
@@ -84,14 +82,4 @@ def membership_selection(view):
     def inner(request, *args, **kwargs):
         kwargs['membership_selection'] = MembershipSelection(request)
         return view(request, *args, **kwargs)
-    return inner
-
-def impact_survey(view):
-    @wraps(view)
-    def inner(request, *args, **kwargs):
-        v = view(request, *args, **kwargs)
-        if isinstance(v, TemplateResponse):
-            v.context_data['first_impact_survey'] = not ImpactSurvey.objects.filter(user=request.user).exists()
-            v.context_data['impact_form'] = ImpactSurveyForm()
-        return v
     return inner
