@@ -7,6 +7,15 @@
   <h1>{% block pagehead %}Account{% endblock %}</h1>
 </div>
 <div class="container mt-3">
+  {% if messages %}
+  <div class="row mb-2">
+    <div class="col-md-8 offset-md-2">
+      {% for message in messages %}
+      <div class="alert alert-info" role="alert">{{message}}</div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
   <div class="row">
     <div class="col-xs-6 offset-xs-3 mb-3">
       {% block content %}{% endblock %}
