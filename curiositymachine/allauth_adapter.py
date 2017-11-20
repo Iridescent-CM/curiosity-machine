@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 class AllAuthAdapter(DefaultAccountAdapter):
     def add_message(self, request, level, message_template,
             message_context=None, extra_tags=''):
-        # allauth stahp
+        pass  # allauth stahp
 
     def send_mail(self, template_prefix, email, context):
         try:
