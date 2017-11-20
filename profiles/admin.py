@@ -6,15 +6,23 @@ from images.models import Image
 from .admin_utils import StudentFilter
 from .models import *
 
-User = get_user_model()
-
 class UserExtraInline(admin.StackedInline):
     model = UserExtra
     exclude = ('first_login',)
 
 class UserAdminWithExtra(UserAdmin):
     inlines = [ UserExtraInline, ]
-    list_display = ('id', 'username', 'email', 'source', 'first_name', 'last_name', 'is_staff', 'date_joined')
+    list_display = (
+        'id',
+        'username',
+        'email',
+        'source',
+        'first_name',
+        'last_name',
+        'is_staff',
+        'date_joined',
+        'city',
+    )
     list_display_links = ('username', 'id')
     list_filter = (
         'is_superuser',
@@ -30,8 +38,8 @@ class UserAdminWithExtra(UserAdmin):
     source.admin_order_field = "extra__source"
 
     def city(self, obj):
-        return obj.extra.city
-    city.admin_order_field = "extra__city"
+        return obj.profile.city
+    city.admin_order_field = "profile__city"
 
     def get_formsets_with_inlines(self, request, obj=None):
         for inline in self.get_inline_instances(request, obj):
@@ -40,7 +48,7 @@ class UserAdminWithExtra(UserAdmin):
                 continue
             yield inline.get_formset(request, obj), inline
 
-admin.site.unregister(User)
+admin.site.unregister(get_user_model())
 admin.site.register(User, UserAdminWithExtra)
 
 class ParentConnectionAdmin(admin.ModelAdmin):

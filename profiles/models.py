@@ -24,7 +24,11 @@ class BaseProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='%(class)s')
 
 class NullProfile(object):
-    pass
+
+    def __getattr__(self, name):
+        # "Called when an attribute lookup has not found the attribute in the usual places"
+        # https://docs.python.org/3/reference/datamodel.html#object.__getattr__
+        return None
 
 # TODO: move source templates
 class UserExtra(models.Model):
