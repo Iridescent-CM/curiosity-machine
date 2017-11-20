@@ -5,7 +5,11 @@
     {{ field.label }}:
   </label>
   {% render_field field class=field_class %}
-  {% if field.help_text %}
+  {% if help_text %}
+  <small class="form-text text-muted">
+    {{ help_text }}
+  </small>
+  {% elif field.help_text %}
   <small class="form-text text-muted">
     {{ field.help_text }}
   </small>
