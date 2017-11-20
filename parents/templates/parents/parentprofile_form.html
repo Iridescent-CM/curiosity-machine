@@ -1,13 +1,21 @@
-{% extends "curiositymachine/layout/base.html" %}
+{% extends "profiles/profile_form.html" %}
+{% load bootstrap4 %}
+{% load pick_action %}
 
 {% block js %}
   {{ form.media }}
 {% endblock %}
 
-{% block content %}
-<form action="{% url "parents:create_profile" %}" method="POST">
-  {% csrf_token %}
-  {{ form }}
-  <input type="submit">
-</form>
+{% block action %}
+  {% pick_action form edit="parents:edit_profile" create="parents:create_profile" %}
+{% endblock %}
+
+{% block fields %}
+  <div class="text-xs-center">
+    {% include "profiles/_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' classes='rounded-circle' %}
+    {% form_group form.image_url field_class="btn btn-primary" %}
+  </div>
+  {% form_group form.first_name %}
+  {% form_group form.last_name %}
+  {% form_group form.city %}
 {% endblock %}

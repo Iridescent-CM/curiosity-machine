@@ -4,10 +4,19 @@ from django.core.exceptions import ValidationError
 class ProfileModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
+        if "instance" in kwargs:
+            if "initial" not in kwargs:
+                kwargs["initial"] = {}
+            initial = self.get_initial_from_user(self.user)
+            initial.update(kwargs["initial"])
+            kwargs["initial"] = initial
         super().__init__(*args, **kwargs)
 
     def get_role(self):
         raise NotImplementedError("Subclasses must implement this method to return the correct UserRole")
+
+    def get_initial_from_user(self, user):
+        return {}
 
     def save_related(self, obj):
         return obj

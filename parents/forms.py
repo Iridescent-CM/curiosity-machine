@@ -6,7 +6,7 @@ from profiles.forms import ProfileModelForm
 from profiles.models import UserRole
 from .models import *
 
-class NewParentProfileForm(ProfileModelForm):
+class ParentProfileForm(ProfileModelForm):
     class Meta:
         model = ParentProfile
         fields = [
@@ -43,6 +43,12 @@ class NewParentProfileForm(ProfileModelForm):
             self.user.first_name = self.cleaned_data['first_name']
         if self.cleaned_data.get('last_name'):
             self.user.last_name = self.cleaned_data['last_name']
+
+    def get_initial_from_user(self, user):
+        return {
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+        }
 
     def get_role(self):
         return UserRole.parent

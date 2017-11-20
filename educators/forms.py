@@ -5,11 +5,12 @@ from profiles.forms import ProfileModelForm
 from profiles.models import UserRole
 from .models import *
 
-class NewEducatorProfileForm(ProfileModelForm):
+class EducatorProfileForm(ProfileModelForm):
     class Meta:
         model = EducatorProfile
         fields = [
             'city',
+            'organization',
         ]
 
     city = forms.CharField(required=False)
@@ -43,13 +44,14 @@ class NewEducatorProfileForm(ProfileModelForm):
         if self.cleaned_data.get('last_name'):
             self.user.last_name = self.cleaned_data['last_name']
 
+    def get_initial_from_user(self, user):
+        return {
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+        }
+
     def get_role(self):
         return UserRole.educator
-
-class EditEducatorProfileForm(forms.ModelForm):
-    class Meta:
-        model = EducatorProfile
-        fields = '__all__'
 
 class ImpactSurveyForm(forms.ModelForm):
     class Meta:
