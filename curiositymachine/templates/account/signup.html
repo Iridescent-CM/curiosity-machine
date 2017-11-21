@@ -9,6 +9,10 @@
   <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
     {% csrf_token %}
     {% form_group form.username %}
+    {% form_group form.email help_text="Children under 13 please provide a parent or guardian's email address"%}
+    {% if form.email2 %}
+      {% form_group form.email2 %}
+    {% endif %}
     {% form_group form.password1 %}
     {% form_group form.password2 %}
     {% if redirect_field_value %}
