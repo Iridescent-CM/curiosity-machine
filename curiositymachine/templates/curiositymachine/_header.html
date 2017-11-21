@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <a href="{% url "password_reset_recover" %}">Forgot your password?</a>
+          <a href="{% url "account_reset_password" %}">Forgot your password?</a>
           <a class="btn btn-link" data-dismiss="modal" aria-hidden="true">Cancel</a>
           <input type="submit" value="Log In" class="btn btn-primary" />
           <input type="hidden" name="next" value="{{ next|default:'/' }}" />

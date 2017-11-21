@@ -13,7 +13,7 @@
       {% include "registration/_login_form.html" %}
     </div>
     <div class="modal-footer">
-      <a href="{% url "password_reset_recover" %}">Forgot your password?</a>
+      <a href="{% url "account_reset_password" %}">Forgot your password?</a>
       <a class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</a>
       <input type="submit" value="Log In" class="btn btn-primary btn-lg" />
       {% if next %}

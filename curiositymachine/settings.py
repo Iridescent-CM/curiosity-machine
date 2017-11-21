@@ -81,7 +81,6 @@ INSTALLED_APPS = (
     'videos',
     'images',
     'django_rq',
-    'password_reset',
     'cmemails',
     'compressor',
     'units',
