@@ -1,20 +1,58 @@
+import allauth.account.models
 from curiositymachine import signals
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
+from educators.models import EducatorProfile
 from images.models import Image
+from mentors.models import MentorProfile
+from parents.models import ParentProfile
+from students.models import StudentProfile
 from .admin_utils import StudentFilter
 from .models import *
 
-User = get_user_model()
+admin.site.unregister(Group)
+
+# This proxy just consolidates allauth EmailAddresses in the same admin app section
+class EmailAddress(allauth.account.models.EmailAddress):
+    class Meta:
+        proxy = True
+        verbose_name_plural = "Email addresses"
+
+admin.site.unregister(allauth.account.models.EmailAddress)
+admin.site.register(EmailAddress)
 
 class UserExtraInline(admin.StackedInline):
     model = UserExtra
     exclude = ('first_login',)
 
+class EducatorProfileInline(admin.StackedInline):
+    model = EducatorProfile
+
+class MentorProfileInline(admin.StackedInline):
+    model = MentorProfile
+
+class ParentProfileInline(admin.StackedInline):
+    model = ParentProfile
+    min_num = 1
+
+class StudentProfileInline(admin.StackedInline):
+    model = StudentProfile
+
 class UserAdminWithExtra(UserAdmin):
-    inlines = [ UserExtraInline, ]
-    list_display = ('id', 'username', 'email', 'source', 'first_name', 'last_name', 'is_staff', 'date_joined')
+    inlines = [ UserExtraInline, StudentProfileInline ]
+    list_display = (
+        'id',
+        'username',
+        'email',
+        'source',
+        'first_name',
+        'last_name',
+        'is_staff',
+        'date_joined',
+        'city',
+    )
     list_display_links = ('username', 'id')
     list_filter = (
         'is_superuser',
@@ -30,17 +68,26 @@ class UserAdminWithExtra(UserAdmin):
     source.admin_order_field = "extra__source"
 
     def city(self, obj):
-        return obj.extra.city
-    city.admin_order_field = "extra__city"
+        return obj.profile.city
+    city.admin_order_field = "profile__city"
 
-    def get_formsets_with_inlines(self, request, obj=None):
-        for inline in self.get_inline_instances(request, obj):
-            # hide ProfileInline in the add view
-            if isinstance(inline, UserExtraInline) and obj is None:
-                continue
-            yield inline.get_formset(request, obj), inline
+    def get_inline_instances(self, request, obj=None):
+        if obj is None:
+            return []
+        else:
+            instances = [UserExtraInline(self.model, self.admin_site)]
+            if hasattr(obj, "extra"):
+                if obj.extra.role == UserRole.educator.value:
+                    instances.append(EducatorProfileInline(self.model, self.admin_site))
+                if obj.extra.role == UserRole.mentor.value:
+                    instances.append(MentorProfileInline(self.model, self.admin_site))
+                if obj.extra.role == UserRole.parent.value:
+                    instances.append(ParentProfileInline(self.model, self.admin_site))
+                if obj.extra.role == UserRole.student.value:
+                    instances.append(StudentProfileInline(self.model, self.admin_site))
+            return instances
 
-admin.site.unregister(User)
+admin.site.unregister(get_user_model())
 admin.site.register(User, UserAdminWithExtra)
 
 class ParentConnectionAdmin(admin.ModelAdmin):
@@ -70,157 +117,6 @@ class ParentConnectionAdmin(admin.ModelAdmin):
     child.admin_order_field = 'child_profile__user__email'
 
 admin.site.register(ParentConnection, ParentConnectionAdmin)
-
-class Parent(Profile):
-    class Meta:
-        proxy = True
-
-class ParentChildInline(admin.TabularInline):
-    model = Profile.child_profiles.through
-    fk_name = "parent_profile"
-    extra = 0
-
-class ParentAdmin(admin.ModelAdmin):
-    inlines = [ ParentChildInline ]
-    fields = [
-        'user',
-        'city',
-        'image',
-        'approved',
-        'last_active_on',
-        'last_inactive_email_sent_on',
-    ]
-    raw_id_fields = ['image']
-    list_display = ['user', 'email', 'id']
-    search_fields = [
-        'user__username',
-        'user__email',
-    ]
-
-    def get_queryset(self, request):
-        qs = super(ParentAdmin, self).get_queryset(request)
-        return qs.filter(role=UserRole.parent.value)
-
-    def email(self, obj):
-        return obj.user.email
-    email.admin_order_field = "user__email"
-
-admin.site.register(Parent, ParentAdmin)
-
-class Educator(Profile):
-    class Meta:
-        proxy = True
-
-class EducatorAdmin(admin.ModelAdmin):
-    fields = [
-        'user',
-        'organization',
-        'city',
-        'image',
-        'approved',
-        'last_active_on',
-        'last_inactive_email_sent_on',
-    ]
-    raw_id_fields = ['image']
-    list_display = ['user', 'email', 'id', 'organization']
-    search_fields = [
-        'user__username',
-        'user__email',
-    ]
-
-    def get_queryset(self, request):
-        qs = super(EducatorAdmin, self).get_queryset(request)
-        return qs.filter(role=UserRole.educator.value)
-
-    def email(self, obj):
-        return obj.user.email
-    email.admin_order_field = "user__email"
-
-admin.site.register(Educator, EducatorAdmin)
-
-class Student(Profile):
-    class Meta:
-        proxy = True
-
-class ChildParentInline(admin.TabularInline):
-    model = Profile.child_profiles.through
-    fk_name = "child_profile"
-    extra = 0
-
-class StudentAdmin(admin.ModelAdmin):
-    inlines = [ ChildParentInline ]
-    fields = [
-        'user',
-        'city',
-        'birthday',
-        'parent_first_name',
-        'parent_last_name',
-        'image',
-        'approved',
-        'last_active_on',
-        'last_inactive_email_sent_on',
-    ]
-    raw_id_fields = ['image']
-    list_display = ['user', 'email', 'id', 'is_underage']
-    search_fields = [
-        'user__username',
-        'user__email',
-    ]
-
-    def get_queryset(self, request):
-        qs = super(StudentAdmin, self).get_queryset(request)
-        return qs.filter(role=UserRole.student.value)
-
-    def email(self, obj):
-        return obj.user.email
-    email.admin_order_field = "user__email"
-
-admin.site.register(Student, StudentAdmin)
-
-class Mentor(Profile):
-    class Meta:
-        proxy = True
-
-class MentorAdmin(admin.ModelAdmin):
-    fields = [
-        'user',
-        'city',
-        'title',
-        'employer',
-        'expertise',
-        'about_me',
-        'about_me_image',
-        'about_me_video',
-        'about_research',
-        'about_research_image',
-        'about_research_video',
-        'image',
-        'approved',
-        'last_active_on',
-        'last_inactive_email_sent_on',
-    ]
-    raw_id_fields = [
-        'image',
-        'about_me_image',
-        'about_me_video',
-        'about_research_image',
-        'about_research_video',
-    ]
-    list_display = ['user', 'email', 'id']
-    search_fields = [
-        'user__username',
-        'user__email',
-    ]
-
-    def get_queryset(self, request):
-        qs = super(MentorAdmin, self).get_queryset(request)
-        return qs.filter(role=UserRole.mentor.value)
-
-    def email(self, obj):
-        return obj.user.email
-    email.admin_order_field = "user__email"
-
-admin.site.register(Mentor, MentorAdmin)
 
 class ImpactSurveyAdmin(admin.ModelAdmin):
     list_display = (
