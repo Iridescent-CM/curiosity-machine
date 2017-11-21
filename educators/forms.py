@@ -13,7 +13,8 @@ class EducatorProfileForm(ProfileModelForm):
             'organization',
         ]
 
-    city = forms.CharField(required=False)
+    city = forms.CharField(required=True)
+    organization = forms.CharField(required=True)
 
     image_url = MediaURLField(
         label="Photo",
@@ -28,8 +29,8 @@ class EducatorProfileForm(ProfileModelForm):
         required=False
     )
 
-    first_name = forms.CharField(required=False)
-    last_name = forms.CharField(required=False)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
 
     def save_related(self, obj):
         if self.cleaned_data.get("image_url"):

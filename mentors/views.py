@@ -3,22 +3,29 @@ from curiositymachine.decorators import whitelist
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
+from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, DateField
 from django.db.models.functions import TruncDate
+from django.urls import reverse
 from django.utils.timezone import now
 from django.views.generic import TemplateView, UpdateView, DetailView, ListView
 from profiles.models import UserRole
+from profiles.views import UserKwargMixin
 from .forms import *
 
-class EditProfileView(UpdateView):
+class EditView(UserKwargMixin, UpdateView):
     model = MentorProfile
-    fields = '__all__'
+    form_class = MentorProfileForm
+
+    def get_success_url(self):
+        messages.success(self.request, "Your changes were saved.")
+        return reverse("mentors:edit_profile")
 
     def get_object(self, queryset=None):
         return self.request.user.mentorprofile
 
-edit = EditProfileView.as_view()
+edit = EditView.as_view()
 
 class HomeView(TemplateView):
     template_name = "mentors/home.html"
