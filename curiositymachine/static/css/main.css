@@ -6801,4 +6801,8 @@ footer {
   #about-ai-challenge-page dl dd {
     margin-bottom: 1.5em; }
 
+.choose-profile-page .card-block img, .choose-profile-page .card-progress .card-block-title img, .card-progress .choose-profile-page .card-block-title img {
+  width: 250px;
+  margin-right: 20px; }
+
 /*# sourceMappingURL=main.css.map */
