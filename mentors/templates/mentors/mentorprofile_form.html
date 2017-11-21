@@ -1,13 +1,30 @@
-{% extends "curiositymachine/layout/base.html" %}
+{% extends "profiles/profile_form.html" %}
+{% load bootstrap4 %}
+{% load pick_action %}
 
 {% block js %}
   {{ form.media }}
 {% endblock %}
 
-{% block content %}
-<form action="{% url "parents:create_profile" %}" method="POST">
-  {% csrf_token %}
-  {{ form }}
-  <input type="submit">
-</form>
+{% block action %}
+  {% url "mentors:edit_profile" %}
+{% endblock %}
+
+{% block fields %}
+  <div class="text-xs-center">
+    {% include "profiles/_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' classes='rounded-circle' %}
+    {% form_group form.image_url field_class="" %}
+  </div>
+  {% form_group form.city %}
+  {% form_group form.title %}
+  {% form_group form.employer %}
+  {% form_group form.expertise %}
+
+  {% form_group form.about_me %}
+  {% include "_img_or_video.html" with video=request.user.profile.about_me_video image=request.user.profile.about_me_image crop='fit' %}
+  {% form_group form.about_me_media_url field_class="btn btn-primary" %}
+
+  {% form_group form.about_research %}
+  {% include "_img_or_video.html" with video=request.user.profile.about_research_video image=request.user.profile.about_research_image crop='fit' %}
+  {% form_group form.about_research_media_url field_class="btn btn-primary" %}
 {% endblock %}
