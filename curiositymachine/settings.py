@@ -81,7 +81,6 @@ INSTALLED_APPS = (
     'videos',
     'images',
     'django_rq',
-    'password_reset',
     'cmemails',
     'compressor',
     'units',
@@ -171,6 +170,7 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'curiositymachine.forms.SignupExtraForm'
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 ACCOUNT_UNIQUE_EMAIL = False
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_SESSION_REMEMBER = True
 
 ROOT_URLCONF = 'curiositymachine.urls'
 

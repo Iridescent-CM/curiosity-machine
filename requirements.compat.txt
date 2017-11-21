@@ -17,7 +17,6 @@ django-allauth~=0.33.0
 django-apptemplates
 django-compressor~=1.4
 django-notifications-hq~=1.3
-django-password-reset~=0.7
 django-recaptcha~=1.0
 django-sslify>=0.2
 django-staticflatpages~=0.3.1

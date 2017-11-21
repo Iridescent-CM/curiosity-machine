@@ -1,6 +1,5 @@
 import notifications.urls
 import os
-import password_reset.views
 import profiles.views
 
 from allauth.account.views import login, logout
@@ -10,7 +9,6 @@ from curiositymachine.export_users import export_users
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth.views import password_change
 from django.core.urlresolvers import reverse
 from django.utils.functional import lazy
 from django.views.generic.base import RedirectView, TemplateView
@@ -70,22 +68,6 @@ urlpatterns += [
         r'^faq/',
         public(RedirectView.as_view(url='https://iridescentsupport.zendesk.com/hc/en-us/categories/115000091368-Curiosity-Machine', permanent=True)),
         name='faq'
-    ),
-
-    # password reset URLs -- the "recover" one is modified and so resides in the profiles app
-    url(r'^password/recover/(?P<signature>.+)/$', public(password_reset.views.recover_done),
-        name='password_reset_sent'),
-    url(r'^password/recover/$', public(profiles.views.recover), name='password_reset_recover'),
-    url(r'^password/reset/done/$', public(password_reset.views.reset_done), name='password_reset_done'),
-    url(r'^password/reset/(?P<token>[\w:-]+)/$', public(password_reset.views.reset),
-        name='password_reset_reset'),
-
-    url(r'^password/change$',
-        public(password_change),
-        {
-            "post_change_redirect": lazy(reverse, str)('profiles:edit_profile')
-        },
-        name='password_change'
     ),
 
     url(r'^summernote/', include('django_summernote.urls')),

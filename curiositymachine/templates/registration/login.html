@@ -23,7 +23,7 @@
     <form method="post" id="login-page-form" action="{% url 'login' %}">
         {% include "registration/_login_form.html" %}
 
-        <p><input type="submit" class="btn btn-primary login-btn" value="Log In" class="btn btn-primary btn-lg" /> <small><a href="{% url "password_reset_recover" %}">Forgot your password?</a></small></p>
+        <p><input type="submit" class="btn btn-primary login-btn" value="Log In" class="btn btn-primary btn-lg" /> <small><a href="{% url "account_reset_password" %}">Forgot your password?</a></small></p>
 
         {% if next %}
             <input type="hidden" name="next" value="{{ next }}" />

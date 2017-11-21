@@ -1,7 +1,0 @@
-A password reset was requested for {{ username }} on {{ site.domain }}.
-
-You can choose a new password by following this link:
-
-http{% if secure %}s{% endif %}://{{ site.domain }}{% url "password_reset_reset" token %}
-
-If you don't want to reset your password, you can ignore this email.
