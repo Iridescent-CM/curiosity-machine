@@ -14,13 +14,3 @@ def create_user_profile(sender, instance, created, **kwargs):
         if not hasattr(instance, "extra"):
             UserExtra.objects.create(user=instance)
         signals.created_account.send(sender=instance)
-
-# TODO: move this it at this point
-from students.models import StudentProfile
-
-@receiver(post_save, sender=StudentProfile)
-def auto_approve_non_coppa_students(sender, instance, created, **kwargs):
-    if created and not kwargs.get('raw'):
-        if not instance.is_underage():
-            instance.user.extra.approved = True
-            instance.user.extra.save(update_fields=['approved'])
