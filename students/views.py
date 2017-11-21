@@ -1,30 +1,34 @@
 from challenges.models import Progress, Favorite, Challenge
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import Http404
 from django.urls import reverse
 from django.utils.functional import lazy
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic import CreateView, FormView, TemplateView, UpdateView
 from parents.models import ParentConnection
-from profiles.views import CreateProfileView
+from profiles.views import UserKwargMixin
 from .forms import *
 from .models import StudentProfile
 
-class CreateView(CreateProfileView):
+class CreateView(UserKwargMixin, CreateView):
+    model = StudentProfile
     form_class = NewStudentProfileForm
-    template_name = "students/studentprofile_form.html"
     success_url = lazy(reverse, str)("challenges:challenges")
 
 create = CreateView.as_view()
 
-class EditProfileView(UpdateView):
+class EditView(UserKwargMixin, UpdateView):
     model = StudentProfile
-    fields = '__all__'
+    form_class = StudentProfileEditForm
+
+    def get_success_url(self):
+        messages.success(self.request, "Your changes were saved.")
+        return reverse("students:edit_profile")
 
     def get_object(self, queryset=None):
         return self.request.user.studentprofile
 
-edit = EditProfileView.as_view()
+edit = EditView.as_view()
 
 class HomeView(TemplateView):
     template_name = "students/home.html"
