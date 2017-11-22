@@ -1,17 +1,15 @@
 import pytest
-
-from memberships.factories import *
-
-from memberships.models import Member
-from memberships.forms import RowImportForm
-
-from django.forms.models import modelform_factory
-from django.contrib.auth import get_user_model
-from profiles.models import Profile, UserExtra
-
 from datetime import date
-from django.utils.timezone import now
 from dateutil.relativedelta import relativedelta
+from django import forms
+from django.contrib.auth import get_user_model
+from django.forms.models import modelform_factory
+from django.utils.timezone import now
+from memberships.factories import *
+from memberships.forms import RowImportForm
+from memberships.models import Member
+from profiles.models import UserExtra
+from students.models import StudentProfile
 
 User = get_user_model()
 
@@ -110,29 +108,38 @@ def test_form_saves_user_and_profile_form_class_data():
         },
         membership=membership,
         userFormClass=modelform_factory(User, fields=['username']),
-        profileFormClass=modelform_factory(Profile, fields=['city']),
+        profileFormClass=modelform_factory(StudentProfile, fields=['city']),
     )
     assert f.is_valid()
     member = f.save(commit=False)
 
     assert member.user.username == "username"
-    assert member.user.profile.city == "cityville"
+    assert member.user.studentprofile.city == "cityville"
 
 @pytest.mark.django_db
 def test_form_reports_user_and_profile_form_class_errors():
+    class ErrorFormOne(forms.Form):
+        foo = forms.CharField()
+
+        def clean_foo(self):
+            raise forms.ValidationError('nope')
+
+    class ErrorFormTwo(forms.Form):
+        bar = forms.CharField()
+
+        def clean_bar(self):
+            raise forms.ValidationError('nuh-uh')
+
     membership = MembershipFactory.build()
     f = RowImportForm(
-        {
-            "username": "user name",
-            "gender": "toolong",
-        },
+        {},
         membership=membership,
-        userFormClass=modelform_factory(User, fields=['username']),
-        profileFormClass=modelform_factory(Profile, fields=['gender']),
+        userFormClass=ErrorFormOne,
+        profileFormClass=ErrorFormTwo,
     )
     assert not f.is_valid()
-    assert "username" in f.errors.keys()
-    assert "gender" in f.errors.keys()
+    assert "foo" in f.errors.keys()
+    assert "bar" in f.errors.keys()
 
 @pytest.mark.django_db
 def test_saving_form_creates_member_user_and_profile_objects():
@@ -144,7 +151,7 @@ def test_saving_form_creates_member_user_and_profile_objects():
         },
         membership=membership,
         userFormClass=modelform_factory(User, fields=['username']),
-        profileFormClass=modelform_factory(Profile, fields=['city']),
+        profileFormClass=modelform_factory(StudentProfile, fields=['city']),
         extraFormClass=modelform_factory(UserExtra, fields=['approved']),
     )
     member = f.save()
@@ -154,7 +161,7 @@ def test_saving_form_creates_member_user_and_profile_objects():
 
     assert member.membership.id == membership.id
     assert member.user
-    assert member.user.profile
+    assert member.user.studentprofile
 
 @pytest.mark.django_db
 def test_saving_form_adds_member_to_group():

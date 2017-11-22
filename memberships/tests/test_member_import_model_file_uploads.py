@@ -72,9 +72,7 @@ def test_file_with_extra_columns_can_be_valid():
 
     user = User.objects.all().first()
     assert user.first_name == "first1"
-    assert user.profile.birthday == date(year=1990, day=1, month=1)
-    assert not user.profile.title
-    assert not user.profile.employer
+    assert user.studentprofile.birthday == date(year=1990, day=1, month=1)
 
 @pytest.mark.django_db
 def test_invalid_example_file():
