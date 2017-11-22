@@ -1,14 +1,14 @@
 import re
-from django import forms
-from django.forms.utils import ErrorDict
-from django.forms.models import modelform_factory
-from django.core.validators import RegexValidator
-from django.core.exceptions import ValidationError
 from collections import OrderedDict
-
-from memberships.models import Member, Group, GroupMember
-from profiles.models import Profile, UserRole, UserExtra
+from django import forms
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
+from django.forms.models import modelform_factory
+from django.forms.utils import ErrorDict
+from memberships.models import Member, Group, GroupMember
+from profiles.models import UserRole, UserExtra
+from students.models import StudentProfile
 
 User = get_user_model()
 
@@ -66,7 +66,7 @@ class RowProfileForm(forms.ModelForm):
     Validates profile fields and builds object from a csv row
     """
     class Meta:
-        model = Profile
+        model = StudentProfile
         fields = ['birthday']
 
     def __init__(self, *args, **kwargs):
@@ -149,7 +149,7 @@ class RowImportForm(forms.Form):
         profile = profileForm.save(commit=False)
         extra = extraForm.save(commit=False)
         user = userForm.save(commit=False)
-        user.profile = profile
+        user.studentprofile = profile
         user.extra = extra
         member = Member(membership=self.membership, user=user)
 
@@ -166,7 +166,7 @@ class RowImportForm(forms.Form):
             user.save()
             user.extra = extra
             extra.save()
-            user.profile = profile
+            user.studentprofile = profile
             profile.save()
             member.user = user
             member.save()
