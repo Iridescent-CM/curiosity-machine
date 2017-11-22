@@ -68,7 +68,7 @@ class UserAdminWithExtra(UserAdmin):
     source.admin_order_field = "extra__source"
 
     def city(self, obj):
-        return obj.profile.city
+        return User.cast(obj).profile.city
     city.admin_order_field = "profile__city"
 
     def get_inline_instances(self, request, obj=None):
@@ -88,7 +88,7 @@ class UserAdminWithExtra(UserAdmin):
             return instances
 
 admin.site.unregister(get_user_model())
-admin.site.register(User, UserAdminWithExtra)
+admin.site.register(get_user_model(), UserAdminWithExtra)
 
 class ParentConnectionAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'parent', 'parent_email', 'child', 'child_email', 'active', 'removed']

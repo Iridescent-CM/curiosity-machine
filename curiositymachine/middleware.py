@@ -89,7 +89,7 @@ class UserProxyMiddleware:
     """
     def process_request(self, request):
         if request.user.is_authenticated():
-            request.user.__class__ = profiles.models.User
+            profiles.models.User.cast(request.user)
         return None
 
 class LastActiveMiddleware:
