@@ -116,6 +116,11 @@ class User(get_user_model()):
     class Meta:
         proxy = True
 
+    @classmethod
+    def cast(cls, user):
+        user.__class__ = cls
+        return user
+
     @property
     def profile(self):
         if hasattr(self, "studentprofile"):
