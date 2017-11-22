@@ -1,15 +1,15 @@
 from django.core.management.base import BaseCommand, CommandError
 from memberships.models import Membership, Member
-from profiles.models import Profile
+from profiles.models import UserExtra
 import logging
 
 logger = logging.getLogger(__name__)
 
 def add_all(source, membership_id):
     membership = Membership.objects.get(pk=membership_id)
-    profiles = Profile.objects.filter(source=source).exclude(user__membership=membership)
-    for profile in profiles:
-        user = profile.user
+    userextras = UserExtra.objects.filter(source=source).exclude(user__membership=membership)
+    for userextra in userextras:
+        user = userextra.user
         Member.objects.create(membership=membership, user=user)
         logger.info("Added %s to %s" % (user, membership))
 
