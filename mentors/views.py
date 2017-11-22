@@ -123,12 +123,6 @@ class PublicProfileView(DetailView):
     def get_queryset(self):
         return MentorProfile.objects.filter(user__extra__role=UserRole.mentor.value)
 
-    def get_context_data(self, **kwargs):
-        return super().get_context_data(
-            mentor=self.object.user,
-            **kwargs
-        )
-
 public_profile = whitelist('public')(PublicProfileView.as_view())
 
 class ClaimedView(ListView):
