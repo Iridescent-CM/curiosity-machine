@@ -4,6 +4,7 @@ from django import forms
 from images.models import Image
 from profiles.forms import ProfileModelForm
 from profiles.models import UserRole
+from videos.models import Video
 from .models import MentorProfile
 
 class MentorProfileForm(ProfileModelForm):
