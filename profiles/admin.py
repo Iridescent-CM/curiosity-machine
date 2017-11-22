@@ -27,6 +27,11 @@ class UserExtraInline(admin.StackedInline):
     model = UserExtra
     exclude = ('first_login',)
 
+class EmailAddressInline(admin.StackedInline):
+    model = EmailAddress
+    min_num = 1
+    max_num = 1
+
 class EducatorProfileInline(admin.StackedInline):
     model = EducatorProfile
 
@@ -41,7 +46,7 @@ class StudentProfileInline(admin.StackedInline):
     model = StudentProfile
 
 class UserAdminWithExtra(UserAdmin):
-    inlines = [ UserExtraInline, StudentProfileInline ]
+    inlines = [ UserExtraInline, EmailAddressInline ]
     list_display = (
         'id',
         'username',
@@ -61,6 +66,13 @@ class UserAdminWithExtra(UserAdmin):
         StudentFilter
     )
     list_select_related = ('extra',)
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        ('Personal info', {'fields': ('first_name', 'last_name')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
+)
+    readonly_fields = ('email',)
     search_fields = ('username', 'email', 'first_name', 'last_name', 'extra__source',)
 
     def source(self, obj):
@@ -75,7 +87,7 @@ class UserAdminWithExtra(UserAdmin):
         if obj is None:
             return []
         else:
-            instances = [UserExtraInline(self.model, self.admin_site)]
+            instances = [UserExtraInline(self.model, self.admin_site), EmailAddressInline(self.model, self.admin_site)]
             if hasattr(obj, "extra"):
                 if obj.extra.role == UserRole.educator.value:
                     instances.append(EducatorProfileInline(self.model, self.admin_site))
