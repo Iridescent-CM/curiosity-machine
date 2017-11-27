@@ -9,7 +9,6 @@ from pyquery import PyQuery as pq
 
 # fixtures
 from challenges.tests.fixtures import *
-from profiles.tests import student, mentor # TODO: move to profiles.tests.fixtures
 
 # factories
 from challenges.factories import *
@@ -33,6 +32,13 @@ from challenges.templatetags.activity_count import activity_count
 from challenges.templatetags.user_has_started_challenge import user_has_started_challenge
 from cmcomments.models import Comment
 
+@pytest.fixture
+def student():
+    return StudentFactory()
+
+@pytest.fixture
+def mentor():
+    return MentorFactory()
 
 @pytest.mark.django_db
 def test_theme_str(theme):

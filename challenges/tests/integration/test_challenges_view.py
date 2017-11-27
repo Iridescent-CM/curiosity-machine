@@ -6,7 +6,11 @@ from django.contrib.auth.models import AnonymousUser
 from educators.factories import *
 from memberships.factories import *
 from profiles.factories import *
-from profiles.tests import student, mentor
+from students.factories import *
+
+@pytest.fixture
+def student():
+    return StudentFactory()
 
 @pytest.mark.django_db
 def test_challenges_accessible_to_anonymous_user(rf, challenge, student):

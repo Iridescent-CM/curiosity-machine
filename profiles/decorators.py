@@ -1,9 +1,9 @@
 from functools import wraps
 from django.core.exceptions import PermissionDenied
+from .models import UserRole
 
-# TODO: do this with enum, not strings?
 def is_role(user, role):
-    return hasattr(user, "extra") and getattr(user.extra, "is_%s" % role)
+    return hasattr(user, "extra") and user.extra.role == role.value
 
 def only_for_role(*args):
     roles = args

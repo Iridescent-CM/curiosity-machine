@@ -1,21 +1,23 @@
 from curiositymachine.views.generic import ToggleView, SoftDeleteView
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, DetailView, TemplateView, UpdateView
 from profiles.decorators import only_for_role
+from profiles.models import UserRole
 from profiles.views import UserKwargMixin
 from .decorators import *
 from .forms import *
 from .models import *
+
+only_for_parent = only_for_role(UserRole.parent)
 
 class CreateView(UserKwargMixin, CreateView):
     model = ParentProfile
     form_class = ParentProfileForm
     success_url = lazy(reverse, str)("parents:home")
 
-create = CreateView.as_view()
+create = only_for_role(UserRole.none)(CreateView.as_view())
 
 class EditView(UserKwargMixin, UpdateView):
     model = ParentProfile
@@ -28,7 +30,7 @@ class EditView(UserKwargMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user.parentprofile
 
-edit = EditView.as_view()
+edit = only_for_parent(EditView.as_view())
 
 class HomeView(TemplateView):
     template_name = "parents/home.html"
@@ -56,7 +58,7 @@ class HomeView(TemplateView):
             trainings=trainings,
         )
 
-home = login_required(HomeView.as_view())
+home = only_for_parent(HomeView.as_view())
 
 class NewConnectionView(UpdateView):
     model = ParentProfile
@@ -67,7 +69,7 @@ class NewConnectionView(UpdateView):
     def get_object(self, queryset=None):
         return self.request.user.parentprofile
 
-connect = only_for_role('parent')(NewConnectionView.as_view())
+connect = only_for_parent(NewConnectionView.as_view())
 
 class ChildView(DetailView):
     model = ParentConnection
