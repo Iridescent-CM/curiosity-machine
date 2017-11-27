@@ -16,6 +16,7 @@
     {% endif %}
     {% form_group form.password1 %}
     {% form_group form.password2 %}
+    {{ form.source }}
     {% if redirect_field_value %}
     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
     {% endif %}
