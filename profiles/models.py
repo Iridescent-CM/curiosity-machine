@@ -30,7 +30,6 @@ class NullProfile(object):
         # https://docs.python.org/3/reference/datamodel.html#object.__getattr__
         return None
 
-# TODO: move source templates
 class UserExtra(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='extra')
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in UserRole], default=UserRole.none.value)

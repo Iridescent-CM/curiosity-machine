@@ -5,9 +5,16 @@ from curiositymachine import signals
 from mentors.factories import MentorFactory
 from mock import MagicMock
 from students.factories import StudentFactory
-from profiles.tests import student, mentor
 from .models import Comment
 from .factories import CommentFactory, ReflectionCommentFactory
+
+@pytest.fixture
+def student():
+    return StudentFactory()
+
+@pytest.fixture
+def mentor():
+    return MentorFactory()
 
 @pytest.fixture
 def mentor_comment(mentor, progress):
