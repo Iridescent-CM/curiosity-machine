@@ -1,21 +1,23 @@
 from challenges.models import Progress, Favorite, Challenge
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import Http404
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, TemplateView, UpdateView
 from parents.models import ParentConnection
+from profiles.decorators import only_for_role, UserRole
 from profiles.views import UserKwargMixin
 from .forms import *
 from .models import StudentProfile
+
+only_for_student = only_for_role(UserRole.student)
 
 class CreateView(UserKwargMixin, CreateView):
     model = StudentProfile
     form_class = NewStudentProfileForm
     success_url = lazy(reverse, str)("challenges:challenges")
 
-create = CreateView.as_view()
+create = only_for_role(UserRole.none)(CreateView.as_view())
 
 class EditView(UserKwargMixin, UpdateView):
     model = StudentProfile
@@ -28,7 +30,7 @@ class EditView(UserKwargMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user.studentprofile
 
-edit = EditView.as_view()
+edit = only_for_student(EditView.as_view())
 
 class HomeView(TemplateView):
     template_name = "students/home.html"
@@ -66,6 +68,6 @@ class HomeView(TemplateView):
 
         return context
 
-home = login_required(HomeView.as_view())
+home = only_for_student(HomeView.as_view())
 
 underage = TemplateView.as_view(template_name='students/underage.html')

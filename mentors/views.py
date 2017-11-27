@@ -10,9 +10,12 @@ from django.db.models.functions import TruncDate
 from django.urls import reverse
 from django.utils.timezone import now
 from django.views.generic import TemplateView, UpdateView, DetailView, ListView
+from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from profiles.views import UserKwargMixin
 from .forms import *
+
+only_for_mentor = only_for_role(UserRole.mentor)
 
 class EditView(UserKwargMixin, UpdateView):
     model = MentorProfile
@@ -25,7 +28,7 @@ class EditView(UserKwargMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user.mentorprofile
 
-edit = EditView.as_view()
+edit = only_for_mentor(EditView.as_view())
 
 class HomeView(TemplateView):
     template_name = "mentors/home.html"
@@ -100,7 +103,7 @@ class HomeView(TemplateView):
         })
         return context
 
-home = HomeView.as_view()
+home = only_for_mentor(HomeView.as_view())
 
 class ListView(ListView):
     template_name = "mentors/list.html"
@@ -142,7 +145,7 @@ class ClaimedView(ListView):
                 'student__profile__image', 'challenge__image'))
         return super().get_queryset()
 
-claimed = ClaimedView.as_view()
+claimed = only_for_mentor(ClaimedView.as_view())
 
 class UnclaimedBySourceView(ListView):
     template_name = "mentors/unclaimed.html"
@@ -168,7 +171,7 @@ class UnclaimedBySourceView(ListView):
             **kwargs
         )
 
-unclaimed_by_source = UnclaimedBySourceView.as_view()
+unclaimed_by_source = only_for_mentor(UnclaimedBySourceView.as_view())
 
 class UnclaimedByDateView(ListView):
     template_name = "mentors/unclaimed.html"
@@ -201,4 +204,4 @@ class UnclaimedByDateView(ListView):
             **kwargs
         )
 
-unclaimed_by_date = UnclaimedByDateView.as_view()
+unclaimed_by_date = only_for_mentor(UnclaimedByDateView.as_view())

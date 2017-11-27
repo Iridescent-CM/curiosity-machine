@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, TemplateView, UpdateView, View
 from memberships.helpers.selectors import GroupSelector
-from profiles.decorators import only_for_role
+from profiles.decorators import only_for_role, UserRole
 from profiles.views import UserKwargMixin
 from rest_framework import generics, permissions
 from rest_framework.renderers import JSONRenderer
@@ -25,12 +25,14 @@ from .models import *
 from .serializers import *
 from .sorting import *
 
+only_for_educator = only_for_role(UserRole.educator)
+
 class CreateView(UserKwargMixin, CreateView):
     model = EducatorProfile
     form_class = EducatorProfileForm
     success_url = lazy(reverse, str)("educators:home")
 
-create = CreateView.as_view()
+create = only_for_role(UserRole.none)(CreateView.as_view())
 
 class EditView(UserKwargMixin, UpdateView):
     model = EducatorProfile
@@ -43,7 +45,7 @@ class EditView(UserKwargMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user.educatorprofile
 
-edit = EditView.as_view()
+edit = only_for_educator(EditView.as_view())
 
 class ChallengesView(TemplateView):
     template_name = "educators/dashboard/challenges.html"
@@ -74,7 +76,7 @@ class ChallengesView(TemplateView):
 
         return context
 
-challenges = ChallengesView.as_view()
+challenges = only_for_educator(ChallengesView.as_view())
 
 class ChallengeView(TemplateView):
     template_name = "educators/dashboard/challenge.html"
@@ -119,7 +121,7 @@ class ChallengeView(TemplateView):
         })
         return super().get_context_data(**kwargs)
 
-challenge = ChallengeView.as_view()
+challenge = only_for_educator(ChallengeView.as_view())
 
 class StudentsView(TemplateView):
     template_name = "educators/dashboard/students.html"
@@ -148,8 +150,7 @@ class StudentsView(TemplateView):
         })
         return super().get_context_data(**kwargs)
 
-# TODO: make all role views role-only
-students = StudentsView.as_view()
+students = only_for_educator(StudentsView.as_view())
 
 class StudentView(TemplateView):
     template_name = "educators/dashboard/student.html"
@@ -189,7 +190,7 @@ class StudentView(TemplateView):
         })
         return super().get_context_data(**kwargs)
 
-student = StudentView.as_view()
+student = only_for_educator(StudentView.as_view())
 
 class StudentPasswordResetView(FormView):
     template_name = "educators/dashboard/password_reset.html"
@@ -229,7 +230,7 @@ class StudentPasswordResetView(FormView):
         messages.success(self.request, "%s's password successfully changed." % self.student.username)
         return super().form_valid(form)
 
-student_password_reset = StudentPasswordResetView.as_view()
+student_password_reset = only_for_educator(StudentPasswordResetView.as_view())
 
 class GuidesView(TemplateView):
     template_name = "educators/dashboard/guides.html"
@@ -255,8 +256,7 @@ class GuidesView(TemplateView):
 
         return super().get_context_data(**kwargs)
 
-# TODO: make impact survey and membership selection part of a dashboard mixin?
-guides = GuidesView.as_view()
+guides = only_for_educator(GuidesView.as_view())
 
 class ImpactSurveySubmitView(View):
     http_method_names=['post']
@@ -274,7 +274,7 @@ class ImpactSurveySubmitView(View):
             }, status=400)
 
 impact_data = whitelist('public')(
-    only_for_role('educator')(
+    only_for_educator(
         ImpactSurveySubmitView.as_view()))
 
 class IsEducator(permissions.BasePermission):
