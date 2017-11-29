@@ -79,6 +79,10 @@ def test_approved_required_for_underage():
     assert not f.is_valid()
     assert "approved" in f.errors.as_data()
 
+    f = RowImportForm(CSVRowDataFactory.build(underage=True, approved=""))
+    assert not f.is_valid()
+    assert "approved" in f.errors.as_data()
+
 @pytest.mark.django_db
 def test_has_student_role():
     obj = RowImportForm(CSVRowDataFactory(), membership=MembershipFactory()).save(commit=False)

@@ -22,7 +22,7 @@ class YesNoBooleanField(forms.NullBooleanField):
     widget = forms.TextInput
 
     def to_python(self, value):
-        if value is None:
+        if not value:
             return None
 
         if re.match('^(yes|y|no|n)?$', value, flags=re.IGNORECASE) is None:
