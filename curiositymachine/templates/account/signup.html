@@ -6,6 +6,8 @@
 
 {% block content %}
   <p>Already have an account? Then please <a href="{{ login_url }}">log in</a>.</p>
+  <p>Interested in mentoring? <a href="mailto:{{ emails.mentor_interest }}">Contact us</a>!
+  <hr/>
 
   <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
     {% csrf_token %}

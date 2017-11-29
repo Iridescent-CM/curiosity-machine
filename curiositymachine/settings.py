@@ -131,6 +131,7 @@ TEMPLATES = [
                 "curiositymachine.context_processors.feature_flags",
                 "curiositymachine.context_processors.template_globals",
                 "curiositymachine.context_processors.staff_alerts",
+                "curiositymachine.context_processors.emails",
             ],
             'loaders': [
                 'apptemplates.Loader',
@@ -287,6 +288,7 @@ EMAIL_INACTIVE_DAYS_MENTOR = os.environ.get("EMAIL_INACTIVE_DAYS_MENTOR", 7)
 EMAIL_INACTIVE_DAYS_STUDENT = os.environ.get("EMAIL_INACTIVE_DAYS_STUDENT", 14)
 PROGRESS_MONTH_ACTIVE_LIMIT = os.environ.get("PROGRESS_MONTH_ACTIVE_LIMIT", 2)
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", None)
+MENTOR_INTEREST_EMAIL = os.environ.get("MENTOR_INTEREST_EMAIL", CONTACT_EMAIL)
 REQUEST_A_MENTOR_LINK = os.environ.get("REQUEST_A_MENTOR_LINK", None)
 DOCEBO_MENTOR_URL = os.environ.get("DOCEBO_MENTOR_URL","http://www.iridescentuniversity.org/lms/")
 

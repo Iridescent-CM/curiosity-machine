@@ -37,7 +37,7 @@ def csrf_failure_handler(request, reason=""):
 	ctx = {
         'title': _("Forbidden"),
         'main': _("Session Expired"),
-        'contact_email': settings.CONTACT_EMAIL if settings.CONTACT_EMAIL else "contactcm@mailinator.com",
+        'contact_email': settings.CONTACT_EMAIL,
         'reason': reason,
         'no_referer': reason == REASON_NO_REFERER,
         'no_referer1': _(
