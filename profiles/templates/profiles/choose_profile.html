@@ -20,18 +20,6 @@
     <a class="btn btn-primary" href="{{ student_url }}">I am a student</a>
   </div>
 
-  {% url "mentor" as mentor_url %}
-  <div class="card card-block mb-2">
-    <a href="{{ mentor_url }}">
-      <img class="float-xs-left" src="{% static "images/mentor.png" %}" alt="Mentor">
-    </a>
-    <h4>Mentor</h4>
-    <p>
-      guide students as they build engineering design challenges
-    </p>
-    <a class="btn btn-primary" href="{{ mentor_url }}">I am a mentor</a>
-  </div>
-
   {% url "educators:create_profile" as educator_url %}
   <div class="card card-block mb-2">
     <a href="{{ educator_url }}">
