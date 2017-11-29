@@ -99,6 +99,14 @@ class UserAdminWithExtra(UserAdmin):
                     instances.append(StudentProfileInline(self.model, self.admin_site))
             return instances
 
+    def save_related(self, request, form, formsets, change):
+        obj = form.instance
+        if hasattr(obj, 'extra'):
+            role = UserRole(obj.extra.role)
+            if role.profile_attr and not hasattr(obj, role.profile_attr):
+                role.profile_class.objects.create(user=obj)
+        super().save_related(request, form, formsets, change)
+
 admin.site.unregister(get_user_model())
 admin.site.register(get_user_model(), UserAdminWithExtra)
 

@@ -6,6 +6,6 @@ from curiositymachine.decorators import whitelist
 
 urlpatterns = [
     url(r'^profiles/$', choose_profile, name="profiles"),
-    url(r'^profile/edit/$', edit_profile, name="edit_profile"),
-    url(r'^home/$', home, name="home"),
+    url(r'^profile/edit/$', whitelist('unapproved_mentors')(edit_profile), name="edit_profile"),
+    url(r'^home/$', whitelist('unapproved_mentors')(home), name="home"),
 ]

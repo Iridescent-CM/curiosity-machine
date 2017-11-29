@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -16,6 +17,18 @@ class UserRole(Enum):
     mentor = 2
     educator = 3
     parent = 4
+
+    @property
+    def profile_class(self):
+        if self.value == 0:
+            return None
+        return apps.get_model('%ss' % self.name, '%sProfile' % self.name.title())
+
+    @property
+    def profile_attr(self):
+        if self.value == 0:
+            return None
+        return '%sprofile' % self.name
 
 class BaseProfile(models.Model):
     class Meta:
