@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -16,6 +17,18 @@ class UserRole(Enum):
     mentor = 2
     educator = 3
     parent = 4
+
+    @property
+    def profile_class(self):
+        if self.value == 0:
+            return None
+        return apps.get_model('%ss' % self.name, '%sProfile' % self.name.title())
+
+    @property
+    def profile_attr(self):
+        if self.value == 0:
+            return None
+        return '%sprofile' % self.name
 
 class BaseProfile(models.Model):
     class Meta:
@@ -122,14 +135,9 @@ class User(get_user_model()):
 
     @property
     def profile(self):
-        if hasattr(self, "studentprofile"):
-            return self.studentprofile
-        elif hasattr(self, "parentprofile"):
-            return self.parentprofile
-        elif hasattr(self, "mentorprofile"):
-            return self.mentorprofile
-        elif hasattr(self, "educatorprofile"):
-            return self.educatorprofile
+        role = UserRole(self.extra.role)
+        if role.profile_attr:
+            return getattr(self, role.profile_attr)
         return NullProfile()
 
 # TODO: remove this model, when comfortable

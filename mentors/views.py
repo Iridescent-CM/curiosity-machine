@@ -16,6 +16,7 @@ from profiles.views import UserKwargMixin
 from .forms import *
 
 only_for_mentor = only_for_role(UserRole.mentor)
+unapproved_ok = whitelist('unapproved_mentors')
 
 class EditView(UserKwargMixin, UpdateView):
     model = MentorProfile
@@ -28,7 +29,9 @@ class EditView(UserKwargMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user.mentorprofile
 
-edit = only_for_mentor(EditView.as_view())
+edit = only_for_mentor(
+        unapproved_ok(
+            EditView.as_view()))
 
 class HomeView(TemplateView):
     template_name = "mentors/home.html"
@@ -103,7 +106,9 @@ class HomeView(TemplateView):
         })
         return context
 
-home = only_for_mentor(HomeView.as_view())
+home = only_for_mentor(
+        unapproved_ok(
+            HomeView.as_view()))
 
 class ListView(ListView):
     template_name = "mentors/list.html"
