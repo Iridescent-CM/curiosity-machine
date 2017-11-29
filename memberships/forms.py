@@ -1,18 +1,20 @@
 import re
 from collections import OrderedDict
+from dateutil.relativedelta import relativedelta
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.forms.models import modelform_factory
 from django.forms.utils import ErrorDict
+from django.utils.timezone import now
 from memberships.models import Member, Group, GroupMember
 from profiles.models import UserRole, UserExtra
 from students.models import StudentProfile
 
 User = get_user_model()
 
-class YesNoBooleanField(forms.BooleanField):
+class YesNoBooleanField(forms.NullBooleanField):
     """
     Converts case-insensitive yes, no, y, n, or blank text input value to boolean
     """
@@ -21,7 +23,7 @@ class YesNoBooleanField(forms.BooleanField):
 
     def to_python(self, value):
         if value is None:
-            return False
+            return None
 
         if re.match('^(yes|y|no|n)?$', value, flags=re.IGNORECASE) is None:
             raise ValidationError('Valid values are yes/y or no/n', code='invalid')
@@ -31,19 +33,19 @@ class YesNoBooleanField(forms.BooleanField):
 
         return False
 
-class RowUserForm(forms.ModelForm):
-    """
-    Validates user fields and builds user object from a csv row
-    """
-    class Meta:
-        model = User
-        fields = ['username', 'password', 'first_name', 'last_name', 'email']
+class RowImportForm(forms.Form):
+    username = User._meta.get_field('username').formfield(required=True)
+    password = User._meta.get_field('password').formfield(required=True)
+    first_name = User._meta.get_field('first_name').formfield(required=True)
+    last_name = User._meta.get_field('last_name').formfield(required=True)
+    email = User._meta.get_field('email').formfield(required=True)
+    birthday = StudentProfile._meta.get_field('birthday').formfield(required=True)
+    groups = forms.CharField(required=False, label='Groups')
+    approved = YesNoBooleanField(required=False, label='Consent form')
 
     def __init__(self, *args, **kwargs):
+        self.membership = kwargs.pop('membership', None)
         super().__init__(*args, **kwargs)
-        self.fields['first_name'].required = True
-        self.fields['last_name'].required = True
-        self.fields['email'].required = True
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -51,93 +53,25 @@ class RowUserForm(forms.ModelForm):
             raise forms.ValidationError('A user with that username already exists.', code='duplicate')
         return username
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        if "password" in self.cleaned_data:
-            user.set_password(self.cleaned_data["password"])
-        user.skip_welcome_email = True
-        user.skip_mailing_list_subscription = True
-        if commit:
-            user.save()
-        return user
+    def clean(self):
+        super().clean()
+        if not self.has_error("birthday") and not self.has_error("approved"):
+            self.check_approved_based_on_age()
+        return self.cleaned_data
 
-class RowProfileForm(forms.ModelForm):
-    """
-    Validates profile fields and builds object from a csv row
-    """
-    class Meta:
-        model = StudentProfile
-        fields = ['birthday']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['birthday'].required = True
-
-class RowUserExtraForm(forms.ModelForm):
-    """
-    Validates extra fields and builds object from a csv row
-    """
-    class Meta:
-        model = UserExtra
-        fields = ['approved']
-
-    approved = YesNoBooleanField(required=False, label='Consent form')
-
-    def save(self, commit=False):
-        obj = super().save(commit=False)
-        obj.role = UserRole.student.value
-        if commit:
-            obj.save()
-        return obj
-
-class RowGroupsForm(forms.Form):
-    """
-    Collects group name(s) for user in a csv row
-    """
-    groups = forms.CharField(required=False, label='Groups')
-
-class RowImportForm(forms.Form):
-    """
-    Provides a single ModelForm-ish facade on top of User, Profile, and Group forms
-    to build connected User, Profile, Member, Group, and GroupMember objects from csv row
-    """
-    membership = None
-    userFormClass = RowUserForm
-    profileFormClass = RowProfileForm
-    extraFormClass = RowUserExtraForm
-    groupFormClass = RowGroupsForm
-
-    def __init__(self, data=None, *args, **kwargs):
-        for keyword in list(kwargs.keys()):
-            if hasattr(self, keyword):
-                setattr(self, keyword, kwargs.pop(keyword))
-
-        self._forms = []
-        for formclass in [self.userFormClass, self.profileFormClass, self.extraFormClass, self.groupFormClass]:
-            self._forms.append(formclass(data))
-
-        return super().__init__(data, *args, **kwargs)
-
-    @property
-    def fields(self):
-        fields = OrderedDict()
-        for form in self._forms:
-            fields.update(form.fields.copy())
-        return fields
-
-    @fields.setter
-    def fields(self, value):
-        pass
-        # fields are always derived from our wrapped forms
-
-    def full_clean(self):
-        self._errors = ErrorDict()
-        self.cleaned_data = {}
-
-        for form in self._forms:
-            form.full_clean()
-            self._errors.update(form._errors)
-            self.cleaned_data.update(form.cleaned_data)
+    def check_approved_based_on_age(self):
+        age = relativedelta(now().date(), self.cleaned_data['birthday']).years
+        if self.cleaned_data['approved'] == None:
+            if age < 13:
+                self.add_error(
+                    'approved',
+                    ValidationError(
+                        'This field is required when age < 13',
+                        code='required'
+                    )
+                )
+            else:
+                self.cleaned_data['approved'] = False
 
     def save(self, commit=True):
         if self.errors:
@@ -145,10 +79,13 @@ class RowImportForm(forms.Form):
 
         cleaned_data = self.cleaned_data
 
-        userForm, profileForm, extraForm, groupForm = self._forms
-        profile = profileForm.save(commit=False)
-        extra = extraForm.save(commit=False)
-        user = userForm.save(commit=False)
+        profile = StudentProfile(**{k: cleaned_data[k] for k in ['birthday']})
+        extra = UserExtra(**{k: cleaned_data[k] for k in ['approved']})
+        extra.role = UserRole.student.value
+        user = User(**{k: cleaned_data[k] for k in ['username', 'first_name', 'last_name', 'email']})
+        user.set_password(self.cleaned_data['password'])
+        user.skip_welcome_email = True
+        user.skip_mailing_list_subscription = True
         user.studentprofile = profile
         user.extra = extra
         member = Member(membership=self.membership, user=user)

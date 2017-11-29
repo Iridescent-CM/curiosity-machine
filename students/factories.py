@@ -19,7 +19,7 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = StudentProfile
 
-    user = factory.SubFactory('profiles.factories.StudentFactory', profile=None)
+    user = factory.SubFactory('students.factories.StudentFactory', profile=None)
     city = 'city'
     birthday = now() - relativedelta(years=14)
 

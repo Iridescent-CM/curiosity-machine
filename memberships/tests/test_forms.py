@@ -9,7 +9,7 @@ from memberships.factories import *
 from memberships.forms import RowImportForm
 from memberships.models import Member
 from profiles.models import UserExtra
-from students.models import StudentProfile
+from students.factories import *
 
 User = get_user_model()
 
@@ -21,147 +21,89 @@ def test_row_import_form_requires_fields():
     assert form.fields['last_name'].required
     assert form.fields['birthday'].required
 
-def test_valid_profile_data_with_default_form():
-    examples = [
-        {"birthday":"01/01/1990", "approved":"yes"},
-    ]
-
-    for example in examples:
-        assert RowImportForm.profileFormClass(example).errors.as_data() == {}
-
-def test_extra_approved_values():
-    assert RowImportForm.extraFormClass({"approved": "y"}).save(commit=False).approved
-    assert RowImportForm.extraFormClass({"approved": "yes"}).save(commit=False).approved
-    assert RowImportForm.extraFormClass({"approved": "Y"}).save(commit=False).approved
-    assert RowImportForm.extraFormClass({"approved": "YES"}).save(commit=False).approved
-    assert not RowImportForm.extraFormClass({"approved": "n"}).save(commit=False).approved
-    assert not RowImportForm.extraFormClass({"approved": "no"}).save(commit=False).approved
-    assert not RowImportForm.extraFormClass({"approved": "N"}).save(commit=False).approved
-    assert not RowImportForm.extraFormClass({"approved": "NO"}).save(commit=False).approved
-    assert not RowImportForm.extraFormClass({"approved": ""}).save(commit=False).approved
-    assert not RowImportForm.extraFormClass({}).save(commit=False).approved
-
-def test_profile_birthday_values():
-    profile = RowImportForm.profileFormClass({"birthday": "01/01/1990"}).save(commit=False)
-    assert profile.birthday == date(month=1, day=1, year=1990)
-
-    profile = RowImportForm.profileFormClass({"birthday": "1/1/90"}).save(commit=False)
-    assert profile.birthday == date(month=1, day=1, year=1990)
-
-    profile = RowImportForm.profileFormClass({"birthday": "1990-01-01"}).save(commit=False)
-    assert profile.birthday == date(month=1, day=1, year=1990)
-
-def test_extra_has_student_role():
-    extra = RowImportForm.extraFormClass({"approved":"yes"}).save(commit=False)
-    assert extra.is_student
+@pytest.mark.django_db
+def test_valid_data_has_no_error():
+    assert RowImportForm(CSVRowDataFactory()).errors.as_data() == {}
+    assert RowImportForm(CSVRowDataFactory(underage=True, approved="y")).errors.as_data() == {}
 
 @pytest.mark.django_db
-def test_valid_user_data_with_default_form():
-    examples = [{
-        "username":"username",
-        "password":"password",
-        "first_name":"first",
-        "last_name":"last",
-        "email":"email@example.com"
-    }]
-
-    for example in examples:
-        assert RowImportForm.userFormClass(example).errors.as_data() == {}
-
-@pytest.mark.django_db
-def test_user_password_value_set_as_password():
-    user = RowImportForm.userFormClass({
-        "username": "username",
-        "password": "123123",
-        "first_name":"first",
-        "last_name":"last",
-        "email":"email@example.com"
-    }).save()
-    assert user.check_password("123123")
-
-@pytest.mark.django_db
-def test_case_insensitive_username_duplicates_dont_validate():
-    user = RowImportForm.userFormClass({
-        "username": "username",
-        "password": "123123",
-        "first_name": "first",
-        "last_name": "last",
-        "email":"email@example.com"
-    }).save()
-    form = RowImportForm.userFormClass({
-        "username": "USERNAME",
-        "password": "123123",
-        "first_name": "first",
-        "last_name": "last",
-        "email":"email@example.com"
-    })
-    assert not form.is_valid()
-    assert form.errors.as_data()["username"][0].code == 'duplicate'
-
-@pytest.mark.django_db
-def test_form_saves_user_and_profile_form_class_data():
+def test_form_saves_expected_user():
     membership = MembershipFactory.build()
+    data = CSVRowDataFactory(
+        approved="y",
+        birthday="03/07/1995"
+    )
     f = RowImportForm(
-        {
-            "username": "username",
-            "city": "cityville",
-        },
-        membership=membership,
-        userFormClass=modelform_factory(User, fields=['username']),
-        profileFormClass=modelform_factory(StudentProfile, fields=['city']),
+        data,
+        membership=membership
     )
     assert f.is_valid()
     member = f.save(commit=False)
 
-    assert member.user.username == "username"
-    assert member.user.studentprofile.city == "cityville"
+    for attr in ['username', 'first_name', 'last_name', 'email']:
+        assert getattr(member.user, attr) == data[attr] 
+    assert member.user.extra.approved
+    assert member.user.studentprofile.birthday == date(year=1995, month=3, day=7)
 
 @pytest.mark.django_db
-def test_form_reports_user_and_profile_form_class_errors():
-    class ErrorFormOne(forms.Form):
-        foo = forms.CharField()
+def test_approved_values():
+    def approves(**kwargs):
+        return RowImportForm(CSVRowDataFactory(**kwargs)).save(commit=False).user.extra.approved
 
-        def clean_foo(self):
-            raise forms.ValidationError('nope')
+    assert approves(approved="y")
+    assert approves(approved="yes")
+    assert approves(approved="Y")
+    assert approves(approved="YES")
+    assert not approves(approved="n")
+    assert not approves(approved="no")
+    assert not approves(approved="N")
+    assert not approves(approved="NO")
+    assert not approves(approved="")
+    assert not approves()
 
-    class ErrorFormTwo(forms.Form):
-        bar = forms.CharField()
+@pytest.mark.django_db
+def test_birthday_values():
+    def parses(val, **kwargs):
+        obj = RowImportForm(CSVRowDataFactory(birthday=val)).save(commit=False)
+        return obj.user.studentprofile.birthday == date(**kwargs)
 
-        def clean_bar(self):
-            raise forms.ValidationError('nuh-uh')
+    assert parses("01/01/1990", month=1, day=1, year=1990)
+    assert parses("1/1/90", month=1, day=1, year=1990)
+    assert parses("1990-01-01", month=1, day=1, year=1990)
 
-    membership = MembershipFactory.build()
-    f = RowImportForm(
-        {},
-        membership=membership,
-        userFormClass=ErrorFormOne,
-        profileFormClass=ErrorFormTwo,
-    )
+@pytest.mark.django_db
+def test_approved_required_for_underage():
+    assert RowImportForm(CSVRowDataFactory.build(underage=False)).is_valid()
+
+    f = RowImportForm(CSVRowDataFactory.build(underage=True))
     assert not f.is_valid()
-    assert "foo" in f.errors.keys()
-    assert "bar" in f.errors.keys()
+    assert "approved" in f.errors.as_data()
 
 @pytest.mark.django_db
-def test_saving_form_creates_member_user_and_profile_objects():
-    membership = MembershipFactory()
-    f = RowImportForm(
-        {
-            "username": "username",
-            "password": "password"
-        },
-        membership=membership,
-        userFormClass=modelform_factory(User, fields=['username']),
-        profileFormClass=modelform_factory(StudentProfile, fields=['city']),
-        extraFormClass=modelform_factory(UserExtra, fields=['approved']),
+def test_has_student_role():
+    obj = RowImportForm(CSVRowDataFactory(), membership=MembershipFactory()).save(commit=False)
+    assert obj.user.extra.is_student
+
+@pytest.mark.django_db
+def test_user_password_value_set_as_password():
+    user = RowImportForm(
+        CSVRowDataFactory(password="123123"),
+        membership=MembershipFactory()
+    ).save().user
+    assert user.check_password("123123")
+
+@pytest.mark.django_db
+def test_case_insensitive_username_duplicates_dont_validate():
+    user = RowImportForm(
+        CSVRowDataFactory(username="username"),
+        membership=MembershipFactory()
+    ).save()
+    form = RowImportForm(
+        CSVRowDataFactory(username="USERNAME"),
+        membership=MembershipFactory()
     )
-    member = f.save()
-
-    assert Member.objects.count() == 1
-    assert member == Member.objects.all().first()
-
-    assert member.membership.id == membership.id
-    assert member.user
-    assert member.user.studentprofile
+    assert not form.is_valid()
+    assert form.errors.as_data()["username"][0].code == 'duplicate'
 
 @pytest.mark.django_db
 def test_saving_form_adds_member_to_group():

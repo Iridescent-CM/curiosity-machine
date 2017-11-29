@@ -16,7 +16,7 @@ class MentorProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = MentorProfile
 
-    user = factory.SubFactory('profiles.factories.MentorFactory', profile=None)
+    user = factory.SubFactory('mentors.factories.MentorFactory', profile=None)
     city = 'city'
 
 @factory.django.mute_signals(handlers.post_save)

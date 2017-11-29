@@ -1,6 +1,8 @@
 import factory
 import factory.django
 import factory.fuzzy
+from dateutil.relativedelta import relativedelta
+from django.utils.timezone import now
 from factory import post_generation
 
 from . import models
@@ -8,7 +10,8 @@ from . import models
 __all__ = [
     'MembershipFactory',
     'MemberFactory',
-    'GroupFactory'
+    'GroupFactory',
+    'CSVRowDataFactory',
 ]
 
 class MembershipFactory(factory.django.DjangoModelFactory):
@@ -55,3 +58,25 @@ class GroupFactory(factory.django.DjangoModelFactory):
             for user in extracted:
                 member = models.Member.objects.get(membership=obj.membership, user=user)
                 models.GroupMember.objects.create(group=obj, member=member)
+
+class CSVRowDataFactory(factory.Factory):
+    class Meta:
+        model = dict
+
+    first_name = factory.fuzzy.FuzzyText(prefix="fn_")
+    last_name = factory.fuzzy.FuzzyText(prefix="ln_")
+    password = factory.fuzzy.FuzzyText(length=6)
+    username = factory.fuzzy.FuzzyText()
+    email = factory.fuzzy.FuzzyText(suffix="@mailinator.com")
+    birthday = factory.fuzzy.FuzzyDate(
+        start_date=now() - relativedelta(years=30),
+        end_date=now() - relativedelta(years=14)
+    )
+
+    class Params:
+        underage = factory.Trait(
+            birthday=factory.fuzzy.FuzzyDate(
+                start_date=now() - relativedelta(years=12),
+                end_date=now() - relativedelta(years=5)
+            )
+        )
