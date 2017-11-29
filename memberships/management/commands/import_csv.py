@@ -87,7 +87,7 @@ class Command(BaseCommand):
             for obj in processing:
                 obj.refresh_from_db()
                 if obj.status != None:
-                    self.stdout.write(self.style.MIGRATE_SUCCESS("\n%s done with status %s" % (obj.input.name, Status(obj.status).name)), ending='')
+                    self.stdout.write(self.style.SUCCESS("\n%s done with status %s" % (obj.input.name, Status(obj.status).name)), ending='')
                     if options["dump_output"]:
                         self.stdout.write('')
                         self.stdout.write(obj.output.read().decode('utf-8'))
