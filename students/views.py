@@ -15,7 +15,11 @@ only_for_student = only_for_role(UserRole.student)
 class CreateView(UserKwargMixin, CreateView):
     model = StudentProfile
     form_class = NewStudentProfileForm
-    success_url = lazy(reverse, str)("challenges:challenges")
+
+    def get_success_url(self):
+        if self.object.is_underage():
+            return reverse("students:underage")
+        return reverse("challenges:challenges")
 
 create = only_for_role(UserRole.none)(CreateView.as_view())
 
