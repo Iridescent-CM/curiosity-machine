@@ -458,16 +458,6 @@ def test_signal_progress_considered_complete():
     handler2.assert_not_called()
 
 @pytest.mark.django_db
-def test_signal_created_account():
-    handler = mock.MagicMock()
-    signal = signals.created_account
-    signal.connect(handler)
-
-    user = User.objects.create(username='user', email='email')
-
-    handler.assert_called_once_with(signal=signal, sender=user)
-
-@pytest.mark.django_db
 def test_signal_inspiration_gallery_submission_created():
     handler = mock.MagicMock()
     signal = signals.inspiration_gallery_submission_created
