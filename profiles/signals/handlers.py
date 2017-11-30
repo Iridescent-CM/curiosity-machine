@@ -16,5 +16,7 @@ def create_user_extra(sender, instance, created, **kwargs):
 
 @receiver(post_save)
 def create_profile(sender, instance, created, **kwargs):
-    if issubclass(sender, BaseProfile) and created:
+    if created and issubclass(sender, BaseProfile):
+        if kwargs.get('raw'):
+            return
         signals.created_profile.send(sender=instance.user)
