@@ -23,111 +23,54 @@
   <div class="home-top-panel">
     <div class="jumbotron jumbotron-fluid home-top-panel-gradient">
       <div class="container text-xs-center">
-        <h1 class="home-title">How do children succeed?</h1>
-        <h3 class="home-subtitle">With curiosity, creativity, and persistence. <br/> Start building with Curiosity Machine.</h3>
-        <a href="#" class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
-        <button type="button" data-toggle="modal" data-target="#how-video-modal" class="btn btn-secondary text-uppercase">See How it Works</button>
+        <h1 class="home-title">Imagine a better world. </br>Then build it together.</h1>
+        <h3 class="home-subtitle">Start building with Curiosity Machine.</h3>
+        <a href="#" class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#join-modal">Families</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeuptfe5zMp5KpadIkNQcj81vtMRBzqdlW9RU8VHAOT48bLJg/viewform" class="btn btn-secondary text-uppercase" target="_blank">Partner Sites</a>
+        <p> or <a href="#" data-toggle="modal" data-target="#login-modal">Log in</a>
       </div>
     </div>
   </div>
 
-  <div class="container home-what-panel text-xs-center mt-3">
-    <div class="col-md-8 offset-md-2">
-      <h3>Build engineering design challenges using household objects, with the help of scientists and engineers.</h3>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-md-6 col-lg-3">
-        <h4>80+ Design Challenges</h4>
-        <p>developed by scientists and engineers.</p>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <h4>Videos</h4>
-        <p>featuring cutting-edge and exciting inventions.</p>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <h4>Guide</h4>
-        <p>that supports children to plan, build, test, redesign, and reflect.</p>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <h4>Mentor Feedback</h4>
-        <p>on children's inventions from scientists and engineers.</p>
-      </div>
-    </div>
-
-    <a href="{% url 'challenges:challenges' %}" class="btn btn-primary mt-2">Browse Design Challenges</a>
-
-    <div class="row mt-3">
-      <div class="col-md-6">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-1.jpg' %}" alt="Girl builds engineering design challenge">
-      </div>
-      <div class="col-md-6">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-2.jpg' %}" alt="An engineering design challenge example">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-3.jpg' %}" alt="An engineering design challenge being tested">
-      </div>
-    </div>
-  </div>
-
-  <div class="container text-xs-center home-who-panel mt-3">
-    <h3>We're here for students and their supporters.</h3>
-
-    <div class="row mt-3">
-      <div class="col-md-4">
-        <img src="{% static 'images/home/who-parents.png' %}">
-        <h4>Parents</h4>
-        <p>Learn how to build with your child and nurture creativity.</p>
-        <a href="{% url 'parents' %}">Learn More</a>
-      </div>
-      <div class="col-md-4">
-        <img src="{% static 'images/home/who-educators.png' %}">
-        <h4>Educators</h4>
-        <p>Hit NGSS standards and bring project-based learning to your classroom.</p>
-        <a href="{% url 'educator' %}">Learn More</a>
-      </div>
-      <div class="col-md-4">
-        <img src="{% static 'images/home/who-stem-professionals.png' %}">
-        <h4>STEM Professionals</h4>
-        <p>Share your expertise by helping children through the design process.</p>
-        <a href="{% url 'mentor' %}">Learn More</a>
-      </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-md-6">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-4.jpg' %}" alt="Group builds together">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-5.jpg' %}" alt="Father and daughter build together">
-      </div>
-      <div class="col-md-6">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-6.jpg' %}" alt="Girl builds paper airplane">
-      </div>
-    </div>
-  </div>
-
-  <div class="container home-member-panel text-xs-center mt-3">
-    <h3>Use Curiosity Machine to build a STEM learning community.</h3>
-
-    <div class="row mt-3">
-      <div class="col-md-6">
-        <h4>Schools, Organizations and Playgroups</h4>
-        <p>Bring Curiosity Machine to your school or program.</p>
-        <a href="/about-membership">About Memberships</a>
-      </div>
-      <div class="col-md-6">
-        <h4>Science and Engineering Companies</h4>
-        <p>Share your innovations with the public.</p>
-        <a href="/about-partnership">About Partnerships</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid sign-up-panel mt-3">
+  <div class="container-fluid sign-up-panel py-1 mt-1">
     <div class="container text-xs-center">
-      <h2>Create an account and take on your first design challenge!</h1>
-      <a href="#" class="btn btn-secondary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
+      <h2>Start building with our Artificial Intelligence Family Challenge.</h2>
     </div>
   </div>
 
-  <div class="container-fluid home-support-panel py-3">
+<div class="container home-member-panel text-xs-center">
+  <div class="row mt-3">
+    <div class="col-lg-4 offset-lg-2">
+      <img src="{% static 'images/home/who-parents.png' %}">
+      <h4>Families</h4>
+      <p>Learn the basics of how artificial intelligence works by building projects together</p>
+    </div>
+    <div class="col-lg-4">
+      <img src="{% static 'images/home/who-educators.png' %}">
+      <h4>Partner Sites</h4>
+      <p>Engage families with access to cutting-edge curriculum and support from our team</p>
+    </div>
+  </div>
+
+
+    <div class="col-md-8 offset-md-2 mt-3">
+      <h3>Children are the future. So is Artificial Intelligence.</h3>
+      <p>The World Economic Forum estimates that 65% of children entering primary school today will work in completely new jobs that don’t exist yet.Over the next 2 years, students age 8-15 years old and their families will explore core concepts of AI research, apply AI tools to solve problems in their communities and have the opportunity to enter their ideas into a global competition.</p>
+    </div>
+</div>
+
+<div class="text-sm-center mt-3">
+  <a href="{% url "account_signup" source=source %}" class="btn btn-primary text-uppercase mx-1" target="_blank">student sign up</a>
+  <a
+    href="https://docs.google.com/forms/d/e/1FAIpQLSeuptfe5zMp5KpadIkNQcj81vtMRBzqdlW9RU8VHAOT48bLJg/viewform"
+    class="btn btn-primary text-uppercase mx-1"
+    target="_blank"
+  >partner sign up</a>
+</div>
+
+
+
+  <div class="container-fluid home-support-panel py-3 mt-2">
     <div class="container text-xs-center">
       <h3>Supported by:</h3>
       <a href="http://www.boeing.com/" class="a-borderless">
