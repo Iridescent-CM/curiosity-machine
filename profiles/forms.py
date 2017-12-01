@@ -22,7 +22,7 @@ class ProfileModelForm(forms.ModelForm):
     def get_initial_from_user(self, user, **kwargs):
         emailobj = EmailAddress.objects.get_primary(user)
         initial = {
-            'email': emailobj.email if emailobj else None
+            'email': emailobj.email if emailobj else user.email if user.email else None
         }
         initial.update(kwargs)
         return initial
