@@ -1,6 +1,7 @@
 import factory
 import factory.django
 import factory.fuzzy
+from allauth.account.models import EmailAddress
 from django.contrib.auth import get_user_model
 from django.utils.dateparse import parse_date
 from .models import *
@@ -33,6 +34,14 @@ class UserExtraFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory('profiles.factories.UserFactory', extra=None)
     approved = True
 
+class EmailAddressFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = EmailAddress
+
+    email = factory.fuzzy.FuzzyText(suffix="@mailinator.com")
+    verified = False
+    primary = True
+
 @factory.django.mute_signals(handlers.post_save)
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -40,6 +49,12 @@ class UserFactory(factory.django.DjangoModelFactory):
 
     username = factory.fuzzy.FuzzyText(prefix="user_")
     password = factory.PostGenerationMethodCall('set_password', '123123')
+    email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
 
     extra = factory.RelatedFactory(UserExtraFactory, 'user')
-    profile = factory.RelatedFactory(ProfileFactory, 'user')
+
+    @factory.post_generation
+    def sync_email(self, create, extracted, **kwargs):
+        if not create:
+            return
+        EmailAddressFactory(user=self, email=self.email)

@@ -37,14 +37,11 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
         return kwargs
 
 @factory.django.mute_signals(handlers.post_save)
-class StudentFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = get_user_model()
-
-    username = factory.fuzzy.FuzzyText(prefix="student_")
-    email = factory.LazyAttribute(lambda obj: '%s@mailinator.com' % obj.username)
-    password = factory.PostGenerationMethodCall('set_password', '123123')
-
-    extra = factory.RelatedFactory(UserExtraFactory, 'user',role=UserRole.student.value)
+class StudentFactory(UserFactory):
     studentprofile = factory.RelatedFactory(StudentProfileFactory, 'user')
 
+    @factory.post_generation
+    def set_role(self, create, extracted, **kwargs):
+        self.extra.role = UserRole.student.value
+        if create:
+            self.extra.save()

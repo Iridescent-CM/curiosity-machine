@@ -5,21 +5,21 @@ from django.utils.functional import lazy
 from django.views.generic import CreateView, DetailView, TemplateView, UpdateView
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
-from profiles.views import UserKwargMixin
+from profiles.views import EditProfileMixin
 from .decorators import *
 from .forms import *
 from .models import *
 
 only_for_parent = only_for_role(UserRole.parent)
 
-class CreateView(UserKwargMixin, CreateView):
+class CreateView(EditProfileMixin, CreateView):
     model = ParentProfile
     form_class = ParentProfileForm
     success_url = lazy(reverse, str)("parents:home")
 
 create = only_for_role(UserRole.none)(CreateView.as_view())
 
-class EditView(UserKwargMixin, UpdateView):
+class EditView(EditProfileMixin, UpdateView):
     model = ParentProfile
     form_class = ParentProfileForm
 

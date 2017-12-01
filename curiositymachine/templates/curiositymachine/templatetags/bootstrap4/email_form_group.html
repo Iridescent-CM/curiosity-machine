@@ -1,0 +1,6 @@
+{% load bootstrap4 %}
+{% if email and not email.verified %}
+{% form_group field help_text="Your e-mail address has not been verified." help_text_classes="text-warning" %}
+{% else %}
+{% form_group field %}
+{% endif %}

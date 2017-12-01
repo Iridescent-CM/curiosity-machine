@@ -15,6 +15,7 @@
     {% include "profiles/_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' classes='rounded-circle' %}
     {% form_group form.image_url field_class="" %}
   </div>
+  {% email_form_group form.email email=email %}
   {% form_group form.city %}
   {% form_group form.title %}
   {% form_group form.employer %}

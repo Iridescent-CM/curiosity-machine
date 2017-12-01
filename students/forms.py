@@ -36,6 +36,7 @@ class StudentProfileEditForm(ProfileModelForm):
             img = Image(source_url=self.cleaned_data['image_url']['url'])
             img.save()
             obj.image = img
+
         return obj
 
     def get_role(self):

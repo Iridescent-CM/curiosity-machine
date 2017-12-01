@@ -1,3 +1,4 @@
+from allauth.account.models import EmailAddress
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
@@ -24,14 +25,15 @@ class ProfileRedirectView(RedirectView):
 home = login_required(ProfileRedirectView.as_view(viewname="home"))
 edit_profile = login_required(ProfileRedirectView.as_view(viewname="edit_profile"))
 
-class UserKwargMixin():
+class EditProfileMixin():
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
         kwargs['user'] = self.request.user
         return kwargs
 
-class CreateProfileView(UserKwargMixin, FormView):
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(
+            email=EmailAddress.objects.get_primary(self.request.user),
+            **kwargs
+        )
