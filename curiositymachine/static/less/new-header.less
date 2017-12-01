@@ -116,14 +116,14 @@ background-color: @primary-light;
       .list-group-item {
         padding: 12px 20px;
 
-        a {
+        a, input {
           color: @primary-purple;
         }
 
         &:hover {
           background-color: @primary-purple;
           border-color: @primary-purple;
-          a {
+          a, input {
             text-decoration: none;
             color: @primary-light;
           }
@@ -251,6 +251,20 @@ background-color: @primary-light;
       }
     }
     .dropdown-menu {
+      > li > form > input {
+        display: block;
+        width: 100%;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: @line-height-base;
+        text-align: left;
+        color: @dropdown-link-color;
+        white-space: nowrap; // prevent links from randomly breaking onto new lines
+        &:hover {
+          text-decoration: none;
+        }
+      }
       padding: 0;
       border: 0;
       margin-top: 10px;

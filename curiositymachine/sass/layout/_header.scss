@@ -124,15 +124,16 @@ header {
 
       .list-group.nav-profile {
         .list-group-item {
-          a {
+          a, input {
             color: $primary-purple;
           }
           &:hover {
             background-color: $primary-purple;
             border-color: $primary-purple;
-            a {
+            a, input {
               text-decoration: none;
               color: $ivory;
+              cursor: pointer;
             }
           }
           &.active {
