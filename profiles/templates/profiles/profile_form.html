@@ -22,12 +22,15 @@
     <div class="col-md-8 offset-md-2">
       <div class="card card-module">
         <div class="card-block-title text-xs-center p-1">
-          <h4>Profile Info</h4>
+          <h4>{% block card_title %}Profile Info{% endblock %}</h4>
         </div>
         <div class="card-block">
           <form action="{% block action %}{% endblock %}" method="POST">
             {% csrf_token %}
             {% block fields %}
+            {% endblock %}
+            {% block navbutton %}
+            <a class="btn btn-secondary" href="{% url "account_change_password"%}">Change password</a>
             {% endblock %}
             <input type="submit" class="btn btn-primary float-xs-right" value="Save">
           </form>

@@ -1,13 +1,20 @@
 from allauth.account.adapter import DefaultAccountAdapter
 from django.conf import settings
+from django.contrib import messages
 import logging
 
 logger = logging.getLogger(__name__)
 
+ALLOWED_MESSAGES = [
+    'account/messages/password_changed.txt',
+]
+
 class AllAuthAdapter(DefaultAccountAdapter):
-    def add_message(self, request, level, message_template,
-            message_context=None, extra_tags=''):
-        pass  # allauth stahp
+    def add_message(self, request, level, message_template, message_context=None, extra_tags=''):
+        if message_template in ALLOWED_MESSAGES:
+            super().add_message(request, level, message_template, message_context=None, extra_tags='')
+        else:
+            pass  # allauth stahp
 
     def send_mail(self, template_prefix, email, context):
         try:
