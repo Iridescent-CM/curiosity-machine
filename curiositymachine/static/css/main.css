@@ -5998,14 +5998,15 @@ header {
     margin: 10px 0px; }
     .navbar-light .navbar-nav .nav-link:hover {
       color: #FFFCF7; }
-  .navbar-light .navbar-nav .list-group.nav-profile .list-group-item a {
+  .navbar-light .navbar-nav .list-group.nav-profile .list-group-item a, .navbar-light .navbar-nav .list-group.nav-profile .list-group-item input {
     color: #6161AF; }
   .navbar-light .navbar-nav .list-group.nav-profile .list-group-item:hover {
     background-color: #6161AF;
     border-color: #6161AF; }
-    .navbar-light .navbar-nav .list-group.nav-profile .list-group-item:hover a {
+    .navbar-light .navbar-nav .list-group.nav-profile .list-group-item:hover a, .navbar-light .navbar-nav .list-group.nav-profile .list-group-item:hover input {
       text-decoration: none;
-      color: #FFFCF7; }
+      color: #FFFCF7;
+      cursor: pointer; }
   .navbar-light .navbar-nav .list-group.nav-profile .list-group-item.active {
     background-color: #4e4e8c;
     border-color: #4e4e8c;

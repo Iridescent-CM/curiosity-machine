@@ -3,5 +3,5 @@
   <p class="error">Your username and password didn't match. Please try again.</p>
 {% endif %}
 {% csrf_token %}
-{{ form.username.label_tag }}{{ form.username|add_class:"form-control" }}
+{{ form.login.label_tag }}{{ form.login|add_class:"form-control" }}
 {{ form.password.label_tag }}{{ form.password|add_class:"form-control" }}
