@@ -1,3 +1,4 @@
+from allauth.account.models import EmailAddress
 from challenges.models import Progress, Favorite, Challenge
 from django.contrib import messages
 from django.shortcuts import Http404
@@ -6,20 +7,20 @@ from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, TemplateView, UpdateView
 from parents.models import ParentConnection
 from profiles.decorators import only_for_role, UserRole
-from profiles.views import UserKwargMixin
+from profiles.views import EditProfileMixin
 from .forms import *
 from .models import StudentProfile
 
 only_for_student = only_for_role(UserRole.student)
 
-class CreateView(UserKwargMixin, CreateView):
+class CreateView(EditProfileMixin, CreateView):
     model = StudentProfile
     form_class = NewStudentProfileForm
     success_url = lazy(reverse, str)("challenges:challenges")
 
 create = only_for_role(UserRole.none)(CreateView.as_view())
 
-class EditView(UserKwargMixin, UpdateView):
+class EditView(EditProfileMixin, UpdateView):
     model = StudentProfile
     form_class = StudentProfileEditForm
 

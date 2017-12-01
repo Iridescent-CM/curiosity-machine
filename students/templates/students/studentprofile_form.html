@@ -16,5 +16,6 @@
     {% form_group form.image_url field_class="" %}
   </div>
   {% form_group form.city %}
+  {% email_form_group form.email email=email %}
   {% if form.birthday %}{% form_group form.birthday %}{% endif %}
 {% endblock %}

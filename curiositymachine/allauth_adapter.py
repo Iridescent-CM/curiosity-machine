@@ -18,3 +18,7 @@ class AllAuthAdapter(DefaultAccountAdapter):
                 logger.exception("Exception encountered sending mail, DEBUG on")
             else:
                 raise e
+
+    def confirm_email(self, request, email_address):
+        email_address.set_as_primary()
+        return super().confirm_email(request, email_address)

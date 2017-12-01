@@ -12,13 +12,13 @@ from django.utils.timezone import now
 from django.views.generic import TemplateView, UpdateView, DetailView, ListView
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
-from profiles.views import UserKwargMixin
+from profiles.views import EditProfileMixin
 from .forms import *
 
 only_for_mentor = only_for_role(UserRole.mentor)
 unapproved_ok = whitelist('unapproved_mentors')
 
-class EditView(UserKwargMixin, UpdateView):
+class EditView(EditProfileMixin, UpdateView):
     model = MentorProfile
     form_class = MentorProfileForm
 

@@ -13,7 +13,7 @@
 
   <h1>Welcome {{ request.user.username}}</h1>
 
-  {% if request.user.profile.should_add_email %}
+  {% if request.user.extra.should_add_email %}
   <div class="panel panel-danger">
     <div class="panel-heading">
       Account action needed

@@ -13,7 +13,7 @@ from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, TemplateView, UpdateView, View
 from memberships.helpers.selectors import GroupSelector
 from profiles.decorators import only_for_role, UserRole
-from profiles.views import UserKwargMixin
+from profiles.views import EditProfileMixin
 from rest_framework import generics, permissions
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated
@@ -27,14 +27,14 @@ from .sorting import *
 
 only_for_educator = only_for_role(UserRole.educator)
 
-class CreateView(UserKwargMixin, CreateView):
+class CreateView(EditProfileMixin, CreateView):
     model = EducatorProfile
     form_class = EducatorProfileForm
     success_url = lazy(reverse, str)("educators:home")
 
 create = only_for_role(UserRole.none)(CreateView.as_view())
 
-class EditView(UserKwargMixin, UpdateView):
+class EditView(EditProfileMixin, UpdateView):
     model = EducatorProfile
     form_class = EducatorProfileForm
 
