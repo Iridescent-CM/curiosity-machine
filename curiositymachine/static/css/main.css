@@ -4992,12 +4992,6 @@ a.bg-secondary:focus, a.bg-secondary:hover {
 .icon-left-arrow:before {
   content: "\e613"; }
 
-.icon-facebook:before {
-  content: "\e500"; }
-
-.icon-twitter:before {
-  content: "\e501"; }
-
 .icon-boeing-logo:before {
   content: "\e614"; }
 
@@ -5015,6 +5009,18 @@ a.bg-secondary:focus, a.bg-secondary:hover {
 
 .icon-brush:before {
   content: "\e905"; }
+
+.icon-facebook:before {
+  content: "\ea90"; }
+
+.icon-instagram:before {
+  content: "\ea92"; }
+
+.icon-twitter:before {
+  content: "\ea96"; }
+
+.icon-youtube:before {
+  content: "\ea9d"; }
 
 body {
   background-color: #FFFCF7;
@@ -6111,7 +6117,10 @@ footer {
 .social-icons {
   margin: 0px 10px;
   color: #6161AF;
-  font-size: 2.6875em; }
+  font-size: 1em;
+  background-color: white;
+  border-radius: 100%;
+  padding: 8px; }
   .social-icons:hover {
     color: #8181bf; }
 
@@ -6126,9 +6135,6 @@ footer {
   .newsletter-panel h4 {
     color: #8FB559;
     margin-top: 1.5em; }
-
-.newsletter-subscribe {
-  margin-top: 1.5em; }
 
 .about-pages .nav-panel {
   color: white;
@@ -6188,7 +6194,7 @@ footer {
   padding-top: 6em; }
 
 #index-page .home-top-panel {
-  background-image: url("../images/home/paper-airplane.jpg");
+  background-image: url("../images/home/girls-phoenix.png");
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;

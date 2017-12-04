@@ -83,12 +83,6 @@
 .icon-left-arrow:before {
   content: "\e613"; }
 
-.icon-facebook:before {
-  content: "\e500"; }
-
-.icon-twitter:before {
-  content: "\e501"; }
-
 .icon-boeing-logo:before {
   content: "\e614"; }
 
@@ -106,5 +100,17 @@
 
 .icon-brush:before {
   content: "\e905"; }
+
+.icon-facebook:before {
+  content: "\ea90"; }
+
+.icon-instagram:before {
+  content: "\ea92"; }
+
+.icon-twitter:before {
+  content: "\ea96"; }
+
+.icon-youtube:before {
+  content: "\ea9d"; }
 
 /*# sourceMappingURL=temp-fonts.css.map */
