@@ -25,7 +25,7 @@
       <div class="container text-xs-center">
         <h1 class="home-title">How do children succeed?</h1>
         <h3 class="home-subtitle">With curiosity, creativity, and persistence. <br/> Start building with Curiosity Machine.</h3>
-        <a href="#" class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
+        <a href="{% url "account_signup" %}" class="btn btn-primary text-uppercase">Sign up</a>
         <button type="button" data-toggle="modal" data-target="#how-video-modal" class="btn btn-secondary text-uppercase">See How it Works</button>
       </div>
     </div>
@@ -123,7 +123,7 @@
   <div class="container-fluid sign-up-panel mt-3">
     <div class="container text-xs-center">
       <h2>Create an account and take on your first design challenge!</h1>
-      <a href="#" class="btn btn-secondary text-uppercase" data-toggle="modal" data-target="#join-modal">Sign up</a>
+      <a href="{% url "account_signup" %}" class="btn btn-secondary text-uppercase">Sign up</a>
     </div>
   </div>
 

@@ -83,8 +83,8 @@
           {% else %}
           <li class="nav-item"><a href="#" class="nav-link nav-login" data-toggle="modal" data-target="#login-modal">Log In</a></li>
           <li class="nav-item">
-            <a class="btn btn-primary visible-md visible-lg" data-toggle="modal" data-target="#join-modal">Join</a>
-            <a class="nav-link nav-join hidden-md hidden-lg">Join</a>
+            <a class="btn btn-primary visible-md visible-lg" href="{% url "account_signup" %}">Join</a>
+            <a class="nav-link nav-join hidden-md hidden-lg" href="{% url "account_signup" %}">Join</a>
           </li>
           {% endif %}
         </ul>
