@@ -6191,7 +6191,8 @@ footer {
     min-height: 400px; }
 
 #index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern, #index-page .jumbotron-small, #index-page .jumbotron-blue {
-  padding-top: 6em; }
+  padding-top: 6em;
+  margin-bottom: 0em; }
 
 #index-page .home-top-panel {
   background-image: url("../images/home/girls-phoenix.png");
