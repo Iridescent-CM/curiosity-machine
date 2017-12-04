@@ -6806,4 +6806,13 @@ footer {
   width: 250px;
   margin-right: 20px; }
 
+.choose-profile-page .card-content {
+  margin-left: 250px; }
+
+@media (max-width: 767px) {
+  .choose-profile-page .card-content {
+    clear: left;
+    margin-left: 0;
+    padding-top: 1em; } }
+
 /*# sourceMappingURL=main.css.map */

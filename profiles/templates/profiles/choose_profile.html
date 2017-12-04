@@ -13,11 +13,13 @@
     <a href="{{ student_url }}">
       <img class="float-xs-left" src="{% static "images/student.png" %}" alt="Student">
     </a>
-    <h4>Student</h4>
-    <p>
-      build and document projects using the engineering design process
-    </p>
-    <a class="btn btn-primary" href="{{ student_url }}">I am a student</a>
+    <div class="card-content">
+      <h4>Student</h4>
+      <p>
+        build and document projects using the engineering design process
+      </p>
+      <a class="btn btn-primary" href="{{ student_url }}">I am a student</a>
+    </div>
   </div>
 
   {% url "educators:create_profile" as educator_url %}
@@ -25,11 +27,13 @@
     <a href="{{ educator_url }}">
       <img class="float-xs-left" src="{% static "images/educator.png" %}" alt="Educator">
     </a>
-    <h4>Educator</h4>
-    <p>
-      find resources to teach engineering challenges and track student progress
-    </p>
-    <a class="btn btn-primary" href="{{ educator_url }}">I am an educator</a>
+    <div class="card-content">
+      <h4>Educator</h4>
+      <p>
+        find resources to teach engineering challenges and track student progress
+      </p>
+      <a class="btn btn-primary" href="{{ educator_url }}">I am an educator</a>
+    </div>
   </div>
 
   {% url "parents:create_profile" as parent_url %}
@@ -37,10 +41,12 @@
     <a href="{{ parent_url }}">
       <img class="float-xs-left" src="{% static "images/parent.png" %}" alt="Parent">
     </a>
-    <h4>Parent</h4>
-    <p>
-      connect to your child’s account and learn how to build together
-    </p>
-    <a class="btn btn-primary" href="{{ parent_url }}">I am a parent</a>
+    <div class="card-content">
+      <h4>Parent</h4>
+      <p>
+        connect to your child’s account and learn how to build together
+      </p>
+      <a class="btn btn-primary" href="{{ parent_url }}">I am a parent</a>
+    </div>
   </div>
 {% endblock %}

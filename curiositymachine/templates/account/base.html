@@ -7,7 +7,7 @@
 <div class="container mt-3">
   {% if messages %}
   <div class="row mb-2">
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-10 offset-md-1">
       {% for message in messages %}
       <div class="alert alert-info" role="alert">{{message}}</div>
       {% endfor %}
@@ -15,7 +15,7 @@
   </div>
   {% endif %}
   <div class="row">
-    <div class="col-xs-6 offset-xs-3 mb-3">
+    <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 mb-3">
       {% block content %}{% endblock %}
     </div>
   </div>
