@@ -62,4 +62,4 @@ class NewStudentProfileForm(StudentProfileEditForm):
     def clean_birthday(self):
         if not self.cleaned_data.get('birthday'):
             raise forms.ValidationError('Please set your birthday.')
-        return birthday
+        return self.cleaned_data.get('birthday')
