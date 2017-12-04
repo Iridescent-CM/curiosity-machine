@@ -28,6 +28,9 @@
           <form action="{% block action %}{% endblock %}" method="POST">
             {% csrf_token %}
             {% block fields %}
+              {% block avatar %}
+                {% include "profiles/_avatar.html" with profile=request.user.profile width=80 height=80 crop='thumb' gravity='faces' classes='rounded-circle' %}
+              {% endblock %}
             {% endblock %}
             {% block navbutton %}
             {% if form.instance and form.instance.pk %}

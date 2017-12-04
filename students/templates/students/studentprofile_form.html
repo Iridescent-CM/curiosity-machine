@@ -12,7 +12,7 @@
 
 {% block fields %}
   <div class="text-xs-center">
-    {% include "profiles/_avatar.html" with profile=request.user.profile width=80 height=80 crop='fit' classes='rounded-circle' %}
+    {% block avatar %}{{ block.super }}{% endblock %}
     {% form_group form.image_url field_class="" %}
   </div>
   {% form_group form.city %}
