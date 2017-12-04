@@ -52,11 +52,14 @@ class NewStudentProfileForm(StudentProfileEditForm):
         ]
 
     birthday = forms.DateField(
-        widget=forms.extras.SelectDateWidget(years=BIRTH_YEAR_CHOICES),
+        required=False,
+        widget=forms.extras.SelectDateWidget(
+            years=BIRTH_YEAR_CHOICES,
+            empty_label=("Year", "Month", "Day"),
+        ),
     )
 
     def clean_birthday(self):
-        birthday = self.cleaned_data['birthday']
-        if birthday == date(date.today().year, 1, 1):
+        if not self.cleaned_data.get('birthday'):
             raise forms.ValidationError('Please set your birthday.')
         return birthday
