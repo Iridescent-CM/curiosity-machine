@@ -25,7 +25,7 @@
           <h4>{% block card_title %}Profile Info{% endblock %}</h4>
         </div>
         <div class="card-block">
-          <form action="{% block action %}{% endblock %}" method="POST">
+          <form action="{% block action %}{% endblock %}" method="POST" novalidate>
             {% csrf_token %}
             {% block fields %}
               {% block avatar %}
