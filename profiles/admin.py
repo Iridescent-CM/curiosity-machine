@@ -1,8 +1,8 @@
-import allauth.account.models
+from allauth.account.models import EmailAddress
 from curiositymachine import signals
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin, UserChangeForm
 from django.contrib.auth.models import Group
 from educators.models import EducatorProfile
 from images.models import Image
@@ -14,23 +14,9 @@ from .models import *
 
 admin.site.unregister(Group)
 
-# This proxy just consolidates allauth EmailAddresses in the same admin app section
-class EmailAddress(allauth.account.models.EmailAddress):
-    class Meta:
-        proxy = True
-        verbose_name_plural = "Email addresses"
-
-admin.site.unregister(allauth.account.models.EmailAddress)
-admin.site.register(EmailAddress)
-
 class UserExtraInline(admin.StackedInline):
     model = UserExtra
     exclude = ('first_login',)
-
-class EmailAddressInline(admin.StackedInline):
-    model = EmailAddress
-    min_num = 1
-    max_num = 1
 
 class EducatorProfileInline(admin.StackedInline):
     model = EducatorProfile
@@ -45,8 +31,14 @@ class ParentProfileInline(admin.StackedInline):
 class StudentProfileInline(admin.StackedInline):
     model = StudentProfile
 
+class CMUserChangeForm(UserChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].required = True
+
 class UserAdminWithExtra(UserAdmin):
-    inlines = [ UserExtraInline, EmailAddressInline ]
+    form = CMUserChangeForm
+    inlines = [ UserExtraInline ]
     list_display = (
         'id',
         'username',
@@ -68,11 +60,10 @@ class UserAdminWithExtra(UserAdmin):
     list_select_related = ('extra',)
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'email')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
 )
-    readonly_fields = ('email',)
     search_fields = ('username', 'email', 'first_name', 'last_name', 'extra__source',)
 
     def source(self, obj):
@@ -87,7 +78,7 @@ class UserAdminWithExtra(UserAdmin):
         if obj is None:
             return []
         else:
-            instances = [UserExtraInline(self.model, self.admin_site), EmailAddressInline(self.model, self.admin_site)]
+            instances = [UserExtraInline(self.model, self.admin_site),]
             if hasattr(obj, "extra"):
                 if obj.extra.role == UserRole.educator.value:
                     instances.append(EducatorProfileInline(self.model, self.admin_site))
@@ -98,6 +89,12 @@ class UserAdminWithExtra(UserAdmin):
                 if obj.extra.role == UserRole.student.value:
                     instances.append(StudentProfileInline(self.model, self.admin_site))
             return instances
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        if 'email' in form.changed_data:
+            emailobj = EmailAddress.objects.add_email(request, obj, obj.email, confirm=True)
+            emailobj.set_as_primary()
 
     def save_related(self, request, form, formsets, change):
         obj = form.instance
