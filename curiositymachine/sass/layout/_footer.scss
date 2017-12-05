@@ -12,7 +12,10 @@ footer {
 .social-icons {
   margin: 0px 10px;
   color: $primary-purple;
-  font-size: $base-font-size * 2.6875;
+  font-size: $base-font-size * 1;
+  background-color: white;
+  border-radius: 100%;
+  padding:8px;
   &:hover {
     color: $primary-purple-light;
   }
@@ -31,8 +34,4 @@ footer {
     color: $primary-green;
     margin-top: $base-spacing;
   }
-}
-
-.newsletter-subscribe {
-  margin-top: $base-spacing;
 }
