@@ -93,7 +93,7 @@
         <div class="student-list-item">
           <a href="{% url 'educators:student' student_id=student.id %}" class="student-list-avatar">
             <div class="student-list-has-activity">
-              {% include "_avatar.html" with profile=student.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+              {% include "_avatar.html" with profile=student.studentprofile  width=48 height=48 crop='thumb' gravity='faces' %}
             </div>
           </a>
           <span class="student-inline-name">
@@ -127,8 +127,8 @@
             <div class="py-1">
               <span class="student-inline-birthday">
                 <strong>Birthday:</strong>
-                {% if student.profile.birthday %}
-                {{ student.profile.birthday|date:"m/d/Y" }}
+                {% if student.studentprofile.birthday %}
+                {{ student.studentprofile.birthday|date:"m/d/Y" }}
                 {% else %}
                 <em>No birthday provided</em>
                 {% endif %}

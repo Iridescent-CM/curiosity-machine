@@ -24,8 +24,8 @@
               <div class="panel-img">
                 <div class="image-container">
                   <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">
-                    {% if progress.student.profile.image %}
-                      <img src="{% resized progress.student.profile.image.url width=300 height=200 crop='fill' %}" class="center-block img-responsive" />
+                    {% if progress.student.studentprofile.image %}
+                      <img src="{% resized progress.student.studentprofile.image.url width=300 height=200 crop='fill' %}" class="center-block img-responsive" />
                     {% elif progress.challenge.image %}
                       <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}"class="center-block img-responsive" />
                     {% elif progress.challenge.video.encodings_generated %}

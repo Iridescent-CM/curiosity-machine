@@ -107,7 +107,7 @@
       <div class="student-list-item">
         <a href="{% url "educators:student" student_id=student.id %}" class="student-list-avatar a-borderless float-xs-left">
           <div class="hidden-lg-down">
-            {% include "_avatar.html" with profile=student.profile  width=48 height=48 crop='thumb' gravity='faces' %}
+            {% include "_avatar.html" with profile=student.studentprofile  width=48 height=48 crop='thumb' gravity='faces' %}
           </div>
         </a>
         {% if student.first_name or student.last_name %}
