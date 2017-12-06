@@ -51,6 +51,10 @@ class ProfileModelForm(forms.ModelForm):
                 "due to multiple connected objects"
             ))
 
+        # set the role first so we have it in signal handlers
+        self.user.extra.role = self.get_role().value
+        self.user.extra.save()
+
         obj = super().save(commit=False)
 
         obj = self.save_related(obj)
@@ -58,9 +62,6 @@ class ProfileModelForm(forms.ModelForm):
 
         obj.user = self.user
         obj.save()
-
-        self.user.extra.role = self.get_role().value
-        self.user.extra.save()
 
         if "email" in self.changed_data:
             emailobj = EmailAddress.objects.add_email(
