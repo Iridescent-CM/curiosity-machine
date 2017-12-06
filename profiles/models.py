@@ -127,6 +127,7 @@ class UserExtra(models.Model):
     def check_for_profile(self):
         role = UserRole(self.role)
         if role.profile_attr and not hasattr(self.user, role.profile_attr):
+            self.user.skip_welcome_email = True # can't check underage when profiles created this way
             role.profile_class.objects.create(user=self.user)
 
 class User(get_user_model()):
