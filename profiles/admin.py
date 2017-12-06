@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
 from curiositymachine import signals
+from django import forms
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin, UserChangeForm
@@ -14,8 +15,20 @@ from .models import *
 
 admin.site.unregister(Group)
 
+class UserExtraForm(forms.ModelForm):
+    class Meta:
+        model = UserExtra
+        exclude = []
+
+    def save(self, commit=True):
+        obj = super().save(commit=commit)
+        if "approved" in self.changed_data and obj.approved:
+            signals.underage_activation_confirmed.send(sender=request.user, account=obj.user)
+        return obj
+
 class UserExtraInline(admin.StackedInline):
     model = UserExtra
+    form = UserExtraForm
     exclude = ('first_login',)
 
 class EducatorProfileInline(admin.StackedInline):
@@ -98,10 +111,10 @@ class UserAdminWithExtra(UserAdmin):
 
     def save_related(self, request, form, formsets, change):
         obj = form.instance
+
         if hasattr(obj, 'extra'):
-            role = UserRole(obj.extra.role)
-            if role.profile_attr and not hasattr(obj, role.profile_attr):
-                role.profile_class.objects.create(user=obj)
+            obj.extra.check_for_profile()
+
         super().save_related(request, form, formsets, change)
 
 admin.site.unregister(get_user_model())

@@ -124,6 +124,11 @@ class UserExtra(models.Model):
         self.last_inactive_email_sent_on = now()
         self.save(update_fields=['last_inactive_email_sent_on'])
 
+    def check_for_profile(self):
+        role = UserRole(self.role)
+        if role.profile_attr and not hasattr(self.user, role.profile_attr):
+            role.profile_class.objects.create(user=self.user)
+
 class User(get_user_model()):
     class Meta:
         proxy = True
