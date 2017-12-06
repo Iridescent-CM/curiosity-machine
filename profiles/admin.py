@@ -23,7 +23,7 @@ class UserExtraForm(forms.ModelForm):
     def save(self, commit=True):
         obj = super().save(commit=commit)
         if "approved" in self.changed_data and obj.approved:
-            signals.underage_activation_confirmed.send(sender=request.user, account=obj.user)
+            signals.underage_activation_confirmed.send(sender=obj.user)
         return obj
 
 class UserExtraInline(admin.StackedInline):
