@@ -29,9 +29,9 @@ def send_welcome_email(sender, **kwargs):
         subscribe(sender)
 
 @receiver(signals.underage_activation_confirmed)
-def send_activation_confirmation(sender, account, **kwargs):
-    send(template_name='student-u13-account-activated', to=account, merge_vars={
-        'studentname': account.username
+def send_activation_confirmation(sender, **kwargs):
+    send(template_name='student-u13-account-activated', to=sender, merge_vars={
+        'studentname': sender.username
     })
 
 @receiver(signals.started_first_project)
