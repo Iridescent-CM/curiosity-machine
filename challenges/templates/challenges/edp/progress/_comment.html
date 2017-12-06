@@ -6,7 +6,7 @@
   <div class="mentor-info comment">
     <a href="{% url 'mentors:public_profile' comment.user.username %}">
       <div class="avatar-container">
-        {% include "_avatar.html" with profile=comment.user.profile width=50 height=50 crop='fill' %}
+        {% include "_avatar.html" with profile=comment.user.mentorprofile width=50 height=50 crop='fill' %}
       </div>
     </a>
     <p><a href="{% url 'mentors:public_profile' comment.user.username %}">{{comment.user.username}}</a><br><strong>Mentor</strong></p>
@@ -21,7 +21,7 @@
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">
     <div class="avatar-container">
-      {% include "_avatar.html" with profile=comment.user.profile width=50 height=50 crop='fill' %}
+      {% include "_avatar.html" with profile=comment.user.educatorprofile width=50 height=50 crop='fill' %}
     </div>
     <p>{{comment.user.username}}<br><strong>Educator</strong></p>
   </div>
