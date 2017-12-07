@@ -130,7 +130,7 @@ class Group(models.Model):
         unique_together = ("membership", "name")
 
     membership = models.ForeignKey(Membership, null=False, blank=False)
-    name = models.CharField(unique=True, max_length=255, null=False, blank=False)
+    name = models.CharField(max_length=255, null=False, blank=False)
     members = models.ManyToManyField('Member', blank=True, through='GroupMember')
 
     def __str__(self):
