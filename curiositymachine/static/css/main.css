@@ -6802,17 +6802,25 @@ footer {
   #about-ai-challenge-page dl dd {
     margin-bottom: 1.5em; }
 
+.choose-profile-page .card-block a, .choose-profile-page .card-progress .card-block-title a, .card-progress .choose-profile-page .card-block-title a {
+  border: none; }
+
 .choose-profile-page .card-block img, .choose-profile-page .card-progress .card-block-title img, .card-progress .choose-profile-page .card-block-title img {
   width: 250px;
-  margin-right: 20px; }
+  margin-right: 20px;
+  float: left; }
 
-.choose-profile-page .card-content {
+.choose-profile-page .card-block .card-content, .choose-profile-page .card-progress .card-block-title .card-content, .card-progress .choose-profile-page .card-block-title .card-content {
   margin-left: 250px; }
 
 @media (max-width: 767px) {
-  .choose-profile-page .card-content {
-    clear: left;
-    margin-left: 0;
-    padding-top: 1em; } }
+  .choose-profile-page .card-block, .choose-profile-page .card-progress .card-block-title, .card-progress .choose-profile-page .card-block-title {
+    text-align: center; }
+    .choose-profile-page .card-block img, .choose-profile-page .card-progress .card-block-title img, .card-progress .choose-profile-page .card-block-title img {
+      float: none; }
+    .choose-profile-page .card-block .card-content, .choose-profile-page .card-progress .card-block-title .card-content, .card-progress .choose-profile-page .card-block-title .card-content {
+      clear: left;
+      margin-left: 0;
+      padding-top: 1em; } }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,16 +1,33 @@
 .choose-profile-page {
-  .card-block img {
-    width: 250px;
-    margin-right: 20px;
-  }
-  .card-content {
-    margin-left: 250px;
-  }
-  @include media-breakpoint-down(sm) {
+  .card-block {
+    a {
+      border: none;
+    }
+
+    img {
+      width: 250px;
+      margin-right: 20px;
+      float: left;
+    }
+
     .card-content {
-      clear:left;
-      margin-left: 0;
-      padding-top: 1em;
+      margin-left: 250px;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .card-block {
+      text-align: center;
+
+      img {
+        float: none;
+      }
+
+      .card-content {
+        clear:left;
+        margin-left: 0;
+        padding-top: 1em;
+      }
     }
   }
 }
