@@ -11,7 +11,7 @@
   {% url "students:create_profile" as student_url %}
   <div class="card card-block mb-2">
     <a href="{{ student_url }}">
-      <img class="float-xs-left" src="{% static "images/student.png" %}" alt="Student">
+      <img src="{% static "images/student.png" %}" alt="Student">
     </a>
     <div class="card-content">
       <h4>Student</h4>
@@ -25,7 +25,7 @@
   {% url "educators:create_profile" as educator_url %}
   <div class="card card-block mb-2">
     <a href="{{ educator_url }}">
-      <img class="float-xs-left" src="{% static "images/educator.png" %}" alt="Educator">
+      <img src="{% static "images/educator.png" %}" alt="Educator">
     </a>
     <div class="card-content">
       <h4>Educator</h4>
@@ -39,7 +39,7 @@
   {% url "parents:create_profile" as parent_url %}
   <div class="card card-block mb-2">
     <a href="{{ parent_url }}">
-      <img class="float-xs-left" src="{% static "images/parent.png" %}" alt="Parent">
+      <img src="{% static "images/parent.png" %}" alt="Parent">
     </a>
     <div class="card-content">
       <h4>Parent</h4>
