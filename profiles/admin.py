@@ -23,7 +23,7 @@ class UserExtraForm(forms.ModelForm):
     def save(self, commit=True):
         obj = super().save(commit=commit)
         if "approved" in self.changed_data and obj.approved:
-            if obj.is_student:
+            if obj.is_student and obj.user.studentprofile.is_underage():
                 signals.underage_activation_confirmed.send(sender=obj.user)
             elif obj.is_mentor:
                 signals.completed_training.send(sender=obj.user)
