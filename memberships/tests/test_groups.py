@@ -1,10 +1,9 @@
 import pytest
-
-from ..factories import *
-from profiles.factories import *
-
-from ..models import Group, GroupMember
+from django.db import IntegrityError
 from django.core.exceptions import ValidationError
+from profiles.factories import *
+from ..factories import *
+from ..models import Group, GroupMember
 
 @pytest.mark.django_db
 def test_group_and_member_membership_validation():
@@ -27,3 +26,12 @@ def test_only_students_in_groups():
         groupmember.save()
     
     assert "Only students" in str(e.value)
+
+@pytest.mark.django_db
+def test_group_name_uniqueness():
+    membership1 = MembershipFactory()
+    membership2 = MembershipFactory()
+    assert Group.objects.create(membership=membership1, name="name")
+    assert Group.objects.create(membership=membership2, name="name")
+    with pytest.raises(IntegrityError) as e:
+        Group.objects.create(membership=membership1, name="name")
