@@ -6247,6 +6247,10 @@ footer {
 #index-page #how-video-modal {
   padding: 40px 20px 20px 20px; }
 
+#index-page .logos img {
+  height: 50px;
+  margin: 1.5em; }
+
 .educator-dashboard .educator-dashboard-header {
   background-color: #1f1f1f;
   background-image: url("../images/design-challenge-repeating-pattern.png");
