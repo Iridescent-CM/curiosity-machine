@@ -20,13 +20,15 @@ class MentorProfileForm(ProfileModelForm):
         ]
 
     city = forms.CharField(required=True)
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
     title = forms.CharField(
         label="What Is My Profession",
-        required=False
+        required=True
     )
     employer = forms.CharField(
         label="Where Do I Work",
-        required=False
+        required=True
     )
     expertise = forms.CharField(
         widget=forms.Textarea,
@@ -98,6 +100,18 @@ class MentorProfileForm(ProfileModelForm):
                 obj.about_research_video_id = video.id
 
         return obj
+
+    def update_user(self):
+        if self.cleaned_data.get('first_name'):
+            self.user.first_name = self.cleaned_data['first_name']
+        if self.cleaned_data.get('last_name'):
+            self.user.last_name = self.cleaned_data['last_name']
+
+    def get_initial_from_user(self, user):
+        return super().get_initial_from_user(user,
+            first_name=user.first_name,
+            last_name=user.last_name,
+        )
 
     def get_role(self):
         return UserRole.mentor
