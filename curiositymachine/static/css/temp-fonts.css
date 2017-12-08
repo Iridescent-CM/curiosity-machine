@@ -17,8 +17,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.icon-camera:before {
-  content: "\e900"; }
+.icon-aibrain:before {
+  content: "\e906"; }
 
 .icon-compsci:before {
   content: "\e60e"; }
@@ -68,6 +68,28 @@
 .icon-materials:before {
   content: "\e60f"; }
 
+.icon-camera:before {
+  content: "\e900"; }
+
+.icon-boeing-logo:before {
+  content: "\e614";
+  color: #000; }
+
+.icon-brush:before {
+  content: "\e905"; }
+
+.icon-open-book:before {
+  content: "\e904"; }
+
+.icon-lock:before {
+  content: "\e903"; }
+
+.icon-cross:before {
+  content: "\e901"; }
+
+.icon-check:before {
+  content: "\e902"; }
+
 .icon-star-full:before {
   content: "\e615"; }
 
@@ -84,27 +106,15 @@
   content: "\e613"; }
 
 .icon-facebook:before {
-  content: "\e500"; }
+  content: "\ea90"; }
+
+.icon-instagram:before {
+  content: "\ea92"; }
 
 .icon-twitter:before {
-  content: "\e501"; }
+  content: "\ea96"; }
 
-.icon-boeing-logo:before {
-  content: "\e614"; }
-
-.icon-open-book:before {
-  content: "\e904"; }
-
-.icon-lock:before {
-  content: "\e903"; }
-
-.icon-cross:before {
-  content: "\e901"; }
-
-.icon-check:before {
-  content: "\e902"; }
-
-.icon-brush:before {
-  content: "\e905"; }
+.icon-youtube:before {
+  content: "\ea9d"; }
 
 /*# sourceMappingURL=temp-fonts.css.map */
