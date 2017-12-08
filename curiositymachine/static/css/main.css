@@ -5022,6 +5022,9 @@ a.bg-secondary:focus, a.bg-secondary:hover {
 .icon-youtube:before {
   content: "\ea9d"; }
 
+.icon-aibrain:before {
+  content: "\e906"; }
+
 body {
   background-color: #FFFCF7;
   color: #333333;
