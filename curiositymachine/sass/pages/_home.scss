@@ -1,10 +1,11 @@
 #index-page {
   .jumbotron {
     padding-top: 6em;
+    margin-bottom: 0em;
   }
 
   .home-top-panel {
-    background-image: url("../images/home/paper-airplane.jpg");
+    background-image: url("../images/home/girls-phoenix.png");
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -67,7 +68,6 @@
   }
 
   .sign-up-panel {
-    padding: $large-spacing * 2 0px $large-spacing * 2 0px;
     background-color: $primary-blue;
     color: white;
   }
@@ -80,4 +80,10 @@
     padding: 40px 20px 20px 20px;
   }
 
+  .logos {
+    img {
+      height: 50px;
+      margin: 1.5em;
+    }
+  }
 }

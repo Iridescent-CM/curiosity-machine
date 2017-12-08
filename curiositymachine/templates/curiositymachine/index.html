@@ -3,170 +3,118 @@
 
 {% block body-id %}index-page{% endblock %}
 {% block content %}
-
-  <div id="how-video-modal" class="modal fade">
-    <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-      <span class="sr-only">Close</span>
-    </button>
-    <div class="modal-dialog modal-lg">
-      <div class="embed-responsive embed-responsive-16by9">
-        <video id="how-video" controls="controls" preload="metadata">
-          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.mp4" type="video/mp4">
-          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.ogg" type="video/ogg">
-          <source src="//s3.amazonaws.com/curiositymachine/statics/how_it_works.webm" type="video/webm">
-        </video>
-      </div>
-    </div>
-  </div>
-
   <div class="home-top-panel">
     <div class="jumbotron jumbotron-fluid home-top-panel-gradient">
       <div class="container text-xs-center">
-        <h1 class="home-title">How do children succeed?</h1>
-        <h3 class="home-subtitle">With curiosity, creativity, and persistence. <br/> Start building with Curiosity Machine.</h3>
-        <a href="{% url "account_signup" %}" class="btn btn-primary text-uppercase">Sign up</a>
-        <button type="button" data-toggle="modal" data-target="#how-video-modal" class="btn btn-secondary text-uppercase">See How it Works</button>
+        <h1 class="home-title">Imagine a better world</br>and build it together</h1>
+        <h3 class="home-subtitle">Start building with Curiosity Machine.</h3>
+        <a href="{% url "account_signup" %}" class="btn btn-primary text-uppercase">Get Started</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeuptfe5zMp5KpadIkNQcj81vtMRBzqdlW9RU8VHAOT48bLJg/viewform" class="btn btn-secondary text-uppercase" target="_blank">Partner Sites</a>
+        <h5 class="text-white"> or <a href="#" data-toggle="modal" data-target="#login-modal" class="a-borderless text-white">Log in</a></h5>
       </div>
     </div>
   </div>
 
-  <div class="container home-what-panel text-xs-center mt-3">
-    <div class="col-md-8 offset-md-2">
-      <h3>Build engineering design challenges using household objects, with the help of scientists and engineers.</h3>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-md-6 col-lg-3">
-        <h4>80+ Design Challenges</h4>
-        <p>developed by scientists and engineers.</p>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <h4>Videos</h4>
-        <p>featuring cutting-edge and exciting inventions.</p>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <h4>Guide</h4>
-        <p>that supports children to plan, build, test, redesign, and reflect.</p>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <h4>Mentor Feedback</h4>
-        <p>on children's inventions from scientists and engineers.</p>
-      </div>
-    </div>
-
-    <a href="{% url 'challenges:challenges' %}" class="btn btn-primary mt-2">Browse Design Challenges</a>
-
-    <div class="row mt-3">
-      <div class="col-md-6">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-1.jpg' %}" alt="Girl builds engineering design challenge">
-      </div>
-      <div class="col-md-6">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-2.jpg' %}" alt="An engineering design challenge example">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-3.jpg' %}" alt="An engineering design challenge being tested">
+  <div class="container-fluid sign-up-panel text-xs-center py-1">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-xs-10 offset-xs-1">
+        <h2 class= "mb-0">Start building with our Artificial Intelligence Family Challenge.</h2>
       </div>
     </div>
   </div>
 
-  <div class="container text-xs-center home-who-panel mt-3">
-    <h3>We're here for students and their supporters.</h3>
-
+  <div class="container home-what-panel text-xs-center">
     <div class="row mt-3">
-      <div class="col-md-4">
+      <div class="col-lg-4 offset-lg-2">
         <img src="{% static 'images/home/who-parents.png' %}">
-        <h4>Parents</h4>
-        <p>Learn how to build with your child and nurture creativity.</p>
-        <a href="{% url 'parents' %}">Learn More</a>
+        <h4>Families</h4>
+        <p>Learn the basics of how artificial intelligence works by building projects together</p>
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-4">
         <img src="{% static 'images/home/who-educators.png' %}">
-        <h4>Educators</h4>
-        <p>Hit NGSS standards and bring project-based learning to your classroom.</p>
-        <a href="{% url 'educator' %}">Learn More</a>
+        <h4>Partner Sites</h4>
+        <p>Engage families with access to cutting-edge curriculum and support from our team</p>
       </div>
-      <div class="col-md-4">
-        <img src="{% static 'images/home/who-stem-professionals.png' %}">
-        <h4>STEM Professionals</h4>
-        <p>Share your expertise by helping children through the design process.</p>
-        <a href="{% url 'mentor' %}">Learn More</a>
+      <div class="col-md-8 offset-md-2 mt-3">
+        <h3>Children are the future. So is Artificial Intelligence.</h3>
+        <p>The World Economic Forum estimates that 65% of children entering primary school today will work in completely new jobs that don’t exist yet.Over the next 2 years, students age 8-15 years old and their families will explore core concepts of AI research, apply AI tools to solve problems in their communities and have the opportunity to enter their ideas into a global competition.</p>
       </div>
-    </div>
+      <div class="col-lg-8 offset-lg-2 text-sm-center mt-3">
+        <a href="{% url "account_signup" %}" class="btn btn-primary text-uppercase mx-1" target="_blank">family sign up</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeuptfe5zMp5KpadIkNQcj81vtMRBzqdlW9RU8VHAOT48bLJg/viewform"
+        class="btn btn-primary text-uppercase mx-1"
+        target="_blank">partner sign up</a>
+      </div>
 
-    <div class="row mt-3">
-      <div class="col-md-6">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-4.jpg' %}" alt="Group builds together">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-5.jpg' %}" alt="Father and daughter build together">
-      </div>
-      <div class="col-md-6">
-        <img class="img-responsive img-rounded mb-1" src="{% static 'images/home/build-6.jpg' %}" alt="Girl builds paper airplane">
+      <div class="col-lg-12 my-2">
+        <hr class="hr-red"/>
+        <h2 class="mt-3">We work with communities</h2>
+        <div class="logos">
+          <a href="https://aaai.org/" class="a-borderless">
+            <img src="{% static 'images/logos/aaai-logo.jpg' %}" alt="AAAI">
+          </a>
+          <a href="http://www.aguilayouth.org/" class="a-borderless">
+            <img src="{% static 'images/logos/aguila-logo.jpg' %}" alt="Aguila Youth">
+          </a>
+          <a href="https://www.cityyear.org/" class="a-borderless">
+            <img src="{% static 'images/logos/cityyear-logo.png' %}" alt="City Year">
+          </a>
+          <a href="https://nhm.org/site/" class="a-borderless">
+            <img src="{% static 'images/logos/nhm-logo 2.gif' %}" alt="Natural History Museum">
+          </a>
+          <a href="https://www.usc.edu/" class="a-borderless">
+            <img src="{% static 'images/logos/usc-logo.png' %}" alt="University of Southern California">
+          </a>
+          <a href="http://www.rpi.edu/" class="a-borderless">
+            <img src="{% static 'images/logos/rpi-logo.png' %}" alt="RPI" height="50">
+          </a>
+        </div>
+        <h2 class="mt-3">and leaders of innovative technology</h2>
+        <div class="logos">
+          <a href="http://www.nvidia.com/page/home.html" class="a-borderless">
+            <img src="{% static 'images/logos/nvidia-logo.PNG' %}" alt="NVIDIA logo">
+          </a>
+          <a href="http://www.boeing.com/" class="a-borderless">
+            <img src="{% static 'images/logos/boeing-logo.png' %}" alt="Boeing logo">
+          </a>
+          <a href="http://www.nsf.gov/" class="a-borderless">
+            <img src="{% static 'images/logos/nsf-logo.png' %}" alt="National Science Foundation logo">
+          </a>
+          <a href="http://www.cummins.com/" class="a-borderless">
+            <img src="{% static 'images/logos/cummins-logo.png' %}" alt="Cummins logo">
+          </a>
+          <a href="https://www.moore.org/" class="a-borderless">
+            <img src="{% static 'images/logos/moore-foundation-logo.png' %}" alt="Moore Foundation logo">
+          </a>
+          <a href="http://www.intel.com/" class="a-borderless">
+            <img src="{% static 'images/logos/intel-logo.png' %}" alt="Intel logo">
+          </a>
+          <a href="http://www.onr.navy.mil/" class="a-borderless">
+            <img src="{% static 'images/logos/ONR-logo.png' %}" alt="Office of Naval Research logo">
+          </a>
+          <a href="https://hivelearningnetworks.org/" class="a-borderless">
+            <img src="{% static 'images/logos/hive-logo.png' %}" alt="Hive Network logo">
+          </a>
+        </div>
+        <h2 class="mt-3">to empower students and their families</h2>
+        <div class="logos">
+          <a href="http://schools.nyc.gov/" class="a-borderless">
+            <img src="{% static 'images/logos/nyc-logo.png' %}" alt="NYCDOE">
+          </a>
+          <a href="http://home.lausd.net/" class="a-borderless">
+            <img src="{% static 'images/logos/lausad-logo.png' %}" alt="LAUSD">
+          </a>
+          <a href="http://www.santaclarausd.org/" class="a-borderless">
+            <img src="{% static 'images/logos/santaclara-logo.png' %}" alt="Santa Clara Unified School District">
+          </a>
+          <a href="https://www.chipublib.org/" class="a-borderless">
+            <img src="{% static 'images/logos/cpl-logo.png' %}" alt="Chicago Public Library">
+          </a>
+          <a href="http://www.lapl.org/" class="a-borderless">
+            <img src="{% static 'images/logos/lapl-logo.png' %}" alt="LAPL">
+          </a>
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="container home-member-panel text-xs-center mt-3">
-    <h3>Use Curiosity Machine to build a STEM learning community.</h3>
-
-    <div class="row mt-3">
-      <div class="col-md-6">
-        <h4>Schools, Organizations and Playgroups</h4>
-        <p>Bring Curiosity Machine to your school or program.</p>
-        <a href="/about-membership">About Memberships</a>
-      </div>
-      <div class="col-md-6">
-        <h4>Science and Engineering Companies</h4>
-        <p>Share your innovations with the public.</p>
-        <a href="/about-partnership">About Partnerships</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid sign-up-panel mt-3">
-    <div class="container text-xs-center">
-      <h2>Create an account and take on your first design challenge!</h1>
-      <a href="{% url "account_signup" %}" class="btn btn-secondary text-uppercase">Sign up</a>
-    </div>
-  </div>
-
-  <div class="container-fluid home-support-panel py-3">
-    <div class="container text-xs-center">
-      <h3>Supported by:</h3>
-      <a href="http://www.boeing.com/" class="a-borderless">
-        <img src="{% static 'images/logos/boeing-logo.png' %}" alt="Boeing logo">
-      </a>
-      <a href="http://www.nsf.gov/" class="a-borderless">
-        <img src="{% static 'images/logos/nsf-logo.png' %}" alt="National Science Foundation logo" height="70">
-      </a>
-      <a href="http://www.cummins.com/" class="a-borderless">
-        <img src="{% static 'images/logos/cummins-logo.jpg' %}" alt="Cummins logo" height="70">
-      </a>
-      <a href="https://www.moore.org/" class="a-borderless">
-        <img src="{% static 'images/logos/moore-foundation-logo.png' %}" alt="Moore Foundation logo" height="70">
-      </a>
-      <a href="http://www.intel.com/" class="a-borderless">
-        <img src="{% static 'images/logos/intel-logo.png' %}" alt="Intel logo" height="70">
-      </a>
-      <a href="http://www.onr.navy.mil/" class="a-borderless">
-        <img src="{% static 'images/logos/onr-logo.jpg' %}" alt="Office of Naval Research logo" height="70">
-      </a>
-      <a href="https://hivelearningnetworks.org/" class="a-borderless">
-        <img src="{% static 'images/logos/hive-logo.png' %}" alt="Hive Network logo" height="70">
-      </a>
-    </div>
-  </div>
-{% endblock %}
-
-{% block js %}
-<script>
-  $(function(){
-    var $modal = $('#how-video-modal');
-    var video = $('#how-video')[0];
-    $modal.on('hide.bs.modal', function(){
-      video.pause();
-    });
-    $modal.on('shown.bs.modal', function(){
-      video.play();
-    });
-
-  });
-</script>
 {% endblock %}
