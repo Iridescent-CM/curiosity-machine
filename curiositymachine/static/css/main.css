@@ -6017,13 +6017,13 @@ header {
     background-color: #4e4e8c;
     border-color: #4e4e8c;
     color: #FFFCF7; }
-  .navbar-light .navbar-nav .nav-challenges {
+  .navbar-light .navbar-nav .nav-aichallenge {
     background-color: #00B1C3; }
-    .navbar-light .navbar-nav .nav-challenges:hover {
+    .navbar-light .navbar-nav .nav-aichallenge:hover {
       background-color: #009fb0; }
-  .navbar-light .navbar-nav .nav-mentors {
+  .navbar-light .navbar-nav .nav-challenges {
     background-color: #F2B353; }
-    .navbar-light .navbar-nav .nav-mentors:hover {
+    .navbar-light .navbar-nav .nav-challenges:hover {
       background-color: #daa14b; }
   .navbar-light .navbar-nav .nav-about {
     background-color: #F55932; }
@@ -6065,11 +6065,11 @@ header {
       top: 0; }
   .navbar .nav-profile .nav-link:before {
     background: #6161AF !important; }
-  .navbar .nav-challenges:before {
+  .navbar .nav-aichallenge:before {
     background: #00B1C3 !important; }
   .navbar .nav-about:before {
     background: #F55932 !important; }
-  .navbar .nav-mentors:before {
+  .navbar .nav-challenges:before {
     background: #F2B353 !important; }
   .navbar .nav-login:before {
     background: #8FB559 !important; }
