@@ -99,11 +99,11 @@
           {% endif %}
 
           <li class="nav-item">
-            <a class="nav-link nav-challenges" href="{% url "challenges:challenges" %}">Challenges</a>
+            <a class="nav-link nav-aichallenge" href="{% url "aichallenge" %}">AI Family Challenge</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link nav-mentors" href="{% url "mentors:list" %}">Mentor Community<span class="sr-only">(current)</span></a>
+            <a class="nav-link nav-challenges" href="{% url "challenges:challenges" %}">All Challenges</a>
           </li>
 
           <li class="nav-item">
@@ -142,8 +142,8 @@
           </li>
 
           <li class="nav-item">
-            <a class="btn btn-primary hidden-md-down" href="{% url "account_signup" %}">Join</a>
-            <a class="nav-link nav-join hidden-lg-up" href="{% url "account_signup" %}">Join</a>
+            <a class="btn btn-primary hidden-md-down" href="{% url "account_signup" %}">Sign Up</a>
+            <a class="nav-link nav-join hidden-lg-up" href="{% url "account_signup" %}">Sign Up</a>
           </li>
 
           {% endif %}

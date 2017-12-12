@@ -3,6 +3,7 @@
 
 {% block body-id %}index-page{% endblock %}
 {% block content %}
+{% with source="aichallenge" %}
   <div class="home-top-panel">
     <div class="jumbotron jumbotron-fluid home-top-panel-gradient">
       <div class="container text-xs-center">
@@ -40,7 +41,7 @@
         <p>The World Economic Forum estimates that 65% of children entering primary school today will work in completely new jobs that don’t exist yet.Over the next 2 years, students age 8-15 years old and their families will explore core concepts of AI research, apply AI tools to solve problems in their communities and have the opportunity to enter their ideas into a global competition.</p>
       </div>
       <div class="col-lg-8 offset-lg-2 text-sm-center mt-3">
-        <a href="{% url "account_signup" %}" class="btn btn-primary text-uppercase mx-1" target="_blank">family sign up</a>
+        <a href="{% url "account_signup" source=source %}" class="btn btn-primary text-uppercase mx-1" target="_blank">family sign up</a>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSeuptfe5zMp5KpadIkNQcj81vtMRBzqdlW9RU8VHAOT48bLJg/viewform"
         class="btn btn-primary text-uppercase mx-1"
         target="_blank">partner sign up</a>
@@ -117,4 +118,5 @@
       </div>
     </div>
   </div>
+{% endwith %}
 {% endblock %}
