@@ -52,8 +52,8 @@ class Command(BaseCommand):
                 metadata = signature_request["metadata"]
                 if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID:
                     # check the metadata production mode
-                    if "production_mode" in metadata:
-                        metadata_production_mode = metadata["production_mode"]
+                    if "production_mode" in metadata and metadata["production_mode"] == "True":
+                        metadata_production_mode = True
                     else:
                         metadata_production_mode = False
                     if metadata_production_mode == settings.HELLOSIGN_PRODUCTION_MODE:
