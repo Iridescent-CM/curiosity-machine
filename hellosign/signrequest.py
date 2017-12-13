@@ -37,10 +37,11 @@ def send_underage_consent_form(sender):
     metadata = {
         "template_id" : template_id,
         "user_id": child_user_id}
+    test_mode=settings.HELLOSIGN_TEST_MODE
 
 
     # send template:
-    client.send_signature_request_with_template(test_mode=True,
+    client.send_signature_request_with_template(test_mode=test_mode,
                                                 template_id=template_id,
                                                 custom_fields=custom_fields, signers=signers,
                                                 subject=subject,
