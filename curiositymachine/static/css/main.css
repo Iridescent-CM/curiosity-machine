@@ -6198,7 +6198,7 @@ footer {
   margin-bottom: 0em; }
 
 #index-page .home-top-panel {
-  background-image: url("../images/home/girls-phoenix.png");
+  background-image: url("../images/home/nvidia-game.png");
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
@@ -6213,7 +6213,7 @@ footer {
 #index-page .home-title {
   color: #FFFCF7;
   font-weight: 400;
-  text-shadow: 0px 3px 4px rgba(0, 0, 0, 0.4);
+  text-shadow: 3px 3px 4px black;
   font-size: 4em; }
 
 #index-page .home-subtitle {
