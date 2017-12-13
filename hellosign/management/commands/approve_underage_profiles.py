@@ -30,7 +30,8 @@ class Command(BaseCommand):
         while request and page <= num_pages:
             user_ids_to_approve = []
             signature_request_list = request.get(client.SIGNATURE_REQUEST_LIST_URL,
-                                                 parameters={"query": "complete:true","page": page,"page_size": page_size})
+                                                 parameters={"query": "complete:true", "page": page,
+                                                             "page_size": page_size})
             signature_requests = signature_request_list["signature_requests"]
 
             #get the actual number of pages of signature request so that
@@ -43,12 +44,20 @@ class Command(BaseCommand):
             #1) it must have the current UNDERAGE_CONSENT_TEMPLATE_ID as defined in
             #   the settings. This allows us to have other hellosign templates sent out
             #   without confusing them with the underage form.
+			#2) The production mode in the signature_request metadata must match the
+			#	production mode of the deployed server.
             #if the metadata meets the former condition(s), then it should contain
             #a user_id; add it to the list so that we can apprive this user.
             for signature_request in signature_requests:
                 metadata = signature_request["metadata"]
                 if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID:
-                    user_ids_to_approve.append(metadata["user_id"])
+                    # check the metadata production mode
+                    if "production_mode" in metadata:
+                        metadata_production_mode = metadata["production_mode"]
+                    else:
+                        metadata_production_mode = False
+                    if metadata_production_mode == settings.HELLOSIGN_PRODUCTION_MODE:
+                        user_ids_to_approve.append(metadata["user_id"])
 
             #user_ids_to_approve now is a list containing the user_id of students who
             #have had their parents sign consent on hellosign. We will now search the
