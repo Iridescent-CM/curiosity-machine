@@ -213,7 +213,7 @@ def challenges(request):
     })
 
 @require_POST
-@student_only
+#@student_only
 @enforce_membership_challenge_access
 def start_building(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
@@ -222,6 +222,7 @@ def start_building(request, challenge_id):
         try:
             Progress.objects.create(challenge=challenge, student=request.user)
         except (ValueError, ValidationError):
+            print(ValidationError)
             raise PermissionDenied
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
         'challenge_id': challenge.id,
