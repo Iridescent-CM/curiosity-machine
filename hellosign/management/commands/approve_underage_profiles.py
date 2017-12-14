@@ -5,12 +5,21 @@ from students.models import StudentProfile
 from hellosign_sdk import HSClient
 from django.conf import settings
 from curiositymachine import signals
+import time
 
 
 class Command(BaseCommand):
     help = 'Approve all underage users for whom their parents have signed the consent form'
 
+    def add_arguments(self, parser):
+        #This is the cutoff time for searching completed signature
+        #request in seconds. The default is 2 hours.
+        parser.add_argument('cutoff', type=int, nargs='?', default=7200)
+
     def handle(self, *args, **options):
+
+        current_time = time.time()
+        cutoff_time_delta = options.get('cutoff', None)
 
         # Initialize HSClient using api key
         api_key = settings.HELLOSIGN_API_KEY
@@ -19,12 +28,12 @@ class Command(BaseCommand):
 
         request = client.request
 
-        #set the page and the number of pages of signature request to the default
-        #num_pages will be updated upon the first true request
+        # set the page and the number of pages of signature request to the default
+        # num_pages will be updated upon the first true request
         page = 1
         num_pages = 1
-        #page_size is the number of signature request per page of the
-        #signature_request_list. This can be anything from 1 to 100.
+        # page_size is the number of signature request per page of the
+        # signature_request_list. This can be anything from 1 to 100.
         page_size = 100
 
         while request and page <= num_pages:
@@ -34,23 +43,28 @@ class Command(BaseCommand):
                                                              "page_size": page_size})
             signature_requests = signature_request_list["signature_requests"]
 
-            #get the actual number of pages of signature request so that
-            #we loop though all of them
+            # get the actual number of pages of signature request so that
+            # we loop though all of them
             list_info = signature_request_list["list_info"]
             num_pages = list_info['num_pages']
 
-            #we need to check the metadata of each signature request to see if it meets
-            #the following condition(s):
-            #1) it must have the current UNDERAGE_CONSENT_TEMPLATE_ID as defined in
+            # we need to check the metadata of each signature request to see if it meets
+            # the following condition(s):
+            # 1) it must have the current UNDERAGE_CONSENT_TEMPLATE_ID as defined in
             #   the settings. This allows us to have other hellosign templates sent out
             #   without confusing them with the underage form.
-			#2) The production mode in the signature_request metadata must match the
-			#	production mode of the deployed server.
-            #if the metadata meets the former condition(s), then it should contain
-            #a user_id; add it to the list so that we can apprive this user.
+            # 2) The production mode in the signature_request metadata must match the
+            #	production mode of the deployed server.
+            # if the metadata meets the former condition(s), then it should contain
+            # a user_id; add it to the list so that we can apprive this user.
+            # 3) The signature request must have been signed within the specified
+            #   amount of time (cutoff_time_delta)
             for signature_request in signature_requests:
                 metadata = signature_request["metadata"]
-                if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID:
+                signatures = signature_request["signatures"]
+                signed_at = signatures[0]["signed_at"]
+                if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID and (
+                    abs(current_time - signed_at) < cutoff_time_delta):
                     # check the metadata production mode
                     if "production_mode" in metadata and metadata["production_mode"] == "True":
                         metadata_production_mode = True
