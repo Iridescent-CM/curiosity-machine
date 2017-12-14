@@ -186,7 +186,7 @@ def test_root_redirects_student_without_progress_to_challenges(rf):
 @pytest.mark.django_db
 def test_root_redirects_student_with_progress_to_home(rf):
     user = StudentFactory()
-    progress = ProgressFactory(student=user)
+    progress = ProgressFactory(owner=user)
     request = rf.get('/some/path')
     request.user = user
     response = root(request)
@@ -398,14 +398,37 @@ def test_challenge_access_decorator_redirects_other(rf):
     assert response.status_code == 302
 
 @pytest.mark.django_db
+def test_signal_student_started_first_project():
+    handler = mock.MagicMock()
+    signals.started_first_project.connect(handler)
+
+    user = User.objects.create(username='user', email='useremail')
+    challenge = Challenge.objects.create(name='challenge')
+    first_progress = Progress.objects.create(owner=user, challenge=challenge)
+
+    assert not handler.called
+
+    first_progress.comments.create(user=user, text="comment", stage=1)
+
+    handler.assert_called_once_with(signal=signals.started_first_project, progress=first_progress, sender=user)
+    handler.reset_mock()
+
+    challenge2 = Challenge.objects.create(name='challenge2')
+    second_progress = Progress.objects.create(owner=user, challenge=challenge2)
+    second_progress.comments.create(user=user, text="comment", stage=1)
+
+    assert not handler.called
+
+
+@pytest.mark.django_db
 def test_signal_student_posted_comment():
     handler = mock.MagicMock()
     signals.posted_comment.connect(handler)
 
     progress = ProgressFactory()
-    comment = progress.comments.create(user=progress.student, text="comment", stage=1)
+    comment = progress.comments.create(user=progress.owner, text="comment", stage=1)
 
-    handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.student, comment=comment)
+    handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.owner, comment=comment)
 
 @pytest.mark.django_db
 def test_signal_mentor_posted_comment():
@@ -429,9 +452,9 @@ def test_signal_progress_considered_complete():
 
     progress = ProgressFactory()
     mentor = MentorFactory()
-    first_reflect_post = ReflectionCommentFactory(challenge_progress=progress, user=progress.student)
+    first_reflect_post = ReflectionCommentFactory(challenge_progress=progress, user=progress.owner)
 
-    handler.assert_called_once_with(signal=signal, sender=progress.student, progress=progress)
+    handler.assert_called_once_with(signal=signal, sender=progress.owner, progress=progress)
     handler2.assert_not_called()
 
 @pytest.mark.django_db
@@ -442,7 +465,7 @@ def test_signal_inspiration_gallery_submission_created():
 
     example = ExampleFactory()
 
-    handler.assert_called_once_with(signal=signal, sender=example.progress.student, example=example)
+    handler.assert_called_once_with(signal=signal, sender=example.progress.owner, example=example)
 
 @pytest.mark.django_db
 def test_signal_inspiration_gallery_submissions_rejected():

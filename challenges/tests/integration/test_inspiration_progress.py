@@ -13,7 +13,7 @@ pytestmark = pytest.mark.integration
 def test_inspiration_progress_view_as_student_renders_student_template(client):
     challenge = ChallengeFactory()
     user = StudentFactory(username='user', password='123123')
-    progress = ProgressFactory(challenge=challenge, student=user)
+    progress = ProgressFactory(challenge=challenge, owner=user)
 
     client.login(username='user', password='123123')
     response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, user.username), follow=True)
@@ -25,7 +25,7 @@ def test_inspiration_progress_view_as_student_renders_student_template(client):
 def test_student_template_gets_progress(client):
     challenge = ChallengeFactory()
     user = StudentFactory(username='user', password='123123')
-    progress = ProgressFactory(challenge=challenge, student=user)
+    progress = ProgressFactory(challenge=challenge, owner=user)
 
     client.login(username='user', password='123123')
     response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, user.username), follow=True)
@@ -38,7 +38,7 @@ def test_student_template_gets_examples(client):
     challenge = ChallengeFactory()
     examples = ExampleFactory.create_batch(2, progress__challenge=challenge, approved=True)
     user = StudentFactory(username='user', password='123123')
-    progress = ProgressFactory(challenge=challenge, student=user)
+    progress = ProgressFactory(challenge=challenge, owner=user)
 
     client.login(username='user', password='123123')
     response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, user.username), follow=True)
@@ -53,7 +53,7 @@ def test_student_cannot_view_other_student_progress_inspirations(client):
     user = StudentFactory(username='user', password='123123')
 
     client.login(username='user', password='123123')
-    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=False)
+    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.owner.username), follow=False)
 
     assert response.status_code == 302
     assert response.url.endswith(reverse("challenges:preview_inspiration", kwargs={
@@ -67,7 +67,7 @@ def test_renders_nonstudent_template_with_challenge_for_nonstudent_user(client):
     user = MentorFactory(username='user', password='123123')
 
     client.login(username='user', password='123123')
-    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=True)
+    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.owner.username), follow=True)
 
     assert response.status_code == 200
     assert response.context['challenge'] == challenge
@@ -81,7 +81,7 @@ def test_nonstudent_template_gets_examples(client):
     user = MentorFactory(username='user', password='123123')
 
     client.login(username='user', password='123123')
-    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.student.username), follow=True)
+    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.owner.username), follow=True)
 
     assert response.status_code == 200
     assert set(response.context['examples']) == set(examples)

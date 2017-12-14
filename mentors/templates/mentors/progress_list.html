@@ -23,9 +23,9 @@
             <div class="panel panel-custom">
               <div class="panel-img">
                 <div class="image-container">
-                  <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">
-                    {% if progress.student.studentprofile.image %}
-                      <img src="{% resized progress.student.studentprofile.image.url width=300 height=200 crop='fill' %}" class="center-block img-responsive" />
+                  <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.owner.username %}">
+                    {% if progress.owner.studentprofile.image %}
+                      <img src="{% resized progress.owner.studentprofile.image.url width=300 height=200 crop='fill' %}" class="center-block img-responsive" />
                     {% elif progress.challenge.image %}
                       <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}"class="center-block img-responsive" />
                     {% elif progress.challenge.video.encodings_generated %}
@@ -45,8 +45,8 @@
                       {% endif %}
                     {% endwith %}
                   {% endif %}
-                  <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">
-                    {{progress.student.username}}'s {{ progress.challenge.name }}
+                  <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.owner.username %}">
+                    {{progress.owner.username}}'s {{ progress.challenge.name }}
                   </a>
                 </h3>
               </div>

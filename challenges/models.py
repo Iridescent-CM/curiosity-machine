@@ -215,7 +215,7 @@ class ExampleQuerySet(models.QuerySet):
         user = kwargs.get('user', None)
         f = Q(approved=True)
         if user:
-            f = f | Q(progress__student=user, approved=None)
+            f = f | Q(progress__owner=user, approved=None)
         return self.filter(progress__challenge_id=challenge_id).filter(f).order_by('-id')
 
     def for_gallery_preview(self, **kwargs):
@@ -269,7 +269,7 @@ class Example(models.Model): # media that a mentor has selected to be featured o
 
     @property
     def name(self):
-        if self.progress: return self.progress.student.username
+        if self.progress: return self.progress.owner.username
         else: return ""
 
     @property

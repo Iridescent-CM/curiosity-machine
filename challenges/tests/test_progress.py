@@ -9,7 +9,7 @@ from students.factories import StudentFactory
 def test_completed():
     student = StudentFactory()
     mentor = MentorFactory()
-    progress = ProgressFactory(student=student, mentor=mentor)
+    progress = ProgressFactory(owner=student, mentor=mentor)
 
     assert not progress.completed
 

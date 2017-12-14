@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block top_header %}
-  <h1>{{ challenge.name }} <small>By {{progress.student.username}}</small></h1>
+  <h1>{{ challenge.name }} <small>By {{progress.owner.username}}</small></h1>
 {% endblock %}
 
 {% block draft_message %}
@@ -19,7 +19,7 @@
 
 {% block middle_panel %}
   <div class="avatar-container">
-    {% include "_avatar.html" with profile=progress.student.studentprofile width=50 height=50 crop='fill' %}
+    {% include "_avatar.html" with profile=progress.owner.studentprofile width=50 height=50 crop='fill' %}
   </div>
 {% endblock %}
 

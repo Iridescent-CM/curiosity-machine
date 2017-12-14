@@ -12,8 +12,8 @@
             <img src="{% resized progress.challenge.image.url width=300 height=200 crop='fill' %}">
           {% elif progress.challenge.video.encodings_generated %}
             <img src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=200 crop='fill' %}">
-          {% elif progress.student.studentprofile.image %}
-            <img src="{% resized progress.student.studentprofile.image.url  width=300 height=200 crop='fill' %}" />
+          {% elif progress.owner.studentprofile.image %}
+            <img src="{% resized progress.owner.studentprofile.image.url  width=300 height=200 crop='fill' %}" />
           {% endif %}
         </a>
       </div>

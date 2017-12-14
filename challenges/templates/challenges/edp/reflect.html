@@ -22,7 +22,7 @@
 
   {% block commenting_bubble %}
   {% if quiz_form %}
-  {% url "challenges:quizzes:quizzes" challenge_id=challenge.id username=progress.student.username stage='reflect' as action_url %}
+  {% url "challenges:quizzes:quizzes" challenge_id=challenge.id username=progress.owner.username stage='reflect' as action_url %}
   <div class="panel panel-bubble teal right reflect-quiz-box edp-comments">
     <div class="panel-body">
       <h1>Reflect Quiz</h1>
@@ -31,6 +31,7 @@
         {% csrf_token %}
         {{ quiz_form }}
         <input type="submit" class="btn btn-primary pull-right" data-debounce="true" 
+          {% comment %}TODO: FIX for families {% endcomment %}
           {% if not request.user.extra.is_student %}disabled="disabled"{% endif %}
         />
       </form>

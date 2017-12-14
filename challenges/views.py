@@ -1,26 +1,27 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
-from django.core.exceptions import ValidationError
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.views.decorators.http import require_http_methods, require_POST
-from django.conf import settings
-from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from cmcomments.forms import CommentForm
-from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only, student_only
-from images.models import Image
-from .utils import get_stage_for_progress
-from .forms import MaterialsForm
-from django.core.exceptions import PermissionDenied
+from curiositymachine.decorators import current_user_or_approved_viewer, mentor_only
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError, PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic.base import View, TemplateView
-from django.utils.decorators import method_decorator
-from memberships.models import Membership
-from memberships.decorators import enforce_membership_challenge_access
+from django.core.urlresolvers import reverse
 from django.db.models import Count
-from urllib.parse import quote_plus
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_http_methods, require_POST
+from django.views.generic.base import View, TemplateView
+from images.models import Image
+from memberships.decorators import enforce_membership_challenge_access
+from memberships.models import Membership
+from profiles.decorators import only_for_role
+from profiles.models import UserRole
 from quizzes.forms import QuizForm
+from urllib.parse import quote_plus
+from .forms import MaterialsForm
+from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
+from .utils import get_stage_for_progress
 
 def _paginate(qs, page, perPage):
     paginator = Paginator(qs, perPage)
@@ -213,14 +214,14 @@ def challenges(request):
     })
 
 @require_POST
-#@student_only
+@only_for_role(UserRole.student, UserRole.family)
 @enforce_membership_challenge_access
 def start_building(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
 
-    if not Progress.objects.filter(challenge=challenge, student=request.user).exists():
+    if not Progress.objects.filter(challenge=challenge, owner=request.user).exists():
         try:
-            Progress.objects.create(challenge=challenge, student=request.user)
+            Progress.objects.create(challenge=challenge, owner=request.user)
         except (ValueError, ValidationError):
             print(ValidationError)
             raise PermissionDenied
@@ -278,7 +279,7 @@ class InspirationUserProgress(InspirationUserView):
         context['progress'] = get_object_or_404(
             Progress,
             challenge_id = kwargs.get('challenge_id'),
-            student__username = kwargs.get('username')
+            owner__username = kwargs.get('username')
         )
         return context
 
@@ -289,7 +290,7 @@ class InspirationStudentPreview(InspirationUserPreview):
         challenge_id = kwargs.get('challenge_id')
         if Progress.objects.filter(
             challenge=challenge_id,
-            student__username=username
+            owner__username=username
         ).exists():
             return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
                 'challenge_id': challenge_id,
@@ -364,7 +365,7 @@ def redirect_to_stage(request, challenge_id, username):
     challenge = get_object_or_404(Challenge, id=challenge_id)
 
     try:
-        progress = Progress.objects.get(challenge=challenge, student__username=username)
+        progress = Progress.objects.get(challenge=challenge, owner__username=username)
     except Progress.DoesNotExist:
         return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge.id,}))
 
@@ -382,7 +383,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
     challenge = get_object_or_404(Challenge, id=challenge_id)
 
     try:
-        progress = Progress.objects.get(challenge=challenge, student__username=username)
+        progress = Progress.objects.get(challenge=challenge, owner__username=username)
     except Progress.DoesNotExist:
         return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge.id,}))
 
@@ -441,20 +442,20 @@ def claim_progress(request, progress_id):
 
     messages.success(request, 'You have successfully claimed this challenge.')
 
-    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.student.username,}))
+    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.owner.username,}))
     #return HttpResponse(status=204)
 
 # Any POST to this changes the materials list for that progress
 @require_http_methods(["POST"])
 def change_materials(request, challenge_id, username):
-    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
+    progress = get_object_or_404(Progress, challenge_id=challenge_id, owner__username=username)
 
     form = MaterialsForm(request.POST, progress=progress)
     if form.is_valid():
         progress._materials_list = form.cleaned_data['materials']
         progress.save(update_fields=["_materials_list"])
 
-    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.student.username, 'stage': 'plan'}))
+    return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.owner.username, 'stage': 'plan'}))
 
 @login_required
 def set_favorite(request, challenge_id, mode='favorite'):
@@ -495,7 +496,7 @@ class ExamplesView(View):
         challenge = get_object_or_404(Challenge, id=challenge_id)
 
         if request.user.is_authenticated():
-            progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
+            progress = Progress.objects.filter(challenge_id=challenge_id, owner=request.user).first()
             examples = Example.objects.for_gallery(challenge=challenge, user=request.user)
             user_example = examples.filter(progress=progress).first()
         else:
@@ -522,7 +523,7 @@ class ExamplesView(View):
     @method_decorator(login_required)
     def post(self, request, challenge_id=None, *args, **kwargs):
         challenge = get_object_or_404(Challenge, id=challenge_id)
-        progress = Progress.objects.filter(challenge_id=challenge_id, student=request.user).first()
+        progress = Progress.objects.filter(challenge_id=challenge_id, owner=request.user).first()
         image = get_object_or_404(Image, id=request.POST.get('example'))
 
         if not image.comments.filter(user=request.user, challenge_progress=progress).exists():
@@ -539,7 +540,7 @@ class ExamplesDeleteView(View):
     @method_decorator(login_required)
     def post(self, request, challenge_id=None, *args, **kwargs):
         example = get_object_or_404(Example, id=request.POST.get('example-id'))
-        if example.progress.student != request.user:
+        if example.progress.owner != request.user:
             raise Http404()
         example.approved=False
         example.save()

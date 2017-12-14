@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 
 {% block step_form %}
-  {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
+  {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.owner.username stage='build' as comment_url %}
   <form method="POST" action="{{ comment_url }}">
     {% csrf_token %}
     <div class="form-group">

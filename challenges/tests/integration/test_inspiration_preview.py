@@ -55,7 +55,7 @@ def test_student_template_gets_examples(client):
 def test_redirects_student_with_progress_to_their_progress(client):
     challenge = ChallengeFactory()
     user = StudentFactory(username='user', password='123123')
-    progress = ProgressFactory(challenge=challenge, student=user)
+    progress = ProgressFactory(challenge=challenge, owner=user)
 
     client.login(username='user', password='123123')
     response = client.get('/challenges/%d/' % challenge.id, follow=False)

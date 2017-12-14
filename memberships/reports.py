@@ -64,7 +64,7 @@ class MembershipReport():
         total = 0
         for d in self.membership.students.values(*model_headers).all():
             d['submissions'] = Progress.objects.filter(
-                student=d["id"],
+                owner=d["id"],
                 comments__user=d["id"],
                 challenge__membership=self.membership
             ).distinct().count()

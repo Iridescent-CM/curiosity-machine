@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block post_your_plan %}
-  {% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.student.username stage='plan' as comment_url %}
+  {% url 'challenges:comments:comments' challenge_id=challenge.id username=progress.owner.username stage='plan' as comment_url %}
   <form method="POST" action="{{ comment_url }}">
     {% csrf_token %}
     {{ comment_form.text|attr:"placeholder:Write your plan here. You can also add a photo or video below." }}
@@ -13,14 +13,14 @@
 
 {% block ready_to_build %}
   <a class="btn btn-lg btn-primary start-link"
-    href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.student.username stage='build' %}"
+    href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=progress.owner.username stage='build' %}"
   >
     Ready to Build
   </a>
 {% endblock %}
 
 {% block edit_materials_button %}
-  {% if request.user == progress.student %}
+  {% if request.user == progress.owner %}
   <button class="edit-materials btn btn-primary">Edit Materials</button>
   {% else %}
   <button class="btn btn-primary" disabled="disabled">Edit Materials</button>

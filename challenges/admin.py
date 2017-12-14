@@ -83,7 +83,7 @@ class ProgressAdmin(admin.ModelAdmin):
     ]
 
     actions = ['unclaim']
-    search_fields = ('challenge__name', 'mentor__username', 'student__username', 'comments__text')
+    search_fields = ('challenge__name', 'mentor__username', 'owner__username', 'comments__text')
 
     def unclaim(self, request, queryset):
         rows_updated = queryset.update(mentor_id=None)
@@ -95,6 +95,7 @@ class ProgressAdmin(admin.ModelAdmin):
     unclaim.short_description = """Remove/Unclaim the mentor from this Project"""
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        #TODO: fix
         if db_field.name == "student":
             kwargs["queryset"] = User.objects.filter(extra__role=UserRole.student.value)
         elif db_field.name == "mentor":
@@ -147,11 +148,11 @@ class ExampleAdmin(admin.ModelAdmin):
         models.TextField: {'widget': forms.TextInput},
     }
 
-    list_display = ['id', '_challenge_name', '_student', '_admin_thumbnail', 'approved']
+    list_display = ['id', '_challenge_name', '_owner', '_admin_thumbnail', 'approved']
     list_filter = [DefaultsToPendingApprovalFilter]
     fields = ['progress', 'image', '_admin_thumbnail', 'approved']
     readonly_fields = ['_admin_thumbnail']
-    search_fields = ['challenge__name', 'progress__student__username']
+    search_fields = ['challenge__name', 'progress__owner__username']
 
     def approve_all(modeladmin, request, queryset):
         queryset.approve()
@@ -167,9 +168,9 @@ class ExampleAdmin(admin.ModelAdmin):
         return obj.challenge.name
     _challenge_name.short_description = 'Challenge'
 
-    def _student(self, obj):
-        return obj.progress.student.username
-    _student.short_description = 'Student'
+    def _owner(self, obj):
+        return obj.progress.owner.username
+    _owner.short_description = 'Owner'
 
     def _admin_thumbnail(self, obj):
         if obj.image:

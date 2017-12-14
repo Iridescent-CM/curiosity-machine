@@ -37,20 +37,20 @@ def generate_analytics(start_date, end_date):
             "Video/Image"
         ])
 
-        progresses = Progress.objects.select_related('student')
+        progresses = Progress.objects.select_related('owner')
 
         # Start Building
         started = progresses.filter(started__gte=start_date, started__lte=end_date)
         for progress in started:
             writer.writerow([
-                progress.student_id,
-                progress.student.username,
+                progress.owner_id,
+                progress.owner.username,
                 "learner",
                 "start building",
                 "",
                 progress.started.strftime('%Y-%m-%d %H:%M:%S'),
                 progress.challenge_id,
-                progress.student_id,
+                progress.owner_id,
                 progress.mentor_id,
                 "",
                 ""
@@ -60,14 +60,14 @@ def generate_analytics(start_date, end_date):
         approved = progresses.filter(approved__gte=start_date, approved__lte=end_date)
         for progress in approved:
             writer.writerow([
-                progress.student_id,
-                progress.student.username,
+                progress.owner_id,
+                progress.owner.username,
                 "learner",
                 "sent to reflection",
                 "",
                 progress.approved.strftime('%Y-%m-%d %H:%M:%S'),
                 progress.challenge_id,
-                progress.student_id,
+                progress.owner_id,
                 progress.mentor_id,
                 "",
                 ""
@@ -101,7 +101,7 @@ def generate_analytics(start_date, end_date):
                 Stage(comment.stage).name,
                 comment.created.strftime('%Y-%m-%d %H:%M:%S'),
                 comment.challenge_progress.challenge_id,
-                comment.challenge_progress.student_id,
+                comment.challenge_progress.owner_id,
                 comment.challenge_progress.mentor_id,
                 comment.text,
                 video_url if comment.video else (comment.image.url if comment.image else "")
