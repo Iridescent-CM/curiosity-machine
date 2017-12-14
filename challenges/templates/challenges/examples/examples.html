@@ -53,7 +53,7 @@
 
       <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          {% if progress.get_student_images %}
+          {% if progress.get_owner_images %}
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -68,7 +68,7 @@
                   <div class="col-md-12">
                     <p>Photos from {{ challenge.name }}</p>
                   </div>
-                  {% for image in progress.get_student_images %}
+                  {% for image in progress.get_owner_images %}
                   <div class="col-md-6">
                     <input type="radio" name="example" id="example-{{image.id}}" value="{{image.id}}">
                     <label for="example-{{image.id}}">

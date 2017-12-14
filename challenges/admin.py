@@ -77,7 +77,7 @@ class CommentInline(admin.StackedInline):
 
 
 class ProgressAdmin(admin.ModelAdmin):
-    list_display = ('__str__','challenge_name','student_username','mentor_username',)
+    list_display = ('__str__','challenge_name','owner_username','mentor_username',)
     inlines = [
       CommentInline
     ]

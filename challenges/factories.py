@@ -57,7 +57,7 @@ class ProgressFactory(factory.django.DjangoModelFactory):
         model = models.Progress
 
     challenge = factory.SubFactory('challenges.factories.ChallengeFactory')
-    student = factory.SubFactory('students.factories.StudentFactory')
+    owner = factory.SubFactory('students.factories.StudentFactory')
 
     @factory.post_generation
     def comment(obj, create, extracted, **kwargs):
@@ -65,13 +65,13 @@ class ProgressFactory(factory.django.DjangoModelFactory):
             if not create:
                 raise NotImplementedError('only CREATE strategy is handled so far, not BUILD')
 
-            obj.comments.create(user=obj.student, text="First post!", stage=1)
+            obj.comments.create(user=obj.owner, text="First post!", stage=1)
             if isinstance(extracted, int) and extracted > 1:
                 for idx in range(1, extracted):
                     if obj.mentor:
-                        user = random.choice([obj.student, obj.mentor])
+                        user = random.choice([obj.owner, obj.mentor])
                     else:
-                        user = obj.student
+                        user = obj.owner
                     obj.comments.add(CommentFactory(challenge_progress=obj, user=user))
 
     @factory.post_generation
@@ -80,7 +80,7 @@ class ProgressFactory(factory.django.DjangoModelFactory):
             if not create:
                 raise NotImplementedError('only CREATE strategy is handled so far, not BUILD')
 
-            obj.comments.create(user=obj.student, text="Reflection", stage=4, question_text="Reflect question text")
+            obj.comments.create(user=obj.owner, text="Reflection", stage=4, question_text="Reflect question text")
 
 class ExampleFactory(factory.django.DjangoModelFactory):
     class Meta:
