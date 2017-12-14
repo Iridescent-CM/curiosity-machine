@@ -20,7 +20,7 @@ class ProfileRedirectView(RedirectView):
         if role == UserRole.none:
             return reverse("profiles:profiles")
         else:
-            return reverse("%ss:%s" % (role.name, self.viewname), args=args, kwargs=kwargs)
+            return reverse("%s:%s" % (role.app_name, self.viewname), args=args, kwargs=kwargs)
 
 home = login_required(ProfileRedirectView.as_view(viewname="home"))
 edit_profile = login_required(ProfileRedirectView.as_view(viewname="edit_profile"))

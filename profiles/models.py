@@ -11,24 +11,57 @@ from cmcomments.models import Comment
 from django.utils.timezone import now
 from enum import Enum
 
+USER_ROLE_CONFIG = {
+    'student': {
+        'app': 'students',
+        'profileclass': 'StudentProfile'
+    },
+    'mentor': {
+        'app': 'mentors',
+        'profileclass': 'MentorProfile'
+    },
+    'educator': {
+        'app': 'educators',
+        'profileclass': 'EducatorProfile'
+    },
+    'parent': {
+        'app': 'parents',
+        'profileclass': 'ParentProfile'
+    },
+    'family': {
+        'app': 'families',
+        'profileclass': 'FamilyProfile'
+    }
+}
+
 class UserRole(Enum):
     none = 0
     student = 1
     mentor = 2
     educator = 3
     parent = 4
+    family = 5
+
+    @property
+    def app_name(self):
+        config = USER_ROLE_CONFIG.get(self.name, None)
+        if not config:
+            return None
+        return config.get('app')
 
     @property
     def profile_class(self):
-        if self.value == 0:
+        config = USER_ROLE_CONFIG.get(self.name, None)
+        if not config:
             return None
-        return apps.get_model('%ss' % self.name, '%sProfile' % self.name.title())
+        return apps.get_model(self.app_name, config.get('profileclass'))
 
     @property
     def profile_attr(self):
-        if self.value == 0:
+        config = USER_ROLE_CONFIG.get(self.name, None)
+        if not config:
             return None
-        return '%sprofile' % self.name
+        return config.get('profileclass').lower()
 
 class BaseProfile(models.Model):
     class Meta:

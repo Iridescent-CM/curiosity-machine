@@ -76,6 +76,7 @@ INSTALLED_APPS = (
     'parents',
     'mentors',
     'educators',
+    'families.apps.FamiliesConfig',
     'challenges',
     'cmcomments',
     'videos',
