@@ -1,0 +1,19 @@
+{% extends "profiles/profile_form.html" %}
+{% load bootstrap4 %}
+{% load pick_action %}
+
+{% block js %}
+  {{ form.media }}
+{% endblock %}
+
+{% block action %}
+  {% pick_action form edit="families:edit_profile" create="families:create_profile" %}
+{% endblock %}
+
+{% block fields %}
+  <div class="text-xs-center">
+    {% block avatar %}{{ block.super }}{% endblock %}
+    {% form_group form.image_url field_class="btn btn-primary" %}
+  </div>
+  {% email_form_group form.email email=email %}
+{% endblock %}

@@ -172,6 +172,10 @@ class User(get_user_model()):
         user.__class__ = cls
         return user
 
+    @classmethod
+    def profile_for(cls, user):
+        return cls.cast(user).profile
+
     @property
     def profile(self):
         role = UserRole(self.extra.role)

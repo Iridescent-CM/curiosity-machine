@@ -54,11 +54,6 @@ class ParentProfileForm(ProfileModelForm):
     def get_role(self):
         return UserRole.parent
 
-class EditParentProfileForm(forms.ModelForm):
-    class Meta:
-        model = ParentProfile
-        fields = '__all__'
-
 class ConnectForm(forms.ModelForm):
     class Meta:
         model = ParentProfile
