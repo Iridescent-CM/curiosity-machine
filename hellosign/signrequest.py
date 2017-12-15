@@ -15,7 +15,7 @@ def send_underage_consent_form(sender):
     child_birth_date = sender.studentprofile.birthday.strftime('%b %d, %Y')
     child_username = sender.username
     child_user_id = str(sender.studentprofile.user_id)
-    subject = "Activate Your Curiosity Machine Account"
+    subject = "Curiosity Machine Parental Consent Form"
     message = 'Your child has requested the user name ' + child_username + \
               ' on Curiosity Machine, where they will be able to ' \
               'explore design challenges, build projects with ' \
