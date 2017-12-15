@@ -1,12 +1,13 @@
 from django.core.management.base import BaseCommand, CommandError
-from profiles.models import Profile
-from students.models import BaseProfile
 from students.models import StudentProfile
 from hellosign_sdk import HSClient
 from django.conf import settings
 from curiositymachine import signals
 import time
+import hellosign_sdk
+import logging
 
+logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     help = 'Approve all underage users for whom their parents have signed the consent form'
@@ -24,8 +25,16 @@ class Command(BaseCommand):
         # Initialize HSClient using api key
         api_key = settings.HELLOSIGN_API_KEY
         client = HSClient(api_key=api_key)
-        signature_request_list = client.get_signature_request_list()
-
+        for request_attempt in range(5):
+            try:
+                signature_request_list = client.get_signature_request_list()
+            except hellosign_sdk.utils.exception.Conflict:
+                time.sleep(10) # collided with active call, wait and retry
+            else:
+                break
+        else:
+            logger.warning("Unable to approve underage students: collided with active call to request list")
+            return
         request = client.request
 
         # set the page and the number of pages of signature request to the default
@@ -38,9 +47,18 @@ class Command(BaseCommand):
 
         while request and page <= num_pages:
             user_ids_to_approve = []
-            signature_request_list = request.get(client.SIGNATURE_REQUEST_LIST_URL,
-                                                 parameters={"query": "complete:true", "page": page,
-                                                             "page_size": page_size})
+            for request_attempt in range(5):
+                try:
+                    signature_request_list = request.get(client.SIGNATURE_REQUEST_LIST_URL,
+                                                         parameters={"query": "complete:true", "page": page,
+                                                                     "page_size": page_size})
+                except hellosign_sdk.utils.exception.Conflict:
+                    time.sleep(10)  # collided with active call, wait and retry
+                else:
+                    break
+            else:
+                logger.warning("Unable to approve underage students: collided with active call to request list too many times")
+                return
             signature_requests = signature_request_list["signature_requests"]
 
             # get the actual number of pages of signature request so that

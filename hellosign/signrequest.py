@@ -1,6 +1,9 @@
 import datetime
 from hellosign_sdk import HSClient
 from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def send_underage_consent_form(sender):
@@ -42,9 +45,14 @@ def send_underage_consent_form(sender):
 
 
     # send template:
-    client.send_signature_request_with_template(test_mode=test_mode,
-                                                template_id=template_id,
-                                                custom_fields=custom_fields, signers=signers,
-                                                subject=subject,
-                                                message=message,
-                                                metadata=metadata)
+    try:
+        client.send_signature_request_with_template(test_mode=test_mode,
+                                                    template_id=template_id,
+                                                    custom_fields=custom_fields, signers=signers,
+                                                    subject=subject,
+                                                    message=message,
+                                                    metadata=metadata)
+    except:
+        logger.warning(
+            "Unsent hellosign signature request, user_id=%s",
+            child_user_id)
