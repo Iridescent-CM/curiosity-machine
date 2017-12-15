@@ -114,8 +114,9 @@ class ListView(ListView):
     template_name = "mentors/list.html"
     queryset = (MentorProfile.objects
         .filter(user__extra__role=UserRole.mentor.value, user__extra__approved=True)
+        .annotate(has_image=Count('image'))
         .select_related('user'))
-    ordering = '-user__date_joined'
+    ordering = ('-has_image', '-user__date_joined',)
     paginate_by = settings.DEFAULT_PER_PAGE
     context_object_name = 'mentors'
 
