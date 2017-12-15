@@ -41,8 +41,9 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
+
         progresses = Progress.objects.filter(
-            mentor=request.user, started__gt=startdate
+            mentor=request.user,
         ).select_related(
             'challenge',
             'challenge__image',
@@ -56,7 +57,7 @@ class HomeView(TemplateView):
         )[:4]
 
         unclaimed_days_and_counts = (Progress.objects
-            .filter(mentor__isnull=True)
+            .filter(mentor__isnull=True, started__gt=startdate)
             .exclude(comments=None)
             .annotate(start_day=TruncDate('started'))
             .values_list('start_day')
@@ -75,7 +76,7 @@ class HomeView(TemplateView):
             unclaimed_days.append((data, progress))
 
         claimable_progresses = Progress.objects.filter(
-            mentor__isnull=True
+            mentor__isnull=True, started__gt=startdate
         ).exclude(
             comments=None
         )
