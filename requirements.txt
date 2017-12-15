@@ -35,4 +35,4 @@ rollbar==0.12.1
 # this is needed to run the fixtures command on staging
 factory-boy==2.8.1
 #this is needed for the hellosign e-signature API
-hellosign-python-sdk
+hellosign-python-sdk==3.8.5
