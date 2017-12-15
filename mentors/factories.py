@@ -29,4 +29,4 @@ class MentorFactory(factory.django.DjangoModelFactory):
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
     extra = factory.RelatedFactory(UserExtraFactory, 'user',role=UserRole.mentor.value)
-    profile = factory.RelatedFactory(MentorProfileFactory, 'user')
+    mentorprofile = factory.RelatedFactory(MentorProfileFactory, 'user')
