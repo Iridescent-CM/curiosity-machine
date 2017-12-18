@@ -161,8 +161,9 @@ class UnclaimedBySourceView(ListView):
     context_object_name = "progresses"
 
     def get_queryset(self):
+        startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
         self.queryset = (Progress.objects
-            .filter(mentor__isnull=True, student__extra__source=self.request.GET['source'])
+            .filter(mentor__isnull=True, student__extra__source=self.request.GET['source'], started__gt=startdate)
             .exclude(comments=None)
             .select_related(
                 'challenge', 'student', 'student__profile',
