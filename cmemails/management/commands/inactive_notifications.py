@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from profiles.models import Profile
+from profiles.models import UserExtra
 from ... import send
 
 class Command(BaseCommand):
