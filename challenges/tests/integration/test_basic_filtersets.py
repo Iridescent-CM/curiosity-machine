@@ -53,7 +53,7 @@ def test_core_challenges_template_context(rf):
     core = ChallengeFactory.create_batch(1, core=True, free=True, draft=False)
     assert CoreChallenges().get_template_contexts() == [{
         "text": "Featured Challenges",
-        "full_url": "/challenges/?free=1#challenges",
+        "full_url": "/challenges/?featured=1#challenges",
         "active": False
     }]
 
@@ -61,7 +61,7 @@ def test_core_challenges_template_context(rf):
     f.apply()
     assert f.get_template_contexts() == [{
         "text": "Featured Challenges",
-        "full_url": "/challenges/?free=1#challenges",
+        "full_url": "/challenges/?featured=1#challenges",
         "active": True
     }]
 
