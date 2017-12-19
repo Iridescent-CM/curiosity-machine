@@ -33,10 +33,10 @@ def test_core_challenges_requested(rf):
     request = rf.get('/challenges/')
     assert not CoreChallenges(request).requested
 
-    request = rf.get('/challenges/', {"free": "1"})
+    request = rf.get('/challenges/', {"featured": "1"})
     assert CoreChallenges(request).requested
 
-    request = rf.get('/challenges/', {"free": "x"})
+    request = rf.get('/challenges/', {"featured": "x"})
     assert CoreChallenges(request).requested
 
 @pytest.mark.django_db
