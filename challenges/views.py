@@ -116,7 +116,7 @@ class MembershipChallenges(FilterSet):
         } for membership in user_memberships]
 
 class CoreChallenges(FilterSet):
-    query_param = "free"
+    query_param = "featured"
 
     def apply(self):
         self.applied = True
