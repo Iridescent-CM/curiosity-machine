@@ -40,7 +40,7 @@ class ProfileModelForm(forms.ModelForm):
 
         self.update_user()
         try:
-            self.user.full_clean()
+            self.user.full_clean(exclude=['username'])
         except ValidationError as e:
             self._update_errors(e)
 

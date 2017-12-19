@@ -9,4 +9,7 @@ class UsernameUniquenessValidator:
     def __eq__(self, other):
         return isinstance(other, self.__class__)
 
-username_validators = [UsernameUniquenessValidator(),]
+username_validators = [
+    UsernameUniquenessValidator(),
+    get_user_model().username_validator,
+]
