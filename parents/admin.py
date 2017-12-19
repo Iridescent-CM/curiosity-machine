@@ -10,6 +10,7 @@ class ParentConnectionAdmin(admin.ModelAdmin):
         'parent_profile__user__email',
         'child_profile__user__email'
     ]
+    raw_id_fields = ['parent_profile', 'child_profile']
 
     def parent(self, obj):
         return obj.parent_profile.user.username
