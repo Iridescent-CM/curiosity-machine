@@ -26,7 +26,9 @@
         <div class="col-md-12">
           <strong>Email:</strong> {{ request.user.email }}
           <br>
+          {% if membership_selection.memberships %}
           <strong>Memberships:</strong> {{ membership_selection.names }}
+          {% endif %}
         </div>
       </div>
       <div class="row mt-1">
