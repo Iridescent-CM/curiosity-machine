@@ -34,7 +34,7 @@
   {% if core_challenges %}
   <div class="row pb-1">
     <div class="col-md-12">
-      <h2>Free Design Challenges</h2>
+      <h2>Featured Design Challenges</h2>
     </div>
   </div>
 
@@ -55,21 +55,6 @@
 
     {% endfor %}
 
-  </div>
-  {% endif %}
-
-
-  {% if membership_selection.no_memberships %}
-  <div class="mt-3">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="dotted-well text-xs-center">
-          <h3>Want more design challenges?</h3>
-          <p>Access more design challenges with a Curiosity Machine membership. <a href="{% url 'about-membership' %}">Learn more about memberships</a> and fill out the interest form below.</p>
-          <a href="https://docs.google.com/forms/d/1DH10-vj1U7x93LTwPX6FoJRF1WyH2eRhVtZ46XkdD78/viewform" class="btn btn-primary">View Form</a>
-        </div>
-      </div>
-    </div>
   </div>
   {% endif %}
 {% endblock %}
