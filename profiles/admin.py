@@ -36,16 +36,26 @@ class UserExtraInline(admin.StackedInline):
 
 class EducatorProfileInline(admin.StackedInline):
     model = EducatorProfile
+    raw_id_fields = ['image']
 
 class MentorProfileInline(admin.StackedInline):
     model = MentorProfile
+    raw_id_fields = [
+        'image',
+        'about_me_image',
+        'about_research_image',
+        'about_me_video',
+        'about_research_video',
+    ]
 
 class ParentProfileInline(admin.StackedInline):
     model = ParentProfile
+    raw_id_fields = ['image']
     min_num = 1
 
 class StudentProfileInline(admin.StackedInline):
     model = StudentProfile
+    raw_id_fields = ['image']
 
 class CMUserChangeForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
