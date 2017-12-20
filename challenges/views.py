@@ -116,16 +116,16 @@ class MembershipChallenges(FilterSet):
         } for membership in user_memberships]
 
 class CoreChallenges(FilterSet):
-    query_param = "free"
+    query_param = "featured"
 
     def apply(self):
         self.applied = True
-        return "Free Design Challenges", Challenge.objects.filter(core=True), None
+        return "Featured Design Challenges", Challenge.objects.filter(core=True), None
 
     def get_template_contexts(self):
         if Challenge.objects.filter(core=True, draft=False).count() > 0:
             return [{
-                "text": "Free Challenges",
+                "text": "Featured Challenges",
                 "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
                 "active": bool(self.applied)
             }]
@@ -405,7 +405,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
             "challenges/edp/progress/%s/%s.html" % (request.user.extra.user_type, stageToShow.name),
             "challenges/edp/progress/%s/%s.html" % (request.user.extra.role_name, stageToShow.name),
             "challenges/edp/progress/%s.html" % stageToShow.name,
-        ],     
+        ],
         {
         'challenge': challenge,
         'progress': progress,
