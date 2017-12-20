@@ -18,6 +18,15 @@
       </li>
       <li class="nav-item">
         <a
+          class="nav-link {% if active_nav == 'ai-challenge' %}active{% endif %}"
+          href="/aichallenge"
+          id="aichallenge-about-page-nav"
+        >
+          AI Family Challenge
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
           class="nav-link {% if active_nav == 'parents' %}active{% endif %}"
           href="{% url 'parents' %}"
           id="parent-about-page-nav"
@@ -36,24 +45,6 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link {% if active_nav == 'mentor' %}active{% endif %}"
-          href="{% url 'mentor' %}"
-          id="mentor-about-page-nav"
-        >
-          Mentors
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link {% if active_nav == 'membership' %}active{% endif %}"
-          href="{% url 'about-membership' %}"
-          id="membership-about-page-nav"
-        >
-          Memberships
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
           class="nav-link {% if active_nav == 'partnership' %}active{% endif %}"
           href="/about-partnership"
           id="partnership-about-page-nav"
@@ -63,20 +54,20 @@
       </li>
       <li class="nav-item">
         <a
+          class="nav-link {% if active_nav == 'mentor community' %}active{% endif %}"
+          href="{% url 'mentors:list' %}"
+          id="mentor-community-page"
+        >
+          Mentor Community
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
           class="nav-link {% if active_nav == 'community-guidelines' %}active{% endif %}"
           href="/community-guidelines"
           id="community-guidelines-about-page-nav"
         >
           Community Guidelines
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link {% if active_nav == 'ai-challenge' %}active{% endif %}"
-          href="/aichallenge"
-          id="aichallenge-about-page-nav"
-        >
-          AI Family Challenge
         </a>
       </li>
       <li class="nav-item">
