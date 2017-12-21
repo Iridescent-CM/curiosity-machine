@@ -20,11 +20,13 @@
             design challenges
           </a>
         </li>
+        {% if membership_selection.selected.students %}
         <li class="nav-item {% ifactive "educators:students" "active-nav" %}">
           <a class="nav-link" href="{% url 'educators:students' %}">
             students
           </a>
         </li>
+        {% endif %}
         <li class="nav-item {% ifactive "educators:guides" "active-nav" %}">
           <a class="nav-link" href="{% url 'educators:guides' %}">
             units &amp; guides

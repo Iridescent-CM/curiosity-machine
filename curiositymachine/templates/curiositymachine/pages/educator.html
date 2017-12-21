@@ -13,36 +13,20 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
-        <h2>Bring Engineering to Your Classroom</h2>
-        <h3 class="mb-3">Teach hands-on science with simple materials.</h3>
-        <p>With the engineering design process as a guide, your students will plan, build, and test their designs. They’ll document each step on Curiosity Machine, where you can create groups and add your students to see their progress.</p>
+        <h2>Bring Curiosity Machine to your students</h2>
+        <h3 class="mb-3">We believe the best learning happens through exploration. Challenge your students to discover new ideas and solve unique problems.</h3>
+        <p>Educators everywhere are using Curiosity Machine in classrooms, after school clubs, family programs, makerspaces, libraries, and more. That's because Curiosity Machine creates engaging and approachable opportunities for students and adults to learn together. You don't have to be a scientist or engineer to lead design challenges—you just have to be curious enough to want to learn! </p>
 
-        <p>Educators everywhere are using Curiosity Machine in:</p>
-        <ul>
-          <li>K-12 classrooms</li>
-          <li>After school clubs</li>
-          <li>Family science programs</li>
-          <li>Makerspaces</li>
-          <li>Libraries, summer camps, etc. </li>
-        </ul>
+        <hr class="mb-3"/>
 
-        <img class="img-rounded" src="{% static 'images/about/classroom-example.jpg' %}" alt="Teacher and child build together">
+        <h3>Simple Materials</h3>
+        <p>We develop our design challenges using the most affordable materials available. Also, we encourage students to think creatively about materials that can be re-purposed for their creations as a part of the problem solving process. Educators can challenge students to build prototype helicopters, robots, and more without the need for expensive kits.</p>
 
-        <hr class="hr-red mb-3"/>
+        <h3 class="mt-2">Students learn more than just STEM.</h3>
+        <p>With the engineering design process (EDP) as a guide, your students will plan, build, and test their designs. Students document each step on Curiosity Machine, where you can monitor their progress. But most importantly, students who complete Curiosity Machine design challenges learn to persevere through mistakes and failure, learning that creating something new is a process of testing and improvement.This supports them to build confidence in their ability to solve tough problems.</p>
 
-        <h2>Curiosity Machine for Schools: Become a Member</h2>
-        <p>Anyone can create an account and access Curiosity Machine’s videos, design challenges, and Educator resources for free.</p>
-
-        <p>Schools and other organizations can purchase a membership to get:</p>
-        <ul>
-          <li>Training for educators and parents</li>
-          <li>1-on-1 mentor feedback for student projects</li>
-          <li>Support from Curiosity Machine staff</li>
-        </ul>
-
-        <div class="text-xs-center">
-          <a class="btn btn-primary" href="{% url "about-membership" %}">Become a Member</a>
-        </div>
+        <h3 class="mt-2">Curiosity Machine is Free</h3>
+        <p>Create an account to access Curiosity Machine’s design challenges, videos, educator resources, and student progress tracking for free!</p>
 
         <hr class="hr-red mb-3"/>
 
@@ -110,26 +94,24 @@
 
     <div class="row">
       <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-3">
-        <h3 class="m-y-md">NGSS Alignment</h3>
-        <p>Want to do hands-on projects and hit standards at the same time? Curiosity Machine has you covered. Our design challenges are aligned to elementary NGSS standards, and middle school alignment is on the way.</p>
+        <h3>Design Challenges Support Education Standards</h3>
+        <p>Want to lead Curiosity Machine design challenges and hit your teaching standards at the same time? We have you covered. Our design challenges support many state standards, including NGSS standards. We've even created a guide to help identify design challenges that support specific standards in <a href="https://s3.amazonaws.com/curiositymachine/statics/Curiosity_Machine_NGSS_Alignment_K-8.pdf" target="_blank">k-8 NGSS</a>.</p>
 
-        <div class="text-xs-center">
-          <a href="https://s3.amazonaws.com/curiositymachine/statics/Curiosity_Machine_NGSS_Alignment_K-8.pdf" class="btn btn-primary" data-ga-track="pageview" data-ga-page="ngss-k-8">View NGSS K-8 Alignment</a>
-        </div>
 
-        <h3 class="mt-3">More Resources</h3>
+        <h3 class="mt-3">Additional Support</h3>
+        <p>If your school or organization needs a little more support, we also offer the following paid services:</p>
         <ul>
-          <li><a href="https://s3.amazonaws.com/curiositymachine/statics/guide-to-great-submissions.pdf">Guide to Great Submissions</a></li>
-          <li><a href="https://s3.amazonaws.com/curiositymachine/statics/parental-consent-and-privacy-policy.pdf">Under 13 Consent Form</a></li>
-          <li><a href="http://iridescentlearning.org/wp-content/uploads/2014/09/CM-Login.pdf">Create Account Instructions</a></li>
+          <li>Professional development for educators </li>
+          <li>Parent educational workshops</li>
+          <li>Additional support from Curiosity Machine team</li>
         </ul>
-
+        <p>Contact <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a> for more information on these additional services.</p>
       </div>
     </div>
   </div>
 
   <div class="sign-up-panel py-3">
-    <h2>Create an Educator Account!</h2>
-    <a href="{% url "account_signup" %}?next={% url "educators:create_profile" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
+    <h2>Create an account!</h2>
+      <a href="{% url "account_signup" %}" class="btn btn-red-secondary text-uppercase">Get Started</a>
   </div>
 {% endblock %}
