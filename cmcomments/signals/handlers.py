@@ -17,5 +17,9 @@ def create_comment(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Comment)
 def check_if_first_project(sender, instance, created, **kwargs):
     comment = instance
-    if created and comment.challenge_progress.is_first_project() and comment.is_first_post():
+    if (created
+        and comment.user == comment.challenge_progress.student
+        and comment.challenge_progress.is_first_project()
+        and comment.is_first_post()
+    ):
         signals.started_first_project.send(sender=comment.user, progress=comment.challenge_progress)

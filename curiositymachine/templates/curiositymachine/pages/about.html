@@ -13,88 +13,125 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
-        <h2>How Do Children Succeed?</h2>
-        <h3 class="mb-3">With curiosity, creativity, and persistence.</h3>
-        <p>Like any other skill, it takes practice! We’re here to help you learn.</p>
-        <p>At Curiosity Machine, we practice by building hands-on engineering design challenges. We believe that through building, you learn not only how something works, but why it works.</p>
-        <p>And when a design doesn't work, why not? You’ll have to try new ideas, learn from your mistakes, and find your own solutions. Keep building, keep practicing, and with time you'll surprise yourself with your creative inventions.</p>
-        <p>Sounds challenging? We agree! That’s why we created Curiosity Machine. We support students, parents, educators, and mentors to build, learn, and teach using the engineering design process.</p>
-        <p>Together, we inspire children to succeed by being curious, creative, and persistent.</p>
+        <h2>Imagine a better world and build it together</h2>
+        <p>We're on a mission to empower children and their families to become leaders and innovators of the future. And because we want every child to have the opportunity to build the future, Curiosity Machine is 100% free.</p>
+        <p>Whether you want quality learning challenges to do at home or curriculum for a classroom of eager learners, Curiosity Machine is a perfect source of inspiration to fuel curiosity, creativity, and perseverance while learning about the science and technology that will drive the future.</p>
+      </div>
+      <div class="col-xs-8 offset-xs-2 text-xs-center mt-2">
+        <h5>Learn about our new</br><a href="{% url "aichallenge" %}">Artificial Intelligence Family Challenge</a></h5>
+      </div>
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-xs-12">
+        <hr class="hr-red mb-3"/>
+        <h2>How Curiosity Machine Works</h2>
 
-        <div class="row my-3">
+        <div class="row mt-2">
           <div class="col-md-10 offset-md-1">
             <div class="embed-responsive embed-responsive-16by9">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/XBAE46x2qio" allowfullscreen></iframe>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/t_x9fL0MF0w" allowfullscreen></iframe>
             </div>
           </div>
         </div>
 
-        <hr class="hr-red mb-3"/>
-
-        <h2>How Curiosity Machine Works</h2>
-        <h3>Create a student account and...</h3>
         <div class="row mt-3">
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <h4><span class="numbered-bullet">1</span> Find Inspiration</h4>
-            <p>What makes scientists and engineers curious? Watch videos of the experts sharing their research and inventions.</p>
+            <p>The world is full of inspiration, you just have to know where to look. Each challenge begins by showing what cutting-edge scientists and engineers are working on, and how it's changing the world.</p>
           </div>
-          <div class="col-lg-6">
-            <h4><span class="numbered-bullet">2</span> Build a Design Challenge</h4>
-            <p>Find a challenge and try to build it! Follow the engineering design process and document as you plan, build, and test.</p>
+          <div class="col-lg-4">
+            <h4><span class="numbered-bullet">2</span> Bring your Idea to Life</h4>
+            <p>Making something yourself isn't just fun—it's a great way to learn! Our challenges give enough instruction to help get started and endless freedom to take ideas wherever they lead.</p>
           </div>
-          <div class="col-lg-6">
-            <h4><span class="numbered-bullet">3</span> Get Mentor Feedback</h4>
-            <p>Stuck? Need support? Looking for a new idea? Join a <a href="{% url "about-membership" %}">membership</a> and get feedback on your designs from a Curiosity Machine mentor.</p>
-          </div>
-          <div class="col-lg-6">
-            <h4><span class="numbered-bullet">4</span> Share What You Built</h4>
-            <p>Wrap up your design by reflecting and sharing a photo. Check out other users' projects for more inspiration!</p>
+          <div class="col-lg-4">
+            <h4><span class="numbered-bullet">3</span> Share and Reflect</h4>
+            <p>We love seeing what children and families create, and so do other learners! We also believe it's very important to think about what was learned, and use it to fuel new ideas.</p>
           </div>
         </div>
+
+        <div class="my-2 text-xs-center">
+          <a href="{% url 'challenges:challenges' %}" class="btn btn-primary">Try a challenge</a>
+          <p>(it's free!)</p>
+        </div>
+
 
         <hr class="hr-red mb-3"/>
 
-        <h2>Curiosity Machine Supports You to Support Your Students</h2>
-        <p><a href="{% url "parents" %}">Parents:</a> connect to your child’s account and learn how to build together</p>
-        <p><a href="{% url "educator" %}">Educators:</a> find resources for engineering challenges and track student progress</p>
-        <p><a href="{% url "mentor" %}">Mentors:</a> guide students as they build engineering design challenges</p>
+        <h2>Curiosity Machine has a profound impact on children</h2>
+        <p>Our goal isn’t just to create the next generation of scientists and engineers, but to help students develop skills that will support them in any field. While Curiosity Machine exposes children to various STEM content areas, our curriculum has been shown to help children become less averse to challenges and be more curious.</p>
+        <h6 class="mb-0 mt-2 text-xs-center">Curiosity Machine Student Impact</h6>
+        <figure class="figure">
+          <img class="figure-img img-fluid" src="{% static 'images/about/graph-membership.png' %}" alt="Learning Gains for Children">
+          <figcaption class="figure-caption">
+            <p>
+            In 2010, the National Science Foundation sponsored a five-year longitudinal study, Be A Scientist!, where undergraduate engineering students taught Curiosity Machine design challenges to underserved families. The results were overwhelmingly positive. Click here learn more about our research results!</p>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-2">
 
-        <hr class="hr-red m-b-lg"/>
+        <hr class="hr-red"/>
 
-        <h2>Engineering Design Challenges</h2>
-        <p><strong>We</strong> work with scientists and engineers to create design challenges inspired by their inventions.</p>
-        <p><strong>You</strong> learn about the science behind the challenge and try to build your own!</p>
-        <p>Our engineering design challenges:</p>
-        <ul>
-          <li>Use simple household materials</li>
-          <li>Scale up or down for students K-12</li>
-          <li>Have many possible solutions &mdash; there’s never one right answer!</li>
-        </ul>
-        <div class="mb-3 text-xs-center">
-          <a href="{% url 'challenges:challenges' %}" class="btn btn-primary">Browse Challenges</a>
+        <div id="quote-carousel" class="carousel slide container">
+          <ol class="carousel-indicators">
+            <li data-target="#quote-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#quote-carousel" data-slide-to="1"></li>
+            <li data-target="#quote-carousel" data-slide-to="2"></li>
+            <li data-target="#quote-carousel" data-slide-to="3"></li>
+            <li data-target="#quote-carousel" data-slide-to="4"></li>
+            <li data-target="#quote-carousel" data-slide-to="5"></li>
+            <li data-target="#quote-carousel" data-slide-to="6"></li>
+            <li data-target="#quote-carousel" data-slide-to="7"></li>
+            <li data-target="#quote-carousel" data-slide-to="8"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="d-block img-fluid" src="{% static 'images/about/boys-roboticfacecopy2.jpg' %}" alt="Robotic Face">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="{% static 'images/about/quote1.jpg' %}" alt="Student Quote">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="{% static 'images/about/workingtogethercopy2.jpg' %}" alt="Working Together">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="{% static 'images/about/quote2.jpg' %}" alt="Educator Quote">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="{% static 'images/about/talkingtruck2copy2.jpg' %}" alt="Talking Truck">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="{% static 'images/about/quote3.jpg' %}" alt="Student Quote">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="{% static 'images/about/youngscientistscopy2.jpg' %}" alt="USC Young Scientists">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="{% static 'images/about/quote4.jpg' %}" alt="Educator Quote">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="{% static 'images/about/workingtogether2copy2.jpg' %}" alt="Father and Daughter">
+            </div>
+          </div>
+          <!--
+          <a class="left carousel-control" href="#quote-carousel" role="button" data-slide="prev">
+            <span class="icon-prev" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#quote-carousel" role="button" data-slide="next">
+            <span class="icon-next" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+          -->
         </div>
-        <img class="img-rounded" src="{% static 'images/about/about-design-challenges.jpg' %}" alt="Mom and daughter build together">
       </div>
     </div>
   </div>
 
-  <div class="container-fluid home-support-panel py-3">
-    <div class="container text-xs-center">
-      <h3>Supported by:</h3>
-      <a href="http://www.boeing.com/" class="a-borderless"><img src="{% static 'images/logos/boeing-logo.png' %}" alt="Boeing logo"></a>
-      <a href="http://www.nsf.gov/" class="a-borderless"><img src="{% static 'images/logos/nsf-logo.png' %}" alt="National Science Foundation logo" height="70"></a>
-      <a href="http://www.cummins.com/" class="a-borderless"><img src="{% static 'images/logos/cummins-logo.jpg' %}" alt="Cummins logo" height="70"></a>
-      <a href="https://www.moore.org/" class="a-borderless"><img src="{% static 'images/logos/moore-foundation-logo.png' %}" alt="Moore Foundation logo" height="70"></a>
-      <a href="http://www.intel.com/" class="a-borderless"><img src="{% static 'images/logos/intel-logo.png' %}" alt="Intel logo" height="70"></a>
-      <a href="http://www.onr.navy.mil/" class="a-borderless"><img src="{% static 'images/logos/onr-logo.jpg' %}" alt="Office of Naval Research logo" height="70"></a>
-      <a href="https://hivelearningnetworks.org/" class="a-borderless"><img src="{% static 'images/logos/hive-logo.png' %}" alt="Hive Network logo" height="70"></a>
-    </div>
-  </div>
 
   <div class="sign-up-panel py-3">
     <div class="container">
-      <h2>Create a Student Account!</h2>
-      <a href="{% url "account_signup" %}?next={% url "students:create_profile" %}" class="btn btn-red-secondary text-uppercase">sign up</a>
+      <h2>Create an account!</h2>
+      <a href="{% url "account_signup" %}" class="btn btn-red-secondary text-uppercase">Get Started</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeuptfe5zMp5KpadIkNQcj81vtMRBzqdlW9RU8VHAOT48bLJg/viewform" class="btn btn-red-secondary text-uppercase" target="_blank">Partner Sites</a>
     </div>
   </div>
 {% endblock %}

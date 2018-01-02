@@ -9,6 +9,9 @@
 @large-spacing: 50px;
 
 .temp-footer {
+
+  .mt-2 { margin-top: 24px !important; }
+
   background-color: @dark-gray;
   padding: 0;
   color: @primary-light;
@@ -17,7 +20,10 @@
   .social-icons {
     margin: 0px 10px;
     color: @primary-purple;
-    font-size: @base-font-size * 2.6875;
+    font-size: @base-font-size * 1;
+    background-color: white;
+    border-radius: 100%;
+    padding:8px;
     &:hover {
       color: tint(@primary-purple, 20);
     }
@@ -32,20 +38,26 @@
     padding: @large-spacing 0px @large-spacing 0px;
 
     h4 {
-      color: @primary-green;
-      margin-top: @base-spacing;
-  		font-weight: 700;
+      color: white;
+      font-weight: 700;
     }
   }
 
-  .newsletter-subscribe {
-    margin-top: @base-spacing;
-  }
+
 
   .footer-panel {
     background-color: @dark-gray;
-  	padding-top: 48px;
-  	padding-bottom: 48px;
+    padding-bottom: 48px;
+
+    h4 {
+      color: white;
+      font-weight: 700;
+    }
+
+    h6 {
+      color: white;
+      font-size: 16px;
+    }
   }
 
 	.help {
@@ -61,8 +73,9 @@
     }
   }
 
-	input {
-	  font-size: 16px;
+  input {
+    font-size: 16px;
+    margin-bottom: 0;
   }
 
 	.btn-green {
