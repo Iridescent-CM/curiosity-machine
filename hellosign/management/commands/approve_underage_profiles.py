@@ -6,6 +6,7 @@ from curiositymachine import signals
 import time
 import hellosign_sdk
 import logging
+from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
 
@@ -13,14 +14,19 @@ class Command(BaseCommand):
     help = 'Approve all underage users for whom their parents have signed the consent form'
 
     def add_arguments(self, parser):
-        #This is the cutoff time for searching completed signature
-        #request in seconds. The default is 2 hours.
-        parser.add_argument('cutoff', type=int, nargs='?', default=7200)
+        # This is the cutoff time delta for searching completed signature
+        # request in days.
+        parser.add_argument('cutoff', type=int, nargs='?', default=60)
 
     def handle(self, *args, **options):
 
-        current_time = time.time()
-        cutoff_time_delta = options.get('cutoff', None)
+        current_date = datetime.today() + timedelta(1)
+        cutoff_date_delta = timedelta(days=options.get('cutoff', None))
+        cutoff_date = current_date - cutoff_date_delta
+        if settings.HELLOSIGN_PRODUCTION_MODE:
+            test_mode = False
+        else:
+            test_mode = True
 
         # Initialize HSClient using api key
         api_key = settings.HELLOSIGN_API_KEY
@@ -47,10 +53,13 @@ class Command(BaseCommand):
 
         while request and page <= num_pages:
             user_ids_to_approve = []
+            query = ("complete:true AND " \
+                     "test_mode:"+ str(test_mode)+ " AND " \
+                     "created:{"+ str(cutoff_date.date()) + " TO " + str(current_date.date()) + "}")
             for request_attempt in range(5):
                 try:
                     signature_request_list = request.get(client.SIGNATURE_REQUEST_LIST_URL,
-                                                         parameters={"query": "complete:true", "page": page,
+                                                         parameters={"query": query, "page": page,
                                                                      "page_size": page_size})
                 except hellosign_sdk.utils.exception.Conflict:
                     time.sleep(10)  # collided with active call, wait and retry
@@ -74,15 +83,10 @@ class Command(BaseCommand):
             # 2) The production mode in the signature_request metadata must match the
             #	production mode of the deployed server.
             # if the metadata meets the former condition(s), then it should contain
-            # a user_id; add it to the list so that we can apprive this user.
-            # 3) The signature request must have been signed within the specified
-            #   amount of time (cutoff_time_delta)
+            # a user_id; add it to the list so that we can approve this user.
             for signature_request in signature_requests:
                 metadata = signature_request["metadata"]
-                signatures = signature_request["signatures"]
-                signed_at = signatures[0]["signed_at"]
-                if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID and (
-                    abs(current_time - signed_at) < cutoff_time_delta):
+                if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID:
                     # check the metadata production mode
                     if "production_mode" in metadata and metadata["production_mode"] == "True":
                         metadata_production_mode = True
