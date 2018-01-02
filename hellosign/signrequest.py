@@ -56,3 +56,4 @@ def send_underage_consent_form(sender):
         logger.warning(
             "Unsent hellosign signature request, user_id=%s",
             child_user_id)
+        raise
