@@ -2,43 +2,40 @@
 {% block title %}Activate Account{% endblock %}
 
 {% block content %}
-  <div class="container-fluid text-xs-center jumbotron-green">
-    <h1>Activate Your Child’s Account</h1>
-  </div>
-
-  <div class="container">
-
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2 mb-2">
-        <p class="mb-2">
-          Curiosity Machine users can post pictures and videos of their projects and interact with mentors in the Curiosity Machine community. To activate an account for a user under 13 years old, a parent or guardian must complete the consent form which was sent to their email. This is in accordance with the <a href="https://en.wikipedia.org/wiki/Children's_Online_Privacy_Protection_Act">Children’s Online Privacy Protection Act</a> (COPPA).
-        </p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-6 offset-lg-3 mb-2">
-        <p class="text-xs-center">
-          To activate the account of your child under 13 years old, please complete the online Parent Consent Form which was sent to your email. Please allow up to 30 minutes for the activation of your child's account after you fill out the form.
-        </p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2 text-xs-center mb-3">
-        <p>
-          When you completed the Parent Consent Form in your email inbox, we will unlock your child’s account within 30 minutes. Please email <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a> if your account in not activated within 30 minutes of signing, or an email was not recived.
-        </p>
-        <p>
-          In the meantime, you can check out our design challenges and decide what to build first!
-        </p>
-        <div>
-          <a href="{% url "challenges:challenges" %}" class="btn btn-primary">
-            Browse Design Challenges
-          </a>
-        </div>
-      </div>
+<div class="container-fluid text-xs-center jumbotron-green">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Activate Your Child’s Account</h1>
     </div>
   </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <h6>Curiosity Machine users can post pictures and videos of their projects and interact with mentors in the Curiosity Machine community. To activate an account for a user under 13 years old, a parent or guardian must complete the consent form which was sent to their email. This is in accordance with the <a href="https://en.wikipedia.org/wiki/Children's_Online_Privacy_Protection_Act">Children’s Online Privacy Protection Act</a> (COPPA).</h6>
+    </div>
+    <div class="col-xs-12">
+      <hr class="hr-green"/>
+    </div>
+    <div class="col-lg-8 offset-lg-2 text-xs-center mt-2">
+      <h2><strong>Next Steps</strong></h2>
+    </div>
+    <div class="col-lg-8 offset-lg-2">
+      <ol>
+        <li>You should be receiving an email to activate your underage account </li>
+        <li>A parent or guardian must follow the link on the email, fill in required fields and sign</li>
+        <li>This account will be activated up to 30 minutes after you have subitted the form</li>
+      </ol>
+    </div>
+    <div class="col-lg-8 offset-lg-2 text-xs-center">
+      <p class="font-italic">Email <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a> if you do not receive the email or if your account in not activated after 30 minutes of signing.</p>
+    </div>
+    <div class="col-lg-8 offset-lg-2 text-xs-center my-2">
+      <h5>In the meantime, you can check out our design challenges and decide what to build first!</h5>
+      <a href="{% url "challenges:challenges" %}" class="btn btn-primary">Browse Design Challenges</a>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
