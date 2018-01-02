@@ -127,8 +127,6 @@ def test_send_welcome_email_differentiates_user_categories():
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_welcome_email(student)
         assert send.call_args[1]['template_name'] == 'student-welcome'
-        signals.handlers.send_welcome_email(underage)
-        assert send.call_args[1]['template_name'] == 'student-u13-welcome'
         signals.handlers.send_welcome_email(educator)
         assert send.call_args[1]['template_name'] == 'educator-welcome'
         signals.handlers.send_welcome_email(parent)

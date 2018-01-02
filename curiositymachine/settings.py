@@ -81,6 +81,7 @@ INSTALLED_APPS = (
     'videos',
     'images',
     'django_rq',
+    'hellosign.apps.HellosignConfig',
     'cmemails',
     'compressor',
     'units',
@@ -341,6 +342,14 @@ S3_URL_BASE = "https://s3.amazonaws.com"
 AWS_REGION = S3DIRECT_REGION
 
 MEDIA_URL = S3_URL_BASE + '/' + AWS_STORAGE_BUCKET_NAME + '/'
+
+# Hellosign e-signature
+HELLOSIGN_API_KEY = os.environ.get("HELLOSIGN_API_KEY", "")
+UNDERAGE_CONSENT_TEMPLATE_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_ID", "")
+UNDERAGE_CONSENT_TEMPLATE_USERNAME_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_USERNAME_ID", "")
+UNDERAGE_CONSENT_TEMPLATE_BIRTHDAY_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_BIRTHDAY_ID", "")
+UNDERAGE_CONSENT_TEMPLATE_EMAIL_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_EMAIL_ID", "")
+HELLOSIGN_PRODUCTION_MODE = os.environ.get("HELLOSIGN_PRODUCTION_MODE", False)
 
 # Mandrill & Mailchimp
 MANDRILL_API_KEY = os.environ.get("MANDRILL_API_KEY", "")

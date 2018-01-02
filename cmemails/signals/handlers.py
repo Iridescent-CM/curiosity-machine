@@ -12,10 +12,12 @@ import re
 def send_welcome_email(sender, **kwargs):
     if sender.extra.send_welcome and not getattr(sender, "skip_welcome_email", False):
         if sender.extra.is_student:
-            template = 'student-u13-welcome' if sender.studentprofile.is_underage() else 'student-welcome'
-            send(template_name=template, to=sender, merge_vars={
-                'studentname': sender.username
-            })
+            if sender.studentprofile.is_underage():
+                pass # handled through hellosign
+            else:
+                send(template_name='student-welcome', to=sender, merge_vars={
+                    'studentname': sender.username
+                })
         elif sender.extra.is_educator:
             send(template_name='educator-welcome', to=sender, merge_vars={
                 'username': sender.username
