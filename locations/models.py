@@ -24,3 +24,12 @@ class Location(models.Model):
         choices=US_STATE_CHOICES,
     )
     city = models.TextField()
+
+
+    def __str__(self):
+        country = "country=%s, " % pycountry.countries.get(alpha_2=self.country).name
+        state = ""
+        if self.state:
+            state = "state=%s, " % pycountry.subdivisions.get(code=self.state).name
+        city = "city=%s" % self.city
+        return country + state + city

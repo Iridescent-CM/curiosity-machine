@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+class LocationAdmin(admin.ModelAdmin):
+    model = Location
+    list_display = ['id', 'country', 'state', 'city']
+    readonly_fields = ['country', 'state', 'city']
+
+admin.site.register(Location, LocationAdmin)
