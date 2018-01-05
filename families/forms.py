@@ -1,5 +1,7 @@
 from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget
+from phonenumber_field.formfields import PhoneNumberField
+from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 from profiles.forms import ProfileModelForm
 from profiles.models import UserRole
 from .models import *
@@ -7,7 +9,7 @@ from .models import *
 class FamilyProfileForm(ProfileModelForm):
     class Meta:
         model = FamilyProfile
-        fields = []
+        fields = ['phone']
 
     image_url = MediaURLField(
         label="Photo",
@@ -21,6 +23,8 @@ class FamilyProfileForm(ProfileModelForm):
         }),
         required=False
     )
+
+    phone = PhoneNumberField(widget=PhoneNumberInternationalFallbackWidget)
 
     def save_related(self, obj):
         if self.cleaned_data.get("image_url"):
