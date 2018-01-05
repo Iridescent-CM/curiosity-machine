@@ -20,6 +20,7 @@ django-sslify==0.2.7
 django-staticflatpages==0.3.1
 django-summernote==0.8.8.1
 django-widget-tweaks==1.4.1
+pycountry==17.9.23
 python-dateutil==2.6.1
 python-dotenv==0.6.5
 enum34==1.1.6

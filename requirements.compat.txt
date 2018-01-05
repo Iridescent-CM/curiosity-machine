@@ -24,6 +24,7 @@ django-staticflatpages~=0.3.1
 django-summernote~=0.8,!=0.8.8.2
 django-widget-tweaks~=1.4.1
 
+pycountry
 python-dateutil~=2.3
 python-dotenv~=0.6.4
 enum34
