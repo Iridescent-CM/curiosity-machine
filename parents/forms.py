@@ -44,8 +44,10 @@ class ParentProfileForm(ProfileModelForm):
         if self.cleaned_data.get('last_name'):
             self.user.last_name = self.cleaned_data['last_name']
 
-    def get_initial_from_user(self, user, **kwargs):
-        return super().get_initial_from_user(user,
+    def get_initial(self, user, instance, **kwargs):
+        return super().get_initial(
+            user,
+            instance,
             first_name=user.first_name,
             last_name=user.last_name,
             **kwargs

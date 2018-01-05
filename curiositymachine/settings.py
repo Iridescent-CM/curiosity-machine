@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'profiles',
+    'locations.apps.LocationsConfig',
     'students',
     'parents',
     'mentors',

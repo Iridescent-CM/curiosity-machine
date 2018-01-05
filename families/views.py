@@ -15,7 +15,8 @@ class CreateView(EditProfileMixin, CreateView):
     form_class = FamilyProfileForm
     success_url = lazy(reverse, str)("families:home")
 
-create = only_for_role(UserRole.none)(CreateView.as_view())
+#create = only_for_role(UserRole.none)(CreateView.as_view())
+create = CreateView.as_view()
 
 class EditView(EditProfileMixin, UpdateView):
     model = FamilyProfile
