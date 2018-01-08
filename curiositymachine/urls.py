@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^admin/analytics/$', analytics, name="analytics"),
     url(r'^admin/export_users/$', export_users, name="export_users"),
     url(r'^accounts/signup/(?P<source>[^/]*)/?$', views.signup_with_source, name="account_signup"),
+    url(r'^memberships/(?P<slug>[^/]+)/$', views.signup_to_membership, name="membership_signup"),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^login/$', public(login), name='login'),
     url(r'^logout/$', public(logout), name='logout'),

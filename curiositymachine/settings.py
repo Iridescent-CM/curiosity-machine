@@ -301,7 +301,7 @@ DEFAULT_PER_PAGE = os.environ.get("DEFAULT_PER_PAGE", 12)
 # URL blacklist/whitelist
 # an impossible pattern below prevents blacklisting until actual patterns are provided through the env
 BLACKLIST_URLS = map(str.strip, os.environ.get('BLACKLIST_URLS', 'a^').split(','))
-WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?,accounts/?').split(','))
+WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?,accounts/?,memberships/?').split(','))
 
 # Feature flags
 # Any environment variable beginning with ENABLE_ will end up in template contexts
