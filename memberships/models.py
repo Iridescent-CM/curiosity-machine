@@ -47,6 +47,12 @@ class Membership(models.Model):
         null=False,
         help_text="The membership name users will see on the site (max 26 characters).",
     )
+    slug = models.SlugField(
+        unique=True,
+        null=True,
+        blank=True,
+        help_text="If provided, users can sign up for this membership at the slug url",
+    )
     expiration = models.DateField(
         null=True,
         blank=True,

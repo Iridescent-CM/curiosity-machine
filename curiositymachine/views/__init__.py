@@ -1,10 +1,11 @@
 from allauth.account.views import SignupView
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.core.urlresolvers import reverse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.views.decorators.http import require_http_methods
+from memberships.models import Member, Membership
 import json
 import rollbar
 
@@ -83,3 +84,23 @@ class SourceSignupView(SignupView):
         return initial
 
 signup_with_source = SourceSignupView.as_view()
+
+class MembershipSignupView(SignupView):
+
+    def dispatch(self, request, *args, **kwargs):
+        slug = kwargs.get('slug', None)
+        if not slug:
+            raise Http404
+        self.membership = get_object_or_404(Membership, slug=slug)
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(membership=self.membership)
+
+    def form_valid(self, form):
+        res = super().form_valid(form)
+        member = Member(user=self.user, membership=self.membership)
+        member.save()
+        return res
+
+signup_to_membership = MembershipSignupView.as_view()
