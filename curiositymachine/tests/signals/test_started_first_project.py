@@ -11,7 +11,7 @@ def test_called_for_project_owner():
     signals.started_first_project.connect(handler)
 
     user = UserFactory()
-    first_progress = ProgressFactory(student=user)
+    first_progress = ProgressFactory(owner=user)
 
     assert not handler.called
 
@@ -20,7 +20,7 @@ def test_called_for_project_owner():
     handler.assert_called_once_with(signal=signals.started_first_project, progress=first_progress, sender=user)
     handler.reset_mock()
 
-    second_progress = ProgressFactory(student=user)
+    second_progress = ProgressFactory(owner=user)
     second_progress.comments.create(user=user, text="comment", stage=1)
 
     assert not handler.called

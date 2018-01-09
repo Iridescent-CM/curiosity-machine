@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block reflect_form %}
-  {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='reflect' as comment_url %}
+  {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.owner.username stage='reflect' as comment_url %}
   <form method="POST" action="{{ comment_url }}">
     {% csrf_token %}
     {{ comment_form.text|attr:"placeholder:Write your reflection here. You can also add a photo or video below." }}

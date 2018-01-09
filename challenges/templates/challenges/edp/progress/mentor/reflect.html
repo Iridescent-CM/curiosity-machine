@@ -3,12 +3,12 @@
 {% block under_nav_header %}{% endblock %}
 
 {% block left_panel %}
-  {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.student.username stage='build' as comment_url %}
+  {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.owner.username stage='build' as comment_url %}
   {% include "challenges/edp/progress/_mentor_panel.html" with comment_url=comment_url %}
 {% endblock %}
 
 {% block right_panel_head %}
-  <h3>{{progress.student.username}}'s progress</h3>
+  <h3>{{progress.owner.username}}'s progress</h3>
 {% endblock %}
 
 {% block commenting_bubble %}{% endblock %}

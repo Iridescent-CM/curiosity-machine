@@ -11,7 +11,7 @@ class ProfileModelForm(forms.ModelForm):
         self.user = kwargs.pop('user')
         if "initial" not in kwargs:
             kwargs["initial"] = {}
-        initial = self.get_initial_from_user(self.user)
+        initial = self.get_initial(self.user, kwargs.get('instance', None))
         initial.update(kwargs["initial"])
         kwargs["initial"] = initial
         super().__init__(*args, **kwargs)
@@ -19,7 +19,7 @@ class ProfileModelForm(forms.ModelForm):
     def get_role(self):
         raise NotImplementedError("Subclasses must implement this method to return the correct UserRole")
 
-    def get_initial_from_user(self, user, **kwargs):
+    def get_initial(self, user, instance, **kwargs):
         emailobj = EmailAddress.objects.get_primary(user)
         initial = {
             'email': emailobj.email if emailobj else user.email if user.email else None

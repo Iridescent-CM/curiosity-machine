@@ -50,8 +50,8 @@ def challenge2():
 
 @pytest.fixture
 def progress(student, mentor, challenge):
-    return Progress.objects.create(student=student, mentor=mentor, challenge=challenge)
+    return Progress.objects.create(owner=student, mentor=mentor, challenge=challenge)
 
 @pytest.fixture
 def unclaimed_progress(student, challenge):
-    return Progress.objects.create(student=student, challenge=challenge)
+    return Progress.objects.create(owner=student, challenge=challenge)

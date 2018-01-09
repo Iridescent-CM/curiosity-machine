@@ -49,9 +49,7 @@ class HomeView(TemplateView):
             'challenge__image',
             'challenge__video',
             'mentor',
-            'student',
-            'student__profile',
-            'student__profile__image'
+            'owner',
         ).order_by(
             '-started'
         )[:4]
@@ -80,13 +78,13 @@ class HomeView(TemplateView):
         ).exclude(
             comments=None
         )
-        source_and_counts = claimable_progresses.values('student__extra__source').annotate(count=Count('student__extra__source'))
+        source_and_counts = claimable_progresses.values('owner__extra__source').annotate(count=Count('owner__extra__source'))
         partnerships = {
-            obj["student__extra__source"]: {
-                "source": obj['student__extra__source'],
+            obj["owner__extra__source"]: {
+                "source": obj['owner__extra__source'],
                 "unclaimed": obj['count'],
                 "example_progress": claimable_progresses.filter(
-                        student__extra__source=obj['student__extra__source']
+                        owner__extra__source=obj['owner__extra__source']
                     ).select_related(
                         "challenge__image"
                     ).order_by(
@@ -148,8 +146,8 @@ class ClaimedView(ListView):
         self.queryset = (Progress.objects
             .filter(mentor=self.request.user)
             .select_related(
-                'challenge', 'mentor', 'student', 'student__profile',
-                'student__profile__image', 'challenge__image'))
+                'challenge', 'mentor', 'owner',
+                'challenge__image'))
         return super().get_queryset()
 
 claimed = only_for_mentor(ClaimedView.as_view())
@@ -163,11 +161,11 @@ class UnclaimedBySourceView(ListView):
     def get_queryset(self):
         startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
         self.queryset = (Progress.objects
-            .filter(mentor__isnull=True, student__extra__source=self.request.GET['source'], started__gt=startdate)
+            .filter(mentor__isnull=True, owner__extra__source=self.request.GET['source'], started__gt=startdate)
             .exclude(comments=None)
             .select_related(
-                'challenge', 'student', 'student__profile',
-                'student__profile__image', 'challenge__image'))
+                'challenge', 'owner',
+                'challenge__image'))
         return super().get_queryset()
 
     def get_context_data(self, **kwargs):
@@ -202,8 +200,8 @@ class UnclaimedByDateView(ListView):
             .filter(start_day=self.selected_date)
             .exclude(comments=None)
             .select_related(
-                'challenge', 'student', 'student__profile',
-                'student__profile__image', 'challenge__image'))
+                'challenge', 'owner',
+                'challenge__image'))
         return super().get_queryset()
 
     def get_context_data(self, **kwargs):

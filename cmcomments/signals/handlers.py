@@ -18,7 +18,7 @@ def create_comment(sender, instance, created, **kwargs):
 def check_if_first_project(sender, instance, created, **kwargs):
     comment = instance
     if (created
-        and comment.user == comment.challenge_progress.student
+        and comment.user == comment.challenge_progress.owner
         and comment.challenge_progress.is_first_project()
         and comment.is_first_post()
     ):

@@ -7,5 +7,5 @@ from curiositymachine import signals
 def create_example(sender, instance, created, **kwargs):
     if created:
         progress = instance.progress
-        signals.inspiration_gallery_submission_created.send(sender=progress.student, example=instance)
+        signals.inspiration_gallery_submission_created.send(sender=progress.owner, example=instance)
 

@@ -4,8 +4,8 @@ from notifications.signals import notify
 
 def recipients_for(comment, sender):
     progress = comment.challenge_progress
-    if sender != progress.student:
-        return [progress.student]
+    if sender != progress.owner:
+        return [progress.owner]
     elif progress.mentor:
         return [progress.mentor]
     else:

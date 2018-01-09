@@ -1,5 +1,10 @@
 {% load resized %}
 {% load staticfiles %}
+{% load profile_for %}
+
+{% if user %}
+  {% profile_for user as profile %}
+{% endif %}
 
 {% if profile.image.url %}
   <img src="{% resized profile.image.url width=width height=height crop=crop gravity=gravity %}" class="img-responsive" />

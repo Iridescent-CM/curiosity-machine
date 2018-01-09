@@ -104,8 +104,8 @@ class ChallengeView(TemplateView):
             .filter(
                 approved=True,
                 progress__challenge_id=challenge.id,
-                progress__student__in=students)
-            .values_list('progress__student__id', flat=True))
+                progress__owner__in=students)
+            .values_list('progress__owner__id', flat=True))
 
         for student in students:
             UserCommentSummary(comments, student.id).annotate(student)
@@ -291,7 +291,7 @@ class CommentList(generics.ListAPIView):
         ids = self.request.query_params.getlist('id', None)
         if ids is not None:
             queryset = (Comment.objects
-                .filter(challenge_progress__student__membership__members=self.request.user)
+                .filter(challenge_progress__owner__membership__members=self.request.user)
                 .filter(challenge_progress_id__in=ids)
                 .select_related('user__profile', 'challenge_progress')
                 .all()

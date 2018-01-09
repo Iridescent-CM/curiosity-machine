@@ -38,9 +38,9 @@ def test_report_output():
 def test_submission_count_per_challenge():
     students = StudentFactory.create_batch(4)
     challenges = ChallengeFactory.create_batch(10)
-    ProgressFactory(student=students[0], challenge=challenges[0], comment=1)
-    ProgressFactory(student=students[0], challenge=challenges[1], comment=5)
-    ProgressFactory(student=students[1], challenge=challenges[1], comment=5)
+    ProgressFactory(owner=students[0], challenge=challenges[0], comment=1)
+    ProgressFactory(owner=students[0], challenge=challenges[1], comment=5)
+    ProgressFactory(owner=students[1], challenge=challenges[1], comment=5)
     membership = MembershipFactory(members=students, challenges=challenges)
 
     output = StringIO()
@@ -55,9 +55,9 @@ def test_submission_count_per_challenge():
 def test_submission_count_per_student():
     students = StudentFactory.create_batch(4)
     challenges = ChallengeFactory.create_batch(10)
-    ProgressFactory(student=students[0], challenge=challenges[0], comment=1)
-    ProgressFactory(student=students[0], challenge=challenges[1], comment=5)
-    ProgressFactory(student=students[1], challenge=challenges[1], comment=5)
+    ProgressFactory(owner=students[0], challenge=challenges[0], comment=1)
+    ProgressFactory(owner=students[0], challenge=challenges[1], comment=5)
+    ProgressFactory(owner=students[1], challenge=challenges[1], comment=5)
     membership = MembershipFactory(members=students, challenges=challenges)
 
     output = StringIO()

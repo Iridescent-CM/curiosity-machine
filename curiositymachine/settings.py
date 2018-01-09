@@ -72,10 +72,12 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'profiles',
+    'locations.apps.LocationsConfig',
     'students',
     'parents',
     'mentors',
     'educators',
+    'families.apps.FamiliesConfig',
     'challenges',
     'cmcomments',
     'videos',
@@ -91,6 +93,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'rest_framework',
     'notifications',
+    'phonenumber_field',
 )
 
 SITE_ID = 1
@@ -189,6 +192,7 @@ TIME_ZONE = "America/Los_Angeles"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+PHONENUMBER_DEFAULT_REGION = 'US'
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'

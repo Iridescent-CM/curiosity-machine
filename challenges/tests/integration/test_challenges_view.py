@@ -115,7 +115,7 @@ def test_challenges_decorates_with_started_for_student(client):
     c1 = ChallengeFactory(draft=False)
     c2 = ChallengeFactory(draft=False)
     user = StudentFactory(username="user", password="password")
-    p = ProgressFactory(challenge=c2, student=user)
+    p = ProgressFactory(challenge=c2, owner=user)
 
     client.login(username="user", password="password")
     response = client.get('/challenges/')

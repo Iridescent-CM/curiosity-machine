@@ -135,7 +135,7 @@ def test_student_detail_page_404s_on_non_student_membership_member(client):
 def test_student_detail_page_context_has_graph_data_url(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
-    progress = ProgressFactory(student=student, comment=True)
+    progress = ProgressFactory(owner=student, comment=True)
     membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
 
     client.login(username="edu", password="123123")
@@ -149,7 +149,7 @@ def test_student_detail_page_context_has_graph_data_url(client):
 def test_student_detail_page_context_has_membership_progresses(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
-    progresses = ProgressFactory.create_batch(5, student=student, comment=True)
+    progresses = ProgressFactory.create_batch(5, owner=student, comment=True)
     membership = MembershipFactory(members=[educator, student], challenges=[p.challenge for p in progresses])
 
     client.login(username="edu", password="123123")
@@ -163,7 +163,7 @@ def test_student_detail_page_context_has_membership_progresses(client):
 def test_student_detail_page_context_does_not_have_other_progresses(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
-    progresses = ProgressFactory.create_batch(5, student=student, comment=True)
+    progresses = ProgressFactory.create_batch(5, owner=student, comment=True)
     membership = MembershipFactory(members=[educator, student], challenges=[p.challenge for p in progresses[:2]])
 
     client.login(username="edu", password="123123")
@@ -177,7 +177,7 @@ def test_student_detail_page_context_does_not_have_other_progresses(client):
 def test_student_detail_page_context_has_progress_annotations(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
-    progress = ProgressFactory(student=student)
+    progress = ProgressFactory(owner=student)
     membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
 
     latest = CommentFactory(challenge_progress=progress, user=student, created=now(), stage=4)
@@ -202,7 +202,7 @@ def test_student_detail_page_total_user_comments_progress_annotation_ignores_men
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
 
-    progress = ProgressFactory(student=student, mentor=mentor)
+    progress = ProgressFactory(owner=student, mentor=mentor)
     CommentFactory(challenge_progress=progress, user=mentor)
     CommentFactory(challenge_progress=progress, user=student)
 
@@ -221,7 +221,7 @@ def test_student_detail_page_user_comment_counts_by_stage_progress_annotation_ig
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
 
-    progress = ProgressFactory(student=student, mentor=mentor)
+    progress = ProgressFactory(owner=student, mentor=mentor)
     CommentFactory(challenge_progress=progress, user=mentor, stage=1)
     CommentFactory(challenge_progress=progress, user=student, stage=1)
 
@@ -240,7 +240,7 @@ def test_student_detail_page_latest_user_comment_progress_annotation_ignores_men
     student = StudentFactory(username="student")
     mentor = MentorFactory(username="mentor")
 
-    progress = ProgressFactory(student=student, mentor=mentor)
+    progress = ProgressFactory(owner=student, mentor=mentor)
     latest = CommentFactory(challenge_progress=progress, user=mentor, created=now(), stage=4)
     latest_student = CommentFactory(challenge_progress=progress, user=student, created=now() - timedelta(hours=1), stage=4)
 
@@ -258,8 +258,8 @@ def test_student_detail_page_context_has_completed_count(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
 
-    p1 = ProgressFactory(student=student)
-    p2 = ProgressFactory(student=student, completed=True)
+    p1 = ProgressFactory(owner=student)
+    p2 = ProgressFactory(owner=student, completed=True)
 
     membership = MembershipFactory(members=[educator, student], challenges=[p1.challenge, p2.challenge])
 
@@ -276,11 +276,11 @@ def test_student_detail_page_context_has_approved_example_count(client):
     student = StudentFactory(username="student")
     student2 = StudentFactory(username="student2")
 
-    progress = ProgressFactory(student=student, completed=True)
+    progress = ProgressFactory(owner=student, completed=True)
     approved = ExampleFactory(progress=progress, approved=True)
     ExampleFactory(progress=progress, approved=False)
     ExampleFactory(progress=progress)
-    progress2 = ProgressFactory(student=student2, completed=True)
+    progress2 = ProgressFactory(owner=student2, completed=True)
 
     membership = MembershipFactory(members=[educator, student, student2], challenges=[progress.challenge, progress2.challenge])
 
@@ -304,8 +304,8 @@ def test_student_detail_page_context_progresses_sort_by_activity(client):
 
     challengeA = ChallengeFactory(name="Challenge A", draft=False)
     challengeB = ChallengeFactory(name="Challenge B", draft=False)
-    progressA = ProgressFactory(student=student, challenge=challengeA, mentor=mentor)
-    progressB = ProgressFactory(student=student, challenge=challengeB, mentor=mentor)
+    progressA = ProgressFactory(owner=student, challenge=challengeA, mentor=mentor)
+    progressB = ProgressFactory(owner=student, challenge=challengeB, mentor=mentor)
 
     membership = MembershipFactory(members=[educator, student], challenges=[challengeA, challengeB])
 
@@ -401,7 +401,7 @@ def test_challenge_detail_page_context_has_totals_per_student(client):
     educator = EducatorFactory(username="edu", password="123123")
     challenge = ChallengeFactory()
     progress = ProgressFactory(challenge=challenge, comment=5)
-    membership = MembershipFactory(members=[progress.student, educator], challenges=[challenge])
+    membership = MembershipFactory(members=[progress.owner, educator], challenges=[challenge])
 
     client.login(username="edu", password="123123")
     response = client.get(
@@ -448,7 +448,7 @@ def test_challenge_detail_page_context_has_gallery_post_indicator_for_approved_e
     educator = EducatorFactory(username="edu", password="123123")
     student1 = StudentFactory()
     challenge = ChallengeFactory()
-    progress1 = ProgressFactory(student=student1, challenge=challenge)
+    progress1 = ProgressFactory(owner=student1, challenge=challenge)
     ExampleFactory(progress=progress1, approved=True)
 
     membership = MembershipFactory(members=[student1, educator], challenges=[challenge])
@@ -467,9 +467,9 @@ def test_challenge_detail_page_context_does_not_have_gallery_post_indicator_othe
     student2 = StudentFactory()
     student3 = StudentFactory()
     challenge = ChallengeFactory()
-    progress1 = ProgressFactory(student=student1, challenge=challenge)
-    progress2 = ProgressFactory(student=student2, challenge=challenge)
-    progress3 = ProgressFactory(student=student3, challenge=challenge)
+    progress1 = ProgressFactory(owner=student1, challenge=challenge)
+    progress2 = ProgressFactory(owner=student2, challenge=challenge)
+    progress3 = ProgressFactory(owner=student3, challenge=challenge)
     ExampleFactory(progress=progress1, approved=False)
     ExampleFactory(progress=progress2)
 
@@ -531,7 +531,7 @@ def test_graph_data_endpoint_returns_requested_data(client):
     educator = EducatorFactory(username="edu", password="123123")
     progress = ProgressFactory(comment=True)
     progress2 = ProgressFactory(comment=True)
-    membership = MembershipFactory(members=[educator, progress.student, progress2.student])
+    membership = MembershipFactory(members=[educator, progress.owner, progress2.owner])
 
     client.login(username="edu", password="123123")
 
@@ -542,7 +542,7 @@ def test_graph_data_endpoint_returns_requested_data(client):
     data = json.loads(response.content.decode('utf-8'))
     assert len(data) == 1
     assert data[0]["challenge_progress_id"] == progress.id
-    assert data[0]["user_id"] == progress.student.id
+    assert data[0]["user_id"] == progress.owner.id
 
     response = client.get(reverse("educators:progress_graph_data"), {'id': [progress.id, progress2.id]})
     data = json.loads(response.content.decode('utf-8'))

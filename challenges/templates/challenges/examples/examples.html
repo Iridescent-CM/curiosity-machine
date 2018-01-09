@@ -53,7 +53,7 @@
 
       <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          {% if progress.get_student_images %}
+          {% if progress.get_owner_images %}
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -68,7 +68,7 @@
                   <div class="col-md-12">
                     <p>Photos from {{ challenge.name }}</p>
                   </div>
-                  {% for image in progress.get_student_images %}
+                  {% for image in progress.get_owner_images %}
                   <div class="col-md-6">
                     <input type="radio" name="example" id="example-{{image.id}}" value="{{image.id}}">
                     <label for="example-{{image.id}}">
@@ -127,8 +127,8 @@
       {% for example in examples %}
       <div class="col-lg-3 col-sm-6">
         <div class="card">
-          <a href="#" data-toggle="modal" data-target="#{{ example.progress.student.username }}">
-            <img class="card-img-top a-borderless" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+          <a href="#" data-toggle="modal" data-target="#{{ example.progress.owner.username }}">
+            <img class="card-img-top a-borderless" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.owner.username }}'s {{ challenge.name }}">
             {% if not example.approved %}
               <div class="pending"><em>Pending Approval!</em></div>
             {% endif %}
@@ -139,22 +139,22 @@
           </a>
           {% endif %}
           <div class="card-block text-xs-center">
-            <p class="card-title">{{ example.progress.student.username }}</p>
+            <p class="card-title">{{ example.progress.owner.username }}</p>
           </div>
         </div>
       </div>
 
-      <div class="modal fade" id="{{ example.progress.student.username }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="{{ example.progress.owner.username }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h3>{{ example.progress.student.username }}'s {{ challenge.name }}</h3>
+              <h3>{{ example.progress.owner.username }}'s {{ challenge.name }}</h3>
             </div>
             <div class="modal-body text-xs-center">
-              <img src="{% resized example.image.url %}" alt="{{ example.progress.student.username }}'s {{ challenge.name }}">
+              <img src="{% resized example.image.url %}" alt="{{ example.progress.owner.username }}'s {{ challenge.name }}">
             </div>
           </div>
         </div>

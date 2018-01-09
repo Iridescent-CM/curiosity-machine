@@ -75,269 +75,13 @@
   "model": "contenttypes.contenttype",
   "pk": 10,
   "fields": {
-    "app_label": "profiles",
-    "model": "profile"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 11,
-  "fields": {
-    "app_label": "profiles",
-    "model": "parentconnection"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 12,
-  "fields": {
-    "app_label": "profiles",
-    "model": "impactsurvey"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 13,
-  "fields": {
-    "app_label": "profiles",
-    "model": "educator"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 14,
-  "fields": {
-    "app_label": "profiles",
-    "model": "mentor"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 15,
-  "fields": {
-    "app_label": "profiles",
-    "model": "parent"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 16,
-  "fields": {
-    "app_label": "profiles",
-    "model": "student"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 17,
-  "fields": {
-    "app_label": "challenges",
-    "model": "challenge"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 18,
-  "fields": {
-    "app_label": "challenges",
-    "model": "progress"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 19,
-  "fields": {
-    "app_label": "challenges",
-    "model": "theme"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 20,
-  "fields": {
-    "app_label": "challenges",
-    "model": "question"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 21,
-  "fields": {
-    "app_label": "challenges",
-    "model": "example"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 22,
-  "fields": {
-    "app_label": "challenges",
-    "model": "favorite"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 23,
-  "fields": {
-    "app_label": "challenges",
-    "model": "filter"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 24,
-  "fields": {
-    "app_label": "challenges",
-    "model": "resource"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 25,
-  "fields": {
-    "app_label": "challenges",
-    "model": "resourcefile"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 26,
-  "fields": {
-    "app_label": "cmcomments",
-    "model": "comment"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 27,
-  "fields": {
-    "app_label": "videos",
-    "model": "video"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 28,
-  "fields": {
-    "app_label": "videos",
-    "model": "encodedvideo"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 29,
-  "fields": {
-    "app_label": "images",
-    "model": "image"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 30,
-  "fields": {
-    "app_label": "units",
-    "model": "unit"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 31,
-  "fields": {
-    "app_label": "units",
-    "model": "resource"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 32,
-  "fields": {
-    "app_label": "units",
-    "model": "unitchallenge"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 33,
-  "fields": {
-    "app_label": "memberships",
-    "model": "member"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 34,
-  "fields": {
-    "app_label": "memberships",
-    "model": "membership"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 35,
-  "fields": {
-    "app_label": "memberships",
-    "model": "memberlimit"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 36,
-  "fields": {
-    "app_label": "memberships",
-    "model": "memberimport"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 37,
-  "fields": {
-    "app_label": "memberships",
-    "model": "group"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 38,
-  "fields": {
-    "app_label": "memberships",
-    "model": "groupmember"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 39,
-  "fields": {
-    "app_label": "quizzes",
-    "model": "quiz"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 40,
-  "fields": {
-    "app_label": "quizzes",
-    "model": "result"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 41,
-  "fields": {
-    "app_label": "notifications",
-    "model": "notification"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 42,
-  "fields": {
     "app_label": "account",
     "model": "emailaddress"
   }
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 43,
+  "pk": 11,
   "fields": {
     "app_label": "account",
     "model": "emailconfirmation"
@@ -345,7 +89,7 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 44,
+  "pk": 12,
   "fields": {
     "app_label": "socialaccount",
     "model": "socialaccount"
@@ -353,7 +97,7 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 45,
+  "pk": 13,
   "fields": {
     "app_label": "socialaccount",
     "model": "socialapp"
@@ -361,7 +105,7 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 46,
+  "pk": 14,
   "fields": {
     "app_label": "socialaccount",
     "model": "socialtoken"
@@ -369,7 +113,31 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 47,
+  "pk": 15,
+  "fields": {
+    "app_label": "profiles",
+    "model": "profile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 16,
+  "fields": {
+    "app_label": "profiles",
+    "model": "parentconnection"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 17,
+  "fields": {
+    "app_label": "profiles",
+    "model": "impactsurvey"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 18,
   "fields": {
     "app_label": "profiles",
     "model": "userextra"
@@ -377,7 +145,39 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 48,
+  "pk": 19,
+  "fields": {
+    "app_label": "profiles",
+    "model": "educator"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 20,
+  "fields": {
+    "app_label": "profiles",
+    "model": "mentor"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 21,
+  "fields": {
+    "app_label": "profiles",
+    "model": "parent"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 22,
+  "fields": {
+    "app_label": "profiles",
+    "model": "student"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 23,
   "fields": {
     "app_label": "profiles",
     "model": "user"
@@ -385,7 +185,7 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 49,
+  "pk": 24,
   "fields": {
     "app_label": "students",
     "model": "studentprofile"
@@ -393,7 +193,7 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 50,
+  "pk": 25,
   "fields": {
     "app_label": "parents",
     "model": "parentconnection"
@@ -401,7 +201,7 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 51,
+  "pk": 26,
   "fields": {
     "app_label": "parents",
     "model": "parentprofile"
@@ -409,7 +209,7 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 52,
+  "pk": 27,
   "fields": {
     "app_label": "mentors",
     "model": "mentorprofile"
@@ -417,7 +217,7 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 53,
+  "pk": 28,
   "fields": {
     "app_label": "educators",
     "model": "educatorprofile"
@@ -425,10 +225,218 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 54,
+  "pk": 29,
   "fields": {
     "app_label": "educators",
     "model": "impactsurvey"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 30,
+  "fields": {
+    "app_label": "challenges",
+    "model": "challenge"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 31,
+  "fields": {
+    "app_label": "challenges",
+    "model": "progress"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 32,
+  "fields": {
+    "app_label": "challenges",
+    "model": "theme"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 33,
+  "fields": {
+    "app_label": "challenges",
+    "model": "question"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 34,
+  "fields": {
+    "app_label": "challenges",
+    "model": "example"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 35,
+  "fields": {
+    "app_label": "challenges",
+    "model": "favorite"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 36,
+  "fields": {
+    "app_label": "challenges",
+    "model": "filter"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 37,
+  "fields": {
+    "app_label": "challenges",
+    "model": "resource"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 38,
+  "fields": {
+    "app_label": "challenges",
+    "model": "resourcefile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 39,
+  "fields": {
+    "app_label": "cmcomments",
+    "model": "comment"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 40,
+  "fields": {
+    "app_label": "videos",
+    "model": "video"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 41,
+  "fields": {
+    "app_label": "videos",
+    "model": "encodedvideo"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 42,
+  "fields": {
+    "app_label": "images",
+    "model": "image"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 43,
+  "fields": {
+    "app_label": "units",
+    "model": "unit"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 44,
+  "fields": {
+    "app_label": "units",
+    "model": "resource"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 45,
+  "fields": {
+    "app_label": "units",
+    "model": "unitchallenge"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 46,
+  "fields": {
+    "app_label": "memberships",
+    "model": "member"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 47,
+  "fields": {
+    "app_label": "memberships",
+    "model": "membership"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 48,
+  "fields": {
+    "app_label": "memberships",
+    "model": "memberlimit"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 49,
+  "fields": {
+    "app_label": "memberships",
+    "model": "memberimport"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 50,
+  "fields": {
+    "app_label": "memberships",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 51,
+  "fields": {
+    "app_label": "memberships",
+    "model": "groupmember"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 52,
+  "fields": {
+    "app_label": "quizzes",
+    "model": "quiz"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 53,
+  "fields": {
+    "app_label": "quizzes",
+    "model": "result"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 54,
+  "fields": {
+    "app_label": "notifications",
+    "model": "notification"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 55,
+  "fields": {
+    "app_label": "families",
+    "model": "familyprofile"
   }
 },
 {
@@ -3821,8 +3829,8 @@
     "name": "Free Challenges",
     "color": "#8faf49",
     "header_template": "",
-    "created_at": "2017-11-17T02:20:52.025Z",
-    "updated_at": "2017-11-17T02:20:52.027Z",
+    "created_at": "2017-12-14T21:43:58.387Z",
+    "updated_at": "2017-12-14T21:43:58.390Z",
     "visible": false,
     "challenges": []
   }
@@ -3834,8 +3842,8 @@
     "name": "Most Popular",
     "color": "#f16243",
     "header_template": null,
-    "created_at": "2017-11-17T02:20:52.029Z",
-    "updated_at": "2017-11-17T02:20:52.040Z",
+    "created_at": "2017-12-14T21:43:58.395Z",
+    "updated_at": "2017-12-14T21:43:58.411Z",
     "visible": false,
     "challenges": [
       9,
@@ -3851,8 +3859,8 @@
     "name": "Good for Groups",
     "color": "#f16243",
     "header_template": null,
-    "created_at": "2017-11-17T02:20:52.041Z",
-    "updated_at": "2017-11-17T02:20:52.047Z",
+    "created_at": "2017-12-14T21:43:58.413Z",
+    "updated_at": "2017-12-14T21:43:58.424Z",
     "visible": false,
     "challenges": [
       10,
@@ -3867,8 +3875,8 @@
     "name": "Inspired by Nature",
     "color": "#f1ac43",
     "header_template": null,
-    "created_at": "2017-11-17T02:20:52.049Z",
-    "updated_at": "2017-11-17T02:20:52.053Z",
+    "created_at": "2017-12-14T21:43:58.426Z",
+    "updated_at": "2017-12-14T21:43:58.429Z",
     "visible": false,
     "challenges": [
       6
@@ -3882,8 +3890,8 @@
     "name": "New Challenges",
     "color": "#f16243",
     "header_template": null,
-    "created_at": "2017-11-17T02:20:52.055Z",
-    "updated_at": "2017-11-17T02:20:52.058Z",
+    "created_at": "2017-12-14T21:43:58.433Z",
+    "updated_at": "2017-12-14T21:43:58.437Z",
     "visible": false,
     "challenges": [
       2
@@ -3897,8 +3905,8 @@
     "name": "Inspired by <i class=\"icon-boeing-logo\"></i>",
     "color": "#f1ac43",
     "header_template": "challenges/filters/inspired_by_boeing.html",
-    "created_at": "2017-11-17T02:20:52.060Z",
-    "updated_at": "2017-11-17T02:20:52.064Z",
+    "created_at": "2017-12-14T21:43:58.442Z",
+    "updated_at": "2017-12-14T21:43:58.447Z",
     "visible": true,
     "challenges": [
       3
@@ -3912,8 +3920,8 @@
     "name": "Free Challenges",
     "color": "#eeeeee",
     "header_template": "",
-    "created_at": "2017-11-17T02:20:52.066Z",
-    "updated_at": "2017-11-17T02:20:52.078Z",
+    "created_at": "2017-12-14T21:43:58.450Z",
+    "updated_at": "2017-12-14T21:43:58.473Z",
     "visible": false,
     "challenges": [
       5,
@@ -6578,8 +6586,8 @@
     "slug": "",
     "description": "Inspire young students to make observations and find solutions to problems.",
     "overview": "<div style=\"height: 250px\">\r\n     <img src=\"https://s3.amazonaws.com/curiositymachine/units/resources/k-2+unit+header.png\" alt=\" \" style=\"width: 100%;max-height: 100%\" /></div>\r\n<p>Inspire your students to be curious, creative, and persistent learners! With these project-based lessons, provide an engaging learning experience for students while also meeting all <a href=\"https://s3.amazonaws.com/curiositymachine/statics/Curiosity_Machine_NGSS_Alignment_K-5.pdf\">NGSS in Engineering Design standards</a> for the Kindergarten-2nd grade levels. </p>\r\n\r\n<p>You can pair the lessons and student worksheets here with any Curiosity Machine design challenge. To help you out, we've featured some design challenges that are great for young children below. Our Kindergarten-2nd Engineering Design materials  can be used as-is (just use the pdf files we've linked) or customized for your own classroom (download the .docx files and Curiosity Machine icon font and edit away)! </p>\r\n\r\n<ul><h4>Activity 1 Questions and Observations</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L1+Questions+and+Observations.pdf\" target=\"_blank\"> Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L1+Questions+and+Observations.docx\" target=\"_blank\">Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS1+Questions+and+Observations.pdf\" target=\"_blank\"> Worksheet,<a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS1+Questions+and+Observations.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Activity 2 Shapes and Problem Solving</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L2+Shapes+and+Problem+Solving.pdf\" target=\"_blank\">Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L2+Shapes+and+Problem+Solving.docx\" target=\"_blank\">Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS2+Shapes+and+Problem+Solving.pdf\" target=\"_blank\">Worksheet, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS2+Shapes+and+Problem+Solving.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Activity 3 Test and Compare</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L3+Test+and+Compare.pdf\" target=\"_blank\"> Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L3+Test+and+Compare.docx\" target=\"_blank\"> Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS3+Test+and+Compare.pdf\" target=\"_blank\"> Worksheet, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS3+Test+and+Compare.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Curiosity Machine Font (optional, if you'd like to edit the materials)</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/Curiosity+Machine+font+guide.pdf\" target=\"_blank\">Font Icon and Installation Guide</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/Curiosity+Machine.ttf\" target=\"_blank\">Font file</a></li>\r\n</ul>\r\n\r\n<br>\r\n<p>Through Curiosity Machine, students will also benefit from individual mentorship on their work from scientists and engineers. To provide the best experience for your students, please watch the Curiosity Machine <a href=\"https://www.youtube.com/watch?v=XBAE46x2qio\" target=\"_blank\">Introduction video</a> and consider a Curiosity Machine membership if you haven't already.</p>",
-    "created_at": "2017-11-17T02:20:53.750Z",
-    "updated_at": "2017-11-17T02:20:53.750Z",
+    "created_at": "2017-12-14T21:44:03.085Z",
+    "updated_at": "2017-12-14T21:44:03.085Z",
     "image": 46,
     "standards_alignment_image": null,
     "listed": true
@@ -6593,8 +6601,8 @@
     "slug": "",
     "description": "Inspire elementary students to design for constraints and test solutions.",
     "overview": "<div style=\"height: 250px\">\r\n     <img src=\"https://s3.amazonaws.com/curiositymachine/units/resources/unit+header.jpg\" alt=\" \" style=\"width: 100%;max-height: 100%\" /></div>\r\n<p>Inspire your students to be curious, creative, and persistent learners! With these project-based lessons, provide an engaging learning experience for students while also meeting all <a href=\"https://s3.amazonaws.com/curiositymachine/statics/Curiosity_Machine_NGSS_Alignment_K-5.pdf\">NGSS in Engineering Design standards</a> for the 3rd-5th grade levels. </p>\r\n\r\n<p>You can pair the lessons and student worksheets here with any Curiosity Machine design challenge. To help you out, we've featured some design challenges that are great for young children below. Our 3rd-5th Grade Engineering Design materials can be used as-is (just use the pdf files we've linked) or customized for your own classroom (download the .docx files and Curiosity Machine icon font and edit away)! </p>\r\n\r\n<ul><h4>Activity 1 Design for Constraints</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L1+Design+for+Constraints.pdf\" target=\"_blank\"> Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L1+Design+for+Constraints.docx\" target=\"_blank\">Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS1+Design+for+Constraints.pdf\" target=\"_blank\"> Worksheet,<a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS1+Design+for+Constraints.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Activity 2 Compare Solutions</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L2+Compare+Solutions.pdf\" target=\"_blank\">Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L2+Compare+Solutions.docx\" target=\"_blank\">Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS2+Compare+Solutions.pdf\" target=\"_blank\">Worksheet, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS2+Compare+Solutions.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Activity 3 Testing Solutions</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L3+Testing+Solutions.pdf\" target=\"_blank\"> Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L3+Testing+Solutions.docx\" target=\"_blank\"> Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS3+Testing+Solutions.pdf\" target=\"_blank\"> Worksheet, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS3+Testing+Solutions.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Curiosity Machine Font (optional, if you'd like to edit the materials)</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/Curiosity+Machine+font+guide.pdf\" target=\"_blank\">Font Icon and Installation Guide</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/Curiosity+Machine.ttf\" target=\"_blank\">Font file</a></li>\r\n</ul>\r\n\r\n<br>\r\n<p>Through Curiosity Machine, students will also benefit from individual mentorship on their work from scientists and engineers. To provide the best experience for your students, please watch the Curiosity Machine <a href=\"https://www.youtube.com/watch?v=XBAE46x2qio\" target=\"_blank\">Introduction video</a> and consider a Curiosity Machine membership if you haven't already.</p>",
-    "created_at": "2017-11-17T02:20:53.753Z",
-    "updated_at": "2017-11-17T02:20:53.753Z",
+    "created_at": "2017-12-14T21:44:03.089Z",
+    "updated_at": "2017-12-14T21:44:03.089Z",
     "image": 47,
     "standards_alignment_image": null,
     "listed": true
@@ -6609,8 +6617,8 @@
     "expiration": null,
     "is_active": true,
     "notes": "",
-    "created_at": "2017-11-17T02:20:52.966Z",
-    "updated_at": "2017-11-17T02:20:52.983Z",
+    "created_at": "2017-12-14T21:44:00.035Z",
+    "updated_at": "2017-12-14T21:44:00.125Z",
     "challenges": [
       14,
       12,
@@ -6868,1195 +6876,1222 @@
   "model": "auth.permission",
   "pk": 28,
   "fields": {
-    "name": "Can add profile",
+    "name": "Can add email address",
     "content_type": 10,
-    "codename": "add_profile"
+    "codename": "add_emailaddress"
   }
 },
 {
   "model": "auth.permission",
   "pk": 29,
   "fields": {
-    "name": "Can change profile",
+    "name": "Can change email address",
     "content_type": 10,
-    "codename": "change_profile"
+    "codename": "change_emailaddress"
   }
 },
 {
   "model": "auth.permission",
   "pk": 30,
   "fields": {
-    "name": "Can delete profile",
+    "name": "Can delete email address",
     "content_type": 10,
-    "codename": "delete_profile"
+    "codename": "delete_emailaddress"
   }
 },
 {
   "model": "auth.permission",
   "pk": 31,
   "fields": {
-    "name": "Can add parent connection",
+    "name": "Can add email confirmation",
     "content_type": 11,
-    "codename": "add_parentconnection"
+    "codename": "add_emailconfirmation"
   }
 },
 {
   "model": "auth.permission",
   "pk": 32,
   "fields": {
-    "name": "Can change parent connection",
+    "name": "Can change email confirmation",
     "content_type": 11,
-    "codename": "change_parentconnection"
+    "codename": "change_emailconfirmation"
   }
 },
 {
   "model": "auth.permission",
   "pk": 33,
   "fields": {
-    "name": "Can delete parent connection",
+    "name": "Can delete email confirmation",
     "content_type": 11,
-    "codename": "delete_parentconnection"
+    "codename": "delete_emailconfirmation"
   }
 },
 {
   "model": "auth.permission",
   "pk": 34,
   "fields": {
-    "name": "Can add educator",
-    "content_type": 10,
-    "codename": "add_educator"
+    "name": "Can add social account",
+    "content_type": 12,
+    "codename": "add_socialaccount"
   }
 },
 {
   "model": "auth.permission",
   "pk": 35,
   "fields": {
-    "name": "Can change educator",
-    "content_type": 10,
-    "codename": "change_educator"
+    "name": "Can change social account",
+    "content_type": 12,
+    "codename": "change_socialaccount"
   }
 },
 {
   "model": "auth.permission",
   "pk": 36,
   "fields": {
-    "name": "Can delete educator",
-    "content_type": 10,
-    "codename": "delete_educator"
+    "name": "Can delete social account",
+    "content_type": 12,
+    "codename": "delete_socialaccount"
   }
 },
 {
   "model": "auth.permission",
   "pk": 37,
   "fields": {
-    "name": "Can add mentor",
-    "content_type": 10,
-    "codename": "add_mentor"
+    "name": "Can add social application",
+    "content_type": 13,
+    "codename": "add_socialapp"
   }
 },
 {
   "model": "auth.permission",
   "pk": 38,
   "fields": {
-    "name": "Can change mentor",
-    "content_type": 10,
-    "codename": "change_mentor"
+    "name": "Can change social application",
+    "content_type": 13,
+    "codename": "change_socialapp"
   }
 },
 {
   "model": "auth.permission",
   "pk": 39,
   "fields": {
-    "name": "Can delete mentor",
-    "content_type": 10,
-    "codename": "delete_mentor"
+    "name": "Can delete social application",
+    "content_type": 13,
+    "codename": "delete_socialapp"
   }
 },
 {
   "model": "auth.permission",
   "pk": 40,
   "fields": {
-    "name": "Can add parent",
-    "content_type": 10,
-    "codename": "add_parent"
+    "name": "Can add social application token",
+    "content_type": 14,
+    "codename": "add_socialtoken"
   }
 },
 {
   "model": "auth.permission",
   "pk": 41,
   "fields": {
-    "name": "Can change parent",
-    "content_type": 10,
-    "codename": "change_parent"
+    "name": "Can change social application token",
+    "content_type": 14,
+    "codename": "change_socialtoken"
   }
 },
 {
   "model": "auth.permission",
   "pk": 42,
   "fields": {
-    "name": "Can delete parent",
-    "content_type": 10,
-    "codename": "delete_parent"
+    "name": "Can delete social application token",
+    "content_type": 14,
+    "codename": "delete_socialtoken"
   }
 },
 {
   "model": "auth.permission",
   "pk": 43,
   "fields": {
-    "name": "Can add student",
-    "content_type": 10,
-    "codename": "add_student"
+    "name": "Can add profile",
+    "content_type": 15,
+    "codename": "add_profile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 44,
   "fields": {
-    "name": "Can change student",
-    "content_type": 10,
-    "codename": "change_student"
+    "name": "Can change profile",
+    "content_type": 15,
+    "codename": "change_profile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 45,
   "fields": {
-    "name": "Can delete student",
-    "content_type": 10,
-    "codename": "delete_student"
+    "name": "Can delete profile",
+    "content_type": 15,
+    "codename": "delete_profile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 46,
   "fields": {
-    "name": "Can add impact survey",
-    "content_type": 12,
-    "codename": "add_impactsurvey"
+    "name": "Can add parent connection",
+    "content_type": 16,
+    "codename": "add_parentconnection"
   }
 },
 {
   "model": "auth.permission",
   "pk": 47,
   "fields": {
-    "name": "Can change impact survey",
-    "content_type": 12,
-    "codename": "change_impactsurvey"
+    "name": "Can change parent connection",
+    "content_type": 16,
+    "codename": "change_parentconnection"
   }
 },
 {
   "model": "auth.permission",
   "pk": 48,
   "fields": {
-    "name": "Can delete impact survey",
-    "content_type": 12,
-    "codename": "delete_impactsurvey"
+    "name": "Can delete parent connection",
+    "content_type": 16,
+    "codename": "delete_parentconnection"
   }
 },
 {
   "model": "auth.permission",
   "pk": 49,
   "fields": {
-    "name": "Can add challenge",
-    "content_type": 17,
-    "codename": "add_challenge"
+    "name": "Can add educator",
+    "content_type": 15,
+    "codename": "add_educator"
   }
 },
 {
   "model": "auth.permission",
   "pk": 50,
   "fields": {
-    "name": "Can change challenge",
-    "content_type": 17,
-    "codename": "change_challenge"
+    "name": "Can change educator",
+    "content_type": 15,
+    "codename": "change_educator"
   }
 },
 {
   "model": "auth.permission",
   "pk": 51,
   "fields": {
-    "name": "Can delete challenge",
-    "content_type": 17,
-    "codename": "delete_challenge"
+    "name": "Can delete educator",
+    "content_type": 15,
+    "codename": "delete_educator"
   }
 },
 {
   "model": "auth.permission",
   "pk": 52,
   "fields": {
-    "name": "Can add progress",
-    "content_type": 18,
-    "codename": "add_progress"
+    "name": "Can add mentor",
+    "content_type": 15,
+    "codename": "add_mentor"
   }
 },
 {
   "model": "auth.permission",
   "pk": 53,
   "fields": {
-    "name": "Can change progress",
-    "content_type": 18,
-    "codename": "change_progress"
+    "name": "Can change mentor",
+    "content_type": 15,
+    "codename": "change_mentor"
   }
 },
 {
   "model": "auth.permission",
   "pk": 54,
   "fields": {
-    "name": "Can delete progress",
-    "content_type": 18,
-    "codename": "delete_progress"
+    "name": "Can delete mentor",
+    "content_type": 15,
+    "codename": "delete_mentor"
   }
 },
 {
   "model": "auth.permission",
   "pk": 55,
   "fields": {
-    "name": "Can add theme",
-    "content_type": 19,
-    "codename": "add_theme"
+    "name": "Can add parent",
+    "content_type": 15,
+    "codename": "add_parent"
   }
 },
 {
   "model": "auth.permission",
   "pk": 56,
   "fields": {
-    "name": "Can change theme",
-    "content_type": 19,
-    "codename": "change_theme"
+    "name": "Can change parent",
+    "content_type": 15,
+    "codename": "change_parent"
   }
 },
 {
   "model": "auth.permission",
   "pk": 57,
   "fields": {
-    "name": "Can delete theme",
-    "content_type": 19,
-    "codename": "delete_theme"
+    "name": "Can delete parent",
+    "content_type": 15,
+    "codename": "delete_parent"
   }
 },
 {
   "model": "auth.permission",
   "pk": 58,
   "fields": {
-    "name": "Can add question",
-    "content_type": 20,
-    "codename": "add_question"
+    "name": "Can add student",
+    "content_type": 15,
+    "codename": "add_student"
   }
 },
 {
   "model": "auth.permission",
   "pk": 59,
   "fields": {
-    "name": "Can change question",
-    "content_type": 20,
-    "codename": "change_question"
+    "name": "Can change student",
+    "content_type": 15,
+    "codename": "change_student"
   }
 },
 {
   "model": "auth.permission",
   "pk": 60,
   "fields": {
-    "name": "Can delete question",
-    "content_type": 20,
-    "codename": "delete_question"
+    "name": "Can delete student",
+    "content_type": 15,
+    "codename": "delete_student"
   }
 },
 {
   "model": "auth.permission",
   "pk": 61,
   "fields": {
-    "name": "Can add example",
-    "content_type": 21,
-    "codename": "add_example"
+    "name": "Can add impact survey",
+    "content_type": 17,
+    "codename": "add_impactsurvey"
   }
 },
 {
   "model": "auth.permission",
   "pk": 62,
   "fields": {
-    "name": "Can change example",
-    "content_type": 21,
-    "codename": "change_example"
+    "name": "Can change impact survey",
+    "content_type": 17,
+    "codename": "change_impactsurvey"
   }
 },
 {
   "model": "auth.permission",
   "pk": 63,
   "fields": {
-    "name": "Can delete example",
-    "content_type": 21,
-    "codename": "delete_example"
+    "name": "Can delete impact survey",
+    "content_type": 17,
+    "codename": "delete_impactsurvey"
   }
 },
 {
   "model": "auth.permission",
   "pk": 64,
   "fields": {
-    "name": "Can add favorite",
-    "content_type": 22,
-    "codename": "add_favorite"
+    "name": "Can add user extra",
+    "content_type": 18,
+    "codename": "add_userextra"
   }
 },
 {
   "model": "auth.permission",
   "pk": 65,
   "fields": {
-    "name": "Can change favorite",
-    "content_type": 22,
-    "codename": "change_favorite"
+    "name": "Can change user extra",
+    "content_type": 18,
+    "codename": "change_userextra"
   }
 },
 {
   "model": "auth.permission",
   "pk": 66,
   "fields": {
-    "name": "Can delete favorite",
-    "content_type": 22,
-    "codename": "delete_favorite"
+    "name": "Can delete user extra",
+    "content_type": 18,
+    "codename": "delete_userextra"
   }
 },
 {
   "model": "auth.permission",
   "pk": 67,
   "fields": {
-    "name": "Can add filter",
-    "content_type": 23,
-    "codename": "add_filter"
+    "name": "Can add student profile",
+    "content_type": 24,
+    "codename": "add_studentprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 68,
   "fields": {
-    "name": "Can change filter",
-    "content_type": 23,
-    "codename": "change_filter"
+    "name": "Can change student profile",
+    "content_type": 24,
+    "codename": "change_studentprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 69,
   "fields": {
-    "name": "Can delete filter",
-    "content_type": 23,
-    "codename": "delete_filter"
+    "name": "Can delete student profile",
+    "content_type": 24,
+    "codename": "delete_studentprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 70,
   "fields": {
-    "name": "Can add resource",
-    "content_type": 24,
-    "codename": "add_resource"
+    "name": "Can add parent connection",
+    "content_type": 25,
+    "codename": "add_parentconnection"
   }
 },
 {
   "model": "auth.permission",
   "pk": 71,
   "fields": {
-    "name": "Can change resource",
-    "content_type": 24,
-    "codename": "change_resource"
+    "name": "Can change parent connection",
+    "content_type": 25,
+    "codename": "change_parentconnection"
   }
 },
 {
   "model": "auth.permission",
   "pk": 72,
   "fields": {
-    "name": "Can delete resource",
-    "content_type": 24,
-    "codename": "delete_resource"
+    "name": "Can delete parent connection",
+    "content_type": 25,
+    "codename": "delete_parentconnection"
   }
 },
 {
   "model": "auth.permission",
   "pk": 73,
   "fields": {
-    "name": "Can add resource file",
-    "content_type": 25,
-    "codename": "add_resourcefile"
+    "name": "Can add parent profile",
+    "content_type": 26,
+    "codename": "add_parentprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 74,
   "fields": {
-    "name": "Can change resource file",
-    "content_type": 25,
-    "codename": "change_resourcefile"
+    "name": "Can change parent profile",
+    "content_type": 26,
+    "codename": "change_parentprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 75,
   "fields": {
-    "name": "Can delete resource file",
-    "content_type": 25,
-    "codename": "delete_resourcefile"
+    "name": "Can delete parent profile",
+    "content_type": 26,
+    "codename": "delete_parentprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 76,
   "fields": {
-    "name": "Can add comment",
-    "content_type": 26,
-    "codename": "add_comment"
+    "name": "Can add mentor profile",
+    "content_type": 27,
+    "codename": "add_mentorprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 77,
   "fields": {
-    "name": "Can change comment",
-    "content_type": 26,
-    "codename": "change_comment"
+    "name": "Can change mentor profile",
+    "content_type": 27,
+    "codename": "change_mentorprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 78,
   "fields": {
-    "name": "Can delete comment",
-    "content_type": 26,
-    "codename": "delete_comment"
+    "name": "Can delete mentor profile",
+    "content_type": 27,
+    "codename": "delete_mentorprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 79,
   "fields": {
-    "name": "Can add video",
-    "content_type": 27,
-    "codename": "add_video"
+    "name": "Can add educator profile",
+    "content_type": 28,
+    "codename": "add_educatorprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 80,
   "fields": {
-    "name": "Can change video",
-    "content_type": 27,
-    "codename": "change_video"
+    "name": "Can change educator profile",
+    "content_type": 28,
+    "codename": "change_educatorprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 81,
   "fields": {
-    "name": "Can delete video",
-    "content_type": 27,
-    "codename": "delete_video"
+    "name": "Can delete educator profile",
+    "content_type": 28,
+    "codename": "delete_educatorprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 82,
   "fields": {
-    "name": "Can add encoded video",
-    "content_type": 28,
-    "codename": "add_encodedvideo"
+    "name": "Can add impact survey",
+    "content_type": 29,
+    "codename": "add_impactsurvey"
   }
 },
 {
   "model": "auth.permission",
   "pk": 83,
   "fields": {
-    "name": "Can change encoded video",
-    "content_type": 28,
-    "codename": "change_encodedvideo"
+    "name": "Can change impact survey",
+    "content_type": 29,
+    "codename": "change_impactsurvey"
   }
 },
 {
   "model": "auth.permission",
   "pk": 84,
   "fields": {
-    "name": "Can delete encoded video",
-    "content_type": 28,
-    "codename": "delete_encodedvideo"
+    "name": "Can delete impact survey",
+    "content_type": 29,
+    "codename": "delete_impactsurvey"
   }
 },
 {
   "model": "auth.permission",
   "pk": 85,
   "fields": {
-    "name": "Can add image",
-    "content_type": 29,
-    "codename": "add_image"
+    "name": "Can add challenge",
+    "content_type": 30,
+    "codename": "add_challenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 86,
   "fields": {
-    "name": "Can change image",
-    "content_type": 29,
-    "codename": "change_image"
+    "name": "Can change challenge",
+    "content_type": 30,
+    "codename": "change_challenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 87,
   "fields": {
-    "name": "Can delete image",
-    "content_type": 29,
-    "codename": "delete_image"
+    "name": "Can delete challenge",
+    "content_type": 30,
+    "codename": "delete_challenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 88,
   "fields": {
-    "name": "Can add unit",
-    "content_type": 30,
-    "codename": "add_unit"
+    "name": "Can add progress",
+    "content_type": 31,
+    "codename": "add_progress"
   }
 },
 {
   "model": "auth.permission",
   "pk": 89,
   "fields": {
-    "name": "Can change unit",
-    "content_type": 30,
-    "codename": "change_unit"
+    "name": "Can change progress",
+    "content_type": 31,
+    "codename": "change_progress"
   }
 },
 {
   "model": "auth.permission",
   "pk": 90,
   "fields": {
-    "name": "Can delete unit",
-    "content_type": 30,
-    "codename": "delete_unit"
+    "name": "Can delete progress",
+    "content_type": 31,
+    "codename": "delete_progress"
   }
 },
 {
   "model": "auth.permission",
   "pk": 91,
   "fields": {
-    "name": "Can add resource",
-    "content_type": 31,
-    "codename": "add_resource"
+    "name": "Can add theme",
+    "content_type": 32,
+    "codename": "add_theme"
   }
 },
 {
   "model": "auth.permission",
   "pk": 92,
   "fields": {
-    "name": "Can change resource",
-    "content_type": 31,
-    "codename": "change_resource"
+    "name": "Can change theme",
+    "content_type": 32,
+    "codename": "change_theme"
   }
 },
 {
   "model": "auth.permission",
   "pk": 93,
   "fields": {
-    "name": "Can delete resource",
-    "content_type": 31,
-    "codename": "delete_resource"
+    "name": "Can delete theme",
+    "content_type": 32,
+    "codename": "delete_theme"
   }
 },
 {
   "model": "auth.permission",
   "pk": 94,
   "fields": {
-    "name": "Can add unit challenge",
-    "content_type": 32,
-    "codename": "add_unitchallenge"
+    "name": "Can add question",
+    "content_type": 33,
+    "codename": "add_question"
   }
 },
 {
   "model": "auth.permission",
   "pk": 95,
   "fields": {
-    "name": "Can change unit challenge",
-    "content_type": 32,
-    "codename": "change_unitchallenge"
+    "name": "Can change question",
+    "content_type": 33,
+    "codename": "change_question"
   }
 },
 {
   "model": "auth.permission",
   "pk": 96,
   "fields": {
-    "name": "Can delete unit challenge",
-    "content_type": 32,
-    "codename": "delete_unitchallenge"
+    "name": "Can delete question",
+    "content_type": 33,
+    "codename": "delete_question"
   }
 },
 {
   "model": "auth.permission",
   "pk": 97,
   "fields": {
-    "name": "Can add member",
-    "content_type": 33,
-    "codename": "add_member"
+    "name": "Can add example",
+    "content_type": 34,
+    "codename": "add_example"
   }
 },
 {
   "model": "auth.permission",
   "pk": 98,
   "fields": {
-    "name": "Can change member",
-    "content_type": 33,
-    "codename": "change_member"
+    "name": "Can change example",
+    "content_type": 34,
+    "codename": "change_example"
   }
 },
 {
   "model": "auth.permission",
   "pk": 99,
   "fields": {
-    "name": "Can delete member",
-    "content_type": 33,
-    "codename": "delete_member"
+    "name": "Can delete example",
+    "content_type": 34,
+    "codename": "delete_example"
   }
 },
 {
   "model": "auth.permission",
   "pk": 100,
   "fields": {
-    "name": "Can add membership",
-    "content_type": 34,
-    "codename": "add_membership"
+    "name": "Can add favorite",
+    "content_type": 35,
+    "codename": "add_favorite"
   }
 },
 {
   "model": "auth.permission",
   "pk": 101,
   "fields": {
-    "name": "Can change membership",
-    "content_type": 34,
-    "codename": "change_membership"
+    "name": "Can change favorite",
+    "content_type": 35,
+    "codename": "change_favorite"
   }
 },
 {
   "model": "auth.permission",
   "pk": 102,
   "fields": {
-    "name": "Can delete membership",
-    "content_type": 34,
-    "codename": "delete_membership"
+    "name": "Can delete favorite",
+    "content_type": 35,
+    "codename": "delete_favorite"
   }
 },
 {
   "model": "auth.permission",
   "pk": 103,
   "fields": {
-    "name": "Can add member limit",
-    "content_type": 35,
-    "codename": "add_memberlimit"
+    "name": "Can add filter",
+    "content_type": 36,
+    "codename": "add_filter"
   }
 },
 {
   "model": "auth.permission",
   "pk": 104,
   "fields": {
-    "name": "Can change member limit",
-    "content_type": 35,
-    "codename": "change_memberlimit"
+    "name": "Can change filter",
+    "content_type": 36,
+    "codename": "change_filter"
   }
 },
 {
   "model": "auth.permission",
   "pk": 105,
   "fields": {
-    "name": "Can delete member limit",
-    "content_type": 35,
-    "codename": "delete_memberlimit"
+    "name": "Can delete filter",
+    "content_type": 36,
+    "codename": "delete_filter"
   }
 },
 {
   "model": "auth.permission",
   "pk": 106,
   "fields": {
-    "name": "Can add member import",
-    "content_type": 36,
-    "codename": "add_memberimport"
+    "name": "Can add resource",
+    "content_type": 37,
+    "codename": "add_resource"
   }
 },
 {
   "model": "auth.permission",
   "pk": 107,
   "fields": {
-    "name": "Can change member import",
-    "content_type": 36,
-    "codename": "change_memberimport"
+    "name": "Can change resource",
+    "content_type": 37,
+    "codename": "change_resource"
   }
 },
 {
   "model": "auth.permission",
   "pk": 108,
   "fields": {
-    "name": "Can delete member import",
-    "content_type": 36,
-    "codename": "delete_memberimport"
+    "name": "Can delete resource",
+    "content_type": 37,
+    "codename": "delete_resource"
   }
 },
 {
   "model": "auth.permission",
   "pk": 109,
   "fields": {
-    "name": "Can add group",
-    "content_type": 37,
-    "codename": "add_group"
+    "name": "Can add resource file",
+    "content_type": 38,
+    "codename": "add_resourcefile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 110,
   "fields": {
-    "name": "Can change group",
-    "content_type": 37,
-    "codename": "change_group"
+    "name": "Can change resource file",
+    "content_type": 38,
+    "codename": "change_resourcefile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 111,
   "fields": {
-    "name": "Can delete group",
-    "content_type": 37,
-    "codename": "delete_group"
+    "name": "Can delete resource file",
+    "content_type": 38,
+    "codename": "delete_resourcefile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 112,
   "fields": {
-    "name": "Can add group member",
-    "content_type": 38,
-    "codename": "add_groupmember"
+    "name": "Can add comment",
+    "content_type": 39,
+    "codename": "add_comment"
   }
 },
 {
   "model": "auth.permission",
   "pk": 113,
   "fields": {
-    "name": "Can change group member",
-    "content_type": 38,
-    "codename": "change_groupmember"
+    "name": "Can change comment",
+    "content_type": 39,
+    "codename": "change_comment"
   }
 },
 {
   "model": "auth.permission",
   "pk": 114,
   "fields": {
-    "name": "Can delete group member",
-    "content_type": 38,
-    "codename": "delete_groupmember"
+    "name": "Can delete comment",
+    "content_type": 39,
+    "codename": "delete_comment"
   }
 },
 {
   "model": "auth.permission",
   "pk": 115,
   "fields": {
-    "name": "Can add quiz",
-    "content_type": 39,
-    "codename": "add_quiz"
+    "name": "Can add video",
+    "content_type": 40,
+    "codename": "add_video"
   }
 },
 {
   "model": "auth.permission",
   "pk": 116,
   "fields": {
-    "name": "Can change quiz",
-    "content_type": 39,
-    "codename": "change_quiz"
+    "name": "Can change video",
+    "content_type": 40,
+    "codename": "change_video"
   }
 },
 {
   "model": "auth.permission",
   "pk": 117,
   "fields": {
-    "name": "Can delete quiz",
-    "content_type": 39,
-    "codename": "delete_quiz"
+    "name": "Can delete video",
+    "content_type": 40,
+    "codename": "delete_video"
   }
 },
 {
   "model": "auth.permission",
   "pk": 118,
   "fields": {
-    "name": "Can add result",
-    "content_type": 40,
-    "codename": "add_result"
+    "name": "Can add encoded video",
+    "content_type": 41,
+    "codename": "add_encodedvideo"
   }
 },
 {
   "model": "auth.permission",
   "pk": 119,
   "fields": {
-    "name": "Can change result",
-    "content_type": 40,
-    "codename": "change_result"
+    "name": "Can change encoded video",
+    "content_type": 41,
+    "codename": "change_encodedvideo"
   }
 },
 {
   "model": "auth.permission",
   "pk": 120,
   "fields": {
-    "name": "Can delete result",
-    "content_type": 40,
-    "codename": "delete_result"
+    "name": "Can delete encoded video",
+    "content_type": 41,
+    "codename": "delete_encodedvideo"
   }
 },
 {
   "model": "auth.permission",
   "pk": 121,
   "fields": {
-    "name": "Can add notification",
-    "content_type": 41,
-    "codename": "add_notification"
+    "name": "Can add image",
+    "content_type": 42,
+    "codename": "add_image"
   }
 },
 {
   "model": "auth.permission",
   "pk": 122,
   "fields": {
-    "name": "Can change notification",
-    "content_type": 41,
-    "codename": "change_notification"
+    "name": "Can change image",
+    "content_type": 42,
+    "codename": "change_image"
   }
 },
 {
   "model": "auth.permission",
   "pk": 123,
   "fields": {
-    "name": "Can delete notification",
-    "content_type": 41,
-    "codename": "delete_notification"
+    "name": "Can delete image",
+    "content_type": 42,
+    "codename": "delete_image"
   }
 },
 {
   "model": "auth.permission",
   "pk": 124,
   "fields": {
-    "name": "Can add email address",
-    "content_type": 42,
-    "codename": "add_emailaddress"
+    "name": "Can add unit",
+    "content_type": 43,
+    "codename": "add_unit"
   }
 },
 {
   "model": "auth.permission",
   "pk": 125,
   "fields": {
-    "name": "Can change email address",
-    "content_type": 42,
-    "codename": "change_emailaddress"
+    "name": "Can change unit",
+    "content_type": 43,
+    "codename": "change_unit"
   }
 },
 {
   "model": "auth.permission",
   "pk": 126,
   "fields": {
-    "name": "Can delete email address",
-    "content_type": 42,
-    "codename": "delete_emailaddress"
+    "name": "Can delete unit",
+    "content_type": 43,
+    "codename": "delete_unit"
   }
 },
 {
   "model": "auth.permission",
   "pk": 127,
   "fields": {
-    "name": "Can add email confirmation",
-    "content_type": 43,
-    "codename": "add_emailconfirmation"
+    "name": "Can add resource",
+    "content_type": 44,
+    "codename": "add_resource"
   }
 },
 {
   "model": "auth.permission",
   "pk": 128,
   "fields": {
-    "name": "Can change email confirmation",
-    "content_type": 43,
-    "codename": "change_emailconfirmation"
+    "name": "Can change resource",
+    "content_type": 44,
+    "codename": "change_resource"
   }
 },
 {
   "model": "auth.permission",
   "pk": 129,
   "fields": {
-    "name": "Can delete email confirmation",
-    "content_type": 43,
-    "codename": "delete_emailconfirmation"
+    "name": "Can delete resource",
+    "content_type": 44,
+    "codename": "delete_resource"
   }
 },
 {
   "model": "auth.permission",
   "pk": 130,
   "fields": {
-    "name": "Can add social account",
-    "content_type": 44,
-    "codename": "add_socialaccount"
+    "name": "Can add unit challenge",
+    "content_type": 45,
+    "codename": "add_unitchallenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 131,
   "fields": {
-    "name": "Can change social account",
-    "content_type": 44,
-    "codename": "change_socialaccount"
+    "name": "Can change unit challenge",
+    "content_type": 45,
+    "codename": "change_unitchallenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 132,
   "fields": {
-    "name": "Can delete social account",
-    "content_type": 44,
-    "codename": "delete_socialaccount"
+    "name": "Can delete unit challenge",
+    "content_type": 45,
+    "codename": "delete_unitchallenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 133,
   "fields": {
-    "name": "Can add social application",
-    "content_type": 45,
-    "codename": "add_socialapp"
+    "name": "Can add member",
+    "content_type": 46,
+    "codename": "add_member"
   }
 },
 {
   "model": "auth.permission",
   "pk": 134,
   "fields": {
-    "name": "Can change social application",
-    "content_type": 45,
-    "codename": "change_socialapp"
+    "name": "Can change member",
+    "content_type": 46,
+    "codename": "change_member"
   }
 },
 {
   "model": "auth.permission",
   "pk": 135,
   "fields": {
-    "name": "Can delete social application",
-    "content_type": 45,
-    "codename": "delete_socialapp"
+    "name": "Can delete member",
+    "content_type": 46,
+    "codename": "delete_member"
   }
 },
 {
   "model": "auth.permission",
   "pk": 136,
   "fields": {
-    "name": "Can add social application token",
-    "content_type": 46,
-    "codename": "add_socialtoken"
+    "name": "Can add membership",
+    "content_type": 47,
+    "codename": "add_membership"
   }
 },
 {
   "model": "auth.permission",
   "pk": 137,
   "fields": {
-    "name": "Can change social application token",
-    "content_type": 46,
-    "codename": "change_socialtoken"
+    "name": "Can change membership",
+    "content_type": 47,
+    "codename": "change_membership"
   }
 },
 {
   "model": "auth.permission",
   "pk": 138,
   "fields": {
-    "name": "Can delete social application token",
-    "content_type": 46,
-    "codename": "delete_socialtoken"
+    "name": "Can delete membership",
+    "content_type": 47,
+    "codename": "delete_membership"
   }
 },
 {
   "model": "auth.permission",
   "pk": 139,
   "fields": {
-    "name": "Can add user extra",
-    "content_type": 47,
-    "codename": "add_userextra"
+    "name": "Can add member limit",
+    "content_type": 48,
+    "codename": "add_memberlimit"
   }
 },
 {
   "model": "auth.permission",
   "pk": 140,
   "fields": {
-    "name": "Can change user extra",
-    "content_type": 47,
-    "codename": "change_userextra"
+    "name": "Can change member limit",
+    "content_type": 48,
+    "codename": "change_memberlimit"
   }
 },
 {
   "model": "auth.permission",
   "pk": 141,
   "fields": {
-    "name": "Can delete user extra",
-    "content_type": 47,
-    "codename": "delete_userextra"
+    "name": "Can delete member limit",
+    "content_type": 48,
+    "codename": "delete_memberlimit"
   }
 },
 {
   "model": "auth.permission",
   "pk": 142,
   "fields": {
-    "name": "Can add student profile",
+    "name": "Can add member import",
     "content_type": 49,
-    "codename": "add_studentprofile"
+    "codename": "add_memberimport"
   }
 },
 {
   "model": "auth.permission",
   "pk": 143,
   "fields": {
-    "name": "Can change student profile",
+    "name": "Can change member import",
     "content_type": 49,
-    "codename": "change_studentprofile"
+    "codename": "change_memberimport"
   }
 },
 {
   "model": "auth.permission",
   "pk": 144,
   "fields": {
-    "name": "Can delete student profile",
+    "name": "Can delete member import",
     "content_type": 49,
-    "codename": "delete_studentprofile"
+    "codename": "delete_memberimport"
   }
 },
 {
   "model": "auth.permission",
   "pk": 145,
   "fields": {
-    "name": "Can add parent connection",
+    "name": "Can add group",
     "content_type": 50,
-    "codename": "add_parentconnection"
+    "codename": "add_group"
   }
 },
 {
   "model": "auth.permission",
   "pk": 146,
   "fields": {
-    "name": "Can change parent connection",
+    "name": "Can change group",
     "content_type": 50,
-    "codename": "change_parentconnection"
+    "codename": "change_group"
   }
 },
 {
   "model": "auth.permission",
   "pk": 147,
   "fields": {
-    "name": "Can delete parent connection",
+    "name": "Can delete group",
     "content_type": 50,
-    "codename": "delete_parentconnection"
+    "codename": "delete_group"
   }
 },
 {
   "model": "auth.permission",
   "pk": 148,
   "fields": {
-    "name": "Can add parent profile",
+    "name": "Can add group member",
     "content_type": 51,
-    "codename": "add_parentprofile"
+    "codename": "add_groupmember"
   }
 },
 {
   "model": "auth.permission",
   "pk": 149,
   "fields": {
-    "name": "Can change parent profile",
+    "name": "Can change group member",
     "content_type": 51,
-    "codename": "change_parentprofile"
+    "codename": "change_groupmember"
   }
 },
 {
   "model": "auth.permission",
   "pk": 150,
   "fields": {
-    "name": "Can delete parent profile",
+    "name": "Can delete group member",
     "content_type": 51,
-    "codename": "delete_parentprofile"
+    "codename": "delete_groupmember"
   }
 },
 {
   "model": "auth.permission",
   "pk": 151,
   "fields": {
-    "name": "Can add mentor profile",
+    "name": "Can add quiz",
     "content_type": 52,
-    "codename": "add_mentorprofile"
+    "codename": "add_quiz"
   }
 },
 {
   "model": "auth.permission",
   "pk": 152,
   "fields": {
-    "name": "Can change mentor profile",
+    "name": "Can change quiz",
     "content_type": 52,
-    "codename": "change_mentorprofile"
+    "codename": "change_quiz"
   }
 },
 {
   "model": "auth.permission",
   "pk": 153,
   "fields": {
-    "name": "Can delete mentor profile",
+    "name": "Can delete quiz",
     "content_type": 52,
-    "codename": "delete_mentorprofile"
+    "codename": "delete_quiz"
   }
 },
 {
   "model": "auth.permission",
   "pk": 154,
   "fields": {
-    "name": "Can add educator profile",
+    "name": "Can add result",
     "content_type": 53,
-    "codename": "add_educatorprofile"
+    "codename": "add_result"
   }
 },
 {
   "model": "auth.permission",
   "pk": 155,
   "fields": {
-    "name": "Can change educator profile",
+    "name": "Can change result",
     "content_type": 53,
-    "codename": "change_educatorprofile"
+    "codename": "change_result"
   }
 },
 {
   "model": "auth.permission",
   "pk": 156,
   "fields": {
-    "name": "Can delete educator profile",
+    "name": "Can delete result",
     "content_type": 53,
-    "codename": "delete_educatorprofile"
+    "codename": "delete_result"
   }
 },
 {
   "model": "auth.permission",
   "pk": 157,
   "fields": {
-    "name": "Can add impact survey",
+    "name": "Can add notification",
     "content_type": 54,
-    "codename": "add_impactsurvey"
+    "codename": "add_notification"
   }
 },
 {
   "model": "auth.permission",
   "pk": 158,
   "fields": {
-    "name": "Can change impact survey",
+    "name": "Can change notification",
     "content_type": 54,
-    "codename": "change_impactsurvey"
+    "codename": "change_notification"
   }
 },
 {
   "model": "auth.permission",
   "pk": 159,
   "fields": {
-    "name": "Can delete impact survey",
+    "name": "Can delete notification",
     "content_type": 54,
-    "codename": "delete_impactsurvey"
+    "codename": "delete_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 160,
+  "fields": {
+    "name": "Can add family profile",
+    "content_type": 55,
+    "codename": "add_familyprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 161,
+  "fields": {
+    "name": "Can change family profile",
+    "content_type": 55,
+    "codename": "change_familyprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 162,
+  "fields": {
+    "name": "Can delete family profile",
+    "content_type": 55,
+    "codename": "delete_familyprofile"
   }
 },
 {
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$36000$i6XYPRBgqvhN$dM9RbVVd6Aa6kWThScx04GvS0BVA3y+i1Fr5ZhEo85o=",
+    "password": "pbkdf2_sha256$36000$qc1IDp0E1YUT$n1JOGIxWCqIEkEY5SrtkFp2NKksXBAT42Zx1d9wMyGs=",
     "last_login": "2016-11-04T14:33:45.533Z",
     "is_superuser": true,
     "username": "admin",
@@ -8074,7 +8109,7 @@
   "model": "auth.user",
   "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$36000$P4UCNUcjxrcN$bWM/E35COcI+AkvLNUDfHNTr94gTL/LC18zcd/xQYhI=",
+    "password": "pbkdf2_sha256$36000$qt9zDr2ZxQSG$NpSwAFRngC1C0u3lo4aNKSaWJw5+US+pFvXFH8DOybo=",
     "last_login": null,
     "is_superuser": false,
     "username": "child",
@@ -8092,7 +8127,7 @@
   "model": "auth.user",
   "pk": 3,
   "fields": {
-    "password": "pbkdf2_sha256$36000$JsCjSUGTw7mK$JjMDlvKuYXA8wuqPrkXrnpX9b6a1kQrsRcGbfXzA8+o=",
+    "password": "pbkdf2_sha256$36000$QHJxlc3SARnP$4PWWiYzo50VckooIqvmgubFoJXwTCcVPOMCr4Yt4tn0=",
     "last_login": "2016-11-02T14:24:00.718Z",
     "is_superuser": false,
     "username": "teen",
@@ -8110,7 +8145,7 @@
   "model": "auth.user",
   "pk": 4,
   "fields": {
-    "password": "pbkdf2_sha256$36000$bFPC2izKD7KE$/P3kVrkD8yhz+CbX2mpXOY3tDPg5aewIDkfgkAAtKEg=",
+    "password": "pbkdf2_sha256$36000$uQkeHy3WBeOv$Yi9H6YmX2qKqMKTBOWdDFENU4pV/jD4uv3Dhy+GYF0M=",
     "last_login": null,
     "is_superuser": false,
     "username": "mentor",
@@ -8128,7 +8163,7 @@
   "model": "auth.user",
   "pk": 5,
   "fields": {
-    "password": "pbkdf2_sha256$36000$r8HMzq4xPMlH$Sqn5ko1KnTXYeX1Yh2xXCuF9L+WU5XXOtcskxNWYNnw=",
+    "password": "pbkdf2_sha256$36000$HSgolCGVFASL$wd11p5VwoyrxnsgXSAa/PWtJlt1qPw/MV7ypaV4Z7ew=",
     "last_login": null,
     "is_superuser": false,
     "username": "parent",
@@ -8146,7 +8181,7 @@
   "model": "auth.user",
   "pk": 6,
   "fields": {
-    "password": "pbkdf2_sha256$36000$r61kBLidfPYZ$0i9jWwS3rkl7oUC/92nk+gH91bFVmPfIpqywM8cHDUw=",
+    "password": "pbkdf2_sha256$36000$auhivacpJEcd$XQ53v/jiKp3qDWvWp5T/albscolNI5zLGF3G1MlgG2k=",
     "last_login": "2016-11-06T02:01:55.659Z",
     "is_superuser": false,
     "username": "Miss_H",
@@ -8164,7 +8199,7 @@
   "model": "auth.user",
   "pk": 7,
   "fields": {
-    "password": "pbkdf2_sha256$36000$bLvkET5JkJAl$tlJCabe/1Xn4DhB56GJy1wN9CinllQZXwUS0g9RJWIU=",
+    "password": "pbkdf2_sha256$36000$cRIkyyUOxqvL$+b9NgXC06FiplMu7s+dY+y1TgGaDOv/A4n04BNDpv04=",
     "last_login": "2016-11-06T01:58:18.119Z",
     "is_superuser": false,
     "username": "Mr_M",
@@ -8182,7 +8217,7 @@
   "model": "auth.user",
   "pk": 8,
   "fields": {
-    "password": "pbkdf2_sha256$36000$ArzEfpvxVH64$fRqb7R0dNTEwwopq4bSYntPkiCDsqg7hXS6I9daGv1Y=",
+    "password": "pbkdf2_sha256$36000$bnK9T2eJtDZK$u7FXjkhEHSBaaNoFgceaFiuqvrIloErMkMXYvtDEbBE=",
     "last_login": "2016-11-03T22:43:00.678Z",
     "is_superuser": false,
     "username": "SesameBird",
@@ -8200,7 +8235,7 @@
   "model": "auth.user",
   "pk": 9,
   "fields": {
-    "password": "pbkdf2_sha256$36000$SduI1fxKPkPH$q4cbLIddEmPQDbEloSSQ7T2VqUAKsA0yzKB39rwvIBI=",
+    "password": "pbkdf2_sha256$36000$txpdwMyukJyl$lqCe2FH/+krn83PendCXvnV/JtWazUnxmcU/6vEF3Hg=",
     "last_login": "2016-11-04T04:04:14.315Z",
     "is_superuser": false,
     "username": "i_love_trash_03",
@@ -8218,7 +8253,7 @@
   "model": "auth.user",
   "pk": 10,
   "fields": {
-    "password": "pbkdf2_sha256$36000$dbgo4TRCcwh2$pjy2w3MgyU/oCJbBGJ89jrCJ91McEEg2zLB/+4kXMHI=",
+    "password": "pbkdf2_sha256$36000$o1qEsuv5B6hI$a0RkkDytiETaj+EFkMyqdm9ykZ4QfaBilYhdTyDZUFE=",
     "last_login": "2016-11-04T03:52:03.297Z",
     "is_superuser": false,
     "username": "tough_2b_green",
@@ -8236,7 +8271,7 @@
   "model": "auth.user",
   "pk": 11,
   "fields": {
-    "password": "pbkdf2_sha256$36000$CR45J7IhpYb2$9gwI1VcXMH7l9rziO+Kr3K6BYsbtPJAhRU1WMNtaM3Y=",
+    "password": "pbkdf2_sha256$36000$cPBTBZZY8LOT$+A7GLAB62c5a6zMJyn/ui7KKtrxvOikBgaiQIw1TsA8=",
     "last_login": "2016-11-04T03:38:26.636Z",
     "is_superuser": false,
     "username": "fuzzyfonzie",
@@ -8254,7 +8289,7 @@
   "model": "auth.user",
   "pk": 12,
   "fields": {
-    "password": "pbkdf2_sha256$36000$za2XPioCoa1e$CHQ6ObiklPoIcDCdfXEKOvh2PLJKuIh/aoyy3+eEzcY=",
+    "password": "pbkdf2_sha256$36000$4VViUhf4o1Wt$Nj6vlnIsbJvGIooS1YCOXNiqAE3BbPQi4FGEpAno8dM=",
     "last_login": "2016-11-04T04:00:25.940Z",
     "is_superuser": false,
     "username": "Snuffy99",
@@ -8272,7 +8307,7 @@
   "model": "auth.user",
   "pk": 13,
   "fields": {
-    "password": "pbkdf2_sha256$36000$8rfwcy7GiPX5$MmT+yj2zb8Ypp6mGaXCOzMixXEZByNf9eUW+Qv5hjSA=",
+    "password": "pbkdf2_sha256$36000$ZXXhYf3pfEp4$f2eVbxj1KKL/HUpnr0MIP5mGKvGc14WknFq9fJyI5VU=",
     "last_login": "2016-11-04T03:47:44.416Z",
     "is_superuser": false,
     "username": "love2count123",
@@ -8290,7 +8325,7 @@
   "model": "auth.user",
   "pk": 14,
   "fields": {
-    "password": "pbkdf2_sha256$36000$KDwQijjVkXcU$RGhezna/m5EIxR5ByYoNhMPgefSr7FX7BMee9nEQtHg=",
+    "password": "pbkdf2_sha256$36000$OQ78kz4wg3x9$r7bw65Rta3MyvZ4wlSeAMOCFrP0FTkNkRda23PjLwLU=",
     "last_login": "2016-11-03T22:38:15.057Z",
     "is_superuser": false,
     "username": "cOOkiescOOkies",
@@ -8308,7 +8343,7 @@
   "model": "auth.user",
   "pk": 15,
   "fields": {
-    "password": "pbkdf2_sha256$36000$NneZCpdlPix5$lRtAXpjHzXKvvGmwwtYbti57O6/t8bao8hrBcPPnaxM=",
+    "password": "pbkdf2_sha256$36000$feUybmcUSeLu$lztVrZuaihcNLVnnRrdlFdjceUTm1WldzHo4F/Fha4A=",
     "last_login": "2016-11-04T04:06:34.818Z",
     "is_superuser": false,
     "username": "drummerdude",
@@ -8326,7 +8361,7 @@
   "model": "auth.user",
   "pk": 16,
   "fields": {
-    "password": "pbkdf2_sha256$36000$8hM87tHR1B08$6nwc6YxsK5wZ8PGRfgar0px6TkTJPgDzrWyAWvCcGgM=",
+    "password": "pbkdf2_sha256$36000$ifR6BApjSuR7$d1PYYzL+XhGqXhmSF079EFXnAyeQExnktYNtzQziVFs=",
     "last_login": null,
     "is_superuser": false,
     "username": "scienceboy22",
@@ -8344,7 +8379,7 @@
   "model": "auth.user",
   "pk": 17,
   "fields": {
-    "password": "pbkdf2_sha256$36000$WI6fEae6eG5d$SgP2azU4Ayz/q4kNw0D6UmK0i6MBZyzwgjBJKoQ5hZ8=",
+    "password": "pbkdf2_sha256$36000$xFnBrVxP9Hkm$z9v4nEdb8Mt/jYHK5LlfrTxLmJ6g4cO3PEnPEDuta2c=",
     "last_login": "2016-11-04T03:58:34.394Z",
     "is_superuser": false,
     "username": "SamForPresident",
@@ -9166,7 +9201,7 @@
   "pk": 1,
   "fields": {
     "challenge": 14,
-    "student": 15,
+    "owner": 15,
     "started": "2016-11-03T22:27:08.548Z",
     "mentor": null,
     "approved": null,
@@ -9178,7 +9213,7 @@
   "pk": 2,
   "fields": {
     "challenge": 11,
-    "student": 15,
+    "owner": 15,
     "started": "2016-11-03T22:31:20.848Z",
     "mentor": null,
     "approved": null,
@@ -9190,7 +9225,7 @@
   "pk": 3,
   "fields": {
     "challenge": 14,
-    "student": 14,
+    "owner": 14,
     "started": "2016-11-03T22:38:21.771Z",
     "mentor": null,
     "approved": null,
@@ -9202,7 +9237,7 @@
   "pk": 4,
   "fields": {
     "challenge": 11,
-    "student": 14,
+    "owner": 14,
     "started": "2016-11-03T22:39:06.397Z",
     "mentor": null,
     "approved": null,
@@ -9214,7 +9249,7 @@
   "pk": 5,
   "fields": {
     "challenge": 14,
-    "student": 8,
+    "owner": 8,
     "started": "2016-11-03T22:42:09.253Z",
     "mentor": null,
     "approved": null,
@@ -9226,7 +9261,7 @@
   "pk": 6,
   "fields": {
     "challenge": 11,
-    "student": 8,
+    "owner": 8,
     "started": "2016-11-03T22:44:13.389Z",
     "mentor": null,
     "approved": null,
@@ -9238,7 +9273,7 @@
   "pk": 7,
   "fields": {
     "challenge": 14,
-    "student": 11,
+    "owner": 11,
     "started": "2016-11-04T03:38:40.793Z",
     "mentor": null,
     "approved": null,
@@ -9250,7 +9285,7 @@
   "pk": 8,
   "fields": {
     "challenge": 11,
-    "student": 11,
+    "owner": 11,
     "started": "2016-11-04T03:42:01.698Z",
     "mentor": null,
     "approved": null,
@@ -9262,7 +9297,7 @@
   "pk": 9,
   "fields": {
     "challenge": 14,
-    "student": 13,
+    "owner": 13,
     "started": "2016-11-04T03:43:32.979Z",
     "mentor": null,
     "approved": null,
@@ -9274,7 +9309,7 @@
   "pk": 10,
   "fields": {
     "challenge": 11,
-    "student": 13,
+    "owner": 13,
     "started": "2016-11-04T03:45:42.558Z",
     "mentor": null,
     "approved": null,
@@ -9286,7 +9321,7 @@
   "pk": 11,
   "fields": {
     "challenge": 11,
-    "student": 10,
+    "owner": 10,
     "started": "2016-11-04T03:52:12.625Z",
     "mentor": null,
     "approved": null,
@@ -9298,7 +9333,7 @@
   "pk": 12,
   "fields": {
     "challenge": 14,
-    "student": 10,
+    "owner": 10,
     "started": "2016-11-04T03:55:03.299Z",
     "mentor": null,
     "approved": null,
@@ -9310,7 +9345,7 @@
   "pk": 13,
   "fields": {
     "challenge": 14,
-    "student": 17,
+    "owner": 17,
     "started": "2016-11-04T03:58:58.841Z",
     "mentor": null,
     "approved": null,
@@ -9322,7 +9357,7 @@
   "pk": 14,
   "fields": {
     "challenge": 11,
-    "student": 17,
+    "owner": 17,
     "started": "2016-11-04T03:59:23.582Z",
     "mentor": null,
     "approved": null,
@@ -9334,7 +9369,7 @@
   "pk": 15,
   "fields": {
     "challenge": 14,
-    "student": 12,
+    "owner": 12,
     "started": "2016-11-04T04:00:32.809Z",
     "mentor": null,
     "approved": null,
@@ -9346,7 +9381,7 @@
   "pk": 16,
   "fields": {
     "challenge": 11,
-    "student": 12,
+    "owner": 12,
     "started": "2016-11-04T04:01:44.686Z",
     "mentor": null,
     "approved": null,
@@ -9358,7 +9393,7 @@
   "pk": 17,
   "fields": {
     "challenge": 14,
-    "student": 9,
+    "owner": 9,
     "started": "2016-11-04T04:04:18.945Z",
     "mentor": null,
     "approved": null,
@@ -9370,7 +9405,7 @@
   "pk": 18,
   "fields": {
     "challenge": 11,
-    "student": 9,
+    "owner": 9,
     "started": "2016-11-04T04:04:59.389Z",
     "mentor": null,
     "approved": null,
@@ -11105,8 +11140,8 @@
   "fields": {
     "membership": 1,
     "user": 6,
-    "created_at": "2017-11-17T02:20:52.990Z",
-    "updated_at": "2017-11-17T02:20:52.990Z"
+    "created_at": "2017-12-14T21:44:00.174Z",
+    "updated_at": "2017-12-14T21:44:00.174Z"
   }
 },
 {
@@ -11115,8 +11150,8 @@
   "fields": {
     "membership": 1,
     "user": 8,
-    "created_at": "2017-11-17T02:20:52.997Z",
-    "updated_at": "2017-11-17T02:20:52.997Z"
+    "created_at": "2017-12-14T21:44:00.197Z",
+    "updated_at": "2017-12-14T21:44:00.197Z"
   }
 },
 {
@@ -11125,8 +11160,8 @@
   "fields": {
     "membership": 1,
     "user": 9,
-    "created_at": "2017-11-17T02:20:53.003Z",
-    "updated_at": "2017-11-17T02:20:53.003Z"
+    "created_at": "2017-12-14T21:44:00.210Z",
+    "updated_at": "2017-12-14T21:44:00.210Z"
   }
 },
 {
@@ -11135,8 +11170,8 @@
   "fields": {
     "membership": 1,
     "user": 10,
-    "created_at": "2017-11-17T02:20:53.008Z",
-    "updated_at": "2017-11-17T02:20:53.008Z"
+    "created_at": "2017-12-14T21:44:00.225Z",
+    "updated_at": "2017-12-14T21:44:00.225Z"
   }
 },
 {
@@ -11145,8 +11180,8 @@
   "fields": {
     "membership": 1,
     "user": 11,
-    "created_at": "2017-11-17T02:20:53.014Z",
-    "updated_at": "2017-11-17T02:20:53.014Z"
+    "created_at": "2017-12-14T21:44:00.239Z",
+    "updated_at": "2017-12-14T21:44:00.239Z"
   }
 },
 {
@@ -11155,8 +11190,8 @@
   "fields": {
     "membership": 1,
     "user": 12,
-    "created_at": "2017-11-17T02:20:53.020Z",
-    "updated_at": "2017-11-17T02:20:53.020Z"
+    "created_at": "2017-12-14T21:44:00.257Z",
+    "updated_at": "2017-12-14T21:44:00.257Z"
   }
 },
 {
@@ -11165,8 +11200,8 @@
   "fields": {
     "membership": 1,
     "user": 13,
-    "created_at": "2017-11-17T02:20:53.026Z",
-    "updated_at": "2017-11-17T02:20:53.026Z"
+    "created_at": "2017-12-14T21:44:00.274Z",
+    "updated_at": "2017-12-14T21:44:00.274Z"
   }
 },
 {
@@ -11175,8 +11210,8 @@
   "fields": {
     "membership": 1,
     "user": 14,
-    "created_at": "2017-11-17T02:20:53.031Z",
-    "updated_at": "2017-11-17T02:20:53.031Z"
+    "created_at": "2017-12-14T21:44:00.287Z",
+    "updated_at": "2017-12-14T21:44:00.287Z"
   }
 },
 {
@@ -11185,8 +11220,8 @@
   "fields": {
     "membership": 1,
     "user": 15,
-    "created_at": "2017-11-17T02:20:53.037Z",
-    "updated_at": "2017-11-17T02:20:53.037Z"
+    "created_at": "2017-12-14T21:44:00.306Z",
+    "updated_at": "2017-12-14T21:44:00.306Z"
   }
 },
 {
@@ -11195,8 +11230,8 @@
   "fields": {
     "membership": 1,
     "user": 16,
-    "created_at": "2017-11-17T02:20:53.042Z",
-    "updated_at": "2017-11-17T02:20:53.042Z"
+    "created_at": "2017-12-14T21:44:00.322Z",
+    "updated_at": "2017-12-14T21:44:00.322Z"
   }
 },
 {
@@ -11205,8 +11240,8 @@
   "fields": {
     "membership": 1,
     "user": 17,
-    "created_at": "2017-11-17T02:20:53.047Z",
-    "updated_at": "2017-11-17T02:20:53.047Z"
+    "created_at": "2017-12-14T21:44:00.345Z",
+    "updated_at": "2017-12-14T21:44:00.346Z"
   }
 }
 ]

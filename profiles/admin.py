@@ -97,7 +97,7 @@ class UserAdminWithExtra(UserAdmin):
     source.admin_order_field = "extra__source"
 
     def city(self, obj):
-        return User.cast(obj).profile.city
+        return getattr(User.cast(obj).profile, 'city', None)
     city.admin_order_field = "profile__city"
 
     def get_inline_instances(self, request, obj=None):

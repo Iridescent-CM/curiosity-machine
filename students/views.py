@@ -63,7 +63,7 @@ class HomeView(TemplateView):
         context["my_challenges_filters"] = [ 'active', 'completed' ]
         context["favorite_challenges"] = Favorite.objects.filter(student=request.user)
 
-        progresses = Progress.objects.filter(student=request.user).select_related("challenge")
+        progresses = Progress.objects.filter(owner=request.user).select_related("challenge")
         context["completed_progresses"] = [progress for progress in progresses if progress.completed]
         context["active_progresses"] = [progress for progress in progresses if not progress.completed]
         context["progresses"] = progresses

@@ -88,7 +88,7 @@ def test_send_mentor_progress_completion_notice_no_mentor():
 def test_send_mentor_progress_completion_notice():
     student = StudentFactory.build()
     mentor = MentorFactory.build()
-    progress = ProgressFactory.build(student=student, mentor=mentor, challenge__id=5)
+    progress = ProgressFactory.build(owner=student, mentor=mentor, challenge__id=5)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_mentor_progress_completion_notice(student, progress)
@@ -99,7 +99,7 @@ def test_send_mentor_progress_completion_notice():
 
 def test_send_student_challenge_share_encouragement():
     student = StudentFactory.build()
-    progress = ProgressFactory.build(student=student, challenge__id=5)
+    progress = ProgressFactory.build(owner=student, challenge__id=5)
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_student_challenge_share_encouragement(student, progress)

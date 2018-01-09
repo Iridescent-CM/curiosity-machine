@@ -12,7 +12,7 @@ from students.factories import StudentFactory
 def test_requires_login(client):
     progress = ProgressFactory()
 
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
     assert response.status_code == 302
     assert 'login/?next' in response.url
 
@@ -22,7 +22,7 @@ def test_allows_staff(client):
     user = UserFactory(is_staff=True, username="username", password="password")
 
     client.login(username="username", password="password")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
 
     assert response.status_code == 200
 
@@ -32,7 +32,7 @@ def test_allows_mentor(client):
     user = MentorFactory(username="username", password="password")
 
     client.login(username="username", password="password")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
 
     assert response.status_code == 200
 
@@ -40,8 +40,8 @@ def test_allows_mentor(client):
 def test_allows_current_user(client):
     progress = ProgressFactory()
 
-    client.login(username=progress.student.username, password="123123")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+    client.login(username=progress.owner.username, password="123123")
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
 
     assert response.status_code == 200
 
@@ -49,10 +49,10 @@ def test_allows_current_user(client):
 def test_allows_parent_of_user(client):
     progress = ProgressFactory()
     user = ParentFactory(username="username", password="password")
-    ParentConnectionFactory(parent_profile=user.parentprofile, child_profile=progress.student.studentprofile, active=True)
+    ParentConnectionFactory(parent_profile=user.parentprofile, child_profile=progress.owner.studentprofile, active=True)
 
     client.login(username="username", password="password")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
 
     assert response.status_code == 200
 
@@ -60,10 +60,10 @@ def test_allows_parent_of_user(client):
 def test_allows_educator_sharing_membership(client):
     progress = ProgressFactory()
     user = EducatorFactory(username="username", password="password")
-    MembershipFactory(members=[progress.student, user])
+    MembershipFactory(members=[progress.owner, user])
 
     client.login(username="username", password="password")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
 
     assert response.status_code == 200
 
@@ -71,10 +71,10 @@ def test_allows_educator_sharing_membership(client):
 def test_allows_parent_sharing_membership(client):
     progress = ProgressFactory()
     user = ParentFactory(username="username", password="password")
-    MembershipFactory(members=[progress.student, user])
+    MembershipFactory(members=[progress.owner, user])
 
     client.login(username="username", password="password")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
 
     assert response.status_code == 200
 
@@ -84,7 +84,7 @@ def test_does_not_allow_other_student(client):
     user = StudentFactory(username="username", password="password")
 
     client.login(username="username", password="password")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
 
     assert response.status_code == 302
     assert response.url.endswith(reverse("challenges:preview_inspiration", kwargs={"challenge_id": progress.challenge.id}))
@@ -95,7 +95,7 @@ def test_does_not_allow_other_educator(client):
     user = EducatorFactory(username="username", password="password")
 
     client.login(username="username", password="password")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
 
     assert response.status_code == 302
     assert response.url.endswith(reverse("challenges:preview_inspiration", kwargs={"challenge_id": progress.challenge.id}))
@@ -106,7 +106,7 @@ def test_does_not_allow_other_parent(client):
     user = ParentFactory(username="username", password="password")
 
     client.login(username="username", password="password")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.student.username, "stage": "plan"}))
+    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
 
     assert response.status_code == 302
     assert response.url.endswith(reverse("challenges:preview_inspiration", kwargs={"challenge_id": progress.challenge.id}))

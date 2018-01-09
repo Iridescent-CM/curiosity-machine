@@ -52,7 +52,12 @@ class Challenge(models.Model):
     learn_more = models.TextField(help_text="HTML, shown in the guide")
     mentor_guide = models.TextField(help_text="HTML, shown in the mentor guide", null=True, blank=True)
     materials_list = models.TextField(help_text="HTML")
-    students = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Progress', through_fields=('challenge', 'student'), related_name="challenges")
+    doers = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        through='Progress',
+        through_fields=('challenge', 'owner'),
+        related_name="challenges"
+    )
     themes = models.ManyToManyField(Theme, blank=True, related_name='challenges')
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
@@ -97,7 +102,7 @@ class Challenge(models.Model):
 
 class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)
-    student = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='progresses')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='progresses')
     started = models.DateTimeField(default=now)
     mentor = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='mentored_progresses', null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.DateTimeField(null=True, blank=True)
@@ -140,12 +145,12 @@ class Progress(models.Model):
 
 
     def is_first_project(self):
-        return self.student.progresses.count() == 1
+        return self.owner.progresses.count() == 1
 
     def save(self, *args, **kwargs):
-        if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
-            raise ValidationError("There is already progress by this student on this challenge")
-        if self.student.extra.is_mentor:
+        if Progress.objects.filter(challenge=self.challenge, owner=self.owner).exclude(id=self.id).exists():
+            raise ValidationError("There is already progress by this user on this challenge")
+        if self.owner.extra.is_mentor:
             raise ValidationError("Mentors can not start a challenge")
         if self.mentor and not self.mentor.extra.is_mentor:
             raise ValidationError("The mentor of a challenge must be a mentor")
@@ -153,13 +158,13 @@ class Progress(models.Model):
             super(Progress, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('challenges:challenge_progress', kwargs={'challenge_id': self.challenge_id, 'username': self.student.username,})
+        return reverse('challenges:challenge_progress', kwargs={'challenge_id': self.challenge_id, 'username': self.owner.username,})
 
     def get_unread_comments_for_user(self, user):
         return user.notifications.filter(target_object_id=self.id, target_content_type=ContentType.objects.get_for_model(self)).unread()
 
-    def get_student_images(self):
-        return Image.objects.filter(comments__user=self.student, comments__challenge_progress=self)
+    def get_owner_images(self):
+        return Image.objects.filter(comments__user=self.owner, comments__challenge_progress=self)
 
     @property
     def materials_list(self):
@@ -167,14 +172,14 @@ class Progress(models.Model):
 
     @property
     def completed(self):
-        return self.comments.filter(stage=Stage.reflect.value, user=self.student).exists()
+        return self.comments.filter(stage=Stage.reflect.value, user=self.owner).exists()
 
     @property
     def most_recent(self):
         return self.comments.order_by('-created').first()
 
-    def student_username(self):
-        return self.student.username
+    def owner_username(self):
+        return self.owner.username
 
     def challenge_name(self):
         return self.challenge.name
@@ -183,7 +188,7 @@ class Progress(models.Model):
         return self.mentor.username if self.mentor else ''
 
     def __repr__(self):
-        return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
+        return "Progress: id={}, challenge_id={}, owner_id={}".format(self.id, self.challenge_id, self.owner_id)
 
     def __str__(self):
         return "Progress: id={}".format(self.id)
@@ -210,7 +215,7 @@ class ExampleQuerySet(models.QuerySet):
         user = kwargs.get('user', None)
         f = Q(approved=True)
         if user:
-            f = f | Q(progress__student=user, approved=None)
+            f = f | Q(progress__owner=user, approved=None)
         return self.filter(progress__challenge_id=challenge_id).filter(f).order_by('-id')
 
     def for_gallery_preview(self, **kwargs):
@@ -264,7 +269,7 @@ class Example(models.Model): # media that a mentor has selected to be featured o
 
     @property
     def name(self):
-        if self.progress: return self.progress.student.username
+        if self.progress: return self.progress.owner.username
         else: return ""
 
     @property

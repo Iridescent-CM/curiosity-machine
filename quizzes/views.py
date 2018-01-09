@@ -14,7 +14,7 @@ from .forms import QuizForm
 @mentor_or_current_user
 def make_comment(request, challenge_id, username, stage):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    progress = get_object_or_404(Progress, challenge=challenge, student__username=username)
+    progress = get_object_or_404(Progress, challenge=challenge, owner__username=username)
     try:
         stage = Stage[stage]
     except KeyError:

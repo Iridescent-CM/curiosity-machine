@@ -163,7 +163,7 @@ def load_fixture(f):
         ProgressFactory,
         lookups={
             'challenge': challenges,
-            'student': users,
+            'owner': users,
             'mentor': users
         },
         force={

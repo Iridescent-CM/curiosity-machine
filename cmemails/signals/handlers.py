@@ -53,7 +53,7 @@ def send_example_submission_notice(sender, example, **kwargs):
 def send_example_rejection_notices(sender, queryset, **kwargs):
     for example in queryset.all():
         path = reverse("challenges:examples", kwargs={ "challenge_id": example.challenge.id })
-        send(template_name='student-example-declined', to=example.progress.student, merge_vars={
+        send(template_name='student-example-declined', to=example.progress.owner, merge_vars={
             'challengename': example.challenge.name,
             'inspiration_url': url_for_template(path),
         })
@@ -62,7 +62,7 @@ def send_example_rejection_notices(sender, queryset, **kwargs):
 def send_example_approval_notices(sender, queryset, **kwargs):
     for example in queryset.all():
         path = reverse("challenges:examples", kwargs={ "challenge_id": example.challenge.id })
-        send(template_name='student-example-approved', to=example.progress.student, merge_vars={
+        send(template_name='student-example-approved', to=example.progress.owner, merge_vars={
             'challengename': example.challenge.name,
             'inspiration_url': url_for_template(path)
         })
@@ -75,7 +75,7 @@ def send_mentor_progress_completion_notice(sender, progress, **kwargs):
             "username": sender.username
         })
         send(template_name='mentor-student-completed-project', to=progress.mentor, merge_vars={
-            "studentname": progress.student.username,
+            "studentname": progress.owner.username,
             "progress_url": url_for_template(path),
         })
 
@@ -84,8 +84,8 @@ def send_student_challenge_share_encouragement(sender, progress, **kwargs):
     path = reverse('challenges:examples', kwargs={
         "challenge_id": progress.challenge.id
     })
-    send(template_name='student-completed-project', to=progress.student, merge_vars={
-        "studentname": progress.student.username,
+    send(template_name='student-completed-project', to=progress.owner, merge_vars={
+        "studentname": progress.owner.username,
         "challengename": progress.challenge.name,
         "inspiration_url": url_for_template(path)
     })
@@ -115,11 +115,11 @@ def send_student_mentor_response_notice(sender, comment, **kwargs):
     if sender.extra.is_mentor:
         path = reverse('challenges:challenge_progress', kwargs={
             "challenge_id": progress.challenge.id,
-            "username": progress.student.username,
+            "username": progress.owner.username,
             "stage": Stage(comment.stage).name
         })
-        send(template_name='student-mentor-feedback', to=progress.student, merge_vars={
-            "studentname": progress.student.username,
+        send(template_name='student-mentor-feedback', to=progress.owner, merge_vars={
+            "studentname": progress.owner.username,
             "button_url": url_for_template(path)
         })
 

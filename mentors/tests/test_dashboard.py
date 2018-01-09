@@ -37,7 +37,7 @@ def test_old_unclaimed_progress_wont_show(client):
 
     startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
     progress = ProgressFactory(started=startdate, comment=True)
-    progress = ProgressFactory(started=startdate, comment=True, student__extra__source='source')
+    progress = ProgressFactory(started=startdate, comment=True, owner__extra__source='source')
 
     response = client.get(reverse("mentors:home"), follow = True)
     assert response.status_code == 200
@@ -52,7 +52,7 @@ def test_new_unclaimed_progress_will_show(client):
 
     startdate = now()
     progress = ProgressFactory(started=startdate, comment=True)
-    progress = ProgressFactory(started=startdate, comment=True, student__extra__source='source')
+    progress = ProgressFactory(started=startdate, comment=True, owner__extra__source='source')
 
     response = client.get(reverse("mentors:home"), follow = True)
     assert response.status_code == 200
