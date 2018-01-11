@@ -5,6 +5,15 @@ from django.core.exceptions import PermissionDenied
 from django.conf import settings
 from memberships.models import Membership
 
+def anonymous_only(view):
+    @wraps(view)
+    def inner(request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('root'))
+        else:
+            return view(request, *args, **kwargs)
+    return inner
+
 def mentor_or_current_user(view):
     @wraps(view)
     def inner(request, challenge_id, username, *args, **kwargs):

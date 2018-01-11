@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.views.decorators.http import require_http_methods
 from memberships.models import Member, Membership
+from ..decorators import anonymous_only
 import json
 import rollbar
 
@@ -83,7 +84,7 @@ class SourceSignupView(SignupView):
         initial['source'] = self.source
         return initial
 
-signup_with_source = SourceSignupView.as_view()
+signup_with_source = anonymous_only(SourceSignupView.as_view())
 
 class MembershipSignupView(SignupView):
 
@@ -103,4 +104,4 @@ class MembershipSignupView(SignupView):
         member.save()
         return res
 
-signup_to_membership = MembershipSignupView.as_view()
+signup_to_membership = anonymous_only(MembershipSignupView.as_view())
