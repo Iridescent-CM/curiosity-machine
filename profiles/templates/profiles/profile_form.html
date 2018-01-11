@@ -20,6 +20,7 @@
   {% endfor %}{% endif %}
   <div class="row">
     <div class="col-md-8 offset-md-2">
+      {% block cards %}
       <div class="card card-module">
         <div class="card-block-title text-xs-center p-1">
           <h4>{% block card_title %}Profile Info{% endblock %}</h4>
@@ -41,6 +42,7 @@
           </form>
         </div>
       </div>
+      {% endblock %}
     </div>
   </div>
 </div>

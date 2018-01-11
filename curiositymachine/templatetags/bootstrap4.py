@@ -7,6 +7,7 @@ def form_group(field, **kwargs):
     context = {
         "field": field,
         "field_class": "form-control",
+        "form_group_style": kwargs.get("group_style", ""),
         "help_text_classes": kwargs.get("help_text_classes", "text-muted"),
     }
     context.update(kwargs)

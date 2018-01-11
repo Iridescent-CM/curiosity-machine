@@ -11,7 +11,6 @@ $(function(){
   $('select[name="country"]').each(function(i, el){
     var $el = $(el);
     var $stategroup = $el.closest('form').find('.form-group:has(select[name="state"])');
-    console.log($stategroup);
     sync($el, $stategroup);
     $el.change(sync.bind(null, $el, $stategroup));
   });

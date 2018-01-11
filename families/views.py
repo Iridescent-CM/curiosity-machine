@@ -10,7 +10,30 @@ from .models import *
 
 only_for_family = only_for_role(UserRole.family)
 
-class CreateView(EditProfileMixin, CreateView):
+class FamilyMemberMixin():
+    def form_valid(self, form):
+        formset = self.get_formset()
+        if formset.is_valid():
+            formset.save()
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Please fix the errors below.")
+        return super().form_invalid(form)
+
+    def get_formset(self):
+        if self.request.method in ('POST', 'PUT'):
+            return FamilyMemberFormset(self.request.POST, self.request.FILES, instance=self.request.user)
+        else:
+            return FamilyMemberFormset(instance=self.request.user)
+
+    def get_context_data(self, **context):
+        context['formset'] = self.get_formset()
+        return super().get_context_data(**context)
+
+class CreateView(FamilyMemberMixin, EditProfileMixin, CreateView):
     model = FamilyProfile
     form_class = FamilyProfileForm
     success_url = lazy(reverse, str)("families:home")
@@ -18,7 +41,7 @@ class CreateView(EditProfileMixin, CreateView):
 #create = only_for_role(UserRole.none)(CreateView.as_view())
 create = CreateView.as_view()
 
-class EditView(EditProfileMixin, UpdateView):
+class EditView(FamilyMemberMixin, EditProfileMixin, UpdateView):
     model = FamilyProfile
     form_class = FamilyProfileForm
 
