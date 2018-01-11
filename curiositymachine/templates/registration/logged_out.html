@@ -1,0 +1,6 @@
+{% extends "registration/logged_out.html" %}
+
+{% block content %}
+{{ block.super }}
+<p><a href="{% url 'login' %}">Log in to site</a></p>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "admin/login.html" %}
+
+{% block content %}
+{{ block.super }}
+<br class="clear"/>
+<br />
+<hr />
+<br />
+<p><a href="{% url "login" %}">Log in to site</a></p>
+<p><a href="{% url "root" %}">Go to site</a></p>
+{% endblock %}
