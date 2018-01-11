@@ -5,7 +5,6 @@
 
 {% block js %}
   {{ form.media|add:formset.media }}
-  <script type="text/javascript" src="{% static 'js/formset-controls.js' %}"></script>
 {% endblock %}
 
 {% block cards %}
@@ -51,11 +50,9 @@
         {% endfor %}
         {% for form in formset %}
           {% include "families/_familymember_inline.html" with form=form %}
-          <hr/>
         {% endfor %}
         <script data-formset="familymember_set" type="text/x-template">
           {% include "families/_familymember_inline.html" with form=formset.empty_form %}
-          <hr/>
         </script>
         <button class="btn btn-secondary" data-formset-add="familymember_set">Add family member</button>
         <input type="submit" class="btn btn-primary float-xs-right" value="Save">

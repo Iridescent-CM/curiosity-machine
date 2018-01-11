@@ -155,8 +155,8 @@ class BaseFamilyMemberFormset(forms.BaseInlineFormSet):
         if any(self.errors):
             return
         if not (
-            any(form.cleaned_data['family_role'] == 0 for form in self.forms)
-            and any(form.cleaned_data['family_role'] == 1 for form in self.forms)
+            any(form.cleaned_data.get('family_role') == 0 for form in self.forms if not form.cleaned_data.get('DELETE'))
+            and any(form.cleaned_data.get('family_role') == 1 for form in self.forms if not form.cleaned_data.get('DELETE'))
         ):
             raise forms.ValidationError("You must have at least one parent/guardian and at least one child.")
 
@@ -166,5 +166,6 @@ FamilyMemberFormset = forms.inlineformset_factory(
     form=FamilyMemberForm,
     formset=BaseFamilyMemberFormset,
     exclude=['image'],
+    min_num=2,
     extra=0
 )

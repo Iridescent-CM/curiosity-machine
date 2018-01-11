@@ -1,8 +1,16 @@
 {% load bootstrap4 %}
 {% load resized %}
 
-<fieldset>
+<fieldset id="{{ form.prefix }}">
+  {% if form.instance and form.instance.id %}
+  <div class="text-xs-right text-muted">
+    <label>
+      Delete:
+      {{ form.DELETE }}
+    </label>
+  </div>
   {{ form.id }}
+  {% endif %}
   <div class="row">
     <div class="col-md-4 text-xs-center">
       {% if form.instance.image.url %}
@@ -31,4 +39,5 @@
       {% form_group form.birthday group_style="display: none;" %}
     </div>
   </div>
+  <hr />
 </fieldset>
