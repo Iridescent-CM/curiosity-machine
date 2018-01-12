@@ -6,15 +6,6 @@
   <div class="row">
     <div class="col-md-8">
       <h2 class="text-xs-center">Design Challenges</h2>
-    </div>
-    <div class="col-md-4">
-      <h2 class="text-xs-center">Guides</h2>
-    </div>
-  </div>
-
-  <div class="row">
-
-    <div class="col-md-8">
       <div class="row mb-3">
         {% for challenge in challenges %}
         <div class="col-md-6 mb-1">
@@ -28,8 +19,8 @@
         {% endfor %}
       </div>
     </div>
-
     <div class="col-md-4">
+      <h2 class="text-xs-center">Guides</h2>
       <div class="row">
         {% for unit in units %}
         <div class="col-xs-12 mb-1">
@@ -38,6 +29,5 @@
         {% endfor %}
       </div>
     </div>
-
   </div>
 {% endblock %}

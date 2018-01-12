@@ -286,12 +286,12 @@ SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
 
 AICHALLENGE_STAGES = {
     1: {
-        "challenges": [i for i in os.getenv("AICHALLENGE_STAGE_1_CHALLENGES", "").split(',') if i],
-        "units": [i for i in os.getenv("AICHALLENGE_STAGE_1_UNITS", "").split(',') if i],
+        "challenges": [int(i) for i in os.getenv("AICHALLENGE_STAGE_1_CHALLENGES", "").split(',') if i],
+        "units": [int(i) for i in os.getenv("AICHALLENGE_STAGE_1_UNITS", "").split(',') if i],
     },
     2: {
-        "challenges": [i for i in os.getenv("AICHALLENGE_STAGE_2_CHALLENGES", "").split(',') if i],
-        "units": [i for i in os.getenv("AICHALLENGE_STAGE_2_UNITS", "").split(',') if i],
+        "challenges": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_CHALLENGES", "").split(',') if i],
+        "units": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_UNITS", "").split(',') if i],
     },
 }
 

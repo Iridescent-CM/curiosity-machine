@@ -47,8 +47,14 @@ class StageView(TemplateView):
         self.config = settings.AICHALLENGE_STAGES[self.stage]
 
     def get_context_data(self, **kwargs):
-        kwargs["challenges"] = Challenge.objects.filter(id__in=self.config['challenges'])
-        kwargs["units"] = Unit.objects.filter(id__in=self.config['units'])
+        kwargs["challenges"] = sorted(
+            Challenge.objects.filter(id__in=self.config['challenges']),
+            key=lambda c: self.config['challenges'].index(c.id)
+        )
+        kwargs["units"] = sorted(
+            Unit.objects.filter(id__in=self.config['units']),
+            key=lambda u: self.config['units'].index(u.id)
+        )
         return super().get_context_data(**kwargs) 
 
 stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stage=1))
