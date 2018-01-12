@@ -1,0 +1,90 @@
+.family-dashboard {
+
+  //
+  // Dashboard header styles
+  //
+  .family-dashboard-header {
+    background-color: shade($dark, 40%);
+    background-image: url("../images/design-challenge-repeating-pattern.png");
+    background-attachment: fixed;
+    background-repeat: repeat;
+    color: $ivory;
+
+    .dashboard-avatar img {
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0px 2px 4px 0px $main-shadow;
+      float: left;
+      margin-right: 10px;
+    }
+
+    .dashboard-inline-username {
+      font-family: $heading-font-family;
+      font-size: $base-font-size * 2;
+    }
+
+    .card {
+      background-color: $dark;
+    }
+  }
+
+  //
+  // Dashboard navigation
+  //
+  .family-dashboard-navigation {
+    border-bottom: 2px $sand solid;
+
+    ul {
+      list-style-type: none;
+      text-transform: uppercase;
+      font-size: 0.875em;
+      letter-spacing: 2px;
+      padding-left: 0px;
+      margin-bottom: 0px;
+
+      li {
+        display: inline-block;
+        padding-bottom: 10px;
+        border-bottom: 5px solid $ivory;
+
+        a {
+          margin: 0px 15px;
+          border-bottom: 0px;
+          color: $dark;
+          text-align: center;
+
+          &:hover, &:focus {
+            color: $primary-blue;
+          }
+        }
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      ul li {
+        width: 32%;
+        text-align: center;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      ul li {
+        width: 100%;
+      }
+    }
+
+    .dropdown a {
+      margin: 0px;
+    }
+  }
+
+  //
+  // Highlights link to active page in navigation
+  //
+  .active-nav {
+    border-bottom-color: $primary-blue !important;
+    a { color: $primary-blue !important; }
+
+    @include media-breakpoint-down(md) { border-bottom: 0px !important; }
+  }
+}

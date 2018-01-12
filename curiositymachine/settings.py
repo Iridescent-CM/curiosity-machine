@@ -284,6 +284,17 @@ GA_CODE = os.environ.get("GA_CODE", None)
 SITE_MESSAGE = os.environ.get("SITE_MESSAGE", None)
 SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
 
+AICHALLENGE_STAGES = {
+    1: {
+        "challenges": [int(i) for i in os.getenv("AICHALLENGE_STAGE_1_CHALLENGES", "").split(',') if i],
+        "units": [int(i) for i in os.getenv("AICHALLENGE_STAGE_1_UNITS", "").split(',') if i],
+    },
+    2: {
+        "challenges": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_CHALLENGES", "").split(',') if i],
+        "units": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_UNITS", "").split(',') if i],
+    },
+}
+
 MENTOR_RELATIONSHIP_MANAGERS = os.getenv("MENTOR_RELATIONSHIP_MANAGERS", '').split(',') if os.getenv("MENTOR_RELATIONSHIP_MANAGERS") else []
 NOTIFICATION_RECIPIENTS = os.getenv("NOTIFICATION_RECIPIENTS").split(',') if os.getenv("NOTIFICATION_RECIPIENTS") else []
 MEMBER_IMPORT_EXPIRATION_DAYS = os.environ.get("MEMBER_IMPORT_EXPIRATION_DAYS", 7)
