@@ -1,23 +1,62 @@
 {% extends "profiles/profile_form.html" %}
 {% load bootstrap4 %}
 {% load pick_action %}
+{% load staticfiles %}
 
 {% block js %}
-  {{ form.media }}
+  {{ form.media|add:formset.media }}
 {% endblock %}
 
-{% block action %}
-  {% pick_action form edit="families:edit_profile" create="families:create_profile" %}
-{% endblock %}
+{% block cards %}
+  <form action="{% pick_action form edit="families:edit_profile" create="families:create_profile" %}" method="POST" novalidate>
+    {% csrf_token %}
 
-{% block fields %}
-  <div class="text-xs-center">
-    {% block avatar %}{{ block.super }}{% endblock %}
-    {% form_group form.image_url field_class="btn btn-primary" %}
-  </div>
-  {% email_form_group form.email email=email %}
-  {% form_group form.phone %}
-  {% form_group form.country %}
-  {% form_group form.state %}
-  {% form_group form.city %}
+    <div class="card card-module">
+      <div class="card-block-title text-xs-center p-1">
+        <h4>Profile Info</h4>
+      </div>
+      <div class="card-block">
+        <div class="text-xs-center">
+          {% block avatar %}
+            {% include "profiles/_avatar.html" with profile=request.user.profile width=80 height=80 crop='thumb' gravity='faces' classes='rounded-circle' %}
+          {% endblock %}
+          {% form_group form.image_url field_class="btn btn-primary" %}
+        </div>
+        {% email_form_group form.email email=email %}
+        {% form_group form.phone %}
+        {% form_group form.country %}
+        {% form_group form.state %}
+        {% form_group form.city %}
+        {% if form.instance and form.instance.pk %}
+        <a class="btn btn-secondary" href="{% url "account_change_password"%}">Change password</a>
+        {% endif %}
+        <input type="submit" class="btn btn-primary float-xs-right" value="Save">
+      </div>
+    </div>
+
+    <div class="card card-module">
+      <div class="card-block-title text-xs-center p-1">
+        <h4>Family Members</h4>
+      </div>
+      <div class="card-block">
+        {{ formset.management_form }}
+        {% for error in formset.non_form_errors %}
+          <div class="alert alert-danger alert-dismissable show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {{ error }}
+          </div>
+        {% endfor %}
+        {% for form in formset %}
+          {% include "families/_familymember_inline.html" with form=form %}
+        {% endfor %}
+        <script data-formset="familymember_set" type="text/x-template">
+          {% include "families/_familymember_inline.html" with form=formset.empty_form %}
+        </script>
+        <button class="btn btn-secondary" data-formset-add="familymember_set">Add family member</button>
+        <input type="submit" class="btn btn-primary float-xs-right" value="Save">
+      </div>
+    </div>
+  </form>
 {% endblock %}

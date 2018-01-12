@@ -1,6 +1,9 @@
 {% load widget_tweaks %}
 {% with WIDGET_ERROR_CLASS="form-control-danger" %}
-<div class="form-group {% if field.errors %}has-danger{% endif %}">
+<div
+  class="form-group{% if field.errors %} has-danger{% endif %}"
+  {% if form_group_style %}style="{{ form_group_style }}"{% endif %}
+>
   <label for="{{ field.id_for_label }}">
     {{ field.label }}:
   </label>
