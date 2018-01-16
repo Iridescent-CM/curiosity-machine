@@ -1,4 +1,4 @@
-from challenges.models import Challenge
+from challenges.models import Challenge, Progress
 from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
@@ -70,15 +70,24 @@ class StageView(TemplateView):
         self.config = settings.AICHALLENGE_STAGES[self.stage]
 
     def get_context_data(self, **kwargs):
-        kwargs["challenges"] = sorted(
+        challenges = sorted(
             Challenge.objects.filter(id__in=self.config['challenges']),
             key=lambda c: self.config['challenges'].index(c.id)
         )
+
+        progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=self.config['challenges'])
+        prog_by_challenge_id = {p.challenge_id: p for p in progresses}
+        for challenge in challenges:
+            if challenge.id in prog_by_challenge_id:
+                # decorate here with level of progress for visual representation
+                pass
+
+        kwargs["challenges"] = challenges
         kwargs["units"] = sorted(
             Unit.objects.filter(id__in=self.config['units']),
             key=lambda u: self.config['units'].index(u.id)
         )
-        return super().get_context_data(**kwargs) 
+        return super().get_context_data(**kwargs)
 
 stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stage=1))
 stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage_2.html", stage=2))
