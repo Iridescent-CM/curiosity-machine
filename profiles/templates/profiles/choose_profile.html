@@ -6,6 +6,16 @@
 {% block pagehead %}Sign Up{% endblock %}
 
 {% block content %}
+  {% if flags.enable_ai_challenge_profile_options %}
+  <div class="card card-block mb-3">
+    <h2>Join the AI Family Challenge!</h2>
+    <p>Chicory barista caramelization single shot latte saucer milk spoon. Iced single shot variety affogato doppio arabica java french press black and medium. Single shot half and half, affogato coffee percolator, in sugar carajillo decaffeinated filter. Acerbic iced galão roast to go café au lait beans acerbic foam.</p>
+    <a class="btn btn-primary my-2" href="{% url "families:create_profile" %}">Family account</a>
+    <a class="btn btn-primary my-2" href="{% url "educators:create_coach" %}">Coach account</a>
+    <p class="mt-2">Not interested? Choose one of the other ways to join Curiosity Machine below.</p>
+  </div>
+  {% endif %}
+
   <h2>Join as a:</h2>
 
   {% url "students:create_profile" as student_url %}

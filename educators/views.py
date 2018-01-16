@@ -3,6 +3,7 @@ from challenges.models import Challenge, Example
 from cmcomments.models import Comment
 from curiositymachine import signals
 from curiositymachine.decorators import whitelist
+from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch
@@ -10,8 +11,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.functional import lazy
-from django.views.generic import CreateView, FormView, TemplateView, UpdateView, View
+from django.views.generic import CreateView, FormView, RedirectView, TemplateView, UpdateView, View
 from memberships.helpers.selectors import GroupSelector
+from memberships.models import Member
 from profiles.decorators import only_for_role, UserRole
 from profiles.views import EditProfileMixin
 from rest_framework import generics, permissions
@@ -299,3 +301,17 @@ class CommentList(generics.ListAPIView):
         return queryset
 
 comments = whitelist('public')(CommentList.as_view())
+
+class CoachView(RedirectView):
+    pattern_name = "educators:create_profile"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.membership_id = settings.AICHALLENGE_COACH_MEMBERSHIP_ID
+
+    def get(self, request, *args, **kwargs):
+        member = Member(user=request.user, membership_id=self.membership_id)
+        member.save()
+        return super().get(request, *args, **kwargs)
+
+coach = CoachView.as_view()

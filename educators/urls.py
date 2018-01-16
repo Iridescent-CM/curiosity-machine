@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^home/guides/$', guides, name='guides'),
     url(r'^data/impact_survey/$', impact_data, name='update_impact_survey'),
     url(r'^data/progress_posts/$', comments, name='progress_graph_data'),
+    url(r'^coach/$', coach, name='create_coach'),
 ]
