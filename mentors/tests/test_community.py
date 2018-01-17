@@ -1,9 +1,10 @@
 import pytest
 from dateutil.relativedelta import relativedelta
+from django.urls import reverse
 from django.utils.timezone import now
 from images.factories import *
 from ..factories import *
-from ..views import ListView
+from ..views import *
 
 @pytest.mark.django_db
 def test_mentor_community_orders_by_image_then_date():
@@ -22,3 +23,9 @@ def test_mentor_community_orders_by_image_then_date():
     view = ListView()
     page_order = list(view.get_queryset().all().values_list('user__username', flat=True))
     assert page_order == ['mentor3', 'mentor4', 'mentor1', 'mentor2']
+
+@pytest.mark.django_db
+def test_anonymous_view(client):
+    mentor = MentorFactory()
+    response = client.get(reverse("mentors:public_profile", kwargs={"username": mentor.username}))
+    assert response.status_code == 200
