@@ -84,6 +84,7 @@ INSTALLED_APPS = (
     'images',
     'django_rq',
     'hellosign.apps.HellosignConfig',
+    'surveys.apps.SurveysConfig',
     'cmemails',
     'compressor',
     'units',
@@ -113,6 +114,7 @@ MIDDLEWARE_CLASSES = (
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
     'curiositymachine.middleware.LastActiveMiddleware',
     'curiositymachine.middleware.FirstLoginMiddleware',
+    'families.middleware.SignUpPrerequisitesMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
@@ -366,6 +368,21 @@ UNDERAGE_CONSENT_TEMPLATE_USERNAME_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLAT
 UNDERAGE_CONSENT_TEMPLATE_BIRTHDAY_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_BIRTHDAY_ID", "")
 UNDERAGE_CONSENT_TEMPLATE_EMAIL_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_EMAIL_ID", "")
 HELLOSIGN_PRODUCTION_MODE = os.environ.get("HELLOSIGN_PRODUCTION_MODE", False)
+
+# Surveymonkey
+SURVEYS = {
+    "129105516": {
+        "id": "129105516",
+        "link": "https://www.surveymonkey.com/r/WGNV9XX",
+        "active": os.getenv("SURVEY_129105516_ACTIVE", False),
+        "filter": lambda user: True,
+    },
+}
+SURVEYMONKEY_API_KEY = os.environ.get("SURVEYMONKEY_API_KEY", "")
+SURVEYMONKEY_API_SECRET = os.environ.get("SURVEYMONKEY_API_SECRET", "")
+SURVEYMONKEY_ACCESS_TOKEN = os.environ.get("SURVEYMONKEY_ACCESS_TOKEN", "")
+SURVEYMONKEY_TOKEN_VAR = os.environ.get("SURVEYMONKEY_TOKEN_VAR", "cmtoken")
+SURVEYMONKEY_API_BASE_URL = os.environ.get("SURVEYMONKEY_API_BASE_URL", "https://api.surveymonkey.net/v3/")
 
 # Mandrill & Mailchimp
 MANDRILL_API_KEY = os.environ.get("MANDRILL_API_KEY", "")
