@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
+from json import JSONDecodeError
 from .api import Surveymonkey
 from .models import *
 import base64
@@ -10,22 +11,39 @@ import django_rq
 import hashlib
 import hmac
 import json
+import logging
 import requests
 
+logger = logging.getLogger(__name__)
 api = Surveymonkey()
 
 def update_status(survey_id, response_id):
+    token_var = settings.SURVEYMONKEY_TOKEN_VAR
+
     res = api.get("surveys/%s/responses/%s" % (survey_id, response_id))
-    # error handling?
+    res.raise_for_status()
 
     data = res.json()
-    token = data.get('custom_variables').get(settings.SURVEYMONKEY_TOKEN_VAR, None)
-    if token:
-        status = ResponseStatus[data.get('response_status').upper()]
+    try:
+        custom_vars = data['custom_variables']
+        new_status = data['response_status']
+    except KeyError:
+        logger.error("API response did not contain expected fields: %s" % data)
+        raise
 
-        sr = SurveyResponse.objects.get(id=token)
-        sr.status = status
-        sr.save()
+    token = custom_vars.get(token_var, None)
+    if token:
+        sr = SurveyResponse.objects.filter(id=token).first()
+        if sr:
+            status = ResponseStatus[new_status.upper()]
+            sr.status = status
+            sr.save(update_fields=['status'])
+        else:
+            logger.info("SurveyResponse not found for id=%s; assuming it's in another environment" % token)
+    else:
+        logger.info(
+            "No %s custom variable for survey %s response %s; assuming survey taken by non-user" % (token_var, survey_id, response_id)
+        )
 
 class SurveyResponseHook(View):
 
@@ -43,11 +61,19 @@ class SurveyResponseHook(View):
 
     def post(self, request, *args, **kwargs):
         if api.valid(request.body, request.META['HTTP_SM_SIGNATURE'].encode("ascii")):
-            data = json.loads(request.body)
-            survey_id = data.get('filter_id')
-            response_id = data.get('object_id')
-            # maybe check filter_type and object_type?
-            django_rq.enqueue(update_status, survey_id, response_id)
+            try:
+                data = json.loads(request.body)
+                survey_id = data['filter_id']
+                response_id = data['object_id']
+                django_rq.enqueue(update_status, survey_id, response_id)
+            except JSONDecodeError:
+                logger.error("Error decoding webhook request body as JSON: %s" % request.body)
+            except KeyError:
+                logger.error("Key error when processing webhook data: %s" % data)
+            finally:
+                raise
+        else:
+            logger.warning("Invalid POST to SurveyResponseHook")
             
         return HttpResponse('THX')
  
