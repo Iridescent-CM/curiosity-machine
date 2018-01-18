@@ -6,13 +6,9 @@ from django.views.generic import View
 from json import JSONDecodeError
 from .api import Surveymonkey
 from .models import *
-import base64
 import django_rq
-import hashlib
-import hmac
 import json
 import logging
-import requests
 
 logger = logging.getLogger(__name__)
 api = Surveymonkey()

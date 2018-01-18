@@ -1,5 +1,8 @@
 from django.conf import settings
 from urllib.parse import urljoin
+import base64
+import hashlib
+import hmac
 import requests
 
 def generate_signature(payload, api_key, api_secret):
