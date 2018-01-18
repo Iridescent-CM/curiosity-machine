@@ -377,9 +377,12 @@ SURVEYMONKEY_API_SECRET = os.environ.get("SURVEYMONKEY_API_SECRET", "")
 SURVEYMONKEY_ACCESS_TOKEN = os.environ.get("SURVEYMONKEY_ACCESS_TOKEN", "")
 SURVEYMONKEY_TOKEN_VAR = os.environ.get("SURVEYMONKEY_TOKEN_VAR", "cmtoken")
 SURVEYMONKEY_API_BASE_URL = os.environ.get("SURVEYMONKEY_API_BASE_URL", "https://api.surveymonkey.net/v3/")
+
+# Survey and survey webhook config
 for k, v in os.environ.items():
     if k.startswith("SURVEY_"):
         setattr(sys.modules[__name__], k, v)
+ALLOW_SURVEY_RESPONSE_HOOK_BYPASS = os.environ.get("ALLOW_SURVEY_RESPONSE_HOOK_BYPASS", False)
 
 # Mandrill & Mailchimp
 MANDRILL_API_KEY = os.environ.get("MANDRILL_API_KEY", "")

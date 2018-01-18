@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
@@ -31,6 +31,15 @@ class SurveyResponseHook(View):
 
     def head(self, request, *args, **kwargs):
         return HttpResponse('OK') # needed to register as Surveymonkey webhook target
+
+    def get(self, request, *args, **kwargs):
+        if settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS:
+            sr = SurveyResponse.objects.get(id=request.GET["cmtoken"])
+            sr.status = ResponseStatus.COMPLETED
+            sr.save()
+            return HttpResponseRedirect('/')
+        else:
+            raise Http404
 
     def post(self, request, *args, **kwargs):
         if api.valid(request.body, request.META['HTTP_SM_SIGNATURE'].encode("ascii")):
