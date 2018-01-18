@@ -64,9 +64,9 @@ class SurveyResponseHook(View):
                 django_rq.enqueue(update_status, survey_id, response_id)
             except JSONDecodeError:
                 logger.error("Error decoding webhook request body as JSON: %s" % request.body)
+                raise
             except KeyError:
                 logger.error("Key error when processing webhook data: %s" % data)
-            finally:
                 raise
         else:
             logger.warning("Invalid POST to SurveyResponseHook")
