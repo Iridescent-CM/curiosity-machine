@@ -1,5 +1,6 @@
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -296,7 +297,8 @@ AICHALLENGE_STAGES = {
         "units": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_UNITS", "").split(',') if i],
     },
 }
-AICHALLENGE_COACH_MEMBERSHIP_ID=2
+AICHALLENGE_COACH_MEMBERSHIP_ID=os.getenv("AICHALLENGE_COACH_MEMBERSHIP_ID", "")
+AICHALLENGE_FAMILY_PRE_SURVEY_ID=os.getenv("AICHALLENGE_FAMILY_PRE_SURVEY_ID", "")
 
 MENTOR_RELATIONSHIP_MANAGERS = os.getenv("MENTOR_RELATIONSHIP_MANAGERS", '').split(',') if os.getenv("MENTOR_RELATIONSHIP_MANAGERS") else []
 NOTIFICATION_RECIPIENTS = os.getenv("NOTIFICATION_RECIPIENTS").split(',') if os.getenv("NOTIFICATION_RECIPIENTS") else []
@@ -370,19 +372,14 @@ UNDERAGE_CONSENT_TEMPLATE_EMAIL_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_E
 HELLOSIGN_PRODUCTION_MODE = os.environ.get("HELLOSIGN_PRODUCTION_MODE", False)
 
 # Surveymonkey
-SURVEYS = {
-    "129105516": {
-        "id": "129105516",
-        "link": "https://www.surveymonkey.com/r/WGNV9XX",
-        "active": os.getenv("SURVEY_129105516_ACTIVE", False),
-        "filter": lambda user: True,
-    },
-}
 SURVEYMONKEY_API_KEY = os.environ.get("SURVEYMONKEY_API_KEY", "")
 SURVEYMONKEY_API_SECRET = os.environ.get("SURVEYMONKEY_API_SECRET", "")
 SURVEYMONKEY_ACCESS_TOKEN = os.environ.get("SURVEYMONKEY_ACCESS_TOKEN", "")
 SURVEYMONKEY_TOKEN_VAR = os.environ.get("SURVEYMONKEY_TOKEN_VAR", "cmtoken")
 SURVEYMONKEY_API_BASE_URL = os.environ.get("SURVEYMONKEY_API_BASE_URL", "https://api.surveymonkey.net/v3/")
+for k, v in os.environ.items():
+    if k.startswith("SURVEY_"):
+        setattr(sys.modules[__name__], k, v)
 
 # Mandrill & Mailchimp
 MANDRILL_API_KEY = os.environ.get("MANDRILL_API_KEY", "")

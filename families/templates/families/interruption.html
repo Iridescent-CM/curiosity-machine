@@ -1,0 +1,20 @@
+{% extends "curiositymachine/layout/base.html" %}
+
+{% block content %}
+<div class="jumbotron-blue jumbotron-fluid text-xs-center">
+  <h1>Almost done...</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="text-xs-center">Last steps</h2>
+      Do these things:
+      <ul>
+        {% if not presurvey.completed %}
+        <li><a href="{{ presurvey.url }}">{{ presurvey.title }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

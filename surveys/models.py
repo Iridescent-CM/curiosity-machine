@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from enumfields import Enum, EnumIntegerField
+from . import get_survey
 import uuid
 
 class ResponseStatus(Enum):
@@ -23,8 +24,13 @@ class SurveyResponse(models.Model):
 
     @property
     def url(self):
-        conf = settings.SURVEYS[self.survey_id]
-        return "%s?%s=%s" % (conf["link"], settings.SURVEYMONKEY_TOKEN_VAR, self.id)
+        survey = get_survey(self.survey_id)
+        return "%s?%s=%s" % (survey.link, settings.SURVEYMONKEY_TOKEN_VAR, self.id)
+
+    @property
+    def title(self):
+        survey = get_survey(self.survey_id)
+        return survey.title
 
     def __str__(self):
         return "SurveyResponse: id={}, survey_id={}, user_id={}, status={}".format(
@@ -33,16 +39,3 @@ class SurveyResponse(models.Model):
             self.user_id,
             self.status.name
         )
-
-# Middleware pseudocode:
-#   for survey in active surveys:
-#       if survey applies to user:
-#           get or create SurveyResponse for survey link and user
-#           if response is not complete:
-#               interrupt with link (let's assume only 1 active at a time)
-
-# for survey in settings.SURVEYS if survey.active:
-#   if survey.filter(request.user):
-#       response = SurveyResponse.objects.get_or_create(user=request.user, survey_id=survey.id)
-#       if not response.completed:
-#           ..?

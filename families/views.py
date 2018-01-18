@@ -7,6 +7,8 @@ from django.views.generic import CreateView, TemplateView, UpdateView
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
+from surveys import get_survey
+from surveys.models import SurveyResponse
 from units.models import Unit
 from .forms import *
 from .models import *
@@ -91,3 +93,16 @@ class StageView(TemplateView):
 
 stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stage=1))
 stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage_2.html", stage=2))
+
+class PrereqInterruptionView(TemplateView):
+    template_name = "families/interruption.html"
+
+    def get_context_data(self, **kwargs):
+        presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
+        response, created = SurveyResponse.objects.get_or_create(user=self.request.user, survey_id=presurvey.id)
+        return super().get_context_data(
+            **kwargs,
+            presurvey=response
+        )
+
+prereq_interruption = only_for_family(PrereqInterruptionView.as_view())
