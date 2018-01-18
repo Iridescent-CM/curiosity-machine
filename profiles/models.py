@@ -122,6 +122,10 @@ class UserExtra(models.Model):
         return UserRole(self.role) == UserRole.parent
 
     @property
+    def is_family(self):
+        return UserRole(self.role) == UserRole.family
+
+    @property
     def should_add_email(self):
         return not self.user.email
 
