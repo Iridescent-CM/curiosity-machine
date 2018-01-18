@@ -19,18 +19,26 @@ class SurveyResponse(models.Model):
     status = EnumIntegerField(ResponseStatus, default=ResponseStatus.UNKNOWN)
 
     @property
-    def completed(self):
-        return self.status == ResponseStatus.COMPLETED
-
-    @property
     def url(self):
         survey = get_survey(self.survey_id)
         return "%s?%s=%s" % (survey.link, settings.SURVEYMONKEY_TOKEN_VAR, self.id)
 
-    @property
-    def title(self):
-        survey = get_survey(self.survey_id)
-        return survey.title
+    def __getattr__(self, name):
+        # treat status names like boolean attributes
+        try:
+            return self.status == ResponseStatus[name.upper()]
+        except KeyError:
+            pass
+
+        # wrap Survey attributes
+        try:
+            survey = get_survey(self.survey_id)
+            return getattr(survey, name)
+        except AttributeError:
+            pass
+
+        # okay, there's no attribute by that name
+        raise AttributeError("'SurveyResponse' object has no attribute '%s'" % name)
 
     def __str__(self):
         return "SurveyResponse: id={}, survey_id={}, user_id={}, status={}".format(
