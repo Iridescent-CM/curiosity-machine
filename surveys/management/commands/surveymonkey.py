@@ -167,5 +167,5 @@ class Command(BaseCommand):
 
     def handle_curl(self, **options):
         token = settings.SURVEYMONKEY_ACCESS_TOKEN
-        print(EXAMPLE_CURL % (token, api_url("webhooks"), token, api_url("webhooks")))
+        print(EXAMPLE_CURL % (token, self.api.url("webhooks"), token, self.api.url("webhooks")))
         
