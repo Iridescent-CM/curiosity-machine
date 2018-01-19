@@ -33,14 +33,14 @@ class GroupSelector():
         else:
             self.query = QueryDict()
 
-        student_qs = self.membership.members.filter(extra__role=UserRole.student.value)
+        listed_member_qs = self.membership.listed_members
 
         self._map = OrderedDict()
         self._map['all'] = SelectorOption(
             text = "All Students",
             query_param = self.query_param,
             query_value = 'all',
-            queryset = student_qs,
+            queryset = listed_member_qs,
             query = self.query
         )
 
@@ -49,7 +49,7 @@ class GroupSelector():
                 text=group.name,
                 query_param=self.query_param,
                 query_value=group.id,
-                queryset = student_qs
+                queryset = listed_member_qs
                     .filter(member__groupmember__group=group),
                 query = self.query
             )
@@ -58,7 +58,7 @@ class GroupSelector():
             text="Ungrouped",
             query_param=self.query_param,
             query_value='none',
-            queryset = student_qs
+            queryset = listed_member_qs
                 .exclude(member__groupmember__group__membership=self.membership),
             query = self.query
         )

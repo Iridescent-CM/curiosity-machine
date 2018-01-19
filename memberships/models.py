@@ -128,6 +128,15 @@ class Membership(models.Model):
     def students(self):
         return self.members.filter(extra__role=UserRole.student.value)
 
+    @property
+    def families(self):
+        return self.members.filter(extra__role=UserRole.family.value)
+
+    @property
+    def listed_members(self):
+        listed = [UserRole.family.value, UserRole.student.value]
+        return self.members.filter(extra__role__in=listed)
+
     def __str__(self):
         return self.name
 
