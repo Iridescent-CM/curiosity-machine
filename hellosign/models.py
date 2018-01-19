@@ -32,7 +32,7 @@ class Signature(models.Model):
     def get_signers(self):
         return [
             {
-                "name": "hmm", # FIXME
+                "name": self.user.username,
                 "email_address": self.user.email,
                 "role_name": "Parent or guardian"
             }
