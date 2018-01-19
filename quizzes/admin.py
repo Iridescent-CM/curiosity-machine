@@ -6,6 +6,7 @@ class QuizAdmin(admin.ModelAdmin):
         model = Quiz
 
     list_display = ['id', 'challenge_name']
+    raw_id_fields = ['challenge']
 
     def __init__(self, *args, **kwargs):
         fieldsets = (
