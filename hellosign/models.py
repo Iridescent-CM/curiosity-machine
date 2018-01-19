@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
 from django.db import models
 from enumfields import Enum, EnumIntegerField
+from . import ConsentTemplate
 import uuid
 
 class SignatureStatus(Enum):
@@ -30,11 +31,15 @@ class Signature(models.Model):
         raise AttributeError("'Signature' object has no attribute '%s'" % name)
 
     def get_signers(self):
+        if hasattr(self.template, "signer_role"):
+            role = self.template.signer_role
+        else:
+            role = "Parent"
         return [
             {
                 "name": self.user.username,
                 "email_address": self.user.email,
-                "role_name": "Parent or guardian"
+                "role_name": role
             }
         ]
 
@@ -57,6 +62,16 @@ class Signature(models.Model):
             }
         )
         return body
+
+    def get_custom_fields(self):
+        fields = {}
+        if hasattr(self.template, "email_id"):
+            fields[self.template.email_id] = self.user.email
+        if hasattr(self.template, "username_id"):
+            fields[self.template.username_id] = self.user.username
+        if hasattr(self.template, "birthday_id"):
+            fields[self.template.birthday_id] = self.user.studentprofile.birthday.strftime('%b %d, %Y')
+        return [fields]
 
     def get_metadata(self):
         return {

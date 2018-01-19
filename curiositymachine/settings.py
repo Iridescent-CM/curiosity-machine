@@ -371,6 +371,11 @@ UNDERAGE_CONSENT_TEMPLATE_BIRTHDAY_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLAT
 UNDERAGE_CONSENT_TEMPLATE_EMAIL_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_EMAIL_ID", "")
 HELLOSIGN_PRODUCTION_MODE = os.environ.get("HELLOSIGN_PRODUCTION_MODE", False)
 
+# Hellosign templates
+for k, v in os.environ.items():
+    if k.startswith("HELLOSIGN_TEMPLATE_"):
+        setattr(sys.modules[__name__], k, v)
+
 # Surveymonkey
 SURVEYMONKEY_API_KEY = os.environ.get("SURVEYMONKEY_API_KEY", "")
 SURVEYMONKEY_API_SECRET = os.environ.get("SURVEYMONKEY_API_SECRET", "")
