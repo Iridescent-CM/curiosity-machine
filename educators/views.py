@@ -163,9 +163,12 @@ class StudentView(TemplateView):
             raise PermissionDenied
 
         membership = membership_selection.selected
-        membership_students = membership.members.select_related('profile__image').filter(extra__role=UserRole.student.value)
-        student = get_object_or_404(membership_students, pk=self.kwargs.get('student_id'))
-        progresses = (student.progresses
+        listed_members = (
+            membership.listed_members
+            .select_related('profile__image')
+        )
+        member = get_object_or_404(listed_members, pk=self.kwargs.get('student_id'))
+        progresses = (member.progresses
             .filter(comments__isnull=False, challenge__in=membership.challenges.all())
             .select_related('challenge', 'mentor')
             .prefetch_related(
@@ -176,14 +179,14 @@ class StudentView(TemplateView):
             .all())
 
         for progress in progresses:
-            UserCommentSummary(progress.comments.all(), student.id).annotate(progress)
+            UserCommentSummary(progress.comments.all(), member.id).annotate(progress)
         sorter = ProgressSorter(query=self.request.GET)
         progresses = sorter.sort(progresses)
 
         graph_data_url = "%s?%s" % (reverse('educators:progress_graph_data'), "&".join(["id=%d" % p.id for p in progresses]))
 
         kwargs.update({
-            "student": student,
+            "student": member,
             "progresses": progresses,
             "completed_count": len([p for p in progresses if p.complete]),
             "membership_selection": membership_selection,
@@ -202,22 +205,23 @@ class StudentPasswordResetView(FormView):
     def dispatch(self, request, *args, **kwargs):
         self.membership_selection = MembershipSelection(request)
         membership = self.membership_selection.selected
-        membership_students = (membership.members
+        listed_members = (
+            membership.listed_members
             .select_related('profile__image')
-            .filter(extra__role=UserRole.student.value))
-        self.student = get_object_or_404(membership_students, pk=self.kwargs.get('student_id'))
+        )
+        self.member = get_object_or_404(listed_members, pk=self.kwargs.get('student_id'))
         return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({
-            "user": self.student
+            "user": self.member
         })
         return kwargs
 
     def get_context_data(self, **kwargs):
         kwargs.update({
-            "student": self.student,
+            "student": self.member,
             "membership_selection": self.membership_selection
         })
         return super().get_context_data(**kwargs)
@@ -225,11 +229,11 @@ class StudentPasswordResetView(FormView):
     def form_valid(self, form):
         form.save()
         signals.student_password_changed.send(
-            sender=self.student,
-            student=self.student,
+            sender=self.member,
+            student=self.member,
             resetter=self.request.user
         )
-        messages.success(self.request, "%s's password successfully changed." % self.student.username)
+        messages.success(self.request, "%s's password successfully changed." % self.member.username)
         return super().form_valid(form)
 
 student_password_reset = only_for_educator(StudentPasswordResetView.as_view())
