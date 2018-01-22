@@ -1,10 +1,43 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.db import models
 from enumfields import Enum, EnumIntegerField
-from . import ConsentTemplate
+from .jobs import request_signature
+import re
 import uuid
+
+class ConsentTemplate:
+    prefix = "HELLOSIGN_TEMPLATE_"
+    defaults = {
+        'BYPASS_API': False
+    }
+
+    def __init__(self, id, *args, **kwargs):
+        self.id = id
+        self.name = self.find_name(id)
+
+    def find_name(self, id):
+        for attr in dir(settings):
+            match = re.match(r'%s(.*)_ID' % self.prefix, attr)
+            if match and getattr(settings, attr) == id:
+                return match[1]
+        raise ImproperlyConfigured("Unable to find Hellosign template configuration with ID=%s" % id)
+
+    def __getattr__(self, attrname):
+        attrname = attrname.upper()
+        settingname = "%s%s_%s" % (self.prefix, self.name, attrname)
+        if attrname in self.defaults:
+            return getattr(settings, settingname, self.defaults[attrname])
+        return getattr(settings, settingname)
+
+    def signature(self, user):
+        from .models import Signature
+        signature, created = Signature.objects.get_or_create(user=user, template_id=self.id)
+        if created and not self.bypass_api:
+            request_signature(signature.id)
+        return signature
 
 class SignatureStatus(Enum):
     UNSIGNED = 0
@@ -45,7 +78,7 @@ class Signature(models.Model):
 
     def get_subject(self):
         subject = render_to_string(
-            '%s_subject.txt' % self.template.name.lower(),
+            'hellosign/emails/%s_subject.txt' % self.template.name.lower(),
             {
                 "signature": self
             }
@@ -56,7 +89,7 @@ class Signature(models.Model):
 
     def get_message(self):
         body = render_to_string(
-            '%s_message.txt' % self.template.name.lower(),
+            'hellosign/emails/%s_message.txt' % self.template.name.lower(),
             {
                 "signature": self
             }

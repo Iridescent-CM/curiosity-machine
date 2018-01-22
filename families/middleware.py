@@ -1,7 +1,7 @@
 from curiositymachine.middleware import whitelist_regex, whitelisted
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
-from hellosign import ConsentTemplate
+from hellosign.models import ConsentTemplate
 from surveys import get_survey
 from .views import prereq_interruption
 

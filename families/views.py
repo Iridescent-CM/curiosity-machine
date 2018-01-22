@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
-from hellosign import ConsentTemplate
+from hellosign.models import ConsentTemplate
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
