@@ -1,11 +1,10 @@
 import mock
 import pytest
 from students.factories import *
-from . import ConsentTemplate
 from .models import *
 
 def test_consent_template():
-    with mock.patch('hellosign.settings', spec=True) as settings:
+    with mock.patch('hellosign.models.settings', spec=True) as settings:
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_ID = "123"
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_X = "whatever"
 
@@ -14,7 +13,7 @@ def test_consent_template():
         assert ConsentTemplate("123").x == "whatever"
 
 def test_signature_custom_fields():
-    with mock.patch('hellosign.settings', spec=True) as settings:
+    with mock.patch('hellosign.models.settings', spec=True) as settings:
         user = StudentFactory.build(studentprofile__birthday="2000-01-01")
 
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_ID = "123"
@@ -30,7 +29,7 @@ def test_signature_custom_fields():
         }]
 
 def test_signature_custom_fields_omitted_id():
-    with mock.patch('hellosign.settings', spec=True) as settings:
+    with mock.patch('hellosign.models.settings', spec=True) as settings:
         user = StudentFactory.build()
 
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_ID = "123"
@@ -42,7 +41,7 @@ def test_signature_custom_fields_omitted_id():
         }]
 
 def test_signature_signers():
-    with mock.patch('hellosign.settings', spec=True) as settings:
+    with mock.patch('hellosign.models.settings', spec=True) as settings:
         user = StudentFactory.build()
 
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_ID = "123"
