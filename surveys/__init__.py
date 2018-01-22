@@ -7,5 +7,10 @@ class Survey:
     def __getattr__(self, name):
         return getattr(settings, "SURVEY_%s_%s" % (self.id, name.upper()))
 
+    def response(self, user):
+        from .models import SurveyResponse
+        response, created = SurveyResponse.objects.get_or_create(user=user, survey_id=self.id)
+        return response
+
 def get_survey(id):
     return Survey(id)

@@ -80,3 +80,11 @@ class Signature(models.Model):
             "user_id": self.user.id,
             "production_mode": settings.HELLOSIGN_PRODUCTION_MODE
         }
+
+    def __str__(self):
+        return "Signature: id={}, template_id={}, user_id={}, status={}".format(
+            self.id,
+            self.template_id,
+            self.user_id,
+            self.status.name
+        )

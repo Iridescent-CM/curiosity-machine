@@ -1,8 +1,8 @@
 from curiositymachine.middleware import whitelist_regex, whitelisted
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
+from hellosign import ConsentTemplate
 from surveys import get_survey
-from surveys.models import *
 from .views import prereq_interruption
 
 class SignUpPrerequisitesMiddleware:
@@ -20,8 +20,15 @@ class SignUpPrerequisitesMiddleware:
         ):
             presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
             if presurvey.active:
-                response, created = SurveyResponse.objects.get_or_create(user=request.user, survey_id=presurvey.id)
+                response = presurvey.response(request.user)
                 if not response.completed:
                     return prereq_interruption(request)
+
+            consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
+            if consent.active:
+                signature = consent.signature(request.user)
+                if not signature.signed:
+                    return prereq_interruption(request)
+
         return None
 

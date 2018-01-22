@@ -4,11 +4,11 @@ from django.contrib import messages
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
+from hellosign import ConsentTemplate
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
 from surveys import get_survey
-from surveys.models import SurveyResponse
 from units.models import Unit
 from .forms import *
 from .models import *
@@ -99,10 +99,11 @@ class PrereqInterruptionView(TemplateView):
 
     def get_context_data(self, **kwargs):
         presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
-        response, created = SurveyResponse.objects.get_or_create(user=self.request.user, survey_id=presurvey.id)
+        consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
         return super().get_context_data(
             **kwargs,
-            presurvey=response
+            presurvey=presurvey.response(self.request.user),
+            consent=consent.signature(self.request.user),
         )
 
 prereq_interruption = only_for_family(PrereqInterruptionView.as_view())
