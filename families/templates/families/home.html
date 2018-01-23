@@ -1,7 +1,43 @@
 {% extends "families/base.html" %}
+{% load staticfiles %}
+
+{% block js %}
+  <script type="text/javascript" src="{% static 'js/libs/jquery.circliful.min.js' %}"></script>
+  <script>
+    $(function(){
+      $('*[data-percent]').circliful();
+    });
+  </script>
+{% endblock %}
 
 {% block content %}
   {% include 'families/_navigation.html' %}
 
-  DASHBOARD CONTENT GOES HERE
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Family</h2>
+      <ul>
+      {% for familymember in request.user.familymember_set.all %}
+        <li>{{ familymember.name }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+
+    <div class="col-md-8">
+      <h2>Progress</h2>
+      <div class="row">
+      {% for stage in stages %}
+        <div class="col-xs-4">
+          <div
+            data-percent={{stage.stats.percent_complete}}
+            data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
+            data-text="Stage {{stage.number}}"
+            data-textBelow="true"
+            data-animationStep=20
+          ></div>
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
 {% endblock %}

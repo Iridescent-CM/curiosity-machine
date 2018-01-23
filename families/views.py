@@ -1,4 +1,3 @@
-from challenges.models import Challenge, Progress
 from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
@@ -9,7 +8,7 @@ from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
 from surveys import get_survey
-from units.models import Unit
+from .aichallenge import Stage
 from .forms import *
 from .models import *
 
@@ -62,37 +61,28 @@ edit = only_for_family(EditView.as_view())
 class HomeView(TemplateView):
     template_name = "families/home.html"
 
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(
+            **kwargs,
+            stages=[Stage(1), Stage(2)]
+        )
+
 home = only_for_family(HomeView.as_view())
 
 class StageView(TemplateView):
-    stage = None
+    stagenum = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.config = settings.AICHALLENGE_STAGES[self.stage]
+        self.stage = Stage(self.stagenum)
 
     def get_context_data(self, **kwargs):
-        challenges = sorted(
-            Challenge.objects.filter(id__in=self.config['challenges']),
-            key=lambda c: self.config['challenges'].index(c.id)
-        )
-
-        progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=self.config['challenges'])
-        prog_by_challenge_id = {p.challenge_id: p for p in progresses}
-        for challenge in challenges:
-            if challenge.id in prog_by_challenge_id:
-                # decorate here with level of progress for visual representation
-                pass
-
-        kwargs["challenges"] = challenges
-        kwargs["units"] = sorted(
-            Unit.objects.filter(id__in=self.config['units']),
-            key=lambda u: self.config['units'].index(u.id)
-        )
+        kwargs["challenges"] = self.stage.challenges
+        kwargs["units"] = self.stage.units
         return super().get_context_data(**kwargs)
 
-stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stage=1))
-stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage_2.html", stage=2))
+stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stagenum=1))
+stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage_2.html", stagenum=2))
 
 class PrereqInterruptionView(TemplateView):
     template_name = "families/interruption.html"
