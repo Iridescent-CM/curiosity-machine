@@ -1,6 +1,7 @@
 from allauth.account.adapter import DefaultAccountAdapter
 from django.conf import settings
 from django.contrib import messages
+from django.core.exceptions import MultipleObjectsReturned
 import logging
 
 logger = logging.getLogger(__name__)
@@ -29,3 +30,9 @@ class AllAuthAdapter(DefaultAccountAdapter):
     def confirm_email(self, request, email_address):
         email_address.set_as_primary()
         return super().confirm_email(request, email_address)
+
+    def authenticate(self, request, **credentials):
+        try:
+            return super().authenticate(request, **credentials)
+        except MultipleObjectsReturned:
+            logger.error("Duplicate usernames found on login for %s:" % credentials.get("username"), exc_info=True)
