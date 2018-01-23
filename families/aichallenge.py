@@ -23,12 +23,14 @@ class Stage:
 
     @property
     def stats(self):
-        import random
         stats = {}
         stats["total"] = len(self.challenges)
+        # garbage data for now
+        import random
         if not hasattr(self, "completed"):
             self.completed = random.randint(0, stats["total"])
         stats["completed"] = self.completed
+        # end garbage
         stats["percent_complete"] = round((stats["completed"] / stats["total"]) * 100) if stats["total"] > 0 else 0
         return stats
 
