@@ -1,9 +1,10 @@
+from allauth.account.adapter import get_adapter
 from allauth.account.models import EmailAddress
 from curiositymachine import signals
 from django import forms
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from django.contrib.auth.admin import UserAdmin, UserChangeForm
+from django.contrib.auth.admin import UserAdmin, UserChangeForm, UserCreationForm
 from django.contrib.auth.models import Group
 from educators.models import EducatorProfile
 from images.models import Image
@@ -57,13 +58,24 @@ class StudentProfileInline(admin.StackedInline):
     model = StudentProfile
     raw_id_fields = ['image']
 
-class CMUserChangeForm(UserChangeForm):
+class CMUsernameMixin():
+    def clean_username(self):
+        value = self.cleaned_data["username"]
+        # enforce some allauth validation, uniqueness in particular
+        value = get_adapter().clean_username(value)
+        return value
+
+class CMUserChangeForm(CMUsernameMixin, UserChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['email'].required = True
 
+class CMUserCreationForm(CMUsernameMixin, UserCreationForm):
+    pass
+
 class UserAdminWithExtra(UserAdmin):
     form = CMUserChangeForm
+    add_form = CMUserCreationForm
     inlines = [ UserExtraInline ]
     list_display = (
         'id',
