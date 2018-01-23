@@ -19,6 +19,7 @@ class Command(BaseCommand):
         parser.add_argument('cutoff', type=int, nargs='?', default=60)
 
     def handle(self, *args, **options):
+        verbose = options["verbosity"] > 1
 
         current_date = datetime.today() + timedelta(1)
         cutoff_date_delta = timedelta(days=options.get('cutoff', None))
@@ -86,26 +87,31 @@ class Command(BaseCommand):
             # a user_id; add it to the list so that we can approve this user.
             for signature_request in signature_requests:
                 metadata = signature_request["metadata"]
+                if verbose:
+                    self.stdout.write(self.style.NOTICE("Signature metadata: %s" % metadata))
                 if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID:
                     # check the metadata production mode
-                    if "production_mode" in metadata and metadata["production_mode"] == "True":
-                        metadata_production_mode = True
-                    else:
-                        metadata_production_mode = False
-                    if metadata_production_mode == settings.HELLOSIGN_PRODUCTION_MODE:
+                    if "production_mode" in metadata and metadata["production_mode"] == setting.HELLOSIGN_PRODUCTION_MODE:
                         user_ids_to_approve.append(metadata["user_id"])
 
             #user_ids_to_approve now is a list containing the user_id of students who
             #have had their parents sign consent on hellosign. We will now search the
             #student profiles for these user_ids
+            if verbose:
+                self.stdout.write(self.style.NOTICE("IDs to approve: %s" % user_ids_to_approve))
             student_profiles = StudentProfile.objects.filter(user_id__in=user_ids_to_approve)
 
             #now "student_profiles" contains all the student_profiles which have completed a
             #underage consent form. Approve them if they are not already approved.
+            ids_approved = []
             for student_profile in student_profiles:
                 if not student_profile.user.extra.approved and student_profile.birthday and student_profile.is_underage():
+                    ids_approved.append(student_profile.user.id)
                     student_profile.user.extra.approved = True
                     student_profile.user.extra.save(update_fields=['approved'])
                     signals.underage_activation_confirmed.send(sender=student_profile.user,
                                                                account=student_profile.user)
+
+            if verbose:
+                self.stdout.write(self.style.SUCCESS("IDs approved: %s" % ids_approved))
             page = page + 1
