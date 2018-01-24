@@ -55,7 +55,6 @@ class Command(BaseCommand):
         while request and page <= num_pages:
             user_ids_to_approve = []
             query = ("complete:true AND " \
-                     "test_mode:"+ str(test_mode)+ " AND " \
                      "created:{"+ str(cutoff_date.date()) + " TO " + str(current_date.date()) + "}")
             for request_attempt in range(5):
                 try:
