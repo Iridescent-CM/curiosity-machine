@@ -37,3 +37,7 @@ class FamilyMember(models.Model):
         blank=False,
         choices=[(role.value, role.name) for role in FamilyRole]
     )
+
+    @property
+    def name(self):
+        return "%s %s" % (self.first_name, self.last_name)
