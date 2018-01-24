@@ -64,7 +64,10 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         return super().get_context_data(
             **kwargs,
-            stages=[Stage(1), Stage(2)]
+            stages=[
+                Stage(1, self.request.user),
+                Stage(2, self.request.user)
+            ]
         )
 
 home = only_for_family(HomeView.as_view())

@@ -1,10 +1,12 @@
 from challenges.models import Challenge, Progress
+from challenges.models import Stage as CommentStage
 from django.conf import settings
 from units.models import Unit
 
 class Stage:
-    def __init__(self, stagenum, *args, **kwargs):
+    def __init__(self, stagenum, user=None, *args, **kwargs):
         self.number = stagenum
+        self.user = user
         self.config = settings.AICHALLENGE_STAGES[stagenum]
 
     @property
@@ -25,17 +27,17 @@ class Stage:
     def stats(self):
         stats = {}
         stats["total"] = len(self.challenges)
-        # garbage data for now
-        import random
-        if not hasattr(self, "completed"):
-            self.completed = random.randint(0, stats["total"])
-        stats["completed"] = self.completed
-        # end garbage
+        stats["completed"] = Progress.objects.filter(
+            owner=self.user,
+            challenge_id__in=self.config['challenges'],
+            comments__stage=CommentStage.reflect.value,
+            comments__user=self.user,
+        ).count()
         stats["percent_complete"] = round((stats["completed"] / stats["total"]) * 100) if stats["total"] > 0 else 0
         return stats
 
-    def progress(self, user):
-        progresses = Progress.objects.filter(owner=user, challenge_id__in=self.config['challenges'])
+    def progress(self):
+        progresses = Progress.objects.filter(owner=self.user, challenge_id__in=self.config['challenges'])
         prog_by_challenge_id = {p.challenge_id: p for p in progresses}
 
         challenges = self.challenges
