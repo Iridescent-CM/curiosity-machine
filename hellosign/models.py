@@ -4,14 +4,14 @@ from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.db import models
 from enumfields import Enum, EnumIntegerField
-from .jobs import request_signature
 import re
 import uuid
 
 class ConsentTemplate:
     prefix = "HELLOSIGN_TEMPLATE_"
     defaults = {
-        'BYPASS_API': False
+        'BYPASS_API': False,
+        'ACTIVE': False,
     }
 
     def __init__(self, id, *args, **kwargs):
@@ -33,10 +33,10 @@ class ConsentTemplate:
         return getattr(settings, settingname)
 
     def signature(self, user):
-        from .models import Signature
+        from . import jobs
         signature, created = Signature.objects.get_or_create(user=user, template_id=self.id)
         if created and not self.bypass_api:
-            request_signature(signature.id)
+            jobs.request_signature(signature.id)
         return signature
 
 class SignatureStatus(Enum):

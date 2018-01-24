@@ -1,5 +1,5 @@
 from .api import HelloSign
-from .models import *
+from .models import Signature
 import django_rq
 
 def request_signature(signature_id):
