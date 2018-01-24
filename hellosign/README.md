@@ -7,6 +7,12 @@
 * `HELLOSIGN_API_KEY`
 * `HELLOSIGN_PRODUCTION_MODE`: defaults to False, in production mode signed forms are legally binding
 
+### Management commands
+
+* `approve_underage_profiles`: To be documented, has specific config to be documented as well.
+* `update_signatures`: Run with template id(s), will search for signed requests and update
+the relevant Signature models.
+
 ### HelloSign Templates
 
 * `HELLOSIGN_TEMPLATE_<uppercase name>_ID`: HelloSign ID of template
