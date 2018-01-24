@@ -54,3 +54,11 @@ def test_signature_signers():
 
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_SIGNER_ROLE = "Parent or guardian"
         assert Signature(template_id="123", user=user).get_signers()[0]["role_name"] == "Parent or guardian"
+
+def test_template_active():
+    with mock.patch('hellosign.models.settings', spec=True) as settings:
+        settings.HELLOSIGN_TEMPLATE_SOME_NAME_ID = "123"
+        assert not ConsentTemplate("123").active
+
+        settings.HELLOSIGN_TEMPLATE_SOME_NAME_ACTIVE = 1
+        assert ConsentTemplate("123").active
