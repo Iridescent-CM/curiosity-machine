@@ -13,6 +13,9 @@
         {% if not presurvey.completed %}
         <li><a href="{{ presurvey.url }}">AI Challenge Pre-survey</a></li>
         {% endif %}
+        {% if not consent.signed %}
+        <li>Sign your consent form</li>
+        {% endif %}
       </ul>
     </div>
   </div>

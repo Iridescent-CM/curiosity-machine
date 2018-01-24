@@ -34,6 +34,8 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
             val = kwargs["birthday"]
             if isinstance(val, str):
                 kwargs["birthday"] = parse_date(val)
+                if not kwargs["birthday"]:
+                    raise ValueError("Could not parse %s as date, use YYYY-MM-DD" % val)
         return kwargs
 
 @factory.django.mute_signals(handlers.post_save)

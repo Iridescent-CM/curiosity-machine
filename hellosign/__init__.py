@@ -1,7 +1,8 @@
-default_app_config = 'hellosign.apps.HellosignConfig'
-
-import django_rq
 from .signrequest import send_underage_consent_form as _send_underage_consent_form
+import django_rq
+
+
+default_app_config = 'hellosign.apps.HellosignConfig'
 
 
 def send_underage_consent_form(sender):
