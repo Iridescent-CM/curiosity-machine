@@ -5,9 +5,10 @@
 ### API
 
 * `HELLOSIGN_API_KEY`
-* `HELLOSIGN_PRODUCTION_MODE`: defaults to False, in production mode signed forms are legally binding
-* `HELLOSIGN_ENVIRONMENT_NAME`: arbitrary name used to match completed signature requests with the
-environments the requests came from
+* `HELLOSIGN_PRODUCTION_MODE`: Defaults to False, in production mode signed forms are legally binding
+* `HELLOSIGN_ENVIRONMENT_NAME`: Arbitrary name used to match completed signature requests with the
+environment the requests came from, should not be changed if there are pending requests from your
+environment. Should be unique for production environments.
 
 ### Management commands
 
