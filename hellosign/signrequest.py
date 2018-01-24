@@ -40,7 +40,8 @@ def send_underage_consent_form(sender):
     metadata = {
         "template_id" : template_id,
         "user_id": child_user_id,
-	"production_mode": settings.HELLOSIGN_PRODUCTION_MODE}
+	"environment_name": settings.HELLOSIGN_ENVIRONMENT_NAME
+    }
     test_mode=not settings.HELLOSIGN_PRODUCTION_MODE
 
 

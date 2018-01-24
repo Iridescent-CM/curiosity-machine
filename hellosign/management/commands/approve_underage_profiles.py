@@ -24,10 +24,6 @@ class Command(BaseCommand):
         current_date = datetime.today() + timedelta(1)
         cutoff_date_delta = timedelta(days=options.get('cutoff', None))
         cutoff_date = current_date - cutoff_date_delta
-        if settings.HELLOSIGN_PRODUCTION_MODE:
-            test_mode = False
-        else:
-            test_mode = True
 
         # Initialize HSClient using api key
         api_key = settings.HELLOSIGN_API_KEY
@@ -90,7 +86,9 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.NOTICE("Signature metadata: %s" % metadata))
                 if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID:
                     # check the metadata production mode
-                    if metadata.get("production_mode", False) == settings.HELLOSIGN_PRODUCTION_MODE:
+                    if ("environment_name" in metadata
+                        and metadata["environment_name"] == settings.HELLOSIGN_ENVIRONMENT_NAME
+                    ):
                         user_ids_to_approve.append(metadata["user_id"])
 
             #user_ids_to_approve now is a list containing the user_id of students who
