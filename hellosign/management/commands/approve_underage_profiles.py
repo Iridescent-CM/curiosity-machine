@@ -91,7 +91,7 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.NOTICE("Signature metadata: %s" % metadata))
                 if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID:
                     # check the metadata production mode
-                    if "production_mode" in metadata and metadata["production_mode"] == setting.HELLOSIGN_PRODUCTION_MODE:
+                    if metadata.get("production_mode", False) == settings.HELLOSIGN_PRODUCTION_MODE:
                         user_ids_to_approve.append(metadata["user_id"])
 
             #user_ids_to_approve now is a list containing the user_id of students who
