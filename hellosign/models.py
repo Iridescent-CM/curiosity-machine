@@ -111,7 +111,7 @@ class Signature(models.Model):
             "template_id": self.template_id,
             "signature_id": self.id,
             "user_id": self.user.id,
-            "production_mode": settings.HELLOSIGN_PRODUCTION_MODE
+            "environment_name": settings.HELLOSIGN_ENVIRONMENT_NAME
         }
 
     def __str__(self):
