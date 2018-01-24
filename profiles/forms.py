@@ -44,6 +44,18 @@ class ProfileModelForm(forms.ModelForm):
         except ValidationError as e:
             self._update_errors(e)
 
+    def proxy_clean(self, cleaned_data, formclass):
+        form = formclass(data=cleaned_data)
+        form.full_clean()
+        for fieldname, errors in form.errors.as_data().items():
+            if fieldname == '__all__':
+                fieldname = None
+            for error in errors:
+                if not self.has_error(fieldname, code=error.code):
+                    self.add_error(fieldname, error)
+        cleaned_data.update(form.cleaned_data)
+        return cleaned_data
+
     def save(self, commit=True):
         if not commit:
             raise NotImplementedError(str(
