@@ -93,7 +93,7 @@
         <div class="student-list-item">
           <a href="{% url 'educators:student' student_id=student.id %}" class="student-list-avatar">
             <div class="student-list-has-activity">
-              {% include "_avatar.html" with profile=student.studentprofile  width=48 height=48 crop='thumb' gravity='faces' %}
+              {% include "_avatar.html" with user=student width=48 height=48 crop='thumb' gravity='faces' %}
             </div>
           </a>
           <span class="student-inline-name">
@@ -125,6 +125,11 @@
 
           <div class="collapse" id="collapse-{{ student.id }}">
             <div class="py-1">
+              {% comment %}
+              FIXME: `student` can be a family acocunt, only showing birthday for actual students.
+              Code is super misleading though, and shouldn't have to know about this stuff.
+              {% endcomment %}
+              {% if student.studentprofile %}
               <span class="student-inline-birthday">
                 <strong>Birthday:</strong>
                 {% if student.studentprofile.birthday %}
@@ -134,6 +139,7 @@
                 {% endif %}
               </span>
               <br>
+              {% endif %}
               <span class="student-inline-email">
                 <strong>Email:</strong>
                 {% if student.email %}
