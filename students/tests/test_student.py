@@ -21,3 +21,18 @@ def test_underage_students_do_not_auto_approve():
     profile = StudentProfileFactory.build(user=user, underage=True)
     profile.save()
     assert not user.extra.approved
+
+@pytest.mark.django_db
+def test_underage_only_viewable_unapproved(client):
+    user = StudentFactory(password="password", extra__approved=False)
+    client.login(username=user.username, password="password")
+
+    response = client.get('/student/underage/')
+    assert response.status_code == 200
+
+    user.extra.approved = True
+    user.extra.save()
+
+    response = client.get('/student/underage/')
+    assert response.status_code == 302
+    
