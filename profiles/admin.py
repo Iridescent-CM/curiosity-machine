@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin, UserChangeForm, UserCreationForm
 from django.contrib.auth.models import Group
 from educators.models import EducatorProfile
+from families.models import FamilyProfile
 from images.models import Image
 from mentors.models import MentorProfile
 from parents.models import ParentProfile
@@ -57,6 +58,10 @@ class ParentProfileInline(admin.StackedInline):
 class StudentProfileInline(admin.StackedInline):
     model = StudentProfile
     raw_id_fields = ['image']
+
+class FamilyProfileInline(admin.StackedInline):
+    model = FamilyProfile
+    raw_id_fields = ['image', 'location']
 
 class CMUsernameMixin():
     def clean_username(self):
@@ -118,6 +123,7 @@ class UserAdminWithExtra(UserAdmin):
         else:
             instances = [UserExtraInline(self.model, self.admin_site),]
             if hasattr(obj, "extra"):
+                # FIXME: this can be done with a dictionary or something like that
                 if obj.extra.role == UserRole.educator.value:
                     instances.append(EducatorProfileInline(self.model, self.admin_site))
                 if obj.extra.role == UserRole.mentor.value:
@@ -126,6 +132,8 @@ class UserAdminWithExtra(UserAdmin):
                     instances.append(ParentProfileInline(self.model, self.admin_site))
                 if obj.extra.role == UserRole.student.value:
                     instances.append(StudentProfileInline(self.model, self.admin_site))
+                if obj.extra.role == UserRole.family.value:
+                    instances.append(FamilyProfileInline(self.model, self.admin_site))
             return instances
 
     def save_model(self, request, obj, form, change):
