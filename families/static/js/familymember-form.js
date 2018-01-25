@@ -10,7 +10,7 @@ $(function(){
     }
   }
 
-  function init(context, opts) {
+  function initGroups(context, opts) {
     var opts = opts || {};
     $('select[name$="family_role"]', context).each(function(i, el){
       var $el = $(el);
@@ -18,6 +18,15 @@ $(function(){
       sync($el, $group, opts);
       $el.change(sync.bind(null, $el, $group));
     });
+  }
+
+  function checkControls($control, total) {
+    var $control = $control || $("[data-formset-add]");
+    var prefix = $control.attr('data-formset-add');
+    var total = total || $('input[name="' + prefix + '-TOTAL_FORMS"]').val();
+    var max = $('input[name="' + prefix + '-MAX_NUM_FORMS"]').val();
+
+    $control.prop("disabled", total >= max);
   }
 
   $(document).on("click", "*[data-formset-add]", function(evt){
@@ -28,9 +37,11 @@ $(function(){
     var $total = $('input[name="' + prefix + '-TOTAL_FORMS"]');
     var idx = parseInt($total.val())
     var added = $($template.text().replace(/__prefix__/g, idx)).insertAfter($template);
-    init(added);
+    initGroups(added);
     $total.val(idx + 1);
+    checkControls($(evt.target), $total.val());
   });
 
-  init();
+  initGroups();
+  checkControls();
 });

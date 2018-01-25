@@ -159,6 +159,8 @@ class BaseFamilyMemberFormset(forms.BaseInlineFormSet):
             and any(form.cleaned_data.get('family_role') == 1 for form in self.forms if not form.cleaned_data.get('DELETE'))
         ):
             raise forms.ValidationError("You must have at least one parent/guardian and at least one child.")
+        if len([form for form in self.forms if not form.cleaned_data.get('DELETE')]) > 6:
+            raise forms.ValidationError("You can have a maximum of 6 family members.")
 
 FamilyMemberFormset = forms.inlineformset_factory(
     get_user_model(),
@@ -167,5 +169,6 @@ FamilyMemberFormset = forms.inlineformset_factory(
     formset=BaseFamilyMemberFormset,
     exclude=['image'],
     min_num=2,
+    max_num=6,
     extra=0
 )
