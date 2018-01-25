@@ -48,6 +48,8 @@ class Signature(models.Model):
     template_id = models.CharField(max_length=40, null=False, blank=False)
     user = models.ForeignKey(get_user_model(), null=False, blank=False)
     status = EnumIntegerField(SignatureStatus, default=SignatureStatus.UNSIGNED)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     @property
     def template(self):
