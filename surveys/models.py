@@ -17,6 +17,8 @@ class SurveyResponse(models.Model):
     survey_id = models.CharField(max_length=30, null=False, blank=False)
     user = models.ForeignKey(get_user_model(), null=False, blank=False)
     status = EnumIntegerField(ResponseStatus, default=ResponseStatus.UNKNOWN)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     @property
     def url(self):
