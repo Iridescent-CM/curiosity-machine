@@ -61,8 +61,9 @@ class StudentProfileInline(admin.StackedInline):
 class CMUsernameMixin():
     def clean_username(self):
         value = self.cleaned_data["username"]
-        # enforce some allauth validation, uniqueness in particular
-        value = get_adapter().clean_username(value)
+        if self.has_changed() and "username" in self.changed_data:
+            # enforce some allauth validation, uniqueness in particular
+            value = get_adapter().clean_username(value)
         return value
 
 class CMUserChangeForm(CMUsernameMixin, UserChangeForm):
