@@ -22,6 +22,7 @@ function progressChart() {
   var xPadding = 50;
   var yPadding = 15;
   var stages = ["Plan", "Build", "Test", "Reflect"];
+  var dotRoles = [1, 5]
 
   /* chart(selection)
    * Expects selection of svgs with viewBoxes set to desired size
@@ -51,7 +52,7 @@ function progressChart() {
       /* data and positioning helpers */
       var getIndex = function(d) { return d["idx"] + 1; }
       var getStageValue = function(d) { return d["stage"]; };
-      var isStudentPost = function(d) { return d["user_role"] == 1; };
+      var isDotPost = function(d) { return dotRoles.indexOf(d["user_role"]) > -1; };
       var giveX = function(d, i) { return x(getIndex(d)); };
       var giveY = function (d) { return y(getStageValue(d)); };
 
@@ -64,7 +65,7 @@ function progressChart() {
         .domain(x.domain())
         .thresholds([1.5, 2.5, 3.5])
         .value(getStageValue);
-      var bins = histogram(values.filter(isStudentPost));
+      var bins = histogram(values.filter(isDotPost));
 
       var dyText = -13;
       var xBar = x(0);
@@ -133,7 +134,7 @@ function progressChart() {
         .attr("x", xSummary + (wSummary / 2))
         .attr("y", y(0))
         .classed("summary", true)
-        .text(values.filter(isStudentPost).length);
+        .text(values.filter(isDotPost).length);
 
       main.append("text")
         .attr("text-anchor", "end")
@@ -182,7 +183,7 @@ function progressChart() {
 
       // draw line
       group.append("path")
-        .datum(values.filter(function(d){ return isStudentPost(d); }))
+        .datum(values.filter(function(d){ return isDotPost(d); }))
         .attr("d", line)
         .attr("class", "graphline");
 
@@ -190,7 +191,7 @@ function progressChart() {
       group.selectAll("circle")
         .data(values)
         .enter()
-        .filter(function (d) { return isStudentPost(d); })
+        .filter(function (d) { return isDotPost(d); })
         .append("circle")
         .attr("cx", giveX)
         .attr("cy", giveY)
@@ -204,7 +205,7 @@ function progressChart() {
       group.selectAll("line")
         .data(values)
         .enter()
-        .filter(function (d) { return !isStudentPost(d); })
+        .filter(function (d) { return !isDotPost(d); })
         .append("line")
         .attr("x1", giveX)
         .attr("y1", y(4.5))
