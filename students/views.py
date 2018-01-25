@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
 from challenges.models import Progress, Favorite, Challenge
+from curiositymachine.decorators import unapproved_only
 from django.contrib import messages
 from django.shortcuts import Http404
 from django.urls import reverse
@@ -75,4 +76,4 @@ class HomeView(TemplateView):
 
 home = only_for_student(HomeView.as_view())
 
-underage = TemplateView.as_view(template_name='students/underage.html')
+underage = unapproved_only(TemplateView.as_view(template_name='students/underage.html'))

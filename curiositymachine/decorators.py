@@ -14,6 +14,15 @@ def anonymous_only(view):
             return view(request, *args, **kwargs)
     return inner
 
+def unapproved_only(view):
+    @wraps(view)
+    def inner(request, *args, **kwargs):
+        if request.user.is_authenticated() and not request.user.extra.approved:
+            return view(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse('root'))
+    return inner
+
 def mentor_or_current_user(view):
     @wraps(view)
     def inner(request, challenge_id, username, *args, **kwargs):
