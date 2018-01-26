@@ -1,6 +1,24 @@
 import pytest
+from images.factories import *
+from students.factories import *
 from .factories import *
 from .forms import *
+
+@pytest.mark.django_db
+def test_converting_profiles_copies_image():
+    image = ImageFactory()
+    student = StudentFactory(studentprofile__image=image)
+    studentprofile = student.studentprofile
+
+    familyprofile = FamilyProfileFactory.build()
+    form = FamilyProfileForm(
+        user=student,
+        data=FamilyProfileForm(user=student, instance=familyprofile).initial
+    )
+    assert form.is_valid()
+    familyprofile = form.save()    
+    assert familyprofile.user.extra.is_family
+    assert familyprofile.image == studentprofile.image
 
 @pytest.mark.django_db
 def test_valid_form():

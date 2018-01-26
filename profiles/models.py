@@ -85,6 +85,13 @@ class UserExtra(models.Model):
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
     first_login = models.BooleanField(default=True)
 
+    @property
+    def profile(self):
+        role = UserRole(self.role)
+        if role.profile_attr:
+            return getattr(self.user, role.profile_attr)
+        return NullProfile()
+
     @classmethod
     def inactive_mentors(cls):
          startdate = now()

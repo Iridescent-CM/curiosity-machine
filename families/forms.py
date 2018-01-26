@@ -40,6 +40,10 @@ class FamilyProfileForm(ProfileModelForm):
     state = LocationForm.base_fields['state']
     city = LocationForm.base_fields['city']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.prev_profile = self.user.extra.profile
+
     def clean(self):
         cleaned_data = super().clean()
         return self.proxy_clean(cleaned_data, LocationForm)
@@ -56,6 +60,9 @@ class FamilyProfileForm(ProfileModelForm):
             img = Image(source_url=self.cleaned_data['image_url']['url'])
             img.save()
             obj.image = img
+        elif self.prev_profile != obj and self.prev_profile.image: # converting to family account scenario
+            obj.image = self.prev_profile.image
+
         return obj
 
     def get_role(self):

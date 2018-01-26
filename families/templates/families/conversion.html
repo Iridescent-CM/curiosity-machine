@@ -1,0 +1,9 @@
+{% extends "curiositymachine/layout/base.html" %}
+
+{% block content %}
+  <ul>
+    <li><a href="{% url "families:create_profile" %}">Convert</a></li>
+    <li>Or log out and create a new account</li>
+    <li>Or contact support</li>
+  </ul>
+{% endblock %}
