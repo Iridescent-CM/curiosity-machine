@@ -10,6 +10,7 @@ class StudentProfile(BaseProfile):
     parent_last_name = models.TextField(blank=True)
     city = models.TextField(blank=True)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
+    full_access = models.BooleanField(default=False)
 
     @property
     def age(self):
