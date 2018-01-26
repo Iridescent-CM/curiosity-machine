@@ -34,7 +34,7 @@ def force_false(*args, **kwargs):
     return False
 
 def test_underage_student_middleware_redirects_request(rf):
-    user = StudentFactory.build(studentprofile__underage=True, extra__approved=False)
+    user = StudentFactory.build(studentprofile__underage=True, studentprofile__full_access=False)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -42,11 +42,11 @@ def test_underage_student_middleware_redirects_request(rf):
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == reverse('students:underage')
 
-def test_underage_student_middleware_skips_approved_profiles(rf):
-    user = UserFactory.build(extra__approved=True)
+def test_underage_student_middleware_skips_full_access_profiles(rf):
+    student = StudentFactory.build(studentprofile__full_access=True)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
-    request.user = user
+    request.user = student
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_underage_student_middleware_skips_mentors(rf):
@@ -71,7 +71,7 @@ def test_underage_student_middleware_skips_unauthenticated_user(rf):
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_underage_student_middleware_allows_whitelisted_views(rf):
-    user = StudentFactory.build(studentprofile__underage=True, extra__approved=False)
+    user = StudentFactory.build(studentprofile__underage=True, studentprofile__full_access=False)
     middleware = UnderageStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -86,7 +86,7 @@ def test_underage_student_middleware_allows_whitelisted_views(rf):
     assert not middleware.process_view(request, view, None, None)
 
 def test_unapproved_mentor_middleware_redirects(rf):
-    user = MentorFactory.build(extra__approved=False)
+    user = MentorFactory.build(mentorprofile__full_access=False)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
@@ -94,15 +94,15 @@ def test_unapproved_mentor_middleware_redirects(rf):
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == reverse('profiles:home')
 
-def test_unapproved_mentor_middleware_skips_approved(rf):
-    user = MentorFactory.build(extra__approved=True)
+def test_unapproved_mentor_middleware_skips_full_access(rf):
+    user = MentorFactory.build(mentorprofile__full_access=True)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_unapproved_mentor_middleware_skips_whitelisted(rf):
-    user = MentorFactory.build(extra__approved=False)
+    user = MentorFactory.build(mentorprofile__full_access=False)
     middleware = UnapprovedMentorSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user

@@ -80,7 +80,8 @@ class RowImportForm(forms.Form):
         cleaned_data = self.cleaned_data
 
         profile = StudentProfile(**{k: cleaned_data[k] for k in ['birthday']})
-        extra = UserExtra(**{k: cleaned_data[k] for k in ['approved']})
+        profile.full_access = cleaned_data['approved'] 
+        extra = UserExtra()
         extra.role = UserRole.student.value
         user = User(**{k: cleaned_data[k] for k in ['username', 'first_name', 'last_name', 'email']})
         user.set_password(self.cleaned_data['password'])

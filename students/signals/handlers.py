@@ -6,5 +6,5 @@ from students.models import StudentProfile
 def auto_approve_non_coppa_students(sender, instance, created, **kwargs):
     if created and not kwargs.get('raw'):
         if instance.birthday and not instance.is_underage():
-            instance.user.extra.approved = True
-            instance.user.extra.save(update_fields=['approved'])
+            instance.full_access = True
+            instance.save(update_fields=['full_access'])

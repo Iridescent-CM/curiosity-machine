@@ -87,10 +87,7 @@ class UserExtra(models.Model):
 
     @property
     def profile(self):
-        role = UserRole(self.role)
-        if role.profile_attr:
-            return getattr(self.user, role.profile_attr)
-        return NullProfile()
+        return User.profile_for(self.user)
 
     @classmethod
     def inactive_mentors(cls):
@@ -107,6 +104,14 @@ class UserExtra(models.Model):
     @cached_property
     def in_active_membership(self):
         return self.user.membership_set.filter(is_active=True).count() > 0
+
+    @property
+    def is_approved(self):
+        profile = self.profile
+        if hasattr(profile, "full_access"):
+            return profile.full_access
+        else:
+            return True
 
     @property
     def role_name(self):
