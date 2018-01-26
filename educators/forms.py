@@ -1,6 +1,8 @@
 from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget
 from django import forms
+from locations.forms import LocationForm
+from locations.models import Location
 from profiles.forms import ProfileModelForm
 from profiles.models import UserRole
 from .models import *
@@ -9,11 +11,12 @@ class EducatorProfileForm(ProfileModelForm):
     class Meta:
         model = EducatorProfile
         fields = [
-            'city',
             'organization',
         ]
 
-    city = forms.CharField(required=True)
+    class Media:
+        js = ('js/location-form.js',)
+
     organization = forms.CharField(required=True)
 
     image_url = MediaURLField(
@@ -32,7 +35,22 @@ class EducatorProfileForm(ProfileModelForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
 
+    country = LocationForm.base_fields['country']
+    state = LocationForm.base_fields['state']
+    city = LocationForm.base_fields['city']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return self.proxy_clean(cleaned_data, LocationForm)
+
     def save_related(self, obj):
+        location, created = Location.objects.get_or_create(
+            country=self.cleaned_data['country'],
+            state=self.cleaned_data['state'],
+            city=self.cleaned_data['city']
+        )
+        obj.location = location
+
         if self.cleaned_data.get("image_url"):
             img = Image(source_url=self.cleaned_data['image_url']['url'])
             img.save()
@@ -46,11 +64,20 @@ class EducatorProfileForm(ProfileModelForm):
             self.user.last_name = self.cleaned_data['last_name']
 
     def get_initial(self, user, instance):
+        location = {}
+        if instance and instance.location:
+            location['country'] = instance.location.country
+            location['state'] = instance.location.state
+            location['city'] = instance.location.city
+        elif instance and instance.city:
+            location['city'] = instance.city
+
         return super().get_initial(
             user,
             instance,
             first_name=user.first_name,
             last_name=user.last_name,
+            **location,
         )
 
     def get_role(self):

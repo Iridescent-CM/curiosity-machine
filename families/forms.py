@@ -4,8 +4,8 @@ from datetime import datetime, date
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django import forms
-from django.forms import modelform_factory, widgets
 from images.models import Image
+from locations.forms import LocationForm
 from locations.models import Location
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
@@ -13,13 +13,6 @@ from profiles.forms import ProfileModelForm
 from profiles.models import UserRole
 from .models import *
 
-LocationModelForm = modelform_factory(
-    Location,
-    exclude=[],
-    widgets={
-        "city": widgets.TextInput
-    }
-)
 
 class FamilyProfileForm(ProfileModelForm):
     class Meta:
@@ -43,24 +36,13 @@ class FamilyProfileForm(ProfileModelForm):
     )
 
     phone = PhoneNumberField(widget=PhoneNumberInternationalFallbackWidget)
-    country = LocationModelForm.base_fields['country']
-    state = LocationModelForm.base_fields['state']
-    city = LocationModelForm.base_fields['city']
+    country = LocationForm.base_fields['country']
+    state = LocationForm.base_fields['state']
+    city = LocationForm.base_fields['city']
 
     def clean(self):
         cleaned_data = super().clean()
-        if cleaned_data.get('country', None) == 'US':
-            if cleaned_data.get('state', None) == None:
-                self.add_error(
-                    'state',
-                    ValidationError(
-                        'This field is required',
-                        code='required'
-                    )
-                )
-        else:
-            cleaned_data['state'] = None
-        return cleaned_data
+        return self.proxy_clean(cleaned_data, LocationForm)
 
     def save_related(self, obj):
         location, created = Location.objects.get_or_create(

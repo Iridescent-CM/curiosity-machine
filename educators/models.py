@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.db import models
 from images.models import Image
+from locations.models import Location
 from profiles.models import BaseProfile
 
 class EducatorProfile(BaseProfile):
-    city = models.TextField(blank=True)
+    city = models.TextField(blank=True) # deprecated, use location
+    location = models.ForeignKey(Location, null=True, blank=False, on_delete=models.PROTECT)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     organization = models.CharField(max_length=50, null=True, blank=True)
 
