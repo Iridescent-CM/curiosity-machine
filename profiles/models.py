@@ -80,7 +80,6 @@ class UserExtra(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='extra')
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in UserRole], default=UserRole.none.value)
     source = models.CharField(max_length=50, null=False, blank=True, default="")
-    approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
     first_login = models.BooleanField(default=True)
