@@ -101,4 +101,4 @@ class PrereqInterruptionView(TemplateView):
 
 prereq_interruption = only_for_family(PrereqInterruptionView.as_view())
 
-convert = TemplateView.as_view(template_name="families/convert.html")
+conversion = TemplateView.as_view(template_name="families/conversion.html")
