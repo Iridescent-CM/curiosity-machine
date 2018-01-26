@@ -87,6 +87,9 @@ class UserAdminWithExtra(UserAdmin):
         'is_staff',
         'date_joined',
         'city',
+        'location_city',
+        'location_state',
+        'location_country',
     )
     list_display_links = ('username', 'id')
     list_filter = (
@@ -111,6 +114,27 @@ class UserAdminWithExtra(UserAdmin):
     def city(self, obj):
         return getattr(User.cast(obj).profile, 'city', None)
     city.admin_order_field = "profile__city"
+
+    def location_city(self, obj):
+        location = getattr(User.cast(obj).profile, 'location', None)
+        if location:
+            return location.city
+        return None
+    location_city.admin_order_field = "profile__location__city"
+
+    def location_country(self, obj):
+        location = getattr(User.cast(obj).profile, 'location', None)
+        if location:
+            return location.country
+        return None
+    location_country.admin_order_field = "profile__location__country"
+
+    def location_state(self, obj):
+        location = getattr(User.cast(obj).profile, 'location', None)
+        if location:
+            return location.state
+        return None
+    location_state.admin_order_field = "profile__location__state"
 
     def get_inline_instances(self, request, obj=None):
         if obj is None:

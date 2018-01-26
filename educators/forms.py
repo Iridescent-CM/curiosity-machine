@@ -69,6 +69,8 @@ class EducatorProfileForm(ProfileModelForm):
             location['country'] = instance.location.country
             location['state'] = instance.location.state
             location['city'] = instance.location.city
+        elif instance and instance.city:
+            location['city'] = instance.city
 
         return super().get_initial(
             user,
