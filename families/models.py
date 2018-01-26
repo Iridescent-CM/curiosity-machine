@@ -1,10 +1,14 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.functional import cached_property
 from enum import Enum
+from hellosign.models import ConsentTemplate
 from images.models import Image
 from locations.models import Location
 from phonenumber_field.modelfields import PhoneNumberField
 from profiles.models import BaseProfile
+from surveys import get_survey
 
 __all__ = [
     'FamilyProfile',
@@ -16,6 +20,22 @@ class FamilyProfile(BaseProfile):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     phone = PhoneNumberField()
     location = models.ForeignKey(Location, null=False, blank=False, on_delete=models.PROTECT)
+
+    @cached_property
+    def full_access(self):
+        presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
+        if presurvey.active:
+            response = presurvey.response(self.user)
+            if not response.completed:
+                return False
+
+        consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
+        if consent.active:
+            signature = consent.signature(self.user)
+            if not signature.signed:
+                return False
+
+        return True
 
 class FamilyRole(Enum):
     parent_or_guardian = 0
