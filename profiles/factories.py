@@ -32,7 +32,6 @@ class UserExtraFactory(factory.django.DjangoModelFactory):
         model = UserExtra
 
     user = factory.SubFactory('profiles.factories.UserFactory', extra=None)
-    approved = True
 
 class EmailAddressFactory(factory.django.DjangoModelFactory):
     class Meta:

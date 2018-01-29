@@ -42,13 +42,13 @@ def test_form_saves_expected_user():
 
     for attr in ['username', 'first_name', 'last_name', 'email']:
         assert getattr(member.user, attr) == data[attr] 
-    assert member.user.extra.approved
+    assert member.user.studentprofile.full_access
     assert member.user.studentprofile.birthday == date(year=1995, month=3, day=7)
 
 @pytest.mark.django_db
 def test_approved_values():
     def approves(**kwargs):
-        return RowImportForm(CSVRowDataFactory(**kwargs)).save(commit=False).user.extra.approved
+        return RowImportForm(CSVRowDataFactory(**kwargs)).save(commit=False).user.studentprofile.full_access
 
     assert approves(approved="y")
     assert approves(approved="yes")

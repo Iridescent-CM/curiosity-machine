@@ -18,6 +18,7 @@ class MentorProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('mentors.factories.MentorFactory', profile=None)
     city = 'city'
+    full_access = True
 
 @factory.django.mute_signals(handlers.post_save)
 class MentorFactory(factory.django.DjangoModelFactory):

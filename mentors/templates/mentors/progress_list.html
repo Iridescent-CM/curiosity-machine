@@ -7,7 +7,7 @@
   {% block breadcrumbs %}
   {% endblock %}
 
-  {% if request.user.extra.approved %}
+  {% if request.user.mentorprofile.full_access %}
     <div class="row">
       <div class="col-sm-12">
         {% block pagetitle %}{% endblock %}

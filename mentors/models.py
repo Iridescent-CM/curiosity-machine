@@ -4,6 +4,8 @@ from profiles.models import BaseProfile
 from videos.models import Video
 
 class MentorProfile(BaseProfile):
+    full_access = models.BooleanField(default=False)
+
     city = models.TextField(blank=True)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
 

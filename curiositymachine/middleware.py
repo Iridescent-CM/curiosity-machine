@@ -67,7 +67,7 @@ class UnderageStudentSandboxMiddleware:
         if (request.user.is_authenticated()
                 and not request.user.is_staff
                 and request.user.extra.is_student
-                and not request.user.extra.approved):
+                and not request.user.studentprofile.full_access):
             if (not whitelisted(view, 'public', 'maybe_public', 'underage')
                     and not whitelist_regex.match(request.path.lstrip('/'))):
                 return HttpResponseRedirect(reverse('students:underage'))
@@ -80,7 +80,7 @@ class UnapprovedMentorSandboxMiddleware:
         if (request.user.is_authenticated()
                 and not request.user.is_staff
                 and request.user.extra.is_mentor
-                and not request.user.extra.approved):
+                and not request.user.mentorprofile.full_access):
             if (not whitelisted(view, 'public', 'maybe_public', 'unapproved_mentors')
                     and not whitelist_regex.match(request.path.lstrip('/'))):
                 return HttpResponseRedirect(reverse('profiles:home'))

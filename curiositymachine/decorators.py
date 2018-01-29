@@ -17,7 +17,7 @@ def anonymous_only(view):
 def unapproved_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        if request.user.is_authenticated() and not request.user.extra.approved:
+        if request.user.is_authenticated() and not request.user.extra.is_approved:
             return view(request, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse('root'))
