@@ -16,18 +16,12 @@
   <div class="row">
     <div class="col-md-4">
       <h3>Family</h3>
-      <ul style="border-radius: 30px;
-	  border-style: solid;
-	  border-color: #E3E3DD;
-      padding: 20px; 
-	  border-width: 2px;">
+      <ul class="family-dashboard-family-members">
       {% for familymember in request.user.familymember_set.all %}
           <div class="row" style="padding: 10px;">
 			{% include "_familyavatar.html" with profile=familymember width=60 height=60 crop='thumb' gravity='faces' %}
 			{% comment %} FIXME: FamilyMember as Profile above {% endcomment %}
-			<span class="dashboard-inline-username" style="border-radius: 15px 30px 30px;
-			background: #73AD21;
-			padding: 20px;">{{ familymember.name }}</span>
+			<span class="dashboard-members-username">{{ familymember.name }}</span>
 		  </div>
       {% endfor %}
       </ul>
@@ -36,11 +30,11 @@
     <div class="col-md-8">
       <h3>Progress</h3>
       <div class="row" style="border-radius: 30px;
-	  border-style: solid;
-	  border-color: #E3E3DD;
-      padding-bottom: 20px; 
-	  padding-top: 5px; 
-	  border-width: 2px;">
+	                          border-style: solid;
+							  border-color: #E3E3DD;
+							  padding-bottom: 20px; 
+							  padding-top: 5px; 
+							  border-width: 2px;">
       {% for stage in stages %}
         <div class="col-xs-4" style="text-align:center;">
           <div
