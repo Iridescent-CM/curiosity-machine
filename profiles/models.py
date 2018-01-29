@@ -106,6 +106,16 @@ class UserExtra(models.Model):
 
     @property
     def is_approved(self):
+        """
+        Commenting because the semantics here are weird.
+
+        Replaces old `approved` flag; meant to provide some generalized notion of whether a user
+        is approved/has full access/is in some way limited on the site without necessarily knowing
+        what type of user they are.
+
+        For now, assumes they are "approved" (whatever that means) unless the active profile has
+        `full_access=False`.
+        """
         profile = self.profile
         if hasattr(profile, "full_access"):
             return profile.full_access
