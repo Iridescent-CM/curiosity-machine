@@ -26,7 +26,7 @@ def generate_export_users():
                 user.last_name,
                 user.profile.city,
                 user.extra.user_type,
-                str(True) if user.is_superuser else str(user.extra.approved),
+                str(True) if user.is_superuser else str(user.extra.is_approved),
                 user.date_joined.strftime('%Y-%m-%d')
             ])
 

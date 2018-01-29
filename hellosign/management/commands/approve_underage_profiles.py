@@ -102,10 +102,10 @@ class Command(BaseCommand):
             #underage consent form. Approve them if they are not already approved.
             ids_approved = []
             for student_profile in student_profiles:
-                if not student_profile.user.extra.approved and student_profile.birthday and student_profile.is_underage():
+                if not student_profile.full_access and student_profile.birthday and student_profile.is_underage():
                     ids_approved.append(student_profile.user.id)
-                    student_profile.user.extra.approved = True
-                    student_profile.user.extra.save(update_fields=['approved'])
+                    student_profile.full_access = True
+                    student_profile.save(update_fields=['full_access'])
                     signals.underage_activation_confirmed.send(sender=student_profile.user,
                                                                account=student_profile.user)
 

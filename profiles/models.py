@@ -80,17 +80,13 @@ class UserExtra(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='extra')
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in UserRole], default=UserRole.none.value)
     source = models.CharField(max_length=50, null=False, blank=True, default="")
-    approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
     first_login = models.BooleanField(default=True)
 
     @property
     def profile(self):
-        role = UserRole(self.role)
-        if role.profile_attr:
-            return getattr(self.user, role.profile_attr)
-        return NullProfile()
+        return User.profile_for(self.user)
 
     @classmethod
     def inactive_mentors(cls):
@@ -107,6 +103,24 @@ class UserExtra(models.Model):
     @cached_property
     def in_active_membership(self):
         return self.user.membership_set.filter(is_active=True).count() > 0
+
+    @property
+    def is_approved(self):
+        """
+        Commenting because the semantics here are weird.
+
+        Replaces old `approved` flag; meant to provide some generalized notion of whether a user
+        is approved/has full access/is in some way limited on the site without necessarily knowing
+        what type of user they are.
+
+        For now, assumes they are "approved" (whatever that means) unless the active profile has
+        `full_access=False`.
+        """
+        profile = self.profile
+        if hasattr(profile, "full_access"):
+            return profile.full_access
+        else:
+            return True
 
     @property
     def role_name(self):

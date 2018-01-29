@@ -22,6 +22,7 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory('students.factories.StudentFactory', profile=None)
     city = 'city'
     birthday = now() - relativedelta(years=14)
+    full_access = True
 
     class Params:
         underage = factory.Trait(

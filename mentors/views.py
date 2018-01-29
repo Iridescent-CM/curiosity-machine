@@ -112,7 +112,7 @@ home = only_for_mentor(
 class ListView(ListView):
     template_name = "mentors/list.html"
     queryset = (MentorProfile.objects
-        .filter(user__extra__role=UserRole.mentor.value, user__extra__approved=True)
+        .filter(full_access=True)
         .annotate(has_image=Count('image'))
         .select_related('user'))
     ordering = ('-has_image', '-user__date_joined',)
