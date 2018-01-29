@@ -1,3 +1,4 @@
+from challenges.models import Challenge, Progress
 from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
@@ -80,6 +81,18 @@ class StageView(TemplateView):
         self.stage = Stage(self.stagenum)
 
     def get_context_data(self, **kwargs):
+        challenges = self.stage.challenges
+        request = self.request
+
+        progresses = Progress.objects.filter(owner=request.user).select_related("challenge")
+        completed_progresses = [progress for progress in progresses if progress.completed]
+        active_progresses = [progress for progress in progresses if not progress.completed]
+        completed_prog_by_challenge_id = {p.challenge_id: p for p in completed_progresses}
+        active_prog_by_challenge_id = {p.challenge_id: p for p in active_progresses}
+
+        kwargs["progresses"] = active_prog_by_challenge_id
+        kwargs["completed"] = completed_prog_by_challenge_id
+
         kwargs["challenges"] = self.stage.challenges
         kwargs["units"] = self.stage.units
         return super().get_context_data(**kwargs)
