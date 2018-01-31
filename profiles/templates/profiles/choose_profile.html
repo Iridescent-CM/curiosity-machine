@@ -8,11 +8,20 @@
 {% block content %}
   {% if flags.enable_ai_challenge_profile_options %}
   <div class="card card-block mb-3">
-    <h2>Join the AI Family Challenge!</h2>
-    <p>Chicory barista caramelization single shot latte saucer milk spoon. Iced single shot variety affogato doppio arabica java french press black and medium. Single shot half and half, affogato coffee percolator, in sugar carajillo decaffeinated filter. Acerbic iced galão roast to go café au lait beans acerbic foam.</p>
+    <h2>Create your AI Family Challenge account!</h2>
+    <p>
+      The <a href="{% url "aichallenge" %}">AI Family Challenge</a> is a year long program meant for kids age 8-15 and their families. In this program, families work and learn together by completing a series of design challenges and create something to help solve a problem they’ve identified in their community. They accomplish this by using the skills and technology they’ve learned in this program!
+    </p>
+    <p>
+      You only need one account for your entire Family!
+    </p>
+    <p>
+      Sign up with a coach account if you would like to lead the curriculum with your students and have access to more resources pertaining to the AI Challenge!
+    </p>
+
     <a class="btn btn-primary my-2" href="{% url "families:create_profile" %}">Family account</a>
     <a class="btn btn-primary my-2" href="{% url "educators:create_coach" %}">Coach account</a>
-    <p class="mt-2">Not interested? Choose one of the other ways to join Curiosity Machine below.</p>
+    <p class="mt-2"><strong>Not interested? Choose one of the other ways to join Curiosity Machine below.</strong></p>
   </div>
   {% endif %}
 
