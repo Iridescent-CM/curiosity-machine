@@ -1,4 +1,4 @@
-<div id="{{id}}_container" class="pickwidget">
+<div id="{{id}}_container" class="pickwidget form-inline">
   <button type="button" id="{{id}}" data-toggle="filepicker" {{attrs}} aria-label="Select files">
     {% if button_text %}
       {{button_text|safe}}
@@ -11,7 +11,7 @@
     readonly
     id="{{id}}_filename"
     name="{{name}}_filename"
-    class="pickwidget-filename"
+    class="pickwidget-filename form-control"
     value="{{value.2|default:"No file selected"}}"
   />
   <input type="hidden" name="{{name}}_url" id="{{id}}_url" value="{{value.0}}"/>

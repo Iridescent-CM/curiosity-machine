@@ -5919,6 +5919,12 @@ i {
     font-size: 12px;
     fill: #333333; }
 
+.pickwidget .pickwidget-filename {
+  border: none; }
+
+.pickwidget button, .pickwidget input {
+  margin-bottom: 0.3em; }
+
 header {
   background-color: #FFFCF7;
   font-family: "Raleway", Helvetica, sans-serif; }
@@ -6486,6 +6492,7 @@ footer {
         text-align: center; }
         .family-dashboard .family-dashboard-navigation ul li a:hover, .family-dashboard .family-dashboard-navigation ul li a:focus {
           color: #00B1C3; }
+
 .family-dashboard .family-dashboard-section {
   border-radius: 30px;
   border-style: solid;
@@ -6505,6 +6512,7 @@ footer {
       margin-right: 10px; }
   .family-dashboard .family-dashboard-section .family-dashboard-circles-row {
     padding-top: 5px; }
+
 .family-dashboard .challenge-started:after,
 .family-dashboard .challenge-completed:after {
   content: "";
@@ -6514,20 +6522,24 @@ footer {
   position: absolute;
   top: 0;
   right: 0; }
+
 .family-dashboard .challenge-started:after {
   background-image: url("../images/challenges/blue_circle.png"); }
+
 .family-dashboard .challenge-completed:after {
   background-image: url("../images/challenges/green_circle.png"); }
 
-  @media (max-width: 991px) {
-    .family-dashboard .family-dashboard-navigation ul li {
-      width: 32%;
-      text-align: center; } }
-  @media (max-width: 767px) {
-    .family-dashboard .family-dashboard-navigation ul li {
-      width: 100%; } }
-  .family-dashboard .family-dashboard-navigation .dropdown a {
-    margin: 0px; }
+@media (max-width: 991px) {
+  .family-dashboard ul li {
+    width: 32%;
+    text-align: center; } }
+
+@media (max-width: 767px) {
+  .family-dashboard ul li {
+    width: 100%; } }
+
+.family-dashboard .dropdown a {
+  margin: 0px; }
 
 .family-dashboard .active-nav {
   border-bottom-color: #00B1C3 !important; }
