@@ -7,7 +7,7 @@ from django import forms
 from images.models import Image
 from locations.forms import LocationForm
 from locations.models import Location
-from operator import attrgetter
+from operator import itemgetter
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 from profiles.forms import ProfileModelForm
@@ -153,10 +153,12 @@ class BaseFamilyMemberFormset(forms.BaseInlineFormSet):
             raise forms.ValidationError("You can have a maximum of 6 family members.")
 
     def save_user_model_name(self, members, commit=True):
-        p_or_gs = filter(lambda m: m.family_role == FamilyRole.parent_or_guardian.value, members)
-        head = sorted(p_or_gs, key=attrgetter('id'))[0]
-        self.instance.first_name = head.first_name
-        self.instance.last_name = head.last_name
+        p_or_gs = self.instance.familymember_set.filter(
+            family_role=FamilyRole.parent_or_guardian.value
+        ).order_by('id').values('id', 'first_name', 'last_name')
+        head = sorted(p_or_gs, key=itemgetter('id'))[0]
+        self.instance.first_name = head['first_name']
+        self.instance.last_name = head['last_name']
         if commit:
             self.instance.save(update_fields=('first_name', 'last_name'))
 
