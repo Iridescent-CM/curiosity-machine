@@ -92,7 +92,7 @@ class MembershipSignupView(SignupView):
         slug = kwargs.get('slug', None)
         if not slug:
             raise Http404
-        self.membership = get_object_or_404(Membership, slug=slug)
+        self.membership = get_object_or_404(Membership, slug=slug.lower())
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

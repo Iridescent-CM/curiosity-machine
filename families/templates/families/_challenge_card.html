@@ -18,15 +18,15 @@
     <a class="expandable-card-toggle"
       data-text-swap="&minus; LESS INFO"
       data-toggle="collapse"
-      href="#moreInfo-{{ challenge.id }}"
+      href="#challenge-{{ challenge.id }}"
       aria-expanded="false"
-      aria-controls="moreInfo-{{ challenge.id }}"
+      aria-controls="challenge-{{ challenge.id }}"
     >
       &plus; MORE INFO
     </a>
   </div>
 
-  <div class="collapse" id="moreInfo-{{ challenge.id }}">
+  <div class="collapse" id="challenge-{{ challenge.id }}">
     <div class="expandable-card-more">
       <span class="expandable-card-more-section-title">DESCRIPTION</span>
       <p>{{ challenge.description }}</p>

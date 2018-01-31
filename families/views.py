@@ -59,7 +59,16 @@ class EditView(FamilyMemberMixin, EditProfileMixin, UpdateView):
 
 edit = only_for_family(EditView.as_view())
 
-class HomeView(TemplateView):
+class DashboardMixin:
+    def get_context_data(self, **kwargs):
+        program = self.request.user.membership_set.first() # FIXME?: lazily assume families aren't in multiple
+        program_name = program.display_name if program else None
+        return super().get_context_data(
+            **kwargs,
+            program_name=program_name
+        )
+
+class HomeView(DashboardMixin, TemplateView):
     template_name = "families/home.html"
 
     def get_context_data(self, **kwargs):
@@ -68,12 +77,12 @@ class HomeView(TemplateView):
             stages=[
                 Stage(1, self.request.user),
                 Stage(2, self.request.user)
-            ]
+            ],
         )
 
 home = only_for_family(HomeView.as_view())
 
-class StageView(TemplateView):
+class StageView(DashboardMixin, TemplateView):
     stagenum = None
 
     def __init__(self, *args, **kwargs):
@@ -102,6 +111,12 @@ stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage
 
 class PrereqInterruptionView(TemplateView):
     template_name = "families/interruption.html"
+
+    def post(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
