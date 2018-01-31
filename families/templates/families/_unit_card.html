@@ -1,0 +1,30 @@
+{% load resized %}
+
+<div class="card vertical-expandable-card">
+
+  <a href="{% url "units:unit" unit_id=unit.id %}" class="a-borderless">
+    <img class="card-img-top mr-1" src="{% resized unit.image.url width=545 height=240 crop='fill' %}" alt="{{ unit.name }}">
+  </a>
+
+  <div class="card-block">
+    <h3>
+      <a href="{% url "units:unit" unit_id=unit.id %}" class="a-borderless">
+        {{ unit.name }}
+      </a>
+    </h3>
+  </div>
+
+  <div class="card-block">
+    <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#unit-{{ unit.id }}" aria-expanded="false" aria-controls="unit-{{ unit.id }}">
+      &plus; MORE INFO
+    </a>
+  </div>
+
+  <div class="collapse" id="unit-{{ unit.id }}">
+    <div class="expandable-card-more">
+      <span class="expandable-card-more-section-title">DESCRIPTION</span>
+      <p>{{ unit.description }}</p>
+    </div>
+  </div>
+
+</div>
