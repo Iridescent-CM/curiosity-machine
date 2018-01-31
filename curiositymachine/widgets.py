@@ -47,7 +47,11 @@ class FilePickerPickWidget(Widget):
         return render_to_string('widgets/pickwidget.html', context)
 
     def value_from_datadict(self, data, files, name):
-        return [data.get(name + '_url', None), data.get(name + '_mimetype', None)]
+        return [
+            data.get(name + '_url', None),
+            data.get(name + '_mimetype', None),
+            data.get(name + '_filename', None),
+        ]
 
 class FilePickerImagePickWidget(FilePickerPickWidget):
     """
