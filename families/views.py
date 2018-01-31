@@ -90,6 +90,12 @@ stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage
 class PrereqInterruptionView(TemplateView):
     template_name = "families/interruption.html"
 
+    def post(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
         consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
