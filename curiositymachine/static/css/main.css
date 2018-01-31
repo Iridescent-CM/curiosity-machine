@@ -6510,9 +6510,7 @@ footer {
   top: 1px;
   width:60px;
   height:60px;
-  pointer-events: none;}
-      
-  
+  pointer-events: none;}  
   
 .family-dashboard .family-dashboard-family-members {
   border-radius: 30px;
@@ -6520,6 +6518,8 @@ footer {
   border-color: #E3E3DD;
   padding: 20px; 
   border-width: 2px; }
+    .family-dashboard .family-dashboard-family-members .dashboard-members-row {
+      padding: 10px;}
     .family-dashboard .family-dashboard-family-members .dashboard-members-username {
       font-family: "Raleway", Helvetica, sans-serif;
       font-size: 1em;

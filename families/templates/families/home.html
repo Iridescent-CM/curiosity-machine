@@ -18,7 +18,7 @@
       <h3>Family</h3>
       <ul class="family-dashboard-family-members">
       {% for familymember in request.user.familymember_set.all %}
-          <div class="row" style="padding: 10px;">
+          <div class="row dashboard-members-row">
             {% comment %} FIXME: FamilyMember as Profile above {% endcomment %}
             {% include "profiles/_avatar.html" with profile=familymember width=60 height=60 crop='thumb' gravity='faces' classes='dashboard-members-avatar' %}
             <span class="dashboard-members-username">{{ familymember.name }}</span>
@@ -31,7 +31,7 @@
       <h3>Progress</h3>
       <div class="row family-dashboard-circles-row">
       {% for stage in stages %}
-        <div class="col-xs-4" style="text-align:center;">
+        <div class="col-xs-4 text-xs-center">
           <div
             data-percent={{stage.stats.percent_complete}}
             data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
