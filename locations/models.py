@@ -14,14 +14,13 @@ US_STATE_CHOICES = sorted(
 class Location(models.Model):
     country = models.CharField(
         max_length=2,
-        choices=COUNTRY_CHOICES,
-        default='US',
+        choices=[(None, "Select country...")] + COUNTRY_CHOICES,
     )
     state = models.CharField(
         null=True,
         blank=True,
         max_length=5,
-        choices=US_STATE_CHOICES,
+        choices=[(None, "Select state...")] + US_STATE_CHOICES,
     )
     city = models.TextField()
 

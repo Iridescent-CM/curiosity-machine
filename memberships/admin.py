@@ -88,6 +88,7 @@ class MemberLimitInline(InlineModelAdmin):
 
 class MembershipAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'expiration', 'is_active')
+    list_display_links = ('id', 'name',)
     list_filter = (ExpirationFilter, 'is_active')
     search_fields = ('name',)
     inlines = [MemberLimitInline, NewMemberImportInline, PastMemberImportInline]

@@ -41,6 +41,9 @@ class FamilyRole(Enum):
     parent_or_guardian = 0
     child = 1
 
+    def display(self):
+        return self.name.replace("_", " ").capitalize()
+
 class FamilyMember(models.Model):
     account = models.ForeignKey(
         get_user_model(),
@@ -55,7 +58,7 @@ class FamilyMember(models.Model):
     family_role = models.SmallIntegerField(
         null=False,
         blank=False,
-        choices=[(role.value, role.name) for role in FamilyRole]
+        choices=[(None, 'Select role...')] + [(role.value, role.display) for role in FamilyRole]
     )
 
     @property

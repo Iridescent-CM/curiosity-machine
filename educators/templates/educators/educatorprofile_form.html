@@ -19,7 +19,11 @@
   {% form_group form.last_name %}
   {% email_form_group form.email email=email %}
   {% form_group form.country %}
+  {% if form.country.value == "US" %}
   {% form_group form.state %}
+  {% else %}
+  {% form_group form.state group_style="display:none;" %}
+  {% endif %}
   {% form_group form.city %}
   {% form_group form.organization %}
 {% endblock %}
