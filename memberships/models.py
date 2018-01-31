@@ -1,17 +1,18 @@
-from os.path import splitext, basename
-from django.db import models
-from django.db.models import Q
+from challenges.models import Challenge
+from curiositymachine.validators import validate_lowercase_slug
+from datetime import timedelta
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.files import File
-from django.conf import settings
+from django.db import models
+from django.db.models import Q
 from django.utils.timezone import now, localtime
-from tempfile import TemporaryFile
-from datetime import timedelta
-from challenges.models import Challenge
-from profiles.models import UserRole, Profile
-from units.models import Unit
 from memberships.importer import BulkImporter, Status
 from memberships.validators import member_import_csv_validator
+from os.path import splitext, basename
+from profiles.models import UserRole, Profile
+from tempfile import TemporaryFile
+from units.models import Unit
 import logging
 
 logger = logging.getLogger(__name__)
@@ -51,6 +52,7 @@ class Membership(models.Model):
         unique=True,
         null=True,
         blank=True,
+        validators=[validate_lowercase_slug],
         help_text="If provided, users can sign up for this membership at the slug url",
     )
     expiration = models.DateField(
