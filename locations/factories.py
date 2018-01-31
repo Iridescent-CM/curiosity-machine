@@ -11,5 +11,6 @@ class LocationFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Location
 
+    country = 'US'
     state = factory.fuzzy.FuzzyChoice((pair[0] for pair in US_STATE_CHOICES))
     city = "Springfield"
