@@ -99,10 +99,13 @@ class StageView(DashboardMixin, TemplateView):
         completed_prog_by_challenge_id = {p.challenge_id: p for p in completed_progresses}
         active_prog_by_challenge_id = {p.challenge_id: p for p in active_progresses}
 
-        kwargs["progresses"] = active_prog_by_challenge_id
-        kwargs["completed"] = completed_prog_by_challenge_id
+        for challenge in challenges:
+            if challenge.id in completed_prog_by_challenge_id:
+                challenge.completed = True
+            elif challenge.id in active_prog_by_challenge_id:
+                challenge.started = True
 
-        kwargs["challenges"] = self.stage.challenges
+        kwargs["challenges"] = challenges
         kwargs["units"] = self.stage.units
         return super().get_context_data(**kwargs)
 

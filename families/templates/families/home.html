@@ -19,37 +19,32 @@
       <ul class="family-dashboard-family-members">
       {% for familymember in request.user.familymember_set.all %}
           <div class="row" style="padding: 10px;">
-			{% include "_familyavatar.html" with profile=familymember width=60 height=60 crop='thumb' gravity='faces' %}
-			{% comment %} FIXME: FamilyMember as Profile above {% endcomment %}
-			<span class="dashboard-members-username">{{ familymember.name }}</span>
-		  </div>
+            {% comment %} FIXME: FamilyMember as Profile above {% endcomment %}
+            {% include "profiles/_avatar.html" with profile=familymember width=60 height=60 crop='thumb' gravity='faces' classes='dashboard-members-avatar' %}
+            <span class="dashboard-members-username">{{ familymember.name }}</span>
+          </div>
       {% endfor %}
       </ul>
     </div>
 
     <div class="col-md-8">
       <h3>Progress</h3>
-      <div class="row" style="border-radius: 30px;
-	                          border-style: solid;
-							  border-color: #E3E3DD;
-							  padding-bottom: 20px; 
-							  padding-top: 5px; 
-							  border-width: 2px;">
+      <div class="row family-dashboard-circles-row">
       {% for stage in stages %}
         <div class="col-xs-4" style="text-align:center;">
           <div
             data-percent={{stage.stats.percent_complete}}
             data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
             data-animationStep=20
-			data-foregroundBorderWidth= 30
+            data-foregroundBorderWidth= 30
             data-backgroundBorderWidth= 30
-			{% if stage.stats.completed == stage.stats.total %}
-				data-foregroundColor = '#73AD21'
-			{% endif %}
-			data-backgroundColor= '#666'
-			data-fontColor= '#666'
+            {% if stage.stats.completed == stage.stats.total %}
+                data-foregroundColor = '#73AD21'
+            {% endif %}
+            data-backgroundColor= '#666'
+            data-fontColor= '#666'
           ></div>
-		  <p>Stage {{stage.number}}</p>
+          <p>Stage {{stage.number}}</p>
         </div>
       {% endfor %}
       </div>

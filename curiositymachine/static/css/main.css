@@ -6503,9 +6503,16 @@ footer {
   @media (max-width: 991px) {
     .family-dashboard .active-nav {
       border-bottom: 0px !important; } }
-	  
+      
 .family-dashboard .family-dashboard-progress {
-  position: absolute; right: 16px; top: 1px; pointer-events: none; }
+  position: absolute;
+  right: 16px;
+  top: 1px;
+  width:60px;
+  height:60px;
+  pointer-events: none;}
+      
+  
   
 .family-dashboard .family-dashboard-family-members {
   border-radius: 30px;
@@ -6513,13 +6520,24 @@ footer {
   border-color: #E3E3DD;
   padding: 20px; 
   border-width: 2px; }
-	.family-dashboard .family-dashboard-family-members .dashboard-members-username {
-	  font-family: "Raleway", Helvetica, sans-serif;
-	  font-size: 1em;
-	  border-radius: 15px 30px 30px;
-	  background: #73AD21;
-	  padding: 20px; }
+    .family-dashboard .family-dashboard-family-members .dashboard-members-username {
+      font-family: "Raleway", Helvetica, sans-serif;
+      font-size: 1em;
+      border-radius: 15px 30px 30px;
+      background: #73AD21;
+      padding: 20px; }
+    .family-dashboard .family-dashboard-family-members .dashboard-members-avatar {
+      border-radius: 50%; 
+      margin-right:10px; }
 	  
+.family-dashboard .family-dashboard-circles-row {
+  border-radius: 30px;
+  border-style: solid;
+  border-color: #E3E3DD;
+  padding-bottom: 20px; 
+  padding-top: 5px; 
+  border-width: 2px;}
+      
 
 #challenges-page {
   background-color: #E5E1D9; }
