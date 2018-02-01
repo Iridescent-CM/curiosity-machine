@@ -6486,30 +6486,25 @@ footer {
         text-align: center; }
         .family-dashboard .family-dashboard-navigation ul li a:hover, .family-dashboard .family-dashboard-navigation ul li a:focus {
           color: #00B1C3; }
-.family-dashboard .family-dashboard-family-members {
+.family-dashboard .family-dashboard-section {
   border-radius: 30px;
   border-style: solid;
   border-color: #E3E3DD;
   padding: 20px;
   border-width: 2px; }
-  .family-dashboard .family-dashboard-family-members .dashboard-members-row {
+  .family-dashboard .family-dashboard-section .dashboard-members {
     padding: 10px; }
-  .family-dashboard .family-dashboard-family-members .dashboard-members-username {
-    font-family: "Raleway", Helvetica, sans-serif;
-    font-size: 1em;
-    border-radius: 15px 30px 30px;
-    background: #73AD21;
-    padding: 20px; }
-  .family-dashboard .family-dashboard-family-members .dashboard-members-avatar {
-    border-radius: 50%;
-    margin-right: 10px; }
-.family-dashboard .family-dashboard-circles-row {
-  border-radius: 30px;
-  border-style: solid;
-  border-color: #E3E3DD;
-  padding-bottom: 20px;
-  padding-top: 5px;
-  border-width: 2px; }
+    .family-dashboard .family-dashboard-section .dashboard-members .dashboard-members-username {
+      font-family: "Raleway", Helvetica, sans-serif;
+      font-size: 1em;
+      border-radius: 15px 30px 30px;
+      background: #73AD21;
+      padding: 20px; }
+    .family-dashboard .family-dashboard-section .dashboard-members .dashboard-members-avatar {
+      border-radius: 50%;
+      margin-right: 10px; }
+  .family-dashboard .family-dashboard-section .family-dashboard-circles-row {
+    padding-top: 5px; }
 .family-dashboard .challenge-started:after,
 .family-dashboard .challenge-completed:after {
   content: "";
