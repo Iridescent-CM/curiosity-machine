@@ -18,7 +18,7 @@
       <h3>Family</h3>
       <ul class="family-dashboard-family-members">
       {% for familymember in request.user.familymember_set.all %}
-          <div class="row dashboard-members-row">
+          <div class="dashboard-members-row">
             {% comment %} FIXME: FamilyMember as Profile above {% endcomment %}
             {% include "profiles/_avatar.html" with profile=familymember width=60 height=60 crop='thumb' gravity='faces' classes='dashboard-members-avatar' %}
             <span class="dashboard-members-username">{{ familymember.name }}</span>
