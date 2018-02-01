@@ -12,11 +12,6 @@
         
         <div class="col-md-6 mb-1">
           {% include 'families/_challenge_card.html' with challenge=challenge show_detail_links=True %}
-          {% if challenge.started %}
-                <img class="family-dashboard-progress" src="{% static 'images/challenges/blue_circle.png' %}">
-          {% elif challenge.completed %}
-                <img class="family-dashboard-progress" src="{% static 'images/challenges/green_circle.png' %}">
-          {% endif %}
         </div>
 
         {% if forloop.counter|divisibleby:2 %}

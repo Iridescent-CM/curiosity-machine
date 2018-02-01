@@ -87,26 +87,11 @@ class StageView(DashboardMixin, TemplateView):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.stage = Stage(self.stagenum)
 
     def get_context_data(self, **kwargs):
-        challenges = self.stage.challenges
-        request = self.request
-
-        progresses = Progress.objects.filter(owner=request.user).select_related("challenge")
-        completed_progresses = [progress for progress in progresses if progress.completed]
-        active_progresses = [progress for progress in progresses if not progress.completed]
-        completed_prog_by_challenge_id = {p.challenge_id: p for p in completed_progresses}
-        active_prog_by_challenge_id = {p.challenge_id: p for p in active_progresses}
-
-        for challenge in challenges:
-            if challenge.id in completed_prog_by_challenge_id:
-                challenge.completed = True
-            elif challenge.id in active_prog_by_challenge_id:
-                challenge.started = True
-
-        kwargs["challenges"] = challenges
-        kwargs["units"] = self.stage.units
+        stage = Stage(self.stagenum, self.request.user)
+        kwargs["challenges"] = stage.challenges
+        kwargs["units"] = stage.units
         return super().get_context_data(**kwargs)
 
 stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stagenum=1))

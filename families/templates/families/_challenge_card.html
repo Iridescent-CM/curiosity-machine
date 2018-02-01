@@ -1,6 +1,6 @@
 {% load resized %}
 
-<div class="card vertical-expandable-card">
+<div class="card vertical-expandable-card challenge-{{ challenge.state }}">
 
   <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
     <img class="card-img-top mr-1" src="{% resized challenge.image.url width=545 height=240 crop='fill' %}" alt="{{ challenge.name }}">

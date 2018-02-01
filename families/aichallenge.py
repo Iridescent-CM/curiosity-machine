@@ -11,10 +11,28 @@ class Stage:
 
     @property
     def challenges(self):
-        return sorted(
+        challenges = sorted(
             Challenge.objects.filter(id__in=self.config['challenges']),
             key=lambda c: self.config['challenges'].index(c.id)
         )
+
+        if self.user:
+            progresses = Progress.objects.filter(
+                owner=self.user,
+                challenge_id__in=self.config['challenges']
+            )
+            prog_by_challenge_id = {p.challenge_id: p for p in progresses}
+
+            for challenge in challenges:
+                challenge.state = "not-started"
+                if challenge.id in prog_by_challenge_id:
+                    progress = prog_by_challenge_id[challenge.id]
+                    if progress.completed:
+                        challenge.state = "completed"
+                    else:
+                        challenge.state = "started"
+
+        return challenges
 
     @property
     def units(self):
@@ -26,24 +44,8 @@ class Stage:
     @property
     def stats(self):
         stats = {}
-        stats["total"] = len(self.challenges)
-        stats["completed"] = Progress.objects.filter(
-            owner=self.user,
-            challenge_id__in=self.config['challenges'],
-            comments__stage=CommentStage.reflect.value,
-            comments__user=self.user,
-        ).count()
+        challenges = self.challenges
+        stats["total"] = len(challenges)
+        stats["completed"] = len([c for c in challenges if c.state == "completed"])
         stats["percent_complete"] = round((stats["completed"] / stats["total"]) * 100) if stats["total"] > 0 else 0
         return stats
-
-    def progress(self):
-        progresses = Progress.objects.filter(owner=self.user, challenge_id__in=self.config['challenges'])
-        prog_by_challenge_id = {p.challenge_id: p for p in progresses}
-
-        challenges = self.challenges
-        for challenge in challenges:
-            if challenge.id in prog_by_challenge_id:
-                # decorate here with level of progress for visual representation
-                pass
-
-        return challenges
