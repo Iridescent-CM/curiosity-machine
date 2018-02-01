@@ -1,3 +1,4 @@
+from challenges.models import Challenge, Progress
 from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
@@ -86,11 +87,11 @@ class StageView(DashboardMixin, TemplateView):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.stage = Stage(self.stagenum)
 
     def get_context_data(self, **kwargs):
-        kwargs["challenges"] = self.stage.challenges
-        kwargs["units"] = self.stage.units
+        stage = Stage(self.stagenum, self.request.user)
+        kwargs["challenges"] = stage.challenges
+        kwargs["units"] = stage.units
         return super().get_context_data(**kwargs)
 
 stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stagenum=1))

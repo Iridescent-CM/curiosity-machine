@@ -59,6 +59,58 @@
         }
       }
     }
+  }
+    
+  //
+  // Dashboard and Stages tab styling
+  //
+
+  .family-dashboard-section {
+    border-radius: 30px;
+    border-style: solid;
+    border-color: #E3E3DD;
+    padding: 20px;
+    border-width: 2px;
+
+    .dashboard-members {
+      padding: 10px;
+
+      .dashboard-members-username {
+        font-family: "Raleway", Helvetica, sans-serif;
+        font-size: 1em;
+        border-radius: 15px 30px 30px;
+        background: #73AD21;
+        padding: 20px;
+      }
+
+      .dashboard-members-avatar {
+        border-radius: 50%;
+        margin-right:10px;
+      }
+    }
+
+    .family-dashboard-circles-row {
+      padding-top: 5px;
+    }
+
+  }
+
+  .challenge-started:after,
+  .challenge-completed:after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .challenge-started:after {
+    background-image: url("../images/challenges/blue_circle.png");
+  }
+  .challenge-completed:after {
+    background-image: url("../images/challenges/green_circle.png");
+  }
 
     @include media-breakpoint-down(md) {
       ul li {
@@ -76,7 +128,7 @@
     .dropdown a {
       margin: 0px;
     }
-  }
+
 
   //
   // Highlights link to active page in navigation

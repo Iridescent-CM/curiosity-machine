@@ -6486,6 +6486,39 @@ footer {
         text-align: center; }
         .family-dashboard .family-dashboard-navigation ul li a:hover, .family-dashboard .family-dashboard-navigation ul li a:focus {
           color: #00B1C3; }
+.family-dashboard .family-dashboard-section {
+  border-radius: 30px;
+  border-style: solid;
+  border-color: #E3E3DD;
+  padding: 20px;
+  border-width: 2px; }
+  .family-dashboard .family-dashboard-section .dashboard-members {
+    padding: 10px; }
+    .family-dashboard .family-dashboard-section .dashboard-members .dashboard-members-username {
+      font-family: "Raleway", Helvetica, sans-serif;
+      font-size: 1em;
+      border-radius: 15px 30px 30px;
+      background: #73AD21;
+      padding: 20px; }
+    .family-dashboard .family-dashboard-section .dashboard-members .dashboard-members-avatar {
+      border-radius: 50%;
+      margin-right: 10px; }
+  .family-dashboard .family-dashboard-section .family-dashboard-circles-row {
+    padding-top: 5px; }
+.family-dashboard .challenge-started:after,
+.family-dashboard .challenge-completed:after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  right: 0; }
+.family-dashboard .challenge-started:after {
+  background-image: url("../images/challenges/blue_circle.png"); }
+.family-dashboard .challenge-completed:after {
+  background-image: url("../images/challenges/green_circle.png"); }
+
   @media (max-width: 991px) {
     .family-dashboard .family-dashboard-navigation ul li {
       width: 32%;
