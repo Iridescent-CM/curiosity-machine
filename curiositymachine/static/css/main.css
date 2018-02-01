@@ -6486,13 +6486,6 @@ footer {
         text-align: center; }
         .family-dashboard .family-dashboard-navigation ul li a:hover, .family-dashboard .family-dashboard-navigation ul li a:focus {
           color: #00B1C3; }
-.family-dashboard .family-dashboard-progress {
-  position: absolute;
-  right: 16px;
-  top: 1px;
-  width: 60px;
-  height: 60px;
-  pointer-events: none; }
 .family-dashboard .family-dashboard-family-members {
   border-radius: 30px;
   border-style: solid;
