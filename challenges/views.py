@@ -117,16 +117,16 @@ class MembershipChallenges(FilterSet):
         } for membership in user_memberships]
 
 class CoreChallenges(FilterSet):
-    query_param = "featured"
+    query_param = "aifamilychallenge"
 
     def apply(self):
         self.applied = True
-        return "Featured Design Challenges", Challenge.objects.filter(core=True), None
+        return "AI Family Challenge", Challenge.objects.filter(core=True), None
 
     def get_template_contexts(self):
         if Challenge.objects.filter(core=True, draft=False).count() > 0:
             return [{
-                "text": "Featured Challenges",
+                "text": "AI Family Challenge",
                 "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
                 "active": bool(self.applied)
             }]

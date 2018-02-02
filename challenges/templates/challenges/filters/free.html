@@ -1,7 +1,10 @@
 {% load staticfiles %}
 <div class="card text-xs-right free-challenges geo-background">
   <div class="card-block text-xs-center">
-    All Curiosity Machine users have access to these design challenges, so you can build them right now!
+    Welcome to the AI Family Challenge! Here are the Stage 1 design challenges.
   </div>
   <img src="{% static 'images/challenges/explore-bot.svg' %}">
+  <div class="card-footer text-xs-center">
+    <small><a href="{% url 'aichallenge' %}">Learn more</a> about the Challenge and find out how to sign up.</small>
+  </div>
 </div>
