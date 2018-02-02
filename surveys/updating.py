@@ -1,5 +1,4 @@
 from profiles.models import load_from_role_app
-from .models import ResponseStatus
 import logging
 
 logger = logging.getLogger(__name__)
@@ -12,7 +11,7 @@ class NoopResponder:
     def __init__(self, *args, **kwargs):
         pass
 
-    def on(self, from_status, to_status):
+    def on(self, *args):
         pass
 
 class Updating:
@@ -39,12 +38,12 @@ class Updating:
         status = survey_response.status
 
         if survey_response.completed:
-            logger.warn("Updating a %s survey to %s" % (survey_response.status, new_status))
+            logger.warn("Updating a %s survey to %s" % (status, new_status))
 
         survey_response.status = new_status 
         survey_response.save(update_fields=['status'])
 
-        responder.on(status, new_status)
+        responder.on(survey_response, status, new_status)
 
         return survey_response
 

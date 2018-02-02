@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.functional import cached_property
+from django.utils.timezone import now
 from enum import Enum
 from hellosign.models import ConsentTemplate
 from images.models import Image
@@ -40,6 +41,11 @@ class FamilyProfile(BaseProfile):
                 return False
 
         return True
+
+    def check_welcome(self):
+        if self.check_full_access() and not self.welcomed:
+            self.welcomed = now()
+            self.save(update_fields=['welcomed'])
 
 class FamilyRole(Enum):
     parent_or_guardian = 0
