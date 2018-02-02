@@ -4,7 +4,9 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from json import JSONDecodeError
+from .updating import Updating
 from .api import Surveymonkey
+from .jobs import update_status
 from .models import *
 import django_rq
 import json
@@ -12,34 +14,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 api = Surveymonkey()
-
-def update_status(survey_id, response_id):
-    token_var = settings.SURVEYMONKEY_TOKEN_VAR
-
-    res = api.get("surveys/%s/responses/%s" % (survey_id, response_id))
-    res.raise_for_status()
-
-    data = res.json()
-    try:
-        custom_vars = data['custom_variables']
-        new_status = data['response_status']
-    except KeyError:
-        logger.error("API response did not contain expected fields: %s" % data)
-        raise
-
-    token = custom_vars.get(token_var, None)
-    if token:
-        sr = SurveyResponse.objects.filter(id=token).first()
-        if sr:
-            status = ResponseStatus[new_status.upper()]
-            sr.status = status
-            sr.save(update_fields=['status'])
-        else:
-            logger.info("SurveyResponse not found for id=%s; assuming it's in another environment" % token)
-    else:
-        logger.info(
-            "No %s custom variable for survey %s response %s; assuming survey taken by non-user" % (token_var, survey_id, response_id)
-        )
 
 class SurveyResponseHook(View):
 
@@ -49,8 +23,7 @@ class SurveyResponseHook(View):
     def get(self, request, *args, **kwargs):
         if settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS:
             sr = SurveyResponse.objects.get(id=request.GET["cmtoken"])
-            sr.status = ResponseStatus.COMPLETED
-            sr.save()
+            Updating(sr, ResponseStatus.COMPLETED).run()
             return HttpResponseRedirect('/')
         else:
             raise Http404

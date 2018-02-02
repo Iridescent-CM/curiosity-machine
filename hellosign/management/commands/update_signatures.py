@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from django.core.management.base import BaseCommand, CommandError
 from ...api import HelloSign
 from ...models import *
+from ...updating import Updating
 
 class Command(BaseCommand):
     help = "Updates the status of Hellosign Signatures"
@@ -44,6 +45,7 @@ class Command(BaseCommand):
                         self.stdout.write(self.style.SUCCESS("%s signed" % sig_id))
                     approved.append(sig_id)
 
-        Signature.objects.filter(id__in=approved).update(status=SignatureStatus.SIGNED)
+        for signature in Signature.objects.filter(id__in=approved).all():
+            Updating(signature, SignatureStatus.SIGNED).run()
         if verbose:
             self.stdout.write(self.style.SUCCESS("Done."))

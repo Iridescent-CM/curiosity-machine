@@ -1,7 +1,9 @@
+from curiositymachine import signals
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.functional import cached_property
+from django.utils.timezone import now
 from enum import Enum
 from hellosign.models import ConsentTemplate
 from images.models import Image
@@ -20,9 +22,13 @@ class FamilyProfile(BaseProfile):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     phone = PhoneNumberField()
     location = models.ForeignKey(Location, null=False, blank=False, on_delete=models.PROTECT)
+    welcomed = models.DateTimeField(null=True, blank=True)
 
     @cached_property
     def full_access(self):
+        return self.check_full_access()
+
+    def check_full_access(self):
         presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
         if presurvey.active:
             response = presurvey.response(self.user)
@@ -36,6 +42,12 @@ class FamilyProfile(BaseProfile):
                 return False
 
         return True
+
+    def check_welcome(self):
+        if self.check_full_access() and not self.welcomed:
+            signals.account_activation_confirmed.send(sender=self.user)
+            self.welcomed = now()
+            self.save(update_fields=['welcomed'])
 
 class FamilyRole(Enum):
     parent_or_guardian = 0
