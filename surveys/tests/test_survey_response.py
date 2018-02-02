@@ -1,7 +1,6 @@
 import mock
 import pytest
-from . import get_survey
-from .models import *
+from ..models import *
 
 def test_status_attrs():
     # pick a few examples, assume the implementation handles all status values
@@ -9,16 +8,7 @@ def test_status_attrs():
     assert not SurveyResponse(status=ResponseStatus.UNKNOWN).completed
     assert SurveyResponse(status=ResponseStatus.COMPLETED).completed
 
-def test_get_survey():
-    with mock.patch('surveys.settings') as settings:
-        settings.SURVEY_123_ACTIVE = "1"
-        settings.SURVEY_123_LINK = "link"
-
-        assert get_survey("123")
-        assert get_survey("123").active
-        assert get_survey("123").link == "link"
-
-def test_survey_facade():
+def test_surveyresponse_facade_over_survey():
     with mock.patch('surveys.settings') as settings:
         settings.SURVEY_123_ACTIVE = "1"
         settings.SURVEY_123_LINK = "link"
@@ -33,4 +23,3 @@ def test_survey_response_url():
 
         sr = SurveyResponse(survey_id="123")
         assert sr.url == "link?cmtoken=%s" % sr.id
-

@@ -10,6 +10,16 @@ from datetime import date, timedelta
 from cmcomments.models import Comment
 from django.utils.timezone import now
 from enum import Enum
+import importlib
+
+def load_from_role_app(rolevalue, modulename, classname):
+    role = UserRole(rolevalue)
+    try:
+        mod = importlib.import_module("%s.%s" % (role.app_name, modulename))
+        cls = getattr(mod, classname)
+        return cls
+    except ModuleNotFoundError:
+        return None
 
 USER_ROLE_CONFIG = {
     'student': {

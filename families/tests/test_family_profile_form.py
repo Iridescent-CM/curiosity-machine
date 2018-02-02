@@ -1,8 +1,8 @@
 import pytest
 from images.factories import *
 from students.factories import *
-from .factories import *
-from .forms import *
+from ..factories import *
+from ..forms import *
 
 @pytest.mark.django_db
 def test_converting_profiles_copies_image():

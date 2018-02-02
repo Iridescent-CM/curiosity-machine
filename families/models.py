@@ -20,9 +20,13 @@ class FamilyProfile(BaseProfile):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     phone = PhoneNumberField()
     location = models.ForeignKey(Location, null=False, blank=False, on_delete=models.PROTECT)
+    welcomed = models.DateTimeField(null=True, blank=True)
 
     @cached_property
     def full_access(self):
+        return self.check_full_access()
+
+    def check_full_access(self):
         presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
         if presurvey.active:
             response = presurvey.response(self.user)
