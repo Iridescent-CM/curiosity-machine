@@ -30,8 +30,15 @@ def send_welcome_email(sender, **kwargs):
     if not getattr(sender, "skip_mailing_list_subscription", False):
         subscribe(sender)
 
-@receiver(signals.underage_activation_confirmed)
+@receiver(signals.account_activation_confirmed)
 def send_activation_confirmation(sender, **kwargs):
+    if sender.extra.is_family:
+        send(template_name='family-account-account-activated', to=sender, merge_vars={
+            'username': sender.username
+        })
+
+@receiver(signals.underage_activation_confirmed)
+def send_underage_activation_confirmation(sender, **kwargs):
     send(template_name='student-u13-account-activated', to=sender, merge_vars={
         'studentname': sender.username
     })

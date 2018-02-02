@@ -1,3 +1,4 @@
+from curiositymachine import signals
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -44,6 +45,7 @@ class FamilyProfile(BaseProfile):
 
     def check_welcome(self):
         if self.check_full_access() and not self.welcomed:
+            signals.account_activation_confirmed.send(sender=self.user)
             self.welcomed = now()
             self.save(update_fields=['welcomed'])
 
