@@ -15,17 +15,16 @@
     <p>
       You only need one account for your entire Family!
     </p>
+    <a class="btn btn-primary my-2" href="{% url "families:create_profile" %}">Make a family account</a>
+
     <p>
       Sign up with a coach account if you would like to lead the curriculum with your students and have access to more resources pertaining to the AI Challenge!
     </p>
-
-    <a class="btn btn-primary my-2" href="{% url "families:create_profile" %}">Family account</a>
-    <a class="btn btn-primary my-2" href="{% url "educators:create_coach" %}">Coach account</a>
-    <p class="mt-2"><strong>Not interested? Choose one of the other ways to join Curiosity Machine below.</strong></p>
+    <a class="btn btn-primary my-2" href="{% url "educators:create_coach" %}">Make a coach account</a>
   </div>
   {% endif %}
 
-  <h2>Join as a:</h2>
+  <h2 class="my-3">Not interested? Choose one of the other ways to join Curiosity Machine:</h2>
 
   {% url "students:create_profile" as student_url %}
   <div class="card card-block mb-2">

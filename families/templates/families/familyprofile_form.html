@@ -35,7 +35,9 @@
         {% if form.instance and form.instance.pk %}
         <a class="btn btn-secondary" href="{% url "account_change_password"%}">Change password</a>
         {% endif %}
+        {% if form.instance and form.instance.pk %}
         <input type="submit" class="btn btn-primary float-xs-right" value="Save">
+        {% endif %}
       </div>
     </div>
 
