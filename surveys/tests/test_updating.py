@@ -20,3 +20,10 @@ def test_responder_has_chance_to_act():
     Updating(sr, new_status, responder=responder).run()
     assert responder.on.called
     
+@pytest.mark.django_db
+def test_short_circuits_on_same_status():
+    sr = SurveyResponseFactory(status=ResponseStatus.COMPLETED)
+    new_status = ResponseStatus.COMPLETED
+    responder = mock.MagicMock()
+    Updating(sr, new_status, responder=responder).run()
+    assert not responder.on.called

@@ -37,6 +37,9 @@ class Updating:
 
         status = signature.status
 
+        if status == new_status:
+            return signature
+
         if signature.signed:
             logger.warn("Updating a %s signature to %s" % (status, new_status))
 
