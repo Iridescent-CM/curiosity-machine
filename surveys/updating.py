@@ -37,6 +37,9 @@ class Updating:
 
         status = survey_response.status
 
+        if status == new_status:
+            return survey_response
+
         if survey_response.completed:
             logger.warn("Updating a %s survey to %s" % (status, new_status))
 

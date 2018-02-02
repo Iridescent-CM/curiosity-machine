@@ -20,3 +20,10 @@ def test_gives_signer_a_chance_to_act():
     Updating(signature, new_status, signer=signer).run()
     assert signer.on.called
 
+@pytest.mark.django_db
+def test_short_circuits_same_status():
+    signature = SignatureFactory(status=SignatureStatus.SIGNED)
+    new_status = SignatureStatus.SIGNED
+    signer = mock.MagicMock()
+    Updating(signature, new_status, signer=signer).run()
+    assert not signer.on.called
