@@ -5,5 +5,6 @@ class Responder:
         self.user = user
 
     def on(self, survey_response, from_status, to_status):
+        # FIXME: should check survey id against presurvey id
         if to_status == ResponseStatus.COMPLETED:
             self.user.familyprofile.check_welcome()
