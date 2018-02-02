@@ -499,7 +499,8 @@ def test_mediaurlfield_value_is_dictionary():
 
     val = {
         "url": "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216",
-        "mimetype": "img/png"
+        "mimetype": "img/png",
+        "filename": "file.png",
     }
 
     form = MyForm(initial={ "mediaURL": val })
@@ -507,7 +508,8 @@ def test_mediaurlfield_value_is_dictionary():
 
     form = MyForm(data={
         "mediaURL_url": val['url'],
-        "mediaURL_mimetype": val['mimetype']
+        "mediaURL_mimetype": val['mimetype'],
+        "mediaURL_filename": val['filename'],
     })
     assert form.is_valid()
     assert form.cleaned_data['mediaURL'] == val

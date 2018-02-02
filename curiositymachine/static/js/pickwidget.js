@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           function success (blob) {
             urlField.value = blob.url;
             mimeField.value = blob.mimetype;
-            filenameDisplay.textContent = blob.filename;
+            filenameDisplay.value = blob.filename;
 
             if (injectPreview) {
               Array.prototype.forEach.call(container.querySelectorAll('.pickwidget-preview'), function(el) {

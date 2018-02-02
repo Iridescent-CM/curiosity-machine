@@ -61,6 +61,7 @@ class MediaURLField(forms.fields.MultiValueField):
         self.mimetypes = mimetypes
         fields = (
             forms.URLField(),
+            forms.CharField(),
             forms.CharField()
         )
         super(MediaURLField, self).__init__(fields=fields, *args, **kwargs)
@@ -75,7 +76,8 @@ class MediaURLField(forms.fields.MultiValueField):
         if data_list:
             return {
                 "url": data_list[0],
-                "mimetype": data_list[1]
+                "mimetype": data_list[1],
+                "filename": data_list[2],
             }
         return {}
 
