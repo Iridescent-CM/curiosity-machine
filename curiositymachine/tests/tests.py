@@ -398,29 +398,6 @@ def test_challenge_access_decorator_redirects_other(rf):
     assert response.status_code == 302
 
 @pytest.mark.django_db
-def test_signal_student_started_first_project():
-    handler = mock.MagicMock()
-    signals.started_first_project.connect(handler)
-
-    user = User.objects.create(username='user', email='useremail')
-    challenge = Challenge.objects.create(name='challenge')
-    first_progress = Progress.objects.create(owner=user, challenge=challenge)
-
-    assert not handler.called
-
-    first_progress.comments.create(user=user, text="comment", stage=1)
-
-    handler.assert_called_once_with(signal=signals.started_first_project, progress=first_progress, sender=user)
-    handler.reset_mock()
-
-    challenge2 = Challenge.objects.create(name='challenge2')
-    second_progress = Progress.objects.create(owner=user, challenge=challenge2)
-    second_progress.comments.create(user=user, text="comment", stage=1)
-
-    assert not handler.called
-
-
-@pytest.mark.django_db
 def test_signal_student_posted_comment():
     handler = mock.MagicMock()
     signals.posted_comment.connect(handler)
