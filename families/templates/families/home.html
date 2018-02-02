@@ -30,8 +30,8 @@
     <div class="col-md-8">
       <h3>Progress</h3>
       <div class="row family-dashboard-section family-dashboard-circles-row">
-      {% for stage in stages %}
-        <div class="col-xs-4 text-xs-center">
+        {% for stage in stages %}
+        <div class="col-md-4 text-xs-center">
           <div
             data-percent={{stage.stats.percent_complete}}
             data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
@@ -39,14 +39,26 @@
             data-foregroundBorderWidth= 30
             data-backgroundBorderWidth= 30
             {% if stage.stats.completed == stage.stats.total %}
-                data-foregroundColor = '#73AD21'
+            data-foregroundColor = '#73AD21'
             {% endif %}
             data-backgroundColor= '#666'
             data-fontColor= '#666'
           ></div>
           <p>Stage {{stage.number}}</p>
         </div>
-      {% endfor %}
+        {% endfor %}
+        <div class="col-md-4 text-xs-center">
+          <div
+            data-percent=0
+            data-replacePercentageByText="Coming soon"
+            data-animationStep=20
+            data-foregroundBorderWidth= 30
+            data-backgroundBorderWidth= 30
+            data-backgroundColor= '#ccc'
+            data-fontColor= '#666'
+          ></div>
+          <p>Stage 3</p>
+        </div>
       </div>
     </div>
   </div>
