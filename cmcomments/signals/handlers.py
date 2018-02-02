@@ -13,13 +13,3 @@ def create_comment(sender, instance, created, **kwargs):
             signals.progress_considered_complete.send(sender=comment.user, progress=comment.challenge_progress)
         else:
             signals.posted_comment.send(sender=comment.user, comment=comment)
-
-@receiver(post_save, sender=Comment)
-def check_if_first_project(sender, instance, created, **kwargs):
-    comment = instance
-    if (created
-        and comment.user == comment.challenge_progress.owner
-        and comment.challenge_progress.is_first_project()
-        and comment.is_first_post()
-    ):
-        signals.started_first_project.send(sender=comment.user, progress=comment.challenge_progress)

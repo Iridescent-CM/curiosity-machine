@@ -36,12 +36,6 @@ def send_activation_confirmation(sender, **kwargs):
         'studentname': sender.username
     })
 
-@receiver(signals.started_first_project)
-def send_first_project_encouragement(sender, progress, **kwargs):
-    send(template_name='student-submitted-first-project', to=sender, merge_vars={
-        'studentname': sender.username
-    })
-
 @receiver(signals.inspiration_gallery_submission_created)
 def send_example_submission_notice(sender, example, **kwargs):
     send(template_name='student-submitted-example', to=sender, merge_vars={
