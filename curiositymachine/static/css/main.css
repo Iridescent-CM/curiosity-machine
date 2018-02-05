@@ -6524,8 +6524,7 @@ footer {
   background: #ccc;
   padding: 20px;
   margin-top: 16px;
-  margin-bottom: 0px;
-  width: 100%; }
+  margin-bottom: 0px; }
 .family-dashboard .challenge-started:after,
 .family-dashboard .challenge-completed:after {
   content: "";

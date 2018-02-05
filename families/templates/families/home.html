@@ -18,13 +18,13 @@
       <h3>Family</h3>
       <ul class="family-dashboard-section">
       {% for familymember in request.user.familymember_set.all %}
-        <div class="span">
+        <span>
           <div class="dashboard-members">
             {% comment %} FIXME: FamilyMember as Profile above {% endcomment %}
             {% include "profiles/_avatar.html" with profile=familymember width=60 height=60 crop='thumb' gravity='faces' classes='dashboard-members-avatar' %}
             <span class="dashboard-members-username">{{ familymember.name }}</span>
           </div>
-        </div>
+        </span>
       {% endfor %}
       </ul>
     </div>
@@ -65,14 +65,16 @@
         </div>
       </div>
 
-      <div class="row">
-        <p class="family-dashboard-text-section">
-          To start the Challenge, go to your Stage 1 tab and start working on challenges from
-          left to right. Your progress will only show for these design challenges. Remember,
-          for a challenge to be complete you need to make sure you answer the Reflection
-          question!
-        </p>
-      </div> 
+      <div class="row family-dashboard-text-section">
+        <div class="col-md-12">
+          <p>
+            To start the Challenge, go to your Stage 1 tab and start working on challenges from
+            left to right. Your progress will only show for these design challenges. Remember,
+            for a challenge to be complete you need to make sure you answer the Reflection
+            question!
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 
