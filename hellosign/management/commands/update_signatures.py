@@ -37,12 +37,12 @@ class Command(BaseCommand):
         cutoff_date = current_date - timedelta(days=options.get('cutoff'))
 
         api = HelloSign()
-        if debug:
+        approved = []
+        if verbose:
             self.stdout.write(self.style.NOTICE("Searching from %s to %s" % (cutoff_date.date(), current_date.date())))
         for i, page in enumerate(api.completed_signature_requests(cutoff_date.date(), current_date.date())):
             if verbose:
                 self.stdout.write(self.style.NOTICE("Processing page %d, %d signatures" % (i+1, len(page))))
-            approved = []
             for signature in page:
                 if debug:
                     self.pp.pprint(signature)
@@ -54,6 +54,8 @@ class Command(BaseCommand):
                     approved.append(sig_id)
 
         for signature in Signature.objects.filter(~Q(status=SignatureStatus.SIGNED)).filter(id__in=approved).all():
+            if verbose:
+                self.stdout.write(self.style.SUCCESS("Updating %s" % signature.id))
             Updating(signature, SignatureStatus.SIGNED).run()
         if verbose:
             self.stdout.write(self.style.SUCCESS("Done."))
