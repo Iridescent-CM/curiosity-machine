@@ -4,9 +4,11 @@ from django.db.models import Q
 from ...api import HelloSign
 from ...models import *
 from ...updating import Updating
+import pprint
 
 class Command(BaseCommand):
     help = "Updates the status of Hellosign Signatures"
+    pp = pprint.PrettyPrinter(indent=4)
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -29,16 +31,21 @@ class Command(BaseCommand):
         if not options['template_ids']:
             raise CommandError("No template ids specified")
         verbose = options.get('verbosity') > 1
+        debug = options.get('verbosity') > 2
 
         current_date = datetime.today() + timedelta(1)
         cutoff_date = current_date - timedelta(days=options.get('cutoff'))
 
         api = HelloSign()
+        approved = []
+        if verbose:
+            self.stdout.write(self.style.NOTICE("Searching from %s to %s" % (cutoff_date.date(), current_date.date())))
         for i, page in enumerate(api.completed_signature_requests(cutoff_date.date(), current_date.date())):
             if verbose:
                 self.stdout.write(self.style.NOTICE("Processing page %d, %d signatures" % (i+1, len(page))))
-            approved = []
             for signature in page:
+                if debug:
+                    self.pp.pprint(signature)
                 metadata = signature.get("metadata", {})
                 if metadata.get("template_id") in options['template_ids']:
                     sig_id = metadata['signature_id']
@@ -47,6 +54,8 @@ class Command(BaseCommand):
                     approved.append(sig_id)
 
         for signature in Signature.objects.filter(~Q(status=SignatureStatus.SIGNED)).filter(id__in=approved).all():
+            if verbose:
+                self.stdout.write(self.style.SUCCESS("Updating %s" % signature.id))
             Updating(signature, SignatureStatus.SIGNED).run()
         if verbose:
             self.stdout.write(self.style.SUCCESS("Done."))

@@ -22,9 +22,12 @@
     </p>
     <a class="btn btn-primary my-2" href="{% url "educators:create_coach" %}">Make a coach account</a>
   </div>
-  {% endif %}
 
   <h2 class="my-3">Not interested? Choose one of the other ways to join Curiosity Machine:</h2>
+  {% else %}
+  <h2>Join as a:</h2>
+  {% endif %}
+
 
   {% url "students:create_profile" as student_url %}
   <div class="card card-block mb-2">
