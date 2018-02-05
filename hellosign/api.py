@@ -43,8 +43,7 @@ class HelloSign():
             raise hellosign_sdk.utils.exception.Conflict("API conflict encountered on %d retries" % RETRIES)
 
     def completed_signature_requests(self, cutoff_date, current_date, page_size=100):
-        query = "complete:true AND test_mode:%s AND created:{%s TO %s}" % (
-            not settings.HELLOSIGN_PRODUCTION_MODE,
+        query = "complete:true AND created:{%s TO %s}" % (
             cutoff_date,
             current_date
         )
