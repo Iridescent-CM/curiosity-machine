@@ -74,6 +74,8 @@
 
     .dashboard-members {
       padding: 10px;
+      display: inline-flex;
+      width:100%;
 
       .dashboard-members-username {
         font-family: "Raleway", Helvetica, sans-serif;
@@ -81,6 +83,11 @@
         border-radius: 15px 30px 30px;
         background: #73AD21;
         padding: 20px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        display: block;
+        overflow: hidden;
       }
 
       .dashboard-members-avatar {
@@ -93,6 +100,14 @@
       padding-top: 5px;
     }
 
+  }
+  
+  .family-dashboard-text-section {
+    border-radius: 30px 30px;
+    background: #ccc;
+    padding: 20px;
+    margin-top:16px;
+    margin-bottom:0px;
   }
 
   .challenge-started:after,

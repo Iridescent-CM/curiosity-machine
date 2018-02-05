@@ -18,20 +18,22 @@
       <h3>Family</h3>
       <ul class="family-dashboard-section">
       {% for familymember in request.user.familymember_set.all %}
+        <span>
           <div class="dashboard-members">
             {% comment %} FIXME: FamilyMember as Profile above {% endcomment %}
             {% include "profiles/_avatar.html" with profile=familymember width=60 height=60 crop='thumb' gravity='faces' classes='dashboard-members-avatar' %}
             <span class="dashboard-members-username">{{ familymember.name }}</span>
           </div>
+        </span>
       {% endfor %}
       </ul>
     </div>
 
     <div class="col-md-8">
-      <h3>Progress</h3>
+      <h3>AI Family Challenge Program Progress</h3>
       <div class="row family-dashboard-section family-dashboard-circles-row">
-      {% for stage in stages %}
-        <div class="col-xs-4 text-xs-center">
+        {% for stage in stages %}
+        <div class="col-md-4 text-xs-center">
           <div
             data-percent={{stage.stats.percent_complete}}
             data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
@@ -40,14 +42,41 @@
             data-backgroundBorderWidth= 30
             {% if stage.stats.completed == stage.stats.total %}
                 data-foregroundColor = '#73AD21'
+            {% else %}
+                data-foregroundColor = '#3498DB'
             {% endif %}
             data-backgroundColor= '#666'
             data-fontColor= '#666'
           ></div>
           <p>Stage {{stage.number}}</p>
         </div>
-      {% endfor %}
+        {% endfor %}
+        <div class="col-md-4 text-xs-center">
+          <div
+            data-percent=0
+            data-replacePercentageByText="Coming soon"
+            data-animationStep=20
+            data-foregroundBorderWidth= 30
+            data-backgroundBorderWidth= 30
+            data-backgroundColor= '#ccc'
+            data-fontColor= '#666'
+          ></div>
+          <p>Stage 3</p>
+        </div>
+      </div>
+
+      <div class="row family-dashboard-text-section">
+        <div class="col-md-12">
+          <p>
+            To start the Challenge, go to your Stage 1 tab and start working on challenges from
+            left to right. Your progress will only show for these design challenges. Remember,
+            for a challenge to be complete you need to make sure you answer the Reflection
+            question!
+          </p>
+        </div>
       </div>
     </div>
   </div>
+
+
 {% endblock %}
