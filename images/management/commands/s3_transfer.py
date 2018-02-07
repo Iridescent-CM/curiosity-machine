@@ -27,8 +27,20 @@ class Command(BaseCommand):
             dest='ids',
             help='Image ids to process'
         )
+        parser.add_argument(
+            '-c', '--count',
+            action="store_true",
+            default=False,
+            dest="count",
+            help="Output count of images without keys"
+        )
 
     def handle(self, *args, **options):
+        if options["count"]:
+            count = Image.objects.filter(key='').count()
+            self.stdout.write(self.style.NOTICE("%d images without S3 keys" % count)) 
+            return
+
         if len([key for key in ['ids', 'max', 'all'] if options[key]]) > 1:
             raise CommandError('--id, --max and --all are mutually exclusive: use only one.')
 
