@@ -5920,7 +5920,8 @@ i {
     fill: #333333; }
 
 .pickwidget .pickwidget-filename {
-  border: none; }
+  border: none;
+  max-width: 100%; }
 
 .pickwidget button, .pickwidget input {
   margin-bottom: 0.3em; }
