@@ -4,16 +4,16 @@
 {% block body-classes %}family-dashboard{% endblock %}
 
 {% block container %}
-  <div class="family-dashboard-header py-2 mb-1">
+  <div class="dashboard-header py-2 mb-1">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
           <a href="{% url 'families:edit_profile' %}" class="a-borderless float-xs-right">Account Settings</a>
-          <div class="dashboard-avatar">
+          <div class="avatar">
             {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
           </div>
           <br>
-          <span class="dashboard-inline-username">{{ request.user.username }}</span>
+          <span class="inline-username">{{ request.user.username }}</span>
         </div>
       </div>
       <div class="row mt-1 hidden-sm-down">

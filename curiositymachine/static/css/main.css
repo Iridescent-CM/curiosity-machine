@@ -6454,77 +6454,93 @@ footer {
 .educator-dashboard .submit-message.submitted .after-submit {
   display: initial; }
 
-.family-dashboard .family-dashboard-header {
+.family-dashboard .dashboard-header {
   background-color: #1f1f1f;
   background-image: url("../images/design-challenge-repeating-pattern.png");
   background-attachment: fixed;
   background-repeat: repeat;
   color: #FFFCF7; }
-  .family-dashboard .family-dashboard-header .dashboard-avatar img {
+  .family-dashboard .dashboard-header .avatar img {
     background-color: white;
     border-radius: 50%;
     box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
     float: left;
     margin-right: 10px; }
-  .family-dashboard .family-dashboard-header .dashboard-inline-username {
+  .family-dashboard .dashboard-header .inline-username {
     font-family: "Raleway", Helvetica, sans-serif;
     font-size: 2em; }
-  .family-dashboard .family-dashboard-header .card, .family-dashboard .family-dashboard-header .card-progress {
+  .family-dashboard .dashboard-header .card, .family-dashboard .dashboard-header .card-progress {
     background-color: #333333; }
 
-.family-dashboard .family-dashboard-navigation {
+.family-dashboard .tab-navigation {
   border-bottom: 2px #E5E1D9 solid; }
-  .family-dashboard .family-dashboard-navigation ul {
+  .family-dashboard .tab-navigation ul {
     list-style-type: none;
     text-transform: uppercase;
     font-size: 0.875em;
     letter-spacing: 2px;
     padding-left: 0px;
     margin-bottom: 0px; }
-    .family-dashboard .family-dashboard-navigation ul li {
+    .family-dashboard .tab-navigation ul li {
       display: inline-block;
       padding-bottom: 10px;
       border-bottom: 5px solid #FFFCF7; }
-      .family-dashboard .family-dashboard-navigation ul li a {
+      .family-dashboard .tab-navigation ul li a {
         margin: 0px 15px;
         border-bottom: 0px;
         color: #333333;
         text-align: center; }
-        .family-dashboard .family-dashboard-navigation ul li a:hover, .family-dashboard .family-dashboard-navigation ul li a:focus {
+        .family-dashboard .tab-navigation ul li a:hover, .family-dashboard .tab-navigation ul li a:focus {
           color: #00B1C3; }
+  @media (max-width: 991px) {
+    .family-dashboard .tab-navigation ul li {
+      width: 32%;
+      text-align: center; } }
+  @media (max-width: 767px) {
+    .family-dashboard .tab-navigation ul li {
+      width: 100%; } }
+  .family-dashboard .tab-navigation .dropdown a {
+    margin: 0px; }
+  .family-dashboard .tab-navigation .active-nav {
+    border-bottom-color: #00B1C3 !important; }
+    .family-dashboard .tab-navigation .active-nav a {
+      color: #00B1C3 !important; }
+    @media (max-width: 991px) {
+      .family-dashboard .tab-navigation .active-nav {
+        border-bottom: 0px !important; } }
 
-.family-dashboard .family-dashboard-section {
+.family-dashboard .dashboard-section {
   border-radius: 30px;
   border-style: solid;
   border-color: #E3E3DD;
   padding: 20px;
   border-width: 2px; }
-  .family-dashboard .family-dashboard-section .dashboard-members {
-    padding: 10px;
-    display: inline-flex;
-    width: 100%; }
-    .family-dashboard .family-dashboard-section .dashboard-members .dashboard-members-username {
-      font-family: "Raleway", Helvetica, sans-serif;
-      font-size: 1em;
-      border-radius: 15px 30px 30px;
-      background: #73AD21;
-      padding: 20px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      width: 100%;
-      display: block;
-      overflow: hidden; }
-    .family-dashboard .family-dashboard-section .dashboard-members .dashboard-members-avatar {
-      border-radius: 50%;
-      margin-right: 10px; }
-  .family-dashboard .family-dashboard-section .family-dashboard-circles-row {
-    padding-top: 5px; }
-.family-dashboard .family-dashboard-text-section {
-  border-radius: 30px 30px;
+
+.family-dashboard .members-list {
+  padding: 10px;
+  display: inline-flex;
+  width: 100%; }
+  .family-dashboard .members-list .username {
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-size: 1em;
+    border-radius: 15px 30px 30px;
+    background: #73AD21;
+    padding: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
+    overflow: hidden; }
+  .family-dashboard .members-list .avatar {
+    border-radius: 50%;
+    margin-right: 10px; }
+
+.family-dashboard .instruction-text {
   background: #ccc;
-  padding: 20px;
+  border: none;
   margin-top: 16px;
   margin-bottom: 0px; }
+
 .family-dashboard .challenge-started:after,
 .family-dashboard .challenge-completed:after {
   content: "";
@@ -6534,30 +6550,12 @@ footer {
   position: absolute;
   top: 0;
   right: 0; }
+
 .family-dashboard .challenge-started:after {
   background-image: url("../images/challenges/blue_circle.png"); }
+
 .family-dashboard .challenge-completed:after {
   background-image: url("../images/challenges/green_circle.png"); }
-
-@media (max-width: 991px) {
-  .family-dashboard ul li {
-    width: 32%;
-    text-align: center; } }
-
-@media (max-width: 767px) {
-  .family-dashboard ul li {
-    width: 100%; } }
-
-.family-dashboard .dropdown a {
-  margin: 0px; }
-
-.family-dashboard .active-nav {
-  border-bottom-color: #00B1C3 !important; }
-  .family-dashboard .active-nav a {
-    color: #00B1C3 !important; }
-  @media (max-width: 991px) {
-    .family-dashboard .active-nav {
-      border-bottom: 0px !important; } }
 
 #challenges-page {
   background-color: #E5E1D9; }

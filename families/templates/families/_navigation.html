@@ -1,7 +1,7 @@
 {% load ifactive %}
 <div class="row mb-3">
   <div class="col-md-12">
-    <nav class="family-dashboard-navigation">
+    <nav class="tab-navigation">
       <ul class="nav">
         <li class="nav-item {% ifactive "families:home" "active-nav" %}">
           <a class="nav-link" href="{% url 'families:home' %}">
