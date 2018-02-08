@@ -29,7 +29,7 @@ def test_allows_all_on_free_challenge(client):
 
 @pytest.mark.django_db
 def test_allows_all_with_membership_connection(client):
-    challenge = ChallengeFactory()
+    challenge = ChallengeFactory(free=False)
 
     for i, Factory in enumerate([EducatorFactory, MentorFactory, ParentFactory, StudentFactory]):
         user = Factory(username='username%d' % i, password='password')
@@ -42,7 +42,7 @@ def test_allows_all_with_membership_connection(client):
 
 @pytest.mark.django_db
 def test_allows_mentor_with_no_connection_on_non_free(client):
-    challenge = ChallengeFactory()
+    challenge = ChallengeFactory(free=False)
     mentor = MentorFactory(username="username", password="password")
 
     client.login(username="username", password="password")
@@ -52,7 +52,7 @@ def test_allows_mentor_with_no_connection_on_non_free(client):
 
 @pytest.mark.django_db
 def test_does_not_allow_others_with_no_connection_on_non_free(client):
-    challenge = ChallengeFactory()
+    challenge = ChallengeFactory(free=False)
 
     for i, Factory in enumerate([EducatorFactory, ParentFactory, StudentFactory]):
         user = Factory(username='username%d' % i, password='password')

@@ -104,7 +104,7 @@ def test_challenges_filters_drafts(client, challenge, challenge2, student):
 
 @pytest.mark.django_db
 def test_challenges_decorates_with_membership_accessibility(client):
-    ChallengeFactory(draft=False)
+    ChallengeFactory(draft=False, free=False)
     ChallengeFactory(draft=False, free=True)
 
     response = client.get('/challenges/')
