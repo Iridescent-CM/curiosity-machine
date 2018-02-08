@@ -33,8 +33,7 @@ class ParentProfileForm(ProfileModelForm):
 
     def save_related(self, obj):
         if self.cleaned_data.get("image_url"):
-            img = Image(source_url=self.cleaned_data['image_url']['url'])
-            img.save()
+            img = Image.from_source_with_job(self.cleaned_data['image_url']['url'])
             obj.image = img
         return obj
 

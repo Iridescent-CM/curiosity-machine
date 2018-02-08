@@ -58,8 +58,7 @@ class FamilyProfileForm(ProfileModelForm):
         obj.location = location
 
         if self.cleaned_data.get("image_url"):
-            img = Image(source_url=self.cleaned_data['image_url']['url'])
-            img.save()
+            img = Image.from_source_with_job(self.cleaned_data['image_url']['url'])
             obj.image = img
         elif self.prev_profile != obj and self.prev_profile.image: # converting to family account scenario
             obj.image = self.prev_profile.image
