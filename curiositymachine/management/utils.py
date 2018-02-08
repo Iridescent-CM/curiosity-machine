@@ -107,10 +107,6 @@ def load_fixture(f):
     })
 
     users = pk_map(data, 'auth.user', UserFactory, exclude=['groups', 'user_permissions', 'password'], build=True)
-    profiles = pk_map(data, 'profiles.profile', ProfileFactory, lookups={
-        'user': users,
-        'image': images,
-    }, build=True)
     studentprofiles = pk_map(data, 'students.studentprofile', StudentProfileFactory, lookups={
         'user': users,
         'image': images,
@@ -134,8 +130,6 @@ def load_fixture(f):
         user.save()
         user.extra.user = user # i hate this so much
         user.extra.save()
-        user.profile.user = user # i hate all of this so much
-        user.profile.save()
         if user.extra.is_student:
             user.studentprofile.user = user
             user.studentprofile.save()

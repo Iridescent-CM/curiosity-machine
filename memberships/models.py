@@ -10,7 +10,7 @@ from django.utils.timezone import now, localtime
 from memberships.importer import BulkImporter, Status
 from memberships.validators import member_import_csv_validator
 from os.path import splitext, basename
-from profiles.models import UserRole, Profile
+from profiles.models import UserRole
 from tempfile import TemporaryFile
 from units.models import Unit
 import logging

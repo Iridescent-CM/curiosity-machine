@@ -29,13 +29,13 @@ class EducatorFactory(factory.django.DjangoModelFactory):
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
     extra = factory.RelatedFactory(UserExtraFactory, 'user',role=UserRole.educator.value)
-    profile = factory.RelatedFactory(EducatorProfileFactory, 'user')
+    educatorprofile = factory.RelatedFactory(EducatorProfileFactory, 'user')
 
 class ImpactSurveyFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ImpactSurvey
 
-    user = factory.SubFactory('profiles.factories.UserFactory', profile=None)
+    user = factory.SubFactory('profiles.factories.UserFactory', educatorprofile=None)
 
     student_count = factory.fuzzy.FuzzyInteger(0,100)
     teacher_count = factory.fuzzy.FuzzyInteger(0,100)

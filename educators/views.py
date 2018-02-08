@@ -93,15 +93,15 @@ class ChallengeView(TemplateView):
 
         sorter = StudentSorter(query=self.request.GET)
         gs = GroupSelector(membership, query=self.request.GET)
-        students = gs.selected.queryset.select_related('profile__image')
+        students = gs.selected.queryset
         students = sorter.sort(students)
-        students = students.select_related('profile__image').all()
+        students = students.all()
 
         comments = (Comment.objects
             .filter(
                 user__in=students,
                 challenge_progress__challenge_id=challenge.id)
-            .select_related('user', 'user__profile'))
+            .select_related('user'))
         student_ids_with_examples = (Example.objects
             .filter(
                 approved=True,
@@ -140,7 +140,7 @@ class StudentsView(TemplateView):
             membership = membership_selection.selected
             sorter = StudentSorter(query=request.GET)
             gs = GroupSelector(membership, query=request.GET)
-            students = gs.selected.queryset.select_related('profile__image')
+            students = gs.selected.queryset
             students = sorter.sort(students)
 
         kwargs.update({
@@ -163,10 +163,7 @@ class StudentView(TemplateView):
             raise PermissionDenied
 
         membership = membership_selection.selected
-        listed_members = (
-            membership.listed_members
-            .select_related('profile__image')
-        )
+        listed_members = membership.listed_members
         member = get_object_or_404(listed_members, pk=self.kwargs.get('student_id'))
         progresses = (member.progresses
             .filter(comments__isnull=False, challenge__in=membership.challenges.all())
@@ -205,10 +202,7 @@ class StudentPasswordResetView(FormView):
     def dispatch(self, request, *args, **kwargs):
         self.membership_selection = MembershipSelection(request)
         membership = self.membership_selection.selected
-        listed_members = (
-            membership.listed_members
-            .select_related('profile__image')
-        )
+        listed_members = membership.listed_members
         self.member = get_object_or_404(listed_members, pk=self.kwargs.get('student_id'))
         return super().dispatch(request, *args, **kwargs)
 
@@ -299,7 +293,7 @@ class CommentList(generics.ListAPIView):
             queryset = (Comment.objects
                 .filter(challenge_progress__owner__membership__members=self.request.user)
                 .filter(challenge_progress_id__in=ids)
-                .select_related('user__profile', 'challenge_progress')
+                .select_related('challenge_progress')
                 .all()
             )
         return queryset
