@@ -2,12 +2,15 @@ from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget
 from django import forms
 from locations.forms import LocationForm
-from locations.models import Location
-from profiles.forms import ProfileModelForm
+from profiles.forms import ProfileModelForm, RelatedModelFormMixin
 from profiles.models import UserRole
 from .models import *
 
-class EducatorProfileForm(ProfileModelForm):
+class EducatorProfileForm(RelatedModelFormMixin, ProfileModelForm):
+    related_forms = [
+        ('location', LocationForm),
+    ]
+
     class Meta:
         model = EducatorProfile
         fields = [
@@ -35,25 +38,13 @@ class EducatorProfileForm(ProfileModelForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
 
-    country = LocationForm.base_fields['country']
-    state = LocationForm.base_fields['state']
-    city = LocationForm.base_fields['city']
-
-    def clean(self):
-        cleaned_data = super().clean()
-        return self.proxy_clean(cleaned_data, LocationForm)
-
     def save_related(self, obj):
-        location, created = Location.objects.get_or_create(
-            country=self.cleaned_data['country'],
-            state=self.cleaned_data['state'],
-            city=self.cleaned_data['city']
-        )
-        obj.location = location
+        obj = super().save_related(obj)
 
         if self.cleaned_data.get("image_url"):
             img = Image.from_source_with_job(self.cleaned_data['image_url']['url'])
             obj.image = img
+
         return obj
 
     def update_user(self):
@@ -64,11 +55,7 @@ class EducatorProfileForm(ProfileModelForm):
 
     def get_initial(self, user, instance):
         location = {}
-        if instance and instance.location:
-            location['country'] = instance.location.country
-            location['state'] = instance.location.state
-            location['city'] = instance.location.city
-        elif instance and instance.city:
+        if instance and not instance.location and instance.city:
             location['city'] = instance.city
 
         return super().get_initial(

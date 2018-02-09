@@ -2,6 +2,49 @@ from allauth.account.models import EmailAddress
 from django import forms
 from django.core.exceptions import ValidationError
 
+class RelatedModelFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for relatedname, formclass in self.related_forms:
+            for fieldname, field in formclass.base_fields.items():
+                self.fields[fieldname] = field
+
+    def get_initial(self, user, instance, **kwargs):
+        related_initial = {}
+        for relatedname, formclass in self.related_forms:
+            form = formclass(instance=getattr(instance, relatedname, None))
+            related_initial.update(form.initial)
+        return super().get_initial(user, instance, **related_initial, **kwargs)
+
+    def proxy_clean(self, cleaned_data, formclass):
+        form = formclass(data=cleaned_data)
+        form.full_clean()
+        for fieldname, errors in form.errors.as_data().items():
+            if fieldname == '__all__':
+                fieldname = None
+            for error in errors:
+                if not self.has_error(fieldname, code=error.code):
+                    self.add_error(fieldname, error)
+        cleaned_data.update(form.cleaned_data)
+        return cleaned_data
+
+    def clean(self):
+        cleaned_data = super().clean()
+        for name, formclass in self.related_forms:
+            cleaned_data = self.proxy_clean(cleaned_data, formclass)
+        return cleaned_data
+
+    def save_related(self, obj):
+        for relatedname, formclass in self.related_forms:
+            form = formclass(self.cleaned_data, instance=getattr(obj, relatedname, None))
+            if form.is_valid():
+                related = form.save()
+                setattr(obj, relatedname, related)
+            else:
+                raise ValueError("Could not save because related form for %s did not validate" % relatedname)
+
+        return obj
+
 class ProfileModelForm(forms.ModelForm):
 
     email = forms.EmailField(label="E-mail", required=True) # TODO: limit length
@@ -43,18 +86,6 @@ class ProfileModelForm(forms.ModelForm):
             self.user.full_clean(exclude=['username'])
         except ValidationError as e:
             self._update_errors(e)
-
-    def proxy_clean(self, cleaned_data, formclass):
-        form = formclass(data=cleaned_data)
-        form.full_clean()
-        for fieldname, errors in form.errors.as_data().items():
-            if fieldname == '__all__':
-                fieldname = None
-            for error in errors:
-                if not self.has_error(fieldname, code=error.code):
-                    self.add_error(fieldname, error)
-        cleaned_data.update(form.cleaned_data)
-        return cleaned_data
 
     def save(self, commit=True):
         if not commit:
