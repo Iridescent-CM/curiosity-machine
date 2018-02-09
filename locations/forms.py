@@ -27,3 +27,10 @@ class LocationForm(ModelForm):
         else:
             cleaned_data['state'] = None
         return cleaned_data
+
+    def save(self, commit=True):
+        if not commit:
+            raise NotImplementedError('LocationForm uses get_or_create and must commit')
+
+        loc, created = Location.objects.get_or_create(**self.cleaned_data)
+        return loc

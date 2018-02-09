@@ -6,16 +6,18 @@ from django.core.exceptions import ValidationError
 from django import forms
 from images.models import Image
 from locations.forms import LocationForm
-from locations.models import Location
 from operator import itemgetter
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
-from profiles.forms import ProfileModelForm
+from profiles.forms import ProfileModelForm, RelatedModelFormMixin
 from profiles.models import UserRole
 from .models import *
 
+class FamilyProfileForm(RelatedModelFormMixin, ProfileModelForm):
+    related_forms = [
+        ('location', LocationForm),
+    ]
 
-class FamilyProfileForm(ProfileModelForm):
     class Meta:
         model = FamilyProfile
         fields = ['phone']
@@ -37,25 +39,13 @@ class FamilyProfileForm(ProfileModelForm):
     )
 
     phone = PhoneNumberField(widget=PhoneNumberInternationalFallbackWidget)
-    country = LocationForm.base_fields['country']
-    state = LocationForm.base_fields['state']
-    city = LocationForm.base_fields['city']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.prev_profile = self.user.extra.profile
 
-    def clean(self):
-        cleaned_data = super().clean()
-        return self.proxy_clean(cleaned_data, LocationForm)
-
     def save_related(self, obj):
-        location, created = Location.objects.get_or_create(
-            country=self.cleaned_data['country'],
-            state=self.cleaned_data['state'],
-            city=self.cleaned_data['city']
-        )
-        obj.location = location
+        obj = super().save_related(obj)
 
         if self.cleaned_data.get("image_url"):
             img = Image.from_source_with_job(self.cleaned_data['image_url']['url'])
@@ -67,20 +57,6 @@ class FamilyProfileForm(ProfileModelForm):
 
     def get_role(self):
         return UserRole.family
-
-    def get_initial(self, user, instance, **kwargs):
-        location = {}
-        if instance:
-            location['country'] = instance.location.country
-            location['state'] = instance.location.state
-            location['city'] = instance.location.city
-
-        return super().get_initial(
-            user,
-            instance,
-            **location,
-            **kwargs
-        )
 
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 
