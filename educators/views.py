@@ -314,8 +314,7 @@ class CoachView(RedirectView):
         self.membership_id = settings.AICHALLENGE_COACH_MEMBERSHIP_ID
 
     def get(self, request, *args, **kwargs):
-        member = Member(user=request.user, membership_id=self.membership_id)
-        member.save()
+        member, created = Member.objects.get_or_create(user=request.user, membership_id=self.membership_id)
         return super().get(request, *args, **kwargs)
 
 coach = CoachView.as_view()
