@@ -14,7 +14,8 @@ class SurveyResponseAdmin(admin.ModelAdmin):
             return super().save_model(request, obj, form, change)
 
         if form.has_changed():
-            # it can only be status because of readonly_fields above
-            Updating(obj, form.cleaned_data['status']).run()
+            # it can only be status because of readonly_fields above,
+            # Updating wants the original, not the modified (FIXME?)
+            Updating(SurveyResponse.objects.get(pk=obj.id), form.cleaned_data['status']).run()
 
 admin.site.register(SurveyResponse, SurveyResponseAdmin)
