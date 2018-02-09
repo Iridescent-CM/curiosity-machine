@@ -34,8 +34,8 @@ def test_limit_for():
 
 @pytest.mark.django_db
 def test_filter_by_challenge_access():
-    challenge1 = ChallengeFactory()
-    challenge2 = ChallengeFactory()
+    challenge1 = ChallengeFactory(free=False)
+    challenge2 = ChallengeFactory(free=False)
     user = StudentFactory()
 
     assert not Membership.filter_by_challenge_access(user, [challenge1.id, challenge2.id])
@@ -55,7 +55,7 @@ def test_filter_by_challenge_access_for_free_challenge():
 
 @pytest.mark.django_db
 def test_filter_by_challenge_access_for_anonymous():
-    challenge = ChallengeFactory()
+    challenge = ChallengeFactory(free=False)
     user = AnonymousUser()
 
     assert not Membership.filter_by_challenge_access(user, [challenge.id])
@@ -71,8 +71,8 @@ def test_filter_by_challenge_access_user_type_exemptions():
 
 @pytest.mark.django_db
 def test_filter_by_challenge_access_for_inactive_membership():
-    challenge1 = ChallengeFactory()
-    challenge2 = ChallengeFactory()
+    challenge1 = ChallengeFactory(free=False)
+    challenge2 = ChallengeFactory(free=False)
     user = StudentFactory()
     membership = MembershipFactory(members=[user], challenges=[challenge1])
 
