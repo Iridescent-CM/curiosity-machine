@@ -81,7 +81,6 @@ def generate_analytics(start_date, end_date):
         ).select_related(
             'image',
             'video',
-            'user__profile',
             'challenge_progress'
         ).prefetch_related(
             'video__encoded_videos'

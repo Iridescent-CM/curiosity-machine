@@ -8,24 +8,9 @@ from .models import *
 from .signals import handlers
 
 __all__ = [
-    'ProfileFactory',
     'UserExtraFactory',
     'UserFactory',
 ]
-
-class ProfileFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Profile
-
-    user = factory.SubFactory('profiles.factories.UserFactory', profile=None)
-
-    @classmethod
-    def _adjust_kwargs(cls, **kwargs):
-        if "birthday" in kwargs:
-            val = kwargs["birthday"]
-            if isinstance(val, str):
-                kwargs["birthday"] = parse_date(val)
-        return kwargs
 
 class UserExtraFactory(factory.django.DjangoModelFactory):
     class Meta:

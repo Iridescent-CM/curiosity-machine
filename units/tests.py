@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from educators.factories import *
 from profiles.factories import *
-from profiles.models import Profile, UserRole
+from profiles.models import UserRole
 from .factories import *
 from .models import Unit
 

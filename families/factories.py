@@ -16,7 +16,7 @@ class FamilyProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = FamilyProfile
 
-    user = factory.SubFactory('families.factories.FamilyFactory', profile=None)
+    user = factory.SubFactory('families.factories.FamilyFactory', familyprofile=None)
     location = factory.SubFactory('locations.factories.LocationFactory')
     phone = PhoneNumber.from_string("202-555-5555")
 

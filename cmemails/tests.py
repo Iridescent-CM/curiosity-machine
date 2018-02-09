@@ -10,7 +10,7 @@ from images.models import Image
 from mentors.factories import *
 from parents.factories import *
 from profiles.factories import *
-from profiles.models import Profile, UserRole
+from profiles.models import UserRole
 from students.factories import *
 from . import signals
 from .mailchimp import subscribe
