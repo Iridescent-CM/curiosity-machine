@@ -4,6 +4,7 @@
 {% load staticfiles %}
 
 {% block content %}
+  {% include 'curiositymachine/_ai_banner.html' %}
   <h2>
     Your children
     <a class="btn btn-primary btn-sm" href="{% url 'parents:connect' %}">Add your child</a>
@@ -19,7 +20,7 @@
             {% if connection.active %}
               <a href="{% url 'parents:view_child' connection.id %}">
                 <div class="panel panel-custom parent-connection">
-                  <div clas="panel-img">
+                  <div class="panel-img">
                     {% include "_avatar.html" with profile=connection.child_profile width=240 height=240 crop='fill' %}
                   </div>
                   <div class="panel-body">
