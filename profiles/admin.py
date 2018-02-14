@@ -155,13 +155,13 @@ class UserAdminWithExtra(UserAdmin):
     def location_country(self, obj):
         location = getattr(User.cast(obj).profile, 'location', None)
         if location:
-            return location.country
+            return location.get_country_display()
         return None
 
     def location_state(self, obj):
         location = getattr(User.cast(obj).profile, 'location', None)
-        if location:
-            return location.state
+        if location and location.state:
+            return location.get_state_display()
         return None
 
     def get_inline_instances(self, request, obj=None):
