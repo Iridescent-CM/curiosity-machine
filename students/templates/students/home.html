@@ -24,7 +24,8 @@
     </div>
   </div>
   {% endif %}
-  {% include 'curiositymachine/_ai_banner.html' %}
+  {% url "families:conversion" as banner_url %}
+  {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   <ul class="nav nav-justified nav-tabs">
     <li {% if filter in my_challenges_filters or filter != 'favorites' %}class="active"{% endif %}>
       <a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a>

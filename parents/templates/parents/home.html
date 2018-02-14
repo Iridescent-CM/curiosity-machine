@@ -4,7 +4,8 @@
 {% load staticfiles %}
 
 {% block content %}
-  {% include 'curiositymachine/_ai_banner.html' %}
+  {% url "families:conversion" as banner_url %}
+  {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   <h2>
     Your children
     <a class="btn btn-primary btn-sm" href="{% url 'parents:connect' %}">Add your child</a>

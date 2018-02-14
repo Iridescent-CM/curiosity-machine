@@ -51,7 +51,8 @@
       {% impact_survey %}
     </div>
     <div class="ai-banner-position">
-      {% include 'curiositymachine/_ai_banner.html' %}
+      {% url "families:conversion" as banner_url %}
+      {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
     </div>
   </div>
   <div class="container mb-3">
