@@ -14,6 +14,8 @@ from parents.models import ParentProfile
 from students.models import StudentProfile
 from .admin_utils import StudentFilter
 from .models import *
+import pycountry
+import shlex
 
 admin.site.unregister(Group)
 
@@ -112,6 +114,36 @@ class UserAdminWithExtra(UserAdmin):
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
 )
     search_fields = ('username', 'email', 'first_name', 'last_name', 'extra__source',)
+
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+
+        # search all the many places location data could be stored
+        for bit in shlex.split(search_term):
+            for profile in ['studentprofile', 'educatorprofile', 'mentorprofile', 'parentprofile']:
+                fieldlookup = profile + "__city__icontains"
+                queryset |= self.model.objects.filter(**{fieldlookup:bit})
+
+            for profile in ['educatorprofile', 'familyprofile']:
+                queryset |= self.model.objects.filter(**{profile + "__location__city__icontains":bit})
+
+                queryset |= self.model.objects.filter(**{profile + "__location__state__icontains":bit})
+                try:
+                    # TODO: move this into locations somehow
+                    state_lookup = pycountry.subdivisions.lookup(bit)
+                    queryset |= self.model.objects.filter(**{profile + "__location__state":state_lookup.code})
+                except LookupError:
+                    pass
+
+                queryset |= self.model.objects.filter(**{profile + "__location__country__icontains":bit})
+                try:
+                    # TODO: move this into locations somehow
+                    country_lookup = pycountry.countries.lookup(bit)
+                    queryset |= self.model.objects.filter(**{profile + "__location__country":country_lookup.alpha_2})
+                except LookupError:
+                    pass
+
+        return queryset, use_distinct
 
     def source(self, obj):
         return obj.extra.source
