@@ -12,17 +12,8 @@ class LocationAdmin(admin.ModelAdmin):
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)
 
         for bit in shlex.split(search_term):
-            try:
-                state_lookup = pycountry.subdivisions.lookup(bit)
-                queryset |= self.model.objects.filter(state=state_lookup.code)
-            except LookupError:
-                pass
-
-            try:
-                country_lookup = pycountry.countries.lookup(bit)
-                queryset |= self.model.objects.filter(country=country_lookup.alpha_2)
-            except LookupError:
-                pass
+            queryset |= self.model.objects.lookup(state=bit)
+            queryset |= self.model.objects.lookup(country=bit)
 
         return queryset, use_distinct
 

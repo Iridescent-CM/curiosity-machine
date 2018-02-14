@@ -9,12 +9,12 @@ from django.contrib.auth.models import Group
 from educators.models import EducatorProfile
 from families.models import FamilyProfile
 from images.models import Image
+from locations.models import Location
 from mentors.models import MentorProfile
 from parents.models import ParentProfile
 from students.models import StudentProfile
 from .admin_utils import StudentFilter
 from .models import *
-import pycountry
 import shlex
 
 admin.site.unregister(Group)
@@ -128,20 +128,14 @@ class UserAdminWithExtra(UserAdmin):
                 queryset |= self.model.objects.filter(**{profile + "__location__city__icontains":bit})
 
                 queryset |= self.model.objects.filter(**{profile + "__location__state__icontains":bit})
-                try:
-                    # TODO: move this into locations somehow
-                    state_lookup = pycountry.subdivisions.lookup(bit)
-                    queryset |= self.model.objects.filter(**{profile + "__location__state":state_lookup.code})
-                except LookupError:
-                    pass
+                value = Location.lookup_state_by(bit)
+                if value:
+                    queryset |= self.model.objects.filter(**{profile + "__location__state":value})
 
                 queryset |= self.model.objects.filter(**{profile + "__location__country__icontains":bit})
-                try:
-                    # TODO: move this into locations somehow
-                    country_lookup = pycountry.countries.lookup(bit)
-                    queryset |= self.model.objects.filter(**{profile + "__location__country":country_lookup.alpha_2})
-                except LookupError:
-                    pass
+                value = Location.lookup_country_by(bit)
+                if value:
+                    queryset |= self.model.objects.filter(**{profile + "__location__country":value})
 
         return queryset, use_distinct
 
