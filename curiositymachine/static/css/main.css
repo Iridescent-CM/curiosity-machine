@@ -1705,6 +1705,10 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
     font-size: 25px;
     line-height: 0;
     font-weight: 300; }
+.ai-banner:hover{
+  text-decoration: underline;
+}
+
 
 
 
