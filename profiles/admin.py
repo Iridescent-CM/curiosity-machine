@@ -9,11 +9,13 @@ from django.contrib.auth.models import Group
 from educators.models import EducatorProfile
 from families.models import FamilyProfile
 from images.models import Image
+from locations.models import Location
 from mentors.models import MentorProfile
 from parents.models import ParentProfile
 from students.models import StudentProfile
 from .admin_utils import StudentFilter
 from .models import *
+import shlex
 
 admin.site.unregister(Group)
 
@@ -113,6 +115,30 @@ class UserAdminWithExtra(UserAdmin):
 )
     search_fields = ('username', 'email', 'first_name', 'last_name', 'extra__source',)
 
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+
+        # search all the many places location data could be stored
+        for bit in shlex.split(search_term):
+            for profile in ['studentprofile', 'educatorprofile', 'mentorprofile', 'parentprofile']:
+                fieldlookup = profile + "__city__icontains"
+                queryset |= self.model.objects.filter(**{fieldlookup:bit})
+
+            for profile in ['educatorprofile', 'familyprofile']:
+                queryset |= self.model.objects.filter(**{profile + "__location__city__icontains":bit})
+
+                queryset |= self.model.objects.filter(**{profile + "__location__state__icontains":bit})
+                value = Location.lookup_state_by(bit)
+                if value:
+                    queryset |= self.model.objects.filter(**{profile + "__location__state":value})
+
+                queryset |= self.model.objects.filter(**{profile + "__location__country__icontains":bit})
+                value = Location.lookup_country_by(bit)
+                if value:
+                    queryset |= self.model.objects.filter(**{profile + "__location__country":value})
+
+        return queryset, use_distinct
+
     def source(self, obj):
         return obj.extra.source
     source.admin_order_field = "extra__source"
@@ -129,13 +155,13 @@ class UserAdminWithExtra(UserAdmin):
     def location_country(self, obj):
         location = getattr(User.cast(obj).profile, 'location', None)
         if location:
-            return location.country
+            return location.get_country_display()
         return None
 
     def location_state(self, obj):
         location = getattr(User.cast(obj).profile, 'location', None)
-        if location:
-            return location.state
+        if location and location.state:
+            return location.get_state_display()
         return None
 
     def get_inline_instances(self, request, obj=None):

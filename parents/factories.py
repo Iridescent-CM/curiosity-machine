@@ -29,7 +29,7 @@ class ParentFactory(factory.django.DjangoModelFactory):
     password = factory.PostGenerationMethodCall('set_password', '123123')
 
     extra = factory.RelatedFactory(UserExtraFactory, 'user',role=UserRole.parent.value)
-    profile = factory.RelatedFactory(ParentProfileFactory, 'user')
+    parentprofile = factory.RelatedFactory(ParentProfileFactory, 'user')
 
 class ParentConnectionFactory(factory.django.DjangoModelFactory):
     class Meta:
