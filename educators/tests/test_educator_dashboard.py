@@ -611,7 +611,7 @@ def test_educator_change_student_password_404s_for_bad_targets(client):
 @pytest.mark.django_db
 def test_change_student_password_sends_signal(client):
     handler = mock.MagicMock()
-    signal = signals.student_password_changed
+    signal = signals.member_password_changed
     signal.connect(handler)
 
     educator = EducatorFactory(username='ed', password='123123')

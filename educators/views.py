@@ -222,9 +222,9 @@ class StudentPasswordResetView(FormView):
 
     def form_valid(self, form):
         form.save()
-        signals.student_password_changed.send(
+        signals.member_password_changed.send(
             sender=self.member,
-            student=self.member,
+            member=self.member,
             resetter=self.request.user
         )
         messages.success(self.request, "%s's password successfully changed." % self.member.username)
