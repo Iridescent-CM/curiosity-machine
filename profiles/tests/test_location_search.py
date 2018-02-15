@@ -47,17 +47,6 @@ def test_search_on_location_city_field(factoryclass, relatedname, admin, req):
     (FamilyFactory, 'familyprofile')
 ])
 @pytest.mark.django_db
-def test_direct_search_on_location_state_field(factoryclass, relatedname, admin, req):
-    fieldname = relatedname + "__location__state"
-    user = factoryclass(**{fieldname: "US-HI"})
-    assert user in admin.get_search_results(req, admin.get_queryset(req), "us-hi")[0].all()
-    assert user in admin.get_search_results(req, admin.get_queryset(req), "hi")[0].all()
-
-@pytest.mark.parametrize("factoryclass,relatedname", [
-    (EducatorFactory, 'educatorprofile'),
-    (FamilyFactory, 'familyprofile')
-])
-@pytest.mark.django_db
 def test_lookup_search_on_location_state_field(factoryclass, relatedname, admin, req):
     fieldname = relatedname + "__location__state"
     user = factoryclass(**{fieldname: "US-HI"})
@@ -71,20 +60,7 @@ def test_lookup_search_on_location_state_field(factoryclass, relatedname, admin,
 def test_multiword_lookup_search_on_location_state_field(factoryclass, relatedname, admin, req):
     fieldname = relatedname + "__location__state"
     user = factoryclass(**{fieldname: "US-RI"})
-    # NOTE: unquoted multiword will fail to return the result, but it would be great if that wasn't the case
-    assert user not in admin.get_search_results(req, admin.get_queryset(req), "rhode island")[0].all()
-    assert user in admin.get_search_results(req, admin.get_queryset(req), "'rhode island'")[0].all()
-    assert user in admin.get_search_results(req, admin.get_queryset(req), '"rhode island"')[0].all()
-
-@pytest.mark.parametrize("factoryclass,relatedname", [
-    (EducatorFactory, 'educatorprofile'),
-    (FamilyFactory, 'familyprofile')
-])
-@pytest.mark.django_db
-def test_direct_search_on_location_country_field(factoryclass, relatedname, admin, req):
-    fieldname = relatedname + "__location__country"
-    user = factoryclass(**{fieldname: "CA"})
-    assert user in admin.get_search_results(req, admin.get_queryset(req), "ca")[0].all()
+    assert user in admin.get_search_results(req, admin.get_queryset(req), "rhode island")[0].all()
 
 @pytest.mark.parametrize("factoryclass,relatedname", [
     (EducatorFactory, 'educatorprofile'),
@@ -104,7 +80,4 @@ def test_lookup_search_on_location_country_field(factoryclass, relatedname, admi
 def test_multiword_lookup_search_on_location_country_field(factoryclass, relatedname, admin, req):
     fieldname = relatedname + "__location__country"
     user = factoryclass(**{fieldname: "NZ"})
-    # NOTE: unquoted multiword will fail to return the result, but it would be great if that wasn't the case
-    assert user not in admin.get_search_results(req, admin.get_queryset(req), "new zealand")[0].all()
-    assert user in admin.get_search_results(req, admin.get_queryset(req), "'new zealand'")[0].all()
-    assert user in admin.get_search_results(req, admin.get_queryset(req), '"new zealand"')[0].all()
+    assert user in admin.get_search_results(req, admin.get_queryset(req), "new zealand")[0].all()
