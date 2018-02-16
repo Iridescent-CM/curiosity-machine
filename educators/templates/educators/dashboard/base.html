@@ -6,6 +6,11 @@
 
 {% block container %}
   <div class="educator-dashboard-header py-2 mb-1">
+  <div class="ai-banner-position" >
+      <div class="container"></div>
+      {% url "families:conversion" as banner_url %}
+      {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
+  </div>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -49,10 +54,6 @@
         </div>
       </div>
       {% impact_survey %}
-    </div>
-    <div class="ai-banner-position">
-      {% url "families:conversion" as banner_url %}
-      {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
     </div>
   </div>
   <div class="container mb-3">
