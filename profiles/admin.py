@@ -118,24 +118,23 @@ class UserAdminWithExtra(UserAdmin):
     def get_search_results(self, request, queryset, search_term):
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)
 
-        # search all the many places location data could be stored
+        # lookup the search term to see if it's a country name or state name
+        for profile in ['educatorprofile', 'familyprofile']:
+            value = Location.lookup_state_by(search_term)
+            if value:
+                queryset |= self.model.objects.filter(**{profile + "__location__state":value})
+
+            value = Location.lookup_country_by(search_term)
+            if value:
+                queryset |= self.model.objects.filter(**{profile + "__location__country":value})
+
+        # search all the many places city data could be stored
         for bit in shlex.split(search_term):
             for profile in ['studentprofile', 'educatorprofile', 'mentorprofile', 'parentprofile']:
-                fieldlookup = profile + "__city__icontains"
-                queryset |= self.model.objects.filter(**{fieldlookup:bit})
+                queryset |= self.model.objects.filter(**{profile + "__city__icontains":bit})
 
             for profile in ['educatorprofile', 'familyprofile']:
                 queryset |= self.model.objects.filter(**{profile + "__location__city__icontains":bit})
-
-                queryset |= self.model.objects.filter(**{profile + "__location__state__icontains":bit})
-                value = Location.lookup_state_by(bit)
-                if value:
-                    queryset |= self.model.objects.filter(**{profile + "__location__state":value})
-
-                queryset |= self.model.objects.filter(**{profile + "__location__country__icontains":bit})
-                value = Location.lookup_country_by(bit)
-                if value:
-                    queryset |= self.model.objects.filter(**{profile + "__location__country":value})
 
         return queryset, use_distinct
 

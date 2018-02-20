@@ -130,8 +130,13 @@ def send_training_completion_notice(sender, **kwargs):
         "username": sender.username
     })
 
-@receiver(signals.student_password_changed)
-def send_student_password_change_notice(sender, student, resetter, **kwargs):
-    send(template_name='student-password-reset-in-membership', to=student, merge_vars={
-        'studentname': student.username
-    })
+@receiver(signals.member_password_changed)
+def send_member_password_change_notice(sender, member, resetter, **kwargs):
+    if member.extra.is_student:
+        send(template_name='student-password-reset-in-membership', to=member, merge_vars={
+            'studentname': member.username
+        })
+    elif member.extra.is_family:
+        send(template_name='family-account-password-changed', to=member, merge_vars={
+            'username': member.username
+        })
