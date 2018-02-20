@@ -86,6 +86,20 @@ class NullProfile(object):
         # https://docs.python.org/3/reference/datamodel.html#object.__getattr__
         return None
 
+class UserExtraQuerySet(models.QuerySet):
+    def role(self, role):
+        if type(role) == int:
+            role = UserRole(role)
+        elif type(role) == str:
+            role = UserRole[role.lower()]
+
+        return self.filter(role=role.value)
+
+    def inactive_since(self, days_ago):
+        startdate = now()
+        enddate = startdate - timedelta(days=days_ago)
+        return self.filter(last_active_on__lt=enddate)
+
 class UserExtra(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='extra')
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in UserRole], default=UserRole.none.value)
@@ -93,6 +107,8 @@ class UserExtra(models.Model):
     last_active_on = models.DateTimeField(default=now)
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
     first_login = models.BooleanField(default=True)
+
+    objects = UserExtraQuerySet.as_manager()
 
     @property
     def profile(self):
@@ -188,15 +204,15 @@ class UserExtra(models.Model):
         self.last_active_on = now()
         return self.save(update_fields=['last_active_on'])
 
-    def update_inactive_email_sent_on_and_save(self):
-        self.last_inactive_email_sent_on = now()
-        self.save(update_fields=['last_inactive_email_sent_on'])
-
     def check_for_profile(self):
         role = UserRole(self.role)
         if role.profile_attr and not hasattr(self.user, role.profile_attr):
             self.user.skip_welcome_email = True # can't check underage when profiles created this way
             role.profile_class.objects.create(user=self.user)
+
+for role in UserRole:
+    if role.app_name:
+        setattr(UserExtra, role.app_name, UserExtra.objects.role(role))
 
 class User(get_user_model()):
     class Meta:

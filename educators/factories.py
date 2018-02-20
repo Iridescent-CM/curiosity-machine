@@ -18,6 +18,7 @@ class EducatorProfileFactory(factory.django.DjangoModelFactory):
         model = EducatorProfile
 
     city = 'city'
+    location = factory.SubFactory('locations.factories.LocationFactory')
 
 @factory.django.mute_signals(handlers.post_save)
 class EducatorFactory(factory.django.DjangoModelFactory):

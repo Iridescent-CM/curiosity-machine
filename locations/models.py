@@ -11,6 +11,23 @@ US_STATE_CHOICES = sorted(
     key=itemgetter(1)
 )
 
+class LocationQuerySet(models.QuerySet):
+    def lookup(self, **kwargs):
+        if len(kwargs) != 1:
+            raise TypeError("Only one criteria may be given")
+        field, value = kwargs.popitem()
+
+        if field == "state":
+            code = Location.lookup_state_by(value)
+            if code:
+                return self.filter(state=code)
+        elif field == "country":
+            code = Location.lookup_country_by(value)
+            if code:
+                return self.filter(country=code)
+
+        return self.none()
+
 class Location(models.Model):
     country = models.CharField(
         max_length=2,
@@ -24,6 +41,7 @@ class Location(models.Model):
     )
     city = models.TextField()
 
+    objects = LocationQuerySet.as_manager()
 
     def __str__(self):
         country = "country=%s, " % pycountry.countries.get(alpha_2=self.country).name
@@ -32,3 +50,19 @@ class Location(models.Model):
             state = "state=%s, " % pycountry.subdivisions.get(code=self.state).name
         city = "city=%s" % self.city
         return country + state + city
+
+    @staticmethod
+    def lookup_state_by(value):
+        try:
+            state = pycountry.subdivisions.lookup(value)
+            return state.code
+        except LookupError:
+            return None
+
+    @staticmethod
+    def lookup_country_by(value):
+        try:
+            country = pycountry.countries.lookup(value)
+            return country.alpha_2
+        except LookupError:
+            return None
