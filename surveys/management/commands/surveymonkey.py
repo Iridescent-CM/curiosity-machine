@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from ...api import Surveymonkey
+from ...jobs import update_status
 import json
 import pprint
 
@@ -101,6 +102,24 @@ class Command(BaseCommand):
             help="JSON data to POST for webhook creation"
         )
 
+        update = subparsers.add_parser(
+            'update',
+            help='run update job',
+            description="Run update job for a survey response; run or re-run update job otherwise triggered by webhook"
+        )
+        update.add_argument(
+            "-s", "--survey-id",
+            action="store",
+            dest="survey_id",
+            help="Survey id"
+        )
+        update.add_argument(
+            "-r", "--response-id",
+            action="store",
+            dest="response_id",
+            help="Survey response id to update"
+        )
+
         curl = subparsers.add_parser(
             'curl',
             help='example curls statements',
@@ -164,6 +183,9 @@ class Command(BaseCommand):
         path = "webhooks/%s" % options.get('id')
         res = self.api.get(path)
         self.pp.pprint(res.json())
+
+    def handle_update(self, **options):
+        update_status(options.get('survey_id'), options.get('response_id'))
 
     def handle_curl(self, **options):
         token = settings.SURVEYMONKEY_ACCESS_TOKEN
