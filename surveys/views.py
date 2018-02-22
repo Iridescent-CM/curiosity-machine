@@ -35,6 +35,7 @@ class SurveyResponseHook(View):
                 survey_id = data['filter_id']
                 response_id = data['object_id']
                 django_rq.enqueue(update_status, survey_id, response_id)
+                logger.info("Update job queued for survey_id=%s response_id=%s", survey_id, response_id)
             except JSONDecodeError:
                 logger.error("Error decoding webhook request body as JSON: %s" % request.body)
                 raise

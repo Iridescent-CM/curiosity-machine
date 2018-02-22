@@ -25,6 +25,7 @@ def update_status(survey_id, response_id):
     if token:
         sr = SurveyResponse.objects.filter(id=token).first()
         if sr:
+            logger.info("SurveyResponse %s=%s moving to %s", token_var, token, new_status)
             status = ResponseStatus[new_status.upper()]
             Updating(sr, status).run()
         else:
