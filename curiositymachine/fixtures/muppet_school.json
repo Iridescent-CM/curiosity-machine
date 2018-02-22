@@ -484,8 +484,7 @@
   "pk": 1,
   "fields": {
     "name": "Neuroscience",
-    "icon": "icon-neuroscience",
-    "color": "#84af49"
+    "icon": "icon-neuroscience"
   }
 },
 {
@@ -493,8 +492,7 @@
   "pk": 2,
   "fields": {
     "name": "Ocean",
-    "icon": "icon-ocean",
-    "color": "#84af49"
+    "icon": "icon-ocean"
   }
 },
 {
@@ -502,8 +500,7 @@
   "pk": 3,
   "fields": {
     "name": "Civil Engineering",
-    "icon": "icon-civil",
-    "color": "#84af49"
+    "icon": "icon-civil"
   }
 },
 {
@@ -511,8 +508,7 @@
   "pk": 4,
   "fields": {
     "name": "Electrical Engineering",
-    "icon": "icon-electrical",
-    "color": "#f16243"
+    "icon": "icon-electrical"
   }
 },
 {
@@ -520,8 +516,7 @@
   "pk": 5,
   "fields": {
     "name": "Food Science",
-    "icon": "icon-food",
-    "color": "#f1ac43"
+    "icon": "icon-food"
   }
 },
 {
@@ -529,8 +524,7 @@
   "pk": 6,
   "fields": {
     "name": "Art of Science",
-    "icon": "icon-art",
-    "color": "#f16243"
+    "icon": "icon-art"
   }
 },
 {
@@ -538,8 +532,7 @@
   "pk": 7,
   "fields": {
     "name": "Satellite Systems",
-    "icon": "icon-satellite",
-    "color": "#f1ac43"
+    "icon": "icon-satellite"
   }
 },
 {
@@ -547,8 +540,7 @@
   "pk": 8,
   "fields": {
     "name": "Biomechanics",
-    "icon": "icon-biomechanics",
-    "color": "#f1ac43"
+    "icon": "icon-biomechanics"
   }
 },
 {
@@ -556,8 +548,7 @@
   "pk": 9,
   "fields": {
     "name": "Ocean Engineering",
-    "icon": "icon-ocean",
-    "color": "#44b1f5"
+    "icon": "icon-ocean"
   }
 },
 {
@@ -565,8 +556,7 @@
   "pk": 10,
   "fields": {
     "name": "Biomimicry",
-    "icon": "icon-biomimicry",
-    "color": "#1bb2c4 "
+    "icon": "icon-biomimicry"
   }
 },
 {
@@ -574,8 +564,7 @@
   "pk": 11,
   "fields": {
     "name": "Aerospace",
-    "icon": "icon-aerospace",
-    "color": "#44b1f5"
+    "icon": "icon-aerospace"
   }
 },
 {
@@ -583,8 +572,7 @@
   "pk": 12,
   "fields": {
     "name": "Robotics",
-    "icon": "icon-robotics",
-    "color": "#f16243"
+    "icon": "icon-robotics"
   }
 },
 {
@@ -592,8 +580,7 @@
   "pk": 13,
   "fields": {
     "name": "Computer Science",
-    "icon": "icon-compsci",
-    "color": "#44b1f5"
+    "icon": "icon-compsci"
   }
 },
 {
@@ -601,8 +588,7 @@
   "pk": 14,
   "fields": {
     "name": "Mechanical  Engineering",
-    "icon": "icon-engineer",
-    "color": "#1bb2c4"
+    "icon": "icon-engineer"
   }
 },
 {
@@ -610,8 +596,7 @@
   "pk": 15,
   "fields": {
     "name": "Materials Science",
-    "icon": "icon-materials",
-    "color": "#84af49"
+    "icon": "icon-materials"
   }
 },
 {
@@ -3859,7 +3844,6 @@
   "pk": 1,
   "fields": {
     "name": "Free Challenges",
-    "color": "#8faf49",
     "header_template": "",
     "created_at": "2018-01-26T22:34:29.678Z",
     "updated_at": "2018-01-26T22:34:29.679Z",
@@ -3872,7 +3856,6 @@
   "pk": 2,
   "fields": {
     "name": "Most Popular",
-    "color": "#f16243",
     "header_template": null,
     "created_at": "2018-01-26T22:34:29.681Z",
     "updated_at": "2018-01-26T22:34:29.692Z",
@@ -3889,7 +3872,6 @@
   "pk": 3,
   "fields": {
     "name": "Good for Groups",
-    "color": "#f16243",
     "header_template": null,
     "created_at": "2018-01-26T22:34:29.694Z",
     "updated_at": "2018-01-26T22:34:29.701Z",
@@ -3905,7 +3887,6 @@
   "pk": 4,
   "fields": {
     "name": "Inspired by Nature",
-    "color": "#f1ac43",
     "header_template": null,
     "created_at": "2018-01-26T22:34:29.703Z",
     "updated_at": "2018-01-26T22:34:29.707Z",
@@ -3920,7 +3901,6 @@
   "pk": 5,
   "fields": {
     "name": "New Challenges",
-    "color": "#f16243",
     "header_template": null,
     "created_at": "2018-01-26T22:34:29.709Z",
     "updated_at": "2018-01-26T22:34:29.712Z",
@@ -3935,7 +3915,6 @@
   "pk": 6,
   "fields": {
     "name": "Inspired by <i class=\"icon-boeing-logo\"></i>",
-    "color": "#f1ac43",
     "header_template": "challenges/filters/inspired_by_boeing.html",
     "created_at": "2018-01-26T22:34:29.714Z",
     "updated_at": "2018-01-26T22:34:29.718Z",
@@ -3950,7 +3929,6 @@
   "pk": 7,
   "fields": {
     "name": "Free Challenges",
-    "color": "#eeeeee",
     "header_template": "",
     "created_at": "2018-01-26T22:34:29.720Z",
     "updated_at": "2018-01-26T22:34:29.753Z",

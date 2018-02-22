@@ -51,12 +51,5 @@ def basic_users():
 def basic_challenges():
     ChallengeFactory.create_batch(30, draft=False)
 
-def better_challenges():
-    load_fixture(os.path.join(settings.BASE_DIR, 'curiositymachine/fixtures/staging.json'))
-
 def muppet_school():
     load_fixture(os.path.join(settings.BASE_DIR, 'curiositymachine/fixtures/muppet_school.json'))
-
-def staging():
-    basic_users()
-    better_challenges()
