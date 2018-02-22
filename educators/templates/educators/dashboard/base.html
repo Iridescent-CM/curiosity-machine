@@ -5,11 +5,10 @@
 {% block body-classes %}educator-dashboard{% endblock %}
 
 {% block container %}
-  <div class="educator-dashboard-header py-2 mb-1">
+  <div class="educator-dashboard-header pb-2 mb-1">
   {% if not "Organic_2018aicoaches" in membership_selection.names %}
   <div class="ai-banner-position" >
-      <div class="container"></div>
-      {% url "families:conversion" as banner_url %}
+      {% url "educators:educator_conversion" as banner_url %}
       {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   </div>
   {% endif %}
