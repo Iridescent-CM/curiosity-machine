@@ -37,6 +37,7 @@ class Updating:
 
         status = survey_response.status
 
+        logger.info("Updating %s -> %s", survey_response, new_status)
         if status == new_status:
             return survey_response
 
