@@ -13,7 +13,7 @@ from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, RedirectView, TemplateView, UpdateView, View
 from memberships.helpers.selectors import GroupSelector
-from memberships.models import Member
+from memberships.models import Member, Membership
 from profiles.decorators import only_for_role, UserRole
 from profiles.views import EditProfileMixin
 from rest_framework import generics, permissions
@@ -26,6 +26,10 @@ from .forms import *
 from .models import *
 from .serializers import *
 from .sorting import *
+from django.conf import settings
+
+def show_ai_banner(membership_selection):
+    return not any(membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID) for membership in list(membership_selection.all))
 
 only_for_educator = only_for_role(UserRole.educator)
 
@@ -73,6 +77,7 @@ class ChallengesView(TemplateView):
             "membership_challenges": membership_challenges,
             "core_challenges": core_challenges,
             "membership_selection": membership_selection,
+            "show_ai_banner": show_ai_banner(membership_selection),
             "group_selector": gs,
         })
 
@@ -118,6 +123,7 @@ class ChallengeView(TemplateView):
             "students": students,
             "student_ids_with_examples": student_ids_with_examples,
             "membership_selection": membership_selection,
+            "show_ai_banner": show_ai_banner(membership_selection),
             "sorter": sorter,
             "group_selector": gs,
         })
@@ -148,6 +154,7 @@ class StudentsView(TemplateView):
             "students": students,
             "group_selector": gs,
             "membership_selection": membership_selection,
+            "show_ai_banner":  show_ai_banner(membership_selection),
             "sorter": sorter,
         })
         return super().get_context_data(**kwargs)
@@ -187,6 +194,7 @@ class StudentView(TemplateView):
             "progresses": progresses,
             "completed_count": len([p for p in progresses if p.complete]),
             "membership_selection": membership_selection,
+            "show_ai_banner": show_ai_banner(membership_selection),
             "sorter": sorter,
             "graph_data_url": graph_data_url,
         })
@@ -252,6 +260,7 @@ class GuidesView(TemplateView):
             "membership": membership,
             "extra_units": extra_units,
             "membership_selection": membership_selection,
+            "show_ai_banner": show_ai_banner(membership_selection),
         })
 
         return super().get_context_data(**kwargs)
