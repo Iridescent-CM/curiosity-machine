@@ -7,8 +7,8 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.http import JsonResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, RedirectView, TemplateView, UpdateView, View
@@ -321,3 +321,32 @@ class CoachView(RedirectView):
         return super().get(request, *args, **kwargs)
 
 coach = CoachView.as_view()
+
+class CoachConversionView(TemplateView):
+    http_method_names = ['post', 'get']
+
+    def get(self, request, *args, **kwargs):
+        user_memberships = self.request.user.membership_set.filter(is_active=True)
+        for membership in user_memberships:
+            if membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID):
+                messages.success(self.request, "You are already in the AI family coach membership!")
+                return HttpResponseRedirect(reverse("educators:home"))
+        return render(request,'educators/coach_conversion.html')
+
+    def post(self, request, *args, **kwargs):
+        user_memberships = self.request.user.membership_set.filter(is_active=True)
+        for membership in user_memberships:
+            if membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID):
+                messages.success(self.request, "You are already in the AI family coach membership!.")
+                return HttpResponseRedirect(reverse("educators:home"))
+
+        membership = Membership.objects.get(pk=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
+        member = Member(user=self.request.user, membership=membership)
+        member.save()
+        membership.member_set.add(member)
+        membership.save()
+
+        messages.success(self.request, "You are now in the AI family coach membership!")
+        return HttpResponseRedirect(reverse("educators:home"))
+
+coach_conversion = CoachConversionView.as_view(template_name="educators/coach_conversion.html")

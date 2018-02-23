@@ -9,7 +9,7 @@
   {% if show_ai_banner == True %}
   <div class="educator-dashboard-header pb-2 mb-1">
   <div class="ai-banner-position" >
-      {% url "educators:educator_conversion" as banner_url %}
+      {% url "educators:coach_conversion" as banner_url %}
       {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   </div>
   {% else %}
@@ -58,6 +58,14 @@
         </div>
       </div>
       {% impact_survey %}
+      {% if messages %}{% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ message }}
+        </div>
+      {% endfor %}{% endif %}
     </div>
   </div>
   <div class="container mb-3">
