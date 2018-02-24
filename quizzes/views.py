@@ -24,14 +24,13 @@ def make_comment(request, challenge_id, username, stage):
     if form.is_valid():
         result = form.get_result(request.user)
         result.save()
-        comment = Comment(
+        Commenting(
             user=request.user,
             text=result.comment_text,
             challenge_progress=progress,
             stage=stage.value,
             question_text="Reflection quiz"
-        )
-        comment.save()
+        ).comment()
     else:
         # TODO: do better
         messages.error(request, 'Please answer all questions')

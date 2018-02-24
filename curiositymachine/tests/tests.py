@@ -364,43 +364,6 @@ def test_challenge_access_decorator_allows_connected_parent(rf):
     assert view.called
 
 @pytest.mark.django_db
-def test_signal_student_posted_comment():
-    handler = mock.MagicMock()
-    signals.posted_comment.connect(handler)
-
-    progress = ProgressFactory()
-    comment = progress.comments.create(user=progress.owner, text="comment", stage=1)
-
-    handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.owner, comment=comment)
-
-@pytest.mark.django_db
-def test_signal_mentor_posted_comment():
-    handler = mock.MagicMock()
-    signals.posted_comment.connect(handler)
-
-    mentor = MentorFactory()
-    progress = ProgressFactory(mentor=mentor)
-    comment = progress.comments.create(user=progress.mentor, text="comment", stage=1)
-
-    handler.assert_called_once_with(signal=signals.posted_comment, sender=progress.mentor, comment=comment)
-
-@pytest.mark.django_db
-def test_signal_progress_considered_complete():
-    handler = mock.MagicMock()
-    signal = signals.progress_considered_complete
-    signal.connect(handler)
-
-    handler2 = mock.MagicMock()
-    signals.posted_comment.connect(handler2)
-
-    progress = ProgressFactory()
-    mentor = MentorFactory()
-    first_reflect_post = ReflectionCommentFactory(challenge_progress=progress, user=progress.owner)
-
-    handler.assert_called_once_with(signal=signal, sender=progress.owner, progress=progress)
-    handler2.assert_not_called()
-
-@pytest.mark.django_db
 def test_signal_inspiration_gallery_submission_created():
     handler = mock.MagicMock()
     signal = signals.inspiration_gallery_submission_created

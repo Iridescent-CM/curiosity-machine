@@ -68,62 +68,6 @@ def send_example_approval_notices(sender, queryset, **kwargs):
             'inspiration_url': url_for_template(path)
         })
 
-@receiver(signals.progress_considered_complete)
-def send_mentor_progress_completion_notice(sender, progress, **kwargs):
-    if progress.mentor:
-        path = reverse('challenges:challenge_progress', kwargs={
-            "challenge_id": progress.challenge.id,
-            "username": sender.username
-        })
-        send(template_name='mentor-student-completed-project', to=progress.mentor, merge_vars={
-            "studentname": progress.owner.username,
-            "progress_url": url_for_template(path),
-        })
-
-@receiver(signals.progress_considered_complete)
-def send_student_challenge_share_encouragement(sender, progress, **kwargs):
-    path = reverse('challenges:examples', kwargs={
-        "challenge_id": progress.challenge.id
-    })
-    send(template_name='student-completed-project', to=progress.owner, merge_vars={
-        "studentname": progress.owner.username,
-        "challengename": progress.challenge.name,
-        "inspiration_url": url_for_template(path)
-    })
-
-@receiver(signals.posted_comment)
-def send_mentor_progress_update_notice(sender, comment, **kwargs):
-    progress = comment.challenge_progress
-
-    if not progress.mentor:
-        return
-
-    if sender.extra.is_student:
-        path = reverse('challenges:challenge_progress', kwargs={
-            "challenge_id": progress.challenge.id,
-            "username": sender.username,
-            "stage": Stage(comment.stage).name
-        })
-        send(template_name='mentor-student-responded-to-feedback', to=progress.mentor, merge_vars={
-            "studentname": sender.username,
-            "progress_url": url_for_template(path)
-        })
-
-@receiver(signals.posted_comment)
-def send_student_mentor_response_notice(sender, comment, **kwargs):
-    progress = comment.challenge_progress
-
-    if sender.extra.is_mentor:
-        path = reverse('challenges:challenge_progress', kwargs={
-            "challenge_id": progress.challenge.id,
-            "username": progress.owner.username,
-            "stage": Stage(comment.stage).name
-        })
-        send(template_name='student-mentor-feedback', to=progress.owner, merge_vars={
-            "studentname": progress.owner.username,
-            "button_url": url_for_template(path)
-        })
-
 @receiver(signals.completed_training)
 def send_training_completion_notice(sender, **kwargs):
     send(template_name='mentor-account-approved', to=sender, merge_vars={

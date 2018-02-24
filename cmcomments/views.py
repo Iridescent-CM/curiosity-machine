@@ -37,7 +37,7 @@ def comments(request, challenge_id, username, stage):
                 stage = Stage[request.POST['stepSelector']]
             except KeyError:
                 raise Http404
-        comment = Comment(
+        Commenting(
             user=request.user,
             text=form.cleaned_data['text'],
             challenge_progress=progress,
@@ -45,8 +45,7 @@ def comments(request, challenge_id, username, stage):
             video=video,
             stage=stage.value,
             question_text=form.cleaned_data['question_text']
-        )
-        comment.save()
+        ).comment()
     else:
         logger.info("Invalid comment: " + form.errors.as_json())
 
