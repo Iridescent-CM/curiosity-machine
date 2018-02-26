@@ -43,31 +43,6 @@ def send_underage_activation_confirmation(sender, **kwargs):
         'studentname': sender.username
     })
 
-@receiver(signals.inspiration_gallery_submission_created)
-def send_example_submission_notice(sender, example, **kwargs):
-    send(template_name='student-submitted-example', to=sender, merge_vars={
-        'challengename': example.challenge.name,
-        'challenges_url': url_for_template(reverse('challenges:challenges'))
-    })
-
-@receiver(signals.inspiration_gallery_submissions_rejected)
-def send_example_rejection_notices(sender, queryset, **kwargs):
-    for example in queryset.all():
-        path = reverse("challenges:examples", kwargs={ "challenge_id": example.challenge.id })
-        send(template_name='student-example-declined', to=example.progress.owner, merge_vars={
-            'challengename': example.challenge.name,
-            'inspiration_url': url_for_template(path),
-        })
-
-@receiver(signals.inspiration_gallery_submissions_approved)
-def send_example_approval_notices(sender, queryset, **kwargs):
-    for example in queryset.all():
-        path = reverse("challenges:examples", kwargs={ "challenge_id": example.challenge.id })
-        send(template_name='student-example-approved', to=example.progress.owner, merge_vars={
-            'challengename': example.challenge.name,
-            'inspiration_url': url_for_template(path)
-        })
-
 @receiver(signals.completed_training)
 def send_training_completion_notice(sender, **kwargs):
     send(template_name='mentor-account-approved', to=sender, merge_vars={
