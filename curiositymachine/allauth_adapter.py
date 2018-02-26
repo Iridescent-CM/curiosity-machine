@@ -1,4 +1,5 @@
 from allauth.account.adapter import DefaultAccountAdapter
+from curiositymachine.context_processors.google_analytics import add_event
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import MultipleObjectsReturned
@@ -36,3 +37,8 @@ class AllAuthAdapter(DefaultAccountAdapter):
             return super().authenticate(request, **credentials)
         except MultipleObjectsReturned:
             logger.error("Duplicate usernames found on login for %s:" % credentials.get("username"), exc_info=True)
+
+    def save_user(self, request, user, form, commit=True):
+        user = super().save_user(request, user, form, commit=commit)
+        add_event(request, "account", "create")
+        return user
