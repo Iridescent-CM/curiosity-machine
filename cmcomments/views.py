@@ -11,6 +11,7 @@ from cmcomments.forms import CommentForm
 from curiositymachine.decorators import current_user_or_approved_viewer
 from videos.models import Video
 from images.models import Image
+from .commenting import Commenting
 import django_rq
 import logging
 

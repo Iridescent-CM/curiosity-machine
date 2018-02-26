@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from curiositymachine.decorators import mentor_or_current_user
 from challenges.models import Challenge, Progress, Stage
-from cmcomments.models import Comment
+from cmcomments.commenting import Commenting
 from .forms import QuizForm
 
 @require_POST
