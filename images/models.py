@@ -2,6 +2,9 @@ from django.db import models
 from django.conf import settings
 from curiositymachine.tasks import upload_to_s3
 import django_rq
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Image(models.Model):
     source_url = models.URLField(max_length=2048, blank=True)
@@ -17,6 +20,9 @@ class Image(models.Model):
 
     @classmethod
     def from_source_with_job(cls, source_url):
+        if not source_url:
+            logger.warn("No source url provided for Image", stack_info=True)
+            return None
         image = cls.objects.create(source_url=source_url)
         image.fetch_from_source()
         return image
