@@ -7,7 +7,7 @@ __all__ = ['google_analytics']
 
 SESSION_KEY = '_ga_events'
 
-def add_event(request, category, action, label):
+def add_event(request, category, action, label=""):
     if SESSION_KEY not in request.session:
         request.session[SESSION_KEY] = []
     request.session[SESSION_KEY].append({
@@ -15,6 +15,9 @@ def add_event(request, category, action, label):
         'action': action,
         'label': label
     })
+
+def get_events(request):
+    return request.session.pop(SESSION_KEY, [])
 
 def google_analytics(request):
     if not request.user.is_authenticated():
@@ -46,8 +49,8 @@ def google_analytics(request):
         free_user = "Membership" if request.user.extra.in_active_membership else "Free"
         membership_grouping = "-".join([str(id) for id in request.user.membership_set.filter(is_active=True).order_by('id').values_list('id', flat=True)])
 
-    def get_events():
-        return request.session.pop(SESSION_KEY, [])
+    def ga_events():
+        return get_events(request)
 
     return {
         'ga_code': settings.GA_CODE,
@@ -55,6 +58,6 @@ def google_analytics(request):
         'ga_user_id': userid,
         'ga_dimension_free_user': free_user,
         'ga_membership_grouping': membership_grouping,
-        'ga_events': get_events,
+        'ga_events': ga_events,
     }
 

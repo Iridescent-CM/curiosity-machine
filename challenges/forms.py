@@ -46,25 +46,12 @@ class MaterialsForm(forms.Form):
 
 class ThemeForm(forms.ModelForm):
     class Meta:
-        fields = ['name', 'icon', 'color']
+        fields = ['name', 'icon']
         widgets = {
             'name': TextInput,
             'icon': TextInput,
-            'color': TextInput
         }
-
-    def clean_color(self):
-        color = self.cleaned_data.get('color')
-        if color[0] != '#':
-            color = '#' + color
-        return color
 
 class FilterForm(forms.ModelForm):
     class Meta:
-        fields = ['name', 'color', 'visible']
-
-    def clean_color(self):
-        color = self.cleaned_data.get('color')
-        if color[0] != '#':
-            color = '#' + color
-        return color
+        fields = ['name', 'visible']

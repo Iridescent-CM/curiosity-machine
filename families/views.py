@@ -9,7 +9,7 @@ from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
 from surveys import get_survey
-from .aichallenge import Stage
+from .aichallenge import get_stages, Stage
 from .forms import *
 from .models import *
 
@@ -74,10 +74,7 @@ class HomeView(DashboardMixin, TemplateView):
     def get_context_data(self, **kwargs):
         return super().get_context_data(
             **kwargs,
-            stages=[
-                Stage(1, self.request.user),
-                Stage(2, self.request.user)
-            ],
+            stages=get_stages(self.request.user),
         )
 
 home = only_for_family(HomeView.as_view())
@@ -89,7 +86,7 @@ class StageView(DashboardMixin, TemplateView):
         super().__init__(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        stage = Stage(self.stagenum, self.request.user)
+        stage = Stage.from_config(self.stagenum, user=self.request.user)
         kwargs["challenges"] = stage.challenges
         kwargs["units"] = stage.units
         return super().get_context_data(**kwargs)

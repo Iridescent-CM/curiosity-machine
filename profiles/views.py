@@ -1,4 +1,5 @@
 from allauth.account.models import EmailAddress
+from curiositymachine.context_processors.google_analytics import add_event
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
@@ -37,3 +38,11 @@ class EditProfileMixin():
             email=EmailAddress.objects.get_primary(self.request.user),
             **kwargs
         )
+
+    def _is_create(self):
+        return not self.object
+
+    def form_valid(self, form):
+        if self._is_create():
+            add_event(self.request, "profile", "create", form.get_role().name)
+        return super().form_valid(form)

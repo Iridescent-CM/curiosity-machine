@@ -3,49 +3,68 @@ from challenges.models import Stage as CommentStage
 from django.conf import settings
 from units.models import Unit
 
-class Stage:
-    def __init__(self, stagenum, user=None, *args, **kwargs):
-        self.number = stagenum
-        self.user = user
-        self.config = settings.AICHALLENGE_STAGES[stagenum]
+def get_stages(user=None):
+    return [Stage.from_config(num, user=user) for num in settings.AICHALLENGE_STAGES]
 
-    @property
-    def challenges(self):
+class Stage:
+    @classmethod
+    def from_config(cls, stagenum, user=None, config=None):
+        config = config or settings.AICHALLENGE_STAGES[stagenum]
+
         challenges = sorted(
-            Challenge.objects.filter(id__in=self.config['challenges']),
-            key=lambda c: self.config['challenges'].index(c.id)
+            Challenge.objects.filter(id__in=config['challenges']),
+            key=lambda c: config['challenges'].index(c.id)
         )
 
-        if self.user:
+        progresses = None
+        if user:
             progresses = Progress.objects.filter(
-                owner=self.user,
-                challenge_id__in=self.config['challenges']
+                owner=user,
+                challenge_id__in=config['challenges']
             )
-            prog_by_challenge_id = {p.challenge_id: p for p in progresses}
 
-            for challenge in challenges:
-                challenge.state = "not-started"
-                if challenge.id in prog_by_challenge_id:
-                    progress = prog_by_challenge_id[challenge.id]
-                    if progress.completed:
-                        challenge.state = "completed"
-                    else:
-                        challenge.state = "started"
+        units = sorted(
+            Unit.objects.filter(id__in=config['units']),
+            key=lambda u: config['units'].index(u.id)
+        )
+
+        return cls(stagenum, challenges, units, progresses)
+
+    def __init__(self, number, challenges, units, user_progresses=None):
+        self.number = number
+        self.challenges = self._decorate(challenges, user_progresses)
+        self.units = units
+
+    def _decorate(self, challenges, progresses=None):
+        if not progresses:
+            return challenges
+
+        prog_by_challenge_id = {p.challenge_id: p for p in progresses}
+
+        for challenge in challenges:
+            challenge.state = "not-started"
+            if challenge.id in prog_by_challenge_id:
+                progress = prog_by_challenge_id[challenge.id]
+                if progress.completed:
+                    challenge.state = "completed"
+                else:
+                    challenge.state = "started"
 
         return challenges
-
-    @property
-    def units(self):
-        return sorted(
-            Unit.objects.filter(id__in=self.config['units']),
-            key=lambda u: self.config['units'].index(u.id)
-        )
 
     @property
     def stats(self):
         stats = {}
         challenges = self.challenges
         stats["total"] = len(challenges)
-        stats["completed"] = len([c for c in challenges if c.state == "completed"])
+        stats["completed"] = len([c for c in challenges if getattr(c, "state", None) == "completed"])
         stats["percent_complete"] = round((stats["completed"] / stats["total"]) * 100) if stats["total"] > 0 else 0
         return stats
+
+    @property
+    def is_complete(self):
+        return self.stats["percent_complete"] == 100
+
+    def has_challenge(self, challenge_or_id):
+        challenge_id = challenge_or_id if type(challenge_or_id) == int else challenge_or_id.id
+        return challenge_id in [c.id for c in self.challenges]
