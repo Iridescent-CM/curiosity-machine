@@ -11,6 +11,7 @@ from cmcomments.forms import CommentForm
 from curiositymachine.decorators import current_user_or_approved_viewer
 from videos.models import Video
 from images.models import Image
+from .commenting import Commenting
 import django_rq
 import logging
 
@@ -37,7 +38,7 @@ def comments(request, challenge_id, username, stage):
                 stage = Stage[request.POST['stepSelector']]
             except KeyError:
                 raise Http404
-        comment = Comment(
+        Commenting(
             user=request.user,
             text=form.cleaned_data['text'],
             challenge_progress=progress,
@@ -45,8 +46,7 @@ def comments(request, challenge_id, username, stage):
             video=video,
             stage=stage.value,
             question_text=form.cleaned_data['question_text']
-        )
-        comment.save()
+        ).comment()
     else:
         logger.info("Invalid comment: " + form.errors.as_json())
 

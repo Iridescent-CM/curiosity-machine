@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from curiositymachine.decorators import mentor_or_current_user
 from challenges.models import Challenge, Progress, Stage
-from cmcomments.models import Comment
+from cmcomments.commenting import Commenting
 from .forms import QuizForm
 
 @require_POST
@@ -24,14 +24,13 @@ def make_comment(request, challenge_id, username, stage):
     if form.is_valid():
         result = form.get_result(request.user)
         result.save()
-        comment = Comment(
+        Commenting(
             user=request.user,
             text=result.comment_text,
             challenge_progress=progress,
             stage=stage.value,
             question_text="Reflection quiz"
-        )
-        comment.save()
+        ).comment()
     else:
         # TODO: do better
         messages.error(request, 'Please answer all questions')
