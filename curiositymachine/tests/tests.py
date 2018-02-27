@@ -363,42 +363,6 @@ def test_challenge_access_decorator_allows_connected_parent(rf):
     response = wrapped(request, challenge_id=1, username='student')
     assert view.called
 
-@pytest.mark.django_db
-def test_signal_inspiration_gallery_submission_created():
-    handler = mock.MagicMock()
-    signal = signals.inspiration_gallery_submission_created
-    signal.connect(handler)
-
-    example = ExampleFactory()
-
-    handler.assert_called_once_with(signal=signal, sender=example.progress.owner, example=example)
-
-@pytest.mark.django_db
-def test_signal_inspiration_gallery_submissions_rejected():
-    handler = mock.MagicMock()
-    signal = signals.inspiration_gallery_submissions_rejected
-    signal.connect(handler)
-
-    example = ExampleFactory()
-    user = UserFactory()
-    qs = Example.objects.all()
-    qs.reject(user=user)
-
-    handler.assert_called_once_with(signal=signal, sender=user, queryset=qs)
-
-@pytest.mark.django_db
-def test_signal_inspiration_gallery_submissions_approved():
-    handler = mock.MagicMock()
-    signal = signals.inspiration_gallery_submissions_approved
-    signal.connect(handler)
-
-    example = ExampleFactory()
-    user = UserFactory()
-    qs = Example.objects.all()
-    qs.approve(user=user)
-
-    handler.assert_called_once_with(signal=signal, sender=user, queryset=qs)
-
 def test_mediaurlfield_value_is_dictionary():
     class MyForm(forms.Form):
         mediaURL = MediaURLField()

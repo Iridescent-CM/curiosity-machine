@@ -247,12 +247,10 @@ class ExampleQuerySet(models.QuerySet):
             return self
 
     def reject(self, user=None):
-        signals.inspiration_gallery_submissions_rejected.send(sender=user, queryset=self)
         return self.update(approved=False)
     reject.queryset_only = True
 
     def approve(self, user=None):
-        signals.inspiration_gallery_submissions_approved.send(sender=user, queryset=self)
         return self.update(approved=True)
     approve.queryset_only = True
 
