@@ -41,7 +41,7 @@ class Command(BaseCommand):
         if verbose:
             self.stdout.write(self.style.NOTICE("Searching from %s to %s" % (cutoff_date.date(), current_date.date())))
         for i, page in enumerate(api.completed_signature_requests(cutoff_date.date(), current_date.date())):
-            if verbose:
+            if debug:
                 self.stdout.write(self.style.NOTICE("Processing page %d, %d signatures" % (i+1, len(page))))
             for signature in page:
                 if debug:
@@ -49,13 +49,13 @@ class Command(BaseCommand):
                 metadata = signature.get("metadata", {})
                 if metadata.get("template_id") in options['template_ids']:
                     sig_id = metadata['signature_id']
-                    if verbose:
+                    if debug:
                         self.stdout.write(self.style.SUCCESS("%s signed" % sig_id))
                     approved.append(sig_id)
 
         for signature in Signature.objects.filter(~Q(status=SignatureStatus.SIGNED)).filter(id__in=approved).all():
             if verbose:
-                self.stdout.write(self.style.SUCCESS("Updating %s" % signature.id))
+                self.stdout.write(self.style.SUCCESS("Updating %s -> SIGNED" % signature.id))
             Updating(signature, SignatureStatus.SIGNED).run()
         if verbose:
             self.stdout.write(self.style.SUCCESS("Done."))
