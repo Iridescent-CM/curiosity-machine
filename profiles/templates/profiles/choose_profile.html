@@ -12,15 +12,32 @@
     <p>
       The <a href="{% url "aichallenge" %}">AI Family Challenge</a> is a year long program meant for kids age 8-15 and their families. In this program, families work and learn together by completing a series of design challenges and create something to help solve a problem they’ve identified in their community. They accomplish this by using the skills and technology they’ve learned in this program!
     </p>
-    <p>
-      You only need one account for your entire Family!
-    </p>
-    <a class="btn btn-primary my-2" href="{% url "families:create_profile" %}">Make a family account</a>
-
-    <p>
-      Sign up with a coach account if you would like to lead the curriculum with your students and have access to more resources pertaining to the AI Challenge!
-    </p>
-    <a class="btn btn-primary my-2" href="{% url "educators:create_coach" %}">Make a coach account</a>
+    <div class="row mt-2">
+      <div class="col-lg-5">
+        <a href="{% url "families:create_profile" %}">
+          <img src="{% static "images/parent.png" %}" alt="Family">
+        </a>
+      </div>
+      <div class="col-lg-7 my-3">
+        <p>
+          You only need one account for your entire Family!
+        </p>
+        <a class="btn btn-primary" href="{% url "families:create_profile" %}">Make a family account</a>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-lg-5">
+        <a href="{% url "educators:create_coach" %}">
+          <img src="{% static "images/educator.png" %}" alt="Coach">
+        </a>
+      </div>
+      <div class="col-lg-7 my-3">
+        <p>
+          Sign up with a coach account if you would like to lead the curriculum with your students and have access to more resources pertaining to the AI Challenge!
+        </p>
+        <a class="btn btn-primary" href="{% url "educators:create_coach" %}">Make a coach account</a>
+      </div>
+    </div>
   </div>
 
   <h2 class="my-3">Not interested? Choose one of the other ways to join Curiosity Machine:</h2>
@@ -31,43 +48,28 @@
 
   {% url "students:create_profile" as student_url %}
   <div class="card card-block mb-2">
-    <a href="{{ student_url }}">
-      <img src="{% static "images/student.png" %}" alt="Student">
-    </a>
-    <div class="card-content">
       <h4>Student</h4>
       <p>
         build and document projects using the engineering design process
       </p>
       <a class="btn btn-primary" href="{{ student_url }}">I am a student</a>
-    </div>
   </div>
 
   {% url "educators:create_profile" as educator_url %}
   <div class="card card-block mb-2">
-    <a href="{{ educator_url }}">
-      <img src="{% static "images/educator.png" %}" alt="Educator">
-    </a>
-    <div class="card-content">
       <h4>Educator</h4>
       <p>
         find resources to teach engineering challenges
       </p>
       <a class="btn btn-primary" href="{{ educator_url }}">I am an educator</a>
-    </div>
   </div>
 
   {% url "parents:create_profile" as parent_url %}
   <div class="card card-block mb-2">
-    <a href="{{ parent_url }}">
-      <img src="{% static "images/parent.png" %}" alt="Parent">
-    </a>
-    <div class="card-content">
       <h4>Parent</h4>
       <p>
         connect to your child’s account and learn how to build together
       </p>
       <a class="btn btn-primary" href="{{ parent_url }}">I am a parent</a>
-    </div>
   </div>
 {% endblock %}
