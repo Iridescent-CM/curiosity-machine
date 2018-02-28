@@ -6496,8 +6496,8 @@ footer {
   display: initial; }
 
 .educator-dashboard .ai-banner-margins {
-  margin-top: -30px;
-  margin-bottom: 36px; }
+  margin-top: -30px; }
+  
 .family-dashboard .dashboard-header {
   background-color: #1f1f1f;
   background-image: url("../images/design-challenge-repeating-pattern.png");

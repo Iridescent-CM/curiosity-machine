@@ -5,16 +5,13 @@
 {% block body-classes %}educator-dashboard{% endblock %}
 
 {% block container %}
-
-  {% if not user_is_coach and flags.enable_ai_banner %}
-  <div class="educator-dashboard-header pb-2 mb-1">
+{% if not user_is_coach and flags.enable_ai_banner %}
   <div class="ai-banner-margins">
-      {% url "educators:coach_conversion" as banner_url %}
-      {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
+    {% url "educators:coach_conversion" as banner_url %}
+    {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   </div>
-  {% else %}
+{% endif %}
   <div class="educator-dashboard-header py-2 mb-1">
-  {% endif %}
     <div class="container">
       <div class="row">
         <div class="col-md-12">
