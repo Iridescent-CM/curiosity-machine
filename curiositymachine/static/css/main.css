@@ -6495,8 +6495,8 @@ footer {
 .educator-dashboard .submit-message.submitted .after-submit {
   display: initial; }
 
-.educator-dashboard .ai-banner-position {
-  margin-top: -28px;
+.educator-dashboard .ai-banner-margins {
+  margin-top: -30px;
   margin-bottom: 36px; }
 .family-dashboard .dashboard-header {
   background-color: #1f1f1f;
