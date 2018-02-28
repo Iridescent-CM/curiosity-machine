@@ -6,7 +6,7 @@
 
 {% block container %}
 
-  {% if user_is_coach == True and flags.enable_ai_banner %}
+  {% if not user_is_coach and flags.enable_ai_banner %}
   <div class="educator-dashboard-header pb-2 mb-1">
   <div class="ai-banner-margins">
       {% url "educators:coach_conversion" as banner_url %}
