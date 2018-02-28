@@ -1,0 +1,34 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% block body-classes %}about-pages{% endblock %}
+
+{% block content %}
+{% with active_nav="ai-challenge" source="aichallenge" %}
+  {{ block.super }}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+        <h2>Join the AI Family Challenge:<br />Switch to a Coach Account</h2>
+
+        <div class="row">
+          <div class="col-lg-12 mb-2">
+            <p>We created a new type of account for the AI Family Challenge - a <b>coach account.</b> To fully participate in the AI Family Challenge, you'll need to switch your current account to a coach account.</p>
+            <p>With a coach account you can:</p>
+            <ul>
+              <li>Access additional AI Family Challenge resources</li>
+              <li>Have the opportunity to have your students or families sign up to the site so you can follow their progress</li>
+            </ul>
+            <p>After you push the button below you will be taken to your dashboard. Then, you can select your new coach view from the dropdown menu next to “design challenges.”</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mb-3 text-xs-center">
+          <form action="{% url 'educators:coach_conversion' %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-primary text-uppercase" type="submit" value="Switch to a coach account" />
+          </form>
+      </div>
+    </div>
+  </div>
+{% endwith %}
+{% endblock %}
