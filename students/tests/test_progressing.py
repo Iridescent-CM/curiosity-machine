@@ -17,14 +17,3 @@ def test_student_emailed_when_mentor_posts():
         assert send.called
         assert send.call_args[1]['template_name'] == 'student-mentor-feedback'
 
-@pytest.mark.django_db
-def test_student_emailed_when_student_completes_progress():
-    mentor = MentorFactory()
-    student = StudentFactory()
-    progress = ProgressFactory(owner=student, mentor=mentor)
-    comment = ReflectionCommentFactory(challenge_progress=progress, user=student)
-    with mock.patch("students.progressing.send") as send:
-        Progressing(progress=progress).on_comment(comment)
-        assert send.called
-        assert send.call_args[1]['template_name'] == 'student-completed-project'
-

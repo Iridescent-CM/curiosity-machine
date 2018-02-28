@@ -10,14 +10,7 @@ class ProgressOwner(BaseActor):
         self.user = user
 
     def on_progress_complete(self, progress=None):
-        path = reverse('challenges:examples', kwargs={
-            "challenge_id": progress.challenge.id
-        })
-        send(template_name='student-completed-project', to=progress.owner, merge_vars={
-            "studentname": progress.owner.username,
-            "challengename": progress.challenge.name,
-            "inspiration_url": url_for_template(path)
-        })
+        pass
 
     def on_comment_posted(self, progress, comment):
         pass
