@@ -29,7 +29,11 @@ from .sorting import *
 from django.conf import settings
 
 def user_is_coach(membership_selection):
-    return any(membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID) for membership in list(membership_selection.all))
+    if settings.AICHALLENGE_COACH_MEMBERSHIP_ID:
+        return any(membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID) for membership in
+                   list(membership_selection.all))
+    else:
+        return False
 
 only_for_educator = only_for_role(UserRole.educator)
 
