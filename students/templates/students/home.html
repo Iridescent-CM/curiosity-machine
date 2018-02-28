@@ -11,9 +11,16 @@
 {% block content %}
   {% with all=request.user.challenges.all %}
 
-  <h1 {% if flags.enable_ai_banner %}style="text-align:center; margin-right: 0;"{% endif %}>
+  {% if flags.enable_ai_banner %}
+  <div class="h1 center-student-header">
+  Welcome {{ request.user.username}}
+  </div>
+  {% else %}
+  <h1>
   Welcome {{ request.user.username}}
   </h1>
+  {% endif %}
+
 
   {% if request.user.extra.should_add_email %}
   <div class="panel panel-danger">
