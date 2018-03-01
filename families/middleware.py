@@ -15,7 +15,7 @@ class SignUpPrerequisitesMiddleware:
             and request.user.extra.is_family
             and not request.user.familyprofile.full_access
             and not (
-                whitelisted(view, 'public', 'maybe_public')
+                whitelisted(view, 'public', 'maybe_public', 'unapproved_family')
                 or whitelist_regex.match(request.path.lstrip('/'))
             )
         ):
