@@ -1,9 +1,47 @@
 {% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% block body-classes %}about-pages{% endblock %}
 
 {% block content %}
-  <ul>
-    <li><a href="{% url "families:create_profile" %}">Convert</a></li>
-    <li>Or log out and create a new account</li>
-    <li>Or contact support</li>
-  </ul>
+  <div class="container-fluid text-xs-center nav-panel pt-2">
+    <h1>Join the AI Family Challenge:<br />Switch to a Family Account</h1>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+        <div class="row">
+          <div class="col-lg-12 mb-3">
+            <p>We created a new type of account for the AI Family Challenge - a <b>family account.</b> A Family Account is a shared account, where every member of your family can log into the same account, upload their progress, and access additional resources. A Family Account is required to participate in the AI Family Challenge.</p>
+            <hr class="hr my-3"/>
+            <div class="row">
+              <div class="col-lg-6 mb-2">
+                <p>With a family account you can:</p>
+                <ul>
+                  <li>Track your progress through each stage of the challenge through a new dashboard</li>
+                  <li>Find additional resources related to the challenge</li>
+                </ul>
+              </div>
+              <div class="col-lg-6 mb-2">
+                <img src="{% static 'images/about/family-dashboard.png' %}" alt="CM AI Family Challenge dashboard">
+              </div>
+            </div>
+            <hr class="hr mb-3"/>
+            <p>You will still have access to all Curiosity Machine design challenges with a family account, and you will not lose any completed or in-progress design challenges when you switch. Everything will be transferred!</p>
+            <p>After you push the button below, you will be asked to:</p>
+            <ul>
+              <li>Update your contact and location information</li>
+              <li>Add at least one guardian and one child to the account (you can add up to 6 members)</li>
+              <li>Fill out a short survey</li>
+              <li>Complete the electronic AI Family Challenge consent form which will be sent to the email address you provide</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mb-3 text-xs-center">
+        <hr class="hr mb-3"/>
+        <a class="btn btn-primary text-uppercase mb-3" href="{% url "families:create_profile" %}">Switch to a family account</a>
+        <p><i>If you are not interested in participating in the AI Family Challenge, you do not have to switch your account. You can still see our design challenges focused on Artificial Intelligence, but you won't be able to submit your own project to the AI Family Challenge competition.</i></p>
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -7,13 +7,13 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.http import JsonResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, RedirectView, TemplateView, UpdateView, View
 from memberships.helpers.selectors import GroupSelector
-from memberships.models import Member
+from memberships.models import Member, Membership
 from profiles.decorators import only_for_role, UserRole
 from profiles.views import EditProfileMixin
 from rest_framework import generics, permissions
@@ -26,6 +26,14 @@ from .forms import *
 from .models import *
 from .serializers import *
 from .sorting import *
+from django.conf import settings
+
+def user_is_coach(membership_selection):
+    if settings.AICHALLENGE_COACH_MEMBERSHIP_ID:
+        return any(membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID) for membership in
+                   list(membership_selection.all))
+    else:
+        return False
 
 only_for_educator = only_for_role(UserRole.educator)
 
@@ -73,6 +81,7 @@ class ChallengesView(TemplateView):
             "membership_challenges": membership_challenges,
             "core_challenges": core_challenges,
             "membership_selection": membership_selection,
+            "user_is_coach": user_is_coach(membership_selection),
             "group_selector": gs,
         })
 
@@ -118,6 +127,7 @@ class ChallengeView(TemplateView):
             "students": students,
             "student_ids_with_examples": student_ids_with_examples,
             "membership_selection": membership_selection,
+            "user_is_coach": user_is_coach(membership_selection),
             "sorter": sorter,
             "group_selector": gs,
         })
@@ -148,6 +158,7 @@ class StudentsView(TemplateView):
             "students": students,
             "group_selector": gs,
             "membership_selection": membership_selection,
+            "user_is_coach":  user_is_coach(membership_selection),
             "sorter": sorter,
         })
         return super().get_context_data(**kwargs)
@@ -187,6 +198,7 @@ class StudentView(TemplateView):
             "progresses": progresses,
             "completed_count": len([p for p in progresses if p.complete]),
             "membership_selection": membership_selection,
+            "user_is_coach": user_is_coach(membership_selection),
             "sorter": sorter,
             "graph_data_url": graph_data_url,
         })
@@ -252,6 +264,7 @@ class GuidesView(TemplateView):
             "membership": membership,
             "extra_units": extra_units,
             "membership_selection": membership_selection,
+            "user_is_coach": user_is_coach(membership_selection),
         })
 
         return super().get_context_data(**kwargs)
@@ -312,3 +325,25 @@ class CoachView(RedirectView):
         return super().get(request, *args, **kwargs)
 
 coach = CoachView.as_view()
+
+class CoachConversionView(View):
+    http_method_names = ['post', 'get']
+
+    def get(self, request, *args, **kwargs):
+        user_memberships = self.request.user.membership_set.filter(is_active=True)
+        for membership in user_memberships:
+            if membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID):
+                messages.success(self.request, "You are already in the AI family coach membership!")
+                return HttpResponseRedirect(reverse("educators:home"))
+        return render(request,'educators/coach_conversion.html')
+
+    def post(self, request, *args, **kwargs):
+        membership = Membership.objects.get(pk=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
+        member = Member(user=self.request.user, membership=membership)
+        member.save()
+
+        messages.success(self.request, "You are now in the AI family coach membership!")
+        return HttpResponseRedirect(reverse("educators:home"))
+
+coach_conversion = CoachConversionView.as_view()
+

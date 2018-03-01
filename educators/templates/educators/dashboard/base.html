@@ -5,6 +5,12 @@
 {% block body-classes %}educator-dashboard{% endblock %}
 
 {% block container %}
+{% if not user_is_coach and flags.enable_ai_banner %}
+  <div class="ai-banner-margins">
+    {% url "educators:coach_conversion" as banner_url %}
+    {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
+  </div>
+{% endif %}
   <div class="educator-dashboard-header py-2 mb-1">
     <div class="container">
       <div class="row">
@@ -49,6 +55,14 @@
         </div>
       </div>
       {% impact_survey %}
+      {% if messages %}{% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ message }}
+        </div>
+      {% endfor %}{% endif %}
     </div>
   </div>
   <div class="container mb-3">
