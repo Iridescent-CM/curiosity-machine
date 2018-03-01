@@ -10,6 +10,21 @@ class BaseActor:
     def is_author(self, comment):
         return self.user == comment.user
 
+    def on_comment(self, progress, comment):
+        if self.is_author(comment):
+            self.on_comment_posted(progress, comment)
+        else:
+            self.on_comment_received(progress, comment)
+
+    def on_progress_complete(self, progress):
+        raise NotImplementedError('Subclasses of BaseActor must implement this')
+
+    def on_comment_posted(self, progress, comment):
+        raise NotImplementedError('Subclasses of BaseActor must implement this')
+
+    def on_comment_received(self, progress, comment):
+        raise NotImplementedError('Subclasses of BaseActor must implement this')
+
 class NoopActor(BaseActor):
     def on_progress_complete(self, progress):
         pass
@@ -54,7 +69,4 @@ class Progressing:
                 actor.on_progress_complete(progress=progress)
         else:
             for actor in actors:
-                if actor.is_author(comment):
-                    actor.on_comment_posted(progress, comment)
-                else:
-                    actor.on_comment_received(progress, comment)
+                actor.on_comment(progress, comment)

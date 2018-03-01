@@ -54,8 +54,12 @@ def test_owner_comments():
 
     Progressing(progress=progress, owner=wrapped_owner, mentor=wrapped_mentor).on_comment(comment)
 
-    assert wrapped_owner.on_comment_posted.called
-    assert wrapped_mentor.on_comment_received.called
+    assert wrapped_owner.on_comment.called
+    assert wrapped_owner.on_comment.call_args[0][0] == progress
+    assert wrapped_owner.on_comment.call_args[0][1] == comment
+    assert wrapped_mentor.on_comment.called
+    assert wrapped_mentor.on_comment.call_args[0][0] == progress
+    assert wrapped_mentor.on_comment.call_args[0][1] == comment
 
 @pytest.mark.django_db
 def test_mentor_comments():
@@ -69,5 +73,32 @@ def test_mentor_comments():
 
     Progressing(progress=progress, owner=wrapped_owner, mentor=wrapped_mentor).on_comment(comment)
 
-    assert wrapped_owner.on_comment_received.called
-    assert wrapped_mentor.on_comment_posted.called
+    assert wrapped_owner.on_comment.called
+    assert wrapped_owner.on_comment.call_args[0][0] == progress
+    assert wrapped_owner.on_comment.call_args[0][1] == comment
+    assert wrapped_mentor.on_comment.called
+    assert wrapped_mentor.on_comment.call_args[0][0] == progress
+    assert wrapped_mentor.on_comment.call_args[0][1] == comment
+
+@pytest.mark.django_db
+def test_base_actor_checks_author():
+    owner = StudentFactory()
+    mentor = MentorFactory()
+    progress = ProgressFactory(owner=owner, mentor=mentor)
+    comment = CommentFactory(user=owner, challenge_progress=progress)
+    comment2 = CommentFactory(user=mentor, challenge_progress=progress)
+
+    actor = BaseActor(owner)
+    actor.on_comment_posted = mock.Mock()
+    actor.on_comment_received = mock.Mock()
+
+    actor.on_comment(progress, comment)
+    assert actor.on_comment_posted.called
+    assert not actor.on_comment_received.called
+
+    actor.on_comment_posted.reset_mock()
+    actor.on_comment_received.reset_mock()
+
+    actor.on_comment(progress, comment2)
+    assert not actor.on_comment_posted.called
+    assert actor.on_comment_received.called
