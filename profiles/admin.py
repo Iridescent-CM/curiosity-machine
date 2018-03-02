@@ -6,8 +6,10 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin, UserChangeForm, UserCreationForm
 from django.contrib.auth.models import Group
+from django.db.models import Q
 from educators.models import EducatorProfile
 from families.models import FamilyProfile
+from functools import reduce
 from images.models import Image
 from locations.models import Location
 from mentors.models import MentorProfile
@@ -15,6 +17,7 @@ from parents.models import ParentProfile
 from students.models import StudentProfile
 from .admin_utils import StudentFilter
 from .models import *
+import operator
 import shlex
 
 admin.site.unregister(Group)
@@ -115,28 +118,34 @@ class UserAdminWithExtra(UserAdmin):
 )
     search_fields = ('username', 'email', 'first_name', 'last_name', 'extra__source',)
 
-    def get_search_results(self, request, queryset, search_term):
-        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+    def get_search_results(self, request, initial_qs, search_term):
+        search_qs, use_distinct = super().get_search_results(request, initial_qs, search_term)
+
+        or_queries = []
 
         # lookup the search term to see if it's a country name or state name
         for profile in ['educatorprofile', 'familyprofile']:
             value = Location.lookup_state_by(search_term)
             if value:
-                queryset |= self.model.objects.filter(**{profile + "__location__state":value})
+                or_queries.append(Q(**{profile + "__location__state":value}))
 
             value = Location.lookup_country_by(search_term)
             if value:
-                queryset |= self.model.objects.filter(**{profile + "__location__country":value})
+                or_queries.append(Q(**{profile + "__location__country":value}))
 
         # search all the many places city data could be stored
         for bit in shlex.split(search_term):
             for profile in ['studentprofile', 'educatorprofile', 'mentorprofile', 'parentprofile']:
-                queryset |= self.model.objects.filter(**{profile + "__city__icontains":bit})
+                or_queries.append(Q(**{profile + "__city__icontains":bit}))
 
             for profile in ['educatorprofile', 'familyprofile']:
-                queryset |= self.model.objects.filter(**{profile + "__location__city__icontains":bit})
+                or_queries.append(Q(**{profile + "__location__city__icontains":bit}))
 
-        return queryset, use_distinct
+        qs = search_qs
+        if or_queries:
+            qs = qs | initial_qs.filter(reduce(operator.or_, or_queries))
+
+        return qs, use_distinct
 
     def source(self, obj):
         return obj.extra.source
