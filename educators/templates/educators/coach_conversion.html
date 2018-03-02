@@ -4,25 +4,25 @@
 
 {% block content %}
   <div class="container-fluid text-xs-center nav-panel pt-2">
-    <h1>Join the AI Family Challenge:<br />Switch to a Coach Account</h1>
+    <h1>Join the Artificial Intelligence Family Challenge as a coach!</h1>
   </div>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
         <div class="row">
-          <div class="col-lg-12 mb-2">
-            <p>We created a new type of account for the AI Family Challenge - a <b>coach account.</b> To fully participate in the AI Family Challenge, you'll need to switch your current account to a coach account.</p>
+          <div class="col-lg-12">
+            <p>Do you want to lead artificial intelligence-focused design challenges with your students or in your community?</p>
             <p>With a coach account you can:</p>
             <ul>
-              <li>Access additional AI Family Challenge resources</li>
-              <li>Have the opportunity to have your students or families sign up to the site so you can follow their progress</li>
+              <li>Access additional AI design challenge resources</li>
+              <li>Invite your participants to sign up for your program</li>
             </ul>
-            <p>After you push the button below you will be taken to your new dashboard where you'll have access to the AI design challenges. You will also be able to view the AI Family Challenge Unit under Units & Guides.</p>
+            <hr class="hr"/>
           </div>
         </div>
       </div>
       <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mb-3 text-xs-center">
-          <hr class="hr mb-3"/>
+            <p>Don’t worry! You will still be able to access all other Curiosity Machine design challenges. </br>Click the button to start now!</p>
           <form action="{% url 'educators:coach_conversion' %}" method="post">
             {% csrf_token %}
             <input class="btn btn-primary text-uppercase" type="submit" value="Switch to a coach account" />

@@ -8,9 +8,9 @@
 {% block content %}
   {% if flags.enable_ai_challenge_profile_options %}
   <div class="card card-block mb-3">
-    <h2>Create your AI Family Challenge account!</h2>
+    <h2>Create your Curiosity Machine Artificial Intelligence Family Challenge account!</h2>
     <p>
-      The <a href="{% url "aichallenge" %}">AI Family Challenge</a> is a year long program meant for kids age 8-15 and their families. In this program, families work and learn together by completing a series of design challenges and create something to help solve a problem they’ve identified in their community. They accomplish this by using the skills and technology they’ve learned in this program!
+      You'll join a global community of families learning about artificial intelligence and apply what you learn to solve a real problem in your community. If you need more information, you can learn more <a href="{% url "aichallenge" %}" target="_blank">here</a>.
     </p>
     <div class="row mt-2">
       <div class="col-lg-5">
@@ -19,10 +19,10 @@
         </a>
       </div>
       <div class="col-lg-7 my-3">
-        <p>
-          You only need one account for your entire Family!
-        </p>
         <a class="btn btn-primary" href="{% url "families:create_profile" %}">Make a family account</a>
+        <p class="mt-1">
+          Family members don't have to be related, but must have 1-2 adults over 18 and at least 1 child 8-15 years old.
+        </p>
       </div>
     </div>
     <div class="row mt-2">
@@ -32,10 +32,10 @@
         </a>
       </div>
       <div class="col-lg-7 my-3">
-        <p>
-          Sign up with a coach account if you would like to lead the curriculum with your students and have access to more resources pertaining to the AI Challenge!
-        </p>
         <a class="btn btn-primary" href="{% url "educators:create_coach" %}">Make a coach account</a>
+        <p class="mt-1">
+          Coaches lead students and families through the challenge. Create this account if you plan to organize the challenge for groups.
+        </p>
       </div>
     </div>
   </div>
@@ -50,7 +50,7 @@
   <div class="card card-block mb-2">
       <h4>Student</h4>
       <p>
-        build and document projects using the engineering design process
+        Build and document projects using the engineering design process.
       </p>
       <a class="btn btn-primary" href="{{ student_url }}">I am a student</a>
   </div>
@@ -59,7 +59,7 @@
   <div class="card card-block mb-2">
       <h4>Educator</h4>
       <p>
-        find resources to teach engineering challenges
+        Find resources to teach engineering challenges.
       </p>
       <a class="btn btn-primary" href="{{ educator_url }}">I am an educator</a>
   </div>
@@ -68,7 +68,7 @@
   <div class="card card-block mb-2">
       <h4>Parent</h4>
       <p>
-        connect to your child’s account and learn how to build together
+        Connect to your child’s account and learn how to build together.
       </p>
       <a class="btn btn-primary" href="{{ parent_url }}">I am a parent</a>
   </div>
