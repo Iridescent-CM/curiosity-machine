@@ -28,13 +28,6 @@ from .serializers import *
 from .sorting import *
 from django.conf import settings
 
-def user_is_coach(membership_selection):
-    if settings.AICHALLENGE_COACH_MEMBERSHIP_ID:
-        return any(membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID) for membership in
-                   list(membership_selection.all))
-    else:
-        return False
-
 only_for_educator = only_for_role(UserRole.educator)
 
 class CreateView(EditProfileMixin, CreateView):
@@ -81,7 +74,6 @@ class ChallengesView(TemplateView):
             "membership_challenges": membership_challenges,
             "core_challenges": core_challenges,
             "membership_selection": membership_selection,
-            "user_is_coach": user_is_coach(membership_selection),
             "group_selector": gs,
         })
 
@@ -127,7 +119,6 @@ class ChallengeView(TemplateView):
             "students": students,
             "student_ids_with_examples": student_ids_with_examples,
             "membership_selection": membership_selection,
-            "user_is_coach": user_is_coach(membership_selection),
             "sorter": sorter,
             "group_selector": gs,
         })
@@ -158,7 +149,6 @@ class StudentsView(TemplateView):
             "students": students,
             "group_selector": gs,
             "membership_selection": membership_selection,
-            "user_is_coach":  user_is_coach(membership_selection),
             "sorter": sorter,
         })
         return super().get_context_data(**kwargs)
@@ -198,7 +188,6 @@ class StudentView(TemplateView):
             "progresses": progresses,
             "completed_count": len([p for p in progresses if p.complete]),
             "membership_selection": membership_selection,
-            "user_is_coach": user_is_coach(membership_selection),
             "sorter": sorter,
             "graph_data_url": graph_data_url,
         })
@@ -264,7 +253,6 @@ class GuidesView(TemplateView):
             "membership": membership,
             "extra_units": extra_units,
             "membership_selection": membership_selection,
-            "user_is_coach": user_is_coach(membership_selection),
         })
 
         return super().get_context_data(**kwargs)
