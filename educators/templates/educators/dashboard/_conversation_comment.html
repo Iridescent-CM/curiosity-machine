@@ -1,4 +1,7 @@
-<div class="card {{comment.user.extra.get_role_display}}-comment stage-{{comment.get_stage_display}}-comment">
+<div
+  class="card {{comment.user.extra.get_role_display}}-comment stage-{{comment.get_stage_display}}-comment"
+  id="comment-{{comment.id}}"
+>
   <div class="card-header">
     <h3 class="card-title">
       {% if comment.user.extra.is_student %}
