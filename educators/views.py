@@ -330,8 +330,7 @@ class CoachConversionView(View):
         member = Member(user=self.request.user, membership=membership)
         member.save()
 
-        messages.success(self.request, "You are now in the AI family coach membership!")
+        messages.success(self.request, "You are now in the AI Family Challenge Coach membership! Enjoy the resources under Units & Guides.")
         return HttpResponseRedirect(reverse("educators:home"))
 
 coach_conversion = CoachConversionView.as_view()
-
