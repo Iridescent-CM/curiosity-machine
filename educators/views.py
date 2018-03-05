@@ -6,13 +6,14 @@ from curiositymachine import signals
 from curiositymachine.decorators import whitelist
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.functional import lazy
-from django.views.generic import CreateView, FormView, RedirectView, TemplateView, UpdateView, View
+from django.views.generic import CreateView, FormView, ListView, RedirectView, TemplateView, UpdateView, View
 from memberships.helpers.selectors import GroupSelector
 from memberships.models import Member, Membership
 from profiles.decorators import only_for_role, UserRole
@@ -348,6 +349,19 @@ class ConversationView(TemplateView):
         student = get_object_or_404(membership.members, pk=kwargs.pop("student_id"))
         progress = get_object_or_404(student.progresses, challenge_id=kwargs.pop("challenge_id"))
 
+        progress_type = ContentType.objects.get_for_model(progress)
+        self.request.user.notifications.unread().filter(
+            Q(
+                verb="completed",
+                action_object_content_type=progress_type,
+                action_object_object_id=progress.id
+            ) | Q(
+                verb="posted",
+                target_content_type=progress_type,
+                target_object_id=progress.id
+            )
+        ).mark_all_as_read()
+
         return super().get_context_data(
             membership_selection=membership_selection,
             student=student,
@@ -358,3 +372,40 @@ class ConversationView(TemplateView):
         )
 
 conversation = only_for_educator(ConversationView.as_view())
+
+class ActivityView(ListView):
+    template_name = "educators/dashboard/activity.html"
+    paginate_by = settings.DEFAULT_PER_PAGE
+    context_object_name = 'activity'
+
+    def get_queryset(self):
+        return self.request.user.notifications.unread().all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        by_day = {}
+        for notification in context['activity']:
+            day = notification.timestamp.date()
+            by_day[day] = by_day.get(day, [])
+            by_day[day].append(notification)
+
+        membership = None
+        gs = None
+
+        membership_selection = MembershipSelection(self.request)
+        if membership_selection.selected:
+            membership = membership_selection.selected
+            gs = GroupSelector(membership)
+
+        context.update({
+            "membership": membership,
+            "membership_selection": membership_selection,
+            "user_is_coach": user_is_coach(membership_selection),
+            "group_selector": gs,
+            "activity_by_day": by_day,
+        })
+
+        return context
+
+activity = only_for_educator(ActivityView.as_view())
