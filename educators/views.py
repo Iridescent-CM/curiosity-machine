@@ -1,5 +1,6 @@
 from allauth.account.forms import SetPasswordForm
 from challenges.models import Challenge, Example
+from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine import signals
 from curiositymachine.decorators import whitelist
@@ -334,3 +335,26 @@ class CoachConversionView(View):
         return HttpResponseRedirect(reverse("educators:home"))
 
 coach_conversion = CoachConversionView.as_view()
+
+class ConversationView(TemplateView):
+    template_name = "educators/dashboard/conversation.html"
+
+    def get_context_data(self, **kwargs):
+        membership_selection = MembershipSelection(self.request)
+        if not membership_selection.selected:
+            raise PermissionDenied
+
+        membership = membership_selection.selected
+        student = get_object_or_404(membership.members, pk=kwargs.pop("student_id"))
+        progress = get_object_or_404(student.progresses, challenge_id=kwargs.pop("challenge_id"))
+
+        return super().get_context_data(
+            membership_selection=membership_selection,
+            student=student,
+            progress=progress,
+            comments=progress.comments.order_by("-created").all(),
+            comment_form=CommentForm(),
+            **kwargs
+        )
+
+conversation = only_for_educator(ConversationView.as_view())
