@@ -5,7 +5,7 @@
 {% block body-classes %}educator-dashboard{% endblock %}
 
 {% block container %}
-{% if not user_is_coach and flags.enable_ai_banner %}
+{% if flags.enable_ai_banner and membership_selection.no_memberships %}
   <div class="ai-banner-margins">
     {% url "educators:coach_conversion" as banner_url %}
     {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
