@@ -7,8 +7,23 @@ class BaseActor:
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
 
-    def is_author(self, comment):
+    def _is_author(self, comment):
         return self.user == comment.user
+
+    def on_comment(self, progress, comment):
+        if self._is_author(comment):
+            self.on_comment_posted(progress, comment)
+        else:
+            self.on_comment_received(progress, comment)
+
+    def on_progress_complete(self, progress):
+        raise NotImplementedError('Subclasses of BaseActor must implement this')
+
+    def on_comment_posted(self, progress, comment):
+        raise NotImplementedError('Subclasses of BaseActor must implement this')
+
+    def on_comment_received(self, progress, comment):
+        raise NotImplementedError('Subclasses of BaseActor must implement this')
 
 class NoopActor(BaseActor):
     def on_progress_complete(self, progress):
@@ -20,21 +35,38 @@ class NoopActor(BaseActor):
     def on_comment_received(self, progress, comment):
         pass
 
+def wrap_as_actor(classname, wrapped_user, defaultclass=NoopActor):
+    _class = load_from_role_app(wrapped_user.extra.role, "progressing", classname)
+    if _class:
+        return _class(wrapped_user)
+    else:
+        return defaultclass(wrapped_user)
+
+class ProgressEducators:
+    def __init__(self, progress, *args, **kwargs):
+        self.progress = progress
+        educators = []
+        for membership in self.progress.owner.membership_set.filter(is_active=True, challenges=self.progress.challenge):
+            educators = educators | membership.educators if educators else membership.educators
+        self.educators = [wrap_as_actor("ProgressEducator", educator) for educator in educators]
+
+    def on_progress_complete(self, progress):
+        for educator in self.educators:
+            educator.on_progress_complete(progress)
+
+    def on_comment(self, progress, comment):
+        for educator in self.educators:
+            educator.on_comment(progress, comment)
+
 class Progressing:
     def __init__(self, *args, **kwargs):
         self.progress = kwargs.pop('progress')
-        self.owner = kwargs.pop('owner', self.wrap("ProgressOwner", self.progress.owner))
+        self.owner = kwargs.pop('owner', wrap_as_actor("ProgressOwner", self.progress.owner))
         if self.progress.mentor:
-            self.mentor = kwargs.pop('mentor', self.wrap("ProgressMentor", self.progress.mentor))
+            self.mentor = kwargs.pop('mentor', wrap_as_actor("ProgressMentor", self.progress.mentor))
         else:
             self.mentor = NoopActor()
-
-    def wrap(self, classname, wrapped_user, defaultclass=NoopActor):
-        _class = load_from_role_app(wrapped_user.extra.role, "progressing", classname)
-        if _class:
-            return _class(wrapped_user)
-        else:
-            return defaultclass(wrapped_user)
+        self.educators = kwargs.pop('educators', ProgressEducators(self.progress))
 
     def completes_progress(self, comment):
         return (
@@ -46,7 +78,7 @@ class Progressing:
         )
 
     def on_comment(self, comment):
-        actors = [self.owner, self.mentor]
+        actors = [self.owner, self.mentor, self.educators]
         progress = self.progress
 
         if self.completes_progress(comment):
@@ -54,7 +86,4 @@ class Progressing:
                 actor.on_progress_complete(progress=progress)
         else:
             for actor in actors:
-                if actor.is_author(comment):
-                    actor.on_comment_posted(progress, comment)
-                else:
-                    actor.on_comment_received(progress, comment)
+                actor.on_comment(progress, comment)

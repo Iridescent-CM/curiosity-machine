@@ -32,6 +32,14 @@
             units &amp; guides
           </a>
         </li>
+        {% if membership_selection.selected.listed_members %}
+        <li class="nav-item {% ifactive "educators:activity" "active-nav" %}">
+          <a class="nav-link" href="{% url 'educators:activity' %}">
+            recent activity
+            <span class="tag tag-primary">{{request.user.notifications.unread.count}}</span>
+          </a>
+        </li>
+        {% endif %}
       </ul>
     </nav>
   </div>
