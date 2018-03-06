@@ -1,0 +1,65 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+django = "~=1.11.0"
+dj-database-url = "*"
+waitress = "*"
+whitenoise = "*"
+redis = "*"
+django-simple-redis = "*"
+django-rq = "*"
+rq-scheduler = "*"
+rq = "*"
+djangorestframework = "*"
+django-allauth = "*"
+django-apptemplates = "*"
+django-compressor = "*"
+django-enumfields = "*"
+django-notifications-hq = "*"
+django-phonenumber-field = "*"
+django-recaptcha = "*"
+django-sslify = "*"
+django-staticflatpages = "*"
+django-summernote = "*"
+django-widget-tweaks = "*"
+pycountry = "*"
+python-dateutil = "*"
+python-dotenv = "*"
+"enum34" = "*"
+requests = "*"
+bleach = "*"
+"tinys3" = "*"
+"django-s3direct" = "*"
+"django-s3-storage" = "*"
+zencoder = "*"
+cloudinary = "*"
+mandrill = "*"
+hellosign-python-sdk = "*"
+newrelic = "*"
+rollbar = "*"
+factory-boy = "*"
+"psycopg2-binary" = "*"
+
+
+[dev-packages]
+
+coverage = "*"
+django-debug-toolbar = "*"
+django-extensions = "*"
+django-html-validator = "*"
+mock = "*"
+pretend = "*"
+pyquery = "*"
+pytest-cov = "*"
+pytest-django = "*"
+
+
+[requires]
+
+python_version = "3.6.4"

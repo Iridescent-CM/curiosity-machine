@@ -2,9 +2,9 @@ import factory
 import factory.django
 import factory.fuzzy
 from django.contrib.auth import get_user_model
+from django.db.models.signals import post_save
 from profiles.factories import *
 from profiles.models import UserRole
-from profiles.signals import handlers
 from .models import *
 
 __all__ = [
@@ -20,7 +20,7 @@ class EducatorProfileFactory(factory.django.DjangoModelFactory):
     city = 'city'
     location = factory.SubFactory('locations.factories.LocationFactory')
 
-@factory.django.mute_signals(handlers.post_save)
+@factory.django.mute_signals(post_save)
 class EducatorFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = get_user_model()
@@ -32,6 +32,7 @@ class EducatorFactory(factory.django.DjangoModelFactory):
     extra = factory.RelatedFactory(UserExtraFactory, 'user',role=UserRole.educator.value)
     educatorprofile = factory.RelatedFactory(EducatorProfileFactory, 'user')
 
+@factory.django.mute_signals(post_save)
 class ImpactSurveyFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ImpactSurvey

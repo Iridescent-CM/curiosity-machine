@@ -17,3 +17,4 @@ heroku.env
 *.notes
 dump.rdb
 received-emails/
+.pytest_cache/

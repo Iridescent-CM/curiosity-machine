@@ -3,6 +3,7 @@ import factory.django
 import factory.fuzzy
 from allauth.account.models import EmailAddress
 from django.contrib.auth import get_user_model
+from django.db.models.signals import post_save
 from django.utils.dateparse import parse_date
 from .models import *
 from .signals import handlers
@@ -12,6 +13,7 @@ __all__ = [
     'UserFactory',
 ]
 
+@factory.django.mute_signals(post_save)
 class UserExtraFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = UserExtra
