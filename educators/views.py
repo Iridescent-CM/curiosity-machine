@@ -401,7 +401,6 @@ class ActivityView(ListView):
         context.update({
             "membership": membership,
             "membership_selection": membership_selection,
-            "user_is_coach": user_is_coach(membership_selection),
             "group_selector": gs,
             "activity_by_day": by_day,
         })
