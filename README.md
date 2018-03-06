@@ -2,12 +2,13 @@
 
 ## Quick Start
 
-Using `virtualenv` and `virtualenvwrapper`:
+Using `pipenv`:
 
 ```sh
 git clone git@github.com:Iridescent-CM/curiosity-machine.git
 cd curiosity-machine
-mkvirtualenv -a . -r ./requirements.txt -p /path/to/python3 cm
+pipenv shell --three
+pipenv install --dev
 ```
 
 Get a .env from another developer and put it in your `curiosity-machine` directory, then
@@ -43,11 +44,7 @@ $ grep -ir --include .*py --include .*html --exclude-dir node_modules enable_ .`
 
 ## Requirements
 
-There are three requirements files:
-
-* `requirements.txt`: contains requirements to run the app with fixed version numbers. Generated from truncated output of `pip freeze -r requirements.compat.txt`.
-* `requirements.dev.txt`: contains additional requirements useful for development.
-* `requirements.compat.txt`: app requirements with compatible version specifiers. Use this to periodically check for patches.
+Requirements are managed with `pipenv` and listed in the `Pipfile`.
 
 ### When Requirements Get Added
 
@@ -55,7 +52,7 @@ From time to time requirements will get added, updated, or removed from the proj
 the following command should get your environment up to date:
 
 ```sh
-pip install -r requirements.txt
+pipenv install
 ```
 
 ## Data

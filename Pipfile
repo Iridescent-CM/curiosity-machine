@@ -1,0 +1,76 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+django = "==1.11.6"
+
+"psycopg2" = "==2.7.3.2"
+dj-database-url = "==0.2.2"
+
+waitress = "==0.8.10"
+whitenoise = "==1.0.6"
+
+redis = "==2.10.6"
+django-simple-redis = "==0.0.1"
+django-rq = "==0.9.6"
+rq-scheduler = "==0.7.0"
+rq = "==0.8.2"
+
+djangorestframework = "==3.5.4"
+django-allauth = "==0.33.0"
+django-apptemplates = "==1.3"
+django-compressor = "==1.6"
+django-enumfields = "==0.9.0"
+django-notifications-hq = "==1.3"
+django-phonenumber-field = "==2.0.0"
+django-recaptcha = "==1.3.1"
+django-sslify = "==0.2.7"
+django-staticflatpages = "==0.3.1"
+django-summernote = "==0.8.8.1"
+django-widget-tweaks = "==1.4.1"
+
+pycountry = "==17.9.23"
+python-dateutil = "==2.6.1"
+python-dotenv = "==0.6.5"
+"enum34" = "==1.1.6"
+requests = "==2.8.1"
+
+bleach = "==2.1.2"
+
+"tinys3" = "==0.1.12"
+"django-s3direct" = "==0.3.15"
+"django-s3-storage" = "==0.9.11"
+
+zencoder = "==0.6.5"
+cloudinary = "==1.8.0"
+mandrill = "==1.0.57"
+hellosign-python-sdk = "==3.8.5"
+
+newrelic = "==2.70.0.51"
+rollbar = "==0.12.1"
+
+# this is needed to run the fixtures command on staging
+factory-boy = "==2.8.1"
+
+
+[dev-packages]
+
+coverage = "==4.4.1"
+django-debug-toolbar = "==1.8"
+django-extensions = "==1.9.6"
+django-html-validator = "==0.4.8"
+mock = "==2.0.0"
+pretend = "==1.0.8"
+pyquery = "==1.2.17"
+pytest-cov = "==2.5.1"
+pytest-django = "==3.1.2"
+
+
+[requires]
+
+python_version = "3.6"
