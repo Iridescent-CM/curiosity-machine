@@ -1,9 +1,12 @@
 from challenges.models import Challenge, Progress
+from curiositymachine.decorators import whitelist
 from django.conf import settings
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
+from hellosign import jobs
 from hellosign.models import ConsentTemplate
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
@@ -14,6 +17,7 @@ from .forms import *
 from .models import *
 
 only_for_family = only_for_role(UserRole.family)
+unapproved_ok = whitelist('unapproved_family')
 
 class FamilyMemberMixin():
     def form_valid(self, form):
@@ -57,7 +61,7 @@ class EditView(FamilyMemberMixin, EditProfileMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user.familyprofile
 
-edit = only_for_family(EditView.as_view())
+edit = unapproved_ok(only_for_family(EditView.as_view()))
 
 class DashboardMixin:
     def get_context_data(self, **kwargs):
@@ -110,8 +114,32 @@ class PrereqInterruptionView(TemplateView):
             **kwargs,
             presurvey=presurvey.response(self.request.user),
             consent=consent.signature(self.request.user),
+            email_form=FamilyEmailForm(request=self.request, user=self.request.user),
         )
 
 prereq_interruption = only_for_family(PrereqInterruptionView.as_view())
+
+class EditEmailView(EditProfileMixin, UpdateView):
+    model = FamilyProfile
+    form_class = FamilyEmailForm
+
+    def form_valid(self, form):
+        self.object = form.save()
+
+        consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
+        signature = consent.signature(self.object.user)
+        jobs.update_email(signature.id)
+
+        messages.success(self.request, "Your email address has been updated.")
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER', reverse("families:home")))
+
+    def form_invalid(self, form):
+        messages.error(self.request, form['email'].errors)
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER', reverse("families:home")))
+
+    def get_object(self, queryset=None):
+        return self.request.user.familyprofile
+
+edit_email = unapproved_ok(only_for_family(EditEmailView.as_view()))
 
 conversion = TemplateView.as_view(template_name="families/conversion.html")

@@ -46,6 +46,8 @@ class SignatureStatus(Enum):
 class Signature(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     template_id = models.CharField(max_length=40, null=False, blank=False)
+    signature_request_id = models.CharField(max_length=50, null=True, blank=True)
+    signature_id = models.CharField(max_length=50, null=True, blank=True)
     user = models.ForeignKey(get_user_model(), null=False, blank=False)
     status = EnumIntegerField(SignatureStatus, default=SignatureStatus.UNSIGNED)
     created_at = models.DateTimeField(auto_now_add=True)

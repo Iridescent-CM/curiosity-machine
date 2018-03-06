@@ -13,6 +13,14 @@ from profiles.forms import ProfileModelForm, RelatedModelFormMixin
 from profiles.models import UserRole
 from .models import *
 
+class FamilyEmailForm(ProfileModelForm):
+    class Meta:
+        model = FamilyProfile
+        fields = []
+
+    def get_role(self):
+        return UserRole.family
+
 class FamilyProfileForm(RelatedModelFormMixin, ProfileModelForm):
     related_forms = [
         ('location', LocationForm),
