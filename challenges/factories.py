@@ -1,6 +1,7 @@
 import factory
 import factory.django
 import factory.fuzzy
+from django.db.models.signals import post_save
 from factory import post_generation
 import random
 
@@ -52,6 +53,7 @@ class ChallengeFactory(factory.django.DjangoModelFactory):
             obj.reflect_questions.add(*extracted)
 
 
+@factory.django.mute_signals(post_save)
 class ProgressFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Progress
@@ -82,6 +84,7 @@ class ProgressFactory(factory.django.DjangoModelFactory):
 
             obj.comments.create(user=obj.owner, text="Reflection", stage=4, question_text="Reflect question text")
 
+@factory.django.mute_signals(post_save)
 class ExampleFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Example
