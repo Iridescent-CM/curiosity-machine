@@ -4,7 +4,7 @@
 >
   <div class="card-header">
     <h3 class="card-title">
-      {% if comment.user.extra.is_student %}
+      {% if comment.user == comment.challenge_progress.owner %}
       {{ comment.get_stage_display|title }}
       {% elif comment.user == user %}
       Your feedback

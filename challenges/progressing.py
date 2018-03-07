@@ -1,5 +1,6 @@
 from cmemails import send
 from cmemails.mandrill import url_for_template
+from django.contrib.auth import get_user_model
 from profiles.models import load_from_role_app
 from .models import *
 
@@ -43,12 +44,15 @@ def wrap_as_actor(classname, wrapped_user, defaultclass=NoopActor):
         return defaultclass(wrapped_user)
 
 class ProgressEducators:
-    def __init__(self, progress, *args, **kwargs):
+    def __init__(self, progress, educators=None, *args, **kwargs):
         self.progress = progress
-        educators = []
-        for membership in self.progress.owner.membership_set.filter(is_active=True, challenges=self.progress.challenge):
-            educators = educators | membership.educators if educators else membership.educators
-        self.educators = [wrap_as_actor("ProgressEducator", educator) for educator in educators]
+        if educators == None:
+            educators = get_user_model().objects.none()
+            for membership in self.progress.owner.membership_set.filter(is_active=True, challenges=self.progress.challenge):
+                educators = educators | membership.educators
+            self.educators = [wrap_as_actor("ProgressEducator", educator) for educator in educators.distinct()]
+        else:
+            self.educators = educators
 
     def on_progress_complete(self, progress):
         for educator in self.educators:
