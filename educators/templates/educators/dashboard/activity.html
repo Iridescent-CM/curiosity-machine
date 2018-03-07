@@ -19,6 +19,7 @@
         {{ notification.actor }} {{ notification.verb }} {{ notification.action_object.challenge.name }}
       </a>
       {% endif %}
+      {% if notification.unread %}<span>Unread</span>{% endif %}
     </li>
     {% endfor %}
   </ul>

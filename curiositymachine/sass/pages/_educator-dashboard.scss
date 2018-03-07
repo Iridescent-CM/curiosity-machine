@@ -279,7 +279,8 @@
       height: 100px;
     }
 
-    .student-comment {
+    .student-comment,
+    .family-comment {
       &.stage-plan-comment .card-header {
         background-color: #f4f8ee;
       }
