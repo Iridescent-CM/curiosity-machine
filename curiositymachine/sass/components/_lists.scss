@@ -1,0 +1,23 @@
+.to-do-list {
+  .to-do-list-item {
+
+    list-style: none;
+
+    &:before {
+      content: "";
+      background-image: url('../images/checkbox-unchecked.svg');
+      background-size: cover;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      vertical-align: middle;
+      margin-right: 1em;
+    }
+
+    &.to-do-list-complete {
+      &:before {
+        background-image: url('../images/checkbox-checked.svg');
+      }
+    }
+  }
+}
