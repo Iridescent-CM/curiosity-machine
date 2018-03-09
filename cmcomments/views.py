@@ -30,7 +30,6 @@ def comments(request, challenge_id, username, stage):
 
     form = CommentForm(data=request.POST)
     if form.is_valid():
-        messages.success(request,"your post has been submitted")
         media = form.cleaned_data['visual_media']
         video = Video.from_source_with_job(media['url']) if media and media['mimetype'].startswith('video') else None
         image = Image.from_source_with_job(media['url']) if media and media['mimetype'].startswith('image') else None
@@ -48,6 +47,7 @@ def comments(request, challenge_id, username, stage):
             stage=stage.value,
             question_text=form.cleaned_data['question_text']
         ).comment()
+        messages.success(request, "your post has been submitted")
     else:
         logger.info("Invalid comment: " + form.errors.as_json())
 
