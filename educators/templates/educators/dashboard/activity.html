@@ -6,10 +6,11 @@
     {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
   </div>
   {% for day, activity in activity_by_day.items %}
-  <ul class="list-group mt-2">
+  <ul class="activity-list list-group mt-2">
     <li class="list-group-item disabled">{{ day|date:"DATE_FORMAT" }}</li>
     {% for notification in activity %}
     <li class="list-group-item">
+      <i class="indicator {% if notification.unread %}indicator-unread{% else %}indicator-read{% endif %}"></i>
       {% if notification.verb == 'posted' %}
       <a href="{% url "educators:conversation" student_id=notification.target.owner.id challenge_id=notification.target.challenge.id %}#comment-{{notification.action_object.id}}">
         {{ notification.actor }} commented on {{ notification.target.challenge.name }}
@@ -19,7 +20,6 @@
         {{ notification.actor }} {{ notification.verb }} {{ notification.action_object.challenge.name }}
       </a>
       {% endif %}
-      {% if notification.unread %}<span>Unread</span>{% endif %}
     </li>
     {% endfor %}
   </ul>
