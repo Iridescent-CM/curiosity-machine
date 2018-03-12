@@ -1,4 +1,5 @@
 {% load ifactive %}
+{% load notifications_tags %}
 <div class="row mb-3">
   <div class="col-md-12">
     <nav class="educator-dashboard-navigation">
@@ -32,11 +33,11 @@
             units &amp; guides
           </a>
         </li>
-        {% if membership_selection.selected.listed_members %}
+        {% if membership_selection.selected.listed_members and flags.enable_educator_feedback %}
         <li class="nav-item {% ifactive "educators:activity" "active-nav" %}">
           <a class="nav-link" href="{% url 'educators:activity' %}">
             recent activity
-            <span class="tag tag-primary">{{request.user.notifications.unread.count}}</span>
+            <span class="tag tag-primary">{% notifications_unread %}</span>
           </a>
         </li>
         {% endif %}

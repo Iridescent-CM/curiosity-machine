@@ -11,11 +11,11 @@
       <p class="text-xs-center">Parents and guardians, please <strong>follow these directions to register for the program:</strong></p>
       <hr/>
 
-      <ol>
-        <li>
+      <ol class="to-do-list">
+        <li class="to-do-list-item {% if presurvey.completed %}to-do-list-complete{% endif %}">
           Complete the <a href="{{ presurvey.url }}">AI Family Challenge Pre-survey</a>.
         </li>
-        <li>
+        <li class="to-do-list-item {% if consent.signed %}to-do-list-complete{% endif %}">
           <strong>Sign your consent form.</strong> You should receive the form in your inbox.
         </li>
       </ol>
