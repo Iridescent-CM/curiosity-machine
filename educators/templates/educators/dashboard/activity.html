@@ -20,6 +20,9 @@
         {{ notification.actor }} {{ notification.verb }} {{ notification.action_object.challenge.name }}
       </a>
       {% endif %}
+      <small class="timesince">
+        {{ notification.timesince }} ago
+      </small>
     </li>
     {% endfor %}
   </ul>

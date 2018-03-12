@@ -6531,6 +6531,9 @@ footer {
   .educator-dashboard .activity-list .indicator.indicator-unread {
     background: #0275d8; }
 
+.educator-dashboard .activity-list .timesince {
+  float: right; }
+
 .family-dashboard .dashboard-header {
   background-color: #1f1f1f;
   background-image: url("../images/design-challenge-repeating-pattern.png");
