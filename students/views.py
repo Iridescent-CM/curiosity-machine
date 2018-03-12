@@ -11,18 +11,14 @@ from profiles.decorators import only_for_role, UserRole
 from profiles.views import EditProfileMixin
 from .forms import *
 from .models import StudentProfile
-from educators.decorators import MembershipSelection
 from django.conf import settings
 
 only_for_student = only_for_role(UserRole.student)
 
 def banner_membership_blacklisted(request):
-  membership_selection = MembershipSelection(request)
-  if settings.AI_BANNER_STUDENT_BLACKLIST:
-    ai_banner_student_blacklist = [int(membership) for membership in settings.AI_BANNER_STUDENT_BLACKLIST]
-    return any(membership.id in ai_banner_student_blacklist for membership in list(membership_selection.all))
-  else:
-    return False
+  membership_set = request.user.membership_set.filter(is_active=True)
+  return any(membership.id in settings.AI_BANNER_STUDENT_BLACKLIST for membership in membership_set)
+
 
 class CreateView(EditProfileMixin, CreateView):
     model = StudentProfile

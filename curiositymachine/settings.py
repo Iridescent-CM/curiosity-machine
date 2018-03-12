@@ -287,7 +287,7 @@ GA_CODE = os.environ.get("GA_CODE", None)
 SITE_MESSAGE = os.environ.get("SITE_MESSAGE", None)
 SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
 
-AI_BANNER_STUDENT_BLACKLIST = os.getenv("AI_BANNER_STUDENT_BLACKLIST", '').split(',') if os.getenv("AI_BANNER_STUDENT_BLACKLIST") else []
+AI_BANNER_STUDENT_BLACKLIST = [int(membership) for membership in (os.getenv("AI_BANNER_STUDENT_BLACKLIST", None).split(','))] if os.getenv("AI_BANNER_STUDENT_BLACKLIST") else []
 
 AICHALLENGE_STAGES = {
     1: {
