@@ -7,7 +7,7 @@ class CommentForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea, required=False)
     visual_media = MediaURLField(
         widget=FilePickerPickWidget(
-            preview=True,
+            preview=False,
             attrs={
                 "data-fp-opento": 'WEBCAM',
                 "data-fp-services": 'VIDEO,WEBCAM,COMPUTER,CONVERT',

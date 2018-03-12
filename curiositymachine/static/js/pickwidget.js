@@ -56,7 +56,9 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
           container.insertBefore(el, container.firstChild);
         }
       }
-      $(evt.target.form.submit());
+      evt.target.form.submit();
+      evt.target.form.previousElementSibling.textContent = "Please wait...";
+      evt.target.form.hidden = true;
     },
     function error (err) {
       if (!err.code || err.code !== 101) {
