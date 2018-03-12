@@ -350,7 +350,7 @@ class ConversationView(TemplateView):
         progress = get_object_or_404(student.progresses, challenge_id=kwargs.pop("challenge_id"))
 
         progress_type = ContentType.objects.get_for_model(progress)
-        self.request.user.notifications.unread().filter(
+        self.request.user.notifications.all().filter(
             Q(
                 verb="completed",
                 action_object_content_type=progress_type,
@@ -379,7 +379,7 @@ class ActivityView(ListView):
     context_object_name = 'activity'
 
     def get_queryset(self):
-        return self.request.user.notifications.unread().all()
+        return self.request.user.notifications.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
