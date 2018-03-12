@@ -281,6 +281,8 @@ LOGGING = {
     },
 }
 
+NOTIFICATIONS_USE_JSONFIELD = True
+
 # Additional app config
 GA_CODE = os.environ.get("GA_CODE", None)
 

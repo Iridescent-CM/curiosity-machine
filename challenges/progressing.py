@@ -7,6 +7,8 @@ from .models import *
 class BaseActor:
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
+        for k, v in kwargs.items():
+            setattr(self, k, v)
 
     def _is_author(self, comment):
         return self.user == comment.user
@@ -36,21 +38,22 @@ class NoopActor(BaseActor):
     def on_comment_received(self, progress, comment):
         pass
 
-def wrap_as_actor(classname, wrapped_user, defaultclass=NoopActor):
+def wrap_as_actor(classname, wrapped_user, defaultclass=NoopActor, **kwargs):
     _class = load_from_role_app(wrapped_user.extra.role, "progressing", classname)
     if _class:
-        return _class(wrapped_user)
+        return _class(wrapped_user, **kwargs)
     else:
-        return defaultclass(wrapped_user)
+        return defaultclass(wrapped_user, **kwargs)
 
 class ProgressEducators:
     def __init__(self, progress, educators=None, *args, **kwargs):
         self.progress = progress
         if educators == None:
+            self.educators = []
             educators = get_user_model().objects.none()
             for membership in self.progress.owner.membership_set.filter(is_active=True, challenges=self.progress.challenge):
-                educators = educators | membership.educators
-            self.educators = [wrap_as_actor("ProgressEducator", educator) for educator in educators.distinct()]
+                for educator in membership.educators:
+                    self.educators.append(wrap_as_actor("ProgressEducator", educator, membership=membership))
         else:
             self.educators = educators
 

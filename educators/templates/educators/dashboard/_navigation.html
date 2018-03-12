@@ -33,7 +33,7 @@
             units &amp; guides
           </a>
         </li>
-        {% if membership_selection.selected.listed_members and flags.enable_educator_feedback %}
+        {% if flags.enable_educator_feedback %}
         <li class="nav-item {% ifactive "educators:activity" "active-nav" %}">
           <a class="nav-link" href="{% url 'educators:activity' %}">
             recent activity
