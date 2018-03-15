@@ -35,6 +35,7 @@ class FamilyProfile(BaseProfile):
             if not response.completed:
                 return False
 
+        # TODO: change to FamilyConsentTemplate
         consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
         if consent.active:
             signature = consent.signature(self.user)

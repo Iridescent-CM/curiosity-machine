@@ -4,33 +4,61 @@ from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.db import models
 from enumfields import Enum, EnumIntegerField
+from pydoc import locate
+import importlib
 import re
 import uuid
 
-class ConsentTemplate:
+class ConsentTemplate(object):
     prefix = "HELLOSIGN_TEMPLATE_"
     defaults = {
         'BYPASS_API': False,
         'ACTIVE': False,
     }
+    id = None
 
-    def __init__(self, id, *args, **kwargs):
-        self.id = id
+    def __new__(cls, *args, **kwargs):
+        if cls is ConsentTemplate:
+            raise TypeError("ConsentTemplate may not be instantiated directly")
+        return object.__new__(cls)
+
+    def __init__(self, id=None, *args, **kwargs):
+        if self.id and id and not self.id == id:
+            raise ValueError("Constructor cannot take different id than id already assigned to the class")
+        self.id = self.id or id
         self.name = self.find_name(id)
 
-    def find_name(self, id):
+    def __getattr__(self, attrname):
+        return self.find_setting(self.name, attrname)
+
+    @classmethod
+    def lookup_instance(cls, id):
+        name = cls.find_name(id)
+        try:
+            subclass = cls.find_setting(name, 'CLASS')
+            # not globals, do full spec and lookup
+            return locate(subclass)(id)
+        except AttributeError:
+            return GenericConsentTemplate(id)
+
+    @classmethod
+    def find_name(cls, id):
         for attr in dir(settings):
-            match = re.match(r'%s(.*)_ID' % self.prefix, attr)
+            match = re.match(r'%s(.*)_ID' % cls.prefix, attr)
             if match and getattr(settings, attr) == id:
                 return match[1]
         raise ImproperlyConfigured("Unable to find Hellosign template configuration with ID=%s" % id)
 
-    def __getattr__(self, attrname):
-        attrname = attrname.upper()
-        settingname = "%s%s_%s" % (self.prefix, self.name, attrname)
-        if attrname in self.defaults:
-            return getattr(settings, settingname, self.defaults[attrname])
-        return getattr(settings, settingname)
+    @classmethod
+    def find_setting(cls, templatename, settingname):
+        settingname = settingname.upper()
+        fullname = "%s%s_%s" % (cls.prefix, templatename.upper(), settingname)
+        if settingname in cls.defaults:
+            return getattr(settings, fullname, cls.defaults[settingname])
+        return getattr(settings, fullname)
+
+    def get_custom_fields(self, signature):
+        raise NotImplementedError("Subclass must implement get_custom_fields")
 
     def signature(self, user):
         from . import jobs
@@ -38,6 +66,26 @@ class ConsentTemplate:
         if created and not self.bypass_api:
             jobs.request_signature(signature.id)
         return signature
+
+class GenericConsentTemplate(ConsentTemplate):
+
+    def get_custom_fields(self, signature):
+        fields = {}
+        if hasattr(self, "email_id"):
+            fields[self.email_id] = signature.user.email
+        if hasattr(self, "username_id"):
+            fields[self.username_id] = signature.user.username
+        if hasattr(self, "birthday_id"):
+            fields[self.birthday_id] = signature.user.studentprofile.birthday.strftime('%b %d, %Y')
+        return fields
+
+class FamilyConsentTemplate(ConsentTemplate):
+    id = settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID
+
+    def get_custom_fields(self, signature):
+        fields = super().get_custom_fields(signature)
+        # TODO: add extra fields here
+        return fields
 
 class SignatureStatus(Enum):
     UNSIGNED = 0
@@ -55,7 +103,7 @@ class Signature(models.Model):
 
     @property
     def template(self):
-        return ConsentTemplate(self.template_id)
+        return ConsentTemplate.lookup_instance(self.template_id)
 
     def __getattr__(self, name):
         # treat status names like boolean attributes
@@ -101,14 +149,7 @@ class Signature(models.Model):
         return body
 
     def get_custom_fields(self):
-        fields = {}
-        if hasattr(self.template, "email_id"):
-            fields[self.template.email_id] = self.user.email
-        if hasattr(self.template, "username_id"):
-            fields[self.template.username_id] = self.user.username
-        if hasattr(self.template, "birthday_id"):
-            fields[self.template.birthday_id] = self.user.studentprofile.birthday.strftime('%b %d, %Y')
-        return [fields]
+        return self.template.get_custom_fields(self)
 
     def get_metadata(self):
         return {

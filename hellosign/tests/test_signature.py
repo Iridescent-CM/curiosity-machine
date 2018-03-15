@@ -1,8 +1,13 @@
 import mock
 import pytest
+from mock import sentinel
 from students.factories import *
 from ..models import *
 
+
+class SomeConsentTemplate(ConsentTemplate):
+    def get_custom_fields(self, *args):
+        return sentinel.custom_fields_return
 
 def test_signature_custom_fields():
     with mock.patch('hellosign.models.settings', spec=True) as settings:
@@ -14,11 +19,11 @@ def test_signature_custom_fields():
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_BIRTHDAY_ID = "ghi"
 
         sig = Signature(template_id="123", user=user)
-        assert sig.get_custom_fields() == [{
+        assert sig.get_custom_fields() == {
             "abc": user.email,
             "def": user.username,
             "ghi": "Jan 01, 2000"
-        }]
+        }
 
 def test_signature_custom_fields_omitted_id():
     with mock.patch('hellosign.models.settings', spec=True) as settings:
@@ -28,9 +33,21 @@ def test_signature_custom_fields_omitted_id():
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_EMAIL_ID = "abc"
 
         sig = Signature(template_id="123", user=user)
-        assert sig.get_custom_fields() == [{
+        assert sig.get_custom_fields() == {
             "abc": user.email,
-        }]
+        }
+
+def test_custom_fields_from_custom_template_class():
+    with mock.patch('hellosign.models.settings', spec=True) as settings:
+        user = StudentFactory.build()
+
+        settings.HELLOSIGN_TEMPLATE_SOME_NAME_ID = "123"
+        settings.HELLOSIGN_TEMPLATE_SOME_NAME_EMAIL_ID = "abc"
+        settings.HELLOSIGN_TEMPLATE_SOME_NAME_CLASS = "hellosign.tests.test_signature.SomeConsentTemplate"
+
+        sig = Signature(template_id="123", user=user)
+        assert isinstance(sig.template, SomeConsentTemplate)
+        assert sig.get_custom_fields() == sentinel.custom_fields_return
 
 def test_signature_signers():
     with mock.patch('hellosign.models.settings', spec=True) as settings:

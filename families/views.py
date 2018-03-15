@@ -109,6 +109,7 @@ class PrereqInterruptionView(TemplateView):
 
     def get_context_data(self, **kwargs):
         presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
+        # TODO: change to FamilyConsentTemplate
         consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
         return super().get_context_data(
             **kwargs,
@@ -126,6 +127,7 @@ class EditEmailView(EditProfileMixin, UpdateView):
     def form_valid(self, form):
         self.object = form.save()
 
+        # TODO: change to FamilyConsentTemplate
         consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
         signature = consent.signature(self.object.user)
         jobs.update_email(signature.id)
