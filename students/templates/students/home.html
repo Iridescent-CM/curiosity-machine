@@ -33,7 +33,7 @@
     </div>
   </div>
   {% endif %}
-  {% if flags.enable_ai_banner %}
+  {% if flags.enable_ai_banner and not banner_membership_blacklisted %}
   {% url "families:conversion" as banner_url %}
   {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   {% endif %}
