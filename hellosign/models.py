@@ -5,11 +5,10 @@ from django.template.loader import render_to_string
 from django.db import models
 from enumfields import Enum, EnumIntegerField
 from pydoc import locate
-import importlib
 import re
 import uuid
 
-class ConsentTemplate(object):
+class ConsentTemplate:
     prefix = "HELLOSIGN_TEMPLATE_"
     defaults = {
         'BYPASS_API': False,
@@ -36,7 +35,6 @@ class ConsentTemplate(object):
         name = cls.find_name(id)
         try:
             subclass = cls.find_setting(name, 'CLASS')
-            # not globals, do full spec and lookup
             return locate(subclass)(id)
         except AttributeError:
             return GenericConsentTemplate(id)
