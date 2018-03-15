@@ -219,12 +219,10 @@ def challenges(request):
 def start_building(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
 
-    if not Progress.objects.filter(challenge=challenge, owner=request.user).exists():
-        try:
-            Progress.objects.create(challenge=challenge, owner=request.user)
-        except (ValueError, ValidationError):
-            print(ValidationError)
-            raise PermissionDenied
+    try:
+        Progress.objects.get_or_create(challenge=challenge, owner=request.user)
+    except (ValueError, ValidationError):
+        raise PermissionDenied
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={
         'challenge_id': challenge.id,
         'username': request.user.username,
