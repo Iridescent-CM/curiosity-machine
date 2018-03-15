@@ -1,4 +1,5 @@
 {% extends "educators/dashboard/base.html" %}
+{% load cm_notifications %}
 
 {% block content %}
   {% include 'educators/dashboard/_navigation.html' %}
@@ -10,19 +11,7 @@
     <li class="list-group-item disabled">{{ day|date:"DATE_FORMAT" }}</li>
     {% for notification in activity %}
     <li class="list-group-item">
-      <i class="indicator {% if notification.unread %}indicator-unread{% else %}indicator-read{% endif %}"></i>
-      {% if notification.verb == 'posted' %}
-      <a href="{% url "educators:conversation" student_id=notification.target.owner.id challenge_id=notification.target.challenge.id %}#comment-{{notification.action_object.id}}">
-        {{ notification.actor }} commented on {{ notification.target.challenge.name }}
-      </a>
-      {% elif notification.verb == 'completed' %}
-      <a href="{% url "educators:conversation" student_id=notification.action_object.owner.id challenge_id=notification.action_object.challenge.id %}#content">
-        {{ notification.actor }} {{ notification.verb }} {{ notification.action_object.challenge.name }}
-      </a>
-      {% endif %}
-      <small class="timesince">
-        {{ notification.timesince }} ago
-      </small>
+      {% cm_notification notification %}
     </li>
     {% endfor %}
   </ul>
