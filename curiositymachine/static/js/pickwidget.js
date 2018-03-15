@@ -56,9 +56,18 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
           container.insertBefore(el, container.firstChild);
         }
       }
+      //submit the form upon saving
       evt.target.form.submit();
-      evt.target.form.previousElementSibling.textContent = "Please wait...";
       evt.target.form.hidden = true;
+
+      var title = document.getElementById("comment_title")
+      title.textContent = "Please wait...";
+
+      var to_hide = document.getElementsByName("hide_upon_submit")
+      for (var i = to_hide.length - 1; i >= 0; i--)
+      {
+        to_hide[i].hidden = true;
+      }
     },
     function error (err) {
       if (!err.code || err.code !== 101) {
