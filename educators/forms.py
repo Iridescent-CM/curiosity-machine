@@ -15,12 +15,19 @@ class EducatorProfileForm(RelatedModelFormMixin, ProfileModelForm):
         model = EducatorProfile
         fields = [
             'organization',
+            'title_i',
         ]
 
     class Media:
         js = ('js/location-form.js',)
 
-    organization = forms.CharField(required=True)
+    organization = forms.CharField(required=True, label="Organization name")
+    title_i = forms.ChoiceField(
+        label="Organization is a Title I or underserved school?",
+        choices=((True, "Yes"), (False, "No")),
+        initial=False,
+        widget=forms.RadioSelect,
+    )
 
     image_url = MediaURLField(
         label="Photo",
