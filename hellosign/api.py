@@ -43,7 +43,7 @@ class HelloSign():
         req = self.client.send_signature_request_with_template(
             test_mode=not settings.HELLOSIGN_PRODUCTION_MODE,
             template_id=signature.template_id,
-            custom_fields=signature.get_custom_fields(),
+            custom_fields=[signature.get_custom_fields()],
             signers=signature.get_signers(),
             subject=signature.get_subject(),
             message=signature.get_message(),

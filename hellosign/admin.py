@@ -6,7 +6,15 @@ from .updating import Updating
 class SignatureAdmin(admin.ModelAdmin):
     list_display = ['id', 'template_id', 'user', 'status', 'created_at', 'updated_at']
     list_filter = [('status', EnumFieldListFilter)]
-    readonly_fields = ['id', 'template_id', 'user', 'created_at', 'updated_at']
+    readonly_fields = [
+        'id',
+        'template_id',
+        'user',
+        'created_at',
+        'updated_at',
+        'signature_request_id',
+        'signature_id'
+    ]
     search_fields = ['id', 'template_id', 'user__username']
 
     def save_model(self, request, obj, form, change):

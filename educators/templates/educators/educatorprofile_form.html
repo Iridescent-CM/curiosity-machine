@@ -1,4 +1,5 @@
 {% extends "profiles/profile_form.html" %}
+{% load widget_tweaks %}
 {% load bootstrap4 %}
 {% load pick_action %}
 
@@ -26,4 +27,19 @@
   {% endif %}
   {% form_group form.city %}
   {% form_group form.organization %}
+
+  {% with field=form.title_i %}
+  <fieldset class="form-group yes-no-group mb-3">
+    <label class="group-label">{{ field.label }}</label>
+    <div class="yes-no-options">
+      {% for choice in field %}
+      <label class="form-check-inline">
+        {{ choice.tag }}
+        {{ choice.choice_label }}
+      </label>
+      {% endfor %}
+    </div>
+  </fieldset>
+  {% endwith %}
+
 {% endblock %}

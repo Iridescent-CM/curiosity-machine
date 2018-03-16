@@ -108,6 +108,7 @@ class Progress(models.Model):
 
     class Meta:
         verbose_name_plural = "progresses"
+        unique_together = ('challenge', 'owner',)
 
     @classmethod
     def unclaimed(cls, started_date=None):

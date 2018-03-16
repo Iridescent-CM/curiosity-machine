@@ -5,7 +5,7 @@ from django.db import models
 from django.utils.functional import cached_property
 from django.utils.timezone import now
 from enum import Enum
-from hellosign.models import ConsentTemplate
+from hellosign.models import FamilyConsentTemplate
 from images.models import Image
 from locations.models import Location
 from phonenumber_field.modelfields import PhoneNumberField
@@ -35,7 +35,7 @@ class FamilyProfile(BaseProfile):
             if not response.completed:
                 return False
 
-        consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
+        consent = FamilyConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
         if consent.active:
             signature = consent.signature(self.user)
             if not signature.signed:

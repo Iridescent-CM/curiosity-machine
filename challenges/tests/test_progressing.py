@@ -134,8 +134,9 @@ def test_progress_educators_looks_up_connected_educators():
     student = StudentFactory()
     progress=ProgressFactory(owner=student)
     ed = EducatorFactory()
-    MembershipFactory(members=[student, ed], challenges=[progress.challenge])
+    m = MembershipFactory(members=[student, ed], challenges=[progress.challenge])
     assert [pe.user.id for pe in ProgressEducators(progress).educators] == [ed.id]
+    assert [pe.membership.id for pe in ProgressEducators(progress).educators] == [m.id]
 
 @pytest.mark.django_db
 def test_progress_educators_skips_memberships_without_relevant_challenge():
@@ -154,13 +155,14 @@ def test_progress_educators_skips_inactive_memberships():
     assert not ProgressEducators(progress).educators
 
 @pytest.mark.django_db
-def test_progress_educators_counts_educators_connected_in_multiple_ways_only_once():
+def test_progress_educators_counts_educators_connected_in_multiple_ways():
     student = StudentFactory()
     progress=ProgressFactory(owner=student)
     ed = EducatorFactory()
-    MembershipFactory(members=[student, ed], challenges=[progress.challenge])
-    MembershipFactory(members=[student, ed], challenges=[progress.challenge])
-    assert [pe.user.id for pe in ProgressEducators(progress).educators] == [ed.id]
+    m1 = MembershipFactory(members=[student, ed], challenges=[progress.challenge])
+    m2 = MembershipFactory(members=[student, ed], challenges=[progress.challenge])
+    assert [pe.user.id for pe in ProgressEducators(progress).educators] == [ed.id, ed.id]
+    assert set([pe.membership.id for pe in ProgressEducators(progress).educators]) == set([m1.id, m2.id])
 
 @pytest.mark.django_db
 def test_progress_educators_dispatches_to_each_educator():

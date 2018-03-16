@@ -11,8 +11,14 @@ from profiles.decorators import only_for_role, UserRole
 from profiles.views import EditProfileMixin
 from .forms import *
 from .models import StudentProfile
+from django.conf import settings
 
 only_for_student = only_for_role(UserRole.student)
+
+def banner_membership_blacklisted(request):
+  membership_set = request.user.membership_set.filter(is_active=True)
+  return any(membership.id in settings.AI_BANNER_STUDENT_BLACKLIST for membership in membership_set)
+
 
 class CreateView(EditProfileMixin, CreateView):
     model = StudentProfile
@@ -71,6 +77,8 @@ class HomeView(TemplateView):
 
         context["parent_connections"] = ParentConnection.objects.filter(child_profile=request.user.studentprofile, removed=False)
         context["memberships"] = request.user.membership_set.filter(is_active=True)
+
+        context["banner_membership_blacklisted"] = banner_membership_blacklisted(request)
 
         return context
 
