@@ -63,11 +63,7 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
       var title = document.getElementById("comment_title")
       title.textContent = "Please wait...";
 
-      var to_hide = document.getElementsByName("hide_upon_submit")
-      for (var i = to_hide.length - 1; i >= 0; i--)
-      {
-        to_hide[i].hidden = true;
-      }
+      $('.hide_upon_submit').hide();
     },
     function error (err) {
       if (!err.code || err.code !== 101) {
