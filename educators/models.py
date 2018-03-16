@@ -9,6 +9,7 @@ class EducatorProfile(BaseProfile):
     location = models.ForeignKey(Location, null=True, blank=False, on_delete=models.PROTECT)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     organization = models.CharField(max_length=50, null=True, blank=True)
+    title_i = models.BooleanField(default=False, null=False)
 
 class ImpactSurvey(models.Model):
     student_count = models.PositiveIntegerField(default=0, blank=True)

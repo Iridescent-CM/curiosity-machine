@@ -5979,6 +5979,17 @@ i {
   .to-do-list .to-do-list-item.to-do-list-complete:before {
     background-image: url("../images/checkbox-checked.svg"); }
 
+.yes-no-group .group-label {
+  margin-right: 2rem; }
+
+.yes-no-group .form-check-inline {
+  vertical-align: baseline; }
+
+.yes-no-group .yes-no-options {
+  display: inline-block;
+  margin-left: -1.25rem;
+  margin-bottom: 0.5rem; }
+
 header {
   background-color: #FFFCF7;
   font-family: "Raleway", Helvetica, sans-serif; }
