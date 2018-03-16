@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
 from hellosign import jobs
-from hellosign.models import ConsentTemplate
+from hellosign.models import FamilyConsentTemplate
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
@@ -109,7 +109,7 @@ class PrereqInterruptionView(TemplateView):
 
     def get_context_data(self, **kwargs):
         presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
-        consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
+        consent = FamilyConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
         return super().get_context_data(
             **kwargs,
             presurvey=presurvey.response(self.request.user),
@@ -126,7 +126,7 @@ class EditEmailView(EditProfileMixin, UpdateView):
     def form_valid(self, form):
         self.object = form.save()
 
-        consent = ConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
+        consent = FamilyConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
         signature = consent.signature(self.object.user)
         jobs.update_email(signature.id)
 
