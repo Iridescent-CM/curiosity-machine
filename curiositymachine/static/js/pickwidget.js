@@ -56,14 +56,14 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
           container.insertBefore(el, container.firstChild);
         }
       }
-      //submit the form upon saving
-      evt.target.form.submit();
-      evt.target.form.hidden = true;
-
-      var title = document.getElementById("comment_title")
-      title.textContent = "Please wait...";
-
-      $('.hide_upon_submit').hide();
+      //submit edp comments upon saving
+      if ($('.edp-comments')[0]) {
+        evt.target.form.submit();
+        evt.target.form.hidden = true;
+        var title = document.getElementById("comment_title")
+        title.textContent = "Please wait...";
+        $('.hide_upon_submit').hide();
+      }
     },
     function error (err) {
       if (!err.code || err.code !== 101) {
