@@ -2,25 +2,30 @@ from django import template
 
 register = template.Library()
 
-@register.inclusion_tag('curiositymachine/templatetags/bootstrap4/form_group.html')
-def form_group(field, **kwargs):
-    context = {
+@register.inclusion_tag('curiositymachine/templatetags/bootstrap4/form_group.html', takes_context=True)
+def form_group(context, field, **kwargs):
+    print(field.label, field.field.required, kwargs.get('required', False), kwargs)
+    tagcontext = {
         "field": field,
         "field_class": "form-control",
         "form_group_style": kwargs.get("group_style", ""),
         "help_text_classes": kwargs.get("help_text_classes", "text-muted"),
+        "required": field.field.required or kwargs.get('required', False),
+        "show_required": context.get("SHOW_REQUIRED", False),
     }
-    context.update(kwargs)
-    return context
+    tagcontext.update(kwargs)
+    return tagcontext
 
-@register.inclusion_tag('curiositymachine/templatetags/bootstrap4/email_form_group.html')
-def email_form_group(field, email=None, **kwargs):
-    context = {
+@register.inclusion_tag('curiositymachine/templatetags/bootstrap4/email_form_group.html', takes_context=True)
+def email_form_group(context, field, email=None, **kwargs):
+    tagcontext = {
         "field": field,
         "email": email,
+        "required": field.field.required,
+        "show_required": context.get("SHOW_REQUIRED", False),
     }
-    context.update(kwargs)
-    return context
+    tagcontext.update(kwargs)
+    return tagcontext
 
 @register.inclusion_tag('curiositymachine/templatetags/bootstrap4/form_check.html')
 def form_check(field, **kwargs):

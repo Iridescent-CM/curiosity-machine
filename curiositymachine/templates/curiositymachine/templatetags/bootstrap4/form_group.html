@@ -5,7 +5,7 @@
   {% if form_group_style %}style="{{ form_group_style }}"{% endif %}
 >
   <label for="{{ field.id_for_label }}">
-    {{ field.label }}:
+    {{ field.label }}{% if required and show_required %}*{% endif %}:
   </label>
   {% render_field field class+=field_class %}
   {% if help_text %}

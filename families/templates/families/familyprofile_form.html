@@ -8,12 +8,14 @@
 {% endblock %}
 
 {% block cards %}
+  {% with SHOW_REQUIRED=True %}
   <form action="{% pick_action form edit="families:edit_profile" create="families:create_profile" %}" method="POST" novalidate>
     {% csrf_token %}
 
     <div class="card card-module">
       <div class="card-block-title text-xs-center p-1">
         <h4>Profile Info</h4>
+        <small class="text-muted">* Please fill out all fields marked with an asterisk</small>
       </div>
       <div class="card-block">
         <div class="text-xs-center">
@@ -27,9 +29,9 @@
         {% form_group form.country %}
         {% comment %} location should probably be a compound widget to encapsulate the following sort of thing {% endcomment %}
         {% if form.country.value == "US" %}
-        {% form_group form.state %}
+        {% form_group form.state required=True %}
         {% else %}
-        {% form_group form.state group_style="display:none;" %}
+        {% form_group form.state group_style="display:none;" required=True %}
         {% endif %}
         {% form_group form.city %}
         {% if form.instance and form.instance.pk %}
@@ -44,6 +46,10 @@
     <div class="card card-module">
       <div class="card-block-title text-xs-center p-1">
         <h4>Family Members</h4>
+        <small class="text-muted">
+          * Please fill out all fields marked with an asterisk<br/>
+          One parent and one child required, six family members max
+        </small>
       </div>
       <div class="card-block">
         {{ formset.management_form }}
@@ -66,4 +72,5 @@
       </div>
     </div>
   </form>
+  {% endwith %}
 {% endblock %}
