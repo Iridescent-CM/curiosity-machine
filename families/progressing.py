@@ -1,4 +1,8 @@
+from challenges.models import Stage as ChallengeStage
 from challenges.progressing import BaseActor
+from cmemails import send
+from cmemails.mandrill import url_for_template
+from django.urls import reverse
 from notifications.signals import notify
 from .aichallenge import get_stages
 from .emailing import Emailing
@@ -23,7 +27,7 @@ class ProgressOwner(BaseActor):
         path = reverse('challenges:challenge_progress', kwargs={
             "challenge_id": progress.challenge.id,
             "username": progress.owner.username,
-            "stage": Stage(comment.stage).name
+            "stage": ChallengeStage(comment.stage).name
         })
         send(template_name='family-account-mentor-feedback', to=progress.owner, merge_vars={
             "username": progress.owner.username,
