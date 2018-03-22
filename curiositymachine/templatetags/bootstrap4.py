@@ -4,7 +4,6 @@ register = template.Library()
 
 @register.inclusion_tag('curiositymachine/templatetags/bootstrap4/form_group.html', takes_context=True)
 def form_group(context, field, **kwargs):
-    print(field.label, field.field.required, kwargs.get('required', False), kwargs)
     tagcontext = {
         "field": field,
         "field_class": "form-control",
