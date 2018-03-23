@@ -11,21 +11,19 @@ class EducatorProfile(BaseProfile):
     location = models.ForeignKey(Location, null=True, blank=False, on_delete=models.PROTECT)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     organization = models.CharField(max_length=50, null=True, blank=True)
+	title_i = models.BooleanField(default=False, null=False)
 
     @cached_property
     def full_coach_access(self):
         presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
         if self.is_coach and presurvey.active:
             response = presurvey.response(self.user)
-            if not response.completed:
-                return False
-        return True
+            return response.completed
+        return False
 
     @cached_property
     def is_coach(self):
-        if self.user.membership_set.filter(is_active=True, id=int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID)).exists():
-          return True
-        return False
+        return self.user.membership_set.filter(is_active=True, id=settings.AICHALLENGE_COACH_MEMBERSHIP_ID).exists()
 
 class ImpactSurvey(models.Model):
     student_count = models.PositiveIntegerField(default=0, blank=True)

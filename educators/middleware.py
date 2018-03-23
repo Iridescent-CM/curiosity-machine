@@ -20,10 +20,4 @@ class CoachPrerequisitesMiddleware:
                 or whitelist_regex.match(request.path.lstrip('/'))
             )
         ):
-           presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
-           if presurvey.active:
-             response = presurvey.response(request.user)
-             if not response.completed:
-               return prereq_interruption(request)
-           return None
-
+           return prereq_interruption(request)
