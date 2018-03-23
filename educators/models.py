@@ -3,13 +3,37 @@ from django.db import models
 from images.models import Image
 from locations.models import Location
 from profiles.models import BaseProfile
+from django.utils.functional import cached_property
+from surveys import get_survey
 
 class EducatorProfile(BaseProfile):
     city = models.TextField(blank=True) # deprecated, use location
     location = models.ForeignKey(Location, null=True, blank=False, on_delete=models.PROTECT)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     organization = models.CharField(max_length=50, null=True, blank=True)
-    title_i = models.BooleanField(default=False, null=False)
+
+    @cached_property
+    def full_coach_access(self):
+        return self.check_full_coach_access()
+
+    def check_full_coach_access(self):
+        presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
+        if self.is_coach and presurvey.active:
+            response = presurvey.response(self.user)
+            if not response.completed:
+                return False
+        return True
+
+    @cached_property
+    def is_coach(self):
+        return self.check_is_coach()
+
+    def check_is_coach(self):
+        user_memberships = self.user.membership_set.filter(is_active=True)
+        for membership in user_memberships:
+            if membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID):
+                return True
+        return False
 
 class ImpactSurvey(models.Model):
     student_count = models.PositiveIntegerField(default=0, blank=True)

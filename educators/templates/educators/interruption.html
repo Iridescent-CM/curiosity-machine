@@ -1,0 +1,21 @@
+{% extends "curiositymachine/layout/base.html" %}
+
+{% block content %}
+<div class="jumbotron-blue jumbotron-fluid text-xs-center">
+  <h1>Almost there...</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <p class="text-xs-center"><strong>In order to activate your AI Family Challenge Coach account:</strong></p>
+      <ol class="to-do-list">
+      <li class="to-do-list-item">
+        {% if not presurvey.completed %}
+        Fill out the <a href="{{ presurvey.url }}">AI Challenge Coach Pre-survey</a>.
+        {% endif %}
+      </li>
+      </ol>
+    </div>
+  </div>
+</div>
+{% endblock %}

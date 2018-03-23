@@ -29,6 +29,9 @@ from .models import *
 from .serializers import *
 from .sorting import *
 from django.conf import settings
+from surveys import get_survey
+from surveys.models import SurveyResponse
+
 
 only_for_educator = only_for_role(UserRole.educator)
 
@@ -408,3 +411,13 @@ class ActivityView(ListView):
         return context
 
 activity = only_for_educator(ActivityView.as_view())
+
+class PrereqInterruptionView(TemplateView):
+  template_name = "educators/interruption.html"
+
+  def get_context_data(self, **kwargs):
+    presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
+    response, created = SurveyResponse.objects.get_or_create(user=self.request.user, survey_id=presurvey.id)
+    return super().get_context_data( **kwargs, presurvey=response )
+
+prereq_interruption = only_for_educator(PrereqInterruptionView.as_view())
