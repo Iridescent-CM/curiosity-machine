@@ -1,20 +1,27 @@
 {% extends "curiositymachine/layout/base.html" %}
+{% block body-classes %}about-pages{% endblock %}
 
 {% block content %}
-<div class="jumbotron-blue jumbotron-fluid text-xs-center">
+<div class="container-fluid text-xs-center nav-panel pt-2">
   <h1>Almost there...</h1>
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-3">
       <p class="text-xs-center"><strong>In order to activate your AI Family Challenge Coach account:</strong></p>
       <ol class="to-do-list">
-      <li class="to-do-list-item">
-        {% if not presurvey.completed %}
-        Fill out the <a href="{{ presurvey.url }}">AI Challenge Coach Pre-survey</a>.
-        {% endif %}
-      </li>
+        <li class="to-do-list-item">
+          {% if not presurvey.completed %}
+            Fill out the <a href="{{ presurvey.url }}">AI Challenge Coach Pre-survey</a>.
+          {% endif %}
+        </li>
       </ol>
+      <hr class="hr"/>
+      <p class="text-xs-center">Do you no longer wish to be an AI Family Challenge coach? Click here to revert:</p>
+      <form action="{% url 'educators:coach_conversion' %}" method="post" class="text-xs-center">
+      {% csrf_token %}
+        <input class="btn btn-danger text-uppercase" type="submit" value="leave ai family challenge" />
+      </form>
     </div>
   </div>
 </div>

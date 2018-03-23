@@ -338,7 +338,7 @@ class CoachConversionView(View):
         messages.success(self.request, "You are now in the AI Family Challenge Coach membership! Enjoy the resources under Units & Guides.")
         return HttpResponseRedirect(reverse("educators:home"))
 
-coach_conversion = CoachConversionView.as_view()
+coach_conversion = only_for_educator(CoachConversionView.as_view())
 
 class ConversationView(TemplateView):
     template_name = "educators/dashboard/conversation.html"
@@ -419,5 +419,15 @@ class PrereqInterruptionView(TemplateView):
     presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
     response = presurvey.response(self.request.user)
     return super().get_context_data( **kwargs, presurvey=response )
+
+  def post(self, request, *args, **kwargs):
+      membership = Membership.objects.get(pk=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
+      member = Member.objects.get(user=self.request.user, membership=membership)
+      if member:
+          member.delete()
+
+      messages.success(self.request,
+                       "You are no longer in the AI Family Challenge Coach membership.")
+      return HttpResponseRedirect(reverse("educators:home"))
 
 prereq_interruption = only_for_educator(PrereqInterruptionView.as_view())
