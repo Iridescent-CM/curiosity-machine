@@ -16,14 +16,14 @@ class CoachPrerequisitesMiddleware:
             and request.user.educatorprofile.is_coach
             and (not request.user.educatorprofile.full_coach_access)
             and not (
-                whitelisted(view, 'public', 'maybe_public', 'unapproved_coach')
+                whitelisted(view, 'public', 'maybe_public')
                 or whitelist_regex.match(request.path.lstrip('/'))
             )
         ):
-            presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
-            if presurvey.active:
-              response, created = SurveyResponse.objects.get_or_create(user=request.user, survey_id=presurvey.id)
-            if not response.completed:
-                return prereq_interruption(request)
-            return None
+           presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
+           if presurvey.active:
+             response = presurvey.response(request.user)
+             if not response.completed:
+               return prereq_interruption(request)
+           return None
 

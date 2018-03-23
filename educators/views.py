@@ -417,7 +417,7 @@ class PrereqInterruptionView(TemplateView):
 
   def get_context_data(self, **kwargs):
     presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
-    response, created = SurveyResponse.objects.get_or_create(user=self.request.user, survey_id=presurvey.id)
+    response = presurvey.response(self.request.user)
     return super().get_context_data( **kwargs, presurvey=response )
 
 prereq_interruption = only_for_educator(PrereqInterruptionView.as_view())
