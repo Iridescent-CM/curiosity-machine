@@ -15,15 +15,17 @@ class EducatorProfile(BaseProfile):
 
     @cached_property
     def full_coach_access(self):
-        presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
-        if self.is_coach and presurvey.active:
-            response = presurvey.response(self.user)
-            return response.completed
-        return False
+       presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
+       if self.is_coach and presurvey.active:
+         response = presurvey.response(self.user)
+         return response.completed
+       return False
 
     @cached_property
     def is_coach(self):
-        return self.user.membership_set.filter(is_active=True, id=settings.AICHALLENGE_COACH_MEMBERSHIP_ID).exists()
+       if settings.AICHALLENGE_COACH_MEMBERSHIP_ID:
+         return self.user.membership_set.filter(is_active=True, id=settings.AICHALLENGE_COACH_MEMBERSHIP_ID).exists()
+       return False
 
 class ImpactSurvey(models.Model):
     student_count = models.PositiveIntegerField(default=0, blank=True)
