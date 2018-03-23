@@ -14,6 +14,5 @@ urlpatterns = [
     url(r'^home/activity/$', activity, name='activity'),
     url(r'^data/impact_survey/$', impact_data, name='update_impact_survey'),
     url(r'^data/progress_posts/$', comments, name='progress_graph_data'),
-    url(r'^coach/$', coach, name='create_coach'),
     url(r'^coach-conversion/$', coach_conversion, name="coach_conversion"),
 ]
