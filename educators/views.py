@@ -40,6 +40,12 @@ class CreateView(EditProfileMixin, CreateView):
     form_class = EducatorProfileForm
     success_url = lazy(reverse, str)("educators:home")
 
+    def get_initial(self):
+        initial = super().get_initial()
+        if "coach_signup" in self.request.GET:
+            initial["coach_signup"] = True
+        return initial
+
 create = only_for_role(UserRole.none)(CreateView.as_view())
 
 class EditView(EditProfileMixin, UpdateView):
@@ -305,19 +311,6 @@ class CommentList(generics.ListAPIView):
         return queryset
 
 comments = whitelist('public')(CommentList.as_view())
-
-class CoachView(RedirectView):
-    pattern_name = "educators:create_profile"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.membership_id = settings.AICHALLENGE_COACH_MEMBERSHIP_ID
-
-    def get(self, request, *args, **kwargs):
-        member, created = Member.objects.get_or_create(user=request.user, membership_id=self.membership_id)
-        return super().get(request, *args, **kwargs)
-
-coach = CoachView.as_view()
 
 class CoachConversionView(View):
     http_method_names = ['post', 'get']

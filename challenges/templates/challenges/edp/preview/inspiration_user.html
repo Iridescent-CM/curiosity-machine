@@ -1,4 +1,5 @@
 {% extends "challenges/edp/inspiration_with_gallery.html" %}
+{% load challenge_roles %}
 
 {% block jumbotron_message %}
 
@@ -14,9 +15,8 @@
 {% endblock %}
 
 {% block resources %}
-{% if user.extra.is_student or not challenge.accessible %}
-{{ block.super }}
-{% else %}
+{% can_see_resources request.user as can_see_resources %}
+{% if can_see_resources and challenge.accessible %}
 <div class="col-md-4">
   <div class="card card-module mb-3">
     <div class="card-block card-block-title">
@@ -39,5 +39,7 @@
     </div>
   </div>
 </div>
+{% else %}
+{{ block.super }}
 {% endif %}
 {% endblock %}

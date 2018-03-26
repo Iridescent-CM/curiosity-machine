@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block fields %}
+  {% render_field form.coach_signup %}
   <div class="text-xs-center">
     {% block avatar %}{{ block.super }}{% endblock %}
     {% form_group form.image_url field_class="btn btn-primary" %}

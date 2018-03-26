@@ -2,6 +2,7 @@ from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget
 from django import forms
 from locations.forms import LocationForm
+from memberships.models import Member
 from profiles.forms import ProfileModelForm, RelatedModelFormMixin
 from profiles.models import UserRole
 from .models import *
@@ -45,12 +46,17 @@ class EducatorProfileForm(RelatedModelFormMixin, ProfileModelForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
 
+    coach_signup = forms.BooleanField(required=False, widget=forms.HiddenInput)
+
     def save_related(self, obj):
         obj = super().save_related(obj)
 
         if self.cleaned_data.get("image_url"):
             img = Image.from_source_with_job(self.cleaned_data['image_url']['url'])
             obj.image = img
+
+        if self.cleaned_data.get("coach_signup"):
+            Member.objects.get_or_create(user=self.user, membership_id=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
 
         return obj
 
