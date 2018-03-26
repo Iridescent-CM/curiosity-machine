@@ -16,7 +16,7 @@ class CoachPrerequisitesMiddleware:
             and request.user.educatorprofile.is_coach
             and (not request.user.educatorprofile.full_coach_access)
             and not (
-                whitelisted(view, 'public', 'maybe_public')
+                whitelisted(view, 'public', 'maybe_public', 'coach_removal')
                 or whitelist_regex.match(request.path.lstrip('/'))
             )
         ):

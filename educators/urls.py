@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^data/progress_posts/$', comments, name='progress_graph_data'),
     url(r'^coach/$', coach, name='create_coach'),
     url(r'^coach-conversion/$', coach_conversion, name="coach_conversion"),
+    url(r'^coach-removal/$', coach_removal, name="coach_removal"),
 ]

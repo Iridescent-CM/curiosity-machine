@@ -323,12 +323,11 @@ class CoachConversionView(View):
     http_method_names = ['post', 'get']
 
     def get(self, request, *args, **kwargs):
-        user_memberships = self.request.user.membership_set.filter(is_active=True)
-        for membership in user_memberships:
-            if membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID):
-                messages.success(self.request, "You are already in the AI family coach membership!")
-                return HttpResponseRedirect(reverse("educators:home"))
-        return render(request,'educators/coach_conversion.html')
+        if request.user.educatorprofile.is_coach:
+          messages.success(self.request, "You are already in the AI family coach membership!")
+          return HttpResponseRedirect(reverse("educators:home"))
+        else:
+          return render(request, 'educators/coach_conversion.html')
 
     def post(self, request, *args, **kwargs):
         membership = Membership.objects.get(pk=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
@@ -420,14 +419,17 @@ class PrereqInterruptionView(TemplateView):
     response = presurvey.response(self.request.user)
     return super().get_context_data( **kwargs, presurvey=response )
 
-  def post(self, request, *args, **kwargs):
-      membership = Membership.objects.get(pk=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
-      member = Member.objects.get(user=self.request.user, membership=membership)
-      if member:
-          member.delete()
+prereq_interruption = only_for_educator(PrereqInterruptionView.as_view())
 
+class CoachRemoval(View):
+    
+  def get(self, request, *args, **kwargs):
+    if request.user.educatorprofile.is_coach:
+      membership = Membership.objects.get(pk=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
+      member = Member.objects.get(user=request.user, membership=membership)
+      member.delete()
       messages.success(self.request,
                        "You are no longer in the AI Family Challenge Coach membership.")
-      return HttpResponseRedirect(reverse("educators:home"))
+    return HttpResponseRedirect(reverse("educators:home"))
 
-prereq_interruption = only_for_educator(PrereqInterruptionView.as_view())
+coach_removal = whitelist('coach_removal')(only_for_educator(CoachRemoval.as_view()))
