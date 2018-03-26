@@ -57,11 +57,16 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
         }
       }
       //submit edp comments upon saving
-      if ($('.edp-comments')[0]) {
+      var el = document.getElementById("id_visual_media")
+      console.log(el);
+      var replacementText = el.hasAttribute('replacement-text') ? el.getAttribute('replacement-text') : undefined;
+      if (el.hasAttribute('auto-submit')) {
         evt.target.form.submit();
         evt.target.form.hidden = true;
-        var title = document.getElementById("comment_title")
-        title.textContent = "Please wait...";
+        if (replacementText) {
+          var textToReplace = document.getElementById("replace_upon_submit")
+          textToReplace.textContent = replacementText;
+        }
         $('.hide_upon_submit').hide();
       }
     },
