@@ -1,8 +1,11 @@
 {% extends "_modal.html" %}
+{% load staticfiles %}
+{% load challenge_roles %}
+{% can_see_resources request.user as can_see_resources %}
+
 {% block id %}guide-modal{% endblock %}
 {% block classes %}{% endblock %}
 {% block inner-classes %}modal-lg{% endblock %}
-{% load staticfiles %}
 
 {% block content %}
   {% with resources=challenge.resource_set.all %}
@@ -52,7 +55,7 @@
       </li>
       {% endif %}
 
-      {% if request.user.is_authenticated and not request.user.extra.is_student and resources %}
+      {% if resources and can_see_resources %}
       <li>
         <a
           href="#resources"
@@ -83,7 +86,7 @@
       </div>
       {% endif %}
 
-      {% if request.user.is_authenticated and not request.user.extra.is_student %}
+      {% if can_see_resources %}
       <div class="tab-pane fade" id="resources">
         {% for resource in resources %}
         <div class="media-item">
@@ -106,7 +109,8 @@
     </div>
 
     <div class="modal-footer">
-      {% if request.user.is_authenticated and request.user.extra.is_student and show_start_button %}
+      {% can_start_challenges request.user as can_start %}
+      {% if can_start and show_start_button %}
       <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
         {% csrf_token %}
         <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />

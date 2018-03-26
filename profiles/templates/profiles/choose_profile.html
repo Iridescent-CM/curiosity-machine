@@ -27,12 +27,12 @@
     </div>
     <div class="row mt-2">
       <div class="col-lg-5">
-        <a href="{% url "educators:create_coach" %}">
+        <a href="{% url "educators:create_profile" %}?coach_signup=1">
           <img src="{% static "images/educator.png" %}" alt="Coach">
         </a>
       </div>
       <div class="col-lg-7 my-3">
-        <a class="btn btn-primary" href="{% url "educators:create_coach" %}">Make a coach account</a>
+        <a class="btn btn-primary" href="{% url "educators:create_profile" %}?coach_signup=1">Make a coach account</a>
         <p class="mt-1">
           Coaches lead students and families through the challenge. Create this account if you plan to organize the challenge for groups.
         </p>
