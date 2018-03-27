@@ -327,7 +327,7 @@ class CoachConversionView(View):
         member = Member(user=self.request.user, membership=membership)
         member.save()
 
-        messages.success(self.request, "You are now in the AI Family Challenge Coach membership! Enjoy the resources under Units & Guides.")
+        messages.success(self.request, "You are now signed up as a coach in the AI Family Challenge!")
         return HttpResponseRedirect(reverse("educators:home"))
 
 coach_conversion = only_for_educator(CoachConversionView.as_view())
@@ -415,14 +415,13 @@ class PrereqInterruptionView(TemplateView):
 prereq_interruption = only_for_educator(PrereqInterruptionView.as_view())
 
 class CoachRemoval(View):
-    
-  def get(self, request, *args, **kwargs):
+
+  def post(self, request, *args, **kwargs):
     if request.user.educatorprofile.is_coach:
-      membership = Membership.objects.get(pk=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
-      member = Member.objects.get(user=request.user, membership=membership)
+      member = Member.objects.get(user=request.user, membership_id=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
       member.delete()
       messages.success(self.request,
-                       "You are no longer in the AI Family Challenge Coach membership.")
+                       "You are no longer a coach in the AI Family Challenge.")
     return HttpResponseRedirect(reverse("educators:home"))
 
 coach_removal = whitelist('coach_removal')(only_for_educator(CoachRemoval.as_view()))

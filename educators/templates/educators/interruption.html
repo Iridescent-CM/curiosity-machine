@@ -18,7 +18,7 @@
       </ol>
       <hr class="hr"/>
       <p class="text-xs-center">Do you no longer wish to be an AI Family Challenge coach? Click here to revert:</p>
-      <form action="{% url 'educators:coach_removal' %}" method="get" class="text-xs-center">
+      <form action="{% url 'educators:coach_removal' %}" method="post" class="text-xs-center">
       {% csrf_token %}
         <input class="btn btn-danger text-uppercase" type="submit" value="leave ai family challenge" />
       </form>
