@@ -1,13 +1,13 @@
 {% extends "_modal.html" %}
 {% load staticfiles %}
 {% load challenge_roles %}
-{% can_see_resources request.user as can_see_resources %}
 
 {% block id %}guide-modal{% endblock %}
 {% block classes %}{% endblock %}
 {% block inner-classes %}modal-lg{% endblock %}
 
 {% block content %}
+  {% can_see_resources request.user as can_see_resources %}
   {% with resources=challenge.resource_set.all %}
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

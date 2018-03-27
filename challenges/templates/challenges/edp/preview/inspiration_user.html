@@ -15,31 +15,31 @@
 {% endblock %}
 
 {% block resources %}
-{% can_see_resources request.user as can_see_resources %}
-{% if can_see_resources and challenge.accessible %}
-<div class="col-md-4">
-  <div class="card card-module mb-3">
-    <div class="card-block card-block-title">
-      <h4 class="card-title red-type">Educator Resources</h4>
-    </div>
-    <div class="card-block">
-      {% for resource in resources %}
-        <h4>{{ resource.name }}</h4>
-        <p>{{ resource.description }}</p>
-        <ul>
-          {% for resourcefile in resource.resourcefile_set.all %}
-          <li>
-            <a href="{{ resourcefile.file.url }}" data-ga-track="pageview" data-ga-page="{{ resourcefile.file }}" ga-event-label="{{ resourcefile.file }}">
-              {{ resourcefile.link_text|default:"Download" }}
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-      {% endfor %}
+  {% can_see_resources request.user as can_see_resources %}
+  {% if can_see_resources and challenge.accessible %}
+  <div class="col-md-4">
+    <div class="card card-module mb-3">
+      <div class="card-block card-block-title">
+        <h4 class="card-title red-type">Educator Resources</h4>
+      </div>
+      <div class="card-block">
+        {% for resource in resources %}
+          <h4>{{ resource.name }}</h4>
+          <p>{{ resource.description }}</p>
+          <ul>
+            {% for resourcefile in resource.resourcefile_set.all %}
+            <li>
+              <a href="{{ resourcefile.file.url }}" data-ga-track="pageview" data-ga-page="{{ resourcefile.file }}" ga-event-label="{{ resourcefile.file }}">
+                {{ resourcefile.link_text|default:"Download" }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
     </div>
   </div>
-</div>
-{% else %}
-{{ block.super }}
-{% endif %}
+  {% else %}
+  {{ block.super }}
+  {% endif %}
 {% endblock %}
