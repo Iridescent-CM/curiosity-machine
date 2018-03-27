@@ -57,17 +57,16 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
         }
       }
       //submit edp comments upon saving
-      var el = document.getElementById("id_visual_media")
-      console.log(el);
-      var replacementText = el.hasAttribute('replacement-text') ? el.getAttribute('replacement-text') : undefined;
-      if (el.hasAttribute('auto-submit')) {
+      var el = $('[data-auto-submit]')[0];
+      if (el){
         evt.target.form.submit();
         evt.target.form.hidden = true;
-        if (replacementText) {
-          var textToReplace = document.getElementById("replace_upon_submit")
+        $('.hide_upon_submit').hide()
+        var replacementText = el.hasAttribute('data-replacement-text') ? el.getAttribute('data-replacement-text') : undefined;
+        var textToReplace = $('.replace_text_upon_submit')[0];
+        if (replacementText && textToReplace) {
           textToReplace.textContent = replacementText;
         }
-        $('.hide_upon_submit').hide();
       }
     },
     function error (err) {

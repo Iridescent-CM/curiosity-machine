@@ -13,8 +13,8 @@ class CommentForm(forms.Form):
                 "data-fp-services": 'VIDEO,WEBCAM,COMPUTER,CONVERT',
                 "data-fp-conversions": 'crop,rotate',
                 "data-fp-video-length": settings.FILEPICKER_MAX_VIDEO_LENGTH_SECONDS,
-                "replacement-text": "Please wait...",
-                "auto-submit": "true",
+                "data-replacement-text": "Please wait...",
+                "data-auto-submit": "true",
             }
         ),
         mimetypes="video/*,image/*",
