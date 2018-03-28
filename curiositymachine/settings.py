@@ -116,6 +116,7 @@ MIDDLEWARE_CLASSES = (
     'curiositymachine.middleware.LastActiveMiddleware',
     'curiositymachine.middleware.FirstLoginMiddleware',
     'families.middleware.SignUpPrerequisitesMiddleware',
+    'families.middleware.PostSurveyMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
@@ -303,6 +304,7 @@ AICHALLENGE_STAGES = {
 }
 AICHALLENGE_COACH_MEMBERSHIP_ID=os.getenv("AICHALLENGE_COACH_MEMBERSHIP_ID", "")
 AICHALLENGE_FAMILY_PRE_SURVEY_ID=os.getenv("AICHALLENGE_FAMILY_PRE_SURVEY_ID", "")
+AICHALLENGE_FAMILY_POST_SURVEY_ID=os.getenv("AICHALLENGE_FAMILY_POST_SURVEY_ID", "")
 AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID=os.getenv("AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID", "")
 
 MENTOR_RELATIONSHIP_MANAGERS = os.getenv("MENTOR_RELATIONSHIP_MANAGERS", '').split(',') if os.getenv("MENTOR_RELATIONSHIP_MANAGERS") else []
