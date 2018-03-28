@@ -349,8 +349,30 @@
       }
     }
 
+
     .timesince {
       display: none;
+    }
+    .tag {
+      position: absolute;
+      right: 0;
+      margin-right: 1em;
+
+      &.plan-stage {
+        background-color: $primary-green;
+      }
+      &.build-stage {
+        background-color: $primary-purple;
+      }
+      &.test-stage {
+        background-color: $primary-red;
+      }
+      &.reflect-stage {
+        background-color: #1EB9C8;
+      }
+    }
+    .list-group-item {
+      padding-right: 75px;
     }
     @include media-breakpoint-up(md) {
       .timesince {
@@ -358,6 +380,9 @@
         position: absolute;
         right: 0;
         margin-right: 1em;
+      }
+      .tag {
+        right: 180px;
       }
       .list-group-item {
         padding-right: 180px;

@@ -2,6 +2,11 @@
 <a href="{{ url }}">
   {{ text }}
 </a>
+{% if stage %}
+<span class="tag {{stage}}-stage">
+  {{ stage }}
+</span>
+{% endif %}
 <small class="timesince">
-{{ timesince }} ago
+  {{ timesince }} ago
 </small>
