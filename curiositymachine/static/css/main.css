@@ -6554,12 +6554,30 @@ footer {
 .educator-dashboard .activity-list .timesince {
   display: none; }
 
+.educator-dashboard .activity-list .tag {
+  position: absolute;
+  right: 0;
+  margin-right: 1em; }
+  .educator-dashboard .activity-list .tag.plan-stage {
+    background-color: #8FB559; }
+  .educator-dashboard .activity-list .tag.build-stage {
+    background-color: #6161AF; }
+  .educator-dashboard .activity-list .tag.test-stage {
+    background-color: #F55932; }
+  .educator-dashboard .activity-list .tag.reflect-stage {
+    background-color: #1EB9C8; }
+
+.educator-dashboard .activity-list .list-group-item {
+  padding-right: 75px; }
+
 @media (min-width: 768px) {
   .educator-dashboard .activity-list .timesince {
     display: inline;
     position: absolute;
     right: 0;
     margin-right: 1em; }
+  .educator-dashboard .activity-list .tag {
+    right: 180px; }
   .educator-dashboard .activity-list .list-group-item {
     padding-right: 180px; } }
 
