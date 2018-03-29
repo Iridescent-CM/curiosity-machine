@@ -19,7 +19,7 @@ class EducatorProfile(BaseProfile):
        if self.is_coach and presurvey.active:
          response = presurvey.response(self.user)
          return response.completed
-       return False
+       return True
 
     @cached_property
     def is_coach(self):

@@ -119,6 +119,24 @@ class PrereqInterruptionView(TemplateView):
 
 prereq_interruption = only_for_family(PrereqInterruptionView.as_view())
 
+class PostSurveyInterruptionView(TemplateView):
+    template_name = "families/post_survey.html"
+
+    def post(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        postsurvey = get_survey(settings.AICHALLENGE_FAMILY_POST_SURVEY_ID)
+        return super().get_context_data(
+            **kwargs,
+            postsurvey=postsurvey.response(self.request.user),
+        )
+
+postsurvey_interruption = only_for_family(PostSurveyInterruptionView.as_view())
+
 class EditEmailView(EditProfileMixin, UpdateView):
     model = FamilyProfile
     form_class = FamilyEmailForm
