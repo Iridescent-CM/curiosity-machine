@@ -16,7 +16,7 @@ class EducatorProfile(BaseProfile):
     @cached_property
     def full_coach_access(self):
        presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
-       if self.is_coach and presurvey.active:
+       if presurvey.active:
          response = presurvey.response(self.user)
          return response.completed
        return True
