@@ -1,3 +1,4 @@
+from curiositymachine.validators import validate_simple_latin
 from django.conf import settings
 from django.db import models
 from images.models import Image
@@ -8,7 +9,12 @@ class EducatorProfile(BaseProfile):
     city = models.TextField(blank=True) # deprecated, use location
     location = models.ForeignKey(Location, null=True, blank=False, on_delete=models.PROTECT)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
-    organization = models.CharField(max_length=50, null=True, blank=True)
+    organization = models.CharField(
+        validators=[validate_simple_latin],
+        max_length=50,
+        null=True,
+        blank=True
+    )
     title_i = models.BooleanField(default=False, null=False)
 
 class ImpactSurvey(models.Model):
