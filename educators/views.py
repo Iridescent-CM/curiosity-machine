@@ -29,6 +29,9 @@ from .models import *
 from .serializers import *
 from .sorting import *
 from django.conf import settings
+from surveys import get_survey
+from surveys.models import SurveyResponse
+
 
 only_for_educator = only_for_role(UserRole.educator)
 
@@ -313,22 +316,21 @@ class CoachConversionView(View):
     http_method_names = ['post', 'get']
 
     def get(self, request, *args, **kwargs):
-        user_memberships = self.request.user.membership_set.filter(is_active=True)
-        for membership in user_memberships:
-            if membership.id == int(settings.AICHALLENGE_COACH_MEMBERSHIP_ID):
-                messages.success(self.request, "You are already in the AI family coach membership!")
-                return HttpResponseRedirect(reverse("educators:home"))
-        return render(request,'educators/coach_conversion.html')
+        if request.user.educatorprofile.is_coach:
+          messages.success(self.request, "You are already in the AI family coach membership!")
+          return HttpResponseRedirect(reverse("educators:home"))
+        else:
+          return render(request, 'educators/coach_conversion.html')
 
     def post(self, request, *args, **kwargs):
         membership = Membership.objects.get(pk=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
         member = Member(user=self.request.user, membership=membership)
         member.save()
 
-        messages.success(self.request, "You are now in the AI Family Challenge Coach membership! Enjoy the resources under Units & Guides.")
+        messages.success(self.request, "You are now signed up as a coach in the AI Family Challenge!")
         return HttpResponseRedirect(reverse("educators:home"))
 
-coach_conversion = CoachConversionView.as_view()
+coach_conversion = only_for_educator(CoachConversionView.as_view())
 
 class ConversationView(TemplateView):
     template_name = "educators/dashboard/conversation.html"
@@ -401,3 +403,25 @@ class ActivityView(ListView):
         return context
 
 activity = only_for_educator(ActivityView.as_view())
+
+class PrereqInterruptionView(TemplateView):
+  template_name = "educators/interruption.html"
+
+  def get_context_data(self, **kwargs):
+    presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
+    response = presurvey.response(self.request.user)
+    return super().get_context_data( **kwargs, presurvey=response )
+
+prereq_interruption = only_for_educator(PrereqInterruptionView.as_view())
+
+class CoachRemoval(View):
+
+  def post(self, request, *args, **kwargs):
+    if request.user.educatorprofile.is_coach:
+      member = Member.objects.get(user=request.user, membership_id=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
+      member.delete()
+      messages.success(self.request,
+                       "You are no longer a coach in the AI Family Challenge.")
+    return HttpResponseRedirect(reverse("educators:home"))
+
+coach_removal = whitelist('coach_removal')(only_for_educator(CoachRemoval.as_view()))
