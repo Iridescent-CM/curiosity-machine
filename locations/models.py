@@ -1,3 +1,4 @@
+from curiositymachine.validators import validate_simple_latin
 from django.db import models
 from operator import itemgetter
 import pycountry
@@ -39,7 +40,9 @@ class Location(models.Model):
         max_length=5,
         choices=[(None, "Select state...")] + US_STATE_CHOICES,
     )
-    city = models.TextField()
+    city = models.TextField(
+        validators=[validate_simple_latin],
+    )
 
     objects = LocationQuerySet.as_manager()
 
