@@ -1,9 +1,13 @@
+from curiositymachine.decorators import whitelist
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import View
+from django.views.generic import RedirectView, View
 from json import JSONDecodeError
+from urllib.parse import urlparse
 from .updating import Updating
 from .api import Surveymonkey
 from .jobs import update_status
@@ -48,3 +52,20 @@ class SurveyResponseHook(View):
         return HttpResponse('THX')
  
 status_hook = csrf_exempt(SurveyResponseHook.as_view())
+
+class SurveyCompleteView(RedirectView):
+
+    def get_redirect_url(self, *args, **kwargs):
+        referer = self.request.META.get('HTTP_REFERER')
+        if (
+            settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS
+            or (referer and 'surveymonkey.com' in urlparse(referer).netloc)
+        ):
+            pk = kwargs.get('survey_pk')
+            sr = get_object_or_404(SurveyResponse, survey_id=pk, user=self.request.user)
+            Updating(sr, ResponseStatus.COMPLETED).run()
+        else:
+            logger.warning("Referer missing or failed check: %s" % referer)
+        return reverse("profiles:home")
+
+complete = whitelist('maybe_public')(login_required(SurveyCompleteView.as_view()))
