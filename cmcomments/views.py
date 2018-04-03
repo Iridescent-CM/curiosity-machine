@@ -47,6 +47,7 @@ def comments(request, challenge_id, username, stage):
             stage=stage.value,
             question_text=form.cleaned_data['question_text']
         ).comment()
+        messages.success(request, "your post has been submitted")
     else:
         logger.info("Invalid comment: " + form.errors.as_json())
 

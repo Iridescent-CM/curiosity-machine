@@ -56,6 +56,15 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
           container.insertBefore(el, container.firstChild);
         }
       }
+
+      if ($(el).data('auto-submit')) {
+        evt.target.form.submit();
+        evt.target.form.hidden = true;
+        $('.hide_upon_submit').hide()
+        if ($(el).data('replacement-text')) {
+          $('.replace_text_upon_submit').text($(el).data('replacement-text'));
+        }
+      }
     },
     function error (err) {
       if (!err.code || err.code !== 101) {
