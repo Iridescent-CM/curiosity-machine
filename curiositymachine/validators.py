@@ -22,3 +22,18 @@ validate_lowercase_slug = RegexValidator(
     "Enter a valid 'slug' consisting of lowercase letters, numbers, underscores or hyphens.",
     'invalid'
 )
+
+def validate_simple_latin(value):
+    invalids = [
+        char
+        for char in value
+        if not (
+            '\u0000' <= char <= '\u007F'        # Basic Latin
+            or '\u0080' <= char <= '\u00FF'     # Latin-1 Supplement
+        )
+    ]
+    if invalids:
+        raise ValidationError(
+            'Value contains invalid characters: %s' % ' '.join(invalids),
+            code='invalid_chars'
+        )
