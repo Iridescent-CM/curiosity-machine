@@ -26,6 +26,7 @@ def cm_notification(n, **kwargs):
         completer = n.actor
         progress = n.action_object
         context["text"] = "%s completed %s" % (completer, progress.challenge.name)
+        context["stage"] = Stage.reflect.name
         path = reverse("educators:conversation", kwargs={
             "student_id": progress.owner.id,
             "challenge_id": progress.challenge.id
