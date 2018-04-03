@@ -354,18 +354,18 @@ AWS_S3_CALLING_FORMAT = "boto.s3.connection.OrdinaryCallingFormat"
 
 S3DIRECT_REGION = os.getenv("S3DIRECT_REGION", "us-east-1")
 S3DIRECT_DESTINATIONS = {
-    'unit-resources': (
-        'units/resources',
-        lambda u: u.is_staff,
-    ),
-    'admin-videos': (
-        'videos/sources',
-        lambda u: u.is_staff,
-    ),
-    'admin-images': (
-        'images/sources',
-        lambda u: u.is_staff,
-    ),
+    'unit-resources': {
+        'key': 'units/resources',
+        'auth': lambda u: u.is_staff,
+    },
+    'admin-videos': {
+        'key': 'videos/sources',
+        'auth': lambda u: u.is_staff,
+    },
+    'admin-images': {
+        'key': 'images/sources',
+        'auth': lambda u: u.is_staff,
+    },
 }
 S3_URL_BASE = "https://s3.amazonaws.com"
 
