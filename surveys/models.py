@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from enumfields import Enum, EnumIntegerField
+from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
 from . import get_survey
 import uuid
 
@@ -23,7 +24,20 @@ class SurveyResponse(models.Model):
     @property
     def url(self):
         survey = get_survey(self.survey_id)
-        return "%s?%s=%s" % (survey.link, settings.SURVEYMONKEY_TOKEN_VAR, self.id)
+        parsed = urlparse(survey.link)
+        qs = parse_qs(parsed.query)
+
+        qs[settings.SURVEYMONKEY_TOKEN_VAR] = self.id
+        qs['uid'] = self.user_id
+
+        return urlunparse((
+            parsed.scheme,
+            parsed.netloc,
+            parsed.path,
+            parsed.params,
+            urlencode(qs, doseq=True),
+            parsed.fragment
+        ))
 
     def __getattr__(self, name):
         # treat status names like boolean attributes
