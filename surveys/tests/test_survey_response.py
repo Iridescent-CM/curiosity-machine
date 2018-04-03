@@ -18,10 +18,18 @@ def test_surveyresponse_facade_over_survey(settings):
 
 @pytest.mark.django_db
 def test_survey_response_url(settings):
-    settings.SURVEY_123_LINK = "link"
+    settings.SURVEY_123_LINK = "http://mywebsite.biz"
     settings.SURVEY_123_URL = "cant_clobber"
 
     user = UserFactory()
 
     sr = SurveyResponse(survey_id="123", user=user)
-    assert sr.url == "link?cmtoken=%s&uid=%s" % (sr.id, user.id)
+    assert sr.url == "http://mywebsite.biz?cmtoken=%s&uid=%s" % (sr.id, user.id)
+
+@pytest.mark.django_db
+def test_survey_response_url_with_query_params(settings):
+    settings.SURVEY_123_LINK = "http://mywebsite.biz?some=query&params=already"
+    user = UserFactory()
+
+    sr = SurveyResponse(survey_id="123", user=user)
+    assert sr.url == "http://mywebsite.biz?some=query&params=already&cmtoken=%s&uid=%s" % (sr.id, user.id)

@@ -36,7 +36,7 @@ class SurveyResponse(models.Model):
             parsed.path,
             parsed.params,
             urlencode(qs, doseq=True),
-            parsed.query
+            parsed.fragment
         ))
 
     def __getattr__(self, name):
