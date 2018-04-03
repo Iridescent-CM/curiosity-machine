@@ -11,25 +11,25 @@ $(function(){
 });
 
 $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
-  var el = this;
-  var container = el.parentNode;
-  var urlField = container.querySelector('#' + el.id + '_url');
-  var mimeField = container.querySelector('#' + el.id + '_mimetype');
-  var filenameDisplay = container.querySelector('#' + el.id + '_filename');
+  var btn = this;
+  var container = btn.parentNode;
+  var urlField = container.querySelector('#' + btn.id + '_url');
+  var mimeField = container.querySelector('#' + btn.id + '_mimetype');
+  var filenameDisplay = container.querySelector('#' + btn.id + '_filename');
 
-  filepicker.setKey(el.getAttribute('data-fp-apikey'));
-  var injectPreview = el.hasAttribute('data-show-preview');
+  filepicker.setKey(btn.getAttribute('data-fp-apikey'));
+  var injectPreview = btn.hasAttribute('data-show-preview');
 
   var opts = {
-    mimetypes: el.getAttribute('data-fp-mimetypes').split(','),
+    mimetypes: btn.getAttribute('data-fp-mimetypes').split(','),
     webcam: {}
   };
-  opts.openTo = el.hasAttribute('data-fp-opento') ? el.getAttribute('data-fp-opento') : undefined;
-  opts.services = el.hasAttribute('data-fp-services') ? el.getAttribute('data-fp-services').split(',') : undefined;
-  opts.conversions = el.hasAttribute('data-fp-conversions') ? el.getAttribute('data-fp-conversions').split(',') : undefined;
-  opts.cropRatio = el.hasAttribute('data-fp-cropratio') ? el.getAttribute('data-fp-cropratio') : undefined;
-  opts.cropForce = el.hasAttribute('data-fp-cropforce');
-  opts.webcam.videoLen = el.hasAttribute('data-fp-video-length') ? el.getAttribute('data-fp-video-length') : undefined;
+  opts.openTo = btn.hasAttribute('data-fp-opento') ? btn.getAttribute('data-fp-opento') : undefined;
+  opts.services = btn.hasAttribute('data-fp-services') ? btn.getAttribute('data-fp-services').split(',') : undefined;
+  opts.conversions = btn.hasAttribute('data-fp-conversions') ? btn.getAttribute('data-fp-conversions').split(',') : undefined;
+  opts.cropRatio = btn.hasAttribute('data-fp-cropratio') ? btn.getAttribute('data-fp-cropratio') : undefined;
+  opts.cropForce = btn.hasAttribute('data-fp-cropforce');
+  opts.webcam.videoLen = btn.hasAttribute('data-fp-video-length') ? btn.getAttribute('data-fp-video-length') : undefined;
 
   filepicker.pick(
     opts,
@@ -57,12 +57,12 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
         }
       }
 
-      if ($(el).data('auto-submit')) {
+      if ($(btn).data('auto-submit')) {
         evt.target.form.submit();
         evt.target.form.hidden = true;
         $('.hide_upon_submit').hide()
-        if ($(el).data('replacement-text')) {
-          $('.replace_text_upon_submit').text($(el).data('replacement-text'));
+        if ($(btn).data('replacement-text')) {
+          $('.replace_text_upon_submit').text($(btn).data('replacement-text'));
         }
       }
     },
