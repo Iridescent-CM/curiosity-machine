@@ -10,18 +10,25 @@ def cm_notification(n, **kwargs):
     context = {}
 
     if n.verb == 'posted':
-        context["text"] = "%s commented on %s" % (n.actor, n.target.challenge.name)
-        context["stage"] = Stage(n.action_object.stage).name
+        commenter = n.actor
+        comment = n.action_object
+        progress = n.target
+
+        context["text"] = "%s commented on %s" % (commenter, progress.challenge.name)
+        if commenter == progress.owner:
+            context["stage"] = Stage(comment.stage).name
         path = reverse("educators:conversation", kwargs={
-            "student_id": n.target.owner.id,
-            "challenge_id": n.target.challenge.id
+            "student_id": progress.owner.id,
+            "challenge_id": progress.challenge.id
         })
-        fragment = "comment-%s" % n.action_object.id
+        fragment = "comment-%s" % comment.id
     elif n.verb == 'completed':
-        context["text"] = "%s %s %s" % (n.actor, n.verb, n.action_object.challenge.name)
+        completer = n.actor
+        progress = n.action_object
+        context["text"] = "%s completed %s" % (completer, progress.challenge.name)
         path = reverse("educators:conversation", kwargs={
-            "student_id": n.action_object.owner.id,
-            "challenge_id": n.action_object.challenge.id
+            "student_id": progress.owner.id,
+            "challenge_id": progress.challenge.id
         })
         fragment = "content"
 
