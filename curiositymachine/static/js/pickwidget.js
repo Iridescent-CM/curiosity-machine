@@ -56,16 +56,13 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
           container.insertBefore(el, container.firstChild);
         }
       }
-      //submit edp comments upon saving
-      var el = $('[data-auto-submit]')[0];
-      if (el){
+
+      if ($(el).data('auto-submit')) {
         evt.target.form.submit();
         evt.target.form.hidden = true;
         $('.hide_upon_submit').hide()
-        var replacementText = el.hasAttribute('data-replacement-text') ? el.getAttribute('data-replacement-text') : undefined;
-        var textToReplace = $('.replace_text_upon_submit')[0];
-        if (replacementText && textToReplace) {
-          textToReplace.textContent = replacementText;
+        if ($(el).data('replacement-text')) {
+          $('.replace_text_upon_submit').text($(el).data('replacement-text'));
         }
       }
     },
