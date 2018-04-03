@@ -12,7 +12,7 @@ def test_completes(client, settings):
 
     client.login(username='username', password='password')
     client.get(
-        reverse("surveys:survey_complete", kwargs={"survey_pk": sr.survey_id}),
+        reverse("surveys:survey_completed", kwargs={"survey_pk": sr.survey_id}),
         HTTP_REFERER="https://www.surveymonkey.com/r/ABCD123"
     )
     sr.refresh_from_db()
@@ -26,7 +26,7 @@ def test_no_referer(client, settings):
 
     client.login(username='username', password='password')
     client.get(
-        reverse("surveys:survey_complete", kwargs={"survey_pk": sr.survey_id}),
+        reverse("surveys:survey_completed", kwargs={"survey_pk": sr.survey_id}),
         # no HTTP_REFERER
     )
     sr.refresh_from_db()

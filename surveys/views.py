@@ -53,7 +53,7 @@ class SurveyResponseHook(View):
  
 status_hook = csrf_exempt(SurveyResponseHook.as_view())
 
-class SurveyCompleteView(RedirectView):
+class SurveyCompletedView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         referer = self.request.META.get('HTTP_REFERER')
@@ -68,4 +68,4 @@ class SurveyCompleteView(RedirectView):
             logger.warning("Referer missing or failed check: %s" % referer)
         return reverse("profiles:home")
 
-complete = whitelist('maybe_public')(login_required(SurveyCompleteView.as_view()))
+completed = whitelist('maybe_public')(login_required(SurveyCompletedView.as_view()))
