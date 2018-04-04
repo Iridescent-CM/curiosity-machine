@@ -5,8 +5,8 @@ from urllib.parse import urlunparse
 
 register = template.Library()
 
-@register.inclusion_tag('curiositymachine/templatetags/cm_notifications/notification.html')
-def cm_notification(n, **kwargs):
+@register.inclusion_tag('educators/templatetags/educator_notifications/notification.html')
+def educator_notification(n, **kwargs):
     context = {}
 
     if n.verb == 'posted':
