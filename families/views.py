@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.functional import lazy
-from django.views.generic import CreateView, TemplateView, UpdateView
+from django.views.generic import CreateView, ListView, TemplateView, UpdateView
 from hellosign import jobs
 from hellosign.models import FamilyConsentTemplate
 from profiles.decorators import only_for_role
@@ -161,3 +161,28 @@ class EditEmailView(EditProfileMixin, UpdateView):
 edit_email = unapproved_ok(only_for_family(EditEmailView.as_view()))
 
 conversion = TemplateView.as_view(template_name="families/conversion.html")
+
+class ActivityView(ListView):
+    template_name = "families/activity.html"
+    paginate_by = settings.DEFAULT_PER_PAGE
+    context_object_name = 'activity'
+
+    def get_queryset(self):
+        return self.request.user.notifications.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        by_day = {}
+        for notification in context['activity']:
+            day = notification.timestamp.date()
+            by_day[day] = by_day.get(day, [])
+            by_day[day].append(notification)
+
+        context.update({
+            "activity_by_day": by_day,
+        })
+
+        return context
+
+activity = only_for_family(ActivityView.as_view())
