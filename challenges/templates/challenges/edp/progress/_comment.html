@@ -1,7 +1,7 @@
 {% load cmtemplatetags %}
 
 {% if comment.user.extra.is_mentor %}
-  <span class="mentor-comment">MENTOR MESSAGE</span>
+  <span class="mentor-comment" id="comment-{{ comment.id }}">MENTOR MESSAGE</span>
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">
     <a href="{% url 'mentors:public_profile' comment.user.username %}">
@@ -17,7 +17,7 @@
     </div>
   </div>
 {% elif comment.user.extra.is_educator %}
-  <span class="mentor-comment">COACH FEEDBACK</span>
+  <span class="mentor-comment" id="comment-{{ comment.id }}">COACH FEEDBACK</span>
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">
     <div class="avatar-container">
@@ -31,7 +31,7 @@
     </div>
   </div>
 {% else %}
-  <span class="comment-date">{{ comment.created|timesince }}</span>
+  <span class="comment-date" id="comment-{{ comment.id }}">{{ comment.created|timesince }}</span>
   <div class="panel panel-comment comment">
     <div class="panel-heading">
       <h3 class="panel-title">{{ comment.get_stage_display }}</h3>
