@@ -1,5 +1,5 @@
 {% extends "educators/dashboard/base.html" %}
-{% load cm_notifications %}
+{% load educator_notifications %}
 
 {% block content %}
   {% include 'educators/dashboard/_navigation.html' %}
@@ -11,7 +11,7 @@
     <li class="list-group-item disabled">{{ day|date:"DATE_FORMAT" }}</li>
     {% for notification in activity %}
     <li class="list-group-item">
-      {% cm_notification notification %}
+      {% educator_notification notification %}
     </li>
     {% endfor %}
   </ul>
