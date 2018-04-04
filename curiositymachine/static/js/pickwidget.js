@@ -58,7 +58,7 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
       }
       //submit edp comments upon saving
       var comment_form = $(evt.target.form);
-      if (comment_form.find('[data-auto-submit]')){
+      if (comment_form.find('[data-auto-submit]').length){
         evt.target.form.submit();
         evt.target.form.hidden = true;
         $('.hide_upon_submit').hide();
