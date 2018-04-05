@@ -8,4 +8,4 @@ def can_start_challenges(user):
 
 @register.simple_tag
 def can_see_resources(user):
-    return user.is_authenticated and not (user.extra.is_student or user.extra.is_family)
+    return user.is_authenticated and not user.extra.is_student
