@@ -326,8 +326,6 @@ class CoachConversionView(View):
         membership = Membership.objects.get(pk=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
         member = Member(user=self.request.user, membership=membership)
         member.save()
-
-        messages.success(self.request, "You are now signed up as a coach in the AI Family Challenge!")
         return HttpResponseRedirect(reverse("educators:home"))
 
 coach_conversion = only_for_educator(CoachConversionView.as_view())
