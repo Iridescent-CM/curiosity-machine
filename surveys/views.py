@@ -1,5 +1,6 @@
 from curiositymachine.decorators import whitelist
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
@@ -8,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import RedirectView, View
 from json import JSONDecodeError
 from urllib.parse import urlparse
+from . import get_survey
 from .updating import Updating
 from .api import Surveymonkey
 from .jobs import update_status
@@ -57,15 +59,22 @@ class SurveyCompletedView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         referer = self.request.META.get('HTTP_REFERER')
+        pk = kwargs.get('survey_pk')
+        survey = get_survey(pk)
+        surveyresponse = get_object_or_404(SurveyResponse, survey_id=pk, user=self.request.user)
+
         if (
             settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS
             or (referer and 'surveymonkey.com' in urlparse(referer).netloc)
         ):
-            pk = kwargs.get('survey_pk')
-            sr = get_object_or_404(SurveyResponse, survey_id=pk, user=self.request.user)
-            Updating(sr, ResponseStatus.COMPLETED).run()
+            Updating(surveyresponse, ResponseStatus.COMPLETED).run()
+            if survey.message:
+                messages.success(self.request, survey.message)
         else:
             logger.warning("Referer missing or failed check: %s" % referer)
-        return reverse("profiles:home")
+
+        view = getattr(survey, "redirect", "profiles:home")
+
+        return reverse(view)
 
 completed = whitelist('maybe_public')(login_required(SurveyCompletedView.as_view()))
