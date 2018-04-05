@@ -19,12 +19,14 @@
             Stage 2
           </a>
         </li>
+        {% if flags.enable_family_activity_notifications %}
         <li class="nav-item {% ifactive "families:activity" "active-nav" %}">
           <a class="nav-link" href="{% url 'families:activity' %}">
             Recent Activity
             <span class="tag tag-primary">{% notifications_unread %}</span>
           </a>
         </li>
+        {% endif %}
       </ul>
     </nav>
   </div>
