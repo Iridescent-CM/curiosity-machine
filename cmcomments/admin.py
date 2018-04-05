@@ -7,6 +7,7 @@ from images.models import Image
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
     list_display = ('user', 'text', 'created')
+    raw_id_fields = ['challenge_progress', 'user', 'image', 'video']
 
     def get_form(self, request, obj=None, **kwargs):
         request._obj_ = obj
