@@ -68,11 +68,11 @@ class SurveyCompletedView(RedirectView):
             or (referer and 'surveymonkey.com' in urlparse(referer).netloc)
         ):
             Updating(surveyresponse, ResponseStatus.COMPLETED).run()
+            if survey.message:
+                messages.success(self.request, survey.message)
         else:
             logger.warning("Referer missing or failed check: %s" % referer)
 
-        if survey.message:
-            messages.success(self.request, survey.message)
         view = getattr(survey, "redirect", "profiles:home")
 
         return reverse(view)
