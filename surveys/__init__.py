@@ -3,7 +3,8 @@ from django.conf import settings
 class Survey:
 
     defaults = {
-        "ACTIVE": False
+        "ACTIVE": False,
+        "MESSAGE": ""
     }
 
     def __init__(self, id, *args, **kwargs):
