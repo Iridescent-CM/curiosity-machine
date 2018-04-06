@@ -10,6 +10,7 @@
 {% block cards %}
   {% with SHOW_REQUIRED=True %}
   <form action="{% pick_action form edit="families:edit_profile" create="families:create_profile" %}" method="POST" novalidate>
+    {% csrf_token %}
 
     <div class="card card-module">
       <div class="card-block-title text-xs-center p-1">
