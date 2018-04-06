@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, DateField
 from django.db.models.functions import TruncDate
+from django.http import Http404
 from django.urls import reverse
 from django.utils.timezone import now
 from django.views.generic import TemplateView, UpdateView, DetailView, ListView
@@ -159,6 +160,8 @@ class UnclaimedBySourceView(ListView):
     context_object_name = "progresses"
 
     def get_queryset(self):
+        if 'source' not in self.request.GET:
+            raise Http404
         startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
         self.queryset = (Progress.objects
             .filter(mentor__isnull=True, owner__extra__source=self.request.GET['source'], started__gt=startdate)
