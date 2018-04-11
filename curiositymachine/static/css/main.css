@@ -238,7 +238,9 @@ textarea {
   .table, .card-progress .table-progress, .educator-dashboard .table-dc-progress {
     border-collapse: collapse !important; }
     .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td,
-    .table th, .card-progress .table-progress th, .educator-dashboard .table-dc-progress th {
+    .table th,
+    .card-progress .table-progress th,
+    .educator-dashboard .table-dc-progress th {
       background-color: #fff !important; }
   .table-bordered th,
   .table-bordered td {
@@ -1293,8 +1295,10 @@ pre {
   width: 100%;
   max-width: 100%;
   margin-bottom: 1rem; }
-  .table th, .card-progress .table-progress th, .educator-dashboard .table-dc-progress th,
-  .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td {
+  
+  .table th,
+  .card-progress .table-progress th,
+  .educator-dashboard .table-dc-progress th, .table td, .card-progress .table-progress td, .educator-dashboard .table-dc-progress td {
     padding: 0.75rem;
     vertical-align: top;
     border-top: 1px solid #eceeef; }
@@ -1752,16 +1756,16 @@ fieldset[disabled] a.btn {
   border-color: #ccc; }
   .btn-secondary:hover {
     color: #373a3c;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #adadad; }
   .btn-secondary:focus, .btn-secondary.focus {
     color: #373a3c;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #adadad; }
   .btn-secondary:active, .btn-secondary.active,
   .open > .btn-secondary.dropdown-toggle {
     color: #373a3c;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #adadad;
     background-image: none; }
     .btn-secondary:active:hover, .btn-secondary:active:focus, .btn-secondary:active.focus, .btn-secondary.active:hover, .btn-secondary.active:focus, .btn-secondary.active.focus,
@@ -5033,12 +5037,7 @@ body {
   font-size: 1em;
   line-height: 1.5; }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: "Raleway", Helvetica, sans-serif;
   font-size: 1em;
   line-height: 1.2;
@@ -5207,16 +5206,16 @@ i {
   border-color: #ccc; }
   .btn-secondary:hover {
     color: #00B1C3;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #adadad; }
   .btn-secondary:focus, .btn-secondary.focus {
     color: #00B1C3;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #adadad; }
   .btn-secondary:active, .btn-secondary.active,
   .open > .btn-secondary.dropdown-toggle {
     color: #00B1C3;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #adadad;
     background-image: none; }
     .btn-secondary:active:hover, .btn-secondary:active:focus, .btn-secondary:active.focus, .btn-secondary.active:hover, .btn-secondary.active:focus, .btn-secondary.active.focus,
@@ -5274,16 +5273,16 @@ i {
   border-color: #c44728; }
   .btn-red-secondary:hover {
     color: #F55932;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #91351e; }
   .btn-red-secondary:focus, .btn-red-secondary.focus {
     color: #F55932;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #91351e; }
   .btn-red-secondary:active, .btn-red-secondary.active,
   .open > .btn-red-secondary.dropdown-toggle {
     color: #F55932;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #91351e;
     background-image: none; }
     .btn-red-secondary:active:hover, .btn-red-secondary:active:focus, .btn-red-secondary:active.focus, .btn-red-secondary.active:hover, .btn-red-secondary.active:focus, .btn-red-secondary.active.focus,
@@ -5341,16 +5340,16 @@ i {
   border-color: #4e4e8c; }
   .btn-purple-secondary:hover {
     color: #6161AF;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #383865; }
   .btn-purple-secondary:focus, .btn-purple-secondary.focus {
     color: #6161AF;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #383865; }
   .btn-purple-secondary:active, .btn-purple-secondary.active,
   .open > .btn-purple-secondary.dropdown-toggle {
     color: #6161AF;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #383865;
     background-image: none; }
     .btn-purple-secondary:active:hover, .btn-purple-secondary:active:focus, .btn-purple-secondary:active.focus, .btn-purple-secondary.active:hover, .btn-purple-secondary.active:focus, .btn-purple-secondary.active.focus,
@@ -5408,16 +5407,16 @@ i {
   border-color: #729147; }
   .btn-green-secondary:hover {
     color: #8FB559;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #526833; }
   .btn-green-secondary:focus, .btn-green-secondary.focus {
     color: #8FB559;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #526833; }
   .btn-green-secondary:active, .btn-green-secondary.active,
   .open > .btn-green-secondary.dropdown-toggle {
     color: #8FB559;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #526833;
     background-image: none; }
     .btn-green-secondary:active:hover, .btn-green-secondary:active:focus, .btn-green-secondary:active.focus, .btn-green-secondary.active:hover, .btn-green-secondary.active:focus, .btn-green-secondary.active.focus,
@@ -5475,16 +5474,16 @@ i {
   border-color: #c28f42; }
   .btn-orange-secondary:hover {
     color: #F2B353;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #966e31; }
   .btn-orange-secondary:focus, .btn-orange-secondary.focus {
     color: #F2B353;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #966e31; }
   .btn-orange-secondary:active, .btn-orange-secondary.active,
   .open > .btn-orange-secondary.dropdown-toggle {
     color: #F2B353;
-    background-color: #e6e6e6;
+    background-color: #e6e5e5;
     border-color: #966e31;
     background-image: none; }
     .btn-orange-secondary:active:hover, .btn-orange-secondary:active:focus, .btn-orange-secondary:active.focus, .btn-orange-secondary.active:hover, .btn-orange-secondary.active:focus, .btn-orange-secondary.active.focus,
@@ -7122,5 +7121,45 @@ footer {
       clear: left;
       margin-left: 0;
       padding-top: 1em; } }
+
+.units-page {
+  background: #333;
+  color: #403E3A;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143; }
+  .units-page .main-container {
+    margin-top: 1.5em;
+    padding: 40px 65px 100px 65px;
+    background: #fffcf7; }
+    .units-page .main-container a {
+      border: none;
+      color: #44b1f5; }
+  .units-page h1, .units-page h2, .units-page h3, .units-page h4 {
+    font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    line-height: 1.1;
+    color: #F16243; }
+    .units-page h1 small, .units-page h2 small, .units-page h3 small, .units-page h4 small {
+      font-weight: normal;
+      font-size: 65%;
+      line-height: 1;
+      color: #999; }
+  .units-page .card, .units-page .card-progress {
+    border-radius: 4px;
+    border: none;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2); }
+    .units-page .card .card-block:last-child, .units-page .card-progress .card-block:last-child, .card-progress .units-page .card .card-block-title:last-child, .units-page .card-progress .card-block-title:last-child {
+      border-top: 2px solid #e5e1d9;
+      padding-bottom: 3em;
+      margin-bottom: 2em; }
+    .units-page .card .card-block .card-title, .units-page .card-progress .card-block .card-title, .card-progress .units-page .card .card-block-title .card-title, .units-page .card-progress .card-block-title .card-title {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: inherit; }
+      .units-page .card .card-block .card-title > a, .units-page .card-progress .card-block .card-title > a, .card-progress .units-page .card .card-block-title .card-title > a, .units-page .card-progress .card-block-title .card-title > a {
+        color: inherit; }
 
 /*# sourceMappingURL=main.css.map */
