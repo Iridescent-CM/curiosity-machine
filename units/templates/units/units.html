@@ -1,35 +1,47 @@
-{% extends "deprecated_base.html" %}
+{% extends "curiositymachine/layout/base.html" %}
 
 {% block title %}Curiosity Machine Units{% endblock %}
+{% block body-id %}{% endblock %}
+{% block body-classes %}units-page{% endblock %}
 
 {% block content %}
-<ol class="breadcrumb">
-  <li><a href="{% url 'root' %}">Home</a></li>
-  <li>Units</li>
-</ol>
-<h1 class="full-width">
-  Engineering Design Units<br/>
-  <small>Inspire your students to be curious, creative, and persistent learners!</small>
-</h1>
-<p>
-  Curiosity Machine units are project-based and provide a hands-on, engaging learning experience for your students.
-</p>
-<p>
-  Check out our units to see:
-</p>
-<ul>
-  <li>Design challenge recommendations for different age groups</li>
-  <li>Lesson plans and student workbooks that will support your students as they complete Curiosity Machine curriculum</li>
-  <li>Next Generation Science Standards alignment for all Curiosity Machine content</li>
-</ul>
-<p>
-  Let us know if you decide to use these resources! We'd love to hear about your experience at <a href="mailto:curiosity@iridescentlearning.org?subject=Units" target="_top">curiosity@iridescentlearning.org</a>
-</p>
+<div class="container main-container">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'root' %}">Home</a></li>
+    <li class="breadcrumb-item">Units</li>
+  </ol>
+  <h1>
+    Engineering Design Units<br/>
+    <small>Inspire your students to be curious, creative, and persistent learners!</small>
+  </h1>
+  <p>
+    Curiosity Machine units are project-based and provide a hands-on, engaging learning experience for your students.
+  </p>
+  <p>
+    Check out our units to see:
+  </p>
+  <ul>
+    <li>Design challenge recommendations for different age groups</li>
+    <li>Lesson plans and student workbooks that will support your students as they complete Curiosity Machine curriculum</li>
+    <li>Next Generation Science Standards alignment for all Curiosity Machine content</li>
+  </ul>
+  <p>
+    Let us know if you decide to use these resources! We'd love to hear about your experience at <a href="mailto:curiosity@iridescentlearning.org?subject=Units" target="_top">curiosity@iridescentlearning.org</a>
+  </p>
 
-<ul class="challenges-list owl-carousel panel-carousel">
+  <div class="row mt-3">
   {% for unit in units %}
-   {% include "units/_unit_item.html" with unit=unit %}
+    <div class="col-md-6 col-xl-3">
+      {% include "units/_unit_card.html" with unit=unit %}
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+    <div class="clearfix hidden-xl-up"></div>
+    {% endif %}
+    {% if forloop.counter|divisibleby:4 %}
+    <div class="clearfix"></div>
+    {% endif %}
   {% endfor %}
-</ul>
+  </div>
+</div>
 
 {% endblock %}

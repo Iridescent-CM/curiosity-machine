@@ -1,0 +1,16 @@
+{% load resized %}
+<div class="card">
+  <a href="{% url 'units:unit' unit.id %}">
+    <img class="card-img-top" src="{% resized unit.image.url width=450 height=285 crop='fill' %}" />
+  </a>
+  <div class="card-block">
+    <h3 class="card-title">
+      <a href="{% url 'units:unit' unit.id %}">{{ unit.name }}</a>
+    </h3>
+  </div>
+  <div class="card-block">
+    <div class="description">
+      {{ unit.description }}
+    </div>
+  </div>
+</div>

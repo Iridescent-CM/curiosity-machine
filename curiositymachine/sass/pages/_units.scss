@@ -1,0 +1,58 @@
+.units-page {
+
+  background: #333;
+  color: #403E3A;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+
+  a {
+    border: none;
+  }
+
+  .main-container {
+    margin-top: 1.5em;
+    padding: 40px 65px 100px 65px;
+    background: #fffcf7;
+  }
+
+  h1 {
+    font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    line-height: 1.1;
+    color: #F16243;
+
+    small {
+      font-weight: normal;
+      font-size: 65%;
+      line-height: 1;
+      color: #999;
+    }
+  }
+
+  .card {
+    border-radius: 4px;
+    border: none;
+    box-shadow: 3px 3px 15px rgba(0,0,0,0.2);
+
+    .card-block {
+      &:last-child {
+        border-top: 2px solid #e5e1d9;
+        padding-bottom: 3em;
+        margin-bottom: 2em;
+      }
+
+      .card-title {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: inherit;
+
+        > a {
+          color: inherit;
+        }
+      }
+    }
+  }
+}
