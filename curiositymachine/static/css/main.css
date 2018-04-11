@@ -7128,18 +7128,19 @@ footer {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143; }
-  .units-page a {
-    border: none; }
   .units-page .main-container {
     margin-top: 1.5em;
     padding: 40px 65px 100px 65px;
     background: #fffcf7; }
-  .units-page h1 {
+    .units-page .main-container a {
+      border: none;
+      color: #44b1f5; }
+  .units-page h1, .units-page h2, .units-page h3, .units-page h4 {
     font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 300;
     line-height: 1.1;
     color: #F16243; }
-    .units-page h1 small {
+    .units-page h1 small, .units-page h2 small, .units-page h3 small, .units-page h4 small {
       font-weight: normal;
       font-size: 65%;
       line-height: 1;

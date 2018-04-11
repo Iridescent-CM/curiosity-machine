@@ -1,60 +1,67 @@
-{% extends "deprecated_base.html" %}
+{% extends "curiositymachine/layout/base.html" %}
 {% load resized %}
 
-
 {% block title %}Curiosity Machine Units: {{ unit.name }}{% endblock %}
+{% block body-id %}{% endblock %}
+{% block body-classes %}units-page{% endblock %}
 
 {% block content %}
-<div class="unit-info">
-  <h1>{{ unit.name }}</h1>
+<div class="container main-container">
+  <div class="unit-info mt-2 mb-3">
+    <h1>{{ unit.name }}</h1>
 
-  {% if unit.overview %}
+    {% if unit.overview %}
     <p>{{ unit.overview|safe }}</p>
-  {% endif %}
+    {% endif %}
 
-  {% if resources|length %}
+    {% if resources %}
     <h2>Resources</h2>
     <ul>
     {% for resource in resources %}
       <li><a href="{{ resource.file }}" target="_blank">{{resource.link_text}}</a></li>
     {% endfor %}
     </ul>
-  {% endif %}
+    {% endif %}
 
-  {% if challenges|length %}
-    <h2>Suggested Design Challenges</h2>
+    {% if challenges %}
+    <h2 class="mt-2">Suggested Design Challenges</h2>
     <div class="challenges-list">
       <div class="row">
-        {% for challenge in challenges %}
-          <div class="col-xs-6 col-sm-6 col-md-4">
-            <div class="panel panel-custom">
-              <div class="image-container">
+      {% for challenge in challenges %}
+        <div class="col-sm-6 col-lg-4">
+          <div class="card">
+            <a href="{% url 'challenges:preview_inspiration' challenge.id %}">
+              <img class="card-img-top" src="{% resized challenge.image.url width=450 height=285 crop='fill' %}">
+            </a>
+            <div class="card-block">
+              <h3 class="card-title">
                 <a href="{% url 'challenges:preview_inspiration' challenge.id %}">
-                  <img src="{% resized challenge.image.url width=300 height=250 crop='fit' %}">
+                  {{ challenge.name }}
                 </a>
-              </div>
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  <a href="{% url 'challenges:preview_inspiration' challenge.id %}">
-                    {{ challenge.name }}
-                  </a>
-                </h3>
-              </div>
-              <div class="panel-body">
-                {{ challenge.description }}
-              </div>
+              </h3>
+            </div>
+            <div class="card-block">
+              {{ challenge.description }}
             </div>
           </div>
-        {% endfor %}
+        </div>
+        {% if forloop.counter|divisibleby:2 %}
+        <div class="clearfix hidden-lg-up"></div>
+        {% endif %}
+        {% if forloop.counter|divisibleby:3 %}
+        <div class="clearfix hidden-md-down"></div>
+        {% endif %}
+      {% endfor %}
       </div>
     </div>
-  {% endif %}
+    {% endif %}
 
-  {% if unit.standards_alignment_image %}
+    {% if unit.standards_alignment_image %}
     <h2>NGSS Standards Alignment</h2>
     <div class="image-wrapper">
       <img src="{{ unit.standards_alignment_image.url }}" >
     </div>
-  {% endif %}
+    {% endif %}
+  </div>
 </div>
 {% endblock %}

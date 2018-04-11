@@ -6,17 +6,18 @@
   font-size: 14px;
   line-height: 1.42857143;
 
-  a {
-    border: none;
-  }
-
   .main-container {
     margin-top: 1.5em;
     padding: 40px 65px 100px 65px;
     background: #fffcf7;
+
+    a {
+      border: none;
+      color: #44b1f5;
+    }
   }
 
-  h1 {
+  h1, h2, h3, h4 {
     font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 300;
     line-height: 1.1;
