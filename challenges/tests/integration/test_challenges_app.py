@@ -27,7 +27,7 @@ from django.utils.timezone import now
 
 # app modules
 from challenges.models import Stage, Example
-from challenges.views import challenges, unclaimed_progresses, claim_progress, start_building
+from challenges.views import challenges, claim_progress, start_building
 from challenges.templatetags.activity_count import activity_count
 from challenges.templatetags.user_has_started_challenge import user_has_started_challenge
 from cmcomments.models import Comment
@@ -255,18 +255,6 @@ def test_user_has_started_challenge(progress, challenge2):
     challenge = progress.challenge
     assert user_has_started_challenge(student, challenge)
     assert not user_has_started_challenge(student, challenge2)
-
-@pytest.mark.django_db
-def test_unclaimed_progresses_response_code(rf, mentor, unclaimed_progress):
-    request = rf.get('/challenges/unclaimed/')
-    request.user = mentor
-    response = unclaimed_progresses(request)
-    assert response.status_code == 200
-
-    request = rf.get('/challenges/unclaimed/')
-    request.user = unclaimed_progress.owner
-    with pytest.raises(PermissionDenied):
-        response = unclaimed_progresses(request)
 
 @pytest.mark.django_db
 def test_claim_progress(rf, mentor, unclaimed_progress):

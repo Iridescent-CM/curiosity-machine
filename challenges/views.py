@@ -422,12 +422,6 @@ def challenge_progress(request, challenge_id, username, stage=None):
         },
     })
 
-@mentor_only
-def unclaimed_progresses(request):
-    progresses = Progress.objects.filter(mentor__isnull=True)
-
-    return render(request, "unclaimed_progresses.html", {"progresses": progresses})
-
 # Any POST to this assigns the current user to a progress as a mentor
 # currently there is no security to stop a mentor from claiming a progress already claimed by another mentor by manually POSTing
 @require_http_methods(["POST"])
