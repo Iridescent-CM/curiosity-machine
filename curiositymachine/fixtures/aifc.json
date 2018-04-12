@@ -92,7 +92,7 @@
   "pk": 12,
   "fields": {
     "app_label": "socialaccount",
-    "model": "socialaccount"
+    "model": "socialapp"
   }
 },
 {
@@ -100,7 +100,7 @@
   "pk": 13,
   "fields": {
     "app_label": "socialaccount",
-    "model": "socialapp"
+    "model": "socialaccount"
   }
 },
 {
@@ -116,7 +116,7 @@
   "pk": 15,
   "fields": {
     "app_label": "profiles",
-    "model": "impactsurvey"
+    "model": "userextra"
   }
 },
 {
@@ -124,7 +124,7 @@
   "pk": 16,
   "fields": {
     "app_label": "profiles",
-    "model": "userextra"
+    "model": "impactsurvey"
   }
 },
 {
@@ -156,7 +156,7 @@
   "pk": 20,
   "fields": {
     "app_label": "parents",
-    "model": "parentconnection"
+    "model": "parentprofile"
   }
 },
 {
@@ -164,7 +164,7 @@
   "pk": 21,
   "fields": {
     "app_label": "parents",
-    "model": "parentprofile"
+    "model": "parentconnection"
   }
 },
 {
@@ -212,7 +212,7 @@
   "pk": 27,
   "fields": {
     "app_label": "challenges",
-    "model": "challenge"
+    "model": "theme"
   }
 },
 {
@@ -220,7 +220,7 @@
   "pk": 28,
   "fields": {
     "app_label": "challenges",
-    "model": "progress"
+    "model": "question"
   }
 },
 {
@@ -228,7 +228,7 @@
   "pk": 29,
   "fields": {
     "app_label": "challenges",
-    "model": "theme"
+    "model": "challenge"
   }
 },
 {
@@ -236,7 +236,7 @@
   "pk": 30,
   "fields": {
     "app_label": "challenges",
-    "model": "question"
+    "model": "progress"
   }
 },
 {
@@ -244,7 +244,7 @@
   "pk": 31,
   "fields": {
     "app_label": "challenges",
-    "model": "example"
+    "model": "favorite"
   }
 },
 {
@@ -252,7 +252,7 @@
   "pk": 32,
   "fields": {
     "app_label": "challenges",
-    "model": "favorite"
+    "model": "example"
   }
 },
 {
@@ -340,7 +340,7 @@
   "pk": 43,
   "fields": {
     "app_label": "units",
-    "model": "resource"
+    "model": "unitchallenge"
   }
 },
 {
@@ -348,7 +348,7 @@
   "pk": 44,
   "fields": {
     "app_label": "units",
-    "model": "unitchallenge"
+    "model": "resource"
   }
 },
 {
@@ -356,7 +356,7 @@
   "pk": 45,
   "fields": {
     "app_label": "memberships",
-    "model": "member"
+    "model": "membership"
   }
 },
 {
@@ -364,7 +364,7 @@
   "pk": 46,
   "fields": {
     "app_label": "memberships",
-    "model": "membership"
+    "model": "group"
   }
 },
 {
@@ -372,7 +372,7 @@
   "pk": 47,
   "fields": {
     "app_label": "memberships",
-    "model": "memberlimit"
+    "model": "groupmember"
   }
 },
 {
@@ -380,7 +380,7 @@
   "pk": 48,
   "fields": {
     "app_label": "memberships",
-    "model": "memberimport"
+    "model": "member"
   }
 },
 {
@@ -388,7 +388,7 @@
   "pk": 49,
   "fields": {
     "app_label": "memberships",
-    "model": "group"
+    "model": "memberlimit"
   }
 },
 {
@@ -396,7 +396,7 @@
   "pk": 50,
   "fields": {
     "app_label": "memberships",
-    "model": "groupmember"
+    "model": "memberimport"
   }
 },
 {
@@ -425,10 +425,10 @@
 },
 {
   "model": "sessions.session",
-  "pk": "fqghnvn9z2yrg3s9fmt8t89n6wzl9ph3",
+  "pk": "9uad0t7szsb27v0dhwjuzm7we3du4vxz",
   "fields": {
-    "session_data": "YzEyODdkMjEwNGU3YTNlMmY3OGRjMjM3MjNmMjc1Y2E4OTY0OTkyZTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI4ZDJjYTJjOWQ1ZWY5YzFmY2U2OWZmOGI3NjlmMzYzZjcwZWQwMzdiIiwiX3Nlc3Npb25fZXhwaXJ5IjoxMjA5NjAwfQ==",
-    "expire_date": "2018-04-25T20:49:15.930Z"
+    "session_data": "MWY4NGQ0ODBlNzBkMTQ5ZmRmZGRkYzZlOTAzODUzNjI1MjYyYjA2ZTp7Il9hdXRoX3VzZXJfaWQiOiIxOSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZWYzNWNmOTQ3YTc2NzlhOGE2MjRmZTAzOTRmODRkM2EwNGQzNzdkNyIsIl9zZXNzaW9uX2V4cGlyeSI6MTIwOTYwMH0=",
+    "expire_date": "2018-04-26T15:00:16.277Z"
   }
 },
 {
@@ -3368,8 +3368,8 @@
     ],
     "reflect_questions": [
       98,
-      100,
-      258
+      258,
+      100
     ]
   }
 },
@@ -3470,9 +3470,9 @@
       12
     ],
     "reflect_questions": [
+      320,
       318,
-      319,
-      320
+      319
     ]
   }
 },
@@ -3505,9 +3505,9 @@
       14
     ],
     "reflect_questions": [
-      7,
       8,
-      10
+      10,
+      7
     ]
   }
 },
@@ -3571,9 +3571,9 @@
       11
     ],
     "reflect_questions": [
+      16,
       14,
-      15,
-      16
+      15
     ]
   }
 },
@@ -3703,9 +3703,9 @@
       6
     ],
     "reflect_questions": [
-      39,
       40,
-      248
+      248,
+      39
     ]
   }
 },
@@ -3736,9 +3736,9 @@
       9
     ],
     "reflect_questions": [
+      56,
       53,
-      54,
-      56
+      54
     ]
   }
 },
@@ -3814,8 +3814,8 @@
   "fields": {
     "name": "Free Challenges",
     "header_template": "",
-    "created_at": "2018-04-11T20:35:47.233Z",
-    "updated_at": "2018-04-11T20:35:47.236Z",
+    "created_at": "2018-04-12T14:43:03.437Z",
+    "updated_at": "2018-04-12T14:43:03.439Z",
     "visible": false,
     "challenges": []
   }
@@ -3826,8 +3826,8 @@
   "fields": {
     "name": "Most Popular",
     "header_template": null,
-    "created_at": "2018-04-11T20:35:47.238Z",
-    "updated_at": "2018-04-11T20:35:47.250Z",
+    "created_at": "2018-04-12T14:43:03.441Z",
+    "updated_at": "2018-04-12T14:43:03.451Z",
     "visible": false,
     "challenges": [
       9,
@@ -3842,8 +3842,8 @@
   "fields": {
     "name": "Good for Groups",
     "header_template": null,
-    "created_at": "2018-04-11T20:35:47.251Z",
-    "updated_at": "2018-04-11T20:35:47.258Z",
+    "created_at": "2018-04-12T14:43:03.453Z",
+    "updated_at": "2018-04-12T14:43:03.460Z",
     "visible": false,
     "challenges": [
       10,
@@ -3857,8 +3857,8 @@
   "fields": {
     "name": "Inspired by Nature",
     "header_template": null,
-    "created_at": "2018-04-11T20:35:47.260Z",
-    "updated_at": "2018-04-11T20:35:47.265Z",
+    "created_at": "2018-04-12T14:43:03.462Z",
+    "updated_at": "2018-04-12T14:43:03.466Z",
     "visible": false,
     "challenges": [
       6
@@ -3871,8 +3871,8 @@
   "fields": {
     "name": "New Challenges",
     "header_template": null,
-    "created_at": "2018-04-11T20:35:47.267Z",
-    "updated_at": "2018-04-11T20:35:47.273Z",
+    "created_at": "2018-04-12T14:43:03.468Z",
+    "updated_at": "2018-04-12T14:43:03.472Z",
     "visible": false,
     "challenges": [
       2
@@ -3885,8 +3885,8 @@
   "fields": {
     "name": "Inspired by <i class=\"icon-boeing-logo\"></i>",
     "header_template": "challenges/filters/inspired_by_boeing.html",
-    "created_at": "2018-04-11T20:35:47.280Z",
-    "updated_at": "2018-04-11T20:35:47.286Z",
+    "created_at": "2018-04-12T14:43:03.474Z",
+    "updated_at": "2018-04-12T14:43:03.477Z",
     "visible": true,
     "challenges": [
       3
@@ -3899,8 +3899,8 @@
   "fields": {
     "name": "Free Challenges",
     "header_template": "",
-    "created_at": "2018-04-11T20:35:47.288Z",
-    "updated_at": "2018-04-11T20:35:47.304Z",
+    "created_at": "2018-04-12T14:43:03.479Z",
+    "updated_at": "2018-04-12T14:43:03.493Z",
     "visible": false,
     "challenges": [
       5,
@@ -6646,8 +6646,8 @@
     "slug": "",
     "description": "Inspire young students to make observations and find solutions to problems.",
     "overview": "<div style=\"height: 250px\">\r\n     <img src=\"https://s3.amazonaws.com/curiositymachine/units/resources/k-2+unit+header.png\" alt=\" \" style=\"width: 100%;max-height: 100%\" /></div>\r\n<p>Inspire your students to be curious, creative, and persistent learners! With these project-based lessons, provide an engaging learning experience for students while also meeting all <a href=\"https://s3.amazonaws.com/curiositymachine/statics/Curiosity_Machine_NGSS_Alignment_K-5.pdf\">NGSS in Engineering Design standards</a> for the Kindergarten-2nd grade levels. </p>\r\n\r\n<p>You can pair the lessons and student worksheets here with any Curiosity Machine design challenge. To help you out, we've featured some design challenges that are great for young children below. Our Kindergarten-2nd Engineering Design materials  can be used as-is (just use the pdf files we've linked) or customized for your own classroom (download the .docx files and Curiosity Machine icon font and edit away)! </p>\r\n\r\n<ul><h4>Activity 1 Questions and Observations</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L1+Questions+and+Observations.pdf\" target=\"_blank\"> Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L1+Questions+and+Observations.docx\" target=\"_blank\">Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS1+Questions+and+Observations.pdf\" target=\"_blank\"> Worksheet,<a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS1+Questions+and+Observations.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Activity 2 Shapes and Problem Solving</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L2+Shapes+and+Problem+Solving.pdf\" target=\"_blank\">Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L2+Shapes+and+Problem+Solving.docx\" target=\"_blank\">Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS2+Shapes+and+Problem+Solving.pdf\" target=\"_blank\">Worksheet, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS2+Shapes+and+Problem+Solving.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Activity 3 Test and Compare</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L3+Test+and+Compare.pdf\" target=\"_blank\"> Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L3+Test+and+Compare.docx\" target=\"_blank\"> Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS3+Test+and+Compare.pdf\" target=\"_blank\"> Worksheet, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS3+Test+and+Compare.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Curiosity Machine Font (optional, if you'd like to edit the materials)</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/Curiosity+Machine+font+guide.pdf\" target=\"_blank\">Font Icon and Installation Guide</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/Curiosity+Machine.ttf\" target=\"_blank\">Font file</a></li>\r\n</ul>\r\n\r\n<br>\r\n<p>Through Curiosity Machine, students will also benefit from individual mentorship on their work from scientists and engineers. To provide the best experience for your students, please watch the Curiosity Machine <a href=\"https://www.youtube.com/watch?v=XBAE46x2qio\" target=\"_blank\">Introduction video</a> and consider a Curiosity Machine membership if you haven't already.</p>",
-    "created_at": "2018-04-11T20:35:49.034Z",
-    "updated_at": "2018-04-11T20:35:49.034Z",
+    "created_at": "2018-04-12T14:43:04.580Z",
+    "updated_at": "2018-04-12T14:43:04.580Z",
     "image": 46,
     "standards_alignment_image": null,
     "listed": true
@@ -6661,8 +6661,8 @@
     "slug": "",
     "description": "Inspire elementary students to design for constraints and test solutions.",
     "overview": "<div style=\"height: 250px\">\r\n     <img src=\"https://s3.amazonaws.com/curiositymachine/units/resources/unit+header.jpg\" alt=\" \" style=\"width: 100%;max-height: 100%\" /></div>\r\n<p>Inspire your students to be curious, creative, and persistent learners! With these project-based lessons, provide an engaging learning experience for students while also meeting all <a href=\"https://s3.amazonaws.com/curiositymachine/statics/Curiosity_Machine_NGSS_Alignment_K-5.pdf\">NGSS in Engineering Design standards</a> for the 3rd-5th grade levels. </p>\r\n\r\n<p>You can pair the lessons and student worksheets here with any Curiosity Machine design challenge. To help you out, we've featured some design challenges that are great for young children below. Our 3rd-5th Grade Engineering Design materials can be used as-is (just use the pdf files we've linked) or customized for your own classroom (download the .docx files and Curiosity Machine icon font and edit away)! </p>\r\n\r\n<ul><h4>Activity 1 Design for Constraints</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L1+Design+for+Constraints.pdf\" target=\"_blank\"> Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L1+Design+for+Constraints.docx\" target=\"_blank\">Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS1+Design+for+Constraints.pdf\" target=\"_blank\"> Worksheet,<a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS1+Design+for+Constraints.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Activity 2 Compare Solutions</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L2+Compare+Solutions.pdf\" target=\"_blank\">Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L2+Compare+Solutions.docx\" target=\"_blank\">Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS2+Compare+Solutions.pdf\" target=\"_blank\">Worksheet, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS2+Compare+Solutions.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Activity 3 Testing Solutions</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L3+Testing+Solutions.pdf\" target=\"_blank\"> Lesson Plan, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/L3+Testing+Solutions.docx\" target=\"_blank\"> Lesson Plan (editable)</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS3+Testing+Solutions.pdf\" target=\"_blank\"> Worksheet, <a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/WS3+Testing+Solutions.docx\" target=\"_blank\"> Worksheet (editable)</a></li>\r\n</ul>\r\n\r\n<ul><h4>Curiosity Machine Font (optional, if you'd like to edit the materials)</h4>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/Curiosity+Machine+font+guide.pdf\" target=\"_blank\">Font Icon and Installation Guide</a></li>\r\n<li><a href=\"https://s3.amazonaws.com/curiositymachine/units/resources/Curiosity+Machine.ttf\" target=\"_blank\">Font file</a></li>\r\n</ul>\r\n\r\n<br>\r\n<p>Through Curiosity Machine, students will also benefit from individual mentorship on their work from scientists and engineers. To provide the best experience for your students, please watch the Curiosity Machine <a href=\"https://www.youtube.com/watch?v=XBAE46x2qio\" target=\"_blank\">Introduction video</a> and consider a Curiosity Machine membership if you haven't already.</p>",
-    "created_at": "2018-04-11T20:35:49.037Z",
-    "updated_at": "2018-04-11T20:35:49.037Z",
+    "created_at": "2018-04-12T14:43:04.582Z",
+    "updated_at": "2018-04-12T14:43:04.582Z",
     "image": 47,
     "standards_alignment_image": null,
     "listed": true
@@ -6678,8 +6678,8 @@
     "expiration": null,
     "is_active": true,
     "notes": "",
-    "created_at": "2018-04-11T20:35:48.297Z",
-    "updated_at": "2018-04-11T20:35:48.319Z",
+    "created_at": "2018-04-12T14:43:04.584Z",
+    "updated_at": "2018-04-12T14:43:04.601Z",
     "challenges": [
       14,
       12,
@@ -6700,8 +6700,8 @@
     "expiration": null,
     "is_active": true,
     "notes": "",
-    "created_at": "2018-04-11T20:38:07.137Z",
-    "updated_at": "2018-04-11T20:38:07.137Z",
+    "created_at": "2018-04-12T14:43:04.603Z",
+    "updated_at": "2018-04-12T14:43:04.631Z",
     "challenges": [
       15,
       14,
@@ -6727,8 +6727,8 @@
     "expiration": null,
     "is_active": true,
     "notes": "",
-    "created_at": "2018-04-11T20:48:46.777Z",
-    "updated_at": "2018-04-11T20:48:46.777Z",
+    "created_at": "2018-04-12T14:43:04.633Z",
+    "updated_at": "2018-04-12T14:43:04.660Z",
     "challenges": [
       15,
       14,
@@ -7045,54 +7045,54 @@
   "model": "auth.permission",
   "pk": 34,
   "fields": {
-    "name": "Can add social account",
+    "name": "Can add social application",
     "content_type": 12,
-    "codename": "add_socialaccount"
+    "codename": "add_socialapp"
   }
 },
 {
   "model": "auth.permission",
   "pk": 35,
   "fields": {
-    "name": "Can change social account",
+    "name": "Can change social application",
     "content_type": 12,
-    "codename": "change_socialaccount"
+    "codename": "change_socialapp"
   }
 },
 {
   "model": "auth.permission",
   "pk": 36,
   "fields": {
-    "name": "Can delete social account",
+    "name": "Can delete social application",
     "content_type": 12,
-    "codename": "delete_socialaccount"
+    "codename": "delete_socialapp"
   }
 },
 {
   "model": "auth.permission",
   "pk": 37,
   "fields": {
-    "name": "Can add social application",
+    "name": "Can add social account",
     "content_type": 13,
-    "codename": "add_socialapp"
+    "codename": "add_socialaccount"
   }
 },
 {
   "model": "auth.permission",
   "pk": 38,
   "fields": {
-    "name": "Can change social application",
+    "name": "Can change social account",
     "content_type": 13,
-    "codename": "change_socialapp"
+    "codename": "change_socialaccount"
   }
 },
 {
   "model": "auth.permission",
   "pk": 39,
   "fields": {
-    "name": "Can delete social application",
+    "name": "Can delete social account",
     "content_type": 13,
-    "codename": "delete_socialapp"
+    "codename": "delete_socialaccount"
   }
 },
 {
@@ -7126,54 +7126,54 @@
   "model": "auth.permission",
   "pk": 43,
   "fields": {
-    "name": "Can add impact survey",
+    "name": "Can add user extra",
     "content_type": 15,
-    "codename": "add_impactsurvey"
+    "codename": "add_userextra"
   }
 },
 {
   "model": "auth.permission",
   "pk": 44,
   "fields": {
-    "name": "Can change impact survey",
+    "name": "Can change user extra",
     "content_type": 15,
-    "codename": "change_impactsurvey"
+    "codename": "change_userextra"
   }
 },
 {
   "model": "auth.permission",
   "pk": 45,
   "fields": {
-    "name": "Can delete impact survey",
+    "name": "Can delete user extra",
     "content_type": 15,
-    "codename": "delete_impactsurvey"
+    "codename": "delete_userextra"
   }
 },
 {
   "model": "auth.permission",
   "pk": 46,
   "fields": {
-    "name": "Can add user extra",
+    "name": "Can add impact survey",
     "content_type": 16,
-    "codename": "add_userextra"
+    "codename": "add_impactsurvey"
   }
 },
 {
   "model": "auth.permission",
   "pk": 47,
   "fields": {
-    "name": "Can change user extra",
+    "name": "Can change impact survey",
     "content_type": 16,
-    "codename": "change_userextra"
+    "codename": "change_impactsurvey"
   }
 },
 {
   "model": "auth.permission",
   "pk": 48,
   "fields": {
-    "name": "Can delete user extra",
+    "name": "Can delete impact survey",
     "content_type": 16,
-    "codename": "delete_userextra"
+    "codename": "delete_impactsurvey"
   }
 },
 {
@@ -7234,54 +7234,54 @@
   "model": "auth.permission",
   "pk": 55,
   "fields": {
-    "name": "Can add parent connection",
+    "name": "Can add parent profile",
     "content_type": 20,
-    "codename": "add_parentconnection"
+    "codename": "add_parentprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 56,
   "fields": {
-    "name": "Can change parent connection",
+    "name": "Can change parent profile",
     "content_type": 20,
-    "codename": "change_parentconnection"
+    "codename": "change_parentprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 57,
   "fields": {
-    "name": "Can delete parent connection",
+    "name": "Can delete parent profile",
     "content_type": 20,
-    "codename": "delete_parentconnection"
+    "codename": "delete_parentprofile"
   }
 },
 {
   "model": "auth.permission",
   "pk": 58,
   "fields": {
-    "name": "Can add parent profile",
+    "name": "Can add parent connection",
     "content_type": 21,
-    "codename": "add_parentprofile"
+    "codename": "add_parentconnection"
   }
 },
 {
   "model": "auth.permission",
   "pk": 59,
   "fields": {
-    "name": "Can change parent profile",
+    "name": "Can change parent connection",
     "content_type": 21,
-    "codename": "change_parentprofile"
+    "codename": "change_parentconnection"
   }
 },
 {
   "model": "auth.permission",
   "pk": 60,
   "fields": {
-    "name": "Can delete parent profile",
+    "name": "Can delete parent connection",
     "content_type": 21,
-    "codename": "delete_parentprofile"
+    "codename": "delete_parentconnection"
   }
 },
 {
@@ -7423,162 +7423,162 @@
   "model": "auth.permission",
   "pk": 76,
   "fields": {
-    "name": "Can add challenge",
+    "name": "Can add theme",
     "content_type": 27,
-    "codename": "add_challenge"
+    "codename": "add_theme"
   }
 },
 {
   "model": "auth.permission",
   "pk": 77,
   "fields": {
-    "name": "Can change challenge",
+    "name": "Can change theme",
     "content_type": 27,
-    "codename": "change_challenge"
+    "codename": "change_theme"
   }
 },
 {
   "model": "auth.permission",
   "pk": 78,
   "fields": {
-    "name": "Can delete challenge",
+    "name": "Can delete theme",
     "content_type": 27,
-    "codename": "delete_challenge"
+    "codename": "delete_theme"
   }
 },
 {
   "model": "auth.permission",
   "pk": 79,
   "fields": {
-    "name": "Can add progress",
+    "name": "Can add question",
     "content_type": 28,
-    "codename": "add_progress"
+    "codename": "add_question"
   }
 },
 {
   "model": "auth.permission",
   "pk": 80,
   "fields": {
-    "name": "Can change progress",
+    "name": "Can change question",
     "content_type": 28,
-    "codename": "change_progress"
+    "codename": "change_question"
   }
 },
 {
   "model": "auth.permission",
   "pk": 81,
   "fields": {
-    "name": "Can delete progress",
+    "name": "Can delete question",
     "content_type": 28,
-    "codename": "delete_progress"
+    "codename": "delete_question"
   }
 },
 {
   "model": "auth.permission",
   "pk": 82,
   "fields": {
-    "name": "Can add theme",
+    "name": "Can add challenge",
     "content_type": 29,
-    "codename": "add_theme"
+    "codename": "add_challenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 83,
   "fields": {
-    "name": "Can change theme",
+    "name": "Can change challenge",
     "content_type": 29,
-    "codename": "change_theme"
+    "codename": "change_challenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 84,
   "fields": {
-    "name": "Can delete theme",
+    "name": "Can delete challenge",
     "content_type": 29,
-    "codename": "delete_theme"
+    "codename": "delete_challenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 85,
   "fields": {
-    "name": "Can add question",
+    "name": "Can add progress",
     "content_type": 30,
-    "codename": "add_question"
+    "codename": "add_progress"
   }
 },
 {
   "model": "auth.permission",
   "pk": 86,
   "fields": {
-    "name": "Can change question",
+    "name": "Can change progress",
     "content_type": 30,
-    "codename": "change_question"
+    "codename": "change_progress"
   }
 },
 {
   "model": "auth.permission",
   "pk": 87,
   "fields": {
-    "name": "Can delete question",
+    "name": "Can delete progress",
     "content_type": 30,
-    "codename": "delete_question"
+    "codename": "delete_progress"
   }
 },
 {
   "model": "auth.permission",
   "pk": 88,
   "fields": {
-    "name": "Can add example",
+    "name": "Can add favorite",
     "content_type": 31,
-    "codename": "add_example"
+    "codename": "add_favorite"
   }
 },
 {
   "model": "auth.permission",
   "pk": 89,
   "fields": {
-    "name": "Can change example",
+    "name": "Can change favorite",
     "content_type": 31,
-    "codename": "change_example"
+    "codename": "change_favorite"
   }
 },
 {
   "model": "auth.permission",
   "pk": 90,
   "fields": {
-    "name": "Can delete example",
+    "name": "Can delete favorite",
     "content_type": 31,
-    "codename": "delete_example"
+    "codename": "delete_favorite"
   }
 },
 {
   "model": "auth.permission",
   "pk": 91,
   "fields": {
-    "name": "Can add favorite",
+    "name": "Can add example",
     "content_type": 32,
-    "codename": "add_favorite"
+    "codename": "add_example"
   }
 },
 {
   "model": "auth.permission",
   "pk": 92,
   "fields": {
-    "name": "Can change favorite",
+    "name": "Can change example",
     "content_type": 32,
-    "codename": "change_favorite"
+    "codename": "change_example"
   }
 },
 {
   "model": "auth.permission",
   "pk": 93,
   "fields": {
-    "name": "Can delete favorite",
+    "name": "Can delete example",
     "content_type": 32,
-    "codename": "delete_favorite"
+    "codename": "delete_example"
   }
 },
 {
@@ -7855,216 +7855,216 @@
   "model": "auth.permission",
   "pk": 124,
   "fields": {
-    "name": "Can add resource",
+    "name": "Can add unit challenge",
     "content_type": 43,
-    "codename": "add_resource"
+    "codename": "add_unitchallenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 125,
   "fields": {
-    "name": "Can change resource",
+    "name": "Can change unit challenge",
     "content_type": 43,
-    "codename": "change_resource"
+    "codename": "change_unitchallenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 126,
   "fields": {
-    "name": "Can delete resource",
+    "name": "Can delete unit challenge",
     "content_type": 43,
-    "codename": "delete_resource"
+    "codename": "delete_unitchallenge"
   }
 },
 {
   "model": "auth.permission",
   "pk": 127,
   "fields": {
-    "name": "Can add unit challenge",
+    "name": "Can add resource",
     "content_type": 44,
-    "codename": "add_unitchallenge"
+    "codename": "add_resource"
   }
 },
 {
   "model": "auth.permission",
   "pk": 128,
   "fields": {
-    "name": "Can change unit challenge",
+    "name": "Can change resource",
     "content_type": 44,
-    "codename": "change_unitchallenge"
+    "codename": "change_resource"
   }
 },
 {
   "model": "auth.permission",
   "pk": 129,
   "fields": {
-    "name": "Can delete unit challenge",
+    "name": "Can delete resource",
     "content_type": 44,
-    "codename": "delete_unitchallenge"
+    "codename": "delete_resource"
   }
 },
 {
   "model": "auth.permission",
   "pk": 130,
   "fields": {
-    "name": "Can add member",
+    "name": "Can add membership",
     "content_type": 45,
-    "codename": "add_member"
+    "codename": "add_membership"
   }
 },
 {
   "model": "auth.permission",
   "pk": 131,
   "fields": {
-    "name": "Can change member",
+    "name": "Can change membership",
     "content_type": 45,
-    "codename": "change_member"
+    "codename": "change_membership"
   }
 },
 {
   "model": "auth.permission",
   "pk": 132,
   "fields": {
-    "name": "Can delete member",
+    "name": "Can delete membership",
     "content_type": 45,
-    "codename": "delete_member"
+    "codename": "delete_membership"
   }
 },
 {
   "model": "auth.permission",
   "pk": 133,
   "fields": {
-    "name": "Can add membership",
+    "name": "Can add group",
     "content_type": 46,
-    "codename": "add_membership"
+    "codename": "add_group"
   }
 },
 {
   "model": "auth.permission",
   "pk": 134,
   "fields": {
-    "name": "Can change membership",
+    "name": "Can change group",
     "content_type": 46,
-    "codename": "change_membership"
+    "codename": "change_group"
   }
 },
 {
   "model": "auth.permission",
   "pk": 135,
   "fields": {
-    "name": "Can delete membership",
+    "name": "Can delete group",
     "content_type": 46,
-    "codename": "delete_membership"
+    "codename": "delete_group"
   }
 },
 {
   "model": "auth.permission",
   "pk": 136,
   "fields": {
-    "name": "Can add member limit",
+    "name": "Can add group member",
     "content_type": 47,
-    "codename": "add_memberlimit"
+    "codename": "add_groupmember"
   }
 },
 {
   "model": "auth.permission",
   "pk": 137,
   "fields": {
-    "name": "Can change member limit",
+    "name": "Can change group member",
     "content_type": 47,
-    "codename": "change_memberlimit"
+    "codename": "change_groupmember"
   }
 },
 {
   "model": "auth.permission",
   "pk": 138,
   "fields": {
-    "name": "Can delete member limit",
+    "name": "Can delete group member",
     "content_type": 47,
-    "codename": "delete_memberlimit"
+    "codename": "delete_groupmember"
   }
 },
 {
   "model": "auth.permission",
   "pk": 139,
   "fields": {
-    "name": "Can add member import",
+    "name": "Can add member",
     "content_type": 48,
-    "codename": "add_memberimport"
+    "codename": "add_member"
   }
 },
 {
   "model": "auth.permission",
   "pk": 140,
   "fields": {
-    "name": "Can change member import",
+    "name": "Can change member",
     "content_type": 48,
-    "codename": "change_memberimport"
+    "codename": "change_member"
   }
 },
 {
   "model": "auth.permission",
   "pk": 141,
   "fields": {
-    "name": "Can delete member import",
+    "name": "Can delete member",
     "content_type": 48,
-    "codename": "delete_memberimport"
+    "codename": "delete_member"
   }
 },
 {
   "model": "auth.permission",
   "pk": 142,
   "fields": {
-    "name": "Can add group",
+    "name": "Can add member limit",
     "content_type": 49,
-    "codename": "add_group"
+    "codename": "add_memberlimit"
   }
 },
 {
   "model": "auth.permission",
   "pk": 143,
   "fields": {
-    "name": "Can change group",
+    "name": "Can change member limit",
     "content_type": 49,
-    "codename": "change_group"
+    "codename": "change_memberlimit"
   }
 },
 {
   "model": "auth.permission",
   "pk": 144,
   "fields": {
-    "name": "Can delete group",
+    "name": "Can delete member limit",
     "content_type": 49,
-    "codename": "delete_group"
+    "codename": "delete_memberlimit"
   }
 },
 {
   "model": "auth.permission",
   "pk": 145,
   "fields": {
-    "name": "Can add group member",
+    "name": "Can add member import",
     "content_type": 50,
-    "codename": "add_groupmember"
+    "codename": "add_memberimport"
   }
 },
 {
   "model": "auth.permission",
   "pk": 146,
   "fields": {
-    "name": "Can change group member",
+    "name": "Can change member import",
     "content_type": 50,
-    "codename": "change_groupmember"
+    "codename": "change_memberimport"
   }
 },
 {
   "model": "auth.permission",
   "pk": 147,
   "fields": {
-    "name": "Can delete group member",
+    "name": "Can delete member import",
     "content_type": 50,
-    "codename": "delete_groupmember"
+    "codename": "delete_memberimport"
   }
 },
 {
@@ -8152,8 +8152,8 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$36000$QvqtAqTnfCij$76IREnE3tH5+CfojTMOK8JDCslzCLlXm988Ta0ClJb4=",
-    "last_login": "2018-04-11T20:49:15.926Z",
+    "password": "pbkdf2_sha256$36000$DyDFIVgnuypA$8ouoh1YD2iDFLDt1Vseviym6T7/GVxUggDz9wSOVXLY=",
+    "last_login": "2018-04-12T14:59:40.717Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -8170,7 +8170,7 @@
   "model": "auth.user",
   "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$36000$1XNvoV8NXn3A$+EpyLKRGH6BumBA22c85QpR1sVplQHa93eixNtcjO/4=",
+    "password": "pbkdf2_sha256$36000$36bxX4IHTw9i$mgd7sb6VJ5bNbY3GwIAaqTesXK0Qh+ReALTYDKKbcco=",
     "last_login": null,
     "is_superuser": false,
     "username": "child",
@@ -8188,7 +8188,7 @@
   "model": "auth.user",
   "pk": 3,
   "fields": {
-    "password": "pbkdf2_sha256$36000$e1O8lacXCXbY$M3r9dysNcQv3VChgZQXcTwC6SyPCMyRQSEPDvOmlOMQ=",
+    "password": "pbkdf2_sha256$36000$5ez7hvHRJvWn$7R8Kih+7pwHTgXfhzR2yuQeEAuY4tju2HwNkVnm/TSc=",
     "last_login": "2016-11-02T14:24:00.718Z",
     "is_superuser": false,
     "username": "teen",
@@ -8206,7 +8206,7 @@
   "model": "auth.user",
   "pk": 4,
   "fields": {
-    "password": "pbkdf2_sha256$36000$MVT6vSGfvlQo$fm1sskC45inZbhoCBf+jEWgJBRqN0K/g6XHE/LRfnvk=",
+    "password": "pbkdf2_sha256$36000$wMLhXzayNNZj$Fg/zOzxoZY1WoPmZonCvAH5zEh6wJES/DIZWxc/Wz3s=",
     "last_login": null,
     "is_superuser": false,
     "username": "mentor",
@@ -8224,7 +8224,7 @@
   "model": "auth.user",
   "pk": 5,
   "fields": {
-    "password": "pbkdf2_sha256$36000$lpjUdm759RXS$Fvk+kp6o6ksrAe2wuxC5CfMTv/AuyalpvF6NYtKQOtE=",
+    "password": "pbkdf2_sha256$36000$El7JGkEazE3p$gnrDnUBW0bEPijiyW7A5NYuev1uq/uCSjBrUGj4W4/E=",
     "last_login": null,
     "is_superuser": false,
     "username": "parent",
@@ -8242,7 +8242,7 @@
   "model": "auth.user",
   "pk": 6,
   "fields": {
-    "password": "pbkdf2_sha256$36000$kBu1XSlXcfZk$a+iaxbBDdov9Mm1G6KN9WH4N/K57t3rQTnPmfzut3uA=",
+    "password": "pbkdf2_sha256$36000$16XMPcIwNY3J$AUH3KEX0KfJgtj4LCAaOmUjDR2Av5+b4Niup6EfxdEk=",
     "last_login": "2016-11-06T02:01:55.659Z",
     "is_superuser": false,
     "username": "Miss_H",
@@ -8260,7 +8260,7 @@
   "model": "auth.user",
   "pk": 7,
   "fields": {
-    "password": "pbkdf2_sha256$36000$u6CXQJjdG3HE$ooQ2L93YPnzAqCzPP2IS65M/ZH9IqFhkT1uLXQMEaF4=",
+    "password": "pbkdf2_sha256$36000$BxgR4fH4eG73$mPIuNJRaT4q2QfGA4WXE1ivsf0/pWKpQLGXUk5GEkwc=",
     "last_login": "2016-11-06T01:58:18.119Z",
     "is_superuser": false,
     "username": "Mr_M",
@@ -8278,7 +8278,7 @@
   "model": "auth.user",
   "pk": 8,
   "fields": {
-    "password": "pbkdf2_sha256$36000$RthRivGml5Y6$0g7QJcni1c1bf+wYcZVTRenudqd8Ku6ahuEFIwL9log=",
+    "password": "pbkdf2_sha256$36000$wNo1dgBR0wMk$zAW2n7Vf0EnEUPlaDBGpoJKxkIbuN+OfXsB9T9dcNUg=",
     "last_login": "2016-11-03T22:43:00.678Z",
     "is_superuser": false,
     "username": "SesameBird",
@@ -8296,7 +8296,7 @@
   "model": "auth.user",
   "pk": 9,
   "fields": {
-    "password": "pbkdf2_sha256$36000$SnpTuoRV0zd3$4XSKuvefVLlgVID8dUlGavwkqLjErr6FmkuZDPyOWyk=",
+    "password": "pbkdf2_sha256$36000$qtyZEXt4QLt6$F5/h+7vXvXHGaCoR7reKi7I0QuHvbCiXlLIL0Gp9rz4=",
     "last_login": "2016-11-04T04:04:14.315Z",
     "is_superuser": false,
     "username": "i_love_trash_03",
@@ -8314,7 +8314,7 @@
   "model": "auth.user",
   "pk": 10,
   "fields": {
-    "password": "pbkdf2_sha256$36000$nVyB1ShOEWYa$t5uI7lfjNMF1aHgFM0/G7yxKatdefJTY4EXz1PzS4Bo=",
+    "password": "pbkdf2_sha256$36000$xnHQlqkXEscc$SyJfuYwNNavVlTT+hLTSq1vtpVSgkdL4zhSUuxbMuUg=",
     "last_login": "2016-11-04T03:52:03.297Z",
     "is_superuser": false,
     "username": "tough_2b_green",
@@ -8332,7 +8332,7 @@
   "model": "auth.user",
   "pk": 11,
   "fields": {
-    "password": "pbkdf2_sha256$36000$oar3b5oQ6Rwc$GWOVXvhW3n3Bv/x5QSAgfTSZLu6i4IobmKj1xhQH5BE=",
+    "password": "pbkdf2_sha256$36000$JU6Wt709o9xl$XdH9ijCecha3Fp8UQmFz3oKMVRUijxuWPq7ESO86kxM=",
     "last_login": "2016-11-04T03:38:26.636Z",
     "is_superuser": false,
     "username": "fuzzyfonzie",
@@ -8350,7 +8350,7 @@
   "model": "auth.user",
   "pk": 12,
   "fields": {
-    "password": "pbkdf2_sha256$36000$7jO4zae8nW4j$CdG/hiqzV4kBjSdQDdC+aKOG1ZTS6zqLDkxqi1b7S2Y=",
+    "password": "pbkdf2_sha256$36000$kIyWpi1iBwdC$seANTs7CvDJwEqPg3WR/I2kjup31egUvFfRE/VjsN84=",
     "last_login": "2016-11-04T04:00:25.940Z",
     "is_superuser": false,
     "username": "Snuffy99",
@@ -8368,7 +8368,7 @@
   "model": "auth.user",
   "pk": 13,
   "fields": {
-    "password": "pbkdf2_sha256$36000$CvVXnoNgUkF3$N+8UFpYDWFgRBnRmg2eAUbmgACSlnIFi2BEWbkNjPic=",
+    "password": "pbkdf2_sha256$36000$MFMa4zLJ9Rjm$B5LgHkHpw4fYmukZ+xPjXKiLj0tj4P+rKipY3wggm2Q=",
     "last_login": "2016-11-04T03:47:44.416Z",
     "is_superuser": false,
     "username": "love2count123",
@@ -8386,7 +8386,7 @@
   "model": "auth.user",
   "pk": 14,
   "fields": {
-    "password": "pbkdf2_sha256$36000$jYSCWAgwzYS9$ise+TPoZsos13OfnbNMasfOxh5PS/66PsnF9NOc04DE=",
+    "password": "pbkdf2_sha256$36000$cZKrQnZJGicC$aXCh2+nzKu1ObOEqcA0d+5zbpfKyz+fz337XstpeHpQ=",
     "last_login": "2016-11-03T22:38:15.057Z",
     "is_superuser": false,
     "username": "cOOkiescOOkies",
@@ -8404,7 +8404,7 @@
   "model": "auth.user",
   "pk": 15,
   "fields": {
-    "password": "pbkdf2_sha256$36000$BsGsLnW27Lzk$BR8BslS/2R3Aqd9tBcG01Hq8yFz7XuQXM09FP/iMP5I=",
+    "password": "pbkdf2_sha256$36000$Z3emb2obvRSS$b/HYN4/IcbBnqWa9ALTkPjbXRVcSfOXNeww/yT9F6mU=",
     "last_login": "2016-11-04T04:06:34.818Z",
     "is_superuser": false,
     "username": "drummerdude",
@@ -8422,7 +8422,7 @@
   "model": "auth.user",
   "pk": 16,
   "fields": {
-    "password": "pbkdf2_sha256$36000$tjCl0WKfg0BL$Q5TSml5JwAYEspi7feWszquble1PHBBAyTGNxulvXlU=",
+    "password": "pbkdf2_sha256$36000$IlUaXFfHtll9$ZsXZ8Y3WKGTWARiwfmutx9vplvY+9BkoZHVrre+lq1A=",
     "last_login": null,
     "is_superuser": false,
     "username": "scienceboy22",
@@ -8440,7 +8440,7 @@
   "model": "auth.user",
   "pk": 17,
   "fields": {
-    "password": "pbkdf2_sha256$36000$By6RYrPMTw2T$hqGsmm4P0XMuYYFrOpJVV5FcEu7gb5gO3e0lWX6WXHQ=",
+    "password": "pbkdf2_sha256$36000$gPX5sOPe7mCn$mhUv0n9hFdIvm33lfL9k6BzxHnqqtAqB/Y63YBs7L1o=",
     "last_login": "2016-11-04T03:58:34.394Z",
     "is_superuser": false,
     "username": "SamForPresident",
@@ -8458,8 +8458,8 @@
   "model": "auth.user",
   "pk": 18,
   "fields": {
-    "password": "pbkdf2_sha256$36000$7f1xaiFextC4$i20e6SHHmBXaVtGoeZ79wArn0oukLaQXbcie9fzA4II=",
-    "last_login": "2018-04-11T20:49:29.898Z",
+    "password": "pbkdf2_sha256$36000$o611Zv3zJGmn$amrXmsDVieNF6+SuTgZhLfs/OFXlzOYz/SzIGTsnXx8=",
+    "last_login": "2018-04-12T15:00:06.274Z",
     "is_superuser": false,
     "username": "thesimpsons",
     "first_name": "Homer",
@@ -8476,8 +8476,8 @@
   "model": "auth.user",
   "pk": 19,
   "fields": {
-    "password": "pbkdf2_sha256$36000$bTZtERi8CvZf$q7iicJXkHZ6aKTwX8+fySNmCrY55T71zZMHPaWNW+Ns=",
-    "last_login": "2018-04-11T20:58:02.901Z",
+    "password": "pbkdf2_sha256$36000$fbhJt0Grsh7c$ce4eJs99eFyIEHJw3spU5Q0Ej5iyEpL5jR3rnSKJ6qQ=",
+    "last_login": "2018-04-12T15:00:16.272Z",
     "is_superuser": false,
     "username": "mr_skinner",
     "first_name": "Seymour",
@@ -8494,8 +8494,8 @@
   "model": "auth.user",
   "pk": 20,
   "fields": {
-    "password": "pbkdf2_sha256$36000$MblqFNWtfm4h$6SdxIJytrHgJSu75/0zxctgkBjwO9mb1Ry59f77jBpk=",
-    "last_login": "2018-04-11T21:00:21.712Z",
+    "password": "pbkdf2_sha256$36000$7TfoknVgu0Hn$7XqLVwkh4pArdBbV/pAgn6WPD5rbAgJKRD7AOcsi+lA=",
+    "last_login": "2018-04-12T14:59:06.358Z",
     "is_superuser": false,
     "username": "moe",
     "first_name": "Moe",
@@ -8512,7 +8512,7 @@
   "model": "auth.user",
   "pk": 21,
   "fields": {
-    "password": "pbkdf2_sha256$36000$p5MZ5MG6fi4l$4ByWnim+FEOJt2Z8ml0PhQbiIbZXz7KR2PbdaMwGHXs=",
+    "password": "pbkdf2_sha256$36000$1uGixqHCbmwh$uQSfhSzE48E4LLXvTsx+crgQRCYxItQ7kTbYaWy50Yg=",
     "last_login": "2018-04-11T21:02:31.342Z",
     "is_superuser": false,
     "username": "vanhoutens",
@@ -8530,118 +8530,13 @@
   "model": "admin.logentry",
   "pk": 1,
   "fields": {
-    "action_time": "2018-04-11T20:38:07.150Z",
+    "action_time": "2018-04-12T14:59:58.577Z",
     "user": 1,
-    "content_type": 46,
-    "object_id": "2",
-    "object_repr": "Organic_2018aicoaches",
+    "content_type": 48,
+    "object_id": "14",
+    "object_repr": "Springfield_2018aipartner: thesimpsons",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 2,
-  "fields": {
-    "action_time": "2018-04-11T20:48:46.792Z",
-    "user": 1,
-    "content_type": 46,
-    "object_id": "3",
-    "object_repr": "Springfield_2018aipartner",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 3,
-  "fields": {
-    "action_time": "2018-04-11T20:52:53.039Z",
-    "user": 1,
-    "content_type": 40,
-    "object_id": "1aa3e04e-3e03-4b3b-8b5e-91aa056e1113",
-    "object_repr": "Signature: id=1aa3e04e-3e03-4b3b-8b5e-91aa056e1113, template_id=e38d2eb7117b157a929c0508bd51abb0d244ac34, user_id=18, status=SIGNED",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 4,
-  "fields": {
-    "action_time": "2018-04-11T20:59:13.235Z",
-    "user": 1,
-    "content_type": 45,
-    "object_id": "12",
-    "object_repr": "Springfield_2018aipartner: mr_skinner",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 5,
-  "fields": {
-    "action_time": "2018-04-11T21:01:39.488Z",
-    "user": 1,
-    "content_type": 45,
-    "object_id": "13",
-    "object_repr": "Organic_2018aicoaches: moe",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"membership\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 6,
-  "fields": {
-    "action_time": "2018-04-11T21:07:10.530Z",
-    "user": 1,
-    "content_type": 40,
-    "object_id": "408d24de-b597-47e8-9af0-51f1fec0f00a",
-    "object_repr": "Signature: id=408d24de-b597-47e8-9af0-51f1fec0f00a, template_id=e38d2eb7117b157a929c0508bd51abb0d244ac34, user_id=21, status=SIGNED",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
-  }
-},
-{
-  "model": "account.emailaddress",
-  "pk": 1,
-  "fields": {
-    "user": 18,
-    "email": "simpsons@mailinator.com",
-    "verified": false,
-    "primary": true
-  }
-},
-{
-  "model": "account.emailaddress",
-  "pk": 2,
-  "fields": {
-    "user": 19,
-    "email": "seymourskinner@mailinator.com",
-    "verified": false,
-    "primary": true
-  }
-},
-{
-  "model": "account.emailaddress",
-  "pk": 3,
-  "fields": {
-    "user": 20,
-    "email": "moe@mailinator.com",
-    "verified": false,
-    "primary": true
-  }
-},
-{
-  "model": "account.emailaddress",
-  "pk": 4,
-  "fields": {
-    "user": 21,
-    "email": "vanhoutens@mailinator.com",
-    "verified": false,
-    "primary": true
   }
 },
 {
@@ -8651,7 +8546,7 @@
     "user": 1,
     "role": 0,
     "source": "",
-    "last_active_on": "2018-04-11T21:08:00.018Z",
+    "last_active_on": "2018-04-12T15:00:00.460Z",
     "last_inactive_email_sent_on": null,
     "first_login": false
   }
@@ -8855,7 +8750,7 @@
     "user": 18,
     "role": 5,
     "source": "",
-    "last_active_on": "2018-04-11T20:56:22.579Z",
+    "last_active_on": "2018-04-12T15:00:11.059Z",
     "last_inactive_email_sent_on": null,
     "first_login": false
   }
@@ -8867,7 +8762,7 @@
     "user": 19,
     "role": 3,
     "source": "",
-    "last_active_on": "2018-04-11T20:59:44.705Z",
+    "last_active_on": "2018-04-12T15:00:23.343Z",
     "last_inactive_email_sent_on": null,
     "first_login": false
   }
@@ -8879,7 +8774,7 @@
     "user": 20,
     "role": 3,
     "source": "",
-    "last_active_on": "2018-04-11T21:01:47.470Z",
+    "last_active_on": "2018-04-12T14:59:38.581Z",
     "last_inactive_email_sent_on": null,
     "first_login": false
   }
@@ -9216,7 +9111,7 @@
   "fields": {
     "challenge": 14,
     "owner": 15,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9228,7 +9123,7 @@
   "fields": {
     "challenge": 11,
     "owner": 15,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9240,7 +9135,7 @@
   "fields": {
     "challenge": 14,
     "owner": 14,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9252,7 +9147,7 @@
   "fields": {
     "challenge": 11,
     "owner": 14,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9264,7 +9159,7 @@
   "fields": {
     "challenge": 14,
     "owner": 8,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9276,7 +9171,7 @@
   "fields": {
     "challenge": 11,
     "owner": 8,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9288,7 +9183,7 @@
   "fields": {
     "challenge": 14,
     "owner": 11,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9300,7 +9195,7 @@
   "fields": {
     "challenge": 11,
     "owner": 11,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9312,7 +9207,7 @@
   "fields": {
     "challenge": 14,
     "owner": 13,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9324,7 +9219,7 @@
   "fields": {
     "challenge": 11,
     "owner": 13,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9336,7 +9231,7 @@
   "fields": {
     "challenge": 11,
     "owner": 10,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9348,7 +9243,7 @@
   "fields": {
     "challenge": 14,
     "owner": 10,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9360,7 +9255,7 @@
   "fields": {
     "challenge": 14,
     "owner": 17,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9372,7 +9267,7 @@
   "fields": {
     "challenge": 11,
     "owner": 17,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9384,7 +9279,7 @@
   "fields": {
     "challenge": 14,
     "owner": 12,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9396,7 +9291,7 @@
   "fields": {
     "challenge": 11,
     "owner": 12,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9408,7 +9303,7 @@
   "fields": {
     "challenge": 14,
     "owner": 9,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -9420,7 +9315,7 @@
   "fields": {
     "challenge": 11,
     "owner": 9,
-    "started": "2018-04-11T20:35:48.404Z",
+    "started": "2018-04-12T14:43:04.767Z",
     "mentor": null,
     "approved": null,
     "_materials_list": ""
@@ -11150,61 +11045,61 @@
 },
 {
   "model": "hellosign.signature",
-  "pk": "1aa3e04e-3e03-4b3b-8b5e-91aa056e1113",
+  "pk": "52c5653a-90ba-4e9f-a89f-2157582a02dc",
   "fields": {
     "template_id": "e38d2eb7117b157a929c0508bd51abb0d244ac34",
     "signature_request_id": null,
     "signature_id": null,
     "user": 18,
     "status": 1,
-    "created_at": "2018-04-11T20:52:30.423Z",
-    "updated_at": "2018-04-11T20:52:30.423Z"
+    "created_at": "2018-04-12T14:43:04.764Z",
+    "updated_at": "2018-04-12T14:43:04.764Z"
   }
 },
 {
   "model": "hellosign.signature",
-  "pk": "408d24de-b597-47e8-9af0-51f1fec0f00a",
+  "pk": "5de5f375-0a01-42a5-9f6e-3e9990e180e6",
   "fields": {
     "template_id": "e38d2eb7117b157a929c0508bd51abb0d244ac34",
     "signature_request_id": null,
     "signature_id": null,
     "user": 21,
     "status": 1,
-    "created_at": "2018-04-11T21:06:43.665Z",
-    "updated_at": "2018-04-11T21:06:43.665Z"
+    "created_at": "2018-04-12T14:43:04.766Z",
+    "updated_at": "2018-04-12T14:43:04.766Z"
   }
 },
 {
   "model": "surveys.surveyresponse",
-  "pk": "12bb7832-f293-4b51-82a4-079496957ae2",
+  "pk": "19358a14-1e8d-4587-a40f-c2b2175cb289",
   "fields": {
     "survey_id": "133088809",
     "user": 20,
     "status": 1,
-    "created_at": "2018-04-11T21:01:20.293Z",
-    "updated_at": "2018-04-11T21:01:20.293Z"
+    "created_at": "2018-04-12T14:43:04.758Z",
+    "updated_at": "2018-04-12T14:43:04.758Z"
   }
 },
 {
   "model": "surveys.surveyresponse",
-  "pk": "77ed2aed-0653-421f-8b30-7bf696342052",
-  "fields": {
-    "survey_id": "129105516",
-    "user": 21,
-    "status": 1,
-    "created_at": "2018-04-11T21:06:43.654Z",
-    "updated_at": "2018-04-11T21:06:43.654Z"
-  }
-},
-{
-  "model": "surveys.surveyresponse",
-  "pk": "dc282027-edec-4fe5-bf71-952ff726e0df",
+  "pk": "adb10e05-f345-412c-bdff-18e3345556b1",
   "fields": {
     "survey_id": "129105516",
     "user": 18,
     "status": 1,
-    "created_at": "2018-04-11T20:52:30.404Z",
-    "updated_at": "2018-04-11T20:52:30.404Z"
+    "created_at": "2018-04-12T14:43:04.762Z",
+    "updated_at": "2018-04-12T14:43:04.762Z"
+  }
+},
+{
+  "model": "surveys.surveyresponse",
+  "pk": "ae5c2bdb-62f7-4a41-8164-92cf0484c643",
+  "fields": {
+    "survey_id": "129105516",
+    "user": 21,
+    "status": 1,
+    "created_at": "2018-04-12T14:43:04.760Z",
+    "updated_at": "2018-04-12T14:43:04.760Z"
   }
 },
 {
@@ -11213,8 +11108,8 @@
   "fields": {
     "membership": 1,
     "user": 6,
-    "created_at": "2018-04-11T20:35:48.332Z",
-    "updated_at": "2018-04-11T20:35:48.332Z"
+    "created_at": "2018-04-12T14:43:04.669Z",
+    "updated_at": "2018-04-12T14:43:04.669Z"
   }
 },
 {
@@ -11223,8 +11118,8 @@
   "fields": {
     "membership": 1,
     "user": 8,
-    "created_at": "2018-04-11T20:35:48.340Z",
-    "updated_at": "2018-04-11T20:35:48.340Z"
+    "created_at": "2018-04-12T14:43:04.676Z",
+    "updated_at": "2018-04-12T14:43:04.676Z"
   }
 },
 {
@@ -11233,8 +11128,8 @@
   "fields": {
     "membership": 1,
     "user": 9,
-    "created_at": "2018-04-11T20:35:48.353Z",
-    "updated_at": "2018-04-11T20:35:48.353Z"
+    "created_at": "2018-04-12T14:43:04.683Z",
+    "updated_at": "2018-04-12T14:43:04.683Z"
   }
 },
 {
@@ -11243,8 +11138,8 @@
   "fields": {
     "membership": 1,
     "user": 10,
-    "created_at": "2018-04-11T20:35:48.359Z",
-    "updated_at": "2018-04-11T20:35:48.359Z"
+    "created_at": "2018-04-12T14:43:04.690Z",
+    "updated_at": "2018-04-12T14:43:04.690Z"
   }
 },
 {
@@ -11253,8 +11148,8 @@
   "fields": {
     "membership": 1,
     "user": 11,
-    "created_at": "2018-04-11T20:35:48.365Z",
-    "updated_at": "2018-04-11T20:35:48.365Z"
+    "created_at": "2018-04-12T14:43:04.696Z",
+    "updated_at": "2018-04-12T14:43:04.696Z"
   }
 },
 {
@@ -11263,8 +11158,8 @@
   "fields": {
     "membership": 1,
     "user": 12,
-    "created_at": "2018-04-11T20:35:48.371Z",
-    "updated_at": "2018-04-11T20:35:48.371Z"
+    "created_at": "2018-04-12T14:43:04.704Z",
+    "updated_at": "2018-04-12T14:43:04.704Z"
   }
 },
 {
@@ -11273,8 +11168,8 @@
   "fields": {
     "membership": 1,
     "user": 13,
-    "created_at": "2018-04-11T20:35:48.378Z",
-    "updated_at": "2018-04-11T20:35:48.378Z"
+    "created_at": "2018-04-12T14:43:04.716Z",
+    "updated_at": "2018-04-12T14:43:04.716Z"
   }
 },
 {
@@ -11283,8 +11178,8 @@
   "fields": {
     "membership": 1,
     "user": 14,
-    "created_at": "2018-04-11T20:35:48.384Z",
-    "updated_at": "2018-04-11T20:35:48.384Z"
+    "created_at": "2018-04-12T14:43:04.722Z",
+    "updated_at": "2018-04-12T14:43:04.722Z"
   }
 },
 {
@@ -11293,8 +11188,8 @@
   "fields": {
     "membership": 1,
     "user": 15,
-    "created_at": "2018-04-11T20:35:48.390Z",
-    "updated_at": "2018-04-11T20:35:48.390Z"
+    "created_at": "2018-04-12T14:43:04.729Z",
+    "updated_at": "2018-04-12T14:43:04.729Z"
   }
 },
 {
@@ -11303,8 +11198,8 @@
   "fields": {
     "membership": 1,
     "user": 16,
-    "created_at": "2018-04-11T20:35:48.396Z",
-    "updated_at": "2018-04-11T20:35:48.396Z"
+    "created_at": "2018-04-12T14:43:04.735Z",
+    "updated_at": "2018-04-12T14:43:04.735Z"
   }
 },
 {
@@ -11313,8 +11208,8 @@
   "fields": {
     "membership": 1,
     "user": 17,
-    "created_at": "2018-04-11T20:35:48.402Z",
-    "updated_at": "2018-04-11T20:35:48.402Z"
+    "created_at": "2018-04-12T14:43:04.742Z",
+    "updated_at": "2018-04-12T14:43:04.742Z"
   }
 },
 {
@@ -11323,8 +11218,8 @@
   "fields": {
     "membership": 3,
     "user": 19,
-    "created_at": "2018-04-11T20:59:13.234Z",
-    "updated_at": "2018-04-11T20:59:13.234Z"
+    "created_at": "2018-04-12T14:43:04.749Z",
+    "updated_at": "2018-04-12T14:43:04.749Z"
   }
 },
 {
@@ -11333,8 +11228,18 @@
   "fields": {
     "membership": 2,
     "user": 20,
-    "created_at": "2018-04-11T21:01:20.254Z",
-    "updated_at": "2018-04-11T21:01:39.486Z"
+    "created_at": "2018-04-12T14:43:04.756Z",
+    "updated_at": "2018-04-12T14:43:04.756Z"
+  }
+},
+{
+  "model": "memberships.member",
+  "pk": 14,
+  "fields": {
+    "membership": 3,
+    "user": 18,
+    "created_at": "2018-04-12T14:59:58.576Z",
+    "updated_at": "2018-04-12T14:59:58.576Z"
   }
 }
 ]
