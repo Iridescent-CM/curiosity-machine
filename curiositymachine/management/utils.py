@@ -162,7 +162,7 @@ def load_fixture(f):
 
     memberships = pk_map(data, 'memberships.membership', MembershipFactory, lookups={
         'challenges': challenges,
-        'units': units,
+        'extra_units': units,
     })
     members = pk_map(data, 'memberships.member', MemberFactory, lookups={
         'membership': memberships,
