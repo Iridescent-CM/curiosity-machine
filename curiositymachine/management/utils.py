@@ -1,15 +1,22 @@
 import json
 from django.utils.timezone import now
+from hellosign.models import SignatureStatus
+from profiles.models import UserRole
+from surveys.models import ResponseStatus
 
 from challenges.factories import *
 from cmcomments.factories import *
 from educators.factories import *
+from families.factories import *
+from hellosign.factories import *
 from images.factories import *
+from locations.factories import *
 from memberships.factories import *
 from mentors.factories import *
 from parents.factories import *
 from profiles.factories import *
 from students.factories import *
+from surveys.factories import *
 from units.factories import *
 from videos.factories import *
 
@@ -106,6 +113,7 @@ def load_fixture(f):
         'resource': resources
     })
 
+    locations = pk_map(data, 'locations.location', LocationFactory)
     users = pk_map(data, 'auth.user', UserFactory, exclude=['groups', 'user_permissions', 'password'], build=True)
     studentprofiles = pk_map(data, 'students.studentprofile', StudentProfileFactory, lookups={
         'user': users,
@@ -114,6 +122,12 @@ def load_fixture(f):
     educatorprofiles = pk_map(data, 'educators.educatorprofile', EducatorProfileFactory, lookups={
         'user': users,
         'image': images,
+        'location': locations,
+    }, build=True)
+    familyprofiles = pk_map(data, 'families.familyprofile', FamilyProfileFactory, lookups={
+        'user': users,
+        'image': images,
+        'location': locations,
     }, build=True)
     parentprofiles = pk_map(data, 'parents.parentprofile', ParentProfileFactory, lookups={
         'user': users,
@@ -130,26 +144,53 @@ def load_fixture(f):
         user.save()
         user.extra.user = user # i hate this so much
         user.extra.save()
-        if user.extra.is_student:
-            user.studentprofile.user = user
-            user.studentprofile.save()
-        if user.extra.is_educator:
-            user.educatorprofile.user = user
-            user.educatorprofile.save()
-        if user.extra.is_parent:
-            user.parentprofile.user = user
-            user.parentprofile.save()
-        if user.extra.is_mentor:
-            user.mentorprofile.user = user
-            user.mentorprofile.save()
+        role = UserRole(user.extra.role)
+        if role.profile_attr:
+            profile = getattr(user, role.profile_attr)
+            profile.user = user
+            profile.save()
+
+    familymembers = pk_map(data, 'families.familymember', FamilyMemberFactory, lookups={
+        'account': users,
+        'image': images,
+    })
+
+    units = pk_map(data, 'units.unit', UnitFactory, lookups={
+        'image': images,
+        'standards_alignment_image': images,
+    })
 
     memberships = pk_map(data, 'memberships.membership', MembershipFactory, lookups={
-        'challenges': challenges
+        'challenges': challenges,
+        'extra_units': units,
     })
     members = pk_map(data, 'memberships.member', MemberFactory, lookups={
         'membership': memberships,
         'user': users
     })
+
+    surveys = pk_map(
+        data,
+        'surveys.surveyresponse',
+        SurveyResponseFactory,
+        lookups={
+            'user': users,
+        },
+        force={
+            'status': ResponseStatus.COMPLETED
+        }
+    )
+    signatures = pk_map(
+        data,
+        'hellosign.signature',
+        SignatureFactory,
+        lookups={
+            'user': users,
+        },
+        force={
+            'status': SignatureStatus.SIGNED,
+        }
+    )
 
     progresses = pk_map(
         data,
@@ -169,9 +210,4 @@ def load_fixture(f):
         'user': users,
         'image': images,
         'video': videos,
-    })
-
-    units = pk_map(data, 'units.unit', UnitFactory, lookups={
-        'image': images,
-        'standards_alignment_image': images,
     })

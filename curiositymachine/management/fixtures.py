@@ -53,3 +53,8 @@ def basic_challenges():
 
 def muppet_school():
     load_fixture(os.path.join(settings.BASE_DIR, 'curiositymachine/fixtures/muppet_school.json'))
+
+def aifc():
+    # NB: a bunch of .env config has to line up with the fixture data for it to work
+    #     e.g. survey and signature ids for family accounts to have full access
+    load_fixture(os.path.join(settings.BASE_DIR, 'curiositymachine/fixtures/aifc.json'))
