@@ -41,9 +41,8 @@ def test_old_unclaimed_progress_wont_show(client):
 
     response = client.get(reverse("mentors:home"), follow = True)
     assert response.status_code == 200
-    assert len(response.context['progresses_by_partnership']) == 0
-    assert response.context['non_partnership'] == None
-    assert len(response.context['unclaimed_days']) == 0
+    assert len(response.context['source_groups']) == 0
+    assert len(response.context['date_groups']) == 0
 
 @pytest.mark.django_db
 def test_new_unclaimed_progress_will_show(client):
@@ -56,6 +55,5 @@ def test_new_unclaimed_progress_will_show(client):
 
     response = client.get(reverse("mentors:home"), follow = True)
     assert response.status_code == 200
-    assert len(response.context['progresses_by_partnership']) == 1
-    assert response.context['non_partnership']['unclaimed'] == 1
-    assert len(response.context['unclaimed_days']) == 1
+    assert len(response.context['source_groups']) == 2
+    assert len(response.context['date_groups']) == 1
