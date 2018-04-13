@@ -15,6 +15,7 @@ from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
 from .forms import *
+from .grouping import *
 
 only_for_mentor = only_for_role(UserRole.mentor)
 unapproved_ok = whitelist('unapproved_mentors')
@@ -102,7 +103,9 @@ class HomeView(TemplateView):
             'progresses': progresses,
             'unclaimed_days': unclaimed_days,
             'progresses_by_partnership': partnerships,
-            'non_partnership': non_partnerships
+            'non_partnership': non_partnerships,
+            'date_groups': DateGrouper().group(startdate=startdate),
+            'source_groups': SourceGrouper().group(startdate=startdate),
         })
         return context
 
