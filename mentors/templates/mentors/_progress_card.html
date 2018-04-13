@@ -2,7 +2,7 @@
 {% load resized %}
 {% load staticfiles %}
 
-<div class="card">
+<div class="card progress-card">
   <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.owner.username %}">
 
     {% if progress.owner.studentprofile.image %}

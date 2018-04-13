@@ -20,7 +20,20 @@
     font-weight: 300;
   }
 
-  .card {
+  .progress-card {
+    min-height: 380px;
+
+    .card-block {
+      &:last-child {
+        padding-bottom: 1.5em;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .progress-group-card {
     .card-block {
       &:last-child {
         padding-bottom: 2em;

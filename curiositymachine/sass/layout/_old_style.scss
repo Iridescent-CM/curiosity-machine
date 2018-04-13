@@ -61,4 +61,32 @@
       }
     }
   }
+
+  .pagination {
+    margin-bottom: 2em;
+    li a,
+    li span {
+      color: #44b1f5;
+      &:hover {
+        color: #0c8fe0;
+      }
+    }
+    li a {
+      border: 1px solid $sand;
+    }
+    .active a,
+    .active a:hover,
+    .active .page-link,
+    .active .page-link:hover,
+    .active span,
+    .active span:hover {
+      background-color: #44b1f5;
+      border-color: $sand;
+      color: #fff;
+    }
+    .disabled a,
+    .disabled span {
+      color: $gray;
+    }
+  }
 }

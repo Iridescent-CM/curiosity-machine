@@ -1,6 +1,6 @@
 {% load resized %}
 
-<div class="card">
+<div class="card progress-group-card">
   <a href="{{ group.url }}">
     <img class="card-img-top" src="{% resized group.image_url width=300 height=190 crop='fill' %}">
   </a>

@@ -6304,6 +6304,28 @@ footer {
       color: inherit; }
       .old-style .card .card-block .card-title > a, .old-style .card-progress .card-block .card-title > a, .card-progress .old-style .card .card-block-title .card-title > a, .old-style .card-progress .card-block-title .card-title > a {
         color: inherit; }
+  .old-style .pagination {
+    margin-bottom: 2em; }
+    .old-style .pagination li a,
+    .old-style .pagination li span {
+      color: #44b1f5; }
+      .old-style .pagination li a:hover,
+      .old-style .pagination li span:hover {
+        color: #0c8fe0; }
+    .old-style .pagination li a {
+      border: 1px solid #E5E1D9; }
+    .old-style .pagination .active a,
+    .old-style .pagination .active a:hover,
+    .old-style .pagination .active .page-link,
+    .old-style .pagination .active .page-link:hover,
+    .old-style .pagination .active span,
+    .old-style .pagination .active span:hover {
+      background-color: #44b1f5;
+      border-color: #E5E1D9;
+      color: #fff; }
+    .old-style .pagination .disabled a,
+    .old-style .pagination .disabled span {
+      color: #949494; }
 
 #index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern, #index-page .jumbotron-small, #index-page .jumbotron-blue {
   padding-top: 6em;
@@ -6946,10 +6968,17 @@ footer {
   font-size: 30px;
   font-weight: 300; }
 
-.mentor-dashboard .card .card-block:last-child, .mentor-dashboard .card-progress .card-block:last-child, .card-progress .mentor-dashboard .card .card-block-title:last-child, .mentor-dashboard .card-progress .card-block-title:last-child {
+.mentor-dashboard .progress-card {
+  min-height: 380px; }
+  .mentor-dashboard .progress-card .card-block:last-child, .mentor-dashboard .progress-card .card-progress .card-block-title:last-child, .card-progress .mentor-dashboard .progress-card .card-block-title:last-child {
+    padding-bottom: 1.5em; }
+  .mentor-dashboard .progress-card .card-block p, .mentor-dashboard .progress-card .card-progress .card-block-title p, .card-progress .mentor-dashboard .progress-card .card-block-title p {
+    font-size: 14px; }
+
+.mentor-dashboard .progress-group-card .card-block:last-child, .mentor-dashboard .progress-group-card .card-progress .card-block-title:last-child, .card-progress .mentor-dashboard .progress-group-card .card-block-title:last-child {
   padding-bottom: 2em; }
 
-.mentor-dashboard .card .card-block .card-title, .mentor-dashboard .card-progress .card-block .card-title, .card-progress .mentor-dashboard .card .card-block-title .card-title, .mentor-dashboard .card-progress .card-block-title .card-title {
+.mentor-dashboard .progress-group-card .card-block .card-title, .mentor-dashboard .progress-group-card .card-progress .card-block-title .card-title, .card-progress .mentor-dashboard .progress-group-card .card-block-title .card-title {
   font-weight: normal; }
 
 .password-change .form-body {
