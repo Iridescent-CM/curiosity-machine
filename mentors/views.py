@@ -56,56 +56,10 @@ class HomeView(TemplateView):
             '-started'
         )[:4]
 
-        unclaimed_days_and_counts = (Progress.objects
-            .filter(mentor__isnull=True, started__gt=startdate)
-            .exclude(comments=None)
-            .annotate(start_day=TruncDate('started'))
-            .values_list('start_day')
-            .annotate(Count('id'))
-            .order_by('-start_day'))
-
-        unclaimed_days = []
-        for data in unclaimed_days_and_counts:
-            progress = (Progress.objects
-                .filter(mentor__isnull=True)
-                .exclude(comments=None)
-                .annotate(start_day=TruncDate('started'))
-                .filter(start_day=data[0])
-                .order_by('-started')
-                .first())
-            unclaimed_days.append((data, progress))
-
-        claimable_progresses = Progress.objects.filter(
-            mentor__isnull=True, started__gt=startdate
-        ).exclude(
-            comments=None
-        )
-        source_and_counts = claimable_progresses.values('owner__extra__source').annotate(count=Count('owner__extra__source'))
-        partnerships = {
-            obj["owner__extra__source"]: {
-                "source": obj['owner__extra__source'],
-                "unclaimed": obj['count'],
-                "example_progress": claimable_progresses.filter(
-                        owner__extra__source=obj['owner__extra__source']
-                    ).select_related(
-                        "challenge__image"
-                    ).order_by(
-                        "-started"
-                    ).first()
-            } for obj in source_and_counts
-        }
-        non_partnerships = partnerships.get('', None)
-        if non_partnerships:
-            del partnerships['']
-        partnerships = sorted(partnerships.values(), key=lambda o: o.get('source').lower())
-
         context.update({
             'progresses': progresses,
-            'unclaimed_days': unclaimed_days,
-            'progresses_by_partnership': partnerships,
-            'non_partnership': non_partnerships,
-            'date_groups': DateGrouper().group(startdate=startdate),
-            'source_groups': SourceGrouper().group(startdate=startdate),
+            'date_groups': DateGrouper().group(startdate=startdate)[:8],
+            'source_groups': SourceGrouper().group(startdate=startdate)[:8],
         })
         return context
 
@@ -113,6 +67,41 @@ home = only_for_mentor(
         unapproved_ok(
             HomeView.as_view()))
 
+class GroupView(ListView):
+    template_name = "mentors/progress_groups.html"
+    paginate_by = None
+    context_object_name = 'groups'
+
+    def get(self, request, *args, **kwargs):
+        self.group_by = self.request.GET.get('by')
+        if self.group_by not in ['date', 'source']:
+            raise Http404
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        # we're going to cheat and return arrays
+        startdate = now() - relativedelta(months=int(settings.PROGRESS_MONTH_ACTIVE_LIMIT))
+        if self.group_by == 'date':
+            return DateGrouper().group(startdate=startdate)
+        elif self.group_by == 'source':
+            return SourceGrouper().group(startdate=startdate)
+        else:
+            raise Http404
+
+    def get_context_data(self, **kwargs):
+        group_name = ""
+        if self.group_by == "date":
+            group_name = "Date"
+        elif self.group_by == "source":
+            group_name = "Partnership"
+
+        return super().get_context_data(
+            **kwargs,
+            group=group_name
+        )
+
+unclaimed_groups = only_for_mentor(GroupView.as_view())
+    
 class ListView(ListView):
     template_name = "mentors/list.html"
     queryset = (MentorProfile.objects

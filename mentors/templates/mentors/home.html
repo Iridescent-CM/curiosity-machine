@@ -1,53 +1,65 @@
-{% extends "deprecated_base.html" %}
+{% extends "curiositymachine/layout/base.html" %}
 {% block title %}My Dashboard{% endblock %}
+{% block body-id %}mentor-home{% endblock %}
+{% block body-classes %}old-style mentor-dashboard{% endblock %}
 
 {% load staticfiles %}
 {% load resized %}
 
 {% block content %}
-
-  <h1>Welcome {{user.username}}</h1>
-  {% include "mentors/_profile_info.html" with profile=user.profile %}
+  <div class="container main-container">
+    <h1>Welcome {{user.username}}</h1>
+    {% include "mentors/_profile_info.html" with profile=user.profile %}
 
   {% if request.user.mentorprofile.full_access %}
-    <h2>Recent Challenges I'm Mentoring</h2>
-    <div class="tab-content">
-      <ul class="challenges-list owl-carousel panel-carousel">
-        {% for progress in progresses %}
-          {% include "mentors/_progress_card.html" %}
-        {% empty %}
-          <h3>You are not mentoring any challenges right now</h3>
-        {% endfor %}
-      </ul>
-      <div class="text-center">
-        <a href="{% url "mentors:claimed_progresses" %}"
-            class="btn btn-primary"
-            {% if not progresses %}disabled="disabled"{% endif %}
-        >See all</a>
-      </div>
+  <h2>Recent Challenges I'm Mentoring</h2>
+  <div class="row row-dark">
+    {% for progress in progresses %}
+    <div class="col-xs-3">
+      {% include "mentors/_progress_card.html" %}
     </div>
+    {% empty %}
+    <h3 class="text-xs-center">You are not mentoring any challenges right now</h3>
+    {% endfor %}
+    <div class="col-xs-12 text-xs-center">
+      <a href="{% url "mentors:claimed_progresses" %}"
+          class="btn btn-primary {% if not progresses %}disabled{% endif %}"
+      >See all</a>
+    </div>
+  </div>
 
-    <h2>Claim a Challenge by Partnership</h2>
-    <div class="tab-content">
-      <ul class="challenges-list owl-carousel panel-carousel">
-        {% for group in source_groups %}
-        {% include "mentors/_progress_group_card.html" with group=group %}
-        {% empty %}
-        <h3>There are currently no unclaimed student challenges</h3>
-        {% endfor %}
-      </ul>
+  <h2>Claim a Challenge by Partnership</h2>
+  <div class="row row-dark">
+    {% for group in source_groups %}
+    <div class="col-xs-3">
+      {% include "mentors/_progress_group_card.html" with group=group %}
     </div>
+    {% empty %}
+    <h3>There are currently no unclaimed student challenges</h3>
+    {% endfor %}
+    <div class="col-xs-12 text-xs-center">
+      <a href="{% url "mentors:unclaimed_groups" %}?by=source"
+          class="btn btn-primary {% if not source_groups %}disabled{% endif %}"
+      >See all</a>
+    </div>
+  </div>
 
-    <h2>Claim a Challenge by Date</h2>
-    <div class="tab-content">
-      <ul class="challenges-list owl-carousel panel-carousel">
-        {% for group in date_groups %}
-        {% include "mentors/_progress_group_card.html" with group=group %}
-        {% empty %}
-        <h3>There are currently no unclaimed student challenges</h3>
-        {% endfor %}
-      </ul>
+  <h2>Claim a Challenge by Date</h2>
+  <div class="row row-dark">
+    {% for group in date_groups %}
+    <div class="col-xs-3">
+      {% include "mentors/_progress_group_card.html" with group=group %}
     </div>
+    {% empty %}
+    <h3>There are currently no unclaimed student challenges</h3>
+    {% endfor %}
+    <div class="col-xs-12 text-xs-center">
+      <a href="{% url "mentors:unclaimed_groups" %}?by=date"
+          class="btn btn-primary {% if not date_groups %}disabled{% endif %}"
+      >See all</a>
+    </div>
+  </div>
   {% endif %}
+  </div>
 
 {% endblock %}

@@ -1,22 +1,18 @@
 {% load resized %}
 
-<li>
-  <div class="panel panel-custom">
-    <div class="panel-img">
-      <div class="image-container">
-        <a href="{{ group.url }}">
-          <img src="{% resized group.image_url width=300 height=190 crop='fill' %}">
-        </a>
-      </div>
-    </div>
-    <div class="panel-heading">
-      <div class="panel-title">
-        <a href="{{ group.url }}">{{ group.title }}</a>
-      </div>
-    </div>
-    <div class="panel-body text-center">
-      <h2><a href="{{ group.url }}">{{ group.unclaimed }}</a></h2>
-      <p>Unclaimed</p>
+<div class="card">
+  <a href="{{ group.url }}">
+    <img class="card-img-top" src="{% resized group.image_url width=300 height=190 crop='fill' %}">
+  </a>
+  <div class="card-block">
+    <div class="card-title">
+      <a href="{{ group.url }}">{{ group.title }}</a>
     </div>
   </div>
-</li>
+  <div class="card-block text-xs-center">
+    <p class="unclaimed">
+      <strong><a href="{{ group.url }}">{{ group.unclaimed }}</a></strong>
+      Unclaimed
+    </p>
+  </div>
+</div>

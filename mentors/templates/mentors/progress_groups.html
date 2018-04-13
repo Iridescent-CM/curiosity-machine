@@ -1,0 +1,39 @@
+{% extends "deprecated_base.html" %}
+{% load unread_count %}
+{% load resized %}
+
+{% block title %}Unclaimed Challenges by {{ group }}{% endblock %}
+{% block body-id%}progress-list{% endblock %}
+
+{% block content %}
+
+  {% block breadcrumbs %}
+  <ol class="breadcrumb">
+    <li><a href="{% url 'root' %}">Home</a></li>
+    <li>Claim by {{ group }}</li>
+  </ol>
+  {% endblock %}
+
+  <div class="row">
+    <div class="col-sm-12">
+      {% block pagetitle %}<h2>Claim a Challenge by {{ group }}</h2>{% endblock %}
+    </div>
+  </div>
+  <div class="row">
+    {% for group in groups %}
+      <div class="col-lg-3 col-sm-6">
+        {% include "mentors/_progress_group_card.html" with group=group %}
+      </div>
+
+    {% if forloop.counter|divisibleby:2 %}
+      <div class="clearfix {% if not forloop.counter|divisibleby:4 %} hidden-lg {% endif %}"></div>
+    {% endif %}
+
+    {% empty %}
+      <div class="col-sm-12">
+        {% block emptytext %}There are currently no unclaimed student challenges{% endblock %}
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}

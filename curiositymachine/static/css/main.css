@@ -6263,6 +6263,48 @@ footer {
     margin: 10px auto;
     min-height: 400px; }
 
+.old-style {
+  background: #333; }
+  .old-style .main-container {
+    margin-top: 1.5em;
+    padding: 40px 65px 100px 65px;
+    background: #fffcf7; }
+    .old-style .main-container a {
+      border: none;
+      color: #44b1f5; }
+    .old-style .main-container .btn {
+      text-transform: uppercase; }
+      .old-style .main-container .btn.btn-primary {
+        color: #fff;
+        background-color: #44b1f5;
+        border-color: #2ca7f4; }
+    .old-style .main-container h1, .old-style .main-container h2, .old-style .main-container h3, .old-style .main-container h4 {
+      font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      line-height: 1.1;
+      color: #F16243; }
+      .old-style .main-container h1 small, .old-style .main-container h2 small, .old-style .main-container h3 small, .old-style .main-container h4 small {
+        font-weight: normal;
+        font-size: 65%;
+        line-height: 1;
+        color: #999; }
+  .old-style .card, .old-style .card-progress {
+    border-radius: 4px;
+    border: none;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2); }
+    .old-style .card .card-block:last-child, .old-style .card-progress .card-block:last-child, .card-progress .old-style .card .card-block-title:last-child, .old-style .card-progress .card-block-title:last-child {
+      border-top: 2px solid #e5e1d9;
+      padding-bottom: 3em;
+      margin-bottom: 2em; }
+    .old-style .card .card-block .card-title, .old-style .card-progress .card-block .card-title, .card-progress .old-style .card .card-block-title .card-title, .old-style .card-progress .card-block-title .card-title {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: inherit; }
+      .old-style .card .card-block .card-title > a, .old-style .card-progress .card-block .card-title > a, .card-progress .old-style .card .card-block-title .card-title > a, .old-style .card-progress .card-block-title .card-title > a {
+        color: inherit; }
+
 #index-page .jumbotron, #index-page .jumbotron-green, #index-page .jumbotron-dark, #index-page .jumbotron-dark-pattern, #index-page .jumbotron-small, #index-page .jumbotron-blue {
   padding-top: 6em;
   margin-bottom: 0em; }
@@ -6887,6 +6929,29 @@ footer {
   #mentor-community-page .sign-up-panel h2 {
     color: white; }
 
+.mentor-dashboard .row-dark {
+  background: #e5e1d9;
+  margin: 0 -65px 20px -65px;
+  padding: 30px 15px 15px 15px; }
+
+.mentor-dashboard .main-container h2 {
+  margin-top: 1em; }
+
+.mentor-dashboard .profile-info img {
+  margin-bottom: 20px; }
+
+.mentor-dashboard .unclaimed strong {
+  font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  display: block;
+  font-size: 30px;
+  font-weight: 300; }
+
+.mentor-dashboard .card .card-block:last-child, .mentor-dashboard .card-progress .card-block:last-child, .card-progress .mentor-dashboard .card .card-block-title:last-child, .mentor-dashboard .card-progress .card-block-title:last-child {
+  padding-bottom: 2em; }
+
+.mentor-dashboard .card .card-block .card-title, .mentor-dashboard .card-progress .card-block .card-title, .card-progress .mentor-dashboard .card .card-block-title .card-title, .mentor-dashboard .card-progress .card-block-title .card-title {
+  font-weight: normal; }
+
 .password-change .form-body {
   max-width: 380px;
   margin-left: auto;
@@ -7123,43 +7188,9 @@ footer {
       padding-top: 1em; } }
 
 .units-page {
-  background: #333;
   color: #403E3A;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143; }
-  .units-page .main-container {
-    margin-top: 1.5em;
-    padding: 40px 65px 100px 65px;
-    background: #fffcf7; }
-    .units-page .main-container a {
-      border: none;
-      color: #44b1f5; }
-  .units-page h1, .units-page h2, .units-page h3, .units-page h4 {
-    font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 300;
-    line-height: 1.1;
-    color: #F16243; }
-    .units-page h1 small, .units-page h2 small, .units-page h3 small, .units-page h4 small {
-      font-weight: normal;
-      font-size: 65%;
-      line-height: 1;
-      color: #999; }
-  .units-page .card, .units-page .card-progress {
-    border-radius: 4px;
-    border: none;
-    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2); }
-    .units-page .card .card-block:last-child, .units-page .card-progress .card-block:last-child, .card-progress .units-page .card .card-block-title:last-child, .units-page .card-progress .card-block-title:last-child {
-      border-top: 2px solid #e5e1d9;
-      padding-bottom: 3em;
-      margin-bottom: 2em; }
-    .units-page .card .card-block .card-title, .units-page .card-progress .card-block .card-title, .card-progress .units-page .card .card-block-title .card-title, .units-page .card-progress .card-block-title .card-title {
-      margin-top: 0;
-      margin-bottom: 0;
-      font-size: 16px;
-      font-weight: 700;
-      color: inherit; }
-      .units-page .card .card-block .card-title > a, .units-page .card-progress .card-block .card-title > a, .card-progress .units-page .card .card-block-title .card-title > a, .units-page .card-progress .card-block-title .card-title > a {
-        color: inherit; }
 
 /*# sourceMappingURL=main.css.map */
