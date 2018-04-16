@@ -1,9 +1,13 @@
-{% extends "deprecated_base.html" %}
+{% extends "curiositymachine/layout/base.html" %}
 {% block title %}{{ profile.user.username }}{% endblock %}
+{% block body-id %}mentor-public-profile{% endblock %}
+{% block body-classes %}old-style{% endblock %}
 
 {% block content %}
 
-<h1>{{profile.user.username}}</h1>
-{% include "mentors/_profile_info.html" with profile=profile %}
+<div class="container main-container">
+  <h1>{{profile.user.username}}</h1>
+  {% include "mentors/_profile_info.html" with profile=profile %}
+</div>
 
 {% endblock %}
