@@ -5,6 +5,7 @@
     margin-top: 1.5em;
     padding: 40px 65px 100px 65px;
     background: #fffcf7;
+    max-width: 1170px;
 
     a {
       border: none;
@@ -21,6 +22,33 @@
       }
     }
 
+    h1, .h1 { font-size: 42px; }
+    h2, .h2 { font-size: 30px; }
+    h3, .h3 { font-size: 24px; }
+    h4, .h4 { font-size: 18px; }
+
+    h1, .h1,
+    h2, .h2,
+    h3, .h3 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+
+      small,
+      .small {
+        font-size: 65%;
+      }
+    }
+
+    h4 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+
+      small,
+      .small {
+        font-size: 75%;
+      }
+    }
+
     h1, h2, h3, h4 {
       font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 300;
@@ -29,7 +57,6 @@
 
       small {
         font-weight: normal;
-        font-size: 65%;
         line-height: 1;
         color: #999;
       }
