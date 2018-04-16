@@ -1,0 +1,47 @@
+.mentor-dashboard {
+  .row-dark {
+    background: #e5e1d9;
+    margin: 0 -65px 20px -65px;
+    padding: 30px 15px 15px 15px;
+  }
+
+  .main-container h2 {
+    margin-top: 1em;
+  }
+
+  .profile-info img {
+    margin-bottom: 20px;
+  }
+
+  .unclaimed strong {
+    font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: block;
+    font-size: 30px;
+    font-weight: 300;
+  }
+
+  .progress-card {
+    min-height: 380px;
+
+    .card-block {
+      &:last-child {
+        padding-bottom: 1.5em;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .progress-group-card {
+    .card-block {
+      &:last-child {
+        padding-bottom: 2em;
+      }
+
+      .card-title {
+        font-weight: normal;
+      }
+    }
+  }
+}

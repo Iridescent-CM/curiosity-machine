@@ -1,0 +1,39 @@
+{% load unread_count %}
+{% load resized %}
+{% load staticfiles %}
+
+<div class="card progress-card">
+  <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.owner.username %}">
+
+    {% if progress.owner.studentprofile.image %}
+      <img class="card-img-top" src="{% resized progress.owner.studentprofile.image.url  width=300 height=190 crop='fill' %}" />
+    {% elif progress.challenge.image %}
+      <img class="card-img-top" src="{% resized progress.challenge.image.url width=300 height=190 crop='fill' %}">
+    {% elif progress.challenge.video.encodings_generated %}
+      <img class="card-img-top" src="{% resized progress.challenge.video.thumbnails.first.url width=300 height=190 crop='fill' %}">
+    {% endif %}
+
+  </a>
+
+  <div class="card-block">
+    <h3 class="card-title">
+      {% with count=progress|unread_count:request.user %}
+        {% if count %}
+          <span title="{{count}} unread messages" class="unread">{{count}}</span>
+        {% endif %}
+      {% endwith %}
+      <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.owner.username %}">{{ progress.challenge.name }} by {{progress.owner.username}}</a>
+    </h3>
+  </div>
+
+  <div class="card-block">
+    <p>Started: {{ progress.started }}</p>
+    {% if not progress.mentor %}
+      <form action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit">Claim</button>
+      </form>
+    {% endif %}
+  </div>
+
+</div>

@@ -1,0 +1,18 @@
+{% load resized %}
+
+<div class="card progress-group-card">
+  <a href="{{ group.url }}">
+    <img class="card-img-top" src="{% resized group.image_url width=300 height=190 crop='fill' %}">
+  </a>
+  <div class="card-block">
+    <div class="card-title">
+      <a href="{{ group.url }}">{{ group.title }}</a>
+    </div>
+  </div>
+  <div class="card-block text-xs-center">
+    <p class="unclaimed">
+      <strong><a href="{{ group.url }}">{{ group.unclaimed }}</a></strong>
+      Unclaimed
+    </p>
+  </div>
+</div>
