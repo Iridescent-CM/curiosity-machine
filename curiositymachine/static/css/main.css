@@ -6268,7 +6268,8 @@ footer {
   .old-style .main-container {
     margin-top: 1.5em;
     padding: 40px 65px 100px 65px;
-    background: #fffcf7; }
+    background: #fffcf7;
+    max-width: 1170px; }
     .old-style .main-container a {
       border: none;
       color: #44b1f5; }
@@ -6278,6 +6279,35 @@ footer {
         color: #fff;
         background-color: #44b1f5;
         border-color: #2ca7f4; }
+    .old-style .main-container h1, .old-style .main-container .h1 {
+      font-size: 42px; }
+    .old-style .main-container h2, .old-style .main-container .h2 {
+      font-size: 30px; }
+    .old-style .main-container h3, .old-style .main-container .h3 {
+      font-size: 24px; }
+    .old-style .main-container h4, .old-style .main-container .h4 {
+      font-size: 18px; }
+    .old-style .main-container h1, .old-style .main-container .h1,
+    .old-style .main-container h2, .old-style .main-container .h2,
+    .old-style .main-container h3, .old-style .main-container .h3 {
+      margin-top: 20px;
+      margin-bottom: 10px; }
+      .old-style .main-container h1 small,
+      .old-style .main-container h1 .small, .old-style .main-container .h1 small,
+      .old-style .main-container .h1 .small,
+      .old-style .main-container h2 small,
+      .old-style .main-container h2 .small, .old-style .main-container .h2 small,
+      .old-style .main-container .h2 .small,
+      .old-style .main-container h3 small,
+      .old-style .main-container h3 .small, .old-style .main-container .h3 small,
+      .old-style .main-container .h3 .small {
+        font-size: 65%; }
+    .old-style .main-container h4 {
+      margin-top: 10px;
+      margin-bottom: 10px; }
+      .old-style .main-container h4 small,
+      .old-style .main-container h4 .small {
+        font-size: 75%; }
     .old-style .main-container h1, .old-style .main-container h2, .old-style .main-container h3, .old-style .main-container h4 {
       font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 300;
@@ -6285,7 +6315,6 @@ footer {
       color: #F16243; }
       .old-style .main-container h1 small, .old-style .main-container h2 small, .old-style .main-container h3 small, .old-style .main-container h4 small {
         font-weight: normal;
-        font-size: 65%;
         line-height: 1;
         color: #999; }
   .old-style .card, .old-style .card-progress {
