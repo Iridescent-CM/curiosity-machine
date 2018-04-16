@@ -6970,6 +6970,27 @@ footer {
 
 .mentor-dashboard .progress-card {
   min-height: 380px; }
+  .mentor-dashboard .progress-card .unread {
+    display: block;
+    position: absolute;
+    top: -5px;
+    right: -12px;
+    color: #fff;
+    line-height: 1;
+    padding: 8px 10px;
+    background: #f16243;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); }
+    .mentor-dashboard .progress-card .unread:before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 8px 0 0;
+      border-color: #f16243 transparent transparent transparent;
+      position: absolute;
+      bottom: -10px;
+      left: 5px; }
   .mentor-dashboard .progress-card .card-block:last-child, .mentor-dashboard .progress-card .card-progress .card-block-title:last-child, .card-progress .mentor-dashboard .progress-card .card-block-title:last-child {
     padding-bottom: 1.5em; }
   .mentor-dashboard .progress-card .card-block p, .mentor-dashboard .progress-card .card-progress .card-block-title p, .card-progress .mentor-dashboard .progress-card .card-block-title p {

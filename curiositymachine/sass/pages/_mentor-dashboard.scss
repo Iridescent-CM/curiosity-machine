@@ -23,6 +23,30 @@
   .progress-card {
     min-height: 380px;
 
+    .unread {
+      display: block;
+      position: absolute;
+      top: -5px;
+      right: -12px;
+      color: #fff;
+      line-height: 1;
+      padding: 8px 10px;
+      background: #f16243;
+      border-radius: 3px;
+      box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+      &:before {
+        content: '';
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 10px 8px 0 0;
+        border-color: #f16243 transparent transparent transparent;
+        position: absolute;
+        bottom: -10px;
+        left: 5px;
+      }
+    }
+
     .card-block {
       &:last-child {
         padding-bottom: 1.5em;
