@@ -162,7 +162,7 @@ edit_email = unapproved_ok(only_for_family(EditEmailView.as_view()))
 
 conversion = TemplateView.as_view(template_name="families/conversion.html")
 
-class ActivityView(ListView):
+class ActivityView(DashboardMixin, ListView):
     template_name = "families/activity.html"
     paginate_by = settings.DEFAULT_PER_PAGE
     context_object_name = 'activity'
