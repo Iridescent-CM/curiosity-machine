@@ -8,6 +8,7 @@ class SurveyResponseAdmin(admin.ModelAdmin):
     list_filter = [('status', EnumFieldListFilter)]
     readonly_fields = ['id', 'survey_id', 'user', 'created_at', 'updated_at']
     search_fields = ['id', 'survey_id', 'user__username']
+    ordering = ('-created_at',)
 
     def save_model(self, request, obj, form, change):
         if not change:

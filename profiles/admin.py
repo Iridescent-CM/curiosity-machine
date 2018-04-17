@@ -43,7 +43,7 @@ class UserExtraInline(admin.StackedInline):
 
 class EducatorProfileInline(admin.StackedInline):
     model = EducatorProfile
-    raw_id_fields = ['image']
+    raw_id_fields = ['image', 'location']
 
 class MentorProfileInline(admin.StackedInline):
     model = MentorProfile

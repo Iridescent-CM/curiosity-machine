@@ -15,6 +15,7 @@ class SignatureAdmin(admin.ModelAdmin):
         'signature_request_id',
         'signature_id'
     ]
+    ordering = ('-created_at',)
     search_fields = ['id', 'template_id', 'user__username']
 
     def save_model(self, request, obj, form, change):

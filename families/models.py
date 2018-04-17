@@ -70,7 +70,7 @@ class FamilyMember(models.Model):
     family_role = models.SmallIntegerField(
         null=False,
         blank=False,
-        choices=[(None, 'Select role...')] + [(role.value, role.display) for role in FamilyRole]
+        choices=[(None, 'Select role...')] + [(role.value, role.display()) for role in FamilyRole]
     )
 
     @property
