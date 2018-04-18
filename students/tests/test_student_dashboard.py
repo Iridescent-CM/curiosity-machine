@@ -28,35 +28,10 @@ def test_dashboard_skips_inactive_memberships(client):
     assert not response.context["memberships"]
 
 @pytest.mark.django_db
-def test_membership_filter_404s_on_bad_query_parameter(client):
+def test_membership_challenges_404s_on_bad_id(client):
     student = StudentFactory(username="user", password="password")
 
     client.login(username="user", password="password")
-    response = client.get(reverse("students:home") + "?membership=x")
+    response = client.get(reverse("students:membership", kwargs={'membership_id': 2}))
 
     assert response.status_code == 404
-
-@pytest.mark.django_db
-def test_membership_filter_includes_membership_challenges(client):
-    student = StudentFactory(username="user", password="password")
-    challenges = ChallengeFactory.create_batch(3)
-    membership = MembershipFactory(challenges=challenges, members=[student])
-
-    client.login(username="user", password="password")
-    response = client.get(reverse("students:home") + "?membership=%d" % membership.id)
-
-    assert response.status_code == 200
-    assert response.context["selected_membership"] == membership.id
-    assert set(response.context["selected_membership_challenges"]) == set(challenges)
-
-@pytest.mark.django_db
-def test_membership_filter_shows_no_challenges_on_non_member_membership(client):
-    student = StudentFactory(username="user", password="password")
-    challenges = ChallengeFactory.create_batch(3)
-    membership = MembershipFactory(challenges=challenges)
-
-    client.login(username="user", password="password")
-    response = client.get(reverse("students:home") + "?membership=%d" % membership.id)
-
-    assert response.status_code == 200
-    assert not response.context["selected_membership_challenges"]

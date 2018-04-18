@@ -6827,6 +6827,169 @@ footer {
   .family-dashboard .activity-list .list-group-item {
     padding-right: 180px; } }
 
+.student-dashboard .student-dashboard-header {
+  background-color: #1f1f1f;
+  background-image: url("../images/design-challenge-repeating-pattern.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
+  color: #FFFCF7; }
+  .student-dashboard .student-dashboard-header .dashboard-avatar img {
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+    float: left;
+    margin-right: 10px; }
+  .student-dashboard .student-dashboard-header .dashboard-inline-username {
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-size: 2em; }
+  .student-dashboard .student-dashboard-header .card, .student-dashboard .student-dashboard-header .card-progress {
+    background-color: #333333; }
+
+.student-dashboard .student-dashboard-navigation {
+  border-bottom: 2px #E5E1D9 solid; }
+  .student-dashboard .student-dashboard-navigation ul {
+    list-style-type: none;
+    text-transform: uppercase;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    padding-left: 0px;
+    margin-bottom: 0px; }
+    .student-dashboard .student-dashboard-navigation ul li {
+      display: inline-block;
+      padding-bottom: 10px;
+      border-bottom: 5px solid #FFFCF7; }
+      .student-dashboard .student-dashboard-navigation ul li a {
+        margin: 0px 15px;
+        border-bottom: 0px;
+        color: #333333;
+        text-align: center; }
+        .student-dashboard .student-dashboard-navigation ul li a:hover, .student-dashboard .student-dashboard-navigation ul li a:focus {
+          color: #00B1C3; }
+  @media (max-width: 991px) {
+    .student-dashboard .student-dashboard-navigation ul li {
+      width: 32%;
+      text-align: center; } }
+  @media (max-width: 767px) {
+    .student-dashboard .student-dashboard-navigation ul li {
+      width: 100%; } }
+  .student-dashboard .student-dashboard-navigation .dropdown a {
+    margin: 0px; }
+
+.student-dashboard .active-nav {
+  border-bottom-color: #00B1C3 !important; }
+  .student-dashboard .active-nav a {
+    color: #00B1C3 !important; }
+  @media (max-width: 991px) {
+    .student-dashboard .active-nav {
+      border-bottom: 0px !important; } }
+
+.student-dashboard .dropdown-design-challenge {
+  display: inline-block; }
+
+.student-dashboard .dcprogressheader {
+  z-index: 500; }
+
+.student-dashboard .fixedheader {
+  position: fixed;
+  top: 0;
+  width: 100%; }
+
+.student-dashboard .fixedheader-height {
+  padding-top: 41px; }
+  @media (max-width: 767px) {
+    .student-dashboard .fixedheader-height {
+      padding-top: 0px; } }
+
+@media (max-width: 767px) {
+  .student-dashboard .dc-progress .student-list-item {
+    margin-bottom: 0.75em; } }
+
+.student-dashboard .dc-progress .student-list-avatar img {
+  border-radius: 50%;
+  background-color: #FFFCF7;
+  margin-right: 10px;
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+
+.student-dashboard .ai-banner-margins {
+  margin-top: -28px; }
+
+.student-dashboard .activity-list .list-group-item {
+  white-space: nowrap; }
+  .student-dashboard .activity-list .list-group-item a {
+    display: inline-block;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+
+.student-dashboard .activity-list .indicator {
+  width: 0.8em;
+  height: 0.8em;
+  display: inline-block;
+  border-radius: 50%;
+  margin: 0.2em 0.8em 0.2em 0.2em;
+  vertical-align: baseline; }
+  .student-dashboard .activity-list .indicator.indicator-read {
+    border: 1px solid #ccc;
+    background: transparent; }
+  .student-dashboard .activity-list .indicator.indicator-unread {
+    background: #0275d8; }
+
+.student-dashboard .activity-list .timesince {
+  display: none; }
+
+.student-dashboard .activity-list .tag {
+  position: absolute;
+  right: 0;
+  margin-right: 1em; }
+  .student-dashboard .activity-list .tag.plan-stage {
+    background-color: #8FB559; }
+  .student-dashboard .activity-list .tag.build-stage {
+    background-color: #6161AF; }
+  .student-dashboard .activity-list .tag.test-stage {
+    background-color: #F55932; }
+  .student-dashboard .activity-list .tag.reflect-stage {
+    background-color: #1EB9C8; }
+
+.student-dashboard .activity-list .list-group-item {
+  padding-right: 75px; }
+
+@media (min-width: 768px) {
+  .student-dashboard .activity-list .timesince {
+    display: inline;
+    position: absolute;
+    right: 0;
+    margin-right: 1em; }
+  .student-dashboard .activity-list .tag {
+    right: 180px; }
+  .student-dashboard .activity-list .list-group-item {
+    padding-right: 180px; } }
+
+.student-dashboard .challenge-started:after,
+.student-dashboard .challenge-completed:after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  right: 0; }
+
+.student-dashboard .challenge-started:after {
+  background-image: url("../images/challenges/blue_circle.png"); }
+
+.student-dashboard .challenge-completed:after {
+  background-image: url("../images/challenges/green_circle.png"); }
+
+.student-dashboard .card.card-action-needed, .student-dashboard .card-action-needed.card-progress {
+  width: 94%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+  font-size: 14px; }
+  .student-dashboard .card.card-action-needed .card-header, .student-dashboard .card-action-needed.card-progress .card-header {
+    color: #a94442;
+    background-color: #f2dede; }
+
 #challenges-page {
   background-color: #E5E1D9; }
   #challenges-page .challenges-top-panel {

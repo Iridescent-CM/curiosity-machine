@@ -1,8 +1,10 @@
 from allauth.account.models import EmailAddress
 from challenges.models import Progress, Favorite, Challenge
+from challenges.presenters import ChallengeSet
 from curiositymachine.decorators import unapproved_only
+from django.conf import settings
 from django.contrib import messages
-from django.shortcuts import Http404
+from django.shortcuts import Http404, get_object_or_404
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, TemplateView, UpdateView
@@ -11,13 +13,12 @@ from profiles.decorators import only_for_role, UserRole
 from profiles.views import EditProfileMixin
 from .forms import *
 from .models import StudentProfile
-from django.conf import settings
 
 only_for_student = only_for_role(UserRole.student)
 
 def banner_membership_blacklisted(request):
-  membership_set = request.user.membership_set.filter(is_active=True)
-  return any(membership.id in settings.AI_BANNER_STUDENT_BLACKLIST for membership in membership_set)
+    membership_set = request.user.membership_set.filter(is_active=True)
+    return any(membership.id in settings.AI_BANNER_STUDENT_BLACKLIST for membership in membership_set)
 
 
 class CreateView(EditProfileMixin, CreateView):
@@ -44,44 +45,69 @@ class EditView(EditProfileMixin, UpdateView):
 
 edit = only_for_student(EditView.as_view())
 
-class HomeView(TemplateView):
-    template_name = "students/home.html"
+class DashboardMixin:
+    def get_context_data(self, **kwargs):
+        memberships = self.request.user.membership_set.filter(is_active=True).order_by('display_name')
+        names = ", ".join([m.display_name for m in memberships])
+        return super().get_context_data(
+            **kwargs,
+            memberships=memberships,
+            membership_names=names,
+            banner_membership_blacklisted=banner_membership_blacklisted(self.request),
+        )
+
+class ChallengesView(DashboardMixin, TemplateView):
+    template_name = "students/dashboard/challenges/my_challenges.html"
+
+    def get_context_data(self, **kwargs):
+        progresses = (Progress.objects
+            .filter(owner=self.request.user)
+            .select_related("challenge", "challenge__image")
+        )
+        presenter = ChallengeSet([p.challenge for p in progresses], progresses)
+        return super().get_context_data(
+            **kwargs,
+            challenges=presenter.challenges,
+        )
+
+home = only_for_student(ChallengesView.as_view())
+
+class MembershipChallengesView(DashboardMixin, TemplateView):
+    template_name = "students/dashboard/challenges/membership.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        request = self.request
+        m_id = kwargs.get('membership_id')
+        membership = get_object_or_404(self.request.user.membership_set.filter(is_active=True), id=m_id)
 
-        context["filter"] = request.GET.get('filter')
+        challenges = (membership.challenges
+            .select_related("image")
+            .all()
+        )
+        progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=[c.id for c in challenges])
+        presenter = ChallengeSet(challenges, progresses)
 
-        selected_membership = request.GET.get('membership')
-        selected_membership_challenges = []
-        if selected_membership:
-            try:
-                selected_membership = int(selected_membership)
-            except:
-                raise Http404
-            selected_membership_challenges = Challenge.objects.filter(
-                membership__id=selected_membership, membership__members=request.user
-            ).all()
-        context["selected_membership"] = selected_membership
-        context["selected_membership_challenges"] = selected_membership_challenges
-
-
-        context["my_challenges_filters"] = [ 'active', 'completed' ]
-        context["favorite_challenges"] = Favorite.objects.filter(student=request.user)
-
-        progresses = Progress.objects.filter(owner=request.user).select_related("challenge")
-        context["completed_progresses"] = [progress for progress in progresses if progress.completed]
-        context["active_progresses"] = [progress for progress in progresses if not progress.completed]
-        context["progresses"] = progresses
-
-        context["parent_connections"] = ParentConnection.objects.filter(child_profile=request.user.studentprofile, removed=False)
-        context["memberships"] = request.user.membership_set.filter(is_active=True)
-
-        context["banner_membership_blacklisted"] = banner_membership_blacklisted(request)
-
+        context['challenges'] = presenter.challenges
         return context
 
-home = only_for_student(HomeView.as_view())
+membership_challenges = only_for_student(MembershipChallengesView.as_view())
+
+class FavoritesView(DashboardMixin, TemplateView):
+    template_name = "students/dashboard/challenges/favorites.html"
+
+    def get_context_data(self, **kwargs):
+        favs = (Favorite.objects
+            .select_related("challenge", "challenge__image")
+            .filter(student=self.request.user)
+        )
+        challenges = [f.challenge for f in favs]
+        progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=[c.id for c in challenges])
+        presenter = ChallengeSet(challenges, progresses)
+        return super().get_context_data(
+            **kwargs,
+            challenges=presenter.challenges,
+        )
+
+favorites = only_for_student(FavoritesView.as_view())
 
 underage = unapproved_only(TemplateView.as_view(template_name='students/underage.html'))

@@ -80,3 +80,9 @@ urlpatterns += [
     url(r'^health_check/', public(views.health_check)),
     url(r'^log/', public(views.log), name='log'),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
