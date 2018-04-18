@@ -63,6 +63,7 @@ class ChallengesView(DashboardMixin, TemplateView):
         progresses = (Progress.objects
             .filter(owner=self.request.user)
             .select_related("challenge", "challenge__image")
+            .order_by('-started')
         )
         presenter = ChallengeSet([p.challenge for p in progresses], progresses)
         return super().get_context_data(
@@ -99,6 +100,7 @@ class FavoritesView(DashboardMixin, TemplateView):
         favs = (Favorite.objects
             .select_related("challenge", "challenge__image")
             .filter(student=self.request.user)
+            .order_by('-id')
         )
         challenges = [f.challenge for f in favs]
         progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=[c.id for c in challenges])

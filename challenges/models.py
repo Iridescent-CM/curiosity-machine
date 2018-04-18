@@ -171,7 +171,7 @@ class Progress(models.Model):
 
     @property
     def completed(self):
-        return self.comments.filter(stage=Stage.reflect.value, user=self.owner).exists()
+        return self.comments.filter(stage=Stage.reflect.value, user_id=self.owner_id).exists()
 
     @property
     def most_recent(self):
