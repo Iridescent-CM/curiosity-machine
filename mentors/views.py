@@ -58,8 +58,8 @@ class HomeView(TemplateView):
 
         context.update({
             'progresses': progresses,
-            'date_groups': DateGrouper().group(startdate=startdate)[:8],
-            'source_groups': SourceGrouper().group(startdate=startdate)[:8],
+            'date_groups': DateGrouper().group(startdate=startdate)[:4],
+            'source_groups': SourceGrouper().group(startdate=startdate)[:4],
         })
         return context
 
