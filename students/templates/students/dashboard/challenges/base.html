@@ -24,6 +24,12 @@
       <div class="clearfix hidden-lg-up"></div>
     {% endif %}
 
+    {% empty %}
+    {% block emptycontent %}
+    <div class="col-sm-12 mb-1 text-xs-center">
+      <p>No challenges</p>
+    </div>
+    {% endblock %}
     {% endfor %}
 
   </div>

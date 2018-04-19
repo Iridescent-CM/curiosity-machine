@@ -1,4 +1,14 @@
 {% extends "students/dashboard/challenges/base.html" %}
-{% load staticfiles %}
 
 {% block tabhead %}My challenges{% endblock %}
+
+{% block emptycontent %}
+<div class="col-sm-12 mb-1 text-xs-center">
+  <p>
+    You haven't started any challenges yet.
+  </p>
+  <p>
+    Go <a href="{% url "challenges:challenges" %}">see the challenges</a> and pick one to start building!
+  </p>
+</div>
+{% endblock %}
