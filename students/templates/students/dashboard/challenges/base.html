@@ -6,11 +6,15 @@
 
   <div class="row pb-1">
     <div class="col-md-12">
-      <h2>{% block tabhead %}{% endblock %}</h2>
+      <h2 class="mb-0">{% block tabhead %}{% endblock %}</h2>
     </div>
   </div>
 
-  <div class="row mb-3">
+  <div class="row text-xs-center mb-2">
+    {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+  </div>
+
+  <div class="row mb-2">
     {% for challenge in challenges %}
     <div class="col-lg-4 col-md-6 mb-1">
       {% include 'students/dashboard/_challenge_card.html' %}
@@ -32,6 +36,10 @@
     {% endblock %}
     {% endfor %}
 
+  </div>
+
+  <div class="row text-xs-center mb-3">
+    {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
   </div>
 
 {% endblock %}

@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.shortcuts import Http404, get_object_or_404
 from django.urls import reverse
 from django.utils.functional import lazy
-from django.views.generic import CreateView, FormView, TemplateView, UpdateView
+from django.views.generic import CreateView, FormView, ListView, TemplateView, UpdateView
 from parents.models import ParentConnection
 from profiles.decorators import only_for_role, UserRole
 from profiles.views import EditProfileMixin
@@ -56,20 +56,23 @@ class DashboardMixin:
             banner_membership_blacklisted=banner_membership_blacklisted(self.request),
         )
 
-class ChallengesView(DashboardMixin, TemplateView):
+class ChallengesView(DashboardMixin, ListView):
     template_name = "students/dashboard/challenges/my_challenges.html"
+    paginate_by = settings.DEFAULT_PER_PAGE
 
-    def get_context_data(self, **kwargs):
-        progresses = (Progress.objects
+    def get_queryset(self):
+        return (Progress.objects
             .filter(owner=self.request.user)
             .select_related("challenge", "challenge__image")
             .order_by('-started')
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        progresses = context.pop('object_list')
         presenter = ChallengeSet([p.challenge for p in progresses], progresses)
-        return super().get_context_data(
-            **kwargs,
-            challenges=presenter.challenges,
-        )
+        context['object_list'] = context['challenges'] = presenter.challenges
+        return context
 
 home = only_for_student(ChallengesView.as_view())
 
@@ -93,22 +96,25 @@ class MembershipChallengesView(DashboardMixin, TemplateView):
 
 membership_challenges = only_for_student(MembershipChallengesView.as_view())
 
-class FavoritesView(DashboardMixin, TemplateView):
+class FavoritesView(DashboardMixin, ListView):
     template_name = "students/dashboard/challenges/favorites.html"
+    paginate_by = settings.DEFAULT_PER_PAGE
 
-    def get_context_data(self, **kwargs):
-        favs = (Favorite.objects
+    def get_queryset(self):
+        return (Favorite.objects
             .select_related("challenge", "challenge__image")
             .filter(student=self.request.user)
             .order_by('-id')
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        favs = context.pop('object_list')
         challenges = [f.challenge for f in favs]
         progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=[c.id for c in challenges])
         presenter = ChallengeSet(challenges, progresses)
-        return super().get_context_data(
-            **kwargs,
-            challenges=presenter.challenges,
-        )
+        context['challenges'] = context['object_list'] = presenter.challenges
+        return context
 
 favorites = only_for_student(FavoritesView.as_view())
 
