@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^home/$', home, name="home"),
     url(r'^home/membership/(?P<membership_id>\d+)/$', membership_challenges, name="membership"),
     url(r'^home/favorites/$', favorites, name="favorites"),
+    url(r'^home/activity/$', activity, name='activity'),
     url(r'^underage/$', whitelist('underage')(underage), name='underage'),
 ]

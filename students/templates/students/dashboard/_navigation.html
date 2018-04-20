@@ -21,14 +21,12 @@
             Favorites
           </a>
         </li>
-        {% if false %}
         <li class="nav-item {% ifactive "students:activity" "active-nav" %}">
           <a class="nav-link" href="{% url "students:activity" %}">
             recent activity
             <span class="tag tag-primary">{% notifications_unread %}</span>
           </a>
         </li>
-        {% endif %}
       </ul>
     </nav>
   </div>

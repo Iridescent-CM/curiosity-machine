@@ -119,3 +119,28 @@ class FavoritesView(DashboardMixin, ListView):
 favorites = only_for_student(FavoritesView.as_view())
 
 underage = unapproved_only(TemplateView.as_view(template_name='students/underage.html'))
+
+class ActivityView(DashboardMixin, ListView):
+    template_name = "students/dashboard/activity.html"
+    paginate_by = settings.DEFAULT_PER_PAGE
+    context_object_name = 'activity'
+
+    def get_queryset(self):
+        return self.request.user.notifications.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        by_day = {}
+        for notification in context['activity']:
+            day = notification.timestamp.date()
+            by_day[day] = by_day.get(day, [])
+            by_day[day].append(notification)
+
+        context.update({
+            "activity_by_day": by_day,
+        })
+
+        return context
+
+activity = only_for_student(ActivityView.as_view())

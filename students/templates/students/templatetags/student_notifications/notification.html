@@ -1,0 +1,12 @@
+<i class="indicator {{ indicator_class }}"></i>
+<a href="{{ url }}">
+  {{ text }}
+</a>
+{% if stage %}
+<span class="tag {{stage}}-stage">
+  {{ stage }}
+</span>
+{% endif %}
+<small class="timesince">
+  {{ timesince }} ago
+</small>
