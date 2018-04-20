@@ -11,5 +11,8 @@
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
     "grunt-sass": "^2.1.0"
+  },
+  "dependencies": {
+    "npm": "^5.8.0"
   }
 }
