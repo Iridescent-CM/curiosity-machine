@@ -197,6 +197,16 @@
     <script type="text/javascript" src="{% static 'js/libs/mediaelement/mediaelement-and-player.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/coppa.js' %}"></script>
+    {% if request.user.is_authenticated %}
+    <script>
+      zE(function(){
+        zE.identify({
+          name: "{{ request.user.username }}",
+          email: "{{ request.user.email }}"
+        });
+      });
+    </script>
+    {% endif %}
     {% block js %}{% endblock %}
   {% endcompress %}
   {% if messages %}{% for message in messages %}
