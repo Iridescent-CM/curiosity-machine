@@ -46,6 +46,7 @@ SITE_URL = os.getenv('SITE_URL', '')
 
 ## Application definition
 ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMINS", '').split(',')])
+INTERNAL_IPS = os.getenv('INTERNAL_IPS', '').split(',') if os.getenv('INTERNAL_IPS') else []
 
 # Canonical domain -- if this is set, all requests not to this domain will be forwarded to this domain
 # this should be a bare domain -- no scheme or route! For instance, www.example.com and not http://www.example.com
@@ -96,11 +97,13 @@ INSTALLED_APPS = (
     'rest_framework',
     'notifications',
     'phonenumber_field',
+    'debug_toolbar',
 )
 
 SITE_ID = 1
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'curiositymachine.middleware.CanonicalDomainMiddleware', # this MUST come before the SSLify middleware or else non-canonical domains that do not have SSL endpoints will not work!
     'sslify.middleware.SSLifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -447,8 +450,9 @@ if ROLLBAR_SERVER_SIDE_ACCESS_TOKEN:
     }
     MIDDLEWARE_CLASSES += ('rollbar.contrib.django.middleware.RollbarNotifierMiddleware',)
 
-if DEBUG and DEBUG_TOOLBAR:
-    INSTALLED_APPS += ('debug_toolbar',)
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": 'curiositymachine.debug.show_toolbar'
+}
 
 if USE_DJANGO_EXTENSIONS:
     INSTALLED_APPS += ('django_extensions',)
