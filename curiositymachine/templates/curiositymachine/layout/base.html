@@ -164,6 +164,13 @@
       });
     </script>
     {% endif %}
+    {% if not flags.enable_zendesk_web_widget %}
+    <script>
+      zE(function(){
+        zE.hide();
+      });
+    </script>
+    {% endif %}
   {% endcompress %}
   {% block js %}{% endblock %}
 

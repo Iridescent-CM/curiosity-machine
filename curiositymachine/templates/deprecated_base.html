@@ -218,6 +218,13 @@
       });
     </script>
     {% endif %}
+    {% if not flags.enable_zendesk_web_widget %}
+    <script>
+      zE(function(){
+        zE.hide();
+      });
+    </script>
+    {% endif %}
     {% block js %}{% endblock %}
   {% endcompress %}
   {% if messages %}{% for message in messages %}
