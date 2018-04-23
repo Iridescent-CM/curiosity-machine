@@ -88,6 +88,9 @@
       {% endfor %}
     </script>
   {% endif %}
+  <!-- Start of iridescentsupport Zendesk Widget script -->
+  <script>/*<![CDATA[*/window.zE||(function(e,t,s){var n=window.zE=window.zEmbed=function(){n._.push(arguments)}, a=n.s=e.createElement(t),r=e.getElementsByTagName(t)[0];n.set=function(e){ n.set._.push(e)},n._=[],n.set._=[],a.async=true,a.setAttribute("charset","utf-8"), a.src="https://static.zdassets.com/ekr/asset_composer.js?key="+s, n.t=+new Date,a.type="text/javascript",r.parentNode.insertBefore(a,r)})(document,"script","6262affc-10bf-4d86-a26f-74279d559547");/*]]>*/</script>
+  <!-- End of iridescentsupport Zendesk Widget script -->
 </head>
 <body id="{% block body-id %}{% endblock %}" class="{% block body-classes %}{% endblock %}">
   <noscript>
@@ -140,6 +143,16 @@
     <script type="text/javascript" src="{% static 'js/modals.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/smoothscroll.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/textswap.js' %}"></script>
+    {% if request.user.is_authenticated %}
+    <script>
+      zE(function(){
+        zE.identify({
+          name: "{{ request.user.username }}",
+          email: "{{ request.user.email }}"
+        });
+      });
+    </script>
+    {% endif %}
   {% endcompress %}
   {% block js %}{% endblock %}
 
