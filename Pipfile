@@ -45,12 +45,12 @@ newrelic = "*"
 rollbar = "*"
 factory-boy = "*"
 "psycopg2-binary" = "*"
+django-debug-toolbar = "*"
 
 
 [dev-packages]
 
 coverage = "*"
-django-debug-toolbar = "*"
 django-extensions = "*"
 django-html-validator = "*"
 mock = "*"
