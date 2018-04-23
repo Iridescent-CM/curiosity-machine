@@ -197,6 +197,17 @@
     <script type="text/javascript" src="{% static 'js/libs/mediaelement/mediaelement-and-player.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/coppa.js' %}"></script>
+    <script>
+      window.zESettings = {
+        webWidget: {
+          helpCenter: {
+            filter: {
+              category: '115000091368'
+            }
+          }
+        }
+      };
+    </script>
     {% if request.user.is_authenticated %}
     <script>
       zE(function(){

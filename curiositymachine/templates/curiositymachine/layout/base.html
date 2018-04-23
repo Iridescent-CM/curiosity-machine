@@ -143,6 +143,17 @@
     <script type="text/javascript" src="{% static 'js/modals.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/smoothscroll.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/textswap.js' %}"></script>
+    <script>
+      window.zESettings = {
+        webWidget: {
+          helpCenter: {
+            filter: {
+              category: '115000091368'
+            }
+          }
+        }
+      };
+    </script>
     {% if request.user.is_authenticated %}
     <script>
       zE(function(){
