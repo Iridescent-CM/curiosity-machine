@@ -6,7 +6,6 @@
 {% block pagehead %}Sign Up{% endblock %}
 
 {% block content %}
-  {% if flags.enable_ai_challenge_profile_options %}
   <div class="card card-block mb-3">
     <h2>Create your Curiosity Machine Artificial Intelligence Family Challenge account!</h2>
     <p>
@@ -41,10 +40,6 @@
   </div>
 
   <h2 class="my-3">Not interested? Choose one of the other ways to join Curiosity Machine:</h2>
-  {% else %}
-  <h2>Join as a:</h2>
-  {% endif %}
-
 
   {% url "students:create_profile" as student_url %}
   <div class="card card-block mb-2">
@@ -62,14 +57,5 @@
         Find resources to teach engineering challenges.
       </p>
       <a class="btn btn-primary" href="{{ educator_url }}">I am an educator</a>
-  </div>
-
-  {% url "parents:create_profile" as parent_url %}
-  <div class="card card-block mb-2">
-      <h4>Parent</h4>
-      <p>
-        Connect to your child’s account and learn how to build together.
-      </p>
-      <a class="btn btn-primary" href="{{ parent_url }}">I am a parent</a>
   </div>
 {% endblock %}
