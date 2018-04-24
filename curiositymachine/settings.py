@@ -290,6 +290,7 @@ NOTIFICATIONS_USE_JSONFIELD = True
 
 # Additional app config
 GA_CODE = os.environ.get("GA_CODE", None)
+GTM_CONTAINER_ID = os.environ.get("GTM_CONTAINER_ID", None)
 
 SITE_MESSAGE = os.environ.get("SITE_MESSAGE", None)
 SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)

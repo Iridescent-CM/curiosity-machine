@@ -59,5 +59,6 @@ def google_analytics(request):
         'ga_dimension_free_user': free_user,
         'ga_membership_grouping': membership_grouping,
         'ga_events': ga_events,
+        'gtm_container_id': settings.GTM_CONTAINER_ID,
     }
 
