@@ -107,3 +107,5 @@ class DeleteConnectionView(SoftDeleteView):
         return ["parents/connect/%s_confirm_delete.html" % self.request.user.extra.user_type]
 
 remove_connection = connected_only(DeleteConnectionView.as_view())
+
+deprecated = only_for_parent(TemplateView.as_view(template_name="parents/deprecated.html"))
