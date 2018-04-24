@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, ListView, TemplateView, UpdateView
 from parents.models import ParentConnection
-from profiles.decorators import only_for_role, UserRole
+from profiles.decorators import not_for_role, only_for_role, UserRole
 from profiles.views import EditProfileMixin
 from .forms import *
 from .models import StudentProfile
@@ -30,7 +30,7 @@ class CreateView(EditProfileMixin, CreateView):
             return reverse("students:underage")
         return reverse("challenges:challenges")
 
-create = only_for_role(UserRole.none)(CreateView.as_view())
+create = not_for_role(UserRole.student, redirect="students:edit_profile")(CreateView.as_view())
 
 class EditView(EditProfileMixin, UpdateView):
     model = StudentProfile

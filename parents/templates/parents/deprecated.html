@@ -1,10 +1,28 @@
 {% extends "curiositymachine/layout/base.html" %}
+{% block body-classes %}about-pages{% endblock %}
 
 {% block content %}
+  <div class="container-fluid text-xs-center nav-panel pt-2">
+    <h1>Parent accounts are closing</h1>
+  </div>
   <div class="container">
-    <ul>
-      <li><a href="{% url "educators:create_profile" %}">Switch to Educator</a></li>
-      <li><a href="{% url "families:create_profile" %}">Switch to Family</a></li>
-      <li>Otherwise your account will be made inactive on DATE HERE</li>
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-3">
+        <p>Parent accounts are closing, and this text will probably explain why. Or kind of what that means. I'm not really sure.</p>
+        <hr class="hr"/>
+
+        <h2>What can I do?</h2>
+        <div class="text-xs-center mb-3">
+          <a class="btn btn-primary" href="{% url "profiles:profiles" %}">Choose another account type</a>
+        </div>
+
+        <p>
+          If you want to keep using Curiosity Machine, you can use the button above to pick another type of account.
+          Otherwise no action is needed, and your existing account will be made inactive on June 1, 2018.
+        </p>
+          
+        <p>If you have any concerns please contact us at <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>!</p>
+      </div>
+    </div>
   </div>
 {% endblock %}
