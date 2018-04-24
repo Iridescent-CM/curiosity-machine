@@ -23,6 +23,10 @@ class HelloSign():
         signature.save(update_fields=['signature_request_id', 'signature_id'])
 
     def _look_up_ids(self, signature):
+        '''
+        This lookup uses an endpoint that Hellosign only allows us a single concurrent request to be
+        running on, so it's error-prone.
+        '''
         signature_request_list = ResourceList(
             SignatureRequest,
             self.get_signature_request_list(
@@ -53,6 +57,7 @@ class HelloSign():
 
     def update_email(self, signature):
         if not signature.signature_request_id or not signature.signature_id:
+            logger.warn('Attempting id lookup for signature %s' % signature.id)
             self._look_up_ids(signature)
 
         self.client._get_request().post(
