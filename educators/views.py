@@ -16,7 +16,7 @@ from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, ListView, RedirectView, TemplateView, UpdateView, View
 from memberships.helpers.selectors import GroupSelector
 from memberships.models import Member, Membership
-from profiles.decorators import only_for_role, UserRole
+from profiles.decorators import not_for_role, only_for_role, UserRole
 from profiles.views import EditProfileMixin
 from rest_framework import generics, permissions
 from rest_framework.renderers import JSONRenderer
@@ -46,7 +46,7 @@ class CreateView(EditProfileMixin, CreateView):
             initial["coach_signup"] = True
         return initial
 
-create = only_for_role(UserRole.none)(CreateView.as_view())
+create = not_for_role(UserRole.educator, redirect="educators:edit_profile")(CreateView.as_view())
 
 class EditView(EditProfileMixin, UpdateView):
     model = EducatorProfile

@@ -8,7 +8,7 @@ from django.utils.functional import lazy
 from django.views.generic import CreateView, ListView, TemplateView, UpdateView
 from hellosign import jobs
 from hellosign.models import FamilyConsentTemplate
-from profiles.decorators import only_for_role
+from profiles.decorators import not_for_role, only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
 from surveys import get_survey
@@ -47,8 +47,7 @@ class CreateView(FamilyMemberMixin, EditProfileMixin, CreateView):
     form_class = FamilyProfileForm
     success_url = lazy(reverse, str)("families:home")
 
-#create = only_for_role(UserRole.none)(CreateView.as_view())
-create = CreateView.as_view()
+create = not_for_role(UserRole.family, redirect="families:edit_profile")(CreateView.as_view())
 
 class EditView(FamilyMemberMixin, EditProfileMixin, UpdateView):
     model = FamilyProfile

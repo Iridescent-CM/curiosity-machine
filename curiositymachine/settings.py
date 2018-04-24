@@ -342,6 +342,9 @@ WHITELIST_URLS = map(str.strip, os.environ.get('WHITELIST_URLS', '^admin/?,accou
 # as flags.enable_ and can be used in the feature_flag() decorator.
 FEATURE_FLAGS = {k.lower(): v for k, v in os.environ.items() if k.startswith('ENABLE_')}
 
+# Parent account deprecation
+DEPRECATE_PARENT_ACCOUNTS = os.environ.get("DEPRECATE_PARENT_ACCOUNTS", None)
+
 
 ## External service configuration
 

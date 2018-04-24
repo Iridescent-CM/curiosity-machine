@@ -1,0 +1,10 @@
+{% extends "curiositymachine/layout/base.html" %}
+
+{% block content %}
+  <div class="container">
+    <ul>
+      <li><a href="{% url "educators:create_profile" %}">Switch to Educator</a></li>
+      <li><a href="{% url "families:create_profile" %}">Switch to Family</a></li>
+      <li>Otherwise your account will be made inactive on DATE HERE</li>
+  </div>
+{% endblock %}
