@@ -6267,6 +6267,20 @@ a.text-dark:hover, a.text-dark:focus {
   .table-bordered td {
     border: 1px solid #dee2e6 !important; } }
 
+.navbar-cm .logo-large {
+  height: 50px; }
+
+.navbar-cm .logo-small {
+  height: 30px;
+  margin: 10px 0; }
+
+.navbar-cm .navbar-toggler {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 16px;
+  color: #00B1C3;
+  border: none; }
+
 .navbar-cm.navbar {
   padding: 0; }
   .navbar-cm.navbar .navbar-collapse {

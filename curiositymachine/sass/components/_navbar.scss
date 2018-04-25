@@ -12,6 +12,8 @@ $primary-purple: #6161AF;
 $gray: #949494;
 $ivory: #FFFCF7;
 
+$heavy-font-weight: 700;
+
 
 // Header variables
 
@@ -29,6 +31,22 @@ $nav-purple-hover: shade($primary-purple, 10);
 // The default Bootstrap nav should always be available.
 // Add .navbar-cm to the navbar parent element to get all this extra stuff to kick in.
 .navbar-cm {
+
+  .logo-large {
+    height: 50px;
+  }
+  .logo-small {
+    height: 30px;
+    margin: 10px 0;
+  }
+
+  .navbar-toggler {
+    text-transform: uppercase;
+    font-weight: $heavy-font-weight;
+    font-size: 16px;
+    color: $primary-blue;
+    border: none;
+  }
 
   &.navbar {
     padding: 0;
