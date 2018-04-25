@@ -1,0 +1,151 @@
+// Probably move all of these
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+$primary-blue: #00B1C3;
+$primary-orange: #F2B353;
+$primary-red: #F55932;
+$primary-green: #8FB559;
+$primary-purple: #6161AF;
+
+$gray: #949494;
+$ivory: #FFFCF7;
+
+
+// Header variables
+
+$nav-blue: $primary-blue;
+$nav-blue-hover: shade($primary-blue, 10);
+$nav-orange: $primary-orange;
+$nav-orange-hover: shade($primary-orange, 10);
+$nav-red: $primary-red;
+$nav-red-hover: shade($primary-red, 10);
+$nav-green: $primary-green;
+$nav-green-hover: shade($primary-green, 10);
+$nav-purple: $primary-purple;
+$nav-purple-hover: shade($primary-purple, 10);
+
+// The default Bootstrap nav should always be available.
+// Add .navbar-cm to the navbar parent element to get all this extra stuff to kick in.
+.navbar-cm {
+
+  &.navbar {
+    padding: 0;
+
+    .navbar-collapse {
+      justify-content: flex-end;
+      align-self: stretch;
+
+      .navbar-nav {
+        align-self: stretch;
+
+        .nav-item {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  &.navbar-expand {
+    @each $breakpoint in map-keys($grid-breakpoints) {
+      $next: breakpoint-next($breakpoint, $grid-breakpoints);
+      $infix: breakpoint-infix($next, $grid-breakpoints);
+
+      &#{$infix} {
+        // uncollapsed
+        @include media-breakpoint-up($next) {
+          .nav-item {
+            margin: 0 2px;
+
+            &.nav-link {
+              position: relative;
+              color: $gray;
+              transition: color 0.16s ease-in;
+
+              &:before {
+                content: "";
+                position: absolute;
+                background: $nav-blue;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: 100%;
+                transition: top 0.16s ease-in;
+                z-index: -1;
+              }
+              &:hover, &:focus {
+                color: $ivory;
+              }
+              &:hover:before, &:focus:before {
+                top: 0;
+              }
+
+              &.nav-blue:before {
+                background: $nav-blue;
+              }
+              &.nav-orange:before {
+                background: $nav-orange;
+              }
+              &.nav-red:before {
+                background: $nav-red;
+              }
+              &.nav-green:before {
+                background: $nav-green;
+              }
+              &.nav-purple:before {
+                background: $nav-purple;
+              }
+            }
+          }
+        }
+
+        //collapsed
+        @include media-breakpoint-down($breakpoint) {
+          .nav-item {
+            justify-content: center;
+            padding: 15px 0;
+            margin: 5px 0;
+            border-radius: 4px;
+
+            &, &:hover, &:focus {
+              color: $ivory
+            }
+
+            &.nav-blue {
+              background: $nav-blue;
+              &:hover {
+                background: $nav-blue-hover;
+              }
+            }
+            &.nav-orange {
+              background: $nav-orange;
+              &:hover {
+                background: $nav-orange-hover;
+              }
+            }
+            &.nav-red {
+              background: $nav-red;
+              &:hover {
+                background: $nav-red-hover;
+              }
+            }
+            &.nav-green {
+              background: $nav-green;
+              &:hover {
+                background: $nav-green-hover;
+              }
+            }
+            &.nav-purple {
+              background: $nav-purple;
+              &:hover {
+                background: $nav-purple-hover;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
