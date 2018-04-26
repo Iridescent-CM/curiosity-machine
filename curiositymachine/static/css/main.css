@@ -6453,6 +6453,22 @@ p {
 small {
   font-size: 0.875em; }
 
+hr {
+  border-bottom: 1px solid #E5E1D9;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  margin: 1.5em 0; }
+
+img,
+picture {
+  margin: 0;
+  max-width: 100%; }
+
+i {
+  font-family: 'curiosity-machine';
+  speak: none; }
+
 a {
   color: #00B1C3;
   text-decoration: none;
@@ -6478,22 +6494,6 @@ a {
 
 .a-borderless {
   border-bottom: 0px; }
-
-hr {
-  border-bottom: 1px solid #E5E1D9;
-  border-left: 0;
-  border-right: 0;
-  border-top: 0;
-  margin: 1.5em 0; }
-
-img,
-picture {
-  margin: 0;
-  max-width: 100%; }
-
-i {
-  font-family: 'curiosity-machine';
-  speak: none; }
 
 .red-type {
   color: #F55932; }
