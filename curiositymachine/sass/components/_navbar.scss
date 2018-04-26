@@ -1,43 +1,17 @@
-// Probably move all of these out
-@function shade($color, $percentage) {
-  @return mix(black, $color, $percentage);
-}
+// .navbar-cm       - add to Bootstraps' .navbar for custom styling
 
-$primary-blue: #00B1C3;
-$primary-orange: #F2B353;
-$primary-red: #F55932;
-$primary-green: #8FB559;
-$primary-purple: #6161AF;
-
-$primary-purple-dark: shade($primary-purple, 20%);
-
-$dark: #333333;
-$gray: #949494;
-$ivory: #FFFCF7;
-
-$heavy-font-weight: 700;
-
-
-// Local variables for the navbar
-
+// Local colors
 $nav-blue: $primary-blue;
 $nav-blue-hover: shade($primary-blue, 10);
-
 $nav-orange: $primary-orange;
 $nav-orange-hover: shade($primary-orange, 10);
-
 $nav-red: $primary-red;
 $nav-red-hover: shade($primary-red, 10);
-
 $nav-green: $primary-green;
 $nav-green-hover: shade($primary-green, 10);
-
 $nav-purple: $primary-purple;
 $nav-purple-hover: shade($primary-purple, 10);
 
-
-// The default Bootstrap nav should always be available.
-// Add .navbar-cm to the navbar parent element to get all this extra stuff to kick in.
 .navbar-cm {
 
   .navbar-brand {
@@ -166,7 +140,7 @@ $nav-purple-hover: shade($primary-purple, 10);
 
       &#{$infix} {
 
-        // expanded
+        // .navbar-collapse expanded
         @include media-breakpoint-up($next) {
           .nav-item {
             margin: 0 2px;
@@ -217,7 +191,7 @@ $nav-purple-hover: shade($primary-purple, 10);
           }
         }
 
-        // unexpanded
+        // .navbar-collapse collapsed
         @include media-breakpoint-down($breakpoint) {
           .nav-item {
             justify-content: center;

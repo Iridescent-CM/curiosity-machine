@@ -1,6 +1,10 @@
 @import 'vendors/bootstrap/scss/bootstrap';
 
+@import 'utils/functions';
+@import 'utils/variables';
+
 @import 'components/navbar';
+@import 'components/modal';
 
 /*
 @import 'utils/functions';

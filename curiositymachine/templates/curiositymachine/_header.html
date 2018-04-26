@@ -1,4 +1,50 @@
 {% load staticfiles %}
+{% load widget_tweaks %}
+
+<div class="modal modal-cm fade" id="login-modal" tabindex="-1"
+  role="dialog" aria-labelledby="login-modal-label" aria-hidden="true"
+>
+  <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h2 class="text-center modal-title" id="login-modal-label">Log In</h2>
+      </div>
+
+      <form method="POST" action="{% url 'login' %}">
+
+        <div class="modal-body">
+          <div class="form-group">
+            {% csrf_token %}
+            <label for="{{ login_form.login.auto_id }}">
+              {{ login_form.login.label_tag }}
+            </label>
+            {% render_field login_form.login class="form-control" %}
+          </div>
+          <div class="form-group">
+            <label for="{{ login_form.password.auto_id }}">
+              {{ login_form.password.label_tag }}
+            </label>
+            {% render_field login_form.password class="form-control" %}
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <a href="{% url "account_reset_password" %}">Forgot your password?</a>
+          <a class="btn btn-link" data-dismiss="modal" aria-hidden="true">Cancel</a>
+          <input type="submit" value="Log In" class="bt btn-primary" />
+          <input type="hidden" name="next" value="{{ next|default:'/' }}" />
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
 <nav class="navbar navbar-expand-lg navbar-light navbar-cm">
   <div class="container px-3">
     <a href="/" class="navbar-brand">
