@@ -83,10 +83,6 @@ a {
 
 .a-borderless {
   border-bottom: 0px;
-
-  &:focus {
-    @include tab-focus();
-  }
 }
 
 hr {

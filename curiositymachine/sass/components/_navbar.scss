@@ -16,6 +16,7 @@ $nav-purple-hover: shade($primary-purple, 10);
 
   .navbar-brand {
     padding: 0;
+    border: none;
   }
 
   .logo-large {
@@ -55,6 +56,7 @@ $nav-purple-hover: shade($primary-purple, 10);
       padding-top: 14px;
       padding-bottom: 14px;
       color: $dark;
+      border: none;
 
       &:hover,
       &:focus {
@@ -77,6 +79,7 @@ $nav-purple-hover: shade($primary-purple, 10);
     .list-group-item {
       text-align: center;
       padding: 0;
+      border: none;
       &:last-child {
         overflow:hidden;
       }
@@ -93,6 +96,7 @@ $nav-purple-hover: shade($primary-purple, 10);
     .list-group-item-action {
       color: $primary-purple;
       padding: 0.75rem 1.25rem;
+      border: none;
     }
     .list-group-item .list-group-item-action {
       border: none;
@@ -128,6 +132,7 @@ $nav-purple-hover: shade($primary-purple, 10);
         .nav-link {
           display: flex;
           align-items: center;
+          border: none;
         }
       }
     }
