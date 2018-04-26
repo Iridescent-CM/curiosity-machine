@@ -108,7 +108,10 @@ class FirstLoginMiddleware:
     Maintains first_login flag used to detect first login
     """
     def process_response(self, request, response):
-        if hasattr(request, 'user') and request.user.is_authenticated() and request.user.extra.first_login:
+        if (
+            request.user.is_authenticated()
+            and request.user.extra.first_login
+        ):
             # assume successful response means they'll be seeing the intro video
             if response.status_code == 200:
                 request.user.extra.first_login = False
