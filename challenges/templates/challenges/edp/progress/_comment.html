@@ -31,10 +31,9 @@
     </div>
   </div>
 {% else %}
-  <span class="comment-date" id="comment-{{ comment.id }}">{{ comment.created|timesince }}</span>
   <div class="panel panel-comment comment">
-    <div class="panel-heading">
-      <h3 class="panel-title">{{ comment.get_stage_display }}</h3>
+    <div class="panel-heading panel-heading-{{ comment.get_stage_display }}">
+      <h3 class="panel-title">{{ comment.get_stage_display }}<span class="pull-right">{{ comment.created|timesince }}</span></h3>
     </div>
     <div class="panel-body paper">
       {% include "challenges/edp/progress/_comment_content.html" %}
