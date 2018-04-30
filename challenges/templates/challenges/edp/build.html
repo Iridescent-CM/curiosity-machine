@@ -2,27 +2,12 @@
 
 {% load widget_tweaks %}
 
-{% block under_nav_header_content %}
-  <h1>Document your design process</h1>
-  <p>{{ challenge.build_subheader }}</p>
-{% endblock %}
-
 {% block left_panel %}
-  <div class="panel blue">
-    <div class="panel-body">
-      {{challenge.build_call_to_action}}
-    </div>
-  </div>
-{% endblock %}
-
-{% block right_panel %}
-  {% block right_panel_head %}
-  {% endblock %}
-
   {% block commenting_bubble %}
-  <div class="panel panel-bubble right edp-comments">
+  <div class="panel panel-bubble plan-build edp-comments">
     <div class="panel-body">
-      <h3 data-submit-replacement-text="Please wait...">What step are you on?</h3>
+      <h1 data-submit-replacement-text="Please wait...">What step are you on?</h1>
+      <p>{{challenge.build_call_to_action}} Did it work like you thought it would?</p>
       {% block step_form %}
       <form>
         <div class="form-group">
@@ -45,6 +30,10 @@
     </div>
   </div>
   {% endblock %}
+{% endblock %}
+
+{% block right_panel %}
+  {% block right_panel_head %}{% endblock %}
 
   {% block comments %}{% endblock %}
 {% endblock %}
