@@ -7000,31 +7000,12 @@ i {
   font-family: 'curiosity-machine';
   speak: none; }
 
-a {
-  color: #00B1C3;
-  text-decoration: none;
-  transition: color 150ms ease;
-  border-bottom: solid 1px #00B1C3;
-  cursor: pointer; }
-  a:hover {
-    color: #008592;
-    text-decoration: none;
-    border-bottom-color: #008592; }
-  a:focus {
-    color: #F55932;
-    border-bottom-color: #F55932;
-    text-decoration: none;
-    outline: none; }
-
 .a-secondary {
   color: #FFFCF7;
   border-bottom-color: #FFFCF7; }
   .a-secondary:hover {
     color: #bfbdb9;
     border-bottom-color: #bfbdb9; }
-
-.a-borderless {
-  border-bottom: 0px; }
 
 .red-type {
   color: #F55932; }
@@ -7602,6 +7583,11 @@ footer {
 
 #index-page #how-video-modal {
   padding: 40px 20px 20px 20px; }
+
+#index-page .logos a {
+  display: inline-block; }
+  #index-page .logos a:hover {
+    text-decoration: none; }
 
 #index-page .logos img {
   height: 50px;

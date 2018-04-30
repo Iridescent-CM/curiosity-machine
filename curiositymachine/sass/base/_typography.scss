@@ -70,28 +70,6 @@ i {
   speak: none;
 }
 
-a {
-  color: $action-color;
-  text-decoration: none;
-  transition: color $base-duration $base-timing;
-  // bottom border doesn't cross descenders, whereas text-decoration does
-  border-bottom: solid 1px $action-color;
-  cursor: pointer;
-
-  &:hover {
-    color: shade($action-color, 25%);
-    text-decoration: none;
-    border-bottom-color: shade($action-color, 25%);
-  }
-
-  &:focus {
-    color: $primary-red;
-    border-bottom-color: $primary-red;
-    text-decoration: none;
-    outline: none;
-  }
-}
-
 // link utility classes
 // TODO: rethink the naming or maybe the selectors, it's weird
 //       to allow e.g. <div class="a-secondary">...</div>
@@ -103,10 +81,6 @@ a {
     color: shade($ivory, 25%);
     border-bottom-color: shade($ivory, 25%);
   }
-}
-
-.a-borderless {
-  border-bottom: 0px;
 }
 
 // type color utility classes
