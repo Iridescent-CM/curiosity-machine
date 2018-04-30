@@ -1,7 +1,18 @@
+@import 'utils/variables';
+
+$theme-colors: (
+  "primary": $primary-blue,
+	"secondary": $ivory,
+	"blue": $primary-blue,
+	"green": darken($primary-green, 4%), // to get color-yiq to give white text
+	"red": $primary-red,
+	"orange": $primary-orange,
+	"purple": $primary-purple
+);
+
 @import 'vendors/bootstrap/scss/bootstrap';
 
 @import 'utils/functions';
-@import 'utils/variables';
 
 @import 'base/fonts';
 @import 'base/typography';
@@ -10,6 +21,7 @@
 @import 'layout/footer';
 
 @import 'components/modal';
+@import 'components/dividers';
 
 @import 'pages/home';
 
@@ -23,7 +35,7 @@
 
 @import 'components/banners';
 @import 'components/buttons';
-@import 'components/dividers';
+@import 'components/dividers';					✔
 @import 'components/challenge-cards';
 @import 'components/modals';						✔
 @import 'components/pagination';

@@ -1,8 +1,3 @@
-// New Button Stuff that Overwrites Bits of Bootstrap's existing Button Stuff
-
-//
-// Overwriting line 58 from bootstrap/scss/_buttons.scss
-//
 
 $btn-primary-color: $ivory !default;
 $btn-primary-bg: $primary-blue !default;
@@ -12,43 +7,16 @@ $btn-secondary-color: $dark !default;
 $btn-secondary-bg: $ivory !default;
 $btn-secondary-border: $sand !default;
 
-//
-// New (altered) mixin from bootstrap/scss/mixins/_tab-focus.scss
-//
 
 @mixin btn-tab-focus() {
   outline: none;
   box-shadow: inset 0 0 0 2px $ivory;
 }
 
-@mixin btn-color($color) {
-  color: $ivory;
-  background-color: $color;
-  border-color: $color;
-  &:hover {
-    color: $ivory;
-    background-color: shade($color, 10%);
-        border-color: shade($color, 10%);
-  }
-  &:focus {
-    color: $ivory !important;
-    box-shadow: inset 0 0 0 2px $ivory !important;
-  }
-  &:active {
-    color: $ivory;
-    background-color: shade($color, 20%);
-        border-color: shade($color, 20%);
-  }
-}
-
 @mixin btn-secondary-tab-focus($color) {
   outline: none;
   box-shadow: inset 0 0 0 2px $color;
 }
-
-//
-// Applying new tab focus mixin to line 5 of bootstrap/scss/_buttons.scss
-//
 
 .btn {
   &,
@@ -60,11 +28,6 @@ $btn-secondary-border: $sand !default;
     }
   }
 }
-
-
-//
-// Overwriting bits after line 58 of bootstrap/scss/_buttons.scss
-//
 
 .btn-primary {
   @include button-variant(#fff, $primary-blue, shade($primary-blue, 20));
@@ -112,7 +75,7 @@ $btn-secondary-border: $sand !default;
 }
 
 .btn-green {
-  @include button-variant(#fff, $primary-green, shade($primary-green, 20));
+  @include button-variant($primary-green, shade($primary-green, 20));
 }
 .btn-green-secondary {
   @include button-variant($primary-green, $btn-secondary-bg, shade($primary-green, 20));
