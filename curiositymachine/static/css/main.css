@@ -1,5 +1,6 @@
+@charset "UTF-8";
 /*!
- * Bootstrap v4.1.0 (https://getbootstrap.com/)
+ * Bootstrap v4.1.1 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -50,7 +51,7 @@ html {
 @-ms-viewport {
   width: device-width; }
 
-article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
 body {
@@ -158,7 +159,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 1em; }
 
 pre {
@@ -412,12 +413,6 @@ mark,
 .figure-caption {
   font-size: 90%;
   color: #6c757d; }
-
-code,
-kbd,
-pre,
-samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
 code {
   font-size: 87.5%;
@@ -1455,6 +1450,11 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   .custom-select.is-valid ~ .valid-tooltip {
     display: block; }
 
+.was-validated .form-control-file:valid ~ .valid-feedback,
+.was-validated .form-control-file:valid ~ .valid-tooltip, .form-control-file.is-valid ~ .valid-feedback,
+.form-control-file.is-valid ~ .valid-tooltip {
+  display: block; }
+
 .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
   color: #28a745; }
 
@@ -1531,6 +1531,11 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   .custom-select.is-invalid ~ .invalid-feedback,
   .custom-select.is-invalid ~ .invalid-tooltip {
     display: block; }
+
+.was-validated .form-control-file:invalid ~ .invalid-feedback,
+.was-validated .form-control-file:invalid ~ .invalid-tooltip, .form-control-file.is-invalid ~ .invalid-feedback,
+.form-control-file.is-invalid ~ .invalid-tooltip {
+  display: block; }
 
 .was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label {
   color: #dc3545; }
@@ -2387,8 +2392,7 @@ input[type="button"].btn-block {
     .input-group > .custom-file:not(:last-child) .custom-file-label::after {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0; }
-    .input-group > .custom-file:not(:first-child) .custom-file-label,
-    .input-group > .custom-file:not(:first-child) .custom-file-label::after {
+    .input-group > .custom-file:not(:first-child) .custom-file-label {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0; }
 
@@ -2479,11 +2483,12 @@ input[type="button"].btn-block {
       background-color: #e9ecef; }
 
 .custom-control-label {
+  position: relative;
   margin-bottom: 0; }
   .custom-control-label::before {
     position: absolute;
     top: 0.25rem;
-    left: 0;
+    left: -1.5rem;
     display: block;
     width: 1rem;
     height: 1rem;
@@ -2494,7 +2499,7 @@ input[type="button"].btn-block {
   .custom-control-label::after {
     position: absolute;
     top: 0.25rem;
-    left: 0;
+    left: -1.5rem;
     display: block;
     width: 1rem;
     height: 1rem;
@@ -2620,7 +2625,7 @@ input[type="button"].btn-block {
     bottom: 0;
     z-index: 3;
     display: block;
-    height: calc(calc(2.25rem + 2px) - 1px * 2);
+    height: 2.25rem;
     padding: 0.375rem 0.75rem;
     line-height: 1.5;
     color: #495057;
@@ -4193,6 +4198,7 @@ button.close {
     margin-right: 3px;
     margin-left: 3px;
     text-indent: -999px;
+    cursor: pointer;
     background-color: rgba(255, 255, 255, 0.5); }
     .carousel-indicators li::before {
       position: absolute;
@@ -6265,7 +6271,17 @@ a.text-dark:hover, a.text-dark:focus {
       background-color: #fff !important; }
   .table-bordered th,
   .table-bordered td {
-    border: 1px solid #dee2e6 !important; } }
+    border: 1px solid #dee2e6 !important; }
+  .table-dark {
+    color: inherit; }
+    .table-dark th,
+    .table-dark td,
+    .table-dark thead th,
+    .table-dark tbody + tbody {
+      border-color: #dee2e6; }
+  .table .thead-dark th {
+    color: inherit;
+    border-color: #dee2e6; } }
 
 /* Unused
 
@@ -6952,6 +6968,21 @@ a {
     .navbar-cm.navbar-expand .nav-item.nav-link-purple:hover {
       background: #57579e; }
 
+footer {
+  background-color: #333333;
+  padding: 0px 0px 3em 0px;
+  color: #FFFCF7; }
+
+.social-icons {
+  margin: 0px 10px;
+  color: #6161AF;
+  font-size: 1em;
+  background-color: white;
+  border-radius: 100%;
+  padding: 8px; }
+  .social-icons:hover {
+    color: tint(#6161AF, 20%); }
+
 .modal-cm .modal-close {
   color: #fff;
   font-size: 3em;
@@ -6970,19 +7001,80 @@ a {
 .modal-cm.modal.fade .modal-dialog {
   transform: translate(0, 0); }
 
-/*
-@import 'utils/functions';
-@import 'utils/variables';
-@import 'utils/backgrounds';
+#index-page .jumbotron {
+  padding-top: 6em;
+  margin-bottom: 0em; }
 
-@import 'base/fonts';
-@import 'base/typography';
+#index-page .home-top-panel {
+  background-image: url("../images/home/newphoenix2.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+  #index-page .home-top-panel button {
+    margin-left: 10px; }
+
+#index-page .home-top-panel-gradient {
+  background-color: transparent;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent, rgba(0, 0, 0, 0.5)); }
+
+#index-page .home-title {
+  color: #FFFCF7;
+  font-weight: 400;
+  text-shadow: 3px 3px 4px black;
+  font-size: 4em; }
+
+#index-page .home-subtitle {
+  padding-top: 6em;
+  color: #FFFCF7;
+  transition: all 300ms ease; }
+
+@media (max-width: 991.98px) {
+  #index-page .home-top-panel {
+    background-attachment: scroll; }
+  #index-page .home-subtitle {
+    padding-top: 9em; } }
+
+@media (max-width: 767.98px) {
+  #index-page .home-subtitle {
+    padding-top: 1.5em; } }
+
+#index-page .home-what-panel h3 {
+  color: #F55932; }
+
+#index-page .home-who-panel h3 {
+  color: #6161AF; }
+
+#index-page .home-member-panel h3 {
+  color: #F2B353; }
+
+#index-page .sign-up-panel {
+  background-color: #00B1C3;
+  color: white; }
+
+#index-page .home-support-panel {
+  background-color: #fff; }
+
+#index-page #how-video-modal {
+  padding: 40px 20px 20px 20px; }
+
+#index-page .logos img {
+  height: 50px;
+  margin: 1.5em; }
+
+/*
+@import 'utils/functions';							✔
+@import 'utils/variables';							✔
+@import 'utils/backgrounds';						✘
+
+@import 'base/fonts';										✔
+@import 'base/typography';							✔
 
 @import 'components/banners';
 @import 'components/buttons';
 @import 'components/dividers';
 @import 'components/challenge-cards';
-@import 'components/modals';
+@import 'components/modals';						✔
 @import 'components/pagination';
 @import 'components/jumbotron';
 @import 'components/site-message';
@@ -6999,7 +7091,7 @@ a {
 @import 'layout/membership_pg_layout';
 @import 'layout/old_style';
 
-@import 'pages/home';
+@import 'pages/home';										✔
 @import 'pages/educator-dashboard';
 @import 'pages/family-dashboard';
 @import 'pages/student-dashboard';
@@ -7015,6 +7107,9 @@ a {
 @import 'pages/about-aichallenge';
 @import 'pages/choose-profile';
 @import 'pages/units';
+
+TODO: base/typography has some styles that don't belong there
+
 */
 
 /*# sourceMappingURL=main.css.map */

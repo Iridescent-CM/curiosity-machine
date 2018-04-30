@@ -6,22 +6,26 @@
 @import 'base/fonts';
 @import 'base/typography';
 
-@import 'components/navbar';
+@import 'layout/header';
+@import 'layout/footer';
+
 @import 'components/modal';
 
-/*
-@import 'utils/functions';
-@import 'utils/variables';
-@import 'utils/backgrounds';
+@import 'pages/home';
 
-@import 'base/fonts';
-@import 'base/typography';
+/*
+@import 'utils/functions';							✔
+@import 'utils/variables';							✔
+@import 'utils/backgrounds';						✘
+
+@import 'base/fonts';										✔
+@import 'base/typography';							✔
 
 @import 'components/banners';
 @import 'components/buttons';
 @import 'components/dividers';
 @import 'components/challenge-cards';
-@import 'components/modals';
+@import 'components/modals';						✔
 @import 'components/pagination';
 @import 'components/jumbotron';
 @import 'components/site-message';
@@ -38,7 +42,7 @@
 @import 'layout/membership_pg_layout';
 @import 'layout/old_style';
 
-@import 'pages/home';
+@import 'pages/home';										✔
 @import 'pages/educator-dashboard';
 @import 'pages/family-dashboard';
 @import 'pages/student-dashboard';
@@ -54,4 +58,7 @@
 @import 'pages/about-aichallenge';
 @import 'pages/choose-profile';
 @import 'pages/units';
+
+TODO: base/typography has some styles that don't belong there
+
 */

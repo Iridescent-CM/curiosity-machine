@@ -2,11 +2,6 @@ footer {
   background-color: $dark;
   padding: 0px 0px $large-spacing 0px;
   color: $ivory;
-
-  .logo {
-    display: inline-block;
-    width: 210px !important;
-  }
 }
 
 .social-icons {
@@ -18,20 +13,5 @@ footer {
   padding:8px;
   &:hover {
     color: $primary-purple-light;
-  }
-}
-
-.newsletter-panel {
-  background-color: shade($dark, 40%);
-  background-image: url("../images/design-challenge-repeating-pattern.png");
-  background-attachment: fixed;
-  background-repeat: repeat;
-  color: white;
-  padding: $large-spacing 0px $large-spacing 0px;
-  margin-bottom: $large-spacing;
-
-  h4 {
-    color: $primary-green;
-    margin-top: $base-spacing;
   }
 }

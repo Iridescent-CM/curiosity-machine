@@ -1,270 +1,254 @@
-header {
-  background-color: $ivory;
-  font-family: $heading-font-family;
-  a {
-    border-bottom: 0;
-  }
-}
+// .navbar-cm       - add to Bootstraps' .navbar for custom styling
 
-.logo {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  height: 50px;
-}
+// Local colors
+$nav-blue: $primary-blue;
+$nav-blue-hover: shade($primary-blue, 10);
+$nav-orange: $primary-orange;
+$nav-orange-hover: shade($primary-orange, 10);
+$nav-red: $primary-red;
+$nav-red-hover: shade($primary-red, 10);
+$nav-green: $primary-green;
+$nav-green-hover: shade($primary-green, 10);
+$nav-purple: $primary-purple;
+$nav-purple-hover: shade($primary-purple, 10);
 
-.logo-sm {
-  height: 30px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.avatar img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-.hidden-md-down {
-  .avatar img {
-    position: absolute !important;
-    top: 0;
-    right: 35px;
-    @include vertical-align;
-  }
-
-  .profile-name {
-    margin-right: 55px;
-  }
-}
-.hidden-lg-up {
-  .avatar img {
-    display: inline;
-  }
-}
-
-.navbar {
-  padding: 0;
+.navbar-cm {
 
   .navbar-brand {
     padding: 0;
+    border: none;
   }
 
-  .nav-item {
-    .btn {
-      padding: 7px 17px;
-      margin-top: 9px;
-    }
-    .btn-primary {
-      color: #fff;
-    }
+  .logo-large {
+    height: 50px;
+    margin: 5px 0;
   }
-}
-
-.navbar-toggler {
-  text-transform: uppercase;
-  font-weight: $heavy-font-weight;
-  font-size: 16px;
-  display: inline-block;
-  float: right;
-  border: 0px;
-  background-color: transparent;
-  background-image: none !important;
-  cursor: pointer;
-  color: $primary-blue !important;
-}
-
-.navbar-toggleable-md {
-  @include media-breakpoint-up(lg) {
-    display: block !important;
+  .logo-small {
+    height: 30px;
+    margin: 10px 0;
   }
-}
 
-@include media-breakpoint-down(xs) {
+  .avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
   .navbar-toggler {
-    width: inherit;
-    height: inherit;
-    padding-right: 0px;
-  }
-}
-
-/* Small screen nav styling */
-@include media-breakpoint-down(md) {
-  .navbar-toggler {
-    line-height: 35px;
+    text-transform: uppercase;
+    font-weight: $heavy-font-weight;
+    font-size: 16px;
+    color: $primary-blue;
+    border: none;
   }
 
-  .navbar-brand {
-    .logo {
-      height: 60px;
-      margin: 0;
-    }
+  .dropdown-toggle:after {
+    margin-left: 0.65em;
+    margin-right: 0.4em;
   }
 
-  .navbar {
-    .nav-item {
-      float: none;
-      text-align: center;
-      & + .nav-item {
-        margin-left: 0;
+  .dropdown-menu {
+    padding: 0;
+    border: 0;
+    margin-top: 10px;
+
+    .dropdown-item {
+      padding-top: 14px;
+      padding-bottom: 14px;
+      color: $dark;
+      border: none;
+
+      &:hover,
+      &:focus {
+        background-color: $primary-purple;
+        color: $ivory;
+        cursor: pointer;
+      }
+      &:first-child {
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+      }
+      &:last-child {
+        border-bottom-left-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
       }
     }
   }
 
-  .navbar-light {
-    .navbar-nav {
-      .nav-link {
-        padding: 15px 0px;
-        color: $ivory;
-        border-radius: $base-border-radius;
-        margin: 10px 0px;
+  .list-group {
+    .list-group-item {
+      text-align: center;
+      padding: 0;
+      border: none;
+      &:last-child {
+        overflow:hidden;
+      }
+    }
 
-        &:hover {
-          color: $ivory;
+    .list-group-header {
+      background: $primary-purple-dark;
+      color: $ivory;
+      border-color: $primary-purple-dark;
+      text-align: center;
+      padding: 0.75rem 1.25rem;
+    }
+
+    .list-group-item-action {
+      color: $primary-purple;
+      padding: 0.75rem 1.25rem;
+      border: none;
+    }
+    .list-group-item .list-group-item-action {
+      border: none;
+    }
+    .list-group-item-action:hover,
+    .list-group-item-action:focus {
+      background-color: $primary-purple;
+      border-color: $primary-purple;
+      color: $ivory;
+      cursor: pointer;
+    }
+  }
+
+  &.navbar {
+    padding: 0;
+
+    .navbar-collapse {
+      justify-content: flex-end;
+      align-self: stretch;
+
+      .navbar-nav {
+        align-self: stretch;
+
+        .nav-item {
+          display: flex;
+          align-items: stretch;
+
+          .btn {
+            align-self: center;
+          }
+        }
+
+        .nav-link {
+          display: flex;
+          align-items: center;
+          border: none;
         }
       }
+    }
+  }
 
-      .list-group.nav-profile {
-        .list-group-item {
-          a, input {
-            color: $primary-purple;
+  &.navbar-expand {
+    @each $breakpoint in map-keys($grid-breakpoints) {
+      $next: breakpoint-next($breakpoint, $grid-breakpoints);
+      $infix: breakpoint-infix($next, $grid-breakpoints);
+
+      &#{$infix} {
+
+        // .navbar-collapse expanded
+        @include media-breakpoint-up($next) {
+          .nav-item {
+            margin: 0 2px;
           }
-          &:hover {
-            background-color: $primary-purple;
-            border-color: $primary-purple;
-            a, input {
-              text-decoration: none;
-              color: $ivory;
-              cursor: pointer;
+
+          .nav-link {
+            position: relative;
+            color: $gray;
+            transition: color 0.16s ease-in;
+          }
+
+          .nav-link:before {
+            content: "";
+            position: absolute;
+            background: $nav-blue;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 100%;
+            transition: top 0.16s ease-in;
+            z-index: -1;
+          }
+
+          .dropdown.show .nav-link,
+          .nav-link:hover,
+          .nav-link:focus {
+            color: $ivory;
+
+            &:before {
+              top: 0;
             }
           }
-          &.active {
-            background-color: $primary-purple-dark;
-            border-color: $primary-purple-dark;
-            color: $ivory;
+
+          .nav-link-blue:before {
+            background: $nav-blue;
+          }
+          .nav-link-orange:before {
+            background: $nav-orange;
+          }
+          .nav-link-red:before {
+            background: $nav-red;
+          }
+          .nav-link-green:before {
+            background: $nav-green;
+          }
+          .nav-link-purple:before {
+            background: $nav-purple;
           }
         }
-      }
-      .nav-aichallenge {
-        background-color: $primary-blue;
-        &:hover { background-color: shade($primary-blue, 10); }
-      }
-      .nav-challenges {
-        background-color: $primary-orange;
-        &:hover { background-color: shade($primary-orange, 10); }
-      }
-      .nav-about {
-        background-color: $primary-red;
-        &:hover { background-color: shade($primary-red, 10); }
-      }
-      .nav-join {
-        background-color: $primary-purple;
-        &:hover { background-color: shade($primary-purple, 10); }
-      }
-      .nav-login {
-        background-color: $primary-green;
-        &:hover { background-color: shade($primary-green, 10); }
-      }
-    }
-  }
-}
 
-/* Large screen nav styling */
-@include media-breakpoint-up(lg) {
-  .navbar {
-    .navbar-nav {
-      float: right;
-    }
+        // .navbar-collapse collapsed
+        @include media-breakpoint-down($breakpoint) {
+          .nav-item {
+            justify-content: center;
+            padding: 15px 0;
+            margin: 5px 0;
+            border-radius: 4px;
 
-    .nav-item {
-      height: 62px;
+            &:first-child {
+              margin-top: 10px;
+            }
+            &:last-child {
+              margin-bottom: 10px;
+            }
 
-      & + .nav-item {
-        margin-left: 4px;
-      }
-    }
+            &, &:hover, &:focus {
+              color: $ivory
+            }
 
-    .nav-link {
-      z-index: 1;
-      position: relative;
-      padding: 17px 15px 0;
-      height: 62px;
-
-      &:before {
-        content: "";
-        position: absolute;
-        background: $primary-blue;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        top: 100%;
-        z-index: -1;
-        -webkit-transition: top 0.16s ease-in;
-      }
-      &:hover:before, &:focus:before {
-        top: 0;
-      }
-    }
-
-    .nav-profile .nav-link:before { background: $primary-purple !important; }
-    .nav-aichallenge:before { background: $primary-blue !important; }
-    .nav-about:before { background: $primary-red !important; }
-    .nav-challenges:before { background: $primary-orange !important;}
-    .nav-login:before { background: $primary-green !important;}
-
-    .dropdown.nav-profile {
-      &.open {
-        .dropdown-toggle {
-          background-color: $primary-purple;
-          color: $ivory;
-        }
-      }
-      .dropdown-menu {
-        padding: 0;
-        border: 0;
-        margin-top: 10px;
-        .dropdown-item {
-          padding-top: 14px;
-          padding-bottom: 14px;
-          &:hover {
-            background-color: $primary-purple;
-            color: $ivory;
-          }
-          &:first-child {
-            border-top-left-radius: 0.25rem;
-            border-top-right-radius: 0.25rem;
-          }
-          &:last-child {
-            border-bottom-left-radius: 0.25rem;
-            border-bottom-right-radius: 0.25rem;
+            &.nav-link-blue {
+              background: $nav-blue;
+              &:hover {
+                background: $nav-blue-hover;
+              }
+            }
+            &.nav-link-orange {
+              background: $nav-orange;
+              &:hover {
+                background: $nav-orange-hover;
+              }
+            }
+            &.nav-link-red {
+              background: $nav-red;
+              &:hover {
+                background: $nav-red-hover;
+              }
+            }
+            &.nav-link-green {
+              background: $nav-green;
+              &:hover {
+                background: $nav-green-hover;
+              }
+            }
+            &.nav-link-purple {
+              background: $nav-purple;
+              &:hover {
+                background: $nav-purple-hover;
+              }
+            }
           }
         }
+
       }
-    }
-
-  }
-
-  .navbar-light {
-    .navbar-nav {
-      .nav-link {
-        color: $gray;
-        &:hover, &:focus, &:active {
-          color: $ivory;
-        }
-      }
-    }
-  }
-}
-
-// Log in Modal
-#login-modal {
-  .modal-body {
-    input {
-      border-radius: $base-border-radius;
-      border: 0.0625rem solid $gray;
-      padding: 0.375rem 0.75rem;
-      width: 100%;
-    }
-    .row {
-      margin-bottom: $base-spacing;
     }
   }
 }
