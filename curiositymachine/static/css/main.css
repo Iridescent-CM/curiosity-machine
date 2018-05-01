@@ -1,4 +1,33 @@
 @charset "UTF-8";
+/* Unused
+
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@mixin transform($value) {
+  -webkit-transform: ($value);
+  -moz-transform: ($value);
+  -ms-transform: ($value);
+  transform: ($value);
+}
+
+@mixin transition($value) {
+  -webkit-transition: ($value);
+  -moz-transition: ($value);
+  -ms-transition: ($value);
+  transition: ($value);
+}
+*/
 /*!
  * Bootstrap v4.1.1 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -6798,35 +6827,6 @@ a.text-purple:hover, a.text-purple:focus {
     color: inherit;
     border-color: #dee2e6; } }
 
-/* Unused
-
-@function tint($color, $percentage) {
-  @return mix(white, $color, $percentage);
-}
-
-
-@mixin vertical-align {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-@mixin transform($value) {
-  -webkit-transform: ($value);
-  -moz-transform: ($value);
-  -ms-transform: ($value);
-  transform: ($value);
-}
-
-@mixin transition($value) {
-  -webkit-transition: ($value);
-  -moz-transition: ($value);
-  -ms-transition: ($value);
-  transition: ($value);
-}
-*/
 @font-face {
   font-family: 'curiosity-machine';
   src: url("../fonts/curiosity-machine.eot?6t4fb5");
@@ -7075,9 +7075,9 @@ i {
     overflow: hidden; }
 
 .navbar-cm .list-group .list-group-header {
-  background: shade(#6161AF, 20%);
+  background: #4e4e8c;
   color: #FFFCF7;
-  border-color: shade(#6161AF, 20%);
+  border-color: #4e4e8c;
   text-align: center;
   padding: 0.75rem 1.25rem; }
 
@@ -7479,6 +7479,50 @@ footer {
   .social-icons:hover {
     color: tint(#6161AF, 20%); }
 
+.about-pages .nav-panel {
+  color: white;
+  background: url("../images/design-challenge-repeating-pattern-white.png");
+  background-color: #F55932;
+  background-attachment: fixed;
+  background-repeat: repeat; }
+  .about-pages .nav-panel .nav {
+    justify-content: center; }
+    .about-pages .nav-panel .nav .nav-item {
+      display: inline-block;
+      margin: 0 20px; }
+    .about-pages .nav-panel .nav .nav-link {
+      padding: 0;
+      transition-property: all; }
+      .about-pages .nav-panel .nav .nav-link:link, .about-pages .nav-panel .nav .nav-link:visited {
+        color: #FFFCF7;
+        border-bottom: 2px solid #FFFCF7; }
+      .about-pages .nav-panel .nav .nav-link:hover, .about-pages .nav-panel .nav .nav-link:active, .about-pages .nav-panel .nav .nav-link.active {
+        color: #93351e;
+        border-color: #93351e; }
+
+.about-pages h2 {
+  color: #F55932; }
+
+.about-pages h2, .about-pages h3 {
+  text-align: center; }
+
+.about-pages .numbered-bullet {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #F55932;
+  color: white;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  top: -3px; }
+
+.about-pages .sign-up-panel {
+  background-color: #F55932;
+  text-align: center; }
+  .about-pages .sign-up-panel h2 {
+    color: white; }
+
 .modal-cm .modal-close {
   color: #fff;
   font-size: 3em;
@@ -7594,18 +7638,18 @@ footer {
   margin: 1.5em; }
 
 /*
-@import 'utils/functions';							✔
-@import 'utils/variables';							✔
-@import 'utils/backgrounds';						✘
+@import 'utils/functions';              ✔
+@import 'utils/variables';              ✔
+@import 'utils/backgrounds';            ✘
 
-@import 'base/fonts';										✔
-@import 'base/typography';							✔
+@import 'base/fonts';                   ✔
+@import 'base/typography';              ✔
 
 @import 'components/banners';
 @import 'components/buttons';
-@import 'components/dividers';					✔
+@import 'components/dividers';          ✔
 @import 'components/challenge-cards';
-@import 'components/modals';						✔
+@import 'components/modals';            ✔
 @import 'components/pagination';
 @import 'components/jumbotron';
 @import 'components/site-message';
@@ -7622,7 +7666,7 @@ footer {
 @import 'layout/membership_pg_layout';
 @import 'layout/old_style';
 
-@import 'pages/home';										✔
+@import 'pages/home';                    ✔
 @import 'pages/educator-dashboard';
 @import 'pages/family-dashboard';
 @import 'pages/student-dashboard';

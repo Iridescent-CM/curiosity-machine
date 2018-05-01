@@ -1,24 +1,24 @@
+@import 'utils/functions';
 @import 'utils/variables';
 
 $theme-colors: (
   "primary": $primary-blue,
-	"secondary": $ivory,
-	"blue": $primary-blue,
-	"green": darken($primary-green, 4%), // to get color-yiq to give white text
-	"red": $primary-red,
-	"orange": $primary-orange,
-	"purple": $primary-purple
+  "secondary": $ivory,
+  "blue": $primary-blue,
+  "green": darken($primary-green, 4%), // to get color-yiq to give white text
+  "red": $primary-red,
+  "orange": $primary-orange,
+  "purple": $primary-purple
 );
-
 @import 'vendors/bootstrap/scss/bootstrap';
 
-@import 'utils/functions';
 
 @import 'base/fonts';
 @import 'base/typography';
 
 @import 'layout/header';
 @import 'layout/footer';
+@import 'layout/about_pg_layout';
 
 @import 'components/modal';
 @import 'components/dividers';
@@ -26,18 +26,18 @@ $theme-colors: (
 @import 'pages/home';
 
 /*
-@import 'utils/functions';							✔
-@import 'utils/variables';							✔
-@import 'utils/backgrounds';						✘
+@import 'utils/functions';              ✔
+@import 'utils/variables';              ✔
+@import 'utils/backgrounds';            ✘
 
-@import 'base/fonts';										✔
-@import 'base/typography';							✔
+@import 'base/fonts';                   ✔
+@import 'base/typography';              ✔
 
 @import 'components/banners';
 @import 'components/buttons';
-@import 'components/dividers';					✔
+@import 'components/dividers';          ✔
 @import 'components/challenge-cards';
-@import 'components/modals';						✔
+@import 'components/modals';            ✔
 @import 'components/pagination';
 @import 'components/jumbotron';
 @import 'components/site-message';
@@ -54,7 +54,7 @@ $theme-colors: (
 @import 'layout/membership_pg_layout';
 @import 'layout/old_style';
 
-@import 'pages/home';										✔
+@import 'pages/home';                    ✔
 @import 'pages/educator-dashboard';
 @import 'pages/family-dashboard';
 @import 'pages/student-dashboard';
