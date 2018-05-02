@@ -11,7 +11,7 @@ def test_dashboard_includes_memberships(client):
     memberships = MembershipFactory.create_batch(2, members=[student])
 
     client.login(username="user", password="password")
-    response = client.get(reverse("students:home"))
+    response = client.get(reverse("students:home"), follow=True)
 
     assert response.status_code == 200
     assert set(response.context["memberships"]) == set(memberships)
@@ -22,7 +22,7 @@ def test_dashboard_skips_inactive_memberships(client):
     membership = MembershipFactory(members=[student], is_active=False)
 
     client.login(username="user", password="password")
-    response = client.get(reverse("students:home"))
+    response = client.get(reverse("students:home"), follow=True)
 
     assert response.status_code == 200
     assert not response.context["memberships"]
