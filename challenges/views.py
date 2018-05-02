@@ -403,9 +403,10 @@ def challenge_progress(request, challenge_id, username, stage=None):
 
     feedback = challenge.feedback_set.exclude(is_active=False).exclude(result__user=request.user).first()
     feedback_form = None
+    feedback_question = None
     if feedback:
         feedback_form = FeedbackForm(model=feedback)
-
+        feedback_question = feedback_form.model.question
 
     return render(request,
         [
@@ -421,6 +422,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         'materials_form': MaterialsForm(progress=progress),
         'quiz_form': quiz_form,
         'feedback_form': feedback_form,
+        'feedback_question': feedback_question,
         'edp_nav': {
             'stage': stageToShow.name,
             'inspiration': reverse("challenges:inspiration_progress", kwargs={"challenge_id": challenge.id, "username": username}),
