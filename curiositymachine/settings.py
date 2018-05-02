@@ -98,6 +98,7 @@ INSTALLED_APPS = (
     'notifications',
     'phonenumber_field',
     'debug_toolbar',
+    'feedback',
 )
 
 SITE_ID = 1

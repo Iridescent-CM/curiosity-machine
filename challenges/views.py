@@ -18,6 +18,7 @@ from memberships.models import Membership
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from quizzes.forms import QuizForm
+from feedback.forms import FeedbackForm
 from urllib.parse import quote_plus
 from .forms import MaterialsForm
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
@@ -400,6 +401,12 @@ def challenge_progress(request, challenge_id, username, stage=None):
     if quiz:
         quiz_form = QuizForm(model=quiz)
 
+    feedback = challenge.feedback_set.exclude(is_active=False).exclude(result__user=request.user).first()
+    feedback_form = None
+    if feedback:
+        feedback_form = FeedbackForm(model=feedback)
+
+
     return render(request,
         [
             "challenges/edp/progress/%s/%s.html" % (request.user.extra.user_type, stageToShow.name),
@@ -413,6 +420,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         'comments': progress.comments.all(),
         'materials_form': MaterialsForm(progress=progress),
         'quiz_form': quiz_form,
+        'feedback_form': feedback_form,
         'edp_nav': {
             'stage': stageToShow.name,
             'inspiration': reverse("challenges:inspiration_progress", kwargs={"challenge_id": challenge.id, "username": username}),
