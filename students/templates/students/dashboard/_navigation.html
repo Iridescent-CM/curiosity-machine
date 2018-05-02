@@ -4,11 +4,6 @@
   <div class="col-md-12">
     <nav class="student-dashboard-navigation">
       <ul class="nav">
-        <li class="nav-item {% ifactive "students:home" "active-nav" %}">
-          <a class="nav-link" href="{% url "students:home" %}">
-            My challenges
-          </a>
-        </li>
         {% for membership in memberships %}
         <li class="nav-item {% ifactive "students:membership" "active-nav" %}">
           <a class="nav-link" href="{% url "students:membership" membership_id=membership.id%}">
@@ -16,6 +11,11 @@
           </a>
         </li>
         {% endfor %}
+        <li class="nav-item {% ifactive "students:my_challenges" "active-nav" %}">
+          <a class="nav-link" href="{% url "students:my_challenges" %}">
+            My challenges
+          </a>
+        </li>
         <li class="nav-item {% ifactive "students:favorites" "active-nav" %}">
           <a class="nav-link" href="{% url "students:favorites" %}">
             Favorites

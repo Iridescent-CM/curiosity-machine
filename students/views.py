@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.shortcuts import Http404, get_object_or_404
 from django.urls import reverse
 from django.utils.functional import lazy
-from django.views.generic import CreateView, FormView, ListView, TemplateView, UpdateView
+from django.views.generic import CreateView, FormView, ListView, RedirectView, TemplateView, UpdateView
 from parents.models import ParentConnection
 from profiles.decorators import not_for_role, only_for_role, UserRole
 from profiles.views import EditProfileMixin
@@ -45,6 +45,16 @@ class EditView(EditProfileMixin, UpdateView):
 
 edit = only_for_student(EditView.as_view())
 
+class HomeView(RedirectView):
+
+    def get_redirect_url(self):
+        memberships = self.request.user.membership_set.filter(is_active=True).order_by('display_name')
+        if memberships:
+            return reverse("students:membership", kwargs={"membership_id": memberships.first().id})
+        return reverse("students:my_challenges")
+
+home = only_for_student(HomeView.as_view())
+
 class DashboardMixin:
     def get_context_data(self, **kwargs):
         memberships = self.request.user.membership_set.filter(is_active=True).order_by('display_name')
@@ -74,7 +84,7 @@ class ChallengesView(DashboardMixin, ListView):
         context['object_list'] = context['challenges'] = presenter.challenges
         return context
 
-home = only_for_student(ChallengesView.as_view())
+my_challenges = only_for_student(ChallengesView.as_view())
 
 class MembershipChallengesView(DashboardMixin, TemplateView):
     template_name = "students/dashboard/challenges/membership.html"
@@ -91,6 +101,7 @@ class MembershipChallengesView(DashboardMixin, TemplateView):
         progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=[c.id for c in challenges])
         presenter = ChallengeSet(challenges, progresses)
 
+        context['membership'] = membership
         context['challenges'] = presenter.challenges
         return context
 
