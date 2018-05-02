@@ -12,19 +12,22 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5">
         <h2>Imagine a better world and build it together</h2>
         <p>We're on a mission to empower children and their families to become leaders and innovators of the future. And because we want every child to have the opportunity to build the future, Curiosity Machine is 100% free.</p>
         <p>Whether you want quality learning challenges to do at home or curriculum for a classroom of eager learners, Curiosity Machine is a perfect source of inspiration to fuel curiosity, creativity, and perseverance while learning about the science and technology that will drive the future.</p>
       </div>
-      <div class="col-xs-8 offset-xs-2 text-xs-center mt-2">
-        <h5>Learn about our new</br><a href="{% url "aichallenge" %}">Artificial Intelligence Family Challenge</a></h5>
+      <div class="col-8 offset-2 text-center mt-4">
+        <h5>
+          Learn about our new</br>
+          <a href="{% url "aichallenge" %}">Artificial Intelligence Family Challenge</a>
+        </h5>
       </div>
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-xs-12">
-        <hr class="hr-red mb-3"/>
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
+        <hr class="hr-red mb-5"/>
         <h2>How Curiosity Machine Works</h2>
 
-        <div class="row mt-2">
+        <div class="row mt-4">
           <div class="col-md-10 offset-md-1">
             <div class="embed-responsive embed-responsive-16by9">
               <iframe width="560" height="315" src="https://www.youtube.com/embed/t_x9fL0MF0w" allowfullscreen></iframe>
@@ -32,7 +35,7 @@
           </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row mt-5">
           <div class="col-lg-4">
             <h4><span class="numbered-bullet">1</span> Find Inspiration</h4>
             <p>The world is full of inspiration, you just have to know where to look. Each challenge begins by showing what cutting-edge scientists and engineers are working on, and how it's changing the world.</p>
@@ -47,17 +50,17 @@
           </div>
         </div>
 
-        <div class="my-2 text-xs-center">
+        <div class="my-4 text-center">
           <a href="{% url 'challenges:challenges' %}" class="btn btn-primary">Try a challenge</a>
           <p>(it's free!)</p>
         </div>
 
 
-        <hr class="hr-red mb-3"/>
+        <hr class="hr-red mb-5"/>
 
         <h2>Curiosity Machine has a profound impact on children</h2>
         <p>Our goal isn’t just to create the next generation of scientists and engineers, but to help students develop skills that will support them in any field. While Curiosity Machine exposes children to various STEM content areas, our curriculum has been shown to help children become less averse to challenges and be more curious.</p>
-        <h6 class="mb-0 mt-2 text-xs-center">Curiosity Machine Student Impact</h6>
+        <h6 class="mb-0 mt-4 text-center">Curiosity Machine Student Impact</h6>
         <figure class="figure">
           <img class="figure-img img-fluid" src="{% static 'images/about/graph-membership.png' %}" alt="Learning Gains for Children">
           <figcaption class="figure-caption">
@@ -66,7 +69,7 @@
           </figcaption>
         </figure>
       </div>
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-2">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-4">
 
         <hr class="hr-red"/>
 
@@ -127,10 +130,10 @@
   </div>
 
 
-  <div class="sign-up-panel py-3">
+  <div class="sign-up-panel py-5">
     <div class="container">
       <h2>Create an account!</h2>
-      <a href="{% url "account_signup" %}" class="btn btn-red-secondary text-uppercase">Get Started</a>
+      <a href="{% url "account_signup" %}" class="btn btn-secondary text-uppercase">Get Started</a>
     </div>
   </div>
 {% endblock %}

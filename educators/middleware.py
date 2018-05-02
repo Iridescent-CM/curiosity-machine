@@ -1,11 +1,12 @@
 from curiositymachine.middleware import whitelist_regex, whitelisted
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
+from django.utils.deprecation import MiddlewareMixin
 from surveys import get_survey
 from .views import prereq_interruption
 from surveys.models import *
 
-class CoachPrerequisitesMiddleware:
+class CoachPrerequisitesMiddleware(MiddlewareMixin):
     """
     Middleware that checks for pre-survey
     """

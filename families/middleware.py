@@ -1,11 +1,12 @@
 from curiositymachine.middleware import whitelist_regex, whitelisted
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
+from django.utils.deprecation import MiddlewareMixin
 from surveys import get_survey
 from .aichallenge import Stage
 from .views import prereq_interruption, postsurvey_interruption
 
-class SignUpPrerequisitesMiddleware:
+class SignUpPrerequisitesMiddleware(MiddlewareMixin):
     """
     Middleware that checks for pre-survey and permission slips.
     """
@@ -21,7 +22,7 @@ class SignUpPrerequisitesMiddleware:
         ):
             return prereq_interruption(request)
 
-class PostSurveyMiddleware:
+class PostSurveyMiddleware(MiddlewareMixin):
     """
     Middleware that interrupts at the appropriate point to prompt users to take post-survey.
     """

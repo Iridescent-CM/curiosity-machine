@@ -38,9 +38,9 @@ RQ_QUEUES = {
 
 
 ## SSL settings
+SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = CSRF_COOKIE_SECURE = os.getenv("SSL_ONLY", False)
-SSLIFY_DISABLE = not os.getenv("SSL_ONLY", False)
 SITE_URL = os.getenv('SITE_URL', '')
 
 
@@ -103,10 +103,9 @@ INSTALLED_APPS = (
 
 SITE_ID = 1
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'curiositymachine.middleware.CanonicalDomainMiddleware', # this MUST come before the SSLify middleware or else non-canonical domains that do not have SSL endpoints will not work!
-    'sslify.middleware.SSLifyMiddleware',
+    'curiositymachine.middleware.CanonicalDomainMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -123,7 +122,7 @@ MIDDLEWARE_CLASSES = (
     'educators.middleware.CoachPrerequisitesMiddleware',
     'families.middleware.PostSurveyMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-)
+]
 
 TEMPLATES = [
     {
@@ -453,7 +452,7 @@ if ROLLBAR_SERVER_SIDE_ACCESS_TOKEN:
             (LoginRequired, 'ignored'),
         ]
     }
-    MIDDLEWARE_CLASSES += ('rollbar.contrib.django.middleware.RollbarNotifierMiddleware',)
+    MIDDLEWARE.append('rollbar.contrib.django.middleware.RollbarNotifierMiddleware')
 
 DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK": 'curiositymachine.debug.show_toolbar'
@@ -467,4 +466,4 @@ if DEBUG and DEBUG_HTML:
     HTMLVALIDATOR_FAILFAST = os.environ.get("HTMLVALIDATOR_FAILFAST", False)
     HTMLVALIDATOR_OUTPUT = 'stdout'  # default is 'file'
     HTMLVALIDATOR_VNU_URL = 'http://localhost:8888/' # run with `java -cp vnu.jar nu.validator.servlet.Main 8888`
-    MIDDLEWARE_CLASSES += ("htmlvalidator.middleware.HTMLValidator",)
+    MIDDLEWARE.append("htmlvalidator.middleware.HTMLValidator")
