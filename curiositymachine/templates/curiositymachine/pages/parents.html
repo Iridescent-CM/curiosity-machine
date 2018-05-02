@@ -10,20 +10,20 @@
     {{ block.super }}
   {% endwith %}
 
-  <div class="container pb-3">
+  <div class="container pb-5">
     <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5">
         <h2>Build Something Great Together</h2>
         <h3>Work with your child to develop curiosity about the world, creativity to try new ideas, and perseverance to learn from mistakes. </h3>
-        <img class="mb-2 mt-1" src="{% static 'images/about/about-design-challenges.jpg' %}">
+        <img class="mb-4 mt-2" src="{% static 'images/about/about-design-challenges.jpg' %}">
         <p class="text-xs-center">When children know they can learn anything, they can be anything. We believe that parents and other role models play a critical role in building children's confidence and love for learning new things. Ready to learn alongside your child? Start with the <a href="{% url "aichallenge" %}">Curiosity Machine AI Family Challenge</a>, or <a href="{% url "challenges:challenges" %}">explore our other design challenges</a> to try what interests you.</p>
-        <hr class="mb-2"/>
+        <hr class="mb-4"/>
         <h4>Curiosity Machine AI Family Challenge</h4>
         <p>The Curiosity Machine <a href="{% url "aichallenge" %}">Artificial Intelligence Family Challenge</a> is designed for families who want to learn about Artificial Intelligence (AI) technology. Throughout 2018, children ages 8 to 15 and their families are invited to explore core concepts of AI and use these tools to solve problems in their communities. Everyone will have the opportunity to enter their ideas into a global competition.</p>
 
         <h4>Curiosity Machine at your pace</h4>
         <p>Curiosity Machine is flexible enough for you to use at your own pace. Our design challenges are great as weekly family learning activities, so your family can explore topics ranging from biomechanics to computer science and more. Follow your curiosity wherever it leads!</p>
-        <div class="row mt-2">
+        <div class="row mt-4">
           <div class="col-md-10 offset-md-1">
             <div class="embed-responsive embed-responsive-16by9">
               <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLl3AijnqmcEhmUth6Xwr5ItKSj5QGYEjS" allowfullscreen></iframe>
@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        <hr class="hr-red mb-3"/>
+        <hr class="hr-red mb-5"/>
 
         <h3>Tools to Support Learning Together</h3>
         <p>We are always working to improve how we support families to learn together. When you create an account, you'll have access to resources that support you to learn alongside your child.</p>
@@ -39,8 +39,8 @@
     </div>
   </div>
 
-  <div class="sign-up-panel py-3">
+  <div class="sign-up-panel py-5">
     <h2>Create an account!</h2>
-    <a href="{% url "account_signup" %}" class="btn btn-red-secondary text-uppercase">Get Started</a>
+    <a href="{% url "account_signup" %}" class="btn btn-secondary text-uppercase">Get Started</a>
   </div>
 {% endblock %}

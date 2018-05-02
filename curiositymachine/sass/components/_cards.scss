@@ -1,0 +1,29 @@
+.cm-card {
+  @extend .card;
+
+  min-height: 375px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
+  border: none;
+
+  .card-body {
+    padding: 0.75em;
+    flex: none;
+
+    &:last-child {
+      border-top: 2px solid $sand;
+    }
+
+    .card-title,
+    .card-title a {
+      font-weight: 700;
+      color: $dark;
+
+      &:hover,
+      &:focus {
+        color: tint($dark, 30%);
+        text-decoration: none;
+      }
+    }
+  }
+}

@@ -2,12 +2,11 @@
   @return mix(black, $color, $percentage);
 }
 
-/* Unused
-
 @function tint($color, $percentage) {
   @return mix(white, $color, $percentage);
 }
 
+/* Unused
 
 @mixin vertical-align {
   position: relative;
