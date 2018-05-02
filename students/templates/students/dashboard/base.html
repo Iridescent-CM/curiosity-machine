@@ -38,18 +38,6 @@
         </div>
       </div>
 
-      {% if request.user.extra.show_classroom_survey %}
-      <div class="row mt-1">
-        <div class="card">
-          <div class="card-block">
-            <h3>Classroom survey</h3>
-            <p>Do you use Curiosity Machine at your school? Help us make Curiosity Machine better by taking this short survey.</p>
-            <a href="https://www.surveymonkey.com/r/VVG6ZLQ" class="btn btn-secondary" target="_blank">Take Survey</a>
-          </div>
-        </div>
-      </div>
-      {% endif %}
-
       {% if messages %}{% for message in messages %}
         <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">

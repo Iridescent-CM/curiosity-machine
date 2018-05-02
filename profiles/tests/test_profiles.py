@@ -69,16 +69,6 @@ def test_should_add_email():
     assert not user3.extra.should_add_email
 
 @pytest.mark.django_db
-def test_show_classroom_survey():
-    user = UserFactory(extra__source='')
-    user2 = UserFactory(extra__source='something')
-    user3 = UserFactory(extra__source='family_science')
-
-    assert user.extra.show_classroom_survey
-    assert user2.extra.show_classroom_survey
-    assert not user3.extra.show_classroom_survey
-
-@pytest.mark.django_db
 def test_inactive_mentors_not_sent():
     startdate = now()
     enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
