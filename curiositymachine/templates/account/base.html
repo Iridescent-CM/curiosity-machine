@@ -1,12 +1,12 @@
 {% extends "curiositymachine/layout/base.html" %}
 
 {% block container %}
-<div class="container-fluid text-xs-center jumbotron-green">
+<div class="cm-jumbotron jumbotron-fluid jumbotron-green">
   <h1>{% block pagehead %}Account{% endblock %}</h1>
 </div>
-<div class="container mt-3">
+<div class="container mt-5">
   {% if messages %}
-  <div class="row mb-2">
+  <div class="row mb-4">
     <div class="col-md-10 offset-md-1">
       {% for message in messages %}
       <div class="alert alert-info" role="alert">{{message}}</div>
@@ -15,7 +15,7 @@
   </div>
   {% endif %}
   <div class="row">
-    <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 mb-3">
+    <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 mb-5">
       {% block content %}{% endblock %}
     </div>
   </div>

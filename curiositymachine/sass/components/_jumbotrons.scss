@@ -7,6 +7,19 @@
 }
 
 .jumbotron-blue {
-  color: white;
+  color: $ivory;
   background-color: $primary-blue;
+}
+
+.jumbotron-green {
+  color: $ivory;
+  background-color: $primary-green;
+}
+
+.jumbotron-dark-pattern {
+  color: $ivory;
+  background-color: shade($dark, 40%);
+  background-image: url("../images/design-challenge-repeating-pattern.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
 }

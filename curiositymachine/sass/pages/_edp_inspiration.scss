@@ -1,4 +1,15 @@
 #edp-inspiration {
+  .cm-jumbotron {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  @include media-breakpoint-down(xs) {
+    .cm-jumbotron {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+
   .hero {
     background-color: $primary-blue;
     border-radius: $base-border-radius;
@@ -25,39 +36,18 @@
     }
   }
 
-  .membership-only {
-    padding: $base-spacing;
-    border-radius: $base-border-radius;
-    margin: $small-spacing 0 $base-spacing ;
-    border: 1px solid $primary-blue-dark;
-    background-color: $ivory;
-
-    h4 {
-      margin-bottom: 0px;
+  @include media-breakpoint-down(md) {
+    .hero {
+      display: inherit !important;
+      width: auto;
     }
-  }
-
-  // difficulty levels
-  .inactive-level {
-    display: inline-block;
-    background-color: $sand;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin-top: 10px;
-    padding-top: 5px;
-  }
-
-  .active-level {
-    display: inline-block;
-    background-color: $primary-blue;
-    color: $ivory;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    font-size: $base-font-size * 2;
-    font-weight: $light-font-weight;
-    font-family: $heading-font-family;
+    .hero-img, .hero-text {
+      width: 100% !important;
+      display: block !important;
+    }
+    .hero-img img {
+      border-radius: 0 0 $base-border-radius $base-border-radius !important;
+    }
   }
 
   .landing-scroll {
@@ -81,18 +71,26 @@
     }
   }
 
-  @include media-breakpoint-down(md) {
-    .hero {
-      display: inherit !important;
-      width: auto;
-    }
-    .hero-img, .hero-text {
-      width: 100% !important;
-      display: block !important;
-    }
-    .hero-img img {
-      border-radius: 0 0 $base-border-radius $base-border-radius !important;
-    }
+  .inactive-level {
+    display: inline-block;
+    background-color: $sand;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-top: 10px;
+    padding-top: 5px;
+  }
+
+  .active-level {
+    display: inline-block;
+    background-color: $primary-blue;
+    color: $ivory;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    font-size: $base-font-size * 2;
+    font-weight: $light-font-weight;
+    font-family: $heading-font-family;
   }
 
   .resources-book {

@@ -1,10 +1,9 @@
-.cm-card {
-  @extend .card;
+// .cm-card
+// .cm-info-card
 
-  min-height: 375px;
+.cm-card,
+.cm-info-card {
   border-radius: 4px;
-  box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
-  border: none;
 
   .card-body {
     padding: 0.75em;
@@ -83,5 +82,31 @@
     &:before {
       border-right-color: $primary-green-dark;
     }
+  }
+}
+
+.cm-card {
+  min-height: 375px;
+  box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
+  border: none;
+}
+
+.cm-info-card {
+  .card-header,
+  .card-body,
+  .card-footer {
+    padding: 1.25em;
+  }
+
+  .card-header {
+    background-color: $sand;
+
+    h1, h2, h3, h4 {
+      margin-bottom: 0px;
+    }
+  }
+
+  .card-footer {
+    background-color: tint($sand, 50%);
   }
 }
