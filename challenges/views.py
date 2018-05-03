@@ -408,6 +408,11 @@ def challenge_progress(request, challenge_id, username, stage=None):
         feedback_form = FeedbackForm(model=feedback)
         feedback_question = feedback_form.model.question
 
+    feedback_result = challenge.result_set.first()
+    if feedback_result:
+        feedback_response = feedback_result.comment_text
+
+
     return render(request,
         [
             "challenges/edp/progress/%s/%s.html" % (request.user.extra.user_type, stageToShow.name),
@@ -423,6 +428,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         'quiz_form': quiz_form,
         'feedback_form': feedback_form,
         'feedback_question': feedback_question,
+        'feedback_response': feedback_response,
         'edp_nav': {
             'stage': stageToShow.name,
             'inspiration': reverse("challenges:inspiration_progress", kwargs={"challenge_id": challenge.id, "username": username}),
