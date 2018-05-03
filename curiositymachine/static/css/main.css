@@ -7015,7 +7015,8 @@ i {
   color: #6161AF; }
 
 .navbar-cm {
-  background-color: #FFFCF7; }
+  background-color: #FFFCF7;
+  font-family: "Raleway", Helvetica, sans-serif; }
   .navbar-cm .navbar-brand {
     padding: 0;
     border: none; }
