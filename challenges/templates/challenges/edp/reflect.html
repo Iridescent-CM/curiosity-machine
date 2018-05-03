@@ -39,7 +39,7 @@
       </form>
     </div>
   </div>
-  {% elif feedback_form %}
+  {% elif feedback_form and progress.completed %}
   {% url "challenges:feedback:feedback" challenge_id=challenge.id username=progress.owner.username stage='reflect' as action_url %}
   <div class="panel panel-bubble teal reflect-box edp-comments">
     <div class="panel-body">
