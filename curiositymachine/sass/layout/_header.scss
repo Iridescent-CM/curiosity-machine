@@ -13,6 +13,7 @@ $nav-purple: $primary-purple;
 $nav-purple-hover: shade($primary-purple, 10);
 
 .navbar-cm {
+  background-color: $ivory;
 
   .navbar-brand {
     padding: 0;
@@ -155,6 +156,7 @@ $nav-purple-hover: shade($primary-purple, 10);
             position: relative;
             color: $gray;
             transition: color 0.16s ease-in;
+            z-index: 1;
           }
 
           .nav-link:before {

@@ -23,8 +23,11 @@ $theme-colors: (
 @import 'components/modal';
 @import 'components/dividers';
 @import 'components/cards';
+@import 'components/jumbotrons';
 
 @import 'pages/home';
+@import 'pages/challenges';
+@import 'pages/about_educator';
 
 /*
 @import 'utils/functions';              ✔
