@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block feedback_panel %}
-  {% if progress.completed %}
+  {% if progress.completed and feedback_response %}
     <div class="panel white feedback-panel">
       <div class="panel-body text-center">
         <div class="row">
