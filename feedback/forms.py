@@ -11,7 +11,10 @@ class FeedbackForm(forms.Form):
             answer = forms.CharField(widget=forms.Textarea, required=True)
             self.fields['answer'] = answer
 
-    def get_result(self, user):
+    def get_result(self, user, challenge):
         result = Result(feedback=self.model, user=user)
         setattr(result, 'answer', self.cleaned_data['answer'])
+        setattr(result, 'challenge', challenge)
         return result
+
+

@@ -22,7 +22,7 @@ def make_comment(request, challenge_id, username, stage):
     feedback = challenge.feedback_set.first()
     form = FeedbackForm(request.POST, model=feedback)
     if form.is_valid():
-        result = form.get_result(request.user)
+        result = form.get_result(request.user, challenge=challenge)
         result.save()
     return HttpResponseRedirect(
         request.META.get(

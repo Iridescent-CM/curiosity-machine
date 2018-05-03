@@ -401,7 +401,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
     if quiz:
         quiz_form = QuizForm(model=quiz)
 
-    feedback = challenge.feedback_set.exclude(is_active=False).exclude(result__user=request.user).first()
+    feedback = challenge.feedback_set.exclude(is_active=False).exclude(result__user=request.user,result__challenge=challenge).first()
     feedback_form = None
     feedback_question = None
     if feedback:

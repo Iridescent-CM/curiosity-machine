@@ -11,7 +11,12 @@ class Feedback(models.Model):
     class Meta:
         verbose_name_plural = 'Feedbacks'
 
-    challenge = models.ForeignKey(Challenge)
+    challenges = models.ManyToManyField(
+        Challenge,
+        blank=True,
+        help_text="This feedback question will show up in these selected DCs",
+    )
+
     is_active = models.BooleanField(default=False, help_text="Enable this option to show this feedback question to students")
     question = models.TextField(null=True, blank=True)
 
@@ -27,6 +32,9 @@ class Feedback(models.Model):
 class Result(models.Model):
 
     feedback = models.ForeignKey(Feedback)
+
+    challenge = models.ForeignKey(Challenge)
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='feedback')
 
     answer = models.TextField(null=True)

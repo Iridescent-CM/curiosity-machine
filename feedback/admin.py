@@ -6,12 +6,12 @@ class FeedbackAdmin(admin.ModelAdmin):
         model = Feedback
 
     list_display = ['id', 'challenge_name']
-    raw_id_fields = ['challenge']
+    filter_horizontal = ['challenges']
 
     def __init__(self, *args, **kwargs):
         fieldsets = (
             (None, {
-                'fields': ('challenge', 'is_active', 'question')
+                'fields': ('challenges', 'is_active', 'question')
             }),
         )
 
@@ -19,7 +19,7 @@ class FeedbackAdmin(admin.ModelAdmin):
         super().__init__(*args, **kwargs)
 
     def challenge_name(self, obj):
-        return obj.challenge.name
+        return obj.challenges.name
 
 class ResultAdmin(admin.ModelAdmin):
     class Meta:
@@ -28,7 +28,7 @@ class ResultAdmin(admin.ModelAdmin):
     list_display = ['id', 'feedback', 'challenge_name', 'user']
 
     def challenge_name(self, obj):
-        return obj.feedback.challenge.name
+        return obj.challenge.name
 
 admin.site.register(Feedback, FeedbackAdmin)
 admin.site.register(Result, ResultAdmin)
