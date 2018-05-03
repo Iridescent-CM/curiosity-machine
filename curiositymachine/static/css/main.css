@@ -7560,7 +7560,7 @@ footer {
   .cm-card .card-body {
     padding: 0.75em;
     flex: none; }
-    .cm-card .card-body:last-child {
+    .cm-card .card-body.card-divider {
       border-top: 2px solid #E5E1D9; }
     .cm-card .card-body .card-title,
     .cm-card .card-body .card-title a {
@@ -7572,6 +7572,47 @@ footer {
       .cm-card .card-body .card-title a:focus {
         color: #707070;
         text-decoration: none; }
+  .cm-card .card-flags > * {
+    margin-bottom: 20px; }
+  .cm-card .card-flag {
+    padding: 5px 30px 5px 20px;
+    position: absolute;
+    left: -10px; }
+    .cm-card .card-flag:after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border-top: 15px solid transparent;
+      border-bottom: 16px solid transparent;
+      border-right: 12px solid #FFFCF7;
+      position: absolute;
+      top: 0;
+      right: 0; }
+    .cm-card .card-flag:before {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border-top: 0px solid transparent;
+      border-right-width: 10px;
+      border-right-style: solid;
+      border-bottom: 10px solid transparent;
+      border-left: 0px solid transparent;
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      right: 100%; }
+  .cm-card .card-flag-purple {
+    background-color: #6161AF;
+    color: #FFFCF7; }
+    .cm-card .card-flag-purple:before {
+      border-right-color: #4e4e8c; }
+  .cm-card .card-flag-green {
+    background-color: #8FB559;
+    color: #FFFCF7; }
+    .cm-card .card-flag-green:before {
+      border-right-color: #729147; }
 
 .cm-jumbotron {
   text-align: center;
@@ -7581,6 +7622,26 @@ footer {
 .jumbotron-blue {
   color: white;
   background-color: #00B1C3; }
+
+.favorites-badge {
+  position: absolute;
+  text-align: center;
+  top: -8px;
+  left: -8px; }
+  .favorites-badge input[type='checkbox'] {
+    display: none; }
+  .favorites-badge input[type='checkbox'] + label {
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding-top: 2px;
+    background-color: #cacaca;
+    box-shadow: 0px 2px 4px rgba(151, 151, 151, 0.8);
+    color: white;
+    cursor: pointer; }
+  .favorites-badge input[type='checkbox']:checked + label {
+    background-color: #8FB559; }
 
 #index-page .jumbotron, #index-page .cm-jumbotron {
   padding-top: 6em;

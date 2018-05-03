@@ -49,7 +49,7 @@
             <div class="col-sm-6 col-md-12 col-lg-6 col-xl-4">
               <div class="cm-card mb-3">
                 {% if request.user.is_authenticated and request.user.extra.is_student %}
-                <div class="favorites-filter">
+                <div class="favorites-badge">
                   <input type="checkbox"
                     name="favorite-star-{{challenge.id}}"
                     id="favorite-star-{{challenge.id}}"
@@ -84,27 +84,23 @@
                     </a>
                   </h6>
                 </div>
-                <div class="card-body">
+                <div class="card-body card-divider">
                   <p class="card-text"><small>{{challenge.description}}</small></p>
                 </div>
 
                 {% if request.user.is_authenticated %}
-                <div class="card-body card-details">
-                  <ul>
+                <div class="card-body">
+                  <ul jlass="card-flags">
                     {% if challenge.accessible or challenge.started %}
                     {% if request.user.extra.is_student %}
                     <li>
-                      <small>
-                        <span class="accessible-dc">Build it!</span>
-                      </small>
+                      <span class="card-flag card-flag-purple"><small>Build it!</small></span>
                     </li>
                     {% endif %}
                     {% endif %}
                     {% if not request.user.extra.is_student and challenge.has_resources %}
                     <li>
-                      <small>
-                        <span class="has-resources">Resources</span>
-                      </small>
+                      <span class="card-flag card-flag-green"><small>Resources</small></span>
                     </li>
                     {% endif %}
                   </ul>
