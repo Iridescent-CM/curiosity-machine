@@ -1,0 +1,23 @@
+<div class="modal modal-cm fade" id="remove-example-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Remove your project?</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <p>This will remove your project from the Inspiration Gallery. You can always re-submit your project if you change your mind!</p>
+      </div>
+      <div class="modal-footer">
+        <form action="{% url "challenges:delete_example" challenge_id=challenge.id %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="example-id" value="{{example.id}}" />
+          <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+          <input type="submit" value="Remove" class="btn btn-red ml-3">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

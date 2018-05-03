@@ -1,6 +1,4 @@
 .cm-jumbotron {
-  @extend .jumbotron;
-
   text-align: center;
   padding: $large-spacing 0 $small-spacing 0;
   margin-bottom: $base-spacing;
@@ -14,6 +12,21 @@
 .jumbotron-green {
   color: $ivory;
   background-color: $primary-green;
+}
+
+.jumbotron-blue-green-gradient {
+  color: $ivory;
+  background: linear-gradient( 45deg, $primary-blue, $primary-green );
+
+  a {
+    color: $ivory;
+    border-bottom: 1px solid $ivory;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
 }
 
 .jumbotron-dark-pattern {

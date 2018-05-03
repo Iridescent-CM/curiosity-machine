@@ -1,0 +1,37 @@
+{% load resized %}
+
+<div class="modal-content">
+  <div class="modal-header">
+    <h3>Choose a Photo</h3>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <form id="submit-form" method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
+
+    <div class="modal-body text-center">
+      <div class="row">
+        {% csrf_token %}
+        <div class="col-md-12">
+          <p>Photos from {{ challenge.name }}</p>
+        </div>
+        {% for image in progress.get_owner_images %}
+        <div class="col-md-6 photo-choice">
+          <input type="radio" name="example" id="example-{{image.id}}" value="{{image.id}}">
+          <label for="example-{{image.id}}">
+            <img src="{% resized image.url width=330 height=200 crop='fill' %}" alt="">
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+      <input type="submit" class="btn btn-primary">
+    </div>
+
+  </form>
+
+</div>

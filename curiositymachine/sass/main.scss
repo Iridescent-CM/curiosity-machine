@@ -26,10 +26,11 @@ $theme-colors: (
 @import 'components/jumbotrons';
 @import 'components/favorites';
 
-@import 'pages/home';
-@import 'pages/challenges';
 @import 'pages/about_educator';
+@import 'pages/challenges';
 @import 'pages/edp_inspiration';
+@import 'pages/examples';
+@import 'pages/home';
 
 /*
 @import 'utils/functions';              ✔
