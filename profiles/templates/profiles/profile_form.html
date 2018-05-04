@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron-blue jumbotron-fluid text-xs-center">
+<div class="jumbotron cm-jumbotron jumbotron-blue jumbotron-fluid">
     <h1>Account Settings</h1>
 </div>
-<div class="container mb-3">
+<div class="container mb-5">
   {% if messages %}{% for message in messages %}
   <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -21,11 +21,11 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
       {% block cards %}
-      <div class="card card-module">
-        <div class="card-block-title text-xs-center p-1">
-          <h4>{% block card_title %}Profile Info{% endblock %}</h4>
+      <div class="card cm-info-card">
+        <div class="card-header text-center p-3">
+          <h4 class="card-title">{% block card_title %}Profile Info{% endblock %}</h4>
         </div>
-        <div class="card-block">
+        <div class="card-body">
           <form action="{% block action %}{% endblock %}" method="POST" novalidate>
             {% csrf_token %}
             {% block fields %}
@@ -38,7 +38,7 @@
             <a class="btn btn-secondary" href="{% url "account_change_password"%}">Change password</a>
             {% endif %}
             {% endblock %}
-            <input type="submit" class="btn btn-primary float-xs-right" value="Save">
+            <input type="submit" class="btn btn-primary float-right" value="Save">
           </form>
         </div>
       </div>

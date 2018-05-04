@@ -8064,6 +8064,11 @@ footer {
   height: 50px;
   margin: 1.5em; }
 
+.password-change .form-body {
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto; }
+
 /*
 @import 'utils/functions';              ✔
 @import 'utils/variables';              ✔
