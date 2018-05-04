@@ -196,10 +196,6 @@ class UserExtra(models.Model):
     def send_welcome(self):
         return UserRole(self.role) not in [UserRole.none, UserRole.mentor]
 
-    @property
-    def show_classroom_survey(self):
-        return not (self.source and self.source in ['family_science'])
-
     def set_active(self):
         self.last_active_on = now()
         return self.save(update_fields=['last_active_on'])
