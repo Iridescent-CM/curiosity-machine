@@ -7452,26 +7452,20 @@ footer {
   .social-icons:hover {
     color: #8181bf; }
 
-.about-pages .nav-panel {
-  color: white;
-  background: url("../images/design-challenge-repeating-pattern-white.png");
-  background-color: #F55932;
-  background-attachment: fixed;
-  background-repeat: repeat; }
-  .about-pages .nav-panel .nav {
-    justify-content: center; }
-    .about-pages .nav-panel .nav .nav-item {
-      display: inline-block;
-      margin: 0 20px; }
-    .about-pages .nav-panel .nav .nav-link {
-      padding: 0;
-      transition-property: all; }
-      .about-pages .nav-panel .nav .nav-link:link, .about-pages .nav-panel .nav .nav-link:visited {
-        color: #FFFCF7;
-        border-bottom: 2px solid #FFFCF7; }
-      .about-pages .nav-panel .nav .nav-link:hover, .about-pages .nav-panel .nav .nav-link:active, .about-pages .nav-panel .nav .nav-link.active {
-        color: #93351e;
-        border-color: #93351e; }
+.about-pages .nav {
+  justify-content: center; }
+  .about-pages .nav .nav-item {
+    display: inline-block;
+    margin: 0 20px; }
+  .about-pages .nav .nav-link {
+    padding: 0;
+    transition-property: all; }
+    .about-pages .nav .nav-link:link, .about-pages .nav .nav-link:visited {
+      color: #FFFCF7;
+      border-bottom: 2px solid #FFFCF7; }
+    .about-pages .nav .nav-link:hover, .about-pages .nav .nav-link:active, .about-pages .nav .nav-link.active {
+      color: #93351e;
+      border-color: #93351e; }
 
 .about-pages h2 {
   color: #F55932; }
@@ -7489,12 +7483,6 @@ footer {
   position: relative;
   display: inline-block;
   top: -3px; }
-
-.about-pages .sign-up-panel {
-  background-color: #F55932;
-  text-align: center; }
-  .about-pages .sign-up-panel h2 {
-    color: white; }
 
 .modal-cm .modal-close {
   color: #fff;
@@ -8068,6 +8056,11 @@ footer {
   max-width: 380px;
   margin-left: auto;
   margin-right: auto; }
+
+.bg-pattern-white {
+  background: url("../images/design-challenge-repeating-pattern-white.png");
+  background-attachment: fixed;
+  background-repeat: repeat; }
 
 /*
 @import 'utils/functions';              ✔

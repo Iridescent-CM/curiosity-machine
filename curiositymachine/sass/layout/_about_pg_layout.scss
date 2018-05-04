@@ -1,33 +1,25 @@
 .about-pages {
-  .nav-panel {
-    color: white;
-    background: url("../images/design-challenge-repeating-pattern-white.png");
-    background-color: $primary-red;
-    background-attachment: fixed;
-    background-repeat: repeat;
+  .nav {
+    justify-content: center;
 
-    .nav {
-      justify-content: center;
+    .nav-item {
+      display: inline-block;
+      margin: 0 20px;
+    }
 
-      .nav-item {
-        display: inline-block;
-        margin: 0 20px;
+    .nav-link {
+      padding: 0;
+      transition-property: all;
+      &:link,
+      &:visited {
+        color: $ivory;
+        border-bottom: 2px solid $ivory;
       }
-
-      .nav-link {
-        padding: 0;
-        transition-property: all;
-        &:link,
-        &:visited {
-          color: $ivory;
-          border-bottom: 2px solid $ivory;
-        }
-        &:hover,
-        &:active,
-        &.active {
-          color: $primary-red-darkest;
-          border-color: $primary-red-darkest;
-        }
+      &:hover,
+      &:active,
+      &.active {
+        color: $primary-red-darkest;
+        border-color: $primary-red-darkest;
       }
     }
   }
@@ -49,13 +41,5 @@
     position: relative;
     display: inline-block;
     top: -3px;
-  }
-
-  .sign-up-panel {
-    background-color: $primary-red;
-    text-align: center;
-    h2 {
-      color: white;
-    }
   }
 }
