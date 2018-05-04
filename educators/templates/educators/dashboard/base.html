@@ -2,20 +2,22 @@
 {% load impact_survey %}
 
 {% block title %}My Dashboard{% endblock %}
-{% block body-classes %}educator-dashboard{% endblock %}
+{% block body-classes %}dashboard educator-dashboard{% endblock %}
 
 {% block container %}
-{% if flags.enable_ai_banner and membership_selection.no_memberships %}
+
+  {% if flags.enable_ai_banner and membership_selection.no_memberships %}
   <div class="ai-banner-margins">
     {% url "educators:coach_conversion" as banner_url %}
     {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   </div>
-{% endif %}
-  <div class="educator-dashboard-header py-2 mb-1">
+  {% endif %}
+
+  <div class="bg-pattern-dark text-light py-4 mb-2">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
-          <a href="{% url 'educators:edit_profile' %}" class="a-borderless float-xs-right">Account Settings</a>
+        <div class="col-12">
+          <a href="{% url 'educators:edit_profile' %}" class="float-right">Account Settings</a>
           <div class="dashboard-avatar">
             {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
           </div>
@@ -25,11 +27,12 @@
           <em>No name provided</em>
           {% endif %}
           <br>
-          <span class="dashboard-inline-username">{{ request.user.username }}</span>
+          <span class="h2">{{ request.user.username }}</span>
         </div>
       </div>
-      <div class="row mt-1 hidden-sm-down">
-        <div class="col-md-12">
+
+      <div class="row mt-4 d-none d-md-block">
+        <div class="col-12">
           <strong>Email:</strong> {{ request.user.email }}
           <br>
           {% if membership_selection.memberships %}
@@ -37,8 +40,9 @@
           {% endif %}
         </div>
       </div>
-      <div class="row mt-1">
-        <div class="col-md-12">
+
+      <div class="row mt-4">
+        <div class="col-12">
           {% for membership in membership_selection.all %}
           {% if membership.show_expiring_notice %}
           <div class="alert alert-info" role="alert">
@@ -54,7 +58,9 @@
           {% endfor %}
         </div>
       </div>
+
       {% impact_survey %}
+
       {% if messages %}{% for message in messages %}
         <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -65,7 +71,8 @@
       {% endfor %}{% endif %}
     </div>
   </div>
-  <div class="container mb-3" id="content">
+
+  <div class="container mb-5" id="content">
     {% block content %}{% endblock %}
   </div>
 {% endblock %}

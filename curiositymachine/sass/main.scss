@@ -18,7 +18,7 @@ $theme-colors: (
 
 @import 'layout/header';
 @import 'layout/footer';
-@import 'layout/about_pg_layout';
+@import 'layout/about-pg-layout';
 
 @import 'components/modal';
 @import 'components/dividers';
@@ -26,9 +26,10 @@ $theme-colors: (
 @import 'components/jumbotrons';
 @import 'components/favorites';
 
-@import 'pages/about_educator';
+@import 'pages/about-educator';
 @import 'pages/challenges';
-@import 'pages/edp_inspiration';
+@import 'pages/edp-inspiration';
+@import 'pages/educator-dashboard';
 @import 'pages/examples';
 @import 'pages/home';
 @import 'pages/password-change';

@@ -4,7 +4,7 @@
   .filter-list {
     list-style-type: none;
     font-size: 14px;
-    font-family: $heading-font-family;
+    font-family: $headings-font-family;
     font-weight: $heavy-font-weight;
     padding-left: 0px;
     overflow: hidden;
@@ -108,7 +108,7 @@
 
   .aifc-filter {
     .card-body {
-      font-family: $heading-font-family;
+      font-family: $headings-font-family;
       font-weight: $light-font-weight;
       font-size: 24px;
       color: $ivory;

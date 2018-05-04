@@ -4,3 +4,9 @@
   background-repeat: repeat;
 }
 
+.bg-pattern-dark {
+  background-color: shade($dark, 40%);
+  background-image: url("../images/design-challenge-repeating-pattern.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
+}

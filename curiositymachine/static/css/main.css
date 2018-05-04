@@ -329,7 +329,7 @@ template {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
-  font-family: inherit;
+  font-family: "Raleway", Helvetica, sans-serif;
   font-weight: 500;
   line-height: 1.2;
   color: inherit; }
@@ -7857,6 +7857,394 @@ footer {
   color: #8FB559;
   font-size: 2.5rem; }
 
+.educator-dashboard .dashboard-avatar img {
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+  float: left;
+  margin-right: 10px; }
+
+.educator-dashboard .submit-message .before-submit {
+  display: initial; }
+
+.educator-dashboard .submit-message .after-submit {
+  display: none; }
+
+.educator-dashboard .submit-message.submitted .before-submit {
+  display: none; }
+
+.educator-dashboard .submit-message.submitted .after-submit {
+  display: initial; }
+
+/*
+
+  .card {
+    background-color: $dark;
+  }
+
+  //
+  // Dashboard navigation
+  //
+  .educator-dashboard-navigation {
+    border-bottom: 2px $sand solid;
+
+    ul {
+      list-style-type: none;
+      text-transform: uppercase;
+      font-size: 0.875em;
+      letter-spacing: 2px;
+      padding-left: 0px;
+      margin-bottom: 0px;
+
+      li {
+        display: inline-block;
+        padding-bottom: 10px;
+        border-bottom: 5px solid $ivory;
+
+        a {
+          margin: 0px 15px;
+          border-bottom: 0px;
+          color: $dark;
+          text-align: center;
+
+          &:hover, &:focus {
+            color: $primary-blue;
+          }
+        }
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      ul li {
+        width: 32%;
+        text-align: center;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      ul li {
+        width: 100%;
+      }
+    }
+
+    .dropdown a {
+      margin: 0px;
+    }
+  }
+
+  //
+  // Highlights link to active page in navigation
+  //
+  .active-nav {
+    border-bottom-color: $primary-blue !important;
+    a { color: $primary-blue !important; }
+
+    @include media-breakpoint-down(md) { border-bottom: 0px !important; }
+  }
+
+  //
+  // Students List Page
+  //
+  .student-list {
+    border-top: 1px solid $sand;
+
+    .student-list-item {
+      padding: 10px;
+      border-bottom: 1px solid $sand;
+
+      .student-list-avatar {
+        float: left;
+        border-bottom: 0px;
+        margin-right: 10px;
+        width: 48px;
+        height: 48px;
+
+        img {
+          background-color: #fff;
+          border-radius: 50%;
+          box-shadow: 0px 2px 4px 0px $main-shadow;
+        }
+
+        // Adds notifying highlight if student has unseen activity; can leave commented out for now
+        // .student-list-has-activity {
+        //   position: relative;
+        //
+        //   &:after {
+        //     content: "";
+        //     position: absolute;
+        //     display: block;
+        //     width: 15px;
+        //     height: 15px;
+        //     background-color: $primary-red;
+        //     border-radius: 50%;
+        //     border: 3px solid $ivory;
+        //     right: -3px;
+        //     top: 0;
+        //   }
+        // }
+      }
+
+      .student-list-manage {
+        position: absolute;
+        right: 2.5rem;
+
+        i {
+          position: relative;
+          font-size: 12px;
+          margin-left: 10px;
+        }
+      }
+
+      .student-inline-empty { color: $gray; }
+    }
+  }
+
+  //
+  // Student Detail Page
+  //
+  .card-avatar img {
+    box-shadow: 0px 2px 4px 0px $main-shadow;
+  }
+
+
+  //
+  // Design Challenge Detail Page
+  //
+  .dc-sort-options {
+    text-align: right;
+    display: inline-block;
+
+    @include media-breakpoint-down(sm) {
+      text-align: left;
+      margin-top: $small-spacing;
+
+      .dropdown-menu {
+        right: auto;
+        left: 0;
+      }
+    }
+  }
+
+  .dropdown-design-challenge {
+    display: inline-block;
+  }
+
+  .dcprogressheader {
+    z-index: 500;
+  }
+
+  .fixedheader {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  .fixedheader-height {
+    padding-top: 41px;
+
+    @include media-breakpoint-down(sm) {
+      padding-top: 0px;
+    }
+  }
+
+  .dc-progress {
+
+    .student-list-item {
+      @include media-breakpoint-down(sm) {
+        margin-bottom: $small-spacing;
+      }
+    }
+
+    .student-list-avatar {
+      img {
+        border-radius: 50%;
+        background-color: $ivory;
+        margin-right: 10px;
+        box-shadow: 0px 2px 4px 0px $main-shadow;
+      }
+    }
+  }
+
+  .table-dc-progress {
+    @extend .table;
+    text-align: center;
+    border-style: none;
+    margin-bottom: 0px;
+
+    thead {
+      color: $primary-red;
+      font-size: 0.875em;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      th {
+        border: 2px solid $ivory;
+        padding: 8px 0px;
+        text-align: center;
+        vertical-align: middle;
+        width: 16.6%;
+      }
+    }
+
+    .active {
+      background-color: $primary-green;
+      color: $ivory;
+      font-size: 1.25rem;
+    }
+
+    .inactive {
+      background-color: $sand;
+      color: $gray;
+      font-size: 1.25rem;
+    }
+
+    td {
+      border: 2px solid $ivory;
+      padding: 8px 0px;
+      text-align: center;
+      vertical-align: middle;
+      width: 16.6%;
+    }
+  }
+
+
+  //
+  // Progress Conversation Page
+  //
+  &.educator-dashboard-conversation {
+
+    .pickwidget-preview {
+      max-width: 100px;
+      max-height: 100px;
+      vertical-align: top;
+      padding: 0.25rem;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+    }
+
+    #id_visual_media_container {
+      display: inline-block;
+    }
+    input[type="submit"] {
+      float: right;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+    }
+
+    .student-comment,
+    .family-comment {
+      img {
+        max-width: 475px;
+      }
+
+      &.stage-plan-comment .card-header {
+        background-color: #f4f8ee;
+      }
+      &.stage-build-comment .card-header {
+        background-color: #efeff7;
+      }
+      &.stage-test-comment .card-header {
+        background-color: #feeeeb;
+      }
+      &.stage-reflect-comment .card-header {
+        background-color: #e6f7f9;
+      }
+    }
+  }
+
+  .submit-message {
+    .before-submit {
+      display: initial;
+    }
+    .after-submit {
+      display: none;
+    }
+  }
+  .submit-message.submitted {
+    .before-submit {
+      display: none;
+    }
+    .after-submit {
+      display: initial;
+    }
+  }
+
+  .ai-banner-margins {
+    margin-top: -28px;
+  }
+
+  .activity-list {
+    .list-group-item {
+      white-space: nowrap;
+      a {
+        display: inline-block;
+        max-width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .indicator {
+      width: 0.8em;
+      height: 0.8em;
+      display: inline-block;
+      border-radius: 50%;
+      margin: 0.2em 0.8em 0.2em 0.2em;
+      vertical-align: baseline;
+
+      &.indicator-read {
+        border: 1px solid #ccc;
+        background: transparent;
+      }
+      &.indicator-unread {
+        background: #0275d8;
+      }
+    }
+
+
+    .timesince {
+      display: none;
+    }
+    .tag {
+      position: absolute;
+      right: 0;
+      margin-right: 1em;
+
+      &.plan-stage {
+        background-color: $primary-green;
+      }
+      &.build-stage {
+        background-color: $primary-purple;
+      }
+      &.test-stage {
+        background-color: $primary-red;
+      }
+      &.reflect-stage {
+        background-color: #1EB9C8;
+      }
+    }
+    .list-group-item {
+      padding-right: 75px;
+    }
+    @include media-breakpoint-up(md) {
+      .timesince {
+        display: inline;
+        position: absolute;
+        right: 0;
+        margin-right: 1em;
+      }
+      .tag {
+        right: 180px;
+      }
+      .list-group-item {
+        padding-right: 180px;
+      }
+    }
+  }
+}
+*/
 #examples-page .badge-remove {
   width: 25px;
   height: 25px;
@@ -8059,6 +8447,12 @@ footer {
 
 .bg-pattern-white {
   background: url("../images/design-challenge-repeating-pattern-white.png");
+  background-attachment: fixed;
+  background-repeat: repeat; }
+
+.bg-pattern-dark {
+  background-color: #1f1f1f;
+  background-image: url("../images/design-challenge-repeating-pattern.png");
   background-attachment: fixed;
   background-repeat: repeat; }
 

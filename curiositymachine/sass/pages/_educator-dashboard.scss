@@ -1,31 +1,35 @@
 .educator-dashboard {
 
-  //
-  // Dashboard header styles
-  //
-  .educator-dashboard-header {
-    background-color: shade($dark, 40%);
-    background-image: url("../images/design-challenge-repeating-pattern.png");
-    background-attachment: fixed;
-    background-repeat: repeat;
-    color: $ivory;
+  .dashboard-avatar img {
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px 0px $main-shadow;
+    float: left;
+    margin-right: 10px;
+  }
 
-    .dashboard-avatar img {
-      background-color: white;
-      border-radius: 50%;
-      box-shadow: 0px 2px 4px 0px $main-shadow;
-      float: left;
-      margin-right: 10px;
+  .submit-message {
+    .before-submit {
+      display: initial;
     }
+    .after-submit {
+      display: none;
+    }
+  }
+  .submit-message.submitted {
+    .before-submit {
+      display: none;
+    }
+    .after-submit {
+      display: initial;
+    }
+  }
+}
 
-    .dashboard-inline-username {
-      font-family: $heading-font-family;
-      font-size: $base-font-size * 2;
-    }
+/*
 
-    .card {
-      background-color: $dark;
-    }
+  .card {
+    background-color: $dark;
   }
 
   //
@@ -390,3 +394,4 @@
     }
   }
 }
+*/
