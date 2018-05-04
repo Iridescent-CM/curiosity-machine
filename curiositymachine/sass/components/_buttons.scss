@@ -1,4 +1,10 @@
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: $primary-blue;
+}
 
+/*
 $btn-primary-color: $ivory !default;
 $btn-primary-bg: $primary-blue !default;
 $btn-primary-border: $primary-blue-darkest !default;
@@ -103,3 +109,4 @@ $btn-secondary-border: $sand !default;
     }
   }
 }
+*/

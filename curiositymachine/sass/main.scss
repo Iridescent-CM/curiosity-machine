@@ -12,19 +12,19 @@ $theme-colors: (
 );
 @import 'vendors/bootstrap/scss/bootstrap';
 
-
 @import 'base/fonts';
 @import 'base/typography';
 
-@import 'layout/header';
-@import 'layout/footer';
 @import 'layout/about-pg-layout';
+@import 'layout/footer';
+@import 'layout/header';
 
-@import 'components/modal';
-@import 'components/dividers';
+@import 'components/buttons';
 @import 'components/cards';
-@import 'components/jumbotrons';
+@import 'components/dividers';
 @import 'components/favorites';
+@import 'components/jumbotrons';
+@import 'components/modal';
 
 @import 'pages/about-educator';
 @import 'pages/challenges';
