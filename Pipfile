@@ -1,12 +1,9 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 django = "~=1.11.0"
 dj-database-url = "*"
 waitress = "*"
@@ -45,20 +42,17 @@ rollbar = "*"
 factory-boy = "*"
 "psycopg2-binary" = "*"
 django-debug-toolbar = "*"
-
+django-html-validator = {git = "https://github.com/stenington/django-html-validator.git"}
 
 [dev-packages]
-
 coverage = "*"
 django-extensions = "*"
-django-html-validator = "*"
+django-html-validator = { git = "https://github.com/stenington/django-html-validator.git", ref="master" }
 mock = "*"
 pretend = "*"
 pyquery = "*"
 pytest-cov = "*"
 pytest-django = "*"
 
-
 [requires]
-
 python_version = "3.6.4"

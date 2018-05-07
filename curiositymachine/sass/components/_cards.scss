@@ -1,7 +1,12 @@
-// .cm-card
-// .cm-info-card
+// .cm-card               - basic card style
+// .cm-fancy-card         - fancy card style, as seen on dashboards
+// .cm-info-card          - info card style as seen on inspiration pages
+// .card-body >
+//   .card-body-toggle    - collapse toggle for .card-body
+//   .card-divider        - add to .card-body to visually separate from preceeding section
 
 .cm-card,
+.cm-fancy-card,
 .cm-info-card {
   border-radius: 4px;
 
@@ -11,19 +16,6 @@
 
     &.card-divider {
       border-top: 2px solid $sand;
-    }
-
-    .card-title,
-    .card-title a {
-      font-weight: 700;
-      color: $dark;
-      margin-bottom: 0;
-
-      &:hover,
-      &:focus {
-        color: tint($dark, 30%);
-        text-decoration: none;
-      }
     }
   }
 
@@ -86,9 +78,59 @@
 }
 
 .cm-card {
-  min-height: 375px;
   box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
   border: none;
+}
+
+.cm-card,
+.cm-info {
+  .cm-body {
+    .card-title,
+    .card-title a {
+      font-weight: 700;
+      color: $dark;
+      margin-bottom: 0;
+
+      &:hover,
+      &:focus {
+        color: tint($dark, 30%);
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.cm-fancy-card {
+  .card-body {
+    background-color: $ivory;
+
+    .dropdown-toggle {
+      border: 1px solid $gray;
+    }
+
+    .card-title {
+      color: $dark;
+      margin: 0.5em 0 1em 0;
+
+      a {
+        color: $dark;
+        &:hover,
+        &:focus {
+          text-decoration: none;
+          color: $primary-blue;
+        }
+      }
+    }
+
+    .card-section-title {
+      font-family: $headings-font-family;
+      font-size: 0.875em;
+      font-weight: normal;
+      text-transform: capitalize;
+      letter-spacing: 2px;
+      margin-top: 0.75em;
+    }
+  }
 }
 
 .cm-info-card {
@@ -108,5 +150,28 @@
 
   .card-footer {
     background-color: tint($sand, 50%);
+  }
+}
+
+.card-body-toggle {
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 3px 7px;
+  z-index: 100;
+  color: white;
+  background-color: darken($sand, 20%);
+  font-size: 0.875em;
+  letter-spacing: 2px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: darken($sand, 15%);
+    text-decoration: none;
+    color: white;
+  }
+  &:focus {
+    background-color: $primary-red;
   }
 }

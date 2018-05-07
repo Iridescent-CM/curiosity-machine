@@ -18,11 +18,11 @@
   {% can_see_resources request.user as can_see_resources %}
   {% if can_see_resources and challenge.accessible %}
   <div class="col-md-4">
-    <div class="card card-module mb-3">
-      <div class="card-block card-block-title">
+    <div class="card cm-info-card mb-5">
+      <div class="card-header">
         <h4 class="card-title red-type">Resources</h4>
       </div>
-      <div class="card-block">
+      <div class="card-body">
         {% for resource in resources %}
           <h4>{{ resource.name }}</h4>
           <p>{{ resource.description }}</p>

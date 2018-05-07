@@ -7596,40 +7596,30 @@ $btn-secondary-border: $sand !default;
 }
 */
 .cm-card,
+.cm-fancy-card,
 .cm-info-card {
   border-radius: 4px; }
   .cm-card .card-body,
+  .cm-fancy-card .card-body,
   .cm-info-card .card-body {
     padding: 0.75em;
     flex: none; }
     .cm-card .card-body.card-divider,
+    .cm-fancy-card .card-body.card-divider,
     .cm-info-card .card-body.card-divider {
       border-top: 2px solid #E5E1D9; }
-    .cm-card .card-body .card-title,
-    .cm-card .card-body .card-title a,
-    .cm-info-card .card-body .card-title,
-    .cm-info-card .card-body .card-title a {
-      font-weight: 700;
-      color: #333333;
-      margin-bottom: 0; }
-      .cm-card .card-body .card-title:hover, .cm-card .card-body .card-title:focus,
-      .cm-card .card-body .card-title a:hover,
-      .cm-card .card-body .card-title a:focus,
-      .cm-info-card .card-body .card-title:hover,
-      .cm-info-card .card-body .card-title:focus,
-      .cm-info-card .card-body .card-title a:hover,
-      .cm-info-card .card-body .card-title a:focus {
-        color: #707070;
-        text-decoration: none; }
   .cm-card .card-flags > *,
+  .cm-fancy-card .card-flags > *,
   .cm-info-card .card-flags > * {
     margin-bottom: 20px; }
   .cm-card .card-flag,
+  .cm-fancy-card .card-flag,
   .cm-info-card .card-flag {
     padding: 5px 30px 5px 20px;
     position: absolute;
     left: -10px; }
     .cm-card .card-flag:after,
+    .cm-fancy-card .card-flag:after,
     .cm-info-card .card-flag:after {
       content: "";
       display: block;
@@ -7642,6 +7632,7 @@ $btn-secondary-border: $sand !default;
       top: 0;
       right: 0; }
     .cm-card .card-flag:before,
+    .cm-fancy-card .card-flag:before,
     .cm-info-card .card-flag:before {
       content: "";
       display: block;
@@ -7657,24 +7648,64 @@ $btn-secondary-border: $sand !default;
       bottom: -10px;
       right: 100%; }
   .cm-card .card-flag-purple,
+  .cm-fancy-card .card-flag-purple,
   .cm-info-card .card-flag-purple {
     background-color: #6161AF;
     color: #FFFCF7; }
     .cm-card .card-flag-purple:before,
+    .cm-fancy-card .card-flag-purple:before,
     .cm-info-card .card-flag-purple:before {
       border-right-color: #4e4e8c; }
   .cm-card .card-flag-green,
+  .cm-fancy-card .card-flag-green,
   .cm-info-card .card-flag-green {
     background-color: #8FB559;
     color: #FFFCF7; }
     .cm-card .card-flag-green:before,
+    .cm-fancy-card .card-flag-green:before,
     .cm-info-card .card-flag-green:before {
       border-right-color: #729147; }
 
 .cm-card {
-  min-height: 375px;
   box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
   border: none; }
+
+.cm-card .cm-body .card-title,
+.cm-card .cm-body .card-title a,
+.cm-info .cm-body .card-title,
+.cm-info .cm-body .card-title a {
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 0; }
+  .cm-card .cm-body .card-title:hover, .cm-card .cm-body .card-title:focus,
+  .cm-card .cm-body .card-title a:hover,
+  .cm-card .cm-body .card-title a:focus,
+  .cm-info .cm-body .card-title:hover,
+  .cm-info .cm-body .card-title:focus,
+  .cm-info .cm-body .card-title a:hover,
+  .cm-info .cm-body .card-title a:focus {
+    color: #707070;
+    text-decoration: none; }
+
+.cm-fancy-card .card-body {
+  background-color: #FFFCF7; }
+  .cm-fancy-card .card-body .dropdown-toggle {
+    border: 1px solid #949494; }
+  .cm-fancy-card .card-body .card-title {
+    color: #333333;
+    margin: 0.5em 0 1em 0; }
+    .cm-fancy-card .card-body .card-title a {
+      color: #333333; }
+      .cm-fancy-card .card-body .card-title a:hover, .cm-fancy-card .card-body .card-title a:focus {
+        text-decoration: none;
+        color: #00B1C3; }
+  .cm-fancy-card .card-body .card-section-title {
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-size: 0.875em;
+    font-weight: normal;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    margin-top: 0.75em; }
 
 .cm-info-card .card-header,
 .cm-info-card .card-body,
@@ -7688,6 +7719,25 @@ $btn-secondary-border: $sand !default;
 
 .cm-info-card .card-footer {
   background-color: #f2f0ec; }
+
+.card-body-toggle {
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 3px 7px;
+  z-index: 100;
+  color: white;
+  background-color: #bcb19c;
+  font-size: 0.875em;
+  letter-spacing: 2px;
+  text-decoration: none; }
+  .card-body-toggle:hover {
+    background-color: #c6bdac;
+    text-decoration: none;
+    color: white; }
+  .card-body-toggle:focus {
+    background-color: #F55932; }
 
 .basic-hr, .hr-purple, .hr-red, .hr-orange {
   height: 3px;
@@ -7787,7 +7837,8 @@ $btn-secondary-border: $sand !default;
   transform: translate(0, 0); }
 
 #educator-about-page .cm-card {
-  max-width: 260px; }
+  max-width: 260px;
+  min-height: 375px; }
 
 #challenges-page {
   background-color: #E5E1D9; }
