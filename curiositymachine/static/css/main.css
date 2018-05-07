@@ -7690,7 +7690,7 @@ $btn-secondary-border: $sand !default;
 .cm-fancy-card .card-body {
   background-color: #FFFCF7; }
   .cm-fancy-card .card-body .dropdown-toggle {
-    border: 1px solid #949494; }
+    border: 1px solid #CCCCCC; }
   .cm-fancy-card .card-body .card-title {
     color: #333333;
     margin: 0.5em 0 1em 0; }
@@ -7839,6 +7839,25 @@ $btn-secondary-border: $sand !default;
 #educator-about-page .cm-card {
   max-width: 260px;
   min-height: 375px; }
+
+.account-settings .avatar-settings .form-inline {
+  justify-content: center; }
+  .account-settings .avatar-settings .form-inline .btn {
+    margin-right: 0.25em; }
+
+.account-settings .yes-no-group .group-label {
+  margin-right: 2rem; }
+
+.account-settings .yes-no-group .form-check-inline {
+  vertical-align: baseline; }
+
+.account-settings .yes-no-group .yes-no-options {
+  display: inline-block;
+  margin-left: -1.25rem;
+  margin-bottom: 0.5rem; }
+
+.account-settings .btn-secondary {
+  border: 1px solid #CCCCCC; }
 
 #challenges-page {
   background-color: #E5E1D9; }
