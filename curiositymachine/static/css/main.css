@@ -7987,71 +7987,31 @@ $btn-secondary-border: $sand !default;
 .educator-dashboard .submit-message.submitted .after-submit {
   display: initial; }
 
+.educator-dashboard .nav {
+  border-bottom: 2px #E5E1D9 solid;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 0.875em;
+  letter-spacing: 2px; }
+  .educator-dashboard .nav .nav-item {
+    border-bottom: 5px solid transparent; }
+    .educator-dashboard .nav .nav-item.active {
+      border-bottom-color: #00B1C3; }
+      .educator-dashboard .nav .nav-item.active .nav-link {
+        color: #00B1C3; }
+  .educator-dashboard .nav .nav-link {
+    color: #333333; }
+    .educator-dashboard .nav .nav-link:hover, .educator-dashboard .nav .nav-link:focus {
+      color: #00B1C3; }
+
+@media (max-width: 767.98px) {
+  .educator-dashboard .nav {
+    flex-direction: column;
+    padding-bottom: 0.5em; }
+    .educator-dashboard .nav .nav-item {
+      border-bottom: none; } }
+
 /*
-
-  .card {
-    background-color: $dark;
-  }
-
-  //
-  // Dashboard navigation
-  //
-  .educator-dashboard-navigation {
-    border-bottom: 2px $sand solid;
-
-    ul {
-      list-style-type: none;
-      text-transform: uppercase;
-      font-size: 0.875em;
-      letter-spacing: 2px;
-      padding-left: 0px;
-      margin-bottom: 0px;
-
-      li {
-        display: inline-block;
-        padding-bottom: 10px;
-        border-bottom: 5px solid $ivory;
-
-        a {
-          margin: 0px 15px;
-          border-bottom: 0px;
-          color: $dark;
-          text-align: center;
-
-          &:hover, &:focus {
-            color: $primary-blue;
-          }
-        }
-      }
-    }
-
-    @include media-breakpoint-down(md) {
-      ul li {
-        width: 32%;
-        text-align: center;
-      }
-    }
-
-    @include media-breakpoint-down(sm) {
-      ul li {
-        width: 100%;
-      }
-    }
-
-    .dropdown a {
-      margin: 0px;
-    }
-  }
-
-  //
-  // Highlights link to active page in navigation
-  //
-  .active-nav {
-    border-bottom-color: $primary-blue !important;
-    a { color: $primary-blue !important; }
-
-    @include media-breakpoint-down(md) { border-bottom: 0px !important; }
-  }
 
   //
   // Students List Page

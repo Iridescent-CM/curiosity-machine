@@ -24,73 +24,45 @@
       display: initial;
     }
   }
-}
 
-/*
-
-  .card {
-    background-color: $dark;
-  }
-
-  //
-  // Dashboard navigation
-  //
-  .educator-dashboard-navigation {
+  .nav {
     border-bottom: 2px $sand solid;
+    text-transform: uppercase; text-align: center;
+    font-size: 0.875em;
+    letter-spacing: 2px;
 
-    ul {
-      list-style-type: none;
-      text-transform: uppercase;
-      font-size: 0.875em;
-      letter-spacing: 2px;
-      padding-left: 0px;
-      margin-bottom: 0px;
+    .nav-item {
+      border-bottom: 5px solid transparent;
 
-      li {
-        display: inline-block;
-        padding-bottom: 10px;
-        border-bottom: 5px solid $ivory;
-
-        a {
-          margin: 0px 15px;
-          border-bottom: 0px;
-          color: $dark;
-          text-align: center;
-
-          &:hover, &:focus {
-            color: $primary-blue;
-          }
+      &.active {
+        border-bottom-color: $primary-blue;
+        .nav-link {
+          color: $primary-blue;
         }
       }
     }
 
-    @include media-breakpoint-down(md) {
-      ul li {
-        width: 32%;
-        text-align: center;
-      }
-    }
+    .nav-link {
+      color: $dark;
 
-    @include media-breakpoint-down(sm) {
-      ul li {
-        width: 100%;
+      &:hover, &:focus {
+        color: $primary-blue;
       }
-    }
-
-    .dropdown a {
-      margin: 0px;
     }
   }
 
-  //
-  // Highlights link to active page in navigation
-  //
-  .active-nav {
-    border-bottom-color: $primary-blue !important;
-    a { color: $primary-blue !important; }
-
-    @include media-breakpoint-down(md) { border-bottom: 0px !important; }
+  @include media-breakpoint-down(sm) {
+    .nav {
+      flex-direction: column;
+      padding-bottom: 0.5em;
+      .nav-item {
+        border-bottom: none;
+      }
+    }
   }
+}
+
+/*
 
   //
   // Students List Page

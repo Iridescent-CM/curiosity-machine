@@ -1,5 +1,5 @@
 {% load widget_tweaks %}
-<div class="row mt-2">
+<div class="row my-3">
   <div class="card w-100 bg-dark">
     <div class="card-body">
       <h3 class="card-title">Your impact</h3>
@@ -11,8 +11,8 @@
           Thanks for helping us understand how you use Curiosity Machine! If your usage changes, you can submit your data again.
         </p>
       </div>
-      <div class="collapse" id="impact-collapse">
-        <form id="impact-survey" class="mb-5"
+      <div class="collapse my-4" id="impact-collapse">
+        <form id="impact-survey"
             action="{% url "educators:update_impact_survey" %}"
             method="post" data-remote="true"
         >
@@ -68,7 +68,7 @@
         data-toggle="collapse" href="#impact-collapse"
         id="impact-collapse-trigger"
         data-show-text='Show' data-hide-text='Hide'
-        class="btn btn-secondary"
+        class="btn btn-secondary my-2"
         aria-expanded="false" aria-controls="impact-collapse"
       >Show</a>
     </div>

@@ -2,7 +2,7 @@
 {% load notifications_tags %}
 <div class="row mb-3">
   <div class="col-md-12">
-    <nav class="educator-dashboard-navigation">
+    <nav>
       <ul class="nav">
         {% if membership_selection.count > 1 %}
         <li class="nav-item dropdown">
@@ -16,28 +16,28 @@
           </div>
         </li>
         {% endif %}
-        <li class="nav-item {% ifactive "educators:home" "active-nav" %}">
+        <li class="nav-item {% ifactive "educators:home" "active" %}">
           <a class="nav-link" href="{% url 'educators:home' %}">
             design challenges
           </a>
         </li>
         {% if membership_selection.selected.listed_members %}
-        <li class="nav-item {% ifactive "educators:students" "active-nav" %}">
+        <li class="nav-item {% ifactive "educators:students" "active" %}">
           <a class="nav-link" href="{% url 'educators:students' %}">
             students
           </a>
         </li>
         {% endif %}
-        <li class="nav-item {% ifactive "educators:guides" "active-nav" %}">
+        <li class="nav-item {% ifactive "educators:guides" "active" %}">
           <a class="nav-link" href="{% url 'educators:guides' %}">
             units &amp; guides
           </a>
         </li>
         {% if flags.enable_educator_feedback %}
-        <li class="nav-item {% ifactive "educators:activity" "active-nav" %}">
+        <li class="nav-item {% ifactive "educators:activity" "active" %}">
           <a class="nav-link" href="{% url 'educators:activity' %}">
             recent activity
-            <span class="tag tag-primary">{% notifications_unread %}</span>
+            <span class="badge badge-purple">{% notifications_unread %}</span>
           </a>
         </li>
         {% endif %}
