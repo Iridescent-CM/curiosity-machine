@@ -10,17 +10,11 @@
 {% endblock %}
 
 {% block top_header %}
-  <div class="h1 text-center challenge-header">{{ challenge.name }} <small>By {{progress.owner.username}}</small></div>
+  <h1 class="text-center">{{ challenge.name }} <small>By {{progress.owner.username}}</small></h1>
 {% endblock %}
 
 {% block draft_message %}
   <h2><small>We're improving this challenge. You can keep working on it, but keep an eye out for changes.</small></h2>
-{% endblock %}
-
-{% block middle_panel %}
-  <div class="avatar-container">
-    {% include "_avatar.html" with user=progress.owner width=50 height=50 crop='fill' %}
-  </div>
 {% endblock %}
 
 {% block guide %}
