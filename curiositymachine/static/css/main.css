@@ -8081,6 +8081,11 @@ $btn-secondary-border: $sand !default;
     .educator-dashboard .nav .nav-item {
       border-bottom: none; } }
 
+.educator-dashboard .filter-bar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between; }
+
 /*
 
   //
