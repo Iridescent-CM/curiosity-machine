@@ -46,7 +46,10 @@ class FamilyProfileForm(RelatedModelFormMixin, ProfileModelForm):
         required=False
     )
 
-    phone = PhoneNumberField(widget=PhoneNumberInternationalFallbackWidget)
+    phone = PhoneNumberField(
+        widget=PhoneNumberInternationalFallbackWidget,
+        help_text="Non-US numbers use international format e.g. +411234567"
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
