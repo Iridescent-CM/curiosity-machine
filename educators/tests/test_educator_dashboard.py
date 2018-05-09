@@ -337,12 +337,12 @@ def test_student_detail_page_context_progresses_sort_by_activity(client):
     assert [p.id for p in response.context["progresses"]] == [p.id for p in [progressA, progressB]]
 
 @pytest.mark.django_db
-def test_students_page_context_has_no_students(client):
+def test_students_page_403s_on_non_membership_educator(client):
     educator = EducatorFactory(username="edu", password="123123")
 
     client.login(username="edu", password="123123")
     response = client.get(reverse("educators:students"), follow=True)
-    assert response.context["students"] == []
+    assert response.status_code == 403
 
 @pytest.mark.django_db
 def test_students_page_context_has_membership_students(client):
