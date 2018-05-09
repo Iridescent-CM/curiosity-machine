@@ -14,7 +14,7 @@
               to share with the community.
             </p>
             <div class="button-wrapper">
-              {% include "challenges/examples/_examples.html" %}
+              <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary">Go to the Inspiration Gallery</a>
               <a href="{% url 'profiles:home' %}" class="btn btn-primary">Return to Dashboard</a>
             </div>
           </div>
