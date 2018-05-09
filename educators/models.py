@@ -38,12 +38,12 @@ class EducatorProfile(BaseProfile):
         return False
 
 class ImpactSurvey(models.Model):
-    student_count = models.PositiveIntegerField(blank=True)
-    teacher_count = models.PositiveIntegerField(blank=True)
-    challenge_count = models.PositiveIntegerField(blank=True)
+    student_count = models.PositiveIntegerField(null=True, blank=True)
+    teacher_count = models.PositiveIntegerField(null=True, blank=True)
+    challenge_count = models.PositiveIntegerField(null=True, blank=True)
     in_classroom = models.BooleanField(default=False)
     out_of_classroom = models.BooleanField(default=False)
-    hours_per_challenge = models.PositiveIntegerField(blank=True)
+    hours_per_challenge = models.PositiveIntegerField(null=True, blank=True)
     comment = models.TextField(blank=True, default="")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, related_name="+")
     created_at = models.DateTimeField(auto_now_add=True)
