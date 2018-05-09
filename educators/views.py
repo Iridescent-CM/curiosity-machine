@@ -93,7 +93,7 @@ class ChallengesView(TemplateView):
 challenges = only_for_educator(ChallengesView.as_view())
 
 class ChallengeView(TemplateView):
-    template_name = "educators/dashboard/challenge.html"
+    template_name = "educators/dashboard/memberships/challenge.html"
 
     def get_context_data(self, **kwargs):
         membership_selection = MembershipSelection(self.request)
@@ -138,7 +138,7 @@ class ChallengeView(TemplateView):
 challenge = only_for_educator(ChallengeView.as_view())
 
 class StudentsView(TemplateView):
-    template_name = "educators/dashboard/students.html"
+    template_name = "educators/dashboard/memberships/students.html"
 
     def get_context_data(self, **kwargs):
         request = self.request
@@ -147,13 +147,15 @@ class StudentsView(TemplateView):
         sorter = None
         gs = None
 
-        membership_selection = MembershipSelection(self.request)
-        if membership_selection.selected:
-            membership = membership_selection.selected
-            sorter = StudentSorter(query=request.GET)
-            gs = GroupSelector(membership, query=request.GET)
-            students = gs.selected.queryset
-            students = sorter.sort(students)
+        self.membership_selection = membership_selection = MembershipSelection(self.request)
+        if not membership_selection.selected:
+            raise PermissionDenied
+
+        membership = membership_selection.selected
+        sorter = StudentSorter(query=request.GET)
+        gs = GroupSelector(membership, query=request.GET)
+        students = gs.selected.queryset
+        students = sorter.sort(students)
 
         kwargs.update({
             "membership": membership,
@@ -167,7 +169,7 @@ class StudentsView(TemplateView):
 students = only_for_educator(StudentsView.as_view())
 
 class StudentView(TemplateView):
-    template_name = "educators/dashboard/student.html"
+    template_name = "educators/dashboard/memberships/student.html"
 
     def get_context_data(self, **kwargs):
         membership_selection = MembershipSelection(self.request)
@@ -207,7 +209,7 @@ class StudentView(TemplateView):
 student = only_for_educator(StudentView.as_view())
 
 class StudentPasswordResetView(FormView):
-    template_name = "educators/dashboard/password_reset.html"
+    template_name = "educators/dashboard/memberships/password_reset.html"
     form_class = SetPasswordForm
     success_url = lazy(reverse, str)("educators:students")
 
@@ -331,7 +333,7 @@ class CoachConversionView(View):
 coach_conversion = only_for_educator(CoachConversionView.as_view())
 
 class ConversationView(TemplateView):
-    template_name = "educators/dashboard/conversation.html"
+    template_name = "educators/dashboard/memberships/conversation.html"
 
     def get_context_data(self, **kwargs):
         membership_selection = MembershipSelection(self.request)
@@ -367,7 +369,7 @@ class ConversationView(TemplateView):
 conversation = only_for_educator(ConversationView.as_view())
 
 class ActivityView(ListView):
-    template_name = "educators/dashboard/activity.html"
+    template_name = "educators/dashboard/memberships/activity.html"
     paginate_by = settings.DEFAULT_PER_PAGE
     context_object_name = 'activity'
 

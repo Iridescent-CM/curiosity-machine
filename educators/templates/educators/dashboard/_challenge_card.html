@@ -2,13 +2,13 @@
 
 <div class="card cm-fancy-card mb-3">
 
-  <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
+  <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
     <img class="card-img-top" src="{% resized challenge.image.url width=545 height=240 crop='fill' %}" alt="{{ challenge.name }}">
   </a>
 
   <div class="card-body pb-5">
     <h3 class="card-title">
-      <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
+      <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
         {{ challenge.name }}
       </a>
     </h3>

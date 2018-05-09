@@ -1,0 +1,11 @@
+.cm-list-group {
+  &.list-group-flush {
+    border-top: 1px solid $sand;
+    border-bottom: 1px solid $sand;
+    .list-group-item {
+      background-color: transparent;
+      border-color: $sand;
+      border-width: 1px;
+    }
+  }
+}
