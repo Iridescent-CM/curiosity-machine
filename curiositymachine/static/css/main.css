@@ -7826,6 +7826,54 @@ $btn-secondary-border: $sand !default;
     border-color: #E5E1D9;
     border-width: 1px; }
 
+.activity-list-group .list-group-item {
+  white-space: nowrap;
+  padding-right: 75px; }
+  .activity-list-group .list-group-item a {
+    display: inline-block;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+
+.activity-list-group .indicator {
+  width: 0.8em;
+  height: 0.8em;
+  display: inline-block;
+  border-radius: 50%;
+  margin: 0.2em 0.8em 0.2em 0.2em;
+  vertical-align: baseline; }
+  .activity-list-group .indicator.indicator-read {
+    border: 1px solid #ccc;
+    background: transparent; }
+  .activity-list-group .indicator.indicator-unread {
+    background: #0275d8; }
+
+.activity-list-group .timesince {
+  display: none; }
+
+.activity-list-group .badge {
+  position: absolute;
+  right: 0;
+  margin-right: 1em; }
+  .activity-list-group .badge.plan-stage {
+    background-color: #8FB559; }
+  .activity-list-group .badge.build-stage {
+    background-color: #6161AF; }
+  .activity-list-group .badge.test-stage {
+    background-color: #F55932; }
+  .activity-list-group .badge.reflect-stage {
+    background-color: #1EB9C8; }
+  @media (min-width: 768px) {
+    .activity-list-group .badge .timesince {
+      display: inline;
+      position: absolute;
+      right: 0;
+      margin-right: 1em; }
+    .activity-list-group .badge .tag {
+      right: 180px; }
+    .activity-list-group .badge .list-group-item {
+      padding-right: 180px; } }
+
 .modal-cm .modal-close {
   color: #fff;
   font-size: 3em;
