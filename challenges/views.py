@@ -18,7 +18,7 @@ from memberships.models import Membership
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from quizzes.forms import QuizForm
-from feedback.forms import FeedbackForm
+from feedback.forms import FeedbackQuestionForm
 from urllib.parse import quote_plus
 from .forms import MaterialsForm
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
@@ -401,15 +401,15 @@ def challenge_progress(request, challenge_id, username, stage=None):
     if quiz:
         quiz_form = QuizForm(model=quiz)
 
-    feedback = challenge.feedback_set.exclude(is_active=False).exclude(result__user=request.user,result__challenge=challenge).first()
+    feedback = challenge.feedbackquestion_set.exclude(is_active=False).exclude(feedbackresult__user=request.user,feedbackresult__challenge=challenge).first()
     feedback_form = None
     feedback_question = None
     if feedback:
-        feedback_form = FeedbackForm(model=feedback)
+        feedback_form = FeedbackQuestionForm(model=feedback)
         feedback_question = feedback_form.model.question
 
     feedback_response = None
-    feedback_result = challenge.result_set.first()
+    feedback_result = challenge.feedbackresult_set.first()
     if feedback_result:
         feedback_response = feedback_result.comment_text
 

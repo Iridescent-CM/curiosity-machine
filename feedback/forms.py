@@ -1,7 +1,7 @@
 from django import forms
 from .models import *
 
-class FeedbackForm(forms.Form):
+class FeedbackQuestionForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.model = kwargs.pop('model')
         super().__init__(*args, **kwargs)
@@ -11,10 +11,10 @@ class FeedbackForm(forms.Form):
             answer = forms.CharField(widget=forms.Textarea, required=True)
             self.fields['answer'] = answer
 
-    def get_result(self, user, challenge):
-        result = Result(feedback=self.model, user=user)
-        setattr(result, 'answer', self.cleaned_data['answer'])
-        setattr(result, 'challenge', challenge)
-        return result
+    def get_feedback_result(self, user, challenge):
+        feedback_result = FeedbackResult(feedback_question=self.model, user=user)
+        setattr(feedback_result, 'answer', self.cleaned_data['answer'])
+        setattr(feedback_result, 'challenge', challenge)
+        return feedback_result
 
 

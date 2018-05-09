@@ -1,11 +1,11 @@
 from django.contrib import admin
 from .models import *
 
-class FeedbackAdmin(admin.ModelAdmin):
+class FeedbackQuestionAdmin(admin.ModelAdmin):
     class Meta:
-        model = Feedback
+        model = FeedbackQuestion
 
-    list_display = ['id', 'challenge_name']
+    list_display = ['id', 'question']
     filter_horizontal = ['challenges']
 
     def __init__(self, *args, **kwargs):
@@ -21,14 +21,14 @@ class FeedbackAdmin(admin.ModelAdmin):
     def challenge_name(self, obj):
         return obj.challenges.name
 
-class ResultAdmin(admin.ModelAdmin):
+class FeedbackResultAdmin(admin.ModelAdmin):
     class Meta:
-        model = Result
+        model = FeedbackResult
 
-    list_display = ['id', 'feedback', 'challenge_name', 'user']
+    list_display = ['id', 'feedback_question', 'challenge_name', 'user']
 
     def challenge_name(self, obj):
         return obj.challenge.name
 
-admin.site.register(Feedback, FeedbackAdmin)
-admin.site.register(Result, ResultAdmin)
+admin.site.register(FeedbackQuestion, FeedbackQuestionAdmin)
+admin.site.register(FeedbackResult, FeedbackResultAdmin)
