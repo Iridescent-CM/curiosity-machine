@@ -7082,6 +7082,16 @@ i {
   flex-direction: row-reverse;
   justify-content: space-between; }
 
+.dashboard .card.card-action-needed {
+  width: 94%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+  font-size: 14px; }
+  .dashboard .card.card-action-needed .card-header {
+    color: #a94442;
+    background-color: #f2dede; }
+
 footer {
   background-color: #333333;
   padding: 0px 0px 3em 0px;
@@ -7706,20 +7716,20 @@ $btn-secondary-border: $sand !default;
   box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
   border: none; }
 
-.cm-card .cm-body .card-title,
-.cm-card .cm-body .card-title a,
-.cm-info .cm-body .card-title,
-.cm-info .cm-body .card-title a {
+.cm-card .card-body .card-title,
+.cm-card .card-body .card-title a,
+.cm-info-card .card-body .card-title,
+.cm-info-card .card-body .card-title a {
   font-weight: 700;
   color: #333333;
   margin-bottom: 0; }
-  .cm-card .cm-body .card-title:hover, .cm-card .cm-body .card-title:focus,
-  .cm-card .cm-body .card-title a:hover,
-  .cm-card .cm-body .card-title a:focus,
-  .cm-info .cm-body .card-title:hover,
-  .cm-info .cm-body .card-title:focus,
-  .cm-info .cm-body .card-title a:hover,
-  .cm-info .cm-body .card-title a:focus {
+  .cm-card .card-body .card-title:hover, .cm-card .card-body .card-title:focus,
+  .cm-card .card-body .card-title a:hover,
+  .cm-card .card-body .card-title a:focus,
+  .cm-info-card .card-body .card-title:hover,
+  .cm-info-card .card-body .card-title:focus,
+  .cm-info-card .card-body .card-title a:hover,
+  .cm-info-card .card-body .card-title a:focus {
     color: #707070;
     text-decoration: none; }
 
