@@ -1,30 +1,30 @@
 {% load ifactive %}
 {% load notifications_tags %}
-<div class="row mb-3">
+<div class="row mb-5">
   <div class="col-md-12">
-    <nav class="student-dashboard-navigation">
+    <nav>
       <ul class="nav">
         {% for membership in memberships %}
-        <li class="nav-item {% ifactive "students:membership" "active-nav" %}">
+        <li class="nav-item {% ifactive "students:membership" "active" %}">
           <a class="nav-link" href="{% url "students:membership" membership_id=membership.id%}">
             {{ membership.display_name }}
           </a>
         </li>
         {% endfor %}
-        <li class="nav-item {% ifactive "students:my_challenges" "active-nav" %}">
+        <li class="nav-item {% ifactive "students:my_challenges" "active" %}">
           <a class="nav-link" href="{% url "students:my_challenges" %}">
             My challenges
           </a>
         </li>
-        <li class="nav-item {% ifactive "students:favorites" "active-nav" %}">
+        <li class="nav-item {% ifactive "students:favorites" "active" %}">
           <a class="nav-link" href="{% url "students:favorites" %}">
             Favorites
           </a>
         </li>
-        <li class="nav-item {% ifactive "students:activity" "active-nav" %}">
+        <li class="nav-item {% ifactive "students:activity" "active" %}">
           <a class="nav-link" href="{% url "students:activity" %}">
             recent activity
-            <span class="tag tag-primary">{% notifications_unread %}</span>
+            <span class="badge badge-purple">{% notifications_unread %}</span>
           </a>
         </li>
       </ul>

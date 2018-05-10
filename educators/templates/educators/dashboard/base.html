@@ -26,16 +26,15 @@
           {% else %}
           <em>No name provided</em>
           {% endif %}
-          <br>
-          <span class="h2">{{ request.user.username }}</span>
+          <h2>{{ request.user.username }}</h2>
         </div>
       </div>
 
       <div class="row mt-4 d-none d-md-block">
         <div class="col-12">
           <strong>Email:</strong> {{ request.user.email }}
-          <br>
           {% if membership_selection.memberships %}
+          <br />
           <strong>Memberships:</strong> {{ membership_selection.names }}
           {% endif %}
         </div>

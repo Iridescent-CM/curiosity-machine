@@ -1,0 +1,66 @@
+.dashboard {
+
+  .dashboard-avatar img {
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px 0px $main-shadow;
+    float: left;
+    margin-right: 10px;
+  }
+
+  .nav {
+    border-bottom: 2px $sand solid;
+    text-transform: uppercase; text-align: center;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+
+    .nav-item {
+      border-bottom: 5px solid transparent;
+
+      &.active {
+        border-bottom-color: $primary-blue;
+        .nav-link {
+          color: $primary-blue;
+        }
+      }
+    }
+
+    .nav-link {
+      color: $dark;
+
+      &:hover, &:focus {
+        color: $primary-blue;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .nav {
+      flex-direction: column;
+      padding-bottom: 0.5em;
+      .nav-item {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .filter-bar {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .card.card-action-needed {
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 3px 3px 15px rgba(0,0,0,0.2);
+    font-size: 14px;
+
+    .card-header {
+      color: #a94442;
+      background-color: #f2dede;
+    }
+  }
+
+}

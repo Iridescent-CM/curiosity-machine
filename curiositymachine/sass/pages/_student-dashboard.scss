@@ -201,24 +201,6 @@
       }
     }
   }
-
-  .challenge-started:after,
-  .challenge-completed:after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 60px;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  .challenge-started:after {
-    background-image: url("../images/challenges/blue_circle.png");
-  }
-  .challenge-completed:after {
-    background-image: url("../images/challenges/green_circle.png");
-  }
-
   .card.card-action-needed {
     width: 94%;
     margin-left: auto;

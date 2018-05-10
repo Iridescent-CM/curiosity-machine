@@ -16,15 +16,17 @@ $theme-colors: (
 @import 'base/typography';
 
 @import 'layout/about-pg-layout';
+@import 'layout/dashboards';
 @import 'layout/footer';
 @import 'layout/header';
 
 @import 'components/buttons';
 @import 'components/cards';
+@import 'components/challenge-status';
 @import 'components/dividers';
 @import 'components/favorites';
 @import 'components/jumbotrons';
-@import 'components/list_group';
+@import 'components/list-group';
 @import 'components/modal';
 
 @import 'pages/about-educator';

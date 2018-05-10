@@ -2,20 +2,22 @@
 {% load impact_survey %}
 
 {% block title %}My Dashboard{% endblock %}
-{% block body-classes %}student-dashboard{% endblock %}
+{% block body-classes %}dashboard student-dashboard{% endblock %}
 
 {% block container %}
+
   {% if flags.enable_ai_banner and not banner_membership_blacklisted %}
   <div class="ai-banner-margins">
     {% url "families:conversion" as banner_url %}
     {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   </div>
   {% endif %}
-  <div class="student-dashboard-header py-2 mb-1">
+
+  <div class="bg-pattern-dark text-light py-4 mb-2">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <a href="{% url 'students:edit_profile' %}" class="a-borderless float-xs-right">Account Settings</a>
+          <a href="{% url 'students:edit_profile' %}" class="float-right">Account Settings</a>
           <div class="dashboard-avatar">
             {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
           </div>
@@ -24,15 +26,14 @@
           {% else %}
           <em>No name provided</em>
           {% endif %}
-          <br>
-          <span class="dashboard-inline-username">{{ request.user.username }}</span>
+          <h2>{{ request.user.username }}</h2>
         </div>
       </div>
-      <div class="row mt-1 hidden-sm-down">
+      <div class="row mt-4 d-none d-md-block">
         <div class="col-md-12">
           <strong>Email:</strong> {{ request.user.email }}
-          <br>
           {% if memberships %}
+          <br />
           <strong>Memberships:</strong> {{ membership_names }}
           {% endif %}
         </div>
@@ -48,7 +49,8 @@
       {% endfor %}{% endif %}
     </div>
   </div>
-  <div class="container mb-3" id="content">
+
+  <div class="container mb-5" id="content">
     {% if request.user.extra.should_add_email %}
     <div class="card card-action-needed my-3">
       <div class="card-header">
