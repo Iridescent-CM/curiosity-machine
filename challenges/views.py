@@ -409,7 +409,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         feedback_question = feedback_form.model.question
 
     feedback_response = None
-    feedback_result = challenge.feedbackresult_set.first()
+    feedback_result = challenge.feedbackresult_set.filter(user=request.user).first()
     if feedback_result:
         feedback_response = feedback_result.comment_text
 
