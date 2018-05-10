@@ -6,10 +6,8 @@ class FeedbackQuestionForm(forms.Form):
         self.model = kwargs.pop('model')
         super().__init__(*args, **kwargs)
 
-        label = self.model.question_text()
-        if label:
-            answer = forms.CharField(widget=forms.Textarea, required=True)
-            self.fields['answer'] = answer
+        answer = forms.CharField(widget=forms.Textarea, required=True)
+        self.fields['answer'] = answer
 
     def get_feedback_result(self, user, challenge):
         feedback_result = FeedbackResult(feedback_question=self.model, user=user)
