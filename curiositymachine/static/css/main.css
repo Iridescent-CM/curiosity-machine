@@ -7077,11 +7077,6 @@ i {
     .dashboard .nav .nav-item {
       border-bottom: none; } }
 
-.dashboard .filter-bar {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between; }
-
 .dashboard .card.card-action-needed {
   width: 94%;
   margin-left: auto;
@@ -8047,6 +8042,45 @@ $btn-secondary-border: $sand !default;
   .graph svg text {
     font-size: 12px;
     fill: #333333; }
+
+.table {
+  background-color: #FFFCF7;
+  border: solid 2px #E5E1D9; }
+  .table thead th {
+    border-color: #E5E1D9; }
+  .table td {
+    border-color: #E5E1D9; }
+
+.table-dc-progress {
+  width: 100%;
+  text-align: center;
+  border-style: none;
+  margin-bottom: 0px; }
+  .table-dc-progress thead {
+    color: #F55932;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    text-transform: uppercase; }
+    .table-dc-progress thead th {
+      border: 2px solid #FFFCF7;
+      padding: 8px 0px;
+      text-align: center;
+      vertical-align: middle;
+      width: 16.6%; }
+  .table-dc-progress .data {
+    background-color: #8FB559;
+    color: #FFFCF7;
+    font-size: 1.25rem; }
+  .table-dc-progress .no-data {
+    background-color: #E5E1D9;
+    color: #949494;
+    font-size: 1.25rem; }
+  .table-dc-progress td {
+    border: 2px solid #FFFCF7;
+    padding: 8px 0px;
+    text-align: center;
+    vertical-align: middle;
+    width: 16.6%; }
 
 #educator-about-page .cm-card {
   max-width: 260px;

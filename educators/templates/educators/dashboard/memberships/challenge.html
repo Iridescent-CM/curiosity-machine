@@ -13,12 +13,11 @@
   </div>
 
   <div class="row pb-1">
-
     <div class="col-md-12">
-      <div class="well-shadow mb-1">
+      <div class="well-shadow mb-3 clearfix">
 
-        <div class="dropdown dropdown-design-challenge mr-1">
-          <a class="dropdown-toggle a-borderless"
+        <div class="dropdown float-md-left mb-2 mr-3">
+          <a class="dropdown-toggle"
             href="#"
             id="challengesDropdown"
             data-toggle="dropdown"
@@ -38,8 +37,8 @@
         </div>
 
         {% if group_selector.has_groups %}
-        <div class="dropdown dropdown-design-challenge mr-1">
-          <a class="dropdown-toggle a-borderless"
+        <div class="dropdown float-md-left mb-2 mr-3">
+          <a class="dropdown-toggle"
             href="#"
             id="challengesDropdown"
             data-toggle="dropdown"
@@ -56,12 +55,12 @@
         </div>
         {% endif %}
 
-        <div class="float-md-right dc-sort-options">
+        <div class="float-md-right">
           <div class="dropdown">
-            <a class="dropdown-toggle a-borderless" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="dropdown-toggle" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Sort by {{ sorter.selected|lower }}
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sortDropdown">
+            <div class="dropdown-menu" aria-labelledby="sortDropdown">
               {% for strategy in sorter.strategies %}
               <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
               {% endfor %}
@@ -71,41 +70,31 @@
 
       </div>
     </div>
-
   </div>
 
   <hr>
-</div>
 
-<div class="dcprogressheader">
-  <div class="container">
-    <div class="row hidden-sm-down">
-      <div class="col-md-3">
-      </div>
-      <div class="col-md-9">
-        <table class="table-dc-progress">
-          <thead>
-            <tr>
-              <th>Plan</th>
-              <th>Build</th>
-              <th>Test</th>
-              <th>Reflect</th>
-              <th>Gallery</th>
-              <th></th>
-            </tr>
-          </thead>
-        </table>
-      </div>
+  <div class="row d-none d-md-flex">
+    <div class="col-md-8 offset-md-3">
+      <table class="table-dc-progress">
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Build</th>
+            <th>Test</th>
+            <th>Reflect</th>
+            <th>Gallery</th>
+          </tr>
+        </thead>
+      </table>
     </div>
   </div>
-</div>
 
-<div class="container mt-1 mb-3 dc-progress">
   {% for student in students %}
   <div class="row mb-2">
     <div class="col-md-3">
       <div class="student-list-item">
-        <a href="{% url "educators:student" student_id=student.id %}" class="student-list-avatar a-borderless float-xs-left">
+        <a href="{% url "educators:student" student_id=student.id %}" class="student-list-avatar float-left">
           <div class="hidden-lg-down">
             {% include "_avatar.html" with user=student width=48 height=48 crop='thumb' gravity='faces' %}
           </div>
@@ -121,9 +110,9 @@
         </a>
       </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8">
       <table class="table-dc-progress">
-        <thead class="hidden-md-up">
+        <thead class="d-md-none">
           <tr>
             <th>P</th>
             <th>B</th>
@@ -138,22 +127,24 @@
 
             {% for count in student.user_comment_counts_by_stage %}
               {% if count %}
-                <td class="active">{{ count }}</td>
+                <td class="data">{{ count }}</td>
               {% else %}
-                <td class="inactive"><i class="icon-cross"></i></td>
+                <td class="no-data"><i class="icon-cross"></i></td>
               {% endif %}
             {% endfor %}
 
             {% if student.id in student_ids_with_examples %}
-              <td class="active"><i class="icon-check"></i></td>
+              <td class="data"><i class="icon-check"></i></td>
             {% else %}
-              <td class="inactive"><i class="icon-cross"></i></td>
+              <td class="no-data"><i class="icon-cross"></i></td>
             {% endif %}
 
-            <td><a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=student.username %}">View &rarr;</a></td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="col-md-1">
+      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=student.username %}">View &rarr;</a>
     </div>
   </div>
   {% endfor %}

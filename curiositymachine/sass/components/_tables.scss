@@ -10,3 +10,45 @@
     border-color: $sand;
   }
 }
+
+.table-dc-progress {
+  width: 100%;
+  text-align: center;
+  border-style: none;
+  margin-bottom: 0px;
+
+  thead {
+    color: $primary-red;
+    font-size: 0.875em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    th {
+      border: 2px solid $ivory;
+      padding: 8px 0px;
+      text-align: center;
+      vertical-align: middle;
+      width: 16.6%;
+    }
+  }
+
+  .data {
+    background-color: $primary-green;
+    color: $ivory;
+    font-size: 1.25rem;
+  }
+
+  .no-data {
+    background-color: $sand;
+    color: $gray;
+    font-size: 1.25rem;
+  }
+
+  td {
+    border: 2px solid $ivory;
+    padding: 8px 0px;
+    text-align: center;
+    vertical-align: middle;
+    width: 16.6%;
+  }
+}
