@@ -6,20 +6,16 @@ class FeedbackQuestionAdmin(admin.ModelAdmin):
         model = FeedbackQuestion
 
     list_display = ['id', 'question']
-    filter_horizontal = ['challenges']
 
     def __init__(self, *args, **kwargs):
         fieldsets = (
             (None, {
-                'fields': ('challenges', 'is_active', 'question')
+                'fields': ('is_active', 'question')
             }),
         )
 
         self.fieldsets = fieldsets
         super().__init__(*args, **kwargs)
-
-    def challenge_name(self, obj):
-        return obj.challenges.name
 
 class FeedbackResultAdmin(admin.ModelAdmin):
     class Meta:

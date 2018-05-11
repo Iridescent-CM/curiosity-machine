@@ -18,7 +18,7 @@ def make_comment(request, challenge_id, username, stage):
         stage = Stage[stage]
     except KeyError:
         raise Http404
-    feedback_question = challenge.feedbackquestion_set.first()
+    feedback_question = challenge.feedback_question
     form = FeedbackQuestionForm(request.POST, model=feedback_question)
     if form.is_valid():
         feedback_result = form.get_feedback_result(request.user, challenge=challenge)

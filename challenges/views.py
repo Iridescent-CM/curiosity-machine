@@ -401,17 +401,17 @@ def challenge_progress(request, challenge_id, username, stage=None):
     if quiz:
         quiz_form = QuizForm(model=quiz)
 
-    feedback = challenge.feedbackquestion_set.exclude(is_active=False).exclude(feedbackresult__user=request.user,feedbackresult__challenge=challenge).first()
+    feedback = challenge.feedback_question
     feedback_form = None
     feedback_question = None
+    feedback_response_text = None
     if feedback:
         feedback_form = FeedbackQuestionForm(model=feedback)
         feedback_question = feedback_form.model.question
 
-    feedback_response = None
-    feedback_result = challenge.feedbackresult_set.filter(user=request.user).first()
-    if feedback_result:
-        feedback_response = feedback_result.comment_text
+    feedback_response = challenge.feedbackresult_set.filter(user=request.user, feedback_question=feedback).first()
+    if feedback_response:
+        feedback_response_text = feedback_response.comment_text
 
 
     return render(request,
@@ -429,7 +429,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         'quiz_form': quiz_form,
         'feedback_form': feedback_form,
         'feedback_question': feedback_question,
-        'feedback_response': feedback_response,
+        'feedback_response': feedback_response_text,
         'edp_nav': {
             'stage': stageToShow.name,
             'inspiration': reverse("challenges:inspiration_progress", kwargs={"challenge_id": challenge.id, "username": username}),
