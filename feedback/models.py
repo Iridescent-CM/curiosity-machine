@@ -28,6 +28,9 @@ class FeedbackResult(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        unique_together = ('feedback_question','challenge','user')
+
     def __str__(self):
         return "FeedbackResult: id={} feedback_question={} username={}".format(self.id, self.feedback_question.id, self.user.username)
 

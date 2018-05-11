@@ -23,6 +23,7 @@ from urllib.parse import quote_plus
 from .forms import MaterialsForm
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from .utils import get_stage_for_progress
+from feedback.models import FeedbackResult
 
 def _paginate(qs, page, perPage):
     paginator = Paginator(qs, perPage)
@@ -404,14 +405,16 @@ def challenge_progress(request, challenge_id, username, stage=None):
     feedback = challenge.feedback_question
     feedback_form = None
     feedback_question = None
-    feedback_response_text = None
+
     if feedback:
         feedback_form = FeedbackQuestionForm(model=feedback)
         feedback_question = feedback_form.model.question
 
-    feedback_response = challenge.feedbackresult_set.filter(user=request.user, feedback_question=feedback).first()
-    if feedback_response:
+    try:
+        feedback_response = FeedbackResult.objects.get(user=request.user, feedback_question=feedback, challenge=challenge)
         feedback_response_text = feedback_response.comment_text
+    except:
+        feedback_response_text = None
 
 
     return render(request,
