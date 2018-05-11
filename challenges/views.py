@@ -406,7 +406,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
     feedback_form = None
     feedback_question = None
 
-    if feedback:
+    if feedback and feedback.is_active:
         feedback_form = FeedbackQuestionForm(model=feedback)
         feedback_question = feedback_form.model.question
 
