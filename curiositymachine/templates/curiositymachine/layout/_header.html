@@ -71,7 +71,7 @@
         {% if request.user.is_authenticated %}
         <div class="list-group d-flex d-lg-none">
           <div class="list-group-item list-group-header">
-            <div class="avatar mx-auto">
+            <div class="avatar avatar-sm mx-auto">
               {% include "_avatar.html" with profile=user.profile width=40 height=40 crop='thumb' gravity='faces' %}
             </div>
             {{ user.username }}
@@ -108,7 +108,7 @@
             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
           >
             <div class="media-body">{{ user.username }}</div>
-            <div class="avatar ml-3">
+            <div class="avatar avatar-sm ml-3">
               {% include "_avatar.html" with profile=user.profile width=40 height=40 crop='thumb' gravity='faces' %}
             </div>
           </a>

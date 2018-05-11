@@ -47,4 +47,13 @@
       margin-left: 10px;
     }
   }
+
+  .data-label {
+    text-transform: uppercase;
+    font-size: 0.875em;
+    font-weight: $heavy-font-weight;
+    color: $gray;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+  }
 }
