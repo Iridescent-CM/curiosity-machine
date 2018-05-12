@@ -1,5 +1,5 @@
 <div
-  class="card {{comment.user.extra.get_role_display}}-comment stage-{{comment.get_stage_display}}-comment"
+  class="card cm-info-card mb-3 {{comment.user.extra.get_role_display}}-comment stage-{{comment.get_stage_display}}-comment"
   id="comment-{{comment.id}}"
 >
   <div class="card-header">
@@ -15,7 +15,7 @@
       {% endif %}
     </h3>
     {% if comment.question_text %}
-    <h6 class="card-subtitle mb-1">
+    <h6 class="card-subtitle my-2">
       {{ comment.question_text }}
     </h6>
     {% endif %}
@@ -23,7 +23,7 @@
       {{ comment.user.username }} commented {{ comment.created|timesince }} ago
     </small></p>
   </div>
-  <div class="card-block">
+  <div class="card-body">
 
     {% if comment.image %}
     <img src="{{ comment.image.url }}" class="img-fluid" />
@@ -47,7 +47,7 @@
     </p>
     {% endif %}
     {% endif %}
-    <p class="card-text">
+    <p class="card-text my-2">
       {{comment.text|linebreaksbr}}
     </p>
   </div>

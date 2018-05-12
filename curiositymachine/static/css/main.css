@@ -8327,6 +8327,45 @@ $btn-secondary-border: $sand !default;
   letter-spacing: 2px;
   margin-bottom: 0; }
 
+.educator-dashboard-conversation .pickwidget-preview {
+  max-width: 100px;
+  max-height: 100px;
+  vertical-align: top;
+  padding: 0.25rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem; }
+
+.educator-dashboard-conversation #id_visual_media_container {
+  display: inline-block; }
+
+.educator-dashboard-conversation input[type="submit"] {
+  float: right; }
+
+.educator-dashboard-conversation textarea {
+  width: 100%;
+  height: 100px; }
+
+.educator-dashboard-conversation .student-comment img,
+.educator-dashboard-conversation .family-comment img {
+  width: 100%;
+  max-width: 475px; }
+
+.educator-dashboard-conversation .student-comment.stage-plan-comment .card-header,
+.educator-dashboard-conversation .family-comment.stage-plan-comment .card-header {
+  background-color: #f4f8ee; }
+
+.educator-dashboard-conversation .student-comment.stage-build-comment .card-header,
+.educator-dashboard-conversation .family-comment.stage-build-comment .card-header {
+  background-color: #efeff7; }
+
+.educator-dashboard-conversation .student-comment.stage-test-comment .card-header,
+.educator-dashboard-conversation .family-comment.stage-test-comment .card-header {
+  background-color: #feeeeb; }
+
+.educator-dashboard-conversation .student-comment.stage-reflect-comment .card-header,
+.educator-dashboard-conversation .family-comment.stage-reflect-comment .card-header {
+  background-color: #e6f7f9; }
+
 #examples-page .badge-remove {
   width: 25px;
   height: 25px;

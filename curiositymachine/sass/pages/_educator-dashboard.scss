@@ -57,3 +57,47 @@
     margin-bottom: 0;
   }
 }
+
+.educator-dashboard-conversation {
+
+  .pickwidget-preview {
+    max-width: 100px;
+    max-height: 100px;
+    vertical-align: top;
+    padding: 0.25rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+  }
+
+  #id_visual_media_container {
+    display: inline-block;
+  }
+  input[type="submit"] {
+    float: right;
+  }
+  textarea {
+    width: 100%;
+    height: 100px;
+  }
+
+  .student-comment,
+  .family-comment {
+    img {
+      width: 100%;
+      max-width: 475px;
+    }
+
+    &.stage-plan-comment .card-header {
+      background-color: #f4f8ee;
+    }
+    &.stage-build-comment .card-header {
+      background-color: #efeff7;
+    }
+    &.stage-test-comment .card-header {
+      background-color: #feeeeb;
+    }
+    &.stage-reflect-comment .card-header {
+      background-color: #e6f7f9;
+    }
+  }
+}

@@ -2,9 +2,10 @@
 {% load widget_tweaks %}
 
 {% block title %}{{ student.username }}'s Conversation{% endblock %}
-{% block body-classes %}educator-dashboard educator-dashboard-conversation{% endblock %}
+{% block body-classes %}dashboard educator-dashboard educator-dashboard-conversation{% endblock %}
 
 {% block js %}
+  {{ block.super }}
   {{ comment_form.media }}
 {% endblock %}
 
@@ -12,7 +13,7 @@
   {% url "educators:conversation" as base_url %}
   {% include 'educators/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
 
-  <div class="row pb-1">
+  <div class="row pb-2">
     <div class="col-md-12">
       <h2>{{ student.username }}'s Conversation on {{ progress.challenge.name }}</h2>
       <a href="{% url "educators:student" student_id=student.id %}">
@@ -21,11 +22,11 @@
     </div>
   </div>
 
-  <div class="row mb-3">
+  <div class="row mb-5">
     <div class="col-md-3">
-      <div class="card card-module">
-        <div class="card-block card-block-title text-xs-center">
-          <div class="card-avatar">
+      <div class="card cm-info-card">
+        <div class="card-header text-center">
+          <div class="avatar">
             {% include "_avatar.html" with user=student width=60 height=60 crop='thumb' gravity='faces' %}
           </div>
           {% if student.first_name or student.last_name %}
@@ -38,14 +39,14 @@
           <br>
           <strong>{{ student.username }}</strong>
         </div>
-        <div class="card-block">
+        <div class="card-body">
           <!-- Something should go here -->
         </div>
       </div>
     </div>
     <div class="col-md-9">
-      <div class="card">
-        <div class="card-block">
+      <div class="card cm-info-card mb-3">
+        <div class="card-body">
           {% url 'challenges:comments:comments' challenge_id=progress.challenge.id username=progress.owner.username stage='plan' as comment_url %}
           <form method="POST" action="{{ comment_url }}">
             {% csrf_token %}
@@ -57,7 +58,7 @@
       </div>
 
       {% for comment in comments %}
-      {% include 'educators/dashboard/_conversation_comment.html' with comment=comment %}
+      {% include 'educators/dashboard/memberships/_conversation_comment.html' with comment=comment %}
       {% endfor %}
 
     </div>
