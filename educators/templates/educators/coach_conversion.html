@@ -3,12 +3,12 @@
 {% block body-classes %}about-pages{% endblock %}
 
 {% block content %}
-  <div class="container-fluid text-xs-center nav-panel pt-2">
+  <div class="jumbotron cm-jumbotron jumbotron-fluid bg-red bg-pattern-white text-white">
     <h1>Join the Artificial Intelligence Family Challenge as a coach!</h1>
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5">
         <div class="row">
           <div class="col-lg-12">
             <p>Do you want to lead artificial intelligence-focused design challenges with your students or in your community?</p>
@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mb-3 text-xs-center">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mb-5 text-center">
             <p>Don’t worry! You will still be able to access all other Curiosity Machine design challenges. </br>Click the button to start now!</p>
           <form action="{% url 'educators:coach_conversion' %}" method="post">
             {% csrf_token %}
