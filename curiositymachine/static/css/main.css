@@ -7889,6 +7889,20 @@ $btn-secondary-border: $sand !default;
   background-attachment: fixed;
   background-repeat: repeat; }
 
+.to-do-list .to-do-list-item {
+  list-style: none; }
+  .to-do-list .to-do-list-item:before {
+    content: "";
+    background-image: url("../images/checkbox-unchecked.svg");
+    background-size: cover;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    margin-right: 1em; }
+  .to-do-list .to-do-list-item.to-do-list-complete:before {
+    background-image: url("../images/checkbox-checked.svg"); }
+
 .cm-list-group.list-group-flush {
   border-top: 1px solid #E5E1D9;
   border-bottom: 1px solid #E5E1D9; }
