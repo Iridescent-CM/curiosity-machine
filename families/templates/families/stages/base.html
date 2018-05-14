@@ -6,11 +6,11 @@
 
   <div class="row">
     <div class="col-md-8">
-      <h2 class="text-xs-center">Design Challenges</h2>
-      <div class="row mb-3">
+      <h2 class="text-center">Design Challenges</h2>
+      <div class="row mb-5">
         {% for challenge in challenges %}
         
-        <div class="col-md-6 mb-1">
+        <div class="col-md-6 mb-2">
           {% include 'families/_challenge_card.html' with challenge=challenge show_detail_links=True %}
         </div>
 
@@ -22,10 +22,10 @@
       </div>
     </div>
     <div class="col-md-4">
-      <h2 class="text-xs-center">Guides</h2>
+      <h2 class="text-center">Guides</h2>
       <div class="row">
         {% for unit in units %}
-        <div class="col-xs-12 mb-1">
+        <div class="col-12 mb-2">
           {% include "families/_unit_card.html" with unit=unit %}
         </div>
         {% endfor %}

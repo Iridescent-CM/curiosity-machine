@@ -1,36 +1,32 @@
 {% load resized %}
 
-<div class="card vertical-expandable-card challenge-{{ challenge.state }}">
+<div class="card cm-fancy-card mb-3 challenge-{{ challenge.state }}">
 
-  <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=user.username %}" class="a-borderless">
+  <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=user.username %}">
     <img class="card-img-top mr-1" src="{% resized challenge.image.url width=545 height=240 crop='fill' %}" alt="{{ challenge.name }}">
   </a>
 
-  <div class="card-block">
-    <h3>
-      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=user.username %}" class="a-borderless">
+  <div class="card-body pb-5">
+    <h3 class="card-title">
+      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=user.username %}">
         {{ challenge.name }}
       </a>
     </h3>
   </div>
 
-  <div class="card-block">
-    <a class="expandable-card-toggle"
-      data-text-swap="&minus; LESS INFO"
-      data-toggle="collapse"
-      href="#challenge-{{ challenge.id }}"
-      aria-expanded="false"
-      aria-controls="challenge-{{ challenge.id }}"
-    >
-      &plus; MORE INFO
-    </a>
-  </div>
+  <a class="card-body-toggle"
+    data-text-swap="&minus; LESS INFO"
+    data-toggle="collapse"
+    href="#challenge-{{ challenge.id }}"
+    aria-expanded="false"
+    aria-controls="challenge-{{ challenge.id }}"
+  >
+    &plus; MORE INFO
+  </a>
 
-  <div class="collapse" id="challenge-{{ challenge.id }}">
-    <div class="expandable-card-more">
-      <span class="expandable-card-more-section-title">DESCRIPTION</span>
-      <p>{{ challenge.description }}</p>
-    </div>
+  <div class="card-body pb-4 card-divider collapse" id="challenge-{{ challenge.id }}">
+    <h4 class="card-section-title">DESCRIPTION</h4>
+    <p>{{ challenge.description }}</p>
   </div>
 
 </div>

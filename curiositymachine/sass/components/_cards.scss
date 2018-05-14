@@ -9,6 +9,7 @@
 .cm-fancy-card,
 .cm-info-card {
   border-radius: 4px;
+  overflow: hidden;
 
   .card-body {
     padding: 0.75em;
@@ -77,7 +78,8 @@
   }
 }
 
-.cm-card {
+.cm-card,
+.cm-fancy-card {
   box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
   border: none;
 }

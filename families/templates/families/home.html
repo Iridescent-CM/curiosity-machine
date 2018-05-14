@@ -13,26 +13,26 @@
 {% block content %}
   {% include 'families/_navigation.html' %}
 
-  <div class="row">
-    <div class="col-md-4">
+  <div class="row mb-5">
+    <div class="col-md-4 mb-4">
       <h3>Family</h3>
-      <ul class="dashboard-section">
-      {% for familymember in request.user.familymember_set.all %}
-        <span>
-          <div class="members-list">
+      <div class="dashboard-section">
+        <ul class="members-list">
+          {% for familymember in request.user.familymember_set.all %}
+          <li class="members-list-item mb-3">
             {% include "profiles/_avatar.html" with profile=familymember width=60 height=60 crop='thumb' gravity='faces' classes='avatar' %}
             <span class="username">{{ familymember.name }}</span>
-          </div>
-        </span>
-      {% endfor %}
-      </ul>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
 
     <div class="col-md-8">
       <h3>AI Family Challenge Program Progress</h3>
       <div class="row dashboard-section">
         {% for stage in stages %}
-        <div class="col-md-4 text-xs-center">
+        <div class="col-md-4 text-center">
           <div
             data-percent={{stage.stats.percent_complete}}
             data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
@@ -50,7 +50,7 @@
           <p>Stage {{stage.number}}</p>
         </div>
         {% endfor %}
-        <div class="col-md-4 text-xs-center">
+        <div class="col-md-4 text-center">
           <div
             data-percent=0
             data-replacePercentageByText="Coming soon"
@@ -76,6 +76,4 @@
       </div>
     </div>
   </div>
-
-
 {% endblock %}

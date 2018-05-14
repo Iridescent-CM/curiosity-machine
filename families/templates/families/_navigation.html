@@ -1,26 +1,26 @@
 {% load ifactive %}
 {% load notifications_tags %}
-<div class="row mb-3">
+<div class="row mb-5">
   <div class="col-md-12">
     <nav class="tab-navigation">
       <ul class="nav">
-        <li class="nav-item {% ifactive "families:home" "active-nav" %}">
+        <li class="nav-item {% ifactive "families:home" "active" %}">
           <a class="nav-link" href="{% url 'families:home' %}">
             Dashboard
           </a>
         </li>
-        <li class="nav-item {% ifactive "families:stage_1" "active-nav" %}">
+        <li class="nav-item {% ifactive "families:stage_1" "active" %}">
           <a class="nav-link" href="{% url 'families:stage_1' %}">
             Stage 1
           </a>
         </li>
-        <li class="nav-item {% ifactive "families:stage_2" "active-nav" %}">
+        <li class="nav-item {% ifactive "families:stage_2" "active" %}">
           <a class="nav-link" href="{% url 'families:stage_2' %}">
             Stage 2
           </a>
         </li>
         {% if flags.enable_family_activity_notifications %}
-        <li class="nav-item {% ifactive "families:activity" "active-nav" %}">
+        <li class="nav-item {% ifactive "families:activity" "active" %}">
           <a class="nav-link" href="{% url 'families:activity' %}">
             Recent Activity
             <span class="tag tag-primary">{% notifications_unread %}</span>

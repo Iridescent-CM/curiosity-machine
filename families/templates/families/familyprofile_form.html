@@ -12,13 +12,13 @@
   <form action="{% pick_action form edit="families:edit_profile" create="families:create_profile" %}" method="POST" novalidate>
     {% csrf_token %}
 
-    <div class="card card-module">
-      <div class="card-block-title text-xs-center p-1">
-        <h4>Profile Info</h4>
+    <div class="card cm-info-card mb-5">
+      <div class="card-header text-center p-3">
+        <h4 class="card-title">Profile Info</h4>
         <small class="text-muted">* Please fill out all fields marked with an asterisk</small>
       </div>
-      <div class="card-block">
-        <div class="text-xs-center">
+      <div class="card-body">
+        <div class="text-center avatar-settings">
           {% block avatar %}
             {% include "profiles/_avatar.html" with profile=request.user.profile width=80 height=80 crop='thumb' gravity='faces' classes='rounded-circle' %}
           {% endblock %}
@@ -38,20 +38,20 @@
         <a class="btn btn-secondary" href="{% url "account_change_password"%}">Change password</a>
         {% endif %}
         {% if form.instance and form.instance.pk %}
-        <input type="submit" class="btn btn-primary float-xs-right" value="Save">
+        <input type="submit" class="btn btn-primary float-right" value="Save">
         {% endif %}
       </div>
     </div>
 
-    <div class="card card-module">
-      <div class="card-block-title text-xs-center p-1">
-        <h4>Family Members</h4>
+    <div class="card cm-info-card">
+      <div class="card-header text-center p-3">
+        <h4 class="card-title">Family Members</h4>
         <small class="text-muted">
           * Please fill out all fields marked with an asterisk<br/>
           One parent and one child required, six family members max
         </small>
       </div>
-      <div class="card-block">
+      <div class="card-body">
         {{ formset.management_form }}
         {% for error in formset.non_form_errors %}
           <div class="alert alert-danger alert-dismissable show" role="alert">
@@ -68,7 +68,7 @@
           {% include "families/_familymember_inline.html" with form=formset.empty_form %}
         </script>
         <button class="btn btn-secondary" data-formset-add="familymember_set">Add family member</button>
-        <input type="submit" class="btn btn-primary float-xs-right" value="Save">
+        <input type="submit" class="btn btn-primary float-right" value="Save">
       </div>
     </div>
   </form>
