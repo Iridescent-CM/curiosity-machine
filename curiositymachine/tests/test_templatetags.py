@@ -41,5 +41,5 @@ def test_datepill_colors():
     assert datepill(rightnow - timedelta(days=6))['color'] == "warning"
     assert datepill(rightnow - timedelta(days=7))['color'] == "warning"
     assert datepill(rightnow - timedelta(days=13))['color'] == "warning"
-    assert datepill(rightnow - timedelta(days=14))['color'] == "default"
-    assert datepill(rightnow - timedelta(days=30))['color'] == "default"
+    assert datepill(rightnow - timedelta(days=14))['color'] == "purple"
+    assert datepill(rightnow - timedelta(days=30))['color'] == "purple"
