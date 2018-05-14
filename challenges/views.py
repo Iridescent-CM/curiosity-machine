@@ -405,17 +405,15 @@ def challenge_progress(request, challenge_id, username, stage=None):
     feedback = challenge.feedback_question
     feedback_form = None
     feedback_question = None
+    feedback_response_text = None
 
     if feedback and feedback.is_active:
         feedback_form = FeedbackQuestionForm(model=feedback)
         feedback_question = feedback_form.model.question
 
-    try:
-        feedback_response = FeedbackResult.objects.get(user=request.user, feedback_question=feedback, challenge=challenge)
+    feedback_response = challenge.feedbackresult_set.filter(user=request.user).first()
+    if feedback_response:
         feedback_response_text = feedback_response.comment_text
-    except:
-        feedback_response_text = None
-
 
     return render(request,
         [
