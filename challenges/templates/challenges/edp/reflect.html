@@ -40,7 +40,7 @@
     </div>
   </div>
   {% elif feedback_form and progress.completed and not feedback_response %}
-  {% url "challenges:feedback:feedback_question" challenge_id=challenge.id username=progress.owner.username as action_url %}
+  {% url "challenges:feedback:feedback_question" challenge_id=challenge.id username=progress.owner.username feedback_id=feedback_form.model.id as action_url %}
   <div class="panel panel-bubble teal reflect-box edp-comments">
     <div class="panel-body">
       <h1 data-submit-replacement-text="Please wait...">Feedback</h1>
