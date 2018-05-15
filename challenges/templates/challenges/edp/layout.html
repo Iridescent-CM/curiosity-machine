@@ -9,9 +9,11 @@
 {% endblock %}
 
 {% block content %}
+
   {% block top_header %}
-  <h1>{{ challenge.name }}</h1>
+  <h1 class="text-center">{{ challenge.name }}</h1>
   {% endblock %}
+
 
   {% block alerts %}{% endblock %}
 
@@ -19,27 +21,14 @@
   {% block draft_message %}{% endblock %}
   {% endif %}
 
-  {% include "challenges/edp/_nav.html" %}
-
   <div class="challenge-content">
-    {% block under_nav_header %}
-    <header class="challenge-header">
-      {% block under_nav_header_content %}
-      {% endblock %}
-    </header>
-    {% endblock %}
 
-    {% block congrats_panel %}{% endblock %}
+    {% include "challenges/edp/_nav.html" %}
 
     <div class="row">
 
-      <div class="col-md-5">
+      <div class="col-md-6">
         {% block left_panel %}
-        {% endblock %}
-      </div>
-
-      <div class="col-md-1">
-        {% block middle_panel %}
         {% endblock %}
       </div>
 
