@@ -6,34 +6,40 @@
   background-position: center;
   text-align: center;
   margin: 30px 0px 0;
-}
-.ai-banner .ai-banner-font {
-  font-family: 'Raleway', Helvetica, sans-serif;
-  margin-bottom: 0.75em;
-  color: white;
-  -webkit-font-smoothing: antialiased;
-  white-space:nowrap;
-}
-.ai-banner .ai-banner-font-primary {
-  font-size: 3.5vw;
-  line-height: 2;
-  text-shadow: #ff5471 0.3vw 0.3vw 0px;
-  font-weight: 600;
-}
-.ai-banner .ai-banner-font-secondary {
-  font-size: 2vw;
-  margin-top: -4vw;
-  text-shadow: #ff5471 0.2vw 0.2vw 0px;
-  font-weight: 300;
-}
-.ai-banner:hover{
-  text-decoration: none;
-}
-.ai-banner:hover .ai-banner-font.ai-banner-font-secondary{
-  text-shadow: #ffabac 0.2vw 0.2vw 0px;
-  color: #b80000;
-}
-.ai-banner:hover .ai-banner-font.ai-banner-font-primary{
-  text-shadow: #ffabac 0.3vw 0.3vw 0px;
-  color: #b80000;
+
+  .ai-banner-font {
+    font-family: 'Raleway', Helvetica, sans-serif;
+    margin-bottom: 0.75em;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    white-space:nowrap;
+  }
+
+  .ai-banner-font-primary {
+    font-size: 3.5vw;
+    line-height: 2;
+    text-shadow: #ff5471 0.3vw 0.3vw 0px;
+    font-weight: 600;
+  }
+
+  .ai-banner-font-secondary {
+    font-size: 2vw;
+    margin-top: -4vw;
+    text-shadow: #ff5471 0.2vw 0.2vw 0px;
+    font-weight: 300;
+  }
+
+  &:hover{
+    text-decoration: none;
+
+    .ai-banner-font.ai-banner-font-secondary{
+      text-shadow: #ffabac 0.2vw 0.2vw 0px;
+      color: #b80000;
+    }
+
+    .ai-banner-font.ai-banner-font-primary{
+      text-shadow: #ffabac 0.3vw 0.3vw 0px;
+      color: #b80000;
+    }
+  }
 }
