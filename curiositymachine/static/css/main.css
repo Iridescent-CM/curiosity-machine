@@ -7525,6 +7525,100 @@ footer {
       .navbar-cm.navbar-expand .nav-item.nav-link-purple:hover {
         background: #57579e; }
 
+.old-style {
+  background: #333;
+  font-size: 14px; }
+  .old-style .main-container {
+    margin-top: 1.5em;
+    padding: 40px 65px 100px 65px;
+    background: #fffcf7;
+    max-width: 1170px; }
+    .old-style .main-container a {
+      border: none;
+      color: #44b1f5; }
+    .old-style .main-container .btn {
+      text-transform: uppercase; }
+      .old-style .main-container .btn.btn-primary {
+        color: #fff;
+        background-color: #44b1f5;
+        border-color: #2ca7f4; }
+    .old-style .main-container h1, .old-style .main-container .h1 {
+      font-size: 42px; }
+    .old-style .main-container h2, .old-style .main-container .h2 {
+      font-size: 30px; }
+    .old-style .main-container h3, .old-style .main-container .h3 {
+      font-size: 24px; }
+    .old-style .main-container h4, .old-style .main-container .h4 {
+      font-size: 18px; }
+    .old-style .main-container h1, .old-style .main-container .h1,
+    .old-style .main-container h2, .old-style .main-container .h2,
+    .old-style .main-container h3, .old-style .main-container .h3 {
+      margin-top: 20px;
+      margin-bottom: 10px; }
+      .old-style .main-container h1 small,
+      .old-style .main-container h1 .small, .old-style .main-container .h1 small,
+      .old-style .main-container .h1 .small,
+      .old-style .main-container h2 small,
+      .old-style .main-container h2 .small, .old-style .main-container .h2 small,
+      .old-style .main-container .h2 .small,
+      .old-style .main-container h3 small,
+      .old-style .main-container h3 .small, .old-style .main-container .h3 small,
+      .old-style .main-container .h3 .small {
+        font-size: 65%; }
+    .old-style .main-container h4 {
+      margin-top: 10px;
+      margin-bottom: 10px; }
+      .old-style .main-container h4 small,
+      .old-style .main-container h4 .small {
+        font-size: 75%; }
+    .old-style .main-container h1, .old-style .main-container h2, .old-style .main-container h3, .old-style .main-container h4 {
+      font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      line-height: 1.1;
+      color: #F16243; }
+      .old-style .main-container h1 small, .old-style .main-container h2 small, .old-style .main-container h3 small, .old-style .main-container h4 small {
+        font-weight: normal;
+        line-height: 1;
+        color: #999; }
+  .old-style .card {
+    border-radius: 4px;
+    border: none;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2); }
+    .old-style .card .card-body:last-child {
+      border-top: 2px solid #e5e1d9;
+      padding-bottom: 3em;
+      margin-bottom: 2em; }
+    .old-style .card .card-body .card-title {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: inherit; }
+      .old-style .card .card-body .card-title > a {
+        color: inherit; }
+  .old-style .pagination {
+    margin-bottom: 2em; }
+    .old-style .pagination li a,
+    .old-style .pagination li span {
+      color: #44b1f5; }
+      .old-style .pagination li a:hover,
+      .old-style .pagination li span:hover {
+        color: #0c8fe0; }
+    .old-style .pagination li a {
+      border: 1px solid #E5E1D9; }
+    .old-style .pagination .active a,
+    .old-style .pagination .active a:hover,
+    .old-style .pagination .active .page-link,
+    .old-style .pagination .active .page-link:hover,
+    .old-style .pagination .active span,
+    .old-style .pagination .active span:hover {
+      background-color: #44b1f5;
+      border-color: #E5E1D9;
+      color: #fff; }
+    .old-style .pagination .disabled a,
+    .old-style .pagination .disabled span {
+      color: #949494; }
+
 .avatar img {
   display: inline-block;
   border-radius: 50%;

@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="container-fluid main-container">
-  <div class="unit-info mt-2 mb-3">
+  <div class="unit-info mt-4 mb-5">
     <h1>{{ unit.name }}</h1>
 
     {% if unit.overview %}
@@ -24,23 +24,23 @@
     {% endif %}
 
     {% if challenges %}
-    <h2 class="mt-2">Suggested Design Challenges</h2>
+    <h2 class="mt-4">Suggested Design Challenges</h2>
     <div class="challenges-list">
       <div class="row">
       {% for challenge in challenges %}
         <div class="col-sm-6 col-lg-4">
-          <div class="card">
+          <div class="card cm-card">
             <a href="{% url 'challenges:preview_inspiration' challenge.id %}">
               <img class="card-img-top" src="{% resized challenge.image.url width=450 height=285 crop='fill' %}">
             </a>
-            <div class="card-block">
+            <div class="card-body">
               <h3 class="card-title">
                 <a href="{% url 'challenges:preview_inspiration' challenge.id %}">
                   {{ challenge.name }}
                 </a>
               </h3>
             </div>
-            <div class="card-block">
+            <div class="card-body">
               {{ challenge.description }}
             </div>
           </div>
