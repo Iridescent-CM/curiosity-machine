@@ -26,5 +26,20 @@
       $stat.addClass('text-danger');
       $stat.text('Save failed. Please try again.');
     });
+
+    function check_form() {
+      var $submit = $('#impact-survey input[type=submit]');
+      if ($('[name=student_count]').val() && $('[name=challenge_count]').val()) {
+        $submit.prop("disabled", false);
+      }
+      else {
+        $submit.prop("disabled", true);
+      }
+    }
+    check_form();
+
+    $(document).on("keyup", "[name=student_count], [name=challenge_count]", check_form);
+    $(document).on("change", "[name=student_count], [name=challenge_count]", check_form);
+
   });
 </script>
