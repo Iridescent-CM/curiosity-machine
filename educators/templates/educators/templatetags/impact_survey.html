@@ -21,7 +21,7 @@
           <div class="form-group row">
             <label class="col-xs-12 col-md-3">
               # students
-              {{ impact_form.student_count|add_class:"form-control" }}
+              {{ impact_form.student_count|add_class:"form-control"|attr:"placeholder:required" }}
             </label>
             <label class="col-xs-12 col-md-3">
               # teachers
@@ -32,7 +32,7 @@
           <div class="form-group row">
             <label class="col-xs-12 col-md-3">
               # design challenges
-              {{ impact_form.challenge_count|add_class:"form-control" }}
+              {{ impact_form.challenge_count|add_class:"form-control"|attr:"placeholder:required" }}
             </label>
             <label class="col-xs-6 col-md-3">
               In the classroom
@@ -58,7 +58,7 @@
           </div>
           <div class="form-group row">
             <div class="col-xs-12 col-md-9">
-                <input type="submit" value="Save" class="btn btn-primary" data-disable-with="Saving...">
+                <input type="submit" value="Save" class="btn btn-primary" disabled="disabled" data-disable-with="Saving...">
                 <span id="impact-survey-status" class="ml-2"></span>
             </div>
           </div>
