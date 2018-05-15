@@ -11,7 +11,7 @@ class FeedbackQuestion(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "FeedbackQuestion: id={}".format(self.id)
+        return "FeedbackQuestion: id={} {}".format(self.id, self.question)
 
 class FeedbackResult(models.Model):
 

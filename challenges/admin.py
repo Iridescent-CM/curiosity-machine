@@ -64,7 +64,7 @@ class ChallengeAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'name', 'draft', 'free', 'order']
     list_filter = ['draft', 'free', 'core']
     list_editable = ['order']
-    raw_id_fields = ['video', 'image', 'landing_image']
+    raw_id_fields = ['video', 'image', 'landing_image', 'feedback_question']
     actions = [make_draft, remove_draft, make_free, remove_free]
     inlines = (ResourceInline,)
 
