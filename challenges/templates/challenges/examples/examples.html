@@ -23,7 +23,7 @@
 
 {% block content %}
 
-  <div class="jumbotron cm-jumbotron jumbotron-fluid jumbotron-blue-green-gradient">
+  <div class="jumbotron cm-jumbotron jumbotron-fluid">
     <div class="container">
       {% if request.user.is_authenticated and request.user.extra.is_student %}
       <h3><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a></h3>

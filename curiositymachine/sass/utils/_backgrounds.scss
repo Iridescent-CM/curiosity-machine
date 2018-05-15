@@ -1,3 +1,10 @@
+@each $color, $value in $theme-colors {
+  .bg-#{$color} {
+    background-color: $value;
+    color: color-yiq($value);
+  }
+}
+
 .bg-pattern-white {
   background: url("../images/design-challenge-repeating-pattern-white.png");
   background-attachment: fixed;
@@ -5,6 +12,7 @@
 }
 
 .bg-pattern-dark {
+  color: $ivory;
   background-color: shade($dark, 40%);
   background-image: url("../images/design-challenge-repeating-pattern.png");
   background-attachment: fixed;

@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* Unused
 
 @mixin vertical-align {
@@ -7744,30 +7743,36 @@ $btn-secondary-border: $sand !default;
 */
 .cm-card,
 .cm-fancy-card,
+.cm-profile-card,
 .cm-info-card {
   border-radius: 4px;
   overflow: hidden; }
   .cm-card .card-body,
   .cm-fancy-card .card-body,
+  .cm-profile-card .card-body,
   .cm-info-card .card-body {
     padding: 0.75em;
     flex: none; }
     .cm-card .card-body.card-divider,
     .cm-fancy-card .card-body.card-divider,
+    .cm-profile-card .card-body.card-divider,
     .cm-info-card .card-body.card-divider {
       border-top: 2px solid #E5E1D9; }
   .cm-card .card-flags > *,
   .cm-fancy-card .card-flags > *,
+  .cm-profile-card .card-flags > *,
   .cm-info-card .card-flags > * {
     margin-bottom: 20px; }
   .cm-card .card-flag,
   .cm-fancy-card .card-flag,
+  .cm-profile-card .card-flag,
   .cm-info-card .card-flag {
     padding: 5px 30px 5px 20px;
     position: absolute;
     left: -10px; }
     .cm-card .card-flag:after,
     .cm-fancy-card .card-flag:after,
+    .cm-profile-card .card-flag:after,
     .cm-info-card .card-flag:after {
       content: "";
       display: block;
@@ -7781,6 +7786,7 @@ $btn-secondary-border: $sand !default;
       right: 0; }
     .cm-card .card-flag:before,
     .cm-fancy-card .card-flag:before,
+    .cm-profile-card .card-flag:before,
     .cm-info-card .card-flag:before {
       content: "";
       display: block;
@@ -7797,20 +7803,24 @@ $btn-secondary-border: $sand !default;
       right: 100%; }
   .cm-card .card-flag-purple,
   .cm-fancy-card .card-flag-purple,
+  .cm-profile-card .card-flag-purple,
   .cm-info-card .card-flag-purple {
     background-color: #6161AF;
     color: #FFFCF7; }
     .cm-card .card-flag-purple:before,
     .cm-fancy-card .card-flag-purple:before,
+    .cm-profile-card .card-flag-purple:before,
     .cm-info-card .card-flag-purple:before {
       border-right-color: #4e4e8c; }
   .cm-card .card-flag-green,
   .cm-fancy-card .card-flag-green,
+  .cm-profile-card .card-flag-green,
   .cm-info-card .card-flag-green {
     background-color: #8FB559;
     color: #FFFCF7; }
     .cm-card .card-flag-green:before,
     .cm-fancy-card .card-flag-green:before,
+    .cm-profile-card .card-flag-green:before,
     .cm-info-card .card-flag-green:before {
       border-right-color: #729147; }
 
@@ -7868,6 +7878,22 @@ $btn-secondary-border: $sand !default;
 
 .cm-info-card .card-footer {
   background-color: #f2f0ec; }
+
+.cm-profile-card {
+  text-align: center; }
+  .cm-profile-card .card-header,
+  .cm-profile-card .card-body {
+    padding: 1em; }
+  .cm-profile-card .card-header a {
+    color: #F55932; }
+    .cm-profile-card .card-header a:hover, .cm-profile-card .card-header a:focus {
+      text-decoration: none; }
+  .cm-profile-card .card-body {
+    min-height: 7em;
+    background: #FFFCF7; }
+  .cm-profile-card .avatar {
+    border-radius: 50%;
+    border: 3px solid #E5E1D9; }
 
 .card-body-toggle {
   display: block;
@@ -7959,44 +7985,6 @@ $btn-secondary-border: $sand !default;
   padding: 3em 0 0.75em 0;
   margin-bottom: 1.5em; }
 
-.jumbotron-blue {
-  color: #FFFCF7;
-  background-color: #00B1C3; }
-
-.jumbotron-green {
-  color: #FFFCF7;
-  background-color: #8FB559; }
-
-.jumbotron-blue-green-gradient {
-  color: #FFFCF7;
-  background: linear-gradient(45deg, #00B1C3, #8FB559); }
-  .jumbotron-blue-green-gradient a {
-    color: #FFFCF7;
-    border-bottom: 1px solid #FFFCF7; }
-    .jumbotron-blue-green-gradient a:hover, .jumbotron-blue-green-gradient a:focus {
-      text-decoration: none; }
-
-.jumbotron-dark-pattern {
-  color: #FFFCF7;
-  background-color: #1f1f1f;
-  background-image: url("../images/design-challenge-repeating-pattern.png");
-  background-attachment: fixed;
-  background-repeat: repeat; }
-
-.to-do-list .to-do-list-item {
-  list-style: none; }
-  .to-do-list .to-do-list-item:before {
-    content: "";
-    background-image: url("../images/checkbox-unchecked.svg");
-    background-size: cover;
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    vertical-align: middle;
-    margin-right: 1em; }
-  .to-do-list .to-do-list-item.to-do-list-complete:before {
-    background-image: url("../images/checkbox-checked.svg"); }
-
 .cm-list-group.list-group-flush {
   border-top: 1px solid #E5E1D9;
   border-bottom: 1px solid #E5E1D9; }
@@ -8052,6 +8040,20 @@ $btn-secondary-border: $sand !default;
       right: 180px; }
     .activity-list-group .badge .list-group-item {
       padding-right: 180px; } }
+
+.to-do-list .to-do-list-item {
+  list-style: none; }
+  .to-do-list .to-do-list-item:before {
+    content: "";
+    background-image: url("../images/checkbox-unchecked.svg");
+    background-size: cover;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    margin-right: 1em; }
+  .to-do-list .to-do-list-item.to-do-list-complete:before {
+    background-image: url("../images/checkbox-checked.svg"); }
 
 .modal-cm .modal-close {
   color: #fff;
@@ -8478,6 +8480,15 @@ $btn-secondary-border: $sand !default;
 .educator-dashboard-conversation .family-comment.stage-reflect-comment .card-header {
   background-color: #e6f7f9; }
 
+#examples-page .cm-jumbotron {
+  color: #FFFCF7;
+  background: linear-gradient(45deg, #00B1C3, #8FB559); }
+  #examples-page .cm-jumbotron a {
+    color: #FFFCF7;
+    border-bottom: 1px solid #FFFCF7; }
+    #examples-page .cm-jumbotron a:hover, #examples-page .cm-jumbotron a:focus {
+      text-decoration: none; }
+
 #examples-page .badge-remove {
   width: 25px;
   height: 25px;
@@ -8778,10 +8789,113 @@ $btn-secondary-border: $sand !default;
   height: 50px;
   margin: 1.5em; }
 
+.mentor-dashboard .row-dark {
+  background: #e5e1d9;
+  margin: 0 -65px 20px -65px;
+  padding: 30px 15px 15px 15px; }
+
+.mentor-dashboard .main-container h2 {
+  margin-top: 1em; }
+
+.mentor-dashboard .profile-info img {
+  margin-bottom: 20px; }
+
+.mentor-dashboard .unclaimed strong {
+  font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  display: block;
+  font-size: 30px;
+  font-weight: 300; }
+
+.mentor-dashboard .progress-card {
+  min-height: 380px; }
+  .mentor-dashboard .progress-card .unread {
+    display: block;
+    position: absolute;
+    top: -5px;
+    right: -12px;
+    color: #fff;
+    line-height: 1;
+    padding: 8px 10px;
+    background: #f16243;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); }
+    .mentor-dashboard .progress-card .unread:before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 8px 0 0;
+      border-color: #f16243 transparent transparent transparent;
+      position: absolute;
+      bottom: -10px;
+      left: 5px; }
+  .mentor-dashboard .progress-card .card-block:last-child {
+    padding-bottom: 1.5em; }
+  .mentor-dashboard .progress-card .card-block p {
+    font-size: 14px; }
+
+.mentor-dashboard .progress-group-card .card-block:last-child {
+  padding-bottom: 2em; }
+
+.mentor-dashboard .progress-group-card .card-block .card-title {
+  font-weight: normal; }
+
 .password-change .form-body {
   max-width: 380px;
   margin-left: auto;
   margin-right: auto; }
+
+.bg-primary {
+  background-color: #00B1C3;
+  color: #fff; }
+
+.bg-secondary {
+  background-color: #FFF;
+  color: #212529; }
+
+.bg-success {
+  background-color: #28a745;
+  color: #fff; }
+
+.bg-info {
+  background-color: #17a2b8;
+  color: #fff; }
+
+.bg-warning {
+  background-color: #ffc107;
+  color: #212529; }
+
+.bg-danger {
+  background-color: #dc3545;
+  color: #fff; }
+
+.bg-light {
+  background-color: #f8f9fa;
+  color: #212529; }
+
+.bg-dark {
+  background-color: #333333;
+  color: #fff; }
+
+.bg-blue {
+  background-color: #00B1C3;
+  color: #fff; }
+
+.bg-green {
+  background-color: #85ad4d;
+  color: #fff; }
+
+.bg-red {
+  background-color: #F55932;
+  color: #fff; }
+
+.bg-orange {
+  background-color: #F2B353;
+  color: #212529; }
+
+.bg-purple {
+  background-color: #6161AF;
+  color: #fff; }
 
 .bg-pattern-white {
   background: url("../images/design-challenge-repeating-pattern-white.png");
@@ -8789,59 +8903,10 @@ $btn-secondary-border: $sand !default;
   background-repeat: repeat; }
 
 .bg-pattern-dark {
+  color: #FFFCF7;
   background-color: #1f1f1f;
   background-image: url("../images/design-challenge-repeating-pattern.png");
   background-attachment: fixed;
   background-repeat: repeat; }
-
-/*
-@import 'utils/functions';              ✔
-@import 'utils/variables';              ✔
-@import 'utils/backgrounds';            ✘
-
-@import 'base/fonts';                   ✔
-@import 'base/typography';              ✔
-
-@import 'components/banners';
-@import 'components/buttons';
-@import 'components/dividers';          ✔
-@import 'components/challenge-cards';
-@import 'components/modals';            ✔
-@import 'components/pagination';
-@import 'components/jumbotron';
-@import 'components/site-message';
-@import 'components/videos';
-@import 'components/tables';
-@import 'components/progress_graph';
-@import 'components/widgets';
-@import 'components/lists';
-@import 'components/forms';
-
-@import 'layout/header';
-@import 'layout/footer';
-@import 'layout/about_pg_layout';
-@import 'layout/membership_pg_layout';
-@import 'layout/old_style';
-
-@import 'pages/home';                    ✔
-@import 'pages/educator-dashboard';
-@import 'pages/family-dashboard';
-@import 'pages/student-dashboard';
-@import 'pages/challenges';
-@import 'pages/mentor-community';
-@import 'pages/mentor-dashboard';
-@import 'pages/password-change';
-@import 'pages/login';
-@import 'pages/examples';
-@import 'pages/landing';
-@import 'pages/about-membership';
-@import 'pages/about-mentor';
-@import 'pages/about-aichallenge';
-@import 'pages/choose-profile';
-@import 'pages/units';
-
-TODO: base/typography has some styles that don't belong there
-
-*/
 
 /*# sourceMappingURL=main.css.map */

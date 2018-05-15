@@ -1,5 +1,5 @@
 <div class="row profile-info">
-  <div class="col-md-3 mb-2">
+  <div class="col-md-3 mb-4">
     {% include "_avatar.html" with profile=profile width=260 height=260 crop='fill' %}
     {% if request.user == profile.user %}
     <a href="{% url 'profiles:edit_profile' %}" class="btn btn-primary btn-block">Edit Profile</a>

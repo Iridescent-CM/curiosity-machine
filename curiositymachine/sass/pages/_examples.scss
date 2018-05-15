@@ -1,5 +1,20 @@
 #examples-page {
 
+  .cm-jumbotron {
+    color: $ivory;
+    background: linear-gradient( 45deg, $primary-blue, $primary-green );
+
+    a {
+      color: $ivory;
+      border-bottom: 1px solid $ivory;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+
   .badge-remove {
     width: 25px;
     height: 25px;

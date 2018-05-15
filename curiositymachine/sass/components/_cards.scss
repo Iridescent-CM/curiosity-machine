@@ -1,12 +1,14 @@
 // .cm-card               - basic card style
 // .cm-fancy-card         - fancy card style, as seen on dashboards
 // .cm-info-card          - info card style as seen on inspiration pages
+// .cm-profile-card       - card for displaying user profiles, like on the mentor community page
 // .card-body >
 //   .card-body-toggle    - collapse toggle for .card-body
 //   .card-divider        - add to .card-body to visually separate from preceeding section
 
 .cm-card,
 .cm-fancy-card,
+.cm-profile-card,
 .cm-info-card {
   border-radius: 4px;
   overflow: hidden;
@@ -152,6 +154,33 @@
 
   .card-footer {
     background-color: tint($sand, 50%);
+  }
+}
+
+.cm-profile-card {
+  text-align: center;
+
+  .card-header,
+  .card-body {
+    padding: 1em;
+  }
+
+  .card-header a {
+    color: $primary-red;
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+
+  .card-body {
+    min-height: 7em;
+    background: $ivory;
+  }
+
+  .avatar {
+    border-radius: 50%;
+    border: 3px solid $sand;
   }
 }
 

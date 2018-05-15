@@ -11,19 +11,19 @@
     {% block breadcrumbs %}
     {% endblock %}
 
-    <div class="row">
+    <div class="row pb-4">
       <div class="col-sm-12">
         {% block pagetitle %}{% endblock %}
       </div>
     </div>
-    <div class="row text-xs-center">
+    <div class="row justify-content-center">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
     </div>
     <div class="row">
       {% for progress in progresses %}
         <div class="col-lg-3 col-sm-6">
           <div class="unread-offset">
-            <div class="card progress-card">
+            <div class="card progress-card mb-4">
               <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.owner.username %}">
                 {% if progress.owner.studentprofile.image %}
                   <img
@@ -42,7 +42,7 @@
                   />
                 {% endif %}
               </a>
-              <div class="card-block">
+              <div class="card-body">
                 <h3 class="card-title">
                   {% if progress.mentor %}
                     {% with count=progress|unread_count:request.user %}
@@ -58,7 +58,7 @@
                   </a>
                 </h3>
               </div>
-              <div class="card-block">
+              <div class="card-body">
                 <p>Started: {{ progress.started }}</p>
                 {% if not progress.mentor %}
                   <form action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">
@@ -72,7 +72,7 @@
         </div>
 
       {% if forloop.counter|divisibleby:2 %}
-        <div class="clearfix {% if not forloop.counter|divisibleby:4 %} hidden-lg-up {% endif %}"></div>
+        <div class="clearfix {% if not forloop.counter|divisibleby:4 %} d-lg-none {% endif %}"></div>
       {% endif %}
 
       {% empty %}
@@ -81,7 +81,7 @@
         </div>
       {% endfor %}
     </div>
-    <div class="row text-xs-center">
+    <div class="row justify-content-center">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
     </div>
   </div>

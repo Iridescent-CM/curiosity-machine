@@ -3,36 +3,3 @@
   padding: $large-spacing 0 $small-spacing 0;
   margin-bottom: $base-spacing;
 }
-
-.jumbotron-blue {
-  color: $ivory;
-  background-color: $primary-blue;
-}
-
-.jumbotron-green {
-  color: $ivory;
-  background-color: $primary-green;
-}
-
-.jumbotron-blue-green-gradient {
-  color: $ivory;
-  background: linear-gradient( 45deg, $primary-blue, $primary-green );
-
-  a {
-    color: $ivory;
-    border-bottom: 1px solid $ivory;
-
-    &:hover,
-    &:focus {
-      text-decoration: none;
-    }
-  }
-}
-
-.jumbotron-dark-pattern {
-  color: $ivory;
-  background-color: shade($dark, 40%);
-  background-image: url("../images/design-challenge-repeating-pattern.png");
-  background-attachment: fixed;
-  background-repeat: repeat;
-}

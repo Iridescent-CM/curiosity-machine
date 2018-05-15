@@ -28,8 +28,8 @@ $theme-colors: (
 @import 'components/dividers';
 @import 'components/favorites';
 @import 'components/jumbotrons';
-@import 'components/lists';
 @import 'components/list-group';
+@import 'components/lists';
 @import 'components/modal';
 @import 'components/progress-graph';
 @import 'components/tables';
@@ -42,56 +42,7 @@ $theme-colors: (
 @import 'pages/examples';
 @import 'pages/family-dashboard';
 @import 'pages/home';
+@import 'pages/mentor-dashboard';
 @import 'pages/password-change';
 
 @import 'utils/backgrounds';
-
-/*
-@import 'utils/functions';              ✔
-@import 'utils/variables';              ✔
-@import 'utils/backgrounds';            ✘
-
-@import 'base/fonts';                   ✔
-@import 'base/typography';              ✔
-
-@import 'components/banners';
-@import 'components/buttons';
-@import 'components/dividers';          ✔
-@import 'components/challenge-cards';
-@import 'components/modals';            ✔
-@import 'components/pagination';
-@import 'components/jumbotron';
-@import 'components/site-message';
-@import 'components/videos';
-@import 'components/tables';
-@import 'components/progress_graph';
-@import 'components/widgets';
-@import 'components/lists';
-@import 'components/forms';
-
-@import 'layout/header';
-@import 'layout/footer';
-@import 'layout/about_pg_layout';
-@import 'layout/membership_pg_layout';
-@import 'layout/old_style';
-
-@import 'pages/home';                    ✔
-@import 'pages/educator-dashboard';
-@import 'pages/family-dashboard';
-@import 'pages/student-dashboard';
-@import 'pages/challenges';
-@import 'pages/mentor-community';
-@import 'pages/mentor-dashboard';
-@import 'pages/password-change';
-@import 'pages/login';
-@import 'pages/examples';
-@import 'pages/landing';
-@import 'pages/about-membership';
-@import 'pages/about-mentor';
-@import 'pages/about-aichallenge';
-@import 'pages/choose-profile';
-@import 'pages/units';
-
-TODO: base/typography has some styles that don't belong there
-
-*/
