@@ -516,12 +516,47 @@ margin-left: auto;
   }
 }
 
+.feedback-question {
+  .panel-bubble & h3 {
+    text-align: left;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .refresh {
+    margin-top: 5px;
+   cursor: pointer;
+   padding-right: 10px;
+   position: relative;
+   top: 3px;
+   font-size: @font-size-small;
+  }
+}
+
 .congratulations-panel {
   min-height: 350px;
   padding-top: 60px;
   background:
     url(../images/examples/balloon-left-animated.gif) top left no-repeat,
     url(../images/examples/balloon-right-animated.gif) top right no-repeat;
+}
+
+.feedback-panel {
+  min-height: 140px;
+  padding-top: 0px;
+  padding-left: 26px;
+  padding-right: 26px;
+  background:
+    url(../images/examples/feedback.png) no-repeat;
+  background-size: cover;
+}
+
+.feedback-title {
+  color: #fff;
+}
+
+.feedback-content {
+  color: #fff;
+  white-space: pre-line;
 }
 
 .modal-dialog .reflect-question {

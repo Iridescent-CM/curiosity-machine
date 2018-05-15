@@ -12,6 +12,7 @@ from images.models import Image
 from videos.models import Video
 from enum import Enum
 from functools import reduce
+from feedback.models import FeedbackQuestion
 
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
@@ -82,6 +83,7 @@ class Challenge(models.Model):
         help_text="Challenges will be shown in ascending numeric order, with blanks last",
         verbose_name="Order preference"
     )
+    feedback_question = models.ForeignKey(FeedbackQuestion, null=True, blank=True, on_delete=models.SET_NULL)
 
     def clean(self):
         if self.core and not self.free:

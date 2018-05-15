@@ -21,6 +21,22 @@
   {% endif %}
 {% endblock %}
 
+{% block feedback_panel %}
+  {% if progress.completed and feedback_response %}
+    <div class="panel white feedback-panel">
+      <div class="panel-body text-center">
+        <div class="row">
+          <div class="feedback-panel-content">
+            <h1 class="feedback-title">Thank you!</h1>
+            <p class="feedback-content">Q: {{ feedback_question }}</p>
+            <p class="feedback-content">A: {{ feedback_response }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
 {% block reflect_form %}
   {% url "challenges:comments:comments" challenge_id=challenge.id username=progress.owner.username stage='reflect' as comment_url %}
   <form method="POST" action="{{ comment_url }}">
@@ -33,6 +49,13 @@
 {% endblock %}
 
 {% block quiz_form_submit %}
+  <input type="submit"
+    class="btn btn-primary pull-right"
+    data-debounce="true"
+  />
+{% endblock %}
+
+{% block feedback_form_submit %}
   <input type="submit"
     class="btn btn-primary pull-right"
     data-debounce="true"

@@ -39,6 +39,28 @@
       </form>
     </div>
   </div>
+  {% elif feedback_form and progress.completed and not feedback_response %}
+  {% url "challenges:feedback:feedback_question" challenge_id=challenge.id username=progress.owner.username feedback_id=feedback_form.model.id as action_url %}
+  <div class="panel panel-bubble teal reflect-box edp-comments">
+    <div class="panel-body">
+      <h1 data-submit-replacement-text="Please wait...">Feedback</h1>
+      <p class="hide_upon_submit">Are you finished with your project? Please answer the feedback question below! Then you'll be able to share your design in the <a href="{% url "challenges:examples" challenge_id=challenge.id %}"><strong>Inspiration Gallery</strong></a>.</p>
+
+      <div class="feedback-question"><h3>{{ feedback_question }}</h3></div>
+
+      <form method="POST" action="{{ action_url }}">
+        {% csrf_token %}
+        {{ feedback_form }}
+        {% block feedback_form_submit %}
+        <input type="submit"
+          class="btn btn-primary pull-right"
+          disabled="disabled"
+        />
+        {% endblock %}
+      </form>
+
+    </div>
+  </div>
   {% else %}
   <div class="panel panel-bubble teal right reflect-box edp-comments">
     <div class="panel-body">
@@ -71,5 +93,7 @@
   {% endif %}
   {% endblock %}
 
+
+  {% block feedback_panel %}{% endblock %}
   {% block comments %}{% endblock %}
 {% endblock %}

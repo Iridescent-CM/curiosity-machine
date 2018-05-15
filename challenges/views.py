@@ -12,6 +12,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods, require_POST
 from django.views.generic.base import View, TemplateView
+from feedback.forms import FeedbackQuestionForm
+from feedback.models import FeedbackResult
 from images.models import Image
 from memberships.decorators import enforce_membership_challenge_access
 from memberships.models import Membership
@@ -400,6 +402,19 @@ def challenge_progress(request, challenge_id, username, stage=None):
     if quiz:
         quiz_form = QuizForm(model=quiz)
 
+    feedback_question = challenge.feedback_question
+    feedback_form = None
+    feedback_question_text = None
+    feedback_response_text = None
+
+    if feedback_question and feedback_question.is_active:
+        feedback_form = FeedbackQuestionForm(model=feedback_question)
+        feedback_question_text = feedback_question.question
+
+    feedback_response = challenge.feedbackresult_set.filter(user=request.user).first()
+    if feedback_response:
+        feedback_response_text = feedback_response.answer
+
     return render(request,
         [
             "challenges/edp/progress/%s/%s.html" % (request.user.extra.user_type, stageToShow.name),
@@ -413,6 +428,9 @@ def challenge_progress(request, challenge_id, username, stage=None):
         'comments': progress.comments.all(),
         'materials_form': MaterialsForm(progress=progress),
         'quiz_form': quiz_form,
+        'feedback_form': feedback_form,
+        'feedback_question': feedback_question_text,
+        'feedback_response': feedback_response_text,
         'edp_nav': {
             'stage': stageToShow.name,
             'inspiration': reverse("challenges:inspiration_progress", kwargs={"challenge_id": challenge.id, "username": username}),
