@@ -2,23 +2,7 @@
 
 {% load widget_tweaks %}
 
-{% block under_nav_header_content %}
-  <h1>Document your design process</h1>
-  <p>{{ challenge.reflect_subheader }}</p>
-{% endblock %}
-
 {% block left_panel %}
-  <div class="panel blue">
-    <div class="panel-body">
-      <p>You've made great progress on this challenge. I think you are ready to move on to the next step.</p>
-      <p><strong>Reflect on your design.</strong></p>
-    </div>
-  </div>
-{% endblock %}
-
-{% block right_panel %}
-  {% block right_panel_head %}
-  {% endblock %}
 
   {% block commenting_bubble %}
   {% if quiz_form %}
@@ -62,7 +46,7 @@
     </div>
   </div>
   {% else %}
-  <div class="panel panel-bubble teal right reflect-box edp-comments">
+  <div class="panel panel-bubble teal reflect-box edp-comments">
     <div class="panel-body">
       <h1 data-submit-replacement-text="Please wait...">Reflect</h1>
       <p class="hide_upon_submit">Are you finished with your project? Reflect on your work by answering a question below! Then you'll be able to share your design in the <a href="{% url "challenges:examples" challenge_id=challenge.id %}"><strong>Inspiration Gallery</strong></a>.</p>
@@ -92,6 +76,12 @@
   </div>
   {% endif %}
   {% endblock %}
+{% endblock %}
+
+{% block right_panel %}
+  {% block right_panel_head %}{% endblock %}
+
+  {% block congrats_panel %}{% endblock %}
 
 
   {% block feedback_panel %}{% endblock %}

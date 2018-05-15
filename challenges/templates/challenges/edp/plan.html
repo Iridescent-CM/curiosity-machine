@@ -3,16 +3,12 @@
 {% load widget_tweaks %}
 {% load resized %}
 
-{% block under_nav_header_content %}
-  <h1>Plan your project</h1>
-  <p>{{ challenge.plan_subheader }}</p>
-{% endblock %}
-
 {% block left_panel %}
   {% block commenting_bubble %}
-  <div class="panel panel-bubble edp-comments">
+  <div class="panel panel-bubble plan-build edp-comments">
     <div class="panel-body">
-      <h3 data-submit-replacement-text="Please wait...">Post your plan!</h3>
+      <h1 data-submit-replacement-text="Please wait...">Post your plan!</h1>
+      <p>Sketch a plan for your design and what materials you'll use!</p>
       {% block post_your_plan %}
       <form>
         {{ comment_form.text|attr:"disabled:disabled" }}
@@ -23,14 +19,6 @@
     </div>
   </div>
   {% endblock %}
-
-  {% if challenge.plan_call_to_action %}
-    <div class="panel blue">
-      <div class="panel-body">
-        {{challenge.plan_call_to_action}}
-      </div>
-    </div>
-  {% endif %}
 {% endblock %}
 
 {% block right_panel %}
