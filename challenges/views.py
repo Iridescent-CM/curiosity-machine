@@ -12,18 +12,18 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods, require_POST
 from django.views.generic.base import View, TemplateView
+from feedback.forms import FeedbackQuestionForm
+from feedback.models import FeedbackResult
 from images.models import Image
 from memberships.decorators import enforce_membership_challenge_access
 from memberships.models import Membership
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from quizzes.forms import QuizForm
-from feedback.forms import FeedbackQuestionForm
 from urllib.parse import quote_plus
 from .forms import MaterialsForm
 from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
 from .utils import get_stage_for_progress
-from feedback.models import FeedbackResult
 
 def _paginate(qs, page, perPage):
     paginator = Paginator(qs, perPage)
@@ -402,18 +402,18 @@ def challenge_progress(request, challenge_id, username, stage=None):
     if quiz:
         quiz_form = QuizForm(model=quiz)
 
-    feedback = challenge.feedback_question
+    feedback_question = challenge.feedback_question
     feedback_form = None
-    feedback_question = None
+    feedback_question_text = None
     feedback_response_text = None
 
-    if feedback and feedback.is_active:
-        feedback_form = FeedbackQuestionForm(model=feedback)
-        feedback_question = feedback_form.model.question
+    if feedback_question and feedback_question.is_active:
+        feedback_form = FeedbackQuestionForm(model=feedback_question)
+        feedback_question_text = feedback_question.question
 
     feedback_response = challenge.feedbackresult_set.filter(user=request.user).first()
     if feedback_response:
-        feedback_response_text = feedback_response.comment_text
+        feedback_response_text = feedback_response.answer
 
     return render(request,
         [
@@ -429,7 +429,7 @@ def challenge_progress(request, challenge_id, username, stage=None):
         'materials_form': MaterialsForm(progress=progress),
         'quiz_form': quiz_form,
         'feedback_form': feedback_form,
-        'feedback_question': feedback_question,
+        'feedback_question': feedback_question_text,
         'feedback_response': feedback_response_text,
         'edp_nav': {
             'stage': stageToShow.name,

@@ -18,6 +18,8 @@ def make_feedback_result(request, challenge_id, username, feedback_id):
     if form.is_valid():
         feedback_result = form.get_feedback_result(request.user, challenge=challenge)
         feedback_result.save()
+    else:
+        pass # FIXME: handle errors helpfully
     return HttpResponseRedirect(
         request.META.get(
             'HTTP_REFERER',

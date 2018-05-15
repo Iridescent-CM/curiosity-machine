@@ -4,9 +4,6 @@ from django.conf import settings
 
 class FeedbackQuestion(models.Model):
 
-    class Meta:
-        verbose_name_plural = 'Feedback Questions'
-
     is_active = models.BooleanField(default=False, help_text="Enable this option to show this feedback question to students")
     question = models.TextField(null=True, blank=True)
 
@@ -15,9 +12,6 @@ class FeedbackQuestion(models.Model):
 
     def __str__(self):
         return "FeedbackQuestion: id={}".format(self.id)
-
-    def question_text(self):
-        return getattr(self, "question")
 
 class FeedbackResult(models.Model):
 
@@ -33,10 +27,3 @@ class FeedbackResult(models.Model):
 
     def __str__(self):
         return "FeedbackResult: id={} feedback_question={} username={}".format(self.id, self.feedback_question.id, self.user.username)
-
-    @property
-    def comment_text(self):
-        text = ""
-        text += "Q: " + self.feedback_question.question_text() + "\n"
-        text += "A: " + self.answer + "\n\n"
-        return text

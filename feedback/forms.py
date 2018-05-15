@@ -11,8 +11,8 @@ class FeedbackQuestionForm(forms.Form):
 
     def get_feedback_result(self, user, challenge):
         feedback_result = FeedbackResult(feedback_question=self.model, user=user)
-        setattr(feedback_result, 'answer', self.cleaned_data['answer'])
-        setattr(feedback_result, 'challenge', challenge)
+        feedback_result.answer = self.cleaned_data['answer']
+        feedback_result.challenge = challenge
         return feedback_result
 
 

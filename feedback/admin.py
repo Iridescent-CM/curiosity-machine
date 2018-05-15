@@ -7,16 +7,6 @@ class FeedbackQuestionAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'question']
 
-    def __init__(self, *args, **kwargs):
-        fieldsets = (
-            (None, {
-                'fields': ('is_active', 'question')
-            }),
-        )
-
-        self.fieldsets = fieldsets
-        super().__init__(*args, **kwargs)
-
 class FeedbackResultAdmin(admin.ModelAdmin):
     class Meta:
         model = FeedbackResult
