@@ -32,7 +32,9 @@
     {% form_errors form %}
     {% form_group form.login %}
     {% form_group form.password %}
+    {% if form.remember %}
     {% form_check form.remember %}
+    {% endif %}
     {% if redirect_field_value %}
     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
     {% endif %}
