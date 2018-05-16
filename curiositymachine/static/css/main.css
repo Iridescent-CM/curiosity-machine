@@ -7525,13 +7525,13 @@ footer {
         background: #57579e; }
 
 .old-style {
-  background: #333;
-  font-size: 14px; }
+  background: #333; }
   .old-style .main-container {
     margin-top: 1.5em;
     padding: 40px 65px 100px 65px;
     background: #fffcf7;
-    max-width: 1170px; }
+    max-width: 1170px;
+    font-size: 14px; }
     .old-style .main-container a {
       border: none;
       color: #44b1f5; }
@@ -7636,8 +7636,7 @@ footer {
   height: 10vw;
   object-fit: scale-down;
   background-position: center;
-  text-align: center;
-  margin: 30px 0px 0; }
+  text-align: center; }
   .ai-banner .ai-banner-font {
     font-family: 'Raleway', Helvetica, sans-serif;
     margin-bottom: 0.75em;

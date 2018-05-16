@@ -7,10 +7,8 @@
 {% block container %}
 
   {% if flags.enable_ai_banner and membership_selection.no_memberships %}
-  <div class="ai-banner-margins">
-    {% url "educators:coach_conversion" as banner_url %}
-    {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
-  </div>
+  {% url "educators:coach_conversion" as banner_url %}
+  {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   {% endif %}
 
   <div class="bg-pattern-dark text-light py-4 mb-2">
