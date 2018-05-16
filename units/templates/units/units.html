@@ -34,12 +34,6 @@
     <div class="col-md-6 col-xl-3">
       {% include "units/_unit_card.html" with unit=unit %}
     </div>
-    {% if forloop.counter|divisibleby:2 %}
-    <div class="clearfix hidden-xl-up"></div>
-    {% endif %}
-    {% if forloop.counter|divisibleby:4 %}
-    <div class="clearfix"></div>
-    {% endif %}
   {% endfor %}
   </div>
 </div>

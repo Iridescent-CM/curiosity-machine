@@ -39,7 +39,7 @@ kwargs:
         </a>
       </li>
       {% else %}
-      <li class="page-item {% page_visibility_classes curr_page curr_page.number curr_page.paginator.num_pages %}">
+      <li class="page-item {% page_visibility_classes page curr_page.number curr_page.paginator.num_pages %}">
         <a href="?{% qstring_update page=page %}{% if anchor %}#{{anchor}}{% endif %}" class="page-link">{{page}}</a>
       </li>
       {% endif %}

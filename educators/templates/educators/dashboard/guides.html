@@ -17,12 +17,6 @@
     <div class="col-lg-4 col-md-6 mb-1">
       {% include "educators/dashboard/_unit_card.html" with unit=unit %}
     </div>
-    {% if forloop.counter|divisibleby:3 %}
-      <div class="clearfix hidden-md-down"></div>
-    {% endif %}
-    {% if forloop.counter|divisibleby:2 %}
-      <div class="clearfix hidden-lg-up"></div>
-    {% endif %}
     {% endfor %}
   </div>
   {% endif %}
@@ -40,12 +34,6 @@
     <div class="col-lg-4 col-md-6 mb-2">
       {% include "educators/dashboard/_unit_card.html" with unit=unit %}
     </div>
-    {% if forloop.counter|divisibleby:3 %}
-      <div class="clearfix hidden-md-down"></div>
-    {% endif %}
-    {% if forloop.counter|divisibleby:2 %}
-      <div class="clearfix hidden-lg-up"></div>
-    {% endif %}
     {% endfor %}
 
   </div>

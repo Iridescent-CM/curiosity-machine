@@ -18,11 +18,11 @@ def page_slice(page, display_count):
 def page_visibility_classes(page_num, active_page_num, total_pages):
     """Returns the appropriate bootstrap utility classes to show current page only
        for small widths and 5 items at medium width"""
-    classes = ""
+    classes = "d-none"
     md_range = _slice(active_page_num, total_pages, 5)
-    if page_num != active_page_num:
-        classes += "hidden-sm-down"
-    if page_num not in md_range:
-        classes += " hidden-md-down"
+    if page_num in md_range:
+        classes += " d-md-block"
+    elif page_num != active_page_num:
+        classes += " d-lg-block"
     return classes
 
