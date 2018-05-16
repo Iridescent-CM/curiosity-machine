@@ -2,13 +2,13 @@
 {% block body-classes %}about-pages{% endblock %}
 
 {% block content %}
-<div class="container-fluid text-xs-center nav-panel pt-2">
+<div class="jumbotron jumbotron-fluid cm-jumbotron bg-red bg-pattern-white">
   <h1>Almost there...</h1>
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-3">
-      <p class="text-xs-center"><strong>To activate your AI Family Challenge Coach account:</strong></p>
+    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5">
+      <p class="text-center"><strong>To activate your AI Family Challenge Coach account:</strong></p>
       <ol class="to-do-list">
         <li class="to-do-list-item">
           {% if not presurvey.completed %}
@@ -16,10 +16,10 @@
           {% endif %}
         </li>
       </ol>
-      <p class="mt-2">Thank you for giving feedback! Your responses help us understand how participants plan to use the curriculum and support us in continuing to improve our program.</p>
+      <p class="mt-4">Thank you for giving feedback! Your responses help us understand how participants plan to use the curriculum and support us in continuing to improve our program.</p>
       <hr class="hr"/>
-      <p class="text-xs-center small">Do you no longer wish to be an AI Family Challenge coach? Click here to revert:</p>
-      <form action="{% url 'educators:coach_removal' %}" method="post" class="text-xs-center">
+      <p class="text-center small">Do you no longer wish to be an AI Family Challenge coach? Click here to revert:</p>
+      <form action="{% url 'educators:coach_removal' %}" method="post" class="text-center">
       {% csrf_token %}
         <input class="btn btn-danger text-uppercase" type="submit" value="leave aifc" />
       </form>
