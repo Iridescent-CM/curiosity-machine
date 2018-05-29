@@ -120,7 +120,7 @@ body {
   width: 100%;
   padding: 1px 0px;
   border-radius: 5px;
-  background: darken(@green, 5%);
+  background-color:rgba(0, 0, 0, 0.05);
   box-shadow: inset 2px 2px 0 rgba(0,0,0,.1);
   text-align: center;
   li {
@@ -132,15 +132,15 @@ body {
   input {
     display: none;
     &:checked + label {
-      background: @green;
+      background: @orange;
       color: #fff;
-      box-shadow: 2px 2px 0 rgba(0,0,0,.1);
+      box-shadow: 2px 2px 0 rgba(0,0,0,.2);
     }
   }
   label {
     border-radius: 3px;
     margin: 0;
-    color: lighten(@green, 5%);
+    color:rgba(100%, 100%, 100%, 0.3);
     font-weight: 600;
     padding: 10px 0px;
     cursor: pointer;
@@ -451,6 +451,28 @@ margin-left: auto;
   img {
     width: 34px;
   }
+}
+
+//feedback
+.feedback-box {
+  textarea {
+    display: block;
+    width: 100%;
+    color: @text-color;
+    resize: vertical;
+  }
+  .action-list li .btn {
+    .button-variant(#fff; @teal; @teal);
+    margin-right: 10px;
+  }
+  .btn-link {
+    color: #fff;
+  }
+  label {display: none;}
+  p {
+    margin: 20px 0;
+  }
+  a { color: #fff;}
 }
 
 //reflect
