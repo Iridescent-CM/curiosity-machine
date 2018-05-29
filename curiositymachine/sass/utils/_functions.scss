@@ -5,28 +5,3 @@
 @function tint($color, $percentage) {
   @return mix(white, $color, $percentage);
 }
-
-/* Unused
-
-@mixin vertical-align {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-@mixin transform($value) {
-  -webkit-transform: ($value);
-  -moz-transform: ($value);
-  -ms-transform: ($value);
-  transform: ($value);
-}
-
-@mixin transition($value) {
-  -webkit-transition: ($value);
-  -moz-transition: ($value);
-  -ms-transition: ($value);
-  transition: ($value);
-}
-*/
