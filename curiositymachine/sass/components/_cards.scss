@@ -11,7 +11,6 @@
 .cm-profile-card,
 .cm-info-card {
   border-radius: 4px;
-  overflow: hidden;
 
   .card-body {
     padding: 0.75em;
@@ -196,6 +195,7 @@
   font-size: 0.875em;
   letter-spacing: 2px;
   text-decoration: none;
+  border-bottom-right-radius: 4px;
 
   &:hover {
     background-color: darken($sand, 15%);

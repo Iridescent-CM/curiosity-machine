@@ -71,10 +71,8 @@
   }
 
   .all-challenges-cards {
-    .challenge-card {
-      display: block;
-      vertical-align: top;
-      margin: 10px auto;
+    .card {
+      min-height: 375px;
     }
     margin-bottom: $large-spacing;
   }
