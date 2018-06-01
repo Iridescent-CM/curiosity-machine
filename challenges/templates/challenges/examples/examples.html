@@ -51,7 +51,7 @@
     <div class="row">
 
       {% for example in examples %}
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-lg-3">
         <div class="card cm-info-card my-4">
           <a href="#" data-toggle="modal" data-target="#{{ example.progress.owner.username }}">
             <img class="card-img-top" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.owner.username }}'s {{ challenge.name }}">
