@@ -24,7 +24,7 @@
     {% empty %}
     <h3 class="text-center">You are not mentoring any challenges right now</h3>
     {% endfor %}
-    <div class="col-12 text-center">
+    <div class="col-12 text-center mt-3">
       <a href="{% url "mentors:claimed_progresses" %}"
           class="btn btn-primary {% if not progresses %}disabled{% endif %}"
       >See all</a>
@@ -43,7 +43,7 @@
     {% empty %}
     <h3>There are currently no unclaimed student challenges</h3>
     {% endfor %}
-    <div class="col-12 text-center">
+    <div class="col-12 text-center mt-3">
       <a href="{% url "mentors:unclaimed_groups" %}?by=source"
           class="btn btn-primary {% if not source_groups %}disabled{% endif %}"
       >See all</a>
@@ -62,7 +62,7 @@
     {% empty %}
     <h3>There are currently no unclaimed student challenges</h3>
     {% endfor %}
-    <div class="col-12 text-center">
+    <div class="col-12 text-center mt-3">
       <a href="{% url "mentors:unclaimed_groups" %}?by=date"
           class="btn btn-primary {% if not date_groups %}disabled{% endif %}"
       >See all</a>

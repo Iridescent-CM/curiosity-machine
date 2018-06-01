@@ -8107,6 +8107,12 @@ footer {
     margin-right: 0.25em;
     margin-bottom: 0.25em; }
 
+.account-settings .pickwidget .pickwidget-button {
+  margin-right: 0.25em; }
+
+.account-settings .form-inline input {
+  max-width: 100%; }
+
 .account-settings .yes-no-group .group-label {
   margin-right: 2rem; }
 

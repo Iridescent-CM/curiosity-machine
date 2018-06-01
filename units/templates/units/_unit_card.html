@@ -1,5 +1,5 @@
 {% load resized %}
-<div class="card cm-card">
+<div class="card cm-card mb-4">
   <a href="{% url 'units:unit' unit.id %}">
     <img class="card-img-top" src="{% resized unit.image.url width=450 height=285 crop='fill' %}" />
   </a>

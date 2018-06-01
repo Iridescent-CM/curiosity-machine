@@ -29,7 +29,7 @@
       <div class="row">
       {% for challenge in challenges %}
         <div class="col-sm-6 col-lg-4">
-          <div class="card cm-card">
+          <div class="card cm-card mb-4">
             <a href="{% url 'challenges:preview_inspiration' challenge.id %}">
               <img class="card-img-top" src="{% resized challenge.image.url width=450 height=285 crop='fill' %}">
             </a>

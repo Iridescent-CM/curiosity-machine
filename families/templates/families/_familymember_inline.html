@@ -12,7 +12,7 @@
   {{ form.id }}
   {% endif %}
   <div class="row">
-    <div class="col-md-4 text-center avatar-settings">
+    <div class="col-lg-4 text-center avatar-settings">
       {% if form.instance.image.url %}
         <img
          src={% resized form.instance.image.url width=80 height=80 crop='thumb' gravity='faces' %}
@@ -26,13 +26,13 @@
       {% endif %}
       {% form_group form.image_url field_class="btn btn-primary" %}
     </div>
-    <div class="col-md-8">
+    <div class="col-lg-8">
       {% form_group form.family_role %}
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6">
           {% form_group form.first_name %}
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6">
           {% form_group form.last_name %}
         </div>
       </div>
