@@ -8115,8 +8115,9 @@ footer {
 
 .account-settings .yes-no-group .yes-no-options {
   display: inline-block;
-  margin-left: -1.25rem;
   margin-bottom: 0.5rem; }
+  .account-settings .yes-no-group .yes-no-options input {
+    margin-right: 0.5em; }
 
 .account-settings .btn-secondary {
   border: 1px solid #CCCCCC; }
@@ -8319,7 +8320,8 @@ footer {
   .educator-dashboard .student-list-avatar img {
     background-color: #fff;
     border-radius: 50%;
-    box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
+    box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+    max-width: 48px; }
 
 .educator-dashboard .student-list-manage {
   position: absolute;
@@ -8341,7 +8343,7 @@ footer {
   letter-spacing: 2px;
   margin-bottom: 0; }
 
-.educator-dashboard-conversation .pickwidget-preview {
+.educator-dashboard-conversation .feedback-form .pickwidget-preview {
   max-width: 100px;
   max-height: 100px;
   vertical-align: top;
@@ -8349,13 +8351,13 @@ footer {
   border: 1px solid #ddd;
   border-radius: 0.25rem; }
 
-.educator-dashboard-conversation #id_visual_media_container {
+.educator-dashboard-conversation .feedback-form #id_visual_media_container {
   display: inline-block; }
 
-.educator-dashboard-conversation input[type="submit"] {
+.educator-dashboard-conversation .feedback-form input[type="submit"] {
   float: right; }
 
-.educator-dashboard-conversation textarea {
+.educator-dashboard-conversation .feedback-form textarea {
   width: 100%;
   height: 100px; }
 

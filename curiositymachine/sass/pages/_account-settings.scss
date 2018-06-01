@@ -22,8 +22,11 @@
 
     .yes-no-options {
       display: inline-block;
-      margin-left: -1.25rem;
       margin-bottom: 0.5rem;
+
+      input {
+        margin-right: 0.5em;
+      }
     }
   }
 
