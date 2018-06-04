@@ -13,7 +13,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $heading-font-family;
+  font-family: $headings-font-family;
   font-size: $base-font-size;
   line-height: $heading-line-height;
   margin: 0 0 $small-spacing;
@@ -51,44 +51,6 @@ small {
   font-size: $base-font-size * .875;
 }
 
-a {
-  color: $action-color;
-  text-decoration: none;
-  transition: color $base-duration $base-timing;
-  border-bottom: solid 1px $action-color;
-  cursor: pointer;
-
-  &:hover {
-    color: shade($action-color, 25%);
-    text-decoration: none;
-    border-bottom-color: shade($action-color, 25%);
-  }
-
-  &:focus {
-    color: $primary-red;
-    border-bottom-color: $primary-red;
-    text-decoration: none;
-    outline: none;
-  }
-}
-
-.a-secondary {
-  color: $ivory;
-  border-bottom-color: $ivory;
-  &:hover {
-    color: shade($ivory, 25%);
-    border-bottom-color: shade($ivory, 25%);
-  }
-}
-
-.a-borderless {
-  border-bottom: 0px;
-
-  &:focus {
-    @include tab-focus();
-  }
-}
-
 hr {
   border-bottom: $base-border;
   border-left: 0;
@@ -108,9 +70,20 @@ i {
   speak: none;
 }
 
-//
-// Type Color Classes
-//
+// link utility classes
+// TODO: rethink the naming or maybe the selectors, it's weird
+//       to allow e.g. <div class="a-secondary">...</div>
+
+.a-secondary {
+  color: $ivory;
+  border-bottom-color: $ivory;
+  &:hover {
+    color: shade($ivory, 25%);
+    border-bottom-color: shade($ivory, 25%);
+  }
+}
+
+// type color utility classes
 
 .red-type {
   color: $primary-red;

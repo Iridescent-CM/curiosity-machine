@@ -7,125 +7,115 @@
 
 {% block body-id %}challenges-page{% endblock %}
 {% block content %}
-  <div class="challenges-top-panel">
+  <div class="jumbotron cm-jumbotron jumbotron-fluid bg-blue">
     <h1>Challenges</h1>
   </div>
 
   <div class="container">
-    <div class="challenges-navigation col-md-5 col-lg-4 col-xl-3">
-      <h4 class="all-challenges-header text-center hidden-sm-down">Categories</h4>
-      <button class="filter-theme-toggle collapsed hidden-md-up btn btn-block btn-green"
-        data-toggle="collapse" data-target="#filter-theme-list"
-        aria-expanded="false" aria-controls="filter-theme-list"
-      >
-        Categories
-      </button>
-      <ul id="filter-theme-list" class="design-challenge-list collapse">
-        {% for f in filters %}
-        <li class="{% if f.active %}active{% endif %}">
-          <a class="text-truncate" href="{{ f.full_url }}">{{ f.text|safe }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
+    <div class="row">
+      <div class="challenges-navigation col-md-5 col-lg-4 col-xl-3">
+        <h4 class="block-header text-center d-none d-md-block">Categories</h4>
+        <button class="filter-theme-toggle collapsed d-md-none btn btn-block btn-green"
+          data-toggle="collapse" href="#filter-theme-list"
+          aria-expanded="false" aria-controls="filter-theme-list"
+        >
+          Categories
+        </button>
+        <ul id="filter-theme-list" class="filter-list collapse">
+          {% for f in filters %}
+          <li class="{% if f.active %}active{% endif %}">
+            <a class="text-truncate" href="{{ f.full_url }}">{{ f.text|safe }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
 
-    <div class="col-md-7 col-lg-8 col-xl-9">
-      <h4 class="all-challenges-header text-xs-center" id="challenges">{{title|safe}}</h4>
-      {% if header_template %}
-        {% include header_template %}
-      {% endif %}
-      <div class="all-challenges-cards">
+      <div class="col-md-7 col-lg-8 col-xl-9">
+        <h4 class="block-header text-center" id="challenges">{{title|safe}}</h4>
+        {% if header_template %}
+          {% include header_template %}
+        {% endif %}
+        <div class="all-challenges-cards">
 
-        {% include "curiositymachine/_messages.html" %}
+          {% include "curiositymachine/_messages.html" %}
 
-        <div class="row text-xs-center">
-          {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
-        </div>
+          <div class="d-flex justify-content-center mt-4 mb-2">
+            {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
+          </div>
 
-        <div class="row">
+          <div class="row">
 
-          {% for challenge in challenges %}
-            <div class="col-sm-6 col-md-12 col-lg-6 col-xl-4">
-              <div class="card challenge-card">
+            {% for challenge in challenges %}
+            <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-10 offset-md-1 col-lg-6 offset-lg-0 col-xl-4">
+              <div class="card cm-card mb-3">
                 {% if request.user.is_authenticated and request.user.extra.is_student %}
-                  <div class="favorites-filter">
-                    <input type="checkbox"
-                      name="favorite-star-{{challenge.id}}"
-                      id="favorite-star-{{challenge.id}}"
-                      data-toggle="favorite"
-                      data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}"
-                      data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"
-                      {% if challenge.id in favorite_ids %}checked="checked"{% endif %}
-                    >
-                    <label for="favorite-star-{{challenge.id}}"><i class="icon-star-full"></i></label>
-                  </div>
+                <div class="favorites-badge">
+                  <input type="checkbox"
+                    name="favorite-star-{{challenge.id}}"
+                    id="favorite-star-{{challenge.id}}"
+                    data-toggle="favorite"
+                    data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}"
+                    data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"
+                    {% if challenge.id in favorite_ids %}checked="checked"{% endif %}
+                  >
+                  <label for="favorite-star-{{challenge.id}}"><i class="icon-star-full"></i></label>
+                </div>
                 {% endif %}
                 {% if challenge.started %}
-                  <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
-                  {% else %}
-                  <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
+                <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
+                {% else %}
+                <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
                 {% endif %}
-                {% if challenge.image %}
+                  {% if challenge.image %}
                   <img class="card-img-top" src="{% resized challenge.image.url width=300 height=190 crop='fill' %}" alt="{{challenge.name}}">
-                {% elif challenge.video.encodings_generated %}
+                  {% elif challenge.video.encodings_generated %}
                   {{ challenge.video.output_videos.all.0.thumbnail }}
-                {% endif %}
-                  </a>
-
-                  <div class="card-block card-title">
-                    <h6>
-                      {% if challenge.started %}
-                        <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
-                      {% else %}
-                        <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
-                      {% endif %}
-                        {{ challenge.name }}
-                      </a>
-                    </h6>
-                  </div>
-                  <div class="card-block">
-                    <p class="card-text"><small>{{challenge.description}}</small></p>
-                  </div>
-
-                  {% if request.user.is_authenticated %}
-                  <div class="card-block card-details">
-                    <ul>
-                      {% if challenge.accessible or challenge.started %}
-                      {% if request.user.extra.is_student %}
-                      <li>
-                        <small>
-                          <span class="accessible-dc">Build it!</span>
-                        </small>
-                      </li>
-                      {% endif %}
-                      {% endif %}
-                      {% if not request.user.extra.is_student and challenge.has_resources %}
-                      <li>
-                        <small>
-                          <span class="has-resources">Resources</span>
-                        </small>
-                      </li>
-                      {% endif %}
-                    </ul>
-                  </div>
                   {% endif %}
+                </a>
+
+                <div class="card-body">
+                  <h6 class="card-title">
+                    {% if challenge.started %}
+                      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
+                    {% else %}
+                      <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
+                    {% endif %}
+                      {{ challenge.name }}
+                    </a>
+                  </h6>
+                </div>
+                <div class="card-body card-divider">
+                  <p class="card-text"><small>{{challenge.description}}</small></p>
+                </div>
+
+                {% if request.user.is_authenticated %}
+                <div class="card-body">
+                  <ul jlass="card-flags">
+                    {% if challenge.accessible or challenge.started %}
+                    {% if request.user.extra.is_student %}
+                    <li>
+                      <span class="card-flag card-flag-purple"><small>Build it!</small></span>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                    {% if not request.user.extra.is_student and challenge.has_resources %}
+                    <li>
+                      <span class="card-flag card-flag-green"><small>Resources</small></span>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </div>
+                {% endif %}
               </div>
             </div>
 
-            {% if forloop.counter|divisibleby:2 %}
-              <div class="clearfix hidden-xl-up"></div>
-            {% endif %}
+            {% endfor %}
 
-            {% if forloop.counter|divisibleby:3 %}
-              <div class="clearfix hidden-lg-down"></div>
-            {% endif %}
+          </div>
 
-          {% endfor %}
-
-        </div>
-
-        <div class="row text-xs-center">
-          {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
+          <div class="d-flex justify-content-center mt-4 mb-2">
+            {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
+          </div>
         </div>
       </div>
     </div>

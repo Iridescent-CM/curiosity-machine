@@ -1,9 +1,9 @@
 {% load widget_tweaks %}
-<div class="row mt-1">
-  <div class="card">
-    <div class="card-block">
-      <h3>Your impact</h3>
-      <div id="impact-survey-msg" class="my-1 submit-message">
+<div class="row my-3">
+  <div class="card w-100 bg-dark">
+    <div class="card-body">
+      <h3 class="card-title">Your impact</h3>
+      <div id="impact-survey-msg" class="my-2 submit-message">
         <p class="before-submit">
           Share your Curiosity Machine experience! This information helps us improve and offer our resources to more people.
         </p>
@@ -11,54 +11,54 @@
           Thanks for helping us understand how you use Curiosity Machine! If your usage changes, you can submit your data again.
         </p>
       </div>
-      <div class="collapse" id="impact-collapse">
-        <form id="impact-survey" class="mb-3"
+      <div class="collapse my-4" id="impact-collapse">
+        <form id="impact-survey"
             action="{% url "educators:update_impact_survey" %}"
             method="post" data-remote="true"
         >
           {% csrf_token %}
           <h4>I use Curiosity Machine with...</h4>
           <div class="form-group row">
-            <label class="col-xs-12 col-md-3">
+            <label class="col-12 col-md-3">
               # students
               {{ impact_form.student_count|add_class:"form-control"|attr:"placeholder:required" }}
             </label>
-            <label class="col-xs-12 col-md-3">
+            <label class="col-12 col-md-3">
               # teachers
               {{ impact_form.teacher_count|add_class:"form-control" }}
             </label>
           </div>
           <h4>I have taught...</h4>
           <div class="form-group row">
-            <label class="col-xs-12 col-md-3">
+            <label class="col-12 col-md-3">
               # design challenges
               {{ impact_form.challenge_count|add_class:"form-control"|attr:"placeholder:required" }}
             </label>
-            <label class="col-xs-6 col-md-3">
+            <label class="col-6 col-md-3">
               In the classroom
               {{ impact_form.in_classroom|add_class:"form-check" }}
             </label>
-            <label class="col-xs-6 col-md-3">
+            <label class="col-6 col-md-3">
               Out of the classroom
               {{ impact_form.out_of_classroom|add_class:"form-check" }}
             </label>
           </div>
           <h4>My students take about...</h4>
           <div class="form-group row">
-            <label class="col-xs-12 col-md-3">
+            <label class="col-12 col-md-3">
               Hours per challenge
               {{ impact_form.hours_per_challenge|add_class:"form-control" }}
             </label>
           </div>
           <h4>Anything else you want to tell us?</h4>
           <div class="form-group row">
-            <label class="col-xs-12 col-md-6">
+            <label class="col-12 col-md-6">
               {{ impact_form.comment|add_class:"form-control"|attr:"placeholder:Add your comments here" }}
             </label>
           </div>
           <div class="form-group row">
-            <div class="col-xs-12 col-md-9">
-                <input type="submit" value="Save" class="btn btn-primary" disabled="disabled" data-disable-with="Saving...">
+            <div class="col-12 col-md-9">
+              <input type="submit" value="Save" class="btn btn-primary" disabled="disabled" data-disable-with="Saving...">
                 <span id="impact-survey-status" class="ml-2"></span>
             </div>
           </div>
@@ -68,7 +68,7 @@
         data-toggle="collapse" href="#impact-collapse"
         id="impact-collapse-trigger"
         data-show-text='Show' data-hide-text='Hide'
-        class="btn btn-secondary"
+        class="btn btn-secondary my-2"
         aria-expanded="false" aria-controls="impact-collapse"
       >Show</a>
     </div>

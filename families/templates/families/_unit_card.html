@@ -1,30 +1,32 @@
 {% load resized %}
 
-<div class="card vertical-expandable-card">
+<div class="card cm-fancy-card mb-3">
 
-  <a href="{% url "units:unit" unit_id=unit.id %}" class="a-borderless">
+  <a href="{% url "units:unit" unit_id=unit.id %}">
     <img class="card-img-top mr-1" src="{% resized unit.image.url width=545 height=240 crop='fill' %}" alt="{{ unit.name }}">
   </a>
 
-  <div class="card-block">
-    <h3>
-      <a href="{% url "units:unit" unit_id=unit.id %}" class="a-borderless">
+  <div class="card-body pb-5">
+    <h3 class="card-title">
+      <a href="{% url "units:unit" unit_id=unit.id %}">
         {{ unit.name }}
       </a>
     </h3>
   </div>
 
-  <div class="card-block">
-    <a class="expandable-card-toggle" data-text-swap="&minus; LESS INFO" data-toggle="collapse" href="#unit-{{ unit.id }}" aria-expanded="false" aria-controls="unit-{{ unit.id }}">
-      &plus; MORE INFO
-    </a>
-  </div>
+  <a class="card-body-toggle"
+    data-text-swap="&minus; LESS INFO"
+    data-toggle="collapse"
+    href="#unit-{{ unit.id }}"
+    aria-expanded="false"
+    aria-controls="unit-{{ unit.id }}"
+  >
+    &plus; MORE INFO
+  </a>
 
-  <div class="collapse" id="unit-{{ unit.id }}">
-    <div class="expandable-card-more">
-      <span class="expandable-card-more-section-title">DESCRIPTION</span>
-      <p>{{ unit.description }}</p>
-    </div>
+  <div class="card-body pb-4 card-divider collapse" id="unit-{{ unit.id }}">
+    <h4 class="card-section-title">DESCRIPTION</h4>
+    <p>{{ unit.description }}</p>
   </div>
 
 </div>

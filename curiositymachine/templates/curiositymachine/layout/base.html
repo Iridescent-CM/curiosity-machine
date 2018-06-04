@@ -131,16 +131,15 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     </div>
   {% endif %}
 
-  {% include 'curiositymachine/_header.html' %}
+  {% include 'curiositymachine/layout/_header.html' %}
 
   {% block container %}
     {% block content %}
     {% endblock %}
   {% endblock %}
 
-  {% include 'curiositymachine/_footer.html' %}
+  {% include 'curiositymachine/layout/_footer.html' %}
 
-  <!-- jQuery first, then Bootstrap JS. -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="{% static 'js/libs/jquery-ujs.js' %}"></script>
   {% compress js %}
@@ -155,7 +154,7 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     <script src="{% static 'js/ga-track.js' %}"></script>
     <script src="{% static 'js/libs/autotrack.js' %}"></script>
     {% endif %}
-    <script type="text/javascript" src="{% static 'js/libs/bootstrap4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/bootstrap.bundle.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/modals.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/smoothscroll.js' %}"></script>

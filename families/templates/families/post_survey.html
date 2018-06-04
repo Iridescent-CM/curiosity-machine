@@ -2,17 +2,17 @@
 {% load staticfiles %}
 
 {% block content %}
-  <div class="jumbotron-blue jumbotron-fluid text-xs-center">
+  <div class="jumbotron jumbotron-fluid cm-jumbotron bg-blue">
     <h1>Congratulations on finishing Stage 1!</h1>
   </div>
-  <div class="container mb-3">
+  <div class="container mb-5">
     <div class="row">
-      <div class="col-sm-6 offset-sm-3 col-xs-8 offset-xs-2 text-xs-center">
+      <div class="col-sm-6 offset-sm-3 col-8 offset-2 text-center">
         <img src="{% static 'images/stages.svg' %}" alt="Stages of AIFC">
       </div>
     </div>
-    <div class="row mt-2">
-      <div class="col-sm-8 offset-sm-2 text-xs-center">
+    <div class="row mt-4">
+      <div class="col-sm-8 offset-sm-2 text-center">
         <p>Before advancing to the next stage, please take this  <a href="{{postsurvey.url }}">5 minute survey</a>. Your responses help us make improvements!</p>
       </div>
     </div>

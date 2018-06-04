@@ -1,46 +1,49 @@
-@import 'vendors/bootstrap/scss/bootstrap';
-
 @import 'utils/functions';
 @import 'utils/variables';
-@import 'utils/backgrounds';
+
+$theme-colors: (
+  "primary": $primary-blue,
+  "secondary": #FFF,
+  "blue": $primary-blue,
+  "green": darken($primary-green, 4%), // to get color-yiq to give white text
+  "red": $primary-red,
+  "orange": $primary-orange,
+  "purple": $primary-purple
+);
+@import 'vendors/bootstrap/scss/bootstrap';
 
 @import 'base/fonts';
 @import 'base/typography';
 
+@import 'layout/about-pg-layout';
+@import 'layout/dashboards';
+@import 'layout/footer';
+@import 'layout/header';
+@import 'layout/old-style';
+
+@import 'components/avatar';
 @import 'components/banners';
 @import 'components/buttons';
+@import 'components/cards';
+@import 'components/challenge-status';
 @import 'components/dividers';
-@import 'components/challenge-cards';
-@import 'components/modals';
-@import 'components/pagination';
-@import 'components/jumbotron';
-@import 'components/site-message';
-@import 'components/videos';
-@import 'components/tables';
-@import 'components/progress_graph';
-@import 'components/widgets';
+@import 'components/favorites';
+@import 'components/jumbotrons';
+@import 'components/list-group';
 @import 'components/lists';
-@import 'components/forms';
+@import 'components/modal';
+@import 'components/progress-graph';
+@import 'components/tables';
 
-@import 'layout/header';
-@import 'layout/footer';
-@import 'layout/about_pg_layout';
-@import 'layout/membership_pg_layout';
-@import 'layout/old_style';
-
-@import 'pages/home';
-@import 'pages/educator-dashboard';
-@import 'pages/family-dashboard';
-@import 'pages/student-dashboard';
+@import 'pages/about-educator';
+@import 'pages/account-settings';
 @import 'pages/challenges';
-@import 'pages/mentor-community';
+@import 'pages/edp-inspiration';
+@import 'pages/educator-dashboard';
+@import 'pages/examples';
+@import 'pages/family-dashboard';
+@import 'pages/home';
 @import 'pages/mentor-dashboard';
 @import 'pages/password-change';
-@import 'pages/login';
-@import 'pages/examples';
-@import 'pages/landing';
-@import 'pages/about-membership';
-@import 'pages/about-mentor';
-@import 'pages/about-aichallenge';
-@import 'pages/choose-profile';
-@import 'pages/units';
+
+@import 'utils/backgrounds';

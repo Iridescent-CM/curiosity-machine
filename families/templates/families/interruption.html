@@ -2,13 +2,13 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<div class="jumbotron-blue jumbotron-fluid text-xs-center">
+<div class="jumbotron cm-jumbotron bg-blue jumbotron-fluid">
   <h1>To activate your account...</h1>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      <p class="text-xs-center">Parents and guardians, please <strong>follow these directions to register for the program:</strong></p>
+      <p class="text-center">Parents and guardians, please <strong>follow these directions to register for the program:</strong></p>
       <hr/>
 
       <ol class="to-do-list">
@@ -40,15 +40,15 @@
       <form class="form-inline" action="{% url "families:edit_email" %}" method="POST">
         {% csrf_token %}
         {% form_group email_form.email %}
-        <input class="btn btn-sm btn-primary" type="submit" value="Change email" />
+        <input class="btn btn-sm btn-primary ml-2" type="submit" value="Change email" />
       </form>
 
-      <p class="my-2"><em>
+      <p class="my-4"><em>
         Email <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a> if you have completed both steps and your account is not activated within 20 minutes.
       </em></p>
 
       <hr/>
-      <p class="mb-3"><small>
+      <p class="mb-5"><small>
         You can post pictures and videos of your projects on Curiosity Machine. To activate this account, your parent or guardian must complete the consent form sent to their email. This is in accordance with the Children’s Online Privacy Protection Act (COPPA).
       </small></p>
 

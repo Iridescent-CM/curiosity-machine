@@ -12,80 +12,80 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5">
         <h2>Bring Curiosity Machine to your students</h2>
-        <h3 class="mb-3">We believe the best learning happens through exploration. Challenge your students to discover new ideas and solve unique problems.</h3>
+        <h3 class="mb-5">We believe the best learning happens through exploration. Challenge your students to discover new ideas and solve unique problems.</h3>
         <p>Educators everywhere are using Curiosity Machine in classrooms, after school clubs, family programs, makerspaces, libraries, and more. That's because Curiosity Machine creates engaging and approachable opportunities for students and adults to learn together. You don't have to be a scientist or engineer to lead design challenges—you just have to be curious enough to want to learn! </p>
 
-        <hr class="mb-3"/>
+        <hr class="mb-5"/>
 
         <h3>Simple Materials</h3>
         <p>We develop our design challenges using the most affordable materials available. Also, we encourage students to think creatively about materials that can be re-purposed for their creations as a part of the problem solving process. Educators can challenge students to build prototype helicopters, robots, and more without the need for expensive kits.</p>
 
-        <h3 class="mt-2">Students learn more than just STEM.</h3>
+        <h3 class="mt-4">Students learn more than just STEM.</h3>
         <p>With the engineering design process (EDP) as a guide, your students will plan, build, and test their designs. Students document each step on Curiosity Machine, where you can monitor their progress. But most importantly, students who complete Curiosity Machine design challenges learn to persevere through mistakes and failure, learning that creating something new is a process of testing and improvement.This supports them to build confidence in their ability to solve tough problems.</p>
 
-        <h3 class="mt-2">Curiosity Machine is Free</h3>
+        <h3 class="mt-4">Curiosity Machine is Free</h3>
         <p>Create an account to access Curiosity Machine’s design challenges, videos, educator resources, and student progress tracking for free!</p>
 
-        <hr class="hr-red mb-3"/>
+        <hr class="hr-red mb-5"/>
 
         <h2>Educator Resources</h2>
         <h3>Units</h3>
-        <p class="text-xs-center">Choose a series of Curiosity Machine design challenges, or create your own!</p>
+        <p class="text-center">Choose a series of Curiosity Machine design challenges, or create your own!</p>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-lg-4 col-md-6 text-xs-center">
-        <div class="card challenge-card mx-auto">
-          <a href="{% url 'units:unit' unit_id=11 %}" class="a-borderless">
+      <div class="col-lg-4 col-md-6">
+        <div class="card cm-card mb-3 mx-auto">
+          <a href="{% url 'units:unit' unit_id=11 %}">
             <img class="card-img-top" src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/c1432a04cb8f694b9d7d74f28e7863f0' width=300 height=170 crop='fill' %}" alt="Flight Unit">
           </a>
-          <div class="card-block card-title">
-            <h6>
+          <div class="card-body">
+            <h6 class="card-title">
               <a href="{% url 'units:unit' unit_id=11 %}">
                 Kindergarten-2nd Grade Engineering Design Process
               </a>
             </h6>
           </div>
-          <div class="card-block">
+          <div class="card-body card-divider">
             <p class="card-text">Inspire young students to make observations and find solutions to problems.</p>
           </div>
         </div>
       </div>
 
       <div class="col-lg-4 col-md-6">
-        <div class="card challenge-card mx-auto">
-          <a href="{% url 'units:unit' unit_id=11 %}" class="a-borderless">
+        <div class="card cm-card mb-3 mx-auto">
+          <a href="{% url 'units:unit' unit_id=11 %}">
             <img class="card-img-top" src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/ec1c2ec8086227732540b5f8bcb79d8e' width=300 height=170 crop='fill' %}" alt="Summer of Invention Unit">
           </a>
-          <div class="card-block card-title">
-            <h6>
+          <div class="card-body">
+            <h6 class="card-title">
               <a href="{% url 'units:unit' unit_id=13 %}">
                 3rd-5th Grade Engineering Design Process
               </a>
             </h6>
           </div>
-          <div class="card-block">
+          <div class="card-body card-divider">
             <p class="card-text">Inspire elementary students to design for constraints and test solutions.</p>
           </div>
         </div>
       </div>
 
       <div class="col-lg-4 col-md-6">
-        <div class="card challenge-card mx-auto">
-          <a href="{% url 'units:unit' unit_id=11 %}" class="a-borderless">
+        <div class="card cm-card mb-3 mx-auto">
+          <a href="{% url 'units:unit' unit_id=11 %}">
             <img class="card-img-top" src="{% resized 'http://s3.amazonaws.com/curiositymachine/images/06653476d73be4481ff06e29c1f563d0' width=300 height=170 crop='fill' %}" alt="BioBots Unit">
           </a>
-          <div class="card-block card-title">
-            <h6>
-              <a href="{% url 'units:unit' unit_id=2 %}" class="a-borderless">
+          <div class="card-body">
+            <h6 class="card-title">
+              <a href="{% url 'units:unit' unit_id=2 %}">
                 6th-8th Grade Engineering Sampler
               </a>
             </h6>
           </div>
-          <div class="card-block">
+          <div class="card-body card-divider">
             <p class="card-text">A collection of design challenges that explore different types of engineering.</p>
           </div>
         </div>
@@ -93,12 +93,12 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-3">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5">
         <h3>Design Challenges Support Education Standards</h3>
         <p>Want to lead Curiosity Machine design challenges and hit your teaching standards at the same time? We have you covered. Our design challenges support many state standards, including NGSS standards. We've even created a guide to help identify design challenges that support specific standards in <a href="https://s3.amazonaws.com/curiositymachine/statics/Curiosity_Machine_NGSS_Alignment_K-8.pdf" target="_blank">k-8 NGSS</a>.</p>
 
 
-        <h3 class="mt-3">Additional Support</h3>
+        <h3 class="mt-5">Additional Support</h3>
         <p>If your school or organization needs a little more support, we also offer the following paid services:</p>
         <ul>
           <li>Professional development for educators </li>
@@ -110,8 +110,8 @@
     </div>
   </div>
 
-  <div class="sign-up-panel py-3">
-    <h2>Create an account!</h2>
-      <a href="{% url "account_signup" %}" class="btn btn-red-secondary text-uppercase">Get Started</a>
+  <div class="bg-red text-center py-5">
+    <h2 class="text-white">Create an account!</h2>
+      <a href="{% url "account_signup" %}" class="btn btn-secondary text-red text-uppercase">Get Started</a>
   </div>
 {% endblock %}

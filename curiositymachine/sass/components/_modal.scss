@@ -1,0 +1,29 @@
+// .modal-cm      - add to Bootstrap's .modal for custom styling
+
+.modal-cm {
+
+  // .modal-close should sit outside of .modal-dialog, inside .modal
+  .modal-close {
+    color: #fff;
+    font-size: $base-font-size * 3;
+    font-weight: $light-font-weight;
+    text-shadow: 0px;
+    opacity: 1.0;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    &:hover {
+      color: shade(#fff, 20);
+    }
+  }
+
+  // dialog positioning
+  .modal-dialog {
+    margin-top: 80px;
+  }
+
+  // remove the slide effect from .fade
+  &.modal.fade .modal-dialog {
+    transform: translate(0,0);
+  }
+}

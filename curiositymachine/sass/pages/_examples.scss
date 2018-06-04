@@ -1,45 +1,41 @@
 #examples-page {
-  //background-color: $light-gray;
 
-  .examples-top-panel {
-    width: 100%;
+  .cm-jumbotron {
+    color: $ivory;
     background: linear-gradient( 45deg, $primary-blue, $primary-green );
-    padding: $large-spacing 0px $small-spacing 0px;
-    text-align: center;
-    color: white;
-    margin-bottom: $base-spacing;
 
     a {
+      color: $ivory;
+      border-bottom: 1px solid $ivory;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .badge-remove {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: $primary-red;
+    text-align: center;
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    box-shadow: 0px 2px 4px rgba(151,151,151,0.8);
+    color: white;
+
+    &:hover {
+      color: $primary-red-dark;
+    }
+    &:active, &:focus {
       color: white;
-      border-bottom-color: white;
     }
   }
 
-  .card {
-    margin-bottom: $base-spacing;
-  }
-
-  .card-block {
-    background-color: tint($sand, 60);
-    overflow: auto;
-    word-break: break-all;
-  }
-
-  .modal-header h3 {
-    margin-bottom: 0px;
-  }
-
-  .modal-footer a {
-    margin-right: $small-spacing;
-  }
-
-  #choose-photo {
-
-    .modal-body {
-      max-height: 525px;
-      overflow: scroll;
-    }
-
+  .photo-choice {
     input[type='radio'] { display: none }
 
     input[type='radio'] + label {
@@ -54,37 +50,32 @@
     input[type='radio']:checked + label {
       border: 3px solid $primary-blue;
     }
-
   }
 
-  .pending {
+  .pending-overlay {
     width: 100%;
     background-color: rgba(247,209,151,.9);
     border: 1px solid $primary-orange;
     color: darken($primary-orange, 30%);
     position: relative;
-    display: block;
     padding: $small-spacing/2;
     top: -36px;
     text-align: center;
     margin-bottom: -36px;
   }
 
-  .examples-page-alerts {
-    border: 1px solid $sand;
-    border-radius: $base-border-radius;
-    background-color: lighten($sand, 70%);
-
-    i {
-      margin-right: $small-spacing;
-    }
+  .card-body {
+    background-color: tint($sand, 60);
+    overflow: auto;
+    word-break: break-all;
   }
 
-  @include media-breakpoint-up(xs) {
-    .card {
-      max-width: 330px;
-      margin: $base-spacing auto;
-    }
+  .modal-header h3 {
+    margin-bottom: 0px;
   }
 
+  a[data-toggle="modal"]:hover,
+  a[data-toggle="modal"]:focus {
+    text-decoration: none;
+  }
 }

@@ -1,0 +1,27 @@
+{% extends "educators/dashboard/base.html" %}
+{% load educator_notifications %}
+
+{% block content %}
+  {% include 'educators/dashboard/_navigation.html' %}
+  <div class="row justify-content-center">
+    {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+  </div>
+  {% for day, activity in activity_by_day.items %}
+  <ul class="activity-list-group list-group my-4">
+    <li class="list-group-item list-group-item-dark">{{ day|date:"DATE_FORMAT" }}</li>
+    {% for notification in activity %}
+    <li class="list-group-item">
+      {% educator_notification notification %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% empty %}
+  <ul class="list-group my-4">
+    <li class="list-group-item list-group-item-dark">{% now "DATE_FORMAT" %}</li>
+    <li class="list-group-item">No recent activity</li>
+  <ul>
+  {% endfor %}
+  <div class="row justify-content-center">
+    {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+  </div>
+{% endblock %}

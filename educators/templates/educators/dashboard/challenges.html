@@ -5,7 +5,7 @@
   {% include 'educators/dashboard/_navigation.html' %}
 
   {% if membership and membership_challenges %}
-  <div class="row pb-1">
+  <div class="row pb-2">
     <div class="col-md-12">
       <h2>{{ membership.display_name }} Design Challenges</h2>
     </div>
@@ -16,15 +16,6 @@
     <div class="col-lg-4 col-md-6 mb-1">
       {% include 'educators/dashboard/_challenge_card.html' with challenge=challenge show_detail_links=True %}
     </div>
-
-    {% if forloop.counter|divisibleby:3 %}
-      <div class="clearfix hidden-md-down"></div>
-    {% endif %}
-
-    {% if forloop.counter|divisibleby:2 %}
-      <div class="clearfix hidden-lg-up"></div>
-    {% endif %}
-
     {% endfor %}
 
   </div>
@@ -32,7 +23,7 @@
 
 
   {% if core_challenges %}
-  <div class="row pb-1">
+  <div class="row pb-2">
     <div class="col-md-12">
       <h2>Try the AI Design Challenges</h2>
     </div>
@@ -44,15 +35,6 @@
     <div class="col-lg-4 col-md-6 mb-1">
       {% include 'educators/dashboard/_challenge_card.html' with challenge=challenge %}
     </div>
-
-    {% if forloop.counter|divisibleby:3 %}
-      <div class="clearfix hidden-md-down"></div>
-    {% endif %}
-
-    {% if forloop.counter|divisibleby:2 %}
-      <div class="clearfix hidden-lg-up"></div>
-    {% endif %}
-
     {% endfor %}
 
   </div>

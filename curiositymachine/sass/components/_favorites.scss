@@ -1,0 +1,21 @@
+.favorites-badge {
+  position: absolute;
+  text-align: center;
+  top: -8px;
+  left: -8px;
+  input[type='checkbox'] { display: none }
+  input[type='checkbox'] + label {
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding-top: 2px;
+    background-color: tint($gray, 50);
+    box-shadow: 0px 2px 4px rgba(151,151,151,0.8);
+    color: white;
+    cursor: pointer;
+  }
+  input[type='checkbox']:checked + label {
+    background-color: $primary-green;
+  }
+}

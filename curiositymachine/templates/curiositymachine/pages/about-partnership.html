@@ -12,18 +12,16 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-3">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5 text-center">
         <h2>Your Work is Inspiring</h2>
         <h3 class="mb-1">Share it with the world!</h3>
-      </div>
-      <div class="text-sm-center">
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSflWTQ1DHmAsdzKU6ZrmCTINPqHTvym15apTqAF5Dmb80cZfw/viewform?usp=sf_link"
-          class="btn btn-primary text-uppercase"
+          class="btn btn-primary text-uppercase mt-3"
           target="_blank"
         >Sign up to Mentor</a>
       </div>
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-2">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-4">
         <p>Curiosity Machine works with industry experts to bring science and engineering education to children and families. By partnering with us, your company’s employees have the unique chance to:</p>
         <ul>
           <li>
@@ -46,8 +44,8 @@
 
         <p class="mt-2 mb-3">Want to learn more? Schedule a meeting with us! Contact <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.</p>
 
-        <hr class="hr-red mb-3"/>
-        <h3 class="mb-3">Your team could be online mentors with Curiosity Machine.</h3>
+        <hr class="hr-red mb-5"/>
+        <h3 class="mb-5">Your team could be online mentors with Curiosity Machine.</h3>
         <p>On Curiosity Machine, mentors support students as they build solutions to engineering design challenges. There are multiple ways for mentors to work with students and/or educators &mdash; find the best fit for you!</p>
         <p>As a Curiosity Machine mentor, they will...</p>
         <ul>
@@ -57,15 +55,15 @@
           <li>Join our <a href="{% url "mentors:list" %}">community of STEM professionals</a></li>
         </ul>
       </div>
-      <div class="col-xs-10 offset-xs-1">
-        <img class="my-3" src="{% static 'images/about/mentor-interaction-baymax.png' %}" alt="Mentor and student interaction example">
+      <div class="col-10 offset-1">
+        <img class="my-5" src="{% static 'images/about/mentor-interaction-baymax.png' %}" alt="Mentor and student interaction example">
       </div>
     </div>
   </div>
 
-  <div class="sign-up-panel py-3">
-    <h2>Be a part of the Artificial Intelligence Family Challenge</h2>
-    <a href="{% url 'aichallenge' %}" class="btn btn-red-secondary text-uppercase">Learn More</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSflWTQ1DHmAsdzKU6ZrmCTINPqHTvym15apTqAF5Dmb80cZfw/viewform?usp=sf_link" class="btn btn-red-secondary text-uppercase" target="_blank">Sign up to Mentor!</a>
+  <div class="bg-red py-5 text-center">
+    <h2 class="text-white">Be a part of the Artificial Intelligence Family Challenge</h2>
+    <a href="{% url 'aichallenge' %}" class="btn btn-secondary text-red text-uppercase">Learn More</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSflWTQ1DHmAsdzKU6ZrmCTINPqHTvym15apTqAF5Dmb80cZfw/viewform?usp=sf_link" class="btn btn-secondary text-red text-uppercase" target="_blank">Sign up to Mentor!</a>
   </div>
 {% endblock %}

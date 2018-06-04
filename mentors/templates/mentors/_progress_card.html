@@ -2,7 +2,7 @@
 {% load resized %}
 {% load staticfiles %}
 
-<div class="card progress-card">
+<div class="card cm-card">
   <a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.owner.username %}">
 
     {% if progress.owner.studentprofile.image %}
@@ -15,7 +15,7 @@
 
   </a>
 
-  <div class="card-block">
+  <div class="card-body">
     <h3 class="card-title">
       {% with count=progress|unread_count:request.user %}
       {% if count %}
@@ -26,7 +26,7 @@
     </h3>
   </div>
 
-  <div class="card-block">
+  <div class="card-body card-divider">
     <p>Started: {{ progress.started }}</p>
     {% if not progress.mentor %}
       <form action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">

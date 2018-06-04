@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib import messages
+from django.utils.deprecation import MiddlewareMixin
 from curiositymachine.exceptions import LoginRequired
 import profiles.models
 import re
@@ -21,7 +22,7 @@ def whitelisted(view, *listnames):
             return True
     return False
 
-class CanonicalDomainMiddleware:
+class CanonicalDomainMiddleware(MiddlewareMixin):
     """
     Redirects to CANONICAL_DOMAIN from other domains if set
     """
@@ -29,7 +30,7 @@ class CanonicalDomainMiddleware:
         if settings.CANONICAL_DOMAIN and not request.META['HTTP_HOST'] == settings.CANONICAL_DOMAIN:
             return HttpResponseRedirect('http://{}/{}'.format(settings.CANONICAL_DOMAIN, request.get_full_path())) # might as well redirect to http as sslify will then catch requests if appropriate
 
-class LoginRequiredMiddleware:
+class LoginRequiredMiddleware(MiddlewareMixin):
     """
     Redirects to login if view isn't in 'public' or 'maybe_public' whitelists, or view has raised LoginRequired
     """
@@ -59,7 +60,7 @@ class LoginRequiredMiddleware:
             )
             return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.path))
 
-class UnderageStudentSandboxMiddleware:
+class UnderageStudentSandboxMiddleware(MiddlewareMixin):
     """
     Middleware that sandboxes students under 13 away from the rest of the site.
     """
@@ -72,7 +73,7 @@ class UnderageStudentSandboxMiddleware:
                     and not whitelist_regex.match(request.path.lstrip('/'))):
                 return HttpResponseRedirect(reverse('students:underage'))
 
-class UnapprovedMentorSandboxMiddleware:
+class UnapprovedMentorSandboxMiddleware(MiddlewareMixin):
     """
     Middleware that sandboxes mentors who have not yet been approved to the training section of the site.
     """
@@ -85,7 +86,7 @@ class UnapprovedMentorSandboxMiddleware:
                     and not whitelist_regex.match(request.path.lstrip('/'))):
                 return HttpResponseRedirect(reverse('profiles:home'))
 
-class UserProxyMiddleware:
+class UserProxyMiddleware(MiddlewareMixin):
     """
     Middleware that changes request.user to User proxy model
     """
@@ -94,7 +95,7 @@ class UserProxyMiddleware:
             profiles.models.User.cast(request.user)
         return None
 
-class LastActiveMiddleware:
+class LastActiveMiddleware(MiddlewareMixin):
     """
     Middleware that updates the last_active_on(or last seen) field of a profile
     """
@@ -103,12 +104,15 @@ class LastActiveMiddleware:
             request.user.extra.set_active()
         return None
 
-class FirstLoginMiddleware:
+class FirstLoginMiddleware(MiddlewareMixin):
     """
     Maintains first_login flag used to detect first login
     """
     def process_response(self, request, response):
-        if hasattr(request, 'user') and request.user.is_authenticated() and request.user.extra.first_login:
+        if (
+            request.user.is_authenticated()
+            and request.user.extra.first_login
+        ):
             # assume successful response means they'll be seeing the intro video
             if response.status_code == 200:
                 request.user.extra.first_login = False

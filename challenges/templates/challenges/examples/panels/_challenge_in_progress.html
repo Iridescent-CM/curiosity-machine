@@ -1,0 +1,7 @@
+<div id="student-in-progress" class="card text-center my-4">
+  <div class="card-body">
+    <h3>You are working on this design challenge!</h3>
+    <p>Complete your project and post in Reflect. Then you can share your design here!</p>
+    <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Keep Working</a>
+  </div>
+</div>

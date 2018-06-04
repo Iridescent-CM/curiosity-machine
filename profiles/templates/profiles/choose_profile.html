@@ -6,56 +6,62 @@
 {% block pagehead %}Sign Up{% endblock %}
 
 {% block content %}
-  <div class="card card-block mb-3">
-    <h2>Create your Curiosity Machine Artificial Intelligence Family Challenge account!</h2>
-    <p>
-      You'll join a global community of families learning about artificial intelligence and apply what you learn to solve a real problem in your community. If you need more information, you can learn more <a href="{% url "aichallenge" %}" target="_blank">here</a>.
-    </p>
-    <div class="row mt-2">
-      <div class="col-lg-5">
-        <a href="{% url "families:create_profile" %}">
-          <img src="{% static "images/parent.png" %}" alt="Family">
-        </a>
+  <div class="card mb-3">
+    <div class="card-body text-center text-md-left">
+      <h2>Create your Curiosity Machine Artificial Intelligence Family Challenge account!</h2>
+      <p>
+        You'll join a global community of families learning about artificial intelligence and apply what you learn to solve a real problem in your community. If you need more information, you can learn more <a href="{% url "aichallenge" %}" target="_blank">here</a>.
+      </p>
+      <div class="row mt-4">
+        <div class="col-8 offset-2 col-md-5 offset-md-0">
+          <a href="{% url "families:create_profile" %}">
+            <img src="{% static "images/parent.png" %}" alt="Family">
+          </a>
+        </div>
+        <div class="col-12 col-md-7 my-5">
+          <a class="btn btn-primary" href="{% url "families:create_profile" %}">Make a family account</a>
+          <p class="mt-2">
+            Family members don't have to be related, but must have 1-2 adults over 18 and at least 1 child 8-15 years old.
+          </p>
+        </div>
       </div>
-      <div class="col-lg-7 my-3">
-        <a class="btn btn-primary" href="{% url "families:create_profile" %}">Make a family account</a>
-        <p class="mt-1">
-          Family members don't have to be related, but must have 1-2 adults over 18 and at least 1 child 8-15 years old.
-        </p>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-lg-5">
-        <a href="{% url "educators:create_profile" %}?coach_signup=1">
-          <img src="{% static "images/educator.png" %}" alt="Coach">
-        </a>
-      </div>
-      <div class="col-lg-7 my-3">
-        <a class="btn btn-primary" href="{% url "educators:create_profile" %}?coach_signup=1">Make a coach account</a>
-        <p class="mt-1">
-          Coaches lead students and families through the challenge. Create this account if you plan to organize the challenge for groups.
-        </p>
+      <div class="row mt-4">
+        <div class="col-8 offset-2 col-md-5 offset-md-0">
+          <a href="{% url "educators:create_profile" %}?coach_signup=1">
+            <img src="{% static "images/educator.png" %}" alt="Coach">
+          </a>
+        </div>
+        <div class="col-12 col-md-7 my-5">
+          <a class="btn btn-primary" href="{% url "educators:create_profile" %}?coach_signup=1">Make a coach account</a>
+          <p class="mt-2">
+            Coaches lead students and families through the challenge. Create this account if you plan to organize the challenge for groups.
+          </p>
+        </div>
       </div>
     </div>
   </div>
 
-  <h2 class="my-3">Not interested? Choose one of the other ways to join Curiosity Machine:</h2>
+  <h2 class="my-5">Not interested? Choose one of the other ways to join Curiosity Machine:</h2>
 
   {% url "students:create_profile" as student_url %}
-  <div class="card card-block mb-2">
+  <div class="card mb-4">
+    <div class="card-body text-center text-md-left">
       <h4>Student</h4>
       <p>
         Build and document projects using the engineering design process.
       </p>
       <a class="btn btn-primary" href="{{ student_url }}">I am a student</a>
+    </div>
   </div>
 
   {% url "educators:create_profile" as educator_url %}
-  <div class="card card-block mb-2">
+  <div class="card mb-4">
+    <div class="card-body text-center text-md-left">
       <h4>Educator</h4>
       <p>
         Find resources to teach engineering challenges.
       </p>
       <a class="btn btn-primary" href="{{ educator_url }}">I am an educator</a>
+    </div>
   </div>
 {% endblock %}

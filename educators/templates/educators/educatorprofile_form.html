@@ -7,13 +7,15 @@
   {{ form.media }}
 {% endblock %}
 
+{% block body-id %}educator-account-settings{% endblock %}
+
 {% block action %}
   {% pick_action form edit="educators:edit_profile" create="educators:create_profile" %}
 {% endblock %}
 
 {% block fields %}
   {% render_field form.coach_signup %}
-  <div class="text-xs-center">
+  <div class="text-center avatar-settings">
     {% block avatar %}{{ block.super }}{% endblock %}
     {% form_group form.image_url field_class="btn btn-primary" %}
   </div>
@@ -30,7 +32,7 @@
   {% form_group form.organization %}
 
   {% with field=form.title_i %}
-  <fieldset class="form-group yes-no-group mb-3">
+  <fieldset class="form-group yes-no-group mb-5">
     <label class="group-label">{{ field.label }}</label>
     <div class="yes-no-options">
       {% for choice in field %}

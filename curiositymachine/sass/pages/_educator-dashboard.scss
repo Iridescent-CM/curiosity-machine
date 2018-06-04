@@ -1,264 +1,67 @@
 .educator-dashboard {
+  .submit-message {
+    .before-submit {
+      display: initial;
+    }
+    .after-submit {
+      display: none;
+    }
+  }
+  .submit-message.submitted {
+    .before-submit {
+      display: none;
+    }
+    .after-submit {
+      display: initial;
+    }
+  }
 
-  //
-  // Dashboard header styles
-  //
-  .educator-dashboard-header {
-    background-color: shade($dark, 40%);
-    background-image: url("../images/design-challenge-repeating-pattern.png");
-    background-attachment: fixed;
-    background-repeat: repeat;
-    color: $ivory;
+  .student-list-avatar {
+    float: left;
+    border-bottom: 0px;
+    margin-right: 10px;
+    width: 48px;
+    height: 48px;
 
-    .dashboard-avatar img {
-      background-color: white;
+    img {
+      background-color: #fff;
       border-radius: 50%;
       box-shadow: 0px 2px 4px 0px $main-shadow;
-      float: left;
-      margin-right: 10px;
-    }
-
-    .dashboard-inline-username {
-      font-family: $heading-font-family;
-      font-size: $base-font-size * 2;
-    }
-
-    .card {
-      background-color: $dark;
+      max-width: 48px;
     }
   }
 
-  //
-  // Dashboard navigation
-  //
-  .educator-dashboard-navigation {
-    border-bottom: 2px $sand solid;
+  .student-list-manage {
+    position: absolute;
+    right: 2.5rem;
 
-    ul {
-      list-style-type: none;
-      text-transform: uppercase;
-      font-size: 0.875em;
-      letter-spacing: 2px;
-      padding-left: 0px;
-      margin-bottom: 0px;
-
-      li {
-        display: inline-block;
-        padding-bottom: 10px;
-        border-bottom: 5px solid $ivory;
-
-        a {
-          margin: 0px 15px;
-          border-bottom: 0px;
-          color: $dark;
-          text-align: center;
-
-          &:hover, &:focus {
-            color: $primary-blue;
-          }
-        }
-      }
+    &:hover {
+      text-decoration: none;
     }
-
-    @include media-breakpoint-down(md) {
-      ul li {
-        width: 32%;
-        text-align: center;
-      }
-    }
-
-    @include media-breakpoint-down(sm) {
-      ul li {
-        width: 100%;
-      }
-    }
-
-    .dropdown a {
-      margin: 0px;
-    }
-  }
-
-  //
-  // Highlights link to active page in navigation
-  //
-  .active-nav {
-    border-bottom-color: $primary-blue !important;
-    a { color: $primary-blue !important; }
-
-    @include media-breakpoint-down(md) { border-bottom: 0px !important; }
-  }
-
-  //
-  // Students List Page
-  //
-  .student-list {
-    border-top: 1px solid $sand;
-
-    .student-list-item {
-      padding: 10px;
-      border-bottom: 1px solid $sand;
-
-      .student-list-avatar {
-        float: left;
-        border-bottom: 0px;
-        margin-right: 10px;
-        width: 48px;
-        height: 48px;
-
-        img {
-          background-color: #fff;
-          border-radius: 50%;
-          box-shadow: 0px 2px 4px 0px $main-shadow;
-        }
-
-        // Adds notifying highlight if student has unseen activity; can leave commented out for now
-        // .student-list-has-activity {
-        //   position: relative;
-        //
-        //   &:after {
-        //     content: "";
-        //     position: absolute;
-        //     display: block;
-        //     width: 15px;
-        //     height: 15px;
-        //     background-color: $primary-red;
-        //     border-radius: 50%;
-        //     border: 3px solid $ivory;
-        //     right: -3px;
-        //     top: 0;
-        //   }
-        // }
-      }
-
-      .student-list-manage {
-        position: absolute;
-        right: 2.5rem;
-
-        i {
-          position: relative;
-          font-size: 12px;
-          margin-left: 10px;
-        }
-      }
-
-      .student-inline-empty { color: $gray; }
-    }
-  }
-
-  //
-  // Student Detail Page
-  //
-  .card-avatar img {
-    box-shadow: 0px 2px 4px 0px $main-shadow;
-  }
-
-
-  //
-  // Design Challenge Detail Page
-  //
-  .dc-sort-options {
-    text-align: right;
-    display: inline-block;
-
-    @include media-breakpoint-down(sm) {
-      text-align: left;
-      margin-top: $small-spacing;
-
-      .dropdown-menu {
-        right: auto;
-        left: 0;
-      }
-    }
-  }
-
-  .dropdown-design-challenge {
-    display: inline-block;
-  }
-
-  .dcprogressheader {
-    z-index: 500;
-  }
-
-  .fixedheader {
-    position: fixed;
-    top: 0;
-    width: 100%;
-  }
-
-  .fixedheader-height {
-    padding-top: 41px;
-
-    @include media-breakpoint-down(sm) {
-      padding-top: 0px;
-    }
-  }
-
-  .dc-progress {
-
-    .student-list-item {
-      @include media-breakpoint-down(sm) {
-        margin-bottom: $small-spacing;
-      }
-    }
-
-    .student-list-avatar {
-      img {
-        border-radius: 50%;
-        background-color: $ivory;
-        margin-right: 10px;
-        box-shadow: 0px 2px 4px 0px $main-shadow;
-      }
-    }
-  }
-
-  .table-dc-progress {
-    @extend .table;
-    text-align: center;
-    border-style: none;
-    margin-bottom: 0px;
-
-    thead {
+    &:focus {
       color: $primary-red;
-      font-size: 0.875em;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-
-      th {
-        border: 2px solid $ivory;
-        padding: 8px 0px;
-        text-align: center;
-        vertical-align: middle;
-        width: 16.6%;
-      }
     }
 
-    .active {
-      background-color: $primary-green;
-      color: $ivory;
-      font-size: 1.25rem;
-    }
-
-    .inactive {
-      background-color: $sand;
-      color: $gray;
-      font-size: 1.25rem;
-    }
-
-    td {
-      border: 2px solid $ivory;
-      padding: 8px 0px;
-      text-align: center;
-      vertical-align: middle;
-      width: 16.6%;
+    i {
+      position: relative;
+      font-size: 12px;
+      margin-left: 10px;
     }
   }
 
+  .data-label {
+    text-transform: uppercase;
+    font-size: 0.875em;
+    font-weight: $heavy-font-weight;
+    color: $gray;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+  }
+}
 
-  //
-  // Progress Conversation Page
-  //
-  &.educator-dashboard-conversation {
+.educator-dashboard-conversation {
 
+  .feedback-form {
     .pickwidget-preview {
       max-width: 100px;
       max-height: 100px;
@@ -278,115 +81,26 @@
       width: 100%;
       height: 100px;
     }
-
-    .student-comment,
-    .family-comment {
-      img {
-        max-width: 475px;
-      }
-
-      &.stage-plan-comment .card-header {
-        background-color: #f4f8ee;
-      }
-      &.stage-build-comment .card-header {
-        background-color: #efeff7;
-      }
-      &.stage-test-comment .card-header {
-        background-color: #feeeeb;
-      }
-      &.stage-reflect-comment .card-header {
-        background-color: #e6f7f9;
-      }
-    }
   }
 
-  .submit-message {
-    .before-submit {
-      display: initial;
-    }
-    .after-submit {
-      display: none;
-    }
-  }
-  .submit-message.submitted {
-    .before-submit {
-      display: none;
-    }
-    .after-submit {
-      display: initial;
-    }
-  }
-
-  .ai-banner-margins {
-    margin-top: -28px;
-  }
-
-  .activity-list {
-    .list-group-item {
-      white-space: nowrap;
-      a {
-        display: inline-block;
-        max-width: 90%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+  .student-comment,
+  .family-comment {
+    img {
+      width: 100%;
+      max-width: 475px;
     }
 
-    .indicator {
-      width: 0.8em;
-      height: 0.8em;
-      display: inline-block;
-      border-radius: 50%;
-      margin: 0.2em 0.8em 0.2em 0.2em;
-      vertical-align: baseline;
-
-      &.indicator-read {
-        border: 1px solid #ccc;
-        background: transparent;
-      }
-      &.indicator-unread {
-        background: #0275d8;
-      }
+    &.stage-plan-comment .card-header {
+      background-color: #f4f8ee;
     }
-
-
-    .timesince {
-      display: none;
+    &.stage-build-comment .card-header {
+      background-color: #efeff7;
     }
-    .tag {
-      position: absolute;
-      right: 0;
-      margin-right: 1em;
-
-      &.plan-stage {
-        background-color: $primary-green;
-      }
-      &.build-stage {
-        background-color: $primary-purple;
-      }
-      &.test-stage {
-        background-color: $primary-red;
-      }
-      &.reflect-stage {
-        background-color: #1EB9C8;
-      }
+    &.stage-test-comment .card-header {
+      background-color: #feeeeb;
     }
-    .list-group-item {
-      padding-right: 75px;
-    }
-    @include media-breakpoint-up(md) {
-      .timesince {
-        display: inline;
-        position: absolute;
-        right: 0;
-        margin-right: 1em;
-      }
-      .tag {
-        right: 180px;
-      }
-      .list-group-item {
-        padding-right: 180px;
-      }
+    &.stage-reflect-comment .card-header {
+      background-color: #e6f7f9;
     }
   }
 }

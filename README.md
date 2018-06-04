@@ -142,7 +142,7 @@ Visually, you can tell the difference between “old” and “new” templates 
 
 The header and footer are visually consistent across both old and new templates. Consequently when they change, they need to be updated in two places.
 
-- New header: `curiositymachine/templates/curiositymachine/_header.html`
-- New footer: `curiositymachine/templates/curiositymachine/_footer.html`
+- New header: `curiositymachine/templates/curiositymachine/layout/_header.html`
+- New footer: `curiositymachine/templates/curiositymachine/layout/_footer.html`
 - Old header: `curiositymachine/templates/_user_nav.html`
 - Old footer: inside `curiositymachine/templates/base.html`

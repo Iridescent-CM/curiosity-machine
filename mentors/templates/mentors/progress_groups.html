@@ -15,7 +15,7 @@
     </ol>
     {% endblock %}
 
-    <div class="row">
+    <div class="row pb-4">
       <div class="col-sm-12">
         {% block pagetitle %}<h2>Claim a Challenge by {{ group }}</h2>{% endblock %}
       </div>
@@ -27,7 +27,7 @@
         </div>
 
       {% if forloop.counter|divisibleby:2 %}
-        <div class="clearfix {% if not forloop.counter|divisibleby:4 %} hidden-lg-up {% endif %}"></div>
+        <div class="clearfix {% if not forloop.counter|divisibleby:4 %} d-lg-none {% endif %}"></div>
       {% endif %}
 
       {% empty %}

@@ -20,7 +20,7 @@ def datepill(dt, now=now()):
     else:
         text = "1+ month"
 
-    color = "default"
+    color = "purple"
     if days < 5:
         color = "success"
     elif days < 14:

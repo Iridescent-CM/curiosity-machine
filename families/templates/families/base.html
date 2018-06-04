@@ -1,22 +1,21 @@
 {% extends "curiositymachine/layout/base.html" %}
 
 {% block title %}Family Dashboard{% endblock %}
-{% block body-classes %}family-dashboard{% endblock %}
+{% block body-classes %}dashboard family-dashboard{% endblock %}
 
 {% block container %}
-  <div class="dashboard-header py-2 mb-1">
+  <div class="bg-pattern-dark text-light py-4 mb-2">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <a href="{% url 'families:edit_profile' %}" class="a-borderless float-xs-right">Account Settings</a>
+          <a href="{% url 'families:edit_profile' %}" class="float-right">Account Settings</a>
           <div class="avatar">
             {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
           </div>
-          <br>
-          <span class="inline-username">{{ request.user.username }}</span>
+          <h2>{{ request.user.username }}</h2>
         </div>
       </div>
-      <div class="row mt-1 hidden-sm-down">
+      <div class="row mt-1 d-none d-md-flex">
         <div class="col-md-12">
           <strong>Email:</strong> {{ request.user.email }}
           <br>

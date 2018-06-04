@@ -1,10 +1,10 @@
 {% load staticfiles %}
-<div class="card text-xs-right free-challenges geo-background">
-  <div class="card-block text-xs-center">
+<div class="card aifc-filter geo-background">
+  <div class="card-body text-center">
     Welcome to the AI Family Challenge!
   </div>
-  <img src="{% static 'images/challenges/explore-bot.svg' %}">
-  <div class="card-footer text-xs-center">
+  <img class="align-self-end" src="{% static 'images/challenges/explore-bot.svg' %}">
+  <div class="card-footer bg-secondary text-center">
     <small><a href="{% url 'aichallenge' %}">Learn more</a> about the Challenge and find out how to sign up.</small>
   </div>
 </div>

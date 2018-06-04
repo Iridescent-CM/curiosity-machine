@@ -1,7 +1,7 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load resized %}
 {% block title %}{{ challenge.name }}{% endblock %}
-{% block body-id %}landing-page{% endblock %}
+{% block body-id %}edp-inspiration{% endblock %}
 {% block social-title %}{{ challenge.name }}{% endblock %}
 {% block social-description %}{{ challenge.description }}{% endblock %}
 {% block social-image %}
@@ -13,11 +13,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron-fluid jumbotron-dark-pattern mb-3">
+<div class="cm-jumbotron jumbotron jumbotron-fluid bg-pattern-dark mb-5">
   <div class="container">
     <div class="hero">
-      <div class="hero-text text-xs-center p-2">
-        <h1 class="light-type mb-2">{{ challenge.name }}</h1>
+      <div class="hero-text text-center p-4">
+        <h1 class="mb-4">{{ challenge.name }}</h1>
         <h3>{{ challenge.description }}</h3>
         {% block jumbotron_message %}
         {% endblock %}
@@ -25,8 +25,8 @@
       </div>
       {% if challenge.landing_image %}
       <div class="hero-img">
-        <img src="{% resized challenge.landing_image.url width=720 height=720 crop='fill' %}" class="hidden-md-down">
-        <img src="{% resized challenge.landing_image.url width=720 height=400 crop='fill' %}" class="hidden-lg-up">
+        <img src="{% resized challenge.landing_image.url width=720 height=720 crop='fill' %}" class="d-none d-lg-block">
+        <img src="{% resized challenge.landing_image.url width=720 height=400 crop='fill' %}" class="d-lg-none">
       </div>
       {% endif %}
     </div>
@@ -38,30 +38,28 @@
   {% block body_rows %}
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <div class="card card-module mb-3" id="inspiration-video">
-        <div class="card-block card-block-title">
+      <div class="card cm-info-card mb-5" id="inspiration-video">
+        <div class="card-header">
           <h4 class="card-title red-type">Inspiration Video</h4>
         </div>
-        <div class="card-block">
-          <div class="challenge-details-hero">
-            {% if challenge.video %}
-              <div class="videocontent">
-                  <video
-                    preload="none"
-                    controls
-                    poster='{% if challenge.image %}{{ challenge.image.url }}{% else %}{{challenge.video.thumbnails.first.url}}{% endif %}'
-                    id="video-element-{{challenge.video.id}}"
-                    data-ga-track="video"
-                    data-ga-label="{{challenge.name}} inspiration video">
-                    {% for v in challenge.video.encoded_videos.all %}
-                      <source src="{{v.url}}" type="{{v.mime_type}}" />
-                    {% endfor %}
-                  </video>
-              </div>
-            {% elif challenge.image %}
-              <img src="{{ challenge.image.url }}" />
-            {% endif %}
-          </div>
+        <div class="card-body">
+          {% if challenge.video %}
+          <video
+            preload="none"
+            controls
+            poster='{% if challenge.image %}{{ challenge.image.url }}{% else %}{{challenge.video.thumbnails.first.url}}{% endif %}'
+            id="video-element-{{challenge.video.id}}"
+            class="img-fluid"
+            data-ga-track="video"
+            data-ga-label="{{challenge.name}} inspiration video"
+          >
+            {% for v in challenge.video.encoded_videos.all %}
+            <source src="{{v.url}}" type="{{v.mime_type}}" />
+            {% endfor %}
+          </video>
+        {% elif challenge.image %}
+          <img src="{{ challenge.image.url }}" />
+        {% endif %}
         </div>
       </div>
     </div>
@@ -70,25 +68,25 @@
   <div class="row">
 
     <div class="col-md-{{ col_width|default:6 }}">
-      <div class="card card-module mb-3">
-        <div class="card-block card-block-title">
+      <div class="card cm-info-card mb-5">
+        <div class="card-header">
           <h4 class="card-title red-type">Suggested Materials</h4>
         </div>
-        <div class="card-block">
+        <div class="card-body">
           {{ challenge.materials_list | safe }}
         </div>
       </div>
     </div>
 
     <div class="col-md-{{ col_width|default:6 }}">
-      <div class="card card-module mb-3">
-        <div class="card-block card-block-title">
+      <div class="card cm-info-card mb-5">
+        <div class="card-header">
           <h4 class="card-title red-type">Difficulty Level</h4>
         </div>
-        <div class="card-block">
-          <div class="row m-b">
+        <div class="card-body">
+          <div class="row">
             {% for level in challenge_difficulties %}
-            <div class="col-xs-4 text-xs-center">
+            <div class="col-4 text-center">
               {% if challenge.difficulty_level == level.0 %}
               <span class="active-level">{{ level.1 }}</span>
               {% else %}
@@ -111,7 +109,7 @@
           </p>
           {% endif %}
         </div>
-        <div class="card-footer text-xs-center">
+        <div class="card-footer text-center">
           <small><em>This is the difficulty level for a typical 4th grade classroom. Modify as needed for other age groups.</em></small>
         </div>
       </div>
@@ -120,11 +118,11 @@
     {% if resources %}
     {% block resources %}
     <div class="col-md-4">
-      <div class="card card-module mb-3">
-        <div class="card-block card-block-title">
+      <div class="card cm-info-card mb-5">
+        <div class="card-header">
           <h4 class="card-title red-type">Resources</h4>
         </div>
-        <div class="card-block text-xs-center">
+        <div class="card-body text-center">
           <span class="resources-book"><i class="icon-open-book"></i></span>
           This design challenge has downloadable resources available.
         </div>

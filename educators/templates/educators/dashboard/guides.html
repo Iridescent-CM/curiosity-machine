@@ -5,7 +5,7 @@
   {% include 'educators/dashboard/_navigation.html' %}
 
   {% if extra_units %}
-  <div class="row pb-1">
+  <div class="row pb-2">
     <div class="col-md-12">
       <h2>{{ membership.display_name }} Units &amp; Guides</h2>
     </div>
@@ -17,18 +17,12 @@
     <div class="col-lg-4 col-md-6 mb-1">
       {% include "educators/dashboard/_unit_card.html" with unit=unit %}
     </div>
-    {% if forloop.counter|divisibleby:3 %}
-      <div class="clearfix hidden-md-down"></div>
-    {% endif %}
-    {% if forloop.counter|divisibleby:2 %}
-      <div class="clearfix hidden-lg-up"></div>
-    {% endif %}
     {% endfor %}
   </div>
   {% endif %}
 
   {% if units %}
-  <div class="row pb-1">
+  <div class="row pb-2">
     <div class="col-md-12">
       <h2>Units &amp; Guides</h2>
     </div>
@@ -37,24 +31,18 @@
   <div class="row">
 
     {% for unit in units %}
-    <div class="col-lg-4 col-md-6 mb-1">
+    <div class="col-lg-4 col-md-6 mb-2">
       {% include "educators/dashboard/_unit_card.html" with unit=unit %}
     </div>
-    {% if forloop.counter|divisibleby:3 %}
-      <div class="clearfix hidden-md-down"></div>
-    {% endif %}
-    {% if forloop.counter|divisibleby:2 %}
-      <div class="clearfix hidden-lg-up"></div>
-    {% endif %}
     {% endfor %}
 
   </div>
   {% endif %}
 
-  <div class="row mt-3 pb-1">
+  <div class="row mt-5 pb-2">
     <div class="col-md-12">
       <h2>Resources</h2>
-      <ul class="mb-2">
+      <ul class="mb-4">
         <li>
           <a href="https://s3.amazonaws.com/curiositymachine/units/resources/ParentConsent_PrivacyPolicy-01_18+(2).pdf" target="_blank">English/Spanish Under 13 Consent Form</a>
         </li>

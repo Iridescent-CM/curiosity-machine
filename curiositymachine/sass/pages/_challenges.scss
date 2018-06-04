@@ -1,23 +1,10 @@
 #challenges-page {
   background-color: $sand;
 
-  .challenges-top-panel {
-    width: 100%;
-    background-color: $primary-blue;
-    padding: $large-spacing 0px $small-spacing 0px;
-    text-align: center;
-    color: white;
-    margin-bottom: $base-spacing;
-  }
-
-  .challenge-navigation {
-    height: 100%;
-  }
-
-  .design-challenge-list {
+  .filter-list {
     list-style-type: none;
     font-size: 14px;
-    font-family: $heading-font-family;
+    font-family: $headings-font-family;
     font-weight: $heavy-font-weight;
     padding-left: 0px;
     overflow: hidden;
@@ -68,16 +55,7 @@
     }
   }
 
-  .design-challenge-highlights {
-    @extend .design-challenge-list;
-    border-bottom: 2px solid $primary-blue;
-  }
-
-  #boeing-filter {
-    color: #0038A8; //boeing blue
-  }
-
-  .all-challenges-header {
+  .block-header {
     width: 100%;
     padding: 12px;
     font-weight: $light-font-weight;
@@ -93,10 +71,8 @@
   }
 
   .all-challenges-cards {
-    .challenge-card {
-      display: block;
-      vertical-align: top;
-      margin: 10px auto;
+    .card {
+      min-height: 375px;
     }
     margin-bottom: $large-spacing;
   }
@@ -128,9 +104,9 @@
     }
   }
 
-  .free-challenges {
-    .card-block {
-      font-family: $heading-font-family;
+  .aifc-filter {
+    .card-body {
+      font-family: $headings-font-family;
       font-weight: $light-font-weight;
       font-size: 24px;
       color: $ivory;
@@ -148,10 +124,10 @@
   }
 
   @include media-breakpoint-up(md) {
-    .design-challenge-list.collapse {
+    .filter-list.collapse {
       display: block;
     }
-    .design-challenge-list {
+    .filter-list {
       overflow: visible;
       li.active {
         left: -20px;

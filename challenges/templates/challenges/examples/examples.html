@@ -20,8 +20,10 @@
 {% endblock %}
 
 {% block body-id %}examples-page{% endblock %}
+
 {% block content %}
-  <div class="examples-top-panel">
+
+  <div class="jumbotron cm-jumbotron jumbotron-fluid">
     <div class="container">
       {% if request.user.is_authenticated and request.user.extra.is_student %}
       <h3><a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a></h3>
@@ -34,165 +36,48 @@
 
   <div class="container">
 
-    <!-- student who has started the design challenge but not posted in Reflect progress -->
     {% if progress and not progress.completed %}
-    <div id="student-in-progress" class="examples-page-alerts text-xs-center p-2 my-2">
-      <h3>You are working on this design challenge!</h3>
-      <p>Complete your project and post in Reflect. Then you can share your design here!</p>
-      <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Keep Working</a>
-    </div>
+    {% include "challenges/examples/panels/_challenge_in_progress.html" %}
+    {% elif progress.completed and not user_example %}
+    {% include "challenges/examples/panels/_challenge_complete.html" %}
+    {% elif user_example and not user_example.approved %}
+    {% include "challenges/examples/panels/_example_pending.html" %}
     {% endif %}
 
-    <!-- student who has started the challenge AND posted in Reflect progress -->
-    {% if progress.completed and not user_example %}
-    <div id="student-completed" class="examples-page-alerts text-xs-center p-2 my-2">
-      <h3>Add your project!</h3>
-      <p>Want to share your design? Choose a photo from your project and add it to the Inspiration Gallery.</p>
-      <a href="#" class="btn btn-purple" data-toggle="modal" data-target="#choose-photo"><i class="icon-camera" {% if not request.user.extra.is_student %}disabled="disabled"{% endif %}></i>Choose a Photo</a>
-
-
-      <div class="modal fade" id="choose-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          {% if progress.get_owner_images %}
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h3>Choose a Photo</h3>
-            </div>
-            <form id="submit-form" method="POST" action="{% url "challenges:examples" challenge_id=challenge.id %}">
-              <div class="modal-body text-xs-center">
-                <div class="row">
-                  {% csrf_token %}
-                  <div class="col-md-12">
-                    <p>Photos from {{ challenge.name }}</p>
-                  </div>
-                  {% for image in progress.get_owner_images %}
-                  <div class="col-md-6">
-                    <input type="radio" name="example" id="example-{{image.id}}" value="{{image.id}}">
-                    <label for="example-{{image.id}}">
-                      <img src="{% resized image.url width=330 height=200 crop='fill' %}" alt="">
-                    </label>
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
-                <input type="submit" class="btn btn-primary">
-              </div>
-            </form>
-          </div>
-          {% else %}
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h3>Choose a Photo</h3>
-            </div>
-            <div class="modal-body text-xs-center">
-              <div class="row">
-                <div class="col-md-12">
-                  <p>You didn't post any photos to {{ challenge.name }}! Add a photo of your project, and then come back to share it in the Inspiration Gallery.</p>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
-              <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}" class="btn btn-primary">Return to Challenge</a>
-            </div>
-          </div>
-          {% endif %}
-        </div>
-      </div>
-
-    </div>
-    {% endif %}
-
-    <!-- A Pending Example submission -->
-    {% if user_example and not user_example.approved %}
-    <div id="student-example-pending" class="alert alert-info mt-2 text-xs-center" role="alert">
-      <strong>Thanks for submitting your project!</strong> After we approve your photo, it will show up in the gallery for everyone to see.
-    </div>
-    {% endif %}
-
-    <div class="row text-xs-center">
+    <div class="row justify-content-center">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=examples anchor="examples" %}
     </div>
 
-    <div class="row m-y">
+    <div class="row">
 
       {% for example in examples %}
-      <div class="col-lg-3 col-sm-6">
-        <div class="card">
+      <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-lg-3">
+        <div class="card cm-info-card my-4">
           <a href="#" data-toggle="modal" data-target="#{{ example.progress.owner.username }}">
-            <img class="card-img-top a-borderless" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.owner.username }}'s {{ challenge.name }}">
+            <img class="card-img-top" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.owner.username }}'s {{ challenge.name }}">
             {% if not example.approved %}
-              <div class="pending"><em>Pending Approval!</em></div>
+            <div class="card-img-overlay pending-overlay"><em>Pending Approval!</em></div>
             {% endif %}
           </a>
           {% if example == user_example %}
-          <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="a-borderless remove-example">
+          <a href="#" data-toggle="modal" data-target="#remove-example-modal" class="badge-remove">
               &times;
           </a>
           {% endif %}
-          <div class="card-block text-xs-center">
-            <p class="card-title">{{ example.progress.owner.username }}</p>
+          <div class="card-body p-4 text-center">
+            <p class="card-text">{{ example.progress.owner.username }}</p>
           </div>
         </div>
       </div>
 
-      <div class="modal fade" id="{{ example.progress.owner.username }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h3>{{ example.progress.owner.username }}'s {{ challenge.name }}</h3>
-            </div>
-            <div class="modal-body text-xs-center">
-              <img src="{% resized example.image.url %}" alt="{{ example.progress.owner.username }}'s {{ challenge.name }}">
-            </div>
-          </div>
-        </div>
-      </div>
-
+      {% include "challenges/examples/modals/_example_modal.html" %}
       {% if example == user_example %}
-      <div class="modal fade" id="remove-example-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h3>Remove your project?</h3>
-            </div>
-            <div class="modal-body text-xs-center">
-              <p>This will remove your project from the Inspiration Gallery. You can always re-submit your project if you change your mind!</p>
-            </div>
-            <div class="modal-footer">
-              <form action="{% url "challenges:delete_example" challenge_id=challenge.id %}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="example-id" value="{{example.id}}" />
-                <a href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
-                <input type="submit" value="Remove" class="btn btn-red">
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endif %}
-
-      {% if forloop.counter|divisibleby:2 %}
-        <div class="clearfix{% if not forloop.counter|divisibleby:4 %} hidden-md-up{% endif %}"></div>
+      {% include "challenges/examples/modals/_removal_modal.html" %}
       {% endif %}
 
       {% empty %}
 
-      <div class="text-xs-center p-2 my-2">
+      <div class="col-12 p-4 my-4 d-block text-center">
         <h3>There aren't any examples yet!</h3>
         <img src="{% static 'images/examples/inspiration-gallery-bot.png' %}" alt="The robot is having trouble hanging the art. Please add your own work to help the struggling robot.">
       </div>
@@ -201,7 +86,7 @@
 
     </div>
 
-    <div class="row text-xs-center">
+    <div class="row justify-content-center">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=examples anchor="examples" %}
     </div>
 

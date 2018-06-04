@@ -1,0 +1,54 @@
+<div
+  class="card cm-info-card mb-3 {{comment.user.extra.get_role_display}}-comment stage-{{comment.get_stage_display}}-comment"
+  id="comment-{{comment.id}}"
+>
+  <div class="card-header">
+    <h3 class="card-title">
+      {% if comment.user == comment.challenge_progress.owner %}
+      {{ comment.get_stage_display|title }}
+      {% elif comment.user == user %}
+      Your feedback
+      {% elif comment.user.extra.is_mentor %}
+      Mentor feedback
+      {% else %}
+      Coach feedback
+      {% endif %}
+    </h3>
+    {% if comment.question_text %}
+    <h6 class="card-subtitle my-2">
+      {{ comment.question_text }}
+    </h6>
+    {% endif %}
+    <p><small>
+      {{ comment.user.username }} commented {{ comment.created|timesince }} ago
+    </small></p>
+  </div>
+  <div class="card-body">
+
+    {% if comment.image %}
+    <img src="{{ comment.image.url }}" class="img-fluid" />
+    {% endif %}
+
+    {% if comment.video %}
+    {% if comment.video.encoded_videos.exists %}
+    <video
+      class="img-fluid"
+      preload="none"
+      controls
+      poster='{{ comment.video.thumbnails.first.url }}'
+    >
+      {% for v in comment.video.encoded_videos.all %}
+      <source src="{{ v.url }}" type="{{ v.mime_type }}" />
+      {% endfor %}
+    </video>
+    {% else %}
+    <p>
+      <i>Video is uploading and will be displayed shortly</i>
+    </p>
+    {% endif %}
+    {% endif %}
+    <p class="card-text my-2">
+      {{comment.text|linebreaksbr}}
+    </p>
+  </div>
+</div>

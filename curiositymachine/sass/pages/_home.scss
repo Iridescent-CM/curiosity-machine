@@ -81,6 +81,13 @@
   }
 
   .logos {
+    a {
+      display: inline-block;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
     img {
       height: 50px;
       margin: 1.5em;

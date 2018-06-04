@@ -1,7 +1,7 @@
 {% load staticfiles %}
-<div class="text-xs-center">
+<div class="text-center">
   <a href="{% url 'units:unit' unit_id=28 %}">
-    <img class="img-responsive hidden-md-down" src="{% static 'images/challenges/nvidia-wide.jpg' %}" alt="Presented by Nvidia">
-    <img class="img-responsive center-block hidden-lg-up" src="{% static 'images/challenges/nvidia-narrow.jpg' %}" alt="Presented by Nvidia">
+    <img class="img-responsive d-none d-lg-block" src="{% static 'images/challenges/nvidia-wide.jpg' %}" alt="Presented by Nvidia">
+    <img class="img-responsive center-block d-lg-none" src="{% static 'images/challenges/nvidia-narrow.jpg' %}" alt="Presented by Nvidia">
   </a>
 </div>

@@ -1,3 +1,20 @@
-// Bootstrap's background color additions
+@each $color, $value in $theme-colors {
+  .bg-#{$color} {
+    background-color: $value;
+    color: color-yiq($value);
+  }
+}
 
-@include bg-variant('.bg-secondary', $secondary-background-color);
+.bg-pattern-white {
+  background: url("../images/design-challenge-repeating-pattern-white.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
+}
+
+.bg-pattern-dark {
+  color: $ivory;
+  background-color: shade($dark, 40%);
+  background-image: url("../images/design-challenge-repeating-pattern.png");
+  background-attachment: fixed;
+  background-repeat: repeat;
+}

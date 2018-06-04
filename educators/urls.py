@@ -17,3 +17,8 @@ urlpatterns = [
     url(r'^coach-conversion/$', coach_conversion, name="coach_conversion"),
     url(r'^coach-removal/$', coach_removal, name="coach_removal"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^coach-interruption/$', prereq_interruption, name="coach_prereq_interruption"),
+    ]

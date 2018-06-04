@@ -1,0 +1,148 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+<div class="modal modal-cm fade" id="login-modal" tabindex="-1"
+  role="dialog" aria-labelledby="login-modal-label" aria-hidden="true"
+>
+  <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h2 class="text-center modal-title" id="login-modal-label">Log In</h2>
+      </div>
+
+      <form method="POST" action="{% url 'login' %}">
+
+        <div class="modal-body">
+          <div class="form-group">
+            {% csrf_token %}
+            <label for="{{ login_form.login.auto_id }}">
+              {{ login_form.login.label_tag }}
+            </label>
+            {% render_field login_form.login class="form-control" %}
+          </div>
+          <div class="form-group">
+            <label for="{{ login_form.password.auto_id }}">
+              {{ login_form.password.label_tag }}
+            </label>
+            {% render_field login_form.password class="form-control" %}
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <a href="{% url "account_reset_password" %}">Forgot your password?</a>
+          <a class="btn btn-link" data-dismiss="modal" aria-hidden="true">Cancel</a>
+          <input type="submit" value="Log In" class="bt btn-primary" />
+          <input type="hidden" name="next" value="{{ next|default:'/' }}" />
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-cm">
+  <div class="container px-3">
+    <a href="/" class="navbar-brand">
+      <img
+        src="{% static 'images/cm-logo.svg' %}" alt="curiosity machine"
+        class="logo-large d-none d-lg-block"
+      >
+      <img
+        src="{% static 'images/cm-logo-small.svg' %}" alt="curiosity machine"
+        class="logo-small d-block d-lg-none"
+      >
+    </a>
+    <button
+      class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-nav"
+      aria-controls="site-nav" aria-expanded="false" aria-lable="Toggle navigation"
+    >
+      Menu
+    </button>
+
+    <div class="collapse navbar-collapse" id="site-nav">
+
+      <div class="navbar-nav">
+
+        {% if request.user.is_authenticated %}
+        <div class="list-group d-flex d-lg-none">
+          <div class="list-group-item list-group-header">
+            <div class="avatar avatar-sm mx-auto">
+              {% include "_avatar.html" with profile=user.profile width=40 height=40 crop='thumb' gravity='faces' %}
+            </div>
+            {{ user.username }}
+          </div>
+          <a class="list-group-item list-group-item-action" href="{% url 'profiles:home' %}">My Dashboard</a>
+          <a class="list-group-item list-group-item-action" href="{% url 'profiles:edit_profile' %}">Account Settings</a>
+          {% if request.user.is_staff %}
+          <a class="list-group-item list-group-item-action" href="{% url 'admin:index' %}">View Admin</a>
+          <a class="list-group-item list-group-item-action" href="{% url 'admin:challenges_example_changelist' %}">
+            Pending Examples
+            {% if staff_alerts.pending_examples %}
+            <span class="badge badge-pill badge-info ml-2">{{ staff_alerts.pending_examples }}</span>
+            {% endif %}
+          </a>
+          {% endif %}
+          <div class="list-group-item">
+            <form action="{% url 'logout' %}?next=/" method="POST">
+              {% csrf_token %}
+              <input type=submit class="btn-link list-group-item-action" value="Log Out" />
+            </form>
+          </div>
+        </div>
+        {% endif %}
+
+        <a class="nav-item nav-link nav-link-blue" href="{% url "aichallenge" %}">AI Family Challenge</a>
+        <a class="nav-item nav-link nav-link-orange" href="{% url "challenges:challenges" %}">All Challenges</a>
+        <a class="nav-item nav-link nav-link-red" href="{% url "about" %}">About Us</a>
+
+        {% if request.user.is_authenticated %}
+
+        <div class="nav-item dropdown d-none d-lg-flex">
+          <a
+            class="nav-link nav-link-purple dropdown-toggle media" href="#" id="user-dropdown"
+            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          >
+            <div class="media-body">{{ user.username }}</div>
+            <div class="avatar avatar-sm ml-3">
+              {% include "_avatar.html" with profile=user.profile width=40 height=40 crop='thumb' gravity='faces' %}
+            </div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-dropdown">
+            <a class="dropdown-item" href="{% url 'profiles:home' %}">My Dashboard</a>
+            <a class="dropdown-item" href="{% url 'profiles:edit_profile' %}">Account Settings</a>
+            {% if request.user.is_staff %}
+            <a class="dropdown-item" href="{% url 'admin:index' %}">View Admin</a>
+            <a class="dropdown-item" href="{% url 'admin:challenges_example_changelist' %}">
+              Pending Examples
+              {% if staff_alerts.pending_examples %}
+              <span class="badge badge-pill badge-info ml-2">{{ staff_alerts.pending_examples }}</span>
+              {% endif %}
+            </a>
+            {% endif %}
+            <form action="{% url 'logout' %}?next=/" method="POST">
+              {% csrf_token %}
+              <input class="dropdown-item" type=submit value="Log Out" />
+            </form>
+            </a>
+          </div>
+        </div>
+
+        {% else %}
+
+        <a class="nav-item nav-link nav-link-green" href="#" data-toggle="modal" data-target="#login-modal">Log In</a>
+        <div class="nav-item d-none d-lg-flex">
+          <a class="btn btn-primary" href="{% url "account_signup" %}">Sign Up</a>
+        </div>
+        <a class="nav-item nav-link nav-link-purple d-flex d-lg-none" href="{% url "account_signup" %}">Sign Up</a>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</nav>

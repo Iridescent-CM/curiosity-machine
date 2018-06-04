@@ -1,0 +1,66 @@
+{% extends "educators/dashboard/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}{{ student.username }}'s Conversation{% endblock %}
+{% block body-classes %}dashboard educator-dashboard educator-dashboard-conversation{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+  {{ comment_form.media }}
+{% endblock %}
+
+{% block content %}
+  {% url "educators:conversation" as base_url %}
+  {% include 'educators/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
+
+  <div class="row pb-2">
+    <div class="col-md-12">
+      <h2>{{ student.username }}'s Conversation on {{ progress.challenge.name }}</h2>
+      <a href="{% url "educators:student" student_id=student.id %}">
+        &larr; Back to {{ student.username }}'s Progress
+      </a>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col-md-3">
+      <div class="card cm-info-card">
+        <div class="card-header text-center">
+          <div class="avatar">
+            {% include "_avatar.html" with user=student width=60 height=60 crop='thumb' gravity='faces' %}
+          </div>
+          {% if student.first_name or student.last_name %}
+          {{ student.first_name }}
+          <br>
+          {{ student.last_name }}
+          {% else %}
+          <em>No name provided</em>
+          {% endif %}
+          <br>
+          <strong>{{ student.username }}</strong>
+        </div>
+        <div class="card-body">
+          <!-- Something should go here -->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card cm-info-card mb-3">
+        <div class="card-body">
+          {% url 'challenges:comments:comments' challenge_id=progress.challenge.id username=progress.owner.username stage='plan' as comment_url %}
+          <form class="feedback-form" method="POST" action="{{ comment_url }}">
+            {% csrf_token %}
+            {{ comment_form.text|attr:"placeholder:Write your feedback here." }}
+            {{ comment_form.visual_media }}
+            <input type="submit" class="btn btn-primary" />
+          </form>
+        </div>
+      </div>
+
+      {% for comment in comments %}
+      {% include 'educators/dashboard/memberships/_conversation_comment.html' with comment=comment %}
+      {% endfor %}
+
+    </div>
+  </div>
+{% endblock %}

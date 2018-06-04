@@ -7,49 +7,46 @@
 {% block body-id %}mentor-community-page{% endblock %}
 {% block content %}
 
-  <div class="mentor-community-top-panel">
+  <div class="jumbotron jumbotron-fluid cm-jumbotron bg-orange text-white">
     <h1>Mentor Community</h1>
   </div>
 
   <div class="container">
-    <div class="row text-xs-center my-1">
+    <div class="row justify-content-center my-2">
       <a href="{% url "mentor" %}">Learn more about mentoring</a>
     </div>
   </div>
 
   <div class="container" id="mentors">
-    <div class="row text-xs-center">
+    <div class="row justify-content-center my-4">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj anchor="mentors"%}
     </div>
 
-    <div class="row my-1">
+    <div class="row my-2">
 
       {% for mentor in mentors %}
         <div class="col-lg-3 col-sm-6">
-          <div class="mentor-card">
-            <a href="{% url "mentors:public_profile" username=mentor.user.username %}">
-              <div class="mentor-card-title text-xs-center">
-                {% include "profiles/_avatar.html" with profile=mentor width=80 height=80 crop='thumb' gravity='faces' classes='img-block'%}
+          <div class="card cm-profile-card mb-4">
+            <div class="card-header">
+              <a href="{% url "mentors:public_profile" username=mentor.user.username %}">
+                {% include "profiles/_avatar.html" with profile=mentor width=80 height=80 crop='thumb' gravity='faces' classes="avatar" %}
                 <h3>{{mentor.user.username}}</h3>
-                <small>Joined {{mentor.user.date_joined|date:"F Y"}}</small>
-              </div>
-            </a>
-            <div class="mentor-card-description">
-              <p class="text-xs-center">
+              </a>
+              <small>Joined {{mentor.user.date_joined|date:"F Y"}}</small>
+            </div>
+            <div class="card-body">
+              <p>
                 {% if mentor.title %}{{mentor.title}}, {% endif%}
                 {{mentor.employer}}
               </p>
             </div>
           </div>
         </div>
-        {% if forloop.counter|divisibleby:2 %}
-          <div class="clearfix{% if not forloop.counter|divisibleby:4 %} hidden-md-up{% endif %}"></div>
-        {% endif %}
       {% endfor %}
 
     </div>
 
-    <div class="row text-xs-center">
+    <div class="row justify-content-center my-4">
       {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj anchor="mentors"%}
     </div>
   </div>

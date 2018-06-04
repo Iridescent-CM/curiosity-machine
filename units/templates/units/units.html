@@ -29,17 +29,11 @@
     Let us know if you decide to use these resources! We'd love to hear about your experience at <a href="mailto:curiosity@iridescentlearning.org?subject=Units" target="_top">curiosity@iridescentlearning.org</a>
   </p>
 
-  <div class="row mt-3">
+  <div class="row mt-5">
   {% for unit in units %}
     <div class="col-md-6 col-xl-3">
       {% include "units/_unit_card.html" with unit=unit %}
     </div>
-    {% if forloop.counter|divisibleby:2 %}
-    <div class="clearfix hidden-xl-up"></div>
-    {% endif %}
-    {% if forloop.counter|divisibleby:4 %}
-    <div class="clearfix"></div>
-    {% endif %}
   {% endfor %}
   </div>
 </div>

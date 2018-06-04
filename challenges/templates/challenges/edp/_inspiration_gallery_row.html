@@ -2,12 +2,12 @@
 {% if request.user.is_authenticated %}
   <div class="row">
     <div class="col-md-12">
-      <div class="card card-module mb-3">
-        <div class="card-block card-block-title">
-          <h4 class="red-type">Inspiration Gallery</h4>
+      <div class="card cm-info-card mb-5">
+        <div class="card-header">
+          <h4 class="red-type card-title">Inspiration Gallery</h4>
         </div>
         {% if examples %}
-        <div class="card-block">
+        <div class="card-body">
           <div class="row">
             {% for example in examples %}
             <div class="col-lg-3 col-sm-6">
@@ -15,36 +15,34 @@
                 <a href="#" data-toggle="modal" data-target="#{{ example.progress.owner.username }}">
                   <img class="card-img-top a-borderless" src="{% resized example.image.url width=330 height=200 crop='fill' %}" alt="{{ example.progress.owner.username }}'s {{ challenge.name }}">
                 </a>
-                <div class="card-block text-xs-center">
+                <div class="card-body text-center">
                   <p class="card-title">{{ example.progress.owner.username }}</p>
                 </div>
               </div>
-            </div>
-            <div class="modal fade" id="{{ example.progress.owner.username }}" tabindex="-1" role="dialog" aria-labelledby="modal-{{ example.id }}-title" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h3 id="modal-{{example.id}}-title">{{ example.progress.owner.username }}'s {{ challenge.name }}</h3>
-                  </div>
-                  <div class="modal-body text-xs-center">
-                    <img src="{% resized example.image.url %}" alt="{{ example.progress.owner.username }}'s {{ challenge.name }}">
+              <div class="modal modal-cm fade" id="{{ example.progress.owner.username }}" tabindex="-1" role="dialog" aria-labelledby="modal-{{ example.id }}-title" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 id="modal-{{example.id}}-title" class="modal-title">{{ example.progress.owner.username }}'s {{ challenge.name }}</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body text-center">
+                      <img src="{% resized example.image.url %}" alt="{{ example.progress.owner.username }}'s {{ challenge.name }}">
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             {% endfor %}
           </div>
-          <div class="row">
-            <div class="card-block text-xs-center">
-              <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary">View the Inspiration Gallery</a>
-            </div>
+          <div class="row justify-content-center my-4">
+            <a href="{% url "challenges:examples" challenge_id=challenge.id %}" class="btn btn-primary">View the Inspiration Gallery</a>
           </div>
         </div>
         {% else %}
-        <div class="card-block text-xs-center">
+        <div class="card-body text-center">
           <p>There aren't any examples yet!</p>
         </div>
         {% endif %}

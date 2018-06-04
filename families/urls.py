@@ -11,3 +11,9 @@ urlpatterns = [
     url(r'^stage-1/$', stage_1, name="stage_1"),
     url(r'^stage-2/$', stage_2, name="stage_2"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^interruption/prereq/$', prereq_interruption),
+        url(r'^interruption/postsurvey/$', postsurvey_interruption),
+    ]
