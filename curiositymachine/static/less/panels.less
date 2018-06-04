@@ -287,11 +287,11 @@
   }
   .panel-heading-build {
     .panel-heading;
-    background-color: #F16243;
+    background-color: @orange;
   }
   .panel-heading-test {
     .panel-heading;
-    background-color: #FA5882;
+    background-color: @orange;
   }
   .panel-heading-reflect {
     .panel-heading;
@@ -309,8 +309,29 @@
   &:before {border-color: lighten(@teal, 5%) transparent transparent transparent;}
 }
 
-.panel-bubble.plan-build {
+.panel-bubble.feedback {
+  background: lighten(#000, 60%);
+  color: #fff;
+  h1 {
+    color: #fff;
+    font-size: @font-size-h1 * 1.5;
+  }
+}
+
+.panel-bubble.plan {
   background: lighten(@green, 5%);
+  color: #fff;
+  h1 {
+    color: #fff;
+    font-size: @font-size-h1;
+  }
+  p {
+    margin: 20px 0;
+  }
+}
+
+.panel-bubble.build {
+  background: @orange;
   color: #fff;
   h1 {
     color: #fff;
