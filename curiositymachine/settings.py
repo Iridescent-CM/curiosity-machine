@@ -118,6 +118,7 @@ MIDDLEWARE = [
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
     'curiositymachine.middleware.LastActiveMiddleware',
     'curiositymachine.middleware.FirstLoginMiddleware',
+    'curiositymachine.middleware.FlushMessagesMiddleware',
     'families.middleware.SignUpPrerequisitesMiddleware',
     'educators.middleware.CoachPrerequisitesMiddleware',
     'families.middleware.PostSurveyMiddleware',

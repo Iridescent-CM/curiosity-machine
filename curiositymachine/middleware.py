@@ -118,3 +118,14 @@ class FirstLoginMiddleware(MiddlewareMixin):
                 request.user.extra.first_login = False
                 request.user.extra.save(update_fields=['first_login'])
         return response
+
+class FlushMessagesMiddleware(MiddlewareMixin):
+    """
+    Middleware that marks messages to be cleared (by iterating them)
+    """
+
+    def process_response(self, request, response):
+        if response.status_code == 200:
+            for message in messages.get_messages(request):
+               None
+        return response
