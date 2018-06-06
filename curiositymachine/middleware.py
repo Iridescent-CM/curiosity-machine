@@ -125,7 +125,11 @@ class FlushMessagesMiddleware(MiddlewareMixin):
     """
 
     def process_response(self, request, response):
-        if response.status_code == 200:
-            for message in messages.get_messages(request):
-               None
+        storage = messages.get_messages(request)
+        storage_was_used = storage.used
+        if response.status_code == 200 and not storage_was_used:
+            for message in storage:
+                logger.info("message marked for clearing: " + str(message))
+                storage_was_used = True
+            storage.used = storage_was_used
         return response
