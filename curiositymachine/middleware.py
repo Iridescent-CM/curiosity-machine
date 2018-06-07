@@ -6,6 +6,9 @@ from django.utils.deprecation import MiddlewareMixin
 from curiositymachine.exceptions import LoginRequired
 import profiles.models
 import re
+import logging
+
+logger = logging.getLogger(__name__)
 
 whitelist_regex = re.compile('(' + ')|('.join([r for r in settings.WHITELIST_URLS]) + ')')
 blacklist_regex = re.compile('(' + ')|('.join([r for r in settings.BLACKLIST_URLS]) + ')')
@@ -125,11 +128,8 @@ class FlushMessagesMiddleware(MiddlewareMixin):
     """
 
     def process_response(self, request, response):
-        storage = messages.get_messages(request)
-        storage_was_used = storage.used
-        if response.status_code == 200 and not storage_was_used:
-            for message in storage:
+        message_storage = messages.get_messages(request)
+        if response.status_code == 200 and not message_storage.used:
+            for message in message_storage:
                 logger.info("message marked for clearing: " + str(message))
-                storage_was_used = True
-            storage.used = storage_was_used
         return response
