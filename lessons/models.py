@@ -12,7 +12,7 @@ class Lesson(models.Model):
 
     def get_absolute_url(self):
         return reverse("lessons:page", kwargs={
-            "id": self.id,
+            "pk": self.id,
             "page": "inspiration"
         })
 
