@@ -7,10 +7,12 @@ jobs:
         environment:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+          REDIS_TEST_URL: redis://localhost:6379/1
       - image: circleci/postgres:9.6.2
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+      - image: circleci/redis:4.0.9
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
