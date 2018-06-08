@@ -1,0 +1,55 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.6.5
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      - image: circleci/postgres:9.6.2
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - restore_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+          command: |
+            sudo pip install pipenv
+            pipenv install --dev
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.6/site-packages"
+      - run:
+          command: |
+            py.test --ignore=venv
+
+# machine:
+#   python:
+#     version: 3.6.5
+#   services:
+#     - redis
+#   environment:
+#     REDIS_TEST_URL: redis://localhost:6379/1
+#     DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/circle_test
+# dependencies:
+#   pre:
+#     - pip install pipenv
+#   override:
+#     - pipenv install --dev
+# test:
+#   override:
+#     - py.test --ignore=venv
+#
+# deployment:
+#   staging:
+#     branch: develop
+#     heroku:
+#       appname: curiositystaging
