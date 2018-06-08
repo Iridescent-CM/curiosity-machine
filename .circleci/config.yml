@@ -39,24 +39,10 @@ jobs:
 
       - store_artifacts:
           path: test-reports
-  deploy-staging:
-    docker:
-      - image: buildpack-deps:trusty
-    steps:
-      - checkout
-      - run:
+
+      -deploy:
           name: Deploy to staging
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/curiositystaging.git develop:master
-
-workflows:
-  version: 2
-  build-deploy:
-    jobs:
-      - build
-      - deploy-staging:
-        requires:
-          - build
-        filters:
-          branches:
-            only: develop
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              git push https://heroku:$HEROKU_API_KEY@git.heroku.com/curiositystaging.git develop:master
+            fi
