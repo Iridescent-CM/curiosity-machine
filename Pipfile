@@ -52,6 +52,7 @@ django-html-validator = { git = "https://github.com/stenington/django-html-valid
 mock = "*"
 pretend = "*"
 pyquery = "*"
+pytest = "*"
 pytest-cov = "*"
 pytest-django = "*"
 
