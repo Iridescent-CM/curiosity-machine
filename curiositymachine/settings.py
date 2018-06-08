@@ -100,6 +100,7 @@ INSTALLED_APPS = (
     'phonenumber_field',
     'debug_toolbar',
     'feedback',
+    'django_ace',
 )
 
 SITE_ID = 1
