@@ -55,11 +55,11 @@ show_page = staff_member_required(PageView.as_view())
 #     class Meta:
 #         model = Upload
 #         fields = ('id', 'text', 'object_id', 'content_type', 'author')
-# 
+#
 # class UploadViewSet(viewsets.ModelViewSet):
 #     serializer_class = UploadSerializer
 #     permission_classes = []
-# 
+#
 #     def get_queryset(self):
 #         lesson_type = ContentType.objects.get_for_model(Lesson)
 #         return Upload.objects.filter(
