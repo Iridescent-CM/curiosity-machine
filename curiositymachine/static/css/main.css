@@ -8548,6 +8548,14 @@ footer {
   height: 50px;
   margin: 1.5em; }
 
+.lesson-pages .lesson-container {
+  /* borrow Bootstrap variables */
+  background-color: #fff;
+  border-left: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  min-height: 3em; }
+
 .mentor-dashboard .row-dark {
   background: #e5e1d9;
   margin: 0 -65px 20px -65px;
