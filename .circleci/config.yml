@@ -39,26 +39,24 @@ jobs:
 
       - store_artifacts:
           path: test-reports
+  deploy-staging:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+          name: Deploy to staging
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/curiositystaging.git develop:master
 
-# machine:
-#   python:
-#     version: 3.6.5
-#   services:
-#     - redis
-#   environment:
-#     REDIS_TEST_URL: redis://localhost:6379/1
-#     DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/circle_test
-# dependencies:
-#   pre:
-#     - pip install pipenv
-#   override:
-#     - pipenv install --dev
-# test:
-#   override:
-#     - py.test --ignore=venv
-#
-# deployment:
-#   staging:
-#     branch: develop
-#     heroku:
-#       appname: curiositystaging
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy-staging:
+        requires:
+          - build
+        filters:
+          branches:
+            only: develop
