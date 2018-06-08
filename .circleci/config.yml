@@ -40,7 +40,7 @@ jobs:
       - store_artifacts:
           path: test-reports
 
-      -deploy:
+      - deploy:
           name: Deploy to staging
           command: |
             if [ "${CIRCLE_BRANCH}" == "develop" ]; then
