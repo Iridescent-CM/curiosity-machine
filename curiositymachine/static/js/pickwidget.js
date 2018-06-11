@@ -56,26 +56,23 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
           container.insertBefore(el, container.firstChild);
         }
       }
+
       //submit edp comments upon saving
-      try {
-          var target = evt.target.closest('[id="id_visual_media"]');
-          var comment_form = $(target.form);
-          if (comment_form.find('[data-auto-submit]').length) {
-              target.form.submit();
-              target.form.hidden = true;
-              $('.hide_upon_submit').hide();
-              $('[data-submit-replacement-text]').each(function () {
-                  $(this).text($(this).attr('data-submit-replacement-text'));
-              });
-          }
-          else {
-              Rollbar.error("auto-submit failed to find target form. target: " + target);
-              log("auto-submit failed to find target form. target: " + target, "error");
-          }
-      } catch (e) {
-          Rollbar.error("auto-submit encountered an exception: " + e);
-          log("auto-submit encountered an exception: " + e, "error");
+      var target_form = evt.target.closest("form");
+      if ($(target_form).find('[data-auto-submit]').length) {
+        target_form.submit();
+        target_form.hidden = true;
+        $('.hide_upon_submit').hide();
+        $('[data-submit-replacement-text]').each(function () {
+          $(this).text($(this).attr('data-submit-replacement-text'));
+        });
       }
+      else if (!($(target_form)[0])) {
+        Rollbar.error("auto-submit failed to find target's corresponding form. The evt target is: " + evt.target);
+        log("auto-submit failed to find target's corresponding form. The evt target is: " + evt.target, "error");
+      }
+
+
     },
     function error (err) {
       if (!err.code || err.code !== 101) {
