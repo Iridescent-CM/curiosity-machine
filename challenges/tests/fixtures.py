@@ -36,8 +36,6 @@ def challenge():
     return Challenge.objects.create(
         name="Test Challenge",
         draft=False,
-        reflect_subheader='test reflect_subheader',
-        build_subheader='test build_subheader'
     )
 
 @pytest.fixture
