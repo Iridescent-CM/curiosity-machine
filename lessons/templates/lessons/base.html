@@ -1,0 +1,35 @@
+{% extends "curiositymachine/layout/base.html" %}
+
+{% block body-id %}lesson-page{% endblock %}
+{% block body-classes %}lesson-pages{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row my-5">
+      <div class="col-12 col-lg-10 offset-lg-1">
+
+        <nav class="nav nav-tabs nav-fill">
+          {% for page, item in subnav.items %}
+          <div class="nav-item">
+            <a
+              href="{% url "lessons:page" pk=lesson.id page=page %}"
+              class="nav-link {% if page == active %}active{% endif %}"
+            >
+              {{ item.text }}
+            </a>
+          </div>
+          {% endfor %}
+        </nav>
+
+        <div class="container lesson-container">
+          {% block full_content %}
+            {{ content|safe }}
+          {% endblock %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

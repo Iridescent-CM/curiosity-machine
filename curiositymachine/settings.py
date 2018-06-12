@@ -38,9 +38,9 @@ RQ_QUEUES = {
 
 
 ## SSL settings
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = os.getenv('SSL_ONLY', False)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = CSRF_COOKIE_SECURE = os.getenv("SSL_ONLY", False)
+SESSION_COOKIE_SECURE = CSRF_COOKIE_SECURE = os.getenv('SSL_ONLY', False)
 SITE_URL = os.getenv('SITE_URL', '')
 
 
@@ -81,6 +81,7 @@ INSTALLED_APPS = (
     'educators',
     'families.apps.FamiliesConfig',
     'challenges',
+    'lessons',
     'cmcomments',
     'videos',
     'images',
@@ -99,6 +100,7 @@ INSTALLED_APPS = (
     'phonenumber_field',
     'debug_toolbar',
     'feedback',
+    'django_ace',
 )
 
 SITE_ID = 1
@@ -106,6 +108,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'curiositymachine.middleware.CanonicalDomainMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
