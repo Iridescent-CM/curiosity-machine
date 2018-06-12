@@ -9,16 +9,12 @@
 {
     "fields": {
         "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
-        "plan_subheader": "Plan the thing.",
         "image": 1,
         "video": 1,
-        "plan_call_to_action": "Plan it!",
         "build_call_to_action": "Build it!",
         "name": "Challenge 1",
-        "build_subheader": "Build the thing.",
         "how_to_make_it": "<p>This is how to make challenge 1.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
         "learn_more": "Learn <strong>more</strong> about challenge 1!",
-        "reflect_subheader": "Reflect on the thing.",
         "description": "This is the description for challenge 1!",
         "reflect_questions": [
             1
@@ -31,16 +27,12 @@
 {
     "fields": {
         "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
-        "plan_subheader": "Plan the thing.",
         "image": 1,
         "video": null,
-        "plan_call_to_action": "Plan it!",
         "build_call_to_action": "Build it!",
         "name": "Challenge 2",
-        "build_subheader": "Build the thing.",
         "how_to_make_it": "<p>This is how to make challenge 2.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
         "learn_more": "Learn <strong>more</strong> about challenge 2!",
-        "reflect_subheader": "Reflect on the thing.",
         "description": "This is the description for challenge 2!",
         "reflect_questions": [
             1
@@ -53,16 +45,12 @@
 {
     "fields": {
         "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
-        "plan_subheader": "Plan the thing.",
         "image": 1,
         "video": null,
-        "plan_call_to_action": "Plan it!",
         "build_call_to_action": "Build it!",
         "name": "Challenge 3",
-        "build_subheader": "Build the thing.",
         "how_to_make_it": "<p>This is how to make challenge 3.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
         "learn_more": "Learn <strong>more</strong> about challenge 3!",
-        "reflect_subheader": "Reflect on the thing.",
         "description": "This is the description for challenge 3!",
         "reflect_questions": [
             1
@@ -75,16 +63,12 @@
 {
     "fields": {
         "materials_list": "<ol>\r\n<li>rubber bands</li>\r\n<li>paperclips</li>\r\n<li>scissors</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
-        "plan_subheader": "Plan the thing.",
         "image": 1,
         "video": null,
-        "plan_call_to_action": "Plan it!",
         "build_call_to_action": "Build it!",
         "name": "Challenge 4",
-        "build_subheader": "Build the thing.",
         "how_to_make_it": "<p>This is how to make challenge 4.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
         "learn_more": "Learn <strong>more</strong> about challenge 4!",
-        "reflect_subheader": "Reflect on the thing.",
         "description": "This is the description for challenge 4!",
         "reflect_questions": [
             1

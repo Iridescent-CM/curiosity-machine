@@ -2,16 +2,12 @@
     {
         "fields": {
             "materials_list": "<ol>\r\n<li>water</li>\r\n<li>sand</li>\r\n<li>mud</li>\r\n<li>a healthy sense of adventure</li>\r\n</ol>",
-            "plan_subheader": "Plan the whole thing.",
             "image": 1,
             "video": null,
-            "plan_call_to_action": "Plan it!",
             "build_call_to_action": "Build it!",
             "name": "Challenge 5",
-            "build_subheader": "Build the thing.",
             "how_to_make_it": "<p>This is how to make challenge 5.</p>\r\n<ul>\r\n  <li>one</li>\r\n  <li>two</li>\r\n  <li>three</li>\r\n</ul>\r\n<p>That's it!</p>",
             "learn_more": "Learn <strong>more</strong> about challenge 4!",
-            "reflect_subheader": "Reflect on the thing.",
             "description": "This is the description for challenge 5!",
             "reflect_questions": [
                 1
