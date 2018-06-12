@@ -18,3 +18,13 @@ class Lesson(models.Model):
 
     def __str__(self):
         return "Lesson: id={}".format(self.id)
+
+class Progress(models.Model):
+    lesson = models.ForeignKey(Lesson)
+    owner = models.ForeignKey(get_user_model(), related_name='lesson_progresses')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "progresses"
+        unique_together = ('lesson', 'owner',)

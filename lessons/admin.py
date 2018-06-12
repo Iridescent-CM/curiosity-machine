@@ -10,7 +10,7 @@ class LessonAdminForm(forms.ModelForm):
         model = Lesson
         exclude = []
         widgets = {
-            'inspiration': AceWidget(mode="html", width=ACEWIDTH),
+            'inspiration': AceWidget(mode="html", width=ACEWIDTH, wordwrap=True),
             'plan': AceWidget(mode="html", width=ACEWIDTH),
             'build': AceWidget(mode="html", width=ACEWIDTH),
             'reflect': AceWidget(mode="html", width=ACEWIDTH),

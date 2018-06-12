@@ -51,19 +51,53 @@ class PageView(DetailView):
 
 show_page = staff_member_required(PageView.as_view())
 
-# class UploadSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Upload
-#         fields = ('id', 'text', 'object_id', 'content_type', 'author')
-#
-# class UploadViewSet(viewsets.ModelViewSet):
-#     serializer_class = UploadSerializer
-#     permission_classes = []
-#
-#     def get_queryset(self):
-#         lesson_type = ContentType.objects.get_for_model(Lesson)
-#         return Upload.objects.filter(
-#             author=self.request.user,
-#             content_type__pk=lesson_type.id,
-#             object_id=self.kwargs['lesson_pk']
-#         )
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.response import Response
+from lessons.models import *
+from django.http import HttpResponse, HttpResponseRedirect
+
+class LessonViewSet(viewsets.GenericViewSet):
+    queryset = Lesson.objects.all()
+    renderer_classes = (TemplateHTMLRenderer, )
+
+    def get_template_names(self):
+        return ["lessons/%s.html" % self.page, "lessons/page.html",]
+
+    def retrieve(self, request, pk=None):
+        self.object = self.get_object()
+        self.page = self.request.query_params.get('page', list(LESSON_NAV.keys())[0])
+        return Response(
+            {
+                'lesson': self.object,
+                'subnav': LESSON_NAV,
+                'active': self.page,
+                'content': getattr(self.object, self.page, None),
+            },
+        )
+
+    @action(methods=['get'], detail=True)
+    def progress(self, request, pk=None):
+        progress, created = Progress.objects.get_or_create(owner_id=request.user.id, lesson_id=pk)
+        return HttpResponseRedirect(reverse("lessons:lesson-progress-detail", kwargs={"pk": progress.id}))
+
+class LessonProgressViewSet(viewsets.GenericViewSet):
+    queryset = Progress.objects.all()
+    renderer_classes = (TemplateHTMLRenderer, )
+
+    def get_template_names(self):
+        return ["lessons/%s.html" % self.page, "lessons/page.html",]
+
+    def retrieve(self, request, pk=None):
+        self.object = self.get_object()
+        self.page = self.request.query_params.get('page', list(LESSON_NAV.keys())[0])
+        return Response(
+            {
+                'lesson': self.object.lesson,
+                'progress': self.object,
+                'subnav': LESSON_NAV,
+                'active': self.page,
+                'content': getattr(self.object.lesson, self.page, None),
+            },
+        )

@@ -13,7 +13,7 @@
           {% for page, item in subnav.items %}
           <div class="nav-item">
             <a
-              href="{% url "lessons:page" pk=lesson.id page=page %}"
+              href="?page={{ page }}"
               class="nav-link {% if page == active %}active{% endif %}"
             >
               {{ item.text }}
