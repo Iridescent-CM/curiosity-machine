@@ -3,6 +3,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.urls import reverse
+from images.models import Image
 
 class Lesson(models.Model):
     inspiration = models.TextField(blank=True)
@@ -28,3 +29,11 @@ class Progress(models.Model):
     class Meta:
         verbose_name_plural = "progresses"
         unique_together = ('lesson', 'owner',)
+
+class Comment(models.Model):
+    author = models.ForeignKey(get_user_model(), related_name='lesson_comments')
+    lesson_progress = models.ForeignKey(Progress)
+    text = models.TextField(null=True, blank=True)
+    image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
