@@ -3,20 +3,25 @@ from django import forms
 from django_ace import AceWidget
 from .models import *
 
-ACEWIDTH = "800px"
+ACECONFIG = {
+    "width": "800px",
+    "wordwrap": True
+}
 
 class LessonAdminForm(forms.ModelForm):
     class Meta:
         model = Lesson
         exclude = []
         widgets = {
-            'inspiration': AceWidget(mode="html", width=ACEWIDTH, wordwrap=True),
-            'plan': AceWidget(mode="html", width=ACEWIDTH),
-            'build': AceWidget(mode="html", width=ACEWIDTH),
-            'reflect': AceWidget(mode="html", width=ACEWIDTH),
-            'further': AceWidget(mode="html", width=ACEWIDTH),
+            'inspiration': AceWidget(mode="html", **ACECONFIG),
+            'plan': AceWidget(mode="html", **ACECONFIG),
+            'build': AceWidget(mode="html", **ACECONFIG),
+            'reflect': AceWidget(mode="html", **ACECONFIG),
+            'further': AceWidget(mode="html", **ACECONFIG),
         }
-        js = ('django_ace/widget.js',)
+
+    class Media:
+        js = ('js/ace_widget.js',)
 
 class LessonAdmin(admin.ModelAdmin):
     form = LessonAdminForm
