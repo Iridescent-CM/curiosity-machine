@@ -57,7 +57,6 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
         }
       }
 
-      //submit edp comments upon saving
       var target_form = evt.target.closest("form");
       if ($(target_form).find('[data-auto-submit]').length) {
         target_form.submit();
@@ -67,11 +66,6 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
           $(this).text($(this).attr('data-submit-replacement-text'));
         });
       }
-      else if (!($(target_form)[0])) {
-        Rollbar.error("auto-submit failed to find target's corresponding form. The evt target is: " + evt.target);
-        log("auto-submit failed to find target's corresponding form. The evt target is: " + evt.target, "error");
-      }
-
 
     },
     function error (err) {
