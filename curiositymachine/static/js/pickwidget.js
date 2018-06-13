@@ -56,16 +56,17 @@ $(document).on('click', '[data-toggle="filepicker"]', function(evt) {
           container.insertBefore(el, container.firstChild);
         }
       }
-      //submit edp comments upon saving
-      var comment_form = $(evt.target.form);
-      if (comment_form.find('[data-auto-submit]').length){
-        evt.target.form.submit();
-        evt.target.form.hidden = true;
+
+      var target_form = evt.target.closest("form");
+      if ($(target_form).find('[data-auto-submit]').length) {
+        target_form.submit();
+        target_form.hidden = true;
         $('.hide_upon_submit').hide();
-        $('[data-submit-replacement-text]').each(function() {
-          $( this ).text($( this ).attr('data-submit-replacement-text'));
+        $('[data-submit-replacement-text]').each(function () {
+          $(this).text($(this).attr('data-submit-replacement-text'));
         });
       }
+
     },
     function error (err) {
       if (!err.code || err.code !== 101) {
