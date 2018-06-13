@@ -9,11 +9,13 @@
     <div class="row my-5">
       <div class="col-12 col-lg-10 offset-lg-1">
 
+        <h1>{{ lesson.title }}</h1>
+
         <nav class="nav nav-tabs nav-fill">
           {% for page, item in subnav.items %}
           <div class="nav-item">
             <a
-              href="{% url "lessons:page" pk=lesson.id page=page %}"
+              href="?page={{ page }}"
               class="nav-link {% if page == active %}active{% endif %}"
             >
               {{ item.text }}

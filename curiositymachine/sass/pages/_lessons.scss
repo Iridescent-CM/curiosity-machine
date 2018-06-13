@@ -7,4 +7,16 @@
     border-right: $nav-tabs-border-width solid $nav-tabs-border-color;
     min-height: 3em;
   }
+
+  .edit {
+    display: none;
+  }
+  .editing {
+    .view {
+      display: none;
+    }
+    .edit {
+      display: block;
+    }
+  }
 }

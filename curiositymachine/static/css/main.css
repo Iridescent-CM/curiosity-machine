@@ -8556,6 +8556,15 @@ footer {
   border-right: 1px solid #dee2e6;
   min-height: 3em; }
 
+.lesson-pages .edit {
+  display: none; }
+
+.lesson-pages .editing .view {
+  display: none; }
+
+.lesson-pages .editing .edit {
+  display: block; }
+
 .mentor-dashboard .row-dark {
   background: #e5e1d9;
   margin: 0 -65px 20px -65px;

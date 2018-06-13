@@ -1,4 +1,4 @@
-{% extends "lessons/base.html" %}
+{% extends "lessons/page.html" %}
 
 {% block full_content %}
   <div class="row">
@@ -12,31 +12,56 @@
           <div class="card-body">
             <textarea
               class="form-control"
+              v-bind:disabled="disabled"
               placeholder="Post a comment or upload a file"
               v-model="newComment"></textarea>
 
             <button type="submit"
               class="btn btn-primary mt-3"
-              @click="addComment">
+              v-bind:disabled="disabled"
+              @click="addTextComment">
               Submit
             </button>
 
             <button
               class="btn btn-primary mt-3 ml-2"
-              @click="pick">
+              v-bind:disabled="disabled"
+              @click="addMediaComment">
               Upload
             </button>
           </div>
         </div>
 
-        <template v-for="upload in uploads">
+        <template v-for="comment in comments">
           <div class="card my-3">
-            <div class="card-body">
-              <p v-if="upload.text" class="card-text">
-                ${ upload.text }
-              </p>
-              <img v-if="upload.src" class="card-img-top" v-bind:src="upload.src" alt="image" />
-            </div>
+
+            <template v-if="comment.image && comment.image.url">
+              <img v-if="comment.image && comment.image.url" class="card-img-top" v-bind:src="comment.image.url" alt="image" />
+              <div class="card-body">
+                <button class="btn btn-sm btn-outline-purple" @click="removeComment(comment)">Remove</button>
+                <button class="btn btn-sm btn-outline-purple" @click="editMediaComment(comment)">Edit</button>
+              </div>
+            </template>
+
+            <template v-if="comment.text">
+              <div class="card-body" :class="{ editing: comment == editing }">
+                <div class="view">
+                  <p class="card-text">
+                    ${ comment.text }
+                  </p>
+                  <button class="btn btn-sm btn-outline-purple" @click="removeComment(comment)">Remove</button>
+                  <button class="btn btn-sm btn-outline-purple" @click="makeEditable(comment)">Edit</button>
+                </div>
+                <div class="edit">
+                  <textarea
+                     class="form-control"
+                     v-model="comment.text"
+                  ></textarea>
+                  <button class="btn btn-sm btn-outline-purple" @click="editTextComment(comment)">Save</button>
+                </div>
+              </div>
+            </template>
+
           </div>
         </template>
 
@@ -51,70 +76,192 @@
 {% endblock %}
 
 {% block js %}
-  {% comment %}
   <script src="https://static.filestackapi.com/v3/filestack.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
     const fsclient = filestack.init('AGMpw9ALPRTObV0qAHZKJz');
+    const pick = function() {
+      return new Promise(function(resolve) {
+        fsclient.pick({
+          uploadInBackground: false,
+          onFileUploadFinished: resolve
+        });
+      });
+    };
+
+    function Api(opts) {
+      this.disabled = !opts.progress;
+
+      this.list = function() {
+        return axios
+        .get('/lessons/comment/?progress=' + opts.progress)
+        .then(function (response) {
+          return response.data;
+        });
+      };
+
+      this.create = function(data) {
+        data.image = data.image || {};
+
+        return axios
+        .post(
+          '/lessons/comment/',
+          {
+            author: opts.author,
+            lesson_progress: opts.progress,
+            text: data.text || "",
+            image: {
+              source_url: data.image.source_url || ""
+            }
+          }
+        );
+      };
+
+      this.update = function(comment, data) {
+        return axios
+        .patch(
+          '/lessons/comment/' + comment + '/',
+          data
+        );
+      };
+
+      this.destroy = function(comment) {
+        return axios.delete(
+          '/lessons/comment/' + comment + '/'
+        );
+      };
+    }
+
+    var api = new Api({
+      author: {{ request.user.id }},
+      progress: {{ progress.id|default:'undefined' }}
+    });
 
     var uploader = new Vue({
+
       delimiters: ['${', '}'],
+
       el: "#uploader",
+
       data: {
         newComment: '',
-        uploads: [
-        ],
+        editing: undefined,
+        comments: [],
       },
+
+      computed: {
+        disabled: function () {
+          return api.disabled;
+        },
+        enabled: function () {
+          return !api.disabled;
+        }
+      },
+
       mounted: function () {
-        this.getComments();
+        if (this.enabled) {
+          this.getComments();
+        }
       },
+
       methods: {
+
         getComments: function () {
           var that = this;
-          axios.get('/lessons/{{ lesson.id }}/uploads/')
-            .then(function (response) {
-              that.uploads = response.data;
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+          api
+          .list()
+          .then(function (data) {
+            that.comments = data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         },
-        addComment: function () {
+
+        addTextComment: function () {
           var value = this.newComment && this.newComment.trim();
           if (!value) return;
           var that = this;
-          axios.post(
-              '/lessons/{{ lesson.id }}/uploads/',
-              {
-                author: {{ request.user.id }},
-                content_type: 36,
-                object_id: {{ lesson.id }},
-                text: value
-              },
-              {
-                xsrfCookieName: 'csrftoken',
-                xsrfHeaderName: 'X-CSRFToken'
-              }
-            )
-            .then(function (response) {
-              that.newComment = '';
-              that.getComments();
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+          api
+          .create({text: value})
+          .then(function (response) {
+            that.newComment = '';
+            that.getComments();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         },
-        pick: function () {
-          fsclient.pick({
-            uploadInBackground: false,
-            onFileUploadFinished: function (upload) {
-              console.log(upload);
-            }
+
+        makeEditable: function (comment) {
+          this.editing = comment
+        },
+
+        editTextComment: function (comment) {
+          var that = this;
+          api
+          .update(comment.id, {text: this.editing.text.trim()})
+          .then(function (response) {
+            that.editing = undefined;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        },
+
+        addMediaComment: function () {
+          var that = this;
+          pick()
+          .then(function (upload) {
+            return api.create({
+              image: {
+                source_url: upload.url
+              }
+            });
+          })
+          .then(function (response) {
+            that.getComments();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        },
+
+        editMediaComment: function (comment) {
+          var that = this;
+          pick()
+          .then(function (upload) {
+            return api.update(comment.id, {
+              image: {
+                source_url: upload.url
+              }
+            });
+          })
+          .then(function (response) {
+            that.getComments();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        },
+
+        removeComment: function (comment) {
+          var that = this;
+          api
+          .destroy(comment.id)
+          .then(function (response) {
+            that.getComments();
+          })
+          .catch(function (error) {
+            console.log(error);
           });
         }
+
       }
     });
   </script>
-  {% endcomment %}
 {% endblock %}
