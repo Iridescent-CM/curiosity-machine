@@ -29,4 +29,23 @@ class LessonAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('id', 'title')
 
+class ProgressAdmin(admin.ModelAdmin):
+    model = Progress
+    list_display = ('id', 'owner', 'lesson', 'created_at', 'updated_at')
+
+class CommentAdmin(admin.ModelAdmin):
+    model = Comment
+    list_display = ('id', 'author', '_progress_owner', '_lesson_title', '_lesson_id')
+
+    def _progress_owner(self, obj):
+        return obj.lesson_progress.owner
+
+    def _lesson_title(self, obj):
+        return obj.lesson_progress.lesson.title
+
+    def _lesson_id(self, obj):
+        return obj.lesson_progress.lesson.id
+
 admin.site.register(Lesson, LessonAdmin)
+admin.site.register(Progress, ProgressAdmin)
+admin.site.register(Comment, CommentAdmin)

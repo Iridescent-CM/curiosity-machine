@@ -30,6 +30,9 @@ class Progress(models.Model):
         verbose_name_plural = "progresses"
         unique_together = ('lesson', 'owner',)
 
+    def __str__(self):
+        return "Lesson Progress: id={} owner={} title={}".format(self.id, self.owner, self.lesson.title)
+
 class Comment(models.Model):
     author = models.ForeignKey(get_user_model(), related_name='lesson_comments')
     lesson_progress = models.ForeignKey(Progress)
@@ -37,3 +40,6 @@ class Comment(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Lesson Comment: id={} author={} lesson={}".format(self.id, self.author, self.lesson_progress.lesson)

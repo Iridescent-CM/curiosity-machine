@@ -85,10 +85,14 @@
 
     const fsclient = filestack.init('AGMpw9ALPRTObV0qAHZKJz');
     const pick = function() {
-      return new Promise(function(resolve) {
+      return new Promise(function(resolve, reject) {
         fsclient.pick({
           uploadInBackground: false,
-          onFileUploadFinished: resolve
+          fromSources: ['local_file_system', 'webcam', 'video'],
+          onFileUploadFinished: resolve,
+          onFileUploadFailed: function(upload, error) {
+            reject(error);
+          }
         });
       });
     };
