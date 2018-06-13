@@ -6,19 +6,19 @@ from django.urls import reverse
 from images.models import Image
 
 class Lesson(models.Model):
+    title = models.CharField(max_length=255, null=True, blank=True)
     inspiration = models.TextField(blank=True)
     plan = models.TextField(blank=True)
     build = models.TextField(blank=True)
     further = models.TextField(blank=True)
 
     def get_absolute_url(self):
-        return reverse("lessons:page", kwargs={
+        return reverse("lessons:lesson-detail", kwargs={
             "pk": self.id,
-            "page": "inspiration"
         })
 
     def __str__(self):
-        return "Lesson: id={}".format(self.id)
+        return "Lesson: id={} title={}".format(self.id, self.title)
 
 class Progress(models.Model):
     lesson = models.ForeignKey(Lesson)

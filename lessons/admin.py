@@ -22,5 +22,6 @@ class LessonAdmin(admin.ModelAdmin):
     form = LessonAdminForm
     save_as = True
     save_on_top = True
+    list_display = ('id', 'title')
 
 admin.site.register(Lesson, LessonAdmin)
