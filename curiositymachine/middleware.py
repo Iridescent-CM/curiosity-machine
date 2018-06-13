@@ -6,6 +6,9 @@ from django.utils.deprecation import MiddlewareMixin
 from curiositymachine.exceptions import LoginRequired
 import profiles.models
 import re
+import logging
+
+logger = logging.getLogger(__name__)
 
 whitelist_regex = re.compile('(' + ')|('.join([r for r in settings.WHITELIST_URLS]) + ')')
 blacklist_regex = re.compile('(' + ')|('.join([r for r in settings.BLACKLIST_URLS]) + ')')
@@ -117,4 +120,16 @@ class FirstLoginMiddleware(MiddlewareMixin):
             if response.status_code == 200:
                 request.user.extra.first_login = False
                 request.user.extra.save(update_fields=['first_login'])
+        return response
+
+class FlushMessagesMiddleware(MiddlewareMixin):
+    """
+    Middleware that marks messages to be cleared (by iterating them)
+    """
+
+    def process_response(self, request, response):
+        message_storage = messages.get_messages(request)
+        if response.status_code == 200 and not message_storage.used:
+            for message in message_storage:
+                logger.info("message marked for clearing: " + str(message))
         return response
