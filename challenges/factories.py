@@ -35,11 +35,7 @@ class ChallengeFactory(factory.django.DjangoModelFactory):
     how_to_make_it = "how to make it"
     learn_more = "learn more"
     materials_list = "<ul><li>material 1</li><li>material 2</li><li>material 3</li></ul>"
-    plan_call_to_action = "call to action"
     build_call_to_action = "call to action"
-    plan_subheader = "subheader"
-    build_subheader = "subheader"
-    reflect_subheader = "subheader"
     image = factory.SubFactory('images.factories.ImageFactory')
 
     @factory.post_generation
