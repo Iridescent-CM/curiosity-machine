@@ -90,7 +90,7 @@
 
                 {% if request.user.is_authenticated %}
                 <div class="card-body">
-                  <ul jlass="card-flags">
+                  <ul class="card-flags">
                     {% if challenge.accessible or challenge.started %}
                     {% if request.user.extra.is_student %}
                     <li>
