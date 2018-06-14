@@ -19,7 +19,14 @@ public = whitelist('public')
 PAGES_DIR = os.path.join(settings.BASE_DIR, 'curiositymachine/templates/curiositymachine/pages')
 
 def pages_urls():
-    templates = [f for f in os.listdir(PAGES_DIR) if os.path.isfile(os.path.join(PAGES_DIR, f))]
+    """
+    Routes some/path/to/file.html as /some/path/to/file/ on the site.
+    """
+
+    templates = []
+    for dirpath, names, files in os.walk(PAGES_DIR):
+        dirpath = os.path.relpath(dirpath, PAGES_DIR)
+        templates.extend([os.path.join(dirpath, f) for f in files])
     urls = []
     for template in templates:
         name = os.path.splitext(template)[0]
