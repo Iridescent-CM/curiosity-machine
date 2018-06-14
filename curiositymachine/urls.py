@@ -26,6 +26,7 @@ def pages_urls():
     templates = []
     for dirpath, names, files in os.walk(PAGES_DIR):
         dirpath = os.path.relpath(dirpath, PAGES_DIR)
+        dirpath = '' if dirpath == '.' else dirpath
         templates.extend([os.path.join(dirpath, f) for f in files])
     urls = []
     for template in templates:
