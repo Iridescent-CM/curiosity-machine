@@ -47,9 +47,11 @@
             </template>
 
             <template v-if="comment.upload && comment.upload.type == 'video'">
-              <div v-if="comment.upload.encodings">
+              <div v-if="comment.upload.encodings.length">
                 <video
                   class="w-100"
+                  preload="none"
+                  v-bind:poster="comment.upload.thumbnail"
                   controls
                 >
                   <template v-for="encoding in comment.upload.encodings">
@@ -60,7 +62,9 @@
               <div v-else>
                 <video
                   class="w-100"
+                  preload="none"
                   v-bind:src="comment.upload.url"
+                  v-bind:poster="comment.upload.thumbnail"
                   controls>
                 </video>
               </div>

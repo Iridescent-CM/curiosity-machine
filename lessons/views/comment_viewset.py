@@ -20,10 +20,12 @@ class UploadSerializer(serializers.Serializer):
                 "url": obj.url
             }
         elif isinstance(obj, Video):
+            thumb = obj.thumbnails.first()
             data = {
                 "type": "video",
                 "url": obj.url,
-                "encodings": []
+                "encodings": [],
+                "thumbnail": thumb.url if thumb else ""
             }
             for encoding in obj.encoded_videos.all():
                 data['encodings'].append({
