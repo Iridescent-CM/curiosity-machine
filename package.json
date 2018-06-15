@@ -2,17 +2,17 @@
   "name": "curiositymachine-build",
   "version": "0.1.0",
   "devDependencies": {
-    "bower": "*",
-    "grunt": "*",
-    "grunt-cli": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-less": "*",
-    "grunt-contrib-nodeunit": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*",
+    "grunt": "^1.0.3",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-less": "^2.0.0",
+    "grunt-contrib-nodeunit": "^2.0.0",
+    "grunt-contrib-uglify": "^3.3.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-sass": "^2.1.0"
   },
   "dependencies": {
-    "npm": "^5.8.0"
+    "bootstrap": "^4.1.1",
+    "npm": "^6.1.0"
   }
 }
