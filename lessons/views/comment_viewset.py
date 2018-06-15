@@ -9,30 +9,36 @@ class UploadSerializer(serializers.Serializer):
     mimetype = serializers.CharField()
     url = serializers.URLField()
 
+    def to_image_representation(self, obj):
+        return {
+            "type": "image",
+            "url": obj.url
+        }
+
+    def to_video_representation(self, obj):
+        thumb = obj.thumbnails.first()
+        data = {
+            "type": "video",
+            "url": obj.url,
+            "encodings": [],
+            "thumbnail": thumb.url if thumb else ""
+        }
+        for encoding in obj.encoded_videos.all():
+            data['encodings'].append({
+                "url": encoding.url,
+                "mimetype": encoding.mime_type
+            })
+        return data
+
+
     def to_representation(self, obj):
         """
         There's no generic Upload model, so different models
         will have differing representations going back to the frontend
         """
-        if isinstance(obj, Image):
-            return {
-                "type": "image",
-                "url": obj.url
-            }
-        elif isinstance(obj, Video):
-            thumb = obj.thumbnails.first()
-            data = {
-                "type": "video",
-                "url": obj.url,
-                "encodings": [],
-                "thumbnail": thumb.url if thumb else ""
-            }
-            for encoding in obj.encoded_videos.all():
-                data['encodings'].append({
-                    "url": encoding.url,
-                    "mimetype": encoding.mime_type
-                })
-            return data
+        funcname = "to_%s_representation" % obj.__class__.__name__.lower()
+        if hasattr(self, funcname):
+            return getattr(self, funcname)(obj)
         else:
             return {}
 
