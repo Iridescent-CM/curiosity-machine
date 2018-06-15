@@ -17,8 +17,8 @@ base template can be dropped, these styles will go too.
 	* `pages/`: page-specific styles, these should be nested in a page-level class to limit their application
 	    * consider promoting things up to components if you see duplication between different pages
 	* `utils/`: SASS functions, includes, variables, etc.
-	* `vendors/`: vendor files, bower dependencies are installed here
-	    * **do not** add files or directories here, add dependencies to `bower.json`
+	* `/node_modules/`: vendor files, external dependencies are installed here
+	    * **do not** add files or directories here, add dependencies to `package.json` via `npm`
 	* `main.scss`
 
 ### Building

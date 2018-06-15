@@ -18,3 +18,4 @@ heroku.env
 dump.rdb
 received-emails/
 .pytest_cache/
+.tool-versions
