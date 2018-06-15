@@ -1,6 +1,7 @@
 from images.models import *
 from rest_framework import serializers
 from rest_framework import viewsets
+from videos.models import *
 from ..models import *
 
 class UploadSerializer(serializers.Serializer):
@@ -18,6 +19,18 @@ class UploadSerializer(serializers.Serializer):
                 "type": "image",
                 "url": obj.url
             }
+        elif isinstance(obj, Video):
+            data = {
+                "type": "video",
+                "url": obj.url,
+                "encodings": []
+            }
+            for encoding in obj.encoded_videos.all():
+                data['encodings'].append({
+                    "url": encoding.url,
+                    "mimetype": encoding.mime_type
+                })
+            return data
         else:
             return {}
 
@@ -35,12 +48,20 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('id', 'author', 'lesson_progress', 'text', 'upload')
 
+    def _handle_media(self, attrs, upload):
+        if 'mimetype' in upload:
+            mimetype = upload['mimetype']
+            if mimetype.startswith('image'):
+                attrs['upload'] = Image.from_source_with_job(upload['url'])
+            elif mimetype.startswith('video'):
+                attrs['upload'] = Video.from_source_with_job(upload['url'])
+
+        return attrs
+
     def create(self, validated_data):
         upload = validated_data.pop('upload')
         attrs = validated_data
-
-        if 'mimetype' in upload and upload['mimetype'].startswith('image'):
-            attrs['upload'] = Image.from_source_with_job(upload['url'])
+        attrs = self._handle_media(attrs, upload)
 
         comment = Comment.objects.create(**attrs)
         return comment
@@ -48,9 +69,7 @@ class CommentSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         upload = validated_data.pop('upload', None)
         attrs = validated_data
-
-        if 'mimetype' in upload and upload['mimetype'].startswith('image'):
-            attrs['upload'] = Image.from_source_with_job(upload['url'])
+        attrs = self._handle_media(attrs, upload)
 
         for attr, val in attrs.items():
             setattr(instance, attr, val)
