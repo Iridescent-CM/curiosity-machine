@@ -1,33 +1,58 @@
+from images.models import *
 from rest_framework import serializers
 from rest_framework import viewsets
 from ..models import *
 
-class ImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ('id', 'source_url', 'url')
-        read_only_fields = ('url', )
+class UploadSerializer(serializers.Serializer):
+    filename = serializers.CharField()
+    mimetype = serializers.CharField()
+    url = serializers.URLField()
+
+    def to_representation(self, obj):
+        """
+        There's no generic Upload model, so different models
+        will have differing representations going back to the frontend
+        """
+        if isinstance(obj, Image):
+            return {
+                "type": "image",
+                "url": obj.url
+            }
+        else:
+            return {}
+
+    def to_internal_value(self, data):
+        """
+        Just pass the data through, CommentSerializer will
+        use it to create/update models as necessary
+        """
+        return data
 
 class CommentSerializer(serializers.ModelSerializer):
-    image = ImageSerializer()
+    upload = UploadSerializer()
 
     class Meta:
         model = Comment
-        fields = ('id', 'author', 'lesson_progress', 'text', 'image')
+        fields = ('id', 'author', 'lesson_progress', 'text', 'upload')
 
     def create(self, validated_data):
-        image_src = validated_data['image']['source_url']
-        image = Image.from_source_with_job(image_src) if image_src else None
-        validated_data.pop('image')
-        comment = Comment.objects.create(image=image, **validated_data)
+        upload = validated_data.pop('upload')
+        attrs = validated_data
+
+        if 'mimetype' in upload and upload['mimetype'].startswith('image'):
+            attrs['upload'] = Image.from_source_with_job(upload['url'])
+
+        comment = Comment.objects.create(**attrs)
         return comment
 
     def update(self, instance, validated_data):
-        if 'image' in validated_data:
-            image_src = validated_data['image']['source_url']
-            instance.image = Image.from_source_with_job(image_src)
-        validated_data.pop('image', None)
-        for attr, val in validated_data.items():
+        upload = validated_data.pop('upload', None)
+        attrs = validated_data
+
+        if 'mimetype' in upload and upload['mimetype'].startswith('image'):
+            attrs['upload'] = Image.from_source_with_job(upload['url'])
+
+        for attr, val in attrs.items():
             setattr(instance, attr, val)
         instance.save()
         return instance
