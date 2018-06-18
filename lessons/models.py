@@ -40,14 +40,12 @@ class Progress(models.Model):
         return "Lesson Progress: id={} owner={} title={}".format(self.id, self.owner, self.lesson.title)
 
     @property
-    def challenge_id(self):
-        # FIXME
+    def object_id(self):
         return self.lesson_id
 
     @property
     def completed(self):
-        # FIXME
-        return False
+        return self.comment_set.all().exists()
 
 class Comment(models.Model):
     author = models.ForeignKey(get_user_model(), related_name='lesson_comments')

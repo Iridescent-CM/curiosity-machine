@@ -1,13 +1,13 @@
 from challenges.models import Challenge, Progress
 from challenges.models import Stage as CommentStage
-from challenges.presenters import ChallengeSet
+from curiositymachine.presenters import LearningSet
 from django.conf import settings
 from units.models import Unit
 
 def get_stages(user=None):
     return [Stage.from_config(num, user=user) for num in settings.AICHALLENGE_STAGES]
 
-class Stage(ChallengeSet):
+class Stage(LearningSet):
     @classmethod
     def from_config(cls, stagenum, user=None, config=None):
         config = config or settings.AICHALLENGE_STAGES[stagenum]
@@ -17,7 +17,7 @@ class Stage(ChallengeSet):
             key=lambda c: config['challenges'].index(c.id)
         )
 
-        progresses = None
+        progresses = []
         if user:
             progresses = Progress.objects.filter(
                 owner=user,
@@ -31,7 +31,7 @@ class Stage(ChallengeSet):
 
         return cls(stagenum, challenges, units, progresses)
 
-    def __init__(self, number, challenges, units, user_progresses=None):
+    def __init__(self, number, challenges, units, user_progresses=[]):
         super().__init__(challenges, user_progresses)
         self.number = number
         self.units = units

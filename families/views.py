@@ -1,6 +1,6 @@
 from challenges.models import Challenge, Progress
-from challenges.presenters import ChallengeSet
 from curiositymachine.decorators import whitelist
+from curiositymachine.presenters import LearningSet
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -79,11 +79,9 @@ class HomeView(DashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        stage_3 = ChallengeSet(Lesson.objects.all(), progresses)
         return super().get_context_data(
             **kwargs,
             stages=get_stages(self.request.user),
-            stage_3=stage_3
         )
 
 home = only_for_family(HomeView.as_view())
@@ -93,7 +91,7 @@ class StageView(DashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         stage = Stage.from_config(self.stagenum, user=self.request.user)
-        kwargs["challenges"] = stage.challenges
+        kwargs["challenges"] = stage.objects
         kwargs["units"] = stage.units
         return super().get_context_data(**kwargs)
 
@@ -105,8 +103,8 @@ class LessonsView(DashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        lesson_set = ChallengeSet(Lesson.objects.all(), user_progresses=progresses)
-        kwargs["lessons"] = lesson_set.challenges
+        lesson_set = LearningSet(Lesson.objects.all(), user_progresses=progresses)
+        kwargs["lessons"] = lesson_set.objects
         return super().get_context_data(**kwargs)
 
 stage_3 = only_for_family(LessonsView.as_view())
