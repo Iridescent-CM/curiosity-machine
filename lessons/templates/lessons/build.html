@@ -38,12 +38,42 @@
         <template v-for="comment in comments">
           <div class="card my-3">
 
-            <template v-if="comment.image && comment.image.url">
-              <img v-if="comment.image && comment.image.url" class="card-img-top" v-bind:src="comment.image.url" alt="image" />
-              <div class="card-body">
-                <button class="btn btn-sm btn-outline-purple" @click="removeComment(comment)">Remove</button>
-                <button class="btn btn-sm btn-outline-purple" @click="editMediaComment(comment)">Edit</button>
-              </div>
+            <template v-if="comment.upload">
+              <template v-if="comment.upload.type == 'image'">
+                <img class="card-img-top" v-bind:src="comment.upload.url" alt="user uploaded image" />
+                <div class="card-body">
+                  <button class="btn btn-sm btn-outline-purple" @click="removeComment(comment)">Remove</button>
+                  <button class="btn btn-sm btn-outline-purple" @click="editMediaComment(comment)">Edit</button>
+                </div>
+              </template>
+
+              <template v-if="comment.upload.type == 'video'">
+                <div v-if="comment.upload.encodings.length">
+                  <video
+                    class="w-100"
+                    preload="none"
+                    v-bind:poster="comment.upload.thumbnail"
+                    controls
+                  >
+                    <template v-for="encoding in comment.upload.encodings">
+                      <source v-bind:src="encoding.url" v-bind:type="encoding.mimetype" />
+                    </template>
+                  </video>
+                </div>
+                <div v-else>
+                  <video
+                    class="w-100"
+                    preload="none"
+                    v-bind:src="comment.upload.url"
+                    v-bind:poster="comment.upload.thumbnail"
+                    controls>
+                  </video>
+                </div>
+                <div class="card-body">
+                  <button class="btn btn-sm btn-outline-purple" @click="removeComment(comment)">Remove</button>
+                  <button class="btn btn-sm btn-outline-purple" @click="editMediaComment(comment)">Edit</button>
+                </div>
+              </template>
             </template>
 
             <template v-if="comment.text">
@@ -111,7 +141,8 @@
       };
 
       this.create = function(data) {
-        data.image = data.image || {};
+        data.upload = data.upload || {};
+        data.text = data.text || "";
 
         return axios
         .post(
@@ -119,10 +150,8 @@
           {
             author: opts.author,
             lesson_progress: opts.progress,
-            text: data.text || "",
-            image: {
-              source_url: data.image.source_url || ""
-            }
+            text: data.text,
+            upload: data.upload
           }
         );
       };
@@ -231,9 +260,7 @@
           pick()
           .then(function (upload) {
             return api.create({
-              image: {
-                source_url: upload.url
-              }
+              upload: upload
             });
           })
           .then(function (response) {
@@ -249,9 +276,7 @@
           pick()
           .then(function (upload) {
             return api.update(comment.id, {
-              image: {
-                source_url: upload.url
-              }
+              upload: upload
             });
           })
           .then(function (response) {

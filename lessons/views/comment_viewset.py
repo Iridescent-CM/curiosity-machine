@@ -1,33 +1,85 @@
+from images.models import *
 from rest_framework import serializers
 from rest_framework import viewsets
+from videos.models import *
 from ..models import *
 
-class ImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ('id', 'source_url', 'url')
-        read_only_fields = ('url', )
+class UploadSerializer(serializers.Serializer):
+    filename = serializers.CharField()
+    mimetype = serializers.CharField()
+    url = serializers.URLField()
+
+    def to_image_representation(self, obj):
+        return {
+            "type": "image",
+            "url": obj.url
+        }
+
+    def to_video_representation(self, obj):
+        thumb = obj.thumbnails.first()
+        data = {
+            "type": "video",
+            "url": obj.url,
+            "encodings": [],
+            "thumbnail": thumb.url if thumb else ""
+        }
+        for encoding in obj.encoded_videos.all():
+            data['encodings'].append({
+                "url": encoding.url,
+                "mimetype": encoding.mime_type
+            })
+        return data
+
+
+    def to_representation(self, obj):
+        """
+        There's no generic Upload model, so different models
+        will have differing representations going back to the frontend
+        """
+        funcname = "to_%s_representation" % obj.__class__.__name__.lower()
+        if hasattr(self, funcname):
+            return getattr(self, funcname)(obj)
+        else:
+            return {}
+
+    def to_internal_value(self, data):
+        """
+        Just pass the data through, CommentSerializer will
+        use it to create/update models as necessary
+        """
+        return data
 
 class CommentSerializer(serializers.ModelSerializer):
-    image = ImageSerializer()
+    upload = UploadSerializer()
 
     class Meta:
         model = Comment
-        fields = ('id', 'author', 'lesson_progress', 'text', 'image')
+        fields = ('id', 'author', 'lesson_progress', 'text', 'upload')
+
+    def _handle_media(self, attrs, upload):
+        if 'mimetype' in upload:
+            mimetype = upload['mimetype']
+            if mimetype.startswith('image'):
+                attrs['upload'] = Image.from_source_with_job(upload['url'])
+            elif mimetype.startswith('video'):
+                attrs['upload'] = Video.from_source_with_job(upload['url'])
+
+        return attrs
 
     def create(self, validated_data):
-        image_src = validated_data['image']['source_url']
-        image = Image.from_source_with_job(image_src) if image_src else None
-        validated_data.pop('image')
-        comment = Comment.objects.create(image=image, **validated_data)
+        upload = validated_data.pop('upload')
+        attrs = validated_data
+        attrs = self._handle_media(attrs, upload)
+
+        comment = Comment.objects.create(**attrs)
         return comment
 
     def update(self, instance, validated_data):
-        if 'image' in validated_data:
-            image_src = validated_data['image']['source_url']
-            instance.image = Image.from_source_with_job(image_src)
-        validated_data.pop('image', None)
-        for attr, val in validated_data.items():
+        upload = validated_data.pop('upload', None)
+        attrs = validated_data
+        attrs = self._handle_media(attrs, upload)
+
+        for attr, val in attrs.items():
             setattr(instance, attr, val)
         instance.save()
         return instance
