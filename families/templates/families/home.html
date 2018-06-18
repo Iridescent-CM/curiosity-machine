@@ -32,6 +32,7 @@
       <h3>AI Family Challenge Program Progress</h3>
       <div class="row dashboard-section">
         {% for stage in stages %}
+        {% if not stage.number == 3 or flags.enable_stage_3 %}
         <div class="col-md-4 text-center">
           <div
             data-percent={{stage.stats.percent_complete}}
@@ -49,7 +50,9 @@
           ></div>
           <p>Stage {{stage.number}}</p>
         </div>
+        {% endif %}
         {% endfor %}
+        {% if not flags.enable_stage_3 %}
         <div class="col-md-4 text-center">
           <div
             data-percent=0
@@ -62,6 +65,7 @@
           ></div>
           <p>Stage 3</p>
         </div>
+        {% endif %}
       </div>
 
       <div class="row dashboard-section instruction-text">

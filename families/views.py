@@ -1,5 +1,6 @@
 from challenges.models import Challenge, Progress
 from curiositymachine.decorators import whitelist
+from curiositymachine.presenters import LearningSet
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -8,7 +9,8 @@ from django.utils.functional import lazy
 from django.views.generic import CreateView, ListView, TemplateView, UpdateView
 from hellosign import jobs
 from hellosign.models import FamilyConsentTemplate
-from lessons.models import *
+from lessons.models import Lesson
+from lessons.models import Progress as LessonProgress
 from profiles.decorators import not_for_role, only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
@@ -76,6 +78,7 @@ class HomeView(DashboardMixin, TemplateView):
     template_name = "families/home.html"
 
     def get_context_data(self, **kwargs):
+        progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
         return super().get_context_data(
             **kwargs,
             stages=get_stages(self.request.user),
@@ -88,7 +91,7 @@ class StageView(DashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         stage = Stage.from_config(self.stagenum, user=self.request.user)
-        kwargs["challenges"] = stage.challenges
+        kwargs["challenges"] = stage.objects
         kwargs["units"] = stage.units
         return super().get_context_data(**kwargs)
 
@@ -99,7 +102,9 @@ class LessonsView(DashboardMixin, TemplateView):
     template_name = "families/stages/stage_3.html"
 
     def get_context_data(self, **kwargs):
-        kwargs["lessons"] = Lesson.objects.all()
+        progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
+        lesson_set = LearningSet(Lesson.objects.all(), user_progresses=progresses)
+        kwargs["lessons"] = lesson_set.objects
         return super().get_context_data(**kwargs)
 
 stage_3 = only_for_family(LessonsView.as_view())

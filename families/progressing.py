@@ -15,7 +15,7 @@ class ProgressOwner(BaseActor):
 
     def on_progress_complete(self, progress=None):
         for stage in self.stages:
-            if stage.is_complete and stage.has_challenge(progress.challenge):
+            if stage.is_complete and stage.has_object(progress.challenge):
                 self.emailer.send_stage_completion_email(stage)
 
     def on_comment_posted(self, progress, comment):

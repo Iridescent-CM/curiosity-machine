@@ -1,7 +1,7 @@
 from allauth.account.models import EmailAddress
 from challenges.models import Progress, Favorite, Challenge
-from challenges.presenters import ChallengeSet
 from curiositymachine.decorators import unapproved_only
+from curiositymachine.presenters import LearningSet
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import Http404, get_object_or_404
@@ -80,8 +80,8 @@ class ChallengesView(DashboardMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         progresses = context.pop('object_list')
-        presenter = ChallengeSet([p.challenge for p in progresses], progresses)
-        context['object_list'] = context['challenges'] = presenter.challenges
+        presenter = LearningSet([p.challenge for p in progresses], progresses)
+        context['object_list'] = context['challenges'] = presenter.objects
         return context
 
 my_challenges = only_for_student(ChallengesView.as_view())
@@ -99,10 +99,10 @@ class MembershipChallengesView(DashboardMixin, TemplateView):
             .all()
         )
         progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=[c.id for c in challenges])
-        presenter = ChallengeSet(challenges, progresses)
+        presenter = LearningSet(challenges, progresses)
 
         context['membership'] = membership
-        context['challenges'] = presenter.challenges
+        context['challenges'] = presenter.objects
         return context
 
 membership_challenges = only_for_student(MembershipChallengesView.as_view())
@@ -123,8 +123,8 @@ class FavoritesView(DashboardMixin, ListView):
         favs = context.pop('object_list')
         challenges = [f.challenge for f in favs]
         progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=[c.id for c in challenges])
-        presenter = ChallengeSet(challenges, progresses)
-        context['challenges'] = context['object_list'] = presenter.challenges
+        presenter = LearningSet(challenges, progresses)
+        context['challenges'] = context['object_list'] = presenter.objects
         return context
 
 favorites = only_for_student(FavoritesView.as_view())

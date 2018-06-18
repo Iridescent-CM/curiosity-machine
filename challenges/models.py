@@ -175,6 +175,10 @@ class Progress(models.Model):
     def most_recent(self):
         return self.comments.order_by('-created').first()
 
+    @property
+    def object_id(self):
+        return self.challenge_id
+
     def owner_username(self):
         return self.owner.username
 
