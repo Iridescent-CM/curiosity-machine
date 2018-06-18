@@ -101,6 +101,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'feedback',
     'django_ace',
+    'ordered_model',
 )
 
 SITE_ID = 1
