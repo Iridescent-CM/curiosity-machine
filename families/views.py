@@ -8,6 +8,7 @@ from django.utils.functional import lazy
 from django.views.generic import CreateView, ListView, TemplateView, UpdateView
 from hellosign import jobs
 from hellosign.models import FamilyConsentTemplate
+from lessons.models import *
 from profiles.decorators import not_for_role, only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
@@ -85,9 +86,6 @@ home = only_for_family(HomeView.as_view())
 class StageView(DashboardMixin, TemplateView):
     stagenum = None
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def get_context_data(self, **kwargs):
         stage = Stage.from_config(self.stagenum, user=self.request.user)
         kwargs["challenges"] = stage.challenges
@@ -96,6 +94,15 @@ class StageView(DashboardMixin, TemplateView):
 
 stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stagenum=1))
 stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage_2.html", stagenum=2))
+
+class LessonsView(DashboardMixin, TemplateView):
+    template_name = "families/stages/stage_3.html"
+
+    def get_context_data(self, **kwargs):
+        kwargs["lessons"] = Lesson.objects.all()
+        return super().get_context_data(**kwargs)
+
+stage_3 = only_for_family(LessonsView.as_view())
 
 class PrereqInterruptionView(TemplateView):
     template_name = "families/interruption.html"

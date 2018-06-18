@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django import forms
 from django_ace import AceWidget
+from ordered_model.admin import OrderedModelAdmin
 from .models import *
 
 ACECONFIG = {
@@ -23,11 +24,12 @@ class LessonAdminForm(forms.ModelForm):
     class Media:
         js = ('js/ace_widget.js',)
 
-class LessonAdmin(admin.ModelAdmin):
+class LessonAdmin(OrderedModelAdmin):
     form = LessonAdminForm
     save_as = True
     save_on_top = True
-    list_display = ('id', 'title')
+    list_display = ('id', 'title', 'move_up_down_links', 'order')
+    raw_id_fields = ('card_image',)
 
 class ProgressAdmin(admin.ModelAdmin):
     model = Progress

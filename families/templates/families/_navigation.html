@@ -19,6 +19,13 @@
             Stage 2
           </a>
         </li>
+        {% if flags.enable_stage_3 %}
+        <li class="nav-item {% ifactive "families:stage_3" "active" %}">
+          <a class="nav-link" href="{% url 'families:stage_3' %}">
+            Stage 3
+          </a>
+        </li>
+        {% endif %}
         {% if flags.enable_family_activity_notifications %}
         <li class="nav-item {% ifactive "families:activity" "active" %}">
           <a class="nav-link" href="{% url 'families:activity' %}">
