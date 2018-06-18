@@ -310,6 +310,9 @@ AICHALLENGE_STAGES = {
         "challenges": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_CHALLENGES", "").split(',') if i],
         "units": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_UNITS", "").split(',') if i],
     },
+    3: {
+        # just pull all lessons for now
+    },
 }
 AICHALLENGE_COACH_MEMBERSHIP_ID=os.getenv("AICHALLENGE_COACH_MEMBERSHIP_ID", "")
 AICHALLENGE_FAMILY_PRE_SURVEY_ID=os.getenv("AICHALLENGE_FAMILY_PRE_SURVEY_ID", "")

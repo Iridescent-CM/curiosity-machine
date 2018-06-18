@@ -48,6 +48,3 @@ class LearningSet:
     def has_object(self, obj_or_id):
         obj_id = obj_or_id if type(obj_or_id) == int else obj_or_id.id
         return obj_id in [o.id for o in self.objects]
-
-# Progress.object_id
-# Progress.completed
