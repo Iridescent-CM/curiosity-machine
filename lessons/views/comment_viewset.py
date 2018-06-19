@@ -57,7 +57,7 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ('id', 'author', 'lesson_progress', 'text', 'upload')
 
     def _handle_media(self, attrs, upload):
-        if 'mimetype' in upload:
+        if upload and 'mimetype' in upload:
             mimetype = upload['mimetype']
             if mimetype.startswith('image'):
                 attrs['upload'] = Image.from_source_with_job(upload['url'])
