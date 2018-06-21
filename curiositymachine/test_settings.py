@@ -18,6 +18,11 @@ DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 from tempfile import gettempdir
 MEDIA_ROOT = gettempdir()
 
+# Set up the rest_framework test client
+REST_FRAMEWORK = {
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}
+
 # For tests, force no feature flags and override in actual test with e.g.
 #       with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_whatever': True}):
 #               ...

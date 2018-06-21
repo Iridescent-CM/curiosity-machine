@@ -2,11 +2,13 @@ from rest_framework import viewsets
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from ..models import *
+from ..permissions import ProgressPermission
 from .. import config
 
 class LessonProgressViewSet(viewsets.GenericViewSet):
     queryset = Progress.objects.all()
     renderer_classes = (TemplateHTMLRenderer, )
+    permission_classes = (ProgressPermission, )
 
     def get_template_names(self):
         return ["lessons/%s.html" % self.page, "lessons/page.html",]
