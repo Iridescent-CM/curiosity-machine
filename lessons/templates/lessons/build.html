@@ -134,7 +134,7 @@
 
       this.list = function() {
         return axios
-        .get('/lessons/comment/?progress=' + opts.progress)
+        .get('/lessons/comment/?lesson_progress=' + opts.progress)
         .then(function (response) {
           return response.data;
         });

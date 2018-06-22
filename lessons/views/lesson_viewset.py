@@ -24,8 +24,3 @@ class LessonViewSet(viewsets.GenericViewSet):
                 'content': getattr(self.object, self.page, None),
             },
         )
-
-    @action(methods=['get'], detail=True)
-    def progress(self, request, pk=None):
-        progress, created = Progress.objects.get_or_create(owner_id=request.user.id, lesson_id=pk)
-        return HttpResponseRedirect(reverse("lessons:lesson-progress-detail", kwargs={"pk": progress.id}))

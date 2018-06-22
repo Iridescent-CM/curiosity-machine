@@ -2,13 +2,13 @@
 
 <div class="card cm-fancy-card mb-3 challenge-{{ lesson.state }}">
 
-  <a href="{% url "lessons:lesson-progress" pk=lesson.id %}">
+  <a href="{% url "lessons:lesson-progress-find-or-create" %}?lesson={{ lesson.id }}">
     <img class="card-img-top mr-1" src="{% resized lesson.card_image.url width=545 height=240 crop='fill' %}" alt="{{ lesson.title }}">
   </a>
 
   <div class="card-body pb-5">
     <h3 class="card-title">
-      <a href="{% url "lessons:lesson-progress" pk=lesson.id %}">
+      <a href="{% url "lessons:lesson-progress-find-or-create" %}?lesson={{ lesson.id }}">
         {{lesson.order}}: {{ lesson.title }}
       </a>
     </h3>
