@@ -71,7 +71,7 @@
         <template v-if="comment.text">
           <div class="card-body" :class="{ editing: comment == editing }">
             <div class="view">
-              <p class="card-text" style="white-space: pre;">${ comment.text }</p>
+              <p class="card-text" style="white-space: pre;">{{ comment.text }}</p>
               <button class="btn btn-sm btn-outline-purple" @click="removeComment(comment)">Remove</button>
               <button class="btn btn-sm btn-outline-purple" @click="makeEditable(comment)">Edit</button>
             </div>
@@ -92,32 +92,36 @@
 </template>
 
 <script>
-  const api = {
-    disabled: true
-  };
+  import pick from './filestack_wrapper';
+  import Api from './api';
 
   export default {
 
-    delimiters: ['${', '}'],
+    props: ['author', 'progress'],
 
     data: function () {
       return {
         newComment: '',
         editing: undefined,
         comments: [],
+        api: undefined,
       };
     },
 
     computed: {
       disabled: function () {
-        return api.disabled;
+        return !this.api || this.api.disabled;
       },
       enabled: function () {
-        return !api.disabled;
+        return this.api && !this.api.disabled;
       }
     },
 
     mounted: function () {
+      this.api = new Api({
+        author: this.author,
+        progress: this.progress
+      });
       if (this.enabled) {
         this.getComments();
       }
@@ -127,7 +131,7 @@
 
       getComments: function () {
         var that = this;
-        api
+        that.api
         .list()
         .then(function (data) {
           that.comments = data;
@@ -141,7 +145,7 @@
         var value = this.newComment && this.newComment.trim();
         if (!value) return;
         var that = this;
-        api
+        that.api
         .create({text: value})
         .then(function (response) {
           that.newComment = '';
@@ -165,7 +169,7 @@
 
       editTextComment: function (comment) {
         var that = this;
-        api
+        that.api
         .update(comment.id, {text: this.editing.text.trim()})
         .then(function (response) {
           that.editing = undefined;
@@ -179,7 +183,7 @@
         var that = this;
         pick()
         .then(function (upload) {
-          return api.create({
+          return that.api.create({
             upload: upload
           });
         })
@@ -195,7 +199,7 @@
         var that = this;
         pick()
         .then(function (upload) {
-          return api.update(comment.id, {
+          return that.api.update(comment.id, {
             upload: upload
           });
         })
@@ -210,7 +214,7 @@
       removeComment: function (comment) {
         if (window.confirm("Are you sure you want to remove your comment?")) {
           var that = this;
-          api
+          that.api
           .destroy(comment.id)
           .then(function (response) {
             that.getComments();

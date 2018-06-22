@@ -5,11 +5,11 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = {
   mode: 'development',
   context: __dirname,
-  entry: './curiositymachine/assets/foo.js',
+  entry: './curiositymachine/assets/lesson_commenting.js',
 
   output: {
       path: path.resolve('./curiositymachine/static/js/webpack_bundles/'),
-      filename: "[name].js"
+      filename: "main.js"
   },
 
   resolve: {

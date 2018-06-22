@@ -1,1 +1,1 @@
-{"status":"done","error":"ModuleParseError","message":"Module parse failed: Unexpected token (96:16)\nYou may need an appropriate loader to handle this file type.\n| \n| const api = {\n>   disabled: true;\n| };\n| ","chunks":{"main":[{"name":"main.js","path":"/Users/mlarsson/Projects/cm/curiosity-machine/curiositymachine/static/js/webpack_bundles/main.js"}]}}
+{"status":"done","chunks":{"main":[{"name":"main.js","path":"/Users/mlarsson/Projects/cm/curiosity-machine/curiositymachine/static/js/webpack_bundles/main.js"}]}}

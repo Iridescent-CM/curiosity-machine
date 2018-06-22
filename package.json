@@ -18,7 +18,9 @@
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap": "^4.1.1",
+    "filestack-js": "^1.0.2",
     "npm": "^6.1.0",
     "vue": "^2.5.16"
   }

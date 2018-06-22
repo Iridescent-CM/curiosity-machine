@@ -2,8 +2,8 @@ import Vue from 'vue'
 import CommentingApp from './commenting_app.vue'
 
 new Vue({
-  el: '.howabouthere',
+  el: '.vue-mount',
   components: { 
-    commentingapp: CommentingApp
+    CommentingApp
   }
 })
