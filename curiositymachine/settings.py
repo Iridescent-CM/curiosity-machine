@@ -54,6 +54,13 @@ CANONICAL_DOMAIN = os.getenv("CANONICAL_DOMAIN", None)
 
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False) # no compression by default for now
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'js/webpack_bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'curiositymachine/assets/webpack-stats.json'),
+    }
+}
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m2c165xpbn9^#z_a%kgwrs')
 
@@ -102,6 +109,7 @@ INSTALLED_APPS = (
     'feedback',
     'django_ace',
     'ordered_model',
+    'webpack_loader',
 )
 
 SITE_ID = 1

@@ -1,103 +1,10 @@
 {% extends "lessons/page.html" %}
+{% load render_bundle from webpack_loader %}
 
 {% block full_content %}
   <div class="row">
-    <div class="col-md-4">
-      <div id="uploader">
-
-        <div class="card my-3">
-          <div class="card-header">
-            Upload
-          </div>
-          <div class="card-body">
-            <textarea
-              class="form-control"
-              disabled
-              v-bind:disabled="disabled"
-              placeholder="Post a comment or upload a file"
-              v-model="newComment"></textarea>
-
-            <button type="submit"
-              class="btn btn-primary mt-3"
-              disabled
-              v-bind:disabled="disabled"
-              @click="addTextComment">
-              Post
-            </button>
-
-            <button
-              class="btn btn-primary mt-3 ml-2"
-              disabled
-              v-bind:disabled="disabled"
-              @click="addMediaComment">
-              <i class="icon-camera mr-1"></i> Choose
-            </button>
-          </div>
-        </div>
-
-        <template v-for="comment in comments">
-          <div class="card my-3">
-
-            <template v-if="comment.upload">
-              <template v-if="comment.upload.type == 'image'">
-                <img class="card-img-top" v-bind:src="comment.upload.url" alt="user uploaded image" />
-                <div class="card-body">
-                  <button class="btn btn-sm btn-outline-purple" @click="removeComment(comment)">Remove</button>
-                  <button class="btn btn-sm btn-outline-purple" @click="editMediaComment(comment)">Edit</button>
-                </div>
-              </template>
-
-              <template v-if="comment.upload.type == 'video'">
-                <div v-if="comment.upload.encodings.length">
-                  <video
-                    class="w-100"
-                    preload="none"
-                    v-bind:poster="comment.upload.thumbnail"
-                    controls
-                  >
-                    <template v-for="encoding in comment.upload.encodings">
-                      <source v-bind:src="encoding.url" v-bind:type="encoding.mimetype" />
-                    </template>
-                  </video>
-                </div>
-                <div v-else>
-                  <video
-                    class="w-100"
-                    preload="none"
-                    v-bind:src="comment.upload.url"
-                    v-bind:poster="comment.upload.thumbnail"
-                    controls>
-                  </video>
-                </div>
-                <div class="card-body">
-                  <button class="btn btn-sm btn-outline-purple" @click="removeComment(comment)">Remove</button>
-                  <button class="btn btn-sm btn-outline-purple" @click="editMediaComment(comment)">Edit</button>
-                </div>
-              </template>
-            </template>
-
-            <template v-if="comment.text">
-              <div class="card-body" :class="{ editing: comment == editing }">
-                <div class="view">
-                  <p class="card-text" style="white-space: pre;">${ comment.text }</p>
-                  <button class="btn btn-sm btn-outline-purple" @click="removeComment(comment)">Remove</button>
-                  <button class="btn btn-sm btn-outline-purple" @click="makeEditable(comment)">Edit</button>
-                </div>
-                <div class="edit">
-                  <textarea
-                     class="form-control"
-                     v-model="comment.text"
-                  ></textarea>
-                  <button class="btn btn-sm btn-outline-purple" @click="editTextComment(comment)">Save</button>
-                  <button class="btn btn-sm btn-outline-purple" @click="cancelEdit">Cancel</button>
-                </div>
-              </div>
-            </template>
-
-          </div>
-        </template>
-
-      </div>
+    <div class="col-md-4 howabouthere">
+      <commentingapp></commentingapp>
     </div>
     <div class="col-md-8">
       <div class="container">
@@ -108,6 +15,8 @@
 {% endblock %}
 
 {% block js %}
+  {% render_bundle 'main' %}
+  <!--
   <script src="https://static.filestackapi.com/v3/filestack.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -304,4 +213,5 @@
       }
     });
   </script>
+  -->
 {% endblock %}

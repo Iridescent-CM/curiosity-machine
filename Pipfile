@@ -45,6 +45,7 @@ factory-boy = "*"
 "psycopg2-binary" = "*"
 django-debug-toolbar = "*"
 django-html-validator = {git = "https://github.com/stenington/django-html-validator.git"}
+django-webpack-loader = "*"
 
 [dev-packages]
 coverage = "*"
