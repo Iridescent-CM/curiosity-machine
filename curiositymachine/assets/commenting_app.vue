@@ -92,12 +92,12 @@
 </template>
 
 <script>
-  import pick from './filestack_wrapper';
+  import init from './filestack_wrapper';
   import Api from './api';
 
   export default {
 
-    props: ['author', 'progress'],
+    props: ['author', 'progress', 'fskey'],
 
     data: function () {
       return {
@@ -122,6 +122,7 @@
         author: this.author,
         progress: this.progress
       });
+      this.picker = init(this.fskey);
       if (this.enabled) {
         this.getComments();
       }
@@ -181,7 +182,7 @@
 
       addMediaComment: function () {
         var that = this;
-        pick()
+        this.picker.pick()
         .then(function (upload) {
           return that.api.create({
             upload: upload
@@ -197,7 +198,7 @@
 
       editMediaComment: function (comment) {
         var that = this;
-        pick()
+        this.picker.pick()
         .then(function (upload) {
           return that.api.update(comment.id, {
             upload: upload

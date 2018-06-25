@@ -4,7 +4,6 @@ axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 export default function Api(opts) {
-  console.log('inside Api', opts);
   this.disabled = !opts.progress;
 
   this.list = function() {

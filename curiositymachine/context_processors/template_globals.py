@@ -9,5 +9,6 @@ def template_globals(request):
         "DOCEBO_MENTOR_URL": settings.DOCEBO_MENTOR_URL,
         "ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN": settings.ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN,
         "ROLLBAR_ENV": settings.ROLLBAR_ENV,
+        "FILEPICKER_API_KEY": settings.FILEPICKER_API_KEY,
     }
 
