@@ -24,6 +24,13 @@
           v-bind:disabled="disabled"
           @click="addMediaComment"><i class="icon-camera mr-1"></i> Choose</button>
       </div>
+      <div v-if="error" class="card-body">
+        <div class="alert alert-danger">
+          <small>
+            Error encountered
+          </small>
+        </div>
+      </div>
     </div>
 
     <template v-for="comment in comments">
@@ -105,6 +112,7 @@
         editing: undefined,
         comments: [],
         api: undefined,
+        error: undefined,
       };
     },
 
@@ -138,7 +146,8 @@
           that.comments = data;
         })
         .catch(function (error) {
-          console.log(error);
+          that.error = true;
+          Rollbar.error("error getting comments", error);
         });
       },
 
@@ -153,7 +162,8 @@
           that.getComments();
         })
         .catch(function (error) {
-          console.log(error);
+          that.error = true;
+          Rollbar.error("error adding text comment", error);
         });
       },
 
@@ -176,7 +186,8 @@
           that.editing = undefined;
         })
         .catch(function (error) {
-          console.log(error);
+          that.error = true;
+          Rollbar.error("error editing text comment", error);
         });
       },
 
@@ -192,7 +203,8 @@
           that.getComments();
         })
         .catch(function (error) {
-          console.log(error);
+          that.error = true;
+          Rollbar.error("error adding media comment", error);
         });
       },
 
@@ -208,7 +220,8 @@
           that.getComments();
         })
         .catch(function (error) {
-          console.log(error);
+          that.error = true;
+          Rollbar.error("error editing media comment", error);
         });
       },
 
@@ -221,7 +234,8 @@
             that.getComments();
           })
           .catch(function (error) {
-            console.log(error);
+            that.error = true;
+            Rollbar.error("error removing comment", error);
           });
         }
       }
