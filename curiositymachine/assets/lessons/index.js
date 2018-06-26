@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import CommentingApp from './commenting_app.vue'
+import CommentingApp from './app.vue'
 
 new Vue({
-  el: '.vue-mount',
+  el: '.lesson-comments-app',
   components: { 
     CommentingApp
   }

@@ -4,7 +4,7 @@
 {% block full_content %}
   <div class="row">
     <div class="col-md-4">
-      <div class="vue-mount">
+      <div class="lesson-comments-app">
         <commenting-app
           author="{{ request.user.id }}"
           progress="{{ progress.id|default:'undefined' }}"
@@ -21,5 +21,5 @@
 {% endblock %}
 
 {% block js %}
-  {% render_bundle 'main' %}
+  {% render_bundle 'lessons' %}
 {% endblock %}
