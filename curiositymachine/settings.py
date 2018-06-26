@@ -56,8 +56,8 @@ COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False) # no compression by
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'js/webpack_bundles/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'curiositymachine/assets/webpack-stats.json'),
+        'BUNDLE_DIR_NAME': 'js/webpack_bundles/' if DEBUG else 'js/dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'curiositymachine/assets/webpack-stats.json' if DEBUG else 'curiositymachine/assets/webpack-stats-prod.json'),
     }
 }
 

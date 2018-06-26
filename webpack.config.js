@@ -1,5 +1,5 @@
-var path = require('path');
-var BundleTracker = require('webpack-bundle-tracker');
+const path = require('path');
+const BundleTracker = require('webpack-bundle-tracker');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
