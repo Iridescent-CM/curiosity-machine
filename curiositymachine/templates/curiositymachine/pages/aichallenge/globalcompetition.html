@@ -1,0 +1,40 @@
+{% extends "curiositymachine/layout/ai_pg_layout.html" %}
+{% load staticfiles %}
+{% block title %}AI Family Challenge{% endblock %}
+
+{% block body-id %}ai-challenge-page{% endblock %}
+{% block content %}
+{% with active_nav="ai-globalcompetition" %}
+  {{ block.super }}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5">
+        <h2>This is the comepetition page</h2>
+        <h3 class="mb-4">Your child is the future. So is artificial intelligence.</h3>
+        
+
+        <div class="text-center mt-2">
+          <a href="{% url "account_signup" source=source %}" class="btn btn-primary text-uppercase mx-1" target="_blank">sign up</a>
+        </div>
+        <p class="mt-2 text-center">
+          If you have any questions, contact us at
+          <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
+        </p>
+
+      </div>
+    </div>
+  </div>
+  <div class="bg-red text-center py-5">
+    <div class="container">
+      <h2 class="text-white">
+        Learn more about our AI Family Challenge
+      </h2>
+      <a
+        href="http://iridescentlearning.org/artificial-intelligence/the-curiosity-machine-ai-family-challenge/"
+        class="btn btn-secondary text-red text-uppercase"
+        target="_blank"
+      > Learn More</a>
+    </div>
+  </div>
+{% endwith %}
+{% endblock %}
