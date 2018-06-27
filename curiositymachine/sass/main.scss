@@ -8,7 +8,14 @@ $theme-colors: (
   "green": darken($primary-green, 4%), // to get color-yiq to give white text
   "red": $primary-red,
   "orange": $primary-orange,
-  "purple": $primary-purple
+  "purple": $primary-purple,
+  "new-pink": #FF4980,
+  "new-red": #FF5050,
+  "new-orange": #F7931E,
+  "new-green": #39B54A,
+  "new-turquoise": #02B0C2,
+  "new-blue": #0071BC,
+  "new-purple": #6C6CB6
 );
 @import '../../node_modules/bootstrap/scss/bootstrap';
 

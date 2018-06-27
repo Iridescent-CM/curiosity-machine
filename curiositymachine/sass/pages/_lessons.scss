@@ -1,4 +1,9 @@
 .lesson-pages {
+  .container > .stage-title {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+
   .lesson-container {
     /* borrow Bootstrap variables */
     background-color: $nav-tabs-link-active-bg;
@@ -6,6 +11,22 @@
     border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
     border-right: $nav-tabs-border-width solid $nav-tabs-border-color;
     min-height: 3em;
+
+    @mixin page-gradient($class, $color1, $color2) {
+      &.#{$class} .stage-title {
+        background: $color1 linear-gradient(90deg, $color1, $color2) repeat-x;
+        color: white;
+        padding: 0.5rem 1rem;
+      }
+
+    }
+
+    @include page-gradient("start", theme-color("new-pink"), theme-color("new-red"));
+    @include page-gradient("inspiration", theme-color("new-red"), theme-color("new-orange"));
+    @include page-gradient("plan", theme-color("new-orange"), theme-color("new-green"));
+    @include page-gradient("build", theme-color("new-green"), theme-color("new-turquoise"));
+    @include page-gradient("reflect", theme-color("new-turquoise"), theme-color("new-blue"));
+    @include page-gradient("further", theme-color("new-blue"), theme-color("new-purple"));
   }
 
   .nav-item.active {
@@ -23,12 +44,12 @@
       }
     }
 
-    @include active-tab("start", #FF5050);
-    @include active-tab("inspiration", #F7931E);
-    @include active-tab("plan", #39B54A);
-    @include active-tab("build", #02B0C2);
-    @include active-tab("reflect", #0071BC);
-    @include active-tab("further", #6C6CB6);
+    @include active-tab("start", theme-color("new-pink"));
+    @include active-tab("inspiration", theme-color("new-red"));
+    @include active-tab("plan", theme-color("new-orange"));
+    @include active-tab("build", theme-color("new-green"));
+    @include active-tab("reflect", theme-color("new-blue"));
+    @include active-tab("further", theme-color("new-purple"));
   }
 
   .nav {
