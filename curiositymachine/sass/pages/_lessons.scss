@@ -8,6 +8,72 @@
     min-height: 3em;
   }
 
+  .nav-item.active {
+    @mixin active-tab($class, $color) {
+      &.#{$class} {
+        background-color: $color;
+        .nav-link {
+          color: white;
+        }
+        &:after {
+          border-top-color: $color;
+          border-bottom-color: $color;
+          border-right-color: $color;
+        }
+      }
+    }
+
+    @include active-tab("start", #FF5050);
+    @include active-tab("inspiration", #F7931E);
+    @include active-tab("plan", #39B54A);
+    @include active-tab("build", #02B0C2);
+    @include active-tab("reflect", #0071BC);
+    @include active-tab("further", #6C6CB6);
+  }
+
+  .nav {
+    overflow: hidden;
+
+    .nav-link {
+      color: $gray;
+      padding-right: 2rem;
+    }
+
+    .nav-item {
+      background: $white;
+      position: relative;
+      border: 1px solid $sand;
+
+      $height: 20px;
+      &:before {
+        content: " ";
+        display: block;
+        position: absolute;
+        left: -$height - 2px;
+        top: 0;
+        border: $height solid $sand;
+        border-right-width: 2px;
+        border-left-color: transparent;
+      }
+      &:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        left: -1 * $height;
+        top: 0;
+        border: $height solid white;
+        border-right-width: 2px;
+        border-left-color: transparent;
+      }
+
+      &:first-child() {
+        &:before, &:after {
+          display: none;
+        }
+      }
+    }
+  }
+
   .edit {
     display: none;
   }

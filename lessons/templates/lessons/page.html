@@ -11,12 +11,12 @@
 
         <h1>{{ lesson.title }}</h1>
 
-        <nav class="nav nav-tabs nav-fill">
+        <nav class="nav nav-fill">
           {% for page, item in subnav.items %}
-          <div class="nav-item">
+          <div class="nav-item {{ page }} {% if page == active %}active{% endif %}">
             <a
               href="?page={{ page }}"
-              class="nav-link {% if page == active %}active{% endif %}"
+              class="nav-link"
             >
               {{ item.text }}
             </a>

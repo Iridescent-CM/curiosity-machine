@@ -8556,6 +8556,90 @@ footer {
   border-right: 1px solid #dee2e6;
   min-height: 3em; }
 
+.lesson-pages .nav-item.active.start {
+  background-color: #FF5050; }
+  .lesson-pages .nav-item.active.start .nav-link {
+    color: white; }
+  .lesson-pages .nav-item.active.start:after {
+    border-top-color: #FF5050;
+    border-bottom-color: #FF5050;
+    border-right-color: #FF5050; }
+
+.lesson-pages .nav-item.active.inspiration {
+  background-color: #F7931E; }
+  .lesson-pages .nav-item.active.inspiration .nav-link {
+    color: white; }
+  .lesson-pages .nav-item.active.inspiration:after {
+    border-top-color: #F7931E;
+    border-bottom-color: #F7931E;
+    border-right-color: #F7931E; }
+
+.lesson-pages .nav-item.active.plan {
+  background-color: #39B54A; }
+  .lesson-pages .nav-item.active.plan .nav-link {
+    color: white; }
+  .lesson-pages .nav-item.active.plan:after {
+    border-top-color: #39B54A;
+    border-bottom-color: #39B54A;
+    border-right-color: #39B54A; }
+
+.lesson-pages .nav-item.active.build {
+  background-color: #02B0C2; }
+  .lesson-pages .nav-item.active.build .nav-link {
+    color: white; }
+  .lesson-pages .nav-item.active.build:after {
+    border-top-color: #02B0C2;
+    border-bottom-color: #02B0C2;
+    border-right-color: #02B0C2; }
+
+.lesson-pages .nav-item.active.reflect {
+  background-color: #0071BC; }
+  .lesson-pages .nav-item.active.reflect .nav-link {
+    color: white; }
+  .lesson-pages .nav-item.active.reflect:after {
+    border-top-color: #0071BC;
+    border-bottom-color: #0071BC;
+    border-right-color: #0071BC; }
+
+.lesson-pages .nav-item.active.further {
+  background-color: #6C6CB6; }
+  .lesson-pages .nav-item.active.further .nav-link {
+    color: white; }
+  .lesson-pages .nav-item.active.further:after {
+    border-top-color: #6C6CB6;
+    border-bottom-color: #6C6CB6;
+    border-right-color: #6C6CB6; }
+
+.lesson-pages .nav {
+  overflow: hidden; }
+  .lesson-pages .nav .nav-link {
+    color: #949494;
+    padding-right: 2rem; }
+  .lesson-pages .nav .nav-item {
+    background: #fff;
+    position: relative;
+    border: 1px solid #E5E1D9; }
+    .lesson-pages .nav .nav-item:before {
+      content: " ";
+      display: block;
+      position: absolute;
+      left: -22px;
+      top: 0;
+      border: 20px solid #E5E1D9;
+      border-right-width: 2px;
+      border-left-color: transparent; }
+    .lesson-pages .nav .nav-item:after {
+      content: " ";
+      display: block;
+      position: absolute;
+      left: -20px;
+      top: 0;
+      border: 20px solid white;
+      border-right-width: 2px;
+      border-left-color: transparent; }
+    .lesson-pages .nav .nav-item:first-child:before, .lesson-pages .nav .nav-item:first-child:after {
+      display: none; }
+
 .lesson-pages .edit {
   display: none; }
 
