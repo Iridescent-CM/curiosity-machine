@@ -8,7 +8,7 @@
         <div class="lesson-comments-app">
           <commenting-app
             author="{{ request.user.id }}"
-            progress="{{ progress.id|default:'undefined' }}"
+            progress="{{ progress.id|default:"" }}"
             fskey="{{ FILEPICKER_API_KEY }}"
           ></commenting-app>
         </div>
