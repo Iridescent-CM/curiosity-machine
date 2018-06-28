@@ -14,11 +14,9 @@ class LessonAdminForm(forms.ModelForm):
         model = Lesson
         exclude = []
         widgets = {
-            'inspiration': AceWidget(mode="html", **ACECONFIG),
-            'plan': AceWidget(mode="html", **ACECONFIG),
-            'build': AceWidget(mode="html", **ACECONFIG),
-            'reflect': AceWidget(mode="html", **ACECONFIG),
-            'further': AceWidget(mode="html", **ACECONFIG),
+            attr: AceWidget(mode="html", **ACECONFIG)
+            for attr
+            in ['start', 'inspiration', 'plan', 'build', 'reflect', 'further']
         }
 
     class Media:
