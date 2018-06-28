@@ -11,7 +11,7 @@
 
         <h1>{{ lesson.title }}</h1>
 
-        <nav class="nav nav-fill">
+        <nav class="nav nav-fill shadow">
           {% for page, item in subnav.items %}
           <div class="nav-item {{ page }} {% if page == active %}active{% endif %}">
             <a
@@ -24,7 +24,7 @@
           {% endfor %}
         </nav>
 
-        <div class="container lesson-container {{ active }} pt-3">
+        <div class="container lesson-container {{ active }} shadow pt-3">
           {% block full_content %}
             {{ content|safe }}
           {% endblock %}
