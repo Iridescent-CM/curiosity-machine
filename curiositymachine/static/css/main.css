@@ -9281,25 +9281,25 @@ footer {
     color: white;
     padding: 0.5rem 1rem; }
   .lesson-pages .lesson-container.start .page-color {
-    color: #FF4980; }
+    color: #FF5050; }
   .lesson-pages .lesson-container.inspiration .page-gradient {
     background: #FF5050 linear-gradient(90deg, #FF5050, #F7931E) repeat-x;
     color: white;
     padding: 0.5rem 1rem; }
   .lesson-pages .lesson-container.inspiration .page-color {
-    color: #FF5050; }
+    color: #F7931E; }
   .lesson-pages .lesson-container.plan .page-gradient {
     background: #F7931E linear-gradient(90deg, #F7931E, #39B54A) repeat-x;
     color: white;
     padding: 0.5rem 1rem; }
   .lesson-pages .lesson-container.plan .page-color {
-    color: #F7931E; }
+    color: #39B54A; }
   .lesson-pages .lesson-container.build .page-gradient {
     background: #39B54A linear-gradient(90deg, #39B54A, #02B0C2) repeat-x;
     color: white;
     padding: 0.5rem 1rem; }
   .lesson-pages .lesson-container.build .page-color {
-    color: #39B54A; }
+    color: #02B0C2; }
   .lesson-pages .lesson-container.reflect .page-gradient {
     background: #02B0C2 linear-gradient(90deg, #02B0C2, #0071BC) repeat-x;
     color: white;

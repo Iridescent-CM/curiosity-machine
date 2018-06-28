@@ -7,7 +7,7 @@
     border-right: $nav-tabs-border-width solid $nav-tabs-border-color;
     min-height: 3em;
 
-    @mixin page-colors($class, $color1, $color2, $color3) {
+    @mixin page-colors($class, $color1, $color2) {
       &.#{$class} {
         .page-gradient {
           background: $color1 linear-gradient(90deg, $color1, $color2) repeat-x;
@@ -16,17 +16,17 @@
         }
 
         .page-color {
-          color: $color3;
+          color: $color2;
         }
       }
     }
 
-    @include page-colors("start", theme-color("new-pink"), theme-color("new-red"), theme-color("new-pink"));
-    @include page-colors("inspiration", theme-color("new-red"), theme-color("new-orange"), theme-color("new-red"));
-    @include page-colors("plan", theme-color("new-orange"), theme-color("new-green"), theme-color("new-orange"));
-    @include page-colors("build", theme-color("new-green"), theme-color("new-turquoise"), theme-color("new-green"));
-    @include page-colors("reflect", theme-color("new-turquoise"), theme-color("new-blue"), theme-color("new-blue"));
-    @include page-colors("further", theme-color("new-blue"), theme-color("new-purple"), theme-color("new-purple"));
+    @include page-colors("start", theme-color("new-pink"), theme-color("new-red"));
+    @include page-colors("inspiration", theme-color("new-red"), theme-color("new-orange"));
+    @include page-colors("plan", theme-color("new-orange"), theme-color("new-green"));
+    @include page-colors("build", theme-color("new-green"), theme-color("new-turquoise"));
+    @include page-colors("reflect", theme-color("new-turquoise"), theme-color("new-blue"));
+    @include page-colors("further", theme-color("new-blue"), theme-color("new-purple"));
   }
 
   .nav-item.active {
