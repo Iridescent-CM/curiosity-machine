@@ -2,19 +2,19 @@
 {% load render_bundle from webpack_loader %}
 
 {% block full_content %}
-  <div class="row">
-    <div class="col-md-4">
-      <div class="lesson-comments-app">
-        <commenting-app
-          author="{{ request.user.id }}"
-          progress="{{ progress.id|default:'undefined' }}"
-          fskey="{{ FILEPICKER_API_KEY }}"
-        ></commenting-app>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="lesson-comments-app">
+          <commenting-app
+            author="{{ request.user.id }}"
+            progress="{{ progress.id|default:'undefined' }}"
+            fskey="{{ FILEPICKER_API_KEY }}"
+          ></commenting-app>
+        </div>
       </div>
-    </div>
-    <div class="col-md-8">
-      <div class="container">
-        {{ content|safe }}
+      <div class="col-md-8">
+        {{ block.super }}
       </div>
     </div>
   </div>

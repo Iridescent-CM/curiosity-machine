@@ -9269,10 +9269,6 @@ footer {
   height: 50px;
   margin: 1.5em; }
 
-.lesson-pages .container > .stage-title {
-  margin-left: -15px;
-  margin-right: -15px; }
-
 .lesson-pages .lesson-container {
   /* borrow Bootstrap variables */
   background-color: #fff;
@@ -9280,30 +9276,42 @@ footer {
   border-bottom: 1px solid #dee2e6;
   border-right: 1px solid #dee2e6;
   min-height: 3em; }
-  .lesson-pages .lesson-container.start .stage-title {
+  .lesson-pages .lesson-container.start .page-gradient {
     background: #FF4980 linear-gradient(90deg, #FF4980, #FF5050) repeat-x;
     color: white;
     padding: 0.5rem 1rem; }
-  .lesson-pages .lesson-container.inspiration .stage-title {
+  .lesson-pages .lesson-container.start .page-color {
+    color: #FF4980; }
+  .lesson-pages .lesson-container.inspiration .page-gradient {
     background: #FF5050 linear-gradient(90deg, #FF5050, #F7931E) repeat-x;
     color: white;
     padding: 0.5rem 1rem; }
-  .lesson-pages .lesson-container.plan .stage-title {
+  .lesson-pages .lesson-container.inspiration .page-color {
+    color: #FF5050; }
+  .lesson-pages .lesson-container.plan .page-gradient {
     background: #F7931E linear-gradient(90deg, #F7931E, #39B54A) repeat-x;
     color: white;
     padding: 0.5rem 1rem; }
-  .lesson-pages .lesson-container.build .stage-title {
+  .lesson-pages .lesson-container.plan .page-color {
+    color: #F7931E; }
+  .lesson-pages .lesson-container.build .page-gradient {
     background: #39B54A linear-gradient(90deg, #39B54A, #02B0C2) repeat-x;
     color: white;
     padding: 0.5rem 1rem; }
-  .lesson-pages .lesson-container.reflect .stage-title {
+  .lesson-pages .lesson-container.build .page-color {
+    color: #39B54A; }
+  .lesson-pages .lesson-container.reflect .page-gradient {
     background: #02B0C2 linear-gradient(90deg, #02B0C2, #0071BC) repeat-x;
     color: white;
     padding: 0.5rem 1rem; }
-  .lesson-pages .lesson-container.further .stage-title {
+  .lesson-pages .lesson-container.reflect .page-color {
+    color: #0071BC; }
+  .lesson-pages .lesson-container.further .page-gradient {
     background: #0071BC linear-gradient(90deg, #0071BC, #6C6CB6) repeat-x;
     color: white;
     padding: 0.5rem 1rem; }
+  .lesson-pages .lesson-container.further .page-color {
+    color: #6C6CB6; }
 
 .lesson-pages .nav-item.active.start {
   background-color: #FF4980; }

@@ -24,21 +24,23 @@
           {% endfor %}
         </nav>
 
-        <div class="container lesson-container {{ lesson.active_tab.param }} shadow pt-3">
+        <div class="lesson-container {{ lesson.active_tab.param }} shadow pt-3">
           {% block full_content %}
             {{ lesson.active_tab.content|safe }}
           {% endblock %}
 
-          <div class="row mt-3 mb-4 relative-nav">
-            <div class="col-6">
-              {% if lesson.prev_tab %}
-              <a href="?page={{ lesson.prev_tab.param }}" class="btn btn-outline-primary float-left">&lsaquo; Prev</a>
-              {% endif %}
-            </div>
-            <div class="col-6">
-              {% if lesson.next_tab %}
-              <a href="?page={{ lesson.next_tab.param }}" class="btn btn-outline-primary float-right">Next &rsaquo;</a>
-              {% endif %}
+          <div class="container mt-3 mb-4 relative-nav">
+            <div class="row">
+              <div class="col-6">
+                {% if lesson.prev_tab %}
+                <a href="?page={{ lesson.prev_tab.param }}" class="btn btn-outline-primary float-left">&lsaquo; Prev</a>
+                {% endif %}
+              </div>
+              <div class="col-6">
+                {% if lesson.next_tab %}
+                <a href="?page={{ lesson.next_tab.param }}" class="btn btn-outline-primary float-right">Next &rsaquo;</a>
+                {% endif %}
+              </div>
             </div>
           </div>
         </div>

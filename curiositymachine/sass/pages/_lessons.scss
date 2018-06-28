@@ -1,9 +1,4 @@
 .lesson-pages {
-  .container > .stage-title {
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-
   .lesson-container {
     /* borrow Bootstrap variables */
     background-color: $nav-tabs-link-active-bg;
@@ -12,21 +7,26 @@
     border-right: $nav-tabs-border-width solid $nav-tabs-border-color;
     min-height: 3em;
 
-    @mixin page-gradient($class, $color1, $color2) {
-      &.#{$class} .stage-title {
-        background: $color1 linear-gradient(90deg, $color1, $color2) repeat-x;
-        color: white;
-        padding: 0.5rem 1rem;
-      }
+    @mixin page-colors($class, $color1, $color2, $color3) {
+      &.#{$class} {
+        .page-gradient {
+          background: $color1 linear-gradient(90deg, $color1, $color2) repeat-x;
+          color: white;
+          padding: 0.5rem 1rem;
+        }
 
+        .page-color {
+          color: $color3;
+        }
+      }
     }
 
-    @include page-gradient("start", theme-color("new-pink"), theme-color("new-red"));
-    @include page-gradient("inspiration", theme-color("new-red"), theme-color("new-orange"));
-    @include page-gradient("plan", theme-color("new-orange"), theme-color("new-green"));
-    @include page-gradient("build", theme-color("new-green"), theme-color("new-turquoise"));
-    @include page-gradient("reflect", theme-color("new-turquoise"), theme-color("new-blue"));
-    @include page-gradient("further", theme-color("new-blue"), theme-color("new-purple"));
+    @include page-colors("start", theme-color("new-pink"), theme-color("new-red"), theme-color("new-pink"));
+    @include page-colors("inspiration", theme-color("new-red"), theme-color("new-orange"), theme-color("new-red"));
+    @include page-colors("plan", theme-color("new-orange"), theme-color("new-green"), theme-color("new-orange"));
+    @include page-colors("build", theme-color("new-green"), theme-color("new-turquoise"), theme-color("new-green"));
+    @include page-colors("reflect", theme-color("new-turquoise"), theme-color("new-blue"), theme-color("new-blue"));
+    @include page-colors("further", theme-color("new-blue"), theme-color("new-purple"), theme-color("new-purple"));
   }
 
   .nav-item.active {
