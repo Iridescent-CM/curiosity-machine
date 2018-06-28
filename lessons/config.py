@@ -1,6 +1,9 @@
 from collections import OrderedDict
 
 LESSON_NAV = OrderedDict({
+    "start": {
+        "text": "Start",
+    },
     "inspiration": {
         "text": "Inspiration",
     },

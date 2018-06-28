@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from ..models import *
-from .. import config
+from ..presenters import *
 
 class LessonViewSet(viewsets.GenericViewSet):
     queryset = Lesson.objects.all()
@@ -15,12 +15,9 @@ class LessonViewSet(viewsets.GenericViewSet):
 
     def retrieve(self, request, pk=None):
         self.object = self.get_object()
-        self.page = self.request.query_params.get('page', list(config.LESSON_NAV.keys())[0])
+        self.page = self.request.query_params.get('page', None)
         return Response(
             {
-                'lesson': self.object,
-                'subnav': config.LESSON_NAV,
-                'active': self.page,
-                'content': getattr(self.object, self.page, None),
+                'lesson': TabbedLesson(self.object, self.page)
             },
         )

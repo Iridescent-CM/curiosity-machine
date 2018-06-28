@@ -6,6 +6,95 @@
     border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
     border-right: $nav-tabs-border-width solid $nav-tabs-border-color;
     min-height: 3em;
+
+    @mixin page-colors($class, $color1, $color2, $color3) {
+      &.#{$class} {
+        .page-gradient {
+          background: $color1 linear-gradient(90deg, $color1, $color2) repeat-x;
+          color: white;
+          padding: 0.5rem 1rem;
+        }
+
+        .page-color {
+          color: $color3;
+        }
+      }
+    }
+
+    @include page-colors("start", theme-color("new-pink"), theme-color("new-red"), theme-color("new-pink"));
+    @include page-colors("inspiration", theme-color("new-red"), theme-color("new-orange"), theme-color("new-red"));
+    @include page-colors("plan", theme-color("new-orange"), theme-color("new-green"), theme-color("new-orange"));
+    @include page-colors("build", theme-color("new-green"), theme-color("new-turquoise"), theme-color("new-green"));
+    @include page-colors("reflect", theme-color("new-turquoise"), theme-color("new-blue"), theme-color("new-blue"));
+    @include page-colors("further", theme-color("new-blue"), theme-color("new-purple"), theme-color("new-purple"));
+  }
+
+  .nav-item.active {
+    @mixin active-tab($class, $color) {
+      &.#{$class} {
+        background-color: $color;
+        .nav-link {
+          color: white;
+        }
+        &:after {
+          border-top-color: $color;
+          border-bottom-color: $color;
+          border-right-color: $color;
+        }
+      }
+    }
+
+    @include active-tab("start", theme-color("new-pink"));
+    @include active-tab("inspiration", theme-color("new-red"));
+    @include active-tab("plan", theme-color("new-orange"));
+    @include active-tab("build", theme-color("new-green"));
+    @include active-tab("reflect", theme-color("new-blue"));
+    @include active-tab("further", theme-color("new-purple"));
+  }
+
+  .nav {
+    overflow: hidden;
+    border: 1px solid $sand;
+    border-bottom: none;
+
+    .nav-link {
+      color: $gray;
+      padding-right: 2rem;
+    }
+
+    .nav-item {
+      background: $white;
+      position: relative;
+      border-bottom: 1px solid $sand;
+
+      $height: 20px;
+      &:before {
+        content: " ";
+        display: block;
+        position: absolute;
+        left: -$height - 2px;
+        top: 0;
+        border: $height solid $sand;
+        border-right-width: 2px;
+        border-left-color: transparent;
+      }
+      &:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        left: -1 * $height;
+        top: 0;
+        border: $height solid white;
+        border-right-width: 2px;
+        border-left-color: transparent;
+      }
+
+      &:first-child() {
+        &:before, &:after {
+          display: none;
+        }
+      }
+    }
   }
 
   .edit {
@@ -17,6 +106,12 @@
     }
     .edit {
       display: block;
+    }
+  }
+
+  .relative-nav {
+    .btn {
+      border-radius: 20px;
     }
   }
 }
