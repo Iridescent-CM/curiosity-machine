@@ -9359,21 +9359,17 @@ footer {
     border-bottom-color: #6C6CB6;
     border-right-color: #6C6CB6; }
 
-@media (max-width: 1199.98px) {
-  .lesson-pages .nav-item {
-    display: none; }
-  .lesson-pages .nav-item.active {
-    display: flex; } }
-
 .lesson-pages .nav {
-  overflow: hidden; }
+  overflow: hidden;
+  border: 1px solid #E5E1D9;
+  border-bottom: none; }
   .lesson-pages .nav .nav-link {
     color: #949494;
     padding-right: 2rem; }
   .lesson-pages .nav .nav-item {
     background: #fff;
     position: relative;
-    border: 1px solid #E5E1D9; }
+    border-bottom: 1px solid #E5E1D9; }
     .lesson-pages .nav .nav-item:before {
       content: " ";
       display: block;

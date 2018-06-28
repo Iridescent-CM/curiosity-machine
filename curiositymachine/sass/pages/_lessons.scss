@@ -52,17 +52,10 @@
     @include active-tab("further", theme-color("new-purple"));
   }
 
-  @include media-breakpoint-down(lg) {
-    .nav-item {
-      display: none;
-    }
-    .nav-item.active {
-      display: flex;
-    }
-  }
-
   .nav {
     overflow: hidden;
+    border: 1px solid $sand;
+    border-bottom: none;
 
     .nav-link {
       color: $gray;
@@ -72,7 +65,7 @@
     .nav-item {
       background: $white;
       position: relative;
-      border: 1px solid $sand;
+      border-bottom: 1px solid $sand;
 
       $height: 20px;
       &:before {
