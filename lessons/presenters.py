@@ -11,9 +11,9 @@ class TabbedLesson(object):
         "further": "Further learning",
     })
 
-    def __init__(self, lesson, current_page="start"):
+    def __init__(self, lesson, current_page):
         self.lesson = lesson
-        self.current_page = current_page
+        self.current_page = current_page or "start"
 
     @property
     def title(self):
