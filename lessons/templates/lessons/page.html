@@ -12,22 +12,35 @@
         <h1>{{ lesson.title }}</h1>
 
         <nav class="nav nav-fill shadow">
-          {% for page, item in subnav.items %}
-          <div class="nav-item {{ page }} {% if page == active %}active{% endif %}">
+          {% for tab in lesson.tabs %}
+          <div class="nav-item {{ tab.param }} {% if tab.active %}active{% endif %}">
             <a
-              href="?page={{ page }}"
+              href="?page={{ tab.param }}"
               class="nav-link"
             >
-              {{ item.text }}
+              {{ tab.name }}
             </a>
           </div>
           {% endfor %}
         </nav>
 
-        <div class="container lesson-container {{ active }} shadow pt-3">
+        <div class="container lesson-container {{ lesson.active_tab.param }} shadow pt-3">
           {% block full_content %}
-            {{ content|safe }}
+            {{ lesson.active_tab.content|safe }}
           {% endblock %}
+
+          <div class="row mt-3 mb-4 relative-nav">
+            <div class="col-6">
+              {% if lesson.prev_tab %}
+              <a href="?page={{ lesson.prev_tab.param }}" class="btn btn-outline-primary float-left">&lsaquo; Prev</a>
+              {% endif %}
+            </div>
+            <div class="col-6">
+              {% if lesson.next_tab %}
+              <a href="?page={{ lesson.next_tab.param }}" class="btn btn-outline-primary float-right">Next &rsaquo;</a>
+              {% endif %}
+            </div>
+          </div>
         </div>
 
       </div>

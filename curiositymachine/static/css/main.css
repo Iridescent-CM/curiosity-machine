@@ -9404,6 +9404,9 @@ footer {
 .lesson-pages .editing .edit {
   display: block; }
 
+.lesson-pages .relative-nav .btn {
+  border-radius: 20px; }
+
 .mentor-dashboard .row-dark {
   background: #e5e1d9;
   margin: 0 -65px 20px -65px;
