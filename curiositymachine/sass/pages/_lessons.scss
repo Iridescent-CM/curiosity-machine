@@ -52,6 +52,15 @@
     @include active-tab("further", theme-color("new-purple"));
   }
 
+  @include media-breakpoint-down(lg) {
+    .nav-item {
+      display: none;
+    }
+    .nav-item.active {
+      display: flex;
+    }
+  }
+
   .nav {
     overflow: hidden;
 
