@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/build
     docker:
-      - image: circleci/python:3.6.5
+      - image: circleci/python:3.6.5-stretch-node-browsers
         environment:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -17,26 +17,41 @@ jobs:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+
       - restore_cache:
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          keys:
+            - pip-packages-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           command: |
             sudo pip install pipenv
             pipenv install --dev
       - save_cache:
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: pip-packages-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.6/site-packages"
+
+      - restore_cache:
+          keys:
+            - node-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
-          command: |
-            mkdir test-reports
-            pipenv run pytest --junitxml=test-reports/junit.xml
+          command: npm install
+      - save_cache:
+          key: node-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - "/usr/local/lib/node_modules"
+
+      - run: mkdir test-reports
+      - run:
+          name: Pytest
+          command: pipenv run pytest -s -v > test-reports/pytest.log
+      - run:
+          name: Jest
+          command: npx jest --ci > test-reports/jest.log
 
       - store_test_results:
           path: test-reports
-
       - store_artifacts:
           path: test-reports
 
