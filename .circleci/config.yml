@@ -13,6 +13,7 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
       - image: circleci/redis:4.0.9
+      - image: circleci/node:10.5
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
