@@ -8,41 +8,10 @@
   {{ block.super }}
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5">
+      <div class="col-lg-12 col-md-10 my-5">
         <h2>This is the timeline</h2>
-        <h3 class="mb-4">Your child is the future. So is artificial intelligence.</h3>
+        <img src="{% static 'images/about/ai-timeline.svg' %}" alt="AI Partners">
 
-        <img src="{% static 'images/about/ai-timeline.png' %}" alt="AI Partners">
-
-
-        <hr class="hr-red mb-3"/>
-        <h3>It's your world. Make it better!</h3>
-        <p>
-          Since 2006, more than 80,000 children and parents across the world have participated in Curiosity Machine. With the help of volunteer mentors, families have explored exciting, cutting-edge topics ranging from aerospace to nanotechnology.
-        </p>
-        <div class="row">
-          <div class="col-lg-6 my-4">
-            <p class="text-center">Are you ready to learn? Make your <strong>family account</strong> now!</p>
-            <ul>
-              <li>You only need one account for your family</li>
-              <li>You will have access to the AI Family Challenge design challenges</li>
-              <li>You can access AI Family Challenge resources to help you complete and submit your ideas</li>
-              <li>We will send important updates and reminders</li>
-            </ul>
-          </div>
-          <div class="col-lg-6 my-4">
-            <p class="text-center">Are you ready to make a change? Create your <strong>coach account</strong> now!</p>
-            <ul>
-              <li>Lead students or families to complete the AI Family Challenge</li>
-              <li>Access AI Family Challenge content and resources to support your participants to complete the program</li>
-              <li>While we can not guarantee funding at this time, fill out this <a href="https://docs.google.com/forms/d/e/1FAIpQLSeuptfe5zMp5KpadIkNQcj81vtMRBzqdlW9RU8VHAOT48bLJg/viewform?usp=sf_link" target="_blank">form</a> in addition to creating a coach account if you would like to be considered for future opportunities</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="text-center mt-2">
-          <a href="{% url "account_signup" source=source %}" class="btn btn-primary text-uppercase mx-1" target="_blank">sign up</a>
-        </div>
         <p class="mt-2 text-center">
           If you have any questions, contact us at
           <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
@@ -51,14 +20,14 @@
       </div>
     </div>
   </div>
-  <div class="bg-red text-center py-5">
+  <div class="bg-blue text-center py-5">
     <div class="container">
       <h2 class="text-white">
         Learn more about our AI Family Challenge
       </h2>
       <a
         href="http://iridescentlearning.org/artificial-intelligence/the-curiosity-machine-ai-family-challenge/"
-        class="btn btn-secondary text-red text-uppercase"
+        class="btn btn-secondary text-blue text-uppercase"
         target="_blank"
       > Learn More</a>
     </div>
