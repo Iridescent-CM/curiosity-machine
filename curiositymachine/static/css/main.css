@@ -8100,6 +8100,39 @@ footer {
   max-width: 260px;
   min-height: 375px; }
 
+.blockquote-footer {
+  color: grey;
+  background-color: transparent; }
+
+.quotation-mark {
+  margin-top: -10px;
+  margin-bottom: 0px;
+  font-weight: bold;
+  font-size: 100px;
+  color: #F55932;
+  font-family: "Times New Roman", Georgia, Serif; }
+
+.quote-box {
+  overflow: hidden;
+  margin-top: -50px;
+  padding-top: -100px;
+  border-radius: 17px;
+  background-color: transparent;
+  margin-top: 25px;
+  color: black;
+  width: 325px;
+  height: 430px;
+  box-shadow: 2px 2px 2px 2px #E0E0E0; }
+
+.quote-text {
+  font-family: "Raleway";
+  font-size: 19px;
+  text-align: right;
+  margin-top: -65px;
+  margin-right: 10px;
+  margin-left: 10px;
+  line-height: 30px; }
+
 .account-settings .avatar-settings .form-inline {
   justify-content: center; }
   .account-settings .avatar-settings .form-inline .btn,
