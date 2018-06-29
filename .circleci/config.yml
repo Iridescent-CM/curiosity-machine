@@ -26,8 +26,7 @@ jobs:
             sudo pip install pipenv
             pipenv install --dev
       - save_cache:
-          keys: 
-            - pip-packages-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: pip-packages-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -39,8 +38,7 @@ jobs:
       - run:
           command: npm install
       - save_cache:
-          keys: 
-            - node-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: node-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - "/usr/local/lib/node_modules"
 
