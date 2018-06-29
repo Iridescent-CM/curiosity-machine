@@ -23,16 +23,22 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install --dev
+      - run: npm ci
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.6/site-packages"
+      - run: mkdir test-reports
       - run:
-          command: |
-            mkdir test-reports
-            pipenv run pytest --junitxml=test-reports/junit.xml
+          name: Pytest
+          command: pipenv run pytest --junitxml=test-reports/pytest-results.xml
+      - run:
+          name: Jest
+          command: npx jest --ci --testResultsProcessor="jest-junit"
+          environment:
+            JEST_JUNIT_OUTPUT: "test-reports/jest-results.xml"
 
       - store_test_results:
           path: test-reports
