@@ -16,6 +16,10 @@ class TabbedLesson(object):
         self.current_page = current_page or "start"
 
     @property
+    def valid(self):
+        return self.current_page in self.config
+
+    @property
     def title(self):
         return self.lesson.title
 

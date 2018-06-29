@@ -18,9 +18,14 @@ class LessonProgressViewSet(viewsets.GenericViewSet):
     def retrieve(self, request, pk=None):
         self.object = self.get_object()
         self.page = self.request.query_params.get('page', None)
+        lesson = TabbedLesson(self.object.lesson, self.page)
+
+        if not lesson.valid:
+            raise Http404
+
         return Response(
             {
-                'lesson': TabbedLesson(self.object.lesson, self.page),
+                'lesson': lesson,
                 'progress': self.object,
             },
         )
