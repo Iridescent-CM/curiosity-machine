@@ -6,7 +6,8 @@ module.exports = {
   mode: 'development',
   context: __dirname,
   entry: {
-    lessons: './curiositymachine/assets/lessons/index.js',
+    lesson_comments: './curiositymachine/assets/javascript/lessons/comments/index.js',
+    lesson_quiz: './curiositymachine/assets/javascript/lessons/quiz/index.js'
   },
 
   output: {
@@ -33,7 +34,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['babel-preset-env']
           }
         }
       }
