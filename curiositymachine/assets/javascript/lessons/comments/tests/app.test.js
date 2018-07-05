@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
-import App from '../app.vue'
+import Comments from '../Comments.vue'
 import Api from '../api'
 
 jest.mock('../filestack_wrapper');
@@ -19,7 +19,7 @@ describe('with api disabled', () => {
   });
 
   beforeEach(async () => {
-    wrapper = mount(App);
+    wrapper = mount(Comments);
     await flushPromises();
   });
 
@@ -51,12 +51,12 @@ describe('with api enabled', () => {
   });
 
   beforeEach(async () => {
-    wrapper = mount(App);
+    wrapper = mount(Comments);
     await flushPromises();
   });
 
   it('initializes Api from props', () => {
-    wrapper = mount(App, {
+    wrapper = mount(Comments, {
       propsData: {
         author: 5,
         progress: 6
@@ -94,7 +94,7 @@ describe('with comments', () => {
   });
 
   beforeEach(() => {
-    wrapper = mount(App);
+    wrapper = mount(Comments);
   });
 
   it('shows text comments', () => {
