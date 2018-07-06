@@ -7,7 +7,8 @@
       <div class="col-12">
         <div class="lesson-quiz-app">
           <quiz
-            progress="{{ progress.id|default:"" }}"
+            :quiz-id="{{ lesson.quiz_id }}"
+            {% if progress %}:taker-id="{{ progress.owner.id }}"{% endif %}
           ></quiz>
         </div>
       </div>

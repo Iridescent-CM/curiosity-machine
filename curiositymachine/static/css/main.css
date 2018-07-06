@@ -8778,6 +8778,10 @@ footer {
     font-size: 12px;
     fill: #333333; }
 
+.lesson-quiz-app .grading-mark {
+  position: absolute;
+  left: -1.2em; }
+
 .table {
   background-color: #FFFCF7;
   border: solid 2px #E5E1D9; }

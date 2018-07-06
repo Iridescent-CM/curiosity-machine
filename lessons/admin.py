@@ -49,3 +49,5 @@ class CommentAdmin(admin.ModelAdmin):
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Progress, ProgressAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Quiz)
+admin.site.register(QuizResult)
