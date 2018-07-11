@@ -1,0 +1,27 @@
+.lesson-quiz-app {
+  .quiz {
+    padding: 3em;
+
+    &.correct {
+      background: theme-color("new-blue") linear-gradient(90deg, theme-color("new-blue"), theme-color("new-turquoise")) repeat-x;
+      color: white;
+      border-radius: 4px;
+
+      .form-check-label {
+        color: white;
+      }
+    }
+  }
+
+  .grading-mark {
+    position: absolute;
+    left: -1.2em;
+
+    &.grading-mark-incorrect {
+      color: red;
+    }
+    &.grading-mark-correct {
+      color: lightgreen;
+    }
+  }
+}

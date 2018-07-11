@@ -4,10 +4,11 @@
 {% block full_content %}
   <div class="container">
     <div class="row mb-3">
-      <div class="col-12">
+      <div class="col-md-10 offset-md-1">
         <div class="lesson-quiz-app">
           <quiz
-            progress="{{ progress.id|default:"" }}"
+            :quiz-id="{{ lesson.quiz_id }}"
+            {% if progress %}:taker-id="{{ progress.owner.id }}"{% endif %}
           ></quiz>
         </div>
       </div>

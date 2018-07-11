@@ -125,7 +125,7 @@
       }
     },
 
-    mounted: function () {
+    created: function () {
       this.api = new Api({
         author: this.author,
         progress: this.progress

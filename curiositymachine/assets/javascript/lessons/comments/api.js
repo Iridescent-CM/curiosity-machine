@@ -1,14 +1,17 @@
 import axios from 'axios';
 
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+const client = axios.create({
+  xsrfCookieName: 'csrftoken',
+  xsrfHeaderName: 'X-CSRFToken',
+  baseURL: '/lessons/'
+})
 
 export default function Api(opts) {
   this.disabled = !opts.progress;
 
   this.list = function() {
-    return axios
-    .get('/lessons/comment/?lesson_progress=' + opts.progress)
+    return client
+    .get('comment/?lesson_progress=' + opts.progress)
     .then(function (response) {
       return response.data;
     });
@@ -18,9 +21,9 @@ export default function Api(opts) {
     data.upload = data.upload || {};
     data.text = data.text || "";
 
-    return axios
+    return client
     .post(
-      '/lessons/comment/',
+      'comment/',
       {
         author: opts.author,
         lesson_progress: opts.progress,
@@ -31,16 +34,16 @@ export default function Api(opts) {
   };
 
   this.update = function(comment, data) {
-    return axios
+    return client
     .patch(
-      '/lessons/comment/' + comment + '/',
+      'comment/' + comment + '/',
       data
     );
   };
 
   this.destroy = function(comment) {
-    return axios.delete(
-      '/lessons/comment/' + comment + '/'
+    return client.delete(
+      'comment/' + comment + '/'
     );
   };
 }

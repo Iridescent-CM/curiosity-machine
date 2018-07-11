@@ -1,1 +1,1 @@
-{"status":"done","chunks":{"lessons":[{"name":"lessons.js","path":"/Users/mlarsson/Projects/cm/curiosity-machine/curiositymachine/static/js/dist/lessons.js"}]}}
+{"status":"done","chunks":{"lesson_quiz":[{"name":"lesson_quiz.js","path":"/Users/mlarsson/Projects/cm/curiosity-machine/curiositymachine/static/js/dist/lesson_quiz.js"}],"lesson_comments":[{"name":"lesson_comments.js","path":"/Users/mlarsson/Projects/cm/curiosity-machine/curiositymachine/static/js/dist/lesson_comments.js"}]}}
