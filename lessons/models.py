@@ -79,6 +79,9 @@ class Quiz(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return "Quiz: id={} question={}".format(self.id, self.question_1)
+
 class QuizResult(models.Model):
     taker = models.ForeignKey(get_user_model())
     quiz = models.ForeignKey(Quiz)
@@ -86,6 +89,9 @@ class QuizResult(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Quiz Result: id={} quiz={} taker={}".format(self.id, self.quiz_id, self.taker_id)
 
     @property
     def correct(self):

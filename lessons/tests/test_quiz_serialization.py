@@ -44,6 +44,7 @@ def test_correct_quiz_and_result_serialization():
             {
                 "answered": True,
                 "correct": True,
+                "explanation": quiz.explanation_1,
                 "text": quiz.question_1,
                 "options": [
                     {

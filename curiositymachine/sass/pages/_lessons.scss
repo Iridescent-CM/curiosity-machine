@@ -12,7 +12,10 @@
         .page-gradient {
           background: $color1 linear-gradient(90deg, $color1, $color2) repeat-x;
           color: white;
-          padding: 0.5rem 1rem;
+        }
+        .page-reverse-gradient {
+          background: $color2 linear-gradient(90deg, $color2, $color1) repeat-x;
+          color: white;
         }
 
         .page-color {

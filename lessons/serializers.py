@@ -109,7 +109,10 @@ def question_representations(obj, result=None):
         }
         if result:
             data["answered"] = True
-            data["correct"] = getattr(result, "answer_%d" % idx) == getattr(obj, "correct_answer_%d" % idx)
+            correct = getattr(result, "answer_%d" % idx) == getattr(obj, "correct_answer_%d" % idx)
+            data["correct"] = correct
+            if correct:
+                data["explanation"] = getattr(obj, "explanation_%d" % idx)
 
         yield data
 

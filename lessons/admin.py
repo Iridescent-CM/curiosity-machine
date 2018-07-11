@@ -27,7 +27,7 @@ class LessonAdmin(OrderedModelAdmin):
     save_as = True
     save_on_top = True
     list_display = ('id', 'title', 'move_up_down_links', 'order')
-    raw_id_fields = ('card_image',)
+    raw_id_fields = ('card_image', 'quiz')
 
 class ProgressAdmin(admin.ModelAdmin):
     model = Progress
@@ -46,8 +46,19 @@ class CommentAdmin(admin.ModelAdmin):
     def _lesson_id(self, obj):
         return obj.lesson_progress.lesson.id
 
+class QuizAdmin(admin.ModelAdmin):
+    model = Quiz
+    list_display = ('id', 'question_1', 'created_at')
+
+class QuizResultAdmin(admin.ModelAdmin):
+    model = QuizResult
+    list_display = ('id', 'question_1', 'answer_1', 'taker', 'created_at')
+
+    def question_1(self, obj):
+        return obj.quiz.question_1
+
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Progress, ProgressAdmin)
 admin.site.register(Comment, CommentAdmin)
-admin.site.register(Quiz)
-admin.site.register(QuizResult)
+admin.site.register(Quiz, QuizAdmin)
+admin.site.register(QuizResult, QuizResultAdmin)

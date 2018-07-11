@@ -1,46 +1,57 @@
 <template>
   <div class="quiz" v-bind:class="{ correct: quiz.correct }">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <h3>Test your knowledge</h3>
-        <p>
-          You've finished your challenge. Take the quiz and see how much you've learned!
-        </p>
-        <hr />
-      </div>
-      <div class="col-md-8 offset-md-2">
-        <template v-for="(question, q_index) in quiz.questions">
-          <strong>{{ question.text }}</strong>
-          <template v-for="(option, o_index) in question.options">
-            <div class="form-check">
-              <span class="grading-mark grading-mark-correct" v-if="isCorrect(question, option)">✓</span>
-              <span class="grading-mark grading-mark-incorrect" v-if="isIncorrect(question, option)">✗</span>
-              <input
-                :disabled="isDisabled(question, option)"
-                class="form-check-input"
-                type="radio"
-                :name="inputAttrs(q_index, o_index).name"
-                :id="inputAttrs(q_index, o_index).id"
-                :value="inputAttrs(q_index, o_index).value"
-                v-model="quiz.answers[q_index]"
-              >
-              <label class="form-check-label" :for="inputAttrs(q_index, o_index).id">
-                {{ option.text }}
-              </label>
-            </div>
-          </template>
-        </template>
-        <hr />
-      </div>
-      <div class="col-md-8 offset-md-2">
-        <button
-          class="btn btn-primary d-block mx-auto"
-          @click="submit"
-          v-if="showSubmit"
-          v-bind:disabled="!submittable"
-        >Submit</button>
-      </div>
+
+    <div v-if="!quiz.correct">
+      <h3 class="page-color">Test your knowledge</h3>
+      <p>
+        You've finished your challenge. Take the quiz and see how much you've learned!
+      </p>
+      <hr />
     </div>
+    <div v-else>
+      <h3 class="text-center">You're an AI Pro!</h3>
+      <p>
+        Your results:
+      </p>
+    </div>
+
+    <template v-for="(question, q_index) in quiz.questions">
+      <strong>{{ question.text }}</strong>
+      <template v-for="(option, o_index) in question.options">
+        <div class="form-check">
+          <span class="grading-mark grading-mark-correct" v-if="isCorrect(question, option)">✓</span>
+          <span class="grading-mark grading-mark-incorrect" v-if="isIncorrect(question, option)">✗</span>
+          <input
+            :disabled="isDisabled(question, option)"
+            class="form-check-input"
+            type="radio"
+            :name="inputAttrs(q_index, o_index).name"
+            :id="inputAttrs(q_index, o_index).id"
+            :value="inputAttrs(q_index, o_index).value"
+            v-model="quiz.answers[q_index]"
+          >
+          <label class="form-check-label" :for="inputAttrs(q_index, o_index).id">
+            {{ option.text }}
+          </label>
+        </div>
+      </template>
+      <hr />
+      <div v-if="question.correct">
+        <p>
+          Explanation:
+        </p>
+        <p>
+          {{ question.explanation }}
+        </p>
+      </div>
+    </template>
+
+    <button
+      class="btn btn-primary d-block mx-auto"
+      @click="submit"
+      v-if="showSubmit"
+      v-bind:disabled="!submittable"
+    >Submit</button>
   </div>
 </template>
 
