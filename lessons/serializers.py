@@ -55,7 +55,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'author', 'lesson_progress', 'text', 'upload')
+        fields = ('id', 'author', 'lesson_progress', 'text', 'upload', 'role')
 
     def _handle_media(self, attrs, upload):
         if upload and 'mimetype' in upload:
@@ -64,6 +64,8 @@ class CommentSerializer(serializers.ModelSerializer):
                 attrs['upload'] = Image.from_source_with_job(upload['url'])
             elif mimetype.startswith('video'):
                 attrs['upload'] = Video.from_source_with_job(upload['url'])
+            else:
+                raise Exception("Serializer can't handle mimetype %s" % mimetype)
 
         return attrs
 
