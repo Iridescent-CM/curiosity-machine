@@ -10,6 +10,7 @@ export default function(key) {
         fsclient.picker({
           uploadInBackground: false,
           fromSources: ['local_file_system', 'webcam', 'video'],
+          accept: ['video/*', 'image/*'],
           onFileUploadFinished: resolve,
           onFileUploadFailed: function(upload, error) {
             reject(error);
