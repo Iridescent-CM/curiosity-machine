@@ -7,14 +7,6 @@
     <div class="row">
       <div class="col-12">
         <hr/>
-        <h3 class="mt-4">Here's where you answer the thing</h3>
-      </div>
-      <div class="col-md-8 offset-md-2">
-        <single-comment
-          author="{{ request.user.id }}"
-          progress="{{ progress.id|default:"" }}"
-          role="reflection"
-        ></single-comment>
       </div>
 
       <div class="col-12">
@@ -30,6 +22,17 @@
       </div>
 
       <div class="col-12">
+        <h3 class="mt-4">Here's where you answer the thing</h3>
+      </div>
+      <div class="col-md-8 offset-md-2">
+        <single-comment
+          author="{{ request.user.id }}"
+          progress="{{ progress.id|default:"" }}"
+          role="reflection"
+        ></single-comment>
+      </div>
+
+      <div class="col-12">
         <h3 class="mt-4">Here's where you upload whatever</h3>
       </div>
       <div class="col-md-8 offset-md-2">
@@ -37,6 +40,7 @@
           author="{{ request.user.id }}"
           progress="{{ progress.id|default:"" }}"
           fskey="{{ FILEPICKER_API_KEY }}"
+          role="comments"
         ></comments>
       </div>
     </div>

@@ -56,7 +56,7 @@
       Comment
     },
 
-    props: ['author', 'progress', 'fskey'],
+    props: ['author', 'progress', 'fskey', 'role'],
 
     data: function () {
       return {
@@ -92,7 +92,7 @@
       getComments: function () {
         var that = this;
         that.api
-        .list()
+        .list(that.role)
         .then(function (data) {
           that.comments = data;
         })
@@ -107,7 +107,10 @@
         if (!value) return;
         var that = this;
         that.api
-        .create({text: value})
+        .create({
+          text: value,
+          role: that.role
+        })
         .then(function (response) {
           that.newComment = '';
           that.getComments();
@@ -123,7 +126,8 @@
         this.picker.pick()
         .then(function (upload) {
           return that.api.create({
-            upload: upload
+            upload: upload,
+            role: that.role
           });
         })
         .then(function (response) {
