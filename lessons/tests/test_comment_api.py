@@ -26,7 +26,8 @@ def test_list(apiclient):
         "lesson_progress": progress.id,
         "id": comment.id,
         "text": comment.text,
-        "upload": None
+        "upload": None,
+        "role": "comment"
     }]
 
 @pytest.mark.django_db
