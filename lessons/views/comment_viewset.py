@@ -9,10 +9,15 @@ class CommentViewSet(viewsets.ModelViewSet):
     renderer_classes = (JSONRenderer, )
     permission_classes = (CommentPermission, )
 
+    filters = {
+        'lesson_progress': 'lesson_progress_id',
+        'role': 'role',
+    }
+
     def get_queryset(self):
         queryset = Comment.objects.all()
-        progress_filter = self.request.query_params.get('lesson_progress', None)
-        if progress_filter is not None:
-            queryset = queryset.filter(lesson_progress_id=progress_filter)
+        for qparam, attr in self.filters.items():
+            val = self.request.query_params.get(qparam, None)
+            if val is not None:
+                queryset = queryset.filter(**{attr: val})
         return queryset
-

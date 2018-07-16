@@ -1,25 +1,19 @@
 <template>
   <div>
-    <div class="card my-3">
-      <div class="card-header">
-        Upload
-      </div>
+
+    <comment
+      v-if="comment"
+      :key="comment.id"
+      v-bind:initial="comment"
+      v-bind:api="api"
+      v-bind:picker="picker"
+      v-on:remove="remove"
+    ></comment>
+
+    <div v-else class="card my-3">
       <div class="card-body">
-        <textarea
-          class="form-control"
-          disabled
-          v-bind:disabled="disabled"
-          placeholder="Post a comment or upload a file"
-          v-model="newComment"></textarea>
-
-        <button type="submit"
-          class="btn btn-primary mt-3"
-          disabled
-          v-bind:disabled="disabled"
-          @click="addTextComment">Post</button>
-
         <button
-          class="btn btn-primary mt-3 ml-2"
+          class="btn btn-primary d-block mx-auto"
           disabled
           v-bind:disabled="disabled"
           @click="addMediaComment"><i class="icon-camera mr-1"></i> Choose</button>
@@ -33,15 +27,6 @@
       </div>
     </div>
 
-    <template v-for="comment in comments">
-      <comment
-        :key="comment.id"
-        v-bind:initial="comment"
-        v-bind:api="api"
-        v-bind:picker="picker"
-        v-on:remove="getComments"
-      ></comment>
-    </template>
   </div>
 </template>
 
@@ -56,12 +41,12 @@
       Comment
     },
 
-    props: ['author', 'progress', 'fskey'],
+    props: ['author', 'progress', 'fskey', 'role'],
 
     data: function () {
       return {
         newComment: '',
-        comments: [],
+        comment: undefined,
         api: undefined,
         error: undefined,
       };
@@ -83,38 +68,40 @@
       });
       this.picker = init(this.fskey);
       if (this.enabled) {
-        this.getComments();
+        this.getCommentByRole(this.role);
       }
     },
 
     methods: {
 
-      getComments: function () {
+      getCommentByRole: function (role) {
         var that = this;
         that.api
-        .list()
+        .list(role)
         .then(function (data) {
-          that.comments = data;
+          if (data.length > 0) {
+            that.comment = data[0];
+          }
+          if (data.length > 1) {
+            // warn?
+          }
         })
         .catch(function (error) {
           that.error = true;
-          Rollbar.error("error getting comments", error);
+          //Rollbar.error("error getting comment", error);
         });
       },
 
-      addTextComment: function () {
-        var value = this.newComment && this.newComment.trim();
-        if (!value) return;
+      getComment: function (comment_id) {
         var that = this;
         that.api
-        .create({text: value})
-        .then(function (response) {
-          that.newComment = '';
-          that.getComments();
+        .retrieve()
+        .then(function (data) {
+          that.comment = data;
         })
         .catch(function (error) {
           that.error = true;
-          Rollbar.error("error adding text comment", error);
+          //Rollbar.error("error getting comment", error);
         });
       },
 
@@ -122,17 +109,24 @@
         var that = this;
         this.picker.pick()
         .then(function (upload) {
+          console.log('um wat', upload);
           return that.api.create({
-            upload: upload
+            upload: upload,
+            role: that.role
           });
         })
         .then(function (response) {
-          that.getComments();
+          that.comment = response.data;
         })
         .catch(function (error) {
+          console.log('error', error);
           that.error = true;
-          Rollbar.error("error adding media comment", error);
+          //Rollbar.error("error adding media comment", error);
         });
+      },
+
+      remove: function () {
+        this.comment = undefined;
       }
     }
   }

@@ -52,6 +52,8 @@ class Progress(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(get_user_model(), related_name='lesson_comments')
     lesson_progress = models.ForeignKey(Progress)
+    role = models.CharField(max_length=50, default='comment')
+
     text = models.TextField(null=True, blank=True)
 
     upload_content_type = models.ForeignKey(ContentType, null=True, blank=True, on_delete=models.CASCADE)

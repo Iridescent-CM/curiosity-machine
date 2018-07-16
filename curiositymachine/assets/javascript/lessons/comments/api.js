@@ -9,9 +9,21 @@ const client = axios.create({
 export default function Api(opts) {
   this.disabled = !opts.progress;
 
-  this.list = function() {
+  this.list = function(role) {
+    var url = 'comment/?lesson_progress=' + opts.progress;
+    if (role) {
+      url += '&role=' + role;
+    }
     return client
-    .get('comment/?lesson_progress=' + opts.progress)
+    .get(url)
+    .then(function (response) {
+      return response.data;
+    });
+  };
+
+  this.retrieve = function(comment) {
+    return client
+    .get('comment/' + comment + '/')
     .then(function (response) {
       return response.data;
     });
@@ -28,7 +40,8 @@ export default function Api(opts) {
         author: opts.author,
         lesson_progress: opts.progress,
         text: data.text,
-        upload: data.upload
+        upload: data.upload,
+        role: data.role
       }
     );
   };

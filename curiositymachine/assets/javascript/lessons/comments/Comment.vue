@@ -1,0 +1,146 @@
+<template>
+  <div class="card my-3">
+
+    <template v-if="comment.upload">
+      <template v-if="comment.upload.type == 'image'">
+        <img class="card-img-top" v-bind:src="comment.upload.url" alt="user uploaded image" />
+        <div class="card-body">
+          <button class="btn btn-sm btn-outline-purple" @click="remove">Remove</button>
+          <button class="btn btn-sm btn-outline-purple" @click="editMedia">Edit</button>
+        </div>
+      </template>
+
+      <template v-if="comment.upload.type == 'video'">
+        <div v-if="comment.upload.encodings.length">
+          <video
+            class="w-100"
+            preload="none"
+            v-bind:poster="comment.upload.thumbnail"
+            controls
+          >
+            <template v-for="encoding in comment.upload.encodings">
+              <source v-bind:src="encoding.url" v-bind:type="encoding.mimetype" />
+            </template>
+          </video>
+        </div>
+        <div v-else>
+          <video
+            class="w-100"
+            preload="none"
+            v-bind:src="comment.upload.url"
+            v-bind:poster="comment.upload.thumbnail"
+            controls
+          >
+          </video>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-sm btn-outline-purple" @click="remove">Remove</button>
+          <button class="btn btn-sm btn-outline-purple" @click="editMedia">Edit</button>
+        </div>
+      </template>
+    </template>
+
+    <template v-if="comment.text">
+      <div class="card-body" :class="{ editing: editing }">
+        <div class="view">
+          <p class="card-text" style="white-space: pre;">{{ comment.text }}</p>
+          <button class="btn btn-sm btn-outline-purple" @click="remove">Remove</button>
+          <button class="btn btn-sm btn-outline-purple" @click="makeEditable">Edit</button>
+        </div>
+        <div class="edit">
+          <textarea
+            class="form-control"
+            v-model="comment.text"
+          ></textarea>
+          <button class="btn btn-sm btn-outline-purple" @click="editText">Save</button>
+          <button class="btn btn-sm btn-outline-purple" @click="cancelEdit">Cancel</button>
+        </div>
+      </div>
+    </template>
+
+    <div class="card-body" v-if="error">
+      <div class="alert alert-danger">
+        <small>
+          Error encountered
+        </small>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<script>
+  export default {
+    props: ['initial', 'api', 'picker'],
+
+    data: function() {
+      return {
+        comment: this.initial,
+        editing: false,
+        error: undefined
+      }
+    },
+
+    methods: {
+      editMedia: function () {
+        var that = this;
+        this.picker.pick()
+        .then(function (upload) {
+          return that.api.update(that.comment.id, {
+            upload: upload
+          });
+        })
+        .then(function (response) {
+          that.comment = response.data;
+          //that.getComments();
+        })
+        .catch(function (error) {
+          that.error = true;
+          //Rollbar.error("error editing media comment", error);
+        });
+      },
+
+      editText: function () {
+        var that = this;
+        that.api
+        .update(that.comment.id, { text: this.comment.text.trim() })
+        .then(function (response) {
+          that.editing = false;
+          that.comment = response.data;
+        })
+        .catch(function (error) {
+          that.error = true;
+          //Rollbar.error("error editing text comment", error);
+        });
+      },
+
+      makeEditable: function () {
+        this.editing = true;
+        this.editingCache = this.comment.text;
+      },
+
+      cancelEdit: function () {
+        this.editing = false;
+        this.comment.text = this.editingCache;
+      },
+
+      remove: function () {
+        if (window.confirm("Are you sure you want to remove your comment?")) {
+          var that = this;
+          that.api
+          .destroy(that.comment.id)
+          .then(function (response) {
+            that.$emit('remove');
+          })
+          .catch(function (error) {
+            that.error = true;
+            //Rollbar.error("error removing comment", error);
+          });
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+</style>
