@@ -15,7 +15,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     }
 
     def get_queryset(self):
-        queryset = Comment.objects.all()
+        queryset = Comment.objects.order_by('-created_at').all()
         for qparam, attr in self.filters.items():
             val = self.request.query_params.get(qparam, None)
             if val is not None:
