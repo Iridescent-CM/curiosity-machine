@@ -10,9 +10,10 @@ from challenges.views import UnfilteredChallenges, CoreChallenges
 def test_unfiltered_challenges_apply(rf):
     challenges = ChallengeFactory.create_batch(5)
     request = rf.get('/challenges/')
-    title, qs, response =  UnfilteredChallenges(request).apply()
-    assert title == "All Design Challenges"
-    assert set(qs.all()) == set(challenges)
+    template_name, context, response =  UnfilteredChallenges(request).apply()
+    assert template_name == None
+    assert context['title'] == "All Design Challenges"
+    assert set(context['challenges'].all()) == set(challenges)
 
 def test_unfiltered_challenges_template_context(rf):
     assert UnfilteredChallenges().get_template_contexts() == [{
@@ -44,9 +45,10 @@ def test_core_challenges_apply(rf):
     core = ChallengeFactory.create_batch(2, core=True, free=True)
     noncore = ChallengeFactory.create_batch(2, core=False, free=True)
     request = rf.get('/challenges/')
-    title, qs, response =  CoreChallenges(request).apply()
-    assert title == "AI Family Challenge"
-    assert set(qs.all()) == set(core)
+    template_name, context, response =  CoreChallenges(request).apply()
+    assert template_name == None
+    assert context['title'] == "AI Family Challenge"
+    assert set(context['challenges'].all()) == set(core)
 
 @pytest.mark.django_db
 def test_core_challenges_template_context(rf):

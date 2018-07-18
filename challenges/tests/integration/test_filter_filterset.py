@@ -42,9 +42,10 @@ def test_apply_successful(rf):
     request = rf.get('/challenges/', {"filter_id": filt.id})
 
     f = FilterChallenges(request)
-    title, qs, response = f.apply()
-    assert title == "Filter Design Challenges"
-    assert set(qs.all()) == set(challenges[:2])
+    template_name, context, response = f.apply()
+    assert template_name == None
+    assert context['title'] == "Filter Design Challenges"
+    assert set(context['challenges'].all()) == set(challenges[:2])
 
 @pytest.mark.django_db
 def test_builds_template_context(rf):

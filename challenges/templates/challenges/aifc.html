@@ -1,0 +1,38 @@
+{% extends "challenges/list.html" %}
+
+{% load challenge_list_adapter %}
+
+{% block challenges %}
+  <ul class="nav nav-pills my-5 justify-content-center" role="tablist">
+    {% for stage in stages %}
+    <li class="nav-item">
+      <a
+        class="nav-link {% if forloop.counter == 1 %}active {% endif %}"
+        id="stage-{{ forloop.counter }}-tab"
+        data-toggle="pill"
+        href="#stage-{{ forloop.counter }}"
+        role="tab"
+        aria-controls="stage-{{ forloop.counter }}"
+        aria-selected="true"
+      >Stage {{ forloop.counter }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="tab-content">
+    {% for stage in stages %}
+    <div
+      class="tab-pane {% if forloop.counter == 1 %}show active{% endif %}"
+      id="stage-{{ forloop.counter }}"
+      role="tabpanel"
+      aria-labelledby="stage-{{ forloop.counter }}-tab"
+    >
+      <div class="row">
+      {% for obj in stage.objects %}
+        {% adapt_to_challenge obj as adapter %}
+        {% include "challenges/_list_card.html" with challenge=adapter %}
+      {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

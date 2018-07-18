@@ -25,9 +25,10 @@ def test_apply_successful(rf):
     request = rf.get('/challenges/', {"theme": theme.name})
 
     f = ThemeChallenges(request)
-    title, qs, response = f.apply()
-    assert title == "theme Design Challenges"
-    assert set(qs.all()) == set(challenges[:2])
+    template_name, context, response = f.apply()
+    assert template_name == None
+    assert context['title'] == "theme Design Challenges"
+    assert set(context['challenges'].all()) == set(challenges[:2])
 
 @pytest.mark.django_db
 def test_builds_template_context(rf):
