@@ -71,6 +71,10 @@ class Membership(models.Model):
         blank=True,
         help_text="Internal team notes that will not be displayed to users. Use this space to record information about a membership that doesn’t fit into other fields but is important for the team to know.",
     )
+    hide_from_categories = models.BooleanField(
+        default=False,
+        help_text="Select this option if you don't want the membership to show up on the main challenges page for its members."
+    )
 
     challenges = models.ManyToManyField(
         Challenge,

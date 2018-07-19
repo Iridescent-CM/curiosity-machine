@@ -156,7 +156,7 @@ class MembershipChallenges(FilterSet):
     def get_template_contexts(self):
         user_memberships = []
         if self.request.user.is_authenticated():
-            user_memberships = self.request.user.membership_set.filter(is_active=True)
+            user_memberships = self.request.user.membership_set.filter(is_active=True, hide_from_categories=False)
 
         return [{
             "text": membership.display_name,

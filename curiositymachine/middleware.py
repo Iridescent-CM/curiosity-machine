@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib import messages
 from django.utils.deprecation import MiddlewareMixin
+from django.utils.encoding import escape_uri_path
 from curiositymachine.exceptions import LoginRequired
 import profiles.models
 import re
@@ -28,7 +29,7 @@ class CanonicalDomainMiddleware(MiddlewareMixin):
     """
     def process_request(self, request):
         if settings.CANONICAL_DOMAIN and not request.META['HTTP_HOST'] == settings.CANONICAL_DOMAIN:
-            return HttpResponseRedirect('http://{}/{}'.format(settings.CANONICAL_DOMAIN, request.get_full_path())) # might as well redirect to http as sslify will then catch requests if appropriate
+            return HttpResponseRedirect('http://{}/{}'.format(settings.CANONICAL_DOMAIN, escape_uri_path(request.get_full_path()))) # might as well redirect to http as sslify will then catch requests if appropriate
 
 class LoginRequiredMiddleware(MiddlewareMixin):
     """
@@ -49,7 +50,7 @@ class LoginRequiredMiddleware(MiddlewareMixin):
                 messages.INFO,
                 "The page you’re trying to view requires being logged in to Curiosity Machine."
             )
-            return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.path))
+            return HttpResponseRedirect('%s?next=%s' % (reverse('login'), escape_uri_path(request.get_full_path())))
 
     def process_exception(self, request, exception):
         if isinstance(exception, LoginRequired):        
@@ -58,7 +59,7 @@ class LoginRequiredMiddleware(MiddlewareMixin):
                 messages.INFO,
                 "The page you’re trying to view requires being logged in to Curiosity Machine."
             )
-            return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.path))
+            return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.get_full_path()))
 
 class UnderageStudentSandboxMiddleware(MiddlewareMixin):
     """
