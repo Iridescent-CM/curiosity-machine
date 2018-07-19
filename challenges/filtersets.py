@@ -170,12 +170,17 @@ class AIFCChallenges(FilterSet):
     def apply(self):
         self.applied = True
 
+        # FIXME: here's where some weirdness begins. Each stage has a list of objects, Challenges or Lessons.
+        # We can't fully self.decorate() the challenges because it's a list, not a QuerySet, so we selectively
+        # decorate. This might result in sub-par page performance.
         stage_objects = [stage.objects for stage in get_stages()]
         for idx in range(2):
             _decorate_started(self.request, stage_objects[idx])
             _decorate_access(self.request, stage_objects[idx])
             _decorate_favoritable(self.request, stage_objects[idx])
 
+        # FIXME: Here we're carving off the stage we know is made up of Lessons and just kind of mashing
+        # them to look like Challenges for the sake of the template. Not ideal.
         for obj in stage_objects[2]:
             obj.name = obj.title
             obj.image = obj.card_image
@@ -188,14 +193,11 @@ class AIFCChallenges(FilterSet):
         }, None
 
     def get_template_contexts(self):
-        if Challenge.objects.filter(core=True, draft=False).count() > 0:
-            return [{
-                "text": "AI Family Challenge",
-                "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
-                "active": bool(self.applied)
-            }]
-        else:
-            return []
+        return [{
+            "text": "AI Family Challenge",
+            "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
+            "active": bool(self.applied)
+        }]
 
 class FilterChallenges(FilterSet):
     query_param = "filter_id"
