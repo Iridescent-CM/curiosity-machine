@@ -50,8 +50,8 @@
     },
 
     props: {
-      'author': Number,
-      'progress': Number,
+      'author': String,
+      'progress': String,
       'role': String,
       'placeholder': {
         type: String,
