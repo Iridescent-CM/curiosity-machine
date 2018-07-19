@@ -2,7 +2,7 @@
 
 <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-10 offset-md-1 col-lg-6 offset-lg-0 col-xl-4">
   <div class="card cm-card mb-3">
-    {% if request.user.is_authenticated and request.user.extra.is_student %}
+    {% if challenge.favoritable %}
     <div class="favorites-badge">
       <input type="checkbox"
         name="favorite-star-{{challenge.id}}"
@@ -10,30 +10,18 @@
         data-toggle="favorite"
         data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}"
         data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"
-        {% if challenge.id in favorite_ids %}checked="checked"{% endif %}
+        {% if challenge.is_favorite %}checked="checked"{% endif %}
       >
       <label for="favorite-star-{{challenge.id}}"><i class="icon-star-full"></i></label>
     </div>
     {% endif %}
-    {% if challenge.started %}
-    <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
-    {% else %}
-    <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}" class="a-borderless">
-    {% endif %}
-      {% if challenge.image %}
+    <a href="{{ challenge.url }}">
       <img class="card-img-top" src="{% resized challenge.image.url width=300 height=190 crop='fill' %}" alt="{{challenge.name}}">
-      {% elif challenge.video.encodings_generated %}
-      {{ challenge.video.output_videos.all.0.thumbnail }}
-      {% endif %}
     </a>
 
     <div class="card-body">
       <h6 class="card-title">
-        {% if challenge.started %}
-          <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=request.user.username %}">
-        {% else %}
-          <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
-        {% endif %}
+        <a href="{{ challenge.url }}">
           {{ challenge.name }}
         </a>
       </h6>

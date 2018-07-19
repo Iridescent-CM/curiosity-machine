@@ -4,9 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError, PermissionDenied
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
-from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.template.response import TemplateResponse
@@ -25,30 +23,6 @@ from .forms import MaterialsForm
 from .models import *
 from .utils import get_stage_for_progress
 
-def _paginate(qs, page, perPage):
-    paginator = Paginator(qs, perPage)
-    try:
-        paginated = paginator.page(page)
-    except PageNotAnInteger:
-        paginated = paginator.page(1)
-    except EmptyPage:
-        paginated = paginator.page(paginator.num_pages)
-
-    return paginated
-
-def _decorate_access(request, challenges):
-    accessible = Membership.filter_by_challenge_access(request.user, [c.id for c in challenges])
-    for challenge in challenges:
-        challenge.accessible = challenge.id in accessible
-    return challenges
-
-def _decorate_started(request, challenges):
-    if request.user.is_authenticated():
-        started_challenges = request.user.challenges.filter(id__in=[c.id for c in challenges])
-        for challenge in challenges:
-            challenge.started = challenge in started_challenges
-    return challenges
-
 class ChallengesListView(View):
     template_name = "challenges/list.html"
     filterset_classes = [
@@ -66,23 +40,6 @@ class ChallengesListView(View):
         template_name, context, response = active_filterset.apply()
         if response:
             return response
-
-        if 'challenges' in context:
-            context['challenges'] = context['challenges'].filter(draft=False).select_related('image')
-
-            if self.request.user.is_authenticated() and not self.request.user.extra.is_student:
-                context['challenges'] = context['challenges'].annotate(has_resources=Count('resource'))
-
-            context['challenges'] = _paginate(context['challenges'], self.request.GET.get('page'), settings.CHALLENGES_PER_PAGE)
-
-            if self.request.user.is_authenticated():
-                _decorate_started(self.request, context['challenges'])
-
-            context['challenges'] = _decorate_access(self.request, context['challenges'])
-
-        favorite_ids = set()
-        if self.request.user.is_authenticated():
-            favorite_ids = set(Favorite.objects.filter(student=self.request.user).values_list('challenge__id', flat=True))
 
         context['filters'] = []
         for filterset in filtersets:

@@ -1,10 +1,53 @@
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Count
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, reverse
 from families.aichallenge import get_stages
 from memberships.models import Membership
 from urllib.parse import quote_plus
 from .models import *
+
+def _paginate(qs, page, perPage):
+    paginator = Paginator(qs, perPage)
+    try:
+        paginated = paginator.page(page)
+    except PageNotAnInteger:
+        paginated = paginator.page(1)
+    except EmptyPage:
+        paginated = paginator.page(paginator.num_pages)
+
+    return paginated
+
+def _decorate_access(request, challenges):
+    accessible = Membership.filter_by_challenge_access(request.user, [c.id for c in challenges])
+    for challenge in challenges:
+        challenge.accessible = challenge.id in accessible
+    return challenges
+
+def _decorate_started(request, challenges):
+    for challenge in challenges:
+        challenge.url = reverse("challenges:preview_inspiration", kwargs={
+            "challenge_id": challenge.id
+        })
+    if request.user.is_authenticated():
+        started_challenges = request.user.challenges.filter(id__in=[c.id for c in challenges])
+        for challenge in challenges:
+            challenge.started = challenge in started_challenges
+            if challenge.started:
+                challenge.url = reverse("challenges:challenge_progress", kwargs={
+                    "challenge_id": challenge.id,
+                    "username": request.user.username
+                })
+    return challenges
+
+def _decorate_favoritable(request, challenges):
+    if request.user.is_authenticated() and request.user.extra.is_student:
+        favorite_ids = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
+        for challenge in challenges:
+            challenge.favoritable = True
+            challenge.is_favorite = challenge.id in favorite_ids
+    return challenges
 
 def _get_int_or_404(params, key):
     value = params.get(key)
@@ -30,6 +73,20 @@ class FilterSet():
         else:
             return self.query_param in self.request.GET
 
+    def decorate(self, challenges):
+        challenges = challenges.filter(draft=False).select_related('image')
+
+        if self.request.user.is_authenticated() and not self.request.user.extra.is_student:
+            challenges = challenges.annotate(has_resources=Count('resource'))
+
+        challenges = _paginate(challenges, self.request.GET.get('page'), settings.CHALLENGES_PER_PAGE)
+
+        _decorate_started(self.request, challenges)
+        _decorate_access(self.request, challenges)
+        _decorate_favoritable(self.request, challenges)
+
+        return challenges
+
     def apply(self):
         pass
 
@@ -46,7 +103,7 @@ class UnfilteredChallenges(FilterSet):
         self.applied = True
         return None, {
             "title": "All Design Challenges",
-            "challenges": Challenge.objects
+            "challenges": self.decorate(Challenge.objects)
         }, None
 
     def get_template_contexts(self):
@@ -63,7 +120,7 @@ class CoreChallenges(FilterSet):
         self.applied = True
         return None, {
             "title": "AI Family Challenge",
-            "challenges": Challenge.objects.filter(core=True),
+            "challenges": self.decorate(Challenge.objects.filter(core=True)),
         }, None
 
     def get_template_contexts(self):
@@ -93,7 +150,7 @@ class MembershipChallenges(FilterSet):
         self.applied = membership_id
         return None, {
             "title": membership.display_name + " Design Challenges",
-            "challenges": membership.challenges
+            "challenges": self.decorate(membership.challenges),
         }, None
 
     def get_template_contexts(self):
@@ -112,9 +169,21 @@ class AIFCChallenges(FilterSet):
 
     def apply(self):
         self.applied = True
+
+        stage_objects = [stage.objects for stage in get_stages()]
+        for idx in range(2):
+            _decorate_started(self.request, stage_objects[idx])
+            _decorate_access(self.request, stage_objects[idx])
+            _decorate_favoritable(self.request, stage_objects[idx])
+
+        for obj in stage_objects[2]:
+            obj.name = obj.title
+            obj.image = obj.card_image
+            obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
+
         return "challenges/aifc.html", {
             "title": "AI Family Challenge",
-            "stages": get_stages(),
+            "stages": stage_objects,
             "header_template": "challenges/filters/free.html",
         }, None
 
@@ -138,7 +207,7 @@ class FilterChallenges(FilterSet):
         self.applied = filter_id
         return None, {
             "title": self.active.name + " Design Challenges",
-            "challenges": self.active.challenges,
+            "challenges": self.decorate(self.active.challenges),
             "header_template": self.active.header_template,
         }, None
 
@@ -158,7 +227,7 @@ class ThemeChallenges(FilterSet):
         self.applied = theme_name
         return None, {
             "title": theme_name + " Design Challenges",
-            "challenges": Challenge.objects.filter(themes__name=theme_name)
+            "challenges": self.decorate(Challenge.objects.filter(themes__name=theme_name)),
         }, None
 
     def get_template_contexts(self):

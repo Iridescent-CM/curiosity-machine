@@ -16,8 +16,8 @@ class Lesson(OrderedModel):
     build = models.TextField(blank=True)
     further = models.TextField(blank=True)
     quiz = models.ForeignKey('Quiz', null=True, blank=True, on_delete=models.SET_NULL)
-    upload_prompt = models.TextField(default='')
-    text_prompt = models.TextField(default='')
+    upload_prompt = models.TextField(null=True, blank=True, default='')
+    text_prompt = models.TextField(null=True, blank=True, default='')
 
     class Meta(OrderedModel.Meta):
         pass
