@@ -66,6 +66,7 @@ def test_apply_on_inactive_memberships(rf):
     assert type(response) == HttpResponseRedirect
     assert request._messages.add.called
 
+@pytest.mark.skip(reason="reworking filtersets")
 @pytest.mark.django_db
 def test_apply_successful(rf):
     user = UserFactory()
