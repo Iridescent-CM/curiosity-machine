@@ -1,28 +1,32 @@
 <template>
   <div>
+    <template v-if="comment">
+      <slot name="comment-header"></slot>
+      <comment
+        :key="comment.id"
+        v-bind:initial="comment"
+        v-bind:api="api"
+        v-on:remove="remove"
+      ></comment>
+    </template>
 
-    <comment
-      v-if="comment"
-      :key="comment.id"
-      v-bind:initial="comment"
-      v-bind:api="api"
-      v-on:remove="remove"
-    ></comment>
+    <template v-else>
+      <slot name="no-comment-header"></slot>
+      <div class="my-3">
+        <textarea
+          class="form-control"
+          disabled
+          v-bind:disabled="disabled"
+          v-bind:placeholder="placeholder"
+          v-model="newComment"></textarea>
 
-    <div v-else class="my-3">
-      <textarea
-        class="form-control"
-        disabled
-        v-bind:disabled="disabled"
-        placeholder="Post a comment"
-        v-model="newComment"></textarea>
-
-      <button type="submit"
-        class="btn btn-primary mt-3"
-        disabled
-        v-bind:disabled="disabled"
-        @click="addTextComment">Post</button>
-    </div>
+        <button type="submit"
+          class="btn btn-primary mt-3"
+          disabled
+          v-bind:disabled="disabled"
+          @click="addTextComment">Post</button>
+      </div>
+    </template>
 
     <div v-if="error">
       <div class="alert alert-danger">
@@ -45,7 +49,15 @@
       Comment
     },
 
-    props: ['author', 'progress', 'role'],
+    props: {
+      'author': Number,
+      'progress': Number,
+      'role': String,
+      'placeholder': {
+        type: String,
+        default: "Post a comment"
+      }
+    },
 
     data: function () {
       return {

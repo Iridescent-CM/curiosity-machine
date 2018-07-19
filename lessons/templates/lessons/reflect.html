@@ -13,9 +13,25 @@
         </div>
       </div>
     </div>
+    <div class="row mb-3">
+      <div class="col-md-10 offset-md-1 lesson-comments-app">
+        <div style="padding: 3em;">
+          <single-comment
+            author="{{ request.user.id }}"
+            progress="{{ progress.id|default:"" }}"
+            role="feedback"
+            placeholder="Share your feedback with us"
+          >
+            <h3 slot="no-comment-header">Give us feedback</h3>
+            <h3 slot="comment-header">Your feedback</h3>
+          </single-comment>
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}
 
 {% block js %}
   {% render_bundle 'lesson_quiz' %}
+  {% render_bundle 'lesson_comments' %}
 {% endblock %}
