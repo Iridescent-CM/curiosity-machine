@@ -4,216 +4,54 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError, PermissionDenied
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
-from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
+from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods, require_POST
 from django.views.generic.base import View, TemplateView
 from feedback.forms import FeedbackQuestionForm
-from feedback.models import FeedbackResult
 from images.models import Image
 from memberships.decorators import enforce_membership_challenge_access
 from memberships.models import Membership
 from profiles.decorators import only_for_role
 from profiles.models import UserRole
 from quizzes.forms import QuizForm
-from urllib.parse import quote_plus
+from .filtersets import *
 from .forms import MaterialsForm
-from .models import Challenge, Progress, Theme, Stage, Example, Favorite, Filter
+from .models import *
 from .utils import get_stage_for_progress
 
-def _paginate(qs, page, perPage):
-    paginator = Paginator(qs, perPage)
-    try:
-        paginated = paginator.page(page)
-    except PageNotAnInteger:
-        paginated = paginator.page(1)
-    except EmptyPage:
-        paginated = paginator.page(paginator.num_pages)
-
-    return paginated
-
-def _decorate_access(request, challenges):
-    accessible = Membership.filter_by_challenge_access(request.user, [c.id for c in challenges])
-    for challenge in challenges:
-        challenge.accessible = challenge.id in accessible
-    return challenges
-
-def _decorate_started(request, challenges):
-    if request.user.is_authenticated():
-        started_challenges = request.user.challenges.filter(id__in=[c.id for c in challenges])
-        for challenge in challenges:
-            challenge.started = challenge in started_challenges
-    return challenges
-
-def _get_int_or_404(params, key):
-    value = params.get(key)
-    try:
-        value = int(value)
-    except ValueError:
-        raise Http404
-    return value
-
-class FilterSet():
-    query_param = None
-
-    def __init__(self, request=None):
-        self.request = request
-        self.applied = None
-        self.active = None
-
-    @property
-    def requested(self):
-        if not hasattr(self, "query_param"):
-            return False
-        else:
-            return self.query_param in self.request.GET
-
-    def apply(self):
-        pass
-
-    def get_template_contexts():
-        pass
-
-class UnfilteredChallenges(FilterSet):
-    def apply(self):
-        self.applied = True
-        return "All Design Challenges", Challenge.objects, None
-
-    def get_template_contexts(self):
-        return [{
-            "text": "All Challenges",
-            "full_url": reverse("challenges:challenges") + "#challenges",
-            "active": bool(self.applied)
-        }]
-
-class MembershipChallenges(FilterSet):
-    query_param = "membership"
-
-    def apply(self):
-        membership_id = _get_int_or_404(self.request.GET, self.query_param)
-
-        if not self.request.user.is_authenticated():
-            return None, None, HttpResponseRedirect('%s?next=%s' % (reverse('login'), quote_plus(self.request.get_full_path())))
-
-        membership = Membership.objects.filter(id=membership_id, members=self.request.user, is_active=True).first()
-        if not membership:
-            messages.error(self.request, "Oops! You are not part of that membership.")
-            return None, None, redirect("challenges:challenges")
-
-        self.applied = membership_id
-        return membership.display_name + " Design Challenges", membership.challenges, None
-
-    def get_template_contexts(self):
-        user_memberships = []
-        if self.request.user.is_authenticated():
-            user_memberships = self.request.user.membership_set.filter(is_active=True)
-
-        return [{
-            "text": membership.display_name,
-            "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, membership.id),
-            "active": membership.id == self.applied
-        } for membership in user_memberships]
-
-class CoreChallenges(FilterSet):
-    query_param = "aifamilychallenge"
-
-    def apply(self):
-        self.applied = True
-        return "AI Family Challenge", Challenge.objects.filter(core=True), None
-
-    def get_template_contexts(self):
-        if Challenge.objects.filter(core=True, draft=False).count() > 0:
-            return [{
-                "text": "AI Family Challenge",
-                "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
-                "active": bool(self.applied)
-            }]
-        else:
-            return []
-
-class FilterChallenges(FilterSet):
-    query_param = "filter_id"
-
-    def apply(self):
-        filter_id = _get_int_or_404(self.request.GET, self.query_param)
-        self.active = get_object_or_404(Filter.objects.filter(visible=True), id=filter_id)
-
-        self.applied = filter_id
-        return self.active.name + " Design Challenges", self.active.challenges, None
-
-    def get_template_contexts(self):
-        filters = Filter.objects.filter(visible=True).prefetch_related('challenges__image')
-        return [{
-            "text": f.name,
-            "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, f.id),
-            "active": f.id == self.applied
-        } for f in filters]
-
-class ThemeChallenges(FilterSet):
-    query_param = "theme"
-
-    def apply(self):
-        theme_name = self.request.GET.get(self.query_param)
-        self.applied = theme_name
-        return theme_name + " Design Challenges", Challenge.objects.filter(themes__name=theme_name), None
-
-    def get_template_contexts(self):
-        return [{
-            "text": '<i class="icon %s"></i> %s' % (theme.icon, theme.name),
-            "full_url": reverse("challenges:challenges") + "?%s=%s#challenges" % (self.query_param, theme.name),
-            "active": theme.name == self.applied
-        } for theme in Theme.objects.all()]
-
-def challenges(request):
-    filterChallenges = FilterChallenges(request)
-    coreChallenges = CoreChallenges(request)
-    filtersets = [
-        MembershipChallenges(request),
-        coreChallenges,
-        filterChallenges,
-        ThemeChallenges(request)
+class ChallengesListView(View):
+    template_name = "challenges/list.html"
+    filterset_classes = [
+        UnfilteredChallenges,
+        MembershipChallenges,
+        AIFCChallenges,
+        FilterChallenges,
+        ThemeChallenges,
     ]
-    default_filterset = UnfilteredChallenges()
-    filterset = next((f for f in filtersets if f.requested), default_filterset)
-    title, challenges, response = filterset.apply()
-    if response:
-        return response
 
-    challenges = challenges.filter(draft=False).select_related('image')
+    def get(self, request, *args, **kwargs):
+        filtersets = [ cls(self.request) for cls in self.filterset_classes ]
+        active_filterset = next((f for f in filtersets if f.requested), filtersets[0])
 
-    if request.user.is_authenticated() and not request.user.extra.is_student:
-        challenges = challenges.annotate(has_resources=Count('resource'))
+        template_name, context, response = active_filterset.apply()
+        if response:
+            return response
 
-    challenges = _decorate_access(request, challenges)
+        context['filters'] = []
+        for filterset in filtersets:
+            context['filters'] += filterset.get_template_contexts()
 
-    favorite_ids = set()
-    if request.user.is_authenticated():
-        favorite_ids = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
-        _decorate_started(request, challenges)
+        return TemplateResponse(
+            request=request,
+            template=template_name or self.template_name,
+            context=context
+        )
 
-    filter_controls = default_filterset.get_template_contexts()
-    for filterset in filtersets:
-        filter_controls = filter_controls + filterset.get_template_contexts()
-
-    challenges = _paginate(challenges, request.GET.get('page'), settings.CHALLENGES_PER_PAGE)
-
-    header_template = None
-    if filterChallenges.active:
-        header_template = filterChallenges.active.header_template
-    elif coreChallenges.applied:
-        header_template = "challenges/filters/free.html"
-
-    return render(request, 'challenges/list.html', {
-        'title': title,
-        'challenges': challenges,
-        'favorite_ids': favorite_ids,
-        'filters': filter_controls,
-        'header_template': header_template,
-    })
+challenges = ChallengesListView.as_view()
 
 @require_POST
 @only_for_role(UserRole.student, UserRole.family)
