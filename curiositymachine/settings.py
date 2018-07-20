@@ -373,20 +373,24 @@ AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "curiositymachine")
 AWS_S3_BUCKET_NAME = AWS_STORAGE_BUCKET_NAME
 AWS_S3_CALLING_FORMAT = "boto.s3.connection.OrdinaryCallingFormat"
+AWS_S3_CONTENT_DISPOSITION = "inline"
 
 S3DIRECT_REGION = os.getenv("S3DIRECT_REGION", "us-east-1")
 S3DIRECT_DESTINATIONS = {
     'unit-resources': {
         'key': 'units/resources',
         'auth': lambda u: u.is_staff,
+        'content_disposition': 'inline',
     },
     'admin-videos': {
         'key': 'videos/sources',
         'auth': lambda u: u.is_staff,
+        'content_disposition': 'inline',
     },
     'admin-images': {
         'key': 'images/sources',
         'auth': lambda u: u.is_staff,
+        'content_disposition': 'inline',
     },
 }
 S3_URL_BASE = "https://s3.amazonaws.com"
