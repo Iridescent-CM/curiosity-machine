@@ -1,0 +1,10 @@
+{% extends "lessons/page.html" %}
+
+{% block right-nav %}
+  <a href="{{ lesson.next_lesson_url }}" class="btn btn-new-green float-right">Start the next lesson &rsaquo;</a>
+{% endblock %}
+
+{% block middle-nav %}
+  <a href="{% url "profiles:home" %}" class="btn btn-new-turquoise mx-auto">Back to My Dashboard</a>
+{% endblock %}
+
