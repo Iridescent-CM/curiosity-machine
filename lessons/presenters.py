@@ -1,4 +1,6 @@
 from collections import OrderedDict
+from django.urls import reverse
+from .models import *
 
 class TabbedLesson(object):
 
@@ -11,8 +13,9 @@ class TabbedLesson(object):
         "further": "Further learning",
     })
 
-    def __init__(self, lesson, current_page):
+    def __init__(self, lesson, current_page, progress=None):
         self.lesson = lesson
+        self.progress = progress
         self.current_page = current_page or "start"
 
     def __getattr__(self, name):
@@ -60,3 +63,15 @@ class TabbedLesson(object):
             "name": self.config[key],
             "param": key
         }
+
+    @property
+    def next_lesson_url(self):
+        next_lesson = Lesson.objects.filter(order=self.lesson.order + 1).first()
+
+        if not next_lesson:
+            return None
+
+        if self.progress:
+            return reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % next_lesson.id
+        else:
+            return reverse("lessons:lesson-detail", kwargs={"pk": next_lesson.id})
