@@ -40,12 +40,12 @@
       </template>
 
       <template v-if="comment.upload.type == 'document'">
-        <div class="card-body">
+        <div class="card-body pb-0">
           <a :href="comment.upload.url">
             <img v-bind:src="comment.upload.thumbnail" alt="user uploaded document" />
-          </a>
-          <a :href="comment.upload.url">
-            {{ comment.upload.filename }}
+            <p class="my-1">
+              {{ comment.upload.filename }}
+            </p>
           </a>
         </div>
         <div class="card-body">
@@ -58,7 +58,7 @@
     <template v-if="comment.text">
       <div class="card-body" :class="{ editing: editing }">
         <div class="view">
-          <p class="card-text" style="white-space: pre;">{{ comment.text }}</p>
+          <p class="card-text" style="white-space: pre-wrap;">{{ comment.text }}</p>
           <button class="btn btn-sm btn-outline-purple" @click="remove">Remove</button>
           <button class="btn btn-sm btn-outline-purple" @click="makeEditable">Edit</button>
         </div>
