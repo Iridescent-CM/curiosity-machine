@@ -186,6 +186,10 @@ class AIFCChallenges(FilterSet):
             obj.image = obj.card_image
             obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
 
+        # FIXME: temporary feature flag check
+        if not ("enable_stage_3" in settings.FEATURE_FLAGS and settings.FEATURE_FLAGS["enable_stage_3"]):
+            stage_objects = stage_objects[0:2]
+
         return "challenges/aifc.html", {
             "title": "AI Family Challenge",
             "stages": stage_objects,
