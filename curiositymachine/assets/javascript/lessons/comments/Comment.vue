@@ -92,7 +92,6 @@
         })
         .then(function (response) {
           that.comment = response.data;
-          //that.getComments();
         })
         .catch(function (error) {
           that.error = true;

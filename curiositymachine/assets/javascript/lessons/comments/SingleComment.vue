@@ -24,7 +24,7 @@
           class="btn btn-primary mt-3"
           disabled
           v-bind:disabled="disabled"
-          @click="addTextComment">Post</button>
+          @click="addComment">Post</button>
       </div>
     </template>
 
@@ -107,20 +107,7 @@
         });
       },
 
-      getComment: function (comment_id) {
-        var that = this;
-        that.api
-        .retrieve()
-        .then(function (data) {
-          that.comment = data;
-        })
-        .catch(function (error) {
-          that.error = true;
-          //Rollbar.error("error getting comment", error);
-        });
-      },
-
-      addTextComment: function () {
+      addComment: function () {
         var value = this.newComment && this.newComment.trim();
         if (!value) return;
         var that = this;

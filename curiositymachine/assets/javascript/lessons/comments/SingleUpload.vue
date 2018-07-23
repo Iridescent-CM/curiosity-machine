@@ -16,7 +16,7 @@
           class="btn btn-primary d-block mx-auto"
           disabled
           v-bind:disabled="disabled"
-          @click="addMediaComment"><i class="icon-camera mr-1"></i> Choose</button>
+          @click="addComment"><i class="icon-camera mr-1"></i> Choose</button>
       </div>
       <div v-if="error" class="card-body">
         <div class="alert alert-danger">
@@ -92,24 +92,10 @@
         });
       },
 
-      getComment: function (comment_id) {
-        var that = this;
-        that.api
-        .retrieve()
-        .then(function (data) {
-          that.comment = data;
-        })
-        .catch(function (error) {
-          that.error = true;
-          //Rollbar.error("error getting comment", error);
-        });
-      },
-
-      addMediaComment: function () {
+      addComment: function () {
         var that = this;
         this.picker.pick()
         .then(function (upload) {
-          console.log('um wat', upload);
           return that.api.create({
             upload: upload,
             role: that.role
