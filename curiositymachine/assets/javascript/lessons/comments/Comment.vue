@@ -75,7 +75,7 @@
 
     data: function() {
       return {
-        comment: this.initial,
+        comment: this.initial || {},
         editing: false,
         error: undefined
       }
@@ -92,7 +92,6 @@
         })
         .then(function (response) {
           that.comment = response.data;
-          //that.getComments();
         })
         .catch(function (error) {
           that.error = true;
