@@ -1,4 +1,6 @@
+from documents.models import Document
 from django.contrib.auth import get_user_model
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from functools import reduce
 from images.models import *
 from rest_framework import serializers
@@ -9,6 +11,14 @@ class UploadSerializer(serializers.Serializer):
     filename = serializers.CharField()
     mimetype = serializers.CharField()
     url = serializers.URLField()
+
+    def to_document_representation(self, obj):
+        return {
+            "type": "document",
+            "url": obj.url,
+            "filename": obj.filename,
+            "thumbnail": static("images/edp/resource.png"),
+        }
 
     def to_image_representation(self, obj):
         return {
@@ -64,6 +74,8 @@ class CommentSerializer(serializers.ModelSerializer):
                 attrs['upload'] = Image.from_source_with_job(upload['url'])
             elif mimetype.startswith('video'):
                 attrs['upload'] = Video.from_source_with_job(upload['url'])
+            elif mimetype.startswith('application'):
+                attrs['upload'] = Document.from_source_with_job(upload['url'], upload['filename'])
             else:
                 raise Exception("Serializer can't handle mimetype %s" % mimetype)
 

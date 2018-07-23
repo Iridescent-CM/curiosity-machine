@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'cmcomments',
     'videos',
     'images',
+    'documents',
     'django_rq',
     'hellosign.apps.HellosignConfig',
     'surveys.apps.SurveysConfig',
@@ -391,6 +392,10 @@ S3DIRECT_DESTINATIONS = {
         'key': 'images/sources',
         'auth': lambda u: u.is_staff,
         'content_disposition': 'inline',
+    },
+    'admin-documents': {
+        'key': 'documents/sources',
+        'auth': lambda u: u.is_staff,
     },
 }
 S3_URL_BASE = "https://s3.amazonaws.com"

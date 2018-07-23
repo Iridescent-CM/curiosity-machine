@@ -5,7 +5,7 @@ import SingleUpload from './SingleUpload.vue'
 
 new Vue({
   el: '.lesson-comments-app',
-  components: { 
+  components: {
     Comments,
     SingleComment,
     SingleUpload
