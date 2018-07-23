@@ -38,6 +38,21 @@
           <button class="btn btn-sm btn-outline-purple" @click="editMedia">Edit</button>
         </div>
       </template>
+
+      <template v-if="comment.upload.type == 'document'">
+        <div class="card-body">
+          <a :href="comment.upload.url">
+            <img v-bind:src="comment.upload.thumbnail" alt="user uploaded document" />
+          </a>
+          <a :href="comment.upload.url">
+            {{ comment.upload.filename }}
+          </a>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-sm btn-outline-purple" @click="remove">Remove</button>
+          <button class="btn btn-sm btn-outline-purple" @click="editMedia">Edit</button>
+        </div>
+      </template>
     </template>
 
     <template v-if="comment.text">
