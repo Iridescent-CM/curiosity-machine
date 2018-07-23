@@ -31,7 +31,7 @@ describe('Comment', () => {
             type: "image",
             url: "http://example.com/url"
           }
-        } 
+        }
       }
     });
     const img = wrapper.find('img');
@@ -98,7 +98,7 @@ describe("Comment removal", () => {
         return Promise.resolve([]);
       },
       destroy: jest.fn(function () {
-        return Promise.resolve({});  
+        return Promise.resolve({}); 
       })
     };
 

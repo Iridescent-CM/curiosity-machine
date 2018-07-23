@@ -44,7 +44,7 @@ describe('with api enabled', () => {
         _opts: opts,
         disabled: false,
         list: jest.fn(function() {
-          return Promise.resolve([]);  
+          return Promise.resolve([]);
         })
       };
     });

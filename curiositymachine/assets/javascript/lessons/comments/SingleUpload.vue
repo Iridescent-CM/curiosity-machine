@@ -109,7 +109,6 @@
         var that = this;
         this.picker.pick()
         .then(function (upload) {
-          console.log('um wat', upload);
           return that.api.create({
             upload: upload,
             role: that.role
