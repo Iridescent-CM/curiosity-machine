@@ -75,7 +75,7 @@
 
     data: function() {
       return {
-        comment: this.initial || {},
+        comment: this.initial,
         editing: false,
         error: undefined
       }
