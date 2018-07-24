@@ -34,6 +34,8 @@
   import Comment from './Comment.vue'
   import init from './filestack_wrapper';
   import Api from './api';
+  import promiseFinally from 'promise.prototype.finally';
+  promiseFinally.shim();
 
   export default {
 

@@ -85,6 +85,9 @@
 </template>
 
 <script>
+  import promiseFinally from 'promise.prototype.finally';
+  promiseFinally.shim();
+
   export default {
     props: ['initial', 'api', 'picker'],
 
