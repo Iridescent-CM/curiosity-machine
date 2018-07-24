@@ -20,6 +20,8 @@ class LessonFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Lesson
 
+    quiz = factory.SubFactory('lessons.factories.QuizFactory')
+
 class ProgressFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Progress

@@ -49,7 +49,9 @@ class Progress(models.Model):
 
     @property
     def completed(self):
-        return self.comment_set.all().exists()
+        return (self.comment_set.all().exists()
+            and self.lesson.quiz
+            and self.lesson.quiz.quizresult_set.all().exists())
 
 class Comment(models.Model):
     author = models.ForeignKey(get_user_model(), related_name='lesson_comments')
