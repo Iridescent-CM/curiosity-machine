@@ -9220,6 +9220,9 @@ footer {
     border-radius: 50%;
     margin-right: 10px; }
 
+#index-page div {
+  background-color: pink; }
+
 #index-page .jumbotron {
   padding-top: 6em;
   margin-bottom: 0em; }
