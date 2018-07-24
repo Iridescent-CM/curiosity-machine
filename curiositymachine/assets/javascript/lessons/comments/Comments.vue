@@ -64,12 +64,14 @@
         comments: [],
         api: undefined,
         error: undefined,
+        pending: 0
       };
     },
 
     computed: {
+      // FIXME: there's an asymmetry in enabled/disabled that isn't reflected in the naming
       disabled: function () {
-        return !this.api || this.api.disabled;
+        return !this.api || this.api.disabled || !!this.pending;
       },
       enabled: function () {
         return this.api && !this.api.disabled;
@@ -91,6 +93,7 @@
 
       getComments: function () {
         var that = this;
+        that.pending += 1;
         that.api
         .list(that.role)
         .then(function (data) {
@@ -99,6 +102,9 @@
         .catch(function (error) {
           that.error = true;
           Rollbar.error("error getting comments", error);
+        })
+        .finally(function () {
+          that.pending -= 1;
         });
       },
 
@@ -106,6 +112,7 @@
         var value = this.newComment && this.newComment.trim();
         if (!value) return;
         var that = this;
+        that.pending += 1;
         that.api
         .create({
           text: value,
@@ -118,12 +125,16 @@
         .catch(function (error) {
           that.error = true;
           Rollbar.error("error adding text comment", error);
+        })
+        .finally(function () {
+          that.pending -= 1;
         });
       },
 
       addMediaComment: function () {
         var that = this;
-        this.picker.pick()
+        that.pending += 1;
+        that.picker.pick()
         .then(function (upload) {
           return that.api.create({
             upload: upload,
@@ -136,6 +147,9 @@
         .catch(function (error) {
           that.error = true;
           Rollbar.error("error adding media comment", error);
+        })
+        .finally(function () {
+          that.pending -= 1;
         });
       }
     }

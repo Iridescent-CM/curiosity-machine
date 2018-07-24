@@ -67,7 +67,8 @@
 
     data: function () {
       return {
-        quiz: {}
+        quiz: {},
+        pending: 0,
       }
     },
 
@@ -81,6 +82,7 @@
           && this.quiz.questions
           && this.quiz.answers
           && this.quiz.questions.length === this.quiz.answers.length
+          && !this.pending;
       },
 
       takingDisabled: function () {
@@ -101,19 +103,23 @@
 
       submit: function () {
         var that = this;
+        that.pending += 1;
         that.api
         .submit({ answers: that.quiz.answers })
         .then(function (data) {
-          console.log(data);
-          that.getQuiz();
+          return that.getQuiz();
         })
         .catch(function (error) {
           console.log(error); // TODO
+        })
+        .finally(function () {
+          that.pending -= 1;
         });
       },
 
       getQuiz: function() {
         var that = this;
+        that.pending += 1;
         that.api
         .get_quiz()
         .then(function (data) {
@@ -121,6 +127,9 @@
         })
         .catch(function (error) {
           console.log(error); // TODO
+        })
+        .finally(function () {
+          that.pending -= 1;
         });
       },
 

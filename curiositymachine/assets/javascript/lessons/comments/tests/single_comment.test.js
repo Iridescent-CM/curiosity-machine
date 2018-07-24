@@ -85,13 +85,12 @@ describe('single-comment', () => {
       }
     });
 
+    await flushPromises();
+
     var textarea = wrapper.find('textarea');
     textarea.element.value = 'a new comment';
     textarea.trigger('input');
     wrapper.find('button[type="submit"]').trigger('click');
-
-    await flushPromises();
-
     expect(wrapper.vm.$data.api.create).toBeCalledWith({
       role: "somerole",
       text: "a new comment"
