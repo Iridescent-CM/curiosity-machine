@@ -42,6 +42,8 @@
 <script>
   import Comment from './Comment.vue'
   import Api from './api';
+  import promiseFinally from 'promise.prototype.finally';
+  promiseFinally.shim();
 
   export default {
 
@@ -65,12 +67,13 @@
         comment: undefined,
         api: undefined,
         error: undefined,
+        pending: 0,
       };
     },
 
     computed: {
       disabled: function () {
-        return !this.api || this.api.disabled;
+        return !this.api || this.api.disabled || !!this.pending;
       },
       enabled: function () {
         return this.api && !this.api.disabled;
@@ -91,6 +94,7 @@
 
       getCommentByRole: function (role) {
         var that = this;
+        that.pending += 1;
         that.api
         .list(role)
         .then(function (data) {
@@ -104,6 +108,9 @@
         .catch(function (error) {
           that.error = true;
           //Rollbar.error("error getting comment", error);
+        })
+        .finally(function () {
+          that.pending -= 1;
         });
       },
 
@@ -111,6 +118,7 @@
         var value = this.newComment && this.newComment.trim();
         if (!value) return;
         var that = this;
+        that.pending += 1;
         that.api
         .create({
           text: value,
@@ -123,6 +131,9 @@
         .catch(function (error) {
           that.error = true;
           //Rollbar.error("error adding text comment", error);
+        })
+        .finally(function () {
+          that.pending -= 1;
         });
       },
 

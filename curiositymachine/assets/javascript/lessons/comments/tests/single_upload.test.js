@@ -93,9 +93,9 @@ describe('single-upload', () => {
         role: "somerole",
       }
     });
+    await flushPromises();
 
     wrapper.find('button').trigger('click');
-
     await flushPromises();
 
     expect(wrapper.vm.$data.api.create).toBeCalledWith({
