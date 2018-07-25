@@ -2,30 +2,28 @@
 {% load render_bundle from webpack_loader %}
 
 {% block full_content %}
-  <div class="container">
-    <div class="row mb-3">
-      <div class="col-md-10 offset-md-1">
-        <div class="lesson-quiz-app">
-          <quiz
-            :quiz-id="{{ lesson.quiz_id }}"
-            {% if progress %}:taker-id="{{ progress.owner.id }}"{% endif %}
-          ></quiz>
-        </div>
+  <div class="row mb-3">
+    <div class="col-md-10 offset-md-1">
+      <div class="lesson-quiz-app">
+        <quiz
+          :quiz-id="{{ lesson.quiz_id }}"
+          {% if progress %}:taker-id="{{ progress.owner.id }}"{% endif %}
+        ></quiz>
       </div>
     </div>
-    <div class="row mb-3">
-      <div class="col-md-10 offset-md-1 lesson-comments-app">
-        <div style="padding: 3em;">
-          <single-comment
-            author="{{ request.user.id }}"
-            progress="{{ progress.id|default:"" }}"
-            role="feedback"
-            placeholder="Share your feedback with us"
-          >
-            <h3 slot="no-comment-header">Give us feedback</h3>
-            <h3 slot="comment-header">Your feedback</h3>
-          </single-comment>
-        </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-10 offset-md-1 lesson-comments-app">
+      <div style="padding: 3em;">
+        <single-comment
+          author="{{ request.user.id }}"
+          progress="{{ progress.id|default:"" }}"
+          role="feedback"
+          placeholder="Share your feedback with us"
+        >
+          <h3 slot="no-comment-header">Give us feedback</h3>
+          <h3 slot="comment-header">Your feedback</h3>
+        </single-comment>
       </div>
     </div>
   </div>

@@ -1,25 +1,62 @@
 .lesson-pages {
   .lesson-container {
+
     /* borrow Bootstrap variables */
     background-color: $nav-tabs-link-active-bg;
     border-left: $nav-tabs-border-width solid $nav-tabs-border-color;
     border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
     border-right: $nav-tabs-border-width solid $nav-tabs-border-color;
+
     min-height: 3em;
+
+    @mixin gutters($size) {
+      /* margin around content by default */
+      padding-left: $size;
+      padding-right: $size;
+
+      /* helper classes to go full-width and set gutter as padding,
+         useful for full-width background while keeping content aligned
+       */
+      .full-width {
+        margin-left: -$size;
+        margin-right: -$size;
+      }
+      .page-padding {
+        padding-left: $size;
+        padding-right: $size;
+      }
+      .page-header {
+        margin-left: -$size;
+        margin-right: -$size;
+        padding-left: $size;
+        padding-right: $size;
+      }
+    }
+
+    @include gutters(25px);
+    @include media-breakpoint-only(sm) {
+      @include gutters(40px);
+    }
+    @include media-breakpoint-up(md) {
+      @include gutters(80px);
+    }
 
     @mixin page-colors($class, $color1, $color2) {
       &.#{$class} {
-        .page-gradient {
+        .bg-page-gradient {
           background: $color1 linear-gradient(90deg, $color1, $color2) repeat-x;
           color: white;
         }
-        .page-reverse-gradient {
+        .bg-page-reverse-gradient {
           background: $color2 linear-gradient(90deg, $color2, $color1) repeat-x;
           color: white;
         }
 
         .page-color {
           color: $color2;
+        }
+        .page-header {
+          @extend .bg-page-gradient;
         }
       }
     }
