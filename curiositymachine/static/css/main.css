@@ -8915,6 +8915,10 @@ footer {
       font-size: 1.75em;
       margin-left: 10px;
       vertical-align: middle; }
+    #challenges-page .filter-list .icon-aifc-icon {
+      font-size: 1.75em;
+      margin-right: 10px;
+      vertical-align: middle; }
   #challenges-page .block-header {
     width: 100%;
     padding: 12px;
@@ -8923,6 +8927,10 @@ footer {
     color: white;
     border-radius: 4px; }
     #challenges-page .block-header .icon-boeing-logo {
+      font-size: 1.35em;
+      vertical-align: middle;
+      margin: 0 10px 0 10px; }
+    #challenges-page .block-header .icon-aifc-icon {
       font-size: 1.35em;
       vertical-align: middle;
       margin: 0 10px 0 10px; }

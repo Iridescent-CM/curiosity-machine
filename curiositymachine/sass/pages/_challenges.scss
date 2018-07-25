@@ -53,6 +53,11 @@
       margin-left: 10px;
       vertical-align: middle;
     }
+    .icon-aifc-icon {
+      font-size: 1.75em;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
   }
 
   .block-header {
@@ -64,6 +69,11 @@
     border-radius: $base-border-radius;
 
     .icon-boeing-logo {
+      font-size: 1.35em;
+      vertical-align: middle;
+      margin: 0 10px 0 10px;
+    }
+    .icon-aifc-icon {
       font-size: 1.35em;
       vertical-align: middle;
       margin: 0 10px 0 10px;
