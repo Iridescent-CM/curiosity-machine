@@ -122,7 +122,7 @@
         })
         .catch(function (error) {
           that.error = true;
-          //Rollbar.error("error editing media comment", error);
+          Rollbar.error("error editing media comment", error);
         })
         .finally(function () {
           that.pending -= 1;
@@ -140,7 +140,7 @@
         })
         .catch(function (error) {
           that.error = true;
-          //Rollbar.error("error editing text comment", error);
+          Rollbar.error("error editing text comment", error);
         })
         .finally(function () {
           that.pending -= 1;
@@ -169,7 +169,7 @@
           })
           .catch(function (error) {
             that.error = true;
-            //Rollbar.error("error removing comment", error);
+            Rollbar.error("error removing comment", error);
           })
           .finally(function () {
             that.pending -= 1;

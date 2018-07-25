@@ -459,6 +459,7 @@ REPORT_ZENCODER_USAGE = os.environ.get("REPORT_ZENCODER_USAGE", False)
 ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN = os.environ.get("ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN", "")
 ROLLBAR_SERVER_SIDE_ACCESS_TOKEN = os.environ.get("ROLLBAR_SERVER_SIDE_ACCESS_TOKEN", "")
 ROLLBAR_ENV = os.environ.get("ROLLBAR_ENV", "default")
+ROLLBAR_VERBOSE = os.environ.get("ROLLBAR_VERBOSE", None)
 
 
 ## Conditional apps or middleware
