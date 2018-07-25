@@ -9,21 +9,36 @@
 
     min-height: 3em;
 
-    /* large margin around content by default */
-    $gutter: 80px;
-    padding-left: $gutter;
-    padding-right: $gutter;
+    @mixin gutters($size) {
+      /* margin around content by default */
+      padding-left: $size;
+      padding-right: $size;
 
-    /* helper classes to go full-width and set gutter as padding,
-       useful for full-width background while keeping content aligned
-     */
-    .full-width {
-      margin-left: -$gutter;
-      margin-right: -$gutter;
+      /* helper classes to go full-width and set gutter as padding,
+         useful for full-width background while keeping content aligned
+       */
+      .full-width {
+        margin-left: -$size;
+        margin-right: -$size;
+      }
+      .page-padding {
+        padding-left: $size;
+        padding-right: $size;
+      }
+      .page-header {
+        margin-left: -$size;
+        margin-right: -$size;
+        padding-left: $size;
+        padding-right: $size;
+      }
     }
-    .page-padding {
-      padding-left: $gutter;
-      padding-right: $gutter;
+
+    @include gutters(25px);
+    @include media-breakpoint-only(sm) {
+      @include gutters(40px);
+    }
+    @include media-breakpoint-up(md) {
+      @include gutters(80px);
     }
 
     @mixin page-colors($class, $color1, $color2) {
@@ -40,11 +55,7 @@
         .page-color {
           color: $color2;
         }
-
-        /* shortcut class for page headers */
         .page-header {
-          @extend .full-width;
-          @extend .page-padding;
           @extend .bg-page-gradient;
         }
       }
