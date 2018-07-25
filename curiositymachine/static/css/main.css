@@ -7537,6 +7537,12 @@ a.text-new-purple:hover, a.text-new-purple:focus {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
+.icon-aifc:before {
+  content: "\e908"; }
+
+.icon-aifc-icon:before {
+  content: "\e907"; }
+
 .icon-camera:before {
   content: "\e900"; }
 
