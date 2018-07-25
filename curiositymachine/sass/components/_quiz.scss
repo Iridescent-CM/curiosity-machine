@@ -2,6 +2,13 @@
   .quiz {
     padding: 3em;
 
+    .icon-aifc-icon {
+      font-size: 3.5em;
+      display: block;
+      text-align: center;
+      margin-bottom: 0.25em;
+    }
+
     &.correct {
       background: theme-color("new-blue") linear-gradient(90deg, theme-color("new-blue"), theme-color("new-turquoise")) repeat-x;
       color: white;

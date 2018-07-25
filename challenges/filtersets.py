@@ -191,14 +191,14 @@ class AIFCChallenges(FilterSet):
             stage_objects = stage_objects[0:2]
 
         return "challenges/aifc.html", {
-            "title": "AI Family Challenge",
+            "title": '<i class="icon-aifc-icon"></i> Family Challenge',
             "stages": stage_objects,
             "header_template": "challenges/filters/free.html",
         }, None
 
     def get_template_contexts(self):
         return [{
-            "text": "AI Family Challenge",
+            "text": '<i class="icon-aifc-icon"></i> Family Challenge',
             "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
             "active": bool(self.applied)
         }]
