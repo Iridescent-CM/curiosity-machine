@@ -7,7 +7,8 @@ module.exports = {
   context: __dirname,
   entry: {
     lesson_comments: './curiositymachine/assets/javascript/lessons/comments/index.js',
-    lesson_quiz: './curiositymachine/assets/javascript/lessons/quiz/index.js'
+    lesson_quiz: './curiositymachine/assets/javascript/lessons/quiz/index.js',
+    site: './curiositymachine/assets/javascript/curiosity-machine/index.js'
   },
 
   output: {

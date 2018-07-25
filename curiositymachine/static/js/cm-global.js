@@ -168,56 +168,9 @@ $(document).ready(function() {
       $(this).tab('show');
   });
   //======= end bootstrappy stuff
-
-
-  //===== carousel setup
-
-  $(".panel-carousel").owlCarousel({
-    items : 4,
-    itemsCustom : false,
-    itemsDesktop : [1199,3],
-    itemsDesktopSmall : [980,3],
-    itemsTablet: [768,2],
-    itemsTabletSmall: false,
-    itemsMobile : [479,1],
-    singleItem : false,
-    itemsScaleUp : false
-  });
-
-  //this shows or hides the button on challenge details page depending on if the video is playing
-
-  $('.challenge-details-hero .cm-mejs-player').on('pause', function() {
-      $('.challenge-details .btn-primary').css('position', 'relative').css('z-index', 2);
-      $('.challenge-details-hero .details').show();
-  });
-
-  $('.challenge-details-hero .cm-mejs-player').on('play', function() {
-      $('.challenge-details .btn-primary').css('position', 'static').css('z-index', 0);
-      $('.challenge-details-hero .details').hide();
-  });
-
-  // auto enable using JSON attribute
-  $('.cm-mejs-player').mediaelementplayer({
-    features: ['playpause','progress','current','duration','tracks','volume','fullscreen','googleanalytics']
-  });
 }); //end dom ready
 
 $.fn.extend({
-  initPanelCarousel: function(opts) {
-    var opts = $.extend({
-      items : 4,
-      itemsCustom : false,
-      itemsDesktop : [1199,3],
-      itemsDesktopSmall : [980,3],
-      itemsTablet: [768,2],
-      itemsTabletSmall: false,
-      itemsMobile : [479,1],
-      singleItem : false,
-      itemsScaleUp : false
-    }, opts);
-    return this.owlCarousel(opts);
-  },
-
   disableEmptySubmit: function() {
     return $(this).find("textarea, input[type=text]").on('keyup', function(e) {
       var widget = this;

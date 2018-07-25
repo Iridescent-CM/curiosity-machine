@@ -1,5 +1,5 @@
 {% load staticfiles %}
-{% load compress %}
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,9 +58,7 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   <meta property="og:image" content="{% block social-image %}{{ SITE_URL }}{% static 'images/cm-thumbnail.jpg' %}{% endblock%}" />
 
   <link href='//fonts.googleapis.com/css?family=Raleway:300,400,700%7COpen+Sans:400,700' rel='stylesheet' type='text/css'>
-  {% compress css %}
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-  {% endcompress %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
   {% if ga_code %}
     <script>
@@ -140,54 +138,46 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 
   {% include 'curiositymachine/layout/_footer.html' %}
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  {% render_bundle 'site' %}
   <script src="{% static 'js/libs/jquery-ujs.js' %}"></script>
-  {% compress js %}
-    <script src="{% static 'js/log.js' %}"></script>
-    <script>
-      log.init({
-        csrf_token: "{{ csrf_token }}",
-        endpoint: "{% url 'log' %}"
-      });
-    </script>
-    {% if ga_code %}
-    <script src="{% static 'js/ga-track.js' %}"></script>
-    <script src="{% static 'js/libs/autotrack.js' %}"></script>
-    {% endif %}
-    <script type="text/javascript" src="{% static 'js/libs/bootstrap.bundle.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/modals.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/smoothscroll.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/textswap.js' %}"></script>
-    <script>
-      window.zESettings = {
-        webWidget: {
-          helpCenter: {
-            filter: {
-              category: '115000091368'
-            }
+  <script>
+    log.init({
+      csrf_token: "{{ csrf_token }}",
+      endpoint: "{% url 'log' %}"
+    });
+  </script>
+  {% if ga_code %}
+  <script src="{% static 'js/libs/autotrack.js' %}"></script>
+  {% endif %}
+  <script type="text/javascript" src="{% static 'js/libs/bootstrap.bundle.min.js' %}"></script>
+  <script>
+    window.zESettings = {
+      webWidget: {
+        helpCenter: {
+          filter: {
+            category: '115000091368'
           }
         }
-      };
-    </script>
-    {% if request.user.is_authenticated %}
-    <script>
-      zE(function(){
-        zE.identify({
-          name: "{{ request.user.username }}",
-          email: "{{ request.user.email }}"
-        });
+      }
+    };
+  </script>
+  {% if request.user.is_authenticated %}
+  <script>
+    zE(function(){
+      zE.identify({
+        name: "{{ request.user.username }}",
+        email: "{{ request.user.email }}"
       });
-    </script>
-    {% endif %}
-    {% if not flags.enable_zendesk_web_widget %}
-    <script>
-      zE(function(){
-        zE.hide();
-      });
-    </script>
-    {% endif %}
-  {% endcompress %}
+    });
+  </script>
+  {% endif %}
+  {% if not flags.enable_zendesk_web_widget %}
+  <script>
+    zE(function(){
+      zE.hide();
+    });
+  </script>
+  {% endif %}
   {% block js %}{% endblock %}
 
 </body>

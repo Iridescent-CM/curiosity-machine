@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 $(function() {
   $('a[data-smoothscroll]').click(function() {
     var target = $(this.hash);

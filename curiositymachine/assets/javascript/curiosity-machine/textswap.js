@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 $(function() {
   $("a[data-text-swap]").on("click", function() {
     var el = $(this);
