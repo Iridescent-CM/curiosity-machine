@@ -92,7 +92,7 @@
         })
         .catch(function (error) {
           that.error = true;
-          //Rollbar.error("error getting comment", error);
+          Rollbar.error("error getting comment", error);
         })
         .finally(function () {
           that.pending -= 1;
@@ -113,9 +113,8 @@
           that.comment = response.data;
         })
         .catch(function (error) {
-          console.log('error', error);
           that.error = true;
-          //Rollbar.error("error adding media comment", error);
+          Rollbar.error("error adding media comment", error);
         })
         .finally(function () {
           that.pending -= 1;

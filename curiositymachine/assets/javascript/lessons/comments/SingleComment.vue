@@ -107,7 +107,7 @@
         })
         .catch(function (error) {
           that.error = true;
-          //Rollbar.error("error getting comment", error);
+          Rollbar.error("error getting comment", error);
         })
         .finally(function () {
           that.pending -= 1;
@@ -130,7 +130,7 @@
         })
         .catch(function (error) {
           that.error = true;
-          //Rollbar.error("error adding text comment", error);
+          Rollbar.error("error adding text comment", error);
         })
         .finally(function () {
           that.pending -= 1;
