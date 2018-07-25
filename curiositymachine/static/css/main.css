@@ -8786,6 +8786,11 @@ footer {
 
 .lesson-quiz-app .quiz {
   padding: 3em; }
+  .lesson-quiz-app .quiz .icon-aifc-icon {
+    font-size: 3.5em;
+    display: block;
+    text-align: center;
+    margin-bottom: 0.25em; }
   .lesson-quiz-app .quiz.correct {
     background: #0071BC linear-gradient(90deg, #0071BC, #02B0C2) repeat-x;
     color: white;

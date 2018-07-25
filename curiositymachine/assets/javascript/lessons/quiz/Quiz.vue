@@ -9,6 +9,7 @@
       <hr />
     </div>
     <div v-else>
+      <i class="icon-aifc-icon"></i>
       <h3 class="text-center">You're an AI Pro!</h3>
       <p>
         Your results:
