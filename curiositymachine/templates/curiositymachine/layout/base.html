@@ -140,17 +140,16 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 
   {% render_bundle 'site' %}
   <script src="{% static 'js/libs/jquery-ujs.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/libs/bootstrap.bundle.min.js' %}"></script>
+  {% if ga_code %}
+  <script src="{% static 'js/libs/autotrack.js' %}"></script>
+  {% endif %}
   <script>
     log.init({
       csrf_token: "{{ csrf_token }}",
       endpoint: "{% url 'log' %}"
     });
-  </script>
-  {% if ga_code %}
-  <script src="{% static 'js/libs/autotrack.js' %}"></script>
-  {% endif %}
-  <script type="text/javascript" src="{% static 'js/libs/bootstrap.bundle.min.js' %}"></script>
-  <script>
+
     window.zESettings = {
       webWidget: {
         helpCenter: {
@@ -160,24 +159,22 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
         }
       }
     };
-  </script>
-  {% if request.user.is_authenticated %}
-  <script>
+
+    {% if request.user.is_authenticated %}
     zE(function(){
       zE.identify({
         name: "{{ request.user.username }}",
         email: "{{ request.user.email }}"
       });
     });
-  </script>
-  {% endif %}
-  {% if not flags.enable_zendesk_web_widget %}
-  <script>
+    {% endif %}
+
+    {% if not flags.enable_zendesk_web_widget %}
     zE(function(){
       zE.hide();
     });
+    {% endif %}
   </script>
-  {% endif %}
   {% block js %}{% endblock %}
 
 </body>
