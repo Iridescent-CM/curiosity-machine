@@ -3,14 +3,14 @@
 
 {% block full_content %}
   {{ block.super }}
-<div class="container lesson-comments-app">
+  <div class="lesson-comments-app">
     <div class="row">
       <div class="col-12">
         <hr/>
       </div>
 
       <div class="col-12">
-        <h3 class="mt-4">{{ lesson.upload_prompt }}</h3>
+        <h3 class="mt-4 page-color">{{ lesson.upload_prompt }}</h3>
       </div>
       <div class="col-md-8 offset-md-2">
         <single-upload
@@ -22,7 +22,7 @@
       </div>
 
       <div class="col-12">
-        <h3 class="mt-4">{{ lesson.text_prompt }}</h3>
+        <h3 class="mt-4 page-color">{{ lesson.text_prompt }}</h3>
       </div>
       <div class="col-md-8 offset-md-2">
         <single-comment
@@ -33,7 +33,7 @@
       </div>
 
       <div class="col-12">
-        <h3 class="mt-4">Anything else you want to share?</h3>
+        <h3 class="mt-4 page-color">Anything else you want to share?</h3>
       </div>
       <div class="col-md-8 offset-md-2">
         <comments
