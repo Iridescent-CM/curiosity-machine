@@ -14,6 +14,9 @@ export default function(key) {
           onFileUploadFinished: resolve,
           onFileUploadFailed: function(upload, error) {
             reject(error);
+          },
+          onCancel: function() {
+            reject();
           }
         }).open();
       });
