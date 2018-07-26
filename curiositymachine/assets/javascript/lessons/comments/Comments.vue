@@ -147,8 +147,10 @@
           that.getComments();
         })
         .catch(function (error) {
-          that.error = true;
-          Rollbar.error("error adding media comment", error);
+          if (error) {
+            that.error = true;
+            Rollbar.error("error adding media comment", error);
+          }
         })
         .finally(function () {
           that.pending -= 1;
