@@ -1,20 +1,37 @@
 {% extends "lessons/page.html" %}
 {% load render_bundle from webpack_loader %}
+{% load staticfiles %}
 
 {% block full_content %}
   <div class="row mb-3">
     <div class="col-md-10 offset-md-1">
-      <div class="lesson-quiz-app">
+      <div class="lesson-quiz-app p-5">
         <quiz
           :quiz-id="{{ lesson.quiz_id }}"
           {% if progress %}:taker-id="{{ progress.owner.id }}"{% endif %}
-        ></quiz>
+        >
+          <div slot="start-header">
+            <h3 class="page-color">Test your knowledge</h3>
+            <p>
+              You've finished your challenge. Take the quiz and see how much you've learned!
+            </p>
+            <hr />
+          </div>
+          <div v-cloak slot="correct-header">
+            <i class="icon-aifc-icon"></i>
+            <h3 class="text-center">You're an AI Pro!</h3>
+            <p>
+              Your results:
+            </p>
+          </div>
+          <div class="loader">Loading...</div>
+        </quiz>
       </div>
     </div>
   </div>
   <div class="row mb-3">
-    <div class="col-md-10 offset-md-1 lesson-comments-app">
-      <div style="padding: 3em;">
+    <div class="col-md-10 offset-md-1">
+      <div class="lesson-comments-app feedback-component">
         <single-comment
           author="{{ request.user.id }}"
           progress="{{ progress.id|default:"" }}"
@@ -22,7 +39,8 @@
           placeholder="Share your feedback with us"
         >
           <h3 slot="no-comment-header">Give us feedback</h3>
-          <h3 slot="comment-header">Your feedback</h3>
+          <h3 slot="comment-header" v-cloak>Your feedback</h3>
+          <div class="loader">Loading...</div>
         </single-comment>
       </div>
     </div>

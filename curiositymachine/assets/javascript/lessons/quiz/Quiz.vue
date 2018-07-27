@@ -2,18 +2,10 @@
   <div class="quiz" v-bind:class="{ correct: quiz.correct }">
 
     <div v-if="!quiz.correct">
-      <h3 class="page-color">Test your knowledge</h3>
-      <p>
-        You've finished your challenge. Take the quiz and see how much you've learned!
-      </p>
-      <hr />
+      <slot name="start-header"></slot>
     </div>
     <div v-else>
-      <i class="icon-aifc-icon"></i>
-      <h3 class="text-center">You're an AI Pro!</h3>
-      <p>
-        Your results:
-      </p>
+      <slot name="correct-header"></slot>
     </div>
 
     <template v-for="(question, q_index) in quiz.questions">

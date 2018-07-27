@@ -18,7 +18,9 @@
           progress="{{ progress.id|default:"" }}"
           fskey="{{ FILEPICKER_API_KEY }}"
           role="worksheet"
-        ></single-upload>
+        >
+          <div class="loader">Loading...</div>
+        </single-upload>
       </div>
 
       <div class="col-12">
@@ -29,7 +31,9 @@
           author="{{ request.user.id }}"
           progress="{{ progress.id|default:"" }}"
           role="reflection"
-        ></single-comment>
+        >
+          <div class="loader">Loading...</div>
+        </single-comment>
       </div>
 
       <div class="col-12">
@@ -41,7 +45,9 @@
           progress="{{ progress.id|default:"" }}"
           fskey="{{ FILEPICKER_API_KEY }}"
           role="comment"
-        ></comments>
+        >
+          <div class="loader">Loading...</div>
+        </comments>
       </div>
     </div>
   </div>
