@@ -1,5 +1,8 @@
 .lesson-quiz-app {
+  padding: 3em; // pad the unloaded component
+
   .quiz {
+    margin: -3em; // allow outer div to fill the container
     padding: 3em;
 
     .icon-aifc-icon {

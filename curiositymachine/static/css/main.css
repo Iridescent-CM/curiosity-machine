@@ -8784,27 +8784,29 @@ footer {
     font-size: 12px;
     fill: #333333; }
 
-.lesson-quiz-app .quiz {
+.lesson-quiz-app {
   padding: 3em; }
-  .lesson-quiz-app .quiz .icon-aifc-icon {
-    font-size: 3.5em;
-    display: block;
-    text-align: center;
-    margin-bottom: 0.25em; }
-  .lesson-quiz-app .quiz.correct {
-    background: #0071BC linear-gradient(90deg, #0071BC, #02B0C2) repeat-x;
-    color: white;
-    border-radius: 4px; }
-    .lesson-quiz-app .quiz.correct .form-check-label {
-      color: white; }
-
-.lesson-quiz-app .grading-mark {
-  position: absolute;
-  left: -1.2em; }
-  .lesson-quiz-app .grading-mark.grading-mark-incorrect {
-    color: red; }
-  .lesson-quiz-app .grading-mark.grading-mark-correct {
-    color: lightgreen; }
+  .lesson-quiz-app .quiz {
+    margin: -3em;
+    padding: 3em; }
+    .lesson-quiz-app .quiz .icon-aifc-icon {
+      font-size: 3.5em;
+      display: block;
+      text-align: center;
+      margin-bottom: 0.25em; }
+    .lesson-quiz-app .quiz.correct {
+      background: #0071BC linear-gradient(90deg, #0071BC, #02B0C2) repeat-x;
+      color: white;
+      border-radius: 4px; }
+      .lesson-quiz-app .quiz.correct .form-check-label {
+        color: white; }
+  .lesson-quiz-app .grading-mark {
+    position: absolute;
+    left: -1.2em; }
+    .lesson-quiz-app .grading-mark.grading-mark-incorrect {
+      color: red; }
+    .lesson-quiz-app .grading-mark.grading-mark-correct {
+      color: lightgreen; }
 
 .table {
   background-color: #FFFCF7;
@@ -9514,6 +9516,9 @@ footer {
 .lesson-pages .relative-nav .btn {
   border-radius: 20px; }
 
+.lesson-pages .feedback-component {
+  padding: 3em; }
+
 .mentor-dashboard .row-dark {
   background: #e5e1d9;
   margin: 0 -65px 20px -65px;
@@ -9661,5 +9666,61 @@ footer {
   background-image: url("../images/design-challenge-repeating-pattern.png");
   background-attachment: fixed;
   background-repeat: repeat; }
+
+[v-cloak] {
+  display: none; }
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out; }
+
+.loader {
+  color: #CCCCCC;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s; }
+
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0; }
+
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s; }
+
+.loader:after {
+  left: 3.5em; }
+
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 1.5em 0 -1.3em; }
+  40% {
+    box-shadow: 0 1.5em 0 0; } }
+
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 1.5em 0 -1.3em; }
+  40% {
+    box-shadow: 0 1.5em 0 0; } }
 
 /*# sourceMappingURL=main.css.map */
