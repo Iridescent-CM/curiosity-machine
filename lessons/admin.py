@@ -22,12 +22,35 @@ class LessonAdminForm(forms.ModelForm):
     class Media:
         js = ('js/ace_widget.js',)
 
+def _wrap(fn):
+    def reorder_after_action(modeladmin, request, queryset):
+        response = fn(modeladmin, request, queryset)
+        if response:
+            return response
+        qs = modeladmin.get_queryset(request).order_by('order')
+        order = 0
+        for obj in qs.all():
+            if obj.order != order:
+                obj.order = order
+                obj.save(update_fields=['order'])
+            order += 1
+        return None
+
+    return reorder_after_action
+
 class LessonAdmin(OrderedModelAdmin):
     form = LessonAdminForm
     save_as = True
     save_on_top = True
     list_display = ('id', 'title', 'move_up_down_links', 'order')
     raw_id_fields = ('card_image', 'quiz')
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            old = actions['delete_selected']
+            actions['delete_selected'] = (_wrap(old[0]), old[1], old[2])
+        return actions
 
 class ProgressAdmin(admin.ModelAdmin):
     model = Progress
