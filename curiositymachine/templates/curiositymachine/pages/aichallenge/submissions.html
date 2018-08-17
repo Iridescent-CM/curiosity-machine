@@ -1,0 +1,58 @@
+{% extends "curiositymachine/layout/ai_pg_layout.html" %}
+{% load staticfiles %}
+{% block title %}Welcome to the AI Family Challenge{% endblock %}
+
+{% block body-id %}ai-challenge-page{% endblock %}
+{% block content %}
+{% with active_nav="ai-submissions" %}
+  {{ block.super }}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5">
+        <h2>Submissions</h2>
+        <h3 class="mb-4">Enter the AI Family Challenge!</h3>
+        <p>The submission window for the AI Family Challenge will open in December 2018 and will remain open until February 1st, 2019.</p>
+        <p>Keep in mind:</p>
+        <ul>
+          <li>Each family can only submit once and they will be placed in a division depending on the age of the oldest child registered for the challenge</li>
+          <li>All materials submitted online must be in English</li>
+          <li>All judging will happen online</li>
+        </ul>
+      </div>
+        <div class="col-lg-4 offset-lg-1 col-sm-6">
+          <img src="{% static 'images/about/submitcelebration.svg' %}" alt="AI Partners">
+        </div>
+        <div class="col-lg-6 col-sm-6">
+          <p>Participating families must submit:</p>
+          <ol>
+            <li>Family Team profile with names of all members</li>
+            <li>At least 3 design challenges, from the AIFC challenges, on CuriosityMachine.org. Need help submitting design challenges? Check <a href="https://www.youtube.com/watch?v=a_XpJ4poNwg" target="_blank">here</a></li>
+            <li>3-5 minute video that explains your project</li>
+            <li>A title and a description of your project</li>
+            <li>Family Post Survey</li>
+            <li>(Optional) Up to 4 photos</li>
+          </ol>
+        </div>
+        <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5">
+        <p class="text-center">Come back for more details as we approach the submission window!</p>
+        <p class="mt-2 text-center">If you have any questions, contact us at
+          <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
+        </p>
+
+      </div>
+    </div>
+  </div>
+  <div class="bg-red text-center py-5">
+    <div class="container">
+      <h2 class="text-white">
+        Learn more about our AI Family Challenge
+      </h2>
+      <a
+        href="http://iridescentlearning.org/artificial-intelligence/the-curiosity-machine-ai-family-challenge/"
+        class="btn btn-secondary text-red text-uppercase"
+        target="_blank"
+      > Learn More</a>
+    </div>
+  </div>
+{% endwith %}
+{% endblock %}

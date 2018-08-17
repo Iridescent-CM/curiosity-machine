@@ -1,0 +1,85 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+
+{% block body-classes %}about-pages{% endblock %}
+{% block content %}
+<div class="container-fluid text-center bg-blue bg-pattern-white text-white py-4">
+  <h1>{% block title %}{% endblock %}</h1>
+  <nav>
+    <ul class="nav">
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'ai-challenge' %}active{% endif %}"
+          href="/aichallenge"
+          id="aichallenge-about-page-nav"
+        >
+          About AIFC
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'ai-curriculum' %}active{% endif %}"
+          href="/aichallenge/curriculum"
+          id="curriculum-aichallenge-page-nav"
+        >
+          Curriculum
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'ai-timeline' %}active{% endif %}"
+          href="/aichallenge/timeline"
+          id="timeline-aichallenge-page-nav"
+        >
+          Timeline
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'ai-families' %}active{% endif %}"
+          href="/aichallenge/families"
+          id="families-aichallenge-page-nav"
+        >
+          Families
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'ai-coaches' %}active{% endif %}"
+          href="/aichallenge/coaches"
+          id="coaches-aichallenge-page-nav"
+        >
+          Coaches
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'partnership' %}active{% endif %}"
+          href="/about-partnership"
+          id="partnership-about-page-nav"
+        >
+          Corporate Partners
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'ai-submissions' %}active{% endif %}"
+          href="/aichallenge/submissions"
+          id="submissions-aichallenge-page-nav"
+        >
+          Submissions
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link {% if active_nav == 'ai-globalcompetition' %}active{% endif %}"
+          href="/aichallenge/globalcompetition"
+          id="globalcompetition-aichallenge-page-nav"
+        >
+          Global Competition
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+{% endblock %}
