@@ -9,16 +9,48 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5">
-        <h2>This it the coach page</h2>
-        <h3 class="mb-4">Your child is the future. So is artificial intelligence.</h3>
-        <img src="{% static 'images/about/submitcelebration.svg' %}" alt="AI Partners">
-        <img src="{% static 'images/about/learning.svg' %}" alt="AI Partners">
-        <img src="{% static 'images/about/superstarcoaches.svg' %}" alt="AI Partners">
-
-        <div class="text-center mt-2">
-          <a href="{% url "account_signup" source=source %}" class="btn btn-primary text-uppercase mx-1" target="_blank">sign up</a>
+        <h2>Coaches</h2>
+        <h3 class="mb-4">Interested in Coaching?</h3>
+        <p>AI Family Challenge coaches lead families through our specialized curriculum. Coaches who are not affiliated with a partner site may still help families in whatever context they normally work in:</p>
+        <ul>
+          <li>For example, a coach who is an educator may facilitate an after school group with students and their families or encourage students to build with their families at home.</li>
+          <li>Or, coaches who work in their local library or other community-based organization can set up community programs to support family-based STEM learning of our AI design challenges.</li>
+        </ul>
+        <p>Coaches always have access to all of our free online curriculum. If you a coaches who wants to sign up families for this challenge and be designated as their coach, complete this <a href="https://docs.google.com/forms/d/1hfrEZP6kEzWPzLqS-RFFNQ4VdyTyZ-KNbeKV08zMHzE/viewform?edit_requested=true" target="_blank">form</a>. You will receive an email from us with a unique sign-up link that your families can use to be connected to your account.</p>
+        <p>The basics:</p>
+        <ul>
+          <li>Lead students or families to complete the AI Family Challenge</li>
+          <li>Access AI Family Challenge content and resources to support your participants to complete the program</li>
+          <li>While we can not guarantee funding at this time, fill out this <a href="https://docs.google.com/forms/d/e/1FAIpQLSeuptfe5zMp5KpadIkNQcj81vtMRBzqdlW9RU8VHAOT48bLJg/viewform?usp=sf_link" target="_blank">form</a> in addition to creating a coach account if you would like to be considered for future opportunities</li>
+        </ul>
+        <hr class="hr-red mb-3"/>
+        <h3 class="mb-4">What do AIFC Coaches look like in action?</h3>
+        <div class="text-center">
+        <img src="{% static 'images/about/superstarcoaches.svg' %}" width="30%" height="30%" alt="AI Partners">
         </div>
-        <p class="mt-2 text-center">
+      </div>
+      <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
+        <p>AIFC Coaches...</p>
+        <ul>
+          <li>Share experiences! They’re part of a <a href="https://www.facebook.com/groups/1443184245748986/" target="_blank">community of learners</a>.</li>
+          <li>Encourage their families to <strong>document</strong> their progress and <strong>reflect</strong> on their process</li>
+        </ul>
+        <div class="text-center">
+          <img src="{% static 'images/about/learning.svg' %}" width="70%" height="70%" alt="AI Partners">
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-5 mt-2">
+        <ul>
+          <li>They find and share resources to help their families, like ideas for family <a href="https://drive.google.com/open?id=1bjA98A09_QQSbv9Of4V0fcCNdD67fao1pc9-PPh0Nz0" target="_blank">recruitment</a> and <a href="https://drive.google.com/open?id=1uGqCvzCs-33NaISch4MGigLnkoE5tCZDvDiWozPexno" target="_blank">retention</a>, or tutorials to use AI tools</li>
+          <li>They help families celebrate their successes with science fairs, special presentation sessions, and more.</li>
+        </ul>
+        <div class="text-center">
+          <img src="{% static 'images/about/submitcelebration.svg' %}" width="70%" height="70%" alt="AI Partners">
+        </div>
+      </div>
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5 text-center">
+          <a href="{% url "account_signup" source=source %}" class="btn btn-primary text-uppercase mx-1" target="_blank">sign up</a>
+        <p class="mt-2">
           If you have any questions, contact us at
           <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
         </p>

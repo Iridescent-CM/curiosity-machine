@@ -8,15 +8,49 @@
   {{ block.super }}
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5">
-        <h2>This is the Family Page</h2>
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5">
+        <h2>Families</h2>
         <h3 class="mb-4">Your child is the future. So is artificial intelligence.</h3>
+        <p>Children spend less than 15% of the year in school, so we’ve developed the AI Family Challenge to empower parents and entire families to keep learning together year-round. Through one account, the entire family can learn and build at home. You have access to our specialized curriculum consisting of three stages. You will be able to complete all of the challenges and lessons that lead you to create your own capstone project, which you can submit into the competition. You'll need some materials, but don't worry - they are all things you probably already have at home or are very low-cost. You'll also become part of an online community of families building together.</p>
+        <p>Note: You don’t need to be a science or math expert to take part! Learn more about the curriculum <a href="{% url "aichallenge/curriculum" %}" target="_blank">here</a>.</p>
+      </div>
+      <div class="col-lg-3 offset-lg-2 col-md-4 offset-md-1 mt-3">
+        <p>The basics:</p>
+        <ul>
+          <li>You only need one account for your family</li>
+          <li>You will have access to the AI Family Challenge design challenges</li>
+          <li>You can access AI Family Challenge resources to help you complete and submit your ideas</li>
+          <li>We will send important updates and reminders</li>
+        </ul>
+      </div>
+      <div class="col-lg-5 col-md-6 ">
+        <p>Eligibility for final competition:</p>
+        <ul>
+          <li>Each Family Team must have at least 1 parent/guardian and 1 child
+            <ul>
+              <li>The maximum Family Team size is 6 people</li>
+              <li>Family Teams can have up to 2 adults</li>
+            </ul>
+          </li>
+          <li>Age requirements:
+            <ul>
+              <li>The parent/guardian needs to be 18 or older</li>
+              <li>All children need to be 15 or younger on January 1, 2018</li>
+              <li>There is no minimum age for participation</li>
+              <li>We have 2 age divisions. The age division of your Family is determined by the oldest child member of your team</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 text-center my-5">
+        <p><strong>Senior Division: As of January 1, 2018, the oldest child in family is 12-15</strong></p>
+        <p><strong>Junior Division: As of January 1, 2018, the oldest child in family is 11 or younger</strong></p>
+        <p>Unrelated children are allowed on teams as long as the Family Team has one parent/guardian of a child on the team. Teams with unrelated members selected to come to our AI Family Challenge Celebration may need to complete some additional steps to be eligible for travel. Coaches may not serve as guardians.</p>
 
-
-        <div class="text-center mt-2">
+        <div class="mt-4">
           <a href="{% url "account_signup" source=source %}" class="btn btn-primary text-uppercase mx-1" target="_blank">sign up</a>
         </div>
-        <p class="mt-2 text-center">
+        <p class="mt-2">
           If you have any questions, contact us at
           <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
         </p>

@@ -1,36 +1,32 @@
-.blockquote-footer {
-    color: grey;
-    background-color: transparent;
-}
+.cm-quote-card {
+  padding: 0.8em;
 
-.quotation-mark {
-  margin-top: -10px;
-  margin-bottom: 0px;
-  font-weight: bold;
-  font-size: 100px;
-  color: $primary-red;
-  font-family: "Times New Roman", Georgia, Serif;
-}
+  blockquote {
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-size: 1.2em;
+    text-align: right;
 
-.quote-box {
-  overflow: hidden;
-  margin-top: -50px;
-  padding-top: -100px;
-  border-radius: 17px;
-  background-color: transparent;
-  margin-top: 25px;
-  color: black;
-  width: 325px;
-  height: 430px;
-  box-shadow: 2px 2px 2px 2px #E0E0E0;
-}
+    &:before {
+      content: "“";
+      display: block;
+      position: relative;
+      text-align: left;
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 100px;
+      font-weight: bold;
+      line-height: 1em;
+      margin-bottom: -0.3em;
+      color: #F55932;
+    }
+  }
 
-.quote-text {
-  font-family: "Raleway";
-  font-size: 19px;
-  text-align: right;
-  margin-top: -65px;
-  margin-right: 10px;
-  margin-left: 10px;
-  line-height: 30px;
+  cite {
+    text-align: right;
+    color: gray;
+
+    &:before {
+      content:"—";
+      margin-right: 0.4em;
+    }
+  }
 }
