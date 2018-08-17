@@ -1,0 +1,52 @@
+{% load resized %}
+
+<div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-10 offset-md-1 col-lg-6 offset-lg-0 col-xl-4">
+  <div class="card cm-card mb-3">
+    {% if challenge.favoritable %}
+    <div class="favorites-badge">
+      <input type="checkbox"
+        name="favorite-star-{{challenge.id}}"
+        id="favorite-star-{{challenge.id}}"
+        data-toggle="favorite"
+        data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}"
+        data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"
+        {% if challenge.is_favorite %}checked="checked"{% endif %}
+      >
+      <label for="favorite-star-{{challenge.id}}"><i class="icon-star-full"></i></label>
+    </div>
+    {% endif %}
+    <a href="{{ challenge.url }}">
+      <img class="card-img-top" src="{% resized challenge.image.url width=300 height=190 crop='fill' %}" alt="{{challenge.name}}">
+    </a>
+
+    <div class="card-body">
+      <h6 class="card-title">
+        <a href="{{ challenge.url }}">
+          {{ challenge.name }}
+        </a>
+      </h6>
+    </div>
+    <div class="card-body card-divider">
+      <p class="card-text"><small>{{challenge.description}}</small></p>
+    </div>
+
+    {% if request.user.is_authenticated %}
+    <div class="card-body">
+      <ul class="card-flags">
+        {% if challenge.accessible or challenge.started %}
+        {% if request.user.extra.is_student %}
+        <li>
+          <span class="card-flag card-flag-purple"><small>Build it!</small></span>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% if not request.user.extra.is_student and challenge.has_resources %}
+        <li>
+          <span class="card-flag card-flag-green"><small>Resources</small></span>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</div>

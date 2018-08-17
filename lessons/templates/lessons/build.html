@@ -2,24 +2,57 @@
 {% load render_bundle from webpack_loader %}
 
 {% block full_content %}
-  <div class="container">
+  {{ block.super }}
+  <div class="lesson-comments-app">
     <div class="row">
-      <div class="col-md-4">
-        <div class="lesson-comments-app">
-          <commenting-app
-            author="{{ request.user.id }}"
-            progress="{{ progress.id|default:"" }}"
-            fskey="{{ FILEPICKER_API_KEY }}"
-          ></commenting-app>
-        </div>
+      <div class="col-12">
+        <hr/>
       </div>
-      <div class="col-md-8">
-        {{ block.super }}
+
+      <div class="col-12">
+        <h3 class="mt-4 page-color">{{ lesson.upload_prompt }}</h3>
+      </div>
+      <div class="col-md-8 offset-md-2">
+        <single-upload
+          author="{{ request.user.id }}"
+          progress="{{ progress.id|default:"" }}"
+          fskey="{{ FILEPICKER_API_KEY }}"
+          role="worksheet"
+        >
+          <div class="loader">Loading...</div>
+        </single-upload>
+      </div>
+
+      <div class="col-12">
+        <h3 class="mt-4 page-color">{{ lesson.text_prompt }}</h3>
+      </div>
+      <div class="col-md-8 offset-md-2">
+        <single-comment
+          author="{{ request.user.id }}"
+          progress="{{ progress.id|default:"" }}"
+          role="reflection"
+        >
+          <div class="loader">Loading...</div>
+        </single-comment>
+      </div>
+
+      <div class="col-12">
+        <h3 class="mt-4 page-color">Anything else you want to share?</h3>
+      </div>
+      <div class="col-md-8 offset-md-2">
+        <comments
+          author="{{ request.user.id }}"
+          progress="{{ progress.id|default:"" }}"
+          fskey="{{ FILEPICKER_API_KEY }}"
+          role="comment"
+        >
+          <div class="loader">Loading...</div>
+        </comments>
       </div>
     </div>
   </div>
 {% endblock %}
 
 {% block js %}
-  {% render_bundle 'lessons' %}
+  {% render_bundle 'lesson_comments' %}
 {% endblock %}

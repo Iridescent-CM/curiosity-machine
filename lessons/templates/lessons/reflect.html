@@ -1,59 +1,53 @@
 {% extends "lessons/page.html" %}
+{% load render_bundle from webpack_loader %}
+{% load staticfiles %}
 
 {% block full_content %}
-  <div class="container">
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Check your knowledge
+  <div class="row mb-3">
+    <div class="col-md-10 offset-md-1">
+      <div class="lesson-quiz-app p-5">
+        <quiz
+          :quiz-id="{{ lesson.quiz_id }}"
+          {% if progress %}:taker-id="{{ progress.owner.id }}"{% endif %}
+        >
+          <div slot="start-header">
+            <h3 class="page-color">Test your knowledge</h3>
+            <p>
+              You've finished your challenge. Take the quiz and see how much you've learned!
+            </p>
+            <hr />
           </div>
-          <div class="card-body d-flex justify-content-center align-items-center" style="height: 500px;">
-            <h3>Quiz area</h3>
+          <div v-cloak slot="correct-header">
+            <i class="icon-aifc-icon"></i>
+            <h3 class="text-center">You're an AI Pro!</h3>
+            <p>
+              Your results:
+            </p>
           </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Give us feedback
-          </div>
-          <div class="card-body d-flex justify-content-center align-items-center" style="height: 500px;">
-            <h3>Feedback area</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            Uploads
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-3 mb-3">
-                <img src="http://via.placeholder.com/320x240" />
-              </div>
-              <div class="col-3 mb-3">
-                <img src="http://via.placeholder.com/320x240" />
-              </div>
-              <div class="col-3 mb-3">
-                <img src="http://via.placeholder.com/320x240" />
-              </div>
-              <div class="col-3 mb-3">
-                <img src="http://via.placeholder.com/320x240" />
-              </div>
-              <div class="col-3 mb-3">
-                <img src="http://via.placeholder.com/320x240" />
-              </div>
-              <div class="col-3 mb-3">
-                <img src="http://via.placeholder.com/320x240" />
-              </div>
-            </div>
-          </div>
-        </div>
+          <div class="loader">Loading...</div>
+        </quiz>
       </div>
     </div>
   </div>
+  <div class="row mb-3">
+    <div class="col-md-10 offset-md-1">
+      <div class="lesson-comments-app feedback-component">
+        <single-comment
+          author="{{ request.user.id }}"
+          progress="{{ progress.id|default:"" }}"
+          role="feedback"
+          placeholder="Share your feedback with us"
+        >
+          <h3 slot="no-comment-header">What did you think about this lesson? Do you have any ideas on how to make it better?</h3>
+          <h3 slot="comment-header" v-cloak>Your feedback</h3>
+          <div class="loader">Loading...</div>
+        </single-comment>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  {% render_bundle 'lesson_quiz' %}
+  {% render_bundle 'lesson_comments' %}
 {% endblock %}

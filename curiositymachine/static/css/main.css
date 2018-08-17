@@ -7538,6 +7538,12 @@ a.text-new-purple:hover, a.text-new-purple:focus {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
+.icon-aifc:before {
+  content: "\e908"; }
+
+.icon-aifc-icon:before {
+  content: "\e907"; }
+
 .icon-camera:before {
   content: "\e900"; }
 
@@ -8779,6 +8785,30 @@ footer {
     font-size: 12px;
     fill: #333333; }
 
+.lesson-quiz-app {
+  padding: 3em; }
+  .lesson-quiz-app .quiz {
+    margin: -3em;
+    padding: 3em; }
+    .lesson-quiz-app .quiz .icon-aifc-icon {
+      font-size: 3.5em;
+      display: block;
+      text-align: center;
+      margin-bottom: 0.25em; }
+    .lesson-quiz-app .quiz.correct {
+      background: #0071BC linear-gradient(90deg, #0071BC, #02B0C2) repeat-x;
+      color: white;
+      border-radius: 4px; }
+      .lesson-quiz-app .quiz.correct .form-check-label {
+        color: white; }
+  .lesson-quiz-app .grading-mark {
+    position: absolute;
+    left: -1.2em; }
+    .lesson-quiz-app .grading-mark.grading-mark-incorrect {
+      color: red; }
+    .lesson-quiz-app .grading-mark.grading-mark-correct {
+      color: lightgreen; }
+
 .table {
   background-color: #FFFCF7;
   border: solid 2px #E5E1D9; }
@@ -8917,6 +8947,10 @@ footer {
       font-size: 1.75em;
       margin-left: 10px;
       vertical-align: middle; }
+    #challenges-page .filter-list .icon-aifc-icon {
+      font-size: 1.75em;
+      margin-right: 10px;
+      vertical-align: middle; }
   #challenges-page .block-header {
     width: 100%;
     padding: 12px;
@@ -8925,6 +8959,10 @@ footer {
     color: white;
     border-radius: 4px; }
     #challenges-page .block-header .icon-boeing-logo {
+      font-size: 1.35em;
+      vertical-align: middle;
+      margin: 0 10px 0 10px; }
+    #challenges-page .block-header .icon-aifc-icon {
       font-size: 1.35em;
       vertical-align: middle;
       margin: 0 10px 0 10px; }
@@ -9300,41 +9338,108 @@ footer {
   border-left: 1px solid #dee2e6;
   border-bottom: 1px solid #dee2e6;
   border-right: 1px solid #dee2e6;
-  min-height: 3em; }
-  .lesson-pages .lesson-container.start .page-gradient {
+  min-height: 3em;
+  /* margin around content by default */
+  padding-left: 25px;
+  padding-right: 25px;
+  /* helper classes to go full-width and set gutter as padding,
+         useful for full-width background while keeping content aligned
+       */ }
+  .lesson-pages .lesson-container .full-width {
+    margin-left: -25px;
+    margin-right: -25px; }
+  .lesson-pages .lesson-container .page-padding {
+    padding-left: 25px;
+    padding-right: 25px; }
+  .lesson-pages .lesson-container .page-header {
+    margin-left: -25px;
+    margin-right: -25px;
+    padding-left: 25px;
+    padding-right: 25px; }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .lesson-pages .lesson-container {
+      /* margin around content by default */
+      padding-left: 40px;
+      padding-right: 40px;
+      /* helper classes to go full-width and set gutter as padding,
+         useful for full-width background while keeping content aligned
+       */ }
+      .lesson-pages .lesson-container .full-width {
+        margin-left: -40px;
+        margin-right: -40px; }
+      .lesson-pages .lesson-container .page-padding {
+        padding-left: 40px;
+        padding-right: 40px; }
+      .lesson-pages .lesson-container .page-header {
+        margin-left: -40px;
+        margin-right: -40px;
+        padding-left: 40px;
+        padding-right: 40px; } }
+  @media (min-width: 768px) {
+    .lesson-pages .lesson-container {
+      /* margin around content by default */
+      padding-left: 80px;
+      padding-right: 80px;
+      /* helper classes to go full-width and set gutter as padding,
+         useful for full-width background while keeping content aligned
+       */ }
+      .lesson-pages .lesson-container .full-width {
+        margin-left: -80px;
+        margin-right: -80px; }
+      .lesson-pages .lesson-container .page-padding {
+        padding-left: 80px;
+        padding-right: 80px; }
+      .lesson-pages .lesson-container .page-header {
+        margin-left: -80px;
+        margin-right: -80px;
+        padding-left: 80px;
+        padding-right: 80px; } }
+  .lesson-pages .lesson-container.start .bg-page-gradient, .lesson-pages .lesson-container.start .page-header {
     background: #FF4980 linear-gradient(90deg, #FF4980, #FF5050) repeat-x;
-    color: white;
-    padding: 0.5rem 1rem; }
+    color: white; }
+  .lesson-pages .lesson-container.start .bg-page-reverse-gradient {
+    background: #FF5050 linear-gradient(90deg, #FF5050, #FF4980) repeat-x;
+    color: white; }
   .lesson-pages .lesson-container.start .page-color {
     color: #FF5050; }
-  .lesson-pages .lesson-container.inspiration .page-gradient {
+  .lesson-pages .lesson-container.inspiration .bg-page-gradient, .lesson-pages .lesson-container.inspiration .page-header {
     background: #FF5050 linear-gradient(90deg, #FF5050, #F7931E) repeat-x;
-    color: white;
-    padding: 0.5rem 1rem; }
+    color: white; }
+  .lesson-pages .lesson-container.inspiration .bg-page-reverse-gradient {
+    background: #F7931E linear-gradient(90deg, #F7931E, #FF5050) repeat-x;
+    color: white; }
   .lesson-pages .lesson-container.inspiration .page-color {
     color: #F7931E; }
-  .lesson-pages .lesson-container.plan .page-gradient {
+  .lesson-pages .lesson-container.plan .bg-page-gradient, .lesson-pages .lesson-container.plan .page-header {
     background: #F7931E linear-gradient(90deg, #F7931E, #39B54A) repeat-x;
-    color: white;
-    padding: 0.5rem 1rem; }
+    color: white; }
+  .lesson-pages .lesson-container.plan .bg-page-reverse-gradient {
+    background: #39B54A linear-gradient(90deg, #39B54A, #F7931E) repeat-x;
+    color: white; }
   .lesson-pages .lesson-container.plan .page-color {
     color: #39B54A; }
-  .lesson-pages .lesson-container.build .page-gradient {
+  .lesson-pages .lesson-container.build .bg-page-gradient, .lesson-pages .lesson-container.build .page-header {
     background: #39B54A linear-gradient(90deg, #39B54A, #02B0C2) repeat-x;
-    color: white;
-    padding: 0.5rem 1rem; }
+    color: white; }
+  .lesson-pages .lesson-container.build .bg-page-reverse-gradient {
+    background: #02B0C2 linear-gradient(90deg, #02B0C2, #39B54A) repeat-x;
+    color: white; }
   .lesson-pages .lesson-container.build .page-color {
     color: #02B0C2; }
-  .lesson-pages .lesson-container.reflect .page-gradient {
+  .lesson-pages .lesson-container.reflect .bg-page-gradient, .lesson-pages .lesson-container.reflect .page-header {
     background: #02B0C2 linear-gradient(90deg, #02B0C2, #0071BC) repeat-x;
-    color: white;
-    padding: 0.5rem 1rem; }
+    color: white; }
+  .lesson-pages .lesson-container.reflect .bg-page-reverse-gradient {
+    background: #0071BC linear-gradient(90deg, #0071BC, #02B0C2) repeat-x;
+    color: white; }
   .lesson-pages .lesson-container.reflect .page-color {
     color: #0071BC; }
-  .lesson-pages .lesson-container.further .page-gradient {
+  .lesson-pages .lesson-container.further .bg-page-gradient, .lesson-pages .lesson-container.further .page-header {
     background: #0071BC linear-gradient(90deg, #0071BC, #6C6CB6) repeat-x;
-    color: white;
-    padding: 0.5rem 1rem; }
+    color: white; }
+  .lesson-pages .lesson-container.further .bg-page-reverse-gradient {
+    background: #6C6CB6 linear-gradient(90deg, #6C6CB6, #0071BC) repeat-x;
+    color: white; }
   .lesson-pages .lesson-container.further .page-color {
     color: #6C6CB6; }
 
@@ -9435,6 +9540,9 @@ footer {
 
 .lesson-pages .relative-nav .btn {
   border-radius: 20px; }
+
+.lesson-pages .feedback-component {
+  padding: 3em; }
 
 .mentor-dashboard .row-dark {
   background: #e5e1d9;
@@ -9583,5 +9691,61 @@ footer {
   background-image: url("../images/design-challenge-repeating-pattern.png");
   background-attachment: fixed;
   background-repeat: repeat; }
+
+[v-cloak] {
+  display: none; }
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out; }
+
+.loader {
+  color: #CCCCCC;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s; }
+
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0; }
+
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s; }
+
+.loader:after {
+  left: 3.5em; }
+
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 1.5em 0 -1.3em; }
+  40% {
+    box-shadow: 0 1.5em 0 0; } }
+
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 1.5em 0 -1.3em; }
+  40% {
+    box-shadow: 0 1.5em 0 0; } }
 
 /*# sourceMappingURL=main.css.map */

@@ -29,17 +29,25 @@
             {{ lesson.active_tab.content|safe }}
           {% endblock %}
 
-          <div class="container mt-3 mb-4 relative-nav">
+          <div class="mt-3 mb-4 relative-nav">
             <div class="row">
-              <div class="col-6">
+              <div class="col-4">
+                {% block left-nav %}
                 {% if lesson.prev_tab %}
                 <a href="?page={{ lesson.prev_tab.param }}" class="btn btn-outline-primary float-left">&lsaquo; Prev</a>
                 {% endif %}
+                {% endblock %}
               </div>
-              <div class="col-6">
+              <div class="col-4 d-flex justify-content-center">
+                {% block middle-nav %}
+                {% endblock %}
+              </div>
+              <div class="col-4">
+                {% block right-nav %}
                 {% if lesson.next_tab %}
                 <a href="?page={{ lesson.next_tab.param }}" class="btn btn-outline-primary float-right">Next &rsaquo;</a>
                 {% endif %}
+                {% endblock %}
               </div>
             </div>
           </div>

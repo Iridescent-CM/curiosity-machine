@@ -1,5 +1,9 @@
-from rest_framework import serializers
+from documents.models import Document
+from django.contrib.auth import get_user_model
+from django.contrib.staticfiles.templatetags.staticfiles import static
+from functools import reduce
 from images.models import *
+from rest_framework import serializers
 from videos.models import *
 from .models import *
 
@@ -7,6 +11,14 @@ class UploadSerializer(serializers.Serializer):
     filename = serializers.CharField()
     mimetype = serializers.CharField()
     url = serializers.URLField()
+
+    def to_document_representation(self, obj):
+        return {
+            "type": "document",
+            "url": obj.url,
+            "filename": obj.filename,
+            "thumbnail": static("images/edp/resource.png"),
+        }
 
     def to_image_representation(self, obj):
         return {
@@ -53,7 +65,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'author', 'lesson_progress', 'text', 'upload')
+        fields = ('id', 'author', 'lesson_progress', 'text', 'upload', 'role')
 
     def _handle_media(self, attrs, upload):
         if upload and 'mimetype' in upload:
@@ -62,6 +74,10 @@ class CommentSerializer(serializers.ModelSerializer):
                 attrs['upload'] = Image.from_source_with_job(upload['url'])
             elif mimetype.startswith('video'):
                 attrs['upload'] = Video.from_source_with_job(upload['url'])
+            elif mimetype.startswith('application'):
+                attrs['upload'] = Document.from_source_with_job(upload['url'], upload['filename'])
+            else:
+                raise Exception("Serializer can't handle mimetype %s" % mimetype)
 
         return attrs
 
@@ -82,4 +98,90 @@ class CommentSerializer(serializers.ModelSerializer):
             setattr(instance, attr, val)
         instance.save()
         return instance
+
+def option_representations(obj, q_idx, result=None):
+    idx = 1
+    while getattr(obj, "answer_%d_%d" % (q_idx, idx), None):
+        data = {
+            "text": getattr(obj, "answer_%d_%d" % (q_idx, idx)),
+            "selected": False
+        }
+        if result:
+            data["selected"] = getattr(result, "answer_%d" % q_idx) == idx
+
+        yield data
+
+        idx += 1
+
+def question_representations(obj, result=None):
+    idx = 1
+    while getattr(obj, "question_%d" % idx, None):
+        data = {
+            "answered": False,
+            "text": getattr(obj, "question_%d" % idx),
+            "options": list(option_representations(obj, idx, result=result))
+        }
+        if result:
+            data["answered"] = True
+            correct = getattr(result, "answer_%d" % idx) == getattr(obj, "correct_answer_%d" % idx)
+            data["correct"] = correct
+            if correct:
+                data["explanation"] = getattr(obj, "explanation_%d" % idx)
+
+        yield data
+
+        idx += 1
+
+def answer_representations(obj):
+    idx = 1
+    while getattr(obj, "answer_%d" % idx, None):
+        yield getattr(obj, "answer_%d" % idx)
+        idx += 1
+
+class QuizSerializer(serializers.Serializer):
+
+    def to_representation(self, obj):
+        return {
+            "answered": False,
+            "questions": list(question_representations(obj)),
+            "answers": []
+        }
+
+class QuizAndResultSerializer(serializers.Serializer):
+
+    def to_representation(self, obj):
+        data = {
+            "answered": True,
+            "questions": list(question_representations(obj.quiz, result=obj)),
+            "answers": list(answer_representations(obj))
+        }
+        data["correct"] = reduce(lambda a, b: a and b, map(lambda x: x["correct"], data["questions"]))
+        return data
+
+class QuizResultSerializer(serializers.Serializer):
+    answers = serializers.ListField(
+        child = serializers.IntegerField()
+    )
+    quiz = serializers.PrimaryKeyRelatedField(queryset=Quiz.objects.all())
+    taker = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all())
+
+    def to_representation(self, instance):
+        answers = []
+        idx = 1
+        while getattr(instance, "answer_%d" % idx, None):
+            answers.append(getattr(instance, "answer_%d" % idx))
+            idx += 1
+
+        return {
+            "quiz": instance.quiz_id,
+            "taker": instance.taker_id,
+            "answers": answers
+        }
+
+    def create(self, validated_data):
+        result = QuizResult(quiz=validated_data['quiz'], taker=validated_data['taker'])
+        for idx, answer in enumerate(validated_data['answers']):
+            setattr(result, "answer_%d" % (idx + 1), answer)
+        result.save()
+        return result
 

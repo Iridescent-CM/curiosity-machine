@@ -1,0 +1,12 @@
+{
+  "presets": [
+    ["env", {
+      "modules": "commonjs",
+      "targets": {
+        "browsers": "> 1%",
+        "uglify": true
+      },
+      "useBuiltIns": true
+    }]
+  ]
+}

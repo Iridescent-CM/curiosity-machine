@@ -1,5 +1,5 @@
 {% load staticfiles %}
-{% load compress %}
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,14 +57,9 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   <link href='//fonts.googleapis.com/css?family=Raleway:300,400,700|Open+Sans:400,700' rel='stylesheet' type='text/css'>
   {% block css %}{% endblock %}
 
-  {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/temp-fonts.css' %}" />
-    <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.carousel.css' %}">
-    <link rel="stylesheet" href="{% static 'js/libs/owl-carousel/owl.theme.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'js/libs/mediaelement/mediaelementplayer.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
-  {% endcompress %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/temp-fonts.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
 
 
   <script type="text/javascript" src="{% static 'js/libs/modernizr.custom.05723.js' %}"></script>
@@ -194,55 +189,47 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   <!-- global modals -->
   {% include "registration/_login_modal.html" with form=login_form %}
 
-  <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-  {% compress js %}
-    <script src="{% static 'js/log.js' %}"></script>
-    <script>
-      log.init({
-        csrf_token: "{{ csrf_token }}",
-        endpoint: "{% url 'log' %}"
-      });
-    </script>
-    {% if ga_code %}
-    <script src="{% static 'js/ga-track.js' %}"></script>
-    <script src="{% static 'js/libs/autotrack.js' %}"></script>
-    {% endif %}
-    <script type="text/javascript" src="{% static 'js/libs/bootstrap.old.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libs/csrf.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libs/owl-carousel/owl.carousel.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libs/mediaelement/mediaelement-and-player.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/coppa.js' %}"></script>
-    <script>
-      window.zESettings = {
-        webWidget: {
-          helpCenter: {
-            filter: {
-              category: '115000091368'
-            }
+  {% render_bundle 'site' %}
+  <script>
+    log.init({
+      csrf_token: "{{ csrf_token }}",
+      endpoint: "{% url 'log' %}"
+    });
+  </script>
+  {% if ga_code %}
+  <script src="{% static 'js/libs/autotrack.js' %}"></script>
+  {% endif %}
+  <script type="text/javascript" src="{% static 'js/libs/bootstrap.old.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/cm-global.js' %}"></script>
+  <script>
+    window.zESettings = {
+      webWidget: {
+        helpCenter: {
+          filter: {
+            category: '115000091368'
           }
         }
-      };
-    </script>
-    {% if request.user.is_authenticated %}
-    <script>
-      zE(function(){
-        zE.identify({
-          name: "{{ request.user.username }}",
-          email: "{{ request.user.email }}"
-        });
+      }
+    };
+  </script>
+  {% if request.user.is_authenticated %}
+  <script>
+    zE(function(){
+      zE.identify({
+        name: "{{ request.user.username }}",
+        email: "{{ request.user.email }}"
       });
-    </script>
-    {% endif %}
-    {% if not flags.enable_zendesk_web_widget %}
-    <script>
-      zE(function(){
-        zE.hide();
-      });
-    </script>
-    {% endif %}
-    {% block js %}{% endblock %}
-  {% endcompress %}
+    });
+  </script>
+  {% endif %}
+  {% if not flags.enable_zendesk_web_widget %}
+  <script>
+    zE(function(){
+      zE.hide();
+    });
+  </script>
+  {% endif %}
+  {% block js %}{% endblock %}
   {% if messages %}{% for message in messages %}
     <script type="text/javascript">
       $(function() {

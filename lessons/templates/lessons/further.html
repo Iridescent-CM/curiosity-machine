@@ -1,0 +1,18 @@
+{% extends "lessons/page.html" %}
+
+{% block right-nav %}
+  {% if lesson.next_lesson_url %}
+  <a href="{{ lesson.next_lesson_url }}" class="btn btn-new-green float-right">
+    <span class="d-none d-md-inline">Start the next lesson &rsaquo;</span>
+    <span class="d-inline d-md-none">Next &rsaquo;</span>
+  </a>
+  {% endif %}
+{% endblock %}
+
+{% block middle-nav %}
+  <a href="{% url "profiles:home" %}" class="btn btn-new-turquoise">
+    <span class="d-none d-md-inline">Back to My Dashboard</span>
+    <span class="d-inline d-md-none">Dashboard</span>
+  </a>
+{% endblock %}
+

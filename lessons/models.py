@@ -15,6 +15,9 @@ class Lesson(OrderedModel):
     plan = models.TextField(blank=True)
     build = models.TextField(blank=True)
     further = models.TextField(blank=True)
+    quiz = models.ForeignKey('Quiz', null=True, blank=True, on_delete=models.SET_NULL)
+    upload_prompt = models.TextField(null=True, blank=True, default='')
+    text_prompt = models.TextField(null=True, blank=True, default='')
 
     class Meta(OrderedModel.Meta):
         pass
@@ -46,11 +49,15 @@ class Progress(models.Model):
 
     @property
     def completed(self):
-        return self.comment_set.all().exists()
+        return (self.comment_set.all().exists()
+            and self.lesson.quiz
+            and self.lesson.quiz.quizresult_set.all().exists())
 
 class Comment(models.Model):
     author = models.ForeignKey(get_user_model(), related_name='lesson_comments')
     lesson_progress = models.ForeignKey(Progress)
+    role = models.CharField(max_length=50, default='comment')
+
     text = models.TextField(null=True, blank=True)
 
     upload_content_type = models.ForeignKey(ContentType, null=True, blank=True, on_delete=models.CASCADE)
@@ -62,3 +69,36 @@ class Comment(models.Model):
 
     def __str__(self):
         return "Lesson Comment: id={} author={} lesson={}".format(self.id, self.author, self.lesson_progress.lesson)
+
+class Quiz(models.Model):
+
+    class Meta:
+        verbose_name_plural = 'Quizzes'
+
+    question_1 = models.TextField()
+    answer_1_1 = models.TextField()
+    answer_1_2 = models.TextField()
+    answer_1_3 = models.TextField()
+    correct_answer_1 = models.PositiveSmallIntegerField()
+    explanation_1 = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Quiz: id={} question={}".format(self.id, self.question_1)
+
+class QuizResult(models.Model):
+    taker = models.ForeignKey(get_user_model())
+    quiz = models.ForeignKey(Quiz)
+    answer_1 = models.PositiveSmallIntegerField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Quiz Result: id={} quiz={} taker={}".format(self.id, self.quiz_id, self.taker_id)
+
+    @property
+    def correct(self):
+        return self.answer_1 == self.quiz.correct_answer_1

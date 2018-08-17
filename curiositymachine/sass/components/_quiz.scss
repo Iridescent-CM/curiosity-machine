@@ -1,0 +1,37 @@
+.lesson-quiz-app {
+  padding: 3em; // pad the unloaded component
+
+  .quiz {
+    margin: -3em; // allow outer div to fill the container
+    padding: 3em;
+
+    .icon-aifc-icon {
+      font-size: 3.5em;
+      display: block;
+      text-align: center;
+      margin-bottom: 0.25em;
+    }
+
+    &.correct {
+      background: theme-color("new-blue") linear-gradient(90deg, theme-color("new-blue"), theme-color("new-turquoise")) repeat-x;
+      color: white;
+      border-radius: 4px;
+
+      .form-check-label {
+        color: white;
+      }
+    }
+  }
+
+  .grading-mark {
+    position: absolute;
+    left: -1.2em;
+
+    &.grading-mark-incorrect {
+      color: red;
+    }
+    &.grading-mark-correct {
+      color: lightgreen;
+    }
+  }
+}
