@@ -1,0 +1,53 @@
+{% extends "curiositymachine/layout/ai_pg_layout.html" %}
+{% load staticfiles %}
+{% block title %}Welcome to the AI Family Challenge{% endblock %}
+
+{% block body-id %}ai-challenge-page{% endblock %}
+{% block content %}
+{% with active_nav="ai-globalchampionship" %}
+  {{ block.super }}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5">
+        <h2>AI Global Championship</h2>
+        <p class="text-center">Welcome to the first ever AI Global Championship which will happen in May 2019 in Silicon Valley, CA.</p>
+      </div>
+      <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
+        <p>The top 3 teams from the junior and senior divisions will win:</p>
+        <ul>
+          <li>An all inclusive (ie. paid travel, lodging and meals)* trip to the Championship in Silicon Valley, California</li>
+          <li>An opportunity to present their family’s AI project to industry experts and professionals</li>
+          <li>A fun filled weekend with the Curiosity Machine team!</li>
+        </ul>
+      </div>
+      <div class="col-lg-4 col-md-5 text-center mt-5">
+        <img src="{% static 'images/about/cmtrophy.png' %}">
+      </div>
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5">
+        <p><em><small>*Please note: Only team members who are registered on the account will be covered. Any additional attendees will be responsible for their own travel to the event and any other additional expenses.</small></em></p>
+      </div>
+
+
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-2">
+        <p class="text-center">
+          If you have any questions, contact us at
+          <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
+        </p>
+
+      </div>
+    </div>
+  </div>
+  <div class="bg-red text-center py-5">
+    <div class="container">
+      <h2 class="text-white">
+        Learn more about our AI Family Challenge
+      </h2>
+      <a
+        href="http://iridescentlearning.org/artificial-intelligence/the-curiosity-machine-ai-family-challenge/"
+        class="btn btn-secondary text-red text-uppercase"
+        target="_blank"
+      > Learn More</a>
+    </div>
+  </div>
+{% endwith %}
+{% endblock %}
