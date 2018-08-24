@@ -33,9 +33,7 @@
         <p>
           Explanation:
         </p>
-        <p>
-          {{ question.explanation }}
-        </p>
+        <p v-html="question.explanation"></p>
       </div>
     </template>
 
