@@ -8,7 +8,7 @@
     margin-right: 10px;
   }
 
-  .nav {
+  .dashboard-tabs {
     border-bottom: 2px $sand solid;
     text-transform: uppercase; text-align: center;
     font-size: 0.875em;
@@ -35,13 +35,17 @@
   }
 
   @include media-breakpoint-down(sm) {
-    .nav {
+    .dashboard-tabs {
       flex-direction: column;
       padding-bottom: 0.5em;
       .nav-item {
         border-bottom: none;
       }
     }
+  }
+
+  .nav-pills .nav-item .nav-link:not(.active) {
+    color: $dark;
   }
 
   .card.card-action-needed {

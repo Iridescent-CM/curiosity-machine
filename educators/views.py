@@ -14,6 +14,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, ListView, RedirectView, TemplateView, UpdateView, View
+from families.aichallenge import get_stages
 from memberships.helpers.selectors import GroupSelector
 from memberships.models import Member, Membership
 from profiles.decorators import not_for_role, only_for_role, UserRole
@@ -136,6 +137,21 @@ class ChallengeView(TemplateView):
         return super().get_context_data(**kwargs)
 
 challenge = only_for_educator(ChallengeView.as_view())
+
+class AIFCView(TemplateView):
+    template_name = "educators/dashboard/aifc.html"
+
+    def get_context_data(self, **kwargs):
+      stages = [stage.objects for stage in get_stages()]
+      for obj in stages[2]:
+        obj.image = obj.card_image
+
+      return super().get_context_data(
+          stages = stages,
+          **kwargs
+        )
+
+aifc = only_for_educator(AIFCView.as_view())
 
 class StudentsView(TemplateView):
     template_name = "educators/dashboard/memberships/students.html"

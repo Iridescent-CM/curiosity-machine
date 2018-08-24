@@ -2,7 +2,7 @@
 {% load notifications_tags %}
 <div class="row mb-5">
   <div class="col-md-12">
-    <nav>
+    <nav class="dashboard-tabs">
       <ul class="nav">
         {% if membership_selection.count > 1 %}
         <li class="nav-item dropdown">
@@ -41,6 +41,11 @@
           </a>
         </li>
         {% endif %}
+        <li class="nav-item {% ifactive "educators:aifc" "active" %}">
+          <a class="nav-link" href="{% url 'educators:aifc' %}">
+            AI Family Challenge
+          </a>
+        </li>
       </ul>
     </nav>
   </div>

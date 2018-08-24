@@ -1,0 +1,39 @@
+{% extends "educators/dashboard/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+  {% include 'educators/dashboard/_navigation.html' %}
+  <ul class="nav nav-pills my-5 justify-content-center" role="tablist">
+    {% for list in stages %}
+    <li class="nav-item mx-3">
+      <a
+        class="nav-link {% if forloop.counter == 3 %}active {% endif %}"
+        id="stage-{{ forloop.counter }}-tab"
+        data-toggle="pill"
+        href="#stage-{{ forloop.counter }}"
+        role="tab"
+        aria-controls="stage-{{ forloop.counter }}"
+        aria-selected="true"
+      >Stage {{ forloop.counter }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="tab-content">
+    {% for list in stages %}
+    <div
+      class="tab-pane {% if forloop.counter == 3 %}show active{% endif %}"
+      id="stage-{{ forloop.counter }}"
+      role="tabpanel"
+      aria-labelledby="stage-{{ forloop.counter }}-tab"
+    >
+      <div class="row">
+      {% for obj in list %}
+      <div class="col-lg-4 col-md-6 mb-1">
+        {% include 'educators/dashboard/_challenge_card.html' with challenge=obj %}
+      </div>
+      {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

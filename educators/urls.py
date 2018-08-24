@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^home/students/(?P<student_id>\d+)/challenge/(?P<challenge_id>\d+)/$', conversation, name='conversation'),
     url(r'^home/guides/$', guides, name='guides'),
     url(r'^home/activity/$', activity, name='activity'),
+    url(r'^home/aifc/$', aifc, name='aifc'),
     url(r'^data/impact_survey/$', impact_data, name='update_impact_survey'),
     url(r'^data/progress_posts/$', comments, name='progress_graph_data'),
     url(r'^coach-conversion/$', coach_conversion, name="coach_conversion"),
