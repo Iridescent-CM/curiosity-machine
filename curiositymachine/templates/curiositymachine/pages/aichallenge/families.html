@@ -6,75 +6,31 @@
 {% block content %}
 {% with active_nav="ai-families" %}
   {{ block.super }}
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5">
-        <h2>Families</h2>
-        <h3 class="mb-4">Your child is the future. So is artificial intelligence.</h3>
-        <p>Children spend less than 15% of the year in school, so we’ve developed the AI Family Challenge to empower parents and entire families to keep learning together year-round. Through one account, the entire family can learn and build at home. You have access to our specialized curriculum consisting of three stages. You will be able to complete all of the challenges and lessons that lead you to create your own capstone project, which you can submit into the competition. You'll need some materials, but don't worry - they are all things you probably already have at home or are very low-cost. You'll also become part of an online community of families building together.</p>
-
-        <p>Note: You don’t need to be a science or math expert to take part!</p>
-      </div>
-      <div class="col-lg-3 offset-lg-2 col-md-4 offset-md-1 mt-3">
-        <p>The basics:</p>
-        <ul>
-          <li>You only need one account for your family</li>
-          <li>You will have access to the AI Family Challenge design challenges</li>
-          <li>You can access AI Family Challenge resources to help you complete and submit your ideas</li>
-          <li>We will send important updates and reminders</li>
-        </ul>
-      </div>
-      <div class="col-lg-5 col-md-5 mt-3">
-        <img src="{% static 'images/about/momdaughterphoenix.png' %}">
-      </div>
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-        <hr class="hr-red mb-3"/>
-        <h3 class="mb-4">Is your family eligible?</h3>
-        <p>For the final competition:</p>
-        <ul>
-          <li>Each Family Team must have at least 1 parent/guardian and 1 child
-            <ul>
-              <li>The maximum Family Team size is 6 people</li>
-              <li>Family Teams can have up to 2 adults</li>
-            </ul>
-          </li>
-          <li>Age requirements:
-            <ul>
-              <li>The parent/guardian needs to be 18 or older</li>
-              <li>All children need to be 15 or younger on January 1, 2018</li>
-              <li>There is no minimum age for participation</li>
-              <li>We have 2 age divisions. The age division of your Family is determined by the oldest child member of your team</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 text-center my-3">
-        <p><strong>Senior Division: As of January 1, 2018, the oldest child in family is 12-15</strong></p>
-        <p><strong>Junior Division: As of January 1, 2018, the oldest child in family is 11 or younger</strong></p>
-        <p>Unrelated children are allowed on teams as long as the Family Team has one parent/guardian of a child on the team. Teams with unrelated members selected to come to our AI Family Challenge Celebration may need to complete some additional steps to be eligible for travel. Coaches may not serve as guardians.</p>
-
-        <div class="mt-4">
-          <a href="{% url "account_signup" source=source %}" class="btn btn-primary text-uppercase mx-1" target="_blank">sign up</a>
-        </div>
-        <p class="mt-2">
-          If you have any questions, contact us at
-          <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
-        </p>
-
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 offset-md-1 mt-5">
+      <h2>Families</h2>
+      <h3 class="mb-4">Do you want to learn about AI as a family? You can create a free family account and complete our program from home!</h3>
+    </div>
+    <div class="col-lg-3 offset-lg-2 col-md-4 offset-md-1 mt-3">
+      <p>The basics:</p>
+      <ul>
+        <li><p>You only need one account for your family to complete the <a href="{% url "challenges:challenges" %}" target="_blank">18 AI lessons</a></p></li>
+        <li><p>You can submit your family's ideas to our <a href="https://meet.google.com/linkredirect?authuser=0&dest=https%3A%2F%2Firidescentsupport.zendesk.com%2Fhc%2Fen-us%2Farticles%2F115004048734-How-will-judging-and-the-Global-AI-Celebration-happen-" target="_blank">AI World Championship</a></p></li>
+        <li><p>We will send important updates and reminders</p></li>
+      </ul>
+    </div>
+    <div class="col-lg-5 col-md-5 mt-3">
+      <img width="90%" height="90%" src="{% static 'images/about/momdaughterphoenix.png' %}">
+    </div>
+    <div class="col-md-10 offset-md-1">
+      <hr class="hr-red mb-3"/>
+      <h3 class="mb-4">Can my family submit to the AI World Championship?</h3>
+      <p>Remember, any family can complete the program! To submit your idea to the AI World Championship:</p>
+      <img src="{% static 'images/about/competitiondetails.png' %}">
+      <p class="my-4 text-center"><em>To learn more about the competition requirements click <a href="https://iridescentsupport.zendesk.com/hc/en-us/articles/115004026093-Who-can-enter-the-competition" target="_blank">here</a>.</em></p>
     </div>
   </div>
-  <div class="bg-red text-center py-5">
-    <div class="container">
-      <h2 class="text-white">
-        Learn more about our AI Family Challenge
-      </h2>
-      <a
-        href="http://iridescentlearning.org/artificial-intelligence/the-curiosity-machine-ai-family-challenge/"
-        class="btn btn-secondary text-red text-uppercase"
-        target="_blank"
-      > Learn More</a>
-    </div>
-  </div>
+</div>
 {% endwith %}
 {% endblock %}
