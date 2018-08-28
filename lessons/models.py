@@ -80,7 +80,7 @@ class Quiz(models.Model):
     answer_1_2 = models.TextField()
     answer_1_3 = models.TextField()
     correct_answer_1 = models.PositiveSmallIntegerField()
-    explanation_1 = models.TextField()
+    explanation_1 = models.TextField(help_text="HTML allowed")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

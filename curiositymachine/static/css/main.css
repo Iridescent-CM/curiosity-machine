@@ -7756,29 +7756,32 @@ i {
   float: left;
   margin-right: 10px; }
 
-.dashboard .nav {
+.dashboard .dashboard-tabs {
   border-bottom: 2px #E5E1D9 solid;
   text-transform: uppercase;
   text-align: center;
   font-size: 0.875em;
   letter-spacing: 2px; }
-  .dashboard .nav .nav-item {
+  .dashboard .dashboard-tabs .nav-item {
     border-bottom: 5px solid transparent; }
-    .dashboard .nav .nav-item.active {
+    .dashboard .dashboard-tabs .nav-item.active {
       border-bottom-color: #00B1C3; }
-      .dashboard .nav .nav-item.active .nav-link {
+      .dashboard .dashboard-tabs .nav-item.active .nav-link {
         color: #00B1C3; }
-  .dashboard .nav .nav-link {
+  .dashboard .dashboard-tabs .nav-link {
     color: #333333; }
-    .dashboard .nav .nav-link:hover, .dashboard .nav .nav-link:focus {
+    .dashboard .dashboard-tabs .nav-link:hover, .dashboard .dashboard-tabs .nav-link:focus {
       color: #00B1C3; }
 
 @media (max-width: 767.98px) {
-  .dashboard .nav {
+  .dashboard .dashboard-tabs {
     flex-direction: column;
     padding-bottom: 0.5em; }
-    .dashboard .nav .nav-item {
+    .dashboard .dashboard-tabs .nav-item {
       border-bottom: none; } }
+
+.dashboard .nav-pills .nav-item .nav-link:not(.active) {
+  color: #333333; }
 
 .dashboard .card.card-action-needed {
   width: 94%;
