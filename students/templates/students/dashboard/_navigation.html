@@ -2,7 +2,7 @@
 {% load notifications_tags %}
 <div class="row mb-5">
   <div class="col-md-12">
-    <nav>
+    <nav class="dashboard-tabs">
       <ul class="nav">
         {% for membership in memberships %}
         <li class="nav-item {% ifactive "students:membership" "active" %}">
