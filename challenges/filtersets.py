@@ -169,6 +169,11 @@ class AIFCChallenges(FilterSet):
 
     def apply(self):
         self.applied = True
+        stage_to_show = self.request.GET.get('stage', 1)
+        try:
+            stage_to_show = int(stage_to_show)
+        except:
+            stage_to_show = 1
 
         # FIXME: here's where some weirdness begins. Each stage has a list of objects, Challenges or Lessons.
         # We can't fully self.decorate() the challenges because it's a list, not a QuerySet, so we selectively
@@ -193,6 +198,7 @@ class AIFCChallenges(FilterSet):
         return "challenges/aifc.html", {
             "title": '<i class="icon-aifc-icon"></i> Family Challenge',
             "stages": stage_objects,
+            "active_stage": stage_to_show,
             "header_template": "challenges/filters/free.html",
         }, None
 
