@@ -19,7 +19,7 @@
   <div class="tab-content">
     {% for list in stages %}
     <div
-      class="tab-pane {% if forloop.counter == 1 %}show active{% endif %}"
+      class="tab-pane {% if forloop.counter == active_stage %}show active{% endif %}"
       id="stage-{{ forloop.counter }}"
       role="tabpanel"
       aria-labelledby="stage-{{ forloop.counter }}-tab"
