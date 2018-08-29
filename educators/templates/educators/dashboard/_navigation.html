@@ -21,6 +21,11 @@
             design challenges
           </a>
         </li>
+        <li class="nav-item {% ifactive "educators:aifc" "active" %}">
+          <a class="nav-link" href="{% url 'educators:aifc' %}">
+            AI Family Challenge
+          </a>
+        </li>
         {% if membership_selection.selected.listed_members %}
         <li class="nav-item {% ifactive "educators:students" "active" %}">
           <a class="nav-link" href="{% url 'educators:students' %}">
@@ -41,11 +46,6 @@
           </a>
         </li>
         {% endif %}
-        <li class="nav-item {% ifactive "educators:aifc" "active" %}">
-          <a class="nav-link" href="{% url 'educators:aifc' %}">
-            AI Family Challenge
-          </a>
-        </li>
       </ul>
     </nav>
   </div>
