@@ -1,0 +1,31 @@
+{% load resized %}
+
+<div class="card cm-fancy-card mb-3">
+
+  <a href="{{ obj.url }}">
+    <img class="card-img-top" src="{% resized obj.image.url width=545 height=240 crop='fill' %}" alt="{{ obj.name }}">
+  </a>
+
+  <div class="card-body pb-5">
+    <h3 class="card-title">
+      <a href="{{ obj.url }}">
+        {{ obj.name }}
+      </a>
+    </h3>
+  </div>
+
+  <a class="card-body-toggle"
+    data-text-swap="&minus; LESS INFO"
+    data-toggle="collapse"
+    href="#moreInfo-{{stage}}-{{ obj.id }}"
+    aria-expanded="false"
+    aria-controls="moreInfo-{{stage}}-{{ obj.id }}"
+  >
+    &plus; MORE INFO
+  </a>
+  <div class="card-body pb-4 card-divider collapse" id="moreInfo-{{stage}}-{{ obj.id }}">
+    <h4 class="card-section-title">DESCRIPTION</h4>
+    <p>{{ obj.description }}</p>
+  </div>
+
+</div>

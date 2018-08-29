@@ -27,11 +27,13 @@
       aria-labelledby="stage-{{ forloop.counter }}-tab"
     >
       <div class="row">
+      {% with stageloop=forloop %}
       {% for obj in list %}
       <div class="col-lg-4 col-md-6 mb-1">
-        {% include 'educators/dashboard/_challenge_card.html' with challenge=obj %}
+        {% include 'educators/dashboard/_challenge_or_lesson_card.html' with stage=stageloop.counter challenge=obj %}
       </div>
       {% endfor %}
+      {% endwith %}
       </div>
     </div>
     {% endfor %}

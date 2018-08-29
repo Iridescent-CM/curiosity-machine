@@ -143,8 +143,12 @@ class AIFCView(TemplateView):
 
     def get_context_data(self, **kwargs):
       stages = [stage.objects for stage in get_stages()]
+      for obj in stages[0] + stages[1]:
+        obj.url = reverse("challenges:preview_inspiration", kwargs={"challenge_id": obj.id})
       for obj in stages[2]:
         obj.image = obj.card_image
+        obj.name = obj.title
+        obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
 
       return super().get_context_data(
           stages = stages,
