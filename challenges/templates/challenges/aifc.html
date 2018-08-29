@@ -1,5 +1,18 @@
 {% extends "challenges/list.html" %}
 
+{% block js %}
+  <script>
+    if (window.URL && window.history && window.history.replaceState) {
+      $(function () {
+        var url = new URL(window.location);
+        $('a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
+          url.searchParams.set('stage', $(e.target).attr('href').substr(-1));
+          history.replaceState(null, null, url.toString());
+        });
+      });
+    }
+  </script>
+{% endblock %}
 {% block challenges %}
   <ul class="nav nav-pills my-5 justify-content-center" role="tablist">
     {% for list in stages %}
