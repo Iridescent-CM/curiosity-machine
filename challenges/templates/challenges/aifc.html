@@ -5,7 +5,7 @@
     {% for list in stages %}
     <li class="nav-item mx-3">
       <a
-        class="nav-link {% if forloop.counter == 1 %}active {% endif %}"
+        class="nav-link {% if forloop.counter == active_stage %}active {% endif %}"
         id="stage-{{ forloop.counter }}-tab"
         data-toggle="pill"
         href="#stage-{{ forloop.counter }}"
