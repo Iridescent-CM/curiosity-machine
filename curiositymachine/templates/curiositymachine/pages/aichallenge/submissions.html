@@ -6,48 +6,45 @@
 {% block content %}
 {% with active_nav="ai-submissions" %}
   {{ block.super }}
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mt-5 mb-1">
-        <h2>Submissions</h2>
-        <h3 class="mb-4">Enter the AI Family Challenge!</h3>
-        <p>The submission window for the AI Family Challenge will open in December 2018 and will remain open until February 1st, 2019.</p>
-        <p>Please keep in mind that each family can only submit once and they will be placed in a division depending on the age of the oldest child registered for the challenge. All materials submitted online must be in English and judging will only happen online.</p>
-          <p>Participating families must submit:</p>
-        </div>
-        <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
-          <ol>
-            <li>Family Team profile with names of all members</li>
-            <li>At least 3 design challenges, from the AIFC challenges, on CuriosityMachine.org. Need help submitting design challenges? Check <a href="https://www.youtube.com/watch?v=a_XpJ4poNwg" target="_blank">here</a></li>
-            <li>3-5 minute video that explains your project</li>
-            <li>A title and a description of your project</li>
-            <li>Family Post Survey</li>
-            <li>(Optional) Up to 4 photos</li>
-          </ol>
-        </div>
-        <div class="col-lg-4 col-md-5">
-          <img src="{% static 'images/about/SubmitCelebration.svg' %}">
-        </div>
-        <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5">
-        <p class="text-center">Come back for more details as we approach the submission window!</p>
-        <p class="mt-2 text-center">If you have any questions, contact us at
-          <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
-        </p>
-
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 offset-md-1 mt-5 mb-1">
+      <h2>Submissions</h2>
+      <h3 class="mb-4">What are the submission requirements?</h3>
+      <p>To submit for competition:</p>
+        <ul>
+          <li>Each team can only submit once and to only one division</li>
+          <li>All materials must be submitted online in English (or include English subtitles)</li>
+          <li>Families must complete their submission by February 1st at 12PM EST</li>
+        </ul>
+        <img src="{% static 'images/about/submissionrequirements.png' %}">
       </div>
+      <div class="col-md-10 offset-md-1 my-3">
+      <p>Want to know the details? Your submission will include:</p>
+      <ol>
+        <li>Invention Name and Description
+          <ul>
+            <li>100 word maximum description</li>
+          </ul>
+        </li>
+        <li>Pitch Video
+          <ul>
+            <li>Must between 4 and 5 minutes long</li>
+            <li>Share with a Youtube link, Vimeo link, Youku link, or direct upload to the site</li>
+          </ul>
+        </li>
+        <li>Submit from your Curiosity Machine family account ≥ three design challenges</li>
+        <li>Post Survey</li>
+        <li>Pictures (optional)
+          <ul>
+            <li>You can upload up to four pictures of your invention</li>
+            <li>These can be screenshots of your prototype, pictures of your team, plan, or anything else you think would be helpful for judges to see</li>
+          </ul>
+        </li>
+      </ol>
+      <p class="text-center"><em>Please note: By submitting to the AIFC World Championship, you attest that all parts of your submission were created solely by the members on your team.</em></p>
     </div>
   </div>
-  <div class="bg-red text-center py-5">
-    <div class="container">
-      <h2 class="text-white">
-        Learn more about our AI Family Challenge
-      </h2>
-      <a
-        href="http://iridescentlearning.org/artificial-intelligence/the-curiosity-machine-ai-family-challenge/"
-        class="btn btn-secondary text-red text-uppercase"
-        target="_blank"
-      > Learn More</a>
-    </div>
-  </div>
+</div>
 {% endwith %}
 {% endblock %}

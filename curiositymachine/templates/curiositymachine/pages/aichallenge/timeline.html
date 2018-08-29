@@ -6,31 +6,13 @@
 {% block content %}
 {% with active_nav="ai-timeline" %}
   {{ block.super }}
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10 offset-md-1 my-5">
-        <h2>AI Family Challenge Timeline</h2>
-        <img src="{% static 'images/about/ai-timeline.svg' %}" alt="AI Partners">
-
-        <p class="mt-2 text-center">
-          If you have any questions, contact us at
-          <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
-        </p>
-
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 my-5">
+      <h2>Here are the Dates to Remember</h2>
+      <img src="{% static 'images/about/AIFC_Timeline-Vertical.svg' %}" alt="AI Partners">
     </div>
   </div>
-  <div class="bg-blue text-center py-5">
-    <div class="container">
-      <h2 class="text-white">
-        Learn more about our AI Family Challenge
-      </h2>
-      <a
-        href="http://iridescentlearning.org/artificial-intelligence/the-curiosity-machine-ai-family-challenge/"
-        class="btn btn-secondary text-blue text-uppercase"
-        target="_blank"
-      > Learn More</a>
-    </div>
-  </div>
+</div>
 {% endwith %}
 {% endblock %}
