@@ -14,7 +14,7 @@ $(function(){
     var opts = opts || {};
     $('select[name$="family_role"]', context).each(function(i, el){
       var $el = $(el);
-      var $group = $el.closest('fieldset').find('.form-group:has(select[name$="birthday_year"])');
+      var $group = $el.closest('field').find('.form-group:has("select[name$="familymember_set-2-age"])"');
       sync($el, $group, opts);
       $el.change(sync.bind(null, $el, $group));
     });
