@@ -197,25 +197,30 @@
   .guide {
     width: 15%;
     background-color: @gray-light;
-    a {
+    .guide-button {
       color: #fff;
-      .btn {
-        margin: 0;
-        top: auto;
-        bottom: 15px;
-        right: 25px;
-        &:before {
-          content: '\e043';
-          .glyphicon;
-          color: #fff;
-          background: none;
-          position: absolute;
-          text-align: center;
-          width: 100%;
-          font-size: 30px;
-          top: -35px;
-        }
-      }
+      margin: 0;
+      top: 25px;
+      left: 35px;
+      position: absolute;
+      box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.15);
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.42857143;
+      border-radius: 4px;
+      &:before {
+        content: '\e043';
+        .glyphicon;
+        color: #fff;
+        background: none;
+        //position: absolute;
+        text-align: center;
+        //width: 100%;
+        font-size: 12px;
+        //top: 35px;
+        //left: 15px;
+      } 
     }
     &:after {
       content: '';
