@@ -3,6 +3,14 @@
 {% block body-id %}lesson-page{% endblock %}
 {% block body-classes %}lesson-pages{% endblock %}
 
+{% block js %}
+  <script>
+    {% if ga_code %}
+    ga('set', 'contentGroup3', '{{ lesson.title }}');
+    {% endif %}
+  </script>
+{% endblock %}
+
 {% block content %}
 
   <div class="container">
