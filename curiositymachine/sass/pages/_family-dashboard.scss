@@ -7,6 +7,25 @@
     padding: 20px;
     border-width: 2px;
   }
+  
+  .help-button {
+    border-radius: 100%;
+    padding: 5px 10px;
+    line-height: 1;
+    color: rgb(52, 152, 219);
+    font-size: 1.25em;
+    font-style: normal;
+    font-family: "Open Sans", Helvetica, sans-serif;
+    border-style: solid;
+    border-color: rgb(52, 152, 219);
+    position: absolute;
+    right: 25px;
+  }
+
+  // .help-button .a {
+  //   background-color: rgb(52, 152, 219);
+  //   background-blend-mode: lighten;
+  // }
 
   .instruction-text {
     background: #ccc;

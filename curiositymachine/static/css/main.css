@@ -9243,6 +9243,19 @@ footer {
   padding: 20px;
   border-width: 2px; }
 
+.family-dashboard .help-button {
+  border-radius: 100%;
+  padding: 5px 10px;
+  line-height: 1;
+  color: #3498db;
+  font-size: 1.25em;
+  font-style: normal;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  border-style: solid;
+  border-color: #3498db;
+  position: absolute;
+  right: 25px; }
+
 .family-dashboard .instruction-text {
   background: #ccc;
   border: none;
