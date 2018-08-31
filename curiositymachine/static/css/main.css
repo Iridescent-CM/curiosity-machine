@@ -9241,7 +9241,9 @@ footer {
   border-style: solid;
   border-color: #E3E3DD;
   padding: 20px;
-  border-width: 2px; }
+  border-width: 2px;
+  position: relative;
+  z-index: -1; }
 
 .family-dashboard .help-button {
   border-radius: 100%;
@@ -9254,7 +9256,8 @@ footer {
   border-style: solid;
   border-color: #3498db;
   position: absolute;
-  right: 25px; }
+  right: 25px;
+  top: 65px; }
 
 .family-dashboard .instruction-text {
   background: #ccc;

@@ -6,6 +6,8 @@
     border-color: #E3E3DD;
     padding: 20px;
     border-width: 2px;
+    position: relative;
+    z-index: -1;
   }
   
   .help-button {
@@ -20,12 +22,8 @@
     border-color: rgb(52, 152, 219);
     position: absolute;
     right: 25px;
+    top: 65px;
   }
-
-  // .help-button .a {
-  //   background-color: rgb(52, 152, 219);
-  //   background-blend-mode: lighten;
-  // }
 
   .instruction-text {
     background: #ccc;
