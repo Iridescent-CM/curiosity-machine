@@ -9259,6 +9259,36 @@ footer {
   right: 25px;
   top: 65px; }
 
+.family-dashboard .help-modal {
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #3498db;
+  padding: 20px; }
+
+.family-dashboard .number {
+  border-radius: 100%;
+  padding: 5px 10px;
+  line-height: 1;
+  font-size: 1em;
+  color: #fff;
+  font-style: normal;
+  font-family: "Raleway", Helvetica, sans-serif; }
+
+.family-dashboard .one {
+  background-color: #00B1C3; }
+
+.family-dashboard .two {
+  background-color: #F15A33; }
+
+.family-dashboard .three {
+  background-color: #6161af; }
+
+.family-dashboard .help-text {
+  font-family: "Raleway", Helvetica, sans-serif;
+  font-size: 1em;
+  color: gray; }
+
 .family-dashboard .instruction-text {
   background: #ccc;
   border: none;

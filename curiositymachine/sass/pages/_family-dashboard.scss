@@ -25,6 +25,42 @@
     top: 65px;
   }
 
+  .help-modal {
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(52, 152, 219);
+    padding: 20px;
+  }
+
+  .number {
+    border-radius: 100%;
+    padding: 5px 10px;
+    line-height: 1;
+    font-size: 1em;
+    color: #fff;
+    font-style: normal;
+    font-family: "Raleway", Helvetica, sans-serif;
+  } 
+
+  .one {
+    background-color: #00B1C3;
+  }
+
+  .two {
+    background-color: #F15A33;
+  }
+
+  .three {
+    background-color: rgb(97, 97, 175);
+  }
+
+  .help-text {
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-size: 1em;
+    color: gray;
+  }
+
   .instruction-text {
     background: #ccc;
     border: none;
