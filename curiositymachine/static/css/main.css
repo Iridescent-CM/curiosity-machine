@@ -9253,11 +9253,14 @@ footer {
   font-size: 1.25em;
   font-style: normal;
   font-family: "Open Sans", Helvetica, sans-serif;
-  border-style: solid;
-  border-color: #3498db;
+  border: 3px solid #3498db;
   position: absolute;
+  z-index: 0;
   right: 25px;
   top: 65px; }
+
+.family-dashboard .help-button:hover {
+  background-color: rgba(18, 136, 215, 0.5); }
 
 .family-dashboard .help-modal {
   border-radius: 20px;

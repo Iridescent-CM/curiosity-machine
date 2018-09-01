@@ -18,11 +18,15 @@
     font-size: 1.25em;
     font-style: normal;
     font-family: "Open Sans", Helvetica, sans-serif;
-    border-style: solid;
-    border-color: rgb(52, 152, 219);
+    border: 3px solid rgb(52, 152, 219);
     position: absolute;
+    z-index: 0;
     right: 25px;
     top: 65px;
+  }
+
+  .help-button:hover {
+    background-color: rgba(18, 136, 215, 0.5);
   }
 
   .help-modal {
