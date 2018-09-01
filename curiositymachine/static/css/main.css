@@ -9259,7 +9259,7 @@ footer {
   right: 25px;
   top: 65px; }
 
-.family-dashboard .help-button:hover {
+.family-dashboard .help-button:hover, .family-dashboard .help-button:active {
   background-color: rgba(18, 136, 215, 0.5); }
 
 .family-dashboard .help-modal {
