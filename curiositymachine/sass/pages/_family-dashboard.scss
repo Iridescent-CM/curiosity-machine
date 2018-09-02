@@ -8,7 +8,7 @@
     border-width: 2px;
     position: relative;
     z-index: -1;
-  }
+  }  
   
   .help-button {
     border-radius: 100%;
@@ -35,6 +35,42 @@
     border-width: 2px;
     border-color: rgb(52, 152, 219);
     padding: 20px;
+  }
+
+  .about-stage {
+    border-radius: 30px;
+    border-style: solid;
+    border-color: #E3E3DD; 
+    border-width: 2px;
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-size: 1em;
+    color: gray;
+    padding: 10px 20px 10px 10px;
+  }
+
+  .about-stage h4 {
+    padding: 0px 20px 0px 20px;
+    margin: 10px 20px 0px 0px;
+  }
+
+  .about-stage .col-1 {
+    text-align: right;
+    padding: 0px 20px 0px 20px;
+  }
+
+  .about-stage .col-11 {
+    text-align: left;
+    padding: 0px 0px 0px 0px;
+  }
+
+  .line {
+    width: 20%;
+    padding: 0px 20px 0px 20px;
+    margin: 0px 20px 20px 20px;
+  }
+
+  .num-col {
+    align-content: right;
   }
 
   .number {
