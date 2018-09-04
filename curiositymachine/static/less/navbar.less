@@ -155,7 +155,6 @@
       height: 100%;
     }
   }
-  //li:hover .btn {font-size: 17px;}
   .btn {
     padding: 0px;
     text-align: left;
@@ -199,7 +198,7 @@
     background-color: @gray-light;
     .guide-button {
       background-color: #fff;
-      color: #f16243;
+      color: #44b1f5;
       border-color: transparent;
       margin: 0;
       top: 15px;
@@ -211,17 +210,17 @@
       font-size: 14px;
       line-height: 1.42857143;
       border-radius: 4px;
+      &:focus, &:hover, &::selection {
+        background-color: lightgray;
+        border-color: transparent;
+      }
       &:before {
         content: '\e043';
         .glyphicon;
-        color: #f16243;
+        color: #44b1f5;
         background: none;
-        //position: absolute;
         text-align: center;
-        //width: 100%;
         font-size: 30px;
-        //top: 35px;
-        //left: 15px;
       } 
     }
     &:after {
