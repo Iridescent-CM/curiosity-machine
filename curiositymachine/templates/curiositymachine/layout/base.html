@@ -87,6 +87,9 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
       {% if ga_membership_grouping %}
       ga('set', 'contentGroup2', '{{ga_membership_grouping}}');
       {% endif %}
+    </script>
+    {% block js_ga_set %}{% endblock %}
+    <script>
       ga('send', 'pageview');
       {% for evt in ga_events %}
         ga('send', {
