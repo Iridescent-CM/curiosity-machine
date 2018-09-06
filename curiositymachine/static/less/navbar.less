@@ -210,9 +210,13 @@
       font-size: 14px;
       line-height: 1.42857143;
       border-radius: 4px;
-      &:focus, &:hover, &::selection {
+      &:hover, &:active {
         background-color: lightgray;
         border-color: transparent;
+        box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.15);
+      }
+      &:focus {
+        outline: none;
       }
       &:before {
         content: '\e043';
