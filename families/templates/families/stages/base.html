@@ -4,8 +4,9 @@
 {% block content %}
   {% include 'families/_navigation.html' %}
   
-  {% include 'families/stages/stage_info.html' with stage=stage %}
-  
+  {% comment %} {% include 'families/stages/stage_info.html' with stage=1 %} {% endcomment %}
+  {% block infobox %}
+  {% endblock %}
   <div class="row">
     <div class="col-md-8">
       <h2 class="text-center">Design Challenges</h2>

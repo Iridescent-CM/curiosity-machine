@@ -9277,7 +9277,8 @@ footer {
   font-family: "Raleway", Helvetica, sans-serif;
   font-size: 1em;
   color: gray;
-  padding: 10px 20px 10px 10px; }
+  padding: 10px 20px 10px 10px;
+  margin: 0px 0px 30px 0px; }
 
 .family-dashboard .about-stage h4 {
   padding: 0px 20px 0px 20px;
