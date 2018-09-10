@@ -92,6 +92,8 @@ class FamilyMemberForm(forms.ModelForm):
         }),
         required=False
     )
+    
+    age = forms.IntegerField(required=False)
 
     birthday = forms.DateField(
         required=False,
