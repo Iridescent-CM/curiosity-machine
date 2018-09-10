@@ -55,10 +55,12 @@ class LessonAdmin(OrderedModelAdmin):
 class ProgressAdmin(admin.ModelAdmin):
     model = Progress
     list_display = ('id', 'owner', 'lesson', 'created_at', 'updated_at')
+    readonly_fields = ('lesson', 'owner')
 
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
     list_display = ('id', 'author', '_progress_owner', '_lesson_title', '_lesson_id')
+    readonly_fields = ('author', 'text', 'lesson_progress', 'role', 'upload_content_type', 'upload_id')
 
     def _progress_owner(self, obj):
         return obj.lesson_progress.owner
@@ -76,6 +78,7 @@ class QuizAdmin(admin.ModelAdmin):
 class QuizResultAdmin(admin.ModelAdmin):
     model = QuizResult
     list_display = ('id', 'question_1', 'answer_1', 'taker', 'created_at')
+    readonly_fields = ('taker', 'quiz', 'answer_1')
 
     def question_1(self, obj):
         return obj.quiz.question_1
