@@ -32,14 +32,14 @@
 
     <div class="col-md-8">
       <h3>AI Family Challenge Program Progress</h3>
-      <a 
-        href="#"
-        data-toggle="modal" 
-        data-target="#dashboard-help-modal" 
-      >
-        <i class="help-button">?</i>
-      </a>
       <div class="row dashboard-section">
+        <a 
+          href="#"
+          data-toggle="modal" 
+          data-target="#dashboard-help-modal" 
+        >
+          <i class="help-button">?</i>
+        </a>
         {% for stage in stages %}
         {% if not stage.number == 3 or flags.enable_stage_3 %}
         <div class="col-md-4 text-center">
