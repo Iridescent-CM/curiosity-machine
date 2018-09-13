@@ -42,8 +42,7 @@
         </a>
         {% for stage in stages %}
         {% if not stage.number == 3 or flags.enable_stage_3 %}
-        {% comment %} need this to be unique for each stage {% endcomment %}
-        <a href="{% url 'families:stage_1' %}" class="col-md-4 text-center">
+        <div class="col-md-4 text-center">
           <div
             data-percent={{stage.stats.percent_complete}}
             data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
@@ -59,7 +58,7 @@
             data-fontColor= '#666'
           ></div>
           <p>Stage {{stage.number}}</p>
-        </a>
+        </div>
         {% endif %}
         {% endfor %}
         {% if not flags.enable_stage_3 %}
