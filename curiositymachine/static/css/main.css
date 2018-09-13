@@ -9298,7 +9298,8 @@ footer {
   margin: 0px 20px 20px 20px; }
 
 .family-dashboard .num-col {
-  align-content: left; }
+  align-content: left;
+  padding: 0 0 0 0; }
 
 .family-dashboard .number {
   border-radius: 100%;
