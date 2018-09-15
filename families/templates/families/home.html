@@ -33,7 +33,8 @@
       <div class="row dashboard-section">
         {% for stage in stages %}
         {% if not stage.number == 3 or flags.enable_stage_3 %}
-        <div class="col-md-4 text-center">
+        {% load addstr %}
+        <a href={% url "families:stage_"|addstr:stage.number %} class="col-md-4 text-center">
           <div
             data-percent={{stage.stats.percent_complete}}
             data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
@@ -49,7 +50,7 @@
             data-fontColor= '#666'
           ></div>
           <p>Stage {{stage.number}}</p>
-        </div>
+        </a>
         {% endif %}
         {% endfor %}
         {% if not flags.enable_stage_3 %}
