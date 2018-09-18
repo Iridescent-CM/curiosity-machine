@@ -9258,9 +9258,8 @@ footer {
   z-index: 1;
   right: 15px;
   top: 15px; }
-
-.family-dashboard .help-button:hover, .family-dashboard .help-button:active {
-  background-color: rgba(18, 136, 215, 0.5); }
+  .family-dashboard .help-button:hover, .family-dashboard .help-button:active {
+    background-color: rgba(18, 136, 215, 0.5); }
 
 .family-dashboard .help-modal {
   border-radius: 20px;
@@ -9278,19 +9277,16 @@ footer {
   color: gray;
   padding: 10px 20px 10px 10px;
   margin: 0px 0px 30px 0px; }
-
-.family-dashboard .about-stage h4 {
-  color: gray;
-  padding: 0px 10px 0px 10px;
-  margin: 10px 20px 0px 0px; }
-
-.family-dashboard .about-stage .col-1 {
-  text-align: right;
-  padding: 0px 0px 0px 0px; }
-
-.family-dashboard .about-stage .col-11 {
-  text-align: left;
-  padding: 0px 0px 0px 0px; }
+  .family-dashboard .about-stage h4 {
+    color: gray;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 20px 0px 0px; }
+  .family-dashboard .about-stage .col-1 {
+    text-align: right;
+    padding: 0px 0px 0px 0px; }
+  .family-dashboard .about-stage .col-11 {
+    text-align: left;
+    padding: 0px 0px 0px 0px; }
 
 .family-dashboard .line {
   width: 20%;
