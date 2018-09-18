@@ -21,14 +21,8 @@ def test_list(apiclient):
     assert apiclient.get('/lessons/comment/?lesson_progress=%s' % 100).status_code == 403
     assert apiclient.get('/lessons/comment/?lesson_progress=%s' % other_progress.id).status_code == 403
     assert apiclient.get('/lessons/comment/?lesson_progress=%s' % progress.id).status_code == 200
-    assert apiclient.get('/lessons/comment/?lesson_progress=%s' % progress.id).json() == [{
-        "author": user.id,
-        "lesson_progress": progress.id,
-        "id": comment.id,
-        "text": comment.text,
-        "upload": None,
-        "role": "comment"
-    }]
+    assert len(apiclient.get('/lessons/comment/?lesson_progress=%s' % progress.id).json()) == 1
+    assert apiclient.get('/lessons/comment/?lesson_progress=%s' % progress.id).json()[0]['id'] == comment.id
 
 @pytest.mark.django_db
 def test_create(apiclient):

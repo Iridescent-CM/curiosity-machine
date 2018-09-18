@@ -1,5 +1,6 @@
 {% extends "families/base.html" %}
 {% load staticfiles %}
+{% load addstr %}
 
 {% block js %}
   <script type="text/javascript" src="{% static 'js/libs/jquery.circliful.min.js' %}"></script>
@@ -43,21 +44,23 @@
         {% for stage in stages %}
         {% if not stage.number == 3 or flags.enable_stage_3 %}
         <div class="col-md-4 text-center">
-          <div
-            data-percent={{stage.stats.percent_complete}}
-            data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
-            data-animationStep=20
-            data-foregroundBorderWidth= 30
-            data-backgroundBorderWidth= 30
-            {% if stage.stats.completed == stage.stats.total %}
-                data-foregroundColor = '#73AD21'
-            {% else %}
-                data-foregroundColor = '#3498DB'
-            {% endif %}
-            data-backgroundColor= '#666'
-            data-fontColor= '#666'
-          ></div>
-          <p>Stage {{stage.number}}</p>
+          <a href="{% url "families:stage_"|addstr:stage.number %}">
+            <div
+              data-percent={{stage.stats.percent_complete}}
+              data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
+              data-animationStep=20
+              data-foregroundBorderWidth= 30
+              data-backgroundBorderWidth= 30
+              {% if stage.stats.completed == stage.stats.total %}
+                  data-foregroundColor = '#73AD21'
+              {% else %}
+                  data-foregroundColor = '#3498DB'
+              {% endif %}
+              data-backgroundColor= '#666'
+              data-fontColor= '#666'
+            ></div>
+            <p>Stage {{stage.number}}</p>
+          </a>
         </div>
         {% endif %}
         {% endfor %}

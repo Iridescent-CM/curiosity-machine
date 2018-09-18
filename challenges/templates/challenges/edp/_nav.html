@@ -2,17 +2,16 @@
   <nav class="challenge-nav primary">
     <ul>
       <li class="guide">
-        <a
+        <button class="guide-button"
           data-toggle="modal"
           data-target="#guide-modal"
-          href="#"
           ga-on="click"
           ga-event-category="Button"
           ga-event-action="click"
           ga-event-label="Guide button"
         >
-          <span class="btn" >Guide</span>
-        </a>
+        GUIDE
+        </button>
       </li>
       <li class="inspiration {% if edp_nav.stage == 'inspiration' %}selected{% endif %}">
         <a href="{{ edp_nav.inspiration }}">

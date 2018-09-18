@@ -3,6 +3,12 @@
 {% block body-id %}lesson-page{% endblock %}
 {% block body-classes %}lesson-pages{% endblock %}
 
+{% block js_ga_set %}
+  <script>
+    ga('set', 'contentGroup3', '{{ lesson.title }}');
+  </script>
+{% endblock %}
+
 {% block content %}
 
   <div class="container">
