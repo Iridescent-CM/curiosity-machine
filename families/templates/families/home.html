@@ -35,7 +35,7 @@
         {% for stage in stages %}
         {% if not stage.number == 3 or flags.enable_stage_3 %}
         <div class="col-md-4 text-center">
-          <a href="{% url "families:stage_"|addstr:stage.number %}"">
+          <a href="{% url "families:stage_"|addstr:stage.number %}">
             <div
               data-percent={{stage.stats.percent_complete}}
               data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
