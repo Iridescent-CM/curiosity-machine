@@ -26,9 +26,7 @@ class CreateView(EditProfileMixin, CreateView):
     form_class = NewStudentProfileForm
 
     def get_success_url(self):
-        if self.object.is_underage():
-            return reverse("students:underage")
-        return reverse("challenges:challenges")
+        return reverse("students:unapproved")
 
 create = not_for_role(UserRole.student, redirect="students:edit_profile")(CreateView.as_view())
 
@@ -129,7 +127,7 @@ class FavoritesView(DashboardMixin, ListView):
 
 favorites = only_for_student(FavoritesView.as_view())
 
-underage = unapproved_only(TemplateView.as_view(template_name='students/underage.html'))
+unapproved = unapproved_only(TemplateView.as_view(template_name='students/unapproved.html'))
 
 class ActivityView(DashboardMixin, ListView):
     template_name = "students/dashboard/activity.html"

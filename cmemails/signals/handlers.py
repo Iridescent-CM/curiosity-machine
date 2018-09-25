@@ -11,14 +11,7 @@ import re
 @receiver(signals.created_profile)
 def send_welcome_email(sender, **kwargs):
     if sender.extra.send_welcome and not getattr(sender, "skip_welcome_email", False):
-        if sender.extra.is_student:
-            if sender.studentprofile.is_underage():
-                pass # handled through hellosign
-            else:
-                send(template_name='student-welcome', to=sender, merge_vars={
-                    'studentname': sender.username
-                })
-        elif sender.extra.is_educator:
+        if sender.extra.is_educator:
             send(template_name='educator-welcome', to=sender, merge_vars={
                 'username': sender.username
             })
@@ -36,12 +29,10 @@ def send_activation_confirmation(sender, **kwargs):
         send(template_name='family-account-account-activated', to=sender, merge_vars={
             'username': sender.username
         })
-
-@receiver(signals.underage_activation_confirmed)
-def send_underage_activation_confirmation(sender, **kwargs):
-    send(template_name='student-u13-account-activated', to=sender, merge_vars={
-        'studentname': sender.username
-    })
+    elif sender.extra.is_student:
+        send(template_name='student-u13-account-activated', to=sender, merge_vars={
+            'studentname': sender.username
+        })
 
 @receiver(signals.completed_training)
 def send_training_completion_notice(sender, **kwargs):

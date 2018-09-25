@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
-    help = 'Approve all underage users for whom their parents have signed the consent form'
+    help = 'Approve all students for whom their parents have signed the consent form'
 
     def add_arguments(self, parser):
         # This is the cutoff time delta for searching completed signature
@@ -36,7 +36,7 @@ class Command(BaseCommand):
             else:
                 break
         else:
-            logger.warning("Unable to approve underage students: collided with active call to request list")
+            logger.warning("Unable to approve students: collided with active call to request list")
             return
         request = client.request
 
@@ -62,7 +62,7 @@ class Command(BaseCommand):
                 else:
                     break
             else:
-                logger.warning("Unable to approve underage students: collided with active call to request list too many times")
+                logger.warning("Unable to approve students: collided with active call to request list too many times")
                 return
             signature_requests = signature_request_list["signature_requests"]
 
@@ -71,20 +71,11 @@ class Command(BaseCommand):
             list_info = signature_request_list["list_info"]
             num_pages = list_info['num_pages']
 
-            # we need to check the metadata of each signature request to see if it meets
-            # the following condition(s):
-            # 1) it must have the current UNDERAGE_CONSENT_TEMPLATE_ID as defined in
-            #   the settings. This allows us to have other hellosign templates sent out
-            #   without confusing them with the underage form.
-            # 2) The production mode in the signature_request metadata must match the
-            #	production mode of the deployed server.
-            # if the metadata meets the former condition(s), then it should contain
-            # a user_id; add it to the list so that we can approve this user.
             for signature_request in signature_requests:
                 metadata = signature_request["metadata"]
                 if verbose:
                     self.stdout.write(self.style.NOTICE("Signature metadata: %s" % metadata))
-                if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID:
+                if metadata and metadata["template_id"] == settings.STUDENT_CONSENT_TEMPLATE_ID:
                     # check the metadata production mode
                     if ("environment_name" in metadata
                         and metadata["environment_name"] == settings.HELLOSIGN_ENVIRONMENT_NAME
@@ -98,16 +89,13 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.NOTICE("IDs to approve: %s" % user_ids_to_approve))
             student_profiles = StudentProfile.objects.filter(user_id__in=user_ids_to_approve)
 
-            #now "student_profiles" contains all the student_profiles which have completed a
-            #underage consent form. Approve them if they are not already approved.
             ids_approved = []
             for student_profile in student_profiles:
-                if not student_profile.full_access and student_profile.birthday and student_profile.is_underage():
+                if not student_profile.full_access:
                     ids_approved.append(student_profile.user.id)
                     student_profile.full_access = True
                     student_profile.save(update_fields=['full_access'])
-                    signals.underage_activation_confirmed.send(sender=student_profile.user,
-                                                               account=student_profile.user)
+                    signals.account_activation_confirmed.send(sender=student_profile.user)
 
             if verbose:
                 self.stdout.write(self.style.SUCCESS("IDs approved: %s" % ids_approved))

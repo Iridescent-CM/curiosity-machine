@@ -68,15 +68,4 @@ class CSVRowDataFactory(factory.Factory):
     password = factory.fuzzy.FuzzyText(length=6)
     username = factory.fuzzy.FuzzyText()
     email = factory.fuzzy.FuzzyText(suffix="@mailinator.com")
-    birthday = factory.fuzzy.FuzzyDate(
-        start_date=now() - relativedelta(years=30),
-        end_date=now() - relativedelta(years=14)
-    )
-
-    class Params:
-        underage = factory.Trait(
-            birthday=factory.fuzzy.FuzzyDate(
-                start_date=now() - relativedelta(years=12),
-                end_date=now() - relativedelta(years=5)
-            )
-        )
+    approved = "no"

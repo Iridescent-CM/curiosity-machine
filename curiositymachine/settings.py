@@ -127,7 +127,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'curiositymachine.middleware.UserProxyMiddleware',
     'curiositymachine.middleware.LoginRequiredMiddleware',
-    "curiositymachine.middleware.UnderageStudentSandboxMiddleware",
+    "curiositymachine.middleware.UnapprovedStudentSandboxMiddleware",
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
     'curiositymachine.middleware.LastActiveMiddleware',
     'curiositymachine.middleware.FirstLoginMiddleware',
@@ -406,10 +406,10 @@ MEDIA_URL = S3_URL_BASE + '/' + AWS_STORAGE_BUCKET_NAME + '/'
 
 # Hellosign e-signature
 HELLOSIGN_API_KEY = os.environ.get("HELLOSIGN_API_KEY", "")
-UNDERAGE_CONSENT_TEMPLATE_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_ID", "")
-UNDERAGE_CONSENT_TEMPLATE_USERNAME_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_USERNAME_ID", "")
-UNDERAGE_CONSENT_TEMPLATE_BIRTHDAY_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_BIRTHDAY_ID", "")
-UNDERAGE_CONSENT_TEMPLATE_EMAIL_ID = os.environ.get("UNDERAGE_CONSENT_TEMPLATE_EMAIL_ID", "")
+STUDENT_CONSENT_TEMPLATE_ID = os.environ.get("STUDENT_CONSENT_TEMPLATE_ID", "")
+STUDENT_CONSENT_TEMPLATE_USERNAME_ID = os.environ.get("STUDENT_CONSENT_TEMPLATE_USERNAME_ID", "")
+STUDENT_CONSENT_TEMPLATE_BIRTHDAY_ID = os.environ.get("STUDENT_CONSENT_TEMPLATE_BIRTHDAY_ID", "")
+STUDENT_CONSENT_TEMPLATE_EMAIL_ID = os.environ.get("STUDENT_CONSENT_TEMPLATE_EMAIL_ID", "")
 HELLOSIGN_PRODUCTION_MODE = os.environ.get("HELLOSIGN_PRODUCTION_MODE", False)
 HELLOSIGN_ENVIRONMENT_NAME = os.environ.get("HELLOSIGN_ENVIRONMENT_NAME", None)
 
