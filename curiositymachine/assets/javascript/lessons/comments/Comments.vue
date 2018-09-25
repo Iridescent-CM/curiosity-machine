@@ -35,7 +35,6 @@
 
     <template v-for="comment in comments">
       <hr class="border-primary">
-      {{ comment.created_at | moment("MMM D, YYYY") }}
       <comment
         :key="comment.id"
         v-bind:initial="comment"
