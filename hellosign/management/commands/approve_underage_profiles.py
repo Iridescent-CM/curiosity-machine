@@ -75,7 +75,7 @@ class Command(BaseCommand):
                 metadata = signature_request["metadata"]
                 if verbose:
                     self.stdout.write(self.style.NOTICE("Signature metadata: %s" % metadata))
-                if metadata and metadata["template_id"] == settings.STUDENT_CONSENT_TEMPLATE_ID:
+                if metadata and metadata["template_id"] == settings.UNDERAGE_CONSENT_TEMPLATE_ID:
                     # check the metadata production mode
                     if ("environment_name" in metadata
                         and metadata["environment_name"] == settings.HELLOSIGN_ENVIRONMENT_NAME
