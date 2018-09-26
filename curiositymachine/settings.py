@@ -414,6 +414,8 @@ HELLOSIGN_PRODUCTION_MODE = os.environ.get("HELLOSIGN_PRODUCTION_MODE", False)
 HELLOSIGN_ENVIRONMENT_NAME = os.environ.get("HELLOSIGN_ENVIRONMENT_NAME", None)
 
 # Hellosign templates
+HELLOSIGN_TEMPLATE_FAMILY_CONSENT_ID = ""
+HELLOSIGN_TEMPLATE_STUDENT_CONSENT_ID = ""
 for k, v in os.environ.items():
     if k.startswith("HELLOSIGN_TEMPLATE_"):
         setattr(sys.modules[__name__], k, v)
