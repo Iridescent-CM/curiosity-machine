@@ -30,7 +30,7 @@ def send_activation_confirmation(sender, **kwargs):
             'username': sender.username
         })
     elif sender.extra.is_student:
-        send(template_name='student-u13-account-activated', to=sender, merge_vars={
+        send(template_name='student-account-activated', to=sender, merge_vars={
             'studentname': sender.username
         })
 

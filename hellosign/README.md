@@ -12,7 +12,7 @@ environment. Should be unique for production environments.
 
 ### Management commands
 
-* `approve_student_profiles`: To be documented, has specific config to be documented as well.
+* `approve_student_profiles`: **DEPRECATED** ~~To be documented, has specific config to be documented as well.~~
 * `update_signatures`: Run with template id(s), will search for signed requests and update
 the relevant Signature models.
 
