@@ -21,23 +21,7 @@ class StudentProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('students.factories.StudentFactory', profile=None)
     city = 'city'
-    birthday = now() - relativedelta(years=14)
     full_access = True
-
-    class Params:
-        underage = factory.Trait(
-            birthday=now() - relativedelta(years=12)
-        )
-
-    @classmethod
-    def _adjust_kwargs(cls, **kwargs):
-        if "birthday" in kwargs:
-            val = kwargs["birthday"]
-            if isinstance(val, str):
-                kwargs["birthday"] = parse_date(val)
-                if not kwargs["birthday"]:
-                    raise ValueError("Could not parse %s as date, use YYYY-MM-DD" % val)
-        return kwargs
 
 @factory.django.mute_signals(handlers.post_save)
 class StudentFactory(UserFactory):

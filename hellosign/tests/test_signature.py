@@ -11,18 +11,16 @@ class SomeConsentTemplate(ConsentTemplate):
 
 def test_signature_custom_fields():
     with mock.patch('hellosign.models.settings', spec=True) as settings:
-        user = StudentFactory.build(studentprofile__birthday="2000-01-01")
+        user = StudentFactory.build()
 
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_ID = "123"
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_EMAIL_ID = "abc"
         settings.HELLOSIGN_TEMPLATE_SOME_NAME_USERNAME_ID = "def"
-        settings.HELLOSIGN_TEMPLATE_SOME_NAME_BIRTHDAY_ID = "ghi"
 
         sig = Signature(template_id="123", user=user)
         assert sig.get_custom_fields() == {
             "abc": user.email,
             "def": user.username,
-            "ghi": "Jan 01, 2000"
         }
 
 def test_signature_custom_fields_omitted_id():

@@ -19,19 +19,18 @@ def test_row_import_form_requires_fields():
     assert form.fields['password'].required
     assert form.fields['first_name'].required
     assert form.fields['last_name'].required
-    assert form.fields['birthday'].required
+    assert form.fields['approved'].required
 
 @pytest.mark.django_db
 def test_valid_data_has_no_error():
     assert RowImportForm(CSVRowDataFactory()).errors.as_data() == {}
-    assert RowImportForm(CSVRowDataFactory(underage=True, approved="y")).errors.as_data() == {}
+    assert RowImportForm(CSVRowDataFactory(approved="y")).errors.as_data() == {}
 
 @pytest.mark.django_db
 def test_form_saves_expected_user():
     membership = MembershipFactory.build()
     data = CSVRowDataFactory(
         approved="y",
-        birthday="03/07/1995"
     )
     f = RowImportForm(
         data,
@@ -43,7 +42,6 @@ def test_form_saves_expected_user():
     for attr in ['username', 'first_name', 'last_name', 'email']:
         assert getattr(member.user, attr) == data[attr] 
     assert member.user.studentprofile.full_access
-    assert member.user.studentprofile.birthday == date(year=1995, month=3, day=7)
 
 @pytest.mark.django_db
 def test_approved_values():
@@ -60,28 +58,6 @@ def test_approved_values():
     assert not approves(approved="NO")
     assert not approves(approved="")
     assert not approves()
-
-@pytest.mark.django_db
-def test_birthday_values():
-    def parses(val, **kwargs):
-        obj = RowImportForm(CSVRowDataFactory(birthday=val)).save(commit=False)
-        return obj.user.studentprofile.birthday == date(**kwargs)
-
-    assert parses("01/01/1990", month=1, day=1, year=1990)
-    assert parses("1/1/90", month=1, day=1, year=1990)
-    assert parses("1990-01-01", month=1, day=1, year=1990)
-
-@pytest.mark.django_db
-def test_approved_required_for_underage():
-    assert RowImportForm(CSVRowDataFactory.build(underage=False)).is_valid()
-
-    f = RowImportForm(CSVRowDataFactory.build(underage=True))
-    assert not f.is_valid()
-    assert "approved" in f.errors.as_data()
-
-    f = RowImportForm(CSVRowDataFactory.build(underage=True, approved=""))
-    assert not f.is_valid()
-    assert "approved" in f.errors.as_data()
 
 @pytest.mark.django_db
 def test_has_student_role():
@@ -116,11 +92,11 @@ def test_saving_form_adds_member_to_group():
         {
             "username": "username",
             "password": "password",
-            "birthday": "01/01/1990",
             "first_name": "first",
             "last_name": "last",
             "email":"email@example.com",
-            "groups": "group 1, group 2"
+            "groups": "group 1, group 2",
+            "approved": "yes"
         },
         membership=membership
     )
@@ -137,11 +113,11 @@ def test_saving_form_reuses_existing_group():
         {
             "username": "username",
             "password": "password",
-            "birthday": "01/01/1990",
             "first_name": "first",
             "last_name": "last",
             "email":"email@example.com",
-            "groups": "group"
+            "groups": "group",
+            "approved": "yes"
         },
         membership=membership
     )

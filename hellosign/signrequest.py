@@ -6,10 +6,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def send_underage_consent_form(sender):
-    # For underage users we will be using the Hellosign
-    # esignature api. The following code handles that:
-    # Initialize HSClient using api key
+def send_student_consent_form(sender):
     api_key = settings.HELLOSIGN_API_KEY
     client = HSClient(api_key=api_key)
     # autofill template fields:
@@ -34,7 +31,6 @@ def send_underage_consent_form(sender):
     ]
     custom_fields = [
         {settings.UNDERAGE_CONSENT_TEMPLATE_EMAIL_ID: parent_email,
-         settings.UNDERAGE_CONSENT_TEMPLATE_BIRTHDAY_ID: child_birth_date,
          settings.UNDERAGE_CONSENT_TEMPLATE_USERNAME_ID: child_username}
     ]
     metadata = {

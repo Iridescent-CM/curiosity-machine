@@ -64,19 +64,5 @@ class NewStudentProfileForm(StudentProfileEditForm):
     class Meta:
         model = StudentProfile
         fields = [
-            'birthday',
             'city',
         ]
-
-    birthday = forms.DateField(
-        required=False,
-        widget=forms.extras.SelectDateWidget(
-            years=BIRTH_YEAR_CHOICES,
-            empty_label=("Year", "Month", "Day"),
-        ),
-    )
-
-    def clean_birthday(self):
-        if not self.cleaned_data.get('birthday'):
-            raise forms.ValidationError('Please set your birthday.')
-        return self.cleaned_data.get('birthday')

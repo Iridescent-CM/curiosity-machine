@@ -22,7 +22,7 @@ from pyquery import PyQuery as pq
 from students.factories import *
 from .. import signals
 from ..helpers import random_string
-from ..middleware import UnderageStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
+from ..middleware import UnapprovedStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
 from ..views import root
 
 User = get_user_model()
@@ -33,46 +33,46 @@ def force_true(*args, **kwargs):
 def force_false(*args, **kwargs):
     return False
 
-def test_underage_student_middleware_redirects_request(rf):
-    user = StudentFactory.build(studentprofile__underage=True, studentprofile__full_access=False)
-    middleware = UnderageStudentSandboxMiddleware()
+def test_unapproved_student_middleware_redirects_request(rf):
+    user = StudentFactory.build(studentprofile__full_access=False)
+    middleware = UnapprovedStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
     response = middleware.process_view(request, mock.MagicMock(), None, None)
     assert isinstance(response, HttpResponseRedirect)
-    assert response.url == reverse('students:underage')
+    assert response.url == reverse('students:unapproved')
 
-def test_underage_student_middleware_skips_full_access_profiles(rf):
+def test_unapproved_student_middleware_skips_full_access_profiles(rf):
     student = StudentFactory.build(studentprofile__full_access=True)
-    middleware = UnderageStudentSandboxMiddleware()
+    middleware = UnapprovedStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = student
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
-def test_underage_student_middleware_skips_mentors(rf):
+def test_unapproved_student_middleware_skips_mentors(rf):
     user = MentorFactory.build()
-    middleware = UnderageStudentSandboxMiddleware()
+    middleware = UnapprovedStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
-def test_underage_student_middleware_skips_staff(rf):
+def test_unapproved_student_middleware_skips_staff(rf):
     user = UserFactory.build(is_staff=True)
-    middleware = UnderageStudentSandboxMiddleware()
+    middleware = UnapprovedStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
-def test_underage_student_middleware_skips_unauthenticated_user(rf):
+def test_unapproved_student_middleware_skips_unauthenticated_user(rf):
     user = AnonymousUser()
-    middleware = UnderageStudentSandboxMiddleware()
+    middleware = UnapprovedStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
-def test_underage_student_middleware_allows_whitelisted_views(rf):
-    user = StudentFactory.build(studentprofile__underage=True, studentprofile__full_access=False)
-    middleware = UnderageStudentSandboxMiddleware()
+def test_unapproved_student_middleware_allows_whitelisted_views(rf):
+    user = StudentFactory.build(studentprofile__full_access=False)
+    middleware = UnapprovedStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = user
 
@@ -82,7 +82,7 @@ def test_underage_student_middleware_allows_whitelisted_views(rf):
     view = decorators.whitelist('maybe_public')(mock.MagicMock())
     assert not middleware.process_view(request, view, None, None)
 
-    view = decorators.whitelist('underage')(mock.MagicMock())
+    view = decorators.whitelist('unapproved_students')(mock.MagicMock())
     assert not middleware.process_view(request, view, None, None)
 
 def test_unapproved_mentor_middleware_redirects(rf):
