@@ -1,0 +1,58 @@
+.three-bullet-panel {
+    border-radius: 30px;
+    border-style: solid;
+    border-color: #E3E3DD; 
+    border-width: 2px;
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-size: 1em;
+    color: gray;
+    padding: 10px 10px 10px 20px;
+    margin-bottom: 30px;
+
+    h4 {
+        color: gray;
+        margin: 10px 10px 0px 5px;
+    }
+    
+    hr {
+        width: 20%;
+        margin: 2px 0px 10px 5px;
+    }
+
+    ul {
+        list-style: none;
+        margin-left: 10px;
+        text-indent: -50px;
+    }
+
+    li {
+        margin-top: 1em;
+        &:before {
+            margin-right: 1em;
+            color: #fff;
+            border-radius: 50%;
+            padding: 5px 10px 5px 10px;
+        }
+    }
+
+    .bullet-one {
+        &:before {
+            content: "1.";
+            background: #02B0C2;
+        }
+    }
+
+    .bullet-two {
+        &:before {
+            content: "2.";
+            background: #FF5050;
+        }
+    }
+
+    .bullet-three {
+        &:before {
+            content: "3.";
+            background: #6C6CB6;
+        }
+    }
+}

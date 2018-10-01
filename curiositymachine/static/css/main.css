@@ -8374,6 +8374,26 @@ footer {
 .btn-secondary:focus {
   color: #00B1C3; }
 
+.blue-question-mark-button {
+  border-radius: 100%;
+  padding: 5px 10px;
+  line-height: 1;
+  color: #3498DB;
+  font-size: 1.25em;
+  font-weight: bold;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  border: 2px solid #3498DB;
+  position: absolute;
+  z-index: 1;
+  right: 15px;
+  top: 15px; }
+  .blue-question-mark-button:before {
+    content: "?";
+    visibility: visible; }
+  .blue-question-mark-button:hover, .blue-question-mark-button:active {
+    background-color: #3498DB66;
+    cursor: pointer; }
+
 .cm-card,
 .cm-fancy-card,
 .cm-profile-card,
@@ -8705,6 +8725,43 @@ footer {
 
 .modal-cm.modal.fade .modal-dialog {
   transform: translate(0, 0); }
+
+.three-bullet-panel {
+  border-radius: 30px;
+  border-style: solid;
+  border-color: #E3E3DD;
+  border-width: 2px;
+  font-family: "Raleway", Helvetica, sans-serif;
+  font-size: 1em;
+  color: gray;
+  padding: 10px 10px 10px 20px;
+  margin-bottom: 30px; }
+  .three-bullet-panel h4 {
+    color: gray;
+    margin: 10px 10px 0px 5px; }
+  .three-bullet-panel hr {
+    width: 20%;
+    margin: 2px 0px 10px 5px; }
+  .three-bullet-panel ul {
+    list-style: none;
+    margin-left: 10px;
+    text-indent: -50px; }
+  .three-bullet-panel li {
+    margin-top: 1em; }
+    .three-bullet-panel li:before {
+      margin-right: 1em;
+      color: #fff;
+      border-radius: 50%;
+      padding: 5px 10px 5px 10px; }
+  .three-bullet-panel .bullet-one:before {
+    content: "1.";
+    background: #02B0C2; }
+  .three-bullet-panel .bullet-two:before {
+    content: "2.";
+    background: #FF5050; }
+  .three-bullet-panel .bullet-three:before {
+    content: "3.";
+    background: #6C6CB6; }
 
 .graph {
   background: white;
@@ -9244,82 +9301,11 @@ footer {
   border-width: 2px;
   position: relative;
   z-index: 0; }
+  .family-dashboard .dashboard-section a {
+    color: #3498DB; }
 
-.family-dashboard .help-button {
-  border-radius: 100%;
-  padding: 5px 10px;
-  line-height: 1;
-  color: #3498db;
-  font-size: 1.25em;
-  font-style: normal;
-  font-family: "Open Sans", Helvetica, sans-serif;
-  border: 3px solid #3498db;
-  position: absolute;
-  z-index: 1;
-  right: 15px;
-  top: 15px; }
-  .family-dashboard .help-button:hover, .family-dashboard .help-button:active {
-    background-color: rgba(18, 136, 215, 0.5); }
-
-.family-dashboard .help-modal {
-  border-radius: 20px;
-  border-style: solid;
-  border-width: 2px;
-  border-color: #3498db; }
-
-.family-dashboard .about-stage {
-  border-radius: 30px;
-  border-style: solid;
-  border-color: #E3E3DD;
-  border-width: 2px;
-  font-family: "Raleway", Helvetica, sans-serif;
-  font-size: 1em;
-  color: gray;
-  padding: 10px 20px 10px 10px;
-  margin: 0px 0px 30px 0px; }
-  .family-dashboard .about-stage h4 {
-    color: gray;
-    padding: 0px 10px 0px 10px;
-    margin: 10px 20px 0px 0px; }
-  .family-dashboard .about-stage .col-1 {
-    text-align: right;
-    padding: 0px 0px 0px 0px; }
-  .family-dashboard .about-stage .col-11 {
-    text-align: left;
-    padding: 0px 0px 0px 0px; }
-
-.family-dashboard .line {
-  width: 20%;
-  padding: 0px 20px 0px 20px;
-  margin: 0px 20px 20px 20px; }
-
-.family-dashboard .num-col {
-  align-content: left;
-  padding: 0 0 0 0; }
-
-.family-dashboard .number {
-  border-radius: 100%;
-  padding: 5px 10px 5px 10px;
-  margin: 0px 5px;
-  line-height: 1;
-  font-size: 1em;
-  color: #fff;
-  font-style: normal;
-  font-family: "Raleway", Helvetica, sans-serif; }
-
-.family-dashboard .one {
-  background-color: #00B1C3; }
-
-.family-dashboard .two {
-  background-color: #F15A33; }
-
-.family-dashboard .three {
-  background-color: #6161af; }
-
-.family-dashboard .help-text {
-  font-family: "Raleway", Helvetica, sans-serif;
-  font-size: 1em;
-  color: gray; }
+.family-dashboard .modal-content {
+  border-color: #3498DB; }
 
 .family-dashboard .members-list {
   padding: 10px;

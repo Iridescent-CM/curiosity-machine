@@ -8,101 +8,14 @@
     border-width: 2px;
     position: relative;
     z-index: 0;
-  }  
-  
-  .help-button {
-    border-radius: 100%;
-    padding: 5px 10px;
-    line-height: 1;
-    color: rgb(52, 152, 219);
-    font-size: 1.25em;
-    font-style: normal;
-    font-family: "Open Sans", Helvetica, sans-serif;
-    border: 3px solid rgb(52, 152, 219);
-    position: absolute;
-    z-index: 1;
-    right: 15px;
-    top: 15px;
 
-    &:hover, &:active {
-      background-color: rgba(18, 136, 215, 0.5);
+    a {
+      color: #3498DB;
     }
-  }
+  }   
 
-  .help-modal {
-    border-radius: 20px;
-    border-style: solid;
-    border-width: 2px;
-    border-color: rgb(52, 152, 219);
-
-  }
-
-  .about-stage {
-    border-radius: 30px;
-    border-style: solid;
-    border-color: #E3E3DD; 
-    border-width: 2px;
-    font-family: "Raleway", Helvetica, sans-serif;
-    font-size: 1em;
-    color: gray;
-    padding: 10px 20px 10px 10px;
-    margin: 0px 0px 30px 0px;
-
-    h4 {
-      color: gray;
-      padding: 0px 10px 0px 10px;
-      margin: 10px 20px 0px 0px;
-    }
-
-    .col-1 {
-      text-align: right;
-      padding: 0px 0px 0px 0px;
-    }
-
-    .col-11 {
-      text-align: left;
-      padding: 0px 0px 0px 0px;
-    }
-  }
-
-  .line {
-    width: 20%;
-    padding: 0px 20px 0px 20px;
-    margin: 0px 20px 20px 20px;
-  }
-
-  .num-col {
-    align-content: left;
-    padding: 0 0 0 0;
-  }
-
-  .number {
-    border-radius: 100%;
-    padding: 5px 10px 5px 10px;
-    margin: 0px 5px;
-    line-height: 1;
-    font-size: 1em;
-    color: #fff;
-    font-style: normal;
-    font-family: "Raleway", Helvetica, sans-serif;
-  } 
-
-  .one {
-    background-color: #00B1C3;
-  }
-
-  .two {
-    background-color: #F15A33;
-  }
-
-  .three {
-    background-color: rgb(97, 97, 175);
-  }
-
-  .help-text {
-    font-family: "Raleway", Helvetica, sans-serif;
-    font-size: 1em;
-    color: gray;
+  .modal-content {
+    border-color: #3498DB;
   }
 
   .members-list {
