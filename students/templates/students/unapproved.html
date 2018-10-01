@@ -1,4 +1,6 @@
 {% extends "curiositymachine/layout/base.html" %}
+{% load bootstrap4 %}
+
 {% block title %}Activate Account{% endblock %}
 
 {% block content %}
@@ -20,14 +22,33 @@
         <li>They will receive an email that this account is activated within 30 minutes of signing the form, at that time you will be able to start challenges</li>
       </ol>
     </div>
+    <div class="col-lg-8 offset-lg-2 mb-2">
+      <p>
+        <strong>If your parent or guardian doesn't receive a consent form</strong>, make sure their email address below is correct:
+      </p>
+
+      {% if messages %}{% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message }}
+      </div>
+      {% endfor %}{% endif %}
+
+      <form class="form-inline" action="{% url "students:edit_email" %}" method="POST">
+        {% csrf_token %}
+        {% form_group email_form.email %}
+        <input class="btn btn-sm btn-primary ml-2" type="submit" value="Change email" />
+      </form>
+      <hr class="hr-green" />
+    </div>
     <div class="col-lg-8 offset-lg-2 text-center">
       <p class="font-italic">Email <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a> if your parent or guardian does not receive the email or if your account is not activated after 30 minutes of signing.</p>
     </div>
     <div class="col-lg-8 offset-lg-2 text-center my-4">
       <h5>In the meantime, you can check out our design challenges and decide what to build first!</h5>
       <a href="{% url "challenges:challenges" %}" class="btn btn-primary">Browse Design Challenges</a>
-    </div>
-    <div class="col-12">
       <hr class="hr-green"/>
     </div>
     <div class="col-lg-8 offset-lg-2 mb-4">
