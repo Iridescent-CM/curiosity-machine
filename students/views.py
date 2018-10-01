@@ -1,13 +1,16 @@
 from allauth.account.models import EmailAddress
 from challenges.models import Progress, Favorite, Challenge
-from curiositymachine.decorators import unapproved_only
+from curiositymachine.decorators import unapproved_only, whitelist
 from curiositymachine.presenters import LearningSet
 from django.conf import settings
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import Http404, get_object_or_404
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, ListView, RedirectView, TemplateView, UpdateView
+from hellosign import jobs
+from hellosign.models import StudentConsentTemplate
 from parents.models import ParentConnection
 from profiles.decorators import not_for_role, only_for_role, UserRole
 from profiles.views import EditProfileMixin
@@ -15,6 +18,7 @@ from .forms import *
 from .models import StudentProfile
 
 only_for_student = only_for_role(UserRole.student)
+unapproved_ok = whitelist('unapproved_students')
 
 def banner_membership_blacklisted(request):
     membership_set = request.user.membership_set.filter(is_active=True)
@@ -42,6 +46,30 @@ class EditView(EditProfileMixin, UpdateView):
         return self.request.user.studentprofile
 
 edit = only_for_student(EditView.as_view())
+
+class EditEmailView(EditProfileMixin, UpdateView):
+    model = StudentProfile
+    form_class = StudentEmailForm
+
+    def form_valid(self, form):
+        self.object = form.save()
+
+        consent = StudentConsentTemplate()
+        signature = consent.signature(self.object.user)
+        if not signature.signed:
+            jobs.update_email(signature.id)
+
+        messages.success(self.request, "Your parent or guardian's email address has been updated.")
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER', reverse("families:home")))
+
+    def form_invalid(self, form):
+        messages.error(self.request, form['email'].errors)
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER', reverse("families:home")))
+
+    def get_object(self, queryset=None):
+        return self.request.user.studentprofile
+
+edit_email = unapproved_ok(only_for_student(EditEmailView.as_view()))
 
 class HomeView(RedirectView):
 
@@ -127,7 +155,16 @@ class FavoritesView(DashboardMixin, ListView):
 
 favorites = only_for_student(FavoritesView.as_view())
 
-unapproved = unapproved_only(TemplateView.as_view(template_name='students/unapproved.html'))
+class UnapprovedView(TemplateView):
+    template_name = "students/unapproved.html"
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(
+            email_form=StudentEmailForm(request=self.request, user=self.request.user),
+            **kwargs
+        )
+
+unapproved = unapproved_only(UnapprovedView.as_view())
 
 class ActivityView(DashboardMixin, ListView):
     template_name = "students/dashboard/activity.html"

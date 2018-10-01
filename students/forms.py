@@ -9,6 +9,14 @@ from .models import StudentProfile
 
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 
+class StudentEmailForm(ProfileModelForm):
+    class Meta:
+        model = StudentProfile
+        fields = []
+
+    def get_role(self):
+        return UserRole.student
+
 class StudentProfileEditForm(ProfileModelForm):
     class Meta:
         model = StudentProfile
