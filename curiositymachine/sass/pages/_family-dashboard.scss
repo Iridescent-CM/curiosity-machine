@@ -14,6 +14,25 @@
     }
   }   
 
+  .blue-round-button {
+    border-radius: 100%;
+    padding: 5px 10px;
+    line-height: 1;
+    color: #3498DB;
+    font-size: 1.25em;
+    font-weight: bold;
+    border: 2px solid #3498DB;
+    position: absolute;
+    z-index: 1;
+    right: 15px;
+    top: 15px;
+  
+    &:hover, &:active {
+      background-color: #3498DB66;
+      cursor: pointer;
+    }
+  }
+  
   .modal-content {
     border-color: #3498DB;
   }

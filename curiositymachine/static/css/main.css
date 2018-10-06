@@ -8374,26 +8374,6 @@ footer {
 .btn-secondary:focus {
   color: #00B1C3; }
 
-.blue-question-mark-button {
-  border-radius: 100%;
-  padding: 5px 10px;
-  line-height: 1;
-  color: #3498DB;
-  font-size: 1.25em;
-  font-weight: bold;
-  font-family: "Open Sans", Helvetica, sans-serif;
-  border: 2px solid #3498DB;
-  position: absolute;
-  z-index: 1;
-  right: 15px;
-  top: 15px; }
-  .blue-question-mark-button:before {
-    content: "?";
-    visibility: visible; }
-  .blue-question-mark-button:hover, .blue-question-mark-button:active {
-    background-color: #3498DB66;
-    cursor: pointer; }
-
 .cm-card,
 .cm-fancy-card,
 .cm-profile-card,
@@ -9303,6 +9283,22 @@ footer {
   z-index: 0; }
   .family-dashboard .dashboard-section a {
     color: #3498DB; }
+
+.family-dashboard .blue-round-button {
+  border-radius: 100%;
+  padding: 5px 10px;
+  line-height: 1;
+  color: #3498DB;
+  font-size: 1.25em;
+  font-weight: bold;
+  border: 2px solid #3498DB;
+  position: absolute;
+  z-index: 1;
+  right: 15px;
+  top: 15px; }
+  .family-dashboard .blue-round-button:hover, .family-dashboard .blue-round-button:active {
+    background-color: #3498DB66;
+    cursor: pointer; }
 
 .family-dashboard .modal-content {
   border-color: #3498DB; }
