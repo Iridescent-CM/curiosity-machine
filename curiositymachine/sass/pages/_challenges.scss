@@ -133,10 +133,23 @@
     background-repeat: repeat;
   }
 
-  @include media-breakpoint-up(md) {
+  .cm-logo {
+    height: auto;
+    width: 200px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    .cm-logo {
+      width: 25%;
+      height: auto;
+    }
+  }
+
+  @include media-breakpoint-up(md) {    
     .filter-list.collapse {
       display: block;
-    }
+    }    
+
     .filter-list {
       overflow: visible;
       li.active {
@@ -144,4 +157,5 @@
       }
     }
   }
+
 }
