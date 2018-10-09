@@ -3,7 +3,8 @@
 
 {% block content %}
   {% include 'families/_navigation.html' %}
-
+  {% block infobox %}
+  {% endblock %}
   <div class="row">
     <div class="col-md-8">
       <h2 class="text-center">Design Challenges</h2>
@@ -25,9 +26,9 @@
       <h2 class="text-center">Guides</h2>
       <div class="row">
         {% for unit in units %}
-        <div class="col-12 mb-2">
-          {% include "families/_unit_card.html" with unit=unit %}
-        </div>
+          <div class="col-12 mb-2">
+            {% include "families/_unit_card.html" with unit=unit %}
+          </div>
         {% endfor %}
       </div>
     </div>
