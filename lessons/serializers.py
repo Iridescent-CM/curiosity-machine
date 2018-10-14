@@ -65,7 +65,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'author', 'lesson_progress', 'text', 'upload', 'role')
+        fields = ('id', 'author', 'lesson_progress', 'text', 'upload', 'role', 'created_at')
 
     def _handle_media(self, attrs, upload):
         if upload and 'mimetype' in upload:

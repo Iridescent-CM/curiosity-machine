@@ -9024,7 +9024,6 @@
   "pk": 1,
   "fields": {
     "user": 2,
-    "birthday": "2004-10-27",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "city",
@@ -9037,7 +9036,6 @@
   "pk": 2,
   "fields": {
     "user": 3,
-    "birthday": "2002-10-27",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "city",
@@ -9050,7 +9048,6 @@
   "pk": 3,
   "fields": {
     "user": 8,
-    "birthday": "2000-07-29",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "",
@@ -9063,7 +9060,6 @@
   "pk": 4,
   "fields": {
     "user": 9,
-    "birthday": "2004-06-01",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "",
@@ -9076,7 +9072,6 @@
   "pk": 5,
   "fields": {
     "user": 10,
-    "birthday": "2001-08-20",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "",
@@ -9089,7 +9084,6 @@
   "pk": 6,
   "fields": {
     "user": 11,
-    "birthday": "2010-09-13",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "",
@@ -9102,7 +9096,6 @@
   "pk": 7,
   "fields": {
     "user": 12,
-    "birthday": "1999-10-01",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "",
@@ -9115,7 +9108,6 @@
   "pk": 8,
   "fields": {
     "user": 13,
-    "birthday": "2007-04-08",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "",
@@ -9128,7 +9120,6 @@
   "pk": 9,
   "fields": {
     "user": 14,
-    "birthday": "2011-04-18",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "",
@@ -9141,7 +9132,6 @@
   "pk": 10,
   "fields": {
     "user": 15,
-    "birthday": "2002-02-17",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "",
@@ -9154,7 +9144,6 @@
   "pk": 11,
   "fields": {
     "user": 16,
-    "birthday": "2006-05-22",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "",
@@ -9167,7 +9156,6 @@
   "pk": 12,
   "fields": {
     "user": 17,
-    "birthday": "2008-02-03",
     "parent_first_name": "",
     "parent_last_name": "",
     "city": "",

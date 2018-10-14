@@ -61,18 +61,18 @@ class LoginRequiredMiddleware(MiddlewareMixin):
             )
             return HttpResponseRedirect('%s?next=%s' % (reverse('login'), request.get_full_path()))
 
-class UnderageStudentSandboxMiddleware(MiddlewareMixin):
+class UnapprovedStudentSandboxMiddleware(MiddlewareMixin):
     """
-    Middleware that sandboxes students under 13 away from the rest of the site.
+    Middleware that sandboxes unapproved students
     """
     def process_view(self, request, view, view_args, view_kwargs):
         if (request.user.is_authenticated()
                 and not request.user.is_staff
                 and request.user.extra.is_student
                 and not request.user.studentprofile.full_access):
-            if (not whitelisted(view, 'public', 'maybe_public', 'underage')
+            if (not whitelisted(view, 'public', 'maybe_public', 'unapproved_students')
                     and not whitelist_regex.match(request.path.lstrip('/'))):
-                return HttpResponseRedirect(reverse('students:underage'))
+                return HttpResponseRedirect(reverse('students:unapproved'))
 
 class UnapprovedMentorSandboxMiddleware(MiddlewareMixin):
     """

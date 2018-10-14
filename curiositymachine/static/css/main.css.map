@@ -104,6 +104,7 @@
 		"../../sass/components/_list-group.scss",
 		"../../sass/components/_lists.scss",
 		"../../sass/components/_modal.scss",
+		"../../sass/components/_panels.scss",
 		"../../sass/components/_progress-graph.scss",
 		"../../sass/components/_quiz.scss",
 		"../../sass/components/_tables.scss",

@@ -25,7 +25,7 @@ class ConsentTemplate:
         if self.id and id and not self.id == id:
             raise ValueError("Constructor cannot take different id than id already assigned to the class")
         self.id = self.id or id
-        self.name = self.find_name(id)
+        self.name = self.find_name(self.id)
 
     def __getattr__(self, attrname):
         return self.find_setting(self.name, attrname)
@@ -84,6 +84,9 @@ class FamilyConsentTemplate(ConsentTemplate):
         fields = super().get_custom_fields(signature)
         # TODO: add extra fields here
         return fields
+
+class StudentConsentTemplate(GenericConsentTemplate):
+    id = settings.HELLOSIGN_TEMPLATE_STUDENT_CONSENT_ID
 
 class SignatureStatus(Enum):
     UNSIGNED = 0

@@ -34,6 +34,7 @@
     </div>
 
     <template v-for="comment in comments">
+      <hr class="border-primary">
       <comment
         :key="comment.id"
         v-bind:initial="comment"

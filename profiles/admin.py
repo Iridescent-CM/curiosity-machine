@@ -15,7 +15,6 @@ from locations.models import Location
 from mentors.models import MentorProfile
 from parents.models import ParentProfile
 from students.models import StudentProfile
-from .admin_utils import StudentFilter
 from .models import *
 import operator
 import shlex
@@ -30,8 +29,8 @@ class UserExtraForm(forms.ModelForm):
     def save(self, commit=True):
         obj = super().save(commit=commit)
         if "approved" in self.changed_data and obj.approved:
-            if obj.is_student and obj.user.studentprofile.is_underage():
-                signals.underage_activation_confirmed.send(sender=obj.user)
+            if obj.is_student:
+                signals.account_activation_confirmed.send(sender=obj.user)
             elif obj.is_mentor:
                 signals.completed_training.send(sender=obj.user)
         return obj
@@ -107,7 +106,6 @@ class UserAdminWithExtra(UserAdmin):
         'is_superuser',
         'is_staff',
         'extra__role',
-        StudentFilter
     )
     list_select_related = ('extra',)
     fieldsets = (
