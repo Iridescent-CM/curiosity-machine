@@ -1,14 +1,14 @@
 {% load staticfiles %}
 <div class="container-fluid">
   <div class="row justify-content-center align-items-center">
-    <img class="position-relative d-none d-lg-block" src="{% static 'images/challenges/aifc-wide.jpg' %}">
-    <img class="position-relative center-block d-lg-none" src="{% static 'images/challenges/aifc-narrow.jpg' %}">
+    <img class="d-none d-lg-block" src="{% static 'images/challenges/aifc-wide.jpg' %}">
+    <img class="d-lg-none" src="{% static 'images/challenges/aifc-narrow.jpg' %}">
     <img class="cm-logo position-absolute img-fluid" 
       src="{% static 'images/challenges/AIFC_CMWhiteLogo-2.svg' %}"
       alt="CM AI Family Challenge"
     >   
   </div>
 </div>
-<div class="position-relative card-footer bg-secondary text-center">
+<div class="p-2 bg-secondary text-center">
   <small><a href="{% url 'aichallenge' %}">Learn more</a> about the Challenge and find out how to sign up.</small>
 </div>
