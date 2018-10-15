@@ -9039,6 +9039,13 @@ footer {
   #challenges-page .geo-background {
     background-image: url("../images/challenges/geometry.png");
     background-repeat: repeat; }
+  #challenges-page .cm-logo {
+    height: auto;
+    width: 200px; }
+  @media (min-width: 992px) {
+    #challenges-page .cm-logo {
+      width: 25%;
+      height: auto; } }
   @media (min-width: 768px) {
     #challenges-page .filter-list.collapse {
       display: block; }

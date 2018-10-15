@@ -142,6 +142,7 @@ class AIFCView(TemplateView):
     template_name = "educators/dashboard/aifc.html"
 
     def get_context_data(self, **kwargs):
+      membership_selection = MembershipSelection(self.request)
       stages = [stage.objects for stage in get_stages()]
       for obj in stages[0] + stages[1]:
         obj.url = reverse("challenges:preview_inspiration", kwargs={"challenge_id": obj.id})
@@ -152,6 +153,7 @@ class AIFCView(TemplateView):
 
       return super().get_context_data(
           stages = stages,
+          membership_selection = membership_selection,
           **kwargs
         )
 

@@ -127,7 +127,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'curiositymachine.middleware.UserProxyMiddleware',
     'curiositymachine.middleware.LoginRequiredMiddleware',
-    "curiositymachine.middleware.UnderageStudentSandboxMiddleware",
+    "curiositymachine.middleware.UnapprovedStudentSandboxMiddleware",
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
     'curiositymachine.middleware.LastActiveMiddleware',
     'curiositymachine.middleware.FirstLoginMiddleware',
@@ -414,6 +414,8 @@ HELLOSIGN_PRODUCTION_MODE = os.environ.get("HELLOSIGN_PRODUCTION_MODE", False)
 HELLOSIGN_ENVIRONMENT_NAME = os.environ.get("HELLOSIGN_ENVIRONMENT_NAME", None)
 
 # Hellosign templates
+HELLOSIGN_TEMPLATE_FAMILY_CONSENT_ID = "abc123"
+HELLOSIGN_TEMPLATE_STUDENT_CONSENT_ID = "def456"
 for k, v in os.environ.items():
     if k.startswith("HELLOSIGN_TEMPLATE_"):
         setattr(sys.modules[__name__], k, v)

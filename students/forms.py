@@ -9,6 +9,14 @@ from .models import StudentProfile
 
 BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
 
+class StudentEmailForm(ProfileModelForm):
+    class Meta:
+        model = StudentProfile
+        fields = []
+
+    def get_role(self):
+        return UserRole.student
+
 class StudentProfileEditForm(ProfileModelForm):
     class Meta:
         model = StudentProfile
@@ -64,19 +72,5 @@ class NewStudentProfileForm(StudentProfileEditForm):
     class Meta:
         model = StudentProfile
         fields = [
-            'birthday',
             'city',
         ]
-
-    birthday = forms.DateField(
-        required=False,
-        widget=forms.extras.SelectDateWidget(
-            years=BIRTH_YEAR_CHOICES,
-            empty_label=("Year", "Month", "Day"),
-        ),
-    )
-
-    def clean_birthday(self):
-        if not self.cleaned_data.get('birthday'):
-            raise forms.ValidationError('Please set your birthday.')
-        return self.cleaned_data.get('birthday')

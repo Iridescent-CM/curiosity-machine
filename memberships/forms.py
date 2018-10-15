@@ -39,9 +39,8 @@ class RowImportForm(forms.Form):
     first_name = User._meta.get_field('first_name').formfield(required=True)
     last_name = User._meta.get_field('last_name').formfield(required=True)
     email = User._meta.get_field('email').formfield(required=True)
-    birthday = StudentProfile._meta.get_field('birthday').formfield(required=True)
     groups = forms.CharField(required=False, label='Groups')
-    approved = YesNoBooleanField(required=False, label='Consent form')
+    approved = YesNoBooleanField(required=True, label='Consent form')
 
     def __init__(self, *args, **kwargs):
         self.membership = kwargs.pop('membership', None)
@@ -53,33 +52,13 @@ class RowImportForm(forms.Form):
             raise forms.ValidationError('A user with that username already exists.', code='duplicate')
         return username
 
-    def clean(self):
-        super().clean()
-        if not self.has_error("birthday") and not self.has_error("approved"):
-            self.check_approved_based_on_age()
-        return self.cleaned_data
-
-    def check_approved_based_on_age(self):
-        age = relativedelta(now().date(), self.cleaned_data['birthday']).years
-        if self.cleaned_data['approved'] == None:
-            if age < 13:
-                self.add_error(
-                    'approved',
-                    ValidationError(
-                        'This field is required when age < 13',
-                        code='required'
-                    )
-                )
-            else:
-                self.cleaned_data['approved'] = False
-
     def save(self, commit=True):
         if self.errors:
             raise ValueError("RowImportForm cannot save because data did not validate")
 
         cleaned_data = self.cleaned_data
 
-        profile = StudentProfile(**{k: cleaned_data[k] for k in ['birthday']})
+        profile = StudentProfile()
         profile.full_access = cleaned_data['approved'] 
         extra = UserExtra()
         extra.role = UserRole.student.value

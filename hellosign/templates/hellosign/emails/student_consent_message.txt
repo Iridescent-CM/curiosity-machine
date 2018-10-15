@@ -1,0 +1,3 @@
+Your child has registered a student account with the user name {{ signature.user.username }} on Curiosity Machine. To activate their account, complete the consent form in this email.
+
+We'll let you know when the account is activated so they can start inventing together!
