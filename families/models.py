@@ -23,6 +23,7 @@ class FamilyProfile(BaseProfile):
     phone = PhoneNumberField(null=True, blank=True)
     location = models.ForeignKey(Location, null=False, blank=False, on_delete=models.PROTECT)
     welcomed = models.DateTimeField(null=True, blank=True)
+    awardforce_slug = models.CharField(max_length=16, null=True, blank=True)
 
     @cached_property
     def full_access(self):

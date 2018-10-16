@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.functional import lazy
-from django.views.generic import CreateView, ListView, TemplateView, UpdateView
+from django.views.generic import CreateView, ListView, TemplateView, UpdateView, RedirectView
 from hellosign import jobs
 from hellosign.models import FamilyConsentTemplate
 from lessons.models import Lesson
@@ -16,6 +16,7 @@ from profiles.models import UserRole
 from profiles.views import EditProfileMixin
 from surveys import get_survey
 from .aichallenge import get_stages, Stage
+from .awardforce import AwardForce
 from .forms import *
 from .models import *
 
@@ -202,3 +203,17 @@ class SubmissionView(DashboardMixin, TemplateView):
     template_name = "families/submission.html"
 
 submission = only_for_family(SubmissionView.as_view())
+
+class AwardForceRedirectView(RedirectView):
+
+    def get_redirect_url(self, *args, **kwargs):
+        api = AwardForce()
+        user = self.request.user
+        if not user.familyprofile.awardforce_slug:
+            slug = api.create_user(email=user.email, first_name=user.first_name, last_name=user.last_name)
+            user.familyprofile.awardforce_slug = slug
+            user.familyprofile.save(update_fields=["awardforce_slug"])
+        token = api.get_auth_token(user.familyprofile.awardforce_slug)
+        return api.get_login_url(token)
+
+awardforce = only_for_family(AwardForceRedirectView.as_view())

@@ -12,5 +12,12 @@
       </p>
       <hr />
     </div>
+    <div class="col-12 text-center">
+      {% if request.user.familyprofile.awardforce_slug %}
+      <a class="btn btn-primary" href="{% url "families:awardforce" %}">Go to submission</a>
+      {% else %}
+      <a class="btn btn-primary" href="{% url "families:awardforce" %}">Create account</a>
+      {% endif %}
+    </div>
   </div>
 {% endblock %}
