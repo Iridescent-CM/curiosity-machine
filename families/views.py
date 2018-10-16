@@ -197,3 +197,8 @@ class ActivityView(DashboardMixin, ListView):
         return context
 
 activity = only_for_family(ActivityView.as_view())
+
+class SubmissionView(DashboardMixin, TemplateView):
+    template_name = "families/submission.html"
+
+submission = only_for_family(SubmissionView.as_view())
