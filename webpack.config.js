@@ -6,6 +6,7 @@ module.exports = {
   mode: 'development',
   context: __dirname,
   entry: {
+    awardforce_checklist: './curiositymachine/assets/javascript/awardforce/index.js',
     lesson_comments: './curiositymachine/assets/javascript/lessons/comments/index.js',
     lesson_quiz: './curiositymachine/assets/javascript/lessons/quiz/index.js',
     site: './curiositymachine/assets/javascript/curiosity-machine/index.js'

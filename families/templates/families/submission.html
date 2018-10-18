@@ -1,5 +1,6 @@
 {% extends "families/base.html" %}
 {% load staticfiles %}
+{% load render_bundle from webpack_loader %}
 
 {% block content %}
   {% include 'families/_navigation.html' %}
@@ -16,8 +17,17 @@
       {% if request.user.familyprofile.awardforce_slug %}
       <a class="btn btn-primary" href="{% url "families:awardforce" %}">Go to submission</a>
       {% else %}
-      <a class="btn btn-primary" href="{% url "families:awardforce" %}">Create account</a>
+      <div class="awardforce-checklist-app">
+        <checklist>
+          <div class="loader">Loading...</div>
+        </checklist>
+        <a class="btn btn-primary" href="{% url "families:awardforce" %}">Create account</a>
+      </div>
       {% endif %}
     </div>
   </div>
+{% endblock %}
+
+{% block js %}
+  {% render_bundle 'awardforce_checklist' %}
 {% endblock %}
