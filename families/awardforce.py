@@ -115,7 +115,7 @@ class AwardForceChecklist(object):
                 'challenges_completed',
                 'enough_challenges_completed',
                 'email_unique',
-                'email_validated',
+                'email_verified',
                 'post_survey_taken'
             ]
         }
@@ -133,7 +133,7 @@ class AwardForceChecklist(object):
         return UserExtra.objects.role('family').filter(user__email=self.user.email).count() == 1
 
     @property
-    def email_validated(self):
+    def email_verified(self):
         email = EmailAddress.objects.get_primary(self.user)
         return bool(email and email.verified)
 

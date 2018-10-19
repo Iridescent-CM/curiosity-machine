@@ -73,19 +73,19 @@ def test_checklist_catches_non_unique_email():
     assert not AwardForceChecklist(user).email_unique
 
 @pytest.mark.django_db
-def test_checklist_catches_unvalidated_email():
+def test_checklist_catches_unverified_email():
     user = FamilyFactory()
-    assert not AwardForceChecklist(user).email_validated
+    assert not AwardForceChecklist(user).email_verified
     user = FamilyFactory(sync_email=True)
-    assert not AwardForceChecklist(user).email_validated
+    assert not AwardForceChecklist(user).email_verified
 
 @pytest.mark.django_db
-def test_checklist_checks_email_validation():
+def test_checklist_checks_email_verified():
     user = FamilyFactory(sync_email=True)
     email = EmailAddress.objects.get_primary(user)
     email.verified = True
     email.save()
-    assert AwardForceChecklist(user).email_validated
+    assert AwardForceChecklist(user).email_verified
 
 @pytest.mark.django_db
 def test_checklist_checks_post_survey_result():
