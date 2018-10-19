@@ -19,4 +19,6 @@ class SurveyResponseFactory(factory.django.DjangoModelFactory):
     @factory.post_generation
     def status(obj, create, extracted, **kwargs):
         if extracted:
-            obj.status = ResponseStatus[extracted]
+            if isinstance(extracted, str):
+                extracted = ResponseStatus[extracted]
+            obj.status = extracted
