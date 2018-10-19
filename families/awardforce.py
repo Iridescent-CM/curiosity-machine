@@ -1,6 +1,9 @@
 from allauth.account.models import EmailAddress
 from django.conf import settings
 from django.http import *
+from profiles.models import UserExtra
+from surveys import get_survey
+from .aichallenge import get_stages
 import logging
 import requests
 
@@ -96,3 +99,44 @@ class Integrating(object):
         url = submitter.get_login_url()
 
         return HttpResponseRedirect(url)
+
+class AwardForceChecklist(object):
+
+    post_survey = get_survey(settings.AICHALLENGE_FAMILY_POST_SURVEY_ID)
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        self.stage_stats = kwargs.get('stage_stats') or [stage.stats for stage in get_stages(user)]
+
+    def as_dict(self):
+        return {
+            k: getattr(self, k)
+            for k in [
+                'challenges_completed',
+                'enough_challenges_completed',
+                'email_unique',
+                'email_validated',
+                'post_survey_taken'
+            ]
+        }
+
+    @property
+    def challenges_completed(self):
+        return self.stage_stats[0]['completed'] + self.stage_stats[1]['completed']
+
+    @property
+    def enough_challenges_completed(self):
+        return self.challenges_completed >= 3
+
+    @property
+    def email_unique(self):
+        return UserExtra.objects.role('family').filter(user__email=self.user.email).count() == 1
+
+    @property
+    def email_validated(self):
+        email = EmailAddress.objects.get_primary(self.user)
+        return bool(email and email.verified)
+
+    @property
+    def post_survey_taken(self):
+        return self.post_survey.response(self.user).completed

@@ -16,7 +16,7 @@ from profiles.models import UserRole
 from profiles.views import EditProfileMixin
 from surveys import get_survey
 from .aichallenge import get_stages, Stage
-from .awardforce import Integrating
+from .awardforce import *
 from .forms import *
 from .models import *
 
@@ -210,3 +210,10 @@ class AwardForceRedirectView(View):
         return Integrating(request.user).run()
 
 awardforce = only_for_family(AwardForceRedirectView.as_view())
+
+class SubmissionChecklistView(View):
+
+    def get(self, request, *args, **kwargs):
+        return JsonResponse(AwardForceChecklist(request.user).as_dict())
+
+checklist = only_for_family(SubmissionChecklistView.as_view())

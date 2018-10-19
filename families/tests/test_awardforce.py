@@ -2,6 +2,8 @@ import mock
 import pytest
 
 from django.http import *
+from students.factories import *
+from surveys.factories import *
 from ..factories import *
 from ..awardforce import *
 
@@ -37,3 +39,65 @@ def test_submitter_getting_url_sets_slug():
     assert not user.familyprofile.awardforce_slug
     submitter.get_login_url()
     assert user.familyprofile.awardforce_slug
+
+def test_checklist_counts_completed_challenges():
+    user = FamilyFactory.build()
+    assert AwardForceChecklist(user, stage_stats=[{'completed': 0}, {'completed': 0}]).challenges_completed == 0
+    assert AwardForceChecklist(user, stage_stats=[{'completed': 1}, {'completed': 0}]).challenges_completed == 1
+    assert AwardForceChecklist(user, stage_stats=[{'completed': 1}, {'completed': 1}]).challenges_completed == 2
+
+def test_checklist_catches_too_few_challenges_completed():
+    user = FamilyFactory.build()
+    assert not AwardForceChecklist(user, stage_stats=[{'completed': 0}, {'completed': 0}]).enough_challenges_completed
+    assert AwardForceChecklist(user, stage_stats=[{'completed': 3}, {'completed': 0}]).enough_challenges_completed
+    assert AwardForceChecklist(user, stage_stats=[{'completed': 0}, {'completed': 3}]).enough_challenges_completed
+    assert AwardForceChecklist(user, stage_stats=[{'completed': 2}, {'completed': 1}]).enough_challenges_completed
+    assert AwardForceChecklist(user, stage_stats=[{'completed': 3}, {'completed': 5}]).enough_challenges_completed
+
+@pytest.mark.django_db
+def test_checklist_checks_email_unique():
+    user = FamilyFactory()
+    FamilyFactory()
+    assert AwardForceChecklist(user).email_unique
+
+@pytest.mark.django_db
+def test_checklist_checks_email_unique_against_family_only():
+    user = FamilyFactory()
+    StudentFactory(email=user.email)
+    assert AwardForceChecklist(user).email_unique
+
+@pytest.mark.django_db
+def test_checklist_catches_non_unique_email():
+    user = FamilyFactory()
+    FamilyFactory(email=user.email)
+    assert not AwardForceChecklist(user).email_unique
+
+@pytest.mark.django_db
+def test_checklist_catches_unvalidated_email():
+    user = FamilyFactory()
+    assert not AwardForceChecklist(user).email_validated
+    user = FamilyFactory(sync_email=True)
+    assert not AwardForceChecklist(user).email_validated
+
+@pytest.mark.django_db
+def test_checklist_checks_email_validation():
+    user = FamilyFactory(sync_email=True)
+    email = EmailAddress.objects.get_primary(user)
+    email.verified = True
+    email.save()
+    assert AwardForceChecklist(user).email_validated
+
+@pytest.mark.django_db
+def test_checklist_checks_post_survey_result():
+    user = FamilyFactory()
+    SurveyResponseFactory(user=user, survey_id=AwardForceChecklist.post_survey.id, status='COMPLETED')
+    assert AwardForceChecklist(user).post_survey_taken
+
+@pytest.mark.django_db
+def test_checklist_catches_post_survey_not_taken():
+    user = FamilyFactory()
+    assert not AwardForceChecklist(user).post_survey_taken
+
+    user2 = FamilyFactory()
+    SurveyResponseFactory(user=user2, survey_id=AwardForceChecklist.post_survey.id, status='UNKNOWN')
+    assert not AwardForceChecklist(user2).post_survey_taken
