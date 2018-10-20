@@ -8706,41 +8706,6 @@ footer {
 .modal-cm.modal.fade .modal-dialog {
   transform: translate(0, 0); }
 
-.three-bullet-panel {
-  border-radius: 30px;
-  border-style: solid;
-  border-color: #E3E3DD;
-  border-width: 2px;
-  font-family: "Raleway", Helvetica, sans-serif;
-  font-size: 1em;
-  color: gray;
-  padding: 3px 3px 3px 3px;
-  margin-bottom: 5px; }
-  .three-bullet-panel h4 {
-    color: gray;
-    margin: 10px 10px 0px 15px; }
-  .three-bullet-panel hr {
-    width: 20%;
-    margin: 2px 0px 5px 15px; }
-  .three-bullet-panel ul {
-    list-style: none;
-    text-indent: -30px; }
-  .three-bullet-panel li:before {
-    margin-right: 5px;
-    margin-left: 0px;
-    color: #fff;
-    border-radius: 50%;
-    padding: 0px 4px 3px 5px; }
-  .three-bullet-panel .bullet-one:before {
-    content: "1.";
-    background: #02B0C2; }
-  .three-bullet-panel .bullet-two:before {
-    content: "2.";
-    background: #FF5050; }
-  .three-bullet-panel .bullet-three:before {
-    content: "3.";
-    background: #6C6CB6; }
-
 .graph {
   background: white;
   border-top: 1px solid #E5E1D9;
