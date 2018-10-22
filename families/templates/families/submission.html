@@ -17,11 +17,18 @@
       {% if request.user.familyprofile.awardforce_slug %}
       <a class="btn btn-primary" href="{% url "families:awardforce" %}">Go to submission</a>
       {% else %}
+      <h3>Requirements</h3>
+      <p>
+        In order to participate in the AI World Championship make sure you have satisfied the requirements below.
+      </p>
       <div class="awardforce-checklist-app">
         <checklist>
           <div class="loader">Loading...</div>
         </checklist>
+        {% comment %}
+        This becomes config for the Vue app or something?
         <a class="btn btn-primary" href="{% url "families:awardforce" %}">Create account</a>
+        {% endcomment %}
       </div>
       {% endif %}
     </div>
