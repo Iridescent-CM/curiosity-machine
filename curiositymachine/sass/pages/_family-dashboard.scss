@@ -1,17 +1,16 @@
-.checkbox {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  background-size: cover;
-  vertical-align: middle;
-  background-image: url("../images/checkbox-unchecked.svg");
-
-  &.checkbox-checked {
-    background-image: url("../images/checkbox-checked.svg");
-  }
-}
-
 .family-dashboard {
+
+  .checkbox {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-size: cover;
+    vertical-align: middle;
+    background-image: url("../images/checkbox-unchecked.svg");
+    &.checkbox-checked {
+      background-image: url("../images/checkbox-checked.svg");
+    }
+  }
 
   .dashboard-section {
     border-radius: 30px;
@@ -19,13 +18,35 @@
     border-color: #E3E3DD;
     padding: 20px;
     border-width: 2px;
+    position: relative;
+    z-index: 0;
+
+    a {
+      color: #3498DB;
+    }
   }
 
-  .instruction-text {
-    background: #ccc;
-    border: none;
-    margin-top:16px;
-    margin-bottom:0px;
+  .blue-round-button {
+    border-radius: 100%;
+    padding: 5px 10px;
+    line-height: 1;
+    color: #3498DB;
+    font-size: 1.25em;
+    font-weight: bold;
+    border: 2px solid #3498DB;
+    position: absolute;
+    z-index: 1;
+    right: 15px;
+    top: 15px;
+
+    &:hover, &:active {
+      background-color: #3498DB66;
+      cursor: pointer;
+    }
+  }
+
+  .modal-content {
+    border-color: #3498DB;
   }
 
   .members-list {

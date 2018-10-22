@@ -21,6 +21,10 @@
       <i class="checkbox" :class="{ 'checkbox-checked': false }"></i>
       Your family members are all listed.
     </div>
+
+    <div v-if="checklist_complete">
+      <a class="btn btn-primary" :href="create_url">Create account</a>
+    </div>
   </div>
 
   <div v-else>
@@ -36,10 +40,24 @@
   promiseFinally.shim();
 
   export default {
+    props: ['create_url'],
+
     data: function () {
       return {
         loaded: false,
         api: new Api()
+      }
+    },
+
+    computed: {
+      checklist_complete: function () {
+        var c = this.checklist;
+        return c &&
+          c.email_unique &&
+          c.email_verified &&
+          c.enough_challenges_completed &&
+          c.post_survey_taken;
+          // && family members
       }
     },
 

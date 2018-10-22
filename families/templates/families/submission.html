@@ -22,13 +22,11 @@
         In order to participate in the AI World Championship make sure you have satisfied the requirements below.
       </p>
       <div class="awardforce-checklist-app">
-        <checklist>
+        <checklist
+          create_url="{% url "families:awardforce" %}"
+        >
           <div class="loader">Loading...</div>
         </checklist>
-        {% comment %}
-        This becomes config for the Vue app or something?
-        <a class="btn btn-primary" href="{% url "families:awardforce" %}">Create account</a>
-        {% endcomment %}
       </div>
       {% endif %}
     </div>
