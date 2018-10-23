@@ -116,7 +116,9 @@ class AwardForceChecklist(object):
                 'enough_challenges_completed',
                 'email_unique',
                 'email_verified',
-                'post_survey_taken'
+                'post_survey_taken',
+                'family_confirmed_all_listed',
+                'complete',
             ]
         }
 
@@ -140,3 +142,17 @@ class AwardForceChecklist(object):
     @property
     def post_survey_taken(self):
         return self.post_survey.response(self.user).completed
+
+    @property
+    def family_confirmed_all_listed(self):
+        return False
+
+    @property
+    def complete(self):
+        return (
+            self.enough_challenges_completed and
+            self.email_unique and
+            self.email_verified and
+            self.post_survey_taken and
+            self.family_confirmed_all_listed
+        )

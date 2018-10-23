@@ -3,7 +3,7 @@
 
     <div>
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.email_unique }"></i>
-      Your email is only used for this account.
+      Your email is not shared with other accounts.
     </div>
     <div>
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.email_verified }"></i>
@@ -18,11 +18,11 @@
       You have completed the post-survey.
     </div>
     <div>
-      <i class="checkbox" :class="{ 'checkbox-checked': false }"></i>
+      <i class="checkbox" :class="{ 'checkbox-checked': checklist.family_confirmed_all_listed }"></i>
       Your family members are all listed.
     </div>
 
-    <div v-if="checklist_complete">
+    <div v-if="checklist.complete">
       <a class="btn btn-primary" :href="create_url">Create account</a>
     </div>
   </div>
@@ -46,18 +46,6 @@
       return {
         loaded: false,
         api: new Api()
-      }
-    },
-
-    computed: {
-      checklist_complete: function () {
-        var c = this.checklist;
-        return c &&
-          c.email_unique &&
-          c.email_verified &&
-          c.enough_challenges_completed &&
-          c.post_survey_taken;
-          // && family members
       }
     },
 
