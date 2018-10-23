@@ -1,26 +1,38 @@
 {% extends "families/base.html" %}
-
 {% block content %}
-
   {% include 'families/_navigation.html' %}
-
   {% block infobox %}
   <div class="row">
-      <div class="col-10 offset-1 three-bullet-panel">
-        <h4>About Stage 3</h4>
-        <hr class="line">
-        <ul>
-          <li class="bullet-one">
-              Build your own AI invention to submit to the AI World Championship.
-          </li>
-          <li class="bullet-two">
-              You can view your progress through these 10 lessons in your dashboard.
-          </li>
-          <li class="bullet-three">
-              How do you get projects to be recorded as complete? Submit text, videos or pictures
-              in the Build section and answer the Reflection quiz.
-          </li>
-        </ul>
+    <div class="col-12 dashboard-section text-muted p-0 pl-4 mb-3">
+      <p class="h6 font-weight-bold m-0 mt-2 p-0">About Stage 3</p>
+      <hr class="m-1 w-25">
+      <ol class="list-unstyled">
+        <li class="row pl-3">
+          <div class="col-xs-1">
+            <span class="badge rounded-circle badge-blue">1.</span>
+          </div>
+          <div class="col">
+              Complete these 10 lessons to build your <a href="{% url "aichallenge/worldchampionship" %}" target="_blank">
+              AI World Championship</a> submission.
+          </div>
+        </li>
+        <li class="row pl-3">
+          <div class="col-xs-1">
+            <span class="badge rounded-circle badge-red">2.</span>
+          </div>
+          <div class="col">
+              Follow the directions to submit text, videos or pictures of your completed lessons.
+          </div>
+        </li>
+        <li class="row pl-3">
+          <div class="col-xs-1">
+            <span class="badge rounded-circle badge-purple">3.</span>
+          </div>
+          <div class="col">
+              Don't forget to submit your idea to the AI World Championship!
+          </div>
+        </li>
+      </ol>
     </div>
   </div>
   {% endblock %} 
