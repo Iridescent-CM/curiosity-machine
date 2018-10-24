@@ -8879,6 +8879,11 @@ footer {
       content: "—";
       margin-right: 0.4em; }
 
+.aifc-album img {
+  width: auto;
+  height: 360px;
+  margin: auto; }
+
 .account-settings .avatar-settings .form-inline {
   justify-content: center; }
   .account-settings .avatar-settings .form-inline .btn,
