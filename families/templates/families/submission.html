@@ -13,9 +13,11 @@
       </p>
       <hr />
     </div>
-    <div class="col-12 text-center">
+    <div class="col-8 offset-2">
       {% if request.user.familyprofile.awardforce_slug %}
-      <a class="btn btn-primary" href="{% url "families:awardforce" %}">Go to submission</a>
+      <div class="text-center my-4">
+        <a class="btn btn-primary" href="{% url "families:awardforce" %}">Go to submission</a>
+      </div>
       {% else %}
       <h3>Requirements</h3>
       <p>
