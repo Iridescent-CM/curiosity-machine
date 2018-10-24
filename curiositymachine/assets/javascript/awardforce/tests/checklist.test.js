@@ -46,7 +46,7 @@ describe('Checklist', () => {
     });
   });
 
-  it('shows button when complete', async () => {
+  it('enables button when complete', async () => {
     Api.mockImplementation(() => {
       return {
         get: jest.fn().mockImplementation(() => Promise.resolve({
@@ -57,7 +57,7 @@ describe('Checklist', () => {
     const wrapper = mount(Checklist, {});
     await flushPromises();
     expect(wrapper.find('.btn').exists()).toBeTruthy();
-    expect(wrapper.find('.btn').isVisible()).toBeTruthy();
+    expect(wrapper.find('.btn').classes()).not.toContain('disabled');
   });
 
   it('hides button when not complete', async () => {
@@ -70,6 +70,7 @@ describe('Checklist', () => {
     });
     const wrapper = mount(Checklist, {});
     await flushPromises();
-    expect(wrapper.find('.btn').exists()).toBeFalsy();
+    expect(wrapper.find('.btn').exists()).toBeTruthy();
+    expect(wrapper.find('.btn').classes()).toContain('disabled');
   });
 });
