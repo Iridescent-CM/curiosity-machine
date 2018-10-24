@@ -9243,6 +9243,16 @@ footer {
 #examples-page a[data-toggle="modal"]:focus {
   text-decoration: none; }
 
+.family-dashboard .checkbox {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-size: cover;
+  vertical-align: middle;
+  background-image: url("../images/checkbox-unchecked.svg"); }
+  .family-dashboard .checkbox.checkbox-checked {
+    background-image: url("../images/checkbox-checked.svg"); }
+
 .family-dashboard .dashboard-section {
   border-radius: 30px;
   border-style: solid;

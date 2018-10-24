@@ -1,5 +1,17 @@
 .family-dashboard {
 
+  .checkbox {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-size: cover;
+    vertical-align: middle;
+    background-image: url("../images/checkbox-unchecked.svg");
+    &.checkbox-checked {
+      background-image: url("../images/checkbox-checked.svg");
+    }
+  }
+
   .dashboard-section {
     border-radius: 30px;
     border-style: solid;
@@ -12,7 +24,7 @@
     a {
       color: #3498DB;
     }
-  }   
+  }
 
   .blue-round-button {
     border-radius: 100%;
@@ -26,13 +38,13 @@
     z-index: 1;
     right: 15px;
     top: 15px;
-  
+
     &:hover, &:active {
       background-color: #3498DB66;
       cursor: pointer;
     }
   }
-  
+
   .modal-content {
     border-color: #3498DB;
   }

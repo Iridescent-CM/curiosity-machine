@@ -1,0 +1,44 @@
+{% load resized %}
+
+<div class="card cm-info-card">
+  <div class="card-header text-center p-3">
+    <h4 class="card-title">Family Members</h4>
+    <small class="text-muted">
+      You have confirmed your family members <br/> and they are no longer editable.
+    </small>
+  </div>
+  <div class="card-body">
+    {% for member in request.user.familymember_set.all %}
+    <div class="row py-3">
+      <div class="col-lg-4 text-center">
+      {% if member.image.url %}
+        <img
+         src={% resized member.image.url width=80 height=80 crop='thumb' gravity='faces' %}
+         class="rounded-circle"
+        >
+      {% else %}
+        <img
+         src={% resized MEDIA_URL|add:'images/placeholder.png' width=80 height=80 crop='thumb' gravity='faces' %}
+         class="img-responsive"
+        >
+      {% endif %}
+      </div>
+      <div class="col-lg-8">
+        <label>Family role:</label>
+        <p class="form-control">{{ member.family_role_display }}</p>
+        <div class="row">
+          <div class="col-lg-6">
+            <label>First name:</label>
+            <p class="form-control">{{ member.first_name }}</p>
+          </div>
+          <div class="col-lg-6">
+            <label>Last name:</label>
+            <p class="form-control">{{ member.last_name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    {% endfor %}
+  </div>
+</div>

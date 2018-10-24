@@ -433,6 +433,10 @@ for k, v in os.environ.items():
         setattr(sys.modules[__name__], k, v)
 ALLOW_SURVEY_RESPONSE_HOOK_BYPASS = os.environ.get("ALLOW_SURVEY_RESPONSE_HOOK_BYPASS", False)
 
+# Award Force integration
+AWARDFORCE_API_KEY = os.environ.get("AWARDFORCE_API_KEY", "")
+AWARDFORCE_ACCOUNT_ID = os.environ.get("AWARDFORCE_ACCOUNT_ID", "")
+
 # Mandrill & Mailchimp
 MANDRILL_API_KEY = os.environ.get("MANDRILL_API_KEY", "")
 MANDRILL_TEMPLATE_PREFIX = os.environ.get("MANDRILL_TEMPLATE_PREFIX", "")

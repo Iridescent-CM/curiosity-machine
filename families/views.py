@@ -3,10 +3,10 @@ from curiositymachine.decorators import whitelist
 from curiositymachine.presenters import LearningSet
 from django.conf import settings
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import *
 from django.urls import reverse
 from django.utils.functional import lazy
-from django.views.generic import CreateView, ListView, TemplateView, UpdateView
+from django.views.generic import *
 from hellosign import jobs
 from hellosign.models import FamilyConsentTemplate
 from lessons.models import Lesson
@@ -16,6 +16,7 @@ from profiles.models import UserRole
 from profiles.views import EditProfileMixin
 from surveys import get_survey
 from .aichallenge import get_stages, Stage
+from .awardforce import *
 from .forms import *
 from .models import *
 
@@ -24,12 +25,15 @@ unapproved_ok = whitelist('unapproved_family')
 
 class FamilyMemberMixin():
     def form_valid(self, form):
-        formset = self.get_formset()
-        if formset.is_valid():
-            formset.save()
-            return super().form_valid(form)
+        if not self.request.user.familyprofile.members_confirmed:
+            formset = self.get_formset()
+            if formset.is_valid():
+                formset.save()
+                return super().form_valid(form)
+            else:
+                return self.form_invalid(form)
         else:
-            return self.form_invalid(form)
+            return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(self.request, "Please fix the errors below.")
@@ -197,3 +201,22 @@ class ActivityView(DashboardMixin, ListView):
         return context
 
 activity = only_for_family(ActivityView.as_view())
+
+class SubmissionView(DashboardMixin, TemplateView):
+    template_name = "families/submission.html"
+
+submission = only_for_family(SubmissionView.as_view())
+
+class AwardForceRedirectView(View):
+
+    def get(self, request, *args, **kwargs):
+        return Integrating(request.user).run()
+
+awardforce = only_for_family(AwardForceRedirectView.as_view())
+
+class SubmissionChecklistView(View):
+
+    def get(self, request, *args, **kwargs):
+        return JsonResponse(AwardForceChecklist(request.user).as_dict())
+
+checklist = only_for_family(SubmissionChecklistView.as_view())

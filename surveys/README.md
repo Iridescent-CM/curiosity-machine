@@ -5,21 +5,7 @@ Surveymonkey and CM to make it work.
 
 This doc applies to the code at b7ddb046fc70d0acd5c73bf253dc450bd38a4f3e.
 
-## Overview
-
-The general idea is
-
-* user creates account
-* middleware `get_or_create`s a SurveyResponse for that user for the required survey
-* middleware detects that that SurveyResponse is not complete, and shows the user a url
-* that url is a url for the Surveymonkey survey with a custom token variable
-* user follows the link and takes the survey
-* Surveymonkey has a webhook registered to signal survey completions
-* Surveymonkey lets CM know that someone with token X has finished their survey
-* CM uses the token to look up the SurveyResponse, mark it as complete
-* next time through, the middleware `get_or_create`s the SurveyResponse, sees it is complete, and doesn't intervene
-
-## Configuring CM
+## Configuring on CM
 
 `surveys.get_survey` returns a `Survey` object that loads values from configuration settings. Those settings
 take the basic format of `SURVEY_<id>_<attr>`, e.g.
@@ -29,21 +15,38 @@ SURVEY_123_ACTIVE=1
 SURVEY_123_LINK="http://surveymonkey/whatever"
 ```
 
-`SURVEY_<id>_LINK` is the only required configuration as far as `SurveyResponse` is concerned, 
+`SURVEY_<id>_LINK` is the only required configuration as far as `SurveyResponse` is concerned,
 and should be the survey link **without** the token parameters.
 
 The id can really be anything unique from other configured surveys, but using the Surveymonkey survey id
 seems like a good idea.
 
-There's no general purpose survey middleware yet; see `families/middleware.py` for how family pre-surveys
-are handled for an example of how the middleware can work. It additionally wants `SURVEY_<id>_ACTIVE` to be
-set to toggle the interrupt on or off.
+## Configuring in Surveymonkey
 
-## Configuring Surveymonkey
-
-Setting up a survey is outside the scope of this document, but assuming you have your survey written step
+Setting up a survey is outside the scope of this document, but assuming you have your survey written, step
 one is to give it a custom variable. Make sure the name matches the value of `SURVEYMONKEY_TOKEN_VAR`, which
 defaults to `cmtoken`. Set up a web link collector and make note of the URL.
+
+Note that as of 10/3/18, Website Collectors only allow taking a survey once per **browser**, so we do not
+use it as some of our users share browsers to access CM.
+
+## Using in code
+
+There's no general purpose survey middleware yet; see `families/middleware.py` for how family pre-surveys
+are handled for an example of how the middleware can work. It additionally wants `SURVEY_<id>_ACTIVE` to be
+set to toggle the interrupt on or off. Here's the general idea:
+
+```
+survey = get_survey(settings.SOME_SURVEY_ID)
+if survey.active:
+    response = post_survey.response(request.user)
+    if not response.completed:
+	... INTERRUPT THE USER ...
+```
+
+## Survey completion
+
+When a user completes a survey, CM gets notified either by webhook or by redirecting them back to a particular url.
 
 ### Configuring the webhook
 
@@ -63,7 +66,7 @@ should be a reasonable template for the POST data:
 
 ```
 {
-	'event_type': 'response_completed',
+  'event_type': 'response_completed',
   'name': 'Webhook for env',
   'object_ids': ['123', '456'],
   'object_type': 'survey',
@@ -80,6 +83,21 @@ If a webhook for your environment exists, you can add your survey to it by modif
 `objects_ids` with `python manage.py surveymonkey webhooks --patch '{"object_ids":[...]}'`.
 Don't forget to include any old survey ids that are still relevant, while adding your
 new id as well.
+
+### Configuring a redirect
+
+On the Web Link Collector, modify the Survey End Page. Choose the custom end page option, and
+set it to something like `https://www.curiositymachine.org/surveys/123/completed/`, if for example
+your survey ID was 123.
+
+You can set `SURVEY_123_REDIRECT=<app:view_name>` to specify where to redirect, or otherwise the user
+will be redirect to their dashboard upon returning to CM after completing their survey this way.
+
+### Running code on survey completion
+
+When CM is notified of the completion of a survey, it will attempt to load `surveys.Responder` from the
+app corresponding to the user's set role. See `surveys/updating.py` and `families/surveys.py` for details
+and an example of taking an action upon survey completion.
 
 ## Dev bypass
 

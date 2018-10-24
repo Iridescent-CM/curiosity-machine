@@ -15,3 +15,10 @@ class SurveyResponseFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('profiles.factories.UserFactory')
     survey_id = factory.fuzzy.FuzzyText(length=15)
+
+    @factory.post_generation
+    def status(obj, create, extracted, **kwargs):
+        if extracted:
+            if isinstance(extracted, str):
+                extracted = ResponseStatus[extracted]
+            obj.status = extracted
