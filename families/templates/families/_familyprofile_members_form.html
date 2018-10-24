@@ -1,0 +1,28 @@
+<div class="card cm-info-card">
+  <div class="card-header text-center p-3">
+    <h4 class="card-title">Family Members</h4>
+    <small class="text-muted">
+      * Please fill out all fields marked with an asterisk<br/>
+      One parent and one child required, six family members max
+    </small>
+  </div>
+  <div class="card-body">
+    {{ formset.management_form }}
+    {% for error in formset.non_form_errors %}
+      <div class="alert alert-danger alert-dismissable show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{ error }}
+      </div>
+    {% endfor %}
+    {% for form in formset %}
+      {% include "families/_familymember_inline.html" with form=form %}
+    {% endfor %}
+    <script data-formset="familymember_set" type="text/x-template">
+      {% include "families/_familymember_inline.html" with form=formset.empty_form %}
+    </script>
+    <button class="btn btn-secondary" data-formset-add="familymember_set">Add family member</button>
+    <input type="submit" class="btn btn-primary float-right" value="Save">
+  </div>
+</div>
