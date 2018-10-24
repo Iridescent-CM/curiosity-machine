@@ -145,7 +145,7 @@ class AwardForceChecklist(object):
 
     @property
     def family_confirmed_all_listed(self):
-        return False
+        return self.user.familyprofile.members_confirmed
 
     @property
     def complete(self):
