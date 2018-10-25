@@ -9014,6 +9014,13 @@ footer {
   #challenges-page .geo-background {
     background-image: url("../images/challenges/geometry.png");
     background-repeat: repeat; }
+  #challenges-page .cm-logo {
+    height: auto;
+    width: 200px; }
+  @media (min-width: 992px) {
+    #challenges-page .cm-logo {
+      width: 25%;
+      height: auto; } }
   @media (min-width: 768px) {
     #challenges-page .filter-list.collapse {
       display: block; }
@@ -9246,18 +9253,45 @@ footer {
 #examples-page a[data-toggle="modal"]:focus {
   text-decoration: none; }
 
+.family-dashboard .checkbox {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-size: cover;
+  vertical-align: middle;
+  background-image: url("../images/checkbox-unchecked.svg"); }
+  .family-dashboard .checkbox.checkbox-checked {
+    background-image: url("../images/checkbox-checked.svg"); }
+
 .family-dashboard .dashboard-section {
   border-radius: 30px;
   border-style: solid;
   border-color: #E3E3DD;
   padding: 20px;
-  border-width: 2px; }
+  border-width: 2px;
+  position: relative;
+  z-index: 0; }
+  .family-dashboard .dashboard-section a {
+    color: #3498DB; }
 
-.family-dashboard .instruction-text {
-  background: #ccc;
-  border: none;
-  margin-top: 16px;
-  margin-bottom: 0px; }
+.family-dashboard .blue-round-button {
+  border-radius: 100%;
+  padding: 5px 10px;
+  line-height: 1;
+  color: #3498DB;
+  font-size: 1.25em;
+  font-weight: bold;
+  border: 2px solid #3498DB;
+  position: absolute;
+  z-index: 1;
+  right: 15px;
+  top: 15px; }
+  .family-dashboard .blue-round-button:hover, .family-dashboard .blue-round-button:active {
+    background-color: #3498DB66;
+    cursor: pointer; }
+
+.family-dashboard .modal-content {
+  border-color: #3498DB; }
 
 .family-dashboard .members-list {
   padding: 10px;

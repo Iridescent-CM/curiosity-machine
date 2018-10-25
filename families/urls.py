@@ -11,6 +11,9 @@ urlpatterns = [
     url(r'^stage-1/$', stage_1, name="stage_1"),
     url(r'^stage-2/$', stage_2, name="stage_2"),
     url(r'^stage-3/$', stage_3, name="stage_3"),
+    url(r'^submission/$', submission, name="submission"),
+    url(r'^awardforce/$', awardforce, name="awardforce"),
+    url(r'^checklist/$', checklist, name="checklist"),
 ]
 
 if settings.DEBUG:

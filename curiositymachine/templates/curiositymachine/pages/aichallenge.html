@@ -18,7 +18,7 @@
         Many technologies that surround us are changing how we work and play using AI.
       </p> 
       <p>
-        The <a href="/challenges/?aifamilychallenge=1" target="_blank">AI Family Challenge</a> is a free, hands-on AI education program that brings families, schools, 
+        The <a href="{% url "challenges:challenges" %}?aifamilychallenge=1" target="_blank">AI Family Challenge</a> is a free, hands-on AI education program that brings families, schools, 
         communities, and technology know-it-alls together to give everyone the chance to learn, play and create 
         with AI.
       </p>
@@ -48,7 +48,7 @@
       <p>
         Do you see problems in your community around transportation, health, education, safety, or the 
         environment? Through the AI Family Challenge you and your family will work together to fix it and 
-        submit your plan to the first ever <a href="/aichallenge/worldchampionship/" target="_blank">
+        submit your plan to the first ever <a href="{% url "aichallenge/worldchampionship" %}" target="_blank">
         AI World Championship</a>.
       </p>
       <p>
@@ -60,11 +60,11 @@
     </div>
     <div class="col-md-10 offset-md-1">
       <p>
-        Still a little nervous? We have <a href="/aichallenge/coaches/" target="_blank">450 coaches</a> (and growing!) all over the world, experienced in 
+        Still a little nervous? We have <a href="{% url "aichallenge/coaches" %}" target="_blank">450 coaches</a> (and growing!) all over the world, experienced in 
         technology, lending a hand to families through our online platform and in their local communities.
       </p>
       <p> 
-        Let’s change the world together. <a href="/accounts/signup/" target="_blank">Join the AI Family Challenge</a> and be tomorrow’s innovators and 
+        Let’s change the world together. <a href="{% url "account_signup" %}" target="_blank">Join the AI Family Challenge</a> and be tomorrow’s innovators and 
         entrepreneurs today!
       </p>
       <hr class="hr-red mb-3"/>
@@ -120,17 +120,17 @@
     <p class="col-sm-8 offset-sm-2 text-center mt-1 mb-4">
       <small><em>Together families learn about AI technologies, tackle fun, hands-on AI projects, and gain valuable life skills to 
       improve their lives and the world.</small></em>
-    </p>
-    <p class="col-md-10 offset-md-1">
+    </p>  
+    <p>
       Curious how self-driving cars work? Or, how to build an AI model that detects emotion in writing or a even Parallel 
       Processing Machine?! Find that out and more by using simple, everyday materials found around your house to complete 
       the projects.
     </p>
     <div class="col-md-10 offset-md-1">
-      <hr class="hr-red mb-3 mt-3"/>
+      <hr class="hr-red mb-3"/>
       <h3>Learn. Build. Change.</h3>
       <p>
-        80,000+ families, and 15,000 coaches around the world have participated in <a href="/challenges/#challenges/" target="_blank">
+        80,000+ families, and 15,000 coaches around the world have participated in <a href="{% url "challenges:challenges" %}" target="_blank">
         Curiosity Machine design challenges</a> since 2006. Here’s how participating in the program has impacted their lives. 
       </p>
     </div>
