@@ -8879,10 +8879,15 @@ footer {
       content: "—";
       margin-right: 0.4em; }
 
-.aifc-album img {
-  width: auto;
-  height: 360px;
-  margin: auto; }
+.aifc-album {
+  height: 400px;
+  width: 730px; }
+  .aifc-album img {
+    max-height: 400px;
+    margin: auto; }
+
+@media (max-width: 991.98px) {
+  width: auto; }
 
 .account-settings .avatar-settings .form-inline {
   justify-content: center; }

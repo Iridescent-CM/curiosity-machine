@@ -33,9 +33,13 @@
 
 .aifc-album {
   img {
-    width:auto;
-    height:360px;
+    max-height: 400px;
     margin: auto;
   }
+  height: 400px;
+  width: 730px;
+}
 
+@include media-breakpoint-down(md) {
+  width: auto;
 }
