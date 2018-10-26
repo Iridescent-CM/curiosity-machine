@@ -25,15 +25,16 @@ unapproved_ok = whitelist('unapproved_family')
 
 class FamilyMemberMixin():
     def form_valid(self, form):
-        if not self.request.user.familyprofile.members_confirmed:
+        profile = getattr(self.request.user, 'familyprofile', None)
+        if profile and profile.members_confirmed:
+            return super().form_valid(form)
+        else:
             formset = self.get_formset()
             if formset.is_valid():
                 formset.save()
                 return super().form_valid(form)
             else:
                 return self.form_invalid(form)
-        else:
-            return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(self.request, "Please fix the errors below.")
