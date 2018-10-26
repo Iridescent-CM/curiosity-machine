@@ -32,7 +32,10 @@
           <template slot="family_members">
             <ul>
               {% for member in request.user.familymember_set.all %}
-              <li>{{ member.first_name }} {{ member.last_name }}</li>
+              <li class="list-unstyled">
+                {% include "families/_avatar.html" with image=member.image width=50 height=50 %}
+                {{ member.first_name }} {{ member.last_name }}
+              </li>
               {% endfor %}
             </ul>
           </template>

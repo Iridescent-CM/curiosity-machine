@@ -21,9 +21,16 @@
       <i class="checkbox v-family-checkbox" :class="{ 'checkbox-checked': checklist.items.family_confirmed_all_listed }"></i>
       Your family members are all listed.
       <div class="v-family-controls" v-if="!checklist.items.family_confirmed_all_listed">
-        <slot name="family_members"></slot>
-        <button class="btn btn-primary v-confirm-family" @click="confirm_family">Yes</button>
-        <a :href="change_family_members_url" class="btn btn-danger v-edit-family">No</a>
+        <div class="card">
+          <div class="card-body">
+            <slot name="family_members"></slot>
+          </div>
+          <div class="card-body">
+            <p>Are all your family members listed?</p>
+            <button class="btn btn-primary v-confirm-family" @click="confirm_family">Yes</button>
+            <a :href="change_family_members_url" class="btn btn-danger v-edit-family">No</a>
+          </div>
+        </div>
       </div>
     </div>
 
