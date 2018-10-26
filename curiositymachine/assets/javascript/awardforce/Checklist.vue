@@ -2,24 +2,29 @@
   <div v-if="loaded">
 
     <div class="m-2 ml-4">
-      <i class="checkbox" :class="{ 'checkbox-checked': checklist.email_unique }"></i>
+      <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_unique }"></i>
       Your email is not shared with other accounts.
     </div>
     <div class="m-2 ml-4">
-      <i class="checkbox" :class="{ 'checkbox-checked': checklist.email_verified }"></i>
+      <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_verified }"></i>
       You have verified your email address.
     </div>
     <div class="m-2 ml-4">
-      <i class="checkbox" :class="{ 'checkbox-checked': checklist.enough_challenges_completed }"></i>
+      <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.enough_challenges_completed }"></i>
       You have completed at least 3 design challenges.
     </div>
     <div class="m-2 ml-4">
-      <i class="checkbox" :class="{ 'checkbox-checked': checklist.post_survey_taken }"></i>
+      <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.post_survey_taken }"></i>
       You have completed the post-survey.
     </div>
     <div class="m-2 ml-4">
-      <i class="checkbox" :class="{ 'checkbox-checked': checklist.family_confirmed_all_listed }"></i>
+      <i class="checkbox v-family-checkbox" :class="{ 'checkbox-checked': checklist.items.family_confirmed_all_listed }"></i>
       Your family members are all listed.
+      <div class="v-family-controls" v-if="!checklist.items.family_confirmed_all_listed">
+        <slot name="family_members"></slot>
+        <button class="btn btn-primary v-confirm-family" @click="confirm_family">Yes</button>
+        <a :href="change_family_members_url" class="btn btn-danger v-edit-family">No</a>
+      </div>
     </div>
 
     <div class="my-5">
@@ -32,8 +37,8 @@
             <li>Up to 4 photos of your project (optional)</li>
           </ul>
 
-          <a v-if="checklist.complete" class="btn btn-primary" :href="create_url">Create account</a>
-          <a v-else class="btn btn-primary disabled" href="#">Create account</a>
+          <a v-if="checklist.complete" class="btn btn-primary v-create" :href="create_url">Create account</a>
+          <a v-else class="btn btn-primary disabled v-create" href="#">Create account</a>
         </div>
       </div>
     </div>
@@ -41,7 +46,7 @@
 
   <div v-else>
 
-    <slot></slot>
+    <slot name="loader"></slot>
 
   </div>
 </template>
@@ -52,12 +57,16 @@
   promiseFinally.shim();
 
   export default {
-    props: ['create_url'],
+    props: [
+      'create_url',
+      'change_family_members_url',
+    ],
 
     data: function () {
       return {
         loaded: false,
-        api: new Api()
+        api: new Api(),
+        checklist: {}
       }
     },
 
@@ -79,7 +88,18 @@
         .catch(function (error) {
           console.log(error); // TODO
         });
-      }
+      },
+
+      confirm_family: function () {
+        var that = this;
+        that.api.confirm_family()
+        .then(function () {
+          that.load();
+        })
+        .catch(function (error) {
+          console.log(error); // TODO
+        });
+      },
     }
   }
 </script>

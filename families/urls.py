@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from rest_framework.routers import SimpleRouter
 from .views import *
 
 urlpatterns = [
@@ -13,8 +14,11 @@ urlpatterns = [
     url(r'^stage-3/$', stage_3, name="stage_3"),
     url(r'^submission/$', submission, name="submission"),
     url(r'^awardforce/$', awardforce, name="awardforce"),
-    url(r'^checklist/$', checklist, name="checklist"),
 ]
+
+router = SimpleRouter()
+router.register(r'checklist', SubmissionChecklistViewSet, base_name="checklist")
+urlpatterns += router.urls
 
 if settings.DEBUG:
     urlpatterns += [
