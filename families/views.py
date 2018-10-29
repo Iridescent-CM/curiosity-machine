@@ -14,11 +14,15 @@ from lessons.models import Progress as LessonProgress
 from profiles.decorators import not_for_role, only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from surveys import get_survey
 from .aichallenge import get_stages, Stage
 from .awardforce import *
 from .forms import *
 from .models import *
+from .serializers import *
 
 only_for_family = only_for_role(UserRole.family)
 unapproved_ok = whitelist('unapproved_family')
@@ -215,9 +219,12 @@ class AwardForceRedirectView(View):
 
 awardforce = only_for_family(AwardForceRedirectView.as_view())
 
-class SubmissionChecklistView(View):
+class SubmissionChecklistViewSet(viewsets.ViewSet):
 
-    def get(self, request, *args, **kwargs):
-        return JsonResponse(AwardForceChecklist(request.user).as_dict())
+    def list(self, request):
+        return Response(ChecklistSerializer(AwardForceChecklist(request.user)).data)
 
-checklist = only_for_family(SubmissionChecklistView.as_view())
+    @action(methods=['post'], detail=False)
+    def confirm_family(self, request):
+        AwardForceChecklist(request.user).confirm_family_members()
+        return Response({'status': 'family members confirmed'})

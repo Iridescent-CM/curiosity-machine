@@ -108,20 +108,6 @@ class AwardForceChecklist(object):
         self.user = user
         self.stage_stats = kwargs.get('stage_stats') or [stage.stats for stage in get_stages(user)]
 
-    def as_dict(self):
-        return {
-            k: getattr(self, k)
-            for k in [
-                'challenges_completed',
-                'enough_challenges_completed',
-                'email_unique',
-                'email_verified',
-                'post_survey_taken',
-                'family_confirmed_all_listed',
-                'complete',
-            ]
-        }
-
     @property
     def challenges_completed(self):
         return self.stage_stats[0]['completed'] + self.stage_stats[1]['completed']
@@ -146,6 +132,11 @@ class AwardForceChecklist(object):
     @property
     def family_confirmed_all_listed(self):
         return self.user.familyprofile.members_confirmed
+
+    def confirm_family_members(self):
+        profile = self.user.familyprofile
+        profile.members_confirmed = True
+        profile.save(update_fields=['members_confirmed'])
 
     @property
     def complete(self):

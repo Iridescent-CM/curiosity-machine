@@ -14,4 +14,9 @@ export default function Api(opts) {
         return response.data;
       });
   };
+
+  this.confirm_family = function () {
+    var url = 'checklist/confirm_family/';
+    return client.post(url);
+  };
 }

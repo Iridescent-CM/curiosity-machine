@@ -11,17 +11,7 @@
     {% for member in request.user.familymember_set.all %}
     <div class="row py-3">
       <div class="col-lg-4 text-center">
-      {% if member.image.url %}
-        <img
-         src={% resized member.image.url width=80 height=80 crop='thumb' gravity='faces' %}
-         class="rounded-circle"
-        >
-      {% else %}
-        <img
-         src={% resized MEDIA_URL|add:'images/placeholder.png' width=80 height=80 crop='thumb' gravity='faces' %}
-         class="img-responsive"
-        >
-      {% endif %}
+        {% include "families/_avatar.html" with image=member.image %}
       </div>
       <div class="col-lg-8">
         <label>Family role:</label>

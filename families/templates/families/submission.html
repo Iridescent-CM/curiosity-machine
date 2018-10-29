@@ -26,8 +26,19 @@
       <div class="awardforce-checklist-app">
         <checklist
           create_url="{% url "families:awardforce" %}"
+          change_family_members_url="{% url "profiles:edit_profile" %}"
         >
-          <div class="loader">Loading...</div>
+          <div slot="loader" class="loader">Loading...</div>
+          <template slot="family_members">
+            <ul>
+              {% for member in request.user.familymember_set.all %}
+              <li class="list-unstyled">
+                {% include "families/_avatar.html" with image=member.image width=50 height=50 %}
+                {{ member.first_name }} {{ member.last_name }}
+              </li>
+              {% endfor %}
+            </ul>
+          </template>
         </checklist>
       </div>
       {% endif %}

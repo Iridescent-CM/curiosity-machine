@@ -1,0 +1,13 @@
+{% load resized %}
+
+{% if image.url %}
+  <img
+    src={% resized image.url width=width|default:80 height=height|default:80 crop='thumb' gravity='faces' %}
+    class="rounded-circle"
+  >
+{% else %}
+  <img
+    src={% resized MEDIA_URL|add:'images/placeholder.png' width=width|default:80 height=height|default:80 crop='thumb' gravity='faces' %}
+    class="rounded-circle"
+  >
+{% endif %}
