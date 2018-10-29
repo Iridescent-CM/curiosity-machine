@@ -1,0 +1,29 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="jumbotron cm-jumbotron bg-blue jumbotron-fluid">
+  <h1>Parental Consent</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p class="text-center">Parents/guardians please review and sign the consent form.</p>
+        <p class="text-center">
+            By signing, I attest that I am the parent/guardian registered on this account and that I agree to 
+            Curiosity Machine's terms
+        </p>
+        <form method="POST" class="consent-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form> 
+        
+        {% comment %} <form class="form-inline" action="{% url "families:edit_email" %}" method="POST">
+
+          <input class="btn btn-sm btn-primary ml-2" type="submit" value="Change email" />
+        </form>
+        <input class="btn btn-sm btn-primary ml-2" type="submit" value="Save" /> {% endcomment %}
+    </div>
+  </div>
+</div>
+{% endblock %}

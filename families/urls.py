@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^stage-3/$', stage_3, name="stage_3"),
     url(r'^submission/$', submission, name="submission"),
     url(r'^awardforce/$', awardforce, name="awardforce"),
+    url(r'^consentform/$', consentform, name="consentform"),
 ]
 
 router = SimpleRouter()
