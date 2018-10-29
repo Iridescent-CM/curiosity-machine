@@ -4,6 +4,17 @@
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_unique }"></i>
       Your email is not shared with other accounts.
+      <div class="v-email-change-controls" v-if="!checklist.items.email_unique">
+        <div class="card">
+          <div class="card-body">
+            <form class="form-inline">
+              <label class="sr-only" for="email_change_controls_email_field">Email address</label>
+              <input type="email" class="form-control mr-3" id="email_change_controls_email_field" v-model="new_email" placeholder="Email address" />
+              <button class="btn btn-primary" :disabled="email_change_controls_save_disabled" @click="submit_email">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_verified }"></i>
@@ -99,13 +110,17 @@
       return {
         loaded: false,
         api: new Api(),
-        checklist: {}
+        checklist: {},
+        new_email: undefined,
       }
     },
 
     computed: {
       challenge_count_remaining: function () {
         return this.checklist.challenge_count_required - this.checklist.challenges_completed;
+      },
+      email_change_controls_save_disabled: function() {
+        return !this.new_email;
       }
     },
 
@@ -148,6 +163,19 @@
         })
         .catch(function (error) {
           console.log(error); // TODO
+        });
+      },
+
+      submit_email: function (e) {
+        e.preventDefault();
+
+        var that = this;
+        that.api.change_email(that.new_email)
+        .then(function () {
+          // ?
+        })
+        .catch(function (error) {
+          console.log(error);
         });
       }
     }

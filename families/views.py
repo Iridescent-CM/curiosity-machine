@@ -233,3 +233,8 @@ class SubmissionChecklistViewSet(viewsets.ViewSet):
     def resend_verification(self, request):
         AwardForceChecklist(request.user).resend_verification_email(self.request)
         return Response({'status': 'ok'})
+
+    @action(methods=['post'], detail=False)
+    def change_email(self, request):
+        print(request.data)
+        return Response({'status': 'who knows'})

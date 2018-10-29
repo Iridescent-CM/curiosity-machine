@@ -24,4 +24,14 @@ export default function Api(opts) {
     var url = 'checklist/resend_verification/';
     return client.post(url);
   };
+
+  this.change_email = function (email_address) {
+    var url = 'checklist/change_email/';
+    return client.post(url, {
+      email_address: email_address
+    })
+    .then(function (response) {
+      return response.data;
+    });
+  };
 }
