@@ -11,7 +11,16 @@
     </div>
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.enough_challenges_completed }"></i>
-      You have completed at least 3 design challenges.
+      You have completed at least {{ checklist.challenge_count_required }} design challenges.
+      <div class="v-challenge-count-controls" v-if="!checklist.items.enough_challenges_completed">
+        <div class="card">
+          <div class="card-body">
+            <p>
+              Please complete {{ challenge_count_remaining }} more design challenges.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.post_survey_taken }"></i>
@@ -81,6 +90,12 @@
         loaded: false,
         api: new Api(),
         checklist: {}
+      }
+    },
+
+    computed: {
+      challenge_count_remaining: function () {
+        return this.checklist.challenge_count_required - this.checklist.challenges_completed;
       }
     },
 

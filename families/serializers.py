@@ -9,6 +9,7 @@ class ChecklistSerializer(serializers.BaseSerializer):
             for k in [
                 'challenges_completed',
                 'complete',
+                'challenge_count_required',
             ]
         }
         data['post_survey_url'] = obj.post_survey_response.url

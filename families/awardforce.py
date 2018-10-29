@@ -103,6 +103,7 @@ class Integrating(object):
 class AwardForceChecklist(object):
 
     post_survey = get_survey(settings.AICHALLENGE_FAMILY_POST_SURVEY_ID)
+    challenge_count_required = 3
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -114,7 +115,7 @@ class AwardForceChecklist(object):
 
     @property
     def enough_challenges_completed(self):
-        return self.challenges_completed >= 3
+        return self.challenges_completed >= self.challenge_count_required
 
     @property
     def email_unique(self):
