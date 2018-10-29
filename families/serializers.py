@@ -11,6 +11,7 @@ class ChecklistSerializer(serializers.BaseSerializer):
                 'complete',
             ]
         }
+        data['post_survey_url'] = obj.post_survey_response.url
         data['items'] = {
             k: getattr(obj, k)
             for k in [

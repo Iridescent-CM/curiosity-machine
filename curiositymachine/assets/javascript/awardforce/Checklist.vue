@@ -16,6 +16,13 @@
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.post_survey_taken }"></i>
       You have completed the post-survey.
+      <div class="v-survey-controls" v-if="!checklist.items.post_survey_taken">
+        <div class="card">
+          <div class="card-body">
+            <a class="btn btn-primary" :href="checklist.post_survey_url">Take survey</a>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="m-2 ml-4">
       <i class="checkbox v-family-checkbox" :class="{ 'checkbox-checked': checklist.items.family_confirmed_all_listed }"></i>

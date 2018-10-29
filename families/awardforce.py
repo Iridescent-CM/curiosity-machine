@@ -126,8 +126,12 @@ class AwardForceChecklist(object):
         return bool(email and email.verified)
 
     @property
+    def post_survey_response(self):
+        return self.post_survey.response(self.user)
+
+    @property
     def post_survey_taken(self):
-        return self.post_survey.response(self.user).completed
+        return self.post_survey_response.completed
 
     @property
     def family_confirmed_all_listed(self):
