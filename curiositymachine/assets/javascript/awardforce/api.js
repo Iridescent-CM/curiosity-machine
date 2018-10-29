@@ -19,4 +19,9 @@ export default function Api(opts) {
     var url = 'checklist/confirm_family/';
     return client.post(url);
   };
+
+  this.resend_verification_email = function () {
+    var url = 'checklist/resend_verification/';
+    return client.post(url);
+  };
 }

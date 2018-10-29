@@ -8,6 +8,16 @@
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_verified }"></i>
       You have verified your email address.
+      <div class="v-verified-email-controls" v-if="!checklist.items.email_verified">
+        <div class="card">
+          <div class="card-body">
+            <p>
+              Check your email and follow the instructions to verify your email.
+            </p>
+            <button class="btn btn-primary" @click="resend_verification_email">Re-send verification</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.enough_challenges_completed }"></i>
@@ -129,6 +139,17 @@
           console.log(error); // TODO
         });
       },
+
+      resend_verification_email: function () {
+        var that = this;
+        that.api.resend_verification_email()
+        .then(function () {
+          // ?
+        })
+        .catch(function (error) {
+          console.log(error); // TODO
+        });
+      }
     }
   }
 </script>

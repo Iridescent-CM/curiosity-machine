@@ -56,7 +56,7 @@ class AwardForceSubmitter(object):
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        self.email_address = kwargs.get('email_address', EmailAddress.objects.get_primary(self.user))
+        self.email_address = kwargs.get('email_address') or EmailAddress.objects.get_primary(self.user)
         self.profile = kwargs.get('profile', self.user.familyprofile)
         self.api = kwargs.get('api', Api())
 
@@ -107,6 +107,7 @@ class AwardForceChecklist(object):
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
+        self.email_address = kwargs.get('email_address') or EmailAddress.objects.get_primary(self.user)
         self.stage_stats = kwargs.get('stage_stats') or [stage.stats for stage in get_stages(user)]
 
     @property
@@ -123,8 +124,11 @@ class AwardForceChecklist(object):
 
     @property
     def email_verified(self):
-        email = EmailAddress.objects.get_primary(self.user)
+        email = self.email_address
         return bool(email and email.verified)
+
+    def resend_verification_email(self, request=None):
+        return self.email_address.send_confirmation(request)
 
     @property
     def post_survey_response(self):

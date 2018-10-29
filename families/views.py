@@ -228,3 +228,8 @@ class SubmissionChecklistViewSet(viewsets.ViewSet):
     def confirm_family(self, request):
         AwardForceChecklist(request.user).confirm_family_members()
         return Response({'status': 'family members confirmed'})
+
+    @action(methods=['post'], detail=False)
+    def resend_verification(self, request):
+        AwardForceChecklist(request.user).resend_verification_email(self.request)
+        return Response({'status': 'ok'})
