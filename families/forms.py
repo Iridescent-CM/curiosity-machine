@@ -21,6 +21,11 @@ class FamilyEmailForm(ProfileModelForm):
     def get_role(self):
         return UserRole.family
 
+class ConsentForm(ProfileModelForm):
+    class Meta:
+        model = FamilyProfile
+        fields = ['consent']
+
 class FamilyProfileForm(RelatedModelFormMixin, ProfileModelForm):
     related_forms = [
         ('location', LocationForm),

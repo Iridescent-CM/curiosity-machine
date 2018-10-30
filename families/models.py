@@ -25,6 +25,7 @@ class FamilyProfile(BaseProfile):
     welcomed = models.DateTimeField(null=True, blank=True)
     awardforce_slug = models.CharField(max_length=16, null=True, blank=True)
     members_confirmed = models.BooleanField(default=False)
+    consent = models.CharField(max_length=75, null=True)
 
     @cached_property
     def full_access(self):

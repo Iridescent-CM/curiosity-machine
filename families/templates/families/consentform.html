@@ -13,16 +13,13 @@
             By signing, I attest that I am the parent/guardian registered on this account and that I agree to 
             Curiosity Machine's terms
         </p>
-        <form method="POST" class="consent-form">{% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="save btn btn-default">Save</button>
-        </form> 
         
-        {% comment %} <form class="form-inline" action="{% url "families:edit_email" %}" method="POST">
-
-          <input class="btn btn-sm btn-primary ml-2" type="submit" value="Change email" />
+        <form class="text-center" action="{% url "families:consentform" %}" method="POST">
+            {% csrf_token %}
+            {% form_group form.consent %}
+            <input class="btn btn-sm btn-primary ml-2" type="submit" value="Submit" />
         </form>
-        <input class="btn btn-sm btn-primary ml-2" type="submit" value="Save" /> {% endcomment %}
+         
     </div>
   </div>
 </div>
