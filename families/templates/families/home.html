@@ -1,5 +1,6 @@
 {% extends "families/base.html" %}
 {% load staticfiles %}
+{% load addstr %}
 
 {% block js %}
   <script type="text/javascript" src="{% static 'js/libs/jquery.circliful.min.js' %}"></script>
@@ -11,6 +12,8 @@
 {% endblock %}
 
 {% block content %}
+
+  {% include "families/_dashboard_help.html" %}
   {% include 'families/_navigation.html' %}
 
   <div class="row mb-5">
@@ -31,24 +34,28 @@
     <div class="col-md-8">
       <h3>AI Family Challenge Program Progress</h3>
       <div class="row dashboard-section">
+        <button class="blue-round-button"
+          data-toggle="modal" data-target="#dashboard-help-modal">?</button>
         {% for stage in stages %}
         {% if not stage.number == 3 or flags.enable_stage_3 %}
         <div class="col-md-4 text-center">
-          <div
-            data-percent={{stage.stats.percent_complete}}
-            data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
-            data-animationStep=20
-            data-foregroundBorderWidth= 30
-            data-backgroundBorderWidth= 30
-            {% if stage.stats.completed == stage.stats.total %}
-                data-foregroundColor = '#73AD21'
-            {% else %}
-                data-foregroundColor = '#3498DB'
-            {% endif %}
-            data-backgroundColor= '#666'
-            data-fontColor= '#666'
-          ></div>
-          <p>Stage {{stage.number}}</p>
+          <a href="{% url "families:stage_"|addstr:stage.number %}">
+            <div
+              data-percent={{stage.stats.percent_complete}}
+              data-replacePercentageByText="{{stage.stats.completed}} of {{stage.stats.total}}"
+              data-animationStep=20
+              data-foregroundBorderWidth= 30
+              data-backgroundBorderWidth= 30
+              {% if stage.stats.completed == stage.stats.total %}
+                  data-foregroundColor = '#73AD21'
+              {% else %}
+                  data-foregroundColor = '#3498DB'
+              {% endif %}
+              data-backgroundColor= '#666'
+              data-fontColor= '#666'
+            ></div>
+            <p>Stage {{stage.number}}</p>
+          </a>
         </div>
         {% endif %}
         {% endfor %}
@@ -67,17 +74,7 @@
         </div>
         {% endif %}
       </div>
-
-      <div class="row dashboard-section instruction-text">
-        <div class="col-md-12">
-          <p>
-            To start the Challenge, go to your Stage 1 tab and start working on challenges from
-            left to right. Your progress will only show for these design challenges. Remember,
-            for a challenge to be complete you need to make sure you answer the Reflection
-            question!
-          </p>
-        </div>
-      </div>
     </div>
   </div>
 {% endblock %}
+
