@@ -1,6 +1,7 @@
 from allauth.account.models import EmailAddress
 from django.conf import settings
 from django.http import *
+from django.utils.functional import cached_property
 from profiles.models import UserExtra
 from surveys import get_survey
 from .aichallenge import get_stages
@@ -10,20 +11,36 @@ import requests
 
 logger = logging.getLogger(__name__)
 
+class ApiException(Exception):
+    pass
+
 class Api(object):
 
-    def __init__(self, *args, **kwargs):
-        res = requests.get(
+    @cached_property
+    def access_token(self):
+        res = self.request(
+            'GET',
             'https://api.awardsplatform.com/access-token/',
             headers={
                 "Accept": "application/vnd.Award Force.v1.0+json",
                 "Authorization": "Basic %s" % settings.AWARDFORCE_API_KEY,
             }
         )
-        self.access_token = res.text
+        return res.text
+
+    def request(self, *args, **kwargs):
+        try:
+            res = requests.request(*args, **kwargs)
+            res.raise_for_status()
+            return res
+        except requests.exceptions.RequestException as e:
+            logger.exception("Error from AwardForce API")
+            raise ApiException("Error communicating with AwardForce")
+
 
     def create_user(self, **kwargs):
-        res = requests.post(
+        res = self.request(
+            'POST',
             'https://api.awardsplatform.com/user/',
             headers={
                 "Accept": "application/vnd.Award Force.v1.0+json",
@@ -39,7 +56,8 @@ class Api(object):
         return res.json().get('slug')
 
     def get_auth_token(self, slug):
-        res = requests.get(
+        res = self.request(
+            'GET',
             'https://api.awardsplatform.com/user/%s/auth-token' % slug,
             headers={
                 "Accept": "application/vnd.Award Force.v1.0+json",
@@ -52,12 +70,21 @@ class Api(object):
     def get_login_url(self, token):
         return "https://my.curiositymachine.org/login?token=%s" % token
 
+def get_primary_email_for(user):
+    """
+    Family users will have User.email, but not necessarily the corresponding EmailAddress object. This
+    sets up that object if necessary.
+    """
+    primary = EmailAddress.objects.get_primary(user)
+    if not primary:
+        primary, created = EmailAddress.objects.get_or_create(user=user, email__iexact=user.email, defaults={"email": user.email, "primary": True})
+    return primary
 
 class AwardForceSubmitter(object):
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        self.email_address = kwargs.get('email_address') or EmailAddress.objects.get_primary(self.user)
+        self.email_address = kwargs.get('email_address') or get_primary_email_for(user)
         self.profile = kwargs.get('profile', self.user.familyprofile)
         self.api = kwargs.get('api', Api())
 
@@ -89,8 +116,8 @@ class AwardForceSubmitter(object):
 
 class Integrating(object):
 
-    def __init__(self, user, *args, **kwargs):
-        self.submitter = kwargs.get('submitter', AwardForceSubmitter(user))
+    def __init__(self, user=None, *args, **kwargs):
+        self.submitter = kwargs.get('submitter') or AwardForceSubmitter(user)
 
     def run(self):
         submitter = self.submitter
@@ -109,7 +136,7 @@ class AwardForceChecklist(object):
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        self.email_address = kwargs.get('email_address') or EmailAddress.objects.get_primary(self.user)
+        self.email_address = kwargs.get('email_address') or get_primary_email_for(user)
         self.stage_stats = kwargs.get('stage_stats') or [stage.stats for stage in get_stages(user)]
 
     @property

@@ -9,11 +9,12 @@ from ..awardforce import *
 
 @pytest.mark.django_db
 def test_integrating_redirects():
-    user = FamilyFactory()
-    email = EmailAddress.objects.get_primary(user)
-    email.verified = True
-    email.save()
-    assert isinstance(Integrating(user).run(), HttpResponseRedirect)
+    submitter = mock.Mock()
+    submitter.has_verified_email.return_value = True
+    submitter.get_login_url.return_value = '/some/url'
+    res = Integrating(submitter=submitter).run()
+    assert isinstance(res, HttpResponseRedirect)
+    assert res.url == '/some/url'
 
 @pytest.mark.django_db
 def test_integrating_forbids_unverified_email():
