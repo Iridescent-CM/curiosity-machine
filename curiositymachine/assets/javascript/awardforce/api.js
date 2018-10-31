@@ -28,7 +28,7 @@ export default function Api(opts) {
   this.change_email = function (email_address) {
     var url = 'checklist/change_email/';
     return client.post(url, {
-      email_address: email_address
+      email: email_address
     })
     .then(function (response) {
       return response.data;

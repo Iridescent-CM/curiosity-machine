@@ -236,5 +236,18 @@ class SubmissionChecklistViewSet(viewsets.ViewSet):
 
     @action(methods=['post'], detail=False)
     def change_email(self, request):
-        print(request.data)
-        return Response({'status': 'who knows'})
+        form = UnusedEmailForm(data=request.data)
+        if form.is_valid():
+            obj = EmailAddress.objects.add_email(
+                self.request,
+                self.request.user,
+                form.cleaned_data["email"],
+                confirm=True
+            )
+            obj.set_as_primary()
+            return Response({'status': 'changed'})
+        else:
+            return Response({
+                'status': 'error',
+                'errors': form.errors.as_data()
+            })

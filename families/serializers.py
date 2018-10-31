@@ -13,11 +13,12 @@ class ChecklistSerializer(serializers.BaseSerializer):
             ]
         }
         data['post_survey_url'] = obj.post_survey_response.url
+        data['email_address'] = obj.email_address.email
         data['items'] = {
             k: getattr(obj, k)
             for k in [
                 'enough_challenges_completed',
-                'email_unique',
+                'email_has_not_been_used',
                 'email_verified',
                 'post_survey_taken',
                 'family_confirmed_all_listed',
