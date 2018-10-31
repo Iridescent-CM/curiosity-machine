@@ -24,6 +24,7 @@ class FamilyProfile(BaseProfile):
     location = models.ForeignKey(Location, null=False, blank=False, on_delete=models.PROTECT)
     welcomed = models.DateTimeField(null=True, blank=True)
     awardforce_slug = models.CharField(max_length=16, null=True, blank=True)
+    awardforce_email = models.EmailField(unique=True, null=True, blank=True)
     members_confirmed = models.BooleanField(default=False)
 
     @cached_property

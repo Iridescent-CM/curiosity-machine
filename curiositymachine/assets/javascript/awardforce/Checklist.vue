@@ -2,8 +2,33 @@
   <div v-if="loaded">
 
     <div class="m-2 ml-4">
-      <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_unique }"></i>
-      Your email is not shared with other accounts.
+      <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_has_not_been_used }"></i>
+      Your email has not been used to start a submission.
+      <div class="v-email-change-controls" v-if="!checklist.items.email_has_not_been_used">
+        <div class="card">
+          <div class="card-body">
+            <p>
+              Another account has used this email address to begin a submission. Please choose a new email address to begin a submission from this account.
+            </p>
+
+            <form class="form-inline">
+              <label class="sr-only" for="email_change_controls_email_field">Email address</label>
+              <input
+                type="email"
+                class="form-control mr-3"
+                v-bind:class="email_change_classes"
+                id="email_change_controls_email_field"
+                v-model="email"
+                placeholder="Email address"
+              />
+              <div v-for="error in email_save_response_errors" class="invalid-feedback">{{ error[0] }}</div>
+              <button class="btn btn-primary" :disabled="email_change_controls_save_disabled" @click="submit_email">Save</button>
+              <small v-if="submit_email_pending" class="text-muted ml-2">Please wait...</small>
+            </form>
+
+          </div>
+        </div>
+      </div>
     </div>
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_verified }"></i>
@@ -12,7 +37,7 @@
         <div class="card">
           <div class="card-body">
             <p>
-              Check your email and follow the instructions to verify your email.
+              Check your email (<strong>{{ checklist.email_address }}</strong>) and follow the instructions to verify your email.
             </p>
             <button class="btn btn-primary" @click="resend_verification_email">Re-send verification</button>
           </div>
@@ -99,19 +124,39 @@
       return {
         loaded: false,
         api: new Api(),
-        checklist: {}
+        checklist: {},
+        email: undefined,
+        email_save_response: undefined,
+        submit_email_pending: false
       }
     },
 
     computed: {
       challenge_count_remaining: function () {
         return this.checklist.challenge_count_required - this.checklist.challenges_completed;
+      },
+      email_change_controls_save_disabled: function() {
+        return !this.email || this.submit_email_pending;
+      },
+      email_change_classes: function () {
+        return {
+          'is-invalid': this.email_save_response && this.email_save_response.status === 'error',
+        }
+      },
+      email_save_response_errors: function () {
+        if (this.email_save_response && this.email_save_response.errors) {
+          return this.email_save_response.errors.email;
+        }
+        return undefined;
       }
     },
 
     created: function () {
       var that = this;
       that.load()
+      .then(function (data) {
+        that.email = that.checklist.email_address;
+      })
       .finally(function () {
         that.loaded = true;
       });
@@ -149,6 +194,25 @@
         .catch(function (error) {
           console.log(error); // TODO
         });
+      },
+
+      submit_email: function (e) {
+        e.preventDefault();
+
+        var that = this;
+        that.submit_email_pending = true;
+        that.api.change_email(that.email)
+        .then(function (data) {
+          that.email_save_response = data;
+          that.load();
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .finally(function () {
+          that.submit_email_pending = false;
+        });
+
       }
     }
   }

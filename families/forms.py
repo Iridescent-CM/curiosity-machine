@@ -1,3 +1,4 @@
+from allauth.account.adapter import get_adapter
 from curiositymachine.forms import MediaURLField
 from curiositymachine.widgets import FilePickerPickWidget
 from datetime import datetime, date
@@ -164,3 +165,18 @@ FamilyMemberFormset = forms.inlineformset_factory(
     max_num=6,
     extra=0
 )
+
+class UnusedEmailForm(forms.Form):
+    email = forms.EmailField(required=True)
+
+    def clean_email(self):
+        value = self.cleaned_data["email"]
+        value = get_adapter().clean_email(value)
+
+        used = FamilyProfile.objects.filter(awardforce_email=value).exists()
+
+        if used:
+            raise forms.ValidationError("This e-mail address has already been used to begin a submission.")
+
+        return value
+

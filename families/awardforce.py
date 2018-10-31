@@ -4,6 +4,7 @@ from django.http import *
 from profiles.models import UserExtra
 from surveys import get_survey
 from .aichallenge import get_stages
+from .models import FamilyProfile
 import logging
 import requests
 
@@ -69,8 +70,9 @@ class AwardForceSubmitter(object):
     def create_slug(self):
         user = self.user
         slug = self.api.create_user(email=user.email, first_name=user.first_name, last_name=user.last_name)
+        self.profile.awardforce_email = user.email
         self.profile.awardforce_slug = slug
-        self.profile.save(update_fields=["awardforce_slug"])
+        self.profile.save(update_fields=["awardforce_slug", "awardforce_email"])
 
     def get_slug(self):
         return self.profile.awardforce_slug
@@ -123,6 +125,10 @@ class AwardForceChecklist(object):
         return UserExtra.objects.role('family').filter(user__email=self.user.email).count() == 1
 
     @property
+    def email_has_not_been_used(self):
+        return FamilyProfile.objects.filter(awardforce_email=self.user.email).exclude(user=self.user).count() == 0
+
+    @property
     def email_verified(self):
         email = self.email_address
         return bool(email and email.verified)
@@ -151,8 +157,8 @@ class AwardForceChecklist(object):
     def complete(self):
         return (
             self.enough_challenges_completed and
-            self.email_unique and
             self.email_verified and
             self.post_survey_taken and
-            self.family_confirmed_all_listed
+            self.family_confirmed_all_listed and
+            self.email_has_not_been_used
         )

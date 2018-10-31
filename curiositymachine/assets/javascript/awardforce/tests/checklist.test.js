@@ -12,7 +12,7 @@ describe('Checklist', () => {
         get: jest.fn().mockImplementation(() => Promise.resolve({
           items: {
             enough_challenges_completed: false,
-            email_unique: false,
+            email_has_not_been_used: false,
             email_verified: false,
             post_survey_taken: false,
             family_confirmed_all_listed: false
@@ -33,7 +33,7 @@ describe('Checklist', () => {
         get: jest.fn().mockImplementation(() => Promise.resolve({
           items: {
             enough_challenges_completed: true,
-            email_unique: true,
+            email_has_not_been_used: true,
             email_verified: true,
             post_survey_taken: true,
             family_confirmed_all_listed: true
