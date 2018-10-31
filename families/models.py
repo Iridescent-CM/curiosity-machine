@@ -16,6 +16,7 @@ __all__ = [
     'FamilyProfile',
     'FamilyMember',
     'FamilyRole',
+    'AwardForceIntegration',
 ]
 
 class FamilyProfile(BaseProfile):
@@ -23,8 +24,6 @@ class FamilyProfile(BaseProfile):
     phone = PhoneNumberField(null=True, blank=True)
     location = models.ForeignKey(Location, null=False, blank=False, on_delete=models.PROTECT)
     welcomed = models.DateTimeField(null=True, blank=True)
-    awardforce_slug = models.CharField(max_length=16, null=True, blank=True)
-    awardforce_email = models.EmailField(unique=True, null=True, blank=True)
     members_confirmed = models.BooleanField(default=False)
 
     @cached_property
@@ -83,3 +82,9 @@ class FamilyMember(models.Model):
     @property
     def name(self):
         return "%s %s" % (self.first_name, self.last_name)
+
+class AwardForceIntegration(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    slug = models.CharField(max_length=16, null=True, blank=True)
+    email = models.EmailField(unique=True, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -5,7 +5,7 @@ from django.utils.functional import cached_property
 from profiles.models import UserExtra
 from surveys import get_survey
 from .aichallenge import get_stages
-from .models import FamilyProfile
+from .models import *
 import logging
 import requests
 
@@ -97,12 +97,13 @@ class AwardForceSubmitter(object):
     def create_slug(self):
         user = self.user
         slug = self.api.create_user(email=user.email, first_name=user.first_name, last_name=user.last_name)
-        self.profile.awardforce_email = user.email
-        self.profile.awardforce_slug = slug
-        self.profile.save(update_fields=["awardforce_slug", "awardforce_email"])
+        AwardForceIntegration.objects.create(user=user, email=user.email, slug=slug)
 
     def get_slug(self):
-        return self.profile.awardforce_slug
+        try:
+            return self.user.awardforceintegration.slug
+        except AwardForceIntegration.DoesNotExist:
+            return None
 
     def get_auth_token(self):
         if not self.has_slug():
@@ -153,7 +154,7 @@ class AwardForceChecklist(object):
 
     @property
     def email_has_not_been_used(self):
-        return FamilyProfile.objects.filter(awardforce_email=self.user.email).exclude(user=self.user).count() == 0
+        return not AwardForceIntegration.objects.filter(email=self.user.email).exclude(user=self.user).exists()
 
     @property
     def email_verified(self):
