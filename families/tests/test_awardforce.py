@@ -37,9 +37,9 @@ def test_submitter_getting_url_sets_slug():
     api.get_auth_token.return_value = 'token'
     user = FamilyFactory()
     submitter = AwardForceSubmitter(user, api=api)
-    assert not user.familyprofile.awardforce_slug
+    assert not hasattr(user, 'awardforceintegration')
     submitter.get_login_url()
-    assert user.familyprofile.awardforce_slug
+    assert user.awardforceintegration.slug == 'slug'
 
 def test_checklist_counts_completed_challenges():
     user = FamilyFactory.build()

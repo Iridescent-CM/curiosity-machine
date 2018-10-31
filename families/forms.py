@@ -173,7 +173,7 @@ class UnusedEmailForm(forms.Form):
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
 
-        used = FamilyProfile.objects.filter(awardforce_email=value).exists()
+        used = AwardForceIntegration.objects.filter(email=vlue).exists()
 
         if used:
             raise forms.ValidationError("This e-mail address has already been used to begin a submission.")
