@@ -1,0 +1,62 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Curiosity Machine</title>
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,700,500,300,600' rel='stylesheet' type='text/css'>
+  <style>
+    body {
+      font-family: "Raleway";
+      text-align: center;
+      background-color: #1A3437;
+      color: white;
+    }
+
+    h1 {
+      font-weight: normal;
+      font-size: 2em;
+    }
+
+    p {
+      margin: 4px 0;
+      color: #A9E1E8;
+    }
+
+    a:link,
+    a:visited {
+      color: #ACDCE1;
+      text-decoration: none;
+    }
+    a:hover,
+    a:active {
+      color: #ACDCE1;
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: auto;
+      margin-top: 1em;
+    }
+
+    .maintenance-img {
+      max-width: 480px;
+      margin: 1em 0;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Curiosity Machine has experienced an error.</h1>
+    <p>We're sorry for the inconvenience, please try again later.</p>
+    <img class="maintenance-img" src="{% static "errors/astronaut.svg" %}" alt="Astronaut fixing a satellite"/>
+    <p>
+      If you think you're seeing this page in error, please contact us at
+      <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
+    </p>
+  </div>
+</body>
+</html>
