@@ -1,11 +1,14 @@
 <template>
   <div class="quiz" v-bind:class="{ correct: quiz.correct }">
 
-    <div v-if="!quiz.correct">
+    <div v-if="!quiz.answered">
       <slot name="start-header"></slot>
     </div>
-    <div v-else>
+    <div v-else-if="quiz.correct">
       <slot name="correct-header"></slot>
+    </div>
+    <div v-else>
+      <slot name="incorrect-header"></slot>
     </div>
 
     <template v-for="(question, q_index) in quiz.questions">
@@ -42,7 +45,8 @@
       @click="submit"
       v-if="showSubmit"
       v-bind:disabled="!submittable"
-    >Submit</button>
+      v-text="submitText"
+    ></button>
   </div>
 </template>
 
@@ -68,6 +72,10 @@
     computed: {
       showSubmit: function () {
         return !this.quiz.answered || !this.quiz.correct;
+      },
+
+      submitText: function () {
+        return this.quiz.answered && !this.quiz.correct ? "Try again" : "Submit";
       },
 
       submittable: function () {
