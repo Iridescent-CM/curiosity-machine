@@ -17,8 +17,16 @@
             </p>
             <hr />
           </div>
+          <div v-cloak slot="incorrect-header">
+            <h3 class="page-color">Keep exploring</h3>
+            <p>
+              There's a solution that better answers this question.
+            </p>
+            <img class="w-25 mx-auto d-block mt-4" src="{% static "images/aifc/exploringrobot.svg" %}" alt="Exploring robot" />
+            <hr />
+          </div>
           <div v-cloak slot="correct-header">
-            <i class="icon-aifc-icon"></i>
+            <img class="w-25 mx-auto d-block mb-3" src="{% static "images/aifc/happyrobot.svg" %}" alt="Celebrating robot" />
             <h3 class="text-center">Great job!</h3>
             <p>
               Your results:
