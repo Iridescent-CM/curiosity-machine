@@ -51,7 +51,7 @@
         <div class="card">
           <div class="card-body">
             <p>
-              Please complete {{ challenge_count_remaining }} more design challenges.
+              Please upload a picture, video or text to {{ checklist.challenge_count_required }} or more AI Family Challenge design challenges.
             </p>
           </div>
         </div>
@@ -85,20 +85,9 @@
       </div>
     </div>
 
-    <div class="my-5">
-      <div class="card">
-        <div class="card-body d-flex flex-column align-items-center">
-          <strong class="mb-3">On Award Force you will have to submit...</strong>
-          <ul>
-            <li>4-5 minute video that explains your project</li>
-            <li>A title and a description of your project</li>
-            <li>Up to 4 photos of your project (optional)</li>
-          </ul>
-
-          <a v-if="checklist.complete" class="btn btn-primary v-create" :href="create_url">Create account</a>
-          <a v-else class="btn btn-primary disabled v-create" href="#">Create account</a>
-        </div>
-      </div>
+    <div class="my-5 d-flex justify-content-center">
+      <a v-if="checklist.complete" class="btn btn-primary v-create" :href="create_url">I'm ready to submit!</a>
+      <a v-else class="btn btn-primary disabled v-create" href="#">I'm ready to submit!</a>
     </div>
   </div>
 
