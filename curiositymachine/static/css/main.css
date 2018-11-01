@@ -8855,13 +8855,13 @@ footer {
   max-width: 260px;
   min-height: 375px; }
 
-.cm-quote-card {
+#ai-challenge-page .cm-quote-card {
   padding: 0.8em; }
-  .cm-quote-card blockquote {
+  #ai-challenge-page .cm-quote-card blockquote {
     font-family: "Raleway", Helvetica, sans-serif;
     font-size: 1.2em;
     text-align: right; }
-    .cm-quote-card blockquote:before {
+    #ai-challenge-page .cm-quote-card blockquote:before {
       content: "“";
       display: block;
       position: relative;
@@ -8872,22 +8872,19 @@ footer {
       line-height: 1em;
       margin-bottom: -0.3em;
       color: #F55932; }
-  .cm-quote-card cite {
+  #ai-challenge-page .cm-quote-card cite {
     text-align: right;
     color: gray; }
-    .cm-quote-card cite:before {
+    #ai-challenge-page .cm-quote-card cite:before {
       content: "—";
       margin-right: 0.4em; }
 
-.aifc-album {
+#ai-challenge-page .aifc-album {
   height: 400px;
   width: 730px; }
-  .aifc-album img {
+  #ai-challenge-page .aifc-album img {
     max-height: 400px;
     margin: auto; }
-
-@media (max-width: 991.98px) {
-  width: auto; }
 
 .account-settings .avatar-settings .form-inline {
   justify-content: center; }

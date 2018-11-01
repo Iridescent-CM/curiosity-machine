@@ -1,45 +1,43 @@
-.cm-quote-card {
-  padding: 0.8em;
+#ai-challenge-page {
+  .cm-quote-card {
+    padding: 0.8em;
 
-  blockquote {
-    font-family: "Raleway", Helvetica, sans-serif;
-    font-size: 1.2em;
-    text-align: right;
+    blockquote {
+      font-family: "Raleway", Helvetica, sans-serif;
+      font-size: 1.2em;
+      text-align: right;
 
-    &:before {
-      content: "“";
-      display: block;
-      position: relative;
-      text-align: left;
-      font-family: "Times New Roman", Georgia, serif;
-      font-size: 100px;
-      font-weight: bold;
-      line-height: 1em;
-      margin-bottom: -0.3em;
-      color: #F55932;
+      &:before {
+        content: "“";
+        display: block;
+        position: relative;
+        text-align: left;
+        font-family: "Times New Roman", Georgia, serif;
+        font-size: 100px;
+        font-weight: bold;
+        line-height: 1em;
+        margin-bottom: -0.3em;
+        color: #F55932;
+      }
+    }
+
+    cite {
+      text-align: right;
+      color: gray;
+
+      &:before {
+        content:"—";
+        margin-right: 0.4em;
+      }
     }
   }
 
-  cite {
-    text-align: right;
-    color: gray;
-
-    &:before {
-      content:"—";
-      margin-right: 0.4em;
+  .aifc-album {
+    img {
+      max-height: 400px;
+      margin: auto;
     }
+    height: 400px;
+    width: 730px;
   }
-}
-
-.aifc-album {
-  img {
-    max-height: 400px;
-    margin: auto;
-  }
-  height: 400px;
-  width: 730px;
-}
-
-@include media-breakpoint-down(md) {
-  width: auto;
 }
