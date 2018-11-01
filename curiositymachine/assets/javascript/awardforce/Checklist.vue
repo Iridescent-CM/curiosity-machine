@@ -39,7 +39,8 @@
             <p>
               Check your email (<strong>{{ checklist.email_address }}</strong>) and follow the instructions to verify your email.
             </p>
-            <button class="btn btn-primary" @click="resend_verification_email">Re-send verification</button>
+            <button class="btn btn-primary" :disabled="verified_email_controls_disabled" @click="resend_verification_email">Re-send verification</button>
+            <small v-if="verified_email_pending" class="text-muted ml-2">Please wait...</small>
           </div>
         </div>
       </div>
@@ -116,7 +117,8 @@
         checklist: {},
         email: undefined,
         email_save_response: undefined,
-        submit_email_pending: false
+        submit_email_pending: false,
+        verified_email_pending: false
       }
     },
 
@@ -137,6 +139,9 @@
           return this.email_save_response.errors.email;
         }
         return undefined;
+      },
+      verified_email_controls_disabled: function () {
+        return this.verified_email_pending;
       }
     },
 
@@ -176,12 +181,13 @@
 
       resend_verification_email: function () {
         var that = this;
+        that.verified_email_pending = true;
         that.api.resend_verification_email()
-        .then(function () {
-          // ?
-        })
         .catch(function (error) {
           console.log(error); // TODO
+        })
+        .finally(function () {
+          that.verified_email_pending = false;
         });
       },
 
