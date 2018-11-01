@@ -41,6 +41,7 @@
             </p>
             <button class="btn btn-primary" :disabled="verified_email_controls_disabled" @click="resend_verification_email">Re-send verification</button>
             <small v-if="verified_email_pending" class="text-muted ml-2">Please wait...</small>
+            <small v-if="verified_email_sent" class="text-success ml-2">Sent, please check your inbox</small>
           </div>
         </div>
       </div>
@@ -52,7 +53,7 @@
         <div class="card">
           <div class="card-body">
             <p>
-              Please upload a picture, video or text to {{ checklist.challenge_count_required }} or more AI Family Challenge design challenges.
+              Please complete the reflection question for {{ checklist.challenge_count_required }} or more AI design challenges.
             </p>
           </div>
         </div>
@@ -118,7 +119,8 @@
         email: undefined,
         email_save_response: undefined,
         submit_email_pending: false,
-        verified_email_pending: false
+        verified_email_pending: false,
+        verified_email_sent: false
       }
     },
 
@@ -188,6 +190,7 @@
         })
         .finally(function () {
           that.verified_email_pending = false;
+          that.verified_email_sent = true;
         });
       },
 
