@@ -16,7 +16,7 @@
         
         <form class="text-center" action="{% url "families:consentform" %}" method="POST">
             {% csrf_token %}
-            {% form_group form.consent %}
+            <input id="consentform" type="text" name="consentform">
             <input class="btn btn-sm btn-primary ml-2" type="submit" value="Submit" />
         </form>
          

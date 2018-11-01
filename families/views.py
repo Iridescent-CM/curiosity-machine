@@ -142,6 +142,9 @@ prereq_interruption = only_for_family(PrereqInterruptionView.as_view())
 class ConsentFormView(TemplateView):
     template_name = "families/consentform.html"
 
+    def get_object(self, queryset=None):
+        return self.request.user.familyprofile
+
 consentform = only_for_family(ConsentFormView.as_view())
 
 class PostSurveyInterruptionView(TemplateView):
