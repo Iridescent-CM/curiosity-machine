@@ -53,7 +53,7 @@
         <div class="card">
           <div class="card-body">
             <p>
-              Please upload a picture, video or text to {{ checklist.challenge_count_required }} or more AI Family Challenge design challenges.
+              Please complete the reflection question for {{ checklist.challenge_count_required }} or more AI design challenges.
             </p>
           </div>
         </div>
