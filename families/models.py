@@ -68,7 +68,6 @@ class FamilyMember(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    birthday = models.DateField(blank=True, null=True)
     family_role = models.SmallIntegerField(
         null=False,
         blank=False,

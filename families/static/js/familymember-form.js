@@ -1,25 +1,4 @@
 $(function(){
-  function sync($el, $group, opts) {
-    var opts = opts || {};
-    var duration = opts.duration || "fast";
-    if ($el.val() === "1") {
-      $group.show(duration);
-    }
-    else {
-      $group.hide(duration);
-    }
-  }
-
-  function initGroups(context, opts) {
-    var opts = opts || {};
-    $('select[name$="family_role"]', context).each(function(i, el){
-      var $el = $(el);
-      var $group = $el.closest('fieldset').find('.form-group:has(select[name$="birthday_year"])');
-      sync($el, $group, opts);
-      $el.change(sync.bind(null, $el, $group));
-    });
-  }
-
   function checkControls($control, total) {
     var $control = $control || $("[data-formset-add]");
     var prefix = $control.attr('data-formset-add');
@@ -37,11 +16,9 @@ $(function(){
     var $total = $('input[name="' + prefix + '-TOTAL_FORMS"]');
     var idx = parseInt($total.val())
     var added = $($template.text().replace(/__prefix__/g, idx)).insertAfter($template);
-    initGroups(added);
     $total.val(idx + 1);
     checkControls($(evt.target), $total.val());
   });
 
-  initGroups();
   checkControls();
 });

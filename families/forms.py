@@ -71,8 +71,6 @@ class FamilyProfileForm(RelatedModelFormMixin, ProfileModelForm):
     def get_role(self):
         return UserRole.family
 
-BIRTH_YEAR_CHOICES = list(range(datetime.today().year, datetime.today().year - 100, -1))
-
 class FamilyMemberForm(forms.ModelForm):
     class Meta:
         model = FamilyMember
@@ -93,28 +91,6 @@ class FamilyMemberForm(forms.ModelForm):
         }),
         required=False
     )
-
-    birthday = forms.DateField(
-        required=False,
-        widget=forms.extras.SelectDateWidget(
-            years=BIRTH_YEAR_CHOICES,
-            empty_label=("Year", "Month", "Day"),
-        ),
-    )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        role = cleaned_data.get('family_role')
-        if role and FamilyRole(role) == FamilyRole.child:
-            if not self.cleaned_data.get('birthday'):
-                self.add_error(
-                    'birthday',
-                    ValidationError(
-                        'Please set your birthday',
-                        code='required'
-                    )
-                )
-        return cleaned_data
 
     def save(self, commit=False):
         obj = super().save(commit=False)
