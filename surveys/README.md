@@ -19,7 +19,9 @@ SURVEY_123_LINK="http://surveymonkey/whatever"
 and should be the survey link **without** the token parameters.
 
 The id can really be anything unique from other configured surveys, but using the Surveymonkey survey id
-seems like a good idea.
+is an easy way to go. Note that this naming scheme won't work if you want the same survey delivered
+multiple times depending on the context, in which case you'll need differing ids pointing to the same
+survey link.
 
 ## Configuring in Surveymonkey
 
