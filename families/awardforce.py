@@ -112,6 +112,7 @@ class AwardForceSubmitter(object):
 
     def get_login_url(self):
         token = self.get_auth_token()
+        self.user.awardforceintegration.save()
         return self.api.get_login_url(token)
 
 

@@ -87,3 +87,4 @@ class AwardForceIntegration(models.Model):
     slug = models.CharField(max_length=16, null=True, blank=True)
     email = models.EmailField(unique=True, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    last_used = models.DateTimeField(auto_now=True)

@@ -7,8 +7,8 @@ class FamilyMemberAdmin(admin.ModelAdmin):
     raw_id_fields = ['image']
 
 class AwardForceIntegrationAdmin(admin.ModelAdmin):
-    list_display = ['user', 'email', 'created_at']
-    readonly_fields = ['user', 'email', 'slug', 'created_at']
+    list_display = ['user', 'email', 'created_at', 'last_used']
+    readonly_fields = ['user', 'email', 'slug', 'created_at', 'last_used']
 
 admin.site.register(FamilyMember, FamilyMemberAdmin)
 admin.site.register(AwardForceIntegration, AwardForceIntegrationAdmin)
