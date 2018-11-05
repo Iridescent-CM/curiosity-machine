@@ -10,19 +10,17 @@
       <img width="355px" src="{% static "images/aifc/trophy.svg" %}" alt="Trophy">
     </div>
     <div class="col-8 offset-2">
-      <h2>Directions</h2>
-      <p class="lead">
-        To submit to the AI World Championship, ensure all boxes below are complete. Then, click the I'm Ready to Submit! button
-        to submit your pitch video, 100 word description, (optional) pictures. 
-      </p>
-      <hr />
-    </div>
-    <div class="col-8 offset-2">
       {% if request.user.awardforceintegration %}
       <div class="text-center my-4">
         <a class="btn btn-primary" href="{% url "families:awardforce" %}">Go to submission</a>
       </div>
       {% else %}
+      <h2>Directions</h2>
+      <p class="lead">
+        To submit to the AI World Championship, ensure all boxes below are complete. Then, click the I'm Ready to Submit! button
+        to submit your pitch video, 100 word description, and optional pictures. 
+      </p>
+      <hr />
       <h3>Requirements</h3>
       <div class="awardforce-checklist-app">
         <checklist
