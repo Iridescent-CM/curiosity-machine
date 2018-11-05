@@ -80,8 +80,11 @@
           </div>
           <div class="card-body">
             <p>Are all your family members listed?</p>
-            <button class="btn btn-primary v-confirm-family" @click="confirm_family">Yes</button>
-            <a :href="change_family_members_url" class="btn btn-danger v-edit-family">No</a>
+            <div class="mb-2">
+              <button class="btn btn-primary v-confirm-family mr-2" @click="confirm_family">Yes</button>
+              <a :href="change_family_members_url" class="btn btn-danger v-edit-family">No</a>
+            </div>
+            <small class="text-muted">You will not be able to add family members once they are confirmed.</small>
           </div>
         </div>
       </div>
