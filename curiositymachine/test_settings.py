@@ -23,6 +23,9 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
+# Don't let whitenoise slow things down too much
+WHITENOISE_AUTOREFRESH=True
+
 # For tests, force no feature flags and override in actual test with e.g.
 #       with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_whatever': True}):
 #               ...
