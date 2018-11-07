@@ -47,19 +47,6 @@
       </div>
     </div>
     <div class="m-2 ml-4">
-      <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.enough_challenges_completed }"></i>
-      You have completed at least {{ checklist.challenge_count_required }} design challenges.
-      <div class="v-challenge-count-controls" v-if="!checklist.items.enough_challenges_completed">
-        <div class="card">
-          <div class="card-body">
-            <p>
-              Please complete the reflection question for {{ checklist.challenge_count_required }} or more AI design challenges.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.post_survey_taken }"></i>
       You have completed the post-survey.
       <div class="v-survey-controls" v-if="!checklist.items.post_survey_taken">
@@ -128,9 +115,6 @@
     },
 
     computed: {
-      challenge_count_remaining: function () {
-        return this.checklist.challenge_count_required - this.checklist.challenges_completed;
-      },
       email_change_controls_save_disabled: function() {
         return !this.email || this.submit_email_pending;
       },

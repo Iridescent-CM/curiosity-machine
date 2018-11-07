@@ -134,20 +134,10 @@ class Integrating(object):
 class AwardForceChecklist(object):
 
     post_survey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SUBMISSION_SURVEY_ID)
-    challenge_count_required = 3
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
         self.email_address = kwargs.get('email_address') or get_primary_email_for(user)
-        self.stage_stats = kwargs.get('stage_stats') or [stage.stats for stage in get_stages(user)]
-
-    @property
-    def challenges_completed(self):
-        return self.stage_stats[0]['completed'] + self.stage_stats[1]['completed']
-
-    @property
-    def enough_challenges_completed(self):
-        return self.challenges_completed >= self.challenge_count_required
 
     @property
     def email_unique(self):
@@ -185,7 +175,6 @@ class AwardForceChecklist(object):
     @property
     def complete(self):
         return (
-            self.enough_challenges_completed and
             self.email_verified and
             self.post_survey_taken and
             self.family_confirmed_all_listed and
