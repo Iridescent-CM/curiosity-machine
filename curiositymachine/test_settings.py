@@ -23,6 +23,11 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
+# This is mandatory config at the moment for our AwardForceChecklist serializer
+# Not sure it should be mandatory, but it is for now
+AICHALLENGE_FAMILY_PRE_SUBMISSION_SURVEY_ID = "XXX"
+SURVEY_XXX_LINK = "/some/link"
+
 # For tests, force no feature flags and override in actual test with e.g.
 #       with mock.patch.dict(settings.FEATURE_FLAGS, {'enable_whatever': True}):
 #               ...
