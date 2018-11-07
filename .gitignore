@@ -5,6 +5,7 @@ staticfiles
 *.pyc
 .DS_Store
 .agignore
+.ignore
 curiositymachine/local.py
 **/node_modules
 .coverage
