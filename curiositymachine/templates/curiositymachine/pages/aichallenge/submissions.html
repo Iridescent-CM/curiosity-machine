@@ -8,26 +8,76 @@
   {{ block.super }}
 <div class="container">
   <div class="row">
-    <div class="col-md-10 offset-md-1 mt-5 mb-1">
-      <h2>Submissions</h2>
+    <div class="col-md-12">
+      <br>
+      <h2>Enter our competition by <strong>February 1, 2019</strong></h2>
       <h3 class="mb-4">What are the submission requirements?</h3>
-      <p>To submit for competition:</p>
+      <hr>
+      <p>To submit your invention:</p>
         <ul>
-          <li>Each team can only submit once and to only one division</li>
+          <li>Remember, each team can only submit once and to one division.</li>
           <li>All materials must be submitted online in English (or include English subtitles)</li>
-          <li>Families must complete their submission by February 1st at 12PM EST</li>
+          <li>Login to your family dashboard. On the <strong>World Championship</strong> tab you will be asked.</li>
         </ul>
-      </div>
-      <div class="col-md-6 mb-1">
-        <img src="{% static 'images/about/submissionrequirements.png' %}">
-      </div>
-      <div class="col-md-6 mb-1">
-        <img src="{% static 'images/about/submissioninclude.png' %}">
-      </div>
-      <div class="col-md-10 offset-md-1 my-3">
-      <p class="text-center"><em>Please note: By submitting to the AIFC World Championship, you attest that all parts of your submission were created solely by the members on your team.</em></p>
     </div>
   </div>
+<br>
+  <div class="container panel">
+    <div class="row">
+      <div class="col-md-6 content">
+        <img class="img-size" src="{% static 'images/about/AIFC-DesignChallenges.svg' %}">
+        <br>
+        <strong>Review account details</strong>
+        <p>Ensure all family information is accurate.</p>
+      </div>
+      <div class="col-md-6 content">
+        <img class="img-size" src="{% static 'images/about/AIFC-PostSurvey.svg' %}">
+        <br>
+        <strong>Complete the post survey</strong>
+        <p>10 minutes to help improve the program</p>
+      </div>
+    </div>
+  </div>
+<br>
+  <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+          <p>Then, you can click the <a href="#">Go to Submission</a> button enter the AI World Championship! Here, you will submit these materials to the judges.</p>
+        </div>
+    </div>
+  </div>
+<br>
+  <div class="container panel">
+    <div class="row">
+        <div class="col-md-4 content">
+          <div class="item">
+            <img class="img-size" src="{% static 'images/about/AIFC-Invention.svg' %}">
+            <br>
+            <strong>Invention Name and Description</strong>
+            <p>100 word maximum description</p>
+          </div>
+        </div>
+        <div class="col-md-4 content">
+          <div class="item">
+            <img class="img-size" src="{% static 'images/about/AIFC-PitchVideo.svg' %}">
+            <br>
+            <strong>Pitch Video</strong>
+            <p>Must be between 4 and 5 minutes long.</p>
+            <p>Share a Youtube link, Vimeo link, Youku link, or direct upload to the site.</p>
+          </div>
+        </div>
+        <div class="col-md-4 content">
+          <div class="item">
+            <img class="img-size"src="{% static 'images/about/AIFC-Pictures.svg' %}">
+            <br>
+            <strong>Pictures (optional)</strong>
+            <p>Share via direct upload and 15 word description.</p>
+          </div>
+        </div>
+    </div>
 </div>
+<br>
+</div>
+<br>
 {% endwith %}
 {% endblock %}
