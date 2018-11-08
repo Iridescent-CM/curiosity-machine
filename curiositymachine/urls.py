@@ -58,6 +58,7 @@ urlpatterns = [
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
     url(r'^lessons/', include('lessons.urls', namespace='lessons', app_name='lessons')),
     url(r'^surveys/', include('surveys.urls', namespace='surveys', app_name='surveys')),
+    url(r'^permissions/', include('permissionslips.urls', namespace='permissions', app_name='permissionslips')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
 ]
 

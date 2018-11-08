@@ -1,0 +1,9 @@
+{% extends "curiositymachine/layout/base.html" %}
+
+{% block content %}
+  <form action="{% url "permissionslips:create_permissionslip" %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" class="btn btn-primary" />
+  </form>
+{% endblock %}

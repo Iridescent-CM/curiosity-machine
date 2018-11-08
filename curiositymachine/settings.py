@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     'django_ace',
     'ordered_model',
     'webpack_loader',
+    'permissionslips',
 )
 
 SITE_ID = 1
