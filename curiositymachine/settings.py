@@ -437,6 +437,7 @@ ALLOW_SURVEY_RESPONSE_HOOK_BYPASS = os.environ.get("ALLOW_SURVEY_RESPONSE_HOOK_B
 # Award Force integration
 AWARDFORCE_API_KEY = os.environ.get("AWARDFORCE_API_KEY", "")
 AWARDFORCE_ACCOUNT_ID = os.environ.get("AWARDFORCE_ACCOUNT_ID", "")
+AWARDFORCE_ACCESS_TOKEN = os.environ.get("AWARDFORCE_ACCESS_TOKEN", "")
 
 # Mandrill & Mailchimp
 MANDRILL_API_KEY = os.environ.get("MANDRILL_API_KEY", "")

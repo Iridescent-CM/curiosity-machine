@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.http import *
 from django.utils.functional import cached_property
 from profiles.models import UserExtra
@@ -18,6 +19,12 @@ class Api(object):
 
     @cached_property
     def access_token(self):
+        token = settings.AWARDFORCE_ACCESS_TOKEN
+        if not token:
+            raise ImproperlyConfigured('Generate an AwardForce Access Token with the management command and set it as AWARDFORCE_ACCESS_TOKEN in your environment.')
+        return token
+
+    def get_new_access_token(self):
         res = self.request(
             'GET',
             'https://api.awardsplatform.com/access-token/',
@@ -112,7 +119,7 @@ class AwardForceSubmitter(object):
 
     def get_login_url(self):
         token = self.get_auth_token()
-        self.user.awardforceintegration.save()
+        self.user.awardforceintegration.save() # update auto timestamp
         return self.api.get_login_url(token)
 
 
