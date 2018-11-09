@@ -78,7 +78,7 @@
     </div>
 
     <div class="my-5 d-flex justify-content-center">
-      <a v-if="checklist.complete" class="btn btn-primary v-create" :href="create_url">I'm ready to submit!</a>
+      <a v-if="checklist.complete" class="btn btn-primary v-create" :href="create_url" target="_blank">I'm ready to submit!</a>
       <a v-else class="btn btn-primary disabled v-create" href="#">I'm ready to submit!</a>
     </div>
   </div>
