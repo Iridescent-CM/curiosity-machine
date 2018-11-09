@@ -6,13 +6,52 @@
 {% block content %}
 {% with active_nav="ai-timeline" %}
   {{ block.super }}
+
+<br>
 <div class="container">
   <div class="row">
-    <div class="col-md-12 my-5">
+		<div class="col-md-12">
+      <br>
       <h2>Here are the Dates to Remember</h2>
-      <img src="{% static 'images/about/AIFC_Timeline-Vertical.svg' %}" alt="AI Partners">
+      <h3>AIFC Timeline</h3>
+      <hr>
+      <br>
     </div>
   </div>
 </div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2 col-xs-4">
+      <h4>Register</h4>
+      <p>Register and create an account by <em>January 2019</em>.</p>
+    </div>
+    <div class="col-lg-2 col-xs-4">
+      <h4>Stage 1:</h4>
+      <p>Explore AI concepts through five hands-on design challenges and build a community of family learning.</p>
+      <br>
+      <h4>Stage 2:</h4>
+      <p>Explore Robotics through eight more design challenges and stay in touch with our community outline.</p>
+      <br>
+      <h4>Stage 3:</h4>
+      <p>Build your own AI invention to submit to the AI World Championship.</p>
+    </div>
+    <div class="col-lg-2 col-xs-4">
+      <h4>Submission Window</h4>
+      <p>December 2018 - February 1, 2019</p>
+      <br>
+      <h4>Judging</h4>
+      <p><em>February 2019</em></p>
+      <br>
+      <h4>Reults released</h4>
+      <p>March 2019</p>
+    </div>
+    <div class="col-lg-2 col-xs-4">
+      <h4>AI World Championship</h4>
+      <p>May 2019</p>
+      <p>The top three teams from the Junior and Senior division are invited to a celebration in San Francisco, USA</p>
+    </div>
+  </div>
+</div>
+
 {% endwith %}
 {% endblock %}
