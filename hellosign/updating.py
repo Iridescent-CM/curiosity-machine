@@ -44,7 +44,7 @@ class Updating:
             logger.warn("Updating a %s signature to %s" % (status, new_status))
 
         signature.status = new_status
-        signature.save(update_fields=['status'])
+        signature.save(update_fields=['status', 'updated_at'])
 
         signer.on(signature, status, new_status)
 
