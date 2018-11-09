@@ -9644,6 +9644,22 @@ footer {
   margin-left: auto;
   margin-right: auto; }
 
+.panel {
+  border: 4px solid #00B1C3;
+  border-radius: 9px;
+  padding: 30px 12px 12px 12px;
+  margin: 20px 12px 12px 12px; }
+
+.img-size {
+  height: 150px;
+  width: auto;
+  margin-right: auto;
+  margin-left: auto;
+  display: block; }
+
+.content {
+  text-align: center; }
+
 .bg-primary {
   background-color: #00B1C3;
   color: #fff; }
