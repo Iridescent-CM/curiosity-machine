@@ -17,6 +17,7 @@ __all__ = [
     'FamilyMember',
     'FamilyRole',
     'AwardForceIntegration',
+    'PermissionSlip',
 ]
 
 class FamilyProfile(BaseProfile):
@@ -88,3 +89,11 @@ class AwardForceIntegration(models.Model):
     email = models.EmailField(unique=True, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     last_used = models.DateTimeField(auto_now=True)
+
+class PermissionSlip(models.Model):
+    signature = models.CharField(max_length=128)
+    created_at = models.DateTimeField(auto_now_add=True)
+    account = models.ForeignKey(get_user_model())
+
+    def __str__(self):
+        return "PermissionSlip: id=%s account=%s" % (self.id, self.account)
