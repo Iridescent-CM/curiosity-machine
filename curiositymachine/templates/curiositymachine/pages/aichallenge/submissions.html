@@ -2,14 +2,13 @@
 {% load staticfiles %}
 {% block title %}Welcome to the AI Family Challenge{% endblock %}
 
-{% block body-id %}ai-challenge-page{% endblock %}
+{% block body-id %}aifc-submission-page{% endblock %}
 {% block content %}
 {% with active_nav="ai-submissions" %}
   {{ block.super }}
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-      <br>
+    <div class="col-md-12 mt-5">
       <h2>Enter our competition by <strong>February 1, 2019</strong></h2>
       <h3 class="mb-4">What are the submission requirements?</h3>
       <hr>
@@ -21,63 +20,63 @@
         </ul>
     </div>
   </div>
-<br>
-  <div class="container panel">
+
+  <div class="container aifc-submission-panel">
     <div class="row">
-      <div class="col-md-6 content">
+      <div class="col-md-6 text-center">
         <img class="img-size" src="{% static 'images/about/AIFC-DesignChallenges.svg' %}">
-        <br>
+
         <strong>Review account details</strong>
         <p>Ensure all family information is accurate.</p>
       </div>
-      <div class="col-md-6 content">
+      <div class="col-md-6 text-center">
         <img class="img-size" src="{% static 'images/about/AIFC-PostSurvey.svg' %}">
-        <br>
+
         <strong>Complete the post survey</strong>
         <p>10 minutes to help improve the program</p>
       </div>
     </div>
   </div>
-<br>
+
   <div class="container">
     <div class="row">
-        <div class="col-md-12">
-          <p>Then, you can click the <a href="#">Go to Submission</a> button enter the AI World Championship! Here, you will submit these materials to the judges.</p>
+        <div class="col-md-12 mt-3">
+          <p>Then, you can click the <strong>Go to Submission</strong> button enter the AI World Championship! Here, you will submit these materials to the judges.</p>
         </div>
     </div>
   </div>
-<br>
-  <div class="container panel">
+
+  <div class="container aifc-submission-panel mb-5">
     <div class="row">
-        <div class="col-md-4 content">
+        <div class="col-md-4 text-center">
           <div class="item">
             <img class="img-size" src="{% static 'images/about/AIFC-Invention.svg' %}">
-            <br>
+
             <strong>Invention Name and Description</strong>
             <p>100 word maximum description</p>
           </div>
         </div>
-        <div class="col-md-4 content">
+        <div class="col-md-4 text-center">
           <div class="item">
             <img class="img-size" src="{% static 'images/about/AIFC-PitchVideo.svg' %}">
-            <br>
+
             <strong>Pitch Video</strong>
             <p>Must be between 4 and 5 minutes long.</p>
             <p>Share a Youtube link, Vimeo link, Youku link, or direct upload to the site.</p>
           </div>
         </div>
-        <div class="col-md-4 content">
+        <div class="col-md-4 text-center">
           <div class="item">
             <img class="img-size"src="{% static 'images/about/AIFC-Pictures.svg' %}">
-            <br>
+
             <strong>Pictures (optional)</strong>
             <p>Share via direct upload and 15 word description.</p>
           </div>
         </div>
     </div>
 </div>
-<br>
+
 </div>
-<br>
+
 {% endwith %}
 {% endblock %}
