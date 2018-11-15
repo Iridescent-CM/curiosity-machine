@@ -8886,6 +8886,9 @@ footer {
     max-height: 400px;
     margin: auto; }
 
+#ai-challenge-page .revolving-quotes .quote-box {
+  height: 275px; }
+
 .account-settings .avatar-settings .form-inline {
   justify-content: center; }
   .account-settings .avatar-settings .form-inline .btn,
