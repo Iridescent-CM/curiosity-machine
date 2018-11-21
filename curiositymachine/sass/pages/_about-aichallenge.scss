@@ -42,21 +42,8 @@
   }
 
   .revolving-quotes {
-    font-size: 24px;
     .quote-box {
       height: 250px;
-    }
-  }
-
-  @include media-breakpoint-down(md) {
-    .revolving-quotes {
-      font-size: 20px;
-    }
-  }
-
-  @include media-breakpoint-down(xs) {
-    .revolving-quotes {
-      font-size: 16px;
     }
   }
 }
