@@ -19,12 +19,6 @@ class Api(object):
 
     @cached_property
     def access_token(self):
-        token = settings.AWARDFORCE_ACCESS_TOKEN
-        if not token:
-            raise ImproperlyConfigured('Generate an AwardForce Access Token with the management command and set it as AWARDFORCE_ACCESS_TOKEN in your environment.')
-        return token
-
-    def get_new_access_token(self):
         res = self.request(
             'GET',
             'https://api.awardsplatform.com/access-token/',
