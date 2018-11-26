@@ -8889,6 +8889,14 @@ footer {
 #ai-challenge-page .revolving-quotes .quote-box {
   height: 250px; }
 
+@media (max-width: 991.98px) {
+  .h4 {
+    font-size: 20px; } }
+
+@media (max-width: 767.98px) {
+  .h4 {
+    font-size: 18px; } }
+
 .account-settings .avatar-settings .form-inline {
   justify-content: center; }
   .account-settings .avatar-settings .form-inline .btn,

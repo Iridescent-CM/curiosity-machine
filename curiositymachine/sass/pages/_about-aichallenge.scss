@@ -47,3 +47,15 @@
     }
   }
 }
+
+@include media-breakpoint-down(md) {
+  .h4 {
+    font-size: 20px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .h4 {
+    font-size: 18px;
+  }
+}
