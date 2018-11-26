@@ -74,5 +74,4 @@ class Command(BaseCommand):
             print('Login URL: %s' % self.api.get_login_url(authtoken))
 
     def handle_token(self, **options):
-        print("Access token: %s" % self.api.get_new_access_token())
-        print("Set this token in your environment as AWARDFORCE_ACCESS_TOKEN if you don't already have one")
+        print("Access token: %s" % self.api.access_token)
