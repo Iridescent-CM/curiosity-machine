@@ -11,7 +11,6 @@ describe('Checklist', () => {
       return {
         get: jest.fn().mockImplementation(() => Promise.resolve({
           items: {
-            enough_challenges_completed: false,
             email_has_not_been_used: false,
             email_verified: false,
             post_survey_taken: false,
@@ -32,7 +31,6 @@ describe('Checklist', () => {
       return {
         get: jest.fn().mockImplementation(() => Promise.resolve({
           items: {
-            enough_challenges_completed: true,
             email_has_not_been_used: true,
             email_verified: true,
             post_survey_taken: true,

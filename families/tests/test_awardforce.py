@@ -41,20 +41,6 @@ def test_submitter_getting_url_sets_slug():
     submitter.get_login_url()
     assert user.awardforceintegration.slug == 'slug'
 
-def test_checklist_counts_completed_challenges():
-    user = FamilyFactory.build()
-    assert AwardForceChecklist(user, stage_stats=[{'completed': 0}, {'completed': 0}], email_address=mock.MagicMock()).challenges_completed == 0
-    assert AwardForceChecklist(user, stage_stats=[{'completed': 1}, {'completed': 0}], email_address=mock.MagicMock()).challenges_completed == 1
-    assert AwardForceChecklist(user, stage_stats=[{'completed': 1}, {'completed': 1}], email_address=mock.MagicMock()).challenges_completed == 2
-
-def test_checklist_catches_too_few_challenges_completed():
-    user = FamilyFactory.build()
-    assert not AwardForceChecklist(user, stage_stats=[{'completed': 0}, {'completed': 0}], email_address=mock.MagicMock()).enough_challenges_completed
-    assert AwardForceChecklist(user, stage_stats=[{'completed': 3}, {'completed': 0}], email_address=mock.MagicMock()).enough_challenges_completed
-    assert AwardForceChecklist(user, stage_stats=[{'completed': 0}, {'completed': 3}], email_address=mock.MagicMock()).enough_challenges_completed
-    assert AwardForceChecklist(user, stage_stats=[{'completed': 2}, {'completed': 1}], email_address=mock.MagicMock()).enough_challenges_completed
-    assert AwardForceChecklist(user, stage_stats=[{'completed': 3}, {'completed': 5}], email_address=mock.MagicMock()).enough_challenges_completed
-
 @pytest.mark.django_db
 def test_checklist_checks_email_unique():
     user = FamilyFactory()
