@@ -8891,9 +8891,9 @@ footer {
 
 @media (max-width: 991.98px) {
   .h4 {
-    font-size: 20px; } }
+    font-size: 22px; } }
 
-@media (max-width: 767.98px) {
+@media (max-width: 575.98px) {
   .h4 {
     font-size: 18px; } }
 

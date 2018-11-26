@@ -50,11 +50,11 @@
 
 @include media-breakpoint-down(md) {
   .h4 {
-    font-size: 20px;
+    font-size: 22px;
   }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(xs) {
   .h4 {
     font-size: 18px;
   }
