@@ -9,7 +9,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 offset-md-1 mt-5 mb-2">
+    <div class="col-10 offset-1 mt-5 mb-2">
       <h2 id="aichallenge-about-page">Artificial Intelligence is changing our world.</h2>
       <h3 class="mb-4">Together, we decide how.</h3>
       <p>
@@ -23,15 +23,57 @@
         with AI.
       </p>
     </div>
-    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 mb-2">
-      <div class="embed-responsive embed-responsive-16by9 mt-2 mb-4">
+    <div class="col-8 offset-2 col-md-10 offset-md-1 mb-2">
+      <div class="embed-responsive embed-responsive-16by9 mt-2">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/gJQupM4i52Q" allowfullscreen></iframe>
       </div>
-      <p class="text-center mt-1">
+      <p class="text-center mb-4">
         <small><em>Find out why Dina and Christina are one of more than 2800 families around the world taking part in the AI Family Challenge.</em></small>
       </p>
-    </div>
-    <div class="col-md-5 offset-md-1 mt-2">
+      <div id="quotes-images" class="quotes-images carousel slide float-right m-3" data-interval="11000" data-ride="carousel">
+        <div class="carousel-inner text-secondary h5 font-weight-bold">
+          <div class="carousel-item active quote-image-1 p-3">
+            <p>
+              I really didn’t know much about new technology. This program was so informative! My son who wants to become 
+              an electrician got to experience something that he wants and likes. Without [AI Family Challenge] I would have 
+              not tried to do these amazing things at home. This was a great program that I would recommend to all. 
+              <p class="text-right">Mirella, Mother in California</p>
+            </p>
+          </div>
+          <div class="carousel-item quote-image-2 p-3">
+            <p>
+              [With AI Family Challenge], our analytical thinking has improved and we now explore different ways of 
+              solving or arriving at a conclusion. We also realize that we should always try and keep trying with projects, 
+              not getting it right the first time does not mean we should give up. 
+              <p class="text-right">Laura, Mother in Nigeria</p>
+            </p>
+          </div>
+          <div class="carousel-item quote-image-3 p-3">
+            <p>
+              We had a grandmother that joined the group in Cape Town for a few sessions. She was very shy but loved watching 
+              the children build and create. She came to me after the sessions and asked if we could teach her more activities 
+              that she could do with her grandchildren at home. She said she would like to continue to see them grow and be joyful 
+              together. 
+              <p class="text-right">Trisha, Coach from South Africa</p>
+            </p>
+          </div>
+          <div class="carousel-item quote-image-4 p-3">
+            <p>
+              This course gives a lot of opportunities not only to get more information about AI, but also teaches us how to work 
+              like one team, our family team. Practice [helps us learn], and this method differs from methods which our children 
+              have been taught at schools. 
+              <p class="text-right">Saddat, Mother in Uzbekistan</p>
+            </p>
+          </div>
+          <div class="carousel-item quote-image-5 p-3">
+            <p>
+              [With AI Family Challenge, we got] more than we expected. We gained knowledge on robotics, AI, we made new friends 
+              and brainstormed an idea of how to AI to help to improve our lives. 
+              <p class="text-right">Rustamkhuja, Mother from Uzbekistan</p>
+            </p>
+          </div>
+        </div>
+      </div>
       <p>
         Don’t know a thing about AI or how it works? Don’t let that stop you. People all over the world, 
         just like you, have signed up for the AI Family Challenge and, with help from 450+ coaches worldwide, 
@@ -41,25 +83,6 @@
         For families with children ages 8-15 excited to learn, the AI Family Challenge is a way for you to 
         explore how these technologies work, and apply what you learn to design and build self-guided challenges. 
       </p>
-    </div>
-    <div class ="col-md-5 mt-2">
-      <div id="quotes-images" class="quotes-images carousel slide mx-auto" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="justify-content-center">
-              <img class="d-block" src="{% static 'images/about/quote-images/nigeria-quote.jpg' %}">
-              <p class="text-secondary centered">
-                I really didn’t know much about new technology. This program was so informative! My son who wants to become 
-                an electrician got to experience something that he wants and likes. Without [AI Family Challenge] I would have 
-                not tried to do these amazing things at home. This was a great program that I would recommend to all. Mirella, 
-                Mother in California
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-10 offset-md-1 mt-2">
       <p>
         Through the AI Family Challenge, your understanding of AI will grow along with your confidence so that 
         you and your family can identify and create a solution to solve a problem in your community. 
@@ -73,11 +96,7 @@
       <p>
         Here’s what you can expect in all 3 stages of our program.
       </p>
-    </div>
-    <div class="col-md-8 offset-md-2 mb-3">
       <img src="{% static 'images/about/about-aifc-stages.svg' %}" alt="AI Family Challenge Stages Information">
-    </div>
-    <div class="col-md-10 offset-md-1">
       <p>
         Still a little nervous? We have <a href="{% url "aichallenge/coaches" %}" target="_blank">450 coaches</a> (and growing!) all over the world, experienced in 
         technology, lending a hand to families through our online platform and in their local communities.

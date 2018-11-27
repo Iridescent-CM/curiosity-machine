@@ -46,4 +46,48 @@
       height: 250px;
     }
   }
+
+  .quotes-images {
+    text-shadow:
+       3px 3px 0 #000,
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;
+    .quote-image-1 {
+      background-image: url('../images/about/quote-images/carousel_usa-600x600.jpg');
+      background-repeat:no-repeat;
+      background-size:contain;
+      height:350px;
+      width:350px;
+    }
+    .quote-image-2 {
+      background-image: url('../images/about/quote-images/carousel_nigeria-600x600.jpg');
+      background-repeat:no-repeat;
+      background-size:contain;
+      height:350px;
+      width:350px;
+    }
+    .quote-image-3 {
+      background-image: url('../images/about/quote-images/carousel_southafrica-600x600.jpg');
+      background-repeat:no-repeat;
+      background-size:contain;
+      height:350px;
+      width:350px;
+    }
+    .quote-image-4 {
+      background-image: url('../images/about/quote-images/carousel_uzbekistan-600x600.jpg');
+      background-repeat:no-repeat;
+      background-size:contain;
+      height:350px;
+      width:350px;
+    }
+    .quote-image-5 {
+      background-image: url('../images/about/quote-images/carousel_uzbekistan2-600x600.jpg');
+      background-repeat:no-repeat;
+      background-size:contain;
+      height:350px;
+      width:350px;
+    }
+  }
 }
