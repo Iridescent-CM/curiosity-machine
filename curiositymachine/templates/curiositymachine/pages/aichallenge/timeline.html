@@ -6,11 +6,50 @@
 {% block content %}
 {% with active_nav="ai-timeline" %}
   {{ block.super }}
-<div class="container">
+<div class="container mt-5 mb-5">
   <div class="row">
-    <div class="col-md-12 my-5">
-      <h2>Here are the Dates to Remember</h2>
-      <img src="{% static 'images/about/AIFC_Timeline-Vertical.svg' %}" alt="AI Partners">
+		<div class="col-md-12">
+			<div>
+				<h2>Here are the Dates to Remember</h2>
+        	<h3>AIFC Timeline</h3>
+			</div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-xs-2 col-sm-2 aifc-timeline timeline-panel">
+      <div class="arrow mt-1"></div>
+      <h4 class="timeline-header">Register</h4>
+      <p>Register and create an account by January 2019.</p>
+    </div>
+
+    <div class="col-xs-2 col-sm-2 aifc-timeline timeline-panel">
+      <div class="arrow mt-1"></div>
+      <h4 class="timeline-header">Stage 1:</h4>
+      <p>Explore AI concepts through five hands-on design challenges and build a community of family learning.</p>
+      <hr class="basic-hr mb-3"/>
+      <h4 class="timeline-header">Stage 2:</h4>
+      <p>Explore Robotics through eight more design challenges and stay in touch with our community outline.</p>
+      <hr class="basic-hr mb-3"/>
+      <h4 class="timeline-header">Stage 3:</h4>
+      <p>Build your own AI invention to submit to the AI World Championship.
+    </div>
+
+    <div class="col-xs-2 col-sm-2 aifc-timeline timeline-panel">
+      <div class="arrow mt-1"></div>
+      <h4 class="timeline-header">Submission Window</h4>
+      <p>December 2018 - February 1, 2019</p>
+      <hr class="basic-hr mb-3"/>
+      <h4 class="timeline-header">Judging</h4>
+      <p>February 2019</p>
+      <hr class="basic-hr mb-3"/>
+      <h4 class="timeline-header">Reults released</h4>
+      <p>March 2019</p>
+    </div>
+    <div class="col-xs-2 col-sm-2 aifc-timeline timeline-panel">
+      <div class="arrow mt-1"></div>
+      <h4 class="timeline-header">AI World Championship</h4>
+      <p>May 16-19, 2019</p>
+      <p>The top three teams from the Junior and Senior division are invited to a celebration in San Francisco, USA<p/>
     </div>
   </div>
 </div>
