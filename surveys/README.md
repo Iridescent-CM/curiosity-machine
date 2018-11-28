@@ -86,6 +86,13 @@ If a webhook for your environment exists, you can add your survey to it by modif
 Don't forget to include any old survey ids that are still relevant, while adding your
 new id as well.
 
+#### A note on how it works
+
+The webhook does *not* rely on any particular configuration conventions to be followed. Instead it relies
+on matching the `SURVEYMONKEY_TOKEN_VAR` value stored in SurveyMonkey as a custom variable, and stored
+in the CM instance as a SurveyResponse id. That allows direct lookup of the SurveyResponse, as opposed to
+the redirect method which relies on the survey id and identity of the current user to find a SurveyResponse.
+
 ### Configuring a redirect
 
 On the Web Link Collector, modify the Survey End Page. Choose the custom end page option, and
