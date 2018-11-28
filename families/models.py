@@ -32,19 +32,30 @@ class FamilyProfile(BaseProfile):
         return self.check_full_access()
 
     def check_full_access(self):
+        return self.presurvey_completed and self.permission_slip_signed
+
+    @cached_property
+    def presurvey_completed(self):
         presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
         if presurvey.active:
             response = presurvey.response(self.user)
             if not response.completed:
                 return False
 
-        consent = FamilyConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
-        if consent.active:
-            signature = consent.signature(self.user)
-            if not signature.signed:
-                return False
-
         return True
+
+    @cached_property
+    def permission_slip_signed(self):
+        return PermissionSlip.objects.filter(account=self.user).exists()
+        # TO DO: migrate existing signatures to slips
+
+        #consent = FamilyConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
+        #if consent.active:
+        #    signature = consent.signature(self.user)
+        #    if not signature.signed:
+        #        return False
+        #
+        #return True
 
     def check_welcome(self):
         if self.check_full_access() and not self.welcomed:
