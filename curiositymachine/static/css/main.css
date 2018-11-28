@@ -9675,6 +9675,14 @@ footer {
   box-shadow: 15px -15px 0 0 tomato inset;
   transform: rotate(225deg); }
 
+#aifc-submission-page .submission-subheader {
+  font-size: 20px;
+  color: #949494; }
+
+#aifc-submission-page .submission-header {
+  font-size: 25px;
+  color: #fd7e14; }
+
 .bg-primary {
   background-color: #00B1C3;
   color: #fff; }
