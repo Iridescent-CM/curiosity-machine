@@ -255,7 +255,7 @@ class SubmissionChecklistViewSet(viewsets.ViewSet):
 class SignPermissionSlipView(CreateView):
     model = PermissionSlip
     fields = ('signature',)
-    success_url = '/' # TODO
+    success_url = lazy(reverse, str)("families:home")
 
     def form_valid(self, form):
         obj = form.save(commit=False)

@@ -47,15 +47,6 @@ class FamilyProfile(BaseProfile):
     @cached_property
     def permission_slip_signed(self):
         return PermissionSlip.objects.filter(account=self.user).exists()
-        # TO DO: migrate existing signatures to slips
-
-        #consent = FamilyConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
-        #if consent.active:
-        #    signature = consent.signature(self.user)
-        #    if not signature.signed:
-        #        return False
-        #
-        #return True
 
     def check_welcome(self):
         if self.check_full_access() and not self.welcomed:
