@@ -4,6 +4,6 @@
   <form action="{% url "families:create_permissionslip" %}" method="POST">
     {% csrf_token %}
     {{ form }}
-		<input type="submit" class="btn btn-primary" />
+    <input type="submit" class="btn btn-primary" />
   </form>
 {% endblock %} 
