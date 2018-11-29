@@ -11,7 +11,7 @@ def copy_consents(apps, schema_editor):
     PermissionSlip = apps.get_model("families", "PermissionSlip")
 
     for sig in Signature.objects.filter(template_id=settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID, status=SignatureStatus.SIGNED):
-        PermissionSlip.objects.create(account=sig.user, signature="_MIGRATED_")
+        PermissionSlip.objects.create(account=sig.user, signature="HELLOSIGN")
 
 class Migration(migrations.Migration):
 
