@@ -42,20 +42,21 @@
   }
 
   .revolving-quotes {
+    font-size: 24px;
     .quote-box {
       height: 250px;
     }
   }
-}
 
-@include media-breakpoint-down(md) {
-  .h4 {
-    font-size: 22px;
+  @include media-breakpoint-down(md) {
+    .revolving-quotes {
+      font-size: 20px;
+    }
   }
-}
 
-@include media-breakpoint-down(xs) {
-  .h4 {
-    font-size: 18px;
+  @include media-breakpoint-down(xs) {
+    .revolving-quotes {
+      font-size: 16px;
+    }
   }
 }
