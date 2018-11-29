@@ -15,36 +15,10 @@
         <li class="to-do-list-item {% if presurvey.completed %}to-do-list-complete{% endif %}">
           Complete the <a href="{{ presurvey.url }}">AI Family Challenge Pre-survey</a>.
         </li>
-        <li class="to-do-list-item {% if consent.signed %}to-do-list-complete{% endif %}">
-          <strong>Sign your consent form.</strong> You should receive the form in your inbox.
-        </li>
       </ol>
-      <p>
-        You may need to refresh this page after each step to see your progress.
-        It can take <strong>up to 20 minutes</strong> for your account to be unlocked after you complete these steps.
-        Try refreshing or re-logging in if you are unable to access the design challenges!
-      </p>
-
-      <p>
-        <strong>If you don't receive a consent form</strong>, make sure your email address below is correct:
-      </p>
-
-      {% if messages %}{% for message in messages %}
-      <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        {{ message }}
-      </div>
-      {% endfor %}{% endif %}
-      <form class="form-inline" action="{% url "families:edit_email" %}" method="POST">
-        {% csrf_token %}
-        {% form_group email_form.email %}
-        <input class="btn btn-sm btn-primary ml-2" type="submit" value="Change email" />
-      </form>
 
       <p class="my-4"><em>
-        Email <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a> if you have completed both steps and your account is not activated within 20 minutes.
+        Email <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a> if you have completed both steps and your account is not activated.
       </em></p>
 
       <hr/>
