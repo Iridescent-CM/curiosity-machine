@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('families', '0018_permissionslip'),
+        ('hellosign', '0003_auto_20180227_1318'),
     ]
 
     operations = [
