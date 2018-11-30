@@ -8,37 +8,41 @@
   {{ block.super }}
 
 <div class="container">
-  <h2 id="aichallenge-about-page" class="mt-4">Artificial Intelligence is changing our world.</h2>
-  <h3 class="mb-4">Together, we decide how.</h3>
   <div class="row">
-    <div class="col-lg-8 col-md-12 mb-2">
-      <div class="embed-responsive embed-responsive-16by9 mt-2">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/gJQupM4i52Q" allowfullscreen></iframe>
-      </div>
-      <p class="text-center">
-        <small><em>Find out why Dina and Christina are one of more than 2800 families around the world taking part in the AI Family Challenge.</em></small>
-      </p>
-    </div>
-    <div class="col-lg-4 col-md-12 mt-3">
-      <p>
-        Did you know that Alexa and Siri use artificial intelligence (AI) to answer your questions? 
-        Or, that YouTube and Netflix recommend videos with the help of machine learning? 
-        Many technologies that surround us are changing how we work and play using AI.
-      </p> 
-      <p>
-        The <a href="{% url "challenges:challenges" %}?aifamilychallenge=1" target="_blank">AI Family Challenge</a> is a free, hands-on AI education program that brings families, schools, 
-        communities, and technology know-it-alls together to give everyone the chance to learn, play and create 
-        with AI.
-      </p>
-      <div class="text-center mt-4">
-        <a href="{% url "account_signup" %}" class="btn btn-primary" target="_blank">Join the AI Family Challenge</a>
+    <div class="col-md-10 offset-md-1 mt-3">
+      <h2 id="aichallenge-about-page" class="mt-4">Artificial Intelligence is changing our world.</h2>
+      <h3 class="mb-4">Together, we decide how.</h3>
+      <div class="row">
+        <div class="col-lg-8 col-md-12 mb-2">
+          <div class="embed-responsive embed-responsive-16by9 mt-2">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/gJQupM4i52Q" allowfullscreen></iframe>
+          </div>
+          <p class="text-center">
+            <small><em>Find out why Dina and Christina are one of more than 2800 families around the world taking part in the AI Family Challenge.</em></small>
+          </p>
+        </div>
+        <div class="col-lg-4 col-md-12 mt-2 mr-0">
+          <p>
+            Did you know that Alexa and Siri use artificial intelligence (AI) to answer your questions? 
+            Or, that YouTube and Netflix recommend videos with the help of machine learning? 
+            Many technologies that surround us are changing how we work and play using AI.
+          </p> 
+          <p>
+            The <a href="{% url "challenges:challenges" %}?aifamilychallenge=1" target="_blank">AI Family Challenge</a> is a free, hands-on AI education program that brings families, schools, 
+            communities, and technology know-it-alls together to give everyone the chance to learn, play and create 
+            with AI.
+          </p>
+          <div class="text-center mt-4">
+            <a href="{% url "account_signup" %}" class="btn btn-primary" target="_blank">Join the AI Family Challenge</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <div class="row bg-new-turquoise py-5 mt-4 turquoise-cols">
-  <div class="col-md-5 offset-md-1 col-sm-12 right-border px-5 py-2">
+  <div class="col-md-4 offset-md-2 col-sm-12 right-border px-5 py-2">
     <p class="font-weight-bold h5">Solve a problem with AI</p>
     <p>
       Through the AI Family Challenge, your understanding of AI will grow along with your confidence. Do you see problems in your 
@@ -46,7 +50,7 @@
       will work together to create a solution and a prototype using an AI technology.
     </p>
   </div>
-  <div class="col-md-5 col-sm-12 px-5 py-2">
+  <div class="col-md-4 col-sm-12 px-5 py-2">
     <p class="font-weight-bold h5">Anyone can sign up at no cost</p>
     <p>
       Don’t know a thing about AI or how it works? Don’t let that stop you! People all over the world, just like you, have signed 
@@ -58,126 +62,131 @@
 </div>
 
 <div class="container">
-  <p class="my-5">
-    Here’s what you can expect in all 3 stages of our program.
-  </p>
-  <div class="row inline-block stage-badges">
-    <div class="col-md-2 col-sm-12">
-      <img src="{% static 'images/about/aifc-stagebadge-1.svg' %}" alt="Stage 1 Badge">
-      <p class="font-weight-bold mt-3">Stage 1:</p>
-      <p class="font-weight-bold">Foundations of AI</p>
-      <p>5 Design Challenges</p>
-      <p>Hands-on building projects that introduce AI mechanics and robotics in a fun way.</p>
-    </div>
-    <div class="col-md-1 col-sm-12 equation text-center mt-5">
-      <p>+</p>
-    </div>
-    <div class="col-md-2 col-sm-12">
-      <img src="{% static 'images/about/aifc-stagebadge-2.svg' %}" alt="Stage 2 Badge">
-      <p class="font-weight-bold mt-3">Stage 2:</p>
-      <p class="font-weight-bold">Exploring Robotics</p>
-      <p>3 Design Challenges</p>
-      <p>Hands-on building projects that introduce AI mechanics and robotics in a fun way.</p>
-    </div>
-    <div class="col-md-1 col-sm-12 equation text-center mt-5">
-      <p>+</p>
-    </div>
-    <div class="col-md-2 col-sm-12">
-      <img src="{% static 'images/about/aifc-stagebadge-3.svg' %}" alt="Stage 3 Badge">
-      <p class="font-weight-bold mt-3">Stage 3:</p>
-      <p class="font-weight-bold">AI in Your Community</p>
-      <p>10 AI-Focused Lessons</p>
-      <p>Families use online AI tools to think about AI in their community.</p>
-    </div>
-    <div class="col-md-1 col-sm-12 equation text-center mt-5">
-      <p>=</p>
-    </div>
-    <div class="col-md-3 col-sm-12 mt-4">
-      <p class="font-weight-bold mb-4">40 hour program, 10 after-school sessions for families</p>
-      <p><span class="text-new-turquoise font-weight-bold">Goal: </span>Families solve a problem with AI and 
-      <span class="text-new-turquoise font-weight-bold">submit </span>to AI World Championship.</p>
-    </div>
-  </div>
-  <p class="mt-5">
-    Still a little nervous? We have <a href="{% url "aichallenge/coaches" %}" target="_blank">450 coaches</a> (and growing!) all over the world, experienced in 
-    technology, lending a hand to families through our online platform and in their local communities.
-  </p>
-  <p> 
-    Let’s change the world together. <a href="{% url "account_signup" %}" target="_blank">Join the AI Family Challenge</a> and be tomorrow’s innovators and 
-    entrepreneurs today!
-  </p>
-  <hr class="hr-red mb-5"/>
-
   <div class="row">
-    <div class="col-5 pt-5">
-      <p class="h4">Get Started Today.</p>
-      <p>
-        Curious how self-driving cars work? Or, how to build an AI model that detects emotion in writing or a even Parallel 
-        Processing Machine?! Find that out and more by using simple, everyday materials found around your house to complete 
-        the projects.
+    <div class="col-md-10 offset-md-1 mt-5">
+      <p class="mb-5 h5">
+        Here’s what you can expect in all 3 stages of our program:
       </p>
-    </div>
-    <div class="col-7">
-      <div id="quotes-images" class="quotes-images carousel" data-interval="10500" data-ride="carousel">
-        <div class="carousel-inner text-secondary font-weight-bold">
-          <div class="carousel-item active quote-image-1">
-            <p>
-              "I really didn’t know much about new technology. This program was so informative! My son who wants to become 
-              an electrician got to experience something that he wants and likes. Without [AI Family Challenge] I would have 
-              not tried to do these amazing things at home. This was a great program that I would recommend to all." -Mirella, 
-              Mother in California
-            </p>
-          </div>
-          <div class="carousel-item quote-image-2">
-            <p>
-              "[With AI Family Challenge], our analytical thinking has improved and we now explore different ways of 
-              solving or arriving at a conclusion. We also realize that we should always try and keep trying with projects, 
-              not getting it right the first time does not mean we should give up." -Laura, Mother in Nigeria
-            </p>
-          </div>
-          <div class="carousel-item quote-image-3">
-            <p>
-              "We had a grandmother that joined the group in Cape Town for a few sessions. She was very shy but loved watching 
-              the children build and create. She came to me after the sessions and asked if we could teach her more activities 
-              that she could do with her grandchildren at home. She said she would like to continue to see them grow and be joyful 
-              together." -Trisha, Coach from South Africa
-            </p>
-          </div>
-          <div class="carousel-item quote-image-4">
-            <p>
-              "This course gives a lot of opportunities not only to get more information about AI, but also teaches us how to work 
-              like one team, our family team. Practice [helps us learn], and this method differs from methods which our children 
-              have been taught at schools." -Saddat, Mother in Uzbekistan
-            </p>
-          </div>
-          <div class="carousel-item quote-image-5">
-            <p>
-              "[With AI Family Challenge, we got] more than we expected. We gained knowledge on robotics, AI, we made new friends 
-              and brainstormed an idea of how to AI to help to improve our lives." -Rustamkhuja, Mother from Uzbekistan
-            </p>
+      <div class="row inline-block stage-badges">
+        <div class="col-md-2 col-sm-12">
+          <img src="{% static 'images/about/aifc-stagebadge-1.svg' %}" alt="Stage 1 Badge">
+          <p class="font-weight-bold mt-3">Stage 1:</p>
+          <p class="font-weight-bold">Foundations of AI</p>
+          <p>5 Design Challenges</p>
+          <p>Hands-on building projects that introduce AI mechanics and robotics in a fun way.</p>
+        </div>
+        <div class="col-md-1 col-sm-12 equation text-center mt-5">
+          <p>+</p>
+        </div>
+        <div class="col-md-2 col-sm-12">
+          <img src="{% static 'images/about/aifc-stagebadge-2.svg' %}" alt="Stage 2 Badge">
+          <p class="font-weight-bold mt-3">Stage 2:</p>
+          <p class="font-weight-bold">Exploring Robotics</p>
+          <p>3 Design Challenges</p>
+          <p>Hands-on building projects that introduce AI mechanics and robotics in a fun way.</p>
+        </div>
+        <div class="col-md-1 col-sm-12 equation text-center mt-5">
+          <p>+</p>
+        </div>
+        <div class="col-md-2 col-sm-12">
+          <img src="{% static 'images/about/aifc-stagebadge-3.svg' %}" alt="Stage 3 Badge">
+          <p class="font-weight-bold mt-3">Stage 3:</p>
+          <p class="font-weight-bold">AI in Your Community</p>
+          <p>10 AI-Focused Lessons</p>
+          <p>Families use online AI tools to think about AI in their community.</p>
+        </div>
+        <div class="col-md-1 col-sm-12 equation text-center mt-5">
+          <p>=</p>
+        </div>
+        <div class="col-md-3 col-sm-12 mt-4">
+          <p class="font-weight-bold mb-4">40 hour program, 10 after-school sessions for families</p>
+          <p><span class="text-new-turquoise font-weight-bold">Goal: </span>Families solve a problem with AI and 
+          <span class="text-new-turquoise font-weight-bold">submit </span>to AI World Championship.</p>
+        </div>
+      </div>
+      <p class="mt-5">
+        Still a little nervous? We have <a href="{% url "aichallenge/coaches" %}" target="_blank">450 coaches</a> (and growing!) all over the world, experienced in 
+        technology, lending a hand to families through our online platform and in their local communities.
+      </p>
+      <p> 
+        Let’s change the world together. <a href="{% url "account_signup" %}" target="_blank">Join the AI Family Challenge</a> and be tomorrow’s innovators and 
+        entrepreneurs today!
+      </p>
+      <hr class="hr-red mb-5"/>
+
+      <div class="row">
+        <div class="col-5 pt-5">
+          <p class="h4">Get Started Today.</p>
+          <p>
+            Curious how self-driving cars work? Or, how to build an AI model that detects emotion in writing or a even Parallel 
+            Processing Machine?! Find that out and more by using simple, everyday materials found around your house to complete 
+            the projects.
+          </p>
+        </div>
+        <div class="col-7">
+          <div id="quotes-images" class="quotes-images carousel" data-interval="10500" data-ride="carousel">
+            <div class="carousel-inner text-secondary font-weight-bold">
+              <div class="carousel-item active quote-image-1">
+                <p>
+                  "I really didn’t know much about new technology. This program was so informative! My son who wants to become 
+                  an electrician got to experience something that he wants and likes. Without [AI Family Challenge] I would have 
+                  not tried to do these amazing things at home. This was a great program that I would recommend to all." -Mirella, 
+                  Mother in California
+                </p>
+              </div>
+              <div class="carousel-item quote-image-2">
+                <p>
+                  "[With AI Family Challenge], our analytical thinking has improved and we now explore different ways of 
+                  solving or arriving at a conclusion. We also realize that we should always try and keep trying with projects, 
+                  not getting it right the first time does not mean we should give up." -Laura, Mother in Nigeria
+                </p>
+              </div>
+              <div class="carousel-item quote-image-3">
+                <p>
+                  "We had a grandmother that joined the group in Cape Town for a few sessions. She was very shy but loved watching 
+                  the children build and create. She came to me after the sessions and asked if we could teach her more activities 
+                  that she could do with her grandchildren at home. She said she would like to continue to see them grow and be joyful 
+                  together." -Trisha, Coach from South Africa
+                </p>
+              </div>
+              <div class="carousel-item quote-image-4">
+                <p>
+                  "This course gives a lot of opportunities not only to get more information about AI, but also teaches us how to work 
+                  like one team, our family team. Practice [helps us learn], and this method differs from methods which our children 
+                  have been taught at schools." -Saddat, Mother in Uzbekistan
+                </p>
+              </div>
+              <div class="carousel-item quote-image-5">
+                <p>
+                  "[With AI Family Challenge, we got] more than we expected. We gained knowledge on robotics, AI, we made new friends 
+                  and brainstormed an idea of how to AI to help to improve our lives." -Rustamkhuja, Mother from Uzbekistan
+                </p>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#quotes-images" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#quotes-images" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a> 
           </div>
         </div>
-        <a class="carousel-control-prev" href="#quotes-images" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#quotes-images" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a> 
+      </div>
+      <hr class="hr-red mb-3"/>
+      <h3>Learn. Build. Change.</h3>
+      <p>
+        80,000+ families, and 15,000 coaches around the world have participated in <a href="{% url "challenges:challenges" %}" target="_blank">
+        Curiosity Machine design challenges</a> since 2006. Here’s how participating in the program has impacted their lives. 
+      </p>
+      <div class="text-center mb-5">
+        <a href="{% url "account_signup" %}" class="btn btn-primary" target="_blank">Join the AI Family Challenge</a>
       </div>
     </div>
   </div>
-  <hr class="hr-red mb-3"/>
-  <h3>Learn. Build. Change.</h3>
-  <p>
-    80,000+ families, and 15,000 coaches around the world have participated in <a href="{% url "challenges:challenges" %}" target="_blank">
-    Curiosity Machine design challenges</a> since 2006. Here’s how participating in the program has impacted their lives. 
-  </p>
-  <div class="text-center mb-5">
-    <a href="{% url "account_signup" %}" class="btn btn-primary" target="_blank">Join the AI Family Challenge</a>
-  </div>
 </div>
+
 <div id="revolving-quotes" class="revolving-quotes carousel slide bg-new-turquoise" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
