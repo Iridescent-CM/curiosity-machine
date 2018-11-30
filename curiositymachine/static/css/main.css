@@ -8879,6 +8879,12 @@ footer {
       content: "—";
       margin-right: 0.4em; }
 
+#ai-challenge-page .right-border {
+  border-right: 1px solid #fff; }
+
+#ai-challenge-page .turquoise-cols {
+  line-height: 1.25em; }
+
 #ai-challenge-page .aifc-album {
   height: 400px;
   width: 730px; }
