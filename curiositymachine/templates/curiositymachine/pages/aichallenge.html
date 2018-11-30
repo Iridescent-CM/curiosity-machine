@@ -37,8 +37,8 @@
   </div>
 </div>
 
-<div class="row bg-new-turquoise py-5 turquoise-cols">
-  <div class="col-5 offset-1 right-border pr-5">
+<div class="row bg-new-turquoise py-5 mt-4 turquoise-cols">
+  <div class="col-md-5 offset-md-1 col-sm-12 right-border px-5 py-2">
     <p class="font-weight-bold h5">Solve a problem with AI</p>
     <p>
       Through the AI Family Challenge, your understanding of AI will grow along with your confidence. Do you see problems in your 
@@ -46,7 +46,7 @@
       will work together to create a solution and a prototype using an AI technology.
     </p>
   </div>
-  <div class="col-5 pl-5">
+  <div class="col-md-5 col-sm-12 px-5 py-2">
     <p class="font-weight-bold h5">Anyone can sign up at no cost</p>
     <p>
       Don’t know a thing about AI or how it works? Don’t let that stop you! People all over the world, just like you, have signed 
@@ -57,11 +57,11 @@
   </div>
 </div>
 
-<div class="container stage-badges new-red">
+<div class="container">
   <p class="my-5">
     Here’s what you can expect in all 3 stages of our program.
   </p>
-  <div class="row inline-block">
+  <div class="row inline-block stage-badges">
     <div class="col-md-2 col-sm-12">
       <img src="{% static 'images/about/aifc-stagebadge-1.svg' %}" alt="Stage 1 Badge">
       <p class="font-weight-bold mt-3">Stage 1:</p>
@@ -98,6 +98,15 @@
       <span class="text-new-turquoise font-weight-bold">submit </span>to AI World Championship.</p>
     </div>
   </div>
+  <p class="mt-5">
+    Still a little nervous? We have <a href="{% url "aichallenge/coaches" %}" target="_blank">450 coaches</a> (and growing!) all over the world, experienced in 
+    technology, lending a hand to families through our online platform and in their local communities.
+  </p>
+  <p> 
+    Let’s change the world together. <a href="{% url "account_signup" %}" target="_blank">Join the AI Family Challenge</a> and be tomorrow’s innovators and 
+    entrepreneurs today!
+  </p>
+  <hr class="hr-red mb-3"/>
 </div>
 
 <div class="container">
@@ -166,15 +175,7 @@
         AI World Championship</a>.
       </p>
       
-      <p>
-        Still a little nervous? We have <a href="{% url "aichallenge/coaches" %}" target="_blank">450 coaches</a> (and growing!) all over the world, experienced in 
-        technology, lending a hand to families through our online platform and in their local communities.
-      </p>
-      <p> 
-        Let’s change the world together. <a href="{% url "account_signup" %}" target="_blank">Join the AI Family Challenge</a> and be tomorrow’s innovators and 
-        entrepreneurs today!
-      </p>
-      <hr class="hr-red mb-3"/>
+      
     </div>
     <div class="col-md-10 offset-md-1 mt-1">
       <h3>Get Started Today.</h3>
