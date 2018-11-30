@@ -8,13 +8,21 @@
   {{ block.super }}
 
 <div class="container">
+  <h2 id="aichallenge-about-page" class="mt-4">Artificial Intelligence is changing our world.</h2>
+  <h3 class="mb-4">Together, we decide how.</h3>
   <div class="row">
-    <div class="col-10 offset-1 mt-5 mb-2">
-      <h2 id="aichallenge-about-page">Artificial Intelligence is changing our world.</h2>
-      <h3 class="mb-4">Together, we decide how.</h3>
+    <div class="col-lg-8 col-md-12 mb-2">
+      <div class="embed-responsive embed-responsive-16by9 mt-2">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/gJQupM4i52Q" allowfullscreen></iframe>
+      </div>
+      <p class="text-center">
+        <small><em>Find out why Dina and Christina are one of more than 2800 families around the world taking part in the AI Family Challenge.</em></small>
+      </p>
+    </div>
+    <div class="col-lg-4 col-md-12 mt-3">
       <p>
         Did you know that Alexa and Siri use artificial intelligence (AI) to answer your questions? 
-        Or, that Youtube and Netflix recommend videos with the help of machine learning? 
+        Or, that YouTube and Netflix recommend videos with the help of machine learning? 
         Many technologies that surround us are changing how we work and play using AI.
       </p> 
       <p>
@@ -22,14 +30,13 @@
         communities, and technology know-it-alls together to give everyone the chance to learn, play and create 
         with AI.
       </p>
-    </div>
-    <div class="col-8 offset-2 col-md-10 offset-md-1 mb-2">
-      <div class="embed-responsive embed-responsive-16by9 mt-2">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/gJQupM4i52Q" allowfullscreen></iframe>
+      <div class="text-center mt-4">
+        <a href="{% url "account_signup" %}" class="btn btn-primary" target="_blank">Join the AI Family Challenge</a>
       </div>
-      <p class="text-center mb-4">
-        <small><em>Find out why Dina and Christina are one of more than 2800 families around the world taking part in the AI Family Challenge.</em></small>
-      </p>
+    </div>
+  </div>
+  <div class="row">
+      
       <div id="quotes-images" class="quotes-images carousel slide float-right m-3" data-interval="11000" data-ride="carousel">
         <div class="carousel-inner text-secondary h5 font-weight-bold">
           <div class="carousel-item active quote-image-1 p-3">
