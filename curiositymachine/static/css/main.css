@@ -8901,9 +8901,6 @@ footer {
     max-height: 400px;
     margin: auto; }
 
-#ai-challenge-page .revolving-quotes .quote-box {
-  height: 250px; }
-
 #ai-challenge-page .quotes-images {
   text-shadow: 3px 3px 3px #590019; }
   #ai-challenge-page .quotes-images .carousel-item p {
@@ -8936,6 +8933,19 @@ footer {
     background-repeat: no-repeat;
     background-size: cover;
     height: 350px; }
+
+#ai-challenge-page .revolving-quotes {
+  font-size: 24px; }
+  #ai-challenge-page .revolving-quotes .quote-box {
+    height: 250px; }
+
+@media (max-width: 991.98px) {
+  #ai-challenge-page .revolving-quotes {
+    font-size: 20px; } }
+
+@media (max-width: 575.98px) {
+  #ai-challenge-page .revolving-quotes {
+    font-size: 16px; } }
 
 .account-settings .avatar-settings .form-inline {
   justify-content: center; }

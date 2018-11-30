@@ -174,13 +174,15 @@
     80,000+ families, and 15,000 coaches around the world have participated in <a href="{% url "challenges:challenges" %}" target="_blank">
     Curiosity Machine design challenges</a> since 2006. Here’s how participating in the program has impacted their lives. 
   </p>
-  <a href="{% url "account_signup" %}" class="btn btn-primary" target="_blank">Join the AI Family Challenge</a>
+  <div class="text-center mb-5">
+    <a href="{% url "account_signup" %}" class="btn btn-primary" target="_blank">Join the AI Family Challenge</a>
+  </div>
 </div>
 <div id="revolving-quotes" class="revolving-quotes carousel slide bg-new-turquoise" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
       <div class="row quote-box">
-        <div class="col-sm-6 offset-sm-3 my-auto">
+        <div class="col-md-6 offset-md-3 col-8 offset-2 my-auto">
           <p>
             I was excited to see mothers empowered by learning alongside their children. 
             [The mothers] especially gave their children the incentive and courage to keep 
@@ -194,7 +196,7 @@
     </div>
     <div class="carousel-item">
       <div class="row quote-box">
-        <div class="col-sm-6 offset-sm-3 my-auto">
+        <div class="col-md-6 offset-md-3 col-8 offset-2 my-auto">
           <p>
             What has been the most surprising about this program is seeing how excited parents have been 
             to participate. Watching parents work side-by-side with their student has been great! 
@@ -207,7 +209,7 @@
     </div>
     <div class="carousel-item">
       <div class="row quote-box">
-        <div class="col-sm-6 offset-sm-3 my-auto">
+        <div class="col-md-6 offset-md-3 col-8 offset-2 my-auto">
           <p>
             Many parents are unsure of how to communicate with their children on this particular subject. 
             It's very interesting to see their confidence and understanding of the AI concepts develop 
@@ -229,7 +231,6 @@
     <span class="sr-only">Next</span>
   </a> 
 </div>
-
 
 {% endwith %}
 {% endblock %}
