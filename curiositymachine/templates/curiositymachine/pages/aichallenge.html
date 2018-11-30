@@ -37,7 +37,7 @@
   </div>
 </div>
 
-<div class="row bg-new-turquoise pt-5 pb-5 turquoise-cols">
+<div class="row bg-new-turquoise py-5 turquoise-cols">
   <div class="col-5 offset-1 right-border pr-5">
     <p class="font-weight-bold h5">Solve a problem with AI</p>
     <p>
@@ -57,6 +57,50 @@
   </div>
 </div>
 
+<div class="container stage-badges new-red">
+  <p class="my-5">
+    Here’s what you can expect in all 3 stages of our program.
+  </p>
+  <div class="row inline-block">
+    <div class="col-md-2 col-sm-12">
+      <img src="{% static 'images/about/aifc-stagebadge-1.svg' %}" alt="Stage 1 Badge">
+      <p class="font-weight-bold mt-3">Stage 1:</p>
+      <p class="font-weight-bold">Foundations of AI</p>
+      <p>5 Design Challenges</p>
+      <p>Hands-on building projects that introduce AI mechanics and robotics in a fun way.</p>
+    </div>
+    <div class="col-md-1 col-sm-12 equation text-center mt-5">
+      <p>+</p>
+    </div>
+    <div class="col-md-2 col-sm-12">
+      <img src="{% static 'images/about/aifc-stagebadge-2.svg' %}" alt="Stage 2 Badge">
+      <p class="font-weight-bold mt-3">Stage 2:</p>
+      <p class="font-weight-bold">Exploring Robotics</p>
+      <p>3 Design Challenges</p>
+      <p>Hands-on building projects that introduce AI mechanics and robotics in a fun way.</p>
+    </div>
+    <div class="col-md-1 col-sm-12 equation text-center mt-5">
+      <p>+</p>
+    </div>
+    <div class="col-md-2 col-sm-12">
+      <img src="{% static 'images/about/aifc-stagebadge-3.svg' %}" alt="Stage 3 Badge">
+      <p class="font-weight-bold mt-3">Stage 3:</p>
+      <p class="font-weight-bold">AI in Your Community</p>
+      <p>10 AI-Focused Lessons</p>
+      <p>Families use online AI tools to think about AI in their community.</p>
+    </div>
+    <div class="col-md-1 col-sm-12 equation text-center mt-5">
+      <p>=</p>
+    </div>
+    <div class="col-md-3 col-sm-12 mt-4">
+      <p class="font-weight-bold mb-4">40 hour program, 10 after-school sessions for families</p>
+      <p><span class="text-new-turquoise font-weight-bold">Goal: </span>Families solve a problem with AI and 
+      <span class="text-new-turquoise font-weight-bold">submit </span>to AI World Championship.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
   <div class="row">
       <div id="quotes-images" class="quotes-images carousel slide float-right m-3" data-interval="11000" data-ride="carousel">
         <div class="carousel-inner text-secondary h5 font-weight-bold">
@@ -121,10 +165,7 @@
         submit your plan to the first ever <a href="{% url "aichallenge/worldchampionship" %}" target="_blank">
         AI World Championship</a>.
       </p>
-      <p>
-        Here’s what you can expect in all 3 stages of our program.
-      </p>
-      <img src="{% static 'images/about/about-aifc-stages.svg' %}" alt="AI Family Challenge Stages Information">
+      
       <p>
         Still a little nervous? We have <a href="{% url "aichallenge/coaches" %}" target="_blank">450 coaches</a> (and growing!) all over the world, experienced in 
         technology, lending a hand to families through our online platform and in their local communities.

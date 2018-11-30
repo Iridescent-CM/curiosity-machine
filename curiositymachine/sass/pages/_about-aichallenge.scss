@@ -40,6 +40,18 @@
     line-height: 1.25em;
   }
 
+  .stage-badges {
+    line-height: 1.25em;
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .equation {
+    font-size: 60px;
+    color: #FF5050;
+  }
+
   .aifc-album {
     img {
       max-height: 400px;

@@ -8885,6 +8885,15 @@ footer {
 #ai-challenge-page .turquoise-cols {
   line-height: 1.25em; }
 
+#ai-challenge-page .stage-badges {
+  line-height: 1.25em; }
+  #ai-challenge-page .stage-badges p {
+    margin-bottom: 0; }
+
+#ai-challenge-page .equation {
+  font-size: 60px;
+  color: #FF5050; }
+
 #ai-challenge-page .aifc-album {
   height: 400px;
   width: 730px; }
