@@ -68,46 +68,44 @@
   }
 
   .quotes-images {
-    text-shadow:
-       3px 3px 0 #000,
-     -1px -1px 0 #000,  
-      1px -1px 0 #000,
-      -1px 1px 0 #000,
-       1px 1px 0 #000;
+    text-shadow: 3px 3px 3px #590019;
+    .carousel-item {
+      p {
+        margin: 15px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
     .quote-image-1 {
-      background-image: url('../images/about/quote-images/carousel_usa-600x600.jpg');
+      background-image: url('../images/about/quote-images/usa-16x9-min.jpg');
       background-repeat:no-repeat;
-      background-size:contain;
-      height:350px;
-      width:350px;
+      background-size:cover;
+      height: 350px;
     }
     .quote-image-2 {
-      background-image: url('../images/about/quote-images/carousel_nigeria-600x600.jpg');
+      background-image: url('../images/about/quote-images/nigeria-16x9-min.jpg');
       background-repeat:no-repeat;
-      background-size:contain;
-      height:350px;
-      width:350px;
+      background-size:cover;
+      height: 350px;
     }
     .quote-image-3 {
-      background-image: url('../images/about/quote-images/carousel_southafrica-600x600.jpg');
+      background-image: url('../images/about/quote-images/south-africa-16x9-min.jpg');
       background-repeat:no-repeat;
-      background-size:contain;
-      height:350px;
-      width:350px;
+      background-size:cover;
+      height: 350px;
     }
     .quote-image-4 {
-      background-image: url('../images/about/quote-images/carousel_uzbekistan-600x600.jpg');
+      background-image: url('../images/about/quote-images/uzbekistan-16x9-min.jpg');
       background-repeat:no-repeat;
-      background-size:contain;
-      height:350px;
-      width:350px;
+      background-size:cover;
+      height: 350px;
     }
     .quote-image-5 {
-      background-image: url('../images/about/quote-images/carousel_uzbekistan2-600x600.jpg');
+      background-image: url('../images/about/quote-images/uzbekistan2-16x9-min.jpg');
       background-repeat:no-repeat;
-      background-size:contain;
-      height:350px;
-      width:350px;
+      background-size:cover;
+      height: 350px;
     }
   }
 }
