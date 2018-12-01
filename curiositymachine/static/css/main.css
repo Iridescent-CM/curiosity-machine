@@ -8889,17 +8889,13 @@ footer {
   line-height: 1.25em; }
   #ai-challenge-page .stage-badges p {
     margin-bottom: 0; }
+  #ai-challenge-page .stage-badges img {
+    width: 130px;
+    height: 130px; }
 
 #ai-challenge-page .equation {
   font-size: 60px;
   color: #FF5050; }
-
-#ai-challenge-page .aifc-album {
-  height: 400px;
-  width: 730px; }
-  #ai-challenge-page .aifc-album img {
-    max-height: 400px;
-    margin: auto; }
 
 #ai-challenge-page .quotes-images {
   text-shadow: 3px 3px 3px #590019; }
@@ -8941,11 +8937,17 @@ footer {
 
 @media (max-width: 991.98px) {
   #ai-challenge-page .revolving-quotes {
-    font-size: 20px; } }
+    font-size: 20px; }
+  #ai-challenge-page .stage-badges img {
+    width: 175px;
+    height: 175px; } }
 
 @media (max-width: 575.98px) {
   #ai-challenge-page .revolving-quotes {
-    font-size: 16px; } }
+    font-size: 16px; }
+  #ai-challenge-page .stage-badges img {
+    width: 150px;
+    height: 150px; } }
 
 .account-settings .avatar-settings .form-inline {
   justify-content: center; }

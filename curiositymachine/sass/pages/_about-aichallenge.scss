@@ -45,20 +45,15 @@
     p {
       margin-bottom: 0;
     }
+    img {
+      width: 130px;
+      height: 130px;
+    }
   }
 
   .equation {
     font-size: 60px;
     color: #FF5050;
-  }
-
-  .aifc-album {
-    img {
-      max-height: 400px;
-      margin: auto;
-    }
-    height: 400px;
-    width: 730px;
   }
 
   .quotes-images {
@@ -114,11 +109,23 @@
     .revolving-quotes {
       font-size: 20px;
     }
+    .stage-badges {
+      img {
+        width: 175px;
+        height: 175px;
+      }
+    }
   }
 
   @include media-breakpoint-down(xs) {
     .revolving-quotes {
       font-size: 16px;
+    }
+    .stage-badges {
+      img {
+        width: 150px;
+        height: 150px;
+      }
     }
   }
 }
