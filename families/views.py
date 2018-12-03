@@ -54,12 +54,12 @@ class FamilyMemberMixin():
         context['formset'] = self.get_formset()
         return super().get_context_data(**context)
 
-class CreateView(FamilyMemberMixin, EditProfileMixin, CreateView):
+class CreateProfileView(FamilyMemberMixin, EditProfileMixin, CreateView):
     model = FamilyProfile
     form_class = FamilyProfileForm
     success_url = lazy(reverse, str)("families:home")
 
-create = not_for_role(UserRole.family, redirect="families:edit_profile")(CreateView.as_view())
+create = not_for_role(UserRole.family, redirect="families:edit_profile")(CreateProfileView.as_view())
 
 class EditView(FamilyMemberMixin, EditProfileMixin, UpdateView):
     model = FamilyProfile
@@ -251,3 +251,17 @@ class SubmissionChecklistViewSet(viewsets.ViewSet):
                 'status': 'error',
                 'errors': form.errors.as_data()
             })
+
+class SignPermissionSlipView(CreateView):
+    model = PermissionSlip
+    fields = ('signature',)
+    success_url = lazy(reverse, str)("families:home")
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.account = self.request.user
+        obj.save()
+        self.object = obj
+        return HttpResponseRedirect(self.get_success_url())
+
+sign_slip = only_for_family(SignPermissionSlipView.as_view())
