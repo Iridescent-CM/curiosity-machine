@@ -13,7 +13,9 @@ class SurveyNameFilter(admin.SimpleListFilter):
         return ((id, "%s - %s" % (id, getattr(get_survey(id), "name", "n/a"))) for id in ids)
 
     def queryset(self, request, queryset):
-        return queryset.filter(survey_id=self.value())
+        if self.value():
+            queryset = queryset.filter(survey_id=self.value())
+        return queryset
 
 class SurveyResponseAdmin(admin.ModelAdmin):
     list_display = ['id', 'survey_id', 'user', 'status', 'created_at', 'updated_at']
