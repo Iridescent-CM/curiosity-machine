@@ -9695,6 +9695,15 @@ footer {
   box-shadow: 15px -15px 0 0 tomato inset;
   transform: rotate(225deg); }
 
+#aifc-families-page .aifc-families-panel {
+  border: 4px solid #00B1C3;
+  border-radius: 9px;
+  height: 100%; }
+
+#aifc-families-page .families-header {
+  font-size: 25px;
+  color: #949494; }
+
 .bg-primary {
   background-color: #00B1C3;
   color: #fff; }
