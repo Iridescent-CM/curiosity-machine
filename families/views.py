@@ -8,7 +8,6 @@ from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import *
 from hellosign import jobs
-from hellosign.models import FamilyConsentTemplate
 from lessons.models import Lesson
 from lessons.models import Progress as LessonProgress
 from profiles.decorators import not_for_role, only_for_role
@@ -129,11 +128,9 @@ class PrereqInterruptionView(TemplateView):
 
     def get_context_data(self, **kwargs):
         presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
-        consent = FamilyConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
         return super().get_context_data(
             **kwargs,
             presurvey=presurvey.response(self.request.user),
-            consent=consent.signature(self.request.user),
             email_form=FamilyEmailForm(request=self.request, user=self.request.user),
         )
 
@@ -156,29 +153,6 @@ class PostSurveyInterruptionView(TemplateView):
         )
 
 postsurvey_interruption = only_for_family(PostSurveyInterruptionView.as_view())
-
-class EditEmailView(EditProfileMixin, UpdateView):
-    model = FamilyProfile
-    form_class = FamilyEmailForm
-
-    def form_valid(self, form):
-        self.object = form.save()
-
-        consent = FamilyConsentTemplate(settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID)
-        signature = consent.signature(self.object.user)
-        jobs.update_email(signature.id)
-
-        messages.success(self.request, "Your email address has been updated.")
-        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER', reverse("families:home")))
-
-    def form_invalid(self, form):
-        messages.error(self.request, form['email'].errors)
-        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER', reverse("families:home")))
-
-    def get_object(self, queryset=None):
-        return self.request.user.familyprofile
-
-edit_email = unapproved_ok(only_for_family(EditEmailView.as_view()))
 
 conversion = TemplateView.as_view(template_name="families/conversion.html")
 
