@@ -8879,10 +8879,7 @@ footer {
       content: "—";
       margin-right: 0.4em; }
 
-#ai-challenge-page .right-border {
-  border-right: 1px solid #fff; }
-
-#ai-challenge-page .turquoise-cols {
+#ai-challenge-page .mid-page-cols {
   line-height: 1.25em; }
 
 #ai-challenge-page .stage-badges {
