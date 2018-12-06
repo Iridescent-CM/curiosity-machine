@@ -5,7 +5,6 @@ from django.db import models
 from django.utils.functional import cached_property
 from django.utils.timezone import now
 from enum import Enum
-from hellosign.models import FamilyConsentTemplate
 from images.models import Image
 from locations.models import Location
 from phonenumber_field.modelfields import PhoneNumberField
