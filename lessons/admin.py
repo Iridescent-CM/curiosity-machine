@@ -55,6 +55,7 @@ class LessonAdmin(OrderedModelAdmin):
 class ProgressAdmin(admin.ModelAdmin):
     model = Progress
     list_display = ('id', 'owner', 'lesson', 'created_at', 'updated_at')
+    search_fields = ('owner__username',)
     readonly_fields = ('lesson', 'owner')
 
 class CommentAdmin(admin.ModelAdmin):
