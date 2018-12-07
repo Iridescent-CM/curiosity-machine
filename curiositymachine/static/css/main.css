@@ -8932,6 +8932,10 @@ footer {
   #ai-challenge-page .revolving-quotes .quote-box {
     height: 250px; }
 
+@media (max-width: 1199.98px) {
+  #ai-challenge-page .mid-page-cols .border-right {
+    border-right-style: none; } }
+
 @media (max-width: 991.98px) {
   #ai-challenge-page .revolving-quotes {
     font-size: 20px; }

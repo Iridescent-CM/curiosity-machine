@@ -101,6 +101,15 @@
     }
   }
 
+  @include media-breakpoint-down(lg) {
+    .mid-page-cols {
+      .border-right {
+        border-right-style: none;
+      }
+    }
+  }
+  
+  
   @include media-breakpoint-down(md) {
     .revolving-quotes {
       font-size: 20px;
