@@ -8879,12 +8879,53 @@ footer {
       content: "—";
       margin-right: 0.4em; }
 
-#ai-challenge-page .aifc-album {
-  height: 400px;
-  width: 730px; }
-  #ai-challenge-page .aifc-album img {
-    max-height: 400px;
-    margin: auto; }
+#ai-challenge-page .mid-page-cols {
+  line-height: 1.25em; }
+
+#ai-challenge-page .stage-badges {
+  line-height: 1.25em; }
+  #ai-challenge-page .stage-badges p {
+    margin-bottom: 0; }
+  #ai-challenge-page .stage-badges img {
+    width: 130px;
+    height: 130px; }
+
+#ai-challenge-page .equation {
+  font-size: 60px;
+  color: #FF5050; }
+
+#ai-challenge-page .quotes-images {
+  text-shadow: 3px 3px 3px #590019; }
+  #ai-challenge-page .quotes-images .carousel-item p {
+    margin: 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0; }
+  #ai-challenge-page .quotes-images .quote-image-1 {
+    background-image: url("../images/about/quote-images/usa-16x9-min.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px; }
+  #ai-challenge-page .quotes-images .quote-image-2 {
+    background-image: url("../images/about/quote-images/nigeria-16x9-min.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px; }
+  #ai-challenge-page .quotes-images .quote-image-3 {
+    background-image: url("../images/about/quote-images/south-africa-16x9-min.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px; }
+  #ai-challenge-page .quotes-images .quote-image-4 {
+    background-image: url("../images/about/quote-images/uzbekistan-16x9-min.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px; }
+  #ai-challenge-page .quotes-images .quote-image-5 {
+    background-image: url("../images/about/quote-images/uzbekistan2-16x9-min.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px; }
 
 #ai-challenge-page .revolving-quotes {
   font-size: 24px; }
@@ -8893,11 +8934,17 @@ footer {
 
 @media (max-width: 991.98px) {
   #ai-challenge-page .revolving-quotes {
-    font-size: 20px; } }
+    font-size: 20px; }
+  #ai-challenge-page .stage-badges img {
+    width: 175px;
+    height: 175px; } }
 
 @media (max-width: 575.98px) {
   #ai-challenge-page .revolving-quotes {
-    font-size: 16px; } }
+    font-size: 16px; }
+  #ai-challenge-page .stage-badges img {
+    width: 150px;
+    height: 150px; } }
 
 .account-settings .avatar-settings .form-inline {
   justify-content: center; }

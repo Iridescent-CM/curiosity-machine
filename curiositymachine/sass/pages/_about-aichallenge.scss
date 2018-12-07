@@ -32,13 +32,66 @@
     }
   }
 
-  .aifc-album {
-    img {
-      max-height: 400px;
-      margin: auto;
+  .mid-page-cols {
+    line-height: 1.25em;
+  }
+
+  .stage-badges {
+    line-height: 1.25em;
+    p {
+      margin-bottom: 0;
     }
-    height: 400px;
-    width: 730px;
+    img {
+      width: 130px;
+      height: 130px;
+    }
+  }
+
+  .equation {
+    font-size: 60px;
+    color: #FF5050;
+  }
+
+  .quotes-images {
+    text-shadow: 3px 3px 3px #590019;
+    .carousel-item {
+      p {
+        margin: 15px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+    .quote-image-1 {
+      background-image: url('../images/about/quote-images/usa-16x9-min.jpg');
+      background-repeat:no-repeat;
+      background-size:cover;
+      height: 350px;
+    }
+    .quote-image-2 {
+      background-image: url('../images/about/quote-images/nigeria-16x9-min.jpg');
+      background-repeat:no-repeat;
+      background-size:cover;
+      height: 350px;
+    }
+    .quote-image-3 {
+      background-image: url('../images/about/quote-images/south-africa-16x9-min.jpg');
+      background-repeat:no-repeat;
+      background-size:cover;
+      height: 350px;
+    }
+    .quote-image-4 {
+      background-image: url('../images/about/quote-images/uzbekistan-16x9-min.jpg');
+      background-repeat:no-repeat;
+      background-size:cover;
+      height: 350px;
+    }
+    .quote-image-5 {
+      background-image: url('../images/about/quote-images/uzbekistan2-16x9-min.jpg');
+      background-repeat:no-repeat;
+      background-size:cover;
+      height: 350px;
+    }
   }
 
   .revolving-quotes {
@@ -52,11 +105,23 @@
     .revolving-quotes {
       font-size: 20px;
     }
+    .stage-badges {
+      img {
+        width: 175px;
+        height: 175px;
+      }
+    }
   }
 
   @include media-breakpoint-down(xs) {
     .revolving-quotes {
       font-size: 16px;
+    }
+    .stage-badges {
+      img {
+        width: 150px;
+        height: 150px;
+      }
     }
   }
 }
