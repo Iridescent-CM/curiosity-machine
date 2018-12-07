@@ -121,6 +121,7 @@
 		"../../sass/pages/_password-change.scss",
 		"../../sass/pages/_aifc-submission-page.scss",
 		"../../sass/pages/_aifc-timeline-page.scss",
+		"../../sass/pages/_aifc-families-page.scss",
 		"../../sass/utils/_backgrounds.scss",
 		"../../sass/utils/_cloak.scss"
 	],
