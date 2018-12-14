@@ -4,6 +4,8 @@ from django.http import HttpResponseRedirect, Http404
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
+from django.utils.functional import lazy
+from django.utils.text import format_lazy
 from django.contrib import messages
 from django.core.files.storage import default_storage
 from memberships.models import *
@@ -73,7 +75,10 @@ class NewMemberImportInline(InlineModelAdmin):
     verbose_name = "New import"
     verbose_name_plural = "Import members"
     can_delete = False
-    help_text = 'Creates student users and adds them to this membership. Input file must be csv format, utf-8 encoding. Use <a href="%s">this template</a>.' % (static('CM_Account_Creation_Template_Aug2016.csv'),)
+    help_text = format_lazy(
+        'Creates student users and adds them to this membership. Input file must be csv format, utf-8 encoding. Use <a href="{url}">this template</a>.',
+        url=lazy(static, str)('CM_Account_Creation_Template_Aug2016.csv')
+    )
 
     def has_change_permission(self, request):
         return False

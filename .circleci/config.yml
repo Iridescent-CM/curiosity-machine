@@ -43,6 +43,7 @@ jobs:
             - "/usr/local/lib/node_modules"
 
       - run: mkdir test-reports
+      - run: pipenv run python manage.py collectstatic --noinput
       - run:
           name: Pytest
           command: pipenv run pytest -s -v 2>&1 | tee test-reports/pytest.log

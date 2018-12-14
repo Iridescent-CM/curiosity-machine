@@ -23,6 +23,9 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
+# Don't let whitenoise slow things down too much
+WHITENOISE_AUTOREFRESH=True
+
 # This is mandatory config at the moment for our AwardForceChecklist serializer
 # Not sure it should be mandatory, but it is for now
 AICHALLENGE_FAMILY_PRE_SUBMISSION_SURVEY_ID = "XXX"
