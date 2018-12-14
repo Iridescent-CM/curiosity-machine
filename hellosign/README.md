@@ -30,7 +30,7 @@ Specific templates may require additional settings based on how they're used in 
 `HELLOSIGN_TEMPLATE_<uppercase name>_SETTING_NAME=value` will make "value" available as
 `ConsentTemplate(<ID>).setting_name` (given the correct ID).
 
-#### Family consent template
+#### Family consent template (deprecated)
 
 * `AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID`: ID of family consent template, which should be configured as above.
 * `HELLOSIGN_TEMPLATE_<family consent name>_ACTIVE`: defaults to False, set to turn on consent form check
