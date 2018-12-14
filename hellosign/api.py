@@ -20,7 +20,7 @@ class HelloSign():
     def _save_ids(self, signature, signature_request):
         signature.signature_request_id = signature_request.signature_request_id
         signature.signature_id = signature_request.signatures[0].signature_id
-        signature.save(update_fields=['signature_request_id', 'signature_id'])
+        signature.save(update_fields=['signature_request_id', 'signature_id', 'updated_at'])
 
     def _look_up_ids(self, signature):
         '''

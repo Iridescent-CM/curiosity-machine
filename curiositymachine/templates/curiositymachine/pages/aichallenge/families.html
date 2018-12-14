@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block title %}Welcome to the AI Family Challenge{% endblock %}
 
-{% block body-id %}ai-challenge-page{% endblock %}
+{% block body-classes %}aifc-pages{% endblock %}
 {% block content %}
 {% with active_nav="ai-families" %}
   {{ block.super }}
@@ -11,26 +11,41 @@
     <div class="col-md-10 offset-md-1 mt-5">
       <h2>Families</h2>
       <h3 class="mb-4">Do you want to learn about AI as a family? You can create a free family account and complete our program from home!</h3>
-    </div>
-    <div class="col-lg-3 offset-lg-2 col-md-4 offset-md-1 mt-3">
+      <hr>
       <p>The basics:</p>
       <ul>
         <li><p>You only need one account for your family to complete the <a href="{% url "challenges:challenges" %}?aifamilychallenge=1" target="_blank">18 AI lessons</a></p></li>
-        <li><p>You can submit your family's ideas to our <a href="https://meet.google.com/linkredirect?authuser=0&dest=https%3A%2F%2Firidescentsupport.zendesk.com%2Fhc%2Fen-us%2Farticles%2F115004048734-How-will-judging-and-the-Global-AI-Celebration-happen-" target="_blank">AI World Championship</a></p></li>
-        <li><p>We will send important updates and reminders</p></li>
+        <li><p>6 family teams (3 from each division) will win a trip to the <a href="https://meet.google.com/linkredirect?authuser=0&dest=https%3A%2F%2Firidescentsupport.zendesk.com%2Fhc%2Fen-us%2Farticles%2F115004048734-How-will-judging-and-the-Global-AI-Celebration-happen-" target="_blank">AI World Championship </a>in California, USA. Check below for eligibility requirements.</p></li>
       </ul>
-    </div>
-    <div class="col-lg-5 col-md-5 mt-3">
-      <img width="90%" height="90%" src="{% static 'images/about/momdaughterphoenix.png' %}">
-    </div>
-    <div class="col-md-10 offset-md-1 text-center">
       <hr class="hr-red mb-3"/>
       <h3 class="mb-4">Can my family submit to the AI World Championship?</h3>
-      <p>Remember, any family can complete the program! To submit your idea to the AI World Championship:</p>
+      <p>Remember, any family can complete the program! To be eligible for the AI World Championship competition, your family must submit to either the Junior or Senior division:</p>
     </div>
-    <div class="col-md-8 offset-md-2">
-      <img src="{% static 'images/about/competitiondetails.png' %}">
-      <p class="my-4 text-center"><em>To learn more about the competition requirements click <a href="https://iridescentsupport.zendesk.com/hc/en-us/articles/115004026093-Who-can-enter-the-competition" target="_blank">here</a>.</em></p>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <div class="aifc-pages-panel p-3 m-2">
+        <h4 class="aifc-pages-header">Junior Division:</h4>
+        <hr>
+        <p>As of January 1, 2019, the oldest child in family is 11 or younger.</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="aifc-pages-panel p-3 m-2">
+        <h4 class="aifc-pages-header"><strong>Senior Division:</strong></h4>
+        <hr>
+        <p>As of January 1, 2019, the oldest child in family is 12-16.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 offset-md-1 mt-4">
+      <ul>
+        <li>Minimum 1 parent/guardian and 1 child per family team</li>
+        <li>6 people maximum per family team</li>
+        <li>2 adults per team maximum</li>
+      </ul>
+      <p class="my-4 text-center mb-3"><em>To learn more about the competition requirements click <a href="https://iridescentsupport.zendesk.com/hc/en-us/articles/115004026093-Who-can-enter-the-competition" target="_blank">here</a>.</em></p>
     </div>
   </div>
 </div>

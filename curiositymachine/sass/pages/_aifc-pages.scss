@@ -1,0 +1,35 @@
+.aifc-pages {
+  .aifc-pages-panel {
+    border: 4px solid $primary-blue;
+    border-radius: 9px;
+    padding: 30px 12px 12px 12px;
+    margin: 30px 12px 12px 12px;
+  }
+
+  .aifc-pages-circle {
+    height: 150px;
+    width: auto;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+  }
+
+  .aifc-pages-subheader {
+    font-size: 20px;
+    color: $gray;
+  }
+
+  .aifc-pages-header {
+    font-size: 25px;
+    color: $gray;
+  }
+
+  .aifc-pages-arrow {
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 15px -15px 0 0 tomato inset;
+    transform: rotate(225deg);
+  }
+}

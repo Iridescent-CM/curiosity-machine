@@ -1,0 +1,31 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="jumbotron cm-jumbotron jumbotron-fluid bg-blue py-5">
+  <h1 class="my-3">Parental Consent</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <p class="mt-3">
+        Parents/guardians, please review and sign the consent form at the bottom of this page.
+      </p>
+      <div class="embed-responsive embed-responsive-16by9 my-5">
+        <iframe class="embed-responsive-item" src="{% static 'pdfs/family-account-parental-consent.pdf' %}"></iframe>
+      </div>
+      <div class="mb-5">
+        <p>
+          By signing, I attest that I am the parent/guardian registered on this account and that I agree to Curiosity Machine's terms.
+        </p>
+        <form action="{% url "families:create_permissionslip" %}" method="POST">
+          {% csrf_token %}
+          {% form_group form.signature help_text="Please spell out your full name" %}
+          <input type="submit" value="Sign form" class="btn btn-primary" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 
