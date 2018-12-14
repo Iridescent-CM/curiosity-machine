@@ -78,6 +78,8 @@ class GenericConsentTemplate(ConsentTemplate):
         return fields
 
 class FamilyConsentTemplate(ConsentTemplate):
+    # Deprecated; using families.models.PermissionSlip instead
+
     id = settings.AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID
 
     def get_custom_fields(self, signature):
