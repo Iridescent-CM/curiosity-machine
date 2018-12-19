@@ -16,7 +16,7 @@ class NoEmailInUsername:
         try:
             validate_email(value)
             email = True
-        except validate_email.ValidationError:
+        except:
             email = False
         if email:
             raise ValidationError('Email addresses may not be used for usernames.')
