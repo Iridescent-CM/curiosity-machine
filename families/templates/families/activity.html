@@ -1,8 +1,7 @@
-{% extends "families/base.html" %}
 {% load family_notifications %}
 
 {% block content %}
-  {% include 'families/_navigation.html' %}
+  <h3>Recent Activity</h3>
   <div class="row text-center">
     {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
   </div>
