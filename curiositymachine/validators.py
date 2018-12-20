@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, validate_email
 import re
 
 class UsernameUniquenessValidator:
@@ -11,8 +11,21 @@ class UsernameUniquenessValidator:
     def __eq__(self, other):
         return isinstance(other, self.__class__)
 
+class NoEmailInUsername:
+    def __call__(self, value):
+        try:
+            validate_email(value)
+            value_is_email = True
+        except ValidationError:
+            value_is_email = False
+
+        if value_is_email:
+            raise ValidationError('Email addresses may not be used for usernames.')
+            
+
 username_validators = [
     UsernameUniquenessValidator(),
+    NoEmailInUsername(),
     get_user_model().username_validator,
 ]
 
