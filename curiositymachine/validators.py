@@ -15,11 +15,10 @@ class NoEmailInUsername:
     def __call__(self, value):
         try:
             validate_email(value)
-            email = True
-        except:
-            email = False
-        if email:
             raise ValidationError('Email addresses may not be used for usernames.')
+        except ValidationError:
+            pass
+            
 
 username_validators = [
     UsernameUniquenessValidator(),
