@@ -26,14 +26,6 @@
           </a>
         </li>
         {% endif %}
-        {% if flags.enable_family_activity_notifications %}
-        <li class="nav-item {% ifactive "families:activity" "active" %}">
-          <a class="nav-link" href="{% url 'families:activity' %}">
-            Recent Activity
-            <span class="badge badge-purple">{% notifications_unread %}</span>
-          </a>
-        </li>
-        {% endif %}
         {% if flags.enable_aifcwc_tab %}
         <li class="nav-item {% ifactive "families:submission" "active" %}">
           <a class="nav-link" href="{% url 'families:submission' %}">

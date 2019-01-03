@@ -76,5 +76,8 @@
       </div>
     </div>
   </div>
+  {% if flags.enable_family_activity_notifications %}
+    {% include 'families/_activity.html' %}
+  {% endif %}
 {% endblock %}
 

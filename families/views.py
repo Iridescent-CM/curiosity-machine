@@ -82,15 +82,29 @@ class DashboardMixin:
             program_name=program_name
         )
 
-class HomeView(DashboardMixin, TemplateView):
+class HomeView(DashboardMixin, ListView):
     template_name = "families/home.html"
+    paginate_by = settings.DEFAULT_PER_PAGE
+    context_object_name = 'activity'
+
+    def get_queryset(self):
+        return self.request.user.notifications.all()
 
     def get_context_data(self, **kwargs):
         progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        return super().get_context_data(
-            **kwargs,
-            stages=get_stages(self.request.user),
-        )
+        context = super().get_context_data(**kwargs, stages=get_stages(self.request.user),)
+
+        by_day = {}
+        for notification in context['activity']:
+            day = notification.timestamp.date()
+            by_day[day] = by_day.get(day, [])
+            by_day[day].append(notification)
+
+        context.update({
+            "activity_by_day": by_day,
+        })
+
+        return context
 
 home = only_for_family(HomeView.as_view())
 
@@ -155,31 +169,6 @@ class PostSurveyInterruptionView(TemplateView):
 postsurvey_interruption = only_for_family(PostSurveyInterruptionView.as_view())
 
 conversion = TemplateView.as_view(template_name="families/conversion.html")
-
-class ActivityView(DashboardMixin, ListView):
-    template_name = "families/activity.html"
-    paginate_by = settings.DEFAULT_PER_PAGE
-    context_object_name = 'activity'
-
-    def get_queryset(self):
-        return self.request.user.notifications.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        by_day = {}
-        for notification in context['activity']:
-            day = notification.timestamp.date()
-            by_day[day] = by_day.get(day, [])
-            by_day[day].append(notification)
-
-        context.update({
-            "activity_by_day": by_day,
-        })
-
-        return context
-
-activity = only_for_family(ActivityView.as_view())
 
 class SubmissionView(DashboardMixin, TemplateView):
     template_name = "families/submission.html"
