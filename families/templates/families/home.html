@@ -16,7 +16,7 @@
   {% include "families/_dashboard_help.html" %}
   {% include 'families/_navigation.html' %}
 
-  <div class="row mb-5">
+  <div class="row mb-4 mt-4">
     <div class="col-md-4 mb-4">
       <h3>Family</h3>
       <div class="dashboard-section">
@@ -76,5 +76,8 @@
       </div>
     </div>
   </div>
+  {% if flags.enable_family_activity_notifications %}
+    {% include 'families/_activity.html' %}
+  {% endif %}
 {% endblock %}
 

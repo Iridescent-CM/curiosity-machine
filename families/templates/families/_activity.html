@@ -1,0 +1,23 @@
+{% load family_notifications %}
+<h3 class="mb-0">Recent Activity</h3>
+<div class="row mt-4 text-center">
+  {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+</div>
+{% for day, activity in activity_by_day.items %}
+<ul class="activity-list-group list-group mt-4 mb-5">
+  <li class="list-group-item list-group-item-dark">{{ day|date:"DATE_FORMAT" }}</li>
+  {% for notification in activity %}
+  <li class="list-group-item">
+    {% family_notification notification %}
+  </li>
+  {% endfor %}
+</ul>
+{% empty %}
+<ul class="list-group mt-4 mb-5">
+  <li class="list-group-item list-group-item-dark">{% now "DATE_FORMAT" %}</li>
+  <li class="list-group-item">No recent activity</li>
+<ul>
+{% endfor %}
+<div class="row text-center">
+  {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+</div>
