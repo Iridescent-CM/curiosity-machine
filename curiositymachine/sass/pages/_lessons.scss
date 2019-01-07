@@ -158,4 +158,10 @@
   .feedback-component {
     padding: 3em; // keep feedback component aligned with quiz
   }
+
+  .progress-panel {
+    hr {
+      margin: 10px;
+    }
+  }
 }
