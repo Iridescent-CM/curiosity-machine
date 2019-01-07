@@ -41,18 +41,13 @@
             <div class="progress-panel col-4">
               <h3>Your Progress</h3>
               <ul class="list-unstyled">
-                <li><span class="badge rounded-circle"> </span>Start</li>
-                <hr>
-                <li>Inspiration</li>
-                <hr>
-                <li>Plan</li>
-                <hr>
-                <li>Build</li>
-                <hr>
-                <li>Reflect</li>
-                <hr>
-                <li>Further Learning</li>
-                <hr>
+                {% for tab in lesson.tabs %}
+                  <li class="row">
+                    <div class="col-xs-1 position-absolute challenge-completed"></div>
+                    <div class="col">{{tab.name}}</div>
+                  </li>
+                  <hr>
+                {% endfor %}
               </ul>
             </div>
           </div>
