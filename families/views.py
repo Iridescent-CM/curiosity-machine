@@ -22,6 +22,7 @@ from .awardforce import *
 from .forms import *
 from .models import *
 from .serializers import *
+from .config import *
 
 only_for_family = only_for_role(UserRole.family)
 unapproved_ok = whitelist('unapproved_family')
@@ -171,7 +172,12 @@ postsurvey_interruption = only_for_family(PostSurveyInterruptionView.as_view())
 conversion = TemplateView.as_view(template_name="families/conversion.html")
 
 class SubmissionView(DashboardMixin, TemplateView):
-    template_name = "families/submission.html"
+    def get_template_names(self):
+        if AIFC_SEASON_OPEN:
+            template = "families/submission.html"
+        else:
+            template = "families/submission_closed.html"
+        return template
 
 submission = only_for_family(SubmissionView.as_view())
 

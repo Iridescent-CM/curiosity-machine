@@ -1,0 +1,1 @@
+AIFC_SEASON_OPEN = False
