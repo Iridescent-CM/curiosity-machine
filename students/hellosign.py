@@ -7,3 +7,4 @@ class Signer:
         if signature.signed:
             self.user.studentprofile.full_access = True
             self.user.studentprofile.save()
+            signals.account_activation_confirmed.send(sender=self.user)
