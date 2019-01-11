@@ -1,3 +1,5 @@
+from curiositymachine import signals
+
 class Signer:
     def __init__(self, user, *args, **kwargs):
         self.user = user
