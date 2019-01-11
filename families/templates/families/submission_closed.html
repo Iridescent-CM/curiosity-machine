@@ -1,10 +1,24 @@
 {% extends "families/base.html" %}
+{% load staticfiles %}
 
 {% block content %}
     {% include 'families/_navigation.html' %}
     <div class="row">
         <div class="col-12 text-center">
-            <h2>Season 1 of AI Family Challenge has ended</h2>
+            <h2>Season 2 of the AI Family Challenge Begins in August!</h2>
+        </div>
+        <div class="col-8 offset-2 text-center">
+            <img src="{% static '/images/examples/balloon-left-animated.gif' %}">
+            <img src="{% static '/images/examples/balloon-right-animated.gif' %}">
+            <p> 
+                Congratulations for submitting to the AI World Championship! We will 
+                notify all participants in March of the results--the top 3 teams for each 
+                divisions will be invited to our <a href="{% url 'aichallenge/worldchampionship' %}">
+                celebration in May</a>.
+            </p>
+            <p>
+                You can still view your submission but please note changes cannot be made!
+            </p>
         </div>
     </div>
 {% endblock %}
