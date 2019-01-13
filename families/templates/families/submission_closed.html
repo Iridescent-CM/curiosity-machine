@@ -7,7 +7,7 @@
         <div class="col-12">
             <h2>Season 2 of the AI Family Challenge Begins in August!</h2>
         </div>
-        {% if submitted %}
+        {% if request.user.awardforceintegration %}
             <div class="col-12">
                 <img src="{% static '/images/examples/balloon-left-animated.gif' %}">
                 <img class="d-none d-md-inline" src="{% static '/images/examples/balloon-right-animated.gif' %}">
@@ -22,11 +22,12 @@
                 <p>
                     You can still view your submission but please note changes cannot be made!
                 </p>
+                <a class="btn btn-primary text-secondary" href="{% url 'families:awardforce' %}">View your submission</a>
             </div>
         {% else %}
             <div class="col-8 offset-2">
                 <img class="w-50" src="{% static '/images/aifc/troublerobot.svg' %}">
-                <p>
+                <p class="mt-3">
                     Want to prepare? You can explore the AI Family Challenge projects now on the other tabs 
                     in your dashboard.
                 </p>
