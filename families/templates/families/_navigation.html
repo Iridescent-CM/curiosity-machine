@@ -26,14 +26,14 @@
           </a>
         </li>
         {% endif %}
-        {% comment %} {% if flags.enable_aifcwc_tab %} {% endcomment %}
+        {% if flags.enable_aifcwc_tab %}
         <li class="nav-item">
         {% comment %} {% ifactive "families:submission" "active" %} {% endcomment %}
           <a class="nav-link" href="{% url 'families:submission' %}">
             World Championship
           </a>
         </li>
-        {% comment %} {% endif %} {% endcomment %}
+        {% endif %}
       </ul>
     </nav>
   </div>

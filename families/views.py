@@ -22,7 +22,7 @@ from .awardforce import *
 from .forms import *
 from .models import *
 from .serializers import *
-from .config import *
+from django.conf import settings
 
 only_for_family = only_for_role(UserRole.family)
 unapproved_ok = whitelist('unapproved_family')
@@ -174,7 +174,7 @@ conversion = TemplateView.as_view(template_name="families/conversion.html")
 class SubmissionView(DashboardMixin, TemplateView):
     submitted = True
     def get_template_names(self):
-        if AIFC_SEASON_OPEN:
+        if settings.AIFC_SEASON_OPEN:
             template = "families/submission.html"
         else:
             template = "families/submission_closed.html"
