@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 class Survey:
 
@@ -9,6 +10,12 @@ class Survey:
 
     def __init__(self, id, *args, **kwargs):
         self.id = id
+        if not self.id:
+            raise ImproperlyConfigured('Can not instantiate Survey without a valid id')
+        try:
+            self.link
+        except AttributeError:
+            raise ImproperlyConfigured('SURVEY_%s_LINK must be properly configured' % self.id)
 
     def __getattr__(self, name):
         name = name.upper()

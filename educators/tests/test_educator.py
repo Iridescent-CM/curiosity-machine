@@ -24,6 +24,7 @@ def test_full_coach_access_with_active_survey(settings):
     coaches = MembershipFactory()
     settings.AICHALLENGE_COACH_MEMBERSHIP_ID = coaches.id
     settings.AICHALLENGE_COACH_PRE_SURVEY_ID = '987'
+    settings.SURVEY_987_LINK = 'x'
     settings.SURVEY_987_ACTIVE = 1
 
     notcoach = EducatorFactory()
@@ -45,6 +46,7 @@ def test_full_coach_access_with_inactive_survey(settings):
     coaches = MembershipFactory()
     settings.AICHALLENGE_COACH_MEMBERSHIP_ID = coaches.id
     settings.AICHALLENGE_COACH_PRE_SURVEY_ID = '987'
+    settings.SURVEY_987_LINK = 'x'
     settings.SURVEY_987_ACTIVE = ''
 
     notcoach = EducatorFactory()
