@@ -1,0 +1,45 @@
+{% extends "families/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    {% include 'families/_navigation.html' %}
+    <div class="row text-center">
+        <div class="col-12">
+            <h2>Season 2 of the AI Family Challenge Begins in August!</h2>
+        </div>
+        {% if request.user.awardforceintegration %}
+        <div class="col-12">
+            <img src="{% static '/images/examples/balloon-left-animated.gif' %}">
+            <img class="d-none d-md-inline" src="{% static '/images/examples/balloon-right-animated.gif' %}">
+        </div>
+        <div class="text-left col-8 offset-2 mt-3">
+            <p> 
+                Congratulations for submitting to the AI World Championship! We will 
+                notify all participants in March of the results--the top 3 teams for each 
+                divisions will be invited to our <a href="{% url 'aichallenge/worldchampionship' %}">
+                celebration in May</a>.
+            </p>
+            <p>
+                You can still view your submission but please note changes cannot be made!
+            </p>
+            <div class="text-center">
+                <a class="btn btn-primary" href="{% url "families:awardforce" %}" target="_blank">View your submission</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-8 offset-2">
+            <img class="w-50" src="{% static '/images/aifc/troublerobot.svg' %}">
+            <div class="text-left">
+                <p class="mt-3">
+                    Want to prepare? You can explore the AI Family Challenge projects now on the other tabs 
+                    in your dashboard.
+                </p>
+                <p>
+                    The Season 1 AI World Championship will take place in May 2019.
+                </p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+    
