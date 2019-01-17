@@ -347,22 +347,6 @@ def test_challenge_access_decorator_allows_named_user(rf):
     response = wrapped(request, challenge_id=1, username='named')
     assert view.called
 
-@pytest.mark.django_db
-def test_challenge_access_decorator_allows_connected_parent(rf):
-    parent = ParentFactory()
-    child = StudentFactory(username="student")
-    ParentConnectionFactory(
-        parent_profile=parent.parentprofile,
-        child_profile=child.studentprofile,
-        active=True
-    )
-    view = mock.MagicMock()
-    request = rf.get('/some/path')
-    request.user = parent
-    wrapped = decorators.current_user_or_approved_viewer(view)
-    response = wrapped(request, challenge_id=1, username='student')
-    assert view.called
-
 def test_mediaurlfield_value_is_dictionary():
     class MyForm(forms.Form):
         mediaURL = MediaURLField()

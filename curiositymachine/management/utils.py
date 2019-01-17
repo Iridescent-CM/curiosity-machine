@@ -129,10 +129,6 @@ def load_fixture(f):
         'image': images,
         'location': locations,
     }, build=True)
-    parentprofiles = pk_map(data, 'parents.parentprofile', ParentProfileFactory, lookups={
-        'user': users,
-        'image': images,
-    }, build=True)
     mentorprofiles = pk_map(data, 'mentors.mentorprofile', MentorProfileFactory, lookups={
         'user': users,
         'image': images,

@@ -3,7 +3,6 @@ from challenges.factories import ChallengeFactory, ExampleFactory, ProgressFacto
 from django.core.urlresolvers import reverse
 from educators.factories import EducatorFactory
 from mentors.factories import MentorFactory
-from parents.factories import ParentFactory, ParentConnectionFactory
 from students.factories import StudentFactory
 
 pytestmark = pytest.mark.integration

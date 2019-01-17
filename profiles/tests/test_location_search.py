@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from educators.factories import *
 from families.factories import *
 from mentors.factories import *
-from parents.factories import *
 from students.factories import *
 from ..admin import UserAdminWithExtra
 import mock
@@ -22,7 +21,6 @@ def req():
     (StudentFactory, 'studentprofile'),
     (EducatorFactory, 'educatorprofile'),
     (MentorFactory, 'mentorprofile'),
-    (ParentFactory, 'parentprofile')
 ])
 @pytest.mark.django_db
 def test_search_on_old_city_field(factoryclass, relatedname, admin, req):
