@@ -172,19 +172,12 @@ postsurvey_interruption = only_for_family(PostSurveyInterruptionView.as_view())
 conversion = TemplateView.as_view(template_name="families/conversion.html")
 
 class SubmissionView(DashboardMixin, TemplateView):
-    submitted = True
     def get_template_names(self):
-        if settings.AIFC_SEASON_OPEN:
+        if settings.AICHALLENGE_SEASON_OPEN:
             template = "families/submission.html"
         else:
             template = "families/submission_closed.html"
         return template
-
-    def get_context_data(self, **kwargs):
-        return super().get_context_data(
-            **kwargs, 
-            submitted=True,
-        )
 
 submission = only_for_family(SubmissionView.as_view())
 
