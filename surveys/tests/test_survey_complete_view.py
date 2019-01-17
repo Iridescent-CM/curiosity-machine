@@ -9,6 +9,7 @@ def test_completes(client, settings):
     settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS=False
     user = UserFactory(username='username', password='password')
     sr = SurveyResponseFactory(user=user)
+    setattr(settings, "SURVEY_%s_LINK" % sr.survey_id, "link")
     assert sr.unknown
 
     client.login(username='username', password='password')
@@ -23,6 +24,7 @@ def test_completes(client, settings):
 def test_redirects_as_configured(client, settings):
     settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS=False
     settings.SURVEY_987_REDIRECT="logout"
+    settings.SURVEY_987_LINK="link"
 
     user = UserFactory(username='username', password='password')
     sr = SurveyResponseFactory(user=user, survey_id=987)
@@ -39,6 +41,7 @@ def test_redirects_as_configured(client, settings):
 def test_sets_message_as_configured(client, settings):
     settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS=False
     settings.SURVEY_987_MESSAGE="great job everybody"
+    settings.SURVEY_987_LINK="link"
 
     user = UserFactory(username='username', password='password')
     sr = SurveyResponseFactory(user=user, survey_id=987)
@@ -56,6 +59,7 @@ def test_no_referer(client, settings):
     settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS=False
     user = UserFactory(username='username', password='password')
     sr = SurveyResponseFactory(user=user)
+    setattr(settings, "SURVEY_%s_LINK" % sr.survey_id, "link")
 
     client.login(username='username', password='password')
     client.get(
