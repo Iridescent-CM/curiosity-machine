@@ -8,7 +8,6 @@ from django.utils.timezone import now
 from educators.factories import *
 from images.models import Image
 from mentors.factories import *
-from parents.factories import *
 from profiles.factories import *
 from profiles.models import UserRole
 from students.factories import *
@@ -31,13 +30,10 @@ def test_send_welcome_email_skips_excluded_user_types():
 
 def test_send_welcome_email_differentiates_user_categories():
     educator = EducatorFactory.build()
-    parent = ParentFactory.build()
 
     with mock.patch('cmemails.signals.handlers.send') as send:
         signals.handlers.send_welcome_email(educator)
         assert send.call_args[1]['template_name'] == 'educator-welcome'
-        signals.handlers.send_welcome_email(parent)
-        assert send.call_args[1]['template_name'] == 'parent-welcome'
 
 def test_send_template_handles_single_recipient():
     student = StudentFactory.build()

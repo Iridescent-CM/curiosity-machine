@@ -3,7 +3,6 @@ from challenges.factories import *
 from django.core.urlresolvers import reverse
 from educators.factories import *
 from mentors.factories import *
-from parents.factories import *
 from profiles.factories import *
 from students.factories import *
 
@@ -94,7 +93,7 @@ def test_nonstudent_template_gets_examples(client):
 def test_challenge_decorated_with_user_accessibility_for_all_types(client):
     challenge = ChallengeFactory()
 
-    for i, Factory in enumerate([StudentFactory, MentorFactory, EducatorFactory, ParentFactory]):
+    for i, Factory in enumerate([StudentFactory, MentorFactory, EducatorFactory]):
         user = StudentFactory(username="user%d" % i, password="password")
 
         client.login(username="user%d" % i, password="password")

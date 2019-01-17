@@ -34,10 +34,6 @@ USER_ROLE_CONFIG = {
         'app': 'educators',
         'profileclass': 'EducatorProfile'
     },
-    'parent': {
-        'app': 'parents',
-        'profileclass': 'ParentProfile'
-    },
     'family': {
         'app': 'families',
         'profileclass': 'FamilyProfile'

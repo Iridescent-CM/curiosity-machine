@@ -11,7 +11,6 @@ from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, ListView, RedirectView, TemplateView, UpdateView
 from hellosign import jobs
 from hellosign.models import StudentConsentTemplate
-from parents.models import ParentConnection
 from profiles.decorators import not_for_role, only_for_role, UserRole
 from profiles.views import EditProfileMixin
 from .forms import *
