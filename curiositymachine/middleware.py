@@ -23,14 +23,6 @@ def whitelisted(view, *listnames):
             return True
     return False
 
-class CanonicalDomainMiddleware(MiddlewareMixin):
-    """
-    Redirects to CANONICAL_DOMAIN from other domains if set
-    """
-    def process_request(self, request):
-        if settings.CANONICAL_DOMAIN and not request.META['HTTP_HOST'] == settings.CANONICAL_DOMAIN:
-            return HttpResponseRedirect('http://{}/{}'.format(settings.CANONICAL_DOMAIN, escape_uri_path(request.get_full_path()))) # might as well redirect to http as sslify will then catch requests if appropriate
-
 class LoginRequiredMiddleware(MiddlewareMixin):
     """
     Redirects to login if view isn't in 'public' or 'maybe_public' whitelists, or view has raised LoginRequired
