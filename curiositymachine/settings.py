@@ -48,10 +48,6 @@ SITE_URL = os.getenv('SITE_URL', '')
 ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMINS", '').split(',')])
 INTERNAL_IPS = os.getenv('INTERNAL_IPS', '').split(',') if os.getenv('INTERNAL_IPS') else []
 
-# Canonical domain -- if this is set, all requests not to this domain will be forwarded to this domain
-# this should be a bare domain -- no scheme or route! For instance, www.example.com and not http://www.example.com
-CANONICAL_DOMAIN = os.getenv("CANONICAL_DOMAIN", None)
-
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False) # no compression by default for now
 
 WEBPACK_LOADER = {
@@ -117,7 +113,6 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'curiositymachine.middleware.CanonicalDomainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
