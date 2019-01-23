@@ -79,7 +79,6 @@ INSTALLED_APPS = (
     'profiles',
     'locations.apps.LocationsConfig',
     'students',
-    'parents',
     'mentors',
     'educators',
     'families.apps.FamiliesConfig',

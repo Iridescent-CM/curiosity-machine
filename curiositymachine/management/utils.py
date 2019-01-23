@@ -13,7 +13,6 @@ from images.factories import *
 from locations.factories import *
 from memberships.factories import *
 from mentors.factories import *
-from parents.factories import *
 from profiles.factories import *
 from students.factories import *
 from surveys.factories import *

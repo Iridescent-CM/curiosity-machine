@@ -15,7 +15,6 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from educators.factories import *
 from mentors.factories import *
-from parents.factories import *
 from profiles.factories import *
 from profiles.models import UserRole
 from pyquery import PyQuery as pq
