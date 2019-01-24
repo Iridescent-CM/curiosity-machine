@@ -163,9 +163,50 @@
     hr {
       margin: 10px;
     }
-    .challenge-started {
+    ul {
+      display: list-item;
+    }
+    li {
+      background-repeat: no-repeat;
       background-size: contain;
-      
+      margin: 5 0 5 0;
+      background-position-x: 15px;
+    }
+    .not-started {
+      .badge {
+        border: 1px solid black;
+        padding: 10px;
+        vertical-align: middle;
+        margin-right: 20px;
+      }
+      padding: 0px 15px 0px 15px;
+    }
+    .started{
+      background-image:  url("../images/challenges/blue_circle.png");
+      padding-left: 50px;
+    }
+    .completed {
+      background-image: url("../images/challenges/green_circle.png");
+      padding-left: 50px;
     }
   }
 }
+
+// .challenge-nav .guide .guide-button:before {
+//   content: '\e043';
+//   position: relative;
+//   top: 1px;
+//   display: inline-block;
+//   font-family: 'Glyphicons Halflings';
+//   font-style: normal;
+//   font-weight: normal;
+//   line-height: 1;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   color: #44b1f5;
+//   background: none;
+//   text-align: center;
+//   font-size: 30px;
+//   margin: 0px 0px 4px 0px;
+//   display: block;
+// }

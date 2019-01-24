@@ -18,23 +18,29 @@ class Lesson(OrderedModel):
     quiz = models.ForeignKey('Quiz', null=True, blank=True, on_delete=models.SET_NULL)
     upload_prompt = models.TextField(null=True, blank=True, default='')
     text_prompt = models.TextField(null=True, blank=True, default='')
-
+        
     class Meta(OrderedModel.Meta):
         pass
-
+    
     def get_absolute_url(self):
         return reverse("lessons:lesson-detail", kwargs={
             "pk": self.id,
         })
 
     def __str__(self):
-        return "Lesson: id={} title={}".format(self.id, self.title)
+        return "Lesson: id={} title={}".format(self.id, self.title) 
 
 class Progress(models.Model):
     lesson = models.ForeignKey(Lesson)
     owner = models.ForeignKey(get_user_model(), related_name='lesson_progresses')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    start = "not-started"
+    inspiration = "not-started"
+    plan = "not-started"
+    build = "not-started"
+    reflect = "not-started"
+    further = "not-started" 
 
     class Meta:
         verbose_name_plural = "progresses"
@@ -52,6 +58,11 @@ class Progress(models.Model):
         return (self.comment_set.all().exists()
             and self.lesson.quiz
             and self.lesson.quiz.quizresult_set.all().exists())
+
+    def set_tab_status(self, tab):
+        setattr(self, tab, "started")
+        print('current tab is', tab)
+        print('plan status is', self.plan)
 
 class Comment(models.Model):
     author = models.ForeignKey(get_user_model(), related_name='lesson_comments')

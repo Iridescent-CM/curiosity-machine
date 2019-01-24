@@ -30,23 +30,52 @@
           {% endfor %}
         </nav>
 
-        <div class="lesson-container {{ lesson.active_tab.param }} shadow pt-3">
+        <div class="lesson-container {{ lesson.active_tab.param }} shadow pt-3 pr-3">
           <div class="row">
             <div class="col-8">
               {% block full_content %}
-                {{ lesson.active_tab.content|safe }}
+              {{ lesson.active_tab.content|safe }}
               {% endblock %}
             </div>
-
             <div class="progress-panel col-4">
               <h3>Your Progress</h3>
               <ul class="list-unstyled">
+                {% comment %} <li class="completed">
+                  <span class="badge rounded-circle"> </span>
+                  Start
+                </li>
+                <hr>
+                <li class="completed">
+                  <span class="badge rounded-circle"> </span>
+                  Inspiration
+                </li>
+                <hr>
+                <li class="completed">
+                  <span class="badge rounded-circle"> </span>
+                  Plan
+                </li>
+                <hr>
+                <li class="started">
+                  <span class="badge rounded-circle"> </span>
+                  Build Test Redesign
+                </li>
+                <hr>
+                <li class="not-started">
+                  <span class="badge rounded-circle"> </span>
+                  Reflect
+                </li>
+                <hr>
+                <li class="not-started">
+                  <span class="badge rounded-circle"> </span>
+                  Further Learning
+                </li>
+                <hr> {% endcomment %}
                 {% for tab in lesson.tabs %}
-                  <li class="row">
-                    <div class="col-xs-1 position-absolute challenge-completed"></div>
-                    <div class="col">{{tab.name}}</div>
-                  </li>
-                  <hr>
+                <li class="{{lesson.progress.tab}}">
+                  <span class="badge rounded-circle"> </span>
+                  {{tab.name}}
+                </li>
+                <hr>
                 {% endfor %}
               </ul>
             </div>

@@ -9655,8 +9655,30 @@ footer {
 .lesson-pages .progress-panel hr {
   margin: 10px; }
 
-.lesson-pages .progress-panel .challenge-started {
-  background-size: contain; }
+.lesson-pages .progress-panel ul {
+  display: list-item; }
+
+.lesson-pages .progress-panel li {
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 5 0 5 0;
+  background-position-x: 15px; }
+
+.lesson-pages .progress-panel .not-started {
+  padding: 0px 15px 0px 15px; }
+  .lesson-pages .progress-panel .not-started .badge {
+    border: 1px solid black;
+    padding: 10px;
+    vertical-align: middle;
+    margin-right: 20px; }
+
+.lesson-pages .progress-panel .started {
+  background-image: url("../images/challenges/blue_circle.png");
+  padding-left: 50px; }
+
+.lesson-pages .progress-panel .completed {
+  background-image: url("../images/challenges/green_circle.png");
+  padding-left: 50px; }
 
 .mentor-dashboard .row-dark {
   background: #e5e1d9;

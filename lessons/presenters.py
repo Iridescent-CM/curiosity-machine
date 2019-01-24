@@ -2,8 +2,8 @@ from collections import OrderedDict
 from django.urls import reverse
 from .models import *
 
-class TabbedLesson(object):
-
+class TabbedLesson(object):   
+    
     config = OrderedDict({
         "start": "Start",
         "inspiration": "Inspiration",
@@ -17,6 +17,7 @@ class TabbedLesson(object):
         self.lesson = lesson
         self.progress = progress
         self.current_page = current_page or "start"
+        progress.set_tab_status(current_page)
 
     def __getattr__(self, name):
         return getattr(self.lesson, name)
