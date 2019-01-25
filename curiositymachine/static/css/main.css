@@ -9748,21 +9748,7 @@ footer {
 
 .aifc-pages .aifc-pages-icons {
   font-size: 50px;
-  color: #fd7e14;
-  position: relative;
-  left: 0; }
-
-.aifc-pages .aifc-icon-text {
-  position: absolute;
-  right: 325px;
-  margin-bottom: 10px;
-  float: right; }
-
-.aifc-pages .aifc-pages-map {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  width: 75%; }
+  color: #fd7e14; }
 
 .bg-primary {
   background-color: #00B1C3;
