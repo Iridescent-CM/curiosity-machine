@@ -32,4 +32,25 @@
     box-shadow: 15px -15px 0 0 tomato inset;
     transform: rotate(225deg);
   }
+
+  .aifc-pages-icons {
+    font-size: 50px;
+    color: $orange;
+    position: relative;
+    left: 0;
+  }
+
+  .aifc-icon-text {
+    position: absolute;
+    right: 325px;
+    margin-bottom: 10px;
+    float: right;
+  }
+
+  .aifc-pages-map {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 75%;
+  }
 }
