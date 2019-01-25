@@ -5,6 +5,7 @@ from django.db import models
 from django.urls import reverse
 from images.models import Image
 from ordered_model.models import OrderedModel
+from .config import *
 
 class Lesson(OrderedModel):
     title = models.CharField(max_length=255, null=True, blank=True)
@@ -35,13 +36,13 @@ class Progress(models.Model):
     owner = models.ForeignKey(get_user_model(), related_name='lesson_progresses')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    start = "not-started"
-    inspiration = "not-started"
-    plan = "not-started"
-    build = "not-started"
-    reflect = "not-started"
-    further = "not-started" 
-
+    start = models.CharField(max_length=20, default=NOT_STARTED)
+    inspiration = models.CharField(max_length=20, default=NOT_STARTED)
+    plan = models.CharField(max_length=20, default=NOT_STARTED)
+    build = models.CharField(max_length=20, default=NOT_STARTED)
+    reflect = models.CharField(max_length=20, default=NOT_STARTED)
+    further = models.CharField(max_length=20, default=NOT_STARTED)
+    
     class Meta:
         verbose_name_plural = "progresses"
         unique_together = ('lesson', 'owner',)
@@ -59,10 +60,11 @@ class Progress(models.Model):
             and self.lesson.quiz
             and self.lesson.quiz.quizresult_set.all().exists())
 
-    def set_tab_status(self, tab):
-        setattr(self, tab, "started")
-        print('current tab is', tab)
-        print('plan status is', self.plan)
+    def get_tab_status(self, tab):
+        return getattr(self, tab)
+    
+    def save(self):
+        super(Progress, self).save()
 
 class Comment(models.Model):
     author = models.ForeignKey(get_user_model(), related_name='lesson_comments')

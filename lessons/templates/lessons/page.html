@@ -40,43 +40,36 @@
             <div class="progress-panel col-4">
               <h3>Your Progress</h3>
               <ul class="list-unstyled">
-                {% comment %} <li class="completed">
+                <li class="{{progress.start}}">
                   <span class="badge rounded-circle"> </span>
                   Start
                 </li>
                 <hr>
-                <li class="completed">
+                <li class="{{progress.inspiration}}">
                   <span class="badge rounded-circle"> </span>
                   Inspiration
                 </li>
                 <hr>
-                <li class="completed">
+                <li class="{{progress.plan}}">
                   <span class="badge rounded-circle"> </span>
                   Plan
                 </li>
                 <hr>
-                <li class="started">
+                <li class="{{progress.build}}">
                   <span class="badge rounded-circle"> </span>
                   Build Test Redesign
                 </li>
                 <hr>
-                <li class="not-started">
+                <li class="{{progress.reflect}}">
                   <span class="badge rounded-circle"> </span>
                   Reflect
                 </li>
                 <hr>
-                <li class="not-started">
+                <li class="{{progress.further}}">
                   <span class="badge rounded-circle"> </span>
                   Further Learning
                 </li>
-                <hr> {% endcomment %}
-                {% for tab in lesson.tabs %}
-                <li class="{{lesson.progress.tab}}">
-                  <span class="badge rounded-circle"> </span>
-                  {{tab.name}}
-                </li>
                 <hr>
-                {% endfor %}
               </ul>
             </div>
           </div>

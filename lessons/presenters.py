@@ -17,10 +17,36 @@ class TabbedLesson(object):
         self.lesson = lesson
         self.progress = progress
         self.current_page = current_page or "start"
-        progress.set_tab_status(current_page)
+        self.update_tab_status(current_page)
 
     def __getattr__(self, name):
         return getattr(self.lesson, name)
+
+    def update_tab_status(self, current_page):
+        self.update_visited_pages(current_page)
+        self.update_build_status()
+        self.update_reflect_status()
+        self.progress.save()
+
+    def update_visited_pages(self, current_page):
+        if self.progress.start == STARTED:
+            self.progress.start = COMPLETED
+        if self.progress.inspiration == STARTED:
+            self.progress.inspiration = COMPLETED
+        if self.progress.plan == STARTED:
+            self.progress.plan = COMPLETED
+        if self.progress.further == STARTED:
+            self.progress.further = COMPLETED
+        if self.progress.get_tab_status(current_page) == NOT_STARTED:
+            setattr(self.progress, current_page, STARTED)
+
+    def update_build_status(self):
+        if self.progress.build == STARTED and self.progress.comment_set.all().exists():
+            self.progress.build == COMPLETED  
+
+    def update_reflect_status(self):
+        if self.progress.reflect == STARTED and self.quiz and self.quiz.quizresult_set.all().exists():
+            self.progress.reflect == COMPLETED
 
     @property
     def valid(self):
@@ -76,3 +102,4 @@ class TabbedLesson(object):
             return reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % next_lesson.id
         else:
             return reverse("lessons:lesson-detail", kwargs={"pk": next_lesson.id})
+

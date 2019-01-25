@@ -21,3 +21,7 @@ LESSON_NAV = OrderedDict({
     }
 })
 
+NOT_STARTED = "not-started"
+STARTED = "started"
+COMPLETED = "completed"
+
