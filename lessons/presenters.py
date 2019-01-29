@@ -37,16 +37,18 @@ class TabbedLesson(object):
             self.progress.plan = COMPLETED
         if self.progress.further == STARTED:
             self.progress.further = COMPLETED
-        if self.progress.get_tab_status(current_page) == NOT_STARTED:
-            setattr(self.progress, current_page, STARTED)
+        if getattr(self.progress, self.current_page) == NOT_STARTED:
+            setattr(self.progress, self.current_page, STARTED)
 
     def update_build_status(self):
+        print(self.progress.build)
+        print(self.progress.comment_set.all().exists())
         if self.progress.build == STARTED and self.progress.comment_set.all().exists():
-            self.progress.build == COMPLETED  
+            setattr(self.progress, "build", COMPLETED)
 
     def update_reflect_status(self):
-        if self.progress.reflect == STARTED and self.quiz and self.quiz.quizresult_set.all().exists():
-            self.progress.reflect == COMPLETED
+        if self.progress.reflect == STARTED and self.quiz and self.quiz.quizresult_set.exists():
+            setattr(self.progress, "reflect", COMPLETED)
 
     @property
     def valid(self):

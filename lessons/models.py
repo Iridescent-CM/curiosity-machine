@@ -60,12 +60,6 @@ class Progress(models.Model):
             and self.lesson.quiz
             and self.lesson.quiz.quizresult_set.all().exists())
 
-    def get_tab_status(self, tab):
-        return getattr(self, tab)
-    
-    def save(self):
-        super(Progress, self).save()
-
 class Comment(models.Model):
     author = models.ForeignKey(get_user_model(), related_name='lesson_comments')
     lesson_progress = models.ForeignKey(Progress)
