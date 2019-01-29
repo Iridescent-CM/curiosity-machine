@@ -22,3 +22,4 @@ class LessonViewSet(viewsets.GenericViewSet):
             raise Http404
 
         return Response({'lesson': lesson})
+        
