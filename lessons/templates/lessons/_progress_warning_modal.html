@@ -1,0 +1,36 @@
+<div class="modal modal-cm fade m-3" id="progress-warning-modal" tabindex="0" role="dialog" 
+        aria-labelledby="progress-warning-modal" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-new-orange p-2">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="m-3">
+                <p>{{ lesson.progress_warning }}</p>
+            </div>
+            <div class="row m-3 relative-nav">
+                <div class="col-4">
+                    {% block left-nav %}
+                    <a href="?page={{ lesson.active_tab.param }}" class="btn btn-outline-primary float-right">&lsaquo; Keep Working</a>
+                    {% endblock %}
+                </div>
+                <div class="col-4">
+                </div>
+                <div class="col-4">
+                    {% block right-nav %}
+                    {% if lesson.active_tab.param == "further" %}
+                    <a href="{{ lesson.next_lesson_url }}" class="btn btn-new-green float-right">
+                        <span class="d-none d-md-inline">Start the next lesson &rsaquo;</span>
+                    </a>
+                    {% else %}
+                    <a href="?page={{ lesson.next_tab.param }}" class="btn btn-outline-primary float-right">Next &rsaquo;</a>
+                    {% endif %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+  {% include "lessons/_progress_warning_modal.html" %}
 
   <div class="container">
     <div class="row my-5">
@@ -89,9 +90,12 @@
               </div>
               <div class="col-4">
                 {% block right-nav %}
-                {% if lesson.next_tab %}
+                {% if lesson.show_warning %}
+                <button class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#progress-warning-modal">Next &rsaquo;</a>
+                {% elif lesson.next_tab %}
                 <a href="?page={{ lesson.next_tab.param }}" class="btn btn-outline-primary float-right">Next &rsaquo;</a>
                 {% endif %}
+                
                 {% endblock %}
               </div>
             </div>

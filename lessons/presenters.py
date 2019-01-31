@@ -49,6 +49,17 @@ class TabbedLesson(object):
     def update_reflect_status(self):
         if self.progress.reflect == STARTED and self.quiz and self.quiz.quizresult_set.exists():
             setattr(self.progress, "reflect", COMPLETED)
+    
+    def progress_warning(self):
+        if self.current_page == "build":
+            return "You haven't submitted anythong on the Build section."
+        if self.current_page == "reflect" or self.current_page == "further":
+            return "Looks like you're missing something."
+
+    def show_warning(self):
+        return ((self.current_page == "build" and self.progress.build != COMPLETED)
+            or (self.current_page == "reflect" and self.progress.reflect != COMPLETED)
+            or (self.current_page == "further" and (self.progress.build != COMPLETED or self.progress.reflect != COMPLETED)))
 
     @property
     def valid(self):

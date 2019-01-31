@@ -2,10 +2,13 @@
 
 {% block right-nav %}
   {% if lesson.next_lesson_url %}
+  {% if lesson.show_warning %}
+  <button class="btn btn-new-green float-right" data-toggle="modal" data-target="#progress-warning-modal">Start the next lesson &rsaquo;</a>
+  {% else %}
   <a href="{{ lesson.next_lesson_url }}" class="btn btn-new-green float-right">
     <span class="d-none d-md-inline">Start the next lesson &rsaquo;</span>
-    <span class="d-inline d-md-none">Next &rsaquo;</span>
   </a>
+  {% endif %}
   {% endif %}
 {% endblock %}
 
