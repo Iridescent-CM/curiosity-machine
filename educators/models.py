@@ -13,7 +13,7 @@ class EducatorProfile(BaseProfile):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     organization = models.CharField(
         validators=[validate_simple_latin],
-        max_length=50,
+        max_length=100,
         null=True,
         blank=True
     )
