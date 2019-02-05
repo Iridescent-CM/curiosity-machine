@@ -31,14 +31,14 @@
           {% endfor %}
         </nav>
 
-        <div class="lesson-container {{ lesson.active_tab.param }} shadow pt-3 pr-3">
+        <div class="lesson-container {{ lesson.active_tab.param }} shadow pt-5 pl-4 pr-2">
           <div class="row">
             <div class="col-8">
               {% block full_content %}
               {{ lesson.active_tab.content|safe }}
               {% endblock %}
             </div>
-            <div class="progress-panel col-4">
+            <div class="progress-panel col-lg-4 col-xs-6">
               <h3>Your Progress</h3>
               <ul class="list-unstyled">
                 <li class="{{progress.start}}">
