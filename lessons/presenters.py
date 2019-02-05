@@ -26,25 +26,28 @@ class TabbedLesson(object):
         self.update_visited_pages(current_page)
         self.update_build_status()
         self.update_reflect_status()
-        self.progress.save()
+        if self.progress:
+            self.progress.save()
 
     def update_visited_pages(self, current_page):
-        if getattr(self.progress, "start") == STARTED:
-            setattr(self.progress, "start", COMPLETED)
-        if getattr(self.progress, "inspiration") == STARTED:
-            setattr(self.progress, "inspiration", COMPLETED)
-        if getattr(self.progress, "plan") == STARTED:
-            setattr(self.progress, "plan", COMPLETED)
-        if getattr(self.progress, "further") == STARTED:
-            setattr(self.progress, "further", COMPLETED)
-        if getattr(self.progress, self.current_page) == NOT_STARTED:
-            setattr(self.progress, self.current_page, STARTED)
+        if self.progress:
+            if self.progress.start == STARTED:
+                self.progress.start = COMPLETED
+            if self.progress.inspiration == STARTED:
+                self.progress.inspiration = COMPLETED
+            if self.progress.plan == STARTED:
+                self.progress.plan = COMPLETED
+            if self.progress.further == STARTED:
+                self.progress.further = COMPLETED
+            if getattr(self.progress, self.current_page) == NOT_STARTED:
+                setattr(self.progress, self.current_page, STARTED)
 
     def update_build_status(self):
-        if self.progress.build_completed:
-            setattr(self.progress, "build", COMPLETED)
-        elif self.progress.build == COMPLETED:
-            setattr(self.progress, "build", STARTED)
+        if self.progress:
+            if self.progress.comment_set.all().exists():
+                self.progress.build = COMPLETED
+            elif self.progress.build == COMPLETED:
+                self.progress.build = STARTED
 
     def update_reflect_status(self):
         if self.quiz and self.quiz.quizresult_set.exists():
