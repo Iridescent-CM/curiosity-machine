@@ -2,48 +2,84 @@
 {% load staticfiles %}
 {% block title %}Welcome to the AI Family Challenge{% endblock %}
 
-{% block body-id %}ai-challenge-page{% endblock %}
+{% block body-classes %} {{ block.super }} aifc-pages {% endblock %}
 {% block content %}
 {% with active_nav="ai-coaches" %}
   {{ block.super }}
 <div class="container">
   <div class="row">
     <div class="col-md-10 offset-md-1 mt-5">
-      <h2>Coaches</h2>
-      <h3 class="mb-4">Interested in Coaching? Educators can use our free AI Family Challenge <a href="{% url "challenges:challenges" %}?aifamilychallenge=1" target="_blank">resources</a> with students and families.</h3>
-      <p>The basics:</p>
+      <h2>We welcome leaders from around the world to join us!</h2>
+      <img class="d-block w-75 mx-auto" src="{% static 'images/about/aifc-world.svg'%}">
+      <h4 class="aifc-pages-header">Why join as a program site?</h4>
       <ul>
-        <li>Educators can create <a href="{% url "account_signup" source=source %}">Coach accounts</a> and lead students or families to complete the AI Family Challenge</li>
-        <li>Do you need to be an AI expert? No! Any adult can use our free lessons</li>
-        <li>We have a global community! If you are leading with more than 200 participants let us know by completing the Impact report in the coach dashboard</li>
+        <li>Bring an innovative AI family program to members of your community</li>
+        <li>Leaders can build their knowledge of AI with extra resources and access to live trainings</li>
+        <li>Have a direct line of contact to our support team</li>
+        <li>Join our global movement and interact with our community of coaches.</li>
       </ul>
-      <img src="{% static 'images/about/aipartnermap.png' %}">
+      <hr>
+      <h3 class="mt-5 mb-1">Season 2 begins in <strong>August 2019</strong> and submissions are due <strong>February 2020.</strong></h3>
     </div>
-    <div class="col-md-10 offset-md-1 my-2">
-      <hr class="hr-red mb-3"/>
-      <h3 class="mb-4">What do AIFC Coaches look like in action?</h3>
+  </div>
+  <hr class="hr-red mb-3"/>
+  <div class="row">
+    <div class="col">
+      <h4 class="aifc-pages-header">What does a program site look like?</h4>
+      <p>Program sites are different throughout the world. Generally, we seek locations that deliver programs outside of school to underserved families. Also, your location should have 1-5 passionate facilitators who are ready to lead.</p>
+      <p>Our full program is 20+ hours and directed by people like you. We know that's a big commitment so we're here to help!</p>
     </div>
-    <div class="col-md-5 offset-md-1">
-      <p>AIFC Coaches...</p>
-      <ul>
-        <li>Share experiences! They’re part of a <a href="https://www.facebook.com/groups/1443184245748986/" target="_blank">community of learners</a>.</li>
-        <li>Encourage their families to create family accounts to submit their ideas</li>
-      </ul>
-      <div class="text-center">
-        <img src="{% static 'images/about/SuperstarCoaches.svg' %}" width="50%" height="50%">
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="aifc-pages-panel">
+        <div class="row">
+          <div class="col-md-2">
+            <i class="aifc-pages-icons icon-home"></i>
+          </div>
+          <div class="col-md-10 mb-3">
+            <h4 class="aifc-pages-header">Club</h4>
+          </div>
+        </div>
+        <p><strong>30+ families</strong> at your location want to participate.</p>
+        <p>You're coaches are ready to spend<strong>~75 hours</strong> learning about and leading this program throughout the season.</p>
+        <p>This is a great option for sites that would like to pilot the program, have a STEM group, or are single returning program sites.</p>
       </div>
     </div>
-    <div class="col-md-5 mt-2">
-      <ul>
-        <li>They find and share resources to help their families, like ideas for family <a href="https://s3.amazonaws.com/curiositymachine/units/resources/Family%20Recruitment%201-Sheet%20Draft.pdf" target="_blank">recruitment</a> and <a href="https://s3.amazonaws.com/curiositymachine/units/resources/Family%20Retention%201-Sheet%20Draft.pdf" target="_blank">retention</a>, or tutorials to use AI tools</li>
-        <li>They help families celebrate their successes with science fairs, special presentation sessions, and more.</li>
-      </ul>
-      <div class="text-center">
-        <img src="{% static 'images/about/SubmitCelebration.svg' %}" width="50%" height="50%">
+    <div class="col">
+      <div class="aifc-pages-panel">
+        <div class="row">
+          <div class="col-md-2">
+            <i class="aifc-pages-icons icon-tree"></i>
+          </div>
+          <div class="col-md-10 mb-3">
+            <h4 class="aifc-pages-header">Chapters</h4>
+          </div>
+        </div>
+        <p>Your organization has multiple locations and experience leading family programs.</p>
+        <p>You have a network of coaches ready to learn about AI and lead this program.</p>
+        <p>This is a great option for <strong>multi-site organizations</strong> who want to bring a family-focused program to their organization.</p>
       </div>
     </div>
-    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 my-5 text-center">
-        <a href="{% url "account_signup" source=source %}" class="btn btn-primary text-uppercase mx-1" target="_blank">sign up</a>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col">
+      <h4>Friend of the Program</h4>
+      <p>You are ready to lead our program, but it looks a little different from a club or chapter. Examples of our Friends can include:</p>
+      <ul>
+        <li>Educators supporting kids who are excited to participate, but no  guardians (children can complete the program but please remember that only Family Teams are eligible to submit for the AI World Championship!)</li>
+        <li>Leaders of small family or afterschool groups who are participating</li>
+        <li>Anyone who is excited to bring some of our program, but not all 20 hours, to participants</li>
+      </ul>
+    </div>
+  </div>
+  <hr class="hr-red mb-3"/>
+  <div class="row">
+    <div class="col mb-5">
+      <h4 class="aifc-pages-header">What’s stopping you from joining us today?</h4>
+      <p>We are here to support you! Schedule a time with <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a> to reserve your spot as a Season 2 program site.</p>
+      <p>If you need funding to participate, please note that mini grant opportunities will be published prior to the start date. Sites that have registered their interest to participate in Season 2 will be the first to know! While we cannot cover the total cost of supporting families at your sites, we will work together to build a plan that fits you.</p>
     </div>
   </div>
 </div>

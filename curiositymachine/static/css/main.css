@@ -7643,6 +7643,15 @@ a.text-new-purple:hover, a.text-new-purple:focus {
 .icon-aibrain:before {
   content: "\e906"; }
 
+.icon-home:before {
+  content: "\e909"; }
+
+.icon-tree:before {
+  content: "\e9bc"; }
+
+.icon-happy:before {
+  content: "\e9df"; }
+
 body {
   background-color: #FFFCF7;
   color: #333333;
@@ -9764,6 +9773,10 @@ footer {
   padding: 20px;
   box-shadow: 15px -15px 0 0 tomato inset;
   transform: rotate(225deg); }
+
+.aifc-pages .aifc-pages-icons {
+  font-size: 50px;
+  color: #fd7e14; }
 
 .bg-primary {
   background-color: #00B1C3;

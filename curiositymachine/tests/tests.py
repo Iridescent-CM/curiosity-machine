@@ -15,7 +15,6 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from educators.factories import *
 from mentors.factories import *
-from parents.factories import *
 from profiles.factories import *
 from profiles.models import UserRole
 from pyquery import PyQuery as pq
@@ -345,22 +344,6 @@ def test_challenge_access_decorator_allows_named_user(rf):
     request.user = user
     wrapped = decorators.current_user_or_approved_viewer(view)
     response = wrapped(request, challenge_id=1, username='named')
-    assert view.called
-
-@pytest.mark.django_db
-def test_challenge_access_decorator_allows_connected_parent(rf):
-    parent = ParentFactory()
-    child = StudentFactory(username="student")
-    ParentConnectionFactory(
-        parent_profile=parent.parentprofile,
-        child_profile=child.studentprofile,
-        active=True
-    )
-    view = mock.MagicMock()
-    request = rf.get('/some/path')
-    request.user = parent
-    wrapped = decorators.current_user_or_approved_viewer(view)
-    response = wrapped(request, challenge_id=1, username='student')
     assert view.called
 
 def test_mediaurlfield_value_is_dictionary():

@@ -4,7 +4,6 @@ from django.conf import settings
 from educators.factories import *
 from images.factories import *
 from mentors.factories import *
-from parents.factories import *
 from profiles.factories import *
 from students.factories import *
 from videos.factories import *
@@ -28,11 +27,6 @@ def basic_users():
     MentorFactory(
         email="mentor@mailinator.com",
         username="mentor",
-        password="123123"
-    )
-    ParentFactory(
-        email="parent@mailinator.com",
-        username="parent",
         password="123123"
     )
     EducatorFactory(

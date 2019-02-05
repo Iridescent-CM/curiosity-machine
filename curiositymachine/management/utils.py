@@ -13,7 +13,6 @@ from images.factories import *
 from locations.factories import *
 from memberships.factories import *
 from mentors.factories import *
-from parents.factories import *
 from profiles.factories import *
 from students.factories import *
 from surveys.factories import *
@@ -128,10 +127,6 @@ def load_fixture(f):
         'user': users,
         'image': images,
         'location': locations,
-    }, build=True)
-    parentprofiles = pk_map(data, 'parents.parentprofile', ParentProfileFactory, lookups={
-        'user': users,
-        'image': images,
     }, build=True)
     mentorprofiles = pk_map(data, 'mentors.mentorprofile', MentorProfileFactory, lookups={
         'user': users,

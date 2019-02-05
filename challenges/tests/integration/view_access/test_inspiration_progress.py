@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 from educators.factories import EducatorFactory
 from memberships.factories import MembershipFactory
 from mentors.factories import MentorFactory
-from parents.factories import ParentFactory, ParentConnectionFactory
 from profiles.factories import UserFactory
 from students.factories import StudentFactory
 
@@ -74,46 +73,9 @@ def test_unconnected_educator_access_denied(client):
     }))
 
 @pytest.mark.django_db
-def test_connected_parent_access_granted(client):
-    challenge = ChallengeFactory()
-    progress = ProgressFactory(challenge=challenge)
-    parent = ParentFactory(username='user', password='123123')
-    ParentConnectionFactory(parent_profile=parent.parentprofile, child_profile=progress.owner.studentprofile, active=True)
-
-    client.login(username='user', password='123123')
-    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.owner.username), follow=False)
-
-    assert response.status_code == 200
-
-@pytest.mark.django_db
-def test_unconnected_parent_access_denied(client):
-    challenge = ChallengeFactory()
-    progress = ProgressFactory(challenge=challenge)
-    parent = ParentFactory(username='user', password='123123')
-
-    client.login(username='user', password='123123')
-    response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.owner.username), follow=False)
-
-    assert response.status_code == 302
-    assert response.url.endswith(reverse("challenges:preview_inspiration", kwargs={
-        "challenge_id": challenge.id
-    }))
-
-@pytest.mark.django_db
 def test_allows_educator_sharing_membership(client):
     progress = ProgressFactory()
     user = EducatorFactory(username="username", password="password")
-    MembershipFactory(members=[progress.owner, user])
-
-    client.login(username="username", password="password")
-    response = client.get('/challenges/%d/%s/inspiration/' % (progress.challenge.id, progress.owner.username), follow=False)
-
-    assert response.status_code == 200
-
-@pytest.mark.django_db
-def test_allows_parent_sharing_membership(client):
-    progress = ProgressFactory()
-    user = ParentFactory(username="username", password="password")
     MembershipFactory(members=[progress.owner, user])
 
     client.login(username="username", password="password")

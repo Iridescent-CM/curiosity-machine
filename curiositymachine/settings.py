@@ -48,10 +48,6 @@ SITE_URL = os.getenv('SITE_URL', '')
 ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMINS", '').split(',')])
 INTERNAL_IPS = os.getenv('INTERNAL_IPS', '').split(',') if os.getenv('INTERNAL_IPS') else []
 
-# Canonical domain -- if this is set, all requests not to this domain will be forwarded to this domain
-# this should be a bare domain -- no scheme or route! For instance, www.example.com and not http://www.example.com
-CANONICAL_DOMAIN = os.getenv("CANONICAL_DOMAIN", None)
-
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False) # no compression by default for now
 
 WEBPACK_LOADER = {
@@ -83,7 +79,6 @@ INSTALLED_APPS = (
     'profiles',
     'locations.apps.LocationsConfig',
     'students',
-    'parents',
     'mentors',
     'educators',
     'families.apps.FamiliesConfig',
@@ -117,7 +112,6 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'curiositymachine.middleware.CanonicalDomainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -331,6 +325,7 @@ AICHALLENGE_COACH_PRE_SURVEY_ID=os.getenv("AICHALLENGE_COACH_PRE_SURVEY_ID", "")
 AICHALLENGE_FAMILY_POST_SURVEY_ID=os.getenv("AICHALLENGE_FAMILY_POST_SURVEY_ID", "")
 AICHALLENGE_FAMILY_PRE_SUBMISSION_SURVEY_ID=os.getenv("AICHALLENGE_FAMILY_PRE_SUBMISSION_SURVEY_ID", "")
 AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID=os.getenv("AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID", "")
+AICHALLENGE_SEASON_OPEN=os.getenv('AICHALLENGE_SEASON_OPEN', False)
 
 MENTOR_RELATIONSHIP_MANAGERS = os.getenv("MENTOR_RELATIONSHIP_MANAGERS", '').split(',') if os.getenv("MENTOR_RELATIONSHIP_MANAGERS") else []
 NOTIFICATION_RECIPIENTS = os.getenv("NOTIFICATION_RECIPIENTS").split(',') if os.getenv("NOTIFICATION_RECIPIENTS") else []
