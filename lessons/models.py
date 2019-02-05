@@ -54,6 +54,9 @@ class Progress(models.Model):
     def object_id(self):
         return self.lesson_id
 
+    def build_completed(self):
+        return self.comment_set.all().exists()
+    
     @property
     def completed(self):
         return (self.comment_set.all().exists()

@@ -29,30 +29,30 @@ class TabbedLesson(object):
         self.progress.save()
 
     def update_visited_pages(self, current_page):
-        if self.progress.start == STARTED:
-            self.progress.start = COMPLETED
-        if self.progress.inspiration == STARTED:
-            self.progress.inspiration = COMPLETED
-        if self.progress.plan == STARTED:
-            self.progress.plan = COMPLETED
-        if self.progress.further == STARTED:
-            self.progress.further = COMPLETED
+        if getattr(self.progress, "start") == STARTED:
+            setattr(self.progress, "start", COMPLETED)
+        if getattr(self.progress, "inspiration") == STARTED:
+            setattr(self.progress, "inspiration", COMPLETED)
+        if getattr(self.progress, "plan") == STARTED:
+            setattr(self.progress, "plan", COMPLETED)
+        if getattr(self.progress, "further") == STARTED:
+            setattr(self.progress, "further", COMPLETED)
         if getattr(self.progress, self.current_page) == NOT_STARTED:
             setattr(self.progress, self.current_page, STARTED)
 
     def update_build_status(self):
-        print(self.progress.build)
-        print(self.progress.comment_set.all().exists())
-        if self.progress.build == STARTED and self.progress.comment_set.all().exists():
+        if self.progress.build_completed:
             setattr(self.progress, "build", COMPLETED)
+        elif self.progress.build == COMPLETED:
+            setattr(self.progress, "build", STARTED)
 
     def update_reflect_status(self):
-        if self.progress.reflect == STARTED and self.quiz and self.quiz.quizresult_set.exists():
+        if self.quiz and self.quiz.quizresult_set.exists():
             setattr(self.progress, "reflect", COMPLETED)
     
     def progress_warning(self):
         if self.current_page == "build":
-            return "You haven't submitted anythong on the Build section."
+            return "You haven't submitted anything on the Build section."
         if self.current_page == "reflect" or self.current_page == "further":
             return "Looks like you're missing something."
 
