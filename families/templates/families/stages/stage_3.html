@@ -42,9 +42,9 @@
       <h2 class="text-center">Lessons</h2>
     </div>
     {% for lesson in lessons %}
-      <div class="col-md-4 mb-2">
-        {% include 'families/_lesson_card.html' with lesson=lesson %}
-      </div>
+    <div class="col-md-4 mb-2">
+      {% include 'families/_lesson_card.html' with lesson=lesson %}
+    </div>
     {% endfor %}
   </div>
 {% endblock %}
