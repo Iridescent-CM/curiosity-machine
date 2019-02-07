@@ -7,7 +7,7 @@ from images.models import Image
 from ordered_model.models import OrderedModel
 
 class Lesson(OrderedModel):
-    publish = models.BooleanField(default=False)
+    draft = models.BooleanField(default=True)
     title = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(help_text="Description shown on the dashboard", null=True, blank=True)
     card_image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, help_text="Image shown on the dashboard")
