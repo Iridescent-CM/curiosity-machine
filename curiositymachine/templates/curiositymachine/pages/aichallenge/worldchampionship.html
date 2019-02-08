@@ -6,27 +6,182 @@
 {% block content %}
 {% with active_nav="ai-worldchampionship" %}
   {{ block.super }}
+
+<section>
+  <div class="aifc-pages-video-header">
+    <div class="overlay"></div>
+      <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="/static/videos/aiwc-banner-video.mp4" type="video/mp4"></source>
+      </video>
+      <div class="aifc-pages-header-image">
+
+      </div>
+    <div class="container h-100">
+      <div class="d-flex h-100 align-items-center">
+        <div class="container text-center">
+          <img class="aifc-pages-logo" src="{% static 'images/about/aifc-white-logo.svg' %}">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="container">
   <div class="row">
     <div class="col-md-10 offset-md-1 mt-5">
       <h2>AI World Championship</h2>
-      <p class="text-center">Welcome to the first ever AI World Championship which will take place <strong>May 16 - 19, 2019</strong> in Silicon Valley, CA.</p>
+      <h3 class="text-center">Welcome to the first ever AI World Championship which will happen in <strong>May 16-18 2019</strong> in Silicon Valley, CA.</h3>
+      <hr>
     </div>
-    <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
-      <p>The top 3 teams from the junior and senior divisions will win:</p>
-      <ul>
-        <li>An all inclusive (ie. paid travel, lodging and meals)* trip to the Championship in Silicon Valley, California</li>
-        <li>An opportunity to present their family’s AI project to industry experts and professionals</li>
-        <li>A fun filled weekend with the Curiosity Machine team!</li>
-      </ul>
+    <div class="row">
+      <div class="col-lg-6">
+        <p>The top 3 teams from the junior and senior divisions will win:</p>
+        <ul>
+          <li>An all inclusive (ie. paid travel, lodging and meals)* trip to the Championship in Silicon Valley, California</li>
+          <li>An opportunity to present their family’s AI project to industry experts and professionals</li>
+          <li>A fun filled weekend with the Curiosity Machine team!</li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <img src="{% static 'images/about/aiwc-family-2.png' %}">
+      </div>
     </div>
-    <div class="col-lg-4 col-md-5 text-center">
-      <img src="{% static 'images/about/cmtrophy.svg' %}">
-    </div>
-    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-      <p><em><small>*Please note: Only team members who are registered on the account will be covered. Any additional attendees will be responsible for their own travel to the event and any other additional expenses.</small></em></p>
+    <div class="row">
+      <div class="col-lg-6">
+        <img src="{% static 'images/about/aiwc-family-1.png' %}">
+      </div>
+      <div class="col-lg-6">
+        <p><em><small>*Please note: Only team members who are registered on the account will be covered. Any additional attendees will be responsible for their own travel to the event and any other additional expenses.</small></em></p>
+      </div>
     </div>
   </div>
+</div>
+
+<div class="container">
+  <hr class="hr-red"/>
+  <h2 class="mb-5">Senior Division</h2>
+     <div class="row">
+      <div class="col-lg">
+        <h4>Team Name</h4>
+        <h4>Name of project/app</h4>
+        <p>Country of origin</p>
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe src="https://www.youtube.com/embed/nIN3IE3DHqc" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="mt-3">Brief description of Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <div class="col-lg">
+        <h4>Team Name</h4>
+        <h4>Name of project/app</h4>
+        <p>Country of origin</p>
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe src="https://www.youtube.com/embed/nIN3IE3DHqc" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="mt-3">Brief description of Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <div class="col-lg">
+        <h4>Team Name</h4>
+        <h4>Name of project/app</h4>
+        <p>Country of origin</p>
+        <!-- video -->
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe src="https://www.youtube.com/embed/nIN3IE3DHqc" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="mt-3">Brief description of Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+    </div>
+  <hr>
+  <h2 class="mb-5">Junior Division</h2>
+     <div class="row">
+      <div class="col-lg">
+        <h4>Team Name</h4>
+        <h4>Name of project/app</h4>
+        <p>Country of origin</p>
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe src="https://www.youtube.com/embed/nIN3IE3DHqc" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="mt-3">Brief description of Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <div class="col-lg">
+        <h4>Team Name</h4>
+        <h4>Name of project/app</h4>
+        <p>Country of origin</p>
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe src="https://www.youtube.com/embed/nIN3IE3DHqc" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="mt-3">Brief description of Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <div class="col-lg">
+        <h4>Team Name</h4>
+        <h4>Name of project/app</h4>
+        <p>Country of origin</p>
+        <!-- video -->
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe src="https://www.youtube.com/embed/nIN3IE3DHqc" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="mt-3">Brief description of Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+    </div>
+    <hr class="hr-red"/>
+    <div class="row">
+      <div class="col-md-10 offset-md-1 mb-5">
+        <h2 class="mb-4">Semi Finalists</h2>
+        <p>Brief and uplifting description about all submitted projects, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+    </div>
+</div>
+
+<div id="revolving-quotes" class="revolving-quotes carousel slide bg-new-turquoise mb-5" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="row quote-box">
+        <div class="col-md-6 offset-md-3 col-8 offset-2 my-auto">
+          <h4>Team Name 1</h4>
+          <h4>Name of project/app</h4>
+          <p>Country of origin</p>
+          <p>Brief description of their project and <a style="color:white" href="https://www.youtube.com/embed/nIN3IE3DHqc">link to video</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row quote-box">
+        <div class="col-md-6 offset-md-3 col-8 offset-2 my-auto">
+          <h4>Team Name 2</h4>
+          <h4>Name of project/app</h4>
+          <p>Country of origin</p>
+          <p>Brief description of Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row quote-box">
+        <div class="col-md-6 offset-md-3 col-8 offset-2 my-auto">
+          <h4>Team Name 3</h4>
+          <h4>Name of project/app</h4>
+          <p>Country of origin</p>
+          <p>Brief description of Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row quote-box">
+        <div class="col-md-6 offset-md-3 col-8 offset-2 my-auto">
+          <h4>Team Name 4</h4>
+          <h4>Name of project/app</h4>
+          <p>Country of origin</p>
+          <p>Brief description of Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#revolving-quotes" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#revolving-quotes" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
 {% endwith %}
 {% endblock %}
