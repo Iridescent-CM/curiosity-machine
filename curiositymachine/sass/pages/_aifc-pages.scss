@@ -88,12 +88,26 @@
   z-index: 1;
   }
 
+  .carousel {
+    .content-box {
+      height: 250px;
+    }
+  }
+
   @media (pointer: coarse) and (hover: none) {
     .aifc-pages-video-header {
       background-image: url("../images/about/AIWC-header.svg") black no-repeat center center scroll;
     }
     .aifc-pages-video-header video {
       display: none;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .carousel {
+      .content-box {
+        height: 400px;
+      }
     }
   }
 }

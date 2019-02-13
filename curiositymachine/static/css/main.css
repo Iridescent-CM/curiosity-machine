@@ -9794,11 +9794,18 @@ footer {
   opacity: 0.5;
   z-index: 1; }
 
+.aifc-pages .carousel .content-box {
+  height: 250px; }
+
 @media (pointer: coarse) and (hover: none) {
   .aifc-pages .aifc-pages-video-header {
     background-image: url("../images/about/AIWC-header.svg") black no-repeat center center scroll; }
   .aifc-pages .aifc-pages-video-header video {
     display: none; } }
+
+@media (max-width: 767.98px) {
+  .aifc-pages .carousel .content-box {
+    height: 400px; } }
 
 .bg-primary {
   background-color: #00B1C3;
