@@ -9797,6 +9797,12 @@ footer {
 .aifc-pages .carousel .content-box {
   height: 250px; }
 
+.aifc-pages .aifc-pages-category {
+  width: 200px;
+  margin: auto;
+  display: block;
+  cursor: pointer; }
+
 @media (pointer: coarse) and (hover: none) {
   .aifc-pages .aifc-pages-video-header {
     background-image: url("../images/about/AIWC-header.svg") black no-repeat center center scroll; }
