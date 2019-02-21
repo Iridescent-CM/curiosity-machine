@@ -66,16 +66,9 @@ class TabbedLesson(object):
 
     @property
     def next_lesson_url(self):
-        current_lesson = self.lesson
-        next_lesson = None
-        while next_lesson == None:
-            lesson = Lesson.objects.filter(order=current_lesson.order + 1).first()
-            if lesson == None:
-                return None
-            elif lesson.draft==False:
-                next_lesson = lesson
-            else: 
-                current_lesson = lesson
+        next_lesson = Lesson.objects.filter(order__gt=self.lesson.order + 1, draft=False).order_by('order').first()
+        if not next_lesson:
+            return None
 
         if self.progress:
             return reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % next_lesson.id

@@ -126,10 +126,8 @@ class LessonsView(DashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        # lesson_set = LearningSet(Lesson.objects.all(), user_progresses=progresses)
-        lesson_set = LearningSet(Lesson.objects.filter(draft=False), user_progresses=progresses)
-        # lesson_set = LearningSet(Lesson.objects.from_config(), user_progresses=progresses)
-        kwargs["lessons"] = lesson_set.objects
+        stage = Stage.from_config(3, user=self.request.user)
+        kwargs["lessons"] = stage.objects
         return super().get_context_data(**kwargs)
 
 stage_3 = only_for_family(LessonsView.as_view())
