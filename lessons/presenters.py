@@ -73,4 +73,4 @@ class TabbedLesson(object):
         if self.progress:
             return reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % next_lesson.id
         else:
-             return reverse("lessons:lesson-detail", kwargs={"pk": next_lesson.id})
+            return reverse("lessons:lesson-detail", kwargs={"pk": next_lesson.id})
