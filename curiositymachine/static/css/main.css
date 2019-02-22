@@ -9797,8 +9797,8 @@ footer {
 .aifc-pages .carousel .content-box {
   height: 250px; }
 
-.aifc-pages .aifc-pages-category {
-  width: 200px;
+.aifc-pages .aifc-pages-category-icons {
+  width: 150px;
   margin: auto;
   display: block;
   cursor: pointer; }
