@@ -31,7 +31,8 @@
       <h2>AI World Championship</h2>
       <hr>
       <img src="{% static 'images/about/aifc-families.png' %}">
-      <h3 class="text-center mt-3">Congratulations to everyone who participated in the AI Family Challenge. We had <strong>7500 participants and 200+ submissions</strong> in our first ever AI World Championship. Meet our finalists and discover how they are solving problems with AI. They will be presenting their ideas in <strong>Silicon Valley, CA May 16-19.</strong></h3>
+      <h3 class="text-center mt-3">Congratulations to the <strong>7500+ participants</strong> of our first AI Family Challenge. Meet our finalist teams, chosen from over 200 AI invention submissions.</h3>
+      <h3>Our teams will present their ideas in <strong>Silicon Valley, May 16-19th.</strong></h3>
       <hr class="hr-red"/>
     </div>
   </div>
@@ -101,5 +102,14 @@
       </div>
     </div>
 </div>
+
+<div class="bg-new-turquoise text-center py-5">
+  <div class="container">
+    <h3 class="text-white">Interested in using Artificial Intelligence to solve a problem in your community? Season 2 of the AI Family Challenge begins in August!</h3>
+    <p class="text-white">In the meantime, you can create your family account and explore the AI Family Challenge projects.</p>
+    <a href="{% url "account_signup" %}" class="btn btn-secondary text-blue text-uppercase">Get Started</a>
+  </div>
+</div>
+
 {% endwith %}
 {% endblock %}
