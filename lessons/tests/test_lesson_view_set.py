@@ -10,7 +10,7 @@ def apiclient():
 @pytest.mark.django_db
 def test_retrieve(apiclient):
     user = UserFactory(username="username", password="password")
-    lesson = LessonFactory()
+    lesson = LessonFactory(draft=False)
 
     assert apiclient.get('/lessons/lesson/%d/' % lesson.id).status_code == 302
     apiclient.login(username="username", password="password")
