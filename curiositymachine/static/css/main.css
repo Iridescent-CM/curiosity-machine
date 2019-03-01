@@ -9720,11 +9720,6 @@ footer {
 .aifc-pages .aifc-pages-logo {
   width: 500px; }
 
-.aifc-pages .aifc-circuit {
-  background-image: url("../images/about/aifc-circuit-background.png");
-  background-repeat: no-repeat;
-  height: 40%; }
-
 .aifc-pages .aifc-pages-panel {
   border: 4px solid #00B1C3;
   border-radius: 9px;
@@ -9805,7 +9800,7 @@ footer {
 
 @media (pointer: coarse) and (hover: none) {
   .aifc-pages .aifc-pages-video-header {
-    background-image: url("../images/about/AIWC-header.svg") black no-repeat center center scroll; }
+    background-image: url("../images/about/aifc-pages-header-image.svg") black no-repeat center center scroll; }
   .aifc-pages .aifc-pages-video-header video {
     display: none; } }
 

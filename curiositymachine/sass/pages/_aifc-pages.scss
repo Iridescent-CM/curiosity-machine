@@ -3,12 +3,6 @@
     width: 500px;
   }
 
-  .aifc-circuit {
-    background-image: url("../images/about/aifc-circuit-background.png");
-    background-repeat: no-repeat;
-    height: 40%;
-  }
-
   .aifc-pages-panel {
     border: 4px solid $primary-blue;
     border-radius: 9px;
@@ -49,43 +43,43 @@
   }
 
   .aifc-pages-video-header {
-  position: relative;
-  background-color: black;
-  height: 75vh;
-  min-height: 25rem;
-  width: 100%;
-  overflow: hidden;
+    position: relative;
+    background-color: black;
+    height: 75vh;
+    min-height: 25rem;
+    width: 100%;
+    overflow: hidden;
   }
 
   .aifc-pages-video-header video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: 0;
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
   }
 
   .aifc-pages-video-header .container {
-  position: relative;
-  z-index: 2;
+    position: relative;
+    z-index: 2;
   }
 
   .aifc-pages-video-header .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: black;
-  opacity: 0.5;
-  z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 1;
   }
 
   .carousel {
@@ -103,7 +97,7 @@
 
   @media (pointer: coarse) and (hover: none) {
     .aifc-pages-video-header {
-      background-image: url("../images/about/AIWC-header.svg") black no-repeat center center scroll;
+      background-image: url("../images/about/aifc-pages-header-image.svg") black no-repeat center center scroll;
     }
     .aifc-pages-video-header video {
       display: none;
