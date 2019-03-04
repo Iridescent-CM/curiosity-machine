@@ -5,28 +5,115 @@
 {% block body-classes %} {{ block.super }} aifc-pages {% endblock %}
 {% block content %}
 {% with active_nav="ai-worldchampionship" %}
-  {{ block.super }}
+{{ block.super }}
+
+<section>
+  <div class="aifc-pages-video-header">
+    <div class="overlay"></div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+      <source src="{% static 'videos/aifc-season-close.mp4' %}" type="video/mp4"></source>
+    </video>
+    <div class="container h-100">
+      <div class="d-flex h-100 align-items-center">
+        <div class="container text-center">
+          <img class="aifc-pages-logo" src="{% static 'images/about/aifc-white-logo.svg' %}">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="container">
   <div class="row">
     <div class="col-md-10 offset-md-1 mt-5">
       <h2>AI World Championship</h2>
-      <p class="text-center">Welcome to the first ever AI World Championship which will take place <strong>May 16 - 19, 2019</strong> in Silicon Valley, CA.</p>
-    </div>
-    <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
-      <p>The top 3 teams from the junior and senior divisions will win:</p>
-      <ul>
-        <li>An all inclusive (ie. paid travel, lodging and meals)* trip to the Championship in Silicon Valley, California</li>
-        <li>An opportunity to present their family’s AI project to industry experts and professionals</li>
-        <li>A fun filled weekend with the Curiosity Machine team!</li>
-      </ul>
-    </div>
-    <div class="col-lg-4 col-md-5 text-center">
-      <img src="{% static 'images/about/cmtrophy.svg' %}">
-    </div>
-    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-      <p><em><small>*Please note: Only team members who are registered on the account will be covered. Any additional attendees will be responsible for their own travel to the event and any other additional expenses.</small></em></p>
+      <hr>
+      <img src="{% static 'images/about/aifc-families.png' %}">
+      <h3 class="text-center mt-3">Congratulations to the <strong>7500+ participants</strong> of our first AI Family Challenge. Meet our finalist teams, chosen from over 208 AI invention submissions.</h3>
+      <h3>Our teams will present their ideas in <strong>Silicon Valley, May 16-19th.</strong></h3>
+      <hr class="hr-red"/>
     </div>
   </div>
 </div>
+<div class="container">
+  <h2 class="mb-5">Senior Division</h2>
+  <div class="row">
+    <div class="col-lg">
+      <h4>Shoo</h4>
+      <p>United States of America</p>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/vuTV_nshwtU" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">For generations, children everywhere have dealt with the nuisance of dogs defecating in their yards and needing to clean it up. Meet shoo, a dog deterrent device built with AI technology.</p>
+      <p class="mt-3">Shoo uses a live camera to collect images and pass them through an image recognition algorithm to determine if a dog is in a specified area. If an animal is present, the device emits a high pitch sound that deters it from staying. The prototype uses Raspberry Pi and the algorithm is written via Scratch X.</p>
+    </div>
+    <div class="col-lg">
+      <h4>Scoutbot Watergaurdian</h4>
+      <p>Spain</p>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/_yPaq1fF-bM" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Yearly, thousands of children drown across the world. Scoutbot WaterGuardian is an invention that notifies adults of risky swimming behavior via swimming caps equipped with alert systems.</p>
+      <p>Scoutbot Waterguardian’s prototype is a wearable device that uses an image analysis algorithm to determine if a swimmer is safe. To train their model, the team collected data from people wearing their prototype while underwater. If a person is at risk, the prototype will send a signal to a device that emits red light</p>
+    </div>
+    <div class="col-lg">
+      <h4>Spiky! Bullying Detector</h4>
+      <p>Uzbekistan</p>
+      <!-- video -->
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/u446zt6ELuY" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Spiky is a mobile application that helps adults recognize when a child is being bullied. The invention uses machine learning to analyze communications from a child to guess the probability of bullying. Spiky will send an alert to parents if action is needed.
+      </p>
+      <p class="mt-3">The user can input data into the mobile application via a series of rating questions. Based on the data, the AI algorithm will determine appropriate follow-up questions. A child’s answers to the follow-up questions can be used to further train the model and notify a parent of the risk level. The Spiky team also plans on collecting images from schools to be used in addition to the text input.</p>
+    </div>
+  </div>
+  <hr>
+  <h2 class="mb-5">Junior Division</h2>
+  <div class="row mb-5">
+    <div class="col-lg">
+      <h4>My Drawings Speak Up</h4>
+      <p>Palestine</p>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/hRTorWpfZsU" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Everyone has the right to feel safe, loved and accepted, but bullying is a problem that affects millions of students each day. My Drawings Speak Up is an invention that analyzes students’ drawings to indicate if a parent needs to seek professional support.
+      </p>
+      <p class="mt-3">This invention uses image recognition technology to analyze children's drawings and notify an adult when a child is facing bullying (violence). The algorithm was trained using hand-drawn images from children as well as drawings from trained psychologists.
+      </p>
+    </div>
+    <div class="col-lg">
+      <h4>Duckweed Vacuum Cleaner</h4>
+      <p>Bolivia</p>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/59KP8VCT8kI" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Duckweed is a plant that negatively impacts Lake Titicaca. Duckweed Vacuum Cleaner classifies and removes the plant from the water.
+      </p>
+      <p class="mt-3">This prototype uses a camera to collect data for its image recognition algorithm. Once it’s determined that the harmful duckweed is present, the prototype (controlled by Raspberry Pi and powered by a DC motor) vacuums up the duckweed.
+      </p>
+    </div>
+    <div class="col-lg">
+      <h4>Cavity Crusher</h4>
+      <p>Pakistan</p>
+      <!-- video -->
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/TKyvtUVxMqg" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Even though dentists report that proper tooth brushing can help in maintain oral health, an increasing number of children are facing tooth decay problems. Cavity Crusher uses AI to monitor a child’s brushing habits and notifies adults if more time should be spent on the task.
+      </p>
+      <p class="mt-3">Cavity Crusher’s algorithm uses time of brushing to determine a child’s oral health habits. If the model determines inadequate toothbrushing, it will notify the parent. Prior to this prototype, the family built a model able to recognize images of toothbrushing. However, they determined more accurate results could be achieved with number data.</p>
+    </div>
+  </div>
+</div>
+
+<div class="bg-new-turquoise text-center py-5">
+  <div class="container">
+    <h3 class="text-white">Interested in using Artificial Intelligence to solve a problem in your community? Season 2 of the AI Family Challenge begins in August!</h3>
+    <p class="text-white">In the meantime, you can create your family account and explore the AI Family Challenge projects.</p>
+    <a href="{% url "account_signup" %}" class="btn btn-secondary text-blue text-uppercase">Get Started</a>
+  </div>
+</div>
+
 {% endwith %}
 {% endblock %}
