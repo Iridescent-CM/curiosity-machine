@@ -9797,7 +9797,10 @@ footer {
 
 @media (pointer: coarse) and (hover: none) {
   .aifc-pages .aifc-pages-video-header {
-    background: url("../images/about/aifc-pages-header-image.svg") black no-repeat center center scroll; }
+    background-color: #F15C31;
+    background-image: linear-gradient(135deg, #F15C31, #F15D5B); }
+    .aifc-pages .aifc-pages-video-header .overlay {
+      opacity: 0; }
   .aifc-pages .aifc-pages-video-header video {
     display: none; } }
 
