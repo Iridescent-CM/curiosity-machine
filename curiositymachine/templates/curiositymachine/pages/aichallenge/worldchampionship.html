@@ -5,13 +5,13 @@
 {% block body-classes %} {{ block.super }} aifc-pages {% endblock %}
 {% block content %}
 {% with active_nav="ai-worldchampionship" %}
-  {{ block.super }}
+{{ block.super }}
 
 <section>
   <div class="aifc-pages-video-header">
     <div class="overlay"></div>
     <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-        <source src="{% static 'videos/aifc-season-close.mp4' %}" type="video/mp4"></source>
+      <source src="{% static 'videos/aifc-season-close.mp4' %}" type="video/mp4"></source>
     </video>
     <div class="container h-100">
       <div class="d-flex h-100 align-items-center">
@@ -70,41 +70,41 @@
   </div>
   <hr>
   <h2 class="mb-5">Junior Division</h2>
-     <div class="row mb-5">
-      <div class="col-lg">
-        <h4>My Drawings Speak Up</h4>
-        <p>Palestine</p>
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe src="https://www.youtube.com/embed/hRTorWpfZsU" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <p class="mt-3">Everyone has the right to feel safe, loved and accepted, but bullying is a problem that affects millions of students each day. My Drawings Speak Up is an invention that analyzes students’ drawings to indicate if a parent needs to seek professional support.
-        </p>
-        <p class="mt-3">This invention uses image recognition technology to analyze children's drawings and notify an adult when a child is facing bullying (violence). The algorithm was trained using hand-drawn images from children as well as drawings from trained psychologists.
-        </p>
+  <div class="row mb-5">
+    <div class="col-lg">
+      <h4>My Drawings Speak Up</h4>
+      <p>Palestine</p>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/hRTorWpfZsU" frameborder="0" allowfullscreen></iframe>
       </div>
-      <div class="col-lg">
-        <h4>Duckweed Vacuum Cleaner</h4>
-        <p>Bolivia</p>
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe src="https://www.youtube.com/embed/59KP8VCT8kI" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <p class="mt-3">Duckweed is a plant that negatively impacts Lake Titicaca. Duckweed Vacuum Cleaner classifies and removes the plant from the water.
-        </p>
-        <p class="mt-3">This prototype uses a camera to collect data for its image recognition algorithm. Once it’s determined that the harmful duckweed is present, the prototype (controlled by Raspberry Pi and powered by a DC motor) vacuums up the duckweed.
-        </p>
-      </div>
-      <div class="col-lg">
-        <h4>Cavity Crusher</h4>
-        <p>Pakistan</p>
-        <!-- video -->
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe src="https://www.youtube.com/embed/TKyvtUVxMqg" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <p class="mt-3">Even though dentists report that proper tooth brushing can help in maintain oral health, an increasing number of children are facing tooth decay problems. Cavity Crusher uses AI to monitor a child’s brushing habits and notifies adults if more time should be spent on the task.
-        </p>
-        <p class="mt-3">Cavity Crusher’s algorithm uses time of brushing to determine a child’s oral health habits. If the model determines inadequate toothbrushing, it will notify the parent. Prior to this prototype, the family built a model able to recognize images of toothbrushing. However, they determined more accurate results could be achieved with number data.</p>
-      </div>
+      <p class="mt-3">Everyone has the right to feel safe, loved and accepted, but bullying is a problem that affects millions of students each day. My Drawings Speak Up is an invention that analyzes students’ drawings to indicate if a parent needs to seek professional support.
+      </p>
+      <p class="mt-3">This invention uses image recognition technology to analyze children's drawings and notify an adult when a child is facing bullying (violence). The algorithm was trained using hand-drawn images from children as well as drawings from trained psychologists.
+      </p>
     </div>
+    <div class="col-lg">
+      <h4>Duckweed Vacuum Cleaner</h4>
+      <p>Bolivia</p>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/59KP8VCT8kI" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Duckweed is a plant that negatively impacts Lake Titicaca. Duckweed Vacuum Cleaner classifies and removes the plant from the water.
+      </p>
+      <p class="mt-3">This prototype uses a camera to collect data for its image recognition algorithm. Once it’s determined that the harmful duckweed is present, the prototype (controlled by Raspberry Pi and powered by a DC motor) vacuums up the duckweed.
+      </p>
+    </div>
+    <div class="col-lg">
+      <h4>Cavity Crusher</h4>
+      <p>Pakistan</p>
+      <!-- video -->
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/TKyvtUVxMqg" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Even though dentists report that proper tooth brushing can help in maintain oral health, an increasing number of children are facing tooth decay problems. Cavity Crusher uses AI to monitor a child’s brushing habits and notifies adults if more time should be spent on the task.
+      </p>
+      <p class="mt-3">Cavity Crusher’s algorithm uses time of brushing to determine a child’s oral health habits. If the model determines inadequate toothbrushing, it will notify the parent. Prior to this prototype, the family built a model able to recognize images of toothbrushing. However, they determined more accurate results could be achieved with number data.</p>
+    </div>
+  </div>
 </div>
 
 <div class="bg-new-turquoise text-center py-5">
