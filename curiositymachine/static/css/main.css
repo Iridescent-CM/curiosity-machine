@@ -9753,6 +9753,12 @@ footer {
   font-size: 50px;
   color: #fd7e14; }
 
+.aifc-pages .aifc-pages-category-icons {
+  width: 150px;
+  margin: auto;
+  display: block;
+  cursor: pointer; }
+
 .aifc-pages .aifc-pages-video-header {
   position: relative;
   background-color: black;
@@ -9789,24 +9795,11 @@ footer {
   opacity: 0.5;
   z-index: 1; }
 
-.aifc-pages .carousel .content-box {
-  height: 250px; }
-
-.aifc-pages .aifc-pages-category-icons {
-  width: 150px;
-  margin: auto;
-  display: block;
-  cursor: pointer; }
-
 @media (pointer: coarse) and (hover: none) {
   .aifc-pages .aifc-pages-video-header {
-    background-image: url("../images/about/aifc-pages-header-image.svg") black no-repeat center center scroll; }
+    background: url("../images/about/aifc-pages-header-image.svg") black no-repeat center center scroll; }
   .aifc-pages .aifc-pages-video-header video {
     display: none; } }
-
-@media (max-width: 767.98px) {
-  .aifc-pages .carousel .content-box {
-    height: 400px; } }
 
 .bg-primary {
   background-color: #00B1C3;

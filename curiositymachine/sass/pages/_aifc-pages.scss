@@ -42,6 +42,14 @@
     color: $orange;
   }
 
+  .aifc-pages-category-icons {
+    width: 150px;
+    margin: auto;
+    display: block;
+    cursor: pointer;
+  }
+
+  // Everything between lines 52-101 are from: https://startbootstrap.com/snippets/video-header/
   .aifc-pages-video-header {
     position: relative;
     background-color: black;
@@ -82,33 +90,12 @@
     z-index: 1;
   }
 
-  .carousel {
-    .content-box {
-      height: 250px;
-    }
-  }
-
-  .aifc-pages-category-icons {
-    width: 150px;
-    margin: auto;
-    display: block;
-    cursor: pointer;
-  }
-
   @media (pointer: coarse) and (hover: none) {
     .aifc-pages-video-header {
-      background-image: url("../images/about/aifc-pages-header-image.svg") black no-repeat center center scroll;
+      background: url("../images/about/aifc-pages-header-image.svg") black no-repeat center center scroll;
     }
     .aifc-pages-video-header video {
       display: none;
-    }
-  }
-
-  @include media-breakpoint-down(sm) {
-    .carousel {
-      .content-box {
-        height: 400px;
-      }
     }
   }
 }
