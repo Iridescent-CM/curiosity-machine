@@ -42,7 +42,7 @@ class LessonAdmin(OrderedModelAdmin):
     form = LessonAdminForm
     save_as = True
     save_on_top = True
-    list_display = ('id', 'title', 'move_up_down_links', 'order')
+    list_display = ('id', 'title', 'draft', 'move_up_down_links', 'order')
     raw_id_fields = ('card_image', 'quiz')
 
     def get_actions(self, request):

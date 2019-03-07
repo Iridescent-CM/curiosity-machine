@@ -66,8 +66,7 @@ class TabbedLesson(object):
 
     @property
     def next_lesson_url(self):
-        next_lesson = Lesson.objects.filter(order=self.lesson.order + 1).first()
-
+        next_lesson = Lesson.objects.filter(order__gt=self.lesson.order + 1, draft=False).order_by('order').first()
         if not next_lesson:
             return None
 

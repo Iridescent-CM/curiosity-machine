@@ -15,7 +15,7 @@ class Stage(LearningSet):
         # FIXME: this top if/else is kind of weird
         if stagenum == 3:
 
-            lessons = Lesson.objects.all()
+            lessons = Lesson.objects.filter(draft=False)
 
             progresses = []
             if user:
