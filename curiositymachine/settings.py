@@ -306,19 +306,19 @@ SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
 
 AI_BANNER_STUDENT_BLACKLIST = [int(id) for id in (os.getenv("AI_BANNER_STUDENT_BLACKLIST").split(','))] if os.getenv("AI_BANNER_STUDENT_BLACKLIST") else []
 
-AICHALLENGE_STAGES = {
-    1: {
-        "challenges": [int(i) for i in os.getenv("AICHALLENGE_STAGE_1_CHALLENGES", "").split(',') if i],
-        "units": [int(i) for i in os.getenv("AICHALLENGE_STAGE_1_UNITS", "").split(',') if i],
-    },
-    2: {
-        "challenges": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_CHALLENGES", "").split(',') if i],
-        "units": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_UNITS", "").split(',') if i],
-    },
-    3: {
-        # just pull all lessons for now
-    },
-}
+# AICHALLENGE_STAGES = {
+#     1: {
+#         "challenges": [int(i) for i in os.getenv("AICHALLENGE_STAGE_1_CHALLENGES", "").split(',') if i],
+#         "units": [int(i) for i in os.getenv("AICHALLENGE_STAGE_1_UNITS", "").split(',') if i],
+#     },
+#     2: {
+#         "challenges": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_CHALLENGES", "").split(',') if i],
+#         "units": [int(i) for i in os.getenv("AICHALLENGE_STAGE_2_UNITS", "").split(',') if i],
+#     },
+#     3: {
+#         # just pull all lessons for now
+#     },
+# }
 AICHALLENGE_COACH_MEMBERSHIP_ID=os.getenv("AICHALLENGE_COACH_MEMBERSHIP_ID", "")
 AICHALLENGE_FAMILY_PRE_SURVEY_ID=os.getenv("AICHALLENGE_FAMILY_PRE_SURVEY_ID", "")
 AICHALLENGE_COACH_PRE_SURVEY_ID=os.getenv("AICHALLENGE_COACH_PRE_SURVEY_ID", "")

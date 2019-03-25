@@ -14,7 +14,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, ListView, RedirectView, TemplateView, UpdateView, View
-from families.aichallenge import get_stages
+# from families.aichallenge import get_stages
 from memberships.helpers.selectors import GroupSelector
 from memberships.models import Member, Membership
 from profiles.decorators import not_for_role, only_for_role, UserRole
@@ -143,16 +143,16 @@ class AIFCView(TemplateView):
 
     def get_context_data(self, **kwargs):
       membership_selection = MembershipSelection(self.request)
-      stages = [stage.objects for stage in get_stages()]
-      for obj in stages[0] + stages[1]:
-        obj.url = reverse("challenges:preview_inspiration", kwargs={"challenge_id": obj.id})
-      for obj in stages[2]:
-        obj.image = obj.card_image
-        obj.name = obj.title
-        obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
+    #   stages = [stage.objects for stage in get_stages()]
+    #   for obj in stages[0] + stages[1]:
+    #     obj.url = reverse("challenges:preview_inspiration", kwargs={"challenge_id": obj.id})
+    #   for obj in stages[2]:
+    #     obj.image = obj.card_image
+    #     obj.name = obj.title
+    #     obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
 
       return super().get_context_data(
-          stages = stages,
+        #   stages = stages,
           membership_selection = membership_selection,
           **kwargs
         )
