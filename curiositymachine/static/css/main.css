@@ -9759,6 +9759,11 @@ footer {
   display: block;
   cursor: pointer; }
 
+.aifc-pages .aifc-data-donuts {
+  max-width: 150px;
+  margin: auto;
+  display: block; }
+
 .aifc-pages .aifc-pages-video-header {
   position: relative;
   background-color: black;
