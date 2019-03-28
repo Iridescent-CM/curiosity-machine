@@ -17,7 +17,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from surveys import get_survey
-# from .aichallenge import get_stages, Stage
+from .aichallenge import get_stages, Stage
 from .awardforce import *
 from .forms import *
 from .models import *
@@ -93,7 +93,7 @@ class HomeView(DashboardMixin, ListView):
 
     def get_context_data(self, **kwargs):
         progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        context = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs, stages=get_stages(self.request.user),)
 
         by_day = {}
         for notification in context['activity']:
@@ -109,25 +109,25 @@ class HomeView(DashboardMixin, ListView):
 
 home = only_for_family(HomeView.as_view())
 
-# class StageView(DashboardMixin, TemplateView):
-#     stagenum = None
+class StageView(DashboardMixin, TemplateView):
+    stagenum = None
 
-#     def get_context_data(self, **kwargs):
-#         stage = Stage.from_config(self.stagenum, user=self.request.user)
-#         kwargs["challenges"] = stage.objects
-#         kwargs["units"] = stage.units
-#         return super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        stage = Stage.from_config(self.stagenum, user=self.request.user)
+        kwargs["challenges"] = stage.objects
+        kwargs["units"] = stage.units
+        return super().get_context_data(**kwargs)
 
-# stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stagenum=1))
-# stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage_2.html", stagenum=2))
+stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stagenum=1))
+stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage_2.html", stagenum=2))
 
 class LessonsView(DashboardMixin, TemplateView):
     template_name = "families/stages/stage_3.html"
 
     def get_context_data(self, **kwargs):
         progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        # stage = Stage.from_config(3, user=self.request.user)
-        kwargs["lessons"] = Lesson.objects.all()
+        stage = Stage.from_config(3, user=self.request.user)
+        kwargs["lessons"] = stage.objects
         return super().get_context_data(**kwargs)
 
 stage_3 = only_for_family(LessonsView.as_view())

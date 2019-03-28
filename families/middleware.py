@@ -3,7 +3,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.deprecation import MiddlewareMixin
 from surveys import get_survey
-# from .aichallenge import Stage
+from .aichallenge import Stage
 from .views import prereq_interruption, postsurvey_interruption, sign_slip
 
 class SignUpPrerequisitesMiddleware(MiddlewareMixin):
@@ -39,12 +39,11 @@ class PostSurveyMiddleware(MiddlewareMixin):
                 or whitelist_regex.match(request.path.lstrip('/'))
             )
         ):
-            # stage1 = Stage.from_config(1, user=request.user)
-            # stage2 = Stage.from_config(2, user=request.user)
-            # if stage1.stats["completed"] + stage2.stats["completed"] >= 5:
+            stage1 = Stage.from_config(1, user=request.user)
+            stage2 = Stage.from_config(2, user=request.user)
+            if stage1.stats["completed"] + stage2.stats["completed"] >= 5:
                 post_survey = get_survey(settings.AICHALLENGE_FAMILY_POST_SURVEY_ID)
                 if post_survey.active:
                     response = post_survey.response(request.user)
                     if not response.completed:
-                        return null 
-                        # postsurvey_interruption(request)
+                        return postsurvey_interruption(request)
