@@ -31,11 +31,33 @@
       <img src="{% static 'images/about/aifc-families.png' %}">
       <h3 class="text-center mt-3">Congratulations to the <strong>7500+ participants</strong> of our first AI Family Challenge. Meet our finalist teams, chosen from over 200 AI invention submissions.</h3>
       <h3>Our teams will present their ideas in <strong>Silicon Valley, May 16-19th.</strong></h3>
-      <hr class="hr-red"/>
     </div>
   </div>
 </div>
+
 <div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-3">
+      <img class="aifc-data-donuts" src="{% static 'images/aifc/aifc-datadonut-91.svg' %}">
+      <p class="text-center mt-3">of parents believe their <strong class="text-red">child has developed a sustained interest in AI.</strong></p>
+    </div>
+    <div class="col-md-3">
+      <img class="aifc-data-donuts"src="{% static 'images/aifc/aifc-datadonut-84.svg' %}">
+      <p class="text-center mt-3">of parents said they were <strong class="text-red">more likely to take action</strong> to improve their community. </p>
+    </div>
+    <div class="col-md-3">
+      <img class="aifc-data-donuts" src="{% static 'images/aifc/aifc-datadonut-89.svg' %}">
+      <p class="text-center mt-3">of parents <strong class="text-red">believe their child is capable of creating an AI model</strong> in the future.</p>
+    </div>
+    <div class="col-md-3">
+      <img class="aifc-data-donuts" src="{% static 'images/aifc/aifc-datadonut-90.svg' %}">
+      <p class="text-center mt-3">of parents believe they know the prerequisites for their <strong class="text-red">child to pursue either an AI or STEM career.</strong></p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <hr class="hr-red"/>
   <h2 class="mb-5">Senior Division</h2>
   <div class="row">
     <div class="col-lg">
@@ -106,12 +128,53 @@
     </div>
   </div>
 </div>
-
-<div class="bg-new-turquoise text-center py-5">
+<div id="semi-finalists" class="carousel slide bg-new-turquoise text-center py-5" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="row">
+        <div class="col-8 mx-auto">
+          <h4>eFAP: Emotions detector for Angry Players</h4>
+          <p>Spain</p>
+          <p>Children and teenagers spend much of their leisure timep laying with consoles, however, this activity is not always fun and leads to a negative emotional state that affects the home environment. eFap is a mobile application that uses image gesture recognition with AI to monitor players, warning them with different shades of color between green and red, which symbolize calmness and anger respectively. Optionally, you can connect by bluetooth a robot with a mechanical arm that will move when the player gets angry, and this can be a fun DIY project to do in family.</p>
+          <a class="text-white" href="https://www.youtube.com/embed/mxCk_D5y6MQ">Click here to view their video.</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row">
+        <div class="col-8 mx-auto">
+          <h4>I read it for you</h4>
+          <p>Italy</p>
+          <p>8% of kids suffer from food allergies and need to be very careful when grocery shopping. Allergenes not always clearly marked makes checking ingredients slow and difficult. Some apps use barcodes and databases for this, but they're not well updated and limited to one country. We want to help people identify products which are safe for them, even when travelling abroad. Our invention would use OCR and text classifier to read and identify products safe for users' intolerances. If uncertain, our app would offer to call producers' hotline and learn from the feedback received, constantly improving its recognition model.</p>
+          <a class="text-white" href="https://www.youtube.com/embed/BWvHDaog_4o">Click here to view their video.</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row">
+        <div class="col-8 mx-auto">
+          <h4>Smart Aqua Lab</h4>
+          <p>Pakistan</p>
+          <p>Impure water is a global issue .Over 1 billion people don't have access to clean water. Due to contaminated water people are highly at risk of getting diseases like cholera, diarrhea , dysentery , typhoid and hepatitis etc.The problem is arising due to dumping of garbage and factory pollutant into the water bodies. To make people aware about the purity of water ,we have designed a handy microscope band named SMART AQUA LAB. It is attached to the smart phone. We can take an image of water sample and by using artificial intelligence application ML4K, we will identify the purity of water.</p>
+            <a class="text-white" href="https://www.youtube.com/embed/M06VsyWEXnI">Click here to view their video.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#semi-finalists" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#semi-finalists" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<div class="text-center py-5">
   <div class="container">
-    <h3 class="text-white">Interested in using Artificial Intelligence to solve a problem in your community? Season 2 of the AI Family Challenge begins in August!</h3>
-    <p class="text-white">In the meantime, you can create your family account and explore the AI Family Challenge projects.</p>
-    <a href="{% url "account_signup" %}" class="btn btn-secondary text-blue text-uppercase">Get Started</a>
+    <h2>Interested in using Artificial Intelligence to solve a problem in your community? Season 2 of the AI Family Challenge begins in August!</h2>
+    <p>In the meantime, you can create your family account and explore the AI Family Challenge projects.</p>
+    <a href="{% url "account_signup" %}" class="btn btn-primary text-uppercase">Get Started!</a>
   </div>
 </div>
 
