@@ -113,7 +113,7 @@ class StageView(DashboardMixin, TemplateView):
     stagenum = None
 
     def get_context_data(self, **kwargs):
-        stage = Stage.from_config(self.stagenum, user=self.request.user)
+        stage = LearningSet.from_config(self.stagenum, user=self.request.user)
         kwargs["challenges"] = stage.objects
         kwargs["units"] = stage.units
         return super().get_context_data(**kwargs)
@@ -126,7 +126,7 @@ class LessonsView(DashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        stage = Stage.from_config(3, user=self.request.user)
+        stage = LearningSet.from_config(3, user=self.request.user)
         kwargs["lessons"] = stage.objects
         return super().get_context_data(**kwargs)
 

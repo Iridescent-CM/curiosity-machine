@@ -1,6 +1,11 @@
+from lessons.models import Lesson, Progress as LessonProgress
+
 NOT_STARTED = "not-started"
 COMPLETED = "completed"
 STARTED = "started"
+
+def get_stages(user=None):
+    return [LearningSet.from_config(3, user=user)]
 
 class LearningSet:
     """
@@ -14,6 +19,17 @@ class LearningSet:
         STARTED:        a progress exists but it is not completed
         COMPLETED:      a progress exists and is completed
     """
+    @classmethod
+    def from_config(cls, stagenum, user=None, config=None):
+        lessons = Lesson.objects.filter(draft=False)
+
+        progresses = []
+        if user:
+            progresses = LessonProgress.objects.filter(
+                owner=user
+            )
+
+        return cls(lessons, progresses)
 
     def __init__(self, objects, user_progresses=[]):
         self.objects = self._decorate(objects, user_progresses)
