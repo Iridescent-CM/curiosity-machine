@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, reverse
-from families.aichallenge import get_stages
+from curiositymachine.presenters import get_stages
 from memberships.models import Membership
 from urllib.parse import quote_plus
 from .models import *

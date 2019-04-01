@@ -3,6 +3,7 @@ from challenges.models import Challenge, Example
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine import signals
+from curiositymachine.presenters import get_stages
 from curiositymachine.decorators import whitelist
 from django.conf import settings
 from django.contrib import messages
@@ -14,7 +15,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, ListView, RedirectView, TemplateView, UpdateView, View
-from families.aichallenge import get_stages
+# from families.aichallenge import get_stages
 from memberships.helpers.selectors import GroupSelector
 from memberships.models import Member, Membership
 from profiles.decorators import not_for_role, only_for_role, UserRole

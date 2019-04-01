@@ -1,6 +1,6 @@
 from challenges.models import Challenge, Progress
 from curiositymachine.decorators import whitelist
-from curiositymachine.presenters import LearningSet
+from curiositymachine.presenters import LearningSet, get_stages
 from django.conf import settings
 from django.contrib import messages
 from django.http import *
@@ -17,7 +17,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from surveys import get_survey
-from .aichallenge import get_stages, Stage
+# from .aichallenge import get_stages, Stage
 from .awardforce import *
 from .forms import *
 from .models import *
@@ -92,8 +92,7 @@ class HomeView(DashboardMixin, ListView):
         return self.request.user.notifications.all()
 
     def get_context_data(self, **kwargs):
-        progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        context = super().get_context_data(**kwargs, stages=get_stages(self.request.user),)
+        context = super().get_context_data(**kwargs, lesson_set=get_stages(self.request.user),)
 
         by_day = {}
         for notification in context['activity']:
@@ -126,7 +125,7 @@ class LessonsView(DashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        stage = LearningSet.from_config(3, user=self.request.user)
+        stage = LearningSet.from_config(user=self.request.user)
         kwargs["lessons"] = stage.objects
         return super().get_context_data(**kwargs)
 

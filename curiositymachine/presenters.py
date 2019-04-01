@@ -5,7 +5,7 @@ COMPLETED = "completed"
 STARTED = "started"
 
 def get_stages(user=None):
-    return [LearningSet.from_config(3, user=user)]
+    return [LearningSet.from_config(user=user)]
 
 class LearningSet:
     """
@@ -20,7 +20,7 @@ class LearningSet:
         COMPLETED:      a progress exists and is completed
     """
     @classmethod
-    def from_config(cls, stagenum, user=None, config=None):
+    def from_config(cls, user=None, config=None):
         lessons = Lesson.objects.filter(draft=False)
 
         progresses = []
@@ -30,9 +30,11 @@ class LearningSet:
             )
 
         return cls(lessons, progresses)
+        
 
-    def __init__(self, objects, user_progresses=[]):
-        self.objects = self._decorate(objects, user_progresses)
+    def __init__(self, number, challenges, user_progresses=[]):
+        self.objects = self._decorate(challenges, user_progresses)
+        self.number = number
 
     def _decorate(self, objects, progresses=[]):
         prog_by_object_id = {p.object_id: p for p in progresses}
