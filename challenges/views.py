@@ -28,7 +28,6 @@ class ChallengesListView(View):
     filterset_classes = [
         UnfilteredChallenges,
         MembershipChallenges,
-        AIFCChallenges,
         FilterChallenges,
         ThemeChallenges,
     ]

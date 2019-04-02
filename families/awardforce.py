@@ -5,7 +5,6 @@ from django.http import *
 from django.utils.functional import cached_property
 from profiles.models import UserExtra
 from surveys import get_survey
-from curiositymachine.presenters import get_stages
 from .models import *
 import logging
 import requests

@@ -4,24 +4,14 @@ NOT_STARTED = "not-started"
 COMPLETED = "completed"
 STARTED = "started"
 
-def get_stages(user=None):
-    print("getting lessons")
-    return [LearningSet.from_config(user=user)]
-
 class LearningSet:
     """
-    objects can be e.g. Challenges or Lessons
-    user_progresses represents progress on the learning object, and must implement:
-        .object_id - id of the associated learning object
-        .completed - completed status of progress
-
     Decorated states (unless the code has changed and this comment wasn't updated):
-        NOT_STARTED:    a progress doesn't even exist for this object
+        NOT_STARTED:    a progress doesn't even exist for this lesson
         STARTED:        a progress exists but it is not completed
         COMPLETED:      a progress exists and is completed
     """
 
-    
     @classmethod
     def from_config(self, user=None, config=None):
         self.lessons = Lesson.objects.filter(draft=False)
@@ -29,7 +19,6 @@ class LearningSet:
             self.progresses = LessonProgress.objects.filter(
                 owner=user
             )
-        print("decorating")
         self._decorate(self)
         return self
 
@@ -38,7 +27,6 @@ class LearningSet:
         prog_by_lesson_id = {p.lesson_id: p for p in self.progresses}
 
         for lesson in self.lessons:
-            print("entered lesson loop")
             lesson.state = NOT_STARTED
             if lesson.id in prog_by_lesson_id:
                 progress = prog_by_lesson_id[lesson.id]

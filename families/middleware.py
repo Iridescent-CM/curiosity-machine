@@ -3,8 +3,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.deprecation import MiddlewareMixin
 from surveys import get_survey
-from curiositymachine.presenters import LearningSet, get_stages
-# from families.aichallenge import Stage
+from curiositymachine.presenters import LearningSet
 from .views import prereq_interruption, postsurvey_interruption, sign_slip
 
 class SignUpPrerequisitesMiddleware(MiddlewareMixin):
@@ -30,6 +29,8 @@ class SignUpPrerequisitesMiddleware(MiddlewareMixin):
 class PostSurveyMiddleware(MiddlewareMixin):
     """
     Middleware that interrupts at the appropriate point to prompt users to take post-survey.
+    ***Will do nothing for now, because it was based on stage completion, but leaving it in case we use
+    based on a different point in the lesson completion process.
     """
     def process_view(self, request, view, view_args, view_kwargs):
         if (
@@ -40,12 +41,5 @@ class PostSurveyMiddleware(MiddlewareMixin):
                 or whitelist_regex.match(request.path.lstrip('/'))
             )
         ):
-            # stage1 = LearningSet.from_config(user=request.user)
-            # stage2 = LearningSet.from_config(user=request.user)
-            if 0==1:
-            # stage1.stats["completed"] + stage2.stats["completed"] >= 5:
-                # post_survey = get_survey(settings.AICHALLENGE_FAMILY_POST_SURVEY_ID)
-                # if post_survey.active:
-                #     response = post_survey.response(request.user)
-                #     if not response.completed:
-                        return postsurvey_interruption(request)
+            if 0==1: 
+                return postsurvey_interruption(request)

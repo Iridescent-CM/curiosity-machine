@@ -1,6 +1,6 @@
 from challenges.models import Challenge, Progress
 from curiositymachine.decorators import whitelist
-from curiositymachine.presenters import LearningSet, get_stages
+from curiositymachine.presenters import LearningSet
 from django.conf import settings
 from django.contrib import messages
 from django.http import *
@@ -17,7 +17,6 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from surveys import get_survey
-# from .aichallenge import get_stages, Stage
 from .awardforce import *
 from .forms import *
 from .models import *
@@ -108,27 +107,15 @@ class HomeView(DashboardMixin, ListView):
 
 home = only_for_family(HomeView.as_view())
 
-class StageView(DashboardMixin, TemplateView):
-    stagenum = None
-
-    def get_context_data(self, **kwargs):
-        stage = LearningSet.from_config(self.stagenum, user=self.request.user)
-        kwargs["challenges"] = stage.objects
-        kwargs["units"] = stage.units
-        return super().get_context_data(**kwargs)
-
-stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stagenum=1))
-stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage_2.html", stagenum=2))
-
 class LessonsView(DashboardMixin, TemplateView):
-    template_name = "families/stages/stage_3.html"
+    template_name = "families/lessons.html"
 
     def get_context_data(self, **kwargs):
-        stage = LearningSet.from_config(user=self.request.user)
-        kwargs["lessons"] = stage.lessons
+        learning_set = LearningSet.from_config(user=self.request.user)
+        kwargs["lessons"] = learning_set.lessons
         return super().get_context_data(**kwargs)
 
-stage_3 = only_for_family(LessonsView.as_view())
+lessons = only_for_family(LessonsView.as_view())
 
 class PrereqInterruptionView(TemplateView):
     template_name = "families/interruption.html"

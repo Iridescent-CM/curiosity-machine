@@ -37,10 +37,7 @@
         <button class="blue-round-button"
           data-toggle="modal" data-target="#dashboard-help-modal">?</button>
         <div class="col-md-4 text-center">
-          lesson_set: {{lesson_set.stats}}
-          completed: {{lesson_set.stats.completed}}
-          total: {{lesson_set.stats.total}}
-          <a href="{% url "families:stage_3" %}">
+          <a href="{% url "families:lessons" %}">
             <div
               data-percent={{lesson_set.stats.percent_complete}}
               data-replacePercentageByText="{{lesson_set.stats.completed}} of {{lesson_set.stats.total}}"
@@ -55,7 +52,7 @@
               data-backgroundColor= '#666'
               data-fontColor= '#666'
             ></div>
-            <p>Stage 3</p>
+            <p>Lessons Progress</p>
           </a>
         </div>
         
