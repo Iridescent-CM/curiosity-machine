@@ -5,6 +5,7 @@ COMPLETED = "completed"
 STARTED = "started"
 
 def get_stages(user=None):
+    print("getting lessons")
     return [LearningSet.from_config(user=user)]
 
 class LearningSet:
@@ -19,43 +20,40 @@ class LearningSet:
         STARTED:        a progress exists but it is not completed
         COMPLETED:      a progress exists and is completed
     """
-    @classmethod
-    def from_config(cls, user=None, config=None):
-        lessons = Lesson.objects.filter(draft=False)
 
-        progresses = []
+    
+    @classmethod
+    def from_config(self, user=None, config=None):
+        self.lessons = Lesson.objects.filter(draft=False)
         if user:
-            progresses = LessonProgress.objects.filter(
+            self.progresses = LessonProgress.objects.filter(
                 owner=user
             )
+        print("decorating")
+        self._decorate(self)
+        return self
 
-        return cls(lessons, progresses)
-        
 
-    def __init__(self, number, challenges, user_progresses=[]):
-        self.objects = self._decorate(challenges, user_progresses)
-        self.number = number
+    def _decorate(self):        
+        prog_by_lesson_id = {p.lesson_id: p for p in self.progresses}
 
-    def _decorate(self, objects, progresses=[]):
-        prog_by_object_id = {p.object_id: p for p in progresses}
-
-        for obj in objects:
-            obj.state = NOT_STARTED
-            if obj.id in prog_by_object_id:
-                progress = prog_by_object_id[obj.id]
+        for lesson in self.lessons:
+            print("entered lesson loop")
+            lesson.state = NOT_STARTED
+            if lesson.id in prog_by_lesson_id:
+                progress = prog_by_lesson_id[lesson.id]
                 if progress.completed:
-                    obj.state = COMPLETED
+                    lesson.state = COMPLETED
                 else:
-                    obj.state = STARTED
+                    lesson.state = STARTED
 
-        return objects
+        return self.lessons
 
     @property
     def stats(self):
         stats = {}
-        objects = self.objects
-        stats["total"] = len(objects)
-        stats["completed"] = len([o for o in objects if getattr(o, "state", None) == COMPLETED])
+        stats["total"] = len(self.lessons)
+        stats["completed"] = len([l for l in self.lessons if getattr(l, "state", None) == COMPLETED])
         stats["percent_complete"] = round((stats["completed"] / stats["total"]) * 100) if stats["total"] > 0 else 0
         return stats
 
@@ -65,4 +63,4 @@ class LearningSet:
 
     def has_object(self, obj_or_id):
         obj_id = obj_or_id if type(obj_or_id) == int else obj_or_id.id
-        return obj_id in [o.id for o in self.objects]
+        return obj_id in [l.id for l in self.lessons]

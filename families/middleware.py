@@ -40,11 +40,12 @@ class PostSurveyMiddleware(MiddlewareMixin):
                 or whitelist_regex.match(request.path.lstrip('/'))
             )
         ):
-            stage1 = LearningSet.from_config(user=request.user)
-            stage2 = LearningSet.from_config(user=request.user)
-            if stage1.stats["completed"] + stage2.stats["completed"] >= 5:
-                post_survey = get_survey(settings.AICHALLENGE_FAMILY_POST_SURVEY_ID)
-                if post_survey.active:
-                    response = post_survey.response(request.user)
-                    if not response.completed:
+            # stage1 = LearningSet.from_config(user=request.user)
+            # stage2 = LearningSet.from_config(user=request.user)
+            if 0==1:
+            # stage1.stats["completed"] + stage2.stats["completed"] >= 5:
+                # post_survey = get_survey(settings.AICHALLENGE_FAMILY_POST_SURVEY_ID)
+                # if post_survey.active:
+                #     response = post_survey.response(request.user)
+                #     if not response.completed:
                         return postsurvey_interruption(request)
