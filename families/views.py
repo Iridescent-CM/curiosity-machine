@@ -91,7 +91,10 @@ class HomeView(DashboardMixin, ListView):
         return self.request.user.notifications.all()
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs, lesson_set=LearningSet.from_config(user=self.request.user),)
+        lessons = Lesson.objects.filter(draft=False)
+        progresses = LessonProgress.objects.filter(owner=self.request.user)
+        learning_set = LearningSet(lessons, progresses)
+        context = super().get_context_data(**kwargs, lesson_set=learning_set,)
 
         by_day = {}
         for notification in context['activity']:
@@ -109,10 +112,12 @@ home = only_for_family(HomeView.as_view())
 
 class LessonsView(DashboardMixin, TemplateView):
     template_name = "families/lessons.html"
-
+    
     def get_context_data(self, **kwargs):
-        learning_set = LearningSet.from_config(user=self.request.user)
-        kwargs["lessons"] = learning_set.lessons
+        lessons = Lesson.objects.filter(draft=False)
+        progresses = LessonProgress.objects.filter(owner=self.request.user)
+        learning_set = LearningSet(lessons, progresses)
+        kwargs["lessons"] = learning_set.objects
         return super().get_context_data(**kwargs)
 
 lessons = only_for_family(LessonsView.as_view())
