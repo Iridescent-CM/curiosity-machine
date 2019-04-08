@@ -96,16 +96,6 @@ class HomeView(DashboardMixin, ListView):
         learning_set = LearningSet(lessons, progresses)
         context = super().get_context_data(**kwargs, lesson_set=learning_set,)
 
-        by_day = {}
-        for notification in context['activity']:
-            day = notification.timestamp.date()
-            by_day[day] = by_day.get(day, [])
-            by_day[day].append(notification)
-
-        context.update({
-            "activity_by_day": by_day,
-        })
-
         return context
 
 home = only_for_family(HomeView.as_view())
