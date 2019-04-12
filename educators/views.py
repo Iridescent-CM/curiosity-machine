@@ -3,7 +3,7 @@ from challenges.models import Challenge, Example
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine import signals
-# from curiositymachine.presenters import get_stages
+from curiositymachine.presenters import LearningSet
 from curiositymachine.decorators import whitelist
 from django.conf import settings
 from django.contrib import messages
@@ -15,7 +15,6 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, ListView, RedirectView, TemplateView, UpdateView, View
-# from families.aichallenge import get_stages
 from memberships.helpers.selectors import GroupSelector
 from memberships.models import Member, Membership
 from profiles.decorators import not_for_role, only_for_role, UserRole
@@ -33,6 +32,8 @@ from .sorting import *
 from django.conf import settings
 from surveys import get_survey
 from surveys.models import SurveyResponse
+from lessons.models import Lesson
+from lessons.models import Progress as LessonProgress
 
 
 only_for_educator = only_for_role(UserRole.educator)
@@ -143,20 +144,23 @@ class AIFCView(TemplateView):
     template_name = "educators/dashboard/aifc.html"
 
     def get_context_data(self, **kwargs):
-      membership_selection = MembershipSelection(self.request)
-    #   stages = [stage.objects for stage in get_stages()]
+        membership_selection = MembershipSelection(self.request)
+        lessons = Lesson.objects.filter(draft=False)
+        progresses = LessonProgress.objects.filter(owner=self.request.user)
+        learning_set = LearningSet(lessons, progresses)
+        kwargs["lessons"] = learning_set.objects
     #   for obj in stages[0] + stages[1]:
     #     obj.url = reverse("challenges:preview_inspiration", kwargs={"challenge_id": obj.id})
-    #   for obj in stages[2]:
-    #     obj.image = obj.card_image
-    #     obj.name = obj.title
-    #     obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
+        for obj in lessons:
+            obj.image = obj.card_image
+            obj.name = obj.title
+            obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
 
-      return super().get_context_data(
-          stages = stages,
-          membership_selection = membership_selection,
-          **kwargs
-        )
+        return super().get_context_data(
+            #   stages = stages,
+            membership_selection = membership_selection,
+            **kwargs
+            )
 
 aifc = only_for_educator(AIFCView.as_view())
 
