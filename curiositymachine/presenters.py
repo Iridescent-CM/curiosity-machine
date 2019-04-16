@@ -7,11 +7,12 @@ STARTED = "started"
 
 def get_aifc(user=None):
     lessons = Lesson.objects.filter(draft=False)
-    progresses = []
     if user:
         progresses = LessonProgress.objects.filter(owner=user)
-    learning_set = LearningSet(lessons, progresses)
-    return learning_set
+        aifc = LearningSet(lessons).with_progress(progresses)
+    else:
+        aifc = LearningSet(lessons)
+    return aifc
 
 class LearningSet:
     """
@@ -25,10 +26,12 @@ class LearningSet:
         COMPLETED:      a progress exists and is completed
     """
 
-    def __init__(self, objects, user_progresses=[]):
+    def __init__(self, objects):
         self.objects = objects
-        self._decorate(objects, user_progresses)
-        
+
+    def with_progress(self, user_progresses=[]):
+        self.objects = self._decorate(self.objects, user_progresses)
+        return self      
 
     def _decorate(self, objects, progresses=[]):
         prog_by_object_id = {p.object_id: p for p in progresses}

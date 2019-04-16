@@ -143,15 +143,14 @@ class AIFCView(TemplateView):
 
     def get_context_data(self, **kwargs):
         membership_selection = MembershipSelection(self.request)
-        learning_set = get_aifc()
-        kwargs["lessons"] = learning_set.objects
-        for obj in learning_set.objects:
+        aifc = get_aifc()
+        for obj in aifc.objects:
             obj.image = obj.card_image
             obj.name = obj.title
             obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
 
         return super().get_context_data(
-            #   stages = stages,
+            lessons = aifc.objects,
             membership_selection = membership_selection,
             **kwargs
             )
