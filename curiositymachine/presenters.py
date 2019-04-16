@@ -1,6 +1,17 @@
+from lessons.models import Lesson
+from lessons.models import Progress as LessonProgress
+
 NOT_STARTED = "not-started"
 COMPLETED = "completed"
 STARTED = "started"
+
+def get_learning_set(user=None):
+    lessons = Lesson.objects.filter(draft=False)
+    progresses = []
+    if user:
+        progresses = LessonProgress.objects.filter(owner=user)
+    learning_set = LearningSet(lessons, progresses)
+    return learning_set
 
 class LearningSet:
     """
@@ -14,22 +25,10 @@ class LearningSet:
         COMPLETED:      a progress exists and is completed
     """
 
-    def __init__(self, objects, user_progresses=[]):
-        self.objects = self._decorate(objects, user_progresses)
-
-    def _decorate(self, objects, progresses=[]):
-        prog_by_object_id = {p.object_id: p for p in progresses}
-
-        for obj in objects:
-            obj.state = NOT_STARTED
-            if obj.id in prog_by_object_id:
-                progress = prog_by_object_id[obj.id]
-                if progress.completed:
-                    obj.state = COMPLETED
-                else:
-                    obj.state = STARTED
-
-        return objects
+    def __init__(self, objects, user_progresses=[], user=None):
+        self.objects = objects
+        if user:
+            self.progresses = user_progresses
 
     @property
     def stats(self):

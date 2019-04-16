@@ -1,6 +1,6 @@
 from challenges.models import Challenge, Progress
 from curiositymachine.decorators import whitelist
-from curiositymachine.presenters import LearningSet
+from curiositymachine.presenters import get_learning_set
 from django.conf import settings
 from django.contrib import messages
 from django.http import *
@@ -8,8 +8,6 @@ from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import *
 from hellosign import jobs
-from lessons.models import Lesson
-from lessons.models import Progress as LessonProgress
 from profiles.decorators import not_for_role, only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
@@ -91,9 +89,7 @@ class HomeView(DashboardMixin, ListView):
         return self.request.user.notifications.all()
 
     def get_context_data(self, **kwargs):
-        lessons = Lesson.objects.filter(draft=False)
-        progresses = LessonProgress.objects.filter(owner=self.request.user)
-        learning_set = LearningSet(lessons, progresses)
+        learning_set = get_learning_set(self.request.user)
         context = super().get_context_data(**kwargs, lesson_set=learning_set,)
 
         return context
@@ -104,9 +100,7 @@ class LessonsView(DashboardMixin, TemplateView):
     template_name = "families/lessons.html"
     
     def get_context_data(self, **kwargs):
-        lessons = Lesson.objects.filter(draft=False)
-        progresses = LessonProgress.objects.filter(owner=self.request.user)
-        learning_set = LearningSet(lessons, progresses)
+        learning_set = get_learning_set(self.request.user)
         kwargs["lessons"] = learning_set.objects
         return super().get_context_data(**kwargs)
 

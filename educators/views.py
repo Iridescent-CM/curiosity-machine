@@ -3,7 +3,7 @@ from challenges.models import Challenge, Example
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine import signals
-from curiositymachine.presenters import LearningSet
+from curiositymachine.presenters import get_learning_set
 from curiositymachine.decorators import whitelist
 from django.conf import settings
 from django.contrib import messages
@@ -32,8 +32,6 @@ from .sorting import *
 from django.conf import settings
 from surveys import get_survey
 from surveys.models import SurveyResponse
-from lessons.models import Lesson
-from lessons.models import Progress as LessonProgress
 
 
 only_for_educator = only_for_role(UserRole.educator)
@@ -145,13 +143,9 @@ class AIFCView(TemplateView):
 
     def get_context_data(self, **kwargs):
         membership_selection = MembershipSelection(self.request)
-        lessons = Lesson.objects.filter(draft=False)
-        progresses = LessonProgress.objects.filter(owner=self.request.user)
-        learning_set = LearningSet(lessons, progresses)
+        learning_set = get_learning_set()
         kwargs["lessons"] = learning_set.objects
-    #   for obj in stages[0] + stages[1]:
-    #     obj.url = reverse("challenges:preview_inspiration", kwargs={"challenge_id": obj.id})
-        for obj in lessons:
+        for obj in learning_set.objects:
             obj.image = obj.card_image
             obj.name = obj.title
             obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
