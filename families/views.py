@@ -1,6 +1,6 @@
 from challenges.models import Challenge, Progress
 from curiositymachine.decorators import whitelist
-from curiositymachine.presenters import get_learning_set
+from curiositymachine.presenters import get_aifc
 from django.conf import settings
 from django.contrib import messages
 from django.http import *
@@ -89,7 +89,7 @@ class HomeView(DashboardMixin, ListView):
         return self.request.user.notifications.all()
 
     def get_context_data(self, **kwargs):
-        learning_set = get_learning_set(self.request.user)
+        learning_set = get_aifc(self.request.user)
         context = super().get_context_data(**kwargs, lesson_set=learning_set,)
 
         return context
@@ -100,7 +100,7 @@ class LessonsView(DashboardMixin, TemplateView):
     template_name = "families/lessons.html"
     
     def get_context_data(self, **kwargs):
-        learning_set = get_learning_set(self.request.user)
+        learning_set = get_aifc(self.request.user)
         kwargs["lessons"] = learning_set.objects
         return super().get_context_data(**kwargs)
 

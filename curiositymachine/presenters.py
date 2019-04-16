@@ -5,7 +5,7 @@ NOT_STARTED = "not-started"
 COMPLETED = "completed"
 STARTED = "started"
 
-def get_learning_set(user=None):
+def get_aifc(user=None):
     lessons = Lesson.objects.filter(draft=False)
     progresses = []
     if user:

@@ -3,7 +3,7 @@ from challenges.models import Challenge, Example
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine import signals
-from curiositymachine.presenters import get_learning_set
+from curiositymachine.presenters import get_aifc
 from curiositymachine.decorators import whitelist
 from django.conf import settings
 from django.contrib import messages
@@ -143,7 +143,7 @@ class AIFCView(TemplateView):
 
     def get_context_data(self, **kwargs):
         membership_selection = MembershipSelection(self.request)
-        learning_set = get_learning_set()
+        learning_set = get_aifc()
         kwargs["lessons"] = learning_set.objects
         for obj in learning_set.objects:
             obj.image = obj.card_image
