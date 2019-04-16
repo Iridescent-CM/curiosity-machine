@@ -26,20 +26,3 @@ class SignUpPrerequisitesMiddleware(MiddlewareMixin):
 
             return prereq_interruption(request)
 
-class PostSurveyMiddleware(MiddlewareMixin):
-    """
-    Middleware that interrupts at the appropriate point to prompt users to take post-survey.
-    ***Will do nothing for now, because it was based on stage completion, but leaving it in case we use
-    based on a different point in the lesson completion process.
-    """
-    def process_view(self, request, view, view_args, view_kwargs):
-        if (
-            request.user.is_authenticated()
-            and request.user.extra.is_family
-            and not (
-                whitelisted(view, 'public', 'maybe_public')
-                or whitelist_regex.match(request.path.lstrip('/'))
-            )
-        ):
-            if 0==1: 
-                return postsurvey_interruption(request)
