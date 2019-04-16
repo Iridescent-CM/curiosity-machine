@@ -10,7 +10,7 @@ def get_aifc(user=None):
     progresses = []
     if user:
         progresses = LessonProgress.objects.filter(owner=user)
-    learning_set = LearningSet(lessons, progresses, user)
+    learning_set = LearningSet(lessons, progresses)
     return learning_set
 
 class LearningSet:
@@ -25,10 +25,9 @@ class LearningSet:
         COMPLETED:      a progress exists and is completed
     """
 
-    def __init__(self, objects, user_progresses=[], user=None):
+    def __init__(self, objects, user_progresses=[]):
         self.objects = objects
-        if user:
-            self._decorate(objects, user_progresses)
+        self._decorate(objects, user_progresses)
         
 
     def _decorate(self, objects, progresses=[]):
