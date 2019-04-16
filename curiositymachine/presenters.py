@@ -10,7 +10,7 @@ def get_learning_set(user=None):
     progresses = []
     if user:
         progresses = LessonProgress.objects.filter(owner=user)
-    learning_set = LearningSet(lessons, progresses)
+    learning_set = LearningSet(lessons, progresses, user)
     return learning_set
 
 class LearningSet:
@@ -28,8 +28,23 @@ class LearningSet:
     def __init__(self, objects, user_progresses=[], user=None):
         self.objects = objects
         if user:
-            self.progresses = user_progresses
+            self._decorate(objects, user_progresses)
+        
 
+    def _decorate(self, objects, progresses=[]):
+        prog_by_object_id = {p.object_id: p for p in progresses}
+
+        for obj in objects:
+            obj.state = NOT_STARTED
+            if obj.id in prog_by_object_id:
+                progress = prog_by_object_id[obj.id]
+                if progress.completed:
+                    obj.state = COMPLETED
+                else:
+                    obj.state = STARTED
+
+        return objects
+    
     @property
     def stats(self):
         stats = {}
