@@ -9,7 +9,7 @@ def get_aifc(user=None):
     lessons = Lesson.objects.filter(draft=False)
     if user:
         progresses = LessonProgress.objects.filter(owner=user)
-        aifc = LearningSet(lessons).with_progress(progresses)
+        aifc = LearningSet(lessons).with_progresses(progresses)
     else:
         aifc = LearningSet(lessons)
     return aifc
@@ -29,9 +29,9 @@ class LearningSet:
     def __init__(self, objects):
         self.objects = objects
 
-    def with_progress(self, user_progresses=[]):
-        self.objects = self._decorate(self.objects, user_progresses)
-        return self      
+    def with_progresses(self, progresses):
+        self.objects = self._decorate(self.objects, progresses)
+        return self
 
     def _decorate(self, objects, progresses=[]):
         prog_by_object_id = {p.object_id: p for p in progresses}
@@ -46,7 +46,7 @@ class LearningSet:
                     obj.state = STARTED
 
         return objects
-    
+
     @property
     def stats(self):
         stats = {}
