@@ -16,20 +16,11 @@
 
     .nav-item {
       border-bottom: 5px solid transparent;
-
-      &.active {
-        border-bottom-color: $primary-blue;
-        .nav-link {
-          color: $primary-blue;
-        }
+      .nav-link {
+        color: white;
       }
-    }
-
-    .nav-link {
-      color: $dark;
-
-      &:hover, &:focus {
-        color: $primary-blue;
+      &.active {
+        border-bottom-color: white;
       }
     }
   }

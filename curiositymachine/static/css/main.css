@@ -7773,14 +7773,10 @@ i {
   letter-spacing: 2px; }
   .dashboard .dashboard-tabs .nav-item {
     border-bottom: 5px solid transparent; }
+    .dashboard .dashboard-tabs .nav-item .nav-link {
+      color: white; }
     .dashboard .dashboard-tabs .nav-item.active {
-      border-bottom-color: #00B1C3; }
-      .dashboard .dashboard-tabs .nav-item.active .nav-link {
-        color: #00B1C3; }
-  .dashboard .dashboard-tabs .nav-link {
-    color: #333333; }
-    .dashboard .dashboard-tabs .nav-link:hover, .dashboard .dashboard-tabs .nav-link:focus {
-      color: #00B1C3; }
+      border-bottom-color: white; }
 
 @media (max-width: 767.98px) {
   .dashboard .dashboard-tabs {
@@ -9382,6 +9378,9 @@ footer {
     flex: 0 60px;
     border-radius: 50%;
     margin-right: 10px; }
+
+.family-dashboard .aifc-logo {
+  width: 25%; }
 
 #index-page .jumbotron {
   padding-top: 6em;

@@ -1,4 +1,5 @@
 {% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
 {% block title %}Family Dashboard{% endblock %}
 {% block body-classes %}dashboard family-dashboard{% endblock %}
 
@@ -7,20 +8,15 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <a href="{% url 'families:edit_profile' %}" class="float-right">Account Settings</a>
-          <div class="avatar">
-            {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
-          </div>
-          <h2>{{ request.user.username }}</h2>
+          <img class="aifc-logo" src="{% static 'images/about/aifc-white-logo.svg' %}">
         </div>
       </div>
       <div class="row mt-1 d-none d-md-flex">
         <div class="col-md-12">
-          <strong>Email:</strong> {{ request.user.email }}
-          <br>
           {{ program_name|default:"" }}
         </div>
       </div>
+      {% include 'families/_navigation.html' %}
     </div>
   </div>
   <div class="container mb-3">
