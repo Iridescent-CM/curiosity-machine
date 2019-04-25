@@ -7,7 +7,6 @@ urlpatterns = [
     url(r'^profile/edit/$', edit, name="edit_profile"),
     url(r'^conversion/$', conversion, name="conversion"),
     url(r'^home/$', home, name="home"),
-    url(r'^lessons/$', lessons, name="lessons"),
     url(r'^submission/$', submission, name="submission"),
     url(r'^awardforce/$', awardforce, name="awardforce"),
     url(r'^permission/new/$', sign_slip, name="create_permissionslip"),

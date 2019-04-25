@@ -9340,6 +9340,10 @@ footer {
   .family-dashboard .dashboard-section a {
     color: #3498DB; }
 
+.family-dashboard .progress-circle {
+  position: relative;
+  top: -40px; }
+
 .family-dashboard .blue-round-button {
   border-radius: 100%;
   padding: 5px 10px;

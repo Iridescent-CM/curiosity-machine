@@ -3,60 +3,75 @@
 {% load addstr %}
 
 {% block js %}
-  <script type="text/javascript" src="{% static 'js/libs/jquery.circliful.min.js' %}"></script>
-  <script>
-    $(function(){
-      $('*[data-percent]').circliful();
-    });
-  </script>
+<script type="text/javascript" src="{% static 'js/libs/jquery.circliful.min.js' %}"></script>
+<script>
+  $(function(){
+    $('*[data-percent]').circliful();
+  });
+</script>
 {% endblock %}
 
 {% block content %}
 
-  {% include "families/_dashboard_help.html" %}
-
-  <div class="row mb-4 mt-4">
-    <div class="col-md-4 mb-4">
-      <h3>Family</h3>
-      <div class="dashboard-section">
-        <ul class="members-list">
-          {% for familymember in request.user.familymember_set.all %}
-          <li class="members-list-item mb-3">
-            {% include "profiles/_avatar.html" with profile=familymember width=60 height=60 crop='thumb' gravity='faces' classes='avatar' %}
-            <span class="username">{{ familymember.name }}</span>
+<div class="row top-row mt-4">
+  <div class="col-md-6 ml-5 mr-5 pb-0 mb-0">
+    {% block infobox %}
+    <div class="row">
+      <div class="col-12 dashboard-section pt-2 pb-0 pl-4 pr-4 m-2">
+        <p class="h4 font-weight-bold text-primary m-0 mt-2 p-0">About the AI Family Challenge</p>
+        <hr class="m-1 w-75">
+        <ol class="list-unstyled">
+          <li class="row pl-3">
+            <div class="col-xs-1">
+              <span class="badge rounded-circle badge-blue">1.</span>
+            </div>
+            <div class="col">
+                Complete these 10 lessons to build your <a href="{% url "aichallenge/worldchampionship" %}" target="_blank">
+                AI World Championship</a> submission.
+            </div>
           </li>
-          {% endfor %}
-        </ul>
+          <li class="row pl-3">
+            <div class="col-xs-1">
+              <span class="badge rounded-circle badge-red">2.</span>
+            </div>
+            <div class="col">
+                Follow the directions to submit text, videos or pictures of your completed lessons.
+            </div>
+          </li>
+          <li class="row pl-3">
+            <div class="col-xs-1">
+              <span class="badge rounded-circle badge-purple">3.</span>
+            </div>
+            <div class="col">
+                Don't forget to submit your idea to the AI World Championship!
+            </div>
+          </li>
+        </ol>
       </div>
     </div>
+    {% endblock %} 
+  </div>
 
-    <div class="col-md-8">
-      <h3>AI Family Challenge Program Progress</h3>
-      <div class="row dashboard-section">
-        <button class="blue-round-button"
-          data-toggle="modal" data-target="#dashboard-help-modal">?</button>
-        <div class="col-md-4 text-center">
-          <a href="{% url "families:lessons" %}">
-            <div
-              data-percent={{lesson_set.stats.percent_complete}}
-              data-replacePercentageByText="{{lesson_set.stats.completed}} of {{lesson_set.stats.total}}"
-              data-animationStep=20
-              data-foregroundBorderWidth= 30
-              data-backgroundBorderWidth= 30
-              {% if lesson_set.stats.completed == lesson_set.stats.total %}
-                  data-foregroundColor = '#73AD21'
-              {% else %}
-                  data-foregroundColor = '#3498DB'
-              {% endif %}
-              data-backgroundColor= '#666'
-              data-fontColor= '#666'
-            ></div>
-            <p>Lessons Progress</p>
-          </a>
-        </div>
-        
-      </div>
+  <div class="col-md-3 ml-5 text-center">
+    <p class="h4 font-weight-bold text-primary m-0 mt-2 p-0">Your Progress</p>
+    <div class="progress-circle">
+      <div 
+        data-percent={{lesson_set.stats.percent_complete}}
+        data-replacePercentageByText="{{lesson_set.stats.completed}} of {{lesson_set.stats.total}}"
+        data-animationStep=20
+        data-foregroundBorderWidth= 20
+        data-backgroundBorderWidth= 20
+        {% if lesson_set.stats.completed == lesson_set.stats.total %}
+            data-foregroundColor = '#73AD21'
+        {% else %}
+            data-foregroundColor = '#3498DB'
+        {% endif %}
+        data-backgroundColor= '#666'
+        data-fontColor= '#666'
+      ></div>
     </div>
   </div>
+</div>
+{% include 'families/lessons.html' %}
 {% endblock %}
 
