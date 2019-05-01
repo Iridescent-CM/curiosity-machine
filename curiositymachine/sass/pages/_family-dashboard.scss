@@ -1,5 +1,17 @@
 .family-dashboard {
 
+  .orange-header {
+    background-size: cover;
+    vertical-align: middle;
+    background-image: url("../images/family-dashboard/orange-header.svg");
+  }
+
+  .home {
+    background-repeat: no-repeat;
+    background-image: url("../images/family-dashboard/page-background.svg");
+    background-position-y: bottom;
+  }
+  
   .checkbox {
     display: inline-block;
     width: 1em;
@@ -26,9 +38,8 @@
     }
   }
 
-  .progress-circle {
-    position: relative;
-    top: -40px;
+  .progress-title {
+    position: absolute;
   }
 
   .blue-round-button {

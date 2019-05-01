@@ -1,12 +1,12 @@
 {% block content %}
-<div class="row">
+
   <div class="col-md-12">
     <p class="h4 font-weight-bold text-primary text-left m-0 mb-2 p-0">Lessons</p>
   </div>
   {% for lesson in lessons %}
-  <div class="col-md-4 mb-2">
+  <div class="col-md-3 mb-2">
     {% include 'families/_lesson_card.html' with lesson=lesson %}
   </div>
   {% endfor %}
-</div>
+
 {% endblock %}

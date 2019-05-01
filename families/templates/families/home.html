@@ -12,11 +12,9 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="row top-row mt-4">
-  <div class="col-md-6 ml-5 mr-5 pb-0 mb-0">
-    {% block infobox %}
-    <div class="row">
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-6">
       <div class="col-12 dashboard-section pt-2 pb-0 pl-4 pr-4 m-2">
         <p class="h4 font-weight-bold text-primary m-0 mt-2 p-0">About the AI Family Challenge</p>
         <hr class="m-1 w-75">
@@ -49,13 +47,10 @@
         </ol>
       </div>
     </div>
-    {% endblock %} 
-  </div>
 
-  <div class="col-md-3 ml-5 text-center">
-    <p class="h4 font-weight-bold text-primary m-0 mt-2 p-0">Your Progress</p>
-    <div class="progress-circle">
-      <div 
+    <div class="text-center col-md-3 offset-md-1">
+      <p class="h4 progress-title font-weight-bold text-primary mt-2 ml-5">Your Progress</p>
+      <div class="progress-circle"
         data-percent={{lesson_set.stats.percent_complete}}
         data-replacePercentageByText="{{lesson_set.stats.completed}} of {{lesson_set.stats.total}}"
         data-animationStep=20
@@ -71,7 +66,11 @@
       ></div>
     </div>
   </div>
+
+  <div class="row">
+    {% include 'families/lessons.html' %}
+  </div>
 </div>
-{% include 'families/lessons.html' %}
+
 {% endblock %}
 

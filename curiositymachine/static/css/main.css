@@ -9319,6 +9319,16 @@ footer {
 #examples-page a[data-toggle="modal"]:focus {
   text-decoration: none; }
 
+.family-dashboard .orange-header {
+  background-size: cover;
+  vertical-align: middle;
+  background-image: url("../images/family-dashboard/orange-header.svg"); }
+
+.family-dashboard .home {
+  background-repeat: no-repeat;
+  background-image: url("../images/family-dashboard/page-background.svg");
+  background-position-y: bottom; }
+
 .family-dashboard .checkbox {
   display: inline-block;
   width: 1em;
@@ -9340,9 +9350,8 @@ footer {
   .family-dashboard .dashboard-section a {
     color: #3498DB; }
 
-.family-dashboard .progress-circle {
-  position: relative;
-  top: -40px; }
+.family-dashboard .progress-title {
+  position: absolute; }
 
 .family-dashboard .blue-round-button {
   border-radius: 100%;
