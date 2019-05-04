@@ -1,4 +1,15 @@
 .dashboard {
+  .dashboard-aifc-header-bg {
+    background-size: cover;
+    vertical-align: middle;
+    background-image: url("../images/aifc/orange-header.svg");
+  }
+  
+  .dashboard-page-bg {
+    background-repeat: no-repeat;
+    background-image: url("../images/aifc/page-background.svg");
+    background-position-y: bottom;
+  }
 
   .dashboard-avatar img {
     background-color: white;

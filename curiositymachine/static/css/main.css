@@ -7758,6 +7758,16 @@ i {
   display: inline-block;
   top: -3px; }
 
+.dashboard .dashboard-aifc-header-bg {
+  background-size: cover;
+  vertical-align: middle;
+  background-image: url("../images/aifc/orange-header.svg"); }
+
+.dashboard .dashboard-page-bg {
+  background-repeat: no-repeat;
+  background-image: url("../images/aifc/page-background.svg");
+  background-position-y: bottom; }
+
 .dashboard .dashboard-avatar img {
   background-color: white;
   border-radius: 50%;
@@ -9318,16 +9328,6 @@ footer {
 #examples-page a[data-toggle="modal"]:hover,
 #examples-page a[data-toggle="modal"]:focus {
   text-decoration: none; }
-
-.family-dashboard .orange-header {
-  background-size: cover;
-  vertical-align: middle;
-  background-image: url("../images/family-dashboard/orange-header.svg"); }
-
-.family-dashboard .home {
-  background-repeat: no-repeat;
-  background-image: url("../images/family-dashboard/page-background.svg");
-  background-position-y: bottom; }
 
 .family-dashboard .checkbox {
   display: inline-block;
