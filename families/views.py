@@ -95,6 +95,8 @@ class HomeView(DashboardMixin, ListView):
 
         return context
 
+home = only_for_family(HomeView.as_view())
+
 class LessonsView(DashboardMixin, TemplateView):
     template_name = "families/lessons.html"
     
@@ -104,8 +106,6 @@ class LessonsView(DashboardMixin, TemplateView):
         return super().get_context_data(**kwargs)
 
 lessons = only_for_family(LessonsView.as_view())
-
-home = only_for_family(HomeView.as_view())
 
 class PrereqInterruptionView(TemplateView):
     template_name = "families/interruption.html"
