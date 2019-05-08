@@ -7763,6 +7763,9 @@ i {
   vertical-align: middle;
   background-image: url("../images/aifc/orange-header.svg"); }
 
+.dashboard .dashboard-white-aifc-logo {
+  width: 25%; }
+
 .dashboard .dashboard-page-bg {
   background-repeat: no-repeat;
   background-image: url("../images/aifc/page-background.svg");

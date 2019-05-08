@@ -1,8 +1,9 @@
 {% extends "educators/dashboard/base.html" %}
+{% load impact_survey %}
 {% load staticfiles %}
 
 {% block content %}
-  {% include 'educators/dashboard/_navigation.html' %}
+  {% impact_survey %}
   <div class="row">
   {% for obj in lessons %}
   <div class="col-lg-4 col-md-6 mb-1">
@@ -10,4 +11,8 @@
   </div>
   {% endfor %}
   </div>
+{% endblock %}
+
+{% block js %}
+  {% impact_survey_js %}
 {% endblock %}
