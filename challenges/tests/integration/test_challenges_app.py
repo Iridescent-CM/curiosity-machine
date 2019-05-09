@@ -291,7 +291,7 @@ def test_unclaimed_progress(mentor, unclaimed_progress):
     assert sum(1 for s in unclaimed) == 0
     unclaimed_progress.stage = Stage.plan
     unclaimed_progress.save()
-    student_comment(unclaimed_progress.owner, unclaimed_progress)
+    Comment.objects.create(challenge_progress=unclaimed_progress, text="Comment test", user=unclaimed_progress.owner)
     unclaimed = Progress.unclaimed()
     assert sum(1 for s in unclaimed) == 1
 
