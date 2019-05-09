@@ -90,22 +90,26 @@ class HomeView(DashboardMixin, ListView):
 
     def get_context_data(self, **kwargs):
         aifc = get_aifc(self.request.user)
-        kwargs["lessons"] = aifc.objects
-        context = super().get_context_data(**kwargs, lesson_set=aifc,)
+        return super().get_context_data(
+            **kwargs,
+            lesson_set = aifc,
+            lessons = aifc.objects
+        )
 
-        return context
+home = only_for_family(HomeView.as_view())
 
 class LessonsView(DashboardMixin, TemplateView):
     template_name = "families/lessons.html"
     
     def get_context_data(self, **kwargs):
         aifc = get_aifc(self.request.user)
-        kwargs["lessons"] = aifc.objects
-        return super().get_context_data(**kwargs)
+        return super().get_context_data(
+            **kwargs,
+            lesson_set = aifc,
+            lessons = aifc.objects
+        )
 
 lessons = only_for_family(LessonsView.as_view())
-
-home = only_for_family(HomeView.as_view())
 
 class PrereqInterruptionView(TemplateView):
     template_name = "families/interruption.html"
