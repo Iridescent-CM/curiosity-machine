@@ -7,11 +7,9 @@
   </a>
 
   <div class="card-body pb-5">
-    <h3 class="card-title">
-      <a href="{% url "lessons:lesson-progress-find-or-create" %}?lesson={{ lesson.id }}">
-        {{ lesson.title }}
-      </a>
-    </h3>
+    <a class="h3 text-dark" href="{% url "lessons:lesson-progress-find-or-create" %}?lesson={{ lesson.id }}">
+      {{ lesson.title }}
+    </a>
   </div>
 
   <a class="card-body-toggle"

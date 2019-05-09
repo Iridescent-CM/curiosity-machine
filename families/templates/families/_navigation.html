@@ -1,17 +1,12 @@
 {% load ifactive %}
 {% load notifications_tags %}
-<div class="row mb-2">
-  <div class="col-md-12">
+<div class="row mb-2 mt-3">
+  <div class="col-md-12 pl-0">
     <nav class="dashboard-tabs">
-      <ul class="nav">
+      <ul class="nav text-white">
         <li class="nav-item {% ifactive "families:home" "active" %}">
           <a class="nav-link" href="{% url 'families:home' %}">
             Dashboard
-          </a>
-        </li>
-        <li class="nav-item {% ifactive "families:lessons" "active" %}">
-          <a class="nav-link" href="{% url 'families:lessons' %}">
-            Lessons
           </a>
         </li>
         {% if flags.enable_aifcwc_tab %}

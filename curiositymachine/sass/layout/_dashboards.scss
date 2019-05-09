@@ -1,4 +1,22 @@
 .dashboard {
+  .dashboard-aifc-header-bg {
+    background-size: cover;
+    vertical-align: middle;
+    background-image: url("../images/aifc/orange-header.svg");
+  }
+  
+  .dashboard-page-bg {
+    background-repeat: no-repeat;
+    background-image: url("../images/aifc/page-background.svg");
+    background-position-y: bottom;
+  }
+
+  .dashboard-subtitle {
+    font-weight: bold;
+    font-size: 30px;
+    color: #00B1C3;
+    margin: 2px 0px 0px 0px;
+  }
 
   .dashboard-avatar img {
     background-color: white;
@@ -16,20 +34,11 @@
 
     .nav-item {
       border-bottom: 5px solid transparent;
-
-      &.active {
-        border-bottom-color: $primary-blue;
-        .nav-link {
-          color: $primary-blue;
-        }
+      .nav-link {
+        color: white;
       }
-    }
-
-    .nav-link {
-      color: $dark;
-
-      &:hover, &:focus {
-        color: $primary-blue;
+      &.active {
+        border-bottom-color: white;
       }
     }
   }
