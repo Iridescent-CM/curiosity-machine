@@ -21,7 +21,7 @@ class Image(models.Model):
     @classmethod
     def from_source_with_job(cls, source_url):
         if not source_url:
-            logger.warn("No source url provided for Image", stack_info=True)
+            logger.warning("No source url provided for Image", stack_info=True)
             return None
         image = cls.objects.create(source_url=source_url)
         image.fetch_from_source()

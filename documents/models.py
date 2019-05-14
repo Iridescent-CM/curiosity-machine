@@ -22,7 +22,7 @@ class Document(models.Model):
     @classmethod
     def from_source_with_job(cls, source_url, filename):
         if not source_url:
-            logger.warn("No source url provided for Document", stack_info=True)
+            logger.warning("No source url provided for Document", stack_info=True)
             return None
         doc = cls.objects.create(source_url=source_url, filename=filename)
         doc.fetch_from_source()
