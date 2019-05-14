@@ -42,7 +42,7 @@ class Updating:
             return survey_response
 
         if survey_response.completed:
-            logger.warn("Updating a %s survey to %s" % (status, new_status))
+            logger.warning("Updating a %s survey to %s" % (status, new_status))
 
         survey_response.status = new_status 
         survey_response.save(update_fields=['status'])

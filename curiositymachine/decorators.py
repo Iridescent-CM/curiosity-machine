@@ -8,7 +8,7 @@ from memberships.models import Membership
 def anonymous_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return HttpResponseRedirect(reverse('root'))
         else:
             return view(request, *args, **kwargs)
@@ -17,7 +17,7 @@ def anonymous_only(view):
 def unapproved_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        if request.user.is_authenticated() and not request.user.extra.is_approved:
+        if request.user.is_authenticated and not request.user.extra.is_approved:
             return view(request, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse('root'))
@@ -51,7 +51,7 @@ def current_user_or_approved_viewer(view):
 def educator_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        if request.user.is_authenticated() and (request.user.is_staff or request.user.extra.is_educator):
+        if request.user.is_authenticated and (request.user.is_staff or request.user.extra.is_educator):
             return view(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -60,7 +60,7 @@ def educator_only(view):
 def student_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        if request.user.is_authenticated() and (request.user.is_staff or request.user.extra.is_student):
+        if request.user.is_authenticated and (request.user.is_staff or request.user.extra.is_student):
             return view(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -70,7 +70,7 @@ def student_only(view):
 def mentor_only(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
-        if request.user.is_authenticated() and (request.user.is_staff or request.user.extra.is_mentor):
+        if request.user.is_authenticated and (request.user.is_staff or request.user.extra.is_mentor):
             return view(request, *args, **kwargs)
         else:
             raise PermissionDenied
