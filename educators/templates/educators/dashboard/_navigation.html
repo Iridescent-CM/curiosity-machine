@@ -1,10 +1,10 @@
 {% load ifactive %}
 {% load notifications_tags %}
-<div class="row mb-5">
+<div class="row">
   <div class="col-md-12">
     <nav class="dashboard-tabs">
       <ul class="nav">
-        {% if membership_selection.count > 1 %}
+        {% comment %} {% if membership_selection.count > 1 %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
             {{ membership_selection.selected.display_name }}
@@ -15,37 +15,38 @@
             {% endfor %}
           </div>
         </li>
-        {% endif %}
-        <li class="nav-item {% ifactive "educators:home" "active" %}">
-          <a class="nav-link" href="{% url 'educators:home' %}">
-            design challenges
-          </a>
-        </li>
+        {% endif %} {% endcomment %}
+
         <li class="nav-item {% ifactive "educators:aifc" "active" %}">
           <a class="nav-link" href="{% url 'educators:aifc' %}">
-            AI Family Challenge
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-item {% ifactive "educators:home" "active" %}">
+          <a class="nav-link" href="{% url 'educators:home' %}">
+            Design Challenges
           </a>
         </li>
         {% if membership_selection.selected.listed_members %}
         <li class="nav-item {% ifactive "educators:students" "active" %}">
           <a class="nav-link" href="{% url 'educators:students' %}">
-            students
+            Participants
           </a>
         </li>
         {% endif %}
         <li class="nav-item {% ifactive "educators:guides" "active" %}">
           <a class="nav-link" href="{% url 'educators:guides' %}">
-            units &amp; guides
+            Resources
           </a>
         </li>
-        {% if flags.enable_educator_feedback %}
+        {% comment %} {% if flags.enable_educator_feedback %}
         <li class="nav-item {% ifactive "educators:activity" "active" %}">
           <a class="nav-link" href="{% url 'educators:activity' %}">
             recent activity
             <span class="badge badge-purple">{% notifications_unread %}</span>
           </a>
         </li>
-        {% endif %}
+        {% endif %} {% endcomment %}
       </ul>
     </nav>
   </div>
