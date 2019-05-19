@@ -2,7 +2,7 @@
 {% load educator_notifications %}
 
 {% block content %}
-  {% include 'educators/dashboard/_navigation.html' %}
+<div class="container">
   <div class="row justify-content-center">
     {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
   </div>
@@ -24,4 +24,5 @@
   <div class="row justify-content-center">
     {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
   </div>
+</div>
 {% endblock %}

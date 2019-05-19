@@ -3,14 +3,30 @@
 {% load staticfiles %}
 
 {% block content %}
-  {% impact_survey %}
-  <div class="row">
-  {% for obj in lessons %}
-  <div class="col-lg-4 col-md-6 mb-1">
-    {% include 'educators/dashboard/_challenge_or_lesson_card.html'%}
+<div class="dashboard-page-bg">
+  <div class="container pb-3">
+    <h2 class="dashboard-subtitle mt-4">Welcome to the AI Family Challenge</h2>
+    <hr class="m-1 w-50">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    </p>
+    <p>
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <div class="row">
+      <div class="my-4 border dashboard-section p-4">
+        {% impact_survey %}
+      </div>
+    </div>
+    <h2 class="dashboard-subtitle mt-4">Lessons</h2>
+    <div class="row mt-3">
+    {% for obj in lessons %}
+    <div class="col-lg-4 col-md-6 mb-1">
+      {% include 'educators/dashboard/_challenge_or_lesson_card.html'%}
+    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-  </div>
+</div>
 {% endblock %}
 
 {% block js %}

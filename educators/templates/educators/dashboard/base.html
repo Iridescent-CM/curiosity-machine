@@ -19,10 +19,9 @@
         </div>
       </div>
 
-      <div class="row mt-1 d-none d-md-flex">
+      <div class="row">
         <div class="col-md-12">
           {% if membership_selection.memberships %}
-          <br />
           <strong>{{ membership_selection.names }}</strong>
           {% endif %}
         </div>
@@ -46,7 +45,6 @@
         </div>
       </div>
 
-
       {% if messages %}{% for message in messages %}
         <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -56,14 +54,15 @@
         </div>
       {% endfor %}{% endif %}
 
-      {% include 'educators/dashboard/_navigation.html' %}
+      <div class="row">
+        {% include 'educators/dashboard/_navigation.html' %}
+      </div>
     </div>
 
-      
   </div>
 </div>
 
-  <div class="container mb-5" id="content">
+  <div id="content">
     {% block content %}{% endblock %}
   </div>
 {% endblock %}

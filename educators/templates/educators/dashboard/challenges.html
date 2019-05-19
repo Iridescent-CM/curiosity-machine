@@ -2,9 +2,9 @@
 {% load staticfiles %}
 
 {% block content %}
-  {% include 'educators/dashboard/_navigation.html' %}
 
-  {% if membership and membership_challenges %}
+{% if membership and membership_challenges %}
+<div class="container py-3">
   <div class="row pb-2">
     <div class="col-md-12">
       <h2>{{ membership.display_name }} Design Challenges</h2>
@@ -38,5 +38,6 @@
     {% endfor %}
 
   </div>
-  {% endif %}
+</div>
+{% endif %}
 {% endblock %}

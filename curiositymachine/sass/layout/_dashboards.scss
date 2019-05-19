@@ -9,6 +9,14 @@
     width: 25%;
   }
   
+  .dashboard-section {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #E3E3DD;
+    border-width: 2px;
+    background: #FFFCF7;
+  }
+  
   .dashboard-page-bg {
     background-repeat: no-repeat;
     background-image: url("../images/aifc/page-background.svg");
@@ -16,6 +24,7 @@
   }
 
   .dashboard-subtitle {
+    font-family: 'Raleway', Helvetica, sans-serif;
     font-weight: bold;
     font-size: 30px;
     color: #00B1C3;

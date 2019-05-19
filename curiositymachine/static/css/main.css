@@ -7766,12 +7766,20 @@ i {
 .dashboard .dashboard-white-aifc-logo {
   width: 25%; }
 
+.dashboard .dashboard-section {
+  border-radius: 15px;
+  border-style: solid;
+  border-color: #E3E3DD;
+  border-width: 2px;
+  background: #FFFCF7; }
+
 .dashboard .dashboard-page-bg {
   background-repeat: no-repeat;
   background-image: url("../images/aifc/page-background.svg");
   background-position-y: bottom; }
 
 .dashboard .dashboard-subtitle {
+  font-family: 'Raleway', Helvetica, sans-serif;
   font-weight: bold;
   font-size: 30px;
   color: #00B1C3;
@@ -9349,11 +9357,6 @@ footer {
     background-image: url("../images/checkbox-unchecked.svg"); }
     .family-dashboard .checkbox.checkbox-checked {
       background-image: url("../images/checkbox-checked.svg"); }
-  .family-dashboard .dashboard-section {
-    border-radius: 15px;
-    border-style: solid;
-    border-color: #E3E3DD;
-    border-width: 2px; }
   .family-dashboard .progress-title {
     position: relative;
     top: 10px; }
