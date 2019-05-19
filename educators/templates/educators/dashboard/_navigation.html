@@ -9,7 +9,7 @@
             Dashboard
           </a>
         </li>
-        {% if user.educatorprofile.organization != null %} 
+        {% if membership and membership_challenges %} 
         <li class="nav-item {% ifactive "educators:challenges" "active" %}">
           <a class="nav-link" href="{% url 'educators:challenges' %}">
             Design Challenges
