@@ -9,7 +9,7 @@
             Dashboard
           </a>
         </li>
-        {% if user.educatorprofile.organization.challenges != null %} 
+        {% if user.educatorprofile.organization != null %} 
         <li class="nav-item {% ifactive "educators:challenges" "active" %}">
           <a class="nav-link" href="{% url 'educators:challenges' %}">
             Design Challenges
@@ -31,7 +31,7 @@
         {% if flags.enable_educator_feedback and user.educatorprofile.organization != null %}
         <li class="nav-item {% ifactive "educators:activity" "active" %}">
           <a class="nav-link" href="{% url 'educators:activity' %}">
-            recent activity
+            Recent Activity
             <span class="badge badge-purple">{% notifications_unread %}</span>
           </a>
         </li>
