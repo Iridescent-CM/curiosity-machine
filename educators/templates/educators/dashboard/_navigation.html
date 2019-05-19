@@ -15,7 +15,7 @@
             Design Challenges
           </a>
         </li>
-        {% endif %}
+        {% comment %} {% endif %} {% endcomment %}
         {% if membership_selection.selected.listed_members %}
         <li class="nav-item {% ifactive "educators:students" "active" %}">
           <a class="nav-link" href="{% url 'educators:students' %}">
