@@ -495,19 +495,19 @@ def test_challenge_detail_page_context_has_challenge_links(client):
     )
     assert set(response.context["challenge_links"]) == set(challenges)
 
-# @pytest.mark.django_db
-# def test_page_contexts_have_membership_selection_helper(client):
-#     educator = EducatorFactory(username="edu", password="123123")
-#     memberships = [MembershipFactory(members=[educator]), MembershipFactory(members=[educator])]
+@pytest.mark.django_db
+def test_page_contexts_have_membership_selection_helper(client):
+    educator = EducatorFactory(username="edu", password="123123")
+    memberships = [MembershipFactory(members=[educator]), MembershipFactory(members=[educator])]
 
-#     client.login(username="edu", password="123123")
-#     for url in [
-#         reverse("educators:home"),
-#         reverse("educators:students"),
-#         reverse("educators:guides")
-#     ]:
-#         response = client.get(url, follow=True)
-#         assert "membership_selection" in response.context
+    client.login(username="edu", password="123123")
+    for url in [
+        reverse("educators:home"),
+        reverse("educators:students"),
+        reverse("educators:guides")
+    ]:
+        response = client.get(url, follow=True)
+        assert "membership_selection" in response.context
 
 @pytest.mark.django_db
 def test_graph_data_endpoint_returns_json(client):
