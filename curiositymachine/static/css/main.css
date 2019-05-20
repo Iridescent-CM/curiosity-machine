@@ -9348,6 +9348,13 @@ footer {
     background-image: url("../images/checkbox-unchecked.svg"); }
     .family-dashboard .checkbox.checkbox-checked {
       background-image: url("../images/checkbox-checked.svg"); }
+
+  .family-dashboard .dashboard-section {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #E3E3DD;
+    border-width: 2px; }
+
   .family-dashboard .progress-title {
     position: relative;
     top: 10px; }
@@ -9768,6 +9775,11 @@ footer {
   margin: auto;
   display: block;
   cursor: pointer; }
+
+.aifc-pages .aifc-data-donuts {
+  max-width: 150px;
+  margin: auto;
+  display: block; }
 
 .aifc-pages .aifc-pages-video-header {
   position: relative;

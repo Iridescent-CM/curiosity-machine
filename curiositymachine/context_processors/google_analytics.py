@@ -20,7 +20,7 @@ def get_events(request):
     return request.session.pop(SESSION_KEY, [])
 
 def google_analytics(request):
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         usertype = "Anonymous"
     elif request.user.is_staff:
         usertype = "Staff"
@@ -37,15 +37,15 @@ def google_analytics(request):
 
         if not usertype:
             usertype = "Other"
-            logger.warn("User categorized as Other for Google Analytics: {}".format(request.user.username))
+            logger.warning("User categorized as Other for Google Analytics: {}".format(request.user.username))
 
     userid = None
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         userid = request.user.id
 
     free_user = None
     membership_grouping = None
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         free_user = "Membership" if request.user.extra.in_active_membership else "Free"
         membership_grouping = "-".join([str(id) for id in request.user.membership_set.filter(is_active=True).order_by('id').values_list('id', flat=True)])
 

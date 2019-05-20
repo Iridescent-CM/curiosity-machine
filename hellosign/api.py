@@ -57,7 +57,7 @@ class HelloSign():
 
     def update_email(self, signature):
         if not signature.signature_request_id or not signature.signature_id:
-            logger.warn('Attempting id lookup for signature %s' % signature.id)
+            logger.warning('Attempting id lookup for signature %s' % signature.id)
             self._look_up_ids(signature)
 
         self.client._get_request().post(

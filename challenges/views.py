@@ -153,7 +153,7 @@ class InspirationPreviewDispatch(ViewDispatch):
 
     @staticmethod
     def select_view_class(user):
-        if user.is_authenticated():
+        if user.is_authenticated:
             if user.extra.is_student:
                 return InspirationStudentPreview
             else:
@@ -165,7 +165,7 @@ class InspirationProgressDispatch(ViewDispatch):
 
     @staticmethod
     def select_view_class(user):
-        if user.is_authenticated():
+        if user.is_authenticated:
             if user.extra.is_student:
                 return InspirationStudentProgress
             else:
@@ -326,7 +326,7 @@ def set_favorite(request, challenge_id, mode='favorite'):
 @login_required
 def favorite_challenges(request):
     favorite_challenges = []
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         theme_id = request.GET.get('theme_id')
         if theme_id:
             favorite_challenges = Favorite.objects.filter(student=request.user, challenge__themes__id=theme_id)
@@ -342,7 +342,7 @@ class ExamplesView(View):
     def get(self, request, challenge_id=None, *args, **kwargs):
         challenge = get_object_or_404(Challenge, id=challenge_id)
 
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             progress = Progress.objects.filter(challenge_id=challenge_id, owner=request.user).first()
             examples = Example.objects.for_gallery(challenge=challenge, user=request.user)
             user_example = examples.filter(progress=progress).first()
