@@ -68,8 +68,6 @@ class ChallengesView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        core_challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
-
         membership_challenges = []
         membership = None
         gs = None
@@ -79,12 +77,10 @@ class ChallengesView(TemplateView):
             membership = membership_selection.selected
             gs = GroupSelector(membership)
             membership_challenges = membership.challenges.select_related('image').prefetch_related('resource_set')
-            core_challenges = core_challenges.exclude(id__in=membership_challenges.values('id'))
 
         context.update({
             "membership": membership,
             "membership_challenges": membership_challenges,
-            "core_challenges": core_challenges,
             "membership_selection": membership_selection,
             "group_selector": gs,
         })

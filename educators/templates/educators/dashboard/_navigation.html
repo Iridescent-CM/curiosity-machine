@@ -9,13 +9,13 @@
             Dashboard
           </a>
         </li>
-        {% comment %} {% if membership and membership_challenges %}  {% endcomment %}
+        {% if membership_selection.challenges_exist %}
         <li class="nav-item {% ifactive "educators:challenges" "active" %}">
           <a class="nav-link" href="{% url 'educators:challenges' %}">
             Design Challenges
           </a>
         </li>
-        {% comment %} {% endif %} {% endcomment %}
+        {% endif %}
         {% if membership_selection.selected.listed_members %}
         <li class="nav-item {% ifactive "educators:students" "active" %}">
           <a class="nav-link" href="{% url 'educators:students' %}">
@@ -28,7 +28,7 @@
             Resources
           </a>
         </li>
-        {% if flags.enable_educator_feedback and user.educatorprofile.organization != null %}
+        {% if flags.enable_educator_feedback and membership_selection.challenges_exist %}
         <li class="nav-item {% ifactive "educators:activity" "active" %}">
           <a class="nav-link" href="{% url 'educators:activity' %}">
             Recent Activity

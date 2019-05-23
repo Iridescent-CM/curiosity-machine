@@ -77,9 +77,19 @@ class MembershipSelection():
         cutoff = now().date() - timedelta(days=settings.MEMBERSHIP_EXPIRED_NOTICE_DAYS)
         return self.request.user.membership_set.expired(cutoff=cutoff)
 
+    @property
+    def challenges_exist(self):
+        for membership in self.all:
+            num_challenges = membership.challenges.select_related('image').prefetch_related('resource_set').count()
+            print("challenges: ", num_challenges)
+            if num_challenges > 0:
+                return True
+
 def membership_selection(view):
     @wraps(view)
     def inner(request, *args, **kwargs):
         kwargs['membership_selection'] = MembershipSelection(request)
         return view(request, *args, **kwargs)
     return inner
+
+
