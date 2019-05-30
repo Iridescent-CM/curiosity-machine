@@ -33,7 +33,7 @@ class LoginRequiredMiddleware(MiddlewareMixin):
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         if not (
-            request.user.is_authenticated()
+            request.user.is_authenticated
             or whitelisted(view_func, 'public', 'maybe_public')
             or whitelist_regex.match(request.path.lstrip('/'))
         ):
@@ -58,7 +58,7 @@ class UnapprovedStudentSandboxMiddleware(MiddlewareMixin):
     Middleware that sandboxes unapproved students
     """
     def process_view(self, request, view, view_args, view_kwargs):
-        if (request.user.is_authenticated()
+        if (request.user.is_authenticated
                 and not request.user.is_staff
                 and request.user.extra.is_student
                 and not request.user.studentprofile.full_access):
@@ -71,7 +71,7 @@ class UnapprovedMentorSandboxMiddleware(MiddlewareMixin):
     Middleware that sandboxes mentors who have not yet been approved to the training section of the site.
     """
     def process_view(self, request, view, view_args, view_kwargs):
-        if (request.user.is_authenticated()
+        if (request.user.is_authenticated
                 and not request.user.is_staff
                 and request.user.extra.is_mentor
                 and not request.user.mentorprofile.full_access):
@@ -84,7 +84,7 @@ class UserProxyMiddleware(MiddlewareMixin):
     Middleware that changes request.user to User proxy model
     """
     def process_request(self, request):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             profiles.models.User.cast(request.user)
         return None
 
@@ -93,7 +93,7 @@ class LastActiveMiddleware(MiddlewareMixin):
     Middleware that updates the last_active_on(or last seen) field of a profile
     """
     def process_request(self, request):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             request.user.extra.set_active()
         return None
 
@@ -103,7 +103,7 @@ class FirstLoginMiddleware(MiddlewareMixin):
     """
     def process_response(self, request, response):
         if (
-            request.user.is_authenticated()
+            request.user.is_authenticated
             and request.user.extra.first_login
         ):
             # assume successful response means they'll be seeing the intro video

@@ -29,7 +29,7 @@ def _decorate_started(request, challenges):
         challenge.url = reverse("challenges:preview_inspiration", kwargs={
             "challenge_id": challenge.id
         })
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         started_challenges = request.user.challenges.filter(id__in=[c.id for c in challenges])
         for challenge in challenges:
             challenge.started = challenge in started_challenges
@@ -41,7 +41,7 @@ def _decorate_started(request, challenges):
     return challenges
 
 def _decorate_favoritable(request, challenges):
-    if request.user.is_authenticated() and request.user.extra.is_student:
+    if request.user.is_authenticated and request.user.extra.is_student:
         favorite_ids = set(Favorite.objects.filter(student=request.user).values_list('challenge__id', flat=True))
         for challenge in challenges:
             challenge.favoritable = True
@@ -75,7 +75,7 @@ class FilterSet():
     def decorate(self, challenges):
         challenges = challenges.filter(draft=False).select_related('image')
 
-        if self.request.user.is_authenticated() and not self.request.user.extra.is_student:
+        if self.request.user.is_authenticated and not self.request.user.extra.is_student:
             challenges = challenges.annotate(has_resources=Count('resource'))
 
         challenges = _paginate(challenges, self.request.GET.get('page'), settings.CHALLENGES_PER_PAGE)
@@ -138,7 +138,7 @@ class MembershipChallenges(FilterSet):
     def apply(self):
         membership_id = _get_int_or_404(self.request.GET, self.query_param)
 
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             return None, None, HttpResponseRedirect('%s?next=%s' % (reverse('login'), quote_plus(self.request.get_full_path())))
 
         membership = Membership.objects.filter(id=membership_id, members=self.request.user, is_active=True).first()
@@ -154,7 +154,7 @@ class MembershipChallenges(FilterSet):
 
     def get_template_contexts(self):
         user_memberships = []
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             user_memberships = self.request.user.membership_set.filter(is_active=True, hide_from_categories=False)
 
         return [{

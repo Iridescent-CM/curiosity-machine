@@ -13,7 +13,7 @@ class SignUpPrerequisitesMiddleware(MiddlewareMixin):
     def process_view(self, request, view, view_args, view_kwargs):
         user = request.user
         if (
-            user.is_authenticated()
+            user.is_authenticated
             and user.extra.is_family
             and not (
                 whitelisted(view, 'public', 'maybe_public', 'unapproved_family')
@@ -25,4 +25,3 @@ class SignUpPrerequisitesMiddleware(MiddlewareMixin):
                 return sign_slip(request)
 
             return prereq_interruption(request)
-

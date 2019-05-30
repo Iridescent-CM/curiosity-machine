@@ -12,7 +12,7 @@ class CoachPrerequisitesMiddleware(MiddlewareMixin):
     """
     def process_view(self, request, view, view_args, view_kwargs):
         if (
-            request.user.is_authenticated()
+            request.user.is_authenticated
             and request.user.extra.is_educator
             and request.user.educatorprofile.is_coach
             and (not request.user.educatorprofile.full_coach_access)

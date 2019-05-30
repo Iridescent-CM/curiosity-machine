@@ -13,7 +13,7 @@ def only_for_role(*args):
         @wraps(view)
         def inner(request, *args, **kwargs):
             is_any = list(role for role in roles if is_role(request.user, role))
-            if request.user.is_authenticated() and (request.user.is_staff or is_any):
+            if request.user.is_authenticated and (request.user.is_staff or is_any):
                 return view(request, *args, **kwargs)
             else:
                 raise PermissionDenied
@@ -27,7 +27,7 @@ def not_for_role(*args, **kwargs):
         @wraps(view)
         def inner(request, *args, **kwargs):
             is_any = list(role for role in roles if is_role(request.user, role))
-            if request.user.is_authenticated() and is_any:
+            if request.user.is_authenticated and is_any:
                 if viewname:
                     return HttpResponseRedirect(reverse(viewname))
                 else:
