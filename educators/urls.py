@@ -10,7 +10,6 @@ urlpatterns = [
     url(r'^home/students/(?P<student_id>\d+)/$', student, name='student'),
     url(r'^home/students/(?P<student_id>\d+)/password/$', student_password_reset, name='student_password_reset'),
     url(r'^home/students/(?P<student_id>\d+)/challenge/(?P<challenge_id>\d+)/$', conversation, name='conversation'),
-    url(r'^home/guides/$', guides, name='guides'),
     url(r'^home/activity/$', activity, name='activity'),
     url(r'^home/challenges/$', challenges, name='challenges'),
     url(r'^data/impact_survey/$', impact_data, name='update_impact_survey'),
