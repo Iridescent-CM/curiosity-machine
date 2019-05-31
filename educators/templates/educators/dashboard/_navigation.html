@@ -9,7 +9,7 @@
             Dashboard
           </a>
         </li>
-        {% if membership_selection.challenges_exist %}
+        {% if membership_selection.any_challenges %}
         <li class="nav-item {% ifactive "educators:challenges" "active" %}">
           <a class="nav-link" href="{% url 'educators:challenges' %}">
             Design Challenges
@@ -28,7 +28,7 @@
             Resources
           </a>
         </li>
-        {% if flags.enable_educator_feedback and membership_selection.challenges_exist %}
+        {% if flags.enable_educator_feedback and membership_selection.any_challenges %}
         <li class="nav-item {% ifactive "educators:activity" "active" %}">
           <a class="nav-link" href="{% url 'educators:activity' %}">
             Recent Activity

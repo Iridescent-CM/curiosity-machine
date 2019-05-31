@@ -78,11 +78,10 @@ class MembershipSelection():
         return self.request.user.membership_set.expired(cutoff=cutoff)
 
     @property
-    def challenges_exist(self):
+    def any_challenges(self):
         for membership in self.all:
-            num_challenges = membership.challenges.select_related('image').prefetch_related('resource_set').count()
-            print("challenges: ", num_challenges)
-            if num_challenges > 0:
+            challenges = membership.challenges.exists()
+            if challenges:
                 return True
 
 def membership_selection(view):
