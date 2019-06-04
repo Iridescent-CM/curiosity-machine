@@ -1,8 +1,22 @@
 .dashboard {
+  font-family: 'Raleway', Helvetica, sans-serif;
+  
   .dashboard-aifc-header-bg {
     background-size: cover;
     vertical-align: middle;
     background-image: url("../images/aifc/orange-header.svg");
+  }
+
+  .dashboard-white-aifc-logo {
+    width: 30%;
+  }
+  
+  .dashboard-section {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #E3E3DD;
+    border-width: 2px;
+    background: #FFFCF7;
   }
   
   .dashboard-page-bg {
@@ -28,12 +42,13 @@
 
   .dashboard-tabs {
     border-bottom: 2px $sand solid;
-    text-transform: uppercase; text-align: center;
-    font-size: 0.875em;
-    letter-spacing: 2px;
+    text-align: center;
+    font-weight: bold;
 
     .nav-item {
       border-bottom: 5px solid transparent;
+      margin-right: 35px;
+
       .nav-link {
         color: white;
       }

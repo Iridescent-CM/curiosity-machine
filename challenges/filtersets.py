@@ -112,26 +112,6 @@ class UnfilteredChallenges(FilterSet):
             "active": bool(self.applied)
         }]
 
-class CoreChallenges(FilterSet):
-    query_param = "aifamilychallenge"
-
-    def apply(self):
-        self.applied = True
-        return None, {
-            "title": "AI Family Challenge",
-            "challenges": self.decorate(Challenge.objects.filter(core=True)),
-        }, None
-
-    def get_template_contexts(self):
-        if Challenge.objects.filter(core=True, draft=False).count() > 0:
-            return [{
-                "text": "AI Family Challenge",
-                "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
-                "active": bool(self.applied)
-            }]
-        else:
-            return []
-
 class MembershipChallenges(FilterSet):
     query_param = "membership"
 

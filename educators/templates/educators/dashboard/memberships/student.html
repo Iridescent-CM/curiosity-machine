@@ -5,8 +5,8 @@
 
 {% block content %}
   {% url "educators:students" as base_url %}
-  {% include 'educators/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
 
+<div class="container pt-2">
   <div class="row pb-2">
     <div class="col-md-12">
       <h2>{{ student.username }}'s Progress</h2>
@@ -22,11 +22,7 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="container">
   <div class="row mb-3">
-
     <div class="col-md-3">
       <div class="card cm-info-card mb-3">
         <div class="card-header text-center">
@@ -117,6 +113,7 @@
 
     </div>
   </div>
+</div>
 {% endblock %}
 
 {% block js %}

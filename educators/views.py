@@ -68,8 +68,6 @@ class ChallengesView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        core_challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
-
         membership_challenges = []
         membership = None
         gs = None
@@ -79,12 +77,10 @@ class ChallengesView(TemplateView):
             membership = membership_selection.selected
             gs = GroupSelector(membership)
             membership_challenges = membership.challenges.select_related('image').prefetch_related('resource_set')
-            core_challenges = core_challenges.exclude(id__in=membership_challenges.values('id'))
 
         context.update({
             "membership": membership,
             "membership_challenges": membership_challenges,
-            "core_challenges": core_challenges,
             "membership_selection": membership_selection,
             "group_selector": gs,
         })
@@ -265,32 +261,6 @@ class StudentPasswordResetView(FormView):
         return super().form_valid(form)
 
 student_password_reset = only_for_educator(StudentPasswordResetView.as_view())
-
-class GuidesView(TemplateView):
-    template_name = "educators/dashboard/guides.html"
-
-    def get_context_data(self, **kwargs):
-        units = Unit.objects.filter(listed=True).order_by('id').select_related('image')
-
-        extra_units = []
-        membership = None
-
-        membership_selection = MembershipSelection(self.request)
-        if membership_selection.selected:
-            membership = membership_selection.selected
-            extra_units = membership.extra_units.order_by('id').select_related('image')
-            units = units.exclude(id__in=extra_units.values('id'))
-
-        kwargs.update({
-            "units": units,
-            "membership": membership,
-            "extra_units": extra_units,
-            "membership_selection": membership_selection,
-        })
-
-        return super().get_context_data(**kwargs)
-
-guides = only_for_educator(GuidesView.as_view())
 
 class ImpactSurveySubmitView(View):
     http_method_names=['post']

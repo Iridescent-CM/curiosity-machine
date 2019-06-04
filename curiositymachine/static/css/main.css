@@ -7758,61 +7758,63 @@ i {
   display: inline-block;
   top: -3px; }
 
-.dashboard .dashboard-aifc-header-bg {
-  background-size: cover;
-  vertical-align: middle;
-  background-image: url("../images/aifc/orange-header.svg"); }
-
-.dashboard .dashboard-page-bg {
-  background-repeat: no-repeat;
-  background-image: url("../images/aifc/page-background.svg");
-  background-position-y: bottom; }
-
-.dashboard .dashboard-subtitle {
-  font-weight: bold;
-  font-size: 30px;
-  color: #00B1C3;
-  margin: 2px 0px 0px 0px; }
-
-.dashboard .dashboard-avatar img {
-  background-color: white;
-  border-radius: 50%;
-  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
-  float: left;
-  margin-right: 10px; }
-
-.dashboard .dashboard-tabs {
-  border-bottom: 2px #E5E1D9 solid;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 0.875em;
-  letter-spacing: 2px; }
-  .dashboard .dashboard-tabs .nav-item {
-    border-bottom: 5px solid transparent; }
-    .dashboard .dashboard-tabs .nav-item .nav-link {
-      color: white; }
-    .dashboard .dashboard-tabs .nav-item.active {
-      border-bottom-color: white; }
-
-@media (max-width: 767.98px) {
+.dashboard {
+  font-family: 'Raleway', Helvetica, sans-serif; }
+  .dashboard .dashboard-aifc-header-bg {
+    background-size: cover;
+    vertical-align: middle;
+    background-image: url("../images/aifc/orange-header.svg"); }
+  .dashboard .dashboard-white-aifc-logo {
+    width: 30%; }
+  .dashboard .dashboard-section {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #E3E3DD;
+    border-width: 2px;
+    background: #FFFCF7; }
+  .dashboard .dashboard-page-bg {
+    background-repeat: no-repeat;
+    background-image: url("../images/aifc/page-background.svg");
+    background-position-y: bottom; }
+  .dashboard .dashboard-subtitle {
+    font-weight: bold;
+    font-size: 30px;
+    color: #00B1C3;
+    margin: 2px 0px 0px 0px; }
+  .dashboard .dashboard-avatar img {
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+    float: left;
+    margin-right: 10px; }
   .dashboard .dashboard-tabs {
-    flex-direction: column;
-    padding-bottom: 0.5em; }
+    border-bottom: 2px #E5E1D9 solid;
+    text-align: center;
+    font-weight: bold; }
     .dashboard .dashboard-tabs .nav-item {
-      border-bottom: none; } }
-
-.dashboard .nav-pills .nav-item .nav-link:not(.active) {
-  color: #333333; }
-
-.dashboard .card.card-action-needed {
-  width: 94%;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
-  font-size: 14px; }
-  .dashboard .card.card-action-needed .card-header {
-    color: #a94442;
-    background-color: #f2dede; }
+      border-bottom: 5px solid transparent;
+      margin-right: 35px; }
+      .dashboard .dashboard-tabs .nav-item .nav-link {
+        color: white; }
+      .dashboard .dashboard-tabs .nav-item.active {
+        border-bottom-color: white; }
+  @media (max-width: 767.98px) {
+    .dashboard .dashboard-tabs {
+      flex-direction: column;
+      padding-bottom: 0.5em; }
+      .dashboard .dashboard-tabs .nav-item {
+        border-bottom: none; } }
+  .dashboard .nav-pills .nav-item .nav-link:not(.active) {
+    color: #333333; }
+  .dashboard .card.card-action-needed {
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+    font-size: 14px; }
+    .dashboard .card.card-action-needed .card-header {
+      color: #a94442;
+      background-color: #f2dede; }
 
 footer {
   background-color: #333333;
@@ -9346,11 +9348,13 @@ footer {
     background-image: url("../images/checkbox-unchecked.svg"); }
     .family-dashboard .checkbox.checkbox-checked {
       background-image: url("../images/checkbox-checked.svg"); }
+
   .family-dashboard .dashboard-section {
     border-radius: 15px;
     border-style: solid;
     border-color: #E3E3DD;
     border-width: 2px; }
+
   .family-dashboard .progress-title {
     position: relative;
     top: 10px; }

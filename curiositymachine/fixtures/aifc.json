@@ -3321,7 +3321,6 @@
     "build_call_to_action": "If your mighty machine doesn\u2019t work at first, try again! Designing and building can be a frustrating process with many unforeseen problems. Be persistent, think creatively and be curious!",
     "draft": false,
     "free": true,
-    "core": false,
     "difficulty_level": 1,
     "order": null,
     "themes": [
@@ -3351,7 +3350,6 @@
     "build_call_to_action": "Start building your crane! Make sure it has enough support to hold the arm.",
     "draft": false,
     "free": true,
-    "core": false,
     "difficulty_level": 2,
     "order": 1,
     "themes": [
@@ -3381,7 +3379,6 @@
     "build_call_to_action": "How many thrusters did you add? What direction will the air be released in your machine? \r\n",
     "draft": false,
     "free": true,
-    "core": false,
     "difficulty_level": 2,
     "order": null,
     "themes": [
@@ -3410,7 +3407,6 @@
     "build_call_to_action": "Let\u2019s build your no wire circuit, gather your materials and play with conductivity!",
     "draft": false,
     "free": true,
-    "core": false,
     "difficulty_level": 1,
     "order": 1,
     "themes": [
@@ -3440,7 +3436,6 @@
     "build_call_to_action": "How does your Robotic Face move? Is it able to express an emotion? ",
     "draft": false,
     "free": true,
-    "core": false,
     "difficulty_level": 3,
     "order": 1,
     "themes": [
@@ -3472,7 +3467,6 @@
     "build_call_to_action": "How much food was your bird beak able to pick up? What could you change to make it able to pick up even more?",
     "draft": false,
     "free": true,
-    "core": false,
     "difficulty_level": 1,
     "order": null,
     "themes": [
@@ -3503,7 +3497,6 @@
     "build_call_to_action": "Build your rocket launcher and see how high it can propel your space shuttle!",
     "draft": false,
     "free": true,
-    "core": false,
     "difficulty_level": 1,
     "order": null,
     "themes": [
@@ -3532,7 +3525,6 @@
     "build_call_to_action": "Let\u2019s start building! Try out different wing sizes to see which ones help your rocket fly the straightest and highest.",
     "draft": false,
     "free": true,
-    "core": true,
     "difficulty_level": 1,
     "order": null,
     "themes": [
@@ -3561,7 +3553,6 @@
     "build_call_to_action": "How many pennies did your bridge hold? How did this change as you build in trusses and suspension system? How can you further improve your design?",
     "draft": false,
     "free": true,
-    "core": true,
     "difficulty_level": 1,
     "order": null,
     "themes": [
@@ -3590,7 +3581,6 @@
     "build_call_to_action": "You may have to try again or redesign before your design works. Be curious, think creatively and be persistent!\r\n",
     "draft": false,
     "free": true,
-    "core": true,
     "difficulty_level": 1,
     "order": null,
     "themes": [
@@ -3619,7 +3609,6 @@
     "build_call_to_action": "Start building your circuit! Make sure your hands are dry, and wear rubber gloves for safety.",
     "draft": false,
     "free": true,
-    "core": true,
     "difficulty_level": 2,
     "order": null,
     "themes": [
@@ -3648,7 +3637,6 @@
     "build_call_to_action": "Let\u2019s start drawing! Upload pictures as you create your two images!\r\n",
     "draft": false,
     "free": true,
-    "core": true,
     "difficulty_level": 1,
     "order": null,
     "themes": [
@@ -3677,7 +3665,6 @@
     "build_call_to_action": "Let\u2019s start building! Try out different shapes for your boat\u2019s hull, this will affect the buoyancy!",
     "draft": false,
     "free": true,
-    "core": true,
     "difficulty_level": 1,
     "order": null,
     "themes": [
@@ -3706,7 +3693,6 @@
     "build_call_to_action": "How did your submarine work? Show us how you can control your sub and make it rise and sink.",
     "draft": false,
     "free": true,
-    "core": true,
     "difficulty_level": 3,
     "order": null,
     "themes": [
@@ -3735,7 +3721,6 @@
     "build_call_to_action": "Tell us how you came up with your sail design and why you chose that design. How did the sail work during your first try?",
     "draft": false,
     "free": true,
-    "core": true,
     "difficulty_level": 1,
     "order": null,
     "themes": [
