@@ -80,9 +80,9 @@ class MembershipSelection():
     @property
     def any_has_challenges(self):
         for membership in self.all:
-            challenges = membership.challenges.exists()
-            if challenges:
+            if membership.challenges.exists():
                 return True
+        return False
 
 def membership_selection(view):
     @wraps(view)
