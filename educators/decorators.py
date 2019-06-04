@@ -78,7 +78,7 @@ class MembershipSelection():
         return self.request.user.membership_set.expired(cutoff=cutoff)
 
     @property
-    def any_challenges(self):
+    def any_has_challenges(self):
         for membership in self.all:
             challenges = membership.challenges.exists()
             if challenges:
