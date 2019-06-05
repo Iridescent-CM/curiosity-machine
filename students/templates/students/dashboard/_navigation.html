@@ -1,6 +1,6 @@
 {% load ifactive %}
 {% load notifications_tags %}
-<div class="row mb-5">
+<div class="row">
   <div class="col-md-12">
     <nav class="dashboard-tabs">
       <ul class="nav">
@@ -23,7 +23,7 @@
         </li>
         <li class="nav-item {% ifactive "students:activity" "active" %}">
           <a class="nav-link" href="{% url "students:activity" %}">
-            recent activity
+            Recent Activity
             <span class="badge badge-purple">{% notifications_unread %}</span>
           </a>
         </li>

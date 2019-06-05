@@ -16,13 +16,9 @@
       <div class="row">
         <div class="col-md-12">
           <img class="dashboard-white-aifc-logo" src="{% static 'images/aifc/aifc-white-logo.svg' %}">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          {% if membership_selection.memberships %}
-          <strong>{{ membership_selection.names }}</strong>
+          {% if memberships %}
+          <br />
+          <strong>Memberships:</strong> {{ membership_names }}
           {% endif %}
         </div>
       </div>
@@ -35,8 +31,9 @@
           {{ message }}
         </div>
       {% endfor %}{% endif %}
-      <div class="row">
-        {% include 'educators/dashboard/_navigation.html' %}
+
+      <div class="row mt-4">
+        {% include 'students/dashboard/_navigation.html' %}
       </div>
     </div>
   </div>
