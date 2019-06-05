@@ -8,16 +8,16 @@
     <h2 class="dashboard-subtitle mt-4">Welcome to the AI Family Challenge</h2>
     <hr class="m-1 w-50">
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Welcome to Season 2 of the AI Family Challenge! AIFC is a free, hands-on AI education program that brings families, schools, communities, and technology know-it-alls together to give everyone the chance to learn, play and create with AI.
     </p>
     <p>
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      Below you will find the 10 Lessons you will use to guide students and families to develop their inventions that solve problems in their community using AI. Only a family unit can submit to the World Championship and they will have to create accounts on Curiosity Machine. If you would like to connect families to your account, please email us at <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
     </p>
-    <div class="row">
-      <div class="my-4 border dashboard-section p-4">
-        {% impact_survey %}
-      </div>
-    </div>
+    <p>
+      You can find resources on how to get started on the
+      <a href='https://iridescentlearning.org/resources-for-ai-family-challenge-mentors/' target='_blank'>Resources</a> tab.
+    </p>
+
     <h2 class="dashboard-subtitle mt-4">Lessons</h2>
     <div class="row mt-3">
     {% for obj in lessons %}
@@ -25,6 +25,12 @@
       {% include 'educators/dashboard/_challenge_or_lesson_card.html'%}
     </div>
     {% endfor %}
+
+    <div class="row">
+      <div class="my-4 border dashboard-section p-4">
+        {% impact_survey %}
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}
