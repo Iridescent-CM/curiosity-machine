@@ -1,4 +1,5 @@
 .family-dashboard {
+  font-family: "Raleway", Helvetica, sans-serif;
 
   .checkbox {
     display: inline-block;
@@ -13,17 +14,20 @@
   }
 
   .dashboard-section {
-    border-radius: 30px;
+    border-radius: 15px;
     border-style: solid;
     border-color: #E3E3DD;
-    padding: 20px;
     border-width: 2px;
+  }
+  
+  .progress-title {
     position: relative;
-    z-index: 0;
+    top: 10px;
+  }
 
-    a {
-      color: #3498DB;
-    }
+  .circliful {
+    position: relative;
+    top: -15px;
   }
 
   .blue-round-button {
@@ -74,5 +78,9 @@
       border-radius: 50%;
       margin-right:10px;
     }
+  }
+
+  .aifc-logo {
+    width: 325px;
   }
 }

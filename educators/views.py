@@ -3,6 +3,7 @@ from challenges.models import Challenge, Example
 from cmcomments.forms import CommentForm
 from cmcomments.models import Comment
 from curiositymachine import signals
+from curiositymachine.presenters import get_aifc
 from curiositymachine.decorators import whitelist
 from django.conf import settings
 from django.contrib import messages
@@ -14,7 +15,6 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import CreateView, FormView, ListView, RedirectView, TemplateView, UpdateView, View
-from families.aichallenge import get_stages
 from memberships.helpers.selectors import GroupSelector
 from memberships.models import Member, Membership
 from profiles.decorators import not_for_role, only_for_role, UserRole
@@ -68,8 +68,6 @@ class ChallengesView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        core_challenges = Challenge.objects.filter(draft=False, core=True).select_related('image').prefetch_related('resource_set')
-
         membership_challenges = []
         membership = None
         gs = None
@@ -79,12 +77,10 @@ class ChallengesView(TemplateView):
             membership = membership_selection.selected
             gs = GroupSelector(membership)
             membership_challenges = membership.challenges.select_related('image').prefetch_related('resource_set')
-            core_challenges = core_challenges.exclude(id__in=membership_challenges.values('id'))
 
         context.update({
             "membership": membership,
             "membership_challenges": membership_challenges,
-            "core_challenges": core_challenges,
             "membership_selection": membership_selection,
             "group_selector": gs,
         })
@@ -142,20 +138,18 @@ class AIFCView(TemplateView):
     template_name = "educators/dashboard/aifc.html"
 
     def get_context_data(self, **kwargs):
-      membership_selection = MembershipSelection(self.request)
-      stages = [stage.objects for stage in get_stages()]
-      for obj in stages[0] + stages[1]:
-        obj.url = reverse("challenges:preview_inspiration", kwargs={"challenge_id": obj.id})
-      for obj in stages[2]:
-        obj.image = obj.card_image
-        obj.name = obj.title
-        obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
+        membership_selection = MembershipSelection(self.request)
+        aifc = get_aifc()
+        for obj in aifc.objects:
+            obj.image = obj.card_image
+            obj.name = obj.title
+            obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
 
-      return super().get_context_data(
-          stages = stages,
-          membership_selection = membership_selection,
-          **kwargs
-        )
+        return super().get_context_data(
+            lessons = aifc.objects,
+            membership_selection = membership_selection,
+            **kwargs
+            )
 
 aifc = only_for_educator(AIFCView.as_view())
 
@@ -267,32 +261,6 @@ class StudentPasswordResetView(FormView):
         return super().form_valid(form)
 
 student_password_reset = only_for_educator(StudentPasswordResetView.as_view())
-
-class GuidesView(TemplateView):
-    template_name = "educators/dashboard/guides.html"
-
-    def get_context_data(self, **kwargs):
-        units = Unit.objects.filter(listed=True).order_by('id').select_related('image')
-
-        extra_units = []
-        membership = None
-
-        membership_selection = MembershipSelection(self.request)
-        if membership_selection.selected:
-            membership = membership_selection.selected
-            extra_units = membership.extra_units.order_by('id').select_related('image')
-            units = units.exclude(id__in=extra_units.values('id'))
-
-        kwargs.update({
-            "units": units,
-            "membership": membership,
-            "extra_units": extra_units,
-            "membership_selection": membership_selection,
-        })
-
-        return super().get_context_data(**kwargs)
-
-guides = only_for_educator(GuidesView.as_view())
 
 class ImpactSurveySubmitView(View):
     http_method_names=['post']

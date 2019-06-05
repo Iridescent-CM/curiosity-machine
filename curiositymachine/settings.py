@@ -128,7 +128,6 @@ MIDDLEWARE = [
     'curiositymachine.middleware.FirstLoginMiddleware',
     'families.middleware.SignUpPrerequisitesMiddleware',
     'educators.middleware.CoachPrerequisitesMiddleware',
-    'families.middleware.PostSurveyMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 

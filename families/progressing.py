@@ -4,19 +4,12 @@ from cmemails import send
 from cmemails.mandrill import url_for_template
 from django.urls import reverse
 from notifications.signals import notify
-from .aichallenge import get_stages
 from .emailing import Emailing
 
 class ProgressOwner(BaseActor):
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        self.stages = kwargs.pop('stages', get_stages(user))
         self.emailer = kwargs.pop('emailer', Emailing(user))
-
-    def on_progress_complete(self, progress=None):
-        for stage in self.stages:
-            if stage.is_complete and stage.has_object(progress.challenge):
-                self.emailer.send_stage_completion_email(stage)
 
     def on_comment_posted(self, progress, comment):
         pass
@@ -26,8 +19,7 @@ class ProgressOwner(BaseActor):
 
         path = reverse('challenges:challenge_progress', kwargs={
             "challenge_id": progress.challenge.id,
-            "username": progress.owner.username,
-            "stage": ChallengeStage(comment.stage).name
+            "username": progress.owner.username
         })
         send(template_name='family-account-mentor-feedback', to=progress.owner, merge_vars={
             "username": progress.owner.username,

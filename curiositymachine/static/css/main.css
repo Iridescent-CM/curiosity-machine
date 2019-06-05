@@ -7758,49 +7758,63 @@ i {
   display: inline-block;
   top: -3px; }
 
-.dashboard .dashboard-avatar img {
-  background-color: white;
-  border-radius: 50%;
-  box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
-  float: left;
-  margin-right: 10px; }
-
-.dashboard .dashboard-tabs {
-  border-bottom: 2px #E5E1D9 solid;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 0.875em;
-  letter-spacing: 2px; }
-  .dashboard .dashboard-tabs .nav-item {
-    border-bottom: 5px solid transparent; }
-    .dashboard .dashboard-tabs .nav-item.active {
-      border-bottom-color: #00B1C3; }
-      .dashboard .dashboard-tabs .nav-item.active .nav-link {
-        color: #00B1C3; }
-  .dashboard .dashboard-tabs .nav-link {
-    color: #333333; }
-    .dashboard .dashboard-tabs .nav-link:hover, .dashboard .dashboard-tabs .nav-link:focus {
-      color: #00B1C3; }
-
-@media (max-width: 767.98px) {
+.dashboard {
+  font-family: 'Raleway', Helvetica, sans-serif; }
+  .dashboard .dashboard-aifc-header-bg {
+    background-size: cover;
+    vertical-align: middle;
+    background-image: url("../images/aifc/orange-header.svg"); }
+  .dashboard .dashboard-white-aifc-logo {
+    width: 30%; }
+  .dashboard .dashboard-section {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #E3E3DD;
+    border-width: 2px;
+    background: #FFFCF7; }
+  .dashboard .dashboard-page-bg {
+    background-repeat: no-repeat;
+    background-image: url("../images/aifc/page-background.svg");
+    background-position-y: bottom; }
+  .dashboard .dashboard-subtitle {
+    font-weight: bold;
+    font-size: 30px;
+    color: #00B1C3;
+    margin: 2px 0px 0px 0px; }
+  .dashboard .dashboard-avatar img {
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
+    float: left;
+    margin-right: 10px; }
   .dashboard .dashboard-tabs {
-    flex-direction: column;
-    padding-bottom: 0.5em; }
+    border-bottom: 2px #E5E1D9 solid;
+    text-align: center;
+    font-weight: bold; }
     .dashboard .dashboard-tabs .nav-item {
-      border-bottom: none; } }
-
-.dashboard .nav-pills .nav-item .nav-link:not(.active) {
-  color: #333333; }
-
-.dashboard .card.card-action-needed {
-  width: 94%;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
-  font-size: 14px; }
-  .dashboard .card.card-action-needed .card-header {
-    color: #a94442;
-    background-color: #f2dede; }
+      border-bottom: 5px solid transparent;
+      margin-right: 35px; }
+      .dashboard .dashboard-tabs .nav-item .nav-link {
+        color: white; }
+      .dashboard .dashboard-tabs .nav-item.active {
+        border-bottom-color: white; }
+  @media (max-width: 767.98px) {
+    .dashboard .dashboard-tabs {
+      flex-direction: column;
+      padding-bottom: 0.5em; }
+      .dashboard .dashboard-tabs .nav-item {
+        border-bottom: none; } }
+  .dashboard .nav-pills .nav-item .nav-link:not(.active) {
+    color: #333333; }
+  .dashboard .card.card-action-needed {
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+    font-size: 14px; }
+    .dashboard .card.card-action-needed .card-header {
+      color: #a94442;
+      background-color: #f2dede; }
 
 footer {
   background-color: #333333;
@@ -9323,65 +9337,68 @@ footer {
 #examples-page a[data-toggle="modal"]:focus {
   text-decoration: none; }
 
-.family-dashboard .checkbox {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  background-size: cover;
-  vertical-align: middle;
-  background-image: url("../images/checkbox-unchecked.svg"); }
-  .family-dashboard .checkbox.checkbox-checked {
-    background-image: url("../images/checkbox-checked.svg"); }
+.family-dashboard {
+  font-family: "Raleway", Helvetica, sans-serif; }
+  .family-dashboard .checkbox {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-size: cover;
+    vertical-align: middle;
+    background-image: url("../images/checkbox-unchecked.svg"); }
+    .family-dashboard .checkbox.checkbox-checked {
+      background-image: url("../images/checkbox-checked.svg"); }
 
-.family-dashboard .dashboard-section {
-  border-radius: 30px;
-  border-style: solid;
-  border-color: #E3E3DD;
-  padding: 20px;
-  border-width: 2px;
-  position: relative;
-  z-index: 0; }
-  .family-dashboard .dashboard-section a {
-    color: #3498DB; }
+  .family-dashboard .dashboard-section {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #E3E3DD;
+    border-width: 2px; }
 
-.family-dashboard .blue-round-button {
-  border-radius: 100%;
-  padding: 5px 10px;
-  line-height: 1;
-  color: #3498DB;
-  font-size: 1.25em;
-  font-weight: bold;
-  border: 2px solid #3498DB;
-  position: absolute;
-  z-index: 1;
-  right: 15px;
-  top: 15px; }
-  .family-dashboard .blue-round-button:hover, .family-dashboard .blue-round-button:active {
-    background-color: #3498DB66;
-    cursor: pointer; }
-
-.family-dashboard .modal-content {
-  border-color: #3498DB; }
-
-.family-dashboard .members-list {
-  padding: 10px;
-  list-style: none; }
-  .family-dashboard .members-list .members-list-item {
-    display: flex; }
-  .family-dashboard .members-list .username {
-    flex: auto;
-    font-family: "Raleway", Helvetica, sans-serif;
-    font-size: 1em;
-    border-radius: 15px 30px 30px;
-    background: #73AD21;
-    padding: 20px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden; }
-  .family-dashboard .members-list .avatar {
-    flex: 0 60px;
-    border-radius: 50%;
-    margin-right: 10px; }
+  .family-dashboard .progress-title {
+    position: relative;
+    top: 10px; }
+  .family-dashboard .circliful {
+    position: relative;
+    top: -15px; }
+  .family-dashboard .blue-round-button {
+    border-radius: 100%;
+    padding: 5px 10px;
+    line-height: 1;
+    color: #3498DB;
+    font-size: 1.25em;
+    font-weight: bold;
+    border: 2px solid #3498DB;
+    position: absolute;
+    z-index: 1;
+    right: 15px;
+    top: 15px; }
+    .family-dashboard .blue-round-button:hover, .family-dashboard .blue-round-button:active {
+      background-color: #3498DB66;
+      cursor: pointer; }
+  .family-dashboard .modal-content {
+    border-color: #3498DB; }
+  .family-dashboard .members-list {
+    padding: 10px;
+    list-style: none; }
+    .family-dashboard .members-list .members-list-item {
+      display: flex; }
+    .family-dashboard .members-list .username {
+      flex: auto;
+      font-family: "Raleway", Helvetica, sans-serif;
+      font-size: 1em;
+      border-radius: 15px 30px 30px;
+      background: #73AD21;
+      padding: 20px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden; }
+    .family-dashboard .members-list .avatar {
+      flex: 0 60px;
+      border-radius: 50%;
+      margin-right: 10px; }
+  .family-dashboard .aifc-logo {
+    width: 325px; }
 
 #index-page .jumbotron {
   padding-top: 6em;

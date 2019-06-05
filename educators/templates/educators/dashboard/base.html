@@ -1,5 +1,5 @@
 {% extends "curiositymachine/layout/base.html" %}
-{% load impact_survey %}
+{% load staticfiles %}
 
 {% block title %}My Dashboard{% endblock %}
 {% block body-classes %}dashboard educator-dashboard{% endblock %}
@@ -11,29 +11,18 @@
   {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   {% endif %}
 
-  <div class="bg-pattern-dark text-light py-4 mb-2">
+  <div class="dashboard-aifc-header-bg text-light py-4 mb-2">
     <div class="container">
       <div class="row">
-        <div class="col-12">
-          <a href="{% url 'educators:edit_profile' %}" class="float-right">Account Settings</a>
-          <div class="dashboard-avatar">
-            {% include "_avatar.html" with profile=request.user.profile width=60 height=60 crop='thumb' gravity='faces' %}
-          </div>
-          {% if request.user.first_name or request.user.last_name %}
-          {{ request.user.first_name }} {{ request.user.last_name }}
-          {% else %}
-          <em>No name provided</em>
-          {% endif %}
-          <h2>{{ request.user.username }}</h2>
+        <div class="col-md-12">
+          <img class="dashboard-white-aifc-logo" src="{% static 'images/aifc/aifc-white-logo.svg' %}">
         </div>
       </div>
 
-      <div class="row mt-4 d-none d-md-block">
-        <div class="col-12">
-          <strong>Email:</strong> {{ request.user.email }}
+      <div class="row">
+        <div class="col-md-12">
           {% if membership_selection.memberships %}
-          <br />
-          <strong>Memberships:</strong> {{ membership_selection.names }}
+          <strong>{{ membership_selection.names }}</strong>
           {% endif %}
         </div>
       </div>
@@ -56,8 +45,6 @@
         </div>
       </div>
 
-      {% impact_survey %}
-
       {% if messages %}{% for message in messages %}
         <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -66,14 +53,16 @@
           {{ message }}
         </div>
       {% endfor %}{% endif %}
-    </div>
-  </div>
 
-  <div class="container mb-5" id="content">
+      <div class="row">
+        {% include 'educators/dashboard/_navigation.html' %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <div id="content">
     {% block content %}{% endblock %}
   </div>
-{% endblock %}
-
-{% block js %}
-  {% impact_survey_js %}
 {% endblock %}

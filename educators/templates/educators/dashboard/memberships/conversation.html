@@ -10,8 +10,8 @@
 {% endblock %}
 
 {% block content %}
+<div class="container pb-3">
   {% url "educators:conversation" as base_url %}
-  {% include 'educators/dashboard/_navigation.html' with membership_selection_base_url=base_url%}
 
   <div class="row pb-2">
     <div class="col-md-12">
@@ -63,4 +63,5 @@
 
     </div>
   </div>
+</div>
 {% endblock %}

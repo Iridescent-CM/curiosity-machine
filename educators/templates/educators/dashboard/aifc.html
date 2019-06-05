@@ -1,41 +1,40 @@
 {% extends "educators/dashboard/base.html" %}
+{% load impact_survey %}
 {% load staticfiles %}
 
 {% block content %}
-  {% include 'educators/dashboard/_navigation.html' %}
-  <ul class="nav nav-pills my-5 justify-content-center" role="tablist">
-    {% for list in stages %}
-    <li class="nav-item mx-3">
-      <a
-        class="nav-link {% if forloop.counter == 3 %}active {% endif %}"
-        id="stage-{{ forloop.counter }}-tab"
-        data-toggle="pill"
-        href="#stage-{{ forloop.counter }}"
-        role="tab"
-        aria-controls="stage-{{ forloop.counter }}"
-        aria-selected="true"
-      >Stage {{ forloop.counter }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-  <div class="tab-content">
-    {% for list in stages %}
-    <div
-      class="tab-pane {% if forloop.counter == 3 %}show active{% endif %}"
-      id="stage-{{ forloop.counter }}"
-      role="tabpanel"
-      aria-labelledby="stage-{{ forloop.counter }}-tab"
-    >
-      <div class="row">
-      {% with stageloop=forloop %}
-      {% for obj in list %}
-      <div class="col-lg-4 col-md-6 mb-1">
-        {% include 'educators/dashboard/_challenge_or_lesson_card.html' with stage=stageloop.counter challenge=obj %}
-      </div>
-      {% endfor %}
-      {% endwith %}
-      </div>
+<div class="dashboard-page-bg">
+  <div class="container pb-3">
+    <h2 class="dashboard-subtitle mt-4">Welcome to the AI Family Challenge</h2>
+    <hr class="m-1 w-50">
+    <p>
+      Welcome to Season 2 of the AI Family Challenge! AIFC is a free, hands-on AI education program that brings families, schools, communities, and technology know-it-alls together to give everyone the chance to learn, play and create with AI.
+    </p>
+    <p>
+      Below you will find the 10 Lessons you will use to guide students and families to develop their inventions that solve problems in their community using AI. Only a family unit can submit to the World Championship and they will have to create accounts on Curiosity Machine. If you would like to connect families to your account, please email us at <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>.
+    </p>
+    <p>
+      You can find resources on how to get started on the
+      <a href='https://iridescentlearning.org/resources-for-ai-family-challenge-mentors/' target='_blank'>Resources</a> tab.
+    </p>
+
+    <h2 class="dashboard-subtitle mt-4">Lessons</h2>
+    <div class="row mt-3">
+    {% for obj in lessons %}
+    <div class="col-lg-4 col-md-6 mb-1">
+      {% include 'educators/dashboard/_challenge_or_lesson_card.html'%}
     </div>
     {% endfor %}
+
+    <div class="row">
+      <div class="my-4 border dashboard-section p-4">
+        {% impact_survey %}
+      </div>
+    </div>
   </div>
+</div>
+{% endblock %}
+
+{% block js %}
+  {% impact_survey_js %}
 {% endblock %}

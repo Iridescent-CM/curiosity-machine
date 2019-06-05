@@ -18,73 +18,21 @@ from ..factories import *
 from ..models import *
 
 @pytest.mark.django_db
-def test_guides_page_context_has_units(client):
-    units = UnitFactory.create_batch(5, listed=False)
-    listed_units = UnitFactory.create_batch(5, listed=True)
-    educator = EducatorFactory(username="edu", password="123123")
-
-    client.login(username="edu", password="123123")
-    response = client.get(reverse("educators:guides"), follow=True)
-    assert set(response.context["units"]) == set(listed_units)
-
-@pytest.mark.django_db
-def test_guides_page_context_has_extra_units(client):
-    units = UnitFactory.create_batch(5, listed=False)
-    educator = EducatorFactory(username="edu", password="123123")
-    membership = MembershipFactory(members=[educator], extra_units=units)
-
-    client.login(username="edu", password="123123")
-    response = client.get(reverse("educators:guides"), follow=True)
-    assert set(response.context["extra_units"]) == set(units)
-    assert response.context["membership"] == membership
-
-@pytest.mark.django_db
-def test_guides_page_context_units_do_not_duplicate_extra_units(client):
-    listed_units = UnitFactory.create_batch(5, listed=True)
-    educator = EducatorFactory(username="edu", password="123123")
-    membership = MembershipFactory(members=[educator], extra_units=listed_units)
-
-    client.login(username="edu", password="123123")
-    response = client.get(reverse("educators:guides"), follow=True)
-    assert not response.context["units"]
-    assert set(response.context["extra_units"]) == set(listed_units)
-
-@pytest.mark.django_db
-def test_challenges_page_context_has_core_challenges(client):
-    challenges = ChallengeFactory.create_batch(3, draft=False)
-    core_challenges = ChallengeFactory.create_batch(3, core=True, free=True, draft=False)
-    educator = EducatorFactory(username="edu", password="123123")
-
-    client.login(username="edu", password="123123")
-    response = client.get(reverse("educators:home"), follow=True)
-    assert set(response.context["core_challenges"]) == set(core_challenges)
-
-@pytest.mark.django_db
 def test_challenges_page_context_has_membership_challenges(client):
     challenges = ChallengeFactory.create_batch(3, draft=False)
     educator = EducatorFactory(username="edu", password="123123")
     membership = MembershipFactory(members=[educator], challenges=challenges)
 
     client.login(username="edu", password="123123")
-    response = client.get(reverse("educators:home"), follow=True)
+    response = client.get(reverse("educators:challenges"), follow=True)
     assert set(response.context["membership_challenges"]) == set(challenges)
     assert response.context["membership"] == membership
-
-@pytest.mark.django_db
-def test_challenges_page_context_core_challenges_does_not_duplicate_membership_challenges(client):
-    core_challenges = ChallengeFactory.create_batch(3, core=True, free=True, draft=False)
-    educator = EducatorFactory(username="edu", password="123123")
-    membership = MembershipFactory(members=[educator], challenges=core_challenges)
-
-    client.login(username="edu", password="123123")
-    response = client.get(reverse("educators:home"), follow=True)
-    assert not response.context["core_challenges"]
-    assert set(response.context["membership_challenges"]) == set(core_challenges)
 
 @pytest.mark.django_db
 def test_student_detail_page_context_has_connected_student(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student", password="123123")
+    challenges = ChallengeFactory.create_batch(3, draft=False)
     membership = MembershipFactory(members=[educator, student])
 
     client.login(username="edu", password="123123")
@@ -502,9 +450,8 @@ def test_page_contexts_have_membership_selection_helper(client):
 
     client.login(username="edu", password="123123")
     for url in [
-        reverse("educators:home"),
-        reverse("educators:students"),
-        reverse("educators:guides")
+        reverse("educators:challenges"),
+        reverse("educators:students")
     ]:
         response = client.get(url, follow=True)
         assert "membership_selection" in response.context

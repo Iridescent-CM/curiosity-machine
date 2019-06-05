@@ -1,47 +1,37 @@
 {% load ifactive %}
 {% load notifications_tags %}
-<div class="row mb-5">
+<div class="row">
   <div class="col-md-12">
     <nav class="dashboard-tabs">
       <ul class="nav">
-        {% if membership_selection.count > 1 %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            {{ membership_selection.selected.display_name }}
-          </a>
-          <div class="dropdown-menu">
-            {% for membership in membership_selection.all %}
-            <a class="dropdown-item" href="{{ membership_selection_base_url }}?m={{ membership.id }}">{{ membership.display_name }}</a>
-            {% endfor %}
-          </div>
-        </li>
-        {% endif %}
         <li class="nav-item {% ifactive "educators:home" "active" %}">
           <a class="nav-link" href="{% url 'educators:home' %}">
-            design challenges
+            Dashboard
           </a>
         </li>
-        <li class="nav-item {% ifactive "educators:aifc" "active" %}">
-          <a class="nav-link" href="{% url 'educators:aifc' %}">
-            AI Family Challenge
+        {% if membership_selection.any_has_challenges %}
+        <li class="nav-item {% ifactive "educators:challenges" "active" %}">
+          <a class="nav-link" href="{% url 'educators:challenges' %}">
+            Design Challenges
           </a>
         </li>
+        {% endif %}
         {% if membership_selection.selected.listed_members %}
         <li class="nav-item {% ifactive "educators:students" "active" %}">
           <a class="nav-link" href="{% url 'educators:students' %}">
-            students
+            Participants
           </a>
         </li>
         {% endif %}
         <li class="nav-item {% ifactive "educators:guides" "active" %}">
-          <a class="nav-link" href="{% url 'educators:guides' %}">
-            units &amp; guides
+          <a class="nav-link" href='https://iridescentlearning.org/resources-for-ai-family-challenge-mentors/' target='_blank'>
+            Resources
           </a>
         </li>
-        {% if flags.enable_educator_feedback %}
+        {% if flags.enable_educator_feedback and membership_selection.any_has_challenges %}
         <li class="nav-item {% ifactive "educators:activity" "active" %}">
           <a class="nav-link" href="{% url 'educators:activity' %}">
-            recent activity
+            Recent Activity
             <span class="badge badge-purple">{% notifications_unread %}</span>
           </a>
         </li>

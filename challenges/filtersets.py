@@ -3,7 +3,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, reverse
-from families.aichallenge import get_stages
 from memberships.models import Membership
 from urllib.parse import quote_plus
 from .models import *
@@ -113,26 +112,6 @@ class UnfilteredChallenges(FilterSet):
             "active": bool(self.applied)
         }]
 
-class CoreChallenges(FilterSet):
-    query_param = "aifamilychallenge"
-
-    def apply(self):
-        self.applied = True
-        return None, {
-            "title": "AI Family Challenge",
-            "challenges": self.decorate(Challenge.objects.filter(core=True)),
-        }, None
-
-    def get_template_contexts(self):
-        if Challenge.objects.filter(core=True, draft=False).count() > 0:
-            return [{
-                "text": "AI Family Challenge",
-                "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
-                "active": bool(self.applied)
-            }]
-        else:
-            return []
-
 class MembershipChallenges(FilterSet):
     query_param = "membership"
 
@@ -163,51 +142,6 @@ class MembershipChallenges(FilterSet):
             "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, membership.id),
             "active": membership.id == self.applied
         } for membership in user_memberships]
-
-class AIFCChallenges(FilterSet):
-    query_param = "aifamilychallenge"
-
-    def apply(self):
-        self.applied = True
-        stage_to_show = self.request.GET.get('stage', 1)
-        try:
-            stage_to_show = int(stage_to_show)
-        except:
-            stage_to_show = 1
-
-        # FIXME: here's where some weirdness begins. Each stage has a list of objects, Challenges or Lessons.
-        # We can't fully self.decorate() the challenges because it's a list, not a QuerySet, so we selectively
-        # decorate. This might result in sub-par page performance.
-        stage_objects = [stage.objects for stage in get_stages()]
-        for idx in range(2):
-            _decorate_started(self.request, stage_objects[idx])
-            _decorate_access(self.request, stage_objects[idx])
-            _decorate_favoritable(self.request, stage_objects[idx])
-
-        # FIXME: Here we're carving off the stage we know is made up of Lessons and just kind of mashing
-        # them to look like Challenges for the sake of the template. Not ideal.
-        for obj in stage_objects[2]:
-            obj.name = obj.title
-            obj.image = obj.card_image
-            obj.url = reverse("lessons:lesson-progress-find-or-create") + "?lesson=%d" % obj.id
-
-        # FIXME: temporary feature flag check
-        if not ("enable_stage_3" in settings.FEATURE_FLAGS and settings.FEATURE_FLAGS["enable_stage_3"]):
-            stage_objects = stage_objects[0:2]
-
-        return "challenges/aifc.html", {
-            "title": '<i class="icon-aifc-icon"></i> Family Challenge',
-            "stages": stage_objects,
-            "active_stage": stage_to_show,
-            "header_template": "challenges/filters/free.html",
-        }, None
-
-    def get_template_contexts(self):
-        return [{
-            "text": '<i class="icon-aifc-icon"></i> Family Challenge',
-            "full_url": reverse("challenges:challenges") + "?%s=%d#challenges" % (self.query_param, 1),
-            "active": bool(self.applied)
-        }]
 
 class FilterChallenges(FilterSet):
     query_param = "filter_id"

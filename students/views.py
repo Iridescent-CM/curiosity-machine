@@ -105,7 +105,7 @@ class ChallengesView(DashboardMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         progresses = context.pop('object_list')
-        presenter = LearningSet([p.challenge for p in progresses], progresses)
+        presenter = LearningSet([p.challenge for p in progresses]).with_progresses(progresses)
         context['object_list'] = context['challenges'] = presenter.objects
         return context
 
@@ -124,7 +124,7 @@ class MembershipChallengesView(DashboardMixin, TemplateView):
             .all()
         )
         progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=[c.id for c in challenges])
-        presenter = LearningSet(challenges, progresses)
+        presenter = LearningSet(challenges).with_progresses(progresses)
 
         context['membership'] = membership
         context['challenges'] = presenter.objects
@@ -148,7 +148,7 @@ class FavoritesView(DashboardMixin, ListView):
         favs = context.pop('object_list')
         challenges = [f.challenge for f in favs]
         progresses = Progress.objects.filter(owner=self.request.user, challenge_id__in=[c.id for c in challenges])
-        presenter = LearningSet(challenges, progresses)
+        presenter = LearningSet(challenges).with_progresses(progresses)
         context['challenges'] = context['object_list'] = presenter.objects
         return context
 

@@ -1,6 +1,6 @@
 from challenges.models import Challenge, Progress
 from curiositymachine.decorators import whitelist
-from curiositymachine.presenters import LearningSet
+from curiositymachine.presenters import get_aifc
 from django.conf import settings
 from django.contrib import messages
 from django.http import *
@@ -8,8 +8,6 @@ from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic import *
 from hellosign import jobs
-from lessons.models import Lesson
-from lessons.models import Progress as LessonProgress
 from profiles.decorators import not_for_role, only_for_role
 from profiles.models import UserRole
 from profiles.views import EditProfileMixin
@@ -17,7 +15,6 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from surveys import get_survey
-from .aichallenge import get_stages, Stage
 from .awardforce import *
 from .forms import *
 from .models import *
@@ -92,45 +89,27 @@ class HomeView(DashboardMixin, ListView):
         return self.request.user.notifications.all()
 
     def get_context_data(self, **kwargs):
-        progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        context = super().get_context_data(**kwargs, stages=get_stages(self.request.user),)
-
-        by_day = {}
-        for notification in context['activity']:
-            day = notification.timestamp.date()
-            by_day[day] = by_day.get(day, [])
-            by_day[day].append(notification)
-
-        context.update({
-            "activity_by_day": by_day,
-        })
-
-        return context
+        aifc = get_aifc(self.request.user)
+        return super().get_context_data(
+            **kwargs,
+            lesson_set = aifc,
+            lessons = aifc.objects
+        )
 
 home = only_for_family(HomeView.as_view())
 
-class StageView(DashboardMixin, TemplateView):
-    stagenum = None
-
-    def get_context_data(self, **kwargs):
-        stage = Stage.from_config(self.stagenum, user=self.request.user)
-        kwargs["challenges"] = stage.objects
-        kwargs["units"] = stage.units
-        return super().get_context_data(**kwargs)
-
-stage_1 = only_for_family(StageView.as_view(template_name="families/stages/stage_1.html", stagenum=1))
-stage_2 = only_for_family(StageView.as_view(template_name="families/stages/stage_2.html", stagenum=2))
-
 class LessonsView(DashboardMixin, TemplateView):
-    template_name = "families/stages/stage_3.html"
-
+    template_name = "families/lessons.html"
+    
     def get_context_data(self, **kwargs):
-        progresses = LessonProgress.objects.filter(owner_id=self.request.user.id)
-        stage = Stage.from_config(3, user=self.request.user)
-        kwargs["lessons"] = stage.objects
-        return super().get_context_data(**kwargs)
+        aifc = get_aifc(self.request.user)
+        return super().get_context_data(
+            **kwargs,
+            lesson_set = aifc,
+            lessons = aifc.objects
+        )
 
-stage_3 = only_for_family(LessonsView.as_view())
+lessons = only_for_family(LessonsView.as_view())
 
 class PrereqInterruptionView(TemplateView):
     template_name = "families/interruption.html"
