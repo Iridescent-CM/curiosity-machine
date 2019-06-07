@@ -16,7 +16,7 @@
           </a>
         </li>
         {% endif %}
-        {% if membership_selection.selected.listed_members %}
+        {% if not membership_selection.no_memberships %}
         <li class="nav-item {% ifactive "educators:students" "active" %}">
           <a class="nav-link" href="{% url 'educators:students' %}">
             Participants
