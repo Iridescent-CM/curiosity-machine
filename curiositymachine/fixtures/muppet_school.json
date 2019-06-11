@@ -153,14 +153,6 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 20,
-  "fields": {
-    "app_label": "profiles",
-    "model": "mentor"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
   "pk": 21,
   "fields": {
     "app_label": "profiles",
@@ -213,14 +205,6 @@
   "fields": {
     "app_label": "parents",
     "model": "parentprofile"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 28,
-  "fields": {
-    "app_label": "mentors",
-    "model": "mentorprofile"
   }
 },
 {
@@ -7011,33 +6995,6 @@
 },
 {
   "model": "auth.permission",
-  "pk": 52,
-  "fields": {
-    "name": "Can add mentor",
-    "content_type": 15,
-    "codename": "add_mentor"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 53,
-  "fields": {
-    "name": "Can change mentor",
-    "content_type": 15,
-    "codename": "change_mentor"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 54,
-  "fields": {
-    "name": "Can delete mentor",
-    "content_type": 15,
-    "codename": "delete_mentor"
-  }
-},
-{
-  "model": "auth.permission",
   "pk": 55,
   "fields": {
     "name": "Can add parent",
@@ -7250,33 +7207,6 @@
     "name": "Can delete parent profile",
     "content_type": 27,
     "codename": "delete_parentprofile"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 79,
-  "fields": {
-    "name": "Can add mentor profile",
-    "content_type": 28,
-    "codename": "add_mentorprofile"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 80,
-  "fields": {
-    "name": "Can change mentor profile",
-    "content_type": 28,
-    "codename": "change_mentorprofile"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 81,
-  "fields": {
-    "name": "Can delete mentor profile",
-    "content_type": 28,
-    "codename": "delete_mentorprofile"
   }
 },
 {
@@ -8172,24 +8102,6 @@
 },
 {
   "model": "auth.user",
-  "pk": 4,
-  "fields": {
-    "password": "pbkdf2_sha256$36000$28x37bI6z4qG$oYjEKp+z1g2DEe3+W0lD1iPbsuNlbAKkbxUdk9n5W4A=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "mentor",
-    "first_name": "",
-    "last_name": "",
-    "email": "mentor@mailinator.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2016-10-27T21:57:50.223Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
   "pk": 5,
   "fields": {
     "password": "pbkdf2_sha256$36000$CI1O4njooK2I$dYDArVcoa2pPnSLZbnGyDIFheXAUYjnVITlcbJe0vPg=",
@@ -8456,18 +8368,6 @@
     "last_active_on": "2016-11-02T16:35:09.289Z",
     "last_inactive_email_sent_on": null,
     "first_login": false
-  }
-},
-{
-  "model": "profiles.userextra",
-  "pk": 4,
-  "fields": {
-    "user": 4,
-    "role": 2,
-    "source": "",
-    "last_active_on": "2016-10-27T21:57:50.423Z",
-    "last_inactive_email_sent_on": null,
-    "first_login": true
   }
 },
 {
@@ -9168,25 +9068,6 @@
     "user": 5,
     "city": "city",
     "image": null
-  }
-},
-{
-  "model": "mentors.mentorprofile",
-  "pk": 1,
-  "fields": {
-    "user": 4,
-    "full_access": true,
-    "city": "city",
-    "image": null,
-    "title": "",
-    "employer": "",
-    "expertise": "",
-    "about_me": "",
-    "about_me_image": null,
-    "about_me_video": null,
-    "about_research": "",
-    "about_research_image": null,
-    "about_research_video": null
   }
 },
 {

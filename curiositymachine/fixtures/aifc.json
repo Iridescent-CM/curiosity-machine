@@ -169,14 +169,6 @@
 },
 {
   "model": "contenttypes.contenttype",
-  "pk": 22,
-  "fields": {
-    "app_label": "mentors",
-    "model": "mentorprofile"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
   "pk": 23,
   "fields": {
     "app_label": "educators",
@@ -7286,33 +7278,6 @@
 },
 {
   "model": "auth.permission",
-  "pk": 61,
-  "fields": {
-    "name": "Can add mentor profile",
-    "content_type": 22,
-    "codename": "add_mentorprofile"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 62,
-  "fields": {
-    "name": "Can change mentor profile",
-    "content_type": 22,
-    "codename": "change_mentorprofile"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 63,
-  "fields": {
-    "name": "Can delete mentor profile",
-    "content_type": 22,
-    "codename": "delete_mentorprofile"
-  }
-},
-{
-  "model": "auth.permission",
   "pk": 64,
   "fields": {
     "name": "Can add educator profile",
@@ -8204,24 +8169,6 @@
 },
 {
   "model": "auth.user",
-  "pk": 4,
-  "fields": {
-    "password": "pbkdf2_sha256$36000$3wl95ViA7NMY$xJh0TNoWoPETivs6NhQFH34gQySe27qu4uBEfxLEAJA=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "mentor",
-    "first_name": "",
-    "last_name": "",
-    "email": "mentor@mailinator.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2016-10-27T21:57:50.223Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
   "pk": 5,
   "fields": {
     "password": "pbkdf2_sha256$36000$bu6YwNpePYa7$CShfE5tUKYVkUDgvrzr2UNRRJa9Qegbte+sy3qlMHHs=",
@@ -8739,18 +8686,6 @@
 },
 {
   "model": "profiles.userextra",
-  "pk": 4,
-  "fields": {
-    "user": 4,
-    "role": 2,
-    "source": "",
-    "last_active_on": "2016-10-27T21:57:50.423Z",
-    "last_inactive_email_sent_on": null,
-    "first_login": true
-  }
-},
-{
-  "model": "profiles.userextra",
   "pk": 5,
   "fields": {
     "user": 5,
@@ -9140,25 +9075,6 @@
     "user": 5,
     "city": "city",
     "image": null
-  }
-},
-{
-  "model": "mentors.mentorprofile",
-  "pk": 1,
-  "fields": {
-    "user": 4,
-    "full_access": true,
-    "city": "city",
-    "image": null,
-    "title": "",
-    "employer": "",
-    "expertise": "",
-    "about_me": "",
-    "about_me_image": null,
-    "about_me_video": null,
-    "about_research": "",
-    "about_research_image": null,
-    "about_research_video": null
   }
 },
 {

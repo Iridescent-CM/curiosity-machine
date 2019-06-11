@@ -12,7 +12,6 @@ from families.models import FamilyProfile
 from functools import reduce
 from images.models import Image
 from locations.models import Location
-from mentors.models import MentorProfile
 from students.models import StudentProfile
 from .models import *
 import operator
@@ -40,16 +39,6 @@ class UserExtraInline(admin.StackedInline):
 class EducatorProfileInline(admin.StackedInline):
     model = EducatorProfile
     raw_id_fields = ['image', 'location']
-
-class MentorProfileInline(admin.StackedInline):
-    model = MentorProfile
-    raw_id_fields = [
-        'image',
-        'about_me_image',
-        'about_research_image',
-        'about_me_video',
-        'about_research_video',
-    ]
 
 class StudentProfileInline(admin.StackedInline):
     model = StudentProfile
@@ -125,7 +114,7 @@ class UserAdminWithExtra(UserAdmin):
 
         # search all the many places city data could be stored
         for bit in shlex.split(search_term):
-            for profile in ['studentprofile', 'educatorprofile', 'mentorprofile']:
+            for profile in ['studentprofile', 'educatorprofile']:
                 or_queries.append(Q(**{profile + "__city__icontains":bit}))
 
             for profile in ['educatorprofile', 'familyprofile']:
@@ -171,8 +160,6 @@ class UserAdminWithExtra(UserAdmin):
                 # FIXME: this can be done with a dictionary or something like that
                 if obj.extra.role == UserRole.educator.value:
                     instances.append(EducatorProfileInline(self.model, self.admin_site))
-                if obj.extra.role == UserRole.mentor.value:
-                    instances.append(MentorProfileInline(self.model, self.admin_site))
                 if obj.extra.role == UserRole.student.value:
                     instances.append(StudentProfileInline(self.model, self.admin_site))
                 if obj.extra.role == UserRole.family.value:
