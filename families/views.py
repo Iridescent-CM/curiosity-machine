@@ -148,8 +148,6 @@ class PostSurveyInterruptionView(TemplateView):
 
 postsurvey_interruption = only_for_family(PostSurveyInterruptionView.as_view())
 
-conversion = TemplateView.as_view(template_name="families/conversion.html")
-
 class SubmissionView(DashboardMixin, TemplateView):
     def get_template_names(self):
         if settings.AICHALLENGE_SEASON_OPEN:
