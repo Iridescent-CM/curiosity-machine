@@ -3,7 +3,6 @@ from challenges.factories import ProgressFactory
 from django.core.urlresolvers import reverse
 from educators.factories import EducatorFactory
 from memberships.factories import MembershipFactory
-from mentors.factories import MentorFactory
 from profiles.factories import UserFactory
 from students.factories import StudentFactory
 
@@ -19,16 +18,6 @@ def test_requires_login(client):
 def test_allows_staff(client):
     progress = ProgressFactory()
     user = UserFactory(is_staff=True, username="username", password="password")
-
-    client.login(username="username", password="password")
-    response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))
-
-    assert response.status_code == 200
-
-@pytest.mark.django_db
-def test_allows_mentor(client):
-    progress = ProgressFactory()
-    user = MentorFactory(username="username", password="password")
 
     client.login(username="username", password="password")
     response = client.get(reverse("challenges:challenge_progress", kwargs={"challenge_id": progress.challenge.id, "username": progress.owner.username, "stage": "plan"}))

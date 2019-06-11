@@ -123,7 +123,6 @@ MIDDLEWARE = [
     'curiositymachine.middleware.UserProxyMiddleware',
     'curiositymachine.middleware.LoginRequiredMiddleware',
     "curiositymachine.middleware.UnapprovedStudentSandboxMiddleware",
-    'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
     'curiositymachine.middleware.LastActiveMiddleware',
     'curiositymachine.middleware.FirstLoginMiddleware',
     'families.middleware.SignUpPrerequisitesMiddleware',

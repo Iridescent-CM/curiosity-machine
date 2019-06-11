@@ -2,7 +2,7 @@ import pytest
 from challenges.factories import ChallengeFactory, ExampleFactory, ProgressFactory
 from django.core.urlresolvers import reverse
 from educators.factories import EducatorFactory
-from mentors.factories import MentorFactory
+from memberships.factories import MembershipFactory
 from students.factories import StudentFactory
 
 pytestmark = pytest.mark.integration
@@ -63,7 +63,8 @@ def test_student_cannot_view_other_student_progress_inspirations(client):
 def test_renders_nonstudent_template_with_challenge_for_nonstudent_user(client):
     challenge = ChallengeFactory()
     progress = ProgressFactory(challenge=challenge)
-    user = MentorFactory(username='user', password='123123')
+    user = EducatorFactory(username='user', password='123123')
+    MembershipFactory(members=[progress.owner, user], challenges=[challenge])
 
     client.login(username='user', password='123123')
     response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.owner.username), follow=True)
@@ -77,7 +78,7 @@ def test_nonstudent_template_gets_examples(client):
     challenge = ChallengeFactory()
     progress = ProgressFactory(challenge=challenge)
     examples = ExampleFactory.create_batch(2, progress__challenge=challenge, approved=True)
-    user = MentorFactory(username='user', password='123123')
+    user = EducatorFactory(username='user', password='123123')
 
     client.login(username='user', password='123123')
     response = client.get('/challenges/%d/%s/inspiration/' % (challenge.id, progress.owner.username), follow=True)

@@ -14,7 +14,7 @@ from challenges.tests.fixtures import *
 from challenges.factories import *
 from cmcomments.factories import *
 from images.factories import *
-from mentors.factories import *
+from educators.factories import *
 from profiles.factories import *
 from students.factories import *
 
@@ -37,8 +37,12 @@ def student():
     return StudentFactory()
 
 @pytest.fixture
-def mentor():
-    return MentorFactory()
+def educator():
+    return EducatorFactory()
+
+@pytest.fixture
+def progress(student, challenge):
+    return Progress.objects.create(owner=student, challenge=challenge)
 
 @pytest.mark.django_db
 def test_theme_str(theme):
@@ -257,43 +261,10 @@ def test_user_has_started_challenge(progress, challenge2):
     assert not user_has_started_challenge(student, challenge2)
 
 @pytest.mark.django_db
-def test_claim_progress(rf, mentor, unclaimed_progress):
-    assert not unclaimed_progress.mentor
-
-    request = rf.post('/challenges/unclaimed/1')
-    request.user = mentor
-    request.session = 'session'
-    request._messages = FallbackStorage(request)
-    response = claim_progress(request, unclaimed_progress.id)
-    assert response.status_code == 302
-    assert Progress.objects.get(id=unclaimed_progress.id).mentor == mentor
-
-@pytest.mark.django_db
-def test_student_cannot_claim_progress(rf, unclaimed_progress):
-    assert not unclaimed_progress.mentor
-
-    request = rf.post('/challenges/unclaimed/1')
-    request.user = unclaimed_progress.owner
-    with pytest.raises(PermissionDenied):
-        response = claim_progress(request, unclaimed_progress.id)
-    assert not Progress.objects.get(id=unclaimed_progress.id).mentor
-
-@pytest.mark.django_db
 def test_is_favorited(challenge, student):
     assert challenge.is_favorite(student) == False
     Favorite.objects.create(challenge=challenge, student=student)
     assert challenge.is_favorite(student) == True
-
-@pytest.mark.django_db
-def test_unclaimed_progress(mentor, unclaimed_progress):
-    assert not unclaimed_progress.mentor
-    unclaimed = Progress.unclaimed()
-    assert sum(1 for s in unclaimed) == 0
-    unclaimed_progress.stage = Stage.plan
-    unclaimed_progress.save()
-    Comment.objects.create(challenge_progress=unclaimed_progress, text="Comment test", user=unclaimed_progress.owner)
-    unclaimed = Progress.unclaimed()
-    assert sum(1 for s in unclaimed) == 1
 
 @pytest.mark.django_db
 def test_classify_with_id(filter, challenge):
@@ -301,25 +272,25 @@ def test_classify_with_id(filter, challenge):
     assert(challenge.filters.exists() == 1)
 
 @pytest.mark.django_db
-def test_activity_count(student, mentor, progress):
+def test_activity_count(student, educator, progress):
     assert activity_count(progress) == 0
     Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
-    Comment.objects.create(challenge_progress=progress, text="Comment test", user=mentor)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=educator)
     assert activity_count(progress) == 2
 
 @pytest.mark.django_db
-def test_activity_count_by_user(student, mentor, progress):
+def test_activity_count_by_user(student, educator, progress):
     Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
     Comment.objects.create(challenge_progress=progress, text="Comment test", user=student)
-    Comment.objects.create(challenge_progress=progress, text="Comment test", user=mentor)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=educator)
     assert activity_count(progress, student) == 2
-    assert activity_count(progress, mentor) == 1
+    assert activity_count(progress, educator) == 1
 
 @pytest.mark.django_db
-def test_activity_count_by_stage(student, mentor, progress):
+def test_activity_count_by_stage(student, educator, progress):
     Comment.objects.create(challenge_progress=progress, text="Comment test", user=student, stage=Stage.plan.value)
     Comment.objects.create(challenge_progress=progress, text="Comment test", user=student, stage=Stage.build.value)
-    Comment.objects.create(challenge_progress=progress, text="Comment test", user=mentor, stage=Stage.build.value)
+    Comment.objects.create(challenge_progress=progress, text="Comment test", user=educator, stage=Stage.build.value)
     assert activity_count(progress, None, Stage.plan.name) == 1
     assert activity_count(progress, None, Stage.build.name) == 2
     assert activity_count(progress, None, Stage.plan.name, Stage.build.name) == 3
@@ -440,9 +411,9 @@ def test_examples_view_for_student_with_completed_progress_with_example_rejected
 @pytest.mark.django_db
 def test_examples_view_for_non_student(client):
     challenge = ChallengeFactory()
-    mentor = MentorFactory(username="mentor", password="password")
+    user = EducatorFactory(username="user", password="password")
 
-    client.login(username=mentor.username, password="password")
+    client.login(username=user.username, password="password")
     response = client.get('/challenges/%d/examples' % (challenge.id), follow=True)
 
     d = pq(response.content)
@@ -554,8 +525,8 @@ def test_examples_view_when_adding_new_example_wrong_challenge_error(client):
 @pytest.mark.django_db
 def test_examples_view_when_adding_new_example_not_a_student_error(client):
     challenge = ChallengeFactory()
-    user = MentorFactory(username="user", password="password")
-    progress = ProgressFactory(challenge=challenge, mentor=user)
+    user = EducatorFactory(username="user", password="password")
+    progress = ProgressFactory(challenge=challenge)
     image = ImageFactory()
     comment = CommentFactory(user=user, challenge_progress=progress, image=image)
 

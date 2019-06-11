@@ -14,14 +14,13 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from educators.factories import *
-from mentors.factories import *
 from profiles.factories import *
 from profiles.models import UserRole
 from pyquery import PyQuery as pq
 from students.factories import *
 from .. import signals
 from ..helpers import random_string
-from ..middleware import UnapprovedStudentSandboxMiddleware, UnapprovedMentorSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
+from ..middleware import UnapprovedStudentSandboxMiddleware, LoginRequiredMiddleware, LoginRequired
 from ..views import root
 
 User = get_user_model()
@@ -46,13 +45,6 @@ def test_unapproved_student_middleware_skips_full_access_profiles(rf):
     middleware = UnapprovedStudentSandboxMiddleware()
     request = rf.get('/some/path')
     request.user = student
-    assert not middleware.process_view(request, mock.MagicMock(), None, None)
-
-def test_unapproved_student_middleware_skips_mentors(rf):
-    user = MentorFactory.build()
-    middleware = UnapprovedStudentSandboxMiddleware()
-    request = rf.get('/some/path')
-    request.user = user
     assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_unapproved_student_middleware_skips_staff(rf):
@@ -83,58 +75,6 @@ def test_unapproved_student_middleware_allows_whitelisted_views(rf):
 
     view = decorators.whitelist('unapproved_students')(mock.MagicMock())
     assert not middleware.process_view(request, view, None, None)
-
-def test_unapproved_mentor_middleware_redirects(rf):
-    user = MentorFactory.build(mentorprofile__full_access=False)
-    middleware = UnapprovedMentorSandboxMiddleware()
-    request = rf.get('/some/path')
-    request.user = user
-    response = middleware.process_view(request, mock.MagicMock(), None, None)
-    assert isinstance(response, HttpResponseRedirect)
-    assert response.url == reverse('profiles:home')
-
-def test_unapproved_mentor_middleware_skips_full_access(rf):
-    user = MentorFactory.build(mentorprofile__full_access=True)
-    middleware = UnapprovedMentorSandboxMiddleware()
-    request = rf.get('/some/path')
-    request.user = user
-    assert not middleware.process_view(request, mock.MagicMock(), None, None)
-
-def test_unapproved_mentor_middleware_skips_whitelisted(rf):
-    user = MentorFactory.build(mentorprofile__full_access=False)
-    middleware = UnapprovedMentorSandboxMiddleware()
-    request = rf.get('/some/path')
-    request.user = user
-
-    view = decorators.whitelist('public')(mock.MagicMock())
-    assert not middleware.process_view(request, view, None, None)
-
-    view = decorators.whitelist('maybe_public')(mock.MagicMock())
-    assert not middleware.process_view(request, view, None, None)
-
-    view = decorators.whitelist('unapproved_mentors')(mock.MagicMock())
-    assert not middleware.process_view(request, view, None, None)
-
-def test_unapproved_mentor_middleware_skips_non_mentor(rf):
-    user = UserFactory.build()
-    middleware = UnapprovedMentorSandboxMiddleware()
-    request = rf.get('/some/path')
-    request.user = user
-    assert not middleware.process_view(request, mock.MagicMock(), None, None)
-
-def test_unapproved_mentor_middleware_skips_staff(rf):
-    user = MentorFactory.build(is_staff=True)
-    middleware = UnapprovedMentorSandboxMiddleware()
-    request = rf.get('/some/path')
-    request.user = user
-    assert not middleware.process_view(request, mock.MagicMock(), None, None)
-
-def test_unapproved_mentor_middleware_skips_unauthenticated(rf):
-    user = AnonymousUser()
-    middleware = UnapprovedMentorSandboxMiddleware()
-    request = rf.get('/some/path')
-    request.user = user
-    assert not middleware.process_view(request, mock.MagicMock(), None, None)
 
 def test_login_required_middleware_skips_whitelisted(rf):
     user = AnonymousUser()
@@ -196,42 +136,6 @@ def test_random_string():
     assert len(random_string()) == 5
     assert len(random_string(length=2)) == 2
     assert type(random_string()) is str
-
-def test_mentor_only_denies_view_for_anonymous_user(rf):
-    user = AnonymousUser()
-    view = mock.MagicMock()
-    request = rf.get('/some/path')
-    request.user = user
-    wrapped = decorators.mentor_only(view)
-    with pytest.raises(PermissionDenied):
-        response = wrapped(request)
-
-def test_mentor_only_denies_view_for_non_mentor_or_staff(rf):
-    user = StudentFactory.build()
-    view = mock.MagicMock()
-    request = rf.get('/some/path')
-    request.user = user
-    wrapped = decorators.mentor_only(view)
-    with pytest.raises(PermissionDenied):
-        response = wrapped(request)
-
-def test_mentor_only_calls_view_for_mentor(rf):
-    user = MentorFactory.build()
-    view = mock.MagicMock()
-    request = rf.get('/some/path')
-    request.user = user
-    wrapped = decorators.mentor_only(view)
-    response = wrapped(request)
-    assert view.called
-
-def test_mentor_only_calls_view_for_staff(rf):
-    user = UserFactory.build(is_staff=True)
-    view = mock.MagicMock()
-    request = rf.get('/some/path')
-    request.user = user
-    wrapped = decorators.mentor_only(view)
-    response = wrapped(request)
-    assert view.called
 
 def test_student_only_denies_view_for_anonymous_user(rf):
     user = AnonymousUser()
@@ -327,15 +231,6 @@ def test_feature_flag_calls_view_if_flag_true(rf):
     with mock.patch.dict(settings.FEATURE_FLAGS, {'test_flag': True}):
         response = wrapped(request)
         assert view.called
-
-def test_challenge_access_decorator_allows_any_mentor(rf):
-    mentor = MentorFactory.build()
-    view = mock.MagicMock()
-    request = rf.get('/some/path')
-    request.user = mentor
-    wrapped = decorators.current_user_or_approved_viewer(view)
-    response = wrapped(request, challenge_id=1, username='student')
-    assert view.called
 
 def test_challenge_access_decorator_allows_named_user(rf):
     user = UserFactory.build(username='named')

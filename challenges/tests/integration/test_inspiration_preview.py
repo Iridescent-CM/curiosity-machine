@@ -68,7 +68,7 @@ def test_redirects_student_with_progress_to_their_progress(client):
 @pytest.mark.django_db
 def test_renders_nonstudent_template_with_challenge_for_nonstudent_user(client):
     challenge = ChallengeFactory()
-    user = MentorFactory(username='user', password='123123')
+    user = EducatorFactory(username='user', password='123123')
 
     client.login(username='user', password='123123')
     response = client.get('/challenges/%d/' % challenge.id, follow=True)
@@ -81,7 +81,7 @@ def test_renders_nonstudent_template_with_challenge_for_nonstudent_user(client):
 def test_nonstudent_template_gets_examples(client):
     challenge = ChallengeFactory()
     examples = ExampleFactory.create_batch(2, progress__challenge=challenge, approved=True)
-    user = MentorFactory(username='user', password='123123')
+    user = EducatorFactory(username='user', password='123123')
 
     client.login(username='user', password='123123')
     response = client.get('/challenges/%d/' % challenge.id, follow=True)
@@ -93,7 +93,7 @@ def test_nonstudent_template_gets_examples(client):
 def test_challenge_decorated_with_user_accessibility_for_all_types(client):
     challenge = ChallengeFactory()
 
-    for i, Factory in enumerate([StudentFactory, MentorFactory, EducatorFactory]):
+    for i, Factory in enumerate([StudentFactory, EducatorFactory]):
         user = StudentFactory(username="user%d" % i, password="password")
 
         client.login(username="user%d" % i, password="password")

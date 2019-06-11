@@ -1,7 +1,6 @@
 import pytest
 from django.forms.models import model_to_dict
 from django.urls import reverse
-from mentors.factories import *
 from students.factories import *
 from ..factories import *
 from ..models import *
@@ -15,13 +14,6 @@ def test_endpoint_requires_login(client):
 
 @pytest.mark.django_db
 def test_endpoint_requires_educator(client):
-    MentorFactory(username='mentor', password='123123')
-    client.login(username='mentor', password='123123')
-    assert client.post(
-        reverse("educators:update_impact_survey"),
-        model_to_dict(ImpactSurveyFactory())
-    ).status_code == 403
-
     StudentFactory(username='student', password='123123')
     client.login(username='student', password='123123')
     assert client.post(

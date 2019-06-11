@@ -2,18 +2,18 @@ import pytest
 from challenges.factories import ProgressFactory
 from challenges.models import Progress
 from cmcomments.factories import ReflectionCommentFactory
-from mentors.factories import MentorFactory
+from educators.factories import EducatorFactory
 from students.factories import StudentFactory
 
 @pytest.mark.django_db
 def test_completed():
     student = StudentFactory()
-    mentor = MentorFactory()
-    progress = ProgressFactory(owner=student, mentor=mentor)
+    educator = EducatorFactory()
+    progress = ProgressFactory(owner=student)
 
     assert not progress.completed
 
-    ReflectionCommentFactory(user=mentor, challenge_progress=progress)
+    ReflectionCommentFactory(user=educator, challenge_progress=progress)
 
     assert not progress.completed
 

@@ -8,7 +8,6 @@ from django.utils.timezone import now, localtime
 from educators.factories import *
 from memberships.factories import MembershipFactory
 from memberships.models import Membership
-from mentors.factories import *
 from profiles.factories import *
 from profiles.models import UserRole
 from students.factories import *
@@ -63,10 +62,8 @@ def test_filter_by_challenge_access_for_anonymous():
 @pytest.mark.django_db
 def test_filter_by_challenge_access_user_type_exemptions():
     challenge = ChallengeFactory()
-    mentor = MentorFactory()
     staff = UserFactory(is_staff=True)
 
-    assert set(Membership.filter_by_challenge_access(mentor, [challenge.id])) == set([challenge.id])
     assert set(Membership.filter_by_challenge_access(staff, [challenge.id])) == set([challenge.id])
 
 @pytest.mark.django_db
