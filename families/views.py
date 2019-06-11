@@ -73,7 +73,7 @@ edit = unapproved_ok(only_for_family(EditView.as_view()))
 
 class DashboardMixin:
     def get_context_data(self, **kwargs):
-        program = self.request.user.membership_set.all().filter(is_active=True).first() # FIXME?: lazily assume families aren't in multiple
+        program = self.request.user.membership_set.filter(is_active=True).first() # FIXME?: lazily assume families aren't in multiple
         program_name = program.display_name if program else None
         return super().get_context_data(
             **kwargs,
