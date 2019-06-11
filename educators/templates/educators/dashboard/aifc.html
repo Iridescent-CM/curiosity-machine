@@ -20,14 +20,15 @@
 
     <h2 class="dashboard-subtitle mt-4">Lessons</h2>
     <div class="row mt-3">
-    {% for obj in lessons %}
-    <div class="col-lg-4 col-md-6 mb-1">
-      {% include 'educators/dashboard/_challenge_or_lesson_card.html'%}
+      {% for obj in lessons %}
+      <div class="col-lg-4 col-md-6 mb-1">
+        {% include 'educators/dashboard/_challenge_or_lesson_card.html'%}
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
 
     <div class="row">
-      <div class="my-4 border dashboard-section p-4">
+      <div class="my-4 ml-3 border dashboard-section p-4">
         {% impact_survey %}
       </div>
     </div>

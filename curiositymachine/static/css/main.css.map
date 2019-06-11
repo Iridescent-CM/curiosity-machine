@@ -117,7 +117,6 @@
 		"../../sass/pages/_home.scss",
 		"../../sass/pages/_lessons.scss",
 		"../../sass/pages/_mentor-dashboard.scss",
-		"../../sass/pages/_password-change.scss",
 		"../../sass/pages/_aifc-pages.scss",
 		"../../sass/utils/_backgrounds.scss",
 		"../../sass/utils/_cloak.scss"

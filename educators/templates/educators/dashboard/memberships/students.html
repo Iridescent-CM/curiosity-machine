@@ -82,9 +82,15 @@
         <div class="list-group list-group-flush cm-list-group border dashboard-section px-4 py-2 mb-5">
           {% for student in students %}
           <div class="list-group-item">
+            {% if student.studentprofile %}
             <a href="{% url 'educators:student' student_id=student.id %}" class="student-list-avatar">
               {% include "_avatar.html" with user=student width=48 height=48 crop='thumb' gravity='faces' %}
             </a>
+            {% else %}
+            <span class="student-list-avatar">
+              {% include "_avatar.html" with user=student width=48 height=48 crop='thumb' gravity='faces' %}
+            </span>
+            {% endif %}
             <span class="student-inline-name">
               {% if student.first_name or student.last_name %}
               {{ student.first_name }} {{ student.last_name }}
@@ -94,7 +100,11 @@
             </span>
             <br>
             <span class="student-inline-username">
+              {% if student.studentprofile %}
               <a href="{% url 'educators:student' student_id=student.id %}">{{ student.username }}</a> &middot;
+              {% else %}
+              <span>{{ student.username }}</span>&middot;
+              {% endif %}
               {% if student.extra.is_approved %}
               <span class="green-type">approved</span>
               {% else %}
@@ -142,7 +152,7 @@
             </div>
           </div>
           {% empty %}
-          <p>Your membership or group doesn't have any students in it! Reach out to your membership coordinator to get your student accounts connected to your membership or group.</p>
+          <p>Your membership or group doesn't have any participants in it! Reach out to your membership coordinator to get your student accounts connected to your membership or group.</p>
           {% endfor %}
         </div>
       </div>
