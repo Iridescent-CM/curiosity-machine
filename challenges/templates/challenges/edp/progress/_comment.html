@@ -1,22 +1,6 @@
 {% load cmtemplatetags %}
 
-{% if comment.user.extra.is_mentor %}
-  <span class="mentor-comment" id="comment-{{ comment.id }}">MENTOR MESSAGE</span>
-  <span class="comment-date">{{ comment.created|timesince }}</span>
-  <div class="mentor-info comment">
-    <a href="{% url 'mentors:public_profile' comment.user.username %}">
-      <div class="avatar-container">
-        {% include "_avatar.html" with profile=comment.user.mentorprofile width=50 height=50 crop='fill' %}
-      </div>
-    </a>
-    <p><a href="{% url 'mentors:public_profile' comment.user.username %}">{{comment.user.username}}</a><br><strong>Mentor</strong></p>
-  </div>
-  <div class="panel panel-bubble blue comment">
-    <div class="panel-body">
-      {% include "challenges/edp/progress/_comment_content.html" %}
-    </div>
-  </div>
-{% elif comment.user.extra.is_educator %}
+{% if comment.user.extra.is_educator %}
   <span class="mentor-comment" id="comment-{{ comment.id }}">COACH FEEDBACK</span>
   <span class="comment-date">{{ comment.created|timesince }}</span>
   <div class="mentor-info comment">

@@ -38,7 +38,6 @@ def current_user_or_approved_viewer(view):
         username = kwargs.get('username')
         challenge_id = kwargs.get('challenge_id')
         if (request.user.is_staff
-                or request.user.extra.is_mentor
                 or request.user.username == username
                 or (not request.user.extra.is_student and Membership.share_membership(request.user.username, username))
                 or request.user.extra.is_parent and request.user.parentprofile.is_parent_of(username, active=True, removed=False)):

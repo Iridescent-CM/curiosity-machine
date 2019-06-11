@@ -49,7 +49,6 @@ class Challenge(models.Model):
     description = models.TextField(help_text="One line of plain text, shown on the inspiration page")
     how_to_make_it = models.TextField(help_text="HTML, shown in the guide")
     learn_more = models.TextField(help_text="HTML, shown in the guide")
-    mentor_guide = models.TextField(help_text="HTML, shown in the mentor guide", null=True, blank=True)
     materials_list = models.TextField(help_text="HTML")
     doers = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
@@ -109,10 +108,6 @@ class Progress(models.Model):
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, owner=self.owner).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this user on this challenge")
-        if self.owner.extra.is_mentor:
-            raise ValidationError("Mentors can not start a challenge")
-        if self.mentor and not self.mentor.extra.is_mentor:
-            raise ValidationError("The mentor of a challenge must be a mentor")
         else:
             super(Progress, self).save(*args, **kwargs)
 
@@ -166,8 +161,6 @@ class Favorite(models.Model):
     def save(self, *args, **kwargs):
         if Favorite.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("This challenge is already on your favorites")
-        if self.student.extra.is_mentor:
-            raise ValidationError("Mentors can not favorite a challenge")
         else:
             super(Favorite, self).save(*args, **kwargs)
 

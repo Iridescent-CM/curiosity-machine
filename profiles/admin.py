@@ -30,8 +30,6 @@ class UserExtraForm(forms.ModelForm):
         if "approved" in self.changed_data and obj.approved:
             if obj.is_student:
                 signals.account_activation_confirmed.send(sender=obj.user)
-            elif obj.is_mentor:
-                signals.completed_training.send(sender=obj.user)
         return obj
 
 class UserExtraInline(admin.StackedInline):

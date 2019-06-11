@@ -153,10 +153,6 @@ class UserExtra(models.Model):
         return UserRole(self.role) == UserRole.student
 
     @property
-    def is_mentor(self):
-        return UserRole(self.role) == UserRole.mentor
-
-    @property
     def is_educator(self):
         return UserRole(self.role) == UserRole.educator
 
@@ -176,8 +172,6 @@ class UserExtra(models.Model):
     def user_type(self):
         if self.user.is_superuser:
             return 'admin'
-        elif self.is_mentor:
-            return 'mentor'
         elif self.is_student:
             return 'student'
         elif self.is_educator:
