@@ -27,7 +27,7 @@ from django.utils.timezone import now
 
 # app modules
 from challenges.models import Stage, Example
-from challenges.views import challenges, claim_progress, start_building
+from challenges.views import challenges, start_building
 from challenges.templatetags.activity_count import activity_count
 from challenges.templatetags.user_has_started_challenge import user_has_started_challenge
 from cmcomments.models import Comment

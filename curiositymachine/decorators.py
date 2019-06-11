@@ -66,16 +66,6 @@ def student_only(view):
             raise PermissionDenied
     return inner
 
-# also permits staff
-def mentor_only(view):
-    @wraps(view)
-    def inner(request, *args, **kwargs):
-        if request.user.is_authenticated and (request.user.is_staff or request.user.extra.is_mentor):
-            return view(request, *args, **kwargs)
-        else:
-            raise PermissionDenied
-    return inner
-
 def feature_flag(flag):
     flag = flag.lower()
     def decorator(view):
