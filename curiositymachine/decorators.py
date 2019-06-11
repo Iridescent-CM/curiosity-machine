@@ -23,10 +23,10 @@ def unapproved_only(view):
             return HttpResponseRedirect(reverse('root'))
     return inner
 
-def mentor_or_current_user(view):
+def current_user(view):
     @wraps(view)
     def inner(request, challenge_id, username, *args, **kwargs):
-        if request.user.extra.is_mentor or request.user.username == username:
+        if request.user.username == username:
             return view(request, challenge_id, username, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge_id}))
