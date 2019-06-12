@@ -39,8 +39,7 @@ def current_user_or_approved_viewer(view):
         challenge_id = kwargs.get('challenge_id')
         if (request.user.is_staff
                 or request.user.username == username
-                or (not request.user.extra.is_student and Membership.share_membership(request.user.username, username))
-                or request.user.extra.is_parent and request.user.parentprofile.is_parent_of(username, active=True, removed=False)):
+                or (not request.user.extra.is_student and Membership.share_membership(request.user.username, username))):
             return view(request, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse('challenges:preview_inspiration', kwargs={'challenge_id': challenge_id}))

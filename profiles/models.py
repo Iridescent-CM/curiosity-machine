@@ -147,10 +147,6 @@ class UserExtra(models.Model):
         return UserRole(self.role) == UserRole.educator
 
     @property
-    def is_parent(self):
-        return UserRole(self.role) == UserRole.parent
-
-    @property
     def is_family(self):
         return UserRole(self.role) == UserRole.family
 
@@ -166,8 +162,6 @@ class UserExtra(models.Model):
             return 'student'
         elif self.is_educator:
             return 'educator'
-        elif self.is_parent:
-            return 'parent'
 
     @property
     def send_welcome(self):

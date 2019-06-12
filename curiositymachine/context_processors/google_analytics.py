@@ -30,8 +30,6 @@ def google_analytics(request):
             usertype += "Student"
         if request.user.extra.is_educator:
             usertype += "Educator"
-        if request.user.extra.is_parent:
-            usertype += "Parent"
 
         if not usertype:
             usertype = "Other"
