@@ -3,16 +3,6 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.forms.utils import flatatt
 
-JS_URL = "//api.filestackapi.com/filestack.js"
-
-# deprecated
-class FilePickerInlineWidget(widgets.Input):
-    input_type = "filepicker-custom"
-    needs_multipart_form = False
-
-    class Media:
-        js = (JS_URL,)
-
 class FilePickerPickWidget(Widget):
     """
     A Filepicker widget similar to <input type="file"> with optional media preview.
