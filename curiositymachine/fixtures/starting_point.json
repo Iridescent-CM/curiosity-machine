@@ -100,15 +100,6 @@
 },
 {
   "fields": {
-    "model": "mentor",
-    "app_label": "profiles",
-    "name": "mentor"
-  },
-  "model": "contenttypes.contenttype",
-  "pk": 12
-},
-{
-  "fields": {
     "model": "student",
     "app_label": "profiles",
     "name": "student"
@@ -1215,33 +1206,6 @@
   },
   "model": "auth.permission",
   "pk": 39
-},
-{
-  "fields": {
-    "content_type": 9,
-    "codename": "add_mentor",
-    "name": "Can add mentor"
-  },
-  "model": "auth.permission",
-  "pk": 40
-},
-{
-  "fields": {
-    "content_type": 9,
-    "codename": "change_mentor",
-    "name": "Can change mentor"
-  },
-  "model": "auth.permission",
-  "pk": 41
-},
-{
-  "fields": {
-    "content_type": 9,
-    "codename": "delete_mentor",
-    "name": "Can delete mentor"
-  },
-  "model": "auth.permission",
-  "pk": 42
 },
 {
   "fields": {

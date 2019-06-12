@@ -142,9 +142,6 @@ class Progress(models.Model):
     def challenge_name(self):
         return self.challenge.name
 
-    def mentor_username(self):
-        return self.mentor.username if self.mentor else ''
-
     def __repr__(self):
         return "Progress: id={}, challenge_id={}, owner_id={}".format(self.id, self.challenge_id, self.owner_id)
 
@@ -212,7 +209,7 @@ class ExampleQuerySet(models.QuerySet):
         return self.update(approved=True)
     approve.queryset_only = True
 
-class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
+class Example(models.Model):
     progress = models.ForeignKey(Progress, null=False, blank=False, on_delete=models.CASCADE)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, help_text="An image to display in the gallery. If a video is also set, this will be the thumbnail. Each example must have an image or a video, or both, to be displayed correctly.")
     approved = models.NullBooleanField(db_index=True)

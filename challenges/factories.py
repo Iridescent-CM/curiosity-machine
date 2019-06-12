@@ -66,10 +66,7 @@ class ProgressFactory(factory.django.DjangoModelFactory):
             obj.comments.create(user=obj.owner, text="First post!", stage=1)
             if isinstance(extracted, int) and extracted > 1:
                 for idx in range(1, extracted):
-                    if obj.mentor:
-                        user = random.choice([obj.owner, obj.mentor])
-                    else:
-                        user = obj.owner
+                    user = obj.owner
                     obj.comments.add(CommentFactory(challenge_progress=obj, user=user))
 
     @factory.post_generation

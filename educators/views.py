@@ -197,7 +197,7 @@ class StudentView(TemplateView):
         member = get_object_or_404(listed_members, pk=self.kwargs.get('student_id'))
         progresses = (member.progresses
             .filter(comments__isnull=False, challenge__in=membership.challenges.all())
-            .select_related('challenge', 'mentor')
+            .select_related('challenge')
             .prefetch_related(
                 'comments',
                 Prefetch('example_set', queryset=Example.objects.status(approved=True), to_attr='approved_examples')
