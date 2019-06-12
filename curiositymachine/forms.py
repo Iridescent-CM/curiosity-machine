@@ -38,7 +38,7 @@ class MediaURLField(forms.fields.MultiValueField):
 
     def widget_attrs(self, widget):
         attrs = {
-            'data-fp-mimetypes': self.mimetypes
+            'data-mimetypes': self.mimetypes
         }
         return attrs
 

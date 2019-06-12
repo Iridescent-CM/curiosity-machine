@@ -40,11 +40,7 @@ class MentorProfileForm(ProfileModelForm):
         label="Photo",
         mimetypes="image/*",
         widget=FilePickerPickWidget(attrs={
-            "data-fp-opento": "WEBCAM",
-            "data-fp-services": "WEBCAM,COMPUTER,CONVERT",
-            "data-fp-conversions": "crop,rotate",
             "data-fp-cropratio": 1,
-            "data-fp-cropforce": "force",
         }),
         required=False
     )
@@ -52,22 +48,14 @@ class MentorProfileForm(ProfileModelForm):
     about_me_media_url = MediaURLField(
         label="About Me Photo or Video",
         mimetypes="video/*,image/*",
-        widget=FilePickerPickWidget(attrs={
-            "data-fp-opento": 'WEBCAM',
-            "data-fp-services": 'VIDEO,WEBCAM,COMPUTER,CONVERT',
-            "data-fp-conversions": "crop,rotate",
-        }),
+        widget=FilePickerPickWidget,
         required=False,
     )
 
     about_research_media_url = MediaURLField(
         label="About My Research Photo or Video",
         mimetypes="video/*,image/*",
-        widget=FilePickerPickWidget(attrs={
-            'data-fp-opento': 'WEBCAM',
-            'data-fp-services': 'VIDEO,WEBCAM,COMPUTER,CONVERT',
-            "data-fp-conversions": "crop,rotate",
-        }),
+        widget=FilePickerPickWidget,
         required=False,
     )
 

@@ -38,11 +38,7 @@ class FamilyProfileForm(RelatedModelFormMixin, ProfileModelForm):
         label="Photo",
         mimetypes="image/*",
         widget=FilePickerPickWidget(attrs={
-            "data-fp-opento": "WEBCAM",
-            "data-fp-services": "WEBCAM,COMPUTER,CONVERT",
-            "data-fp-conversions": "crop,rotate",
             "data-fp-cropratio": 1,
-            "data-fp-cropforce": "force",
         }),
         required=False
     )
@@ -83,11 +79,7 @@ class FamilyMemberForm(forms.ModelForm):
         label="Photo",
         mimetypes="image/*",
         widget=FilePickerPickWidget(attrs={
-            "data-fp-opento": "WEBCAM",
-            "data-fp-services": "WEBCAM,COMPUTER,CONVERT",
-            "data-fp-conversions": "crop,rotate",
             "data-fp-cropratio": 1,
-            "data-fp-cropforce": "force",
         }),
         required=False
     )

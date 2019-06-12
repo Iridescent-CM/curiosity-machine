@@ -11,7 +11,7 @@ class FilePickerPickWidget(Widget):
     """
 
     class Media:
-        js = ("//api.filestackapi.com/filestack.js", "js/pickwidget.js",)
+        js = ()
 
     def __init__(self, attrs=None, preview=False, text=None):
         self.text = text
@@ -19,8 +19,6 @@ class FilePickerPickWidget(Widget):
             'data-fp-apikey': settings.FILEPICKER_API_KEY,
             'class': 'btn btn-primary pickwidget-button'
         }
-        if preview:
-            _attrs['data-show-preview'] = 'preview'
         if (attrs):
             _attrs.update(attrs)
         super(FilePickerPickWidget, self).__init__(_attrs)
@@ -42,34 +40,3 @@ class FilePickerPickWidget(Widget):
             data.get(name + '_mimetype', None),
             data.get(name + '_filename', None),
         ]
-
-class FilePickerImagePickWidget(FilePickerPickWidget):
-    """
-    A Filepicker image selection widget suitable for use with something like URLField.
-    """
-
-    def __init__(self, attrs=None):
-        _attrs = {
-            'data-fp-mimetypes': 'image/*'
-        }
-        if (attrs):
-            _attrs.update(attrs)
-        super(FilePickerImagePickWidget, self).__init__(_attrs)
-
-    def value_from_datadict(self, data, files, name):
-        return data.get(name + '_url', None)
-
-class FilePickerVideoPickWidget(FilePickerPickWidget):
-    """
-    A Filepicker video selection widget suitable for use with something like URLField.
-    """
-    def __init__(self, attrs=None):
-        _attrs = {
-            'data-fp-mimetypes': 'video/*'
-        }
-        if (attrs):
-            _attrs.update(attrs)
-        super(FilePickerVideoPickWidget, self).__init__(_attrs)
-
-    def value_from_datadict(self, data, files, name):
-        return data.get(name + '_url', None)
