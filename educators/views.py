@@ -41,12 +41,6 @@ class CreateView(EditProfileMixin, CreateView):
     form_class = EducatorProfileForm
     success_url = lazy(reverse, str)("educators:home")
 
-    def get_initial(self):
-        initial = super().get_initial()
-        if "coach_signup" in self.request.GET:
-            initial["coach_signup"] = True
-        return initial
-
 create = not_for_role(UserRole.educator, redirect="educators:edit_profile")(CreateView.as_view())
 
 class EditView(EditProfileMixin, UpdateView):
