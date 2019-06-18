@@ -1,6 +1,10 @@
 from django.conf.urls import url, include
 from rest_framework.routers import SimpleRouter
+from curiositymachine.decorators import whitelist
+from lessons import views
 from .views import *
+
+public = whitelist('public')
 
 router = SimpleRouter()
 router.register(r'lesson', LessonViewSet, base_name="lesson")
