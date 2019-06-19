@@ -1,3 +1,4 @@
+from . import *
 from curiositymachine import signals
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -10,7 +11,6 @@ from locations.models import Location
 from phonenumber_field.modelfields import PhoneNumberField
 from profiles.models import BaseProfile
 from surveys import get_survey
-import pycountry
 
 __all__ = [
     'FamilyProfile',
@@ -19,17 +19,6 @@ __all__ = [
     'AwardForceIntegration',
     'PermissionSlip',
 ]
-
-PRESURVEY_COUNTRIES = list(
-    pycountry.countries.lookup(country).alpha_2
-    for country in [
-        'United Kingdom',
-        'Ireland',
-        'Canada',
-        'United States',
-        'Australia'
-    ]
-)
 
 class FamilyProfile(BaseProfile):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
