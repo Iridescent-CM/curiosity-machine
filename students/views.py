@@ -19,11 +19,6 @@ from .models import StudentProfile
 only_for_student = only_for_role(UserRole.student)
 unapproved_ok = whitelist('unapproved_students')
 
-def banner_membership_blacklisted(request):
-    membership_set = request.user.membership_set.filter(is_active=True)
-    return any(membership.id in settings.AI_BANNER_STUDENT_BLACKLIST for membership in membership_set)
-
-
 class CreateView(EditProfileMixin, CreateView):
     model = StudentProfile
     form_class = NewStudentProfileForm
@@ -87,8 +82,7 @@ class DashboardMixin:
         return super().get_context_data(
             **kwargs,
             memberships=memberships,
-            membership_names=names,
-            banner_membership_blacklisted=banner_membership_blacklisted(self.request),
+            membership_names=names
         )
 
 class ChallengesView(DashboardMixin, ListView):
