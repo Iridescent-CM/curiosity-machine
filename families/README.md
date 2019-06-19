@@ -82,6 +82,5 @@ Various surveys were delivered to users throughout the season:
 
 A flag was added late in the game to allow "turning off" of the AwardForce integration as `AIFC_SEASON_OPEN`.
 
-And various `ENABLE_` flags were used for a staged rollout. Probably the most relevant are:
-* `ENABLE_AI_BANNER`
+And various `ENABLE_` flags were used for a staged rollout. Probably the most relevant is:
 * `ENABLE_AIFCWC_TAB`

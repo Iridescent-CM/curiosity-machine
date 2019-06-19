@@ -1,7 +1,6 @@
 import factory
 import factory.django
 import factory.fuzzy
-from phonenumber_field.phonenumber import PhoneNumber
 from profiles.factories import *
 from profiles.models import UserRole
 from profiles.signals import handlers
@@ -19,7 +18,6 @@ class FamilyProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('families.factories.FamilyFactory', familyprofile=None)
     location = factory.SubFactory('locations.factories.LocationFactory')
-    phone = PhoneNumber.from_string("202-555-5555")
 
 class FamilyMemberFactory(factory.django.DjangoModelFactory):
     class Meta:

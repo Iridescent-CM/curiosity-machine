@@ -100,7 +100,6 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'rest_framework',
     'notifications',
-    'phonenumber_field',
     'debug_toolbar',
     'feedback',
     'django_ace',
@@ -207,7 +206,6 @@ TIME_ZONE = "America/Los_Angeles"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-PHONENUMBER_DEFAULT_REGION = 'US'
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
@@ -302,8 +300,6 @@ GTM_CONTAINER_ID = os.environ.get("GTM_CONTAINER_ID", None)
 
 SITE_MESSAGE = os.environ.get("SITE_MESSAGE", None)
 SITE_MESSAGE_LEVEL = os.environ.get("SITE_MESSAGE_LEVEL", None)
-
-AI_BANNER_STUDENT_BLACKLIST = [int(id) for id in (os.getenv("AI_BANNER_STUDENT_BLACKLIST").split(','))] if os.getenv("AI_BANNER_STUDENT_BLACKLIST") else []
 
 AICHALLENGE_STAGES = {
     1: {

@@ -8,8 +8,6 @@ from django import forms
 from images.models import Image
 from locations.forms import LocationForm
 from operator import itemgetter
-from phonenumber_field.formfields import PhoneNumberField
-from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 from profiles.forms import ProfileModelForm, RelatedModelFormMixin
 from profiles.models import UserRole
 from .models import *
@@ -29,7 +27,7 @@ class FamilyProfileForm(RelatedModelFormMixin, ProfileModelForm):
 
     class Meta:
         model = FamilyProfile
-        fields = ['phone']
+        fields = []
 
     class Media:
         js = ('js/location-form.js',)
@@ -41,12 +39,6 @@ class FamilyProfileForm(RelatedModelFormMixin, ProfileModelForm):
             "data-fp-cropratio": 1,
         }),
         required=False
-    )
-
-    phone = PhoneNumberField(
-        required=False,
-        widget=PhoneNumberInternationalFallbackWidget,
-        help_text="Non-US numbers use international format with + and country code, e.g. +411234567"
     )
 
     def __init__(self, *args, **kwargs):

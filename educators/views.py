@@ -41,12 +41,6 @@ class CreateView(EditProfileMixin, CreateView):
     form_class = EducatorProfileForm
     success_url = lazy(reverse, str)("educators:home")
 
-    def get_initial(self):
-        initial = super().get_initial()
-        if "coach_signup" in self.request.GET:
-            initial["coach_signup"] = True
-        return initial
-
 create = not_for_role(UserRole.educator, redirect="educators:edit_profile")(CreateView.as_view())
 
 class EditView(EditProfileMixin, UpdateView):
@@ -303,24 +297,6 @@ class CommentList(generics.ListAPIView):
         return queryset
 
 comments = whitelist('public')(CommentList.as_view())
-
-class CoachConversionView(View):
-    http_method_names = ['post', 'get']
-
-    def get(self, request, *args, **kwargs):
-        if request.user.educatorprofile.is_coach:
-          messages.success(self.request, "You are already in the AI family coach membership!")
-          return HttpResponseRedirect(reverse("educators:home"))
-        else:
-          return render(request, 'educators/coach_conversion.html')
-
-    def post(self, request, *args, **kwargs):
-        membership = Membership.objects.get(pk=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
-        member = Member(user=self.request.user, membership=membership)
-        member.save()
-        return HttpResponseRedirect(reverse("educators:home"))
-
-coach_conversion = only_for_educator(CoachConversionView.as_view())
 
 class ConversationView(TemplateView):
     template_name = "educators/dashboard/memberships/conversation.html"
