@@ -10,3 +10,4 @@ import "./ga-track";
 import "./modals";
 import "./smoothscroll";
 import "./textswap";
+import "./filestack";
