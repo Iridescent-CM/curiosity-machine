@@ -10,6 +10,7 @@ __all__ = [
     'FamilyProfileFactory',
     'FamilyFactory',
     'FamilyMemberFactory',
+    'PermissionSlipFactory',
 ]
 
 class FamilyProfileFactory(factory.django.DjangoModelFactory):
@@ -34,3 +35,9 @@ class FamilyFactory(UserFactory):
         self.extra.role = UserRole.family.value
         if create:
             self.extra.save()
+
+class PermissionSlipFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = PermissionSlip
+
+    signature = 'yep'
