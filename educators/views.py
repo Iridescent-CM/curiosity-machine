@@ -369,25 +369,3 @@ class ActivityView(ListView):
         return context
 
 activity = only_for_educator(ActivityView.as_view())
-
-class PrereqInterruptionView(TemplateView):
-  template_name = "educators/interruption.html"
-
-  def get_context_data(self, **kwargs):
-    presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
-    response = presurvey.response(self.request.user)
-    return super().get_context_data( **kwargs, presurvey=response )
-
-prereq_interruption = only_for_educator(PrereqInterruptionView.as_view())
-
-class CoachRemoval(View):
-
-  def post(self, request, *args, **kwargs):
-    if request.user.educatorprofile.is_coach:
-      member = Member.objects.get(user=request.user, membership_id=settings.AICHALLENGE_COACH_MEMBERSHIP_ID)
-      member.delete()
-      messages.success(self.request,
-                       "You are no longer a coach in the AI Family Challenge.")
-    return HttpResponseRedirect(reverse("educators:home"))
-
-coach_removal = whitelist('coach_removal')(only_for_educator(CoachRemoval.as_view()))

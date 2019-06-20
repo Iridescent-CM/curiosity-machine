@@ -19,24 +19,6 @@ class EducatorProfile(BaseProfile):
     )
     title_i = models.BooleanField(default=False, null=False)
 
-    @cached_property
-    def full_coach_access(self):
-        if not self.is_coach:
-            return False
-
-        presurvey = get_survey(settings.AICHALLENGE_COACH_PRE_SURVEY_ID)
-        if presurvey.active:
-            response = presurvey.response(self.user)
-            return response.completed
-
-        return True
-
-    @cached_property
-    def is_coach(self):
-        if settings.AICHALLENGE_COACH_MEMBERSHIP_ID:
-            return self.user.membership_set.filter(is_active=True, id=settings.AICHALLENGE_COACH_MEMBERSHIP_ID).exists()
-        return False
-
 class ImpactSurvey(models.Model):
     student_count = models.PositiveIntegerField(null=True, blank=True)
     teacher_count = models.PositiveIntegerField(null=True, blank=True)
