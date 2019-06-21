@@ -94,7 +94,6 @@ class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='progresses')
     started = models.DateTimeField(default=now)
-    mentor = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='mentored_progresses', null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.DateTimeField(null=True, blank=True)
     _materials_list = models.TextField(help_text="HTML", blank=True, db_column="materials_list")
 
