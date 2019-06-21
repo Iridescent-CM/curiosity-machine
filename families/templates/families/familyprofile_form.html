@@ -25,7 +25,6 @@
           {% form_group form.image_url field_class="btn btn-primary" %}
         </div>
         {% email_form_group form.email email=email %}
-        {% form_group form.phone %}
         {% form_group form.country %}
         {% comment %} location should probably be a compound widget to encapsulate the following sort of thing {% endcomment %}
         {% if form.country.value == "US" %}

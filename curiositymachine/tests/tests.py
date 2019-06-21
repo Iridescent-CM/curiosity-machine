@@ -5,7 +5,7 @@ from challenges.models import Progress, Challenge, Example
 from cmcomments.factories import *
 from curiositymachine import decorators
 from curiositymachine.forms import MediaURLField
-from curiositymachine.widgets import FilePickerPickWidget, FilePickerImagePickWidget, FilePickerVideoPickWidget
+from curiositymachine.widgets import FilePickerPickWidget
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -268,7 +268,7 @@ def test_mediaurlfield_sets_default_mimetypes_on_widget():
 
     form = MyForm()
     d = pq(str(form['mediaURL']))
-    assert d('button').attr('data-fp-mimetypes') == '*/*'
+    assert d('button').attr('data-mimetypes') == '*/*'
 
 def test_mediaurlfield_sets_specified_mimetypes_on_widget():
     class MyForm(forms.Form):
@@ -276,42 +276,13 @@ def test_mediaurlfield_sets_specified_mimetypes_on_widget():
 
     form = MyForm()
     d = pq(str(form['mediaURL']))
-    assert d('button').attr('data-fp-mimetypes') == 'image/*,video/*'
+    assert d('button').attr('data-mimetypes') == 'image/*,video/*'
 
 def test_filepickerpickwidget_sets_basic_data_attrs_and_class():
     widget = FilePickerPickWidget()
     d = pq(widget.render('name', 'value'))
     assert d('button').attr('data-fp-apikey')
     assert 'pickwidget-button' in d('button').attr('class').split(' ')
-
-def test_filepickerpickwidget_sets_preview_data_attr():
-    widget = FilePickerPickWidget(preview=True)
-    d = pq(widget.render('name', 'value'))
-    assert d('button').attr('data-show-preview')
-
-def test_filepickerimagepickwidget_sets_mimetype():
-    widget = FilePickerImagePickWidget()
-    d = pq(widget.render('name', 'value'))
-    assert d('button').attr('data-fp-mimetypes') == 'image/*'
-
-def test_filepickerimagepickwidget_returns_url_only():
-    widget = FilePickerImagePickWidget()
-    assert widget.value_from_datadict({
-        "fieldname_url": "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216",
-        "fieldname_mimetype": "img/png"
-    }, None, "fieldname") == "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216"
-
-def test_filepickervideopickwidget_sets_mimetype():
-    widget = FilePickerVideoPickWidget()
-    d = pq(widget.render('name', 'value'))
-    assert d('button').attr('data-fp-mimetypes') == 'video/*'
-
-def test_filepickervideopickwidget_returns_url_only():
-    widget = FilePickerVideoPickWidget()
-    assert widget.value_from_datadict({
-        "fieldname_url": "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216",
-        "fieldname_mimetype": "video/mp4"
-    }, None, "fieldname") == "http://s3.amazonaws.com/devcuriositymachine/images/eb76a9bbae527a3d9ca2faf12baa0216"
 
 ## Test fixture management command
 #  TODO: move this to its own file

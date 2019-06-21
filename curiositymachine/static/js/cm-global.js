@@ -15,57 +15,6 @@ CM.showMessage = function(message, classes) {
   }, 6 * 1000);
 };
 
-CM.FilePicker = {
-  config : {},
-  init : function(parent) {
-    var $modal = $(parent);
-    var self = this;
-
-    if ($('form', $modal).length) {
-      $('input[type=filepicker-custom]', $modal).first().each(function() {
-        var $self = $(this);
-        $modal.find('input[type=submit]').attr('disabled', 'disabled');
-        filepicker.setKey($self.data('fpApikey'));
-
-        //create iframe
-        $self.before('<iframe id="filepickerframe"></iframe>');
-
-        filepicker.pick({
-        mimetypes: $self.data('fpMimetypes').split(','),
-        container: 'filepickerframe',
-        services: $self.data('fpServices').split(','),
-        openTo: $self.data('fpOpento').split(',')
-        },
-        function(data) {
-          //success
-          $self.val(data.url);
-          $modal.find('input[type=submit]').removeAttr('disabled');
-          $('#filepickerframe').remove();
-          if ($self.attr('id') === "id_picture_filepicker_url") {
-            $self.before('<div class="upload-success image-wrapper"><img src="' + data.url + '" ></div>' );
-          } else {
-            $self.before('<p class="upload-success">File [' + data.filename + '] has been successfully uploaded and is being processed.</p>')
-          }
-        },
-        function(error) {
-          //failure
-          CM.showMessage(error.toString(), "error");
-        }
-        );
-
-      });
-    }
-  },
-  destroy : function(parent) {
-    //reset the modal in case they want to try again.
-    if ($('input[type=filepicker-custom]', parent).length) {
-      $('#filepickerframe', parent).remove();
-      $('.upload-success', parent).remove();
-      $('input[type=filepicker-custom]', parent).val('');
-    }
-  }
-};
-
 $(document).ready(function() {
 
   $('.ajax-and-refresh-form').on('submit', function(e) {
@@ -148,15 +97,12 @@ $(document).ready(function() {
   //re-initilaizes the modal when hidden
   $('body').on('hidden.bs.modal', '.modal', function () {
     $(this).removeData('bs.modal');
-    CM.FilePicker.destroy(this);
   });
 
   //focus on the first input element in modals
   //and other stuff when the modal opens like firelpicker
   $('body').on('shown.bs.modal', '.modal:visible', function () {
     $(this).find('input:visible,textarea:visible').first().focus();
-    //fielpicker
-    CM.FilePicker.init(this);
   });
 
   //actiavate tabs
