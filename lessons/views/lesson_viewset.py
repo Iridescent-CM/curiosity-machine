@@ -23,6 +23,15 @@ class LessonViewSet(viewsets.GenericViewSet):
 
         return Response({'lesson': lesson})
 
+
+class LessonListViewSet(viewsets.GenericViewSet):
+    queryset = Lesson.objects.filter(draft=False)
+    renderer_classes = (TemplateHTMLRenderer, )
+
+    def get_template_names(self):
+        return [ "lessons/ailessons.html",]
+
     def list(self, request):
         lessons = self.queryset
-        return Response({'lessons': lessons})
+        data = "testing, testing, 1, 2, 3"
+        return Response({'lessons': lessons, 'data': data})
