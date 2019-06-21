@@ -22,3 +22,7 @@ class LessonViewSet(viewsets.GenericViewSet):
             raise Http404
 
         return Response({'lesson': lesson})
+
+    def list(self, request):
+        lessons = self.queryset
+        return Response({'lessons': lessons})
