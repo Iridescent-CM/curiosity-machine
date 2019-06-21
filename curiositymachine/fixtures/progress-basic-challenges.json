@@ -3,7 +3,6 @@
     "pk": 1,
     "model": "challenges.progress",
     "fields": {
-        "mentor": null,
         "_materials_list": "",
         "student": 2,
         "started": "2014-12-08T18:11:39.939Z",
@@ -15,7 +14,6 @@
     "pk": 2,
     "model": "challenges.progress",
     "fields": {
-        "mentor": null,
         "_materials_list": "",
         "student": 2,
         "started": "2014-12-08T18:12:10.892Z",
@@ -27,7 +25,6 @@
     "pk": 3,
     "model": "challenges.progress",
     "fields": {
-        "mentor": null,
         "_materials_list": "",
         "student": 2,
         "started": "2014-12-08T18:12:41.538Z",
