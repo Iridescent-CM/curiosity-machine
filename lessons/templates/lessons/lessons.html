@@ -25,7 +25,7 @@
     </p>
     <div class="row lessons mt-4">
         {% for lesson in lessons %}
-        <div class="col-5ths mb-2">
+        <div class="col-md-5ths px-3 mb-2">
             {% include 'lessons/_lesson_card.html' with lesson=lesson %}
         </div>
         {% endfor %}

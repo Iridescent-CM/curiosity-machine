@@ -7815,12 +7815,11 @@ i {
     .dashboard .card.card-action-needed .card-header {
       color: #a94442;
       background-color: #f2dede; }
-  .dashboard .col-5ths {
-    position: relative;
-    width: 20%;
-    padding-right: 10px;
-    padding-left: 10px;
-    float: left; }
+  @media (min-width: 992px) {
+    .dashboard .col-md-5ths {
+      position: relative;
+      width: 20%;
+      float: left; } }
 
 footer {
   background-color: #333333;
