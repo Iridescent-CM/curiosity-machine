@@ -14,6 +14,11 @@
   background-color: $primary-red;
 }
 
+.hr-new-red {
+  @extend .basic-hr;
+  background-color: #FF5050;
+}
+
 .hr-orange {
   @extend .basic-hr;
   background-color: $primary-orange;

@@ -3,14 +3,17 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
+from curiositymachine.decorators import whitelist
 from ..models import *
 from ..presenters import *
+
+public = whitelist('public')
 
 class LessonViewSet(viewsets.GenericViewSet):
     queryset = Lesson.objects.filter(draft=False)
     renderer_classes = (TemplateHTMLRenderer, )
 
-    def get_template_names(self):
+    def get_page_template_names(self):
         return ["lessons/%s.html" % self.page, "lessons/page.html",]
 
     def retrieve(self, request, pk=None):
@@ -21,17 +24,10 @@ class LessonViewSet(viewsets.GenericViewSet):
         if not lesson.valid:
             raise Http404
 
-        return Response({'lesson': lesson})
-
-
-class LessonListViewSet(viewsets.GenericViewSet):
-    queryset = Lesson.objects.filter(draft=False)
-    renderer_classes = (TemplateHTMLRenderer, )
-
-    def get_template_names(self):
-        return [ "lessons/ailessons.html",]
+        return Response({'lesson': lesson}, template_name=self.get_page_template_names)
 
     def list(self, request):
         lessons = self.queryset
-        data = "testing, testing, 1, 2, 3"
-        return Response({'lessons': lessons, 'data': data})
+        return Response({'lessons': lessons}, template_name="lessons/lessons.html")
+
+lessons = LessonViewSet.as_view({'get':'list'})

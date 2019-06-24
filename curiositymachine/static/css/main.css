@@ -7815,6 +7815,12 @@ i {
     .dashboard .card.card-action-needed .card-header {
       color: #a94442;
       background-color: #f2dede; }
+  .dashboard .col-5ths {
+    position: relative;
+    width: 20%;
+    padding-right: 10px;
+    padding-left: 10px;
+    float: left; }
 
 footer {
   background-color: #333333;
@@ -8586,7 +8592,7 @@ footer {
 .challenge-completed:after {
   background-image: url("../images/challenges/green_circle.png"); }
 
-.basic-hr, .hr-purple, .hr-red, .hr-orange {
+.basic-hr, .hr-purple, .hr-red, .hr-new-red, .hr-orange {
   height: 3px;
   border-radius: 3px;
   margin-top: 3em; }
@@ -8596,6 +8602,9 @@ footer {
 
 .hr-red {
   background-color: #F55932; }
+
+.hr-new-red {
+  background-color: #FF5050; }
 
 .hr-orange {
   background-color: #F2B353; }
