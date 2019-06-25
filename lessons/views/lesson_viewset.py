@@ -3,11 +3,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
-from curiositymachine.decorators import whitelist
 from ..models import *
 from ..presenters import *
-
-public = whitelist('public')
 
 class LessonViewSet(viewsets.GenericViewSet):
     queryset = Lesson.objects.filter(draft=False)
