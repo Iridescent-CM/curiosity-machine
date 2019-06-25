@@ -13,9 +13,6 @@ class LessonViewSet(viewsets.GenericViewSet):
     queryset = Lesson.objects.filter(draft=False)
     renderer_classes = (TemplateHTMLRenderer, )
 
-    def get_page_template_names(self):
-        return ["lessons/%s.html" % self.page, "lessons/page.html",]
-
     def retrieve(self, request, pk=None):
         self.object = self.get_object()
         self.page = self.request.query_params.get('page', None)
@@ -24,7 +21,7 @@ class LessonViewSet(viewsets.GenericViewSet):
         if not lesson.valid:
             raise Http404
 
-        return Response({'lesson': lesson}, template_name=self.get_page_template_names)
+        return Response({'lesson': lesson}, template_name="lessons/page.html")
 
     def list(self, request):
         lessons = self.queryset
