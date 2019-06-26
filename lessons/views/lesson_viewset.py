@@ -11,13 +11,6 @@ from ..presenters import *
 class LessonViewSet(viewsets.GenericViewSet):
     queryset = Lesson.objects.filter(draft=False)
     renderer_classes = (TemplateHTMLRenderer, )
-
-    # def get_template_name(self):
-    #     try:
-    #         get_template("lessons/%s.html" % self.page)
-    #         return "lessons/%s.html" % self.page
-    #     except TemplateDoesNotExist:
-    #         return "lessons/page.html"
     
     def retrieve(self, request, pk=None):
         self.object = self.get_object()
