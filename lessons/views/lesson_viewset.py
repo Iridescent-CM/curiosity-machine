@@ -28,8 +28,8 @@ class LessonViewSet(viewsets.GenericViewSet):
             raise Http404
 
         try:
-            get_template("lessons/%s.html" % self.page)
             template_name = "lessons/%s.html" % self.page
+            get_template("lessons/%s.html" % self.page) # check if a specific page template exists
         except TemplateDoesNotExist:
             template_name = "lessons/page.html"
 
