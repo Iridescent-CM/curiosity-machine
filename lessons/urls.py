@@ -12,6 +12,7 @@ router.register(r'comment', CommentViewSet, base_name="comment")
 router.register(r'quiz', QuizViewSet, base_name="quiz")
 router.register(r'quiz_result', QuizResultViewSet, base_name="quiz-result")
 urlpatterns = router.urls
+# using a url pattern to allow for use of whitelist decorator since it takes a view rather than viewset
 urlpatterns += [
     url(r'^$', public(lessons), name='lessons')
 ]
