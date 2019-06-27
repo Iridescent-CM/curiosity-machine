@@ -12,7 +12,10 @@ router.register(r'comment', CommentViewSet, base_name="comment")
 router.register(r'quiz', QuizViewSet, base_name="quiz")
 router.register(r'quiz_result', QuizResultViewSet, base_name="quiz-result")
 urlpatterns = router.urls
-# using a url pattern to allow for use of whitelist decorator since it takes a view rather than viewset
+
+# rest_framework doesn't have a good affordance for decorators, so
+# for now we're replacing the LessonViewSet list route with a whitelisted version
+# this way (FIXME)
 urlpatterns += [
-    url(r'^$', public(lessons), name='lessons')
+    url(r'^lesson/$', public(LessonViewSet.as_view({'get':'list'})), name='lesson-list')
 ]

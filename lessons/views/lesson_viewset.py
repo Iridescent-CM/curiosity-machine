@@ -29,7 +29,5 @@ class LessonViewSet(viewsets.GenericViewSet):
         return Response({'lesson': lesson}, template_name=template_name)
 
     def list(self, request):
-        lessons = self.queryset
+        lessons = self.get_queryset()
         return Response({'lessons': lessons}, template_name="lessons/lessons.html")
-
-lessons = LessonViewSet.as_view({'get':'list'})
