@@ -17,5 +17,5 @@ urlpatterns = router.urls
 # for now we're replacing the LessonViewSet list route with a whitelisted version
 # this way (FIXME)
 urlpatterns += [
-    url(r'^lesson/$', public(LessonViewSet.as_view({'get':'list'})), name='lesson-list')
+    url(r'^lessons', public(LessonViewSet.as_view({'get':'list'})), name='lesson-list')
 ]
