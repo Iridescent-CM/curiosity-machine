@@ -9,6 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('challenges', '0062_remove_challenge_core'),
+        ('cmcomments', '0015_auto_20170814_1117'),
     ]
 
     operations = [
