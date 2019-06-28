@@ -77,30 +77,18 @@ class CommentInline(admin.StackedInline):
 
 
 class ProgressAdmin(admin.ModelAdmin):
-    list_display = ('__str__','challenge_name','owner_username','mentor_username',)
-    raw_id_fields = ['challenge', 'owner', 'mentor']
+    list_display = ('__str__','challenge_name','owner_username',)
+    raw_id_fields = ['challenge', 'owner',]
     inlines = [
       CommentInline
     ]
 
-    actions = ['unclaim']
-    search_fields = ('challenge__name', 'mentor__username', 'owner__username', 'comments__text')
-
-    def unclaim(self, request, queryset):
-        rows_updated = queryset.update(mentor_id=None)
-        if rows_updated == 1:
-            message_bit = "1 progress was"
-        else:
-            message_bit = "%s progresses were" % rows_updated
-        self.message_user(request, "%s successfully unclaimed." % message_bit)
-    unclaim.short_description = """Remove/Unclaim the mentor from this Project"""
+    search_fields = ('challenge__name', 'owner__username', 'comments__text')
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         #TODO: fix
         if db_field.name == "student":
             kwargs["queryset"] = User.objects.filter(extra__role=UserRole.student.value)
-        elif db_field.name == "mentor":
-            kwargs["queryset"] = User.objects.filter(extra__role=UserRole.mentor.value)
         return super(ProgressAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 admin.site.register(Challenge, ChallengeAdmin)

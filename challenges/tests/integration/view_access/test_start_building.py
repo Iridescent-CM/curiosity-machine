@@ -3,18 +3,7 @@ from challenges.factories import ChallengeFactory
 from django.core.urlresolvers import reverse
 from educators.factories import EducatorFactory
 from memberships.factories import MembershipFactory
-from mentors.factories import MentorFactory
 from students.factories import StudentFactory
-
-@pytest.mark.django_db
-def test_does_not_allow_mentors(client):
-    challenge = ChallengeFactory(free=True)
-    mentor = MentorFactory(username="username", password="password")
-
-    client.login(username="username", password="password")
-    response = client.post(reverse("challenges:start_building", kwargs={"challenge_id": challenge.id}))
-
-    assert response.status_code == 403
 
 @pytest.mark.django_db
 def test_does_not_allow_educators(client):

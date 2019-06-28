@@ -12,7 +12,6 @@ from hellosign.factories import *
 from images.factories import *
 from locations.factories import *
 from memberships.factories import *
-from mentors.factories import *
 from profiles.factories import *
 from students.factories import *
 from surveys.factories import *
@@ -128,10 +127,6 @@ def load_fixture(f):
         'image': images,
         'location': locations,
     }, build=True)
-    mentorprofiles = pk_map(data, 'mentors.mentorprofile', MentorProfileFactory, lookups={
-        'user': users,
-        'image': images,
-    }, build=True)
     extras = pk_map(data, 'profiles.userextra', UserExtraFactory, lookups={
         'user': users,
     }, build=True)
@@ -193,8 +188,7 @@ def load_fixture(f):
         ProgressFactory,
         lookups={
             'challenge': challenges,
-            'owner': users,
-            'mentor': users
+            'owner': users
         },
         force={
             'started': now(),

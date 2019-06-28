@@ -51,7 +51,6 @@ urlpatterns = [
     url(r'^logout/$', public(logout), name='logout'),
     url(r'^', include('profiles.urls', namespace='profiles', app_name='profiles')),
     url(r'^student/', include('students.urls', namespace='students', app_name='students')),
-    url(r'^mentor/', include('mentors.urls', namespace='mentors', app_name='mentors')),
     url(r'^educator/', include('educators.urls', namespace='educators', app_name='educators')),
     url(r'^family/', include('families.urls', namespace='families', app_name='families')),
     url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),

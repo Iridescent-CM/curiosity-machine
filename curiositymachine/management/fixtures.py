@@ -3,7 +3,6 @@ from challenges.factories import *
 from django.conf import settings
 from educators.factories import *
 from images.factories import *
-from mentors.factories import *
 from profiles.factories import *
 from students.factories import *
 from videos.factories import *
@@ -23,11 +22,6 @@ def basic_users():
         email="teen@mailinator.com",
         username="teen",
         password="123123",
-    )
-    MentorFactory(
-        email="mentor@mailinator.com",
-        username="mentor",
-        password="123123"
     )
     EducatorFactory(
         email="educator@mailinator.com",

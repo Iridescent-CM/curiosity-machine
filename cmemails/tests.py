@@ -7,7 +7,6 @@ from datetime import date, timedelta
 from django.utils.timezone import now
 from educators.factories import *
 from images.models import Image
-from mentors.factories import *
 from profiles.factories import *
 from profiles.models import UserRole
 from students.factories import *
@@ -20,11 +19,9 @@ def student():
     return StudentFactory(username='student', email='student@example.com', password='password')
 
 def test_send_welcome_email_skips_excluded_user_types():
-    mentor = MentorFactory.build()
     none = UserFactory.build()
 
     with mock.patch('cmemails.signals.handlers.send') as send:
-        signals.handlers.send_welcome_email(mentor)
         signals.handlers.send_welcome_email(none)
         assert not send.called
 
@@ -145,19 +142,13 @@ def test_mailchimp_subscribe_does_nothing_without_email():
 
 def test_mailchimp_subscribe_subscribes_user():
     student = StudentFactory.build()
-    mentor = MentorFactory.build()
     with mock.patch('cmemails.mailchimp._put') as put:
         with mock.patch('cmemails.mailchimp.settings') as settings:
             settings.MAILCHIMP_DATA_CENTER = 'x'
             settings.MAILCHIMP_API_KEY = 'abc'
             settings.MAILCHIMP_LIST_IDS = {
                 "student": 123,
-                "mentor": 456
             }
             subscribe(student)
             assert len(put.mock_calls) > 0
             assert put.mock_calls[0].call_list()[0][1][0].startswith('https://x.api.mailchimp.com/3.0/lists/123/members/')
-
-            put.reset_mock()
-            subscribe(mentor)
-            assert put.mock_calls[0].call_list()[0][1][0].startswith('https://x.api.mailchimp.com/3.0/lists/456/members/')

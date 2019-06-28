@@ -32,7 +32,6 @@ def generate_analytics(start_date, end_date):
             "Timestamp",
             "Challenge Id",
             "Challenge Learner Id",
-            "Challenge Mentor Id",
             "Text",
             "Video/Image"
         ])
@@ -51,7 +50,6 @@ def generate_analytics(start_date, end_date):
                 progress.started.strftime('%Y-%m-%d %H:%M:%S'),
                 progress.challenge_id,
                 progress.owner_id,
-                progress.mentor_id,
                 "",
                 ""
             ])
@@ -68,7 +66,6 @@ def generate_analytics(start_date, end_date):
                 progress.approved.strftime('%Y-%m-%d %H:%M:%S'),
                 progress.challenge_id,
                 progress.owner_id,
-                progress.mentor_id,
                 "",
                 ""
             ])
@@ -95,13 +92,12 @@ def generate_analytics(start_date, end_date):
             writer.writerow([
                 comment.user_id,
                 comment.user.username,
-                "mentor" if comment.user.extra.is_mentor else "learner",
+                "learner",
                 "video" if comment.video else ("image" if comment.image else "text"),
                 Stage(comment.stage).name,
                 comment.created.strftime('%Y-%m-%d %H:%M:%S'),
                 comment.challenge_progress.challenge_id,
                 comment.challenge_progress.owner_id,
-                comment.challenge_progress.mentor_id,
                 comment.text,
                 video_url if comment.video else (comment.image.url if comment.image else "")
             ])
