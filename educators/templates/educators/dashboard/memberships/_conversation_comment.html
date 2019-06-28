@@ -8,10 +8,8 @@
       {{ comment.get_stage_display|title }}
       {% elif comment.user == user %}
       Your feedback
-      {% elif comment.user.extra.is_mentor %}
-      Mentor feedback
       {% else %}
-      Coach feedback
+      Mentor feedback
       {% endif %}
     </h3>
     {% if comment.question_text %}
