@@ -47,8 +47,8 @@ def challenge2():
     return Challenge.objects.create(name="Test Challenge 2", draft=False)
 
 @pytest.fixture
-def progress(student, mentor, challenge):
-    return Progress.objects.create(owner=student, mentor=mentor, challenge=challenge)
+def progress(student, challenge):
+    return Progress.objects.create(owner=student, challenge=challenge)
 
 @pytest.fixture
 def unclaimed_progress(student, challenge):

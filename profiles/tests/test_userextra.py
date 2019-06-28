@@ -2,7 +2,6 @@ from datetime import timedelta
 from django.utils.timezone import now
 from educators.factories import *
 from families.factories import *
-from mentors.factories import *
 from students.factories import *
 from ..models import UserExtra, UserRole
 import pytest
@@ -12,7 +11,6 @@ import pytest
 def test_role_queryset_method(role):
     users = [
         StudentFactory(),
-        MentorFactory(),
         EducatorFactory(),
         FamilyFactory(),
     ]
@@ -28,7 +26,6 @@ def test_role_queryset_method(role):
 def test_role_querysets(role):
     users = [
         StudentFactory(),
-        MentorFactory(),
         EducatorFactory(),
         FamilyFactory(),
     ]

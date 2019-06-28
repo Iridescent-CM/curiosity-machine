@@ -1,7 +1,6 @@
 import factory
 import factory.django
 import factory.fuzzy
-from phonenumber_field.phonenumber import PhoneNumber
 from profiles.factories import *
 from profiles.models import UserRole
 from profiles.signals import handlers
@@ -11,6 +10,7 @@ __all__ = [
     'FamilyProfileFactory',
     'FamilyFactory',
     'FamilyMemberFactory',
+    'PermissionSlipFactory',
 ]
 
 class FamilyProfileFactory(factory.django.DjangoModelFactory):
@@ -19,7 +19,6 @@ class FamilyProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory('families.factories.FamilyFactory', familyprofile=None)
     location = factory.SubFactory('locations.factories.LocationFactory')
-    phone = PhoneNumber.from_string("202-555-5555")
 
 class FamilyMemberFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -36,3 +35,9 @@ class FamilyFactory(UserFactory):
         self.extra.role = UserRole.family.value
         if create:
             self.extra.save()
+
+class PermissionSlipFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = PermissionSlip
+
+    signature = 'yep'

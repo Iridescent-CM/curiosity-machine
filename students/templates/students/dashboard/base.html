@@ -6,11 +6,6 @@
 
 {% block container %}
 
-  {% if flags.enable_ai_banner and not banner_membership_blacklisted %}
-  {% url "families:conversion" as banner_url %}
-  {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
-  {% endif %}
-
   <div class="aifc-pages-header-bg text-light py-4 mb-2">
     <div class="container">
       <div class="row">

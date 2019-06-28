@@ -49,7 +49,6 @@ class Challenge(models.Model):
     description = models.TextField(help_text="One line of plain text, shown on the inspiration page")
     how_to_make_it = models.TextField(help_text="HTML, shown in the guide")
     learn_more = models.TextField(help_text="HTML, shown in the guide")
-    mentor_guide = models.TextField(help_text="HTML, shown in the mentor guide", null=True, blank=True)
     materials_list = models.TextField(help_text="HTML")
     doers = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
@@ -95,7 +94,6 @@ class Progress(models.Model):
     challenge = models.ForeignKey(Challenge)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='progresses')
     started = models.DateTimeField(default=now)
-    mentor = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='mentored_progresses', null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.DateTimeField(null=True, blank=True)
     _materials_list = models.TextField(help_text="HTML", blank=True, db_column="materials_list")
 
@@ -103,49 +101,12 @@ class Progress(models.Model):
         verbose_name_plural = "progresses"
         unique_together = ('challenge', 'owner',)
 
-    @classmethod
-    def unclaimed(cls, started_date=None):
-        date_clause = ""
-        if started_date:
-            started_date = "%d-%d-%d" % (started_date.year, started_date.month, started_date.day)
-            date_clause = "and DATE(challenges_progress.started) = DATE('%s')" % started_date
-        query = """
-        select distinct challenges_progress.* from challenges_progress
-        left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id
-        where cmcomments_comment.challenge_progress_id IS NOT NULL
-        %s
-        and challenges_progress.mentor_id IS NULL
-        order by challenges_progress.started DESC
-        """ % date_clause
-        return cls.objects.raw(query)
-
-
-
-    @classmethod
-    def unclaimed_days(cls):
-        query = """
-        select distinct DATE(challenges_progress.started) as started, count(distinct challenges_progress.id) as count from challenges_progress
-        left join cmcomments_comment on challenges_progress.id = cmcomments_comment.challenge_progress_id
-        where cmcomments_comment.challenge_progress_id IS NOT NULL
-        and challenges_progress.mentor_id IS NULL
-        group by DATE(challenges_progress.started)
-        order by started DESC
-        """
-        cursor = connection.cursor()
-        cursor.execute(query)
-        return cursor.fetchall()
-
-
     def is_first_project(self):
         return self.owner.progresses.count() == 1
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, owner=self.owner).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this user on this challenge")
-        if self.owner.extra.is_mentor:
-            raise ValidationError("Mentors can not start a challenge")
-        if self.mentor and not self.mentor.extra.is_mentor:
-            raise ValidationError("The mentor of a challenge must be a mentor")
         else:
             super(Progress, self).save(*args, **kwargs)
 
@@ -180,9 +141,6 @@ class Progress(models.Model):
     def challenge_name(self):
         return self.challenge.name
 
-    def mentor_username(self):
-        return self.mentor.username if self.mentor else ''
-
     def __repr__(self):
         return "Progress: id={}, challenge_id={}, owner_id={}".format(self.id, self.challenge_id, self.owner_id)
 
@@ -199,8 +157,6 @@ class Favorite(models.Model):
     def save(self, *args, **kwargs):
         if Favorite.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("This challenge is already on your favorites")
-        if self.student.extra.is_mentor:
-            raise ValidationError("Mentors can not favorite a challenge")
         else:
             super(Favorite, self).save(*args, **kwargs)
 
@@ -252,7 +208,7 @@ class ExampleQuerySet(models.QuerySet):
         return self.update(approved=True)
     approve.queryset_only = True
 
-class Example(models.Model): # media that a mentor has selected to be featured on the challenge inspiration page (can also be pre-populated by admins)
+class Example(models.Model):
     progress = models.ForeignKey(Progress, null=False, blank=False, on_delete=models.CASCADE)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, help_text="An image to display in the gallery. If a video is also set, this will be the thumbnail. Each example must have an image or a video, or both, to be displayed correctly.")
     approved = models.NullBooleanField(db_index=True)

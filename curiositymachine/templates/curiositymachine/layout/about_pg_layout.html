@@ -98,17 +98,6 @@
           Educators
         </a>
       </li>
-      {% if flags.enable_mentor_community %}
-      <li class="nav-item {% ifactive "mentors:list" "active" %">
-        <a
-          class="nav-link"
-          href="{% url 'mentors:list' %}"
-          id="mentor-community-page"
-        >
-          Mentor Community
-        </a>
-      </li>
-      {% endif %}
       <li class="nav-item">
         <a
           class="nav-link {% if active_nav == 'community-guidelines' %}active{% endif %}"

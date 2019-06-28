@@ -94,7 +94,6 @@
 		"../../sass/layout/_header.scss",
 		"../../sass/layout/_old-style.scss",
 		"../../sass/components/_avatar.scss",
-		"../../sass/components/_banners.scss",
 		"../../sass/components/_buttons.scss",
 		"../../sass/components/_cards.scss",
 		"../../sass/components/_challenge-status.scss",
@@ -117,7 +116,6 @@
 		"../../sass/pages/_family-dashboard.scss",
 		"../../sass/pages/_home.scss",
 		"../../sass/pages/_lessons.scss",
-		"../../sass/pages/_mentor-dashboard.scss",
 		"../../sass/pages/_aifc-pages.scss",
 		"../../sass/utils/_backgrounds.scss",
 		"../../sass/utils/_cloak.scss"

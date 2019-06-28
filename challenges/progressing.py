@@ -69,10 +69,6 @@ class Progressing:
     def __init__(self, *args, **kwargs):
         self.progress = kwargs.pop('progress')
         self.owner = kwargs.pop('owner', wrap_as_actor("ProgressOwner", self.progress.owner))
-        if self.progress.mentor:
-            self.mentor = kwargs.pop('mentor', wrap_as_actor("ProgressMentor", self.progress.mentor))
-        else:
-            self.mentor = NoopActor()
         self.educators = kwargs.pop('educators', ProgressEducators(self.progress))
 
     def completes_progress(self, comment):
@@ -85,7 +81,7 @@ class Progressing:
         )
 
     def on_comment(self, comment):
-        actors = [self.owner, self.mentor, self.educators]
+        actors = [self.owner, self.educators]
         progress = self.progress
 
         if self.completes_progress(comment):
