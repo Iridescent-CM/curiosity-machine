@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title %}My Dashboard{% endblock %}
-{% block body-classes %}dashboard student-dashboard{% endblock %}
+{% block body-classes %}aifc-pages dashboard student-dashboard{% endblock %}
 
 {% block container %}
 
@@ -11,11 +11,11 @@
   {% include 'curiositymachine/_ai_banner.html' with banner_url=banner_url %}
   {% endif %}
 
-  <div class="dashboard-aifc-header-bg text-light py-4 mb-2">
+  <div class="aifc-pages-header-bg text-light py-4 mb-2">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <img class="dashboard-white-aifc-logo" src="{% static 'images/aifc/aifc-white-logo.svg' %}">
+          <img class="aifc-pages-white-logo" src="{% static 'images/aifc/aifc-white-logo.svg' %}">
           {% if memberships %}
           <br />
           <strong>Memberships:</strong> {{ membership_names }}

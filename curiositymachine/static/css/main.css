@@ -7760,27 +7760,6 @@ i {
 
 .dashboard {
   font-family: 'Raleway', Helvetica, sans-serif; }
-  .dashboard .dashboard-aifc-header-bg {
-    background-size: cover;
-    vertical-align: middle;
-    background-image: url("../images/aifc/orange-header.svg"); }
-  .dashboard .dashboard-white-aifc-logo {
-    width: 30%; }
-  .dashboard .dashboard-section {
-    border-radius: 15px;
-    border-style: solid;
-    border-color: #E3E3DD;
-    border-width: 2px;
-    background: #FFFCF7; }
-  .dashboard .dashboard-page-bg {
-    background-repeat: no-repeat;
-    background-image: url("../images/aifc/page-background.svg");
-    background-position-y: bottom; }
-  .dashboard .dashboard-subtitle {
-    font-weight: bold;
-    font-size: 30px;
-    color: #00B1C3;
-    margin: 2px 0px 0px 0px; }
   .dashboard .dashboard-avatar img {
     background-color: white;
     border-radius: 50%;
@@ -7815,11 +7794,6 @@ i {
     .dashboard .card.card-action-needed .card-header {
       color: #a94442;
       background-color: #f2dede; }
-  @media (min-width: 992px) {
-    .dashboard .col-md-5ths {
-      position: relative;
-      width: 20%;
-      float: left; } }
 
 footer {
   background-color: #333333;
@@ -9738,6 +9712,32 @@ footer {
 .aifc-pages .aifc-pages-logo {
   width: 500px; }
 
+.aifc-pages .aifc-pages-header-bg {
+  background-size: cover;
+  vertical-align: middle;
+  background-image: url("../images/aifc/orange-header.svg"); }
+
+.aifc-pages .aifc-pages-white-logo {
+  width: 30%; }
+
+.aifc-pages .aifc-pages-rounded-box {
+  border-radius: 15px;
+  border-style: solid;
+  border-color: #E3E3DD;
+  border-width: 2px;
+  background: #FFFCF7; }
+
+.aifc-pages .aifc-pages-page-bg {
+  background-repeat: no-repeat;
+  background-image: url("../images/aifc/page-background.svg");
+  background-position-y: bottom; }
+
+.aifc-pages .aifc-pages-subtitle {
+  font-weight: bold;
+  font-size: 30px;
+  color: #00B1C3;
+  margin: 2px 0px 0px 0px; }
+
 .aifc-pages .aifc-pages-panel {
   border: 4px solid #00B1C3;
   border-radius: 9px;
@@ -9826,6 +9826,12 @@ footer {
       opacity: 0; }
   .aifc-pages .aifc-pages-video-header video {
     display: none; } }
+
+@media (min-width: 992px) {
+  .aifc-pages .aifc-pages-col-md-5ths {
+    position: relative;
+    width: 20%;
+    float: left; } }
 
 .bg-primary {
   background-color: #00B1C3;

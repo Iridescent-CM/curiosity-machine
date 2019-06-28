@@ -10,7 +10,7 @@
       <li class="nav-item">
         <a
           class="nav-link {% if active_nav == 'ai-challenge' %}active{% endif %}"
-          href="/aichallenge"
+          href="{% url 'aichallenge' %}"
           id="aichallenge-about-page-nav"
         >
           About AIFC
@@ -19,7 +19,7 @@
       <li class="nav-item">
         <a
           class="nav-link {% if active_nav == 'ai-worldchampionship' %}active{% endif %}"
-          href="/aichallenge/worldchampionship"
+          href="{% url 'aichallenge/worldchampionship' %}"
           id="worldchampionship-aichallenge-page-nav"
         >
           AI World Championship
@@ -28,7 +28,7 @@
       <li class="nav-item">
         <a
           class="nav-link {% if active_nav == 'ai-timeline' %}active{% endif %}"
-          href="/aichallenge/timeline"
+          href="{% url 'aichallenge/timeline' %}"
           id="timeline-aichallenge-page-nav"
         >
           Important Dates
@@ -37,7 +37,7 @@
       <li class="nav-item">
         <a
           class="nav-link {% if active_nav == 'ai-families' %}active{% endif %}"
-          href="/aichallenge/families"
+          href="{% url 'aichallenge/families' %}"
           id="families-aichallenge-page-nav"
         >
           Families
@@ -46,7 +46,7 @@
       <li class="nav-item">
         <a
           class="nav-link {% if active_nav == 'ai-coaches' %}active{% endif %}"
-          href="/aichallenge/coaches"
+          href="{% url 'aichallenge/coaches' %}"
           id="coaches-aichallenge-page-nav"
         >
           Coaches
@@ -55,7 +55,7 @@
       <li class="nav-item">
         <a
           class="nav-link {% if active_nav == 'partnership' %}active{% endif %}"
-          href="/about-partnership"
+          href="{% url 'about-partnership' %}"
           id="partnership-about-page-nav"
         >
           Volunteers
@@ -112,7 +112,7 @@
       <li class="nav-item">
         <a
           class="nav-link {% if active_nav == 'community-guidelines' %}active{% endif %}"
-          href="/community-guidelines"
+          href="{% url 'community-guidelines' %}"
           id="community-guidelines-about-page-nav"
         >
           Community Guidelines

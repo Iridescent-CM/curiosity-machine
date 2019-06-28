@@ -1,6 +1,6 @@
 {% load resized %}
 
-<div class="card cm-fancy-card mb-3 challenge-{{ lesson.state }}">
+<div class="card cm-fancy-card mb-3">
 
   <a href="{% url "lessons:lesson-progress-find-or-create" %}?lesson={{ lesson.id }}">
     <img class="card-img-top mr-1" src="{% resized lesson.card_image.url width=545 height=240 crop='fill' %}" alt="{{ lesson.title }}">

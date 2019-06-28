@@ -16,3 +16,11 @@ def test_retrieve(apiclient):
     apiclient.login(username="username", password="password")
     assert apiclient.get('/lessons/lesson/%d/' % lesson.id).status_code == 200
     assert apiclient.get('/lessons/lesson/%d/' % 100).status_code == 404
+
+@pytest.mark.django_db
+def test_list(apiclient):
+    user = UserFactory(username="username", password="password")
+
+    assert apiclient.get('/lessons/').status_code == 200
+    apiclient.login(username="username", password="password")
+    assert apiclient.get('/lessons/').status_code == 200
