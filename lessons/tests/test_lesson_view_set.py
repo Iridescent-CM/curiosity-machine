@@ -21,6 +21,6 @@ def test_retrieve(apiclient):
 def test_list(apiclient):
     user = UserFactory(username="username", password="password")
 
-    assert apiclient.get('/lessons/').status_code == 200
+    assert apiclient.get('/lessons/lesson/').status_code == 200
     apiclient.login(username="username", password="password")
-    assert apiclient.get('/lessons/').status_code == 200
+    assert apiclient.get('/lessons/lesson/').status_code == 200
