@@ -9636,57 +9636,6 @@ footer {
 .lesson-pages .feedback-component {
   padding: 3em; }
 
-.mentor-dashboard .row-dark {
-  background: #e5e1d9;
-  margin: 0 -65px 20px -65px;
-  padding: 30px 15px 15px 15px; }
-
-.mentor-dashboard .main-container h2 {
-  margin-top: 1em; }
-
-.mentor-dashboard .profile-info img {
-  margin-bottom: 20px; }
-
-.mentor-dashboard .unclaimed strong {
-  font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  display: block;
-  font-size: 30px;
-  font-weight: 300; }
-
-.mentor-dashboard .progress-card {
-  min-height: 380px; }
-  .mentor-dashboard .progress-card .unread {
-    display: block;
-    position: absolute;
-    top: -5px;
-    right: -12px;
-    color: #fff;
-    line-height: 1;
-    padding: 8px 10px;
-    background: #f16243;
-    border-radius: 3px;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); }
-    .mentor-dashboard .progress-card .unread:before {
-      content: '';
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 10px 8px 0 0;
-      border-color: #f16243 transparent transparent transparent;
-      position: absolute;
-      bottom: -10px;
-      left: 5px; }
-  .mentor-dashboard .progress-card .card-block:last-child {
-    padding-bottom: 1.5em; }
-  .mentor-dashboard .progress-card .card-block p {
-    font-size: 14px; }
-
-.mentor-dashboard .progress-group-card .card-block:last-child {
-  padding-bottom: 2em; }
-
-.mentor-dashboard .progress-group-card .card-block .card-title {
-  font-weight: normal; }
-
 .aifc-pages .aifc-pages-logo {
   width: 500px; }
 

@@ -4,14 +4,14 @@ from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from curiositymachine.decorators import mentor_or_current_user
+from curiositymachine.decorators import current_user
 from challenges.models import Challenge, Progress, Stage
 from cmcomments.commenting import Commenting
 from .forms import QuizForm
 
 @require_POST
 @login_required
-@mentor_or_current_user
+@current_user
 def make_comment(request, challenge_id, username, stage):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     progress = get_object_or_404(Progress, challenge=challenge, owner__username=username)

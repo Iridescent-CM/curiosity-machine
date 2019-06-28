@@ -5,7 +5,6 @@ var CM = {};
 CM.Navigation = {
   $navTop: $('.nav-wrapper').length ? $('.nav-wrapper').offset().top : false,
   $navWrapper: $('.nav-wrapper'),
-  $mentorNavWrapper: $('.mentor-panel-wrapper')
 };
 
 CM.showMessage = function(message, classes) {
@@ -40,10 +39,8 @@ $(document).ready(function() {
       var scrollTop = $(window).scrollTop();
       if (scrollTop > CM.Navigation.$navTop) {
         CM.Navigation.$navWrapper.addClass('sticky');
-        CM.Navigation.$mentorNavWrapper.css('top', 100);
       } else {
         CM.Navigation.$navWrapper.removeClass('sticky');
-        CM.Navigation.$mentorNavWrapper.css('top', CM.Navigation.$navTop - scrollTop + 100);
       }
     });
     $(window).trigger('scroll'); //if you refresh a scrolled page

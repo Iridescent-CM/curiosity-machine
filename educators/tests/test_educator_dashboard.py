@@ -10,7 +10,6 @@ from django.core.urlresolvers import reverse
 from django.urls import reverse
 from django.utils.timezone import now
 from memberships.factories import *
-from mentors.factories import *
 from profiles.factories import *
 from students.factories import *
 from units.factories import *
@@ -145,63 +144,6 @@ def test_student_detail_page_context_has_progress_annotations(client):
     assert response.context["progresses"][0].user_comment_counts_by_stage == [3, 1, 0, 1]
 
 @pytest.mark.django_db
-def test_student_detail_page_total_user_comments_progress_annotation_ignores_mentor_comments(client):
-    educator = EducatorFactory(username="edu", password="123123")
-    student = StudentFactory(username="student")
-    mentor = MentorFactory(username="mentor")
-
-    progress = ProgressFactory(owner=student, mentor=mentor)
-    CommentFactory(challenge_progress=progress, user=mentor)
-    CommentFactory(challenge_progress=progress, user=student)
-
-    membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
-
-    client.login(username="edu", password="123123")
-    response = client.get(
-        reverse("educators:student", kwargs={"student_id": student.id}),
-        follow=True
-    )
-    assert response.context["progresses"][0].total_user_comments == 1
-
-@pytest.mark.django_db
-def test_student_detail_page_user_comment_counts_by_stage_progress_annotation_ignores_mentor_comments(client):
-    educator = EducatorFactory(username="edu", password="123123")
-    student = StudentFactory(username="student")
-    mentor = MentorFactory(username="mentor")
-
-    progress = ProgressFactory(owner=student, mentor=mentor)
-    CommentFactory(challenge_progress=progress, user=mentor, stage=1)
-    CommentFactory(challenge_progress=progress, user=student, stage=1)
-
-    membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
-
-    client.login(username="edu", password="123123")
-    response = client.get(
-        reverse("educators:student", kwargs={"student_id": student.id}),
-        follow=True
-    )
-    assert response.context["progresses"][0].user_comment_counts_by_stage == [1, 0, 0, 0]
-
-@pytest.mark.django_db
-def test_student_detail_page_latest_user_comment_progress_annotation_ignores_mentor_comments(client):
-    educator = EducatorFactory(username="edu", password="123123")
-    student = StudentFactory(username="student")
-    mentor = MentorFactory(username="mentor")
-
-    progress = ProgressFactory(owner=student, mentor=mentor)
-    latest = CommentFactory(challenge_progress=progress, user=mentor, created=now(), stage=4)
-    latest_student = CommentFactory(challenge_progress=progress, user=student, created=now() - timedelta(hours=1), stage=4)
-
-    membership = MembershipFactory(members=[educator, student], challenges=[progress.challenge])
-
-    client.login(username="edu", password="123123")
-    response = client.get(
-        reverse("educators:student", kwargs={"student_id": student.id}),
-        follow=True
-    )
-    assert response.context["progresses"][0].latest_user_comment == latest_student
-
-@pytest.mark.django_db
 def test_student_detail_page_context_has_completed_count(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
@@ -248,12 +190,11 @@ def test_student_detail_page_context_has_approved_example_count(client):
 def test_student_detail_page_context_progresses_sort_by_activity(client):
     educator = EducatorFactory(username="edu", password="123123")
     student = StudentFactory(username="student")
-    mentor = MentorFactory(username="mentor")
 
     challengeA = ChallengeFactory(name="Challenge A", draft=False)
     challengeB = ChallengeFactory(name="Challenge B", draft=False)
-    progressA = ProgressFactory(owner=student, challenge=challengeA, mentor=mentor)
-    progressB = ProgressFactory(owner=student, challenge=challengeB, mentor=mentor)
+    progressA = ProgressFactory(owner=student, challenge=challengeA)
+    progressB = ProgressFactory(owner=student, challenge=challengeB)
 
     membership = MembershipFactory(members=[educator, student], challenges=[challengeA, challengeB])
 

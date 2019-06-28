@@ -7,7 +7,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.utils.timezone import now
 from memberships.factories import *
-from mentors.factories import *
 from profiles import views
 from profiles.factories import *
 from profiles.models import UserExtra, UserRole
@@ -67,18 +66,3 @@ def test_should_add_email():
     assert not user.extra.should_add_email
     assert not user2.extra.should_add_email
     assert not user3.extra.should_add_email
-
-@pytest.mark.django_db
-def test_inactive_mentors_not_sent():
-    startdate = now()
-    enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
-    MentorFactory(extra__last_active_on=enddate, extra__last_inactive_email_sent_on=None)
-    assert UserExtra.inactive_mentors().count() == 1
-
-@pytest.mark.django_db
-def test_inactive_mentors_already_sent():
-    startdate = now()
-    enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
-    last_sent_on = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR) - 2)
-    MentorFactory(extra__last_active_on=enddate, extra__last_inactive_email_sent_on=last_sent_on)
-    assert UserExtra.inactive_mentors().count() == 0

@@ -100,15 +100,6 @@
 },
 {
   "fields": {
-    "model": "mentor",
-    "app_label": "profiles",
-    "name": "mentor"
-  },
-  "model": "contenttypes.contenttype",
-  "pk": 12
-},
-{
-  "fields": {
     "model": "student",
     "app_label": "profiles",
     "name": "student"
@@ -1218,33 +1209,6 @@
 },
 {
   "fields": {
-    "content_type": 9,
-    "codename": "add_mentor",
-    "name": "Can add mentor"
-  },
-  "model": "auth.permission",
-  "pk": 40
-},
-{
-  "fields": {
-    "content_type": 9,
-    "codename": "change_mentor",
-    "name": "Can change mentor"
-  },
-  "model": "auth.permission",
-  "pk": 41
-},
-{
-  "fields": {
-    "content_type": 9,
-    "codename": "delete_mentor",
-    "name": "Can delete mentor"
-  },
-  "model": "auth.permission",
-  "pk": 42
-},
-{
-  "fields": {
     "content_type": 15,
     "codename": "add_theme",
     "name": "Can add theme"
@@ -1928,7 +1892,6 @@
     "parent_first_name": "",
     "expertise": "",
     "city": "",
-    "is_mentor": false,
     "about_me_video": null,
     "title": "",
     "gender": "",
@@ -1960,8 +1923,7 @@
     "themes": [
       6,
       14
-    ],
-    "mentor_guide": ""
+    ]
   },
   "model": "challenges.challenge",
   "pk": 1
@@ -1985,8 +1947,7 @@
     "materials_list": "<ul>\r\n<li>empty film canister</li>\r\n<li>water</li>\r\n<li>alka seltzer tablet</li>\r\n<li>safety goggles</li>\r\n<li>marble or gumball</li>\r\n</ul>",
     "themes": [
       10
-    ],
-    "mentor_guide": ""
+    ]
   },
   "model": "challenges.challenge",
   "pk": 2
@@ -2010,8 +1971,7 @@
     "materials_list": "<ul>\r\n<li>PVC pipes</li>\r\n<li>PVC elbow connector</li>\r\n<li>recycled plastic bottle</li>\r\n<li>recycled paper</li>\r\n<li>tape</li>\r\n</ul>",
     "themes": [
       10
-    ],
-    "mentor_guide": ""
+    ]
   },
   "model": "challenges.challenge",
   "pk": 3
@@ -2036,8 +1996,7 @@
     "themes": [
       6,
       8
-    ],
-    "mentor_guide": ""
+    ]
   },
   "model": "challenges.challenge",
   "pk": 4
@@ -2061,8 +2020,7 @@
     "materials_list": "<ul>\r\n  <li>toothpicks</li>\r\n  <li>gumdrops<li>\r\n  <li>large cups</li>\r\n  <li>small cup</li>\r\n  <li>string</li>\r\n  <li>paper clips</li>\r\n  <li>pennies</li>\r\n  <li>tape</li>\r\n</ul>",
     "themes": [
       1
-    ],
-    "mentor_guide": ""
+    ]
   },
   "model": "challenges.challenge",
   "pk": 5
@@ -2086,8 +2044,7 @@
     "materials_list": "<ul>\r\n  <li>large cup</li>\r\n  <li>rubber bands</li>\r\n  <li>recycled plastic bag</li>\r\n  <li>paper clips</li>\r\n  <li>tape</li>\r\n  <li>scissors</li>\r\n  <li>protective gloves</li>\r\n</ul>",
     "themes": [
       8
-    ],
-    "mentor_guide": ""
+    ]
   },
   "model": "challenges.challenge",
   "pk": 6
@@ -2111,8 +2068,7 @@
     "materials_list": "<ul>\r\n  <li>simple 3-D object</li>\r\n  <li>recycled cardboard box</li>\r\n  <li>saran wrap</li>\r\n  <li>marker</li>\r\n</ul>",
     "themes": [
       4
-    ],
-    "mentor_guide": ""
+    ]
   },
   "model": "challenges.challenge",
   "pk": 7
@@ -2137,8 +2093,7 @@
     "themes": [
       4,
       13
-    ],
-    "mentor_guide": ""
+    ]
   },
   "model": "challenges.challenge",
   "pk": 8
@@ -2163,8 +2118,7 @@
     "themes": [
       6,
       14
-    ],
-    "mentor_guide": ""
+    ]
   },
   "model": "challenges.challenge",
   "pk": 9
@@ -2188,8 +2142,7 @@
     "materials_list": "<ul>\r\n  <li>recycled paper</li>\r\n  <li>string</li>\r\n  <li>popsicle sticks</li>\r\n  <li>sticks</li>\r\n  <li>tape</li>\r\n  <li>scissors</li>\r\n</ul>",
     "themes": [
       10
-    ],
-    "mentor_guide": "<p><strong> Challenge: </strong>Build a device that will slow down as it falls, to minimize force of impact when dropped from 8 feet high.</p>\r\n<p><strong> Concepts: </strong>Students will explore the concepts of aerodynamic forces and impact.</p>\r\n\r\n<strong> Top Mentor Feedback Example! </strong>\r\n\r\n<p> Jessica mentoring Sophia's project: <a target=\"_blank\" href=\"https://www.curiositymachine.org/challenges/13/Baymax8/build/\">https://www.curiositymachine.org/challenges/13/Baymax8/build/ </a> </p>\r\n\r\n<p><u>Speed</u></p>\r\n<p>How far an object has travelled over a total period of time (distance).</p>\r\n<p> <img src=\"http://www.examstutor.com/physics/resources/studyroom/mechanics/speed_and_velocity_constant_motion/pictures/dist_time_graph.gif\"></p>\r\n\r\n<p><u>Velocity</u></p>\r\n<p>How much an object has moved in relation to the initial starting point, over the amount of time taken (displacement).</p>\r\n<p> <img src=\"http://www.icoachmath.com/physics/physics-dictinory/exa.JPG\" ></p>\r\n\r\n<p><u>Distance vs. Displacement</u></p>\r\n<p>Distance is the length of how much an object has traveled during its journey, while displacement is the distance in relation to the object\u2019s starting point.</p>\r\n<p> <img src=\"http://wikipremed.com/image_science_archive_68/010101_68/101450_323px-Distancedisplacement.svg_68.jpg\" width=\"320\" height=\"240\"></p>\r\n\r\n<p><u>Drag</u></p>\r\n<p>A type of friction that slows down the movement of an object travelling through air. It is dependent on the surface area of the object in contact with air. Also known as air resistance.\r\n</p>\r\n<p> <img src=\"https://cheshirelibraryscience.files.wordpress.com/2013/10/parachute_forces.jpg\"width=\"426\" height=\"308\"></p>\r\n\r\n<p><u>Impact or Collision</u></p>\r\n<p>The forces that occur when two or more objects collide, which depends on speed, acceleration, material, and surface area of object.</p>\r\n<p> <img src=\"http://hyperphysics.phy-astr.gsu.edu/hbase/imgmec/flobi2.gif\" width=\"507\" height=\"191\"></p>\r\n\r\n<p><u>Air Density</u></p>\r\n<p>The amount of air or fluid molecules that are in the atmosphere to help create drag, which slows down a falling object.</p>\r\n<p> <img src=\"http://upload.wikimedia.org/wikipedia/commons/4/45/Particles_density.svg\" width=\"150\" height=\"210\"></p>\r\n\r\n<br> </br>\r\n<p><strong> Feedback Advice:</strong></p>\r\n<p>The students may have not created enough surface area to provide drag.</p><ul>\r\n<li>\u201cWhat would happen if you increased or decreased the surface area of the parachute part of your landing device?\u201d</li></ul>\r\n<p>The force of impact or collision may make the lander unstable or break.</p> <ul>\r\n<li>\u201cCan you try adding stuff to the bottom of the lander to absorb the force when it hits the ground?\u201d</li></ul>\r\n<br> </br>\r\n\r\n<p> <iframe width='800' height='350' frameborder='0' \r\nsrc=https://docs.google.com/spreadsheets/d/1svSBhpCnclplFQDC-rXpp5JwZ2e08qtF-kXkU1OEaxE/edit?usp=sharing></iframe></p>\r\n\r\n<p><strong>Mentor Instructional Video </strong> </p>\r\n<p> <em>Coming soon! </em></p>"
+    ]
   },
   "model": "challenges.challenge",
   "pk": 10
@@ -2213,8 +2166,7 @@
     "materials_list": "<ul>\r\n  <li>ping pong ball</li>\r\n  <li>stick</li>\r\n  <li>sharpened pencil</li>\r\n  <li>drinking straws</li>\r\n  <li>milkshake straw</li>\r\n  <li>recycled cardboard</li>\r\n  <li>scissors</li>\r\n</ul>",
     "themes": [
       10
-    ],
-    "mentor_guide": "\r\n<p><strong>Challenge: </strong>Build an air-powered spinning machine inspired by Boeing\u2019s CST-100.</p>\r\n\r\n<strong> Top Mentor Feedback Examples! </strong>\r\n\r\n<p> Jessica mentoring Joseph's project: <a target=\"_blank\" href=\"https://www.curiositymachine.org/challenges/58/Josephkung/build\">https://www.curiositymachine.org/challenges/58/Josephkung/build </a> \r\n<br>Paige mentoring Ringo's project: <a target=\"_blank\" href=\"https://www.curiositymachine.org/challenges/58/Ringo/build \">https://www.curiositymachine.org/challenges/58/Ringo/build </a> </p>\r\n\r\n<p><strong> Concepts: </strong>Students will explore the concepts of force, Newton\u2019s Third Law, thrust, and rotational motion. </p>\r\n\r\n<p><u>Aeolipile</u></p>\r\n<p>Water heated in a cauldron would produce steam, which would then rise into a sphere. The steam would collect in the sphere, building pressure until forced to exit through bent vents with great force. </p>\r\n<p> <img src=\"https://lh4.googleusercontent.com/-J5mdb1nXVCY/U_Y1bNiianI/AAAAAAAABcI/-VrZoTXSTEY/w652-h489-no/Ping%2BPong%2BAeolipile.png\" width=\"450\" height=\"350\" ></p>\r\n\r\n<p><u>Force</u></p>\r\n<p>Any interaction which tends to change the motion of an object.</p>\r\n<p> <img src=\"http://www.bbc.co.uk/bitesize/intermediate2/physics/images/200/110_bitesize_intermediate2_physics_forces_at_work_bar_above_head.png\"></p>\r\n\r\n<p><u>Action & Reaction (Newton\u2019s Third Law)</u></p>\r\n<p>If one object exerts a force on another object, then the second object exerts an equal and opposite reaction force on the first.</p>\r\n<p> <img src=\"http://sciencevogel.wikispaces.com/file/view/action%20rxn%20balloon%201/505162764/action%20rxn%20balloon%201\" ></p>\r\n\r\n<p><u>Thrust</u></p>\r\n<p>A type of force that moves something forward.</p>\r\n<p> <img src=\"http://upload.wikimedia.org/wikipedia/commons/1/13/RS-88_test_firing.jpg\" width=\"498\" height=\"325\"></p>\r\n\r\n<p><u>Axle</u></p>\r\n<p>What an axle rotates or spins around, like how a top spins around one point.</p>\r\n<p> <img src=\"http://www.goldridge08.com/pictures/simple/WheelAndAxle2.gif\"></p>\r\n\r\n<p><u>Torque</u></p>\r\n<p>The force of rotation around an object. Ex) a wrench uses torque to unscrew a bolt.</p>\r\n<p> <img src=\"https://thefitcoach.files.wordpress.com/2012/06/torqueb.gif\"></p>\r\n\r\n<br> </br>\r\n<p><strong> Feedback Advice:</strong></p>\r\n<p>Students may have built a fixed axle that does not allow the machine to spin.</p><ul>\r\n<li>\u201cDoes your machine rotate? What could you add or change to make your machine spin?\u201d</li></ul>\r\n<br> </br>\r\n\r\n\r\n\r\n<br> </br>\r\n<p> <iframe width='800' height='350' frameborder='0' \r\nsrc=https://docs.google.com/spreadsheets/d/1Z06XRaiVDvArrR6Dd0Inu5QwLF9rtrYg2RGozq6K1AI/edit?usp=sharing></iframe></p> \r\n\r\n<p><strong>Mentor Instructional Video </strong> </p>\r\n<p> <em>Coming soon! </em></p>"
+    ]
   },
   "model": "challenges.challenge",
   "pk": 11
@@ -2238,8 +2190,7 @@
     "materials_list": "<ul>\r\n  <li>tape</li>\r\n  <li>wooden dowels/li>\r\n  <li>clothes pins</li>\r\n <li>marker</li>\r\n <li>recycled paper</li>\r\n</ul>",
     "themes": [
       5
-    ],
-    "mentor_guide": ""
+    ]
   },
   "model": "challenges.challenge",
   "pk": 12

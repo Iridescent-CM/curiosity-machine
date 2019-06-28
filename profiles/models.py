@@ -26,10 +26,6 @@ USER_ROLE_CONFIG = {
         'app': 'students',
         'profileclass': 'StudentProfile'
     },
-    'mentor': {
-        'app': 'mentors',
-        'profileclass': 'MentorProfile'
-    },
     'educator': {
         'app': 'educators',
         'profileclass': 'EducatorProfile'
@@ -111,12 +107,6 @@ class UserExtra(models.Model):
         return User.profile_for(self.user)
 
     @classmethod
-    def inactive_mentors(cls):
-         startdate = now()
-         enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_MENTOR))
-         return cls.objects.filter(last_active_on__lt=enddate, role=UserRole.mentor.value, last_inactive_email_sent_on=None)
-
-    @classmethod
     def inactive_students(cls):
          startdate = now()
          enddate = startdate - timedelta(days=int(settings.EMAIL_INACTIVE_DAYS_STUDENT))
@@ -153,16 +143,8 @@ class UserExtra(models.Model):
         return UserRole(self.role) == UserRole.student
 
     @property
-    def is_mentor(self):
-        return UserRole(self.role) == UserRole.mentor
-
-    @property
     def is_educator(self):
         return UserRole(self.role) == UserRole.educator
-
-    @property
-    def is_parent(self):
-        return UserRole(self.role) == UserRole.parent
 
     @property
     def is_family(self):
@@ -176,18 +158,14 @@ class UserExtra(models.Model):
     def user_type(self):
         if self.user.is_superuser:
             return 'admin'
-        elif self.is_mentor:
-            return 'mentor'
         elif self.is_student:
             return 'student'
         elif self.is_educator:
             return 'educator'
-        elif self.is_parent:
-            return 'parent'
 
     @property
     def send_welcome(self):
-        return UserRole(self.role) not in [UserRole.none, UserRole.mentor]
+        return UserRole(self.role) not in [UserRole.none]
 
     def set_active(self):
         self.last_active_on = now()

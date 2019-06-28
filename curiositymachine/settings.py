@@ -79,7 +79,6 @@ INSTALLED_APPS = (
     'profiles',
     'locations.apps.LocationsConfig',
     'students',
-    'mentors',
     'educators',
     'families.apps.FamiliesConfig',
     'challenges',
@@ -122,7 +121,6 @@ MIDDLEWARE = [
     'curiositymachine.middleware.UserProxyMiddleware',
     'curiositymachine.middleware.LoginRequiredMiddleware',
     "curiositymachine.middleware.UnapprovedStudentSandboxMiddleware",
-    'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
     'curiositymachine.middleware.LastActiveMiddleware',
     'curiositymachine.middleware.FirstLoginMiddleware',
     'families.middleware.SignUpPrerequisitesMiddleware',
@@ -319,19 +317,14 @@ AICHALLENGE_FAMILY_PRE_SUBMISSION_SURVEY_ID=os.getenv("AICHALLENGE_FAMILY_PRE_SU
 AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID=os.getenv("AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID", "")
 AICHALLENGE_SEASON_OPEN=os.getenv('AICHALLENGE_SEASON_OPEN', False)
 
-MENTOR_RELATIONSHIP_MANAGERS = os.getenv("MENTOR_RELATIONSHIP_MANAGERS", '').split(',') if os.getenv("MENTOR_RELATIONSHIP_MANAGERS") else []
 NOTIFICATION_RECIPIENTS = os.getenv("NOTIFICATION_RECIPIENTS").split(',') if os.getenv("NOTIFICATION_RECIPIENTS") else []
 MEMBER_IMPORT_EXPIRATION_DAYS = os.environ.get("MEMBER_IMPORT_EXPIRATION_DAYS", 7)
 MEMBERSHIP_EXPIRING_NOTICE_DAYS = os.environ.get("MEMBER_EXPIRING_NOTICE_DAYS", 30)
 MEMBERSHIP_EXPIRED_NOTICE_DAYS = os.environ.get("MEMBER_EXPIRED_NOTICE_DAYS", 30)
-EMAIL_INACTIVE_DAYS_MENTOR = os.environ.get("EMAIL_INACTIVE_DAYS_MENTOR", 7)
 EMAIL_INACTIVE_DAYS_STUDENT = os.environ.get("EMAIL_INACTIVE_DAYS_STUDENT", 14)
 EMAIL_INACTIVE_DAYS_FAMILY = os.environ.get("EMAIL_INACTIVE_DAYS_FAMILY", 14)
 PROGRESS_MONTH_ACTIVE_LIMIT = os.environ.get("PROGRESS_MONTH_ACTIVE_LIMIT", 2)
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", None)
-MENTOR_INTEREST_EMAIL = os.environ.get("MENTOR_INTEREST_EMAIL", CONTACT_EMAIL)
-REQUEST_A_MENTOR_LINK = os.environ.get("REQUEST_A_MENTOR_LINK", None)
-DOCEBO_MENTOR_URL = os.environ.get("DOCEBO_MENTOR_URL","http://www.iridescentuniversity.org/lms/")
 
 # pagination
 CHALLENGES_PER_PAGE = os.environ.get("CHALLENGES_PER_PAGE", 9)

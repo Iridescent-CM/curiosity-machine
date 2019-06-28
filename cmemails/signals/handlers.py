@@ -15,10 +15,6 @@ def send_welcome_email(sender, **kwargs):
             send(template_name='educator-welcome', to=sender, merge_vars={
                 'username': sender.username
             })
-        elif sender.extra.is_parent:
-            send(template_name='parent-welcome', to=sender, merge_vars={
-                'username': sender.username
-            })
 
     if not getattr(sender, "skip_mailing_list_subscription", False):
         subscribe(sender)
@@ -33,12 +29,6 @@ def send_activation_confirmation(sender, **kwargs):
         send(template_name='student-account-activated', to=sender, merge_vars={
             'studentname': sender.username
         })
-
-@receiver(signals.completed_training)
-def send_training_completion_notice(sender, **kwargs):
-    send(template_name='mentor-account-approved', to=sender, merge_vars={
-        "username": sender.username
-    })
 
 @receiver(signals.member_password_changed)
 def send_member_password_change_notice(sender, member, resetter, **kwargs):
