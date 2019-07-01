@@ -100,7 +100,7 @@ class Membership(models.Model):
 
     @classmethod
     def filter_by_challenge_access(cls, user, challenge_ids):
-        if user.is_authenticated and (user.is_staff or user.extra.is_mentor):
+        if user.is_authenticated and user.is_staff:
             return challenge_ids
 
         query = Q(id__in=challenge_ids, free=True)

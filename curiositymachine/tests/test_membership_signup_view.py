@@ -13,6 +13,16 @@ def signup_formdata(**kwargs):
     }, **kwargs)
 
 @pytest.mark.django_db
+def test_404s_on_inactive_membership(client):
+    membership = MembershipFactory(slug="myslug")
+    response = client.get(reverse("membership_signup", kwargs={"slug": "myslug"}))
+    assert response.status_code == 200
+    membership.is_active = False
+    membership.save()
+    response = client.get(reverse("membership_signup", kwargs={"slug": "myslug"}))
+    assert response.status_code == 404
+
+@pytest.mark.django_db
 def test_get_includes_membership_name(client):
     membership = MembershipFactory(slug="myslug")
     response = client.get(reverse("membership_signup", kwargs={"slug": "myslug"}))

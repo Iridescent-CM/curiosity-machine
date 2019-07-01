@@ -66,19 +66,6 @@ class UnapprovedStudentSandboxMiddleware(MiddlewareMixin):
                     and not whitelist_regex.match(request.path.lstrip('/'))):
                 return HttpResponseRedirect(reverse('students:unapproved'))
 
-class UnapprovedMentorSandboxMiddleware(MiddlewareMixin):
-    """
-    Middleware that sandboxes mentors who have not yet been approved to the training section of the site.
-    """
-    def process_view(self, request, view, view_args, view_kwargs):
-        if (request.user.is_authenticated
-                and not request.user.is_staff
-                and request.user.extra.is_mentor
-                and not request.user.mentorprofile.full_access):
-            if (not whitelisted(view, 'public', 'maybe_public', 'unapproved_mentors')
-                    and not whitelist_regex.match(request.path.lstrip('/'))):
-                return HttpResponseRedirect(reverse('profiles:home'))
-
 class UserProxyMiddleware(MiddlewareMixin):
     """
     Middleware that changes request.user to User proxy model

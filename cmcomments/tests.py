@@ -2,7 +2,6 @@ import pytest
 from challenges.factories import ProgressFactory
 from challenges.tests.fixtures import progress, challenge
 from curiositymachine import signals
-from mentors.factories import MentorFactory
 from mock import MagicMock
 from students.factories import StudentFactory
 from .models import Comment
@@ -11,14 +10,6 @@ from .factories import CommentFactory, ReflectionCommentFactory
 @pytest.fixture
 def student():
     return StudentFactory()
-
-@pytest.fixture
-def mentor():
-    return MentorFactory()
-
-@pytest.fixture
-def mentor_comment(mentor, progress):
-    return Comment.objects.create(challenge_progress=progress, text="Comment test", user=mentor)
 
 @pytest.fixture
 def student_comment(student, progress):

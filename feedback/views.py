@@ -3,14 +3,14 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from curiositymachine.decorators import mentor_or_current_user
+from curiositymachine.decorators import current_user
 from challenges.models import Challenge
 from .forms import FeedbackQuestionForm
 from .models import FeedbackQuestion
 
 @require_POST
 @login_required
-@mentor_or_current_user
+@current_user
 def make_feedback_result(request, challenge_id, username, feedback_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     feedback_question = get_object_or_404(FeedbackQuestion, id=feedback_id)
