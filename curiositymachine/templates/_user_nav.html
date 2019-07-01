@@ -51,7 +51,11 @@
           </li>
           {% endif %}
 
-          <li class="nav-item"><a href="{% url "aichallenge" %}" class="nav-link nav-aichallenge">AI Family Challenge</a></li>
+          {% if request.user.is_authenticated %}
+          <a class="nav-item nav-link nav-link-blue" href="{% url "profiles:home" %}">AI Family Challenge</a>
+          {% else %}
+          <a class="nav-item nav-link nav-link-blue" href="{% url "lessons:lesson-list" %}">AI Family Challenge</a>
+          {% endif %}
           <li class="nav-item"><a href="{% url "challenges:challenges" %}" class="nav-link nav-challenges">Challenges</a></li>
           <li class="nav-item"><a href="{% url "about" %}" class="nav-link nav-about">About Us</a></li>
 
