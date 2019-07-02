@@ -156,7 +156,7 @@ function progressChart() {
       main.append("text")
         .attr("x", xBar + legendWidth + padding)
         .attr("y", y(0))
-        .text("Educator posts");
+        .text("Mentor posts");
 
       /* graph */
       // line
