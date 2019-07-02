@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block title %}{{ student.username }}'s Conversation{% endblock %}
-{% block body-classes %}dashboard educator-dashboard educator-dashboard-conversation{% endblock %}
+{% block body-classes %}{{block.super}} educator-dashboard-conversation{% endblock %}
 
 {% block js %}
   {{ block.super }}
