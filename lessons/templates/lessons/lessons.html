@@ -21,7 +21,10 @@
         <h2 class="aifc-pages-subtitle my-4">AIFC Lessons</h2>
     </div>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        The AI Family Challenge is a free, hands-on artificial intelligence education competition that brings families, schools, communities, and technology know-it-alls together to give everyone the chance to learn, play and create with AI.
+    </p>
+    <p>
+        Each lesson provides different concepts and activities that lead to the creation of a final project, an invention that solves a problem in their community using AI. Through the lessons, families learn foundational skills needed to utilize and explore aspects of AI, while participating in hands on activities where they get to actually engage in building AI agents. After completing all ten lessons, families should have a well rounded understanding of AI and how it can be used to help solve tough problems in their own communities.
     </p>
     <div class="row lessons mt-4">
         {% for lesson in lessons %}
@@ -34,16 +37,19 @@
     <div class="col-12 pl-0">
         <h2 class="aifc-pages-subtitle my-4">Meet the Community!</h2>
     </div>
-    <div class="row mb-2">
-        <div class="col-md-7">
-            <img class="img-fluid rounded" src="{% static 'images/about/workingtogethercopy2.jpg' %}">
+    <div class="row mb-4">
+        <div class="col-md-7 mx-3 embed-responsive embed-responsive-16by9">
+            <iframe class="img-fluid rounded" width="560" height="315" src="https://www.youtube.com/embed/K_2btq8vTec" allowfullscreen></iframe>
         </div>
         <div class="col">
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Join us as we embark on Season 2! Lead your community in learning about AI and solving problems in your community. Each participant will have a chance to submit their inventions to the World Championship in one of two divisions: Junior (11 years-old or younger) and Senior (12-16 years-old). Together, we can empower more communities to create and problem solve with artificial intelligence!
+            </p>
+            <p>
+                Join us by learning how to lead this program in your community or building a solution that’s important to you and your community! You don’t need to be a tech expert to participate. Curious? Check out these <a href="{% url "aichallenge/worldchampionship" %}">awesome projects</a> from Season 1.
             </p>
             <div class="text-center">
-                <button class="btn btn-primary">Join the AIFC Community!</button>
+                <a href="{% url "account_signup" %}" class="btn btn-primary mt-2">Join the AIFC Community!</a>
             </div>
         </div>
     </div>
