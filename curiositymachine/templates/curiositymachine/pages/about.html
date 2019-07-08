@@ -4,7 +4,7 @@
 
 {% block body-id %}ai-challenge-page{% endblock %}
 {% block content %}
-{% with active_nav="ai-challenge" source="aichallenge" %}
+{% with active_nav="ai-challenge" source="about" %}
   {{ block.super }}
 
 <div class="container">
@@ -36,8 +36,8 @@
             Many technologies that surround us are changing how we work and play using AI.
           </p>
           <p>
-            The <a href="{% url "challenges:challenges" %}?aifamilychallenge=1" target="_blank">AI Family Challenge</a> is a free, hands-on AI education program that brings families, schools,
-            communities, and technology know-it-alls together to give everyone the chance to learn, play and create
+            The <a href="{% url "lessons:lesson-list" %}" target="_blank">AI Family Challenge</a> is a free, hands-on AI education program that brings families, schools,
+            communities, and industry mentors together to give everyone the chance to learn, play and create
             with AI.
           </p>
           <div class="text-center mt-4">
