@@ -3,9 +3,11 @@ import time
 from subprocess import Popen
 
 NUMBER_OF_WORKERS = int(os.environ.get('RQ_CONCURRENT_WORKERS', 4))
+SCHEDULER_CMD = os.environ.get('RQ_SCHEDULER_COMMAND', 'python -u manage.py rqscheduler --queue default -i 10')
+WORKER_CMD = os.environ.get('RQ_WORKER_COMMAND', 'python -u manage.py rqworker default --worker-class rq.worker.HerokuWorker')
 
-commands = ['python -u manage.py rqscheduler --queue default -i 10']
-commands += ['python -u manage.py rqworker default --worker-class rq.worker.HerokuWorker'] * NUMBER_OF_WORKERS
+commands = [SCHEDULER_CMD]
+commands += [WORKER_CMD] * NUMBER_OF_WORKERS
 
 processes = [Popen(cmd, shell=True) for cmd in commands]
 
