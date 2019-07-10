@@ -48,6 +48,16 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-cm">
   <div class="container px-3">
     <a href="/" class="navbar-brand">
+      {% if flags.enable_rebrand %}
+      <img
+        src="{% static 'images/logo.svg' %}" alt="curiosity machine"
+        class="logo-large d-none d-lg-block"
+      >
+      <img
+        src="{% static 'images/logo-small.svg' %}" alt="curiosity machine"
+        class="logo-small d-block d-lg-none"
+      >
+      {% else %}
       <img
         src="{% static 'images/cm-logo.svg' %}" alt="curiosity machine"
         class="logo-large d-none d-lg-block"
@@ -56,6 +66,7 @@
         src="{% static 'images/cm-logo-small.svg' %}" alt="curiosity machine"
         class="logo-small d-block d-lg-none"
       >
+      {% endif %}
     </a>
     <button
       class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-nav"
