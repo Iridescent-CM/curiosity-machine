@@ -8,8 +8,13 @@
           Menu
         </a>
         <a class="navbar-brand" href="/">
+          {% if flags.enable_rebrand %}
+          <img src="{% static 'images/logo.svg' %}" class="visible-md visible-lg logo-lg" alt="Curiosity Machine">
+          <img src="{% static 'images/logo-small.svg' %}" class="hidden-md hidden-lg logo-sm" alt="Curiosity Machine">
+          {% else %}
           <img src="{% static 'images/cm-logo.svg' %}" class="visible-md visible-lg logo-lg" alt="Curiosity Machine">
           <img src="{% static 'images/cm-logo-small.svg' %}" class="hidden-md hidden-lg logo-sm" alt="Curiosity Machine">
+          {% endif %}
         </a>
       </div>
 
