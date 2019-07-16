@@ -1,0 +1,82 @@
+{% extends "curiositymachine/layout/about_pg_layout.html" %}
+{% load staticfiles %}
+{% block title %}Welcome to the AI Family Challenge{% endblock %}
+
+{% block body-classes %} {{ block.super }} aifc-pages {% endblock %}
+{% block content %}
+{% with active_nav="families" %}
+  {{ block.super }}
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 offset-md-1 mt-5">
+      <h2>Build Something Great Together</h2>
+      <h3>Work with your child to develop curiosity about the world, creativity to try new ideas, and perseverance to learn from mistakes.</h3>
+      <p>When children know they can learn anything, they can be anything. We believe that parents and other role models play a critical role in building children's confidence and love for learning new things. Ready to learn alongside your child? Start with the <a href="{% url 'lessons:lesson-list' %}">Curiosity Machine AI Family Challenge</a>, or <a href="{% url 'challenges:challenges' %}">explore our other design challenges</a> to try what interests you.</p>
+      <hr class="hr-red mb-3"/>
+      <h2 class="mt-4">AI Family Challenge</h2>
+      <h3>Do you want to learn about AI as a family? You can create a free family account and complete our program from home!</h3>
+      <p>The Curiosity Machine <a href="{% url 'about' %}">Artificial Intelligence Family Challenge</a> is designed for families who want to learn about Artificial Intelligence (AI) technology. Families are invited to explore core concepts of AI and use these tools to solve problems in their communities. Everyone will have the opportunity to enter their ideas into a global competition.</p>
+      <p>The basics:</p>
+      <ul>
+        <li><p>You only need one account for your family to complete the <a href="{% url "challenges:challenges" %}?aifamilychallenge=1&stage=3" target="_blank">10 AI lessons</a></p></li>
+        <li><p>6 family teams (3 from each division) will win a trip to the <a href="https://meet.google.com/linkredirect?authuser=0&dest=https%3A%2F%2Firidescentsupport.zendesk.com%2Fhc%2Fen-us%2Farticles%2F115004048734-How-will-judging-and-the-Global-AI-Celebration-happen-" target="_blank">AI World Championship </a>in California, USA. Check below for eligibility requirements.</p></li>
+      </ul>
+      <h3 class="mb-4">Can my family submit to the AI World Championship?</h3>
+      <p>Remember, any family can complete the program! To be eligible for the AI World Championship competition, your family must submit to either the Junior or Senior division:</p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <div class="aifc-pages-panel p-3 m-2">
+        <h4 class="aifc-pages-header">Junior Division:</h4>
+        <hr>
+        <p>As of January 1, 2020, the oldest child in family is 11 or younger.</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="aifc-pages-panel p-3 m-2">
+        <h4 class="aifc-pages-header"><strong>Senior Division:</strong></h4>
+        <hr>
+        <p>As of January 1, 2020, the oldest child in family is 12-16.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 offset-md-1 mt-4">
+      <ul>
+        <li>Minimum 1 parent/guardian and 1 child per family team</li>
+        <li>6 people maximum per family team</li>
+        <li>2 adults per team maximum</li>
+      </ul>
+      <p class="mt-4 text-center"><em>To learn more about the competition requirements click <a href="https://iridescentsupport.zendesk.com/hc/en-us/articles/115004026093-Who-can-enter-the-competition" target="_blank">here</a>.</em></p>
+    </div>
+  </div>
+  <hr class="hr-red mb-3"/>
+  <h2>Curiosity Machine at your pace</h2>
+  <p>Curiosity Machine is flexible enough for you to use at your own pace. Our design challenges are great as weekly family learning activities, so your family can explore topics ranging from biomechanics to computer science and more. Follow your curiosity wherever it leads!</p>
+  <h3 class="mt-5">Tools to Support Learning Together</h3>
+  <p>We are always working to improve how we support families to learn together. When you create an account, you'll have access to resources that support you to learn alongside your child.</p>
+  <div class="row">
+    <div class="col-lg-3 offset-lg-3 col-md-3 offset-md-2 text-sm-center mt-4">
+      <img src="{% static 'images/about/familyworkbook.png' %}">
+    </div>
+    <div class="col-lg-3 col-md-5 mt-1">
+      <p>You can download the <a href="https://s3.amazonaws.com/curiositymachine/units/resources/familyworkbook-ENG.pdf" target="_blank">English</a> and <a href="https://s3.amazonaws.com/curiositymachine/units/resources/familyworkbook-ESP.pdf" target="_blank">Spanish</a> versions of our Curiosity Machine Family Workbook to help you complete design challenges with your children and also explore topics, such as:</p>
+      <ul>
+        <li>Confronting Failure</li>
+        <li>Thought Provoking Questions</li>
+        <li>Applying Engineering Methods</li>
+        <li>Finding Teachable Moments</li>
+        <li>Empowering Parents Through Science</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+    <p class="mt-2">Below are a few videos with more tips to help you support your child's learning:</p>
+    <div class="embed-responsive embed-responsive-16by9 mt-1 mb-2">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLaisj5ariFBdp1UL4zC05gu5kpgrsvS4p" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+{% endwith %}
+{% endblock %}

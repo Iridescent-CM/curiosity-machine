@@ -1,25 +1,36 @@
 {% extends "curiositymachine/layout/about_pg_layout.html" %}
 {% load staticfiles %}
-{% block title %}Welcome to the AI Family Challenge{% endblock %}
 
+{% block title %}Welcome to the AI Family Challenge{% endblock %}
 {% block body-classes %} {{ block.super }} aifc-pages {% endblock %}
 {% block content %}
-{% with active_nav="ai-coaches" %}
+{% with active_nav="program-leaders" %}
   {{ block.super }}
+{% endwith %}
+
 <div class="container">
   <div class="row">
     <div class="col-md-10 offset-md-1 mt-5">
-      <h2>We welcome leaders from around the world to join us!</h2>
+      <h2>Bring Curiosity Machine to your students</h2>
+      <h3 class="mb-5">We believe the best learning happens through exploration. Challenge your students to discover new ideas and solve unique problems.</h3>
+      <p class="mb-0">Mentors everywhere are using Curiosity Machine in classrooms, after school clubs, family programs, makerspaces, libraries, and more. That's because Curiosity Machine creates engaging and approachable opportunities for students and adults to learn together. You don't have to be a scientist or engineer to lead —you just have to be curious enough to want to learn! </p>
+
+      <h4 class="aifc-pages-header mt-4 mb-1">Students learn more than just STEM.</h4>
+      <p>With the engineering design process (EDP) as a guide, your students will plan, build, and test their designs. Students document each step on Curiosity Machine. But most importantly, students who complete Curiosity Machine design challenges learn to persevere through mistakes and failure, learning that creating something new is a process of testing and improvement. This supports them to build confidence in their ability to solve tough problems.</p>
+      <hr class="hr-red mb-5"/>
+      <h2>We welcome leaders from around the world to join us for the AI Family Challenge!</h2>
       <img class="d-block w-75 mx-auto" src="{% static 'images/about/aifc-world.svg'%}">
-      <h4 class="aifc-pages-header">Why join as a program site?</h4>
+      <h4 class="aifc-pages-header mt-4">Why join as a program site?</h4>
       <ul>
         <li>Bring an innovative AI family program to members of your community</li>
         <li>Leaders can build their knowledge of AI with extra resources and access to live trainings</li>
         <li>Have a direct line of contact to our support team</li>
         <li>Join our global movement and interact with our community of mentors.</li>
       </ul>
-      <hr>
       <h3 class="mt-5 mb-1">Season 2 begins in <strong>August 2019</strong> and submissions are due <strong>February 2020.</strong></h3>
+      <div class="text-center">
+        <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSf52kHbozfrysGIFlKrG-7LflXK6d-a9IxtSZ7kasZiFtS_CA/viewform" target="_blank">Reserve your spot</a> for Season 2!</p>
+      </div>
     </div>
   </div>
   <hr class="hr-red mb-3"/>
@@ -27,7 +38,7 @@
     <div class="col">
       <h4 class="aifc-pages-header">What does a program site look like?</h4>
       <p>Program sites are different throughout the world. Generally, we seek locations that deliver programs outside of school to underserved families. Also, your location should have 1-5 passionate facilitators who are ready to lead.</p>
-      <p>Our full program is 20+ hours and directed by people like you. We know that's a big commitment so we're here to help!</p>
+      <p>Our full program is 20 hours and directed by people like you. We know that's a big commitment so we're here to help!</p>
     </div>
   </div>
   <div class="row">
@@ -41,8 +52,8 @@
             <h4 class="aifc-pages-header">Club</h4>
           </div>
         </div>
-        <p><strong>30+ families</strong> at your location want to participate.</p>
-        <p>Your mentors are ready to spend <strong>~60 hours</strong> learning about and leading this program throughout the season.</p>
+        <p><strong>20+ families</strong> at your location want to participate.</p>
+        <p>Your mentor(s) are ready to spend <strong>~35 hours</strong> learning about and leading this program throughout the season.</p>
         <p>This is a great option for sites that would like to pilot the program, have a STEM group, or are single returning program sites.</p>
       </div>
     </div>
@@ -70,7 +81,7 @@
       <ul>
         <li>Mentors supporting kids who are excited to participate, but no  guardians (children can complete the program but please remember that only Family Teams are eligible to submit for the AI World Championship!)</li>
         <li>Leaders of small family or afterschool groups who are participating</li>
-        <li>Anyone who is excited to bring some of our program, but not all 20 hours, to participants</li>
+        <li>Anyone who is interested in bringing some of our program, but not all 20 hours, to participants. We recommend completing at least 3 sessions</li>
       </ul>
     </div>
   </div>
@@ -79,9 +90,8 @@
     <div class="col mb-5">
       <h4 class="aifc-pages-header">What’s stopping you from joining us today?</h4>
       <p>We are here to support you! Fill out <a href="https://docs.google.com/forms/d/e/1FAIpQLSf52kHbozfrysGIFlKrG-7LflXK6d-a9IxtSZ7kasZiFtS_CA/viewform" target="_blank">this form</a> to reserve your spot as a Season 2 program site.</p>
-      <p>If you need funding to participate, please note that mini grant opportunities will be published prior to the start date. Sites that have registered their interest to participate in Season 2 will be the first to know! While we cannot cover the total cost of supporting families at your sites, we will work together to build a plan that fits you.</p>
+      <p>If you need funding to participate, mini grant application forms will be sent to partners who have reserved their spot for Season 2 prior to August 1. While we cannot cover the total cost of your program we have modified our curriculum to be more inclusive to all partners worldwide and are no longer requiring the purchase of additional materials. This means more communities from around the world can facilitate this program at little to no cost.</p>
     </div>
   </div>
 </div>
-{% endwith %}
 {% endblock %}

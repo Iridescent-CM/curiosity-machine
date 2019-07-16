@@ -9,8 +9,8 @@
     <ul class="nav">
       <li class="nav-item">
         <a
-          class="nav-link {% if active_nav == 'ai-challenge' %}active{% endif %}"
-          href="{% url 'aichallenge' %}"
+          class="nav-link {% if active_nav == 'about' %}active{% endif %}"
+          href="{% url 'about' %}"
           id="aichallenge-about-page-nav"
         >
           About AIFC
@@ -18,7 +18,7 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link {% if active_nav == 'ai-worldchampionship' %}active{% endif %}"
+          class="nav-link {% if active_nav == 'worldchampionship' %}active{% endif %}"
           href="{% url 'aichallenge/worldchampionship' %}"
           id="worldchampionship-aichallenge-page-nav"
         >
@@ -27,7 +27,7 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link {% if active_nav == 'ai-timeline' %}active{% endif %}"
+          class="nav-link {% if active_nav == 'timeline' %}active{% endif %}"
           href="{% url 'aichallenge/timeline' %}"
           id="timeline-aichallenge-page-nav"
         >
@@ -36,8 +36,8 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link {% if active_nav == 'ai-families' %}active{% endif %}"
-          href="{% url 'aichallenge/families' %}"
+          class="nav-link {% if active_nav == 'families' %}active{% endif %}"
+          href="{% url 'families' %}"
           id="families-aichallenge-page-nav"
         >
           Families
@@ -45,11 +45,11 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link {% if active_nav == 'ai-coaches' %}active{% endif %}"
-          href="{% url 'aichallenge/coaches' %}"
+          class="nav-link {% if active_nav == 'program-leaders' %}active{% endif %}"
+          href="{% url 'program-leaders' %}"
           id="coaches-aichallenge-page-nav"
         >
-          Mentors
+          Program Leaders
         </a>
       </li>
       <li class="nav-item">
@@ -59,43 +59,6 @@
           id="partnership-about-page-nav"
         >
           Volunteers
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          href="https://iridescentsupport.zendesk.com/hc/en-us/categories/115000091368-Curiosity-Machine"
-          target="_blank"
-          id="faq-about-page-nav"
-        >
-          FAQ
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link {% if active_nav == 'about' %}active{% endif %}"
-          href="{% url 'about' %}"
-          id="about-page-nav"
-        >
-          About Us
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link {% if active_nav == 'parents' %}active{% endif %}"
-          href="{% url 'parents' %}"
-          id="parent-about-page-nav"
-        >
-          Parents
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link {% if active_nav == 'educator' %}active{% endif %}"
-          href="{% url 'educator' %}"
-          id="educator-about-page-nav"
-        >
-          Mentors
         </a>
       </li>
       <li class="nav-item">

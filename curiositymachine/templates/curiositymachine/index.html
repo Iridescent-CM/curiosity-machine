@@ -3,7 +3,6 @@
 
 {% block body-id %}index-page{% endblock %}
 {% block content %}
-{% with source="aichallenge" %}
   <div class="home-top-panel">
     <div class="jumbotron jumbotron-fluid home-top-panel-gradient">
       <div class="container text-center">
@@ -41,8 +40,8 @@
         <p>Through the Curiosity Machine AI Family Challenge, students and their families explore core concepts of Artificial Intelligence, apply AI tools to solve problems in their communities and have the opportunity to enter their ideas into a global competition.</p>
       </div>
       <div class="col-lg-8 offset-lg-2 text-center mt-5">
-        <a href="{% url "account_signup" source=source %}" class="btn btn-primary text-uppercase mx-3" target="_blank">sign up now</a>
-        <a href="{% url "aichallenge" %}"
+        <a href="{% url "account_signup" %}" class="btn btn-primary text-uppercase mx-3" target="_blank">sign up now</a>
+        <a href="{% url "about" %}"
         class="btn btn-primary text-uppercase mx-3"
         target="_blank">learn more</a>
       </div>
@@ -133,5 +132,4 @@
       </div>
     </div>
   </div>
-{% endwith %}
 {% endblock %}

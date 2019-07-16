@@ -79,6 +79,31 @@ urlpatterns += [
         public(RedirectView.as_view(url='https://iridescentsupport.zendesk.com/hc/en-us/categories/115000091368-Curiosity-Machine', permanent=True)),
         name='faq'
     ),
+    url(
+        r'^educator/',
+        public(RedirectView.as_view(url="/program-leaders", permanent=True)),
+        name='educator'
+    ),
+    url(
+        r'^aichallenge/coaches/',
+        public(RedirectView.as_view(url="/program-leaders", permanent=True)),
+        name='coaches'
+    ),
+    url(
+        r'^aichallenge/families/',
+        public(RedirectView.as_view(url="/families", permanent=True)),
+        name='families'
+    ),
+    url(
+        r'^parents/',
+        public(RedirectView.as_view(url="/families", permanent=True)),
+        name='parents'
+    ),
+    url(
+        r'^aichallenge/',
+        public(RedirectView.as_view(url="/about", permanent=True)),
+        name='aichallnge'
+    ),
 
     url(r'^summernote/', include('django_summernote.urls')),
     url(r'^units/', include('units.urls', namespace='units', app_name='units'), name='units'),
