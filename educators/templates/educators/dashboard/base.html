@@ -41,15 +41,6 @@
         </div>
       </div>
 
-      {% if messages %}{% for message in messages %}
-        <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {{ message }}
-        </div>
-      {% endfor %}{% endif %}
-
       <div class="row">
         {% include 'educators/dashboard/_navigation.html' %}
       </div>
