@@ -140,7 +140,7 @@ class PostSurveyInterruptionView(TemplateView):
         return self.get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        postsurvey = get_survey(settings.AICHALLENGE_FAMILY_POST_SURVEY_ID)
+        postsurvey = get_survey('FAMILY_POST')
         return super().get_context_data(
             **kwargs,
             postsurvey=postsurvey.response(self.request.user),
