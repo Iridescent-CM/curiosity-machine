@@ -100,7 +100,7 @@ urlpatterns += [
         name='parents'
     ),
     url(
-        r'^aichallenge/',
+        r'^aichallenge/$',
         public(RedirectView.as_view(url="/about", permanent=True)),
         name='aichallnge'
     ),
