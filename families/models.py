@@ -45,7 +45,7 @@ class FamilyProfile(BaseProfile):
 
     @property
     def presurvey_completed(self):
-        presurvey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID)
+        presurvey = get_survey('FAMILY_PRE')
         if presurvey.active:
             response = presurvey.response(self.user)
             if not response.completed:

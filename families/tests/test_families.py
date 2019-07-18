@@ -19,16 +19,15 @@ def test_full_access_granted_without_survey_when_not_required():
 
 @pytest.mark.django_db
 def test_full_access_granted_with_survey_when_required(settings):
-    settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID = 123
-    settings.SURVEY_123_LINK = 'x'
-    settings.SURVEY_123_ACTIVE = 1
+    settings.SURVEY_FAMILY_PRE_LINK = 'x'
+    settings.SURVEY_FAMILY_PRE_ACTIVE = 1
 
     account = FamilyFactory(familyprofile__location__country='GB')
     PermissionSlipFactory(account=account)
     assert not account.familyprofile.check_full_access()
 
     SurveyResponse.objects.filter(user=account).delete()
-    SurveyResponseFactory(user=account, survey_id=settings.AICHALLENGE_FAMILY_PRE_SURVEY_ID, status="COMPLETED")
+    SurveyResponseFactory(user=account, survey_id='FAMILY_PRE', status="COMPLETED")
 
     assert account.familyprofile.check_full_access()
 

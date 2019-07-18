@@ -133,7 +133,7 @@ class Integrating(object):
 
 class AwardForceChecklist(object):
 
-    post_survey = get_survey(settings.AICHALLENGE_FAMILY_PRE_SUBMISSION_SURVEY_ID)
+    post_survey = get_survey('FAMILY_PRE_SUBMISSION')
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
