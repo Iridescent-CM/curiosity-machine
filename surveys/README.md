@@ -18,10 +18,7 @@ SURVEY_123_LINK="http://surveymonkey/whatever"
 `SURVEY_<id>_LINK` is the only required configuration as far as `SurveyResponse` is concerned,
 and should be the survey link **without** the token parameters.
 
-The id can really be anything unique from other configured surveys, but using the Surveymonkey survey id
-is an easy way to go. Note that this naming scheme won't work if you want the same survey delivered
-multiple times depending on the context, in which case you'll need differing ids pointing to the same
-survey link.
+The id can really be anything unique from other configured surveys, but a short descriptive name is good.
 
 ## Configuring in Surveymonkey
 
@@ -39,7 +36,7 @@ are handled for an example of how the middleware can work. It additionally wants
 set to toggle the interrupt on or off. Here's the general idea:
 
 ```
-survey = get_survey(settings.SOME_SURVEY_ID)
+survey = get_survey('SOME_SURVEY')
 if survey.active:
     response = post_survey.response(request.user)
     if not response.completed:
