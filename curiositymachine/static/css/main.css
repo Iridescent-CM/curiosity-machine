@@ -8824,6 +8824,12 @@ footer {
     vertical-align: middle;
     width: 16.6%; }
 
+.rebrand-banner {
+  background: #FF7500;
+  color: white; }
+  .rebrand-banner a {
+    color: white; }
+
 #educator-about-page .cm-card {
   max-width: 260px;
   min-height: 375px; }

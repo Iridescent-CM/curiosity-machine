@@ -41,6 +41,7 @@ $theme-colors: (
 @import 'components/progress-graph';
 @import 'components/quiz';
 @import 'components/tables';
+@import 'components/rebrand-banner';
 
 @import 'pages/about-educator';
 @import 'pages/about-aichallenge';
@@ -53,6 +54,7 @@ $theme-colors: (
 @import 'pages/home';
 @import 'pages/lessons';
 @import 'pages/aifc-pages';
+@import 'pages/rebrand';
 
 @import 'utils/backgrounds';
 @import 'utils/cloak';
