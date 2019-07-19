@@ -3,6 +3,25 @@
 
 {% block body-id %}index-page{% endblock %}
 {% block content %}
+  {% if flags.enable_rebrand %}
+  <div class="rebrand-banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <p class="text-center h3">
+            Curiosity Machine and AI Family Challenge are now Technovation Families
+          </p>
+        </div>
+        <div class="col-6">
+          <a href="{% url "evolving" %}">Read more about our exciting transition here</a>
+        </div>
+        <div class="col-6 text-right">
+          <a href="#">Start Season 2 of our AI challenge here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
   <div class="home-top-panel">
     <div class="jumbotron jumbotron-fluid home-top-panel-gradient">
       <div class="container text-center">
