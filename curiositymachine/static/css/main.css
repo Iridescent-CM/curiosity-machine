@@ -8827,6 +8827,8 @@ footer {
 .rebrand-banner {
   background: #FF7500;
   color: white; }
+  .rebrand-banner, .rebrand-banner * {
+    font-family: 'Poppins', sans-serif; }
   .rebrand-banner a {
     color: white; }
 

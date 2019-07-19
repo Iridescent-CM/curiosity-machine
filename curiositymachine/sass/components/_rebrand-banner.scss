@@ -1,6 +1,9 @@
 .rebrand-banner {
   background: #FF7500;
   color: white;
+  &, * {
+    font-family: 'Poppins', sans-serif;
+  }
 
   a {
     color: white;
