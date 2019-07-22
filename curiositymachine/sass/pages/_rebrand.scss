@@ -1,0 +1,10 @@
+.rebrand {
+  .circles-banner {
+    background-color: white;
+    text-align: center;
+    background-image: url("../images/circles-bkg-left.png"), url("../images/circles-bkg-right.png");
+    background-size: contain, contain;
+    background-position: left bottom, right top;
+    background-repeat: no-repeat, no-repeat;
+  }
+}

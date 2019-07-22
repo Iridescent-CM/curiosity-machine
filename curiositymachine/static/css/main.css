@@ -8824,6 +8824,14 @@ footer {
     vertical-align: middle;
     width: 16.6%; }
 
+.rebrand-banner {
+  background: #FF7500;
+  color: white; }
+  .rebrand-banner, .rebrand-banner * {
+    font-family: 'Poppins', sans-serif; }
+  .rebrand-banner a {
+    color: white; }
+
 #educator-about-page .cm-card {
   max-width: 260px;
   min-height: 375px; }
@@ -9741,6 +9749,14 @@ footer {
     position: relative;
     width: 20%;
     float: left; } }
+
+.rebrand .circles-banner {
+  background-color: white;
+  text-align: center;
+  background-image: url("../images/circles-bkg-left.png"), url("../images/circles-bkg-right.png");
+  background-size: contain, contain;
+  background-position: left bottom, right top;
+  background-repeat: no-repeat, no-repeat; }
 
 .bg-primary {
   background-color: #00B1C3;
