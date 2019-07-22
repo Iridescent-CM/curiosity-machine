@@ -9750,6 +9750,14 @@ footer {
     width: 20%;
     float: left; } }
 
+.rebrand .circles-banner {
+  background-color: white;
+  text-align: center;
+  background-image: url("../images/circles-bkg-left.png"), url("../images/circles-bkg-right.png");
+  background-size: contain, contain;
+  background-position: left bottom, right top;
+  background-repeat: no-repeat, no-repeat; }
+
 .bg-primary {
   background-color: #00B1C3;
   color: #fff; }
