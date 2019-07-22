@@ -8,7 +8,7 @@
 <div class="container-fluid py-4 circles-banner">
   <h1 class="my-4">We're evolving</h1>
 </div>
-<div class="container">
+<div class="container mb-4">
   <div class="row">
     <div class="col-md-10 offset-md-1 mt-5">
       <div class="row">
@@ -20,42 +20,53 @@
           We’ve also renamed our programs to clearly connect them to Technovation and address feedback we’ve received from our partners. <strong>The educational focus of each program is not changing.</strong>
           </p>
         </div>
-        <div class="col-6">
+      </div>
+      <div class="row">
+        <div class="col-7">
           <p>
-            AI Family Challenge will be called Technovation Families. 
+            AI Family Challenge will be called <strong>Technovation Families</strong>. 
           </p>
           <p>
             The program brings together families, schools, communities and industry mentors to learn, play, and create with artificial intelligence. 
           </p>
           <p>
-            Season 2 of our AI challenge is now open. Sign-up today.
+            Season 2 of our AI challenge is now open. <a href="{% url "account_signup" %}">Sign-up today</a>.
           </p>
         </div>
-        <div class="col-6 text-center">
-          <img src="https://place-hold.it/300" alt="a 300x300 placeholder">
+        <div class="col-5 text-center">
+          <img src="{% static 'images/evolving1.png' %}" alt="Program participants">
         </div>
+      </div>
+      <div class="row py-4">
         <div class="col-12">
           <p class="text-center">
-            STEM challenges created for Curiosity Machine will remain available on this website. See all the challenges. 
+            STEM challenges created for Curiosity Machine will remain available on this website.
+            <a href="{% url "challenges:challenges" %}">See all the challenges</a>.
           </p>
         </div>
-        <div class="col-6 text-center">
-          <img src="https://place-hold.it/300" alt="a 300x300 placeholder">
+      </div>
+      <div class="row">
+        <div class="col-5 text-center">
+          <img src="{% static 'images/evolving2.png' %}" alt="Program participants">
         </div>
-        <div class="col-6">
+        <div class="col-7">
           <p>
-            Technovation will be called Technovation Girls. 
+            Technovation will be called <strong>Technovation Girls</strong>. 
           </p>
           <p>
             The program equips young women ages 10-18 with the skills to become tech entrepreneurs and leaders. 
           </p>
           <p>
-            Tell me when the next season starts. 
+            <a href="http://eepurl.com/gk5J_D">Tell me when the next season starts</a>.
           </p>
         </div>
+      </div>
+      <div class="row py-4">
         <div class="col-12 text-center">
-          <a href="#">Learn more about Technovation.</a>
+          <a href="https://technovation.org">Learn more about Technovation.</a>
         </div>
+      </div>
+      <div class="row"
         <div class="col-12">
           <p>
             We look forward to this next step in our growth and to continuing to collaborate with our partners to empower girls and families to be real-world problem solvers using technology.

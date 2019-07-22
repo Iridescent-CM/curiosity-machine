@@ -16,7 +16,7 @@
           <a href="{% url "evolving" %}">Read more about our exciting transition here &gt;</a>
         </div>
         <div class="col-6 text-right">
-          <a href="#">Start Season 2 of our AI challenge here &gt;</a>
+          <a href="{% url "lessons:lesson-list" %}">Start Season 2 of our AI challenge here &gt;</a>
         </div>
       </div>
     </div>
@@ -26,7 +26,11 @@
     <div class="jumbotron jumbotron-fluid home-top-panel-gradient">
       <div class="container text-center">
         <h1 class="home-title">Imagine a better world</br>and build it together</h1>
+        {% if flags.enable_rebrand %}
+        <h3 class="home-subtitle">Learn, play, and create with artificial intelligence</h3>
+        {% else %}
         <h3 class="home-subtitle">Start building with Curiosity Machine.</h3>
+        {% endif %}
         <a href="{% url "account_signup" %}" class="btn btn-primary btn-lg text-uppercase">Get Started</a>
         <h5 class="text-white"> or <a href="#" data-toggle="modal" data-target="#login-modal" class="a-borderless text-white">Log in</a></h5>
       </div>
