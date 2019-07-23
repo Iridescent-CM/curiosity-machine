@@ -9752,6 +9752,11 @@ footer {
 
 .rebrand {
   font-family: 'Poppins', sans-serif; }
+  .rebrand h1 {
+    font-family: 'Rubik Mono One', sans-serif;
+    color: #0076CF; }
+  .rebrand a:not(.btn) {
+    color: #0076CF; }
   .rebrand .circles-banner {
     background-color: white;
     text-align: center;
@@ -9763,7 +9768,8 @@ footer {
   .rebrand .btn-primary:active,
   .rebrand .btn-primary:not(:disabled):not(.disabled):active {
     background-color: #1d1349;
-    border-color: #1d1349; }
+    border-color: #1d1349;
+    white-space: normal; }
 
 .bg-primary {
   background-color: #00B1C3;

@@ -1,6 +1,15 @@
 .rebrand {
   font-family: 'Poppins', sans-serif;
 
+  h1 {
+    font-family: 'Rubik Mono One', sans-serif;
+    color: #0076CF;
+  }
+
+  a:not(.btn) {
+    color: #0076CF;
+  }
+
   .circles-banner {
     background-color: white;
     text-align: center;
@@ -15,5 +24,6 @@
   .btn-primary:not(:disabled):not(.disabled):active {
     background-color: #1d1349;
     border-color: #1d1349;
+    white-space: normal;
   }
 }
