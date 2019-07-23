@@ -1,5 +1,10 @@
 .rebrand-banner {
-  background: #FF7500;
+  background-color: #FF7500;
+  background-image: url("../images/rebrand-banner-bkg.png");
+  background-size: contain;
+  background-position: right top;
+  background-repeat: no-repeat;
+
   color: white;
   &, * {
     font-family: 'Poppins', sans-serif;

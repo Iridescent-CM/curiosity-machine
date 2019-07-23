@@ -8825,7 +8825,11 @@ footer {
     width: 16.6%; }
 
 .rebrand-banner {
-  background: #FF7500;
+  background-color: #FF7500;
+  background-image: url("../images/rebrand-banner-bkg.png");
+  background-size: contain;
+  background-position: right top;
+  background-repeat: no-repeat;
   color: white; }
   .rebrand-banner, .rebrand-banner * {
     font-family: 'Poppins', sans-serif; }
@@ -9750,13 +9754,26 @@ footer {
     width: 20%;
     float: left; } }
 
-.rebrand .circles-banner {
-  background-color: white;
-  text-align: center;
-  background-image: url("../images/circles-bkg-left.png"), url("../images/circles-bkg-right.png");
-  background-size: contain, contain;
-  background-position: left bottom, right top;
-  background-repeat: no-repeat, no-repeat; }
+.rebrand {
+  font-family: 'Poppins', sans-serif; }
+  .rebrand h1 {
+    font-family: 'Rubik Mono One', sans-serif;
+    color: #0076CF; }
+  .rebrand a:not(.btn) {
+    color: #0076CF; }
+  .rebrand .circles-banner {
+    background-color: white;
+    text-align: center;
+    background-image: url("../images/circles-bkg-left.png"), url("../images/circles-bkg-right.png");
+    background-size: contain, contain;
+    background-position: left bottom, right top;
+    background-repeat: no-repeat, no-repeat; }
+  .rebrand .btn-primary,
+  .rebrand .btn-primary:active,
+  .rebrand .btn-primary:not(:disabled):not(.disabled):active {
+    background-color: #1d1349;
+    border-color: #1d1349;
+    white-space: normal; }
 
 .bg-primary {
   background-color: #00B1C3;
