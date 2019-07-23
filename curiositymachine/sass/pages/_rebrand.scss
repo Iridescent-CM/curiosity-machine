@@ -1,4 +1,6 @@
 .rebrand {
+  font-family: 'Poppins', sans-serif;
+
   .circles-banner {
     background-color: white;
     text-align: center;
@@ -6,5 +8,12 @@
     background-size: contain, contain;
     background-position: left bottom, right top;
     background-repeat: no-repeat, no-repeat;
+  }
+
+  .btn-primary,
+  .btn-primary:active,
+  .btn-primary:not(:disabled):not(.disabled):active {
+    background-color: #1d1349;
+    border-color: #1d1349;
   }
 }

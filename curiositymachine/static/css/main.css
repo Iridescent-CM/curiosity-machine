@@ -9750,13 +9750,20 @@ footer {
     width: 20%;
     float: left; } }
 
-.rebrand .circles-banner {
-  background-color: white;
-  text-align: center;
-  background-image: url("../images/circles-bkg-left.png"), url("../images/circles-bkg-right.png");
-  background-size: contain, contain;
-  background-position: left bottom, right top;
-  background-repeat: no-repeat, no-repeat; }
+.rebrand {
+  font-family: 'Poppins', sans-serif; }
+  .rebrand .circles-banner {
+    background-color: white;
+    text-align: center;
+    background-image: url("../images/circles-bkg-left.png"), url("../images/circles-bkg-right.png");
+    background-size: contain, contain;
+    background-position: left bottom, right top;
+    background-repeat: no-repeat, no-repeat; }
+  .rebrand .btn-primary,
+  .rebrand .btn-primary:active,
+  .rebrand .btn-primary:not(:disabled):not(.disabled):active {
+    background-color: #1d1349;
+    border-color: #1d1349; }
 
 .bg-primary {
   background-color: #00B1C3;
