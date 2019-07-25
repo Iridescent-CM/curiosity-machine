@@ -66,6 +66,7 @@ class SurveyCompletedView(RedirectView):
         if (
             settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS
             or (referer and 'surveymonkey.com' in urlparse(referer).netloc)
+            or (referer and urlparse(referer).netloc == self.request.get_host())
         ):
             Updating(surveyresponse, ResponseStatus.COMPLETED).run()
             if survey.message:
