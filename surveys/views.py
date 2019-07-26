@@ -58,21 +58,16 @@ status_hook = csrf_exempt(SurveyResponseHook.as_view())
 class SurveyCompletedView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
-        referer = self.request.META.get('HTTP_REFERER')
+        token_var = settings.SURVEYMONKEY_TOKEN_VAR
+        token = self.request.GET.get(token_var, None)
         pk = kwargs.get('survey_pk')
-        survey = get_survey(pk)
-        surveyresponse = get_object_or_404(SurveyResponse, survey_id=pk, user=self.request.user)
 
-        if (
-            settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS
-            or (referer and 'surveymonkey.com' in urlparse(referer).netloc)
-            or (referer and urlparse(referer).netloc == self.request.get_host())
-        ):
-            Updating(surveyresponse, ResponseStatus.COMPLETED).run()
-            if survey.message:
-                messages.success(self.request, survey.message)
-        else:
-            logger.warning("Referer missing or failed check: %s" % referer)
+        survey = get_survey(pk)
+        surveyresponse = get_object_or_404(SurveyResponse, id=token, user=self.request.user)
+
+        Updating(surveyresponse, ResponseStatus.COMPLETED).run()
+        if survey.message:
+            messages.success(self.request, survey.message)
 
         view = getattr(survey, "redirect", "profiles:home")
 
