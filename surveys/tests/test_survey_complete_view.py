@@ -13,9 +13,9 @@ def test_completes(client, settings):
     assert sr.unknown
 
     client.login(username='username', password='password')
+    qparams = "?%s=%s" % (settings.SURVEYMONKEY_TOKEN_VAR, sr.id)
     client.get(
-        reverse("surveys:survey_completed", kwargs={"survey_pk": sr.survey_id}),
-        HTTP_REFERER="https://www.surveymonkey.com/r/ABCD123"
+        reverse("surveys:survey_completed", kwargs={"survey_pk": sr.survey_id}) + qparams
     )
     sr.refresh_from_db()
     assert sr.completed
@@ -30,9 +30,9 @@ def test_redirects_as_configured(client, settings):
     sr = SurveyResponseFactory(user=user, survey_id=987)
 
     client.login(username='username', password='password')
+    qparams = "?%s=%s" % (settings.SURVEYMONKEY_TOKEN_VAR, sr.id)
     response = client.get(
-        reverse("surveys:survey_completed", kwargs={"survey_pk": 987}),
-        HTTP_REFERER="https://www.surveymonkey.com/r/ABCD123"
+        reverse("surveys:survey_completed", kwargs={"survey_pk": 987}) + qparams
     )
     assert isinstance(response, HttpResponseRedirect)
     assert response.url == reverse("logout")
@@ -47,24 +47,9 @@ def test_sets_message_as_configured(client, settings):
     sr = SurveyResponseFactory(user=user, survey_id=987)
 
     client.login(username='username', password='password')
+    qparams = "?%s=%s" % (settings.SURVEYMONKEY_TOKEN_VAR, sr.id)
     response = client.get(
-        reverse("surveys:survey_completed", kwargs={"survey_pk": 987}),
-        HTTP_REFERER="https://www.surveymonkey.com/r/ABCD123",
+        reverse("surveys:survey_completed", kwargs={"survey_pk": 987}) + qparams,
         follow=True
     )
     assert "great job everybody" in response.content.decode('utf-8')
-
-@pytest.mark.django_db
-def test_no_referer(client, settings):
-    settings.ALLOW_SURVEY_RESPONSE_HOOK_BYPASS=False
-    user = UserFactory(username='username', password='password')
-    sr = SurveyResponseFactory(user=user)
-    setattr(settings, "SURVEY_%s_LINK" % sr.survey_id, "link")
-
-    client.login(username='username', password='password')
-    client.get(
-        reverse("surveys:survey_completed", kwargs={"survey_pk": sr.survey_id}),
-        # no HTTP_REFERER
-    )
-    sr.refresh_from_db()
-    assert sr.unknown
