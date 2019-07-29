@@ -13,7 +13,7 @@ class TabbedLesson(object):
         "further": "Further learning",
     })
 
-    def __init__(self, lesson, current_page, progress=None):
+    def __init__(self, lesson, current_page=None, progress=None):
         self.lesson = lesson
         self.progress = progress
         self.current_page = current_page or "start"
@@ -66,7 +66,7 @@ class TabbedLesson(object):
 
     @property
     def next_lesson_url(self):
-        next_lesson = Lesson.objects.filter(order__gt=self.lesson.order + 1, draft=False).order_by('order').first()
+        next_lesson = Lesson.objects.filter(order__gt=self.lesson.order, draft=False).order_by('order').first()
         if not next_lesson:
             return None
 
