@@ -31,6 +31,18 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   <!-- End Google Tag Manager -->
   {% endif %}
 
+  {% if flags.enable_rebrand %}
+  <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-96x96.png' %}" sizes="96x96">
+  <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-32x32.png' %}" sizes="32x32">
+  <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-16x16.png' %}" sizes="16x16">
+
+  <meta name="description" content="Explore, play, and build with Artificial Intelligence as a family. Create AI-based solutions to problems in your community, together." />
+
+  <meta property="og:url" content="{{ SITE_URL }}" />
+  <meta property="og:title" content="{% block social-title %}Technovation Families – AI Education for Families{% endblock%}" />
+  <meta property="og:description" content="{% block social-description %}Learn, play, and build a better world using artificial intelligence.{% endblock%}" />
+  <meta property="og:image" content="{% block social-image %}{{ SITE_URL }}{% static 'images/social.png' %}{% endblock%}" />
+  {% else %}
   <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicons/apple-touch-icon-57x57.png' %}">
   <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicons/apple-touch-icon-114x114.png' %}">
   <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicons/apple-touch-icon-72x72.png' %}">
@@ -53,6 +65,7 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   <meta property="og:title" content="Curiosity Machine – Hands-on Science Projects" />
   <meta property="og:description" content="Free hands-on science and engineering projects for families and mentors. Build 80+ projects with everyday household materials." />
   <meta property="og:image" content="{{ SITE_URL }}{% static 'images/cm-thumbnail.jpg' %}" />
+  {% endif %}
 
   <link href='//fonts.googleapis.com/css?family=Raleway:300,400,700|Open+Sans:400,700' rel='stylesheet' type='text/css'>
   {% block css %}{% endblock %}

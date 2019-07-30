@@ -6,7 +6,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{% block title %}Hands-on Science Projects{% endblock %} | Curiosity Machine</title>
+  <title>
+  {% block title %}
+  {% if flags.enable_rebrand %}AI Education for Families{% else %}Hands-on Science Projects{% endif %}
+  {% endblock %}
+  |
+  {% if flags.enable_rebrand %}Technovation Families{% else %}Curiosity Machine{% endif %}
+  </title>
   <script>
     var _rollbarConfig = {
       accessToken: "{{ ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN }}",
@@ -34,6 +40,11 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   <!-- End Google Tag Manager -->
   {% endif %}
 
+  {% if flags.enable_rebrand %}
+  <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-96x96.png' %}" sizes="96x96">
+  <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-32x32.png' %}" sizes="32x32">
+  <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-16x16.png' %}" sizes="16x16">
+  {% else %}
   <!-- favicons -->
   <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicons/apple-touch-icon-57x57.png' %}">
   <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicons/apple-touch-icon-114x114.png' %}">
@@ -50,13 +61,18 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-32x32.png' %}" sizes="32x32">
   <meta name="msapplication-TileColor" content="#ffc40d">
   <meta name="msapplication-TileImage" content="{% static 'images/favicons/mstile-144x144.png' %}">
+  {% endif %}
 
+  {% if flags.enable_rebrand %}
+  <meta name="description" content="Explore, play, and build with Artificial Intelligence as a family. Create AI-based solutions to problems in your community, together." />
+  {% else %}
   <meta name="description" content="Free hands-on science and engineering projects for families and mentors. Build 80+ projects with everyday household materials." />
+  {% endif %}
 
   <meta property="og:url" content="{{ SITE_URL }}" />
-  <meta property="og:title" content="{% block social-title %}Curiosity Machine – Hands-on Science Projects{% endblock%}" />
-  <meta property="og:description" content="{% block social-description %}Free hands-on science and engineering projects for families and mentors. Build 80+ projects with everyday household materials.{% endblock%}" />
-  <meta property="og:image" content="{% block social-image %}{{ SITE_URL }}{% static 'images/cm-thumbnail.jpg' %}{% endblock%}" />
+  <meta property="og:title" content="{% block social-title %}{% if flags.enable_rebrand %}Technovation Families – AI Education for Families{% else %}Curiosity Machine – Hands-on Science Projects{% endif %}{% endblock%}" />
+  <meta property="og:description" content="{% block social-description %}{% if flags.enable_rebrand %}Learn, play, and build a better world using artificial intelligence.{% else %}Free hands-on science and engineering projects for families and mentors. Build 80+ projects with everyday household materials.{% endif %}{% endblock%}" />
+  <meta property="og:image" content="{% block social-image %}{% if flags.enable_rebrand %}{{ SITE_URL }}{% static 'images/social.png' %}{% else %}{{ SITE_URL }}{% static 'images/cm-thumbnail.jpg' %}{% endif %}{% endblock%}" />
 
   <link href='//fonts.googleapis.com/css?family=Raleway:300,400,700%7COpen+Sans:400,700' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
