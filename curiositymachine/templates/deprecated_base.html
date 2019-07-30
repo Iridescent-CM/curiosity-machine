@@ -3,8 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{% block title %}Hands-on Science Projects{% endblock %} | Curiosity Machine</title>
-  <!-- favicons -->
+  <title>
+  {% block title %}
+  {% if flags.enable_rebrand %}AI Education for Families{% else %}Hands-on Science Projects{% endif %}
+  {% endblock %}
+  |
+  {% if flags.enable_rebrand %}Technovation Families{% else %}Curiosity Machine{% endif %}
+  </title>
   {% if ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN %}
   <script>
     var _rollbarConfig = {
