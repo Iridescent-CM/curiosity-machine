@@ -183,6 +183,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ACCOUNT_ADAPTER = 'curiositymachine.allauth_adapter.AllAuthAdapter'
 ACCOUNT_USERNAME_VALIDATORS = 'curiositymachine.validators.username_validators'
 ACCOUNT_SIGNUP_FORM_CLASS = 'curiositymachine.forms.SignupExtraForm'
+ACCOUNT_SIGNUP_HONEYPOT_FIELD = 'phonenumber'
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 ACCOUNT_UNIQUE_EMAIL = False
 ACCOUNT_EMAIL_REQUIRED = True

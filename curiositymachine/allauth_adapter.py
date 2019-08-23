@@ -43,3 +43,12 @@ class AllAuthAdapter(DefaultAccountAdapter):
         user = super().save_user(request, user, form, commit=commit)
         add_event(request, "account", "create")
         return user
+
+    def is_open_for_signup(self, request):
+        fieldname = settings.ACCOUNT_SIGNUP_HONEYPOT_FIELD
+        if request.method == 'POST':
+            if fieldname not in request.POST or request.POST[fieldname] != '':
+                logger.warning("Honeypot caught sign up attempt, %s", { k: request.POST.get(k, '') for k in ['username', 'email', fieldname]})
+                return False
+        return True
+
