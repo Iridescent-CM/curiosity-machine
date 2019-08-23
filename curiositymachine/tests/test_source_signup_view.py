@@ -1,4 +1,5 @@
 import pytest
+from django.conf import settings
 from django.urls import reverse
 from profiles.models import UserExtra
 from pyquery import PyQuery as pq
@@ -9,7 +10,8 @@ def signup_formdata(**kwargs):
         "password1": "password",
         "password2": "password",
         "email": "email@email.com",
-        "source": "test_source"
+        "source": "test_source",
+        settings.ACCOUNT_SIGNUP_HONEYPOT_FIELD: ""
     }, **kwargs)
 
 @pytest.mark.django_db
