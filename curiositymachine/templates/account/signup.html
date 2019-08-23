@@ -25,6 +25,10 @@
     {% if form.email2 %}
       {% form_group form.email2 %}
     {% endif %}
+    <div style="display: none;">
+      <label>Leave this field blank to prove you are a human</label>
+      <input type="text" name="{{ ACCOUNT_SIGNUP_HONEYPOT_FIELD }}" id="id_{{ ACCOUNT_SIGNUP_HONEYPOT_FIELD }}"/>
+    </div>
     {% form_group form.password1 %}
     {% form_group form.password2 %}
     {{ form.source }}

@@ -9,5 +9,6 @@ def template_globals(request):
         "ROLLBAR_ENV": settings.ROLLBAR_ENV,
         "ROLLBAR_VERBOSE": settings.ROLLBAR_VERBOSE,
         "FILEPICKER_API_KEY": settings.FILEPICKER_API_KEY,
+        "ACCOUNT_SIGNUP_HONEYPOT_FIELD": settings.ACCOUNT_SIGNUP_HONEYPOT_FIELD,
     }
 
