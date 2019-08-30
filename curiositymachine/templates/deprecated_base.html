@@ -5,10 +5,10 @@
 <head>
   <title>
   {% block title %}
-  {% if flags.enable_rebrand %}AI Education for Families{% else %}Hands-on Science Projects{% endif %}
+  AI Education for Families
   {% endblock %}
   |
-  {% if flags.enable_rebrand %}Technovation Families{% else %}Curiosity Machine{% endif %}
+  Technovation Families
   </title>
   {% if ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN %}
   <script>
@@ -36,7 +36,6 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   <!-- End Google Tag Manager -->
   {% endif %}
 
-  {% if flags.enable_rebrand %}
   <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-96x96.png' %}" sizes="96x96">
   <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-32x32.png' %}" sizes="32x32">
   <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-16x16.png' %}" sizes="16x16">
@@ -47,30 +46,6 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   <meta property="og:title" content="{% block social-title %}Technovation Families – AI Education for Families{% endblock%}" />
   <meta property="og:description" content="{% block social-description %}Learn, play, and build a better world using artificial intelligence.{% endblock%}" />
   <meta property="og:image" content="{% block social-image %}{{ SITE_URL }}{% static 'images/social.png' %}{% endblock%}" />
-  {% else %}
-  <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicons/apple-touch-icon-57x57.png' %}">
-  <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicons/apple-touch-icon-114x114.png' %}">
-  <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicons/apple-touch-icon-72x72.png' %}">
-  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicons/apple-touch-icon-144x144.png' %}">
-  <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicons/apple-touch-icon-60x60.png' %}">
-  <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicons/apple-touch-icon-120x120.png' %}">
-  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicons/apple-touch-icon-76x76.png' %}">
-  <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicons/apple-touch-icon-152x152.png' %}">
-  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-196x196.png' %}" sizes="196x196">
-  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-160x160.png' %}" sizes="160x160">
-  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-96x96.png' %}" sizes="96x96">
-  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-16x16.png' %}" sizes="16x16">
-  <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon-32x32.png' %}" sizes="32x32">
-  <meta name="msapplication-TileColor" content="#ffc40d">
-  <meta name="msapplication-TileImage" content="{% static 'images/favicons/mstile-144x144.png' %}">
-
-  <meta name="description" content="Free hands-on science and engineering projects for families and mentors. Build 80+ projects with everyday household materials." />
-
-  <meta property="og:url" content="{{ SITE_URL }}" />
-  <meta property="og:title" content="Curiosity Machine – Hands-on Science Projects" />
-  <meta property="og:description" content="Free hands-on science and engineering projects for families and mentors. Build 80+ projects with everyday household materials." />
-  <meta property="og:image" content="{{ SITE_URL }}{% static 'images/cm-thumbnail.jpg' %}" />
-  {% endif %}
 
   <link href='//fonts.googleapis.com/css?family=Raleway:300,400,700|Open+Sans:400,700' rel='stylesheet' type='text/css'>
   {% block css %}{% endblock %}
@@ -173,17 +148,10 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
           </ul>
         </div>
         <div class="col-xs-12 col-sm-6 text-md-right text-center mt-2">
-          {% if flags.enable_rebrand %}
           <a href="https://instagram.com/technovationglobal" class="a-borderless"><i class="icon-instagram social-icons"></i></a>
           <a href="https://twitter.com/technovation" class="a-borderless"><i class="icon-twitter social-icons"></i></a>
           <a href="https://facebook.com/technovationglobal" class="a-borderless"><i class="icon-facebook social-icons"></i></a>
           <a href="https://youtube.com/user/thecuriositymachine" class="a-borderless"><i class="icon-youtube social-icons"></i></a>
-          {% else %}
-          <a href="https://www.instagram.com/curiositymachine" class="a-borderless"><i class="icon-instagram social-icons"></i></a>
-          <a href="https://twitter.com/Curious_Machine" class="a-borderless"><i class="icon-twitter social-icons"></i></a>
-          <a href="https://www.facebook.com/curiositymachine" class="a-borderless"><i class="icon-facebook social-icons"></i></a>
-          <a href="https://www.youtube.com/user/thecuriositymachine" class="a-borderless"><i class="icon-youtube social-icons"></i></a>
-          {% endif %}
         </div>
 
 
@@ -205,18 +173,11 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
           </div>
         </div>
         <div class="col-xs-12 text-center mt-2">
-          {% if flags.enable_rebrand %}
           <h6>
             &copy; {% now "Y" %} <a href="http://technovation.org/" class="a-borderless">Technovation</a>. All rights reserved.
             Technovation Families (formerly Curiosity Machine) is a program of
             <a href="http://technovation.org/" class="a-borderless">Technovation</a>, a 501c3 nonprofit organization in the United States.
           </h6>
-          {% else %}
-          <h6>
-            &copy; {% now "Y" %} <a href="http://iridescentlearning.org/" class="a-borderless">Iridescent</a>. All rights reserved. Curiosity Machine is a program
-            of <a href="http://iridescentlearning.org/" class="a-borderless">Iridescent</a>, a 501c3 nonprofit organization in the United States.
-          </h6>
-          {% endif %}
         </div>
       </div>
     </div>
