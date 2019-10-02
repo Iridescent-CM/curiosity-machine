@@ -10,7 +10,12 @@
 {% endblock %}
 
 {% block content %}
-  <p>Already have an account? Then please <a href="{{ login_url }}">log in</a>.</p>
+  <p><strong>Learn, play and create with AI</strong></p>
+  <p>Families, Students and Mentors, sign up below to get started.</p>
+  <p>
+    <em>Interested in volunteering?</em>
+    <a href="http://technovationacademy.org" class="ml-1" target="_blank">Click here</a>
+  </p>
   <hr/>
 
   {% if membership %}
@@ -37,4 +42,5 @@
     {% endif %}
     <button type="submit" class="btn btn-primary">Sign Up</button>
   </form>
+  <p class="mt-4">Already have an account? Then please <a href="{{ login_url }}">log in</a>.</p>
 {% endblock %}
