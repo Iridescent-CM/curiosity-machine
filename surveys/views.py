@@ -60,16 +60,14 @@ class SurveyCompletedView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         token_var = settings.SURVEYMONKEY_TOKEN_VAR
         token = self.request.GET.get(token_var, None)
-        pk = kwargs.get('survey_pk')
 
-        survey = get_survey(pk)
         surveyresponse = get_object_or_404(SurveyResponse, id=token, user=self.request.user)
 
         Updating(surveyresponse, ResponseStatus.COMPLETED).run()
-        if survey.message:
-            messages.success(self.request, survey.message)
+        if surveyresponse.message:
+            messages.success(self.request, surveyresponse.message)
 
-        view = getattr(survey, "redirect", "profiles:home")
+        view = getattr(surveyresponse, "redirect", "profiles:home")
 
         return reverse(view)
 
