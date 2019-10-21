@@ -5,5 +5,5 @@ from .views import *
 public = whitelist('public')
 urlpatterns = [
     url(r'^hooks/status/$', public(status_hook), name="status_hook"),
-    url(r'^(?P<survey_pk>[^/]+)/completed/$', completed, name="survey_completed"),
+    url(r'^([^/]+/)?completed/$', completed, name="survey_completed"), # used to take survey_pk as part of url
 ]

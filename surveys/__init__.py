@@ -9,7 +9,7 @@ class Survey:
     }
 
     def __init__(self, id, *args, **kwargs):
-        self.id = id
+        self.id = id.upper()
         if not self.id:
             raise ImproperlyConfigured('Can not instantiate Survey without a valid id')
         if self.active:
