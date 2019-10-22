@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from ...api import Surveymonkey
 from ...jobs import update_status
+import math
 import json
 import pprint
 
@@ -77,6 +78,12 @@ class Command(BaseCommand):
             description="List and edit webhooks; can be used to edit webhook urls, object ids, etc."
         )
         webhooks.add_argument(
+            "--human",
+            action="store_true",
+            dest="human",
+            help="Use human-readable formatting"
+        )
+        webhooks.add_argument(
             "-p", "--page",
             action="store",
             dest="page",
@@ -94,6 +101,18 @@ class Command(BaseCommand):
             action="store",
             dest="patch",
             help="JSON data to PATCH to webhook for update (requires id)"
+        )
+        webhooks.add_argument(
+            "--add-survey",
+            action="store",
+            dest="add_survey_id",
+            help="Add survey to webhook"
+        )
+        webhooks.add_argument(
+            "--remove-survey",
+            action="store",
+            dest="remove_survey_id",
+            help="Remove survey from webhook"
         )
         webhooks.add_argument(
             "--post",
@@ -158,6 +177,10 @@ class Command(BaseCommand):
             self.list_webhooks(**options)
         elif options.get('patch'):
             self.update_webhook(**options)
+        elif options.get('add_survey_id'):
+            self.add_survey_to_webhook(**options)
+        elif options.get('remove_survey_id'):
+            self.remove_survey_from_webhook(**options)
         else:
             self.show_webhook(**options)
 
@@ -172,17 +195,56 @@ class Command(BaseCommand):
             "page": options.get("page")
         }
         res = self.api.get(path, payload)
-        self.pp.pprint(res.json())
+        if options.get('human'):
+            data = res.json()
+            total_pages = math.floor(data['total'] / data['per_page']) + 1
+            print("*** [ Page %d/%d ] ***" % (data['page'], total_pages))
+            for item in data['data']:
+                print("  {id}: {name}".format(**item))
+        else:
+            self.pp.pprint(res.json())
 
     def update_webhook(self, **options):
         path = "webhooks/%s" % options.get('id')
         res = self.api.patch(path, json.loads(options.get('patch')))
         self.pp.pprint(res.json())
 
+    def add_survey_to_webhook(self, **options):
+        path = "webhooks/%s" % options.get('id')
+        res = self.api.get(path)
+        data = res.json()
+
+        obj_ids = data.get('object_ids', [])
+        obj_ids.append(options.get('add_survey_id'))
+        obj_ids = list(set(obj_ids))
+
+        res = self.api.patch(path, { 'object_ids': obj_ids })
+        self.pp.pprint(res.json())
+
+    def remove_survey_from_webhook(self, **options):
+        path = "webhooks/%s" % options.get('id')
+        res = self.api.get(path)
+        data = res.json()
+
+        obj_ids = data.get('object_ids', [])
+        obj_ids.remove(options.get('remove_survey_id'))
+
+        res = self.api.patch(path, { 'object_ids': obj_ids })
+        self.pp.pprint(res.json())
+
     def show_webhook(self, **options):
         path = "webhooks/%s" % options.get('id')
         res = self.api.get(path)
-        self.pp.pprint(res.json())
+        if options.get('human'):
+            data = res.json()
+            print("{id}: {name}\nHits {subscription_url} on {event_type}".format(**data))
+            print("Surveys:")
+            for id in data['object_ids']:
+                obj_res = self.api.get('surveys/%s' % id)
+                obj_data = obj_res.json()
+                print("  {id}: {title}".format(**obj_data))
+        else:
+            self.pp.pprint(res.json())
 
     def handle_update(self, **options):
         update_status(options.get('survey_id'), options.get('response_id'))
