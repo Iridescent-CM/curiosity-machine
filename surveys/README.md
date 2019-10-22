@@ -53,23 +53,23 @@ below.
 
 ### Survey setup checklist
 
--[ ] The name of the survey in Surveymonkey is _ _ _ _ _ _ .
--[ ] It has been configured with the `cmtoken` and `uid` custom variables.
--[ ] You have a collector for the survey.
--[ ] The collector has "Multiple Responses" turned **on**.
--[ ] The survey key in the codebase is _ _ _ _ _ _ .
--[ ] You have set `SURVEY_<your key>_LINK` to the collector URL, without query parameters.
+- [ ] The name of the survey in Surveymonkey is _ _ _ _ _ _ .
+- [ ] It has been configured with the `cmtoken` and `uid` custom variables.
+- [ ] You have a collector for the survey.
+- [ ] The collector has "Multiple Responses" turned **on**.
+- [ ] The survey key in the codebase is _ _ _ _ _ _ .
+- [ ] You have set `SURVEY_<your key>_LINK` to the collector URL, without query parameters.
 
 Additional config:
--[ ] Does the codebase expect additional config for your survey? E.g. `SURVEY_<your key>_ACTIVE=1`. If so, set it.
+- [ ] Does the codebase expect additional config for your survey? E.g. `SURVEY_<your key>_ACTIVE=1`. If so, set it.
 
 If you're redirecting users back to the platform:
--[ ] The survey collector has been configured with a custom "Survey End Page" pointing back to the app.
--[ ] You have set `SURVEY_<your key>_REDIRECT` and/or `SURVEY_<your key>_MESSAGE` as appropriate.
+- [ ] The survey collector has been configured with a custom "Survey End Page" pointing back to the app.
+- [ ] You have set `SURVEY_<your key>_REDIRECT` and/or `SURVEY_<your key>_MESSAGE` as appropriate.
 
 If you're relying on the webhook:
--[ ] Does the environment in question have a webhook? If not, create it.
--[ ] Does the webhook know about your survey? If not, add it.
+- [ ] Does the environment in question have a webhook? If not, create it.
+- [ ] Does the webhook know about your survey? If not, add it.
 
 ## The details
 
