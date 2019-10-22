@@ -51,6 +51,26 @@ And finally, there's a *management command* available that aims to help with all
 and so forth. See `python manage.py surveymonkey -h` for a help statement, or consult the more detailed documentation
 below.
 
+### Survey setup checklist
+
+- [ ] The name of the survey in Surveymonkey is _ _ _ _ _ _ .
+- [ ] It has been configured with the `cmtoken` and `uid` custom variables.
+- [ ] You have a collector for the survey.
+- [ ] The collector has "Multiple Responses" turned **on**.
+- [ ] The survey key in the codebase is _ _ _ _ _ _ .
+- [ ] You have set `SURVEY_<your key>_LINK` to the collector URL, without query parameters.
+
+Additional config:
+- [ ] Does the codebase expect additional config for your survey? E.g. `SURVEY_<your key>_ACTIVE=1`. If so, set it.
+
+If you're redirecting users back to the platform:
+- [ ] The survey collector has been configured with a custom "Survey End Page" pointing back to the app.
+- [ ] You have set `SURVEY_<your key>_REDIRECT` and/or `SURVEY_<your key>_MESSAGE` as appropriate.
+
+If you're relying on the webhook:
+- [ ] Does the environment in question have a webhook? If not, create it.
+- [ ] Does the webhook know about your survey? If not, add it.
+
 ## The details
 
 ### Configuring a Survey on CM
@@ -121,6 +141,13 @@ its related options to find those.
 
 ##### Reconfiguring
 
+**The new way**:
+If a webhook for your environment exists, you can add your survey to it with the
+`surveymonkey webhooks --id <webhook id> --add-survey <survey id>` or
+`surveymonkey webhooks --id <webhook id> --remove-survey <survey id>` management commands.
+
+**The old way**:
+
 If a webhook for your environment exists, you can add your survey to it by modifying
 `objects_ids` with `python manage.py surveymonkey webhooks --patch '{"object_ids":[...]}'`.
 Don't forget to include any old survey ids that are still relevant, while adding your
@@ -136,13 +163,14 @@ the redirect method which relies on the survey id and identity of the current us
 #### Configuring a redirect
 
 On the Web Link Collector, modify the Survey End Page. Choose the custom end page option, and
-set it to something like `https://www.curiositymachine.org/surveys/SOME_SURVEY/completed/`, if for example
-your survey ID was SOME_SURVEY.
+set it to something like `https://www.curiositymachine.org/surveys/completed/`. Surveymonkey will append
+the `cmtoken` query param sent across originally, letting the platfrom look up the `SurveyResponse`
+directly, without putting the Survey key in the url (as used to be required).
 
 You can set `SURVEY_SOME_SURVEY_REDIRECT=<app:view_name>` to specify where to redirect, or otherwise the user
 will be redirect to their dashboard upon returning to CM after completing their survey this way.
 
-You can optionally configure `SURVEY_SOME_SURVEY_MESSAGE=some text here` to include a success message on 
+You can optionally configure `SURVEY_SOME_SURVEY_MESSAGE=some text here` to include a success message on
 the page targetted by the redirection (if it shows messages).
 
 ### Additional Surveymonkey considerations
