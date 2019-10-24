@@ -1,0 +1,17 @@
+{% extends "families/base.html" %}
+{% load staticfiles %}
+{% load render_bundle from webpack_loader %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12 mt-3 text-center">
+      <h2>Are you ready to submit to the AI World Championship?</h2>
+      <img width="355px" src="{% static "images/aifc/trophy.svg" %}" alt="Trophy">
+    </div>
+    <div class="col-8 offset-2">
+      <div class="text-center my-4">
+        <a class="btn btn-primary" href="{% url "families:awardforce" %}" target="_blank">Go to submission</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
