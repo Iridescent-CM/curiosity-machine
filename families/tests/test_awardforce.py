@@ -90,6 +90,14 @@ def test_checklist_checks_email_verified():
     assert AwardForceChecklist(user).email_verified
 
 @pytest.mark.django_db
+def test_checklist_checks_exempt_from_post_survey():
+    user = FamilyFactory(familyprofile__location__country='ES')
+    assert AwardForceChecklist(user).exempt_from_post_survey
+
+    user = FamilyFactory(familyprofile__location__country='GB')
+    assert not AwardForceChecklist(user).exempt_from_post_survey
+
+@pytest.mark.django_db
 def test_checklist_checks_post_survey_result():
     user = FamilyFactory()
     SurveyResponseFactory(user=user, survey_id=AwardForceChecklist.post_survey.id, status='COMPLETED')

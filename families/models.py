@@ -36,12 +36,12 @@ class FamilyProfile(BaseProfile):
         )
 
     @property
-    def presurvey_required(self):
+    def surveys_required(self):
         return self.location.country in PRESURVEY_COUNTRIES
 
     @property
     def presurvey_not_required(self):
-        return not self.presurvey_required
+        return not self.surveys_required
 
     @property
     def presurvey_completed(self):

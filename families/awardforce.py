@@ -173,6 +173,10 @@ class AwardForceChecklist(object):
         return self.post_survey_response.completed
 
     @property
+    def exempt_from_post_survey(self):
+        return not self.user.familyprofile.surveys_required
+
+    @property
     def family_confirmed_all_listed(self):
         return self.user.familyprofile.members_confirmed
 
@@ -185,7 +189,7 @@ class AwardForceChecklist(object):
     def complete(self):
         return (
             self.email_verified and
-            self.post_survey_taken and
+            (self.post_survey_taken or self.exempt_from_post_survey) and
             self.family_confirmed_all_listed and
             self.email_has_not_been_used
         )
