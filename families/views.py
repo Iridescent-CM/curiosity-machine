@@ -150,17 +150,13 @@ postsurvey_interruption = only_for_family(PostSurveyInterruptionView.as_view())
 
 class SubmissionView(DashboardMixin, TemplateView):
     def get_template_names(self):
-        if settings.AICHALLENGE_SEASON_OPEN:
-            template = "families/submission.html"
-        else:
-            template = "families/submission_closed.html"
-        return template
+        if not settings.AICHALLENGE_SEASON_OPEN:
+            return "families/submission/closed.html"
 
-    def get_context_data(self, **kwargs):
-        return super().get_context_data(
-            **kwargs,
-            checklist_complete=AwardForceChecklist(self.request.user).complete
-        )
+        if AwardForceChecklist(self.request.user).complete and self.request.user.awardforceintegration:
+            return "families/submission/integrated.html"
+
+        return "families/submission/integrating.html"
 
 submission = only_for_family(SubmissionView.as_view())
 

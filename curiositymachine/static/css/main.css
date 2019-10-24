@@ -4018,7 +4018,7 @@ input[type="button"].btn-block {
   border-top-right-radius: 0.2rem;
   border-bottom-right-radius: 0.2rem; }
 
-.badge {
+.badge, .family-dashboard .list-dots .dot {
   display: inline-block;
   padding: 0.25em 0.4em;
   font-size: 75%;
@@ -4028,10 +4028,10 @@ input[type="button"].btn-block {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem; }
-  .badge:empty {
+  .badge:empty, .family-dashboard .list-dots .dot:empty {
     display: none; }
 
-.btn .badge {
+.btn .badge, .btn .family-dashboard .list-dots .dot, .family-dashboard .list-dots .btn .dot {
   position: relative;
   top: -1px; }
 
@@ -4120,10 +4120,10 @@ input[type="button"].btn-block {
     text-decoration: none;
     background-color: #6a893d; }
 
-.badge-red {
+.badge-red, .family-dashboard .list-dots .dot {
   color: #fff;
   background-color: #F55932; }
-  .badge-red[href]:hover, .badge-red[href]:focus {
+  .badge-red[href]:hover, .family-dashboard .list-dots .dot[href]:hover, .badge-red[href]:focus, .family-dashboard .list-dots .dot[href]:focus {
     color: #fff;
     text-decoration: none;
     background-color: #e9380b; }
@@ -5558,7 +5558,7 @@ button.bg-new-purple:focus {
   border-top-left-radius: 0.25rem !important;
   border-bottom-left-radius: 0.25rem !important; }
 
-.rounded-circle {
+.rounded-circle, .family-dashboard .list-dots .dot {
   border-radius: 50% !important; }
 
 .rounded-0 {
@@ -6296,7 +6296,8 @@ button.bg-new-purple:focus {
   margin: 0.5rem !important; }
 
 .mt-2,
-.my-2 {
+.my-2,
+.family-dashboard .list-dots li {
   margin-top: 0.5rem !important; }
 
 .mr-2,
@@ -6304,7 +6305,8 @@ button.bg-new-purple:focus {
   margin-right: 0.5rem !important; }
 
 .mb-2,
-.my-2 {
+.my-2,
+.family-dashboard .list-dots li {
   margin-bottom: 0.5rem !important; }
 
 .ml-2,
@@ -7498,7 +7500,7 @@ a.text-new-purple:hover, a.text-new-purple:focus {
     min-width: 992px !important; }
   .navbar {
     display: none; }
-  .badge {
+  .badge, .family-dashboard .list-dots .dot {
     border: 1px solid #000; }
   .table {
     border-collapse: collapse !important; }
@@ -8624,27 +8626,27 @@ footer {
 .activity-list-group .timesince {
   display: none; }
 
-.activity-list-group .badge {
+.activity-list-group .badge, .activity-list-group .family-dashboard .list-dots .dot, .family-dashboard .list-dots .activity-list-group .dot {
   position: absolute;
   right: 0;
   margin-right: 1em; }
-  .activity-list-group .badge.plan-stage {
+  .activity-list-group .badge.plan-stage, .activity-list-group .family-dashboard .list-dots .plan-stage.dot, .family-dashboard .list-dots .activity-list-group .plan-stage.dot {
     background-color: #8FB559; }
-  .activity-list-group .badge.build-stage {
+  .activity-list-group .badge.build-stage, .activity-list-group .family-dashboard .list-dots .build-stage.dot, .family-dashboard .list-dots .activity-list-group .build-stage.dot {
     background-color: #6161AF; }
-  .activity-list-group .badge.test-stage {
+  .activity-list-group .badge.test-stage, .activity-list-group .family-dashboard .list-dots .test-stage.dot, .family-dashboard .list-dots .activity-list-group .test-stage.dot {
     background-color: #F55932; }
-  .activity-list-group .badge.reflect-stage {
+  .activity-list-group .badge.reflect-stage, .activity-list-group .family-dashboard .list-dots .reflect-stage.dot, .family-dashboard .list-dots .activity-list-group .reflect-stage.dot {
     background-color: #1EB9C8; }
   @media (min-width: 768px) {
-    .activity-list-group .badge .timesince {
+    .activity-list-group .badge .timesince, .activity-list-group .family-dashboard .list-dots .dot .timesince, .family-dashboard .list-dots .activity-list-group .dot .timesince {
       display: inline;
       position: absolute;
       right: 0;
       margin-right: 1em; }
-    .activity-list-group .badge .tag {
+    .activity-list-group .badge .tag, .activity-list-group .family-dashboard .list-dots .dot .tag, .family-dashboard .list-dots .activity-list-group .dot .tag {
       right: 180px; }
-    .activity-list-group .badge .list-group-item {
+    .activity-list-group .badge .list-group-item, .activity-list-group .family-dashboard .list-dots .dot .list-group-item, .family-dashboard .list-dots .activity-list-group .dot .list-group-item {
       padding-right: 180px; } }
 
 .to-do-list .to-do-list-item {
@@ -9349,8 +9351,15 @@ footer {
       flex: 0 60px;
       border-radius: 50%;
       margin-right: 10px; }
-  .family-dashboard .aifc-logo {
-    width: 325px; }
+  .family-dashboard .list-dots {
+    list-style: none;
+    padding-left: 2em;
+    position: relative; }
+    .family-dashboard .list-dots .dot {
+      position: absolute;
+      left: 0; }
+  .family-dashboard .checkbox-label {
+    margin-left: 0.5em; }
 
 #index-page .jumbotron {
   padding-top: 6em;
