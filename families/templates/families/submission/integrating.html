@@ -3,39 +3,49 @@
 {% load render_bundle from webpack_loader %}
 
 {% block content %}
+<div class="container mt-3 mb-4">
   <div class="row">
-    <div class="col-12 mt-3 text-center">
-      <h2>Are you ready to submit to the AI World Championship?</h2>
-      <img width="355px" src="{% static "images/aifc/trophy.svg" %}" alt="Trophy">
+    <div class="col-lg-6">
+      <div class="p-3">
+        <h2>Requirements</h2>
+        <div class="awardforce-checklist-app">
+          <checklist
+            create_url="{% url "families:awardforce" %}"
+            change_family_members_url="{% url "profiles:edit_profile" %}"
+          >
+            <div slot="loader" class="loader">Loading...</div>
+            <template slot="family_members">
+              <ul>
+                {% for member in request.user.familymember_set.all %}
+                <li class="list-unstyled">
+                  {% include "families/_avatar.html" with image=member.image width=50 height=50 %}
+                  {{ member.first_name }} {{ member.last_name }}
+                </li>
+                {% endfor %}
+              </ul>
+            </template>
+          </checklist>
+        </div>
+      </div>
     </div>
-    <div class="col-8 offset-2">
-      <h2>Directions</h2>
-      <p class="lead">
-        To submit to the AI World Championship, ensure all boxes below are complete. Then, click the I'm Ready to Submit! button
-        to submit your pitch video, 100 word description, and optional pictures. 
-      </p>
-      <hr />
-      <h3>Requirements</h3>
-      <div class="awardforce-checklist-app">
-        <checklist
-          create_url="{% url "families:awardforce" %}"
-          change_family_members_url="{% url "profiles:edit_profile" %}"
-        >
-          <div slot="loader" class="loader">Loading...</div>
-          <template slot="family_members">
-            <ul>
-              {% for member in request.user.familymember_set.all %}
-              <li class="list-unstyled">
-                {% include "families/_avatar.html" with image=member.image width=50 height=50 %}
-                {{ member.first_name }} {{ member.last_name }}
-              </li>
-              {% endfor %}
-            </ul>
-          </template>
-        </checklist>
+    <div class="col-lg-6">
+      <div class="border rounded p-3">
+        <h2>Directions</h2>
+        <p>How to submit your project!</p>
+        <p>To submit to the Technovation World Pitch Summit:</p>
+        <ol>
+          <li>Ensure all steps to the left are complete.</li>
+          <li>Click the "I'm ready to submit!" button.</li>
+          <li>
+            Enter your 2 pictures, pitch video, invention descriptions, and optional materials.
+            To learn more click
+            <a href="https://iridescentsupport.zendesk.com/hc/en-us/articles/115004048694-What-do-families-submit-for-the-competition-">here</a>.
+          </li>
+        </ol>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}
 
 {% block js %}

@@ -3,7 +3,7 @@
 
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_has_not_been_used }"></i>
-      Your email has not been used to start a submission.
+      Enter an email that has not been used to start a submission.
       <div class="v-email-change-controls" v-if="!checklist.items.email_has_not_been_used">
         <div class="card">
           <div class="card-body">
@@ -32,7 +32,7 @@
     </div>
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_verified }"></i>
-      You have verified your email address.
+      Verify your email address.
       <div class="v-verified-email-controls" v-if="!checklist.items.email_verified">
         <div class="card">
           <div class="card-body">
@@ -48,7 +48,7 @@
     </div>
     <div class="m-2 ml-4">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.post_survey_taken }"></i>
-      You have completed the post-survey.
+      Complete the post-survey.
       <div class="v-survey-controls" v-if="!checklist.items.post_survey_taken">
         <div class="card">
           <div class="card-body">
@@ -59,7 +59,7 @@
     </div>
     <div class="m-2 ml-4">
       <i class="checkbox v-family-checkbox" :class="{ 'checkbox-checked': checklist.items.family_confirmed_all_listed }"></i>
-      Your family members are all listed.
+      List all of your family members.
       <div class="v-family-controls" v-if="!checklist.items.family_confirmed_all_listed">
         <div class="card">
           <div class="card-body">
