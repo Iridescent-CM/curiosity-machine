@@ -11,6 +11,9 @@ class ProgressOwner(BaseActor):
         self.user = user
         self.emailer = kwargs.pop('emailer', Emailing(user))
 
+    def on_progress_complete(self, progress=None):
+        pass
+
     def on_comment_posted(self, progress, comment):
         pass
 
