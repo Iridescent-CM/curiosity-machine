@@ -3,10 +3,14 @@
 {% load render_bundle from webpack_loader %}
 
 {% block content %}
+<div class="container">
   <div class="row">
     <div class="col-12 mt-3 text-center">
-      <h2>Are you ready to submit to the AI World Championship?</h2>
-      <img width="355px" src="{% static "images/aifc/trophy.svg" %}" alt="Trophy">
+      <h2>You are ready to submit your project to the Technovation World Pitch Summit!</h2>
+      <p>
+        We highly encourage you to do so as soon as possible, and not wait for the last minute, as you could encounter submission delays that can result in not meeting the submission deadline.
+      </p>
+      <img src="{% static "images/aifc/2019-AIWC_Saul133.jpg" %}" alt="" />
     </div>
     <div class="col-8 offset-2">
       <div class="text-center my-4">
@@ -14,4 +18,5 @@
       </div>
     </div>
   </div>
+</div>
 {% endblock %}
