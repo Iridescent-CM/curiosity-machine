@@ -42,6 +42,21 @@ def test_submitter_getting_url_sets_slug():
     assert user.awardforceintegration.slug == 'slug'
 
 @pytest.mark.django_db
+def test_submitter_getting_url_resets_slug_when_email_changed():
+    api = mock.MagicMock()
+    api.create_user.return_value = 'slug2'
+    api.get_auth_token.return_value = 'token'
+
+    user = FamilyFactory(email="newemail@example.com")
+    AwardForceIntegration.objects.create(user=user, email="oldemail@example.com", slug="slug")
+
+    submitter = AwardForceSubmitter(user, api=api)
+    submitter.get_login_url()
+    assert user.awardforceintegration.slug == "slug2"
+    assert user.awardforceintegration.email == "newemail@example.com"
+
+
+@pytest.mark.django_db
 def test_checklist_checks_email_unique():
     user = FamilyFactory()
     FamilyFactory()

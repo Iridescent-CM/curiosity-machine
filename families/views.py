@@ -156,6 +156,12 @@ class SubmissionView(DashboardMixin, TemplateView):
             template = "families/submission_closed.html"
         return template
 
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(
+            **kwargs,
+            checklist_complete=AwardForceChecklist(self.request.user).complete
+        )
+
 submission = only_for_family(SubmissionView.as_view())
 
 class AwardForceRedirectView(View):
