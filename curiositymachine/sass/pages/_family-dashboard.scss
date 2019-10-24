@@ -80,7 +80,26 @@
     }
   }
 
-  .aifc-logo {
-    width: 325px;
+  .list-dots {
+    list-style: none;
+    padding-left: 2em;
+    position: relative;
+
+    li {
+      @extend .my-2;
+    }
+
+    .dot {
+      @extend .badge;
+      @extend .badge-red;
+      @extend .rounded-circle;
+
+      position: absolute;
+      left: 0
+    }
+  }
+
+  .checkbox-label {
+    margin-left: 0.5em;
   }
 }
