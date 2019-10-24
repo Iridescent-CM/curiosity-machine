@@ -46,7 +46,7 @@
         </div>
       </div>
     </div>
-    <div class="m-2 ml-4">
+    <div class="m-2 ml-4" v-if="!checklist.items.exempt_from_post_survey">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.post_survey_taken }"></i>
       You have completed the post-survey.
       <div class="v-survey-controls" v-if="!checklist.items.post_survey_taken">

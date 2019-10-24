@@ -19,6 +19,7 @@ class ChecklistSerializer(serializers.BaseSerializer):
                 'email_verified',
                 'post_survey_taken',
                 'family_confirmed_all_listed',
+                'exempt_from_post_survey',
             ]
         }
         return data

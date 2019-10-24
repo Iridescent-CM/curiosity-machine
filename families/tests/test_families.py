@@ -4,12 +4,13 @@ from surveys.factories import *
 from surveys.models import *
 from django.conf import settings
 
-def test_presurvey_required():
-    assert FamilyProfileFactory.build(location__country='GB').presurvey_required
-    assert FamilyProfileFactory.build(location__country='ES').presurvey_not_required
+def test_surveys_required():
+    assert FamilyProfileFactory.build(location__country='GB').surveys_required
+    assert not FamilyProfileFactory.build(location__country='ES').surveys_required
 
+def test_presurvey_not_required():
+    assert FamilyProfileFactory.build(location__country='ES').presurvey_not_required
     assert not FamilyProfileFactory.build(location__country='GB').presurvey_not_required
-    assert not FamilyProfileFactory.build(location__country='ES').presurvey_required
 
 @pytest.mark.django_db
 def test_full_access_granted_without_survey_when_not_required():
