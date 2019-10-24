@@ -105,9 +105,18 @@ class AwardForceSubmitter(object):
         except AwardForceIntegration.DoesNotExist:
             return None
 
+    def slug_valid(self):
+        return self.user.awardforceintegration.email == self.user.email
+
+    def update_slug(self):
+        self.user.awardforceintegration.delete()
+        self.create_slug()
+
     def get_auth_token(self):
         if not self.has_slug():
             self.create_slug()
+        elif not self.slug_valid():
+            self.update_slug()
         return self.api.get_auth_token(self.get_slug())
 
     def get_login_url(self):
