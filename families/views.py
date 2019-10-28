@@ -153,7 +153,7 @@ class SubmissionView(DashboardMixin, TemplateView):
         if not settings.AICHALLENGE_SEASON_OPEN:
             return "families/submission/closed.html"
 
-        if AwardForceChecklist(self.request.user).complete and self.request.user.awardforceintegration:
+        if AwardForceChecklist(self.request.user).complete and hasattr(self.request.user, "awardforceintegration"):
             return "families/submission/integrated.html"
 
         return "families/submission/integrating.html"
