@@ -92,9 +92,11 @@ class UserExtraQuerySet(models.QuerySet):
         enddate = startdate - timedelta(days=days_ago)
         return self.filter(last_active_on__lt=enddate)
 
+ACTIVE_ROLES = [UserRole.none, UserRole.student, UserRole.educator, UserRole.family]
+
 class UserExtra(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='extra')
-    role = models.SmallIntegerField(choices=[(role.value, role.name) for role in UserRole], default=UserRole.none.value)
+    role = models.SmallIntegerField(choices=[(role.value, role.name) for role in ACTIVE_ROLES], default=UserRole.none.value)
     source = models.CharField(max_length=50, null=False, blank=True, default="")
     last_active_on = models.DateTimeField(default=now)
     last_inactive_email_sent_on = models.DateTimeField(default=None, null=True, blank=True)
