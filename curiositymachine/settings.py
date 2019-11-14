@@ -41,7 +41,9 @@ RQ_QUEUES = {
 SECURE_SSL_REDIRECT = os.getenv('SSL_ONLY', False)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = CSRF_COOKIE_SECURE = os.getenv('SSL_ONLY', False)
+
 SITE_URL = os.getenv('SITE_URL', '')
+PREPEND_WWW = os.getenv('PREPEND_WWW', False)
 
 
 ## Application definition
