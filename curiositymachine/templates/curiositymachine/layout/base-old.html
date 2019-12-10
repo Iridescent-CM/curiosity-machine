@@ -1,0 +1,180 @@
+{% load staticfiles %}
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>
+  {% block title %}
+  AI Education for Families
+  {% endblock %}
+  |
+  Technovation Families
+  </title>
+  <script>
+    var _rollbarConfig = {
+      accessToken: "{{ ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN }}",
+      {% if ROLLBAR_VERBOSE %}
+      verbose: true,
+      {% endif %}
+      captureUncaught: true,
+      captureUnhandledRejections: false,
+      payload: {
+        environment: "{{ ROLLBAR_ENV }}"
+      }
+    };
+    // Rollbar Snippet
+    !function(r){function e(n){if(o[n])return o[n].exports;var t=o[n]={exports:{},id:n,loaded:!1};return r[n].call(t.exports,t,t.exports,e),t.loaded=!0,t.exports}var o={};return e.m=r,e.c=o,e.p="",e(0)}([function(r,e,o){"use strict";var n=o(1),t=o(4);_rollbarConfig=_rollbarConfig||{},_rollbarConfig.rollbarJsUrl=_rollbarConfig.rollbarJsUrl||"https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/2.4.3/rollbar.min.js",_rollbarConfig.async=void 0===_rollbarConfig.async||_rollbarConfig.async;var a=n.setupShim(window,_rollbarConfig),l=t(_rollbarConfig);window.rollbar=n.Rollbar,a.loadFull(window,document,!_rollbarConfig.async,_rollbarConfig,l)},function(r,e,o){"use strict";function n(r){return function(){try{return r.apply(this,arguments)}catch(r){try{console.error("[Rollbar]: Internal error",r)}catch(r){}}}}function t(r,e){this.options=r,this._rollbarOldOnError=null;var o=s++;this.shimId=function(){return o},"undefined"!=typeof window&&window._rollbarShims&&(window._rollbarShims[o]={handler:e,messages:[]})}function a(r,e){if(r){var o=e.globalAlias||"Rollbar";if("object"==typeof r[o])return r[o];r._rollbarShims={},r._rollbarWrappedError=null;var t=new p(e);return n(function(){e.captureUncaught&&(t._rollbarOldOnError=r.onerror,i.captureUncaughtExceptions(r,t,!0),i.wrapGlobals(r,t,!0)),e.captureUnhandledRejections&&i.captureUnhandledRejections(r,t,!0);var n=e.autoInstrument;return e.enabled!==!1&&(void 0===n||n===!0||"object"==typeof n&&n.network)&&r.addEventListener&&(r.addEventListener("load",t.captureLoad.bind(t)),r.addEventListener("DOMContentLoaded",t.captureDomContentLoaded.bind(t))),r[o]=t,t})()}}function l(r){return n(function(){var e=this,o=Array.prototype.slice.call(arguments,0),n={shim:e,method:r,args:o,ts:new Date};window._rollbarShims[this.shimId()].messages.push(n)})}var i=o(2),s=0,d=o(3),c=function(r,e){return new t(r,e)},p=function(r){return new d(c,r)};t.prototype.loadFull=function(r,e,o,t,a){var l=function(){var e;if(void 0===r._rollbarDidLoad){e=new Error("rollbar.js did not load");for(var o,n,t,l,i=0;o=r._rollbarShims[i++];)for(o=o.messages||[];n=o.shift();)for(t=n.args||[],i=0;i<t.length;++i)if(l=t[i],"function"==typeof l){l(e);break}}"function"==typeof a&&a(e)},i=!1,s=e.createElement("script"),d=e.getElementsByTagName("script")[0],c=d.parentNode;s.crossOrigin="",s.src=t.rollbarJsUrl,o||(s.async=!0),s.onload=s.onreadystatechange=n(function(){if(!(i||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState)){s.onload=s.onreadystatechange=null;try{c.removeChild(s)}catch(r){}i=!0,l()}}),c.insertBefore(s,d)},t.prototype.wrap=function(r,e,o){try{var n;if(n="function"==typeof e?e:function(){return e||{}},"function"!=typeof r)return r;if(r._isWrap)return r;if(!r._rollbar_wrapped&&(r._rollbar_wrapped=function(){o&&"function"==typeof o&&o.apply(this,arguments);try{return r.apply(this,arguments)}catch(o){var e=o;throw e&&("string"==typeof e&&(e=new String(e)),e._rollbarContext=n()||{},e._rollbarContext._wrappedSource=r.toString(),window._rollbarWrappedError=e),e}},r._rollbar_wrapped._isWrap=!0,r.hasOwnProperty))for(var t in r)r.hasOwnProperty(t)&&(r._rollbar_wrapped[t]=r[t]);return r._rollbar_wrapped}catch(e){return r}};for(var u="log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleUnhandledRejection,captureEvent,captureDomContentLoaded,captureLoad".split(","),f=0;f<u.length;++f)t.prototype[u[f]]=l(u[f]);r.exports={setupShim:a,Rollbar:p}},function(r,e){"use strict";function o(r,e,o){if(r){var t;if("function"==typeof e._rollbarOldOnError)t=e._rollbarOldOnError;else if(r.onerror){for(t=r.onerror;t._rollbarOldOnError;)t=t._rollbarOldOnError;e._rollbarOldOnError=t}var a=function(){var o=Array.prototype.slice.call(arguments,0);n(r,e,t,o)};o&&(a._rollbarOldOnError=t),r.onerror=a}}function n(r,e,o,n){r._rollbarWrappedError&&(n[4]||(n[4]=r._rollbarWrappedError),n[5]||(n[5]=r._rollbarWrappedError._rollbarContext),r._rollbarWrappedError=null),e.handleUncaughtException.apply(e,n),o&&o.apply(r,n)}function t(r,e,o){if(r){"function"==typeof r._rollbarURH&&r._rollbarURH.belongsToShim&&r.removeEventListener("unhandledrejection",r._rollbarURH);var n=function(r){var o,n,t;try{o=r.reason}catch(r){o=void 0}try{n=r.promise}catch(r){n="[unhandledrejection] error getting `promise` from event"}try{t=r.detail,!o&&t&&(o=t.reason,n=t.promise)}catch(r){t="[unhandledrejection] error getting `detail` from event"}o||(o="[unhandledrejection] error getting `reason` from event"),e&&e.handleUnhandledRejection&&e.handleUnhandledRejection(o,n)};n.belongsToShim=o,r._rollbarURH=n,r.addEventListener("unhandledrejection",n)}}function a(r,e,o){if(r){var n,t,a="EventTarget,Window,Node,ApplicationCache,AudioTrackList,ChannelMergerNode,CryptoOperation,EventSource,FileReader,HTMLUnknownElement,IDBDatabase,IDBRequest,IDBTransaction,KeyOperation,MediaController,MessagePort,ModalWindow,Notification,SVGElementInstance,Screen,TextTrack,TextTrackCue,TextTrackList,WebSocket,WebSocketWorker,Worker,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload".split(",");for(n=0;n<a.length;++n)t=a[n],r[t]&&r[t].prototype&&l(e,r[t].prototype,o)}}function l(r,e,o){if(e.hasOwnProperty&&e.hasOwnProperty("addEventListener")){for(var n=e.addEventListener;n._rollbarOldAdd&&n.belongsToShim;)n=n._rollbarOldAdd;var t=function(e,o,t){n.call(this,e,r.wrap(o),t)};t._rollbarOldAdd=n,t.belongsToShim=o,e.addEventListener=t;for(var a=e.removeEventListener;a._rollbarOldRemove&&a.belongsToShim;)a=a._rollbarOldRemove;var l=function(r,e,o){a.call(this,r,e&&e._rollbar_wrapped||e,o)};l._rollbarOldRemove=a,l.belongsToShim=o,e.removeEventListener=l}}r.exports={captureUncaughtExceptions:o,captureUnhandledRejections:t,wrapGlobals:a}},function(r,e){"use strict";function o(r,e){this.impl=r(e,this),this.options=e,n(o.prototype)}function n(r){for(var e=function(r){return function(){var e=Array.prototype.slice.call(arguments,0);if(this.impl[r])return this.impl[r].apply(this.impl,e)}},o="log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleUnhandledRejection,_createItem,wrap,loadFull,shimId,captureEvent,captureDomContentLoaded,captureLoad".split(","),n=0;n<o.length;n++)r[o[n]]=e(o[n])}o.prototype._swapAndProcessMessages=function(r,e){this.impl=r(this.options);for(var o,n,t;o=e.shift();)n=o.method,t=o.args,this[n]&&"function"==typeof this[n]&&("captureDomContentLoaded"===n||"captureLoad"===n?this[n].apply(this,[t[0],o.ts]):this[n].apply(this,t));return this},r.exports=o},function(r,e){"use strict";r.exports=function(r){return function(e){if(!e&&!window._rollbarInitialized){r=r||{};for(var o,n,t=r.globalAlias||"Rollbar",a=window.rollbar,l=function(r){return new a(r)},i=0;o=window._rollbarShims[i++];)n||(n=o.handler),o.handler._swapAndProcessMessages(l,o.messages);window[t]=n,window._rollbarInitialized=!0}}}}]);
+    // End Rollbar Snippet
+  </script>
+
+  {% if gtm_container_id %}
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','{{ gtm_container_id }}');</script>
+  <!-- End Google Tag Manager -->
+  {% endif %}
+
+  <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-96x96.png' %}" sizes="96x96">
+  <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-32x32.png' %}" sizes="32x32">
+  <link rel="icon" type="image/png" href="{% static 'images/tf-favicons/favicon-16x16.png' %}" sizes="16x16">
+
+  <meta name="description" content="Explore, play, and build with Artificial Intelligence as a family. Create AI-based solutions to problems in your community, together." />
+
+  <meta property="og:url" content="{{ SITE_URL }}" />
+  <meta property="og:title" content="{% block social-title %}Technovation Families – AI Education for Families{% endblock%}" />
+  <meta property="og:description" content="{% block social-description %}Learn, play, and build a better world using artificial intelligence.{% endblock%}" />
+  <meta property="og:image" content="{% block social-image %}{{ SITE_URL }}{% static 'images/social.png' %}{% endblock%}" />
+
+  <link href='//fonts.googleapis.com/css?family=Raleway:300,400,700%7COpen+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/main-rebrand.css' %}">
+
+  {% if ga_code %}
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', '{{ga_code}}', 'auto');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'eventTracker');
+      ga('require', 'cleanUrlTracker', {
+        stripQuery: true,
+        queryDimensionIndex: 2,
+        trailingSlash: 'add'
+      });
+      ga('set', 'dimension1', '{{ga_dimension_user_type}}');
+      {% if request.user.is_authenticated %}
+      ga('set', 'dimension3', '{{ga_dimension_user_type}}');
+      ga('set', 'dimension4', '{{ga_dimension_free_user}}');
+      {% endif %}
+      {% if ga_user_id %}
+      ga('set', 'userId', {{ga_user_id}});
+      {% endif %}
+      {% if ga_membership_grouping %}
+      ga('set', 'contentGroup2', '{{ga_membership_grouping}}');
+      {% endif %}
+    </script>
+    {% block js_ga_set %}{% endblock %}
+    <script>
+      ga('send', 'pageview');
+      {% for evt in ga_events %}
+        ga('send', {
+          hitType: 'event',
+          eventCategory: '{{ evt.category }}',
+          eventAction: '{{ evt.action }}',
+          eventLabel: '{{ evt.label }}'
+        });
+      {% endfor %}
+    </script>
+  {% endif %}
+  <!-- Start of iridescentsupport Zendesk Widget script -->
+  <script>/*<![CDATA[*/window.zE||(function(e,t,s){var n=window.zE=window.zEmbed=function(){n._.push(arguments)}, a=n.s=e.createElement(t),r=e.getElementsByTagName(t)[0];n.set=function(e){ n.set._.push(e)},n._=[],n.set._=[],a.async=true,a.setAttribute("charset","utf-8"), a.src="https://static.zdassets.com/ekr/asset_composer.js?key="+s, n.t=+new Date,a.type="text/javascript",r.parentNode.insertBefore(a,r)})(document,"script","6262affc-10bf-4d86-a26f-74279d559547");/*]]>*/</script>
+  <!-- End of iridescentsupport Zendesk Widget script -->
+</head>
+<body id="{% block body-id %}{% endblock %}" class="{% block body-classes %}{% endblock %}">
+  {% if gtm_container_id %}
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_container_id }}"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  {% endif %}
+  <noscript>
+    <p class="alert alert-danger mb-0">
+      For full functionality of this site it is necessary to enable JavaScript.
+      Here are the <a href="http://www.enable-javascript.com/" target="_blank">
+      instructions how to enable JavaScript in your web browser</a>.
+    </p>
+  </noscript>
+  <!--[if lte IE 8]>
+    <p class="alert alert-danger m-b-0">
+      You are using an older browser Curiosity Machine is unable to support. Please consider
+      <a href="http://browsehappy.com/">upgrading your browser</a> to improve your experience,
+      or contact us at <a href="mailto:curiosity@iridescentlearning.org">curiosity@iridescentlearning.org</a>
+      for support.
+    </p>
+  <![endif]-->
+  {% if SITE_MESSAGE %}
+    <div id="site-message" class="alert alert-{{ SITE_MESSAGE_LEVEL|default:"info" }} mb-0" role="alert">
+      {{ SITE_MESSAGE|safe }}
+    </div>
+  {% endif %}
+
+  {% include 'curiositymachine/layout/_header.html' %}
+
+  {% block container %}
+    {% block content %}
+    {% endblock %}
+  {% endblock %}
+
+  {% include 'curiositymachine/layout/_footer.html' %}
+
+  {% render_bundle 'site' %}
+  <script src="{% static 'js/libs/jquery-ujs.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/libs/bootstrap.bundle.min.js' %}"></script>
+  {% if ga_code %}
+  <script src="{% static 'js/libs/autotrack.js' %}"></script>
+  {% endif %}
+  <script>
+    log.init({
+      csrf_token: "{{ csrf_token }}",
+      endpoint: "{% url 'log' %}"
+    });
+
+    window.zESettings = {
+      webWidget: {
+        helpCenter: {
+          filter: {
+            category: '115000091368'
+          }
+        }
+      }
+    };
+
+    {% if request.user.is_authenticated %}
+    zE(function(){
+      zE.identify({
+        name: "{{ request.user.username }}",
+        email: "{{ request.user.email }}"
+      });
+    });
+    {% endif %}
+
+    {% if not flags.enable_zendesk_web_widget %}
+    zE(function(){
+      zE.hide();
+    });
+    {% endif %}
+  </script>
+  {% block js %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+@import 'utils/functions';
+@import 'utils/variables';
+
+$theme-colors: (
+  "primary": $primary-blue,
+  "secondary": #FFF,
+  "blue": $primary-blue,
+  "green": darken($primary-green, 4%), // to get color-yiq to give white text
+  "red": $primary-red,
+  "orange": $primary-orange,
+  "purple": $primary-purple,
+  "new-pink": #FF4980,
+  "new-red": #FF5050,
+  "new-orange": #F7931E,
+  "new-green": #39B54A,
+  "new-turquoise": #02B0C2,
+  "new-blue": #0071BC,
+  "new-purple": #6C6CB6
+);
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+@import 'base/fonts';
+@import 'base/typography';
+
+@import 'layout/about-pg-layout';
+@import 'layout/dashboards';
+@import 'layout/footer';
+@import 'layout/header';
+@import 'layout/old-style';
+
+@import 'components/avatar';
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/challenge-status';
+@import 'components/dividers';
+@import 'components/favorites';
+@import 'components/jumbotrons';
+@import 'components/list-group';
+@import 'components/lists';
+@import 'components/modal';
+@import 'components/progress-graph';
+@import 'components/quiz';
+@import 'components/tables';
+@import 'components/rebrand-banner';
+
+@import 'pages/about-educator';
+@import 'pages/about-aichallenge';
+@import 'pages/account-settings';
+@import 'pages/challenges';
+@import 'pages/edp-inspiration';
+@import 'pages/educator-dashboard';
+@import 'pages/examples';
+@import 'pages/family-dashboard';
+@import 'pages/home';
+@import 'pages/lessons';
+@import 'pages/aifc-pages';
+@import 'pages/rebrand';
+
+@import 'utils/backgrounds';
+@import 'utils/cloak';
