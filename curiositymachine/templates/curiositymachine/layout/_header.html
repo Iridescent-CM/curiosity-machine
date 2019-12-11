@@ -93,8 +93,8 @@
         {% if request.user.is_authenticated %}
 
         <div class="nav-item dropdown d-none d-lg-flex">
-          <a class="nav-link nav-link-purple dropdown-toggle media" href="#" id="user-dropdown" role="button"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle media" href="#" id="user-dropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             <div class="media-body">{{ user.username }}</div>
             <div class="avatar avatar-sm ml-3">
               {% include "_avatar.html" with profile=user.profile width=40 height=40 crop='thumb' gravity='faces' %}
@@ -122,13 +122,15 @@
 
         {% else %}
 
-        <a class="nav-item nav-link nav-link-green" href="#" data-toggle="modal" data-target="#login-modal">Log In</a>
-        <div class="nav-item d-none d-lg-flex">
-          <a class="btn btn-primary" href="{% url "account_signup" %}">Sign Up</a>
-        </div>
-        <a class="nav-item nav-link nav-link-purple d-flex d-lg-none" href="{% url "account_signup" %}">Sign Up</a>
+        <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#login-modal">Log In</a>
+        <a class="nav-item nav-link" href="{% url "account_signup" %}">Sign Up</a>
 
         {% endif %}
+
+        <div class="nav-item d-none d-lg-flex">
+          <a class="btn btn-primary" href="https://www.technovation.org/donate-today/">Donate</a>
+        </div>
+        <a class="nav-item nav-link d-flex d-lg-none" href="https://www.technovation.org/donate-today/">Donate</a>
 
       </div>
     </div>
