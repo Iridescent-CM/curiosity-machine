@@ -1,9 +1,8 @@
 {% load staticfiles %}
 {% load widget_tweaks %}
 
-<div class="modal modal-cm fade" id="login-modal" tabindex="-1"
-  role="dialog" aria-labelledby="login-modal-label" aria-hidden="true"
->
+<div class="modal modal-cm fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label"
+  aria-hidden="true">
   <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -48,15 +47,10 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-cm">
   <div class="container px-3">
     <a href="/" class="navbar-brand">
-      <img
-        src="{% static 'images/logo.svg' %}" alt="Technovation Families"
-        class="logo-large"
-      >
+      <img src="{% static 'images/logo.svg' %}" alt="Technovation Families" class="logo-large">
     </a>
-    <button
-      class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-nav"
-      aria-controls="site-nav" aria-expanded="false" aria-lable="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-nav" aria-controls="site-nav"
+      aria-expanded="false" aria-lable="Toggle navigation">
       Menu
     </button>
 
@@ -73,7 +67,8 @@
             {{ user.username }}
           </div>
           <a class="list-group-item list-group-item-action" href="{% url 'profiles:home' %}">My Dashboard</a>
-          <a class="list-group-item list-group-item-action" href="{% url 'profiles:edit_profile' %}">Account Settings</a>
+          <a class="list-group-item list-group-item-action" href="{% url 'profiles:edit_profile' %}">Account
+            Settings</a>
           {% if request.user.is_staff %}
           <a class="list-group-item list-group-item-action" href="{% url 'admin:index' %}">View Admin</a>
           <a class="list-group-item list-group-item-action" href="{% url 'admin:challenges_example_changelist' %}">
@@ -91,18 +86,15 @@
           </div>
         </div>
         {% endif %}
-
-        <a class="nav-item nav-link nav-link-blue" href="{% url "lessons:lesson-list" %}">AI Family Challenge</a>
-        <a class="nav-item nav-link nav-link-orange" href="{% url "challenges:challenges" %}">Design Challenges</a>
-        <a class="nav-item nav-link nav-link-red" href="{% url "get-started" %}">Get Started</a>
+        <a class="nav-item nav-link" href="{% url "lessons:lesson-list" %}">AI Family Challenge</a>
+        <a class="nav-item nav-link" href="{% url "challenges:challenges" %}">Design Challenges</a>
+        <a class="nav-item nav-link" href="{% url "get-started" %}">Get Started</a>
 
         {% if request.user.is_authenticated %}
 
         <div class="nav-item dropdown d-none d-lg-flex">
-          <a
-            class="nav-link nav-link-purple dropdown-toggle media" href="#" id="user-dropdown"
-            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-          >
+          <a class="nav-link nav-link-purple dropdown-toggle media" href="#" id="user-dropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media-body">{{ user.username }}</div>
             <div class="avatar avatar-sm ml-3">
               {% include "_avatar.html" with profile=user.profile width=40 height=40 crop='thumb' gravity='faces' %}
