@@ -1,19 +1,26 @@
 // .navbar-cm       - add to Bootstraps' .navbar for custom styling
 
 // Local colors
-$theme-blue: #0076cf;
-$theme-blue-lt: #9fb3c2;
-$font-body: #1d1349;
+$nav-blue: $primary-blue;
+$nav-blue-hover: shade($primary-blue, 10);
+$nav-orange: $primary-orange;
+$nav-orange-hover: shade($primary-orange, 10);
+$nav-red: $primary-red;
+$nav-red-hover: shade($primary-red, 10);
+$nav-green: $primary-green;
+$nav-green-hover: shade($primary-green, 10);
+$nav-purple: $primary-purple;
+$nav-purple-hover: shade($primary-purple, 10);
 
 .navbar-cm {
   background-color: $ivory;
-  color: $font-body;
   font-family: $headings-font-family;
 
   .navbar-brand {
     padding: 0;
     border: none;
   }
+
   .logo-large {
     height: 50px;
     margin: 5px 0;
@@ -26,7 +33,7 @@ $font-body: #1d1349;
   .avatar img {
     width: 40px;
     height: 40px;
-    border-radius: 2% 22%;
+    border-radius: 50%;
   }
 
   .navbar-toggler {
@@ -46,18 +53,17 @@ $font-body: #1d1349;
     padding: 0;
     border: 0;
     margin-top: 10px;
-    min-width: 12rem;
 
     .dropdown-item {
       padding-top: 14px;
       padding-bottom: 14px;
-      color: $font-body;
+      color: $dark;
       border: none;
 
       &:hover,
       &:focus {
-        font-weight: $heavy-font-weight;
-        background-color: $ivory;
+        background-color: $primary-purple;
+        color: $ivory;
         cursor: pointer;
       }
       &:first-child {
@@ -82,25 +88,26 @@ $font-body: #1d1349;
     }
 
     .list-group-header {
-      background: $theme-blue;
+      background: $primary-purple-dark;
       color: $ivory;
-      border-color: $theme-blue;
+      border-color: $primary-purple-dark;
       text-align: center;
       padding: 0.75rem 1.25rem;
     }
 
     .list-group-item-action {
-      background: $theme-blue-lt;
+      color: $primary-purple;
       padding: 0.75rem 1.25rem;
       border: none;
-      color: $font-body;
     }
     .list-group-item .list-group-item-action {
       border: none;
     }
     .list-group-item-action:hover,
     .list-group-item-action:focus {
-      color: $theme-blue;
+      background-color: $primary-purple;
+      border-color: $primary-purple;
+      color: $ivory;
       cursor: pointer;
     }
   }
@@ -125,7 +132,6 @@ $font-body: #1d1349;
         }
 
         .nav-link {
-          color: $font-body;
           display: flex;
           align-items: center;
           border: none;
@@ -148,27 +154,47 @@ $font-body: #1d1349;
 
           .nav-link {
             position: relative;
-            color: $font-body;
+            color: $gray;
+            transition: color 0.16s ease-in;
             z-index: 1;
           }
 
           .nav-link:before {
             content: '';
             position: absolute;
+            background: $nav-blue;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 3em;
             top: 100%;
+            transition: top 0.16s ease-in;
             z-index: -1;
           }
 
           .dropdown.show .nav-link,
-          .nav-link:hover {
+          .nav-link:hover,
+          .nav-link:focus {
+            color: $ivory;
+
             &:before {
-              border-bottom: solid 4px $theme-blue;
               top: 0;
             }
+          }
+
+          .nav-link-blue:before {
+            background: $nav-blue;
+          }
+          .nav-link-orange:before {
+            background: $nav-orange;
+          }
+          .nav-link-red:before {
+            background: $nav-red;
+          }
+          .nav-link-green:before {
+            background: $nav-green;
+          }
+          .nav-link-purple:before {
+            background: $nav-purple;
           }
         }
 
@@ -186,11 +212,41 @@ $font-body: #1d1349;
             &:last-child {
               margin-bottom: 10px;
             }
-          }
-          .navbar-nav {
-            .nav-link {
+
+            &,
+            &:hover,
+            &:focus {
+              color: $ivory;
+            }
+
+            &.nav-link-blue {
+              background: $nav-blue;
               &:hover {
-                color: $theme-blue;
+                background: $nav-blue-hover;
+              }
+            }
+            &.nav-link-orange {
+              background: $nav-orange;
+              &:hover {
+                background: $nav-orange-hover;
+              }
+            }
+            &.nav-link-red {
+              background: $nav-red;
+              &:hover {
+                background: $nav-red-hover;
+              }
+            }
+            &.nav-link-green {
+              background: $nav-green;
+              &:hover {
+                background: $nav-green-hover;
+              }
+            }
+            &.nav-link-purple {
+              background: $nav-purple;
+              &:hover {
+                background: $nav-purple-hover;
               }
             }
           }
