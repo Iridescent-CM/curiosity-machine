@@ -5,6 +5,11 @@
   }
 }
 
+//local vars
+$white: #ffffff;
+$dark-blue: #041e42;
+
+//remove
 .bg-pattern-white {
   background: url('../images/design-challenge-repeating-pattern-white.png');
   background-attachment: fixed;
@@ -75,5 +80,31 @@
   }
   &.stripes-yellow {
     background-image: url('../images/backgrounds/stripes/yellow.svg');
+  }
+}
+
+.cta-banner {
+  background-image: url('../images/backgrounds/banners/burst-orange.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: $dark-blue;
+  color: $white;
+  text-align: center;
+  min-height: 10em;
+
+  &.burst-orange {
+    background-image: url('../images/backgrounds/banners/burst-orange.svg');
+  }
+  &.burst-blue {
+    background-image: url('../images/backgrounds/banners/burst-blue.svg');
+  }
+  &.crisscross {
+    background-image: url('../images/backgrounds/banners/crisscross.svg');
+    background-position: top;
+  }
+  &.circles {
+    background-image: url('../images/backgrounds/banners/circles.svg');
+    background-position: bottom;
   }
 }
