@@ -9735,6 +9735,26 @@ footer {
   .bg-pattern.stripes-yellow {
     background-image: url("../images/backgrounds/stripes/yellow.svg"); }
 
+.cta-banner {
+  background-image: url("../images/backgrounds/banners/burst-orange.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: #041e42;
+  color: #ffffff;
+  text-align: center;
+  min-height: 10em; }
+  .cta-banner.burst-orange {
+    background-image: url("../images/backgrounds/banners/burst-orange.svg"); }
+  .cta-banner.burst-blue {
+    background-image: url("../images/backgrounds/banners/burst-blue.svg"); }
+  .cta-banner.crisscross {
+    background-image: url("../images/backgrounds/banners/crisscross.svg");
+    background-position: top; }
+  .cta-banner.circles {
+    background-image: url("../images/backgrounds/banners/circles.svg");
+    background-position: bottom; }
+
 [v-cloak] {
   display: none; }
 
