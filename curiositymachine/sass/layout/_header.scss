@@ -3,10 +3,10 @@
 // Local colors
 $nav-blue: $primary-blue;
 $nav-blue-hover: shade($primary-blue, 10);
+$nav-gold: $primary-gold;
+$nav-gold-hover: shade($primary-gold, 10);
 $nav-orange: $primary-orange;
 $nav-orange-hover: shade($primary-orange, 10);
-$nav-red: $primary-red;
-$nav-red-hover: shade($primary-red, 10);
 $nav-green: $primary-green;
 $nav-green-hover: shade($primary-green, 10);
 $nav-purple: $primary-purple;
@@ -83,7 +83,7 @@ $nav-purple-hover: shade($primary-purple, 10);
       padding: 0;
       border: none;
       &:last-child {
-        overflow:hidden;
+        overflow: hidden;
       }
     }
 
@@ -146,7 +146,6 @@ $nav-purple-hover: shade($primary-purple, 10);
       $infix: breakpoint-infix($next, $grid-breakpoints);
 
       &#{$infix} {
-
         // .navbar-collapse expanded
         @include media-breakpoint-up($next) {
           .nav-item {
@@ -161,7 +160,7 @@ $nav-purple-hover: shade($primary-purple, 10);
           }
 
           .nav-link:before {
-            content: "";
+            content: '';
             position: absolute;
             background: $nav-blue;
             bottom: 0;
@@ -185,11 +184,11 @@ $nav-purple-hover: shade($primary-purple, 10);
           .nav-link-blue:before {
             background: $nav-blue;
           }
+          .nav-link-gold:before {
+            background: $nav-gold;
+          }
           .nav-link-orange:before {
             background: $nav-orange;
-          }
-          .nav-link-red:before {
-            background: $nav-red;
           }
           .nav-link-green:before {
             background: $nav-green;
@@ -214,8 +213,10 @@ $nav-purple-hover: shade($primary-purple, 10);
               margin-bottom: 10px;
             }
 
-            &, &:hover, &:focus {
-              color: $ivory
+            &,
+            &:hover,
+            &:focus {
+              color: $ivory;
             }
 
             &.nav-link-blue {
@@ -224,16 +225,16 @@ $nav-purple-hover: shade($primary-purple, 10);
                 background: $nav-blue-hover;
               }
             }
+            &.nav-link-gold {
+              background: $nav-gold;
+              &:hover {
+                background: $nav-gold-hover;
+              }
+            }
             &.nav-link-orange {
               background: $nav-orange;
               &:hover {
                 background: $nav-orange-hover;
-              }
-            }
-            &.nav-link-red {
-              background: $nav-red;
-              &:hover {
-                background: $nav-red-hover;
               }
             }
             &.nav-link-green {
@@ -250,7 +251,6 @@ $nav-purple-hover: shade($primary-purple, 10);
             }
           }
         }
-
       }
     }
   }

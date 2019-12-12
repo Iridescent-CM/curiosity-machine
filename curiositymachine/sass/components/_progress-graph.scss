@@ -69,32 +69,32 @@
     }
 
     .stage-build {
-      fill: $primary-purple;
+      fill: $primary-lightblue;
       .colorbar {
-        fill: tint($primary-purple, 90%);
+        fill: tint($primary-lightblue, 90%);
       }
       .summary {
-        fill: $primary-purple;
+        fill: $primary-lightblue;
       }
     }
 
     .stage-test {
-      fill: $primary-red;
+      fill: $primary-orange;
       .colorbar {
-        fill: tint($primary-red, 90%);
+        fill: tint($primary-orange, 90%);
       }
       .summary {
-        fill: $primary-red;
+        fill: $primary-orange;
       }
     }
 
     .stage-reflect {
-      fill: #1EB9C8;
+      fill: #1eb9c8;
       .colorbar {
         fill: tint($primary-blue, 90%);
       }
       .summary {
-        fill: #1EB9C8;
+        fill: #1eb9c8;
       }
     }
 
@@ -112,7 +112,7 @@
       stroke: $gray;
       fill: transparent;
       stroke-width: 1px;
-      stroke-dasharray: 5,5
+      stroke-dasharray: 5, 5;
     }
 
     text {

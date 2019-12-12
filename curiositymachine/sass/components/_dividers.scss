@@ -6,27 +6,27 @@
 
 .hr-purple {
   @extend .basic-hr;
-  background-color: $primary-purple;
+  background-color: $primary-lightblue;
 }
 
 .hr-red {
   @extend .basic-hr;
-  background-color: $primary-red;
+  background-color: $primary-orange;
 }
 
 .hr-new-red {
   @extend .basic-hr;
-  background-color: theme-color("new-red");
+  background-color: theme-color('new-red');
 }
 
 .hr-orange {
   @extend .basic-hr;
-  background-color: $primary-orange;
+  background-color: $primary-gold;
 }
 
 .well {
-  background-color: #F5F5F5;
-  border: 2px solid #E3E3E3;
+  background-color: #f5f5f5;
+  border: 2px solid #e3e3e3;
   padding: 20px;
   border-radius: $base-border-radius;
 }

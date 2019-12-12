@@ -53,13 +53,13 @@
       background-color: $primary-green;
     }
     &.build-stage {
-      background-color: $primary-purple;
+      background-color: $primary-lightblue;
     }
     &.test-stage {
-      background-color: $primary-red;
+      background-color: $primary-orange;
     }
     &.reflect-stage {
-      background-color: #1EB9C8;
+      background-color: #1eb9c8;
     }
 
     @include media-breakpoint-up(md) {
