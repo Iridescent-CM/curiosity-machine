@@ -1,7 +1,8 @@
 @font-face {
   font-family: 'curiosity-machine';
-  src:url('../fonts/curiosity-machine.eot?6t4fb5');
-  src:url('../fonts/curiosity-machine.eot?#iefix6t4fb5') format('embedded-opentype'),
+  src: url('../fonts/curiosity-machine.eot?6t4fb5');
+  src: url('../fonts/curiosity-machine.eot?#iefix6t4fb5')
+      format('embedded-opentype'),
     url('../fonts/curiosity-machine.ttf?6t4fb5') format('truetype'),
     url('../fonts/curiosity-machine.woff?6t4fb5') format('woff'),
     url('../fonts/curiosity-machine.svg?6t4fb5#curiosity-machine') format('svg');
@@ -9,7 +10,36 @@
   font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins/Poppins-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins/Poppins-Bold.ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins/Poppins-Italic.ttf');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('../fonts/rubrik/RubikMonoOne-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
   font-family: 'curiosity-machine';
   speak: none;
   font-style: normal;
@@ -24,117 +54,117 @@
 }
 
 .icon-aifc:before {
-  content: "\e908";
+  content: '\e908';
 }
 .icon-aifc-icon:before {
-  content: "\e907";
+  content: '\e907';
 }
 .icon-camera:before {
-    content: "\e900";
+  content: '\e900';
 }
 .icon-compsci:before {
-  content: "\e60e";
+  content: '\e60e';
 }
 .icon-satellite:before {
-  content: "\e600";
+  content: '\e600';
 }
 .icon-robotics:before {
-  content: "\e601";
+  content: '\e601';
 }
 .icon-ocean:before {
-  content: "\e602";
+  content: '\e602';
 }
 .icon-neuroscience:before {
-  content: "\e603";
+  content: '\e603';
 }
 .icon-inventor:before {
-  content: "\e604";
+  content: '\e604';
 }
 .icon-food:before {
-  content: "\e605";
+  content: '\e605';
 }
 .icon-engineer:before {
-  content: "\e606";
+  content: '\e606';
 }
 .icon-electrical:before {
-  content: "\e607";
+  content: '\e607';
 }
 .icon-civil:before {
-  content: "\e608";
+  content: '\e608';
 }
 .icon-builder:before {
-  content: "\e609";
+  content: '\e609';
 }
 .icon-biomimicry:before {
-  content: "\e60a";
+  content: '\e60a';
 }
 .icon-biomechanics:before {
-  content: "\e60b";
+  content: '\e60b';
 }
 .icon-art:before {
-  content: "\e60c";
+  content: '\e60c';
 }
 .icon-aerospace:before {
-  content: "\e60d";
+  content: '\e60d';
 }
 .icon-materials:before {
-  content: "\e60f";
+  content: '\e60f';
 }
 .icon-star-full:before {
-  content: "\e615";
+  content: '\e615';
 }
 .icon-up-arrow:before {
-  content: "\e610";
+  content: '\e610';
 }
 .icon-right-arrow:before {
-  content: "\e611";
+  content: '\e611';
 }
 .icon-down-arrow:before {
-  content: "\e612";
+  content: '\e612';
 }
 .icon-left-arrow:before {
-  content: "\e613";
+  content: '\e613';
 }
 
 .icon-boeing-logo:before {
-  content: "\e614";
+  content: '\e614';
 }
 .icon-open-book:before {
-  content: "\e904";
+  content: '\e904';
 }
 .icon-lock:before {
-  content: "\e903";
+  content: '\e903';
 }
 .icon-cross:before {
-  content: "\e901";
+  content: '\e901';
 }
 .icon-check:before {
-  content: "\e902";
+  content: '\e902';
 }
 .icon-brush:before {
-  content: "\e905";
+  content: '\e905';
 }
 .icon-facebook:before {
-  content: "\ea90";
+  content: '\ea90';
 }
 .icon-instagram:before {
-  content: "\ea92";
+  content: '\ea92';
 }
 .icon-twitter:before {
-  content: "\ea96";
+  content: '\ea96';
 }
 .icon-youtube:before {
-  content: "\ea9d";
+  content: '\ea9d';
 }
 .icon-aibrain:before {
-  content: "\e906";
+  content: '\e906';
 }
 .icon-home:before {
-  content: "\e909";
+  content: '\e909';
 }
 .icon-tree:before {
-  content: "\e9bc";
+  content: '\e9bc';
 }
 .icon-happy:before {
-  content: "\e9df";
+  content: '\e9df';
 }

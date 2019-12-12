@@ -7,40 +7,43 @@ body {
   line-height: $base-line-height;
 }
 
-h1,
+h1 {
+  font-size: 2.25 * $base-font-size;
+  margin: 2.25rem 0 1.5rem;
+  font-family: $headings-font-family;
+}
+
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: $headings-font-family;
-  font-size: $base-font-size;
-  line-height: $heading-line-height;
-  margin: 0 0 $small-spacing;
-  font-weight: $light-font-weight;
-}
-
-h1 {
-  font-size: $base-font-size * 2.6875;
-  font-weight: $light-font-weight;
+  font-family: $base-font-family;
 }
 
 h2 {
-  font-size: $base-font-size * 2;
-  font-weight: $light-font-weight;
-}
-
-h3 {
-  font-size: $base-font-size * 1.5;
-}
-
-h4 {
-  font-size: $base-font-size * 1.125;
+  font-size: 1.875 * $base-font-size;
+  margin: 1.875rem 0 1rem;
   font-weight: $heavy-font-weight;
 }
 
+h3 {
+  font-size: 1.5 * $base-font-size;
+  margin: 1.5rem 0 0.75rem;
+  font-weight: normal;
+}
+h4 {
+  font-size: 1.125 * $base-font-size;
+  margin: 1.125rem 0 0.75rem;
+  font-weight: $heavy-font-weight;
+}
 h5 {
-  font-size: $base-font-size * 1.125;
+  font-size: 0.875 * $base-font-size;
+  margin: 0.875rem 0 0.667rem;
+}
+h6 {
+  font-size: 0.75 * $base-font-size;
+  margin: 0.75rem 0 0.5rem;
 }
 
 p {
@@ -97,6 +100,6 @@ i {
   color: $primary-green;
 }
 
-.purple-type {
-  color: $primary-purple;
+.lightblue-type {
+  color: $primary-lightblue;
 }
