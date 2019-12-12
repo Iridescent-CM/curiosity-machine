@@ -9876,6 +9876,42 @@ footer {
   background-attachment: fixed;
   background-repeat: repeat; }
 
+.bg-pattern {
+  background-image: url("../images/backgrounds/circles/blue.svg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover; }
+  .bg-pattern.circles-blue {
+    background-image: url("../images/backgrounds/circles/blue.svg"); }
+  .bg-pattern.circles-lightblue {
+    background-image: url("../images/backgrounds/circles/lightblue.svg"); }
+  .bg-pattern.circles-orange {
+    background-image: url("../images/backgrounds/circles/orange.svg"); }
+  .bg-pattern.circles-pink {
+    background-image: url("../images/backgrounds/circles/pink.svg"); }
+  .bg-pattern.circles-yellow {
+    background-image: url("../images/backgrounds/circles/yellow.svg"); }
+  .bg-pattern.dots-blue {
+    background-image: url("../images/backgrounds/dots/blue.svg"); }
+  .bg-pattern.dots-lightblue {
+    background-image: url("../images/backgrounds/dots/lightblue.svg"); }
+  .bg-pattern.dots-orange {
+    background-image: url("../images/backgrounds/dots/orange.svg"); }
+  .bg-pattern.dots-pink {
+    background-image: url("../images/backgrounds/dots/pink.svg"); }
+  .bg-pattern.dots-yellow {
+    background-image: url("../images/backgrounds/dots/yellow.svg"); }
+  .bg-pattern.stripes-blue {
+    background-image: url("../images/backgrounds/stripes/blue.svg"); }
+  .bg-pattern.stripes-lightblue {
+    background-image: url("../images/backgrounds/stripes/lightblue.svg"); }
+  .bg-pattern.stripes-orange {
+    background-image: url("../images/backgrounds/stripes/orange.svg"); }
+  .bg-pattern.stripes-pink {
+    background-image: url("../images/backgrounds/stripes/pink.svg"); }
+  .bg-pattern.stripes-yellow {
+    background-image: url("../images/backgrounds/stripes/yellow.svg"); }
+
 [v-cloak] {
   display: none; }
 
