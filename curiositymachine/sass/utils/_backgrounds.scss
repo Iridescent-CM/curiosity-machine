@@ -6,7 +6,7 @@
 }
 
 .bg-pattern-white {
-  background: url("../images/design-challenge-repeating-pattern-white.png");
+  background: url('../images/design-challenge-repeating-pattern-white.png');
   background-attachment: fixed;
   background-repeat: repeat;
 }
@@ -14,7 +14,65 @@
 .bg-pattern-dark {
   color: $ivory;
   background-color: shade($dark, 40%);
-  background-image: url("../images/design-challenge-repeating-pattern.png");
+  background-image: url('../images/design-challenge-repeating-pattern.png');
   background-attachment: fixed;
   background-repeat: repeat;
+}
+
+.bg-pattern {
+  background-image: url('../images/backgrounds/circles/blue.svg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  //circles
+  &.circles-blue {
+    background-image: url('../images/backgrounds/circles/blue.svg');
+  }
+  &.circles-lightblue {
+    background-image: url('../images/backgrounds/circles/lightblue.svg');
+  }
+  &.circles-orange {
+    background-image: url('../images/backgrounds/circles/orange.svg');
+  }
+  &.circles-pink {
+    background-image: url('../images/backgrounds/circles/pink.svg');
+  }
+  &.circles-yellow {
+    background-image: url('../images/backgrounds/circles/yellow.svg');
+  }
+
+  //dots
+  &.dots-blue {
+    background-image: url('../images/backgrounds/dots/blue.svg');
+  }
+  &.dots-lightblue {
+    background-image: url('../images/backgrounds/dots/lightblue.svg');
+  }
+  &.dots-orange {
+    background-image: url('../images/backgrounds/dots/orange.svg');
+  }
+  &.dots-pink {
+    background-image: url('../images/backgrounds/dots/pink.svg');
+  }
+  &.dots-yellow {
+    background-image: url('../images/backgrounds/dots/yellow.svg');
+  }
+
+  //stripes
+  &.stripes-blue {
+    background-image: url('../images/backgrounds/stripes/blue.svg');
+  }
+  &.stripes-lightblue {
+    background-image: url('../images/backgrounds/stripes/lightblue.svg');
+  }
+  &.stripes-orange {
+    background-image: url('../images/backgrounds/stripes/orange.svg');
+  }
+  &.stripes-pink {
+    background-image: url('../images/backgrounds/stripes/pink.svg');
+  }
+  &.stripes-yellow {
+    background-image: url('../images/backgrounds/stripes/yellow.svg');
+  }
 }
