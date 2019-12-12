@@ -311,7 +311,7 @@ template {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
-  font-family: "Raleway", Helvetica, sans-serif;
+  font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
   font-weight: 500;
   line-height: 1.2;
   color: inherit; }
@@ -7425,7 +7425,32 @@ a.text-new-purple:hover, a.text-new-purple:focus {
   font-weight: normal;
   font-style: normal; }
 
-[class^="icon-"], [class*=" icon-"] {
+@font-face {
+  font-family: 'Poppins';
+  src: url("../fonts/poppins/Poppins-Regular.ttf");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Poppins';
+  src: url("../fonts/poppins/Poppins-Bold.ttf");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Poppins';
+  src: url("../fonts/poppins/Poppins-Italic.ttf");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Rubik';
+  src: url("../fonts/rubrik/RubikMonoOne-Regular.ttf");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^='icon-'],
+[class*=' icon-'] {
   font-family: 'curiosity-machine';
   speak: none;
   font-style: normal;
@@ -7438,151 +7463,161 @@ a.text-new-purple:hover, a.text-new-purple:focus {
   -moz-osx-font-smoothing: grayscale; }
 
 .icon-aifc:before {
-  content: "\e908"; }
+  content: '\e908'; }
 
 .icon-aifc-icon:before {
-  content: "\e907"; }
+  content: '\e907'; }
 
 .icon-camera:before {
-  content: "\e900"; }
+  content: '\e900'; }
 
 .icon-compsci:before {
-  content: "\e60e"; }
+  content: '\e60e'; }
 
 .icon-satellite:before {
-  content: "\e600"; }
+  content: '\e600'; }
 
 .icon-robotics:before {
-  content: "\e601"; }
+  content: '\e601'; }
 
 .icon-ocean:before {
-  content: "\e602"; }
+  content: '\e602'; }
 
 .icon-neuroscience:before {
-  content: "\e603"; }
+  content: '\e603'; }
 
 .icon-inventor:before {
-  content: "\e604"; }
+  content: '\e604'; }
 
 .icon-food:before {
-  content: "\e605"; }
+  content: '\e605'; }
 
 .icon-engineer:before {
-  content: "\e606"; }
+  content: '\e606'; }
 
 .icon-electrical:before {
-  content: "\e607"; }
+  content: '\e607'; }
 
 .icon-civil:before {
-  content: "\e608"; }
+  content: '\e608'; }
 
 .icon-builder:before {
-  content: "\e609"; }
+  content: '\e609'; }
 
 .icon-biomimicry:before {
-  content: "\e60a"; }
+  content: '\e60a'; }
 
 .icon-biomechanics:before {
-  content: "\e60b"; }
+  content: '\e60b'; }
 
 .icon-art:before {
-  content: "\e60c"; }
+  content: '\e60c'; }
 
 .icon-aerospace:before {
-  content: "\e60d"; }
+  content: '\e60d'; }
 
 .icon-materials:before {
-  content: "\e60f"; }
+  content: '\e60f'; }
 
 .icon-star-full:before {
-  content: "\e615"; }
+  content: '\e615'; }
 
 .icon-up-arrow:before {
-  content: "\e610"; }
+  content: '\e610'; }
 
 .icon-right-arrow:before {
-  content: "\e611"; }
+  content: '\e611'; }
 
 .icon-down-arrow:before {
-  content: "\e612"; }
+  content: '\e612'; }
 
 .icon-left-arrow:before {
-  content: "\e613"; }
+  content: '\e613'; }
 
 .icon-boeing-logo:before {
-  content: "\e614"; }
+  content: '\e614'; }
 
 .icon-open-book:before {
-  content: "\e904"; }
+  content: '\e904'; }
 
 .icon-lock:before {
-  content: "\e903"; }
+  content: '\e903'; }
 
 .icon-cross:before {
-  content: "\e901"; }
+  content: '\e901'; }
 
 .icon-check:before {
-  content: "\e902"; }
+  content: '\e902'; }
 
 .icon-brush:before {
-  content: "\e905"; }
+  content: '\e905'; }
 
 .icon-facebook:before {
-  content: "\ea90"; }
+  content: '\ea90'; }
 
 .icon-instagram:before {
-  content: "\ea92"; }
+  content: '\ea92'; }
 
 .icon-twitter:before {
-  content: "\ea96"; }
+  content: '\ea96'; }
 
 .icon-youtube:before {
-  content: "\ea9d"; }
+  content: '\ea9d'; }
 
 .icon-aibrain:before {
-  content: "\e906"; }
+  content: '\e906'; }
 
 .icon-home:before {
-  content: "\e909"; }
+  content: '\e909'; }
 
 .icon-tree:before {
-  content: "\e9bc"; }
+  content: '\e9bc'; }
 
 .icon-happy:before {
-  content: "\e9df"; }
+  content: '\e9df'; }
 
 body {
   background-color: #fffcf7;
   color: #333333;
-  font-family: "Open Sans", Helvetica, sans-serif;
+  font-family: "Poppins", "Open Sans", Helvetica, sans-serif;
   font-feature-settings: 'kern', 'liga', 'pnum';
   font-size: 1em;
   line-height: 1.5; }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", Helvetica, sans-serif;
-  font-size: 1em;
-  line-height: 1.2;
-  margin: 0 0 0.75em;
-  font-weight: 300; }
-
 h1 {
-  font-size: 2.6875em;
-  font-weight: 300; }
+  font-size: 2.25em;
+  margin: 2.25rem 0 1.5rem;
+  font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif; }
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", "Open Sans", Helvetica, sans-serif; }
 
 h2 {
-  font-size: 2em;
-  font-weight: 300; }
+  font-size: 1.875em;
+  margin: 1.875rem 0 1rem;
+  font-weight: 700; }
 
 h3 {
-  font-size: 1.5em; }
+  font-size: 1.5em;
+  margin: 1.5rem 0 0.75rem;
+  font-weight: normal; }
 
 h4 {
   font-size: 1.125em;
+  margin: 1.125rem 0 0.75rem;
   font-weight: 700; }
 
 h5 {
-  font-size: 1.125em; }
+  font-size: 0.875em;
+  margin: 0.875rem 0 0.667rem; }
+
+h6 {
+  font-size: 0.75em;
+  margin: 0.75rem 0 0.5rem; }
 
 p {
   margin: 0 0 0.75em; }
@@ -7622,8 +7657,8 @@ i {
 .green-type {
   color: #43b02a; }
 
-.purple-type {
-  color: #1d1349; }
+.lightblue-type {
+  color: #5be2e7; }
 
 .about-pages .nav {
   justify-content: center; }
@@ -7711,7 +7746,7 @@ footer {
 
 .navbar-cm {
   background-color: #fffcf7;
-  font-family: "Raleway", Helvetica, sans-serif; }
+  font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif; }
   .navbar-cm .navbar-brand {
     padding: 0;
     border: none; }
@@ -8360,7 +8395,7 @@ footer {
         text-decoration: none;
         color: #0076cf; }
   .cm-fancy-card .card-body .card-section-title {
-    font-family: "Raleway", Helvetica, sans-serif;
+    font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
     font-size: 0.875em;
     font-weight: normal;
     text-transform: capitalize;
@@ -8870,7 +8905,7 @@ footer {
   #challenges-page .filter-list {
     list-style-type: none;
     font-size: 14px;
-    font-family: "Raleway", Helvetica, sans-serif;
+    font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
     font-weight: 700;
     padding-left: 0px;
     overflow: hidden; }
@@ -8951,7 +8986,7 @@ footer {
     #challenges-page .filter-theme-toggle.collapsed:before {
       content: "Show"; }
   #challenges-page .aifc-filter .card-body {
-    font-family: "Raleway", Helvetica, sans-serif;
+    font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
     font-weight: 300;
     font-size: 24px;
     color: #fffcf7;
@@ -9050,7 +9085,7 @@ footer {
   border-radius: 50%;
   font-size: 2em;
   font-weight: 300;
-  font-family: "Raleway", Helvetica, sans-serif; }
+  font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif; }
 
 #edp-inspiration .resources-book {
   display: block;
