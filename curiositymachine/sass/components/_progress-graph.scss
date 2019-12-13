@@ -1,5 +1,5 @@
 .graph {
-  background: white;
+  background: $white;
   border-top: 1px solid $sand;
   border-bottom: 1px solid $sand;
   position: relative;
@@ -89,12 +89,12 @@
     }
 
     .stage-reflect {
-      fill: #1eb9c8;
+      fill: $primary-blue;
       .colorbar {
         fill: tint($primary-blue, 90%);
       }
       .summary {
-        fill: #1eb9c8;
+        fill: $primary-blue;
       }
     }
 
@@ -103,7 +103,7 @@
     }
 
     .graphline {
-      stroke: #d8d6d4;
+      stroke: $sand;
       fill: transparent;
       stroke-width: 2px;
     }

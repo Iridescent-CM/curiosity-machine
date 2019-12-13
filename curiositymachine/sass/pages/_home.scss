@@ -28,7 +28,7 @@
   .home-title {
     color: $ivory;
     font-weight: $base-font-weight;
-    text-shadow: 3px 3px 4px black;
+    text-shadow: 3px 3px 4px $black;
     font-size: 4em;
   }
 
@@ -74,11 +74,11 @@
 
   .sign-up-panel {
     background-color: $primary-blue;
-    color: white;
+    color: $white;
   }
 
   .home-support-panel {
-    background-color: #fff;
+    background-color: $white;
   }
 
   #how-video-modal {

@@ -64,12 +64,19 @@ $primary-green-dark: shade($primary-green, 20%);
 $primary-green-light: tint($primary-green, 20%);
 $primary-green-lightest: tint($primary-green, 40%);
 
+$primary-purple: #1d1349;
+$primary-purple-darkest: shade($primary-purple, 40%);
+$primary-purple-dark: shade($primary-purple, 20%);
+$primary-purple-light: tint($primary-purple, 20%);
+$primary-purple-lightest: tint($primary-purple, 40%);
+
 // Colors: Neutral Palette
 $dark: #333333;
 $gray: #949494;
 $light-gray: #cccccc;
 $sand: #e5e1d9;
 $ivory: #fffcf7;
+$white: #ffffff;
 
 // Shadow Colors
 $main-shadow: rgba(148, 148, 148, 0.5);
