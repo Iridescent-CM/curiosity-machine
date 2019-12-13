@@ -25,8 +25,8 @@
 }
 
 .well {
-  background-color: #f5f5f5;
-  border: 2px solid #e3e3e3;
+  background-color: $ivory;
+  border: 2px solid $sand;
   padding: 20px;
   border-radius: $base-border-radius;
 }
@@ -38,7 +38,7 @@
 }
 
 .well-shadow {
-  background-color: #fff;
+  background-color: $white;
   border-radius: $base-border-radius;
   padding: $small-spacing;
   box-shadow: 0px 2px 4px 1px $main-shadow;

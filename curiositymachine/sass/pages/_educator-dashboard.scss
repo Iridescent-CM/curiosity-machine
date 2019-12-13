@@ -1,5 +1,4 @@
 .educator-dashboard {
-
   .submit-message {
     .before-submit {
       display: initial;
@@ -25,7 +24,7 @@
     height: 48px;
 
     img {
-      background-color: #fff;
+      background-color: $white;
       border-radius: 50%;
       box-shadow: 0px 2px 4px 0px $main-shadow;
       max-width: 48px;
@@ -61,12 +60,11 @@
 }
 
 .educator-dashboard-conversation {
-
   .feedback-form {
     #id_visual_media_container {
       display: inline-block;
     }
-    input[type="submit"] {
+    input[type='submit'] {
       float: right;
     }
     textarea {

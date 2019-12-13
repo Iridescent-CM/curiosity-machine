@@ -1,19 +1,20 @@
 .rebrand {
-  font-family: 'Poppins', sans-serif;
+  font-family: $base-font-family;
 
   h1 {
-    font-family: 'Rubik Mono One', sans-serif;
-    color: #0076CF;
+    font-family: $headings-font-family;
+    color: $primary-blue;
   }
 
   a:not(.btn) {
-    color: #0076CF;
+    color: $primary-blue;
   }
 
   .circles-banner {
-    background-color: white;
+    background-color: $white;
     text-align: center;
-    background-image: url("../images/circles-bkg-left.png"), url("../images/circles-bkg-right.png");
+    background-image: url('../images/circles-bkg-left.png'),
+      url('../images/circles-bkg-right.png');
     background-size: contain, contain;
     background-position: left bottom, right top;
     background-repeat: no-repeat, no-repeat;
@@ -22,8 +23,8 @@
   .btn-primary,
   .btn-primary:active,
   .btn-primary:not(:disabled):not(.disabled):active {
-    background-color: #1d1349;
-    border-color: #1d1349;
+    background-color: $primary-purple;
+    border-color: $primary-purple;
     white-space: normal;
   }
 }
