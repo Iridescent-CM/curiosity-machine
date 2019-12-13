@@ -24,14 +24,14 @@
     top: -8px;
     left: -8px;
     box-shadow: 0px 2px 4px rgba(151, 151, 151, 0.8);
-    color: white;
+    color: $white;
 
     &:hover {
       color: $primary-orange-dark;
     }
     &:active,
     &:focus {
-      color: white;
+      color: $white;
     }
   }
 
