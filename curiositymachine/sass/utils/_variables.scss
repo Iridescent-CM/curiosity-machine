@@ -77,13 +77,14 @@ $light-gray: #cccccc;
 $sand: #e5e1d9;
 $ivory: #fffcf7;
 $white: #ffffff;
+$black: #000000;
 
 // Shadow Colors
 $main-shadow: rgba(148, 148, 148, 0.5);
 $base-box-shadow: 0px 2px 4px 0px $main-shadow;
 
 // Font Colors
-$base-font-color: $dark;
+$base-font-color: $black;
 $action-color: $primary-blue;
 
 // Border
@@ -92,8 +93,8 @@ $base-border: 1px solid $base-border-color;
 $base-border-radius: 4px;
 
 // Background Colors
-$base-background-color: $ivory;
-$secondary-background-color: $sand;
+$base-background-color: $white;
+$secondary-background-color: $white;
 
 // Animations
 $base-duration: 150ms;
