@@ -4651,11 +4651,11 @@ input[type="button"].btn-block {
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1;
-  color: #000;
+  color: #000000;
   text-shadow: 0 1px 0 #ffffff;
   opacity: .5; }
   .close:hover, .close:focus {
-    color: #000;
+    color: #000000;
     text-decoration: none;
     opacity: .75; }
   .close:not(:disabled):not(.disabled) {
@@ -4722,7 +4722,7 @@ button.close {
   bottom: 0;
   left: 0;
   z-index: 1040;
-  background-color: #000; }
+  background-color: #000000; }
   .modal-backdrop.fade {
     opacity: 0; }
   .modal-backdrop.show {
@@ -4822,7 +4822,7 @@ button.close {
     .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before {
       top: 0;
       border-width: 0.4rem 0.4rem 0;
-      border-top-color: #000; }
+      border-top-color: #000000; }
 
 .bs-tooltip-right, .bs-tooltip-auto[x-placement^="right"] {
   padding: 0 0.4rem; }
@@ -4833,7 +4833,7 @@ button.close {
     .bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^="right"] .arrow::before {
       right: 0;
       border-width: 0.4rem 0.4rem 0.4rem 0;
-      border-right-color: #000; }
+      border-right-color: #000000; }
 
 .bs-tooltip-bottom, .bs-tooltip-auto[x-placement^="bottom"] {
   padding: 0.4rem 0; }
@@ -4842,7 +4842,7 @@ button.close {
     .bs-tooltip-bottom .arrow::before, .bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
       bottom: 0;
       border-width: 0 0.4rem 0.4rem;
-      border-bottom-color: #000; }
+      border-bottom-color: #000000; }
 
 .bs-tooltip-left, .bs-tooltip-auto[x-placement^="left"] {
   padding: 0 0.4rem; }
@@ -4853,14 +4853,14 @@ button.close {
     .bs-tooltip-left .arrow::before, .bs-tooltip-auto[x-placement^="left"] .arrow::before {
       left: 0;
       border-width: 0.4rem 0 0.4rem 0.4rem;
-      border-left-color: #000; }
+      border-left-color: #000000; }
 
 .tooltip-inner {
   max-width: 200px;
   padding: 0.25rem 0.5rem;
   color: #ffffff;
   text-align: center;
-  background-color: #000;
+  background-color: #000000;
   border-radius: 0.25rem; }
 
 .popover {
@@ -7398,7 +7398,7 @@ a.text-new-purple:hover, a.text-new-purple:focus {
   .navbar {
     display: none; }
   .badge, .family-dashboard .list-dots .dot {
-    border: 1px solid #000; }
+    border: 1px solid #000000; }
   .table {
     border-collapse: collapse !important; }
     .table td,
@@ -7578,7 +7578,7 @@ a.text-new-purple:hover, a.text-new-purple:focus {
 
 body {
   background-color: #fffcf7;
-  color: #333333;
+  color: #000000;
   font-family: "Poppins", "Open Sans", Helvetica, sans-serif;
   font-feature-settings: 'kern', 'liga', 'pnum';
   font-size: 1em;
@@ -9317,7 +9317,7 @@ footer {
 #index-page .home-title {
   color: #fffcf7;
   font-weight: 400;
-  text-shadow: 3px 3px 4px #000;
+  text-shadow: 3px 3px 4px #000000;
   font-size: 4em; }
 
 #index-page .home-subtitle {
@@ -9650,7 +9650,7 @@ footer {
 
 .aifc-pages .aifc-pages-video-header {
   position: relative;
-  background-color: #000;
+  background-color: #000000;
   height: 75vh;
   min-height: 25rem;
   width: 100%;
@@ -9680,7 +9680,7 @@ footer {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #000;
+  background-color: #000000;
   opacity: 0.5;
   z-index: 1; }
 
