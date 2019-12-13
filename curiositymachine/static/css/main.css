@@ -7444,6 +7444,18 @@ a.text-new-purple:hover, a.text-new-purple:focus {
   font-style: italic; }
 
 @font-face {
+  font-family: 'Poppins';
+  src: url("../fonts/poppins/Poppins-Light.ttf");
+  font-weight: 300;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Poppins';
+  src: url("../fonts/poppins/Poppins-LightItalic.ttf");
+  font-weight: 300;
+  font-style: italic; }
+
+@font-face {
   font-family: 'Rubik';
   src: url("../fonts/rubrik/RubikMonoOne-Regular.ttf");
   font-weight: normal;
@@ -7576,17 +7588,20 @@ a.text-new-purple:hover, a.text-new-purple:focus {
 .icon-happy:before {
   content: '\e9df'; }
 
+html,
 body {
-  background-color: #fffcf7;
+  background-color: #ffffff;
   color: #000000;
   font-family: "Poppins", "Open Sans", Helvetica, sans-serif;
   font-feature-settings: 'kern', 'liga', 'pnum';
-  font-size: 1em;
-  line-height: 1.5; }
+  font-size: 18px;
+  line-height: 30px; }
 
 h1 {
-  font-size: 2.25em;
-  margin: 2.25rem 0 1.5rem;
+  font-size: 4.17rem;
+  line-height: 4.17rem;
+  color: #1d1349;
+  margin: 0;
   font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif; }
 
 h2,
@@ -7597,40 +7612,42 @@ h6 {
   font-family: "Poppins", "Open Sans", Helvetica, sans-serif; }
 
 h2 {
-  font-size: 1.875em;
-  margin: 1.875rem 0 1rem;
+  font-size: 1.78rem;
+  line-height: 2.33rem;
+  margin: 0;
+  color: #1d1349;
   font-weight: 700; }
 
 h3 {
-  font-size: 1.5em;
-  margin: 1.5rem 0 0.75rem;
-  font-weight: normal; }
+  font-size: 1.33rem;
+  line-height: 2.11rem;
+  margin: 0; }
 
 h4 {
-  font-size: 1.125em;
-  margin: 1.125rem 0 0.75rem;
+  font-size: 1rem;
+  line-height: 1.37rem;
+  margin: 0;
   font-weight: 700; }
 
 h5 {
-  font-size: 0.875em;
-  margin: 0.875rem 0 0.667rem; }
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  margin: 0; }
 
 h6 {
-  font-size: 0.75em;
-  margin: 0.75rem 0 0.5rem; }
-
-p {
-  margin: 0 0 0.75em; }
+  font-size: 0.75rem;
+  line-height: 0.75rem;
+  margin: 0; }
 
 small {
-  font-size: 0.875em; }
+  font-size: 0.875rem; }
 
 hr {
   border-bottom: 1px solid #e5e1d9;
   border-left: 0;
   border-right: 0;
   border-top: 0;
-  margin: 1.5em 0; }
+  margin: 30px 0; }
 
 img,
 picture {
@@ -7642,20 +7659,26 @@ i {
   speak: none; }
 
 .a-secondary {
-  color: #fffcf7;
-  border-bottom-color: #fffcf7; }
+  color: #ffffff;
+  border-bottom-color: #ffffff; }
   .a-secondary:hover {
-    color: #bfbdb9;
-    border-bottom-color: #bfbdb9; }
+    color: #bfbfbf;
+    border-bottom-color: #bfbfbf; }
 
 .light-type {
-  color: #fffcf7; }
+  color: #ffffff; }
 
 .orange-type {
   color: #ff7500; }
 
+.blue-type {
+  color: #0076cf; }
+
 .green-type {
   color: #43b02a; }
+
+.purple-type {
+  color: #1d1349; }
 
 .lightblue-type {
   color: #5be2e7; }
@@ -7731,13 +7754,13 @@ i {
 
 footer {
   background-color: #333333;
-  padding: 0px 0px 3em 0px;
+  padding: 0px 0px 60px 0px;
   color: #fffcf7; }
 
 .social-icons {
   margin: 0px 10px;
   color: #5be2e7;
-  font-size: 1em;
+  font-size: 18px;
   background-color: white;
   border-radius: 100%;
   padding: 8px; }
@@ -8473,7 +8496,7 @@ footer {
 .basic-hr, .hr-purple, .hr-red, .hr-new-red, .hr-orange {
   height: 3px;
   border-radius: 3px;
-  margin-top: 3em; }
+  margin-top: 60px; }
 
 .hr-purple {
   background-color: #5be2e7; }
@@ -8500,7 +8523,7 @@ footer {
 .well-shadow {
   background-color: #ffffff;
   border-radius: 4px;
-  padding: 0.75em;
+  padding: 15px;
   box-shadow: 0px 2px 4px 1px rgba(148, 148, 148, 0.5); }
 
 .favorites-badge {
@@ -8525,8 +8548,8 @@ footer {
 
 .cm-jumbotron {
   text-align: center;
-  padding: 3em 0 0.75em 0;
-  margin-bottom: 1.5em; }
+  padding: 60px 0 15px 0;
+  margin-bottom: 30px; }
 
 .cm-list-group.list-group-flush {
   border-top: 1px solid #e5e1d9;
@@ -8600,7 +8623,7 @@ footer {
 
 .modal-cm .modal-close {
   color: #ffffff;
-  font-size: 3em;
+  font-size: 54px;
   font-weight: 300;
   text-shadow: 0px;
   opacity: 1;
@@ -8964,7 +8987,7 @@ footer {
       vertical-align: middle;
       margin: 0 10px 0 10px; }
   #challenges-page .all-challenges-cards {
-    margin-bottom: 3em; }
+    margin-bottom: 60px; }
     #challenges-page .all-challenges-cards .card {
       min-height: 375px; }
   #challenges-page .filter-theme-toggle {
@@ -8975,7 +8998,7 @@ footer {
       height: 0;
       margin-left: 0.25rem;
       vertical-align: middle;
-      content: "";
+      content: '';
       border-bottom: 0.3em solid;
       border-right: 0.3em solid transparent;
       border-left: 0.3em solid transparent; }
@@ -8983,9 +9006,9 @@ footer {
       border-bottom: none;
       border-top: 0.3em solid; }
     #challenges-page .filter-theme-toggle:before {
-      content: "Hide"; }
+      content: 'Hide'; }
     #challenges-page .filter-theme-toggle.collapsed:before {
-      content: "Show"; }
+      content: 'Show'; }
   #challenges-page .aifc-filter .card-body {
     font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
     font-weight: 300;
@@ -9084,7 +9107,7 @@ footer {
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  font-size: 2em;
+  font-size: 36px;
   font-weight: 300;
   font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif; }
 
@@ -9197,7 +9220,7 @@ footer {
   display: none; }
 
 #examples-page .photo-choice input[type='radio'] + label {
-  margin-bottom: 1.5em;
+  margin-bottom: 30px;
   border: 3px solid #fffcf7;
   transition: all 150ms ease; }
   #examples-page .photo-choice input[type='radio'] + label:hover {
@@ -9212,7 +9235,7 @@ footer {
   border: 1px solid #ffb81c;
   color: #825900;
   position: relative;
-  padding: 0.375em;
+  padding: 7.5px;
   top: -36px;
   text-align: center;
   margin-bottom: -36px; }
@@ -9321,7 +9344,7 @@ footer {
   font-size: 4em; }
 
 #index-page .home-subtitle {
-  padding-top: 6em;
+  padding-top: 120px;
   color: #fffcf7;
   transition: all 300ms ease; }
 
@@ -9329,11 +9352,11 @@ footer {
   #index-page .home-top-panel {
     background-attachment: scroll; }
   #index-page .home-subtitle {
-    padding-top: 9em; } }
+    padding-top: 180px; } }
 
 @media (max-width: 767.98px) {
   #index-page .home-subtitle {
-    padding-top: 1.5em; } }
+    padding-top: 30px; } }
 
 #index-page .home-what-panel h3 {
   color: #ff7500; }

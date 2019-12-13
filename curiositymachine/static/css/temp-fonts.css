@@ -24,6 +24,18 @@
   font-style: italic; }
 
 @font-face {
+  font-family: 'Poppins';
+  src: url("../fonts/poppins/Poppins-Light.ttf");
+  font-weight: 300;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Poppins';
+  src: url("../fonts/poppins/Poppins-LightItalic.ttf");
+  font-weight: 300;
+  font-style: italic; }
+
+@font-face {
   font-family: 'Rubik';
   src: url("../fonts/rubrik/RubikMonoOne-Regular.ttf");
   font-weight: normal;

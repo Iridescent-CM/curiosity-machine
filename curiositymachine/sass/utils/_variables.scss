@@ -3,7 +3,7 @@ $base-font-family: 'Poppins', 'Open Sans', Helvetica, sans-serif;
 $headings-font-family: 'Rubik', 'Impact', 'Raleway', Helvetica, sans-serif;
 
 // Font Sizes
-$base-font-size: 1em;
+$base-font-size: 18px;
 
 //Font Weights
 $base-font-weight: 400;
@@ -11,12 +11,11 @@ $light-font-weight: 300;
 $heavy-font-weight: 700;
 
 // Line height
-$base-line-height: 1.5;
-$heading-line-height: 1.2;
+$base-line-height: 30px;
 
 // Other Sizes
 $base-border-radius: 3px;
-$base-spacing: $base-line-height * 1em;
+$base-spacing: $base-line-height;
 $small-spacing: $base-spacing / 2;
 $large-spacing: $base-spacing * 2;
 //$base-z-index: 0;
@@ -85,6 +84,8 @@ $base-box-shadow: 0px 2px 4px 0px $main-shadow;
 
 // Font Colors
 $base-font-color: $black;
+$secondary-font-color: $primary-purple;
+$light-font-color: $white;
 $action-color: $primary-blue;
 
 // Border
@@ -94,7 +95,6 @@ $base-border-radius: 4px;
 
 // Background Colors
 $base-background-color: $white;
-$secondary-background-color: $white;
 
 // Animations
 $base-duration: 150ms;
