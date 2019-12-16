@@ -4,11 +4,13 @@
 $theme-colors: (
   'primary': $primary-blue,
   'secondary': #fff,
-  'blue': $primary-blue,
   // to get color-yiq to give white text 'red': $primary-orange,
-    'green': $primary-green,
+    'blue': $primary-blue,
   'orange': $primary-orange,
   'purple': $primary-purple,
+  'green': $primary-green,
+  'pink': $primary-pink,
+  'white': $white,
   //these colors are used in lessons save update for lates
     'new-pink': #ff4980,
   'new-red': #ff5050,
@@ -18,6 +20,7 @@ $theme-colors: (
   'new-blue': #0071bc,
   'new-purple': #6c6cb6
 );
+
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 @import 'base/fonts';
