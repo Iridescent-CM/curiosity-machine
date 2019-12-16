@@ -9940,6 +9940,11 @@ footer {
   background-image: url("../images/backgrounds/banners/circles.svg");
   background-position: bottom; }
 
+@media (max-width: 991.98px) {
+  [class*='bg-pattern'],
+  [class*='bg-pattern'] {
+    background-attachment: scroll; } }
+
 [v-cloak] {
   display: none; }
 

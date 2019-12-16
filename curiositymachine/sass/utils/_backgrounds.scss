@@ -93,3 +93,11 @@ $dark-blue: #041e42;
   background-image: url('../images/backgrounds/banners/circles.svg');
   background-position: bottom;
 }
+
+@include media-breakpoint-down(md) {
+  // many mobile devices don't handle fixed/cover well
+  [class*='bg-pattern'],
+  [class*='bg-pattern'] {
+    background-attachment: scroll;
+  }
+}
