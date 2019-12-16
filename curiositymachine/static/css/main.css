@@ -8297,6 +8297,9 @@ footer {
 .avatar-shadow img {
   box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
 
+.leaf-border {
+  border-radius: 2% 22%; }
+
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
