@@ -24,66 +24,66 @@ $dark-blue: #041e42;
   background-repeat: repeat;
 }
 
-.bg-pattern {
+[class*='bg-pattern'] {
   background-image: url('../images/backgrounds/circles/blue.svg');
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
-  //circles
-  &.circles-blue {
-    background-image: url('../images/backgrounds/circles/blue.svg');
-  }
-  &.circles-lightblue {
-    background-image: url('../images/backgrounds/circles/lightblue.svg');
-  }
-  &.circles-orange {
-    background-image: url('../images/backgrounds/circles/orange.svg');
-  }
-  &.circles-pink {
-    background-image: url('../images/backgrounds/circles/pink.svg');
-  }
-  &.circles-yellow {
-    background-image: url('../images/backgrounds/circles/yellow.svg');
-  }
-
-  //dots
-  &.dots-blue {
-    background-image: url('../images/backgrounds/dots/blue.svg');
-  }
-  &.dots-lightblue {
-    background-image: url('../images/backgrounds/dots/lightblue.svg');
-  }
-  &.dots-orange {
-    background-image: url('../images/backgrounds/dots/orange.svg');
-  }
-  &.dots-pink {
-    background-image: url('../images/backgrounds/dots/pink.svg');
-  }
-  &.dots-yellow {
-    background-image: url('../images/backgrounds/dots/yellow.svg');
-  }
-
-  //stripes
-  &.stripes-blue {
-    background-image: url('../images/backgrounds/stripes/blue.svg');
-  }
-  &.stripes-lightblue {
-    background-image: url('../images/backgrounds/stripes/lightblue.svg');
-  }
-  &.stripes-orange {
-    background-image: url('../images/backgrounds/stripes/orange.svg');
-  }
-  &.stripes-pink {
-    background-image: url('../images/backgrounds/stripes/pink.svg');
-  }
-  &.stripes-yellow {
-    background-image: url('../images/backgrounds/stripes/yellow.svg');
-  }
 }
 
-.cta-banner {
+//circles
+.bg-pattern-circles-blue {
+  background-image: url('../images/backgrounds/circles/blue.svg');
+}
+.bg-pattern-circles-lightblue {
+  background-image: url('../images/backgrounds/circles/lightblue.svg');
+}
+.bg-pattern-circles-orange {
+  background-image: url('../images/backgrounds/circles/orange.svg');
+}
+.bg-pattern-circles-pink {
+  background-image: url('../images/backgrounds/circles/pink.svg');
+}
+.bg-pattern-circles-yellow {
+  background-image: url('../images/backgrounds/circles/yellow.svg');
+}
+
+//dots
+.bg-pattern-dots-blue {
+  background-image: url('../images/backgrounds/dots/blue.svg');
+}
+.bg-pattern-dots-lightblue {
+  background-image: url('../images/backgrounds/dots/lightblue.svg');
+}
+.bg-pattern-dots-orange {
+  background-image: url('../images/backgrounds/dots/orange.svg');
+}
+.bg-pattern-dots-pink {
+  background-image: url('../images/backgrounds/dots/pink.svg');
+}
+.bg-pattern-dots-yellow {
+  background-image: url('../images/backgrounds/dots/yellow.svg');
+}
+
+//stripes
+.bg-pattern-stripes-blue {
+  background-image: url('../images/backgrounds/stripes/blue.svg');
+}
+.bg-pattern-stripes-lightblue {
+  background-image: url('../images/backgrounds/stripes/lightblue.svg');
+}
+.bg-pattern-stripes-orange {
+  background-image: url('../images/backgrounds/stripes/orange.svg');
+}
+.bg-pattern-stripes-pink {
+  background-image: url('../images/backgrounds/stripes/pink.svg');
+}
+.bg-pattern-stripes-yellow {
+  background-image: url('../images/backgrounds/stripes/yellow.svg');
+}
+
+[class*='cta-banner'] {
   background-image: url('../images/backgrounds/banners/burst-orange.svg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -92,19 +92,19 @@ $dark-blue: #041e42;
   color: $white;
   text-align: center;
   min-height: 10em;
+}
 
-  &.burst-orange {
-    background-image: url('../images/backgrounds/banners/burst-orange.svg');
-  }
-  &.burst-blue {
-    background-image: url('../images/backgrounds/banners/burst-blue.svg');
-  }
-  &.crisscross {
-    background-image: url('../images/backgrounds/banners/crisscross.svg');
-    background-position: top;
-  }
-  &.circles {
-    background-image: url('../images/backgrounds/banners/circles.svg');
-    background-position: bottom;
-  }
+.cta-banner-burst-orange {
+  background-image: url('../images/backgrounds/banners/burst-orange.svg');
+}
+.cta-banner-burst-blue {
+  background-image: url('../images/backgrounds/banners/burst-blue.svg');
+}
+.cta-banner-crisscross {
+  background-image: url('../images/backgrounds/banners/crisscross.svg');
+  background-position: top;
+}
+.cta-banner-circles {
+  background-image: url('../images/backgrounds/banners/circles.svg');
+  background-position: bottom;
 }
