@@ -9864,18 +9864,6 @@ footer {
   background-color: #6C6CB6;
   color: #fff; }
 
-.bg-pattern-white {
-  background: url("../images/design-challenge-repeating-pattern-white.png");
-  background-attachment: fixed;
-  background-repeat: repeat; }
-
-.bg-pattern-dark {
-  color: #FFFCF7;
-  background-color: #1f1f1f;
-  background-image: url("../images/design-challenge-repeating-pattern.png");
-  background-attachment: fixed;
-  background-repeat: repeat; }
-
 [class*='bg-pattern'] {
   background-image: url("../images/backgrounds/circles/blue.svg");
   background-attachment: fixed;
