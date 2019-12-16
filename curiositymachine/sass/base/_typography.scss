@@ -11,7 +11,6 @@ body {
 h1 {
   font-size: 4.17rem;
   line-height: 4.17rem;
-  color: $secondary-font-color;
   margin: 0;
   font-family: $headings-font-family;
 }
@@ -28,7 +27,6 @@ h2 {
   font-size: 1.78rem;
   line-height: 2.33rem;
   margin: 0;
-  color: $secondary-font-color;
   font-weight: $heavy-font-weight;
 }
 
@@ -91,6 +89,10 @@ i {
 }
 
 // type color utility classes
+.light-type {
+  color: $light-font-color;
+}
+
 .light-type {
   color: $light-font-color;
 }

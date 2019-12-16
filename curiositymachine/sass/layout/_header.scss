@@ -1,8 +1,8 @@
 // Local colors
 $nav-blue: $primary-blue;
 $nav-blue-hover: shade($primary-blue, 10);
-$nav-gold: $primary-gold;
-$nav-gold-hover: shade($primary-gold, 10);
+$nav-yellow: $primary-yellow;
+$nav-yellow-hover: shade($primary-yellow, 10);
 $nav-orange: $primary-orange;
 $nav-orange-hover: shade($primary-orange, 10);
 $nav-green: $primary-green;
@@ -182,8 +182,8 @@ $nav-purple-hover: shade($primary-purple, 10);
           .nav-link-blue:before {
             background: $nav-blue;
           }
-          .nav-link-gold:before {
-            background: $nav-gold;
+          .nav-link-yellow:before {
+            background: $nav-yellow;
           }
           .nav-link-orange:before {
             background: $nav-orange;
@@ -223,10 +223,10 @@ $nav-purple-hover: shade($primary-purple, 10);
                 background: $nav-blue-hover;
               }
             }
-            &.nav-link-gold {
-              background: $nav-gold;
+            &.nav-link-yellow {
+              background: $nav-yellow;
               &:hover {
-                background: $nav-gold-hover;
+                background: $nav-yellow-hover;
               }
             }
             &.nav-link-orange {

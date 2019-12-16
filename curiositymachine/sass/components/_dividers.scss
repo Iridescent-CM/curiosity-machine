@@ -6,22 +6,12 @@
 
 .hr-purple {
   @extend .basic-hr;
-  background-color: $primary-lightblue;
-}
-
-.hr-red {
-  @extend .basic-hr;
-  background-color: $primary-orange;
-}
-
-.hr-new-red {
-  @extend .basic-hr;
-  background-color: theme-color('new-red');
+  background-color: $primary-purple;
 }
 
 .hr-orange {
   @extend .basic-hr;
-  background-color: $primary-gold;
+  background-color: $primary-orange;
 }
 
 .well {
