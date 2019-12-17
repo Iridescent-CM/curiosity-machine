@@ -92,7 +92,6 @@
 
     .dot {
       @extend .badge;
-      // @extend .badge-red;
       @extend .rounded-circle;
 
       position: absolute;
