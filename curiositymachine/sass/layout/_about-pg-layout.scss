@@ -18,14 +18,14 @@
       &:hover,
       &:active,
       &.active {
-        color: $primary-red-darkest;
-        border-color: $primary-red-darkest;
+        color: $primary-orange-darkest;
+        border-color: $primary-orange-darkest;
       }
     }
   }
 
   h2 {
-    color: $primary-red;
+    color: $primary-orange;
   }
   h2, h3 {
     text-align: left;
@@ -35,7 +35,7 @@
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background-color: $primary-red;
+    background-color: $primary-orange;
     color: white;
     text-align: center;
     position: relative;

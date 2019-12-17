@@ -1,5 +1,5 @@
 .graph {
-  background: white;
+  background: $white;
   border-top: 1px solid $sand;
   border-bottom: 1px solid $sand;
   position: relative;
@@ -69,32 +69,32 @@
     }
 
     .stage-build {
-      fill: $primary-purple;
+      fill: $primary-lightblue;
       .colorbar {
-        fill: tint($primary-purple, 90%);
+        fill: tint($primary-lightblue, 90%);
       }
       .summary {
-        fill: $primary-purple;
+        fill: $primary-lightblue;
       }
     }
 
     .stage-test {
-      fill: $primary-red;
+      fill: $primary-orange;
       .colorbar {
-        fill: tint($primary-red, 90%);
+        fill: tint($primary-orange, 90%);
       }
       .summary {
-        fill: $primary-red;
+        fill: $primary-orange;
       }
     }
 
     .stage-reflect {
-      fill: #1EB9C8;
+      fill: $primary-blue;
       .colorbar {
         fill: tint($primary-blue, 90%);
       }
       .summary {
-        fill: #1EB9C8;
+        fill: $primary-blue;
       }
     }
 
@@ -103,7 +103,7 @@
     }
 
     .graphline {
-      stroke: #d8d6d4;
+      stroke: $sand;
       fill: transparent;
       stroke-width: 2px;
     }
@@ -112,7 +112,7 @@
       stroke: $gray;
       fill: transparent;
       stroke-width: 1px;
-      stroke-dasharray: 5,5
+      stroke-dasharray: 5, 5;
     }
 
     text {
