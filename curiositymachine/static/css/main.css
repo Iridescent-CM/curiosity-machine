@@ -8761,6 +8761,12 @@ footer {
   .favorites-badge input[type='checkbox']:checked + label {
     background-color: #43b02a; }
 
+.form-control {
+  border-radius: 0px;
+  border: 4px solid #ff7500; }
+  .form-control:focus {
+    border: 4px solid #ff7500; }
+
 .cm-jumbotron {
   text-align: center;
   padding: 60px 0 15px 0;
