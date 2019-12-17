@@ -9864,7 +9864,7 @@ footer {
   background-color: #6C6CB6;
   color: #fff; }
 
-[class*='bg-pattern'] {
+[class*='bg-pattern-'] {
   background-image: url("../images/backgrounds/circles/blue.svg");
   background-attachment: fixed;
   background-position: center;
@@ -9916,13 +9916,13 @@ footer {
 .bg-pattern-stripes-yellow {
   background-image: url("../images/backgrounds/stripes/yellow.svg"); }
 
-[class*='cta-banner'] {
+[class*='cta-banner-'] {
   background-image: url("../images/backgrounds/banners/burst-orange.svg");
+  background-attachment: scroll;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
-  background-color: #041e42;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   min-height: 10em; }
 
@@ -9941,8 +9941,7 @@ footer {
   background-position: bottom; }
 
 @media (max-width: 991.98px) {
-  [class*='bg-pattern'],
-  [class*='bg-pattern'] {
+  [class*='bg-pattern-'] {
     background-attachment: scroll; } }
 
 [v-cloak] {

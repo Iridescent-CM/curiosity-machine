@@ -5,11 +5,8 @@
   }
 }
 
-//local vars
-$white: #ffffff;
-$dark-blue: #041e42;
-
-[class*='bg-pattern'] {
+//background selector
+[class*='bg-pattern-'] {
   background-image: url('../images/backgrounds/circles/blue.svg');
   background-attachment: fixed;
   background-position: center;
@@ -68,12 +65,13 @@ $dark-blue: #041e42;
   background-image: url('../images/backgrounds/stripes/yellow.svg');
 }
 
-[class*='cta-banner'] {
+//call to action banners
+[class*='cta-banner-'] {
   background-image: url('../images/backgrounds/banners/burst-orange.svg');
+  background-attachment: scroll;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
-  background-color: $dark-blue;
   color: $white;
   text-align: center;
   min-height: 10em;
@@ -94,10 +92,9 @@ $dark-blue: #041e42;
   background-position: bottom;
 }
 
+// many mobile devices don't handle fixed/cover well
 @include media-breakpoint-down(md) {
-  // many mobile devices don't handle fixed/cover well
-  [class*='bg-pattern'],
-  [class*='bg-pattern'] {
+  [class*='bg-pattern-'] {
     background-attachment: scroll;
   }
 }
