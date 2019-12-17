@@ -4,7 +4,7 @@
   .filter-list {
     list-style-type: none;
     font-size: 14px;
-    font-family: $headings-font-family;
+    font-family: $base-font-family;
     font-weight: $heavy-font-weight;
     padding-left: 0px;
     overflow: hidden;
@@ -96,7 +96,7 @@
       height: 0;
       margin-left: 0.25rem;
       vertical-align: middle;
-      content: "";
+      content: '';
       border-bottom: $caret-width solid;
       border-right: $caret-width solid transparent;
       border-left: $caret-width solid transparent;
@@ -107,10 +107,10 @@
     }
 
     &:before {
-      content: "Hide";
+      content: 'Hide';
     }
     &.collapsed:before {
-      content: "Show";
+      content: 'Show';
     }
   }
 
@@ -129,7 +129,7 @@
     }
   }
   .geo-background {
-    background-image: url("../images/challenges/geometry.png");
+    background-image: url('../images/challenges/geometry.png');
     background-repeat: repeat;
   }
 
@@ -145,10 +145,10 @@
     }
   }
 
-  @include media-breakpoint-up(md) {    
+  @include media-breakpoint-up(md) {
     .filter-list.collapse {
       display: block;
-    }    
+    }
     .filter-list {
       overflow: visible;
       li.active {
@@ -156,5 +156,4 @@
       }
     }
   }
-
 }

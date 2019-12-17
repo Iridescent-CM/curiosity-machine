@@ -31,7 +31,7 @@
     left: -10px;
 
     &:after {
-      content: "";
+      content: '';
       display: block;
       width: 0;
       height: 0;
@@ -44,7 +44,7 @@
     }
 
     &:before {
-      content: "";
+      content: '';
       display: block;
       width: 0;
       height: 0;
@@ -61,11 +61,11 @@
   }
 
   .card-flag-purple {
-    background-color: $primary-purple;
+    background-color: $primary-lightblue;
     color: $ivory;
 
     &:before {
-      border-right-color: $primary-purple-dark;
+      border-right-color: $primary-lightblue-dark;
     }
   }
 
@@ -146,7 +146,10 @@
   .card-header {
     background-color: $sand;
 
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
       margin-bottom: 0px;
     }
   }
@@ -165,7 +168,7 @@
   }
 
   .card-header a {
-    color: $primary-red;
+    color: $primary-orange;
     &:hover,
     &:focus {
       text-decoration: none;
@@ -203,6 +206,6 @@
     color: white;
   }
   &:focus {
-    background-color: $primary-red;
+    background-color: $primary-orange;
   }
 }

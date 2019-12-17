@@ -1,9 +1,9 @@
 // Typography
-$base-font-family: 'Open Sans', Helvetica, sans-serif;
-$headings-font-family: 'Raleway', Helvetica, sans-serif;
+$base-font-family: 'Poppins', 'Open Sans', Helvetica, sans-serif;
+$headings-font-family: 'Rubik', 'Impact', 'Raleway', Helvetica, sans-serif;
 
 // Font Sizes
-$base-font-size: 1em;
+$base-font-size: 18px;
 
 //Font Weights
 $base-font-weight: 400;
@@ -11,60 +11,81 @@ $light-font-weight: 300;
 $heavy-font-weight: 700;
 
 // Line height
-$base-line-height: 1.5;
-$heading-line-height: 1.2;
+$base-line-height: 30px;
 
 // Other Sizes
 $base-border-radius: 3px;
-$base-spacing: $base-line-height * 1em;
+$base-spacing: $base-line-height;
 $small-spacing: $base-spacing / 2;
 $large-spacing: $base-spacing * 2;
 //$base-z-index: 0;
 
 // Colors: Main Palette
-$primary-red: #F55932;
-$primary-red-darkest: shade($primary-red, 40%);
-$primary-red-dark: shade($primary-red, 20%);
-$primary-red-light: tint($primary-red, 20%);
-$primary-red-lightest: tint($primary-red, 40%);
-
-$primary-orange: #F2B353;
-$primary-orange-darkest: shade($primary-orange, 40%);
-$primary-orange-dark: shade($primary-orange, 20%);
-$primary-orange-light: tint($primary-orange, 20%);
-$primary-orange-lightest: tint($primary-orange, 40%);
-
-$primary-green: #8FB559;
-$primary-green-darkest: shade($primary-green, 40%);
-$primary-green-dark: shade($primary-green, 20%);
-$primary-green-light: tint($primary-green, 20%);
-$primary-green-lightest: tint($primary-green, 40%);
-
-$primary-blue: #00B1C3;
+$primary-blue: #0076cf;
 $primary-blue-darkest: shade($primary-blue, 40%);
 $primary-blue-dark: shade($primary-blue, 20%);
 $primary-blue-light: tint($primary-blue, 20%);
 $primary-blue-lightest: tint($primary-blue, 40%);
 
-$primary-purple: #6161AF;
+$primary-orange: #ff7500;
+$primary-orange-darkest: shade($primary-orange, 40%);
+$primary-orange-dark: shade($primary-orange, 20%);
+$primary-orange-light: tint($primary-orange, 20%);
+$primary-orange-lightest: tint($primary-orange, 40%);
+
+$primary-yellow: #ffb81c;
+$primary-yellow-darkest: shade($primary-yellow, 40%);
+$primary-yellow-dark: shade($primary-yellow, 20%);
+$primary-yellow-light: tint($primary-yellow, 20%);
+$primary-yellow-lightest: tint($primary-yellow, 40%);
+
+$primary-pink: #d0006f;
+$primary-pink-darkest: shade($primary-pink, 40%);
+$primary-pink-dark: shade($primary-pink, 20%);
+$primary-pink-light: tint($primary-pink, 20%);
+$primary-pink-lightest: tint($primary-pink, 40%);
+
+$primary-purple: #1d1349;
 $primary-purple-darkest: shade($primary-purple, 40%);
 $primary-purple-dark: shade($primary-purple, 20%);
 $primary-purple-light: tint($primary-purple, 20%);
 $primary-purple-lightest: tint($primary-purple, 40%);
 
+$primary-green: #43b02a;
+$primary-green-darkest: shade($primary-green, 40%);
+$primary-green-dark: shade($primary-green, 20%);
+$primary-green-light: tint($primary-green, 20%);
+$primary-green-lightest: tint($primary-green, 40%);
+
+$primary-lightblue: #5bc2e7;
+$primary-lightblue-darkest: shade($primary-lightblue, 40%);
+$primary-lightblue-dark: shade($primary-lightblue, 20%);
+$primary-lightblue-light: tint($primary-lightblue, 20%);
+$primary-lightblue-lightest: tint($primary-lightblue, 40%);
+
+$primary-darkblue: #041e42;
+$primary-darkblue-darkest: shade($primary-darkblue, 40%);
+$primary-darkblue-dark: shade($primary-darkblue, 20%);
+$primary-darkblue-dark: tint($primary-darkblue, 20%);
+$primary-darkblue-darkest: tint($primary-darkblue, 40%);
+
 // Colors: Neutral Palette
 $dark: #333333;
 $gray: #949494;
-$light-gray: #CCCCCC;
-$sand: #E5E1D9;
-$ivory: #FFFCF7;
+$light-gray: #cccccc;
+$sand: #e5e1d9;
+$ivory: #fffcf7;
+$white: #ffffff;
+$black: #000000;
 
 // Shadow Colors
-$main-shadow: rgba(148, 148, 148, .5);
+$main-shadow: rgba(148, 148, 148, 0.5);
 $base-box-shadow: 0px 2px 4px 0px $main-shadow;
 
 // Font Colors
-$base-font-color: $dark;
+$base-font-color: $black;
+$secondary-font-color: $primary-purple;
+$light-font-color: $white;
 $action-color: $primary-blue;
 
 // Border
@@ -73,8 +94,7 @@ $base-border: 1px solid $base-border-color;
 $base-border-radius: 4px;
 
 // Background Colors
-$base-background-color: $ivory;
-$secondary-background-color: $sand;
+$base-background-color: $white;
 
 // Animations
 $base-duration: 150ms;

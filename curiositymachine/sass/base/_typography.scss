@@ -1,54 +1,59 @@
+html,
 body {
-  background-color: $ivory;
+  background-color: $white;
   color: $base-font-color;
   font-family: $base-font-family;
-  font-feature-settings: "kern", "liga", "pnum";
+  font-feature-settings: 'kern', 'liga', 'pnum';
   font-size: $base-font-size;
   line-height: $base-line-height;
 }
 
-h1,
+h1 {
+  font-size: 4.17rem;
+  line-height: 4.17rem;
+  margin: 0;
+  font-family: $headings-font-family;
+}
+
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: $headings-font-family;
-  font-size: $base-font-size;
-  line-height: $heading-line-height;
-  margin: 0 0 $small-spacing;
-  font-weight: $light-font-weight;
-}
-
-h1 {
-  font-size: $base-font-size * 2.6875;
-  font-weight: $light-font-weight;
+  font-family: $base-font-family;
 }
 
 h2 {
-  font-size: $base-font-size * 2;
-  font-weight: $light-font-weight;
-}
-
-h3 {
-  font-size: $base-font-size * 1.5;
-}
-
-h4 {
-  font-size: $base-font-size * 1.125;
+  font-size: 1.78rem;
+  line-height: 2.33rem;
+  margin: 0;
   font-weight: $heavy-font-weight;
 }
 
-h5 {
-  font-size: $base-font-size * 1.125;
+h3 {
+  font-size: 1.33rem;
+  line-height: 2.11rem;
+  margin: 0;
 }
-
-p {
-  margin: 0 0 $small-spacing;
+h4 {
+  font-size: 1rem;
+  line-height: 1.37rem;
+  margin: 0;
+  font-weight: $heavy-font-weight;
+}
+h5 {
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  margin: 0;
+}
+h6 {
+  font-size: 0.75rem;
+  line-height: 0.75rem;
+  margin: 0;
 }
 
 small {
-  font-size: $base-font-size * .875;
+  font-size: 0.875rem;
 }
 
 hr {
@@ -75,22 +80,29 @@ i {
 //       to allow e.g. <div class="a-secondary">...</div>
 
 .a-secondary {
-  color: $ivory;
-  border-bottom-color: $ivory;
+  color: $light-font-color;
+  border-bottom-color: $light-font-color;
   &:hover {
-    color: shade($ivory, 25%);
-    border-bottom-color: shade($ivory, 25%);
+    color: shade($light-font-color, 25%);
+    border-bottom-color: shade($light-font-color, 25%);
   }
 }
 
 // type color utility classes
-
-.red-type {
-  color: $primary-red;
+.light-type {
+  color: $light-font-color;
 }
 
 .light-type {
-  color: $ivory;
+  color: $light-font-color;
+}
+
+.orange-type {
+  color: $primary-orange;
+}
+
+.blue-type {
+  color: $primary-blue;
 }
 
 .green-type {
@@ -99,4 +111,8 @@ i {
 
 .purple-type {
   color: $primary-purple;
+}
+
+.lightblue-type {
+  color: $primary-lightblue;
 }
