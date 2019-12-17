@@ -4,11 +4,14 @@
 }
 
 .btn-white {
-  color: $primary-darkblue;
+  color: $primary-blue;
+  &:hover {
+    color: $primary-blue;
+  }
 }
 
 .btn-outline-white {
   &:hover {
-    color: $primary-darkblue;
+    color: $primary-blue;
   }
 }
