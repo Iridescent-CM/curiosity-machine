@@ -3,30 +3,30 @@
     padding: 0.8em;
 
     blockquote {
-      font-family: "Raleway", Helvetica, sans-serif;
+      font-family: $headings-font-family;
       font-size: 1.2em;
       text-align: right;
 
       &:before {
-        content: "“";
+        content: '“';
         display: block;
         position: relative;
         text-align: left;
-        font-family: "Times New Roman", Georgia, serif;
+        font-family: 'Times New Roman', Georgia, serif;
         font-size: 100px;
         font-weight: bold;
         line-height: 1em;
         margin-bottom: -0.3em;
-        color: #F55932;
+        color: $primary-orange;
       }
     }
 
     cite {
       text-align: right;
-      color: gray;
+      color: $gray;
 
       &:before {
-        content:"—";
+        content: '—';
         margin-right: 0.4em;
       }
     }
@@ -49,7 +49,7 @@
 
   .equation {
     font-size: 60px;
-    color: #FF5050;
+    color: $primary-orange;
   }
 
   .quotes-images {
@@ -64,32 +64,32 @@
     }
     .quote-image-1 {
       background-image: url('../images/about/quote-images/usa-16x9-min.jpg');
-      background-repeat:no-repeat;
-      background-size:cover;
+      background-repeat: no-repeat;
+      background-size: cover;
       height: 350px;
     }
     .quote-image-2 {
       background-image: url('../images/about/quote-images/nigeria-16x9-min.jpg');
-      background-repeat:no-repeat;
-      background-size:cover;
+      background-repeat: no-repeat;
+      background-size: cover;
       height: 350px;
     }
     .quote-image-3 {
       background-image: url('../images/about/quote-images/south-africa-16x9-min.jpg');
-      background-repeat:no-repeat;
-      background-size:cover;
+      background-repeat: no-repeat;
+      background-size: cover;
       height: 350px;
     }
     .quote-image-4 {
       background-image: url('../images/about/quote-images/uzbekistan-16x9-min.jpg');
-      background-repeat:no-repeat;
-      background-size:cover;
+      background-repeat: no-repeat;
+      background-size: cover;
       height: 350px;
     }
     .quote-image-5 {
       background-image: url('../images/about/quote-images/uzbekistan2-16x9-min.jpg');
-      background-repeat:no-repeat;
-      background-size:cover;
+      background-repeat: no-repeat;
+      background-size: cover;
       height: 350px;
     }
   }
@@ -108,8 +108,7 @@
       }
     }
   }
-  
-  
+
   @include media-breakpoint-down(md) {
     .revolving-quotes {
       font-size: 20px;
