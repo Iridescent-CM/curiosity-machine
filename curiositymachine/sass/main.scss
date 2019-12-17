@@ -1,65 +1,66 @@
-@import 'utils/functions';
-@import 'utils/variables';
+@import "utils/functions";
+@import "utils/variables";
 
 $theme-colors: (
-  'primary': $primary-blue,
-  'secondary': #fff,
+  "primary": $primary-blue,
+  "secondary": #fff,
   // to get color-yiq to give white text 'red': $primary-orange,
-    'blue': $primary-blue,
-  'orange': $primary-orange,
-  'purple': $primary-purple,
-  'green': $primary-green,
-  'pink': $primary-pink,
-  'white': $white,
+    "blue": $primary-blue,
+  "orange": $primary-orange,
+  "purple": $primary-purple,
+  "green": $primary-green,
+  "pink": $primary-pink,
+  "white": $white,
   //these colors are used in lessons save update for lates
-    'new-pink': #ff4980,
-  'new-red': #ff5050,
-  'new-orange': #f7931e,
-  'new-green': #39b54a,
-  'new-turquoise': #02b0c2,
-  'new-blue': #0071bc,
-  'new-purple': #6c6cb6
+    "new-pink": #ff4980,
+  "new-red": #ff5050,
+  "new-orange": #f7931e,
+  "new-green": #39b54a,
+  "new-turquoise": #02b0c2,
+  "new-blue": #0071bc,
+  "new-purple": #6c6cb6
 );
 
-@import '../../node_modules/bootstrap/scss/bootstrap';
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
-@import 'base/fonts';
-@import 'base/typography';
+@import "base/fonts";
+@import "base/typography";
 
-@import 'layout/about-pg-layout';
-@import 'layout/dashboards';
-@import 'layout/footer';
-@import 'layout/header';
-@import 'layout/old-style';
+@import "layout/about-pg-layout";
+@import "layout/dashboards";
+@import "layout/footer";
+@import "layout/header";
+@import "layout/old-style";
 
-@import 'components/avatar';
-@import 'components/borders';
-@import 'components/buttons';
-@import 'components/cards';
-@import 'components/challenge-status';
-@import 'components/dividers';
-@import 'components/favorites';
-@import 'components/jumbotrons';
-@import 'components/list-group';
-@import 'components/lists';
-@import 'components/modal';
-@import 'components/progress-graph';
-@import 'components/quiz';
-@import 'components/tables';
-@import 'components/rebrand-banner';
+@import "components/avatar";
+@import "components/borders";
+@import "components/buttons";
+@import "components/cards";
+@import "components/challenge-status";
+@import "components/dividers";
+@import "components/favorites";
+@import "components/forms";
+@import "components/jumbotrons";
+@import "components/list-group";
+@import "components/lists";
+@import "components/modal";
+@import "components/progress-graph";
+@import "components/quiz";
+@import "components/tables";
+@import "components/rebrand-banner";
 
-@import 'pages/about-educator';
-@import 'pages/about-aichallenge';
-@import 'pages/account-settings';
-@import 'pages/challenges';
-@import 'pages/edp-inspiration';
-@import 'pages/educator-dashboard';
-@import 'pages/examples';
-@import 'pages/family-dashboard';
-@import 'pages/home';
-@import 'pages/lessons';
-@import 'pages/aifc-pages';
-@import 'pages/rebrand';
+@import "pages/about-educator";
+@import "pages/about-aichallenge";
+@import "pages/account-settings";
+@import "pages/challenges";
+@import "pages/edp-inspiration";
+@import "pages/educator-dashboard";
+@import "pages/examples";
+@import "pages/family-dashboard";
+@import "pages/home";
+@import "pages/lessons";
+@import "pages/aifc-pages";
+@import "pages/rebrand";
 
-@import 'utils/backgrounds';
-@import 'utils/cloak';
+@import "utils/backgrounds";
+@import "utils/cloak";
