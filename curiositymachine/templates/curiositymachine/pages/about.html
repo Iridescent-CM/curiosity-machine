@@ -4,7 +4,7 @@
 {% block body-id %}get-started{% endblock %}
 {% block content %}
 
-<div class="hero jumbotron">
+<div class="jumbotron">
   <div class="container text-light">
     <div class="col-lg-8">
       <h1>Get Started</h1>
@@ -18,25 +18,22 @@
       <div class="col-lg-6 my-3">
         <h2 class="mb-3">Solve a Problem with AI</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          pharetra ultricies elementum. Nam suscipit rhoncus orci, ut luctus est
-          dapibus in. Nullam eu quam ut lectus eleifend accumsan. Mauris mauris
-          neque, laoreet id ultrices eget, lobortis in tellus. Nunc lorem orci,
-          maximus a mattis at, cursus non arcu. Proin tristique ex enim, vel
-          auctor lectus sollicitudin sit amet. Sed finibus condimentum nulla, a
-          mattis purus efficitur non.
+          Through Technovation Families, your understanding of Al will grow
+          along with your confidence. Do you see problems in your community
+          around transportation, health, education, safety, or the environment?
+          As your family completes our program, you will work together to create
+          a solution and a prototype using Al technology.
         </p>
       </div>
       <div class="col-lg-6 my-3">
         <h2 class="mb-3">Anyone can sign up with no cost</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          pharetra ultricies elementum. Nam suscipit rhoncus orci, ut luctus est
-          dapibus in. Nullam eu quam ut lectus eleifend accumsan. Mauris mauris
-          neque, laoreet id ultrices eget, lobortis in tellus. Nunc lorem orci,
-          maximus a mattis at, cursus non arcu. Proin tristique ex enim, vel
-          auctor lectus sollicitudin sit amet. Sed finibus condimentum nulla, a
-          mattis purus efficitur non.
+          Don't know a thing about Al or how it works? Don't let that stop you!
+          People all over the world, just like you, have signed up for
+          Technovation Families. Create an account to explore machine learning,
+          different types of predictive models and foundational Al concepts like
+          neural networks. Families with children ages 8-15 can even submit
+          their ideas into our
         </p>
       </div>
     </div>
@@ -56,13 +53,28 @@
           />
         </div>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          pharetra ultricies elementum. Nam suscipit rhoncus orci, ut luctus est
-          dapibus in. Nullam eu quam ut lectus eleifend accumsan. Mauris mauris
-          neque, laoreet id ultrices eget, lobortis in tellus. Nunc lorem orci,
-          maximus a mattis at, cursus non arcu. Proin tristique ex enim, vel
-          auctor lectus sollicitudin sit amet. Sed finibus condimentum nulla, a
-          mattis purus efficitur non.
+          Any family can complete the program! Family teams share 1 Technovation
+          Families account, and must have:
+          <ul>
+            <li>
+              Minimum 1 parent/guardian and 1 child ages 16 or younger per family team
+            </li>
+            <li>
+              6 people maximum per family team
+            </li>
+            <li>
+              2 adults per team maximum
+            </li>
+          </ul>
+          Families will participate in either the Senior or Junior division, determined by the oldest child's birth date.
+        </p>
+        <p>
+          <a class="light-type font-weight-bold" href="{% url 'account_signup' %}">
+            <span>
+              Sign up for Technovation Families
+              <i class="icon-right-arrow"></i>
+            </span>
+          </a>
         </p>
       </div>
       <div class="col-lg-4 my-3 px-lg-3">
@@ -74,13 +86,18 @@
           />
         </div>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          pharetra ultricies elementum. Nam suscipit rhoncus orci, ut luctus est
-          dapibus in. Nullam eu quam ut lectus eleifend accumsan. Mauris mauris
-          neque, laoreet id ultrices eget, lobortis in tellus. Nunc lorem orci,
-          maximus a mattis at, cursus non arcu. Proin tristique ex enim, vel
-          auctor lectus sollicitudin sit amet. Sed finibus condimentum nulla, a
-          mattis purus efficitur non.
+          Program leaders coordinate Technovation Families in their local communities. Because every community is different, programs can range in scale from small school clubs to multi-site programs organized in partnership with a local community organization or school district.
+        </p>
+        <p>
+          What all Program Leaders have in common is a passion for helping families in their community to learn the skills they need to succeed in the future.
+        </p>
+        <p>
+          <a class="light-type font-weight-bold" href="#">
+            <span>
+              Reserve your spot as a Season 2 program site
+              <i class="icon-right-arrow"></i>
+            </span>
+          </a>
         </p>
       </div>
       <div class="col-lg-4 my-3 px-lg-3">
@@ -88,17 +105,25 @@
           <h2>Volunteers</h2>
           <img
             class="my-3"
-            src="{% static 'images/pages/about/volunteers.png' %}/ "
+            src="{% static 'images/pages/about/volunteers.png' %}/"
           />
         </div>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          pharetra ultricies elementum. Nam suscipit rhoncus orci, ut luctus est
-          dapibus in. Nullam eu quam ut lectus eleifend accumsan. Mauris mauris
-          neque, laoreet id ultrices eget, lobortis in tellus. Nunc lorem orci,
-          maximus a mattis at, cursus non arcu. Proin tristique ex enim, vel
-          auctor lectus sollicitudin sit amet. Sed finibus condimentum nulla, a
-          mattis purus efficitur non.
+          Volunteer as a mentor and connect with families as they learn about technology and create tech products to solve community problems.
+        </p>
+        <p>
+          Mentor time commitment ranges from 2-50 hours, with In-person and remote opportunities available. Training is provided.
+        </p>
+        <p>
+          Additional volunteer opportunities as volunteer judges, guest speakers, and content partners are available as well!
+        </p>
+        <p>
+          <a class="light-type font-weight-bold" href="#">
+            <span>
+              See more volunteer opportunities
+              <i class="icon-right-arrow"></i>
+            </span>
+          </a>
         </p>
       </div>
     </div>
@@ -158,21 +183,25 @@
     </h2>
     <p>
       <span class="font-weight-bold"> Registration Opens: </span>
-      <span>August 1st 2019</span>
+      <span>August 1, 2019</span>
     </p>
     <p>
       <span class="font-weight-bold"> Submissions Open: </span>
-      <span>August 1st 2019</span>
+      <span>November 13, 2019</span>
+      <p>
+        This is the earliest that families may submit their Al projects to the Technovation Families judging platform.
+      </p>
     </p>
     <p>
       <span class="font-weight-bold"> Submission Deadline: </span>
-      <span>August 1st 2019</span>
+      <span>January 9, 2020 at 11:59 UTC </span>
     </p>
     <p>
       <span class="font-weight-bold"> World Summit: </span>
-      <span>August 1st 2019</span>
+      <span>August 2020</span>
     </p>
-    <img class="" src="{% static 'images/pages/about/timeline.svg' %}/ " />
+    <img class="d-none d-lg-block" src="{% static 'images/pages/about/timeline-horizontal.svg' %}/" />
+    <img class="d-lg-none" src="{% static 'images/pages/about/timeline-vertical.svg' %}/" />
   </div>
 </div>
 
@@ -182,14 +211,35 @@
       <div class="col-lg-6">
         <img
           class="leaf-border portrait-img"
-          src="{% static 'images/pages/about/quote.png' %}/ "
+          src="{% static 'images/pages/about/quote-image.png' %}/ "
         />
       </div>
       <div class="col-lg-6">
+        <img
+        class="quotation-mark my-1"
+        src="{% static 'images/pages/about/quotation-mark.svg' %}/ " />
+
         <blockquote>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          pharetra ultricies elementum.
+          It's important for families to learn about technology, because families should feel empowered to make differences in the world."
         </blockquote>
+        <p>
+          -Shiela B., Educator and Technovation Families Community Partner, US
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid cta-banner-burst-orange py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2>
+          Are you ready to change the world?
+        </h2>
+          <a class="btn btn-white my-3" href="{% url 'account_signup' %}">
+            Start now
+          </a>
       </div>
     </div>
   </div>

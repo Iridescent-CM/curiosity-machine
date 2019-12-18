@@ -1,0 +1,23 @@
+#get-started {
+  .jumbotron {
+    background-image: url('../images/pages/about/hero.png');
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    margin-bottom: 0em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 15em;
+  }
+  blockquote {
+    font-size: 1.5em;
+    line-height: 1.25em;
+    font-weight: $heavy-font-weight;
+  }
+  .quotation-mark {
+    display: block;
+    width: 50px;
+  }
+}

@@ -9549,6 +9549,27 @@ footer {
   .family-dashboard .checkbox-label {
     margin-left: 0.5em; }
 
+#get-started .jumbotron {
+  background-image: url("../images/pages/about/hero.png");
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+  margin-bottom: 0em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 15em; }
+
+#get-started blockquote {
+  font-size: 1.5em;
+  line-height: 1.25em;
+  font-weight: 700; }
+
+#get-started .quotation-mark {
+  display: block;
+  width: 50px; }
+
 #index-page .jumbotron {
   background-attachment: scroll;
   background-repeat: no-repeat;
