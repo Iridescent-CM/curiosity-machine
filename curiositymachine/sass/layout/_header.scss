@@ -10,6 +10,12 @@ $nav-green-hover: shade($primary-green, 10);
 $nav-purple: $primary-purple;
 $nav-purple-hover: shade($primary-purple, 10);
 
+#login-modal {
+  .modal-footer {
+    justify-content: flex-start;
+  }
+}
+
 .navbar-cm {
   background-color: $ivory;
   font-family: $base-font-family;
