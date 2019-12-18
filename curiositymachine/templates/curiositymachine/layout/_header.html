@@ -33,10 +33,10 @@
         </div>
 
         <div class="modal-footer">
-          <a href="{% url "account_reset_password" %}">Forgot your password?</a>
-          <a class="btn btn-link" data-dismiss="modal" aria-hidden="true">Cancel</a>
-          <input type="submit" value="Log In" class="bt btn-primary" />
+          <input type="submit" value="Log In" class="btn btn-orange" />
+          <a class="btn btn-outline-primary" href="" data-dismiss="modal" aria-hidden="true">Cancel</a>
           <input type="hidden" name="next" value="{{ next|default:'/' }}" />
+          <a class="orange-type small" href="{% url "account_reset_password" %}">Forgot your password?</a>
         </div>
 
       </form>
