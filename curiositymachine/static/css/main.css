@@ -7919,37 +7919,9 @@ i {
 .darkblue-type {
   color: #041e42; }
 
-.about-pages .nav {
-  justify-content: center; }
-  .about-pages .nav .nav-item {
-    display: inline-block;
-    margin: 0 20px; }
-  .about-pages .nav .nav-link {
-    padding: 0;
-    transition-property: all; }
-    .about-pages .nav .nav-link:link, .about-pages .nav .nav-link:visited {
-      color: #fffcf7;
-      border-bottom: 2px solid #fffcf7; }
-    .about-pages .nav .nav-link:hover, .about-pages .nav .nav-link:active, .about-pages .nav .nav-link.active {
-      color: #994600;
-      border-color: #994600; }
-
-.about-pages h2 {
-  color: #ff7500; }
-
-.about-pages h2, .about-pages h3 {
-  text-align: center; }
-
-.about-pages .numbered-bullet {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: #ff7500;
-  color: white;
-  text-align: center;
-  position: relative;
-  display: inline-block;
-  top: -3px; }
+#get-started .hero {
+  background-position: top;
+  background-image: url("../images/pages/about/hero.png"); }
 
 .dashboard {
   font-family: 'Raleway', Helvetica, sans-serif; }
