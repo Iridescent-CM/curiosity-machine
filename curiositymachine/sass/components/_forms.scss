@@ -1,0 +1,7 @@
+.form-control {
+  border-radius: 0px;
+  border: 4px solid $primary-orange;
+  &:focus {
+    border: 4px solid $primary-orange;
+  }
+}

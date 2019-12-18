@@ -5,9 +5,11 @@ $theme-colors: (
   'primary': $primary-blue,
   'secondary': #fff,
   'blue': $primary-blue,
-  'green': $primary-green,
   'orange': $primary-orange,
   'purple': $primary-purple,
+  'green': $primary-green,
+  'pink': $primary-pink,
+  'white': $white,
   //these colors are used in lessons save update for lates
     'new-pink': #ff4980,
   'new-red': #ff5050,
@@ -17,6 +19,7 @@ $theme-colors: (
   'new-blue': #0071bc,
   'new-purple': #6c6cb6
 );
+
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 @import 'base/fonts';
@@ -29,11 +32,13 @@ $theme-colors: (
 @import 'layout/old-style';
 
 @import 'components/avatar';
+@import 'components/borders';
 @import 'components/buttons';
 @import 'components/cards';
 @import 'components/challenge-status';
 @import 'components/dividers';
 @import 'components/favorites';
+@import 'components/forms';
 @import 'components/jumbotrons';
 @import 'components/list-group';
 @import 'components/lists';

@@ -1,6 +1,14 @@
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-  color: $primary-blue;
+.btn {
+  font-size: $base-font-size;
+  font-weight: $heavy-font-weight;
 }
 
+.btn-white {
+  color: $primary-darkblue;
+}
+
+.btn-outline-white {
+  &:hover {
+    color: $primary-darkblue;
+  }
+}
