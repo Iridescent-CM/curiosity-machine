@@ -1,6 +1,16 @@
 #challenges-page {
-  background-color: $sand;
-
+  .jumbotron {
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../images/pages/challenges-list/hero.png');
+    margin-bottom: 0;
+  }
+  .portrait-img {
+    width: 400px;
+    border-radius: 50%;
+  }
   .filter-list {
     list-style-type: none;
     font-size: 14px;
@@ -16,6 +26,7 @@
     }
 
     a {
+      color: $primary-darkblue;
       height: 50px;
       width: 100%;
       border-bottom: 0px;
@@ -43,7 +54,7 @@
     li.active {
       position: relative;
       a {
-        background-color: $primary-blue;
+        background-color: $primary-orange;
         color: $ivory;
       }
     }
@@ -64,8 +75,8 @@
     width: 100%;
     padding: 12px;
     font-weight: $light-font-weight;
-    background-color: $primary-green;
-    color: white;
+    background-color: $primary-blue;
+    color: $light-font-color;
     border-radius: $base-border-radius;
 
     .icon-boeing-logo {
