@@ -1,6 +1,11 @@
 #index-page {
-  .hero {
-    background-image: url("../images/pages/home/hero.png");
+  .jumbotron {
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../images/pages/home/hero.png');
+    margin-bottom: 0;
   }
 
   .section-img {
@@ -11,7 +16,8 @@
   $impact-div-size: 200px;
   $impact-font-size: 40px;
 
-  [id*="impact"] {
+  [id^='impact-'],
+  [id*=' impact-'] {
     font-size: $impact-font-size;
     height: $impact-div-size;
     background-size: contain;
@@ -21,15 +27,15 @@
   }
 
   #impact-1 {
-    background-image: url("../images/pages/home/impact-1.svg");
+    background-image: url('../images/pages/home/impact-1.svg');
   }
   #impact-2 {
-    background-image: url("../images/pages/home/impact-2.svg");
+    background-image: url('../images/pages/home/impact-2.svg');
   }
   #impact-3 {
-    background-image: url("../images/pages/home/impact-3.svg");
+    background-image: url('../images/pages/home/impact-3.svg');
   }
   #impact-4 {
-    background-image: url("../images/pages/home/impact-4.svg");
+    background-image: url('../images/pages/home/impact-4.svg');
   }
 }

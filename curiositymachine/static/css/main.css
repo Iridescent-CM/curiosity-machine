@@ -8805,13 +8805,6 @@ footer {
   padding: 60px 0 15px 0;
   margin-bottom: 30px; }
 
-.hero {
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 0em; }
-
 .cm-list-group.list-group-flush {
   border-top: 1px solid #e5e1d9;
   border-bottom: 1px solid #e5e1d9; }
@@ -9581,13 +9574,19 @@ footer {
   .family-dashboard .checkbox-label {
     margin-left: 0.5em; }
 
-#index-page .hero {
-  background-image: url("../images/pages/home/hero.png"); }
+#index-page .jumbotron {
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../images/pages/home/hero.png");
+  margin-bottom: 0; }
 
 #index-page .section-img {
   width: 400px; }
 
-#index-page [id*="impact"] {
+#index-page [id^='impact-'],
+#index-page [id*=' impact-'] {
   font-size: 40px;
   height: 200px;
   background-size: contain;
