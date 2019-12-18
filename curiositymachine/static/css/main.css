@@ -8003,6 +8003,9 @@ footer {
   .social-icons:hover {
     color: #7cceec; }
 
+#login-modal .modal-footer {
+  justify-content: flex-start; }
+
 .navbar-cm {
   background-color: #fffcf7;
   font-family: "Poppins", "Open Sans", Helvetica, sans-serif; }
