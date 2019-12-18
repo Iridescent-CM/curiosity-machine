@@ -7919,10 +7919,6 @@ i {
 .darkblue-type {
   color: #041e42; }
 
-#get-started .hero {
-  background-position: top;
-  background-image: url("../images/pages/about/hero.png"); }
-
 .dashboard {
   font-family: 'Raleway', Helvetica, sans-serif; }
   .dashboard .dashboard-avatar img {
@@ -9561,14 +9557,19 @@ footer {
   justify-content: center;
   min-height: 15em; }
 
+#get-started .quotation-mark {
+  width: 50px; }
+
 #get-started blockquote {
   font-size: 1.5em;
   line-height: 1.25em;
   font-weight: 700; }
 
-#get-started .quotation-mark {
-  display: block;
-  width: 50px; }
+#get-started .quote-img {
+  width: 400px; }
+
+#get-started .timeline-vertical {
+  width: 400px; }
 
 #index-page .jumbotron {
   background-attachment: scroll;
@@ -9601,6 +9602,9 @@ footer {
 
 #index-page #impact-4 {
   background-image: url("../images/pages/home/impact-4.svg"); }
+
+#index-page .portrait-img {
+  width: 400px; }
 
 .lesson-pages .lesson-container {
   /* borrow Bootstrap variables */

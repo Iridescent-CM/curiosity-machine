@@ -11,13 +11,18 @@
     justify-content: center;
     min-height: 15em;
   }
+  .quotation-mark {
+    width: 50px;
+  }
   blockquote {
     font-size: 1.5em;
     line-height: 1.25em;
     font-weight: $heavy-font-weight;
   }
-  .quotation-mark {
-    display: block;
-    width: 50px;
+  .quote-img {
+    width: 400px;
+  }
+  .timeline-vertical {
+    width: 400px;
   }
 }
