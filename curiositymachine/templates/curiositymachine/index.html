@@ -37,7 +37,6 @@
       <a href="{% url "account_signup" %}" class="btn btn-orange my-3">
         Get started
       </a>
-      <!-- <h5 class="text-white"> or <a href="#" data-toggle="modal" data-target="#login-modal" class="a-borderless text-white">Log in</a></h5> -->
     </div>
   </div>
 </div>
@@ -117,8 +116,9 @@
           sollicitudin et. Aenean tempus tristique quam vel finibus. Sed finibus faucibus mollis. Fusce a quam enim.
           Nunc vehicula ut justo sed tincidunt. Maecenas feugiat in urna vel maximus. Praesent ultricies ligula non ex
           ultrices rhoncus.</p>
-          <a class="btn btn-white" href="#">
+          <a class="font-weight-bold base-type" href="#">
             See design challenges
+            <i class="icon-right-arrow"></i>
           </a>
       </div>
       <div class="col-lg-6 my-3 text-center d-lg-none">
@@ -140,15 +140,12 @@
         <p>
           Fusce a quam enim. Nunc vehicula ut justo sed tincidunt. Maecenas feugiat in urna vel maximus. Praesent ultricies ligula non ex
         </p>
-        <a class="btn btn-white" href="#">
-          Get involved today
-        </a>
       </div>
     </div>
 
     <div class="row text-center impact-section">
       <div class="col-lg-3 my-3">
-        <div class="headings-font text-center" id="impact-1">
+        <div class="headings-font mb-3 text-center" id="impact-1">
           80k
         </div>
         <p>
@@ -157,26 +154,29 @@
         </p>
       </div>
       <div class="col-lg-3 my-3">
-        <div class="headings-font" id="impact-2">15k</div>
+        <div class="headings-font mb-3" id="impact-2">15k</div>
         <p>
           Nunc luctus euismod nisi, sit amet pharetra magna sodales non. Fusce vehicula dignissim est, sed dictum nunc
           sollicitudin et.
         </p>
       </div>
       <div class="col-lg-3 my-3">
-        <div class="headings-font" id="impact-3">91%</div>
+        <div class="headings-font mb-3" id="impact-3">91%</div>
         <p>
           Nunc luctus euismod nisi, sit amet pharetra magna sodales non. Fusce vehicula dignissim est, sed dictum nunc
           sollicitudin et.
         </p>
       </div>
       <div class="col-lg-3 my-3">
-        <div class="headings-font" id="impact-4">84%</div>
+        <div class="headings-font mb-3" id="impact-4">84%</div>
         <p>
           Nunc luctus euismod nisi, sit amet pharetra magna sodales non. Fusce vehicula dignissim est, sed dictum nunc
           sollicitudin et.
         </p>
       </div>
+      <a class="btn btn-white-darkblue my-3" href="#">
+        See our impact
+      </a>
     </div>
 
   </div>
@@ -184,7 +184,6 @@
 
 <div class="container-fluid bg-pattern-stripes-yellow py-5">
   <div class="container">
-
     <div class="row">
       <div class="col-lg-12 my-3">
         <h2 class="mb-3 headings-font">
@@ -193,17 +192,18 @@
         <p>
           Fusce a quam enim. Nunc vehicula ut justo sed tincidunt.
         </p>
-          <a class="btn btn-white" href="#">Get involved today</a>
-          <img class="my-3" src="{% static 'images/about/aifc-world.svg' %}">
+        <a class="font-weight-bold base-type" href="#">
+          Get involved today
+          <i class="icon-right-arrow"></i>
+        </a>
+        <img class="my-3" src="{% static 'images/about/aifc-world.svg' %}">
       </div>
     </div>
-
   </div>
 </div>
 
 <div class="container-fluid cta-banner-burst-orange py-5">
   <div class="container">
-
     <div class="row">
       <div class="col-lg-12">
         <h2>
@@ -214,7 +214,7 @@
           </a>
       </div>
     </div>
-
   </div>
 </div>
+
 {% endblock %}
