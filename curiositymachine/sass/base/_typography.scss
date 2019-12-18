@@ -6,9 +6,11 @@ body {
   font-feature-settings: 'kern', 'liga', 'pnum';
   font-size: $base-font-size;
   line-height: $base-line-height;
+  overflow-wrap: break-word;
 }
 
 h1 {
+  text-transform: uppercase;
   font-size: 4.17rem;
   line-height: 4.17rem;
   margin: 0;
@@ -35,17 +37,20 @@ h3 {
   line-height: 2.11rem;
   margin: 0;
 }
+
 h4 {
   font-size: 1rem;
   line-height: 1.37rem;
   margin: 0;
   font-weight: $heavy-font-weight;
 }
+
 h5 {
   font-size: 0.875rem;
   line-height: 0.875rem;
   margin: 0;
 }
+
 h6 {
   font-size: 0.75rem;
   line-height: 0.75rem;
@@ -62,6 +67,25 @@ hr {
   border-right: 0;
   border-top: 0;
   margin: $base-spacing 0;
+}
+
+@include media-breakpoint-down(lg) {
+  h1 {
+    font-size: 1.94rem;
+    line-height: 2.17rem;
+  }
+  h2 {
+    font-size: 1.33rem;
+    line-height: 1.83rem;
+  }
+}
+
+.headings-font {
+  font-family: $headings-font-family;
+}
+
+.base-font {
+  font-family: $base-font-family;
 }
 
 img,
@@ -93,8 +117,8 @@ i {
   color: $light-font-color;
 }
 
-.light-type {
-  color: $light-font-color;
+.base-type {
+  color: $base-font-color;
 }
 
 .orange-type {
@@ -115,4 +139,8 @@ i {
 
 .lightblue-type {
   color: $primary-lightblue;
+}
+
+.darkblue-type {
+  color: $primary-darkblue;
 }
