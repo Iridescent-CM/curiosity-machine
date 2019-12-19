@@ -32,9 +32,10 @@
     <div class="col-lg-8">
       <h1>Create a better world together</h1>
       <h3>
-        Develop curiosity, creativity, and confidence through family-friendly, hands-on activities.
+        Develop curiosity, creativity, and confidence through family-friendly,
+        hands-on activities.
       </h3>
-      <a href="{% url 'account_signup' %}" class="btn btn-orange my-3">
+      <a class="btn btn-orange my-3" href="{% url 'account_signup' %}">
         Get started
       </a>
     </div>
@@ -43,7 +44,6 @@
 
 <div class="container-fluid bg-pattern-dots-lightblue py-5">
   <div class="container darkblue-type">
-
     <div class="row">
       <div class="col-lg-6">
         <h2 class="mb-3 headings-font">
@@ -51,41 +51,55 @@
         </h2>
       </div>
     </div>
-
     <div class="row">
       <div class="col-lg-6 my-3">
         <p>
-          Parents and other role models play a critical role in building children's confidence and a love for learning new things. Whether you want quality learning challenges to do at home or curriculum for a classroom of eager learners, Technovation Families fuels curiosity, creativity, and confidence through hands-on challenges that teach children and adults about technology and engineering that will drive the future.
+          Parents and other role models play a critical role in building
+          children's confidence and a love for learning new things. Whether you
+          want quality learning challenges to do at home or curriculum for a
+          classroom of eager learners, Technovation Families fuels curiosity,
+          creativity, and confidence through hands-on challenges that teach
+          children and adults about technology and engineering that will drive
+          the future.
         </p>
         <p>
-          And, because we want every child to have the opportunity to create the future, Technovation Families is 100% free.
+          And, because we want every child to have the opportunity to create the
+          future, Technovation Families is 100% free.
         </p>
         <p>
-          Use our curriculum and take Technovation Families' Al challenge, or explore our series of design challenges to find out what STEM topics interest you.
+          Use our curriculum and take Technovation Families' Al challenge, or
+          explore our series of design challenges to find out what STEM topics
+          interest you.
         </p>
       </div>
       <div class="col-lg-6 my-3 text-center">
-        <img class="portrait-img leaf-border" src="{% static 'images/pages/home/section-1.png' %}/ ">
+        <img
+          class="portrait-img leaf-border"
+          src="{% static 'images/pages/home/section-1.png' %}"
+          alt="Technovation Families participants"
+        />
       </div>
     </div>
-
   </div>
 </div>
 
 <div class="container-fluid py-5">
   <div class="container">
-
     <div class="row">
       <div class="col-lg-6 my-3">
         <h2 class="mb-3">
           Join Technovation Families' free AI family challenge.
         </h2>
         <p>
-          Bullying, climate change, health & hygiene - these are just a few problems 7500 children and adults around the world tackled in 2019 using Al.
+          Bullying, climate change, health & hygiene - these are just a few
+          problems 7500 children and adults around the world tackled in 2019
+          using Al.
         </p>
         <p class="font-weight-bold">You can join them.</p>
         <p>
-          Through 10 lessons, learn what Al is, how it works, and how to use it to solve a problem you care about with support from educators, community leaders, and industry professionals.
+          Through 10 lessons, learn what Al is, how it works, and how to use it
+          to solve a problem you care about with support from educators,
+          community leaders, and industry professionals.
         </p>
         <a class="btn btn-primary" href="{% url 'lessons:lesson-list' %}">
           See AI lessons
@@ -93,45 +107,65 @@
       </div>
       <div class="col-lg-6 my-3">
         <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/JVz8TGr33dI" allowfullscreen></iframe>
+          <iframe
+            class="embed-responsive-item"
+            src="https://www.youtube.com/embed/JVz8TGr33dI"
+            allowfullscreen
+          >
+          </iframe>
         </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-lg-6 my-3 text-center">
-        <img class="portrait-img d-none d-lg-block leaf-border" src="{% static 'images/pages/home/section-2.png' %}/ ">
+        <img
+          class="portrait-img d-none d-lg-block leaf-border"
+          src="{% static 'images/pages/home/section-2.png' %}"
+          alt="Children building design challenges"
+        />
       </div>
       <div class="col-lg-6 my-3">
         <h2 class="mb-3">
           Explore Technovation Families' free design challenges
         </h2>
         <p>
-          Great as weekly family learning activities or in-class projects, our hands-on design challenges let you explore STEM topics ranging from robotics, space exploration, biomechanics and more. All our lessons can be completed using the online curriculum and common household materials. Follow your curiosity wherever it leads!
+          Great as weekly family learning activities or in-class projects, our
+          hands-on design challenges let you explore STEM topics ranging from
+          robotics, space exploration, biomechanics and more. All our lessons
+          can be completed using the online curriculum and common household
+          materials. Follow your curiosity wherever it leads!
         </p>
-        <a class="font-weight-bold base-type" href="{% url 'challenges:challenges' %}">
+        <a
+          class="font-weight-bold base-type"
+          href="{% url 'challenges:challenges' %}"
+        >
           See design challenges
           <i class="icon-right-arrow"></i>
         </a>
       </div>
       <div class="col-lg-6 my-3 text-center d-lg-none">
-        <img class="portrait-img leaf-border" src="{% static 'images/pages/home/section-2.png' %}/ ">
+        <img
+          class="portrait-img leaf-border"
+          src="{% static 'images/pages/home/section-2.png' %}"
+          alt="Children building design challenges"
+        />
       </div>
     </div>
-
   </div>
 </div>
 
 <div class="container-fluid bg-orange light-type py-5">
   <div class="container">
-
     <div class="row">
       <div class="col-lg-12 my-3">
         <h2 class="mb-3">
           Technovation change's families lives
         </h2>
         <p>
-          Learning together, parents and children build their creative problem-solving and technology skills while increasing their confidence as community changemakers.
+          Learning together, parents and children build their creative
+          problem-solving and technology skills while increasing their
+          confidence as community changemakers.
         </p>
       </div>
     </div>
@@ -142,32 +176,38 @@
           80k
         </div>
         <p>
-          families around the world have participated in Technovation Families' challenges since 2006.
+          families around the world have participated in Technovation Families'
+          challenges since 2006.
         </p>
       </div>
       <div class="col-lg-3 my-3">
         <div class="headings-font mb-3" id="impact-2">15k</div>
         <p>
-          mentors have supported families to learn about science, technology, and engineering through our challenges since 2006.
+          mentors have supported families to learn about science, technology,
+          and engineering through our challenges since 2006.
         </p>
       </div>
       <div class="col-lg-3 my-3">
         <div class="headings-font mb-3" id="impact-3">91%</div>
         <p>
-          of parents believe their child has developed a sustained interest in AI.
+          of parents believe their child has developed a sustained interest in
+          AI.
         </p>
       </div>
       <div class="col-lg-3 my-3">
         <div class="headings-font mb-3" id="impact-4">84%</div>
         <p>
-          of parents said they were more likely to take action to improve their community.
+          of parents said they were more likely to take action to improve their
+          community.
         </p>
       </div>
-      <a class="btn btn-white-darkblue my-3" href="https://www.technovation.org/impact/">
+      <a
+        class="btn btn-white-darkblue my-3"
+        href="https://www.technovation.org/impact/"
+      >
         See our impact
       </a>
     </div>
-
   </div>
 </div>
 
@@ -179,13 +219,21 @@
           Run our programs
         </h2>
         <p>
-          Educators and community organizations all over the world lead and mentor Technovation Families in their communities.
+          Educators and community organizations all over the world lead and
+          mentor Technovation Families in their communities.
         </p>
-        <a class="font-weight-bold base-type" href="https://www.technovation.org/community-partners/">
+        <a
+          class="font-weight-bold base-type"
+          href="https://www.technovation.org/community-partners/"
+        >
           Get involved today
           <i class="icon-right-arrow"></i>
         </a>
-        <img class="my-3" src="{% static 'images/about/aifc-world.svg' %}">
+        <img
+          class="my-3"
+          src="{% static 'images/about/aifc-world.svg' %}"
+          alt="Map of Technovation Families locations"
+        />
       </div>
     </div>
   </div>
@@ -198,9 +246,9 @@
         <h2>
           Are you ready to change the world?
         </h2>
-          <a class="btn btn-white my-3" href="{% url 'account_signup' %}">
-            Start now
-          </a>
+        <a class="btn btn-white my-3" href="{% url 'account_signup' %}">
+          Start now
+        </a>
       </div>
     </div>
   </div>
