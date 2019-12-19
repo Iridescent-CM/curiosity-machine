@@ -8950,10 +8950,9 @@ footer {
     display: none; }
   .favorites-badge input[type='checkbox'] + label {
     display: block;
-    width: 25px;
-    height: 25px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    padding-top: 2px;
     background-color: #cacaca;
     box-shadow: 0px 2px 4px rgba(151, 151, 151, 0.8);
     color: white;
@@ -9257,6 +9256,9 @@ footer {
 #challenges-page .portrait-img {
   width: 400px;
   border-radius: 50%; }
+
+#challenges-page .cm-card {
+  border: none; }
 
 #challenges-page .filter-list {
   list-style-type: none;
