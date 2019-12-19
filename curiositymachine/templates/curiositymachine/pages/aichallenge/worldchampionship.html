@@ -1,0 +1,174 @@
+{% extends "curiositymachine/layout/base.html" %}
+{% load staticfiles %}
+
+{% block title %}AI World Championship{% endblock %}
+{% block body-classes %} {{ block.super }} aifc-pages {% endblock %}
+{% block content %}
+{% with active_nav="worldchampionship" %}
+{{ block.super }}
+
+<section>
+  <div class="aifc-pages-video-header">
+    <div class="overlay"></div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+      <source src="{% static 'videos/aifc-season-close.mp4' %}" type="video/mp4"></source>
+    </video>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 offset-md-1 mt-5">
+      <h2>AI World Championship</h2>
+      <hr>
+      <img src="{% static 'images/about/aifc-families.png' %}">
+      <h3 class="text-center mt-3">Congratulations to the 7500+ participants of our first season of Technovation Families. Season 2 has already begun, join now!</h3>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-3">
+      <img class="aifc-data-donuts" src="{% static 'images/aifc/aifc-datadonut-91.svg' %}">
+      <p class="text-center mt-3">of parents believe their <strong class="text-red">child has developed a sustained interest in AI.</strong></p>
+    </div>
+    <div class="col-md-3">
+      <img class="aifc-data-donuts"src="{% static 'images/aifc/aifc-datadonut-84.svg' %}">
+      <p class="text-center mt-3">of parents said they were <strong class="text-red">more likely to take action</strong> to improve their community. </p>
+    </div>
+    <div class="col-md-3">
+      <img class="aifc-data-donuts" src="{% static 'images/aifc/aifc-datadonut-89.svg' %}">
+      <p class="text-center mt-3">of parents <strong class="text-red">believe their child is capable of creating an AI model</strong> in the future.</p>
+    </div>
+    <div class="col-md-3">
+      <img class="aifc-data-donuts" src="{% static 'images/aifc/aifc-datadonut-90.svg' %}">
+      <p class="text-center mt-3">of parents believe they know the prerequisites for their <strong class="text-red">child to pursue either an AI or STEM career.</strong></p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <hr class="hr-orange"/>
+  <h2>Meet our 2019 finalist teams, chosen from over 200 AI invention submissions, and get inspired!</h2>
+  <h3 class="mb-5">Senior Division</h3>
+  <div class="row">
+    <div class="col-lg">
+      <h4>Shoo</h4>
+      <p>United States of America</p>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/vuTV_nshwtU" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">For generations, children everywhere have dealt with the nuisance of dogs defecating in their yards and needing to clean it up. Meet shoo, a dog deterrent device built with AI technology.</p>
+      <p class="mt-3">Shoo uses a live camera to collect images and pass them through an image recognition algorithm to determine if a dog is in a specified area. If an animal is present, the device emits a high pitch sound that deters it from staying. The prototype uses Raspberry Pi and the algorithm is written via Scratch X.</p>
+    </div>
+    <div class="col-lg">
+      <h4>Scoutbot WaterGuardian</h4>
+      <p>Spain</p>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/_yPaq1fF-bM" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Yearly, thousands of children drown across the world. Scoutbot WaterGuardian is an invention that notifies adults of risky swimming behavior via swimming caps equipped with alert systems.</p>
+      <p>Scoutbot Waterguardian’s prototype is a wearable device that uses an image analysis algorithm to determine if a swimmer is safe. To train their model, the team collected data from people wearing their prototype while underwater. If a person is at risk, the prototype will produce an alert that could be sent to the adult's or Water Guardian's mobile.</p>
+    </div>
+    <div class="col-lg">
+      <h4>Spiky! Bullying Detector</h4>
+      <p>Uzbekistan</p>
+      <!-- video -->
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/u446zt6ELuY" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Spiky is a mobile application that helps adults recognize when a child is being bullied. The invention uses machine learning to analyze communications from a child to guess the probability of bullying. Spiky will send an alert to parents if action is needed.
+      </p>
+      <p class="mt-3">The user can input data into the mobile application via a series of rating questions. Based on the data, the AI algorithm will determine appropriate follow-up questions. A child’s answers to the follow-up questions can be used to further train the model and notify a parent of the risk level. The Spiky team also plans on collecting images from schools to be used in addition to the text input.</p>
+    </div>
+  </div>
+  <hr>
+  <h3 class="mb-5">Junior Division</h3>
+  <div class="row mb-5">
+    <div class="col-lg">
+      <h4>My Drawings Speak Up</h4>
+      <p>Palestine</p>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/hRTorWpfZsU" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Everyone has the right to feel safe, loved and accepted, but bullying is a problem that affects millions of students each day. My Drawings Speak Up is an invention that analyzes students’ drawings to indicate if a parent needs to seek professional support.
+      </p>
+      <p class="mt-3">This invention uses image recognition technology to analyze children's drawings and notify an adult when a child is facing bullying (violence). The algorithm was trained using hand-drawn images from children as well as drawings from trained psychologists.
+      </p>
+    </div>
+    <div class="col-lg">
+      <h4>Duckweed Vacuum Cleaner</h4>
+      <p>Bolivia</p>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/59KP8VCT8kI" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Duckweed is a plant that negatively impacts Lake Titicaca. Duckweed Vacuum Cleaner classifies and removes the plant from the water.
+      </p>
+      <p class="mt-3">This prototype uses a camera to collect data for its image recognition algorithm. Once it’s determined that the harmful duckweed is present, the prototype (controlled by Raspberry Pi and powered by a DC motor) vacuums up the duckweed.
+      </p>
+    </div>
+    <div class="col-lg">
+      <h4>Cavity Crusher</h4>
+      <p>Pakistan</p>
+      <!-- video -->
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/TKyvtUVxMqg" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="mt-3">Even though dentists report that proper tooth brushing can help in maintain oral health, an increasing number of children are facing tooth decay problems. Cavity Crusher uses AI to monitor a child’s brushing habits and notifies adults if more time should be spent on the task.
+      </p>
+      <p class="mt-3">Cavity Crusher’s algorithm uses time of brushing to determine a child’s oral health habits. If the model determines inadequate toothbrushing, it will notify the parent. Prior to this prototype, the family built a model able to recognize images of toothbrushing. However, they determined more accurate results could be achieved with number data.</p>
+    </div>
+  </div>
+</div>
+<div id="semi-finalists" class="carousel slide bg-new-turquoise text-center py-5" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="row">
+        <div class="col-8 mx-auto">
+          <h4>eFAP: Emotions detector for Angry Players</h4>
+          <p>Spain</p>
+          <p>Children and teenagers spend much of their leisure timep laying with consoles, however, this activity is not always fun and leads to a negative emotional state that affects the home environment. eFap is a mobile application that uses image gesture recognition with AI to monitor players, warning them with different shades of color between green and red, which symbolize calmness and anger respectively. Optionally, you can connect by bluetooth a robot with a mechanical arm that will move when the player gets angry, and this can be a fun DIY project to do in family.</p>
+          <a class="text-white" href="https://www.youtube.com/embed/mxCk_D5y6MQ">Click here to view their video.</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row">
+        <div class="col-8 mx-auto">
+          <h4>I read it for you</h4>
+          <p>Italy</p>
+          <p>8% of kids suffer from food allergies and need to be very careful when grocery shopping. Allergenes not always clearly marked makes checking ingredients slow and difficult. Some apps use barcodes and databases for this, but they're not well updated and limited to one country. We want to help people identify products which are safe for them, even when travelling abroad. Our invention would use OCR and text classifier to read and identify products safe for users' intolerances. If uncertain, our app would offer to call producers' hotline and learn from the feedback received, constantly improving its recognition model.</p>
+          <a class="text-white" href="https://www.youtube.com/embed/BWvHDaog_4o">Click here to view their video.</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row">
+        <div class="col-8 mx-auto">
+          <h4>Smart Aqua Lab</h4>
+          <p>Pakistan</p>
+          <p>Impure water is a global issue .Over 1 billion people don't have access to clean water. Due to contaminated water people are highly at risk of getting diseases like cholera, diarrhea , dysentery , typhoid and hepatitis etc.The problem is arising due to dumping of garbage and factory pollutant into the water bodies. To make people aware about the purity of water ,we have designed a handy microscope band named SMART AQUA LAB. It is attached to the smart phone. We can take an image of water sample and by using artificial intelligence application ML4K, we will identify the purity of water.</p>
+            <a class="text-white" href="https://www.youtube.com/embed/M06VsyWEXnI">Click here to view their video.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#semi-finalists" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#semi-finalists" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<div class="text-center py-5">
+  <div class="container">
+    <h2>Interested in using Artificial Intelligence to solve a problem in your community? Season 2 of Technovation Families has already begun!</h2>
+    <a href="{% url "account_signup" %}" class="btn btn-primary text-uppercase">Get Started!</a>
+  </div>
+</div>
+
+{% endwith %}
+{% endblock %}
