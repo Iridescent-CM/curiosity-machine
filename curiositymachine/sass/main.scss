@@ -25,7 +25,6 @@ $theme-colors: (
 @import 'base/fonts';
 @import 'base/typography';
 
-@import 'layout/about-pg-layout';
 @import 'layout/dashboards';
 @import 'layout/footer';
 @import 'layout/header';
@@ -48,14 +47,13 @@ $theme-colors: (
 @import 'components/tables';
 @import 'components/rebrand-banner';
 
-@import 'pages/about-educator';
-@import 'pages/about-aichallenge';
 @import 'pages/account-settings';
 @import 'pages/challenges';
 @import 'pages/edp-inspiration';
 @import 'pages/educator-dashboard';
 @import 'pages/examples';
 @import 'pages/family-dashboard';
+@import 'pages/get-started';
 @import 'pages/home';
 @import 'pages/lessons';
 @import 'pages/aifc-pages';
