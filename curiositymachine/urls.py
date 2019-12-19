@@ -66,43 +66,75 @@ urlpatterns += [
     # redirects
     url(
         r'^terms-of-use/',
-        public(RedirectView.as_view(url='http://iridescentlearning.org/terms-of-use/', permanent=True)),
+        public(RedirectView.as_view(url='https://www.technovation.org/terms-of-use/', permanent=True)),
         name='terms-of-use'
     ),
     url(
         r'^privacy/',
-        public(RedirectView.as_view(url='http://iridescentlearning.org/privacy-policy/', permanent=True)),
+        public(RedirectView.as_view(url='https://www.technovation.org/privacy-policy/', permanent=True)),
         name='privacy'
     ),
     url(
         r'^faq/',
-        public(RedirectView.as_view(url='https://iridescentsupport.zendesk.com/hc/en-us/categories/115000091368-Curiosity-Machine', permanent=True)),
+        public(RedirectView.as_view(url='https://iridescentsupport.zendesk.com/hc/en-us/categories/115000091368-Technovation-Families', permanent=True)),
         name='faq'
     ),
     url(
-        r'^educator/',
-        public(RedirectView.as_view(url="/program-leaders", permanent=True)),
-        name='educator'
-    ),
-    url(
         r'^aichallenge/coaches/',
-        public(RedirectView.as_view(url="/program-leaders", permanent=True)),
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
         name='coaches'
     ),
     url(
         r'^aichallenge/families/',
-        public(RedirectView.as_view(url="/families", permanent=True)),
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
         name='families'
+    ),
+        url(
+        r'^aichallenge/timeline/',
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
+        name='timeline'
+    ),
+        url(
+        r'^educator/',
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
+        name='educator'
     ),
     url(
         r'^parents/',
-        public(RedirectView.as_view(url="/families", permanent=True)),
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
         name='parents'
     ),
     url(
+        r'^families/',
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
+        name='families'
+    ),
+    url(
+        r'^about-partnership/',
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
+        name='about-partnership'
+    ),
+    url(
+        r'^program-leaders/',
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
+        name='program leaders'
+    ),
+    url(
         r'^aichallenge/$',
-        public(RedirectView.as_view(url="/about", permanent=True)),
-        name='aichallnge'
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
+        name='aichallenge'
+    ),
+
+    url(
+        r'^about/',
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
+        name='about'
+    ),
+
+    url(
+        r'^community-guidelines/',
+        public(RedirectView.as_view(url="/get-started", permanent=True)),
+        name='community-guidelines'
     ),
 
     url(r'^summernote/', include('django_summernote.urls')),
