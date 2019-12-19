@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*!
  * Bootstrap v4.1.1 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -7919,38 +7918,6 @@ i {
 .darkblue-type {
   color: #041e42; }
 
-.about-pages .nav {
-  justify-content: center; }
-  .about-pages .nav .nav-item {
-    display: inline-block;
-    margin: 0 20px; }
-  .about-pages .nav .nav-link {
-    padding: 0;
-    transition-property: all; }
-    .about-pages .nav .nav-link:link, .about-pages .nav .nav-link:visited {
-      color: #fffcf7;
-      border-bottom: 2px solid #fffcf7; }
-    .about-pages .nav .nav-link:hover, .about-pages .nav .nav-link:active, .about-pages .nav .nav-link.active {
-      color: #994600;
-      border-color: #994600; }
-
-.about-pages h2 {
-  color: #ff7500; }
-
-.about-pages h2, .about-pages h3 {
-  text-align: left; }
-
-.about-pages .numbered-bullet {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: #ff7500;
-  color: white;
-  text-align: center;
-  position: relative;
-  display: inline-block;
-  top: -3px; }
-
 .dashboard {
   font-family: 'Raleway', Helvetica, sans-serif; }
   .dashboard .dashboard-avatar img {
@@ -9054,105 +9021,6 @@ footer {
   .rebrand-banner a {
     color: #ffffff; }
 
-#educator-about-page .cm-card {
-  max-width: 260px;
-  min-height: 375px; }
-
-#ai-challenge-page .cm-quote-card {
-  padding: 0.8em; }
-  #ai-challenge-page .cm-quote-card blockquote {
-    font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
-    font-size: 1.2em;
-    text-align: right; }
-    #ai-challenge-page .cm-quote-card blockquote:before {
-      content: '“';
-      display: block;
-      position: relative;
-      text-align: left;
-      font-family: 'Times New Roman', Georgia, serif;
-      font-size: 100px;
-      font-weight: bold;
-      line-height: 1em;
-      margin-bottom: -0.3em;
-      color: #ff7500; }
-  #ai-challenge-page .cm-quote-card cite {
-    text-align: right;
-    color: #949494; }
-    #ai-challenge-page .cm-quote-card cite:before {
-      content: '—';
-      margin-right: 0.4em; }
-
-#ai-challenge-page .mid-page-cols {
-  line-height: 1.25em; }
-
-#ai-challenge-page .stage-badges {
-  line-height: 1.25em; }
-  #ai-challenge-page .stage-badges p {
-    margin-bottom: 0; }
-  #ai-challenge-page .stage-badges img {
-    width: 130px;
-    height: 130px; }
-
-#ai-challenge-page .equation {
-  font-size: 60px;
-  color: #ff7500; }
-
-#ai-challenge-page .quotes-images {
-  text-shadow: 3px 3px 3px #590019; }
-  #ai-challenge-page .quotes-images .carousel-item p {
-    margin: 15px;
-    position: absolute;
-    bottom: 0;
-    left: 0; }
-  #ai-challenge-page .quotes-images .quote-image-1 {
-    background-image: url("../images/about/quote-images/usa-16x9-min.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 350px; }
-  #ai-challenge-page .quotes-images .quote-image-2 {
-    background-image: url("../images/about/quote-images/nigeria-16x9-min.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 350px; }
-  #ai-challenge-page .quotes-images .quote-image-3 {
-    background-image: url("../images/about/quote-images/south-africa-16x9-min.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 350px; }
-  #ai-challenge-page .quotes-images .quote-image-4 {
-    background-image: url("../images/about/quote-images/uzbekistan-16x9-min.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 350px; }
-  #ai-challenge-page .quotes-images .quote-image-5 {
-    background-image: url("../images/about/quote-images/uzbekistan2-16x9-min.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 350px; }
-
-#ai-challenge-page .revolving-quotes {
-  font-size: 24px; }
-  #ai-challenge-page .revolving-quotes .quote-box {
-    height: 250px; }
-
-@media (max-width: 1199.98px) {
-  #ai-challenge-page .mid-page-cols .border-right {
-    border-right-style: none; } }
-
-@media (max-width: 991.98px) {
-  #ai-challenge-page .revolving-quotes {
-    font-size: 20px; }
-  #ai-challenge-page .stage-badges img {
-    width: 175px;
-    height: 175px; } }
-
-@media (max-width: 575.98px) {
-  #ai-challenge-page .revolving-quotes {
-    font-size: 16px; }
-  #ai-challenge-page .stage-badges img {
-    width: 150px;
-    height: 150px; } }
-
 .account-settings .avatar-settings .form-inline {
   justify-content: center; }
   .account-settings .avatar-settings .form-inline .btn,
@@ -9577,6 +9445,32 @@ footer {
   .family-dashboard .checkbox-label {
     margin-left: 0.5em; }
 
+#get-started .jumbotron {
+  background-image: url("../images/pages/about/hero.png");
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+  margin-bottom: 0em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 15em; }
+
+#get-started .quotation-mark {
+  width: 50px; }
+
+#get-started blockquote {
+  font-size: 1.5em;
+  line-height: 1.25em;
+  font-weight: 700; }
+
+#get-started .quote-img {
+  width: 400px; }
+
+#get-started .timeline-vertical {
+  width: 400px; }
+
 #index-page .jumbotron {
   background-attachment: scroll;
   background-repeat: no-repeat;
@@ -9608,6 +9502,9 @@ footer {
 
 #index-page #impact-4 {
   background-image: url("../images/pages/home/impact-4.svg"); }
+
+#index-page .portrait-img {
+  width: 400px; }
 
 .lesson-pages .lesson-container {
   /* borrow Bootstrap variables */
