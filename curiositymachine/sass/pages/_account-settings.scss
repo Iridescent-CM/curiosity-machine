@@ -1,5 +1,37 @@
 .account-settings {
   .avatar-settings {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+
+    label[for='id_image_url'] {
+      display: none;
+    }
+
+    .pickwidget {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      input {
+        border: none;
+        color: $primary-orange;
+        font-size: 0.8rem;
+        &::placeholder {
+          color: $primary-orange;
+        }
+        &:hover,
+        &:focus {
+          border: none;
+        }
+      }
+
+      .pickwidget-button {
+        margin-right: 0.25em;
+      }
+    }
+
     .form-inline {
       justify-content: center;
 
@@ -8,26 +40,6 @@
         margin-right: 0.25em;
         margin-bottom: 0.25em;
       }
-    }
-  }
-
-  .pickwidget {
-    display: flex;
-    flex-direction: column;
-    input {
-      border: none;
-      color: $primary-orange;
-      font-size: 0.8rem;
-      &::placeholder {
-        color: $primary-orange;
-      }
-      &:hover,
-      &:focus {
-        border: none;
-      }
-    }
-    .pickwidget-button {
-      margin-right: 0.25em;
     }
   }
 
@@ -52,9 +64,5 @@
         margin-right: 0.5em;
       }
     }
-  }
-
-  .btn-secondary {
-    border: 1px solid $light-gray;
   }
 }
