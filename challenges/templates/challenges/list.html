@@ -16,7 +16,6 @@
 
 <div class="container-fluid py-5">
   <div class="container darkblue-type">
-
     <div class="row">
       <div class="col-lg-6 my-3">
         <h2 class="mb-3">
@@ -30,7 +29,10 @@
         </p>
       </div>
       <div class="col-lg-6 my-3 text-center">
-        <img class="portrait-img" src="{% static 'images/pages/challenges-list/image-1.png' %}/ ">
+        <img
+          class="portrait-img"
+          src="{% static 'images/pages/challenges-list/image-1.png' %}"
+        />
       </div>
     </div>
   </div>
@@ -41,7 +43,8 @@
     <div class="row">
       <div class="challenges-navigation col-md-5 col-lg-4 col-xl-3">
         <h3 class="block-header text-center d-none d-md-block">Topics</h3>
-        <button class="filter-theme-toggle collapsed d-md-none btn button btn-block btn-primary"
+        <button
+          class="filter-theme-toggle collapsed d-md-none btn button btn-block btn-primary"
           data-toggle="collapse" href="#filter-theme-list"
           aria-expanded="false" aria-controls="filter-theme-list"
         >
@@ -50,12 +53,15 @@
         <ul id="filter-theme-list" class="filter-list collapse">
           {% for f in filters %}
           <li class="{% if f.active %}active{% endif %}">
-            <a class="text-truncate" href="{{ f.full_url }}">{{ f.text|safe }}</a>
+            <a
+              class="text-truncate"
+              href="{{ f.full_url }}">
+              {{ f.text|safe }}
+            </a>
           </li>
           {% endfor %}
         </ul>
       </div>
-
       <div class="col-md-7 col-lg-8 col-xl-9">
         <h3 class="block-header text-center" id="challenges">{{title|safe}}</h3>
         {% if header_template %}
@@ -92,9 +98,12 @@
         <h2>
           Are you ready to change the world?
         </h2>
-          <a class="btn btn-white my-3" href="{% url 'account_signup' %}">
-            Start now
-          </a>
+        <a
+          class="btn btn-white my-3"
+          href="{% url 'account_signup' %}"
+        >
+          Start now
+        </a>
       </div>
     </div>
   </div>
