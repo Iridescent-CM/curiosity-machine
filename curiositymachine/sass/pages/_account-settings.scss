@@ -29,8 +29,7 @@
       }
 
       .pickwidget-button {
-        @extend .btn;
-        @extend .btn-orange;
+        @extend .btn, .btn-orange;
         margin-right: 0.25em;
       }
     }
