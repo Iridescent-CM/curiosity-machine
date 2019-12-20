@@ -8102,6 +8102,9 @@ i {
       color: #a94442;
       background-color: #f2dede; }
 
+.text-warning {
+  color: #ff7500 !important; }
+
 footer {
   background-color: #333333;
   padding: 0px 0px 60px 0px;
@@ -18917,26 +18920,33 @@ footer {
   .rebrand-banner a {
     color: #ffffff; }
 
-.account-settings .avatar-settings .form-inline {
-  justify-content: center; }
-  .account-settings .avatar-settings .form-inline .btn,
-  .account-settings .avatar-settings .form-inline input {
-    margin-right: 0.25em;
-    margin-bottom: 0.25em; }
-
-.account-settings .pickwidget {
+.account-settings .avatar-settings {
   display: flex;
-  flex-direction: column; }
-  .account-settings .pickwidget input {
-    border: none;
-    color: #ff7500;
-    font-size: 0.8rem; }
-    .account-settings .pickwidget input::placeholder {
-      color: #ff7500; }
-    .account-settings .pickwidget input:hover, .account-settings .pickwidget input:focus {
-      border: none; }
-  .account-settings .pickwidget .pickwidget-button {
-    margin-right: 0.25em; }
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center; }
+  .account-settings .avatar-settings label[for='id_image_url'] {
+    display: none; }
+  .account-settings .avatar-settings .pickwidget {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .account-settings .avatar-settings .pickwidget input {
+      border: none;
+      color: #ff7500;
+      font-size: 0.8rem; }
+      .account-settings .avatar-settings .pickwidget input::placeholder {
+        color: #ff7500; }
+      .account-settings .avatar-settings .pickwidget input:hover, .account-settings .avatar-settings .pickwidget input:focus {
+        border: none; }
+    .account-settings .avatar-settings .pickwidget .pickwidget-button {
+      margin-right: 0.25em; }
+  .account-settings .avatar-settings .form-inline {
+    justify-content: center; }
+    .account-settings .avatar-settings .form-inline .btn,
+    .account-settings .avatar-settings .form-inline input {
+      margin-right: 0.25em;
+      margin-bottom: 0.25em; }
 
 .account-settings .form-inline input {
   max-width: 100%; }
@@ -18952,9 +18962,6 @@ footer {
   margin-bottom: 0.5rem; }
   .account-settings .yes-no-group .yes-no-options input {
     margin-right: 0.5em; }
-
-.account-settings .btn-secondary {
-  border: 1px solid #cccccc; }
 
 #challenges-page .jumbotron {
   background-attachment: scroll;
