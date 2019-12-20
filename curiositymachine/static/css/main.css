@@ -18973,6 +18973,130 @@ footer {
   .rebrand-banner a {
     color: #ffffff; }
 
+.aifc-pages .aifc-pages-logo {
+  width: 500px; }
+
+.aifc-pages .aifc-pages-header-bg {
+  background-size: cover;
+  vertical-align: middle;
+  background-image: url("../images/aifc/orange-header.svg"); }
+
+.aifc-pages .aifc-pages-white-logo {
+  width: 30%; }
+
+.aifc-pages .aifc-pages-rounded-box {
+  border-radius: 15px;
+  border-style: solid;
+  border-color: #e5e1d9;
+  border-width: 2px;
+  background: #fffcf7; }
+
+.aifc-pages .aifc-pages-page-bg {
+  background-repeat: no-repeat;
+  background-image: url("../images/aifc/page-background.svg");
+  background-position-y: bottom; }
+
+.aifc-pages .aifc-pages-subtitle {
+  font-weight: bold;
+  font-size: 30px;
+  color: #0076cf;
+  margin: 2px 0px 0px 0px; }
+
+.aifc-pages .aifc-pages-panel {
+  border: 4px solid #0076cf;
+  border-radius: 9px;
+  padding: 30px 12px 12px 12px;
+  margin: 30px 12px 12px 12px; }
+
+.aifc-pages .aifc-pages-circle {
+  height: 150px;
+  width: auto;
+  margin-right: auto;
+  margin-left: auto;
+  display: block; }
+
+.aifc-pages .aifc-pages-subheader {
+  font-size: 20px;
+  color: #949494; }
+
+.aifc-pages .aifc-pages-header {
+  font-size: 25px;
+  color: #949494; }
+
+.aifc-pages .aifc-pages-arrow {
+  position: relative;
+  display: inline-block;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 15px -15px 0 #ff7500 inset;
+  transform: rotate(225deg); }
+
+.aifc-pages .aifc-pages-icons {
+  font-size: 50px;
+  color: #fd7e14; }
+
+.aifc-pages .aifc-pages-category-icons {
+  width: 150px;
+  margin: auto;
+  display: block;
+  cursor: pointer; }
+
+.aifc-pages .aifc-data-donuts {
+  max-width: 150px;
+  margin: auto;
+  display: block; }
+
+.aifc-pages .aifc-pages-video-header {
+  position: relative;
+  background-color: #000000;
+  height: 75vh;
+  min-height: 25rem;
+  width: 100%;
+  overflow: hidden; }
+
+.aifc-pages .aifc-pages-video-header video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%); }
+
+.aifc-pages .aifc-pages-video-header .container {
+  position: relative;
+  z-index: 2; }
+
+.aifc-pages .aifc-pages-video-header .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #000000;
+  opacity: 0.5;
+  z-index: 1; }
+
+@media (pointer: coarse) and (hover: none) {
+  .aifc-pages .aifc-pages-video-header {
+    background-color: #ff7500;
+    background-image: linear-gradient(135deg, #ff7500, #ffac66); }
+    .aifc-pages .aifc-pages-video-header .overlay {
+      opacity: 0; }
+  .aifc-pages .aifc-pages-video-header video {
+    display: none; } }
+
+@media (min-width: 992px) {
+  .aifc-pages .aifc-pages-col-md-5ths {
+    position: relative;
+    width: 20%;
+    float: left; } }
+
 .account-settings .avatar-settings {
   display: flex;
   flex-direction: row;
@@ -19679,130 +19803,6 @@ footer {
 .lesson-pages .feedback-component {
   padding: 3em; }
 
-.aifc-pages .aifc-pages-logo {
-  width: 500px; }
-
-.aifc-pages .aifc-pages-header-bg {
-  background-size: cover;
-  vertical-align: middle;
-  background-image: url("../images/aifc/orange-header.svg"); }
-
-.aifc-pages .aifc-pages-white-logo {
-  width: 30%; }
-
-.aifc-pages .aifc-pages-rounded-box {
-  border-radius: 15px;
-  border-style: solid;
-  border-color: #e5e1d9;
-  border-width: 2px;
-  background: #fffcf7; }
-
-.aifc-pages .aifc-pages-page-bg {
-  background-repeat: no-repeat;
-  background-image: url("../images/aifc/page-background.svg");
-  background-position-y: bottom; }
-
-.aifc-pages .aifc-pages-subtitle {
-  font-weight: bold;
-  font-size: 30px;
-  color: #0076cf;
-  margin: 2px 0px 0px 0px; }
-
-.aifc-pages .aifc-pages-panel {
-  border: 4px solid #0076cf;
-  border-radius: 9px;
-  padding: 30px 12px 12px 12px;
-  margin: 30px 12px 12px 12px; }
-
-.aifc-pages .aifc-pages-circle {
-  height: 150px;
-  width: auto;
-  margin-right: auto;
-  margin-left: auto;
-  display: block; }
-
-.aifc-pages .aifc-pages-subheader {
-  font-size: 20px;
-  color: #949494; }
-
-.aifc-pages .aifc-pages-header {
-  font-size: 25px;
-  color: #949494; }
-
-.aifc-pages .aifc-pages-arrow {
-  position: relative;
-  display: inline-block;
-  margin: 20px;
-  padding: 20px;
-  box-shadow: 15px -15px 0 #ff7500 inset;
-  transform: rotate(225deg); }
-
-.aifc-pages .aifc-pages-icons {
-  font-size: 50px;
-  color: #fd7e14; }
-
-.aifc-pages .aifc-pages-category-icons {
-  width: 150px;
-  margin: auto;
-  display: block;
-  cursor: pointer; }
-
-.aifc-pages .aifc-data-donuts {
-  max-width: 150px;
-  margin: auto;
-  display: block; }
-
-.aifc-pages .aifc-pages-video-header {
-  position: relative;
-  background-color: #000000;
-  height: 75vh;
-  min-height: 25rem;
-  width: 100%;
-  overflow: hidden; }
-
-.aifc-pages .aifc-pages-video-header video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: 0;
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%); }
-
-.aifc-pages .aifc-pages-video-header .container {
-  position: relative;
-  z-index: 2; }
-
-.aifc-pages .aifc-pages-video-header .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: #000000;
-  opacity: 0.5;
-  z-index: 1; }
-
-@media (pointer: coarse) and (hover: none) {
-  .aifc-pages .aifc-pages-video-header {
-    background-color: #ff7500;
-    background-image: linear-gradient(135deg, #ff7500, #ffac66); }
-    .aifc-pages .aifc-pages-video-header .overlay {
-      opacity: 0; }
-  .aifc-pages .aifc-pages-video-header video {
-    display: none; } }
-
-@media (min-width: 992px) {
-  .aifc-pages .aifc-pages-col-md-5ths {
-    position: relative;
-    width: 20%;
-    float: left; } }
-
 .rebrand {
   font-family: "Poppins", "Open Sans", Helvetica, sans-serif; }
   .rebrand h1 {
@@ -19823,6 +19823,9 @@ footer {
     background-color: #1d1349;
     border-color: #1d1349;
     white-space: normal; }
+
+#signup_form .text-muted {
+  color: #ff7500 !important; }
 
 .bg-primary {
   background-color: #0076cf;
