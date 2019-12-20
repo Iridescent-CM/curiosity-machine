@@ -27,17 +27,22 @@
   {% endfor %}{% endif %}
   <div class="row">
     <div class="col-lg-6 offset-lg-3 p-3">
-      <h2 class="text-center my-3">Your Profile Info</h2>
+      <h2 class="text-center">Your profile information</h2>
       <form action="{% block action %}{% endblock %}" method="POST" novalidate>
         {% csrf_token %}
         {% block fields %}
           {% block avatar %}
-            {% include "profiles/_avatar.html" with profile=request.user.profile width=125 height=125 crop='thumb' gravity='faces' classes='leaf-border' %}
+            {% include "profiles/_avatar.html" with profile=request.user.profile width=125 height=125 crop='thumb' gravity='faces' classes='leaf-border p-3' %}
           {% endblock %}
         {% endblock %}
         {% block navbutton %}
         {% if form.instance and form.instance.pk %}
-        <a class="btn btn-outline-primary float-right" href="{% url "account_change_password"%}">Change password</a>
+        <a
+          class="btn btn-outline-primary float-right"
+          href="{% url "account_change_password"%}"
+        >
+          Change password
+        </a>
         {% endif %}
         {% endblock %}
         <input type="submit" class="btn btn-orange float-left" value="Save">
