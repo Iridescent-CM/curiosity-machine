@@ -5,15 +5,47 @@
 
 {% block body-id %}challenges-page{% endblock %}
 {% block content %}
-  <div class="jumbotron cm-jumbotron jumbotron-fluid bg-blue">
-    <h1>Challenges</h1>
-  </div>
 
+<div class="jumbotron">
+  <div class="container text-light">
+    <div class="col-lg-8">
+      <h1>Design Challenges</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid py-5">
+  <div class="container darkblue-type">
+    <div class="row">
+      <div class="col-lg-6 my-3">
+        <h2 class="mb-3">
+          STEM activities for curious families and classrooms
+        </h2>
+        <p>
+          Technovation Families' free design challenges explore a range of science, technology, and engineering topics through fun, hands-on activities that promote creativity and problem-solving to find unique solutions.
+        </p>
+        <p>
+          Learn from the scientists and engineers who are creating the technologies of tomorrow, and use what you learn to build your own invention!
+        </p>
+      </div>
+      <div class="col-lg-6 my-3 text-center">
+        <img
+          class="portrait-img rounded-circle"
+          src="{% static 'images/pages/challenges-list/image-1.png' %}"
+          alt="Young girl smiling"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid bg-lightblue py-5">
   <div class="container">
     <div class="row">
       <div class="challenges-navigation col-md-5 col-lg-4 col-xl-3">
-        <h4 class="block-header text-center d-none d-md-block">Categories</h4>
-        <button class="filter-theme-toggle collapsed d-md-none btn btn-block btn-green"
+        <h3 class="block-header text-center d-none d-md-block">Topics</h3>
+        <button
+          class="filter-theme-toggle collapsed d-md-none btn button btn-block btn-primary"
           data-toggle="collapse" href="#filter-theme-list"
           aria-expanded="false" aria-controls="filter-theme-list"
         >
@@ -22,14 +54,17 @@
         <ul id="filter-theme-list" class="filter-list collapse">
           {% for f in filters %}
           <li class="{% if f.active %}active{% endif %}">
-            <a class="text-truncate" href="{{ f.full_url }}">{{ f.text|safe }}</a>
+            <a
+              class="text-truncate"
+              href="{{ f.full_url }}">
+              {{ f.text|safe }}
+            </a>
           </li>
           {% endfor %}
         </ul>
       </div>
-
       <div class="col-md-7 col-lg-8 col-xl-9">
-        <h4 class="block-header text-center" id="challenges">{{title|safe}}</h4>
+        <h3 class="block-header text-center" id="challenges">{{title|safe}}</h3>
         {% if header_template %}
           {% include header_template %}
         {% endif %}
@@ -38,11 +73,8 @@
           {% include "curiositymachine/_messages.html" %}
 
           {% block challenges %}
-          <div class="d-flex justify-content-center mt-4 mb-2">
-            {% include "curiositymachine/_pagination_controls.html" with curr_page=challenges anchor="challenges" %}
-          </div>
 
-          <div class="row">
+          <div class="row mt-4 mb-2">
 
             {% for challenge in challenges %}
             {% include "challenges/_list_card.html" %}
@@ -58,6 +90,25 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="container-fluid cta-banner-burst-orange py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2>
+          Are you ready to change the world?
+        </h2>
+        <a
+          class="btn btn-white my-3"
+          href="{% url 'account_signup' %}"
+        >
+          Start now
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}
