@@ -8111,9 +8111,6 @@ i {
       color: #a94442;
       background-color: #f2dede; }
 
-.text-warning {
-  color: #ff7500 !important; }
-
 footer {
   background-color: #333333;
   padding: 0px 0px 60px 0px;
@@ -9021,6 +9018,9 @@ footer {
   border: 4px solid #ff7500; }
   .form-control:focus {
     border: 4px solid #ff7500; }
+
+.text-warning {
+  color: #ff7500 !important; }
 
 .cm-jumbotron {
   text-align: center;
