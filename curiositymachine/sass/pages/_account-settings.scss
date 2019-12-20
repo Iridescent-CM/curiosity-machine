@@ -11,8 +11,24 @@
     }
   }
 
-  .pickwidget .pickwidget-button {
-    margin-right: 0.25em;
+  .pickwidget {
+    display: flex;
+    flex-direction: column;
+    input {
+      border: none;
+      color: $primary-orange;
+      font-size: 0.8rem;
+      &::placeholder {
+        color: $primary-orange;
+      }
+      &:hover,
+      &:focus {
+        border: none;
+      }
+    }
+    .pickwidget-button {
+      margin-right: 0.25em;
+    }
   }
 
   .form-inline input {
