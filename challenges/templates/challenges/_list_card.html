@@ -20,33 +20,29 @@
     </a>
 
     <div class="card-body">
-      <h6 class="card-title">
-        <a href="{{ challenge.url }}">
+      <p class="font-weight-bold card-title">
+        <a class="base-type" href="{{ challenge.url }}">
           {{ challenge.name }}
         </a>
-      </h6>
-    </div>
-    <div class="card-body card-divider">
-      <p class="card-text"><small>{{challenge.description}}</small></p>
-    </div>
+      </p>
+      <p class="card-text">{{challenge.description}}</p>
 
     {% if request.user.is_authenticated %}
-    <div class="card-body">
       <ul class="card-flags">
         {% if challenge.accessible or challenge.started %}
         {% if request.user.extra.is_student %}
         <li>
-          <span class="card-flag card-flag-purple"><small>Build it!</small></span>
+          <span class="card-flag"><small>Build it!</small></span>
         </li>
         {% endif %}
         {% endif %}
         {% if not request.user.extra.is_student and challenge.has_resources %}
         <li>
-          <span class="card-flag card-flag-green"><small>Resources</small></span>
+          <span class="card-flag"><small>Resources</small></span>
         </li>
         {% endif %}
       </ul>
-    </div>
     {% endif %}
+    </div>
   </div>
 </div>
