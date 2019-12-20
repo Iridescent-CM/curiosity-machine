@@ -9278,7 +9278,7 @@ footer {
     border-bottom: 0px;
     display: block;
     position: relative;
-    background-color: #fffcf7;
+    background-color: #ffffff;
     width: 100%;
     padding: 12px 16px;
     border-radius: 4px;
@@ -9288,16 +9288,16 @@ footer {
     left: 0px;
     transition: all 300ms ease-in; }
     #challenges-page .filter-list a:hover {
-      background-color: #fffefb;
+      background-color: #ededed;
       text-decoration: none; }
     #challenges-page .filter-list a:focus {
-      background-color: #fffefb;
+      background-color: #ededed;
       text-decoration: none; }
   #challenges-page .filter-list li.active {
     position: relative; }
     #challenges-page .filter-list li.active a {
       background-color: #ff7500;
-      color: #fffcf7; }
+      color: #ffffff; }
   #challenges-page .filter-list .icon-boeing-logo {
     font-size: 1.75em;
     margin-left: 10px;
@@ -9352,7 +9352,7 @@ footer {
   font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
   font-weight: 300;
   font-size: 24px;
-  color: #fffcf7;
+  color: #ffffff;
   padding-bottom: 0px; }
 
 #challenges-page .aifc-filter img {
