@@ -10,13 +10,24 @@
 {% endblock %}
 
 {% block content %}
-  <p><strong>Learn, play and create with AI</strong></p>
-  <p>Families, Students and Mentors, sign up below to get started.</p>
-  <p>
-    <em>Interested in volunteering?</em>
-    <a href="http://technovationacademy.org" class="ml-1" target="_blank">Click here</a>
-  </p>
-  <hr/>
+  <div class="my-3">
+    <h2 class="my-3">
+      Learn, play and create with with us
+    </h2>
+    <p>
+      Families, students and program leaders, sign-up and start today.
+    </p>
+    <p>
+      <a
+        class="font-weight-bold base-type"
+        href="http://technovationacademy.org"
+        target="_blank"
+      >
+        Click here to learn about volunteering
+        <i class="icon-right-arrow"></i>
+      </a>
+    </p>
+  </div>
 
   {% if membership %}
   {% url 'membership_signup' slug=membership.slug as actionurl %}
@@ -40,7 +51,17 @@
     {% if redirect_field_value %}
     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
     {% endif %}
-    <button type="submit" class="btn btn-primary">Sign Up</button>
+    <button type="submit" class="btn btn-orange">Sign Up</button>
   </form>
-  <p class="mt-4">Already have an account? Then please <a href="#" data-toggle="modal" data-target="#login-modal">log in</a>.</p>
+  <p class="mt-4">
+    <a
+      class="base-type"
+      href="#"
+      data-toggle="modal"
+      data-target="#login-modal"
+    >
+      Already have an account? Please log in
+      <i class="icon-right-arrow"></i>
+    </a>
+  </p>
 {% endblock %}
