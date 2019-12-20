@@ -9224,8 +9224,19 @@ footer {
     margin-right: 0.25em;
     margin-bottom: 0.25em; }
 
-.account-settings .pickwidget .pickwidget-button {
-  margin-right: 0.25em; }
+.account-settings .pickwidget {
+  display: flex;
+  flex-direction: column; }
+  .account-settings .pickwidget input {
+    border: none;
+    color: #ff7500;
+    font-size: 0.8rem; }
+    .account-settings .pickwidget input::placeholder {
+      color: #ff7500; }
+    .account-settings .pickwidget input:hover, .account-settings .pickwidget input:focus {
+      border: none; }
+  .account-settings .pickwidget .pickwidget-button {
+    margin-right: 0.25em; }
 
 .account-settings .form-inline input {
   max-width: 100%; }
