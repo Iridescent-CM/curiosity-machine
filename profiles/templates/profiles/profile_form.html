@@ -26,7 +26,7 @@
   </div>
   {% endfor %}{% endif %}
   <div class="row">
-    <div class="col-lg-6 offset-lg-3 p-3">
+    <div class="col-lg-8 offset-lg-2 p-3">
       {% block cards %}
         <h2 class="text-center">Your profile information</h2>
         <form
@@ -37,7 +37,7 @@
           {% csrf_token %}
           {% block fields %}
             {% block avatar %}
-              {% include "profiles/_avatar.html" with profile=request.user.profile width=125 height=125 crop='thumb' gravity='faces' classes='leaf-border p-3' %}
+              {% include "profiles/_avatar.html" with profile=request.user.profile width=125 height=125 crop='thumb' gravity='faces' classes='' %}
             {% endblock %}
           {% endblock %}
           {% block navbutton %}
