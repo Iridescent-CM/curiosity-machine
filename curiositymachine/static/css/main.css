@@ -6607,7 +6607,7 @@ button.bg-new-purple:focus {
 .mx-2 {
   margin-left: 0.5rem !important; }
 
-.m-3 {
+.m-3, .account-settings .avatar-settings img {
   margin: 1rem !important; }
 
 .mt-3,
@@ -19104,6 +19104,9 @@ footer {
   justify-content: center; }
   .account-settings .avatar-settings label[for='id_image_url'] {
     display: none; }
+  .account-settings .avatar-settings img {
+    width: 125px;
+    height: 125px; }
   .account-settings .avatar-settings .pickwidget {
     display: flex;
     flex-direction: column;
@@ -19529,6 +19532,15 @@ footer {
       left: 0; }
   .family-dashboard .checkbox-label {
     margin-left: 0.5em; }
+
+.family-member-card {
+  border: 3px solid #5bc2e7; }
+  .family-member-card .avatar-settings {
+    flex-direction: column; }
+    .family-member-card .avatar-settings label[for*='-image_url'] {
+      display: none; }
+  .family-member-card hr {
+    border-bottom: 3px solid #5bc2e7; }
 
 #get-started .jumbotron {
   background-image: url("../images/pages/about/hero.png");
@@ -19995,7 +20007,7 @@ footer {
   [class*='bg-pattern-'] {
     background-attachment: scroll; } }
 
-.leaf-border {
+.leaf-border, .account-settings .avatar-settings img {
   border-radius: 2% 22%; }
 
 .border-radius-1 {
