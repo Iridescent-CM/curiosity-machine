@@ -9,6 +9,12 @@
       display: none;
     }
 
+    img {
+      @extend .leaf-border, .m-3;
+      width: 125px;
+      height: 125px;
+    }
+
     .pickwidget {
       display: flex;
       flex-direction: column;
