@@ -5652,7 +5652,8 @@ button.bg-new-purple:focus {
 .border-left {
   border-left: 1px solid #dee2e6 !important; }
 
-.border-0 {
+.border-0, .cm-blue-card .card-header,
+.cm-blue-card .card-footer {
   border: 0 !important; }
 
 .border-top-0 {
@@ -5691,7 +5692,7 @@ button.bg-new-purple:focus {
 .border-dark {
   border-color: #333333 !important; }
 
-.border-blue {
+.border-blue, .cm-blue-card {
   border-color: #0076cf !important; }
 
 .border-orange {
@@ -5758,7 +5759,8 @@ button.bg-new-purple:focus {
 .rounded-circle, .family-dashboard .list-dots .dot {
   border-radius: 50% !important; }
 
-.rounded-0 {
+.rounded-0, .cm-blue-card .card-header,
+.cm-blue-card .card-footer {
   border-radius: 0 !important; }
 
 .clearfix::after {
@@ -8605,9 +8607,6 @@ footer {
 .avatar-shadow img {
   box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
 
-.leaf-border {
-  border-radius: 2% 22%; }
-
 .btn {
   font-size: 18px;
   font-weight: 700; }
@@ -8628,275 +8627,346 @@ footer {
 .btn-outline-white-darkblue:hover {
   color: #041e42; }
 
-.cm-card,
-.cm-fancy-card,
-.cm-profile-card,
-.cm-info-card {
-  border-radius: 4px; }
-  .cm-card .card-body,
-  .cm-fancy-card .card-body,
-  .cm-profile-card .card-body,
-  .cm-info-card .card-body {
-    padding: 0.75em;
-    flex: none;
-    font-size: 0.875rem;
-    line-height: 24px; }
-  .cm-card .card-flags > *,
-  .cm-fancy-card .card-flags > *,
-  .cm-profile-card .card-flags > *,
-  .cm-info-card .card-flags > * {
-    margin-bottom: 20px; }
-  .cm-card .card-flag,
-  .cm-fancy-card .card-flag,
-  .cm-profile-card .card-flag,
-  .cm-info-card .card-flag {
-    padding: 5px 30px 5px 20px;
-    position: absolute;
-    left: -10px;
-    background-color: #d0006f;
-    color: #ffffff;
-    font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif; }
-    .cm-card .card-flag:after,
-    .cm-fancy-card .card-flag:after,
-    .cm-profile-card .card-flag:after,
-    .cm-info-card .card-flag:after {
-      content: '';
-      display: block;
-      width: 0;
-      height: 0;
-      border-top: 15px solid transparent;
-      border-bottom: 16px solid transparent;
-      border-right: 12px solid #fffcf7;
-      position: absolute;
-      top: 0;
-      right: 0; }
-    .cm-card .card-flag:before,
-    .cm-fancy-card .card-flag:before,
-    .cm-profile-card .card-flag:before,
-    .cm-info-card .card-flag:before {
-      content: '';
-      display: block;
-      width: 0;
-      height: 0;
-      border-top: 0px solid transparent;
-      border-right-width: 10px;
-      border-right-style: solid;
-      border-bottom: 10px solid transparent;
-      border-left: 0px solid transparent;
-      position: absolute;
-      left: 0;
-      bottom: -10px;
-      right: 100%;
-      border-right-color: #a60059; }
-  .cm-card .cm-card,
-  .cm-card .cm-fancy-card,
-  .cm-fancy-card .cm-card,
-  .cm-fancy-card .cm-fancy-card,
-  .cm-profile-card .cm-card,
-  .cm-profile-card .cm-fancy-card,
-  .cm-info-card .cm-card,
-  .cm-info-card .cm-fancy-card {
-    box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
-    border: none; }
-  .cm-card .cm-card .card-body .card-title,
-  .cm-card .cm-card .card-body .card-title a,
-  .cm-card .cm-info-card .card-body .card-title,
-  .cm-card .cm-info-card .card-body .card-title a,
-  .cm-fancy-card .cm-card .card-body .card-title,
-  .cm-fancy-card .cm-card .card-body .card-title a,
-  .cm-fancy-card .cm-info-card .card-body .card-title,
-  .cm-fancy-card .cm-info-card .card-body .card-title a,
-  .cm-profile-card .cm-card .card-body .card-title,
-  .cm-profile-card .cm-card .card-body .card-title a,
-  .cm-profile-card .cm-info-card .card-body .card-title,
-  .cm-profile-card .cm-info-card .card-body .card-title a,
-  .cm-info-card .cm-card .card-body .card-title,
-  .cm-info-card .cm-card .card-body .card-title a,
-  .cm-info-card .cm-info-card .card-body .card-title,
-  .cm-info-card .cm-info-card .card-body .card-title a {
-    font-weight: 700;
-    color: #333333;
-    margin-bottom: 0; }
-    .cm-card .cm-card .card-body .card-title:hover, .cm-card .cm-card .card-body .card-title:focus,
-    .cm-card .cm-card .card-body .card-title a:hover,
-    .cm-card .cm-card .card-body .card-title a:focus,
-    .cm-card .cm-info-card .card-body .card-title:hover,
-    .cm-card .cm-info-card .card-body .card-title:focus,
-    .cm-card .cm-info-card .card-body .card-title a:hover,
-    .cm-card .cm-info-card .card-body .card-title a:focus,
-    .cm-fancy-card .cm-card .card-body .card-title:hover,
-    .cm-fancy-card .cm-card .card-body .card-title:focus,
-    .cm-fancy-card .cm-card .card-body .card-title a:hover,
-    .cm-fancy-card .cm-card .card-body .card-title a:focus,
-    .cm-fancy-card .cm-info-card .card-body .card-title:hover,
-    .cm-fancy-card .cm-info-card .card-body .card-title:focus,
-    .cm-fancy-card .cm-info-card .card-body .card-title a:hover,
-    .cm-fancy-card .cm-info-card .card-body .card-title a:focus,
-    .cm-profile-card .cm-card .card-body .card-title:hover,
-    .cm-profile-card .cm-card .card-body .card-title:focus,
-    .cm-profile-card .cm-card .card-body .card-title a:hover,
-    .cm-profile-card .cm-card .card-body .card-title a:focus,
-    .cm-profile-card .cm-info-card .card-body .card-title:hover,
-    .cm-profile-card .cm-info-card .card-body .card-title:focus,
-    .cm-profile-card .cm-info-card .card-body .card-title a:hover,
-    .cm-profile-card .cm-info-card .card-body .card-title a:focus,
-    .cm-info-card .cm-card .card-body .card-title:hover,
-    .cm-info-card .cm-card .card-body .card-title:focus,
-    .cm-info-card .cm-card .card-body .card-title a:hover,
-    .cm-info-card .cm-card .card-body .card-title a:focus,
-    .cm-info-card .cm-info-card .card-body .card-title:hover,
-    .cm-info-card .cm-info-card .card-body .card-title:focus,
-    .cm-info-card .cm-info-card .card-body .card-title a:hover,
-    .cm-info-card .cm-info-card .card-body .card-title a:focus {
-      color: #707070;
-      text-decoration: none; }
-  .cm-card .cm-fancy-card .card-body,
-  .cm-fancy-card .cm-fancy-card .card-body,
-  .cm-profile-card .cm-fancy-card .card-body,
-  .cm-info-card .cm-fancy-card .card-body {
-    background-color: #fffcf7; }
-    .cm-card .cm-fancy-card .card-body .dropdown-toggle,
-    .cm-fancy-card .cm-fancy-card .card-body .dropdown-toggle,
-    .cm-profile-card .cm-fancy-card .card-body .dropdown-toggle,
-    .cm-info-card .cm-fancy-card .card-body .dropdown-toggle {
-      border: 1px solid #cccccc; }
-    .cm-card .cm-fancy-card .card-body .card-title,
-    .cm-fancy-card .cm-fancy-card .card-body .card-title,
-    .cm-profile-card .cm-fancy-card .card-body .card-title,
-    .cm-info-card .cm-fancy-card .card-body .card-title {
-      color: #333333;
-      margin: 0.5em 0 1em 0; }
-      .cm-card .cm-fancy-card .card-body .card-title a,
-      .cm-fancy-card .cm-fancy-card .card-body .card-title a,
-      .cm-profile-card .cm-fancy-card .card-body .card-title a,
-      .cm-info-card .cm-fancy-card .card-body .card-title a {
-        color: #333333; }
-        .cm-card .cm-fancy-card .card-body .card-title a:hover, .cm-card .cm-fancy-card .card-body .card-title a:focus,
-        .cm-fancy-card .cm-fancy-card .card-body .card-title a:hover,
-        .cm-fancy-card .cm-fancy-card .card-body .card-title a:focus,
-        .cm-profile-card .cm-fancy-card .card-body .card-title a:hover,
-        .cm-profile-card .cm-fancy-card .card-body .card-title a:focus,
-        .cm-info-card .cm-fancy-card .card-body .card-title a:hover,
-        .cm-info-card .cm-fancy-card .card-body .card-title a:focus {
-          text-decoration: none;
-          color: #0076cf; }
-    .cm-card .cm-fancy-card .card-body .card-section-title,
-    .cm-fancy-card .cm-fancy-card .card-body .card-section-title,
-    .cm-profile-card .cm-fancy-card .card-body .card-section-title,
-    .cm-info-card .cm-fancy-card .card-body .card-section-title {
-      font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
-      font-size: 0.875em;
-      font-weight: normal;
-      text-transform: capitalize;
-      letter-spacing: 2px;
-      margin-top: 0.75em; }
-  .cm-card .cm-info-card .card-header,
-  .cm-card .cm-info-card .card-body,
-  .cm-card .cm-info-card .card-footer,
-  .cm-fancy-card .cm-info-card .card-header,
-  .cm-fancy-card .cm-info-card .card-body,
-  .cm-fancy-card .cm-info-card .card-footer,
-  .cm-profile-card .cm-info-card .card-header,
-  .cm-profile-card .cm-info-card .card-body,
-  .cm-profile-card .cm-info-card .card-footer,
-  .cm-info-card .cm-info-card .card-header,
-  .cm-info-card .cm-info-card .card-body,
-  .cm-info-card .cm-info-card .card-footer {
-    padding: 1.25em; }
-  .cm-card .cm-info-card .card-header,
-  .cm-fancy-card .cm-info-card .card-header,
-  .cm-profile-card .cm-info-card .card-header,
-  .cm-info-card .cm-info-card .card-header {
-    background-color: #e5e1d9; }
-    .cm-card .cm-info-card .card-header h1,
-    .cm-card .cm-info-card .card-header h2,
-    .cm-card .cm-info-card .card-header h3,
-    .cm-card .cm-info-card .card-header h4,
-    .cm-fancy-card .cm-info-card .card-header h1,
-    .cm-fancy-card .cm-info-card .card-header h2,
-    .cm-fancy-card .cm-info-card .card-header h3,
-    .cm-fancy-card .cm-info-card .card-header h4,
-    .cm-profile-card .cm-info-card .card-header h1,
-    .cm-profile-card .cm-info-card .card-header h2,
-    .cm-profile-card .cm-info-card .card-header h3,
-    .cm-profile-card .cm-info-card .card-header h4,
-    .cm-info-card .cm-info-card .card-header h1,
-    .cm-info-card .cm-info-card .card-header h2,
-    .cm-info-card .cm-info-card .card-header h3,
-    .cm-info-card .cm-info-card .card-header h4 {
-      margin-bottom: 0px; }
-  .cm-card .cm-info-card .card-footer,
-  .cm-fancy-card .cm-info-card .card-footer,
-  .cm-profile-card .cm-info-card .card-footer,
-  .cm-info-card .cm-info-card .card-footer {
-    background-color: #f2f0ec; }
-  .cm-card .cm-profile-card,
-  .cm-fancy-card .cm-profile-card,
-  .cm-profile-card .cm-profile-card,
-  .cm-info-card .cm-profile-card {
-    text-align: center; }
-    .cm-card .cm-profile-card .card-header,
-    .cm-card .cm-profile-card .card-body,
-    .cm-fancy-card .cm-profile-card .card-header,
-    .cm-fancy-card .cm-profile-card .card-body,
-    .cm-profile-card .cm-profile-card .card-header,
-    .cm-profile-card .cm-profile-card .card-body,
-    .cm-info-card .cm-profile-card .card-header,
-    .cm-info-card .cm-profile-card .card-body {
-      padding: 1em; }
-    .cm-card .cm-profile-card .card-header a,
-    .cm-fancy-card .cm-profile-card .card-header a,
-    .cm-profile-card .cm-profile-card .card-header a,
-    .cm-info-card .cm-profile-card .card-header a {
-      color: #ff7500; }
-      .cm-card .cm-profile-card .card-header a:hover, .cm-card .cm-profile-card .card-header a:focus,
-      .cm-fancy-card .cm-profile-card .card-header a:hover,
-      .cm-fancy-card .cm-profile-card .card-header a:focus,
-      .cm-profile-card .cm-profile-card .card-header a:hover,
-      .cm-profile-card .cm-profile-card .card-header a:focus,
-      .cm-info-card .cm-profile-card .card-header a:hover,
-      .cm-info-card .cm-profile-card .card-header a:focus {
-        text-decoration: none; }
-    .cm-card .cm-profile-card .card-body,
-    .cm-fancy-card .cm-profile-card .card-body,
-    .cm-profile-card .cm-profile-card .card-body,
-    .cm-info-card .cm-profile-card .card-body {
-      min-height: 7em;
-      background: #fffcf7; }
-    .cm-card .cm-profile-card .avatar,
-    .cm-fancy-card .cm-profile-card .avatar,
-    .cm-profile-card .cm-profile-card .avatar,
-    .cm-info-card .cm-profile-card .avatar {
-      border-radius: 50%;
-      border: 3px solid #e5e1d9; }
-  .cm-card .card-body-toggle,
-  .cm-fancy-card .card-body-toggle,
-  .cm-profile-card .card-body-toggle,
-  .cm-info-card .card-body-toggle {
+.cm-card .card-body,
+.cm-fancy-card .card-body,
+.cm-profile-card .card-body,
+.cm-info-card .card-body,
+.cm-blue-card .card-body {
+  padding: 0.75em;
+  flex: none;
+  font-size: 0.875rem;
+  line-height: 24px; }
+
+.cm-card .card-flags > *,
+.cm-fancy-card .card-flags > *,
+.cm-profile-card .card-flags > *,
+.cm-info-card .card-flags > *,
+.cm-blue-card .card-flags > * {
+  margin-bottom: 20px; }
+
+.cm-card .card-flag,
+.cm-fancy-card .card-flag,
+.cm-profile-card .card-flag,
+.cm-info-card .card-flag,
+.cm-blue-card .card-flag {
+  padding: 5px 30px 5px 20px;
+  position: absolute;
+  left: -10px;
+  background-color: #d0006f;
+  color: #ffffff;
+  font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif; }
+  .cm-card .card-flag:after,
+  .cm-fancy-card .card-flag:after,
+  .cm-profile-card .card-flag:after,
+  .cm-info-card .card-flag:after,
+  .cm-blue-card .card-flag:after {
+    content: '';
     display: block;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-right: 12px solid #fffcf7;
     position: absolute;
-    bottom: 0px;
-    right: 0px;
-    padding: 3px 7px;
-    z-index: 100;
-    color: white;
-    background-color: #bcb19c;
+    top: 0;
+    right: 0; }
+  .cm-card .card-flag:before,
+  .cm-fancy-card .card-flag:before,
+  .cm-profile-card .card-flag:before,
+  .cm-info-card .card-flag:before,
+  .cm-blue-card .card-flag:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-right-width: 10px;
+    border-right-style: solid;
+    border-bottom: 10px solid transparent;
+    border-left: 0px solid transparent;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    right: 100%;
+    border-right-color: #a60059; }
+
+.cm-card .cm-card,
+.cm-card .cm-fancy-card,
+.cm-fancy-card .cm-card,
+.cm-fancy-card .cm-fancy-card,
+.cm-profile-card .cm-card,
+.cm-profile-card .cm-fancy-card,
+.cm-info-card .cm-card,
+.cm-info-card .cm-fancy-card,
+.cm-blue-card .cm-card,
+.cm-blue-card .cm-fancy-card {
+  box-shadow: 0px 2px 5px 1px rgba(148, 148, 148, 0.5);
+  border: none; }
+
+.cm-card .cm-card .card-body .card-title,
+.cm-card .cm-card .card-body .card-title a,
+.cm-card .cm-info-card .card-body .card-title,
+.cm-card .cm-info-card .card-body .card-title a,
+.cm-fancy-card .cm-card .card-body .card-title,
+.cm-fancy-card .cm-card .card-body .card-title a,
+.cm-fancy-card .cm-info-card .card-body .card-title,
+.cm-fancy-card .cm-info-card .card-body .card-title a,
+.cm-profile-card .cm-card .card-body .card-title,
+.cm-profile-card .cm-card .card-body .card-title a,
+.cm-profile-card .cm-info-card .card-body .card-title,
+.cm-profile-card .cm-info-card .card-body .card-title a,
+.cm-info-card .cm-card .card-body .card-title,
+.cm-info-card .cm-card .card-body .card-title a,
+.cm-info-card .cm-info-card .card-body .card-title,
+.cm-info-card .cm-info-card .card-body .card-title a,
+.cm-blue-card .cm-card .card-body .card-title,
+.cm-blue-card .cm-card .card-body .card-title a,
+.cm-blue-card .cm-info-card .card-body .card-title,
+.cm-blue-card .cm-info-card .card-body .card-title a {
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 0; }
+  .cm-card .cm-card .card-body .card-title:hover, .cm-card .cm-card .card-body .card-title:focus,
+  .cm-card .cm-card .card-body .card-title a:hover,
+  .cm-card .cm-card .card-body .card-title a:focus,
+  .cm-card .cm-info-card .card-body .card-title:hover,
+  .cm-card .cm-info-card .card-body .card-title:focus,
+  .cm-card .cm-info-card .card-body .card-title a:hover,
+  .cm-card .cm-info-card .card-body .card-title a:focus,
+  .cm-fancy-card .cm-card .card-body .card-title:hover,
+  .cm-fancy-card .cm-card .card-body .card-title:focus,
+  .cm-fancy-card .cm-card .card-body .card-title a:hover,
+  .cm-fancy-card .cm-card .card-body .card-title a:focus,
+  .cm-fancy-card .cm-info-card .card-body .card-title:hover,
+  .cm-fancy-card .cm-info-card .card-body .card-title:focus,
+  .cm-fancy-card .cm-info-card .card-body .card-title a:hover,
+  .cm-fancy-card .cm-info-card .card-body .card-title a:focus,
+  .cm-profile-card .cm-card .card-body .card-title:hover,
+  .cm-profile-card .cm-card .card-body .card-title:focus,
+  .cm-profile-card .cm-card .card-body .card-title a:hover,
+  .cm-profile-card .cm-card .card-body .card-title a:focus,
+  .cm-profile-card .cm-info-card .card-body .card-title:hover,
+  .cm-profile-card .cm-info-card .card-body .card-title:focus,
+  .cm-profile-card .cm-info-card .card-body .card-title a:hover,
+  .cm-profile-card .cm-info-card .card-body .card-title a:focus,
+  .cm-info-card .cm-card .card-body .card-title:hover,
+  .cm-info-card .cm-card .card-body .card-title:focus,
+  .cm-info-card .cm-card .card-body .card-title a:hover,
+  .cm-info-card .cm-card .card-body .card-title a:focus,
+  .cm-info-card .cm-info-card .card-body .card-title:hover,
+  .cm-info-card .cm-info-card .card-body .card-title:focus,
+  .cm-info-card .cm-info-card .card-body .card-title a:hover,
+  .cm-info-card .cm-info-card .card-body .card-title a:focus,
+  .cm-blue-card .cm-card .card-body .card-title:hover,
+  .cm-blue-card .cm-card .card-body .card-title:focus,
+  .cm-blue-card .cm-card .card-body .card-title a:hover,
+  .cm-blue-card .cm-card .card-body .card-title a:focus,
+  .cm-blue-card .cm-info-card .card-body .card-title:hover,
+  .cm-blue-card .cm-info-card .card-body .card-title:focus,
+  .cm-blue-card .cm-info-card .card-body .card-title a:hover,
+  .cm-blue-card .cm-info-card .card-body .card-title a:focus {
+    color: #707070;
+    text-decoration: none; }
+
+.cm-card .cm-fancy-card .card-body,
+.cm-fancy-card .cm-fancy-card .card-body,
+.cm-profile-card .cm-fancy-card .card-body,
+.cm-info-card .cm-fancy-card .card-body,
+.cm-blue-card .cm-fancy-card .card-body {
+  background-color: #fffcf7; }
+  .cm-card .cm-fancy-card .card-body .dropdown-toggle,
+  .cm-fancy-card .cm-fancy-card .card-body .dropdown-toggle,
+  .cm-profile-card .cm-fancy-card .card-body .dropdown-toggle,
+  .cm-info-card .cm-fancy-card .card-body .dropdown-toggle,
+  .cm-blue-card .cm-fancy-card .card-body .dropdown-toggle {
+    border: 1px solid #cccccc; }
+  .cm-card .cm-fancy-card .card-body .card-title,
+  .cm-fancy-card .cm-fancy-card .card-body .card-title,
+  .cm-profile-card .cm-fancy-card .card-body .card-title,
+  .cm-info-card .cm-fancy-card .card-body .card-title,
+  .cm-blue-card .cm-fancy-card .card-body .card-title {
+    color: #333333;
+    margin: 0.5em 0 1em 0; }
+    .cm-card .cm-fancy-card .card-body .card-title a,
+    .cm-fancy-card .cm-fancy-card .card-body .card-title a,
+    .cm-profile-card .cm-fancy-card .card-body .card-title a,
+    .cm-info-card .cm-fancy-card .card-body .card-title a,
+    .cm-blue-card .cm-fancy-card .card-body .card-title a {
+      color: #333333; }
+      .cm-card .cm-fancy-card .card-body .card-title a:hover, .cm-card .cm-fancy-card .card-body .card-title a:focus,
+      .cm-fancy-card .cm-fancy-card .card-body .card-title a:hover,
+      .cm-fancy-card .cm-fancy-card .card-body .card-title a:focus,
+      .cm-profile-card .cm-fancy-card .card-body .card-title a:hover,
+      .cm-profile-card .cm-fancy-card .card-body .card-title a:focus,
+      .cm-info-card .cm-fancy-card .card-body .card-title a:hover,
+      .cm-info-card .cm-fancy-card .card-body .card-title a:focus,
+      .cm-blue-card .cm-fancy-card .card-body .card-title a:hover,
+      .cm-blue-card .cm-fancy-card .card-body .card-title a:focus {
+        text-decoration: none;
+        color: #0076cf; }
+  .cm-card .cm-fancy-card .card-body .card-section-title,
+  .cm-fancy-card .cm-fancy-card .card-body .card-section-title,
+  .cm-profile-card .cm-fancy-card .card-body .card-section-title,
+  .cm-info-card .cm-fancy-card .card-body .card-section-title,
+  .cm-blue-card .cm-fancy-card .card-body .card-section-title {
+    font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
     font-size: 0.875em;
+    font-weight: normal;
+    text-transform: capitalize;
     letter-spacing: 2px;
+    margin-top: 0.75em; }
+
+.cm-card .cm-info-card .card-header,
+.cm-card .cm-info-card .card-body,
+.cm-card .cm-info-card .card-footer,
+.cm-fancy-card .cm-info-card .card-header,
+.cm-fancy-card .cm-info-card .card-body,
+.cm-fancy-card .cm-info-card .card-footer,
+.cm-profile-card .cm-info-card .card-header,
+.cm-profile-card .cm-info-card .card-body,
+.cm-profile-card .cm-info-card .card-footer,
+.cm-info-card .cm-info-card .card-header,
+.cm-info-card .cm-info-card .card-body,
+.cm-info-card .cm-info-card .card-footer,
+.cm-blue-card .cm-info-card .card-header,
+.cm-blue-card .cm-info-card .card-body,
+.cm-blue-card .cm-info-card .card-footer {
+  padding: 1.25em; }
+
+.cm-card .cm-info-card .card-header,
+.cm-fancy-card .cm-info-card .card-header,
+.cm-profile-card .cm-info-card .card-header,
+.cm-info-card .cm-info-card .card-header,
+.cm-blue-card .cm-info-card .card-header {
+  background-color: #0076cf;
+  color: #ffffff; }
+  .cm-card .cm-info-card .card-header h1,
+  .cm-card .cm-info-card .card-header h2,
+  .cm-card .cm-info-card .card-header h3,
+  .cm-card .cm-info-card .card-header h4,
+  .cm-fancy-card .cm-info-card .card-header h1,
+  .cm-fancy-card .cm-info-card .card-header h2,
+  .cm-fancy-card .cm-info-card .card-header h3,
+  .cm-fancy-card .cm-info-card .card-header h4,
+  .cm-profile-card .cm-info-card .card-header h1,
+  .cm-profile-card .cm-info-card .card-header h2,
+  .cm-profile-card .cm-info-card .card-header h3,
+  .cm-profile-card .cm-info-card .card-header h4,
+  .cm-info-card .cm-info-card .card-header h1,
+  .cm-info-card .cm-info-card .card-header h2,
+  .cm-info-card .cm-info-card .card-header h3,
+  .cm-info-card .cm-info-card .card-header h4,
+  .cm-blue-card .cm-info-card .card-header h1,
+  .cm-blue-card .cm-info-card .card-header h2,
+  .cm-blue-card .cm-info-card .card-header h3,
+  .cm-blue-card .cm-info-card .card-header h4 {
+    margin-bottom: 0px; }
+
+.cm-card .cm-info-card .card-footer,
+.cm-fancy-card .cm-info-card .card-footer,
+.cm-profile-card .cm-info-card .card-footer,
+.cm-info-card .cm-info-card .card-footer,
+.cm-blue-card .cm-info-card .card-footer {
+  background-color: #0076cf; }
+
+.cm-card .cm-profile-card,
+.cm-fancy-card .cm-profile-card,
+.cm-profile-card .cm-profile-card,
+.cm-info-card .cm-profile-card,
+.cm-blue-card .cm-profile-card {
+  text-align: center; }
+  .cm-card .cm-profile-card .card-header,
+  .cm-card .cm-profile-card .card-body,
+  .cm-fancy-card .cm-profile-card .card-header,
+  .cm-fancy-card .cm-profile-card .card-body,
+  .cm-profile-card .cm-profile-card .card-header,
+  .cm-profile-card .cm-profile-card .card-body,
+  .cm-info-card .cm-profile-card .card-header,
+  .cm-info-card .cm-profile-card .card-body,
+  .cm-blue-card .cm-profile-card .card-header,
+  .cm-blue-card .cm-profile-card .card-body {
+    padding: 1em; }
+  .cm-card .cm-profile-card .card-header a,
+  .cm-fancy-card .cm-profile-card .card-header a,
+  .cm-profile-card .cm-profile-card .card-header a,
+  .cm-info-card .cm-profile-card .card-header a,
+  .cm-blue-card .cm-profile-card .card-header a {
+    color: #ff7500; }
+    .cm-card .cm-profile-card .card-header a:hover, .cm-card .cm-profile-card .card-header a:focus,
+    .cm-fancy-card .cm-profile-card .card-header a:hover,
+    .cm-fancy-card .cm-profile-card .card-header a:focus,
+    .cm-profile-card .cm-profile-card .card-header a:hover,
+    .cm-profile-card .cm-profile-card .card-header a:focus,
+    .cm-info-card .cm-profile-card .card-header a:hover,
+    .cm-info-card .cm-profile-card .card-header a:focus,
+    .cm-blue-card .cm-profile-card .card-header a:hover,
+    .cm-blue-card .cm-profile-card .card-header a:focus {
+      text-decoration: none; }
+  .cm-card .cm-profile-card .card-body,
+  .cm-fancy-card .cm-profile-card .card-body,
+  .cm-profile-card .cm-profile-card .card-body,
+  .cm-info-card .cm-profile-card .card-body,
+  .cm-blue-card .cm-profile-card .card-body {
+    min-height: 7em;
+    background: #fffcf7; }
+  .cm-card .cm-profile-card .avatar,
+  .cm-fancy-card .cm-profile-card .avatar,
+  .cm-profile-card .cm-profile-card .avatar,
+  .cm-info-card .cm-profile-card .avatar,
+  .cm-blue-card .cm-profile-card .avatar {
+    border-radius: 50%;
+    border: 3px solid #e5e1d9; }
+
+.cm-card .card-body-toggle,
+.cm-fancy-card .card-body-toggle,
+.cm-profile-card .card-body-toggle,
+.cm-info-card .card-body-toggle,
+.cm-blue-card .card-body-toggle {
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 3px 7px;
+  z-index: 100;
+  color: white;
+  background-color: #bcb19c;
+  font-size: 0.875em;
+  letter-spacing: 2px;
+  text-decoration: none;
+  border-bottom-right-radius: 4px; }
+  .cm-card .card-body-toggle:hover,
+  .cm-fancy-card .card-body-toggle:hover,
+  .cm-profile-card .card-body-toggle:hover,
+  .cm-info-card .card-body-toggle:hover,
+  .cm-blue-card .card-body-toggle:hover {
+    background-color: #c6bdac;
     text-decoration: none;
-    border-bottom-right-radius: 4px; }
-    .cm-card .card-body-toggle:hover,
-    .cm-fancy-card .card-body-toggle:hover,
-    .cm-profile-card .card-body-toggle:hover,
-    .cm-info-card .card-body-toggle:hover {
-      background-color: #c6bdac;
-      text-decoration: none;
-      color: white; }
-    .cm-card .card-body-toggle:focus,
-    .cm-fancy-card .card-body-toggle:focus,
-    .cm-profile-card .card-body-toggle:focus,
-    .cm-info-card .card-body-toggle:focus {
-      background-color: #ff7500; }
+    color: white; }
+  .cm-card .card-body-toggle:focus,
+  .cm-fancy-card .card-body-toggle:focus,
+  .cm-profile-card .card-body-toggle:focus,
+  .cm-info-card .card-body-toggle:focus,
+  .cm-blue-card .card-body-toggle:focus {
+    background-color: #ff7500; }
+
+.cm-blue-card .card-header,
+.cm-blue-card .card-body,
+.cm-blue-card .card-footer {
+  padding: 1.25em; }
+
+.cm-blue-card .card-header,
+.cm-blue-card .card-footer {
+  background-color: #0076cf;
+  color: #ffffff; }
+  .cm-blue-card .card-header h1,
+  .cm-blue-card .card-header h2,
+  .cm-blue-card .card-header h3,
+  .cm-blue-card .card-header h4,
+  .cm-blue-card .card-footer h1,
+  .cm-blue-card .card-footer h2,
+  .cm-blue-card .card-footer h3,
+  .cm-blue-card .card-footer h4 {
+    margin-bottom: 0px; }
 
 .challenge-started:after,
 .challenge-completed:after {
@@ -9387,7 +9457,7 @@ footer {
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background-color: #fffcf7;
+  background-color: #ffffff;
   box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
   border-bottom: 0px;
   text-align: center;
@@ -9397,29 +9467,26 @@ footer {
   #edp-inspiration .landing-scroll {
     bottom: -50px; } }
 
-#edp-inspiration .inactive-level {
+#edp-inspiration .inactive-level, #edp-inspiration .active-level {
   display: inline-block;
-  background-color: #e5e1d9;
+  color: #ffffff;
+  font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
+  background-color: #ffac66;
+  border-radius: 50%;
   width: 35px;
   height: 35px;
-  border-radius: 50%;
-  margin-top: 10px;
   padding-top: 5px; }
 
 #edp-inspiration .active-level {
-  display: inline-block;
-  background-color: #0076cf;
-  color: #fffcf7;
+  background-color: #ff7500;
+  font-size: 27px;
   width: 55px;
   height: 55px;
-  border-radius: 50%;
-  font-size: 36px;
-  font-weight: 300;
-  font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif; }
+  padding-top: 15px; }
 
 #edp-inspiration .resources-book {
   display: block;
-  color: #43b02a;
+  color: #ff7500;
   font-size: 2.5rem; }
 
 .educator-dashboard .submit-message .before-submit {
@@ -10213,6 +10280,36 @@ footer {
 @media (max-width: 991.98px) {
   [class*='bg-pattern-'] {
     background-attachment: scroll; } }
+
+.leaf-border {
+  border-radius: 2% 22%; }
+
+.border-radius-1 {
+  border-radius: 1px !important; }
+
+.border-radius-2 {
+  border-radius: 2px !important; }
+
+.border-radius-3 {
+  border-radius: 3px !important; }
+
+.border-radius-4, .cm-card,
+.cm-fancy-card,
+.cm-profile-card,
+.cm-info-card, .cm-blue-card {
+  border-radius: 4px !important; }
+
+.border-1 {
+  border-width: 1px !important; }
+
+.border-2 {
+  border-width: 2px !important; }
+
+.border-3 {
+  border-width: 3px !important; }
+
+.border-4, .cm-blue-card {
+  border-width: 4px !important; }
 
 [v-cloak] {
   display: none; }
