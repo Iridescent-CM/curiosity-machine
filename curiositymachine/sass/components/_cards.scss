@@ -1,6 +1,7 @@
 // .cm-card               - basic card style
 // .cm-fancy-card         - fancy card style, as seen on dashboards
-// .cm-info-card          - info card style as seen on inspiration pages
+// .cm-info-card          - info card style
+// .cm-blue-card          - blue info card style as seen on inspiration pages
 // .cm-profile-card       - card for displaying user profiles
 // .card-body >
 //   .card-body-toggle    - collapse toggle for .card-body
@@ -9,8 +10,9 @@
 .cm-card,
 .cm-fancy-card,
 .cm-profile-card,
-.cm-info-card {
-  border-radius: 4px;
+.cm-info-card,
+.cm-blue-card {
+  @extend .border-radius-4;
 
   .card-body {
     padding: 0.75em;
@@ -127,7 +129,8 @@
     }
 
     .card-header {
-      background-color: $sand;
+      background-color: $primary-blue;
+      color: $white;
 
       h1,
       h2,
@@ -138,7 +141,7 @@
     }
 
     .card-footer {
-      background-color: tint($sand, 50%);
+      background-color: $primary-blue;
     }
   }
 
@@ -190,6 +193,29 @@
     }
     &:focus {
       background-color: $primary-orange;
+    }
+  }
+}
+
+.cm-blue-card {
+  @extend .border-4, .border-blue;
+  .card-header,
+  .card-body,
+  .card-footer {
+    padding: 1.25em;
+  }
+
+  .card-header,
+  .card-footer {
+    @extend .border-0, .rounded-0;
+    background-color: $primary-blue;
+    color: $white;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin-bottom: 0px;
     }
   }
 }
