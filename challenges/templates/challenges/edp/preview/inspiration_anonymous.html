@@ -3,9 +3,9 @@
 {% block jumbotron_message %}
 
   {% if challenge.accessible %}
-    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-secondary btn-lg">Log In</a>
+    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary btn-lg">Log In</a>
   {% else %}
-    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-secondary btn-lg">Log In</a>
+    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary btn-lg">Log In</a>
     <div class="membership-only">
       <p>Explore the full design challenge by joining a membership!</p>
       <a href="{% url 'about-membership' %}">Learn more about memberships.</a>
