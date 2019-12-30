@@ -32,7 +32,6 @@ $theme-colors: (
 @import 'layout/old-style';
 
 @import 'components/avatar';
-@import 'components/borders';
 @import 'components/buttons';
 @import 'components/cards';
 @import 'components/challenge-status';
@@ -61,4 +60,5 @@ $theme-colors: (
 @import 'pages/rebrand';
 
 @import 'utils/backgrounds';
+@import 'utils/borders';
 @import 'utils/cloak';
