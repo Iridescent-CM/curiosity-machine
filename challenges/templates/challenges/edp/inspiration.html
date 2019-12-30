@@ -13,21 +13,23 @@
 {% endblock %}
 
 {% block content %}
-<div class="cm-jumbotron jumbotron jumbotron-fluid bg-pattern-dots-lightblue mb-5">
-  <div class="container">
-    <div class="hero">
-      <div class="hero-text text-center p-4">
-        <h1 class="mb-4">{{ challenge.name }}</h1>
-        <h3>{{ challenge.description }}</h3>
-        {% block jumbotron_message %}
-        {% endblock %}
-
+<div class="jumbotron jumbotron-fluid bg-pattern-dots-lightblue mb-5">
+  <div class="container bg-orange light-text rounded">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="m-5">
+          <h2 class="mb-3">{{ challenge.name }}</h2>
+          <h3 class="mb-3">{{ challenge.description }}</h3>
+          {% block jumbotron_message %}
+          {% endblock %}
       </div>
+      </div>
+      <div class="col-lg-5 p-0">
       {% if challenge.landing_image %}
-      <div class="hero-img">
-        <img src="{% resized challenge.landing_image.url width=720 height=720 crop='fill' %}" class="d-none d-lg-block">
-        <img src="{% resized challenge.landing_image.url width=720 height=400 crop='fill' %}" class="d-lg-none">
+        <img src="{% resized challenge.landing_image.url width=720 height=720 crop='fill' %}" class="d-none d-lg-block rounded-right">
+        <img src="{% resized challenge.landing_image.url width=720 height=400 crop='fill' %}" class="d-lg-none rounded-bottom">
       </div>
+
       {% endif %}
     </div>
   </div>
