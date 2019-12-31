@@ -1,4 +1,15 @@
 #edp-inspiration {
+  .jumbotron {
+    margin-bottom: 0px;
+  }
+
+  .bg-img {
+    background-image: url('../images/pages/inspiration-landing/background.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
   .landing-scroll {
     display: block;
     position: relative;
@@ -13,7 +24,6 @@
     text-align: center;
     padding-top: 7px;
   }
-
   @include media-breakpoint-down(xs) {
     .landing-scroll {
       bottom: -50px;

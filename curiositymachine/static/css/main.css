@@ -19079,6 +19079,15 @@ footer {
     #challenges-page .filter-list li.active {
       left: -20px; } }
 
+#edp-inspiration .jumbotron {
+  margin-bottom: 0px; }
+
+#edp-inspiration .bg-img {
+  background-image: url("../images/pages/inspiration-landing/background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; }
+
 #edp-inspiration .landing-scroll {
   display: block;
   position: relative;
