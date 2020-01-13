@@ -1,6 +1,6 @@
 // .cm-card               - basic card style
 // .cm-fancy-card         - fancy card style, as seen on dashboards
-// .cm-info-card          - info card style as seen on inspiration pages
+// .cm-info-card          - info card style
 // .cm-profile-card       - card for displaying user profiles
 // .card-body >
 //   .card-body-toggle    - collapse toggle for .card-body
@@ -190,6 +190,20 @@
     }
     &:focus {
       background-color: $primary-orange;
+    }
+  }
+}
+
+//color cards used in rebrand
+@each $color, $value in $theme-colors {
+  .cm-card-#{$color} {
+    @extend .cm-info-card, .border-4, .border-#{$color};
+
+    .card-header,
+    .card-footer {
+      @extend .border-0, .rounded-0;
+      background-color: $value;
+      color: color-yiq($value);
     }
   }
 }
