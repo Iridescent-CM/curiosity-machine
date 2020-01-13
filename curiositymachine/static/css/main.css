@@ -19533,14 +19533,13 @@ footer {
   .family-dashboard .checkbox-label {
     margin-left: 0.5em; }
 
-.family-member-card {
-  border: 3px solid #5bc2e7; }
-  .family-member-card .avatar-settings {
-    flex-direction: column; }
-    .family-member-card .avatar-settings label[for*='-image_url'] {
-      display: none; }
-  .family-member-card hr {
-    border-bottom: 3px solid #5bc2e7; }
+.family-member-card .avatar-settings {
+  flex-direction: column; }
+  .family-member-card .avatar-settings label[for*='-image_url'] {
+    display: none; }
+
+.family-member-card hr {
+  border-bottom: 3px solid #5bc2e7; }
 
 #get-started .jumbotron {
   background-image: url("../images/pages/about/hero.png");
