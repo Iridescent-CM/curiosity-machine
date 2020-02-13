@@ -1,10 +1,6 @@
 .family-member-card {
   .avatar-settings {
     flex-direction: column;
-
-    label[for*='-image_url'] {
-      display: none;
-    }
   }
   hr {
     border-bottom: 3px solid $primary-lightblue;

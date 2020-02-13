@@ -5779,7 +5779,7 @@ button.bg-new-purple:focus {
 .border-blue, .cm-card-blue {
   border-color: #0076cf !important; }
 
-.border-orange, .cm-card-orange {
+.border-orange, .cm-card-orange, .form-control, #password-reset input[type='email'], .form-control:focus {
   border-color: #ff7500 !important; }
 
 .border-purple, .cm-card-purple {
@@ -18724,13 +18724,7 @@ footer {
     background-color: #43b02a; }
 
 .form-control, #password-reset input[type='email'] {
-  border-radius: 0px;
-  border: 4px solid #ff7500; }
-  .form-control:focus, #password-reset input:focus[type='email'] {
-    border: 4px solid #ff7500; }
-
-.text-warning {
-  color: #ff7500 !important; }
+  border-radius: 0px; }
 
 .cm-jumbotron {
   text-align: center;
@@ -19112,8 +19106,6 @@ footer {
   flex-direction: row;
   align-items: flex-end;
   justify-content: center; }
-  .account-settings .avatar-settings label[for='id_image_url'] {
-    display: none; }
   .account-settings .avatar-settings img {
     width: 125px;
     height: 125px; }
@@ -19545,8 +19537,6 @@ footer {
 
 .family-member-card .avatar-settings {
   flex-direction: column; }
-  .family-member-card .avatar-settings label[for*='-image_url'] {
-    display: none; }
 
 .family-member-card hr {
   border-bottom: 3px solid #5bc2e7; }
@@ -19854,9 +19844,6 @@ footer {
     border-color: #1d1349;
     white-space: normal; }
 
-#signup_form .text-muted {
-  color: #ff7500 !important; }
-
 .bg-primary {
   background-color: #0076cf;
   color: #ffffff; }
@@ -20049,7 +20036,7 @@ footer {
 .border-3 {
   border-width: 3px !important; }
 
-.border-4, .cm-card-primary, .cm-card-secondary, .cm-card-success, .cm-card-info, .cm-card-warning, .cm-card-danger, .cm-card-light, .cm-card-dark, .cm-card-blue, .cm-card-orange, .cm-card-purple, .cm-card-green, .cm-card-pink, .cm-card-lightblue, .cm-card-white, .cm-card-new-pink, .cm-card-new-red, .cm-card-new-orange, .cm-card-new-green, .cm-card-new-turquoise, .cm-card-new-blue, .cm-card-new-purple {
+.border-4, .cm-card-primary, .cm-card-secondary, .cm-card-success, .cm-card-info, .cm-card-warning, .cm-card-danger, .cm-card-light, .cm-card-dark, .cm-card-blue, .cm-card-orange, .cm-card-purple, .cm-card-green, .cm-card-pink, .cm-card-lightblue, .cm-card-white, .cm-card-new-pink, .cm-card-new-red, .cm-card-new-orange, .cm-card-new-green, .cm-card-new-turquoise, .cm-card-new-blue, .cm-card-new-purple, .form-control, #password-reset input[type='email'], .form-control:focus {
   border-width: 4px !important; }
 
 [v-cloak] {
