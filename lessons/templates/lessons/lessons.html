@@ -5,54 +5,89 @@
 {% block body-id %}lesson-list{% endblock %}
 {% block content %}
 
-<div class="aifc-pages-header-bg text-light py-4 mb-2">
-  <div class="container">
-      <div class="row">
-          <div class="col-md-12 my-4">
-              <h2>Technovation Families AI Lessons</h2>
-          </div>
+<div class="jumbotron">
+  <div class="container text-light">
+    <div class="col-lg-8">
+      <h1>AI Challenge</h1>
+      <a class="btn btn-orange my-3" href="{% url 'account_signup' %}">
+        Get Started Today
+      </a>
+      <p class="font-weight-bold">or preview what you'll learn below</p>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid py-5">
+  <div class="container dark-type">
+    <div class="row">
+      <div class="col-lg-6">
+        <h2 class="mb-3">Communities using technology for change</h2>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 my-3">
+        <p>
+          Our free, hands-on artificial intelligence (Al) education challenge brings families, schools, communities, and
+          technology professionals together to learn, play and create solutions to real-world problems with Al.
+        </p>
+        <p>
+          Learn what Al is, how it works, and how to use it to solve a problem you care about through our 10-lesson
+          challenge. At the conclusion of the challenge you will have completed a project together: An Al invention that
+          solves a problem you care about in your community. Submit your project to our global competition for a chance
+          to attend the annual Technovation World Summit in the U.S. as a finalist and present your idea to a panel of
+          judges at the Championship Event in August.
+        </p>
+        <p>
+          Our next Technovation Families Al Challenge opens in August 2020. Sign up now to complete activities from past
+          AI challenges to prepare.
+        </p>
+        <a class="btn btn-primary my-3" href="{% url 'account_signup' %}">
+          Sign Up
+        </a>
+        </p>
+      </div>
+      <div class="col-lg-6 my-3 text-center">
+        <img class="portrait-img leaf-border" src="{% static 'images/pages/lesson-list/section-1.png' %}"
+          alt="Technovation Families participants" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid bg-orange py-4">
+  <div class="container">
+    <div class="col-lg-8">
+      <h2 class="headings-font">Lessons</h2>
+    </div>
   </div>
 </div>
 
 <div class="container">
-    <p class="mt-3">
-        Technovation Families is a free, hands-on artificial intelligence education competition that brings families, schools, communities, and technology know-it-alls together to give everyone the chance to learn, play and create with AI.
-    </p>
-    <p>
-        Each lesson provides different concepts and activities that lead to the creation of a final project, an invention that solves a problem in their community using AI. Through the lessons, families learn foundational skills needed to utilize and explore aspects of AI, while participating in hands on activities where they get to actually engage in building AI agents. After completing all ten lessons, families should have a well rounded understanding of AI and how it can be used to help solve tough problems in their own communities.
-    </p>
-    <div class="row lessons mt-4">
-        {% for lesson in lessons %}
-        <div class="aifc-pages-col-md-5ths px-3 mb-2">
-            {% include 'lessons/_lesson_card.html' with lesson=lesson %}
-        </div>
-        {% endfor %}
+  <div class="row lessons mt-4">
+    {% for lesson in lessons %}
+    <div class="aifc-pages-col-md-5ths px-3 mb-2">
+      {% include 'lessons/_lesson_card.html' with lesson=lesson %}
     </div>
-    <hr class="hr-orange mx-4 mt-2">
-    <div class="col-12 pl-0">
-        <h2 class="aifc-pages-subtitle my-4">Meet the Community!</h2>
-    </div>
-    <div class="row mb-4">
-        <div class="col-md-7 mx-3 embed-responsive embed-responsive-16by9">
-            <iframe class="img-fluid rounded" width="560" height="315" src="https://www.youtube.com/embed/K_2btq8vTec" allowfullscreen></iframe>
-        </div>
-        <div class="col">
-            <p>
-                Join us as we embark on Season 3! Lead your community in learning about AI and solving problems in your community. Each participant will have a chance to submit their inventions to the World Championship in one of two divisions: Junior (11 years-old or younger) and Senior (12-16 years-old). Together, we can empower more communities to create and problem solve with artificial intelligence!
-            </p>
-            <p>
-                Join us by learning how to lead this program in your community or building a solution that’s important to you and your community! You don’t need to be a tech expert to participate. Curious? Check out these
-                <a href="https://www.technovation.org/blogs/technovation-families-finalists-regional-winners/">
-                  awesome projects
-                </a>
-                from Season 2.
-            </p>
-            <div class="text-center">
-                <a href="{% url "account_signup" %}" class="btn btn-primary mt-2">Join the Technovation Families Community!</a>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
+  </div>
 </div>
+
+<div class="container-fluid cta-banner-burst-orange py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2>
+          Are you join Technovation Families?
+        </h2>
+        <a class="btn btn-white my-3" href="{% url 'account_signup' %}">
+          Sign up
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 {% endblock %}
