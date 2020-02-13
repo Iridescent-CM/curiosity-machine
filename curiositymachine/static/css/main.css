@@ -19095,12 +19095,6 @@ footer {
   .aifc-pages .aifc-pages-video-header video {
     display: none; } }
 
-@media (min-width: 992px) {
-  .aifc-pages .aifc-pages-col-md-5ths {
-    position: relative;
-    width: 20%;
-    float: left; } }
-
 .account-settings .avatar-settings {
   display: flex;
   flex-direction: row;
@@ -19821,6 +19815,14 @@ footer {
   background-position: center;
   background-image: url("../images/pages/lesson-list/hero.png");
   margin-bottom: 0; }
+
+#lesson-list .card {
+  min-height: 375px; }
+
+@media (min-width: 1200px) {
+  #lesson-list .col-lg-5ths {
+    flex: 0 0 20%;
+    max-width: 20%; } }
 
 #password-reset {
   background-image: url("../images/pages/password-reset/background.svg");
