@@ -1,11 +1,7 @@
 .form-control {
+  @extend .border-4, .border-orange;
   border-radius: 0px;
-  border: 4px solid $primary-orange;
   &:focus {
-    border: 4px solid $primary-orange;
+    @extend .border-4, .border-orange;
   }
-}
-
-.text-warning {
-  color: $primary-orange !important;
 }

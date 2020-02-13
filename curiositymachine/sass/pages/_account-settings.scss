@@ -5,10 +5,6 @@
     align-items: flex-end;
     justify-content: center;
 
-    label[for='id_image_url'] {
-      display: none;
-    }
-
     img {
       @extend .leaf-border, .m-3;
       width: 125px;
