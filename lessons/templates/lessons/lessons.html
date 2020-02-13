@@ -27,24 +27,28 @@
     <div class="row">
       <div class="col-lg-6 my-3">
         <p>
-          Our free, hands-on artificial intelligence (Al) education challenge brings families, schools, communities, and
-          technology professionals together to learn, play and create solutions to real-world problems with Al.
+          Our free, hands-on artificial intelligence (Al) education challenge
+          brings families, schools, communities, and technology professionals
+          together to learn, play and create solutions to real-world problems
+          with Al.
         </p>
         <p>
-          Learn what Al is, how it works, and how to use it to solve a problem you care about through our 10-lesson
-          challenge. At the conclusion of the challenge you will have completed a project together: An Al invention that
-          solves a problem you care about in your community. Submit your project to our global competition for a chance
-          to attend the annual Technovation World Summit in the U.S. as a finalist and present your idea to a panel of
-          judges at the Championship Event in August.
+          Learn what Al is, how it works, and how to use it to solve a problem
+          you care about through our 10-lesson challenge. At the conclusion of
+          the challenge you will have completed a project together: An Al
+          invention that solves a problem you care about in your community.
+          Submit your project to our global competition for a chance to attend
+          the annual Technovation World Summit in the U.S. as a finalist and
+          present your idea to a panel of judges at the Championship Event in
+          August.
         </p>
         <p>
-          Our next Technovation Families Al Challenge opens in August 2020. Sign up now to complete activities from past
-          AI challenges to prepare.
+          Our next Technovation Families Al Challenge opens in August 2020. Sign
+          up now to complete activities from past AI challenges to prepare.
         </p>
-        <a class="btn btn-primary my-3" href="{% url 'account_signup' %}">
+        <a class="btn btn-primary" href="{% url 'account_signup' %}">
           Sign Up
         </a>
-        </p>
       </div>
       <div class="col-lg-6 my-3 text-center">
         <img class="portrait-img leaf-border" src="{% static 'images/pages/lesson-list/section-1.png' %}"
@@ -54,7 +58,6 @@
   </div>
 </div>
 
-
 <div class="container-fluid bg-orange py-4">
   <div class="container">
     <div class="col-lg-8">
@@ -63,31 +66,31 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="row lessons mt-4">
-    {% for lesson in lessons %}
-    <div class="aifc-pages-col-md-5ths px-3 mb-2">
-      {% include 'lessons/_lesson_card.html' with lesson=lesson %}
-    </div>
-    {% endfor %}
-  </div>
-</div>
-
-<div class="container-fluid cta-banner-burst-orange py-5">
+<div class="container-fluid py-4">
   <div class="container">
     <div class="row">
-      <div class="col-lg-12">
-        <h2>
-          Are you join Technovation Families?
-        </h2>
-        <a class="btn btn-white my-3" href="{% url 'account_signup' %}">
-          Sign up
-        </a>
+      {% for lesson in lessons %}
+      <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-4 offset-md-0 offset-lg-0 col-lg-5ths">
+        {% include 'lessons/_lesson_card.html' with lesson=lesson %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="container-fluid cta-banner-burst-orange py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>
+            Are you join Technovation Families?
+          </h2>
+          <a class="btn btn-white my-3" href="{% url 'account_signup' %}">
+            Sign up
+          </a>
+        </div>
       </div>
     </div>
   </div>
+
+  {% endblock %}
 </div>
-
-
-
-{% endblock %}
