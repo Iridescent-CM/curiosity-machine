@@ -6,17 +6,15 @@
 
 {% block container %}
 
-  <div class="aifc-pages-header-bg text-light py-4 mb-2">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <img class="aifc-pages-white-logo" src="{% static 'images/aifc/aifc-white-logo.svg' %}">
+<div class="jumbotron bg-pattern-blue-circles">
+  <div class="container text-light">
+    <div class="col-lg-8">
+      <h1>AI Challenge</h1>
           {% if memberships %}
-          <br />
+        <h2>
           <strong>Memberships:</strong> {{ membership_names }}
+        </h2>
           {% endif %}
-        </div>
-      </div>
 
       {% if messages %}{% for message in messages %}
         <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
@@ -26,25 +24,23 @@
           {{ message }}
         </div>
       {% endfor %}{% endif %}
+    </div>
+    {% include 'students/dashboard/_navigation.html' %}
+  </div>
+</div>
 
-      <div class="row mt-4">
-        {% include 'students/dashboard/_navigation.html' %}
-      </div>
+<div class="container mb-5" id="content">
+  {% if request.user.extra.should_add_email %}
+  <div class="card card-action-needed my-3">
+    <div class="card-header">
+      Account action needed
+    </div>
+    <div class="card-block">
+      Add an email address! If you forget your password, we'll use your email address to send you a new one.
+      Update your email in <a href="{% url "students:edit_profile" %}">account settings</a>.
     </div>
   </div>
-
-  <div class="container mb-5" id="content">
-    {% if request.user.extra.should_add_email %}
-    <div class="card card-action-needed my-3">
-      <div class="card-header">
-        Account action needed
-      </div>
-      <div class="card-block">
-        Add an email address! If you forget your password, we'll use your email address to send you a new one.
-        Update your email in <a href="{% url "students:edit_profile" %}">account settings</a>.
-      </div>
-    </div>
-    {% endif %}
-    {% block content %}{% endblock %}
-  </div>
+  {% endif %}
+  {% block content %}{% endblock %}
+</div>
 {% endblock %}
