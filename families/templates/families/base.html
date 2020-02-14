@@ -4,17 +4,18 @@
 {% block body-classes %}aifc-pages dashboard family-dashboard{% endblock %}
 
 {% block container %}
-  <div class="aifc-pages-header-bg text-light py-4 mb-2">
-    <div class="container">
-      <div class="row mt-1 d-none d-md-flex">
-        <div class="col-md-12">
-          {{ program_name|default:"" }}
-        </div>
-      </div>
-      {% include 'families/_navigation.html' %}
+<div class="jumbotron bg-pattern-blue-circles">
+  <div class="container text-light">
+    <div class="col-lg-8">
+      <h1>AI Challenge</h1>
+      <h2>
+        {{ program_name|default:"" }}
+      </h2>
     </div>
+    {% include 'families/_navigation.html' %}
   </div>
-  <div>
-    {% block content %}{% endblock %}
-  </div>
+</div>
+<div>
+  {% block content %}{% endblock %}
+</div>
 {% endblock %}
