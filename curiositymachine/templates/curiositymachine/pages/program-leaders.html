@@ -1,48 +1,43 @@
 {% extends "curiositymachine/layout/about_pg_layout.html" %}
 {% load staticfiles %}
 
-{% block title %}Program Leaders{% endblock %}
+{% block title %}Ambassadors{% endblock %}
 {% block body-classes %} {{ block.super }} aifc-pages {% endblock %}
 {% block content %}
-{% with active_nav="program-leaders" %}
+{% with active_nav="ambassadors" %}
   {{ block.super }}
 {% endwith %}
 
 <div class="container">
   <div class="row">
     <div class="col-md-10 offset-md-1 mt-5">
-      <h2>Bring Technovation Families to your students</h2>
-      <h3 class="mb-5">We believe the best learning happens through exploration. Challenge your students to discover new ideas and solve unique problems.</h3>
-      <p class="mb-0">Mentors everywhere are using Technovation Families in classrooms, after school clubs, family programs, makerspaces, libraries, and more. That's because Technovation Families creates engaging and approachable opportunities for students and adults to learn together. You don't have to be a scientist or engineer to lead —you just have to be curious enough to want to learn! </p>
+      <h2>Bring Technovation Families to your community</h2>
+      <h3 class="mb-5">We believe the best learning happens through exploration. Join us to lead families and students in discovering AI!</h3>
 
-      <h4 class="aifc-pages-header mt-4 mb-1">Students learn more than just STEM.</h4>
-      <p>With the engineering design process (EDP) as a guide, your students will plan, build, and test their designs. Students document each step on Technovation Families. But most importantly, students who complete Technovation Families design challenges learn to persevere through mistakes and failure, learning that creating something new is a process of testing and improvement. This supports them to build confidence in their ability to solve tough problems.</p>
-      <hr class="hr-red mb-5"/>
-      <h2>We welcome leaders from around the world to join us for Season 2 of Technovation Families!</h2>
+      <h4 class="aifc-pages-header mt-4 mb-1">Be an ambassador for AI learning</h4>
+      <p>As an ambassador, you will lead 10 learning lessons where families work together to identify problems they care about and create a solution using Al technology. You’ll help participants explore machine learning, different types of predictive models, and foundational Al concepts like neural networks. Your participants with children ages 8-16 can submit their prototype to the World Summit.</p>
+      <hr class="hr-red mb-3"/>
+      <h2>We welcome ambassadors from around the world to join us for Technovation Families!</h2>
       <img class="d-block w-75 mx-auto" src="{% static 'images/about/aifc-world.svg'%}">
-      <h4 class="aifc-pages-header mt-4">Why join as a program site?</h4>
+      <h4 class="aifc-pages-header mt-4">As a Technovation Families ambassador you will:</h4>
       <ul>
-        <li>Bring an innovative AI family program to members of your community</li>
-        <li>Leaders can build their knowledge of AI with extra resources and access to live trainings</li>
-        <li>Have a direct line of contact to our support team</li>
-        <li>Join our global movement and interact with our community of mentors.</li>
+        <li>Recruit, coordinate and guide Technovation Families in your local community through the AI challenge over the course of 10 sessions for a total of ~40 hours</li>
+        <li>Programs can range in scale from a small, after school club to a multi-site program led in partnership with a community-based organization or school district</li>
       </ul>
-      <h3 class="mt-5 mb-1">Season 2 is open and submissions are due <strong>January 2020.</strong></h3>
-      <div class="text-center">
-        <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSf52kHbozfrysGIFlKrG-7LflXK6d-a9IxtSZ7kasZiFtS_CA/viewform" target="_blank">Reserve your spot</a> for Season 2!</p>
-      </div>
-    </div>
-  </div>
-  <hr class="hr-red mb-3"/>
-  <div class="row">
-    <div class="col">
-      <h4 class="aifc-pages-header">What does a program site look like?</h4>
-      <p>Program sites are different throughout the world. Generally, we seek locations that deliver programs outside of school to underserved families. Also, your location should have 1-5 passionate facilitators who are ready to lead.</p>
-      <p>Our full program is 20 hours and directed by people like you. We know that's a big commitment so we're here to help!</p>
+      <p>No technical experience is required, only a passion for helping families in your community learn the skills they need to succeed in the future. Join our next season launching August 2020.</p>
+      <h3 class="mt-5 mb-1">You can <a href="https://docs.google.com/forms/d/e/1FAIpQLSd4ZC0WwGx_lbKSaLPzfyhYRSLQH_jblvV3f7NlBV5io5AvMg/viewform?usp=sf_link" target="_blank">register</a> today!* Review key dates for our competition <a href="{% url "aichallenge/timeline" %}" target="_blank">here.</a></h3>
+      <hr class="hr-red mb-3"/>
     </div>
   </div>
   <div class="row">
-    <div class="col">
+    <div class="col-md-10 offset-md-1">
+      <h4 class="aifc-pages-header">What does it look like for an ambassador to lead the program?</h4>
+      <p>Program sites are different throughout the world. Generally, we seek locations that deliver programs outside of school to underserved families. Also, your location should have 1-5 passionate ambassadors who are ready to lead.</p>
+      <p>Technovation Families provides 20 hours of curriculum that ambassadors can access to support participants to develop AI prototypes. We know that's a big commitment so we're here to help!</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 offset-md-1">
       <div class="aifc-pages-panel">
         <div class="row">
           <div class="col-md-2">
@@ -52,12 +47,12 @@
             <h4 class="aifc-pages-header">Club</h4>
           </div>
         </div>
-        <p><strong>20+ families</strong> at your location want to participate.</p>
-        <p>Your mentor(s) are ready to spend <strong>~35 hours</strong> learning about and leading this program throughout the season.</p>
-        <p>This is a great option for sites that would like to pilot the program, have a STEM group, or are single returning program sites.</p>
+        <p><strong>1-15 participants</strong> at your locations.</p>
+        <p>You (and maybe other ambassadors at your site) are ready to spend <strong>~35 hours</strong> learning about and leading this program throughout the season.</p>
+        <p>This is a great option for ambassadors who would like to pilot the program, have a STEM group, or have a single site they’d like to lead the program at.</p>
       </div>
     </div>
-    <div class="col">
+    <div class="col-md-5">
       <div class="aifc-pages-panel">
         <div class="row">
           <div class="col-md-2">
@@ -67,30 +62,19 @@
             <h4 class="aifc-pages-header">Chapters</h4>
           </div>
         </div>
-        <p>Your organization has multiple locations and experience leading family programs.</p>
-        <p>You have a network of mentors ready to learn about AI and lead this program.</p>
+        <p>You have multiple locations ready to participate and experience leading family programs.</p>
+        <p>You have a network of volunteers ready to learn about AI and lead this program.</p>
         <p>This is a great option for <strong>multi-site organizations</strong> who want to bring a family-focused program to their organization.</p>
       </div>
     </div>
   </div>
-  <hr>
   <div class="row">
-    <div class="col">
-      <h4>Friend of the Program</h4>
-      <p>You are ready to lead our program, but it looks a little different from a club or chapter. Examples of our Friends can include:</p>
-      <ul>
-        <li>Mentors supporting kids who are excited to participate, but no  guardians (children can complete the program but please remember that only Family Teams are eligible to submit for the AI World Championship!)</li>
-        <li>Leaders of small family or afterschool groups who are participating</li>
-        <li>Anyone who is interested in bringing some of our program, but not all 20 hours, to participants. We recommend completing at least 3 sessions</li>
-      </ul>
-    </div>
-  </div>
-  <hr class="hr-red mb-3"/>
-  <div class="row">
-    <div class="col mb-5">
+    <div class="col-md-10 offset-md-1 mb-5">
+      <hr class="hr-red"/>
       <h4 class="aifc-pages-header">What’s stopping you from joining us today?</h4>
-      <p>We are here to support you! Fill out <a href="https://docs.google.com/forms/d/e/1FAIpQLSf52kHbozfrysGIFlKrG-7LflXK6d-a9IxtSZ7kasZiFtS_CA/viewform" target="_blank">this form</a> to reserve your spot as a Season 2 program site.</p>
-      <p>If you need funding to participate, mini grant application forms will be sent to partners who have reserved their spot for Season 2 prior to August 1. While we cannot cover the total cost of your program we have modified our curriculum to be more inclusive to all partners worldwide and are no longer requiring the purchase of additional materials. This means more communities from around the world can facilitate this program at little to no cost.</p>
+      <p>We are here to support you! Complete <a href="https://docs.google.com/forms/d/e/1FAIpQLSd4ZC0WwGx_lbKSaLPzfyhYRSLQH_jblvV3f7NlBV5io5AvMg/viewform?usp=sf_link" target="_blank">this form</a> to register as an ambassador.*</p>
+      <p>If you need funding to participate, mini grant application forms will be sent to ambassadors who have reserved their spot prior to July 1st, 2020. We are committed to supporting our ambassadors to bring AI learning to their communities!</p>
+      <p><em>*If you’d like to sign up via the link, a Google account is required. If you do not have access to a Google account, you can email us at <a href="mailto:curiosity@technovation.org">curiosity@technovation.org</a> and our team will support you throughout the sign up process.</em></p>
     </div>
   </div>
 </div>
