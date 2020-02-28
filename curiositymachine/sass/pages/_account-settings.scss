@@ -5,6 +5,10 @@
     align-items: flex-end;
     justify-content: center;
 
+    label {
+      display: none;
+    }
+
     img {
       @extend .leaf-border, .m-3;
       width: 125px;
@@ -17,13 +21,11 @@
       align-items: center;
 
       input {
+        text-align: center;
         border: none;
         background-color: none;
         color: $primary-orange;
         font-size: 0.8rem;
-        &::placeholder {
-          color: $primary-orange;
-        }
         &:hover,
         &:focus {
           border: none;
