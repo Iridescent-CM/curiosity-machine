@@ -12,34 +12,31 @@
   <form action="{% pick_action form edit="families:edit_profile" create="families:create_profile" %}" method="POST" novalidate>
     {% csrf_token %}
 
-    <div class="card cm-info-card mb-5">
-      <div class="card-header text-center p-3">
-        <h4 class="card-title">Profile Info</h4>
-        <small class="text-muted">* Please fill out all fields marked with an asterisk</small>
+    <div class="my-4">
+      <h2>Your profile Information</h2>
+
+      <div class="text-center avatar-settings">
+        {% block avatar %}
+          {% include "families/_avatar.html" with image=request.user.profile.image %}
+        {% endblock %}
+        {% form_group form.image_url field_class="btn btn-primary" %}
       </div>
-      <div class="card-body">
-        <div class="text-center avatar-settings">
-          {% block avatar %}
-            {% include "families/_avatar.html" with image=request.user.profile.image %}
-          {% endblock %}
-          {% form_group form.image_url field_class="btn btn-primary" %}
-        </div>
-        {% email_form_group form.email email=email %}
-        {% form_group form.country %}
-        {% comment %} location should probably be a compound widget to encapsulate the following sort of thing {% endcomment %}
-        {% if form.country.value == "US" %}
-        {% form_group form.state required=True %}
-        {% else %}
-        {% form_group form.state group_style="display:none;" required=True %}
-        {% endif %}
-        {% form_group form.city %}
-        {% if form.instance and form.instance.pk %}
-        <a class="btn btn-secondary" href="{% url "account_change_password"%}">Change password</a>
-        {% endif %}
-        {% if form.instance and form.instance.pk %}
-        <input type="submit" class="btn btn-primary float-right" value="Save">
-        {% endif %}
-      </div>
+
+      {% email_form_group form.email email=email %}
+      {% form_group form.country %}
+      {% comment %} location should probably be a compound widget to encapsulate the following sort of thing {% endcomment %}
+      {% if form.country.value == "US" %}
+      {% form_group form.state required=True %}
+      {% else %}
+      {% form_group form.state group_style="display:none;" required=True %}
+      {% endif %}
+      {% form_group form.city %}
+      {% if form.instance and form.instance.pk %}
+      <a class="btn btn-outline-primary float-right" href="{% url "account_change_password"%}">Change password</a>
+      {% endif %}
+      {% if form.instance and form.instance.pk %}
+      <input type="submit" class="btn btn-orange" value="Save">
+      {% endif %}
     </div>
 
     {% if request.user.profile.members_confirmed %}

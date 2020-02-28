@@ -47,16 +47,18 @@ $theme-colors: (
 @import 'components/tables';
 @import 'components/rebrand-banner';
 
+@import 'pages/aifc-pages';
 @import 'pages/account-settings';
 @import 'pages/challenges';
 @import 'pages/edp-inspiration';
 @import 'pages/educator-dashboard';
 @import 'pages/examples';
 @import 'pages/family-dashboard';
+@import 'pages/family-profile';
 @import 'pages/get-started';
 @import 'pages/home';
 @import 'pages/lessons';
-@import 'pages/aifc-pages';
+@import 'pages/password-reset';
 @import 'pages/rebrand';
 
 @import 'utils/backgrounds';

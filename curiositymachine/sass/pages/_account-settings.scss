@@ -1,5 +1,43 @@
 .account-settings {
   .avatar-settings {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+
+    label {
+      display: none;
+    }
+
+    img {
+      @extend .leaf-border, .m-3;
+      width: 125px;
+      height: 125px;
+    }
+
+    .pickwidget {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      input {
+        text-align: center;
+        border: none;
+        background-color: none;
+        color: $primary-orange;
+        font-size: 0.8rem;
+        &:hover,
+        &:focus {
+          border: none;
+        }
+      }
+
+      .pickwidget-button {
+        @extend .btn, .btn-orange;
+        margin-right: 0.25em;
+      }
+    }
+
     .form-inline {
       justify-content: center;
 
@@ -9,10 +47,6 @@
         margin-bottom: 0.25em;
       }
     }
-  }
-
-  .pickwidget .pickwidget-button {
-    margin-right: 0.25em;
   }
 
   .form-inline input {
@@ -36,9 +70,5 @@
         margin-right: 0.5em;
       }
     }
-  }
-
-  .btn-secondary {
-    border: 1px solid $light-gray;
   }
 }
