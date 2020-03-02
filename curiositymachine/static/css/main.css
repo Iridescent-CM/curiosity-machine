@@ -8130,6 +8130,12 @@ i {
 
 .dashboard {
   font-family: 'Raleway', Helvetica, sans-serif; }
+  .dashboard .jumbotron {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 0; }
   .dashboard .dashboard-avatar img {
     background-color: white;
     border-radius: 50%;
@@ -8137,16 +8143,18 @@ i {
     float: left;
     margin-right: 10px; }
   .dashboard .dashboard-tabs {
-    border-bottom: 2px #e5e1d9 solid;
     text-align: center;
     font-weight: bold; }
     .dashboard .dashboard-tabs .nav-item {
-      border-bottom: 5px solid transparent;
-      margin-right: 35px; }
+      border-radius: 2% 30% 0px 0px / 5% 100% 0px 0px;
+      margin-right: 20px;
+      padding: 0px 10px 0px 0px; }
       .dashboard .dashboard-tabs .nav-item .nav-link {
         color: white; }
       .dashboard .dashboard-tabs .nav-item.active {
-        border-bottom-color: white; }
+        background-color: #ffffff; }
+        .dashboard .dashboard-tabs .nav-item.active .nav-link {
+          color: #0076cf; }
   @media (max-width: 767.98px) {
     .dashboard .dashboard-tabs {
       flex-direction: column;
@@ -10677,7 +10685,7 @@ footer {
   background-repeat: no-repeat;
   background-size: cover; }
 
-.bg-pattern-circles-blue {
+.bg-pattern-circles-blue, .dashboard .jumbotron {
   background-image: url("../images/backgrounds/circles/blue.svg"); }
 
 .bg-pattern-circles-lightblue {
