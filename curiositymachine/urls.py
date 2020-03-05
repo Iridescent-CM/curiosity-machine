@@ -63,7 +63,12 @@ urlpatterns += [
     # redirect url that used to be a static page
     url(
         r'^aichallenge/worldchampionship/',
-        public(RedirectView.as_view(url='https://technovation.org/', permanent=False)),
+        public(
+            RedirectView.as_view(
+                url='https://www.technovation.org/blogs/technovation-families-finalists-regional-winners/',
+                permanent=False
+            )
+        ),
         name='aichallenge-worldchampionship-redirect'
     ),
 ]
