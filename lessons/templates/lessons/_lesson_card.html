@@ -2,7 +2,8 @@
 
 <div class="card cm-card mb-3">
   <a href="{% url "lessons:lesson-progress-find-or-create" %}?lesson={{ lesson.id }}">
-    <img class="card-img-top" src="{% resized lesson.card_image.url width=300 height=190 crop='fill' %}" alt="{{ lesson.title }}">
+    <img class="card-img-top" src="{% resized lesson.card_image.url width=300 height=190 crop='fill' %}"
+      alt="{{ lesson.title }}">
   </a>
 
   <div class="card-body">

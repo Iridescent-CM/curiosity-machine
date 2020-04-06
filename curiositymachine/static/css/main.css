@@ -10063,6 +10063,9 @@ footer {
   color: #ff7500;
   font-size: 2.5rem; }
 
+.educator-dashboard .card {
+  min-height: 375px; }
+
 .educator-dashboard .submit-message .before-submit {
   display: initial; }
 
@@ -10560,11 +10563,6 @@ footer {
 #lesson-list .card {
   min-height: 375px; }
 
-@media (min-width: 1200px) {
-  #lesson-list .col-xl-5ths {
-    flex: 0 0 20%;
-    max-width: 20%; } }
-
 #password-reset {
   background-image: url("../images/pages/password-reset/background.svg");
   background-position: 100% 70%;
@@ -10845,5 +10843,10 @@ footer {
     box-shadow: 0 1.5em 0 -1.3em; }
   40% {
     box-shadow: 0 1.5em 0 0; } }
+
+@media (min-width: 1200px) {
+  .col-xl-5ths {
+    flex: 0 0 20%;
+    max-width: 20%; } }
 
 /*# sourceMappingURL=main.css.map */
