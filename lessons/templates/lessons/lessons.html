@@ -51,11 +51,8 @@
         </a>
       </div>
       <div class="col-lg-6 my-3 text-center">
-        <img
-          class="portrait-img leaf-border"
-          src="{% static 'images/pages/lesson-list/section-1.png' %}"
-          alt="Technovation Families participants"
-        />
+        <img class="portrait-img leaf-border" src="{% static 'images/pages/lesson-list/section-1.png' %}"
+          alt="Technovation Families participants" />
       </div>
     </div>
   </div>
@@ -73,29 +70,27 @@
   <div class="container">
     <div class="row">
       {% for lesson in lessons %}
-      <div
-        class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-4 offset-md-0 offset-lg-0 col-xl-5ths"
-      >
+      <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-4 offset-md-0 offset-lg-0 col-xl-5ths">
         {% include 'lessons/_lesson_card.html' with lesson=lesson %}
       </div>
       {% endfor %}
     </div>
   </div>
+</div>
 
-  <div class="container-fluid cta-banner-burst-orange py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h2>
-            Are you join Technovation Families?
-          </h2>
-          <a class="btn btn-white my-3" href="{% url 'account_signup' %}">
-            Sign up
-          </a>
-        </div>
+<div class="container-fluid cta-banner-burst-orange py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2>
+          Are you join Technovation Families?
+        </h2>
+        <a class="btn btn-white my-3" href="{% url 'account_signup' %}">
+          Sign up
+        </a>
       </div>
     </div>
   </div>
-
-  {% endblock %}
 </div>
+
+{% endblock %}
