@@ -8135,7 +8135,8 @@ i {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    padding-bottom: 0; }
+    padding-bottom: 0;
+    margin: 0; }
   .dashboard .dashboard-avatar img {
     background-color: white;
     border-radius: 50%;
