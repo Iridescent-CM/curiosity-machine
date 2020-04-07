@@ -32,6 +32,7 @@
   --green: #43b02a;
   --pink: #d0006f;
   --lightblue: #5bc2e7;
+  --darkblue: #041e42;
   --white: #ffffff;
   --new-pink: #ff4980;
   --new-red: #ff5050;
@@ -1243,6 +1244,17 @@ pre {
   .table-hover .table-lightblue:hover > th {
     background-color: #bbe6f5; }
 
+.table-darkblue,
+.table-darkblue > th,
+.table-darkblue > td {
+  background-color: #b9c0ca; }
+
+.table-hover .table-darkblue:hover {
+  background-color: #aab3bf; }
+  .table-hover .table-darkblue:hover > td,
+  .table-hover .table-darkblue:hover > th {
+    background-color: #aab3bf; }
+
 .table-white,
 .table-white > th,
 .table-white > td {
@@ -2149,6 +2161,29 @@ fieldset:disabled .account-settings .avatar-settings .pickwidget a.pickwidget-bu
     .show > .btn-lightblue.dropdown-toggle:focus {
       box-shadow: 0 0 0 0.2rem rgba(91, 194, 231, 0.5); }
 
+.btn-darkblue {
+  color: #ffffff;
+  background-color: #041e42;
+  border-color: #041e42; }
+  .btn-darkblue:hover {
+    color: #ffffff;
+    background-color: #020e1e;
+    border-color: #010812; }
+  .btn-darkblue:focus, .btn-darkblue.focus {
+    box-shadow: 0 0 0 0.2rem rgba(4, 30, 66, 0.5); }
+  .btn-darkblue.disabled, .btn-darkblue:disabled {
+    color: #ffffff;
+    background-color: #041e42;
+    border-color: #041e42; }
+  .btn-darkblue:not(:disabled):not(.disabled):active, .btn-darkblue:not(:disabled):not(.disabled).active,
+  .show > .btn-darkblue.dropdown-toggle {
+    color: #ffffff;
+    background-color: #010812;
+    border-color: #000306; }
+    .btn-darkblue:not(:disabled):not(.disabled):active:focus, .btn-darkblue:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-darkblue.dropdown-toggle:focus {
+      box-shadow: 0 0 0 0.2rem rgba(4, 30, 66, 0.5); }
+
 .btn-white, .btn-white-darkblue {
   color: #212529;
   background-color: #ffffff;
@@ -2656,6 +2691,29 @@ fieldset:disabled .account-settings .avatar-settings .pickwidget a.pickwidget-bu
     .btn-outline-lightblue:not(:disabled):not(.disabled):active:focus, .btn-outline-lightblue:not(:disabled):not(.disabled).active:focus,
     .show > .btn-outline-lightblue.dropdown-toggle:focus {
       box-shadow: 0 0 0 0.2rem rgba(91, 194, 231, 0.5); }
+
+.btn-outline-darkblue {
+  color: #041e42;
+  background-color: transparent;
+  background-image: none;
+  border-color: #041e42; }
+  .btn-outline-darkblue:hover {
+    color: #ffffff;
+    background-color: #041e42;
+    border-color: #041e42; }
+  .btn-outline-darkblue:focus, .btn-outline-darkblue.focus {
+    box-shadow: 0 0 0 0.2rem rgba(4, 30, 66, 0.5); }
+  .btn-outline-darkblue.disabled, .btn-outline-darkblue:disabled {
+    color: #041e42;
+    background-color: transparent; }
+  .btn-outline-darkblue:not(:disabled):not(.disabled):active, .btn-outline-darkblue:not(:disabled):not(.disabled).active,
+  .show > .btn-outline-darkblue.dropdown-toggle {
+    color: #ffffff;
+    background-color: #041e42;
+    border-color: #041e42; }
+    .btn-outline-darkblue:not(:disabled):not(.disabled):active:focus, .btn-outline-darkblue:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-outline-darkblue.dropdown-toggle:focus {
+      box-shadow: 0 0 0 0.2rem rgba(4, 30, 66, 0.5); }
 
 .btn-outline-white, .btn-outline-white-darkblue {
   color: #ffffff;
@@ -4334,6 +4392,14 @@ input[type="button"].btn-block {
     text-decoration: none;
     background-color: #2fb1e0; }
 
+.badge-darkblue {
+  color: #ffffff;
+  background-color: #041e42; }
+  .badge-darkblue[href]:hover, .badge-darkblue[href]:focus {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #010812; }
+
 .badge-white {
   color: #212529;
   background-color: #ffffff; }
@@ -4559,6 +4625,15 @@ input[type="button"].btn-block {
     border-top-color: #bbe6f5; }
   .alert-lightblue .alert-link {
     color: #214653; }
+
+.alert-darkblue {
+  color: #021022;
+  background-color: #cdd2d9;
+  border-color: #b9c0ca; }
+  .alert-darkblue hr {
+    border-top-color: #aab3bf; }
+  .alert-darkblue .alert-link {
+    color: black; }
 
 .alert-white {
   color: #858585;
@@ -4881,6 +4956,17 @@ input[type="button"].btn-block {
     color: #ffffff;
     background-color: #2f6578;
     border-color: #2f6578; }
+
+.list-group-item-darkblue {
+  color: #021022;
+  background-color: #b9c0ca; }
+  .list-group-item-darkblue.list-group-item-action:hover, .list-group-item-darkblue.list-group-item-action:focus {
+    color: #021022;
+    background-color: #aab3bf; }
+  .list-group-item-darkblue.list-group-item-action.active {
+    color: #ffffff;
+    background-color: #021022;
+    border-color: #021022; }
 
 .list-group-item-white {
   color: #858585;
@@ -5630,6 +5716,14 @@ button.bg-lightblue:hover,
 button.bg-lightblue:focus {
   background-color: #2fb1e0 !important; }
 
+.bg-darkblue {
+  background-color: #041e42 !important; }
+
+a.bg-darkblue:hover, a.bg-darkblue:focus,
+button.bg-darkblue:hover,
+button.bg-darkblue:focus {
+  background-color: #010812 !important; }
+
 .bg-white {
   background-color: #ffffff !important; }
 
@@ -5729,7 +5823,8 @@ button.bg-new-purple:focus {
 .cm-card-purple .card-footer, .cm-card-green .card-header,
 .cm-card-green .card-footer, .cm-card-pink .card-header,
 .cm-card-pink .card-footer, .cm-card-lightblue .card-header,
-.cm-card-lightblue .card-footer, .cm-card-white .card-header,
+.cm-card-lightblue .card-footer, .cm-card-darkblue .card-header,
+.cm-card-darkblue .card-footer, .cm-card-white .card-header,
 .cm-card-white .card-footer, .cm-card-new-pink .card-header,
 .cm-card-new-pink .card-footer, .cm-card-new-red .card-header,
 .cm-card-new-red .card-footer, .cm-card-new-orange .card-header,
@@ -5794,6 +5889,9 @@ button.bg-new-purple:focus {
 .border-lightblue, .cm-card-lightblue {
   border-color: #5bc2e7 !important; }
 
+.border-darkblue, .cm-card-darkblue {
+  border-color: #041e42 !important; }
+
 .border-white, .cm-card-white {
   border-color: #ffffff !important; }
 
@@ -5857,7 +5955,8 @@ button.bg-new-purple:focus {
 .cm-card-purple .card-footer, .cm-card-green .card-header,
 .cm-card-green .card-footer, .cm-card-pink .card-header,
 .cm-card-pink .card-footer, .cm-card-lightblue .card-header,
-.cm-card-lightblue .card-footer, .cm-card-white .card-header,
+.cm-card-lightblue .card-footer, .cm-card-darkblue .card-header,
+.cm-card-darkblue .card-footer, .cm-card-white .card-header,
 .cm-card-white .card-footer, .cm-card-new-pink .card-header,
 .cm-card-new-pink .card-footer, .cm-card-new-red .card-header,
 .cm-card-new-red .card-footer, .cm-card-new-orange .card-header,
@@ -7706,6 +7805,12 @@ a.text-pink:hover, a.text-pink:focus {
 a.text-lightblue:hover, a.text-lightblue:focus {
   color: #2fb1e0 !important; }
 
+.text-darkblue {
+  color: #041e42 !important; }
+
+a.text-darkblue:hover, a.text-darkblue:focus {
+  color: #010812 !important; }
+
 .text-white {
   color: #ffffff !important; }
 
@@ -8759,6 +8864,7 @@ footer {
 .cm-card-green,
 .cm-card-pink,
 .cm-card-lightblue,
+.cm-card-darkblue,
 .cm-card-white,
 .cm-card-new-pink,
 .cm-card-new-red,
@@ -8786,6 +8892,7 @@ footer {
   .cm-card-green .card-body,
   .cm-card-pink .card-body,
   .cm-card-lightblue .card-body,
+  .cm-card-darkblue .card-body,
   .cm-card-white .card-body,
   .cm-card-new-pink .card-body,
   .cm-card-new-red .card-body,
@@ -8816,6 +8923,7 @@ footer {
   .cm-card-green .card-flags > *,
   .cm-card-pink .card-flags > *,
   .cm-card-lightblue .card-flags > *,
+  .cm-card-darkblue .card-flags > *,
   .cm-card-white .card-flags > *,
   .cm-card-new-pink .card-flags > *,
   .cm-card-new-red .card-flags > *,
@@ -8843,6 +8951,7 @@ footer {
   .cm-card-green .card-flag,
   .cm-card-pink .card-flag,
   .cm-card-lightblue .card-flag,
+  .cm-card-darkblue .card-flag,
   .cm-card-white .card-flag,
   .cm-card-new-pink .card-flag,
   .cm-card-new-red .card-flag,
@@ -8875,6 +8984,7 @@ footer {
     .cm-card-green .card-flag:after,
     .cm-card-pink .card-flag:after,
     .cm-card-lightblue .card-flag:after,
+    .cm-card-darkblue .card-flag:after,
     .cm-card-white .card-flag:after,
     .cm-card-new-pink .card-flag:after,
     .cm-card-new-red .card-flag:after,
@@ -8911,6 +9021,7 @@ footer {
     .cm-card-green .card-flag:before,
     .cm-card-pink .card-flag:before,
     .cm-card-lightblue .card-flag:before,
+    .cm-card-darkblue .card-flag:before,
     .cm-card-white .card-flag:before,
     .cm-card-new-pink .card-flag:before,
     .cm-card-new-red .card-flag:before,
@@ -8956,6 +9067,7 @@ footer {
 .cm-card-green .card-body .card-title,
 .cm-card-pink .card-body .card-title,
 .cm-card-lightblue .card-body .card-title,
+.cm-card-darkblue .card-body .card-title,
 .cm-card-white .card-body .card-title,
 .cm-card-new-pink .card-body .card-title,
 .cm-card-new-red .card-body .card-title,
@@ -8979,6 +9091,7 @@ footer {
 .cm-card-green .card-body .card-title a,
 .cm-card-pink .card-body .card-title a,
 .cm-card-lightblue .card-body .card-title a,
+.cm-card-darkblue .card-body .card-title a,
 .cm-card-white .card-body .card-title a,
 .cm-card-new-pink .card-body .card-title a,
 .cm-card-new-red .card-body .card-title a,
@@ -9008,6 +9121,7 @@ footer {
   .cm-card-green .card-body .card-title:hover,
   .cm-card-pink .card-body .card-title:hover,
   .cm-card-lightblue .card-body .card-title:hover,
+  .cm-card-darkblue .card-body .card-title:hover,
   .cm-card-white .card-body .card-title:hover,
   .cm-card-new-pink .card-body .card-title:hover,
   .cm-card-new-red .card-body .card-title:hover,
@@ -9031,6 +9145,7 @@ footer {
   .cm-card-green .card-body .card-title:focus,
   .cm-card-pink .card-body .card-title:focus,
   .cm-card-lightblue .card-body .card-title:focus,
+  .cm-card-darkblue .card-body .card-title:focus,
   .cm-card-white .card-body .card-title:focus,
   .cm-card-new-pink .card-body .card-title:focus,
   .cm-card-new-red .card-body .card-title:focus,
@@ -9054,6 +9169,7 @@ footer {
   .cm-card-green .card-body .card-title a:hover,
   .cm-card-pink .card-body .card-title a:hover,
   .cm-card-lightblue .card-body .card-title a:hover,
+  .cm-card-darkblue .card-body .card-title a:hover,
   .cm-card-white .card-body .card-title a:hover,
   .cm-card-new-pink .card-body .card-title a:hover,
   .cm-card-new-red .card-body .card-title a:hover,
@@ -9077,6 +9193,7 @@ footer {
   .cm-card-green .card-body .card-title a:focus,
   .cm-card-pink .card-body .card-title a:focus,
   .cm-card-lightblue .card-body .card-title a:focus,
+  .cm-card-darkblue .card-body .card-title a:focus,
   .cm-card-white .card-body .card-title a:focus,
   .cm-card-new-pink .card-body .card-title a:focus,
   .cm-card-new-red .card-body .card-title a:focus,
@@ -9108,7 +9225,7 @@ footer {
     letter-spacing: 2px;
     margin-top: 0.75em; }
 
-.cm-info-card .card-header, .cm-card-primary .card-header, .cm-card-secondary .card-header, .cm-card-success .card-header, .cm-card-info .card-header, .cm-card-warning .card-header, .cm-card-danger .card-header, .cm-card-light .card-header, .cm-card-dark .card-header, .cm-card-blue .card-header, .cm-card-orange .card-header, .cm-card-purple .card-header, .cm-card-green .card-header, .cm-card-pink .card-header, .cm-card-lightblue .card-header, .cm-card-white .card-header, .cm-card-new-pink .card-header, .cm-card-new-red .card-header, .cm-card-new-orange .card-header, .cm-card-new-green .card-header, .cm-card-new-turquoise .card-header, .cm-card-new-blue .card-header, .cm-card-new-purple .card-header,
+.cm-info-card .card-header, .cm-card-primary .card-header, .cm-card-secondary .card-header, .cm-card-success .card-header, .cm-card-info .card-header, .cm-card-warning .card-header, .cm-card-danger .card-header, .cm-card-light .card-header, .cm-card-dark .card-header, .cm-card-blue .card-header, .cm-card-orange .card-header, .cm-card-purple .card-header, .cm-card-green .card-header, .cm-card-pink .card-header, .cm-card-lightblue .card-header, .cm-card-darkblue .card-header, .cm-card-white .card-header, .cm-card-new-pink .card-header, .cm-card-new-red .card-header, .cm-card-new-orange .card-header, .cm-card-new-green .card-header, .cm-card-new-turquoise .card-header, .cm-card-new-blue .card-header, .cm-card-new-purple .card-header,
 .cm-info-card .card-body,
 .cm-card-primary .card-body,
 .cm-card-secondary .card-body,
@@ -9124,6 +9241,7 @@ footer {
 .cm-card-green .card-body,
 .cm-card-pink .card-body,
 .cm-card-lightblue .card-body,
+.cm-card-darkblue .card-body,
 .cm-card-white .card-body,
 .cm-card-new-pink .card-body,
 .cm-card-new-red .card-body,
@@ -9147,6 +9265,7 @@ footer {
 .cm-card-green .card-footer,
 .cm-card-pink .card-footer,
 .cm-card-lightblue .card-footer,
+.cm-card-darkblue .card-footer,
 .cm-card-white .card-footer,
 .cm-card-new-pink .card-footer,
 .cm-card-new-red .card-footer,
@@ -9157,9 +9276,9 @@ footer {
 .cm-card-new-purple .card-footer {
   padding: 1.25em; }
 
-.cm-info-card .card-header, .cm-card-primary .card-header, .cm-card-secondary .card-header, .cm-card-success .card-header, .cm-card-info .card-header, .cm-card-warning .card-header, .cm-card-danger .card-header, .cm-card-light .card-header, .cm-card-dark .card-header, .cm-card-blue .card-header, .cm-card-orange .card-header, .cm-card-purple .card-header, .cm-card-green .card-header, .cm-card-pink .card-header, .cm-card-lightblue .card-header, .cm-card-white .card-header, .cm-card-new-pink .card-header, .cm-card-new-red .card-header, .cm-card-new-orange .card-header, .cm-card-new-green .card-header, .cm-card-new-turquoise .card-header, .cm-card-new-blue .card-header, .cm-card-new-purple .card-header {
+.cm-info-card .card-header, .cm-card-primary .card-header, .cm-card-secondary .card-header, .cm-card-success .card-header, .cm-card-info .card-header, .cm-card-warning .card-header, .cm-card-danger .card-header, .cm-card-light .card-header, .cm-card-dark .card-header, .cm-card-blue .card-header, .cm-card-orange .card-header, .cm-card-purple .card-header, .cm-card-green .card-header, .cm-card-pink .card-header, .cm-card-lightblue .card-header, .cm-card-darkblue .card-header, .cm-card-white .card-header, .cm-card-new-pink .card-header, .cm-card-new-red .card-header, .cm-card-new-orange .card-header, .cm-card-new-green .card-header, .cm-card-new-turquoise .card-header, .cm-card-new-blue .card-header, .cm-card-new-purple .card-header {
   background-color: #e5e1d9; }
-  .cm-info-card .card-header h1, .cm-card-primary .card-header h1, .cm-card-secondary .card-header h1, .cm-card-success .card-header h1, .cm-card-info .card-header h1, .cm-card-warning .card-header h1, .cm-card-danger .card-header h1, .cm-card-light .card-header h1, .cm-card-dark .card-header h1, .cm-card-blue .card-header h1, .cm-card-orange .card-header h1, .cm-card-purple .card-header h1, .cm-card-green .card-header h1, .cm-card-pink .card-header h1, .cm-card-lightblue .card-header h1, .cm-card-white .card-header h1, .cm-card-new-pink .card-header h1, .cm-card-new-red .card-header h1, .cm-card-new-orange .card-header h1, .cm-card-new-green .card-header h1, .cm-card-new-turquoise .card-header h1, .cm-card-new-blue .card-header h1, .cm-card-new-purple .card-header h1,
+  .cm-info-card .card-header h1, .cm-card-primary .card-header h1, .cm-card-secondary .card-header h1, .cm-card-success .card-header h1, .cm-card-info .card-header h1, .cm-card-warning .card-header h1, .cm-card-danger .card-header h1, .cm-card-light .card-header h1, .cm-card-dark .card-header h1, .cm-card-blue .card-header h1, .cm-card-orange .card-header h1, .cm-card-purple .card-header h1, .cm-card-green .card-header h1, .cm-card-pink .card-header h1, .cm-card-lightblue .card-header h1, .cm-card-darkblue .card-header h1, .cm-card-white .card-header h1, .cm-card-new-pink .card-header h1, .cm-card-new-red .card-header h1, .cm-card-new-orange .card-header h1, .cm-card-new-green .card-header h1, .cm-card-new-turquoise .card-header h1, .cm-card-new-blue .card-header h1, .cm-card-new-purple .card-header h1,
   .cm-info-card .card-header h2,
   .cm-card-primary .card-header h2,
   .cm-card-secondary .card-header h2,
@@ -9175,6 +9294,7 @@ footer {
   .cm-card-green .card-header h2,
   .cm-card-pink .card-header h2,
   .cm-card-lightblue .card-header h2,
+  .cm-card-darkblue .card-header h2,
   .cm-card-white .card-header h2,
   .cm-card-new-pink .card-header h2,
   .cm-card-new-red .card-header h2,
@@ -9198,6 +9318,7 @@ footer {
   .cm-card-green .card-header h3,
   .cm-card-pink .card-header h3,
   .cm-card-lightblue .card-header h3,
+  .cm-card-darkblue .card-header h3,
   .cm-card-white .card-header h3,
   .cm-card-new-pink .card-header h3,
   .cm-card-new-red .card-header h3,
@@ -9221,6 +9342,7 @@ footer {
   .cm-card-green .card-header h4,
   .cm-card-pink .card-header h4,
   .cm-card-lightblue .card-header h4,
+  .cm-card-darkblue .card-header h4,
   .cm-card-white .card-header h4,
   .cm-card-new-pink .card-header h4,
   .cm-card-new-red .card-header h4,
@@ -9247,6 +9369,7 @@ footer {
 .cm-card-green .card-footer,
 .cm-card-pink .card-footer,
 .cm-card-lightblue .card-footer,
+.cm-card-darkblue .card-footer,
 .cm-card-white .card-footer,
 .cm-card-new-pink .card-footer,
 .cm-card-new-red .card-footer,
@@ -9362,6 +9485,11 @@ footer {
 .cm-card-lightblue .card-footer {
   background-color: #5bc2e7;
   color: #212529; }
+
+.cm-card-darkblue .card-header,
+.cm-card-darkblue .card-footer {
+  background-color: #041e42;
+  color: #ffffff; }
 
 .cm-card-white .card-header,
 .cm-card-white .card-footer {
@@ -10647,6 +10775,10 @@ footer {
   background-color: #5bc2e7;
   color: #212529; }
 
+.bg-darkblue {
+  background-color: #041e42;
+  color: #ffffff; }
+
 .bg-white {
   background-color: #ffffff;
   color: #212529; }
@@ -10783,7 +10915,7 @@ footer {
 .border-3 {
   border-width: 3px !important; }
 
-.border-4, .cm-card-primary, .cm-card-secondary, .cm-card-success, .cm-card-info, .cm-card-warning, .cm-card-danger, .cm-card-light, .cm-card-dark, .cm-card-blue, .cm-card-orange, .cm-card-purple, .cm-card-green, .cm-card-pink, .cm-card-lightblue, .cm-card-white, .cm-card-new-pink, .cm-card-new-red, .cm-card-new-orange, .cm-card-new-green, .cm-card-new-turquoise, .cm-card-new-blue, .cm-card-new-purple, .form-control, #password-reset input[type='email'], .form-control:focus {
+.border-4, .cm-card-primary, .cm-card-secondary, .cm-card-success, .cm-card-info, .cm-card-warning, .cm-card-danger, .cm-card-light, .cm-card-dark, .cm-card-blue, .cm-card-orange, .cm-card-purple, .cm-card-green, .cm-card-pink, .cm-card-lightblue, .cm-card-darkblue, .cm-card-white, .cm-card-new-pink, .cm-card-new-red, .cm-card-new-orange, .cm-card-new-green, .cm-card-new-turquoise, .cm-card-new-blue, .cm-card-new-purple, .form-control, #password-reset input[type='email'], .form-control:focus {
   border-width: 4px !important; }
 
 [v-cloak] {
