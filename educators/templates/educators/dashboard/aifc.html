@@ -31,24 +31,42 @@
         </p>
       </div>
     </div>
-    <h2 class="aifc-pages-subtitle mt-4">Lessons</h2>
-    <div class="row mt-3">
+  </div>
+</div>
+<div class="container-fluid bg-orange py-5">
+  <div class="container">
+    <div class="col-lg-8">
+      <h2 class="headings-font">Lessons</h2>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid py-4">
+  <div class="container">
+    <div class="row">
       {% for obj in lessons %}
-      <div class="col-lg-4 col-md-6 mb-1">
+      <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-4 offset-md-0 offset-lg-0 col-xl-5ths">
         {% include 'educators/dashboard/_challenge_or_lesson_card.html'%}
       </div>
       {% endfor %}
     </div>
+  </div>
+</div>
 
+<div class="container-fluid bg-blue py-5">
+  <div class="container">
     <div class="row">
-      <div class="my-4 ml-3 border aifc-pages-rounded-box p-4">
+      <div class="offset-lg-1 col-lg-10 base-type">
         {% impact_survey %}
       </div>
     </div>
   </div>
 </div>
+</div>
+
+
 {% endblock %}
 
 {% block js %}
-  {% impact_survey_js %}
+{% impact_survey_js %}
 {% endblock %}
