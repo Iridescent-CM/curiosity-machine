@@ -1,6 +1,6 @@
 {% load resized %}
 
-<div class="card cm-card mb-3">
+<div class="card challenge-or-lesson-card cm-card mb-3">
   <a href="{{ obj.url }}">
     <img class="card-img-top" src="{% resized obj.image.url width=300 height=190 crop='fill' %}" alt="{{ obj.name }}">
   </a>

@@ -1,73 +1,68 @@
 {% load widget_tweaks %}
-<h2 class="aifc-pages-subtitle">Your Impact</h2>
-<hr class="m-1 w-25">
-<div id="impact-survey-msg" class="my-2 submit-message">
-  <p class="before-submit mb-4">
-    Share your experience to improve the program! This information helps us improve and offer our resources to more people.
-  </p>
-  <p class="after-submit">
-    Thanks for helping us understand how you use our program! If your usage changes, you can submit your data again.
-  </p>
-</div>
-<div class="collapse" id="impact-collapse">
-  <form id="impact-survey"
-      action="{% url "educators:update_impact_survey" %}"
-      method="post" data-remote="true"
-  >
-    {% csrf_token %}
-    <h4>I use the site with...</h4>
-    <div class="form-group row">
-      <label class="col-12 col-md-3">
-        # students
-        {{ impact_form.student_count|add_class:"form-control"|attr:"placeholder:required" }}
-      </label>
-      <label class="col-12 col-md-3">
-        # teachers
-        {{ impact_form.teacher_count|add_class:"form-control" }}
-      </label>
+<div class="card cm-card-orange mb-5">
+  <div class="card-header">
+    <h4 class="card-title">Share your experience</h4>
+    <div id="impact-survey-msg" class="my-2 submit-message">
+      <p class="before-submit mb-4">
+        Your feedback can help us improve Technovation Families. We would love to hear from you!
+      </p>
+      <p class="after-submit">
+        Thanks for helping us understand how you use our program! If your usage changes, you can submit your data again.
+      </p>
     </div>
-    <h4>I have taught...</h4>
-    <div class="form-group row">
-      <label class="col-12 col-md-3">
-        # design challenges
-        {{ impact_form.challenge_count|add_class:"form-control"|attr:"placeholder:required" }}
-      </label>
-      <label class="col-6 col-md-3">
-        In the classroom
-        {{ impact_form.in_classroom|add_class:"form-check" }}
-      </label>
-      <label class="col-6 col-md-3">
-        Out of the classroom
-        {{ impact_form.out_of_classroom|add_class:"form-check" }}
-      </label>
-    </div>
-    <h4>My students take about...</h4>
-    <div class="form-group row">
-      <label class="col-12 col-md-3">
-        Hours per challenge
-        {{ impact_form.hours_per_challenge|add_class:"form-control" }}
-      </label>
-    </div>
-    <h4>Anything else you want to tell us?</h4>
-    <div class="form-group row">
-      <label class="col-12 col-md-6">
-        {{ impact_form.comment|add_class:"form-control"|attr:"placeholder:Add your comments here" }}
-      </label>
-    </div>
-    <div class="form-group row">
-      <div class="col-12 col-md-9">
-        <input type="submit" value="Save" class="btn btn-primary" disabled="disabled" data-disable-with="Saving...">
-          <span id="impact-survey-status" class="ml-2"></span>
+  </div>
+  <div class="card-body collapse" id="impact-collapse">
+    <form id="impact-survey" action="{% url "educators:update_impact_survey" %}" method="post" data-remote="true">
+      {% csrf_token %}
+      <h4>I use the site with...</h4>
+      <div class="form-group row">
+        <label class="col-12 col-md-3">
+          # students
+          {{ impact_form.student_count|add_class:"form-control"|attr:"placeholder:required" }}
+        </label>
+        <label class="col-12 col-md-3">
+          # teachers
+          {{ impact_form.teacher_count|add_class:"form-control" }}
+        </label>
       </div>
-    </div>
-  </form>
+      <h4>I have taught...</h4>
+      <div class="form-group row">
+        <label class="col-12 col-md-3">
+          # design challenges
+          {{ impact_form.challenge_count|add_class:"form-control"|attr:"placeholder:required" }}
+        </label>
+        <label class="col-6 col-md-3">
+          In the classroom
+          {{ impact_form.in_classroom|add_class:"form-check" }}
+        </label>
+        <label class="col-6 col-md-3">
+          Out of the classroom
+          {{ impact_form.out_of_classroom|add_class:"form-check" }}
+        </label>
+      </div>
+      <h4>My students take about...</h4>
+      <div class="form-group row">
+        <label class="col-12 col-md-3">
+          Hours per challenge
+          {{ impact_form.hours_per_challenge|add_class:"form-control" }}
+        </label>
+      </div>
+      <h4>Anything else you want to tell us?</h4>
+      <div class="form-group row">
+        <label class="col-12 col-md-6">
+          {{ impact_form.comment|add_class:"form-control"|attr:"placeholder:Add your comments here" }}
+        </label>
+      </div>
+      <div class="form-group row">
+        <div class="col-12 col-md-9">
+          <input type="submit" value="Save" class="btn btn-blue" disabled="disabled" data-disable-with="Saving...">
+          <span id="impact-survey-status" class="ml-2"></span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-body">
+    <a data-toggle="collapse" href="#impact-collapse" id="impact-collapse-trigger" data-show-text='Show'
+      data-hide-text='Hide' class="btn btn-outline-blue" aria-expanded="false" aria-controls="impact-collapse">Show</a>
+  </div>
 </div>
-<a 
-  data-toggle="collapse" href="#impact-collapse"
-  id="impact-collapse-trigger"
-  data-show-text='Show' data-hide-text='Hide'
-  class="btn btn-outline-primary"
-  aria-expanded="false" aria-controls="impact-collapse"
->Show</a>
- 
-
