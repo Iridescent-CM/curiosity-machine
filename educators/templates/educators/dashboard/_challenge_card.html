@@ -3,7 +3,8 @@
 <div class="card cm-fancy-card mb-3">
 
   <a href="{% url "challenges:preview_inspiration" challenge_id=challenge.id %}">
-    <img class="card-img-top" src="{% resized challenge.image.url width=545 height=240 crop='fill' %}" alt="{{ challenge.name }}">
+    <img class="card-img-top" src="{% resized challenge.image.url width=545 height=240 crop='fill' %}"
+      alt="{{ challenge.name }}">
   </a>
 
   <div class="card-body pb-5">
@@ -16,21 +17,15 @@
     {% if show_detail_links %}
     {% if group_selector.has_groups %}
     <div class="dropdown">
-      <a class="btn btn-secondary dropdown-toggle"
-        href="#"
-        id="dropdown-{{ challenge.id }}"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
+      <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdown-{{ challenge.id }}" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
         View student progress
       </a>
 
       <div class="dropdown-menu text-capitalize" aria-labelledby="dropdownMenuLink-{{ challenge.id }}">
         {% for group in group_selector.options %}
         <a class="dropdown-item"
-          href="{% url 'educators:challenge' challenge_id=challenge.id %}?{{ group.GET.urlencode }}"
-        >
+          href="{% url 'educators:challenge' challenge_id=challenge.id %}?{{ group.GET.urlencode }}">
           {{ group.text }}
         </a>
         {% endfor %}
@@ -44,14 +39,9 @@
     {% endif %}
   </div>
 
-  <a class="card-body-toggle"
-    data-text-swap="&minus; LESS INFO"
-    data-toggle="collapse"
-    href="#moreInfo-{{ challenge.id }}"
-    aria-expanded="false"
-    aria-controls="moreInfo-{{ challenge.id }}"
-  >
-    &plus; MORE INFO
+  <a class="card-body-toggle" data-text-swap="&minus;" data-toggle="collapse" href="#moreInfo-{{ challenge.id }}"
+    aria-expanded="false" aria-controls="moreInfo-{{ challenge.id }}">
+    &plus;
   </a>
   <div class="card-body pb-4 card-divider collapse" id="moreInfo-{{ challenge.id }}">
     <h4 class="card-section-title">DESCRIPTION</h4>
