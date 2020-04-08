@@ -9100,8 +9100,8 @@ footer {
 .cm-card-new-turquoise .card-body .card-title a,
 .cm-card-new-blue .card-body .card-title a,
 .cm-card-new-purple .card-body .card-title a {
-  font-weight: 700;
-  color: #333333;
+  color: #000000;
+  font-weight: bold;
   margin-bottom: 0; }
   .cm-card .card-body .card-title:hover, .cm-card .card-body .card-title:focus,
   .cm-card .card-body .card-title a:hover,
@@ -9202,28 +9202,27 @@ footer {
   .cm-card-new-turquoise .card-body .card-title a:focus,
   .cm-card-new-blue .card-body .card-title a:focus,
   .cm-card-new-purple .card-body .card-title a:focus {
-    color: #707070;
+    color: #4d4d4d;
     text-decoration: none; }
 
-.cm-fancy-card .card-body {
-  background-color: #fffcf7; }
-  .cm-fancy-card .card-body .dropdown-toggle {
-    border: 1px solid #cccccc; }
-  .cm-fancy-card .card-body .card-title {
-    color: #333333;
-    margin: 0.5em 0 1em 0; }
-    .cm-fancy-card .card-body .card-title a {
-      color: #333333; }
-      .cm-fancy-card .card-body .card-title a:hover, .cm-fancy-card .card-body .card-title a:focus {
-        text-decoration: none;
-        color: #0076cf; }
-  .cm-fancy-card .card-body .card-section-title {
-    font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
-    font-size: 0.875em;
-    font-weight: normal;
-    text-transform: capitalize;
-    letter-spacing: 2px;
-    margin-top: 0.75em; }
+.cm-fancy-card .card-body .dropdown-toggle {
+  color: #5bc2e7; }
+
+.cm-fancy-card .card-body .card-title {
+  color: #000000;
+  font-weight: bold;
+  font-size: 0.875em; }
+  .cm-fancy-card .card-body .card-title a {
+    color: #000000; }
+    .cm-fancy-card .card-body .card-title a:hover, .cm-fancy-card .card-body .card-title a:focus {
+      color: #4d4d4d;
+      text-decoration: none; }
+
+.cm-fancy-card .card-body .card-section-title {
+  color: #000000;
+  font-weight: bold;
+  font-size: 0.875em;
+  margin-top: 0.75em; }
 
 .cm-info-card .card-header, .cm-card-primary .card-header, .cm-card-secondary .card-header, .cm-card-success .card-header, .cm-card-info .card-header, .cm-card-warning .card-header, .cm-card-danger .card-header, .cm-card-light .card-header, .cm-card-dark .card-header, .cm-card-blue .card-header, .cm-card-orange .card-header, .cm-card-purple .card-header, .cm-card-green .card-header, .cm-card-pink .card-header, .cm-card-lightblue .card-header, .cm-card-darkblue .card-header, .cm-card-white .card-header, .cm-card-new-pink .card-header, .cm-card-new-red .card-header, .cm-card-new-orange .card-header, .cm-card-new-green .card-header, .cm-card-new-turquoise .card-header, .cm-card-new-blue .card-header, .cm-card-new-purple .card-header,
 .cm-info-card .card-body,
@@ -9403,18 +9402,18 @@ footer {
   right: 0px;
   padding: 3px 7px;
   z-index: 100;
-  color: white;
-  background-color: #bcb19c;
-  font-size: 0.875em;
+  color: #0076cf;
+  font-size: 2em;
   letter-spacing: 2px;
   text-decoration: none;
   border-bottom-right-radius: 4px; }
   .card-body-toggle:hover {
-    background-color: #c6bdac;
+    background-color: #d9d9d9;
     text-decoration: none;
-    color: white; }
+    color: #0076cf; }
   .card-body-toggle:focus {
-    background-color: #ff7500; }
+    background-color: #0076cf;
+    color: #ffffff; }
 
 .cm-card-primary .card-header,
 .cm-card-primary .card-footer {
