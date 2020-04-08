@@ -3,7 +3,8 @@
 <div class="card cm-fancy-card mb-3 challenge-{{ lesson.state }}">
 
   <a href="{% url "lessons:lesson-progress-find-or-create" %}?lesson={{ lesson.id }}">
-    <img class="card-img-top mr-1" src="{% resized lesson.card_image.url width=545 height=240 crop='fill' %}" alt="{{ lesson.title }}">
+    <img class="card-img-top mr-1" src="{% resized lesson.card_image.url width=545 height=240 crop='fill' %}"
+      alt="{{ lesson.title }}">
   </a>
 
   <div class="card-body pb-5">
@@ -12,14 +13,9 @@
     </a>
   </div>
 
-  <a class="card-body-toggle"
-    data-text-swap="&minus; LESS INFO"
-    data-toggle="collapse"
-    href="#card-{{ lesson.id }}"
-    aria-expanded="false"
-    aria-controls="card-{{ lesson.id }}"
-  >
-    &plus; MORE INFO
+  <a class="card-body-toggle" data-text-swap="&minus;" data-toggle="collapse" href="#card-{{ lesson.id }}"
+    aria-expanded="false" aria-controls="card-{{ lesson.id }}">
+    &plus;
   </a>
 
   <div class="card-body pb-4 card-divider collapse" id="card-{{ lesson.id }}">
