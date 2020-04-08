@@ -2,26 +2,24 @@
 
 <div class="card cm-fancy-card mb-3 challenge-{{ challenge.state }}">
 
-  <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=user.username %}" class="a-borderless">
-    <img class="card-img-top mr-1" src="{% resized challenge.image.url width=545 height=240 crop='fill' %}" alt="{{ challenge.name }}">
+  <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=user.username %}"
+    class="a-borderless">
+    <img class="card-img-top mr-1" src="{% resized challenge.image.url width=545 height=240 crop='fill' %}"
+      alt="{{ challenge.name }}">
   </a>
 
   <div class="card-body pb-5">
     <h3 class="card-title">
-      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=user.username %}" class="a-borderless">
+      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=user.username %}"
+        class="a-borderless">
         {{ challenge.name }}
       </a>
     </h3>
   </div>
 
-  <a class="card-body-toggle"
-    data-text-swap="&minus; LESS INFO"
-    data-toggle="collapse"
-    href="#challenge-{{ challenge.id }}"
-    aria-expanded="false"
-    aria-controls="challenge-{{ challenge.id }}"
-  >
-    &plus; MORE INFO
+  <a class="card-body-toggle" data-text-swap="&minus;" data-toggle="collapse" href="#challenge-{{ challenge.id }}"
+    aria-expanded="false" aria-controls="challenge-{{ challenge.id }}">
+    &plus;
   </a>
 
   <div class="card-body pb-4 card-divider collapse" id="challenge-{{ challenge.id }}">
