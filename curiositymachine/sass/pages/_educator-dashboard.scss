@@ -28,8 +28,8 @@
     height: 48px;
 
     img {
+      @extend .leaf-border;
       background-color: $white;
-      border-radius: 50%;
       box-shadow: 0px 2px 4px 0px $main-shadow;
       max-width: 48px;
     }
