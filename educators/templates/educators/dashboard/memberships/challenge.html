@@ -2,7 +2,7 @@
 {% block title %}{{ challenge.name }}'s Students{% endblock %}
 
 {% block content %}
-  {% url "educators:home" as base_url %}
+{% url "educators:home" as base_url %}
 <div class="container pb-3">
   <div class="row mb-1">
     <div class="col-md-12">
@@ -16,34 +16,22 @@
       <div class="well-shadow mb-3 clearfix">
 
         <div class="dropdown float-md-left mb-2 mr-3">
-          <a class="dropdown-toggle"
-            href="#"
-            id="challengesDropdown"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
+          <a class="dropdown-toggle" href="#" id="challengesDropdown" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             Choose design challenge
           </a>
           <div class="dropdown-menu" aria-labelledby="challengesDropdown">
             {% for challenge in challenge_links %}
-            <a
-              class="dropdown-item"
-              href="{% url "educators:challenge" challenge_id=challenge.id %}?{{ request.GET.urlencode }}"
-              >{{ challenge.name }}</a>
+            <a class="dropdown-item"
+              href="{% url "educators:challenge" challenge_id=challenge.id %}?{{ request.GET.urlencode }}">{{ challenge.name }}</a>
             {% endfor %}
           </div>
         </div>
 
         {% if group_selector.has_groups %}
         <div class="dropdown float-md-left mb-2 mr-3">
-          <a class="dropdown-toggle"
-            href="#"
-            id="challengesDropdown"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
+          <a class="dropdown-toggle" href="#" id="challengesDropdown" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             Choose group
           </a>
           <div class="dropdown-menu text-capitalize" aria-labelledby="challengesDropdown">
@@ -56,7 +44,8 @@
 
         <div class="float-md-right">
           <div class="dropdown">
-            <a class="dropdown-toggle" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="dropdown-toggle" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
               Sort by {{ sorter.selected|lower }}
             </a>
             <div class="dropdown-menu" aria-labelledby="sortDropdown">
@@ -124,17 +113,17 @@
           <tr>
 
             {% for count in student.user_comment_counts_by_stage %}
-              {% if count %}
-                <td class="data">{{ count }}</td>
-              {% else %}
-                <td class="no-data"><i class="icon-cross"></i></td>
-              {% endif %}
+            {% if count %}
+            <td class="data">{{ count }}</td>
+            {% else %}
+            <td class="no-data"><i class="icon-cross"></i></td>
+            {% endif %}
             {% endfor %}
 
             {% if student.id in student_ids_with_examples %}
-              <td class="data"><i class="icon-check"></i></td>
+            <td class="data"><i class="icon-check"></i></td>
             {% else %}
-              <td class="no-data"><i class="icon-cross"></i></td>
+            <td class="no-data"><i class="icon-cross"></i></td>
             {% endif %}
 
           </tr>
@@ -142,7 +131,8 @@
       </table>
     </div>
     <div class="col-lg-1">
-      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=student.username %}" class="text-nowrap">View &rarr;</a>
+      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=student.username %}"
+        class="text-nowrap">View &rarr;</a>
       <hr class="d-lg-none" />
     </div>
   </div>
@@ -151,19 +141,19 @@
 {% endblock %}
 
 {% block js %}
-  {{ block.super }}
-  <script>
-    var fixmeTop = $('.dcprogressheader').offset().top;
+{{ block.super }}
+<script>
+  var fixmeTop = $('.dcprogressheader').offset().top;
 
-    $(window).scroll(function() {
-      var currentScroll = $(window).scrollTop();
-      if (currentScroll >= fixmeTop) {
-        $('.dcprogressheader').addClass( "fixedheader" );
-        $('.dc-progress').addClass( "fixedheader-height");
-      } else {
-        $('.dcprogressheader').removeClass( "fixedheader" );
-        $('.dc-progress').removeClass( "fixedheader-height");
-      }
-    });
-  </script>
+  $(window).scroll(function () {
+    var currentScroll = $(window).scrollTop();
+    if (currentScroll >= fixmeTop) {
+      $('.dcprogressheader').addClass("fixedheader");
+      $('.dc-progress').addClass("fixedheader-height");
+    } else {
+      $('.dcprogressheader').removeClass("fixedheader");
+      $('.dc-progress').removeClass("fixedheader-height");
+    }
+  });
+</script>
 {% endblock %}
