@@ -88,6 +88,7 @@ INSTALLED_APPS = (
     'cmcomments',
     'videos',
     'images',
+    'seasons.apps.SeasonsConfig',
     'documents',
     'django_rq',
     'hellosign.apps.HellosignConfig',
@@ -126,6 +127,7 @@ MIDDLEWARE = [
     'curiositymachine.middleware.LastActiveMiddleware',
     'curiositymachine.middleware.FirstLoginMiddleware',
     'families.middleware.SignUpPrerequisitesMiddleware',
+    'seasons.middleware.SeasonParticipationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
@@ -316,6 +318,11 @@ AICHALLENGE_STAGES = {
 }
 AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID=os.getenv("AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID", "")
 AICHALLENGE_SEASON_OPEN=os.getenv('AICHALLENGE_SEASON_OPEN', False)
+
+from django.utils.dateparse import parse_datetime
+SEASON_START_DATETIME=parse_datetime(os.getenv('SEASON_START_DATETIME')) if os.getenv('SEASON_START_DATETIME') else None
+SEASON_END_DATETIME=parse_datetime(os.getenv('SEASON_END_DATETIME')) if os.getenv('SEASON_END_DATETIME') else None
+SEASON_NAME=os.getenv('SEASON_NAME')
 
 NOTIFICATION_RECIPIENTS = os.getenv("NOTIFICATION_RECIPIENTS").split(',') if os.getenv("NOTIFICATION_RECIPIENTS") else []
 MEMBER_IMPORT_EXPIRATION_DAYS = os.environ.get("MEMBER_IMPORT_EXPIRATION_DAYS", 7)
