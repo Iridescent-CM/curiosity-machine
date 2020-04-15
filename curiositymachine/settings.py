@@ -1,6 +1,7 @@
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import sys
+from django.utils.dateparse import parse_datetime
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -319,7 +320,6 @@ AICHALLENGE_STAGES = {
 AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID=os.getenv("AICHALLENGE_FAMILY_CONSENT_TEMPLATE_ID", "")
 AICHALLENGE_SEASON_OPEN=os.getenv('AICHALLENGE_SEASON_OPEN', False)
 
-from django.utils.dateparse import parse_datetime
 SEASON_START_DATETIME=parse_datetime(os.getenv('SEASON_START_DATETIME')) if os.getenv('SEASON_START_DATETIME') else None
 SEASON_END_DATETIME=parse_datetime(os.getenv('SEASON_END_DATETIME')) if os.getenv('SEASON_END_DATETIME') else None
 SEASON_NAME=os.getenv('SEASON_NAME')
