@@ -14,16 +14,16 @@ class ConfiguredSeason:
 
     @cached_property
     def slug(self):
-        if self.season_configured() and self.in_season():
+        if self.in_season():
             return self.start.isoformat() + ' ' + self.end.isoformat() + ' ' + self.name
         else:
             return None
 
     def season_configured(self):
-        return self.start and self.end and self.name
+        return bool(self.start and self.end and self.name)
 
     def in_season(self, now=now()):
-        return self.start <= now <= self.end
+        return bool(self.season_configured() and self.start <= now <= self.end)
 
 def get_season():
     start = settings.SEASON_START_DATETIME
