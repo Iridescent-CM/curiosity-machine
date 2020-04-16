@@ -6,7 +6,7 @@ from . import jobs
 
 SESSION_KEY = "SEASON_PARTICIPATION"
 
-class ConfiguredSeason:
+class SeasonConfig:
     def __init__(self, start, end, name):
         self.start = start
         self.end = end
@@ -25,20 +25,29 @@ class ConfiguredSeason:
     def in_season(self, now=now()):
         return bool(self.season_configured() and self.start <= now <= self.end)
 
-def get_season():
+    @cached_property
+    def model_fields(self):
+        return {
+            'start': self.start,
+            'end': self.end,
+            'name': self.name
+        }
+
+
+def get_season_config():
     start = settings.SEASON_START_DATETIME
     end = settings.SEASON_END_DATETIME
     name = settings.SEASON_NAME
 
-    return ConfiguredSeason(start, end, name)
+    return SeasonConfig(start, end, name)
 
 class SeasonParticipationMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         if request.user.is_authenticated:
-            season = get_season()
-            if season.slug and request.session.get(SESSION_KEY, None) != season.slug:
-                jobs.record_season(season, request.user)
-                request.session[SESSION_KEY] = season.slug
+            config = get_season_config()
+            if config.slug and request.session.get(SESSION_KEY, None) != config.slug:
+                jobs.record_season(config, request.user)
+                request.session[SESSION_KEY] = config.slug
 
         return None
