@@ -9706,13 +9706,13 @@ footer {
   right: 0;
   margin-right: 1em; }
   .activity-list-group .badge.plan-stage, .activity-list-group .family-dashboard .list-dots .plan-stage.dot, .family-dashboard .list-dots .activity-list-group .plan-stage.dot {
-    background-color: #43b02a; }
+    background-color: #ffb81c; }
   .activity-list-group .badge.build-stage, .activity-list-group .family-dashboard .list-dots .build-stage.dot, .family-dashboard .list-dots .activity-list-group .build-stage.dot {
-    background-color: #5bc2e7; }
+    background-color: #43b02a; }
   .activity-list-group .badge.test-stage, .activity-list-group .family-dashboard .list-dots .test-stage.dot, .family-dashboard .list-dots .activity-list-group .test-stage.dot {
     background-color: #ff7500; }
   .activity-list-group .badge.reflect-stage, .activity-list-group .family-dashboard .list-dots .reflect-stage.dot, .family-dashboard .list-dots .activity-list-group .reflect-stage.dot {
-    background-color: #0076cf; }
+    background-color: #d0006f; }
   @media (min-width: 768px) {
     .activity-list-group .badge .timesince, .activity-list-group .family-dashboard .list-dots .dot .timesince, .family-dashboard .list-dots .activity-list-group .dot .timesince {
       display: inline;
