@@ -18,33 +18,28 @@
 
     {% for membership in membership_selection.all %}
 
-      {% if membership.show_expiring_notice %}
-      <div class="alert alert-info" role="alert">
-        <strong>{{ membership.display_name }}</strong> is expiring on {{
+    {% if membership.show_expiring_notice %}
+    <div class="alert alert-info" role="alert">
+      <strong>{{ membership.display_name }}</strong> is expiring on {{
         membership.expiration }}.
-        <a href="mailto:curiosity@iridescentlearning.org">Contact us</a> to
-        renew your membership.
-      </div>
-      {% endif %}
+      <a href="mailto:{{ emails.contact }}">Contact us</a> to
+      renew your membership.
+    </div>
+    {% endif %}
     {% endfor %}
 
     {% for membership in membership_selection.recently_expired %}
     <div class="alert alert-info" role="alert">
       <strong>{{ membership.display_name }}</strong> expired on {{
       membership.expiration }}.
-      <a href="mailto:curiosity@iridescentlearning.org">Contact us</a> to
+      <a href="mailto:{{ emails.contact }}">Contact us</a> to
       renew your membership.
     </div>
     {% endfor %}
 
     {% if messages %}{% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
       {{ message }}
