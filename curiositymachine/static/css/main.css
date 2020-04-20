@@ -8826,6 +8826,10 @@ footer {
 .avatar-shadow img {
   box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5); }
 
+.leaf-avatar img {
+  display: inline-block;
+  background-color: white; }
+
 .btn, .account-settings .avatar-settings .pickwidget .pickwidget-button {
   font-size: 18px;
   font-weight: 700; }
@@ -10888,7 +10892,7 @@ footer {
   [class*='bg-pattern-'] {
     background-attachment: scroll; } }
 
-.leaf-border, .account-settings .avatar-settings img, .educator-dashboard .student-list-avatar img {
+.leaf-border, .leaf-avatar img, .account-settings .avatar-settings img, .educator-dashboard .student-list-avatar img {
   border-radius: 2% 22%; }
 
 .border-radius-1 {
