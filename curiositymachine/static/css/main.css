@@ -5817,13 +5817,16 @@ button.bg-new-purple:focus {
 .cm-card-warning .card-footer, .cm-card-danger .card-header,
 .cm-card-danger .card-footer, .cm-card-light .card-header,
 .cm-card-light .card-footer, .cm-card-dark .card-header,
-.cm-card-dark .card-footer, .cm-card-blue .card-header,
-.cm-card-blue .card-footer, .cm-card-orange .card-header,
+.cm-card-dark .card-footer, .cm-card-blue .card-header, .educator-dashboard-conversation .educator-comment .card-header,
+.cm-card-blue .card-footer,
+.educator-dashboard-conversation .educator-comment .card-footer, .cm-card-orange .card-header,
 .cm-card-orange .card-footer, .cm-card-purple .card-header,
 .cm-card-purple .card-footer, .cm-card-green .card-header,
 .cm-card-green .card-footer, .cm-card-pink .card-header,
-.cm-card-pink .card-footer, .cm-card-lightblue .card-header,
-.cm-card-lightblue .card-footer, .cm-card-darkblue .card-header,
+.cm-card-pink .card-footer, .cm-card-lightblue .card-header, .educator-dashboard-conversation .student-comment .card-header, .educator-dashboard-conversation .family-comment .card-header,
+.cm-card-lightblue .card-footer,
+.educator-dashboard-conversation .student-comment .card-footer,
+.educator-dashboard-conversation .family-comment .card-footer, .cm-card-darkblue .card-header,
 .cm-card-darkblue .card-footer, .cm-card-white .card-header,
 .cm-card-white .card-footer, .cm-card-new-pink .card-header,
 .cm-card-new-pink .card-footer, .cm-card-new-red .card-header,
@@ -5871,7 +5874,7 @@ button.bg-new-purple:focus {
 .border-dark, .cm-card-dark {
   border-color: #333333 !important; }
 
-.border-blue, .cm-card-blue {
+.border-blue, .cm-card-blue, .educator-dashboard-conversation .educator-comment {
   border-color: #0076cf !important; }
 
 .border-orange, .cm-card-orange, .form-control, #password-reset input[type='email'], .form-control:focus {
@@ -5886,7 +5889,8 @@ button.bg-new-purple:focus {
 .border-pink, .cm-card-pink {
   border-color: #d0006f !important; }
 
-.border-lightblue, .cm-card-lightblue {
+.border-lightblue, .cm-card-lightblue, .educator-dashboard-conversation .student-comment,
+.educator-dashboard-conversation .family-comment {
   border-color: #5bc2e7 !important; }
 
 .border-darkblue, .cm-card-darkblue {
@@ -5949,13 +5953,16 @@ button.bg-new-purple:focus {
 .cm-card-warning .card-footer, .cm-card-danger .card-header,
 .cm-card-danger .card-footer, .cm-card-light .card-header,
 .cm-card-light .card-footer, .cm-card-dark .card-header,
-.cm-card-dark .card-footer, .cm-card-blue .card-header,
-.cm-card-blue .card-footer, .cm-card-orange .card-header,
+.cm-card-dark .card-footer, .cm-card-blue .card-header, .educator-dashboard-conversation .educator-comment .card-header,
+.cm-card-blue .card-footer,
+.educator-dashboard-conversation .educator-comment .card-footer, .cm-card-orange .card-header,
 .cm-card-orange .card-footer, .cm-card-purple .card-header,
 .cm-card-purple .card-footer, .cm-card-green .card-header,
 .cm-card-green .card-footer, .cm-card-pink .card-header,
-.cm-card-pink .card-footer, .cm-card-lightblue .card-header,
-.cm-card-lightblue .card-footer, .cm-card-darkblue .card-header,
+.cm-card-pink .card-footer, .cm-card-lightblue .card-header, .educator-dashboard-conversation .student-comment .card-header, .educator-dashboard-conversation .family-comment .card-header,
+.cm-card-lightblue .card-footer,
+.educator-dashboard-conversation .student-comment .card-footer,
+.educator-dashboard-conversation .family-comment .card-footer, .cm-card-darkblue .card-header,
 .cm-card-darkblue .card-footer, .cm-card-white .card-header,
 .cm-card-white .card-footer, .cm-card-new-pink .card-header,
 .cm-card-new-pink .card-footer, .cm-card-new-red .card-header,
@@ -8863,11 +8870,14 @@ footer {
 .cm-card-light,
 .cm-card-dark,
 .cm-card-blue,
+.educator-dashboard-conversation .educator-comment,
 .cm-card-orange,
 .cm-card-purple,
 .cm-card-green,
 .cm-card-pink,
 .cm-card-lightblue,
+.educator-dashboard-conversation .student-comment,
+.educator-dashboard-conversation .family-comment,
 .cm-card-darkblue,
 .cm-card-white,
 .cm-card-new-pink,
@@ -8891,11 +8901,14 @@ footer {
   .cm-card-light .card-body,
   .cm-card-dark .card-body,
   .cm-card-blue .card-body,
+  .educator-dashboard-conversation .educator-comment .card-body,
   .cm-card-orange .card-body,
   .cm-card-purple .card-body,
   .cm-card-green .card-body,
   .cm-card-pink .card-body,
   .cm-card-lightblue .card-body,
+  .educator-dashboard-conversation .student-comment .card-body,
+  .educator-dashboard-conversation .family-comment .card-body,
   .cm-card-darkblue .card-body,
   .cm-card-white .card-body,
   .cm-card-new-pink .card-body,
@@ -8922,11 +8935,14 @@ footer {
   .cm-card-light .card-flags > *,
   .cm-card-dark .card-flags > *,
   .cm-card-blue .card-flags > *,
+  .educator-dashboard-conversation .educator-comment .card-flags > *,
   .cm-card-orange .card-flags > *,
   .cm-card-purple .card-flags > *,
   .cm-card-green .card-flags > *,
   .cm-card-pink .card-flags > *,
   .cm-card-lightblue .card-flags > *,
+  .educator-dashboard-conversation .student-comment .card-flags > *,
+  .educator-dashboard-conversation .family-comment .card-flags > *,
   .cm-card-darkblue .card-flags > *,
   .cm-card-white .card-flags > *,
   .cm-card-new-pink .card-flags > *,
@@ -8950,11 +8966,14 @@ footer {
   .cm-card-light .card-flag,
   .cm-card-dark .card-flag,
   .cm-card-blue .card-flag,
+  .educator-dashboard-conversation .educator-comment .card-flag,
   .cm-card-orange .card-flag,
   .cm-card-purple .card-flag,
   .cm-card-green .card-flag,
   .cm-card-pink .card-flag,
   .cm-card-lightblue .card-flag,
+  .educator-dashboard-conversation .student-comment .card-flag,
+  .educator-dashboard-conversation .family-comment .card-flag,
   .cm-card-darkblue .card-flag,
   .cm-card-white .card-flag,
   .cm-card-new-pink .card-flag,
@@ -8983,11 +9002,14 @@ footer {
     .cm-card-light .card-flag:after,
     .cm-card-dark .card-flag:after,
     .cm-card-blue .card-flag:after,
+    .educator-dashboard-conversation .educator-comment .card-flag:after,
     .cm-card-orange .card-flag:after,
     .cm-card-purple .card-flag:after,
     .cm-card-green .card-flag:after,
     .cm-card-pink .card-flag:after,
     .cm-card-lightblue .card-flag:after,
+    .educator-dashboard-conversation .student-comment .card-flag:after,
+    .educator-dashboard-conversation .family-comment .card-flag:after,
     .cm-card-darkblue .card-flag:after,
     .cm-card-white .card-flag:after,
     .cm-card-new-pink .card-flag:after,
@@ -9020,11 +9042,14 @@ footer {
     .cm-card-light .card-flag:before,
     .cm-card-dark .card-flag:before,
     .cm-card-blue .card-flag:before,
+    .educator-dashboard-conversation .educator-comment .card-flag:before,
     .cm-card-orange .card-flag:before,
     .cm-card-purple .card-flag:before,
     .cm-card-green .card-flag:before,
     .cm-card-pink .card-flag:before,
     .cm-card-lightblue .card-flag:before,
+    .educator-dashboard-conversation .student-comment .card-flag:before,
+    .educator-dashboard-conversation .family-comment .card-flag:before,
     .cm-card-darkblue .card-flag:before,
     .cm-card-white .card-flag:before,
     .cm-card-new-pink .card-flag:before,
@@ -9066,11 +9091,14 @@ footer {
 .cm-card-light .card-body .card-title,
 .cm-card-dark .card-body .card-title,
 .cm-card-blue .card-body .card-title,
+.educator-dashboard-conversation .educator-comment .card-body .card-title,
 .cm-card-orange .card-body .card-title,
 .cm-card-purple .card-body .card-title,
 .cm-card-green .card-body .card-title,
 .cm-card-pink .card-body .card-title,
 .cm-card-lightblue .card-body .card-title,
+.educator-dashboard-conversation .student-comment .card-body .card-title,
+.educator-dashboard-conversation .family-comment .card-body .card-title,
 .cm-card-darkblue .card-body .card-title,
 .cm-card-white .card-body .card-title,
 .cm-card-new-pink .card-body .card-title,
@@ -9090,11 +9118,14 @@ footer {
 .cm-card-light .card-body .card-title a,
 .cm-card-dark .card-body .card-title a,
 .cm-card-blue .card-body .card-title a,
+.educator-dashboard-conversation .educator-comment .card-body .card-title a,
 .cm-card-orange .card-body .card-title a,
 .cm-card-purple .card-body .card-title a,
 .cm-card-green .card-body .card-title a,
 .cm-card-pink .card-body .card-title a,
 .cm-card-lightblue .card-body .card-title a,
+.educator-dashboard-conversation .student-comment .card-body .card-title a,
+.educator-dashboard-conversation .family-comment .card-body .card-title a,
 .cm-card-darkblue .card-body .card-title a,
 .cm-card-white .card-body .card-title a,
 .cm-card-new-pink .card-body .card-title a,
@@ -9120,11 +9151,14 @@ footer {
   .cm-card-light .card-body .card-title:hover,
   .cm-card-dark .card-body .card-title:hover,
   .cm-card-blue .card-body .card-title:hover,
+  .educator-dashboard-conversation .educator-comment .card-body .card-title:hover,
   .cm-card-orange .card-body .card-title:hover,
   .cm-card-purple .card-body .card-title:hover,
   .cm-card-green .card-body .card-title:hover,
   .cm-card-pink .card-body .card-title:hover,
   .cm-card-lightblue .card-body .card-title:hover,
+  .educator-dashboard-conversation .student-comment .card-body .card-title:hover,
+  .educator-dashboard-conversation .family-comment .card-body .card-title:hover,
   .cm-card-darkblue .card-body .card-title:hover,
   .cm-card-white .card-body .card-title:hover,
   .cm-card-new-pink .card-body .card-title:hover,
@@ -9144,11 +9178,14 @@ footer {
   .cm-card-light .card-body .card-title:focus,
   .cm-card-dark .card-body .card-title:focus,
   .cm-card-blue .card-body .card-title:focus,
+  .educator-dashboard-conversation .educator-comment .card-body .card-title:focus,
   .cm-card-orange .card-body .card-title:focus,
   .cm-card-purple .card-body .card-title:focus,
   .cm-card-green .card-body .card-title:focus,
   .cm-card-pink .card-body .card-title:focus,
   .cm-card-lightblue .card-body .card-title:focus,
+  .educator-dashboard-conversation .student-comment .card-body .card-title:focus,
+  .educator-dashboard-conversation .family-comment .card-body .card-title:focus,
   .cm-card-darkblue .card-body .card-title:focus,
   .cm-card-white .card-body .card-title:focus,
   .cm-card-new-pink .card-body .card-title:focus,
@@ -9168,11 +9205,14 @@ footer {
   .cm-card-light .card-body .card-title a:hover,
   .cm-card-dark .card-body .card-title a:hover,
   .cm-card-blue .card-body .card-title a:hover,
+  .educator-dashboard-conversation .educator-comment .card-body .card-title a:hover,
   .cm-card-orange .card-body .card-title a:hover,
   .cm-card-purple .card-body .card-title a:hover,
   .cm-card-green .card-body .card-title a:hover,
   .cm-card-pink .card-body .card-title a:hover,
   .cm-card-lightblue .card-body .card-title a:hover,
+  .educator-dashboard-conversation .student-comment .card-body .card-title a:hover,
+  .educator-dashboard-conversation .family-comment .card-body .card-title a:hover,
   .cm-card-darkblue .card-body .card-title a:hover,
   .cm-card-white .card-body .card-title a:hover,
   .cm-card-new-pink .card-body .card-title a:hover,
@@ -9192,11 +9232,14 @@ footer {
   .cm-card-light .card-body .card-title a:focus,
   .cm-card-dark .card-body .card-title a:focus,
   .cm-card-blue .card-body .card-title a:focus,
+  .educator-dashboard-conversation .educator-comment .card-body .card-title a:focus,
   .cm-card-orange .card-body .card-title a:focus,
   .cm-card-purple .card-body .card-title a:focus,
   .cm-card-green .card-body .card-title a:focus,
   .cm-card-pink .card-body .card-title a:focus,
   .cm-card-lightblue .card-body .card-title a:focus,
+  .educator-dashboard-conversation .student-comment .card-body .card-title a:focus,
+  .educator-dashboard-conversation .family-comment .card-body .card-title a:focus,
   .cm-card-darkblue .card-body .card-title a:focus,
   .cm-card-white .card-body .card-title a:focus,
   .cm-card-new-pink .card-body .card-title a:focus,
@@ -9228,7 +9271,7 @@ footer {
   font-size: 0.875em;
   margin-top: 0.75em; }
 
-.cm-info-card .card-header, .cm-card-primary .card-header, .cm-card-secondary .card-header, .cm-card-success .card-header, .cm-card-info .card-header, .cm-card-warning .card-header, .cm-card-danger .card-header, .cm-card-light .card-header, .cm-card-dark .card-header, .cm-card-blue .card-header, .cm-card-orange .card-header, .cm-card-purple .card-header, .cm-card-green .card-header, .cm-card-pink .card-header, .cm-card-lightblue .card-header, .cm-card-darkblue .card-header, .cm-card-white .card-header, .cm-card-new-pink .card-header, .cm-card-new-red .card-header, .cm-card-new-orange .card-header, .cm-card-new-green .card-header, .cm-card-new-turquoise .card-header, .cm-card-new-blue .card-header, .cm-card-new-purple .card-header,
+.cm-info-card .card-header, .cm-card-primary .card-header, .cm-card-secondary .card-header, .cm-card-success .card-header, .cm-card-info .card-header, .cm-card-warning .card-header, .cm-card-danger .card-header, .cm-card-light .card-header, .cm-card-dark .card-header, .cm-card-blue .card-header, .educator-dashboard-conversation .educator-comment .card-header, .cm-card-orange .card-header, .cm-card-purple .card-header, .cm-card-green .card-header, .cm-card-pink .card-header, .cm-card-lightblue .card-header, .educator-dashboard-conversation .student-comment .card-header, .educator-dashboard-conversation .family-comment .card-header, .cm-card-darkblue .card-header, .cm-card-white .card-header, .cm-card-new-pink .card-header, .cm-card-new-red .card-header, .cm-card-new-orange .card-header, .cm-card-new-green .card-header, .cm-card-new-turquoise .card-header, .cm-card-new-blue .card-header, .cm-card-new-purple .card-header,
 .cm-info-card .card-body,
 .cm-card-primary .card-body,
 .cm-card-secondary .card-body,
@@ -9239,11 +9282,14 @@ footer {
 .cm-card-light .card-body,
 .cm-card-dark .card-body,
 .cm-card-blue .card-body,
+.educator-dashboard-conversation .educator-comment .card-body,
 .cm-card-orange .card-body,
 .cm-card-purple .card-body,
 .cm-card-green .card-body,
 .cm-card-pink .card-body,
 .cm-card-lightblue .card-body,
+.educator-dashboard-conversation .student-comment .card-body,
+.educator-dashboard-conversation .family-comment .card-body,
 .cm-card-darkblue .card-body,
 .cm-card-white .card-body,
 .cm-card-new-pink .card-body,
@@ -9263,11 +9309,14 @@ footer {
 .cm-card-light .card-footer,
 .cm-card-dark .card-footer,
 .cm-card-blue .card-footer,
+.educator-dashboard-conversation .educator-comment .card-footer,
 .cm-card-orange .card-footer,
 .cm-card-purple .card-footer,
 .cm-card-green .card-footer,
 .cm-card-pink .card-footer,
 .cm-card-lightblue .card-footer,
+.educator-dashboard-conversation .student-comment .card-footer,
+.educator-dashboard-conversation .family-comment .card-footer,
 .cm-card-darkblue .card-footer,
 .cm-card-white .card-footer,
 .cm-card-new-pink .card-footer,
@@ -9279,9 +9328,9 @@ footer {
 .cm-card-new-purple .card-footer {
   padding: 1.25em; }
 
-.cm-info-card .card-header, .cm-card-primary .card-header, .cm-card-secondary .card-header, .cm-card-success .card-header, .cm-card-info .card-header, .cm-card-warning .card-header, .cm-card-danger .card-header, .cm-card-light .card-header, .cm-card-dark .card-header, .cm-card-blue .card-header, .cm-card-orange .card-header, .cm-card-purple .card-header, .cm-card-green .card-header, .cm-card-pink .card-header, .cm-card-lightblue .card-header, .cm-card-darkblue .card-header, .cm-card-white .card-header, .cm-card-new-pink .card-header, .cm-card-new-red .card-header, .cm-card-new-orange .card-header, .cm-card-new-green .card-header, .cm-card-new-turquoise .card-header, .cm-card-new-blue .card-header, .cm-card-new-purple .card-header {
+.cm-info-card .card-header, .cm-card-primary .card-header, .cm-card-secondary .card-header, .cm-card-success .card-header, .cm-card-info .card-header, .cm-card-warning .card-header, .cm-card-danger .card-header, .cm-card-light .card-header, .cm-card-dark .card-header, .cm-card-blue .card-header, .educator-dashboard-conversation .educator-comment .card-header, .cm-card-orange .card-header, .cm-card-purple .card-header, .cm-card-green .card-header, .cm-card-pink .card-header, .cm-card-lightblue .card-header, .educator-dashboard-conversation .student-comment .card-header, .educator-dashboard-conversation .family-comment .card-header, .cm-card-darkblue .card-header, .cm-card-white .card-header, .cm-card-new-pink .card-header, .cm-card-new-red .card-header, .cm-card-new-orange .card-header, .cm-card-new-green .card-header, .cm-card-new-turquoise .card-header, .cm-card-new-blue .card-header, .cm-card-new-purple .card-header {
   background-color: #e5e1d9; }
-  .cm-info-card .card-header h1, .cm-card-primary .card-header h1, .cm-card-secondary .card-header h1, .cm-card-success .card-header h1, .cm-card-info .card-header h1, .cm-card-warning .card-header h1, .cm-card-danger .card-header h1, .cm-card-light .card-header h1, .cm-card-dark .card-header h1, .cm-card-blue .card-header h1, .cm-card-orange .card-header h1, .cm-card-purple .card-header h1, .cm-card-green .card-header h1, .cm-card-pink .card-header h1, .cm-card-lightblue .card-header h1, .cm-card-darkblue .card-header h1, .cm-card-white .card-header h1, .cm-card-new-pink .card-header h1, .cm-card-new-red .card-header h1, .cm-card-new-orange .card-header h1, .cm-card-new-green .card-header h1, .cm-card-new-turquoise .card-header h1, .cm-card-new-blue .card-header h1, .cm-card-new-purple .card-header h1,
+  .cm-info-card .card-header h1, .cm-card-primary .card-header h1, .cm-card-secondary .card-header h1, .cm-card-success .card-header h1, .cm-card-info .card-header h1, .cm-card-warning .card-header h1, .cm-card-danger .card-header h1, .cm-card-light .card-header h1, .cm-card-dark .card-header h1, .cm-card-blue .card-header h1, .educator-dashboard-conversation .educator-comment .card-header h1, .cm-card-orange .card-header h1, .cm-card-purple .card-header h1, .cm-card-green .card-header h1, .cm-card-pink .card-header h1, .cm-card-lightblue .card-header h1, .educator-dashboard-conversation .student-comment .card-header h1, .educator-dashboard-conversation .family-comment .card-header h1, .cm-card-darkblue .card-header h1, .cm-card-white .card-header h1, .cm-card-new-pink .card-header h1, .cm-card-new-red .card-header h1, .cm-card-new-orange .card-header h1, .cm-card-new-green .card-header h1, .cm-card-new-turquoise .card-header h1, .cm-card-new-blue .card-header h1, .cm-card-new-purple .card-header h1,
   .cm-info-card .card-header h2,
   .cm-card-primary .card-header h2,
   .cm-card-secondary .card-header h2,
@@ -9292,11 +9341,14 @@ footer {
   .cm-card-light .card-header h2,
   .cm-card-dark .card-header h2,
   .cm-card-blue .card-header h2,
+  .educator-dashboard-conversation .educator-comment .card-header h2,
   .cm-card-orange .card-header h2,
   .cm-card-purple .card-header h2,
   .cm-card-green .card-header h2,
   .cm-card-pink .card-header h2,
   .cm-card-lightblue .card-header h2,
+  .educator-dashboard-conversation .student-comment .card-header h2,
+  .educator-dashboard-conversation .family-comment .card-header h2,
   .cm-card-darkblue .card-header h2,
   .cm-card-white .card-header h2,
   .cm-card-new-pink .card-header h2,
@@ -9316,11 +9368,14 @@ footer {
   .cm-card-light .card-header h3,
   .cm-card-dark .card-header h3,
   .cm-card-blue .card-header h3,
+  .educator-dashboard-conversation .educator-comment .card-header h3,
   .cm-card-orange .card-header h3,
   .cm-card-purple .card-header h3,
   .cm-card-green .card-header h3,
   .cm-card-pink .card-header h3,
   .cm-card-lightblue .card-header h3,
+  .educator-dashboard-conversation .student-comment .card-header h3,
+  .educator-dashboard-conversation .family-comment .card-header h3,
   .cm-card-darkblue .card-header h3,
   .cm-card-white .card-header h3,
   .cm-card-new-pink .card-header h3,
@@ -9340,11 +9395,14 @@ footer {
   .cm-card-light .card-header h4,
   .cm-card-dark .card-header h4,
   .cm-card-blue .card-header h4,
+  .educator-dashboard-conversation .educator-comment .card-header h4,
   .cm-card-orange .card-header h4,
   .cm-card-purple .card-header h4,
   .cm-card-green .card-header h4,
   .cm-card-pink .card-header h4,
   .cm-card-lightblue .card-header h4,
+  .educator-dashboard-conversation .student-comment .card-header h4,
+  .educator-dashboard-conversation .family-comment .card-header h4,
   .cm-card-darkblue .card-header h4,
   .cm-card-white .card-header h4,
   .cm-card-new-pink .card-header h4,
@@ -9367,11 +9425,14 @@ footer {
 .cm-card-light .card-footer,
 .cm-card-dark .card-footer,
 .cm-card-blue .card-footer,
+.educator-dashboard-conversation .educator-comment .card-footer,
 .cm-card-orange .card-footer,
 .cm-card-purple .card-footer,
 .cm-card-green .card-footer,
 .cm-card-pink .card-footer,
 .cm-card-lightblue .card-footer,
+.educator-dashboard-conversation .student-comment .card-footer,
+.educator-dashboard-conversation .family-comment .card-footer,
 .cm-card-darkblue .card-footer,
 .cm-card-white .card-footer,
 .cm-card-new-pink .card-footer,
@@ -9459,8 +9520,9 @@ footer {
   background-color: #333333;
   color: #ffffff; }
 
-.cm-card-blue .card-header,
-.cm-card-blue .card-footer {
+.cm-card-blue .card-header, .educator-dashboard-conversation .educator-comment .card-header,
+.cm-card-blue .card-footer,
+.educator-dashboard-conversation .educator-comment .card-footer {
   background-color: #0076cf;
   color: #ffffff; }
 
@@ -9484,8 +9546,10 @@ footer {
   background-color: #d0006f;
   color: #ffffff; }
 
-.cm-card-lightblue .card-header,
-.cm-card-lightblue .card-footer {
+.cm-card-lightblue .card-header, .educator-dashboard-conversation .student-comment .card-header, .educator-dashboard-conversation .family-comment .card-header,
+.cm-card-lightblue .card-footer,
+.educator-dashboard-conversation .student-comment .card-footer,
+.educator-dashboard-conversation .family-comment .card-footer {
   background-color: #5bc2e7;
   color: #212529; }
 
@@ -10242,33 +10306,44 @@ footer {
 .educator-dashboard-conversation .feedback-form #id_visual_media_container {
   display: inline-block; }
 
-.educator-dashboard-conversation .feedback-form input[type='submit'] {
-  float: right; }
-
 .educator-dashboard-conversation .feedback-form textarea {
   width: 100%;
   height: 100px; }
 
-.educator-dashboard-conversation .student-comment img,
-.educator-dashboard-conversation .family-comment img {
-  width: 100%;
-  max-width: 475px; }
+.educator-dashboard-conversation .comment-card {
+  width: 80%; }
+  .educator-dashboard-conversation .comment-card .badge, .educator-dashboard-conversation .comment-card .family-dashboard .list-dots .dot, .family-dashboard .list-dots .educator-dashboard-conversation .comment-card .dot {
+    position: absolute;
+    right: 0;
+    margin-right: 1em; }
+    .educator-dashboard-conversation .comment-card .badge.plan-stage, .educator-dashboard-conversation .comment-card .family-dashboard .list-dots .plan-stage.dot, .family-dashboard .list-dots .educator-dashboard-conversation .comment-card .plan-stage.dot {
+      background-color: #ffb81c; }
+    .educator-dashboard-conversation .comment-card .badge.build-stage, .educator-dashboard-conversation .comment-card .family-dashboard .list-dots .build-stage.dot, .family-dashboard .list-dots .educator-dashboard-conversation .comment-card .build-stage.dot {
+      background-color: #43b02a; }
+    .educator-dashboard-conversation .comment-card .badge.test-stage, .educator-dashboard-conversation .comment-card .family-dashboard .list-dots .test-stage.dot, .family-dashboard .list-dots .educator-dashboard-conversation .comment-card .test-stage.dot {
+      background-color: #ff7500; }
+    .educator-dashboard-conversation .comment-card .badge.reflect-stage, .educator-dashboard-conversation .comment-card .family-dashboard .list-dots .reflect-stage.dot, .family-dashboard .list-dots .educator-dashboard-conversation .comment-card .reflect-stage.dot {
+      background-color: #d0006f; }
 
-.educator-dashboard-conversation .student-comment.stage-plan-comment .card-header,
-.educator-dashboard-conversation .family-comment.stage-plan-comment .card-header {
-  background-color: #f4f8ee; }
+.educator-dashboard-conversation .current-user {
+  float: right; }
 
-.educator-dashboard-conversation .student-comment.stage-build-comment .card-header,
-.educator-dashboard-conversation .family-comment.stage-build-comment .card-header {
-  background-color: #efeff7; }
+.educator-dashboard-conversation .other-user {
+  float: left; }
 
-.educator-dashboard-conversation .student-comment.stage-test-comment .card-header,
-.educator-dashboard-conversation .family-comment.stage-test-comment .card-header {
-  background-color: #feeeeb; }
+.educator-dashboard-conversation .student-comment,
+.educator-dashboard-conversation .family-comment {
+  width: 80%;
+  float: left; }
+  .educator-dashboard-conversation .student-comment img,
+  .educator-dashboard-conversation .family-comment img {
+    width: 100%;
+    max-width: 475px; }
 
-.educator-dashboard-conversation .student-comment.stage-reflect-comment .card-header,
-.educator-dashboard-conversation .family-comment.stage-reflect-comment .card-header {
-  background-color: #e6f7f9; }
+@media (max-width: 767.98px) {
+  .educator-dashboard-conversation .comment-card {
+    width: 100%;
+    display: block; } }
 
 #examples-page .cm-jumbotron {
   color: #fffcf7;
@@ -10916,7 +10991,8 @@ footer {
 .border-3 {
   border-width: 3px !important; }
 
-.border-4, .cm-card-primary, .cm-card-secondary, .cm-card-success, .cm-card-info, .cm-card-warning, .cm-card-danger, .cm-card-light, .cm-card-dark, .cm-card-blue, .cm-card-orange, .cm-card-purple, .cm-card-green, .cm-card-pink, .cm-card-lightblue, .cm-card-darkblue, .cm-card-white, .cm-card-new-pink, .cm-card-new-red, .cm-card-new-orange, .cm-card-new-green, .cm-card-new-turquoise, .cm-card-new-blue, .cm-card-new-purple, .form-control, #password-reset input[type='email'], .form-control:focus {
+.border-4, .cm-card-primary, .cm-card-secondary, .cm-card-success, .cm-card-info, .cm-card-warning, .cm-card-danger, .cm-card-light, .cm-card-dark, .cm-card-blue, .educator-dashboard-conversation .educator-comment, .cm-card-orange, .cm-card-purple, .cm-card-green, .cm-card-pink, .cm-card-lightblue, .educator-dashboard-conversation .student-comment,
+.educator-dashboard-conversation .family-comment, .cm-card-darkblue, .cm-card-white, .cm-card-new-pink, .cm-card-new-red, .cm-card-new-orange, .cm-card-new-green, .cm-card-new-turquoise, .cm-card-new-blue, .cm-card-new-purple, .form-control, #password-reset input[type='email'], .form-control:focus {
   border-width: 4px !important; }
 
 [v-cloak] {
