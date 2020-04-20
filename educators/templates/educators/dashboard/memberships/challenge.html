@@ -3,21 +3,17 @@
 
 {% block content %}
 {% url "educators:home" as base_url %}
-<div class="container pb-3">
-  <div class="row mb-1">
-    <div class="col-md-12">
-      <h3>{{ group_selector.selected.text }}</h3>
-      <h2>{{ challenge.name }}</h2>
-    </div>
-  </div>
 
-  <div class="row pb-1">
-    <div class="col-md-12">
-      <div class="well-shadow mb-3 clearfix">
 
-        <div class="dropdown float-md-left mb-2 mr-3">
-          <a class="dropdown-toggle" href="#" id="challengesDropdown" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+<div class="container-fluid py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-3">{{ group_selector.selected.text }}</h3>
+        <h2 class="mb-3">{{ challenge.name }}</h2>
+        <div class="dropdown float-md-left mb-3">
+          <a class="dropdown-toggle btn btn-outline-orange base-type" href="#" id="challengesDropdown"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Choose design challenge
           </a>
           <div class="dropdown-menu" aria-labelledby="challengesDropdown">
@@ -29,7 +25,7 @@
         </div>
 
         {% if group_selector.has_groups %}
-        <div class="dropdown float-md-left mb-2 mr-3">
+        <div class="dropdown float-md-left">
           <a class="dropdown-toggle" href="#" id="challengesDropdown" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             Choose group
@@ -42,118 +38,113 @@
         </div>
         {% endif %}
 
-        <div class="float-md-right">
-          <div class="dropdown">
-            <a class="dropdown-toggle" href="#" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-              Sort by {{ sorter.selected|lower }}
-            </a>
-            <div class="dropdown-menu" aria-labelledby="sortDropdown">
-              {% for strategy in sorter.strategies %}
-              <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
-              {% endfor %}
-            </div>
+        <div class="float-md-right dropdown mb-3">
+          <a class="dropdown-toggle btn btn-outline-orange base-type" href=" #" id="sortDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Sort by {{ sorter.selected|lower }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="sortDropdown">
+            {% for strategy in sorter.strategies %}
+            <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
+            {% endfor %}
           </div>
         </div>
 
       </div>
     </div>
-  </div>
 
-  <hr>
-
-  <div class="row d-none d-lg-flex">
-    <div class="col-lg-8 offset-lg-3">
-      <table class="table-dc-progress">
-        <thead>
-          <tr>
-            <th>Plan</th>
-            <th>Build</th>
-            <th>Test</th>
-            <th>Reflect</th>
-            <th>Gallery</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  </div>
-
-  {% for student in students %}
-  <div class="row mb-2">
-    <div class="col-lg-3">
-      <div class="media">
-        <a href="{% url "educators:student" student_id=student.id %}" class="student-list-avatar">
-          {% include "_avatar.html" with user=student width=48 height=48 crop='thumb' gravity='faces' %}
-        </a>
-        <div class="media-body">
-          {% if student.first_name or student.last_name %}
-          {{ student.first_name }} {{ student.last_name }}
-          {% else %}
-          <em>No name provided</em>
-          {% endif %}
-          <br>
-          <a href="{% url "educators:student" student_id=student.id %}">
-            {{ student.username }}
-          </a>
-        </div>
+    <div class="row d-none d-lg-flex mt-2">
+      <div class="col-lg-8 offset-lg-3">
+        <table class="table-dc-progress">
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Build</th>
+              <th>Test</th>
+              <th>Reflect</th>
+              <th>Gallery</th>
+            </tr>
+          </thead>
+        </table>
       </div>
     </div>
-    <div class="col-lg-8">
-      <table class="table-dc-progress">
-        <thead class="d-lg-none">
-          <tr>
-            <th>P</th>
-            <th>B</th>
-            <th>T</th>
-            <th>R</th>
-            <th>G</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
 
-            {% for count in student.user_comment_counts_by_stage %}
-            {% if count %}
-            <td class="data">{{ count }}</td>
+    {% for student in students %}
+    <div class="row mb-2">
+      <div class="col-lg-3">
+        <div class="media">
+          <a href="{% url "educators:student" student_id=student.id %}" class="student-list-avatar">
+            {% include "_avatar.html" with user=student width=48 height=48 crop='thumb' gravity='faces' %}
+          </a>
+          <div class="media-body">
+            {% if student.first_name or student.last_name %}
+            {{ student.first_name }} {{ student.last_name }}
             {% else %}
-            <td class="no-data"><i class="icon-cross"></i></td>
+            <em>No name provided</em>
             {% endif %}
-            {% endfor %}
+            <br>
+            <a href="{% url "educators:student" student_id=student.id %}">
+              {{ student.username }}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <table class="table-dc-progress">
+          <thead class="d-lg-none">
+            <tr>
+              <th>P</th>
+              <th>B</th>
+              <th>T</th>
+              <th>R</th>
+              <th>G</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
 
-            {% if student.id in student_ids_with_examples %}
-            <td class="data"><i class="icon-check"></i></td>
-            {% else %}
-            <td class="no-data"><i class="icon-cross"></i></td>
-            {% endif %}
+              {% for count in student.user_comment_counts_by_stage %}
+              {% if count %}
+              <td class="data">{{ count }}</td>
+              {% else %}
+              <td class="no-data"><i class="icon-cross"></i></td>
+              {% endif %}
+              {% endfor %}
 
-          </tr>
-        </tbody>
-      </table>
+              {% if student.id in student_ids_with_examples %}
+              <td class="data"><i class="icon-check"></i></td>
+              {% else %}
+              <td class="no-data"><i class="icon-cross"></i></td>
+              {% endif %}
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-lg-1">
+        <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=student.username %}"
+          class="text-nowrap">View &rarr;</a>
+        <hr class="d-lg-none" />
+      </div>
     </div>
-    <div class="col-lg-1">
-      <a href="{% url "challenges:challenge_progress" challenge_id=challenge.id username=student.username %}"
-        class="text-nowrap">View &rarr;</a>
-      <hr class="d-lg-none" />
-    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-</div>
-{% endblock %}
+  {% endblock %}
 
-{% block js %}
-{{ block.super }}
-<script>
-  var fixmeTop = $('.dcprogressheader').offset().top;
+  {% block js %}
+  {{ block.super }}
+  <script>
+    var fixmeTop = $('.dcprogressheader').offset().top;
 
-  $(window).scroll(function () {
-    var currentScroll = $(window).scrollTop();
-    if (currentScroll >= fixmeTop) {
-      $('.dcprogressheader').addClass("fixedheader");
-      $('.dc-progress').addClass("fixedheader-height");
-    } else {
-      $('.dcprogressheader').removeClass("fixedheader");
-      $('.dc-progress').removeClass("fixedheader-height");
-    }
-  });
-</script>
-{% endblock %}
+    $(window).scroll(function () {
+      var currentScroll = $(window).scrollTop();
+      if (currentScroll >= fixmeTop) {
+        $('.dcprogressheader').addClass("fixedheader");
+        $('.dc-progress').addClass("fixedheader-height");
+      } else {
+        $('.dcprogressheader').removeClass("fixedheader");
+        $('.dc-progress').removeClass("fixedheader-height");
+      }
+    });
+  </script>
+  {% endblock %}
