@@ -1,13 +1,13 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.exceptions import ValidationError
-from seasons.middleware import get_season_config
-from seasons.models import Season
+from season_markers.middleware import get_season_marker_config
+from season_markers.models import SeasonMarker
 
 STATEMENT = """
 Is a season configured?     {configured}
 Are we in season?           {in_season}
 
-Season parameters:
+Season marker parameters:
     start:  {start}
     end:    {end}
     name:   {name}
@@ -16,11 +16,11 @@ Can be created in database?     {creatable}
 """
 
 class Command(BaseCommand):
-    help = "Output information on the currently configured season"
+    help = "Output information on the currently configured season marker"
 
     def handle(self, *args, **options):
-        config = get_season_config()
-        model = Season(**config.model_fields)
+        config = get_season_marker_config()
+        model = SeasonMarker(**config.model_fields)
 
         validation_errors = None
         try:

@@ -6,7 +6,7 @@ from . import jobs
 
 SESSION_KEY = "SEASON_PARTICIPATION"
 
-class SeasonConfig:
+class SeasonMarkerConfig:
     def __init__(self, start, end, name):
         self.start = start
         self.end = end
@@ -34,20 +34,20 @@ class SeasonConfig:
         }
 
 
-def get_season_config():
-    start = settings.SEASON_START_DATETIME
-    end = settings.SEASON_END_DATETIME
-    name = settings.SEASON_NAME
+def get_season_marker_config():
+    start = settings.SEASON_MARKER_START_DATETIME
+    end = settings.SEASON_MARKER_END_DATETIME
+    name = settings.SEASON_MARKER_NAME
 
-    return SeasonConfig(start, end, name)
+    return SeasonMarkerConfig(start, end, name)
 
 class SeasonParticipationMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         if request.user.is_authenticated:
-            config = get_season_config()
+            config = get_season_marker_config()
             if config.slug and request.session.get(SESSION_KEY, None) != config.slug:
-                jobs.record_season(config, request.user)
+                jobs.record_season_participation(config, request.user)
                 request.session[SESSION_KEY] = config.slug
 
         return None
