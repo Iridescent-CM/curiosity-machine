@@ -3,39 +3,70 @@
 {% load staticfiles %}
 
 {% block content %}
-<div class="aifc-pages-page-bg">
-  <div class="container pb-3">
-    <h2 class="aifc-pages-subtitle mt-4">Welcome</h2>
-    <hr class="m-1 w-50">
-    <p>
-      Welcome to Season 2! Our program is a free, hands-on AI education competition that brings families, schools, communities, and technology know-it-alls together to give everyone the chance to learn, play and create with AI.
-    </p>
-    <p>
-      Below you will find the 10 Lessons you will use to guide students and families to develop their inventions that solve problems in their community using AI. Only a family unit can submit to the World Championship and they will need to create accounts. If you would like to connect families to your account, please email us at <a href="mailto:{{ emails.contact }}">{{ emails.contact }}</a>.
-    </p>
-    <p>
-      You can find resources on how to get started on the
-      <a href='https://iridescentlearning.org/resources-for-ai-family-challenge-mentors/' target='_blank'>Resources</a> tab.
-    </p>
 
-    <h2 class="aifc-pages-subtitle mt-4">Lessons</h2>
-    <div class="row mt-3">
+<div class="container-fluid py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <h2 class="mb-3">
+          Welcome to Technovation Families!
+        </h2>
+        <p>
+          Technovation Families brings together families, schools, communities, and industry partners to play, learn,
+          and
+          create with artificial intelligence. We're happy you've joined us!
+        </p>
+        <p>
+          The below lessons will help you guide students and families to learn basic artificial intelligence concepts,
+          and
+          apply what they learn to solve problems in their community.
+        </p>
+        <p>
+          Having trouble getting started?<br />
+          <a class="font-weight-bold base-type"
+            href="https://iridescentlearning.org/resources-for-ai-family-challenge-mentors/">
+            Explore more materials in the resources tab.
+            <i class="icon-right-arrow"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid bg-orange py-5">
+  <div class="container">
+    <div class="col-lg-8">
+      <h2 class="headings-font">Lessons</h2>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid py-4">
+  <div class="container">
+    <div class="row">
       {% for obj in lessons %}
-      <div class="col-lg-4 col-md-6 mb-1">
+      <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-4 offset-md-0 offset-lg-0 col-xl-5ths">
         {% include 'educators/dashboard/_challenge_or_lesson_card.html'%}
       </div>
       {% endfor %}
     </div>
+  </div>
+</div>
 
+<div class="container-fluid bg-darkblue py-5">
+  <div class="container">
     <div class="row">
-      <div class="my-4 ml-3 border aifc-pages-rounded-box p-4">
+      <div class="offset-lg-1 col-lg-10 base-type">
         {% impact_survey %}
       </div>
     </div>
   </div>
 </div>
+</div>
+
+
 {% endblock %}
 
 {% block js %}
-  {% impact_survey_js %}
+{% impact_survey_js %}
 {% endblock %}
