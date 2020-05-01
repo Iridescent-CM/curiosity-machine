@@ -2,28 +2,24 @@
 {% load staticfiles %}
 
 {% block content %}
-<div class="container py-3">
-  
+<div class="container py-5">
+
   {% if membership_selection.count > 1 %}
-  <div class="dropdown mb-3">
-    <a class="dropdown-toggle a-borderless text-dark" 
-      data-toggle="dropdown" 
-      href="#" 
-      role="button" 
-      aria-haspopup="true" 
-      aria-expanded="false"
-    >
+  <div class="dropdown">
+    <a class="dropdown-toggle a-borderless base-type" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+      aria-expanded="false">
       {{ membership_selection.selected.display_name }}
     </a>
     <div class="dropdown-menu">
       {% for membership in membership_selection.all %}
-      <a class="dropdown-item" href="{{ membership_selection_base_url }}?m={{ membership.id }}">{{ membership.display_name }}</a>
+      <a class="dropdown-item"
+        href="{{ membership_selection_base_url }}?m={{ membership.id }}">{{ membership.display_name }}</a>
       {% endfor %}
     </div>
   </div>
   {% endif %}
 
-  <div class="row pb-2">
+  <div class="row py-4">
     <div class="col-md-12">
       <h2>{{ membership.display_name }} Design Challenges</h2>
     </div>
@@ -32,12 +28,12 @@
   {% if membership and membership_challenges %}
   <div class="row mb-3">
     {% for challenge in membership_challenges %}
-    <div class="col-lg-4 col-md-6 mb-1">
+    <div class="col-lg-3 col-md-6 mb-1">
       {% include 'educators/dashboard/_challenge_card.html' with challenge=challenge show_detail_links=True %}
     </div>
     {% endfor %}
   </div>
-  
+
   {% else %}
   <div class="row pb-5 mb-5">
     <div class="col-md-12">

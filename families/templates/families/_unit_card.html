@@ -3,7 +3,8 @@
 <div class="card cm-fancy-card mb-3">
 
   <a href="{% url "units:unit" unit_id=unit.id %}">
-    <img class="card-img-top mr-1" src="{% resized unit.image.url width=545 height=240 crop='fill' %}" alt="{{ unit.name }}">
+    <img class="card-img-top mr-1" src="{% resized unit.image.url width=545 height=240 crop='fill' %}"
+      alt="{{ unit.name }}">
   </a>
 
   <div class="card-body pb-5">
@@ -14,14 +15,9 @@
     </h3>
   </div>
 
-  <a class="card-body-toggle"
-    data-text-swap="&minus; LESS INFO"
-    data-toggle="collapse"
-    href="#unit-{{ unit.id }}"
-    aria-expanded="false"
-    aria-controls="unit-{{ unit.id }}"
-  >
-    &plus; MORE INFO
+  <a class="card-body-toggle" data-text-swap="&minus;" data-toggle="collapse" href="#unit-{{ unit.id }}"
+    aria-expanded="false" aria-controls="unit-{{ unit.id }}">
+    &plus;
   </a>
 
   <div class="card-body pb-4 card-divider collapse" id="unit-{{ unit.id }}">
