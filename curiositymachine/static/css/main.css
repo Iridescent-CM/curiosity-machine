@@ -10438,9 +10438,6 @@ footer {
     border-style: solid;
     border-color: #e3e3dd;
     border-width: 2px; }
-  .family-dashboard .progress-title {
-    position: relative;
-    top: 10px; }
   .family-dashboard .circliful {
     position: relative;
     top: -15px; }
@@ -10459,6 +10456,8 @@ footer {
     .family-dashboard .blue-round-button:hover, .family-dashboard .blue-round-button:active {
       background-color: #3498db66;
       cursor: pointer; }
+  .family-dashboard .lesson-card {
+    min-height: 375px; }
   .family-dashboard .modal-content {
     border-color: #3498db; }
   .family-dashboard .members-list {
