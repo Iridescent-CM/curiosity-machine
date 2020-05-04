@@ -32,7 +32,7 @@
         <li class="nav-item {% ifactive "educators:activity" "active" %}">
           <a class="nav-link" href="{% url 'educators:activity' %}">
             Recent Activity
-            <span class="badge badge-purple">{% notifications_unread %}</span>
+            <span class="badge {% if notifications_unread %} badge-orange {% else %} badge-purple {% endif %}">{% notifications_unread %}</span>
           </a>
         </li>
         {% endif %}
