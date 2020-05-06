@@ -5,63 +5,59 @@
 {% block body-classes %}{{block.super}} educator-dashboard-conversation{% endblock %}
 
 {% block js %}
-  {{ block.super }}
-  {{ comment_form.media }}
+{{ block.super }}
+{{ comment_form.media }}
 {% endblock %}
 
 {% block content %}
-<div class="container pb-3">
+<div class="container-fluid py-5">
   {% url "educators:conversation" as base_url %}
-
-  <div class="row pb-2">
-    <div class="col-md-12">
-      <h2>{{ student.username }}'s Conversation on {{ progress.challenge.name }}</h2>
-      <a href="{% url "educators:student" student_id=student.id %}">
-        &larr; Back to {{ student.username }}'s Progress
-      </a>
-    </div>
-  </div>
-
-  <div class="row mb-5">
-    <div class="col-md-3">
-      <div class="card cm-info-card">
-        <div class="card-header text-center">
-          <div class="avatar">
-            {% include "_avatar.html" with user=student width=60 height=60 crop='thumb' gravity='faces' %}
-          </div>
-          {% if student.first_name or student.last_name %}
-          {{ student.first_name }}
-          <br>
-          {{ student.last_name }}
-          {% else %}
-          <em>No name provided</em>
-          {% endif %}
-          <br>
-          <strong>{{ student.username }}</strong>
-        </div>
-        <div class="card-body">
-          <!-- Something should go here -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2 class="mb-3">{{ student.username }}'s Conversation on {{ progress.challenge.name }}</h2>
+        <div class="mb-3">
+          <a href="{% url "educators:student" student_id=student.id %}">
+            &larr; Back to {{ student.username }}'s Progress
+          </a>
         </div>
       </div>
     </div>
-    <div class="col-md-9">
-      <div class="card cm-info-card mb-3">
-        <div class="card-body">
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <div class="text-md-left text-center">
+          <div class="leaf-avatar mb-3">
+            {% include "_avatar.html" with user=student width=128 height=128 crop='thumb' gravity='faces' %}
+          </div>
+          <div class="mb-3">
+            {% if student.first_name or student.last_name %}
+            <strong class="mb-3">
+              {{ student.first_name }} {{ student.last_name }}
+            </strong>
+            {% else %}
+            <em>No name provided</em>
+            {% endif %}
+            <br>
+            <span>{{ student.username }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="mb-3">
           {% url 'challenges:comments:comments' challenge_id=progress.challenge.id username=progress.owner.username stage='plan' as comment_url %}
           <form class="feedback-form" method="POST" action="{{ comment_url }}">
             {% csrf_token %}
-            {{ comment_form.text|attr:"placeholder:Write your feedback here." }}
+            {{ comment_form.text|attr:"placeholder:Write your feedback here..." }}
             {{ comment_form.visual_media }}
-            <input type="submit" class="btn btn-primary" />
+            <input type="submit" class="float-sm-right mt-sm-0 mt-2 btn btn-primary" />
           </form>
         </div>
+
+        {% for comment in comments %}
+        {% include 'educators/dashboard/memberships/_conversation_comment.html' with comment=comment %}
+        {% endfor %}
+
       </div>
-
-      {% for comment in comments %}
-      {% include 'educators/dashboard/memberships/_conversation_comment.html' with comment=comment %}
-      {% endfor %}
-
     </div>
   </div>
-</div>
-{% endblock %}
+  {% endblock %}

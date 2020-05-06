@@ -12,3 +12,9 @@
 .avatar-shadow img {
   box-shadow: 0px 2px 4px 0px $main-shadow;
 }
+
+.leaf-avatar img {
+  @extend .leaf-border;
+  display: inline-block;
+  background-color: white;
+}
