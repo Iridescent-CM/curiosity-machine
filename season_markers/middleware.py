@@ -22,8 +22,10 @@ class SeasonMarkerConfig:
     def season_configured(self):
         return bool(self.start and self.end and self.name)
 
-    def in_season(self, now=now()):
-        return bool(self.season_configured() and self.start <= now <= self.end)
+    def in_season(self, current_dt=None):
+        if not current_dt:
+            current_dt = now()
+        return bool(self.season_configured() and self.start <= current_dt <= self.end)
 
     @cached_property
     def model_fields(self):

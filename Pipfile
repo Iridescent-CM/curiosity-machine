@@ -48,7 +48,8 @@ django-webpack-loader = "==0.6.0"
 [dev-packages]
 coverage = "==4.5.3"
 django-extensions = "==2.1.6"
-django-html-validator = { git = "https://github.com/stenington/django-html-validator.git", ref="master" }
+django-html-validator = {git = "https://github.com/stenington/django-html-validator.git",ref = "master"}
+freezegun = "==0.3.15"
 mock = "==3.0.5"
 pretend = "==1.0.9"
 pyquery = "==1.4.0"
