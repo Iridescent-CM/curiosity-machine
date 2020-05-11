@@ -1,6 +1,6 @@
 import pytest
 from mock import Mock, MagicMock, patch
-from freezegun import freeze_time
+from libfaketime import freeze_time
 from datetime import timedelta
 from django.utils.timezone import now
 from ..middleware import SeasonParticipationMiddleware
