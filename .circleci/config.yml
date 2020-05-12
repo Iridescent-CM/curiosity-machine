@@ -19,7 +19,7 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/lib/node_modules
 
       - run: pip install pipx
-      - run: pipx poetry
+      - run: pipx install poetry
 
       - restore_cache:
           keys:
