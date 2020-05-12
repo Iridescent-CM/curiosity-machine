@@ -2,7 +2,7 @@
 name = "curiosity-machine"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Technovation <dev@technovation.org>"]
 
 [tool.poetry.dependencies]
 python = "^3.6.5"
