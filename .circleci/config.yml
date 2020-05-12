@@ -18,14 +18,17 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - run: sudo chown -R circleci:circleci /usr/local/lib/node_modules
 
+      - run: pip install --user pipx
+      - run: pipx poetry
+
       - restore_cache:
           keys:
-            - pip-packages-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-{{ .Branch }}-{{ checksum "poetry.lock" }}
       - run:
           command: |
             poetry install
       - save_cache:
-          key: pip-packages-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: pip-packages-{{ .Branch }}-{{ checksum "poetry.lock" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
