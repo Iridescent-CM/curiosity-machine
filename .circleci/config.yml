@@ -18,8 +18,7 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - run: sudo chown -R circleci:circleci /usr/local/lib/node_modules
 
-      - run: pip install pipx
-      - run: pipx install poetry
+      - run: pip install poetry
 
       - restore_cache:
           keys:
