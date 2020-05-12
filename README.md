@@ -2,13 +2,12 @@
 
 ## Quick Start
 
-Using `pipenv`:
+Using `poetry`:
 
 ```sh
 git clone git@github.com:Iridescent-CM/curiosity-machine.git
 cd curiosity-machine
-pipenv shell --three
-pipenv install --dev
+poetry install
 ```
 
 Get a .env from another developer and put it in your `curiosity-machine` directory, then
@@ -44,7 +43,7 @@ $ grep -ir --include .*py --include .*html --exclude-dir node_modules enable_ .`
 
 ## Requirements
 
-Requirements are managed with `pipenv` and listed in the `Pipfile`.
+Requirements are managed with `poetry` and listed in the `pyproject.toml`.
 
 ### When Requirements Get Added
 
@@ -52,7 +51,7 @@ From time to time requirements will get added, updated, or removed from the proj
 the following command should get your environment up to date:
 
 ```sh
-pipenv install
+poetry install
 ```
 
 ## Data
