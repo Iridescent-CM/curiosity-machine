@@ -5,7 +5,7 @@ description = ""
 authors = ["Technovation <dev@technovation.org>"]
 
 [tool.poetry.dependencies]
-python = "^3.6.5"
+python = "3.6.5"
 django = "1.11.20"
 dj-database-url = "0.5.0"
 waitress = "1.1.0"
