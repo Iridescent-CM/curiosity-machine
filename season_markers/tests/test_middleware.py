@@ -1,5 +1,6 @@
 import pytest
 from mock import Mock, MagicMock, patch
+from freezegun import freeze_time
 from datetime import timedelta
 from django.utils.timezone import now
 from ..middleware import SeasonParticipationMiddleware
@@ -13,6 +14,11 @@ def set_no_season(settings):
     settings.SEASON_MARKER_START_DATETIME = None
     settings.SEASON_MARKER_END_DATETIME = None
     settings.SEASON_MARKER_NAME = None
+
+def set_season_tomorrow(settings, name="name"):
+    settings.SEASON_MARKER_START_DATETIME = now() + timedelta(days=1)
+    settings.SEASON_MARKER_END_DATETIME = now() + timedelta(days=3)
+    settings.SEASON_MARKER_NAME = name
 
 @pytest.fixture
 def in_season(settings):
@@ -79,13 +85,13 @@ def test_job_run_when_transitioning_into_season(rf, settings):
     middleware = SeasonParticipationMiddleware()
 
     with patch('season_markers.middleware.jobs') as jobs:
-        set_no_season(settings)
+        set_season_tomorrow(settings)
         middleware.process_request(request)
         jobs.record_season_participation.assert_not_called()
 
-        set_in_season(settings)
-        middleware.process_request(request)
-        jobs.record_season_participation.assert_called()
+        with freeze_time(now() + timedelta(days=2)):
+            middleware.process_request(request)
+            jobs.record_season_participation.assert_called()
 
 
 def test_job_run_when_transitioning_between_season_markers(rf, settings):
@@ -129,6 +135,6 @@ def test_job_not_run_when_transitioning_out_of_season(rf, settings):
 
         jobs.reset_mock()
 
-        set_no_season(settings)
-        middleware.process_request(request)
-        jobs.record_season_participation.assert_not_called()
+        with freeze_time(now() + timedelta(days=2)):
+            middleware.process_request(request)
+            jobs.record_season_participation.assert_not_called()
