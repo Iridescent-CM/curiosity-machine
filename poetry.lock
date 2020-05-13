@@ -262,7 +262,6 @@ requests = "*"
 reference = "08b4f4f048e06fae174de532098a0452cd799b80"
 type = "git"
 url = "https://github.com/stenington/django-html-validator.git"
-
 [[package]]
 category = "main"
 description = "Django model mixins and utilities"
@@ -441,7 +440,7 @@ python-dateutil = ">=2.4"
 text-unidecode = "1.3"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Let your Python tests travel through time"
 name = "freezegun"
 optional = false
@@ -963,7 +962,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "ddddf25c7517bf784f48c7cee60e2828d0296974d0d442236660a58549401ad2"
+content-hash = "47992f7b848c7c7c8770fbedb26c90b14ee620c7ca15a63bf26d3b41a99b0b3f"
 python-versions = "3.6.5"
 
 [metadata.files]
