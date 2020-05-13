@@ -1,26 +1,18 @@
 {% load resized %}
 
-<div class="card cm-fancy-card mb-3 challenge-{{ lesson.state }}">
+<div id="card-{{ lesson.id }}" class="lesson-card card cm-card mb-3 challenge-{{ lesson.state }}">
 
   <a href="{% url "lessons:lesson-progress-find-or-create" %}?lesson={{ lesson.id }}">
-    <img class="card-img-top mr-1" src="{% resized lesson.card_image.url width=545 height=240 crop='fill' %}"
+    <img class="card-img-top" src="{% resized lesson.card_image.url width=300 height=190 crop='fill' %}"
       alt="{{ lesson.title }}">
   </a>
 
-  <div class="card-body pb-5">
-    <a class="h3 text-dark" href="{% url "lessons:lesson-progress-find-or-create" %}?lesson={{ lesson.id }}">
-      {{ lesson.title }}
-    </a>
+  <div class="card-body">
+    <p class="font-weight-bold card-title mb-2">
+      <a class="base-type" href="{% url "lessons:lesson-progress-find-or-create" %}?lesson={{ lesson.id }}">
+        {{ lesson.title }}
+      </a>
+    </p>
+    <p class="card-text mb-2">{{ lesson.description }}</p>
   </div>
-
-  <a class="card-body-toggle" data-text-swap="&minus;" data-toggle="collapse" href="#card-{{ lesson.id }}"
-    aria-expanded="false" aria-controls="card-{{ lesson.id }}">
-    &plus;
-  </a>
-
-  <div class="card-body pb-4 card-divider collapse" id="card-{{ lesson.id }}">
-    <h4 class="card-section-title">DESCRIPTION</h4>
-    <p>{{ lesson.description }}</p>
-  </div>
-
 </div>
