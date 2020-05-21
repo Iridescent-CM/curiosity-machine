@@ -4258,7 +4258,7 @@ input[type="button"].btn-block {
   border-top-right-radius: 0.2rem;
   border-bottom-right-radius: 0.2rem; }
 
-.badge, .family-dashboard .list-dots .dot {
+.badge {
   display: inline-block;
   padding: 0.25em 0.4em;
   font-size: 75%;
@@ -4268,10 +4268,10 @@ input[type="button"].btn-block {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem; }
-  .badge:empty, .family-dashboard .list-dots .dot:empty {
+  .badge:empty {
     display: none; }
 
-.btn .badge, .account-settings .avatar-settings .pickwidget .pickwidget-button .badge, .btn .family-dashboard .list-dots .dot, .family-dashboard .list-dots .btn .dot, .account-settings .avatar-settings .pickwidget .pickwidget-button .family-dashboard .list-dots .dot, .family-dashboard .list-dots .account-settings .avatar-settings .pickwidget .pickwidget-button .dot {
+.btn .badge, .account-settings .avatar-settings .pickwidget .pickwidget-button .badge {
   position: relative;
   top: -1px; }
 
@@ -5942,7 +5942,7 @@ button.bg-new-purple:focus {
   border-top-left-radius: 0.25rem !important;
   border-bottom-left-radius: 0.25rem !important; }
 
-.rounded-circle, .family-dashboard .list-dots .dot {
+.rounded-circle {
   border-radius: 50% !important; }
 
 .rounded-0, .cm-card-primary .card-header,
@@ -6706,8 +6706,7 @@ button.bg-new-purple:focus {
   margin: 0.5rem !important; }
 
 .mt-2,
-.my-2,
-.family-dashboard .list-dots li {
+.my-2 {
   margin-top: 0.5rem !important; }
 
 .mr-2,
@@ -6715,8 +6714,7 @@ button.bg-new-purple:focus {
   margin-right: 0.5rem !important; }
 
 .mb-2,
-.my-2,
-.family-dashboard .list-dots li {
+.my-2 {
   margin-bottom: 0.5rem !important; }
 
 .ml-2,
@@ -7928,7 +7926,7 @@ a.text-new-purple:hover, a.text-new-purple:focus {
     min-width: 992px !important; }
   .navbar {
     display: none; }
-  .badge, .family-dashboard .list-dots .dot {
+  .badge {
     border: 1px solid #000000; }
   .table {
     border-collapse: collapse !important; }
@@ -9701,27 +9699,27 @@ footer {
 .activity-list-group .timesince {
   display: none; }
 
-.activity-list-group .badge, .activity-list-group .family-dashboard .list-dots .dot, .family-dashboard .list-dots .activity-list-group .dot {
+.activity-list-group .badge {
   position: absolute;
   right: 0;
   margin-right: 1em; }
-  .activity-list-group .badge.plan-stage, .activity-list-group .family-dashboard .list-dots .plan-stage.dot, .family-dashboard .list-dots .activity-list-group .plan-stage.dot {
+  .activity-list-group .badge.plan-stage {
     background-color: #ffb81c; }
-  .activity-list-group .badge.build-stage, .activity-list-group .family-dashboard .list-dots .build-stage.dot, .family-dashboard .list-dots .activity-list-group .build-stage.dot {
+  .activity-list-group .badge.build-stage {
     background-color: #43b02a; }
-  .activity-list-group .badge.test-stage, .activity-list-group .family-dashboard .list-dots .test-stage.dot, .family-dashboard .list-dots .activity-list-group .test-stage.dot {
+  .activity-list-group .badge.test-stage {
     background-color: #ff7500; }
-  .activity-list-group .badge.reflect-stage, .activity-list-group .family-dashboard .list-dots .reflect-stage.dot, .family-dashboard .list-dots .activity-list-group .reflect-stage.dot {
+  .activity-list-group .badge.reflect-stage {
     background-color: #d0006f; }
   @media (min-width: 768px) {
-    .activity-list-group .badge .timesince, .activity-list-group .family-dashboard .list-dots .dot .timesince, .family-dashboard .list-dots .activity-list-group .dot .timesince {
+    .activity-list-group .badge .timesince {
       display: inline;
       position: absolute;
       right: 0;
       margin-right: 1em; }
-    .activity-list-group .badge .tag, .activity-list-group .family-dashboard .list-dots .dot .tag, .family-dashboard .list-dots .activity-list-group .dot .tag {
+    .activity-list-group .badge .tag {
       right: 180px; }
-    .activity-list-group .badge .list-group-item, .activity-list-group .family-dashboard .list-dots .dot .list-group-item, .family-dashboard .list-dots .activity-list-group .dot .list-group-item {
+    .activity-list-group .badge .list-group-item {
       padding-right: 180px; } }
 
 .to-do-list .to-do-list-item {
@@ -10324,19 +10322,19 @@ footer {
 
 .educator-dashboard-conversation .comment-card {
   width: 80%; }
-  .educator-dashboard-conversation .comment-card .badge, .educator-dashboard-conversation .comment-card .family-dashboard .list-dots .dot, .family-dashboard .list-dots .educator-dashboard-conversation .comment-card .dot {
+  .educator-dashboard-conversation .comment-card .badge {
     position: absolute;
     right: 0;
     margin-right: 1em;
     padding-left: 15px;
     padding-right: 15px; }
-    .educator-dashboard-conversation .comment-card .badge.plan-stage, .educator-dashboard-conversation .comment-card .family-dashboard .list-dots .plan-stage.dot, .family-dashboard .list-dots .educator-dashboard-conversation .comment-card .plan-stage.dot {
+    .educator-dashboard-conversation .comment-card .badge.plan-stage {
       background-color: #ffb81c; }
-    .educator-dashboard-conversation .comment-card .badge.build-stage, .educator-dashboard-conversation .comment-card .family-dashboard .list-dots .build-stage.dot, .family-dashboard .list-dots .educator-dashboard-conversation .comment-card .build-stage.dot {
+    .educator-dashboard-conversation .comment-card .badge.build-stage {
       background-color: #43b02a; }
-    .educator-dashboard-conversation .comment-card .badge.test-stage, .educator-dashboard-conversation .comment-card .family-dashboard .list-dots .test-stage.dot, .family-dashboard .list-dots .educator-dashboard-conversation .comment-card .test-stage.dot {
+    .educator-dashboard-conversation .comment-card .badge.test-stage {
       background-color: #ff7500; }
-    .educator-dashboard-conversation .comment-card .badge.reflect-stage, .educator-dashboard-conversation .comment-card .family-dashboard .list-dots .reflect-stage.dot, .family-dashboard .list-dots .educator-dashboard-conversation .comment-card .reflect-stage.dot {
+    .educator-dashboard-conversation .comment-card .badge.reflect-stage {
       background-color: #d0006f; }
 
 .educator-dashboard-conversation .current-user {
@@ -10428,9 +10426,9 @@ footer {
     height: 1em;
     background-size: cover;
     vertical-align: middle;
-    background-image: url("../images/checkbox-unchecked.svg"); }
+    background-image: url("../images/checkbox-unchecked-orange.svg"); }
     .family-dashboard .checkbox.checkbox-checked {
-      background-image: url("../images/checkbox-checked.svg"); }
+      background-image: url("../images/checkbox-checked-orange.svg"); }
   .family-dashboard .dashboard-section {
     border-radius: 15px;
     border-style: solid;
@@ -10477,13 +10475,19 @@ footer {
       flex: 0 60px;
       border-radius: 50%;
       margin-right: 10px; }
-  .family-dashboard .list-dots {
+  .family-dashboard .submission-list {
     list-style: none;
-    padding-left: 2em;
-    position: relative; }
-    .family-dashboard .list-dots .dot {
-      position: absolute;
-      left: 0; }
+    padding: 0; }
+    .family-dashboard .submission-list li {
+      counter-increment: inst;
+      padding-left: 2em;
+      position: relative; }
+      .family-dashboard .submission-list li:before {
+        content: counter(inst);
+        color: #ff7500;
+        font-family: "Rubik", "Impact", "Raleway", Helvetica, sans-serif;
+        position: absolute;
+        left: 0; }
   .family-dashboard .checkbox-label {
     margin-left: 0.5em; }
 

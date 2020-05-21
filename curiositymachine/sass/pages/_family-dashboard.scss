@@ -7,9 +7,9 @@
     height: 1em;
     background-size: cover;
     vertical-align: middle;
-    background-image: url('../images/checkbox-unchecked.svg');
+    background-image: url('../images/checkbox-unchecked-orange.svg');
     &.checkbox-checked {
-      background-image: url('../images/checkbox-checked.svg');
+      background-image: url('../images/checkbox-checked-orange.svg');
     }
   }
 
@@ -80,21 +80,22 @@
     }
   }
 
-  .list-dots {
+  .submission-list {
     list-style: none;
-    padding-left: 2em;
-    position: relative;
+    padding:0;
 
     li {
-      @extend .my-2;
-    }
+      counter-increment: inst;
+      padding-left: 2em;
+      position: relative;
 
-    .dot {
-      @extend .badge;
-      @extend .rounded-circle;
-
-      position: absolute;
-      left: 0;
+      &:before {
+        content: counter(inst);
+        color: $primary-orange;
+        font-family: $headings-font-family;
+        position: absolute;
+        left: 0;
+      }
     }
   }
 
