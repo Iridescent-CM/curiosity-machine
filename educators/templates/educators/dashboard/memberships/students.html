@@ -22,7 +22,8 @@
       </div>
       {% endif %}
 
-      <div class="float-md-right dropdown mb-3">
+      <div
+        class="{% if membership_selection.count > 1 %} float-md-right  {% else %} float-md-left {% endif %} dropdown mb-3">
         <a class="dropdown-toggle btn btn-outline-orange base-type" href="#" id="sortDropdown" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Sort by {{ sorter.selected|lower }}
