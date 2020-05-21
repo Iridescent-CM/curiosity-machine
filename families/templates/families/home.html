@@ -13,29 +13,27 @@
 
 {% block content %}
 
-<div class="container-fluid py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6">
-        <h2 class="mb-3">
-          Let's start learning Al!
-        </h2>
-        <p>
-          Together, your family will learn the foundations of artificial intelligence. Through the 10 lessons below,
-          you'll use what you learn to solve a real problem in your community with Al!
-        </p>
-        <p>
-          In each lesson, you'll be able to submit text, video, and/or pictures of your progress as you complete the
-          lessons. Be sure to complete these!
-        </p>
-      </div>
-      <div class="col-lg-6 text-center">
-        <h2>Your Progress</h2>
-        <div class="col-8 offset-2" data-percent={{lesson_set.stats.percent_complete}}
-          data-replacePercentageByText="{{lesson_set.stats.completed}} of {{lesson_set.stats.total}}"
-          data-animationStep=20 data-foregroundBorderWidth=20 data-backgroundBorderWidth=20
-          data-foregroundColor='#5BB02C' data-backgroundColor='#C6E7BF' data-fontColor='#000000'>
-        </div>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-6">
+      <h2 class="mb-3">
+        Let's start learning Al!
+      </h2>
+      <p>
+        Together, your family will learn the foundations of artificial intelligence. Through the 10 lessons below,
+        you'll use what you learn to solve a real problem in your community with Al!
+      </p>
+      <p>
+        In each lesson, you'll be able to submit text, video, and/or pictures of your progress as you complete the
+        lessons. Be sure to complete these!
+      </p>
+    </div>
+    <div class="col-lg-6 text-center">
+      <h2>Your Progress</h2>
+      <div class="col-8 offset-2" data-percent={{lesson_set.stats.percent_complete}}
+        data-replacePercentageByText="{{lesson_set.stats.completed}} of {{lesson_set.stats.total}}"
+        data-animationStep=20 data-foregroundBorderWidth=20 data-backgroundBorderWidth=20 data-foregroundColor='#5BB02C'
+        data-backgroundColor='#C6E7BF' data-fontColor='#000000'>
       </div>
     </div>
   </div>
@@ -49,15 +47,13 @@
   </div>
 </div>
 
-<div class="container-fluid py-4">
-  <div class="container">
-    <div class="row">
-      {% for lesson in lessons %}
-      <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-4 offset-md-0 offset-lg-0 col-xl-5ths">
-        {% include 'families/_lesson_card.html' with lesson=lesson %}
-      </div>
-      {% endfor %}
+<div class="container py-4">
+  <div class="row">
+    {% for lesson in lessons %}
+    <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-4 offset-md-0 offset-lg-0 col-xl-5ths">
+      {% include 'families/_lesson_card.html' with lesson=lesson %}
     </div>
+    {% endfor %}
   </div>
 </div>
 <div class="container-fluid bg-blue py-4">

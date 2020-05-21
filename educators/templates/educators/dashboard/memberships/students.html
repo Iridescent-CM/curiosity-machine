@@ -3,135 +3,133 @@
 
 {% block content %}
 
-<div class="container-fluid py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <h2 class="mb-3"> Participants</h2>
-        {% if membership_selection.count > 1 %}
-        <div class="float-md-left dropdown mb-3">
-          <a class="dropdown-toggle btn btn-outline-orange base-type" data-toggle="dropdown" href="#" role="button"
-            aria-haspopup="true" aria-expanded="false">
-            {{ membership_selection.selected.display_name }}
-          </a>
-          <div class="dropdown-menu">
-            {% for membership in membership_selection.all %}
-            <a class="dropdown-item"
-              href="{{ membership_selection_base_url }}?m={{ membership.id }}">{{ membership.display_name }}</a>
-            {% endfor %}
-          </div>
-        </div>
-        {% endif %}
-
-        <div class="float-md-right dropdown mb-3">
-          <a class="dropdown-toggle btn btn-outline-orange base-type" href="#" id="sortDropdown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Sort by {{ sorter.selected|lower }}
-          </a>
-          <div class="dropdown-menu" aria-labelledby="sortDropdown">
-            {% for strategy in sorter.strategies %}
-            <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
-            {% endfor %}
-          </div>
-        </div>
-
-        {% if group_selector.has_groups %}
-        <div class="dropdown dropdown-design-challenge">
-          <a class="dropdown-toggle a-borderless" href="#" id="challengesDropdown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Choose group
-          </a>
-          <div class="dropdown-menu text-capitalize" aria-labelledby="challengesDropdown">
-            {% for group in group_selector.options %}
-            <a class="dropdown-item" href="?{{ group.GET.urlencode }}">{{ group.text }}</a>
-            {% endfor %}
-          </div>
-        </div>
-        {% endif %}
-
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="list-group list-group-flush cm-list-group border aifc-pages-rounded-box px-4 py-2 mb-5">
-          {% for student in students %}
-          <div class="list-group-item">
-            {% if student.studentprofile %}
-            <a href="{% url 'educators:student' student_id=student.id %}" class="student-list-avatar">
-              {% include "_avatar.html" with user=student width=48 height=48 crop='thumb' gravity='faces' %}
-            </a>
-            {% else %}
-            <span class="student-list-avatar">
-              {% include "_avatar.html" with user=student width=48 height=48 crop='thumb' gravity='faces' %}
-            </span>
-            {% endif %}
-            <span class="student-inline-name">
-              {% if student.first_name or student.last_name %}
-              {{ student.first_name }} {{ student.last_name }}
-              {% else %}
-              <em>No name provided</em>
-              {% endif %}
-            </span>
-            <br>
-            <span class="student-inline-username">
-              {% if student.studentprofile %}
-              <a href="{% url 'educators:student' student_id=student.id %}">{{ student.username }}</a> &middot;
-              {% else %}
-              <span>{{ student.username }}</span>&middot;
-              {% endif %}
-              {% if student.extra.is_approved %}
-              <span class="green-type">approved</span>
-              {% else %}
-              <span class="orange-type">not approved</span>
-              {% endif %}
-            </span>
-            <a class="student-list-manage" data-toggle="collapse" href="#collapse-{{ student.id }}"
-              aria-expanded="false" aria-controls="collapse-{{ student.id }}">
-              <span class="more">
-                <span class="d-none d-sm-inline-block">More</span> <i class="icon-right-arrow"></i>
-              </span>
-              <span class="less d-none">
-                <span class="d-none d-sm-inline-block">Less</span> <i class="icon-up-arrow"></i>
-              </span>
-            </a>
-
-            <div class="collapse" id="collapse-{{ student.id }}">
-              <div class="py-3">
-                {% comment %}
-                FIXME: `student` can be a family acocunt, only showing birthday for actual students.
-                Code is super misleading though, and shouldn't have to know about this stuff.
-                {% endcomment %}
-                {% if student.studentprofile %}
-                <span class="student-inline-birthday">
-                  <strong>Birthday:</strong>
-                  {% if student.studentprofile.birthday %}
-                  {{ student.studentprofile.birthday|date:"m/d/Y" }}
-                  {% else %}
-                  <em>No birthday provided</em>
-                  {% endif %}
-                </span>
-                <br>
-                {% endif %}
-                <span class="student-inline-email">
-                  <strong>Email:</strong>
-                  {% if student.email %}
-                  {{ student.email }}
-                  {% else %}
-                  <em>No email provided</em>
-                  {% endif %}
-                </span>
-                <br>
-                {% url "educators:student_password_reset" student_id=student.id as button_url %}
-                <a class="btn btn-primary mt-3" href="{{ button_url }}" role="button">Reset Password</a>
-              </div>
-            </div>
-          </div>
-          {% empty %}
-          <p>Your membership or group doesn't have any participants in it! Reach out to your membership coordinator to
-            get your student accounts connected to your membership or group.</p>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="mb-3"> Participants</h2>
+      {% if membership_selection.count > 1 %}
+      <div class="float-md-left dropdown mb-3">
+        <a class="dropdown-toggle btn btn-outline-orange base-type" data-toggle="dropdown" href="#" role="button"
+          aria-haspopup="true" aria-expanded="false">
+          {{ membership_selection.selected.display_name }}
+        </a>
+        <div class="dropdown-menu">
+          {% for membership in membership_selection.all %}
+          <a class="dropdown-item"
+            href="{{ membership_selection_base_url }}?m={{ membership.id }}">{{ membership.display_name }}</a>
           {% endfor %}
         </div>
+      </div>
+      {% endif %}
+
+      <div class="float-md-right dropdown mb-3">
+        <a class="dropdown-toggle btn btn-outline-orange base-type" href="#" id="sortDropdown" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Sort by {{ sorter.selected|lower }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="sortDropdown">
+          {% for strategy in sorter.strategies %}
+          <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if group_selector.has_groups %}
+      <div class="dropdown dropdown-design-challenge">
+        <a class="dropdown-toggle a-borderless" href="#" id="challengesDropdown" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Choose group
+        </a>
+        <div class="dropdown-menu text-capitalize" aria-labelledby="challengesDropdown">
+          {% for group in group_selector.options %}
+          <a class="dropdown-item" href="?{{ group.GET.urlencode }}">{{ group.text }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="list-group list-group-flush cm-list-group border aifc-pages-rounded-box px-4 py-2 mb-5">
+        {% for student in students %}
+        <div class="list-group-item">
+          {% if student.studentprofile %}
+          <a href="{% url 'educators:student' student_id=student.id %}" class="student-list-avatar">
+            {% include "_avatar.html" with user=student width=48 height=48 crop='thumb' gravity='faces' %}
+          </a>
+          {% else %}
+          <span class="student-list-avatar">
+            {% include "_avatar.html" with user=student width=48 height=48 crop='thumb' gravity='faces' %}
+          </span>
+          {% endif %}
+          <span class="student-inline-name">
+            {% if student.first_name or student.last_name %}
+            {{ student.first_name }} {{ student.last_name }}
+            {% else %}
+            <em>No name provided</em>
+            {% endif %}
+          </span>
+          <br>
+          <span class="student-inline-username">
+            {% if student.studentprofile %}
+            <a href="{% url 'educators:student' student_id=student.id %}">{{ student.username }}</a> &middot;
+            {% else %}
+            <span>{{ student.username }}</span>&middot;
+            {% endif %}
+            {% if student.extra.is_approved %}
+            <span class="green-type">approved</span>
+            {% else %}
+            <span class="orange-type">not approved</span>
+            {% endif %}
+          </span>
+          <a class="student-list-manage" data-toggle="collapse" href="#collapse-{{ student.id }}" aria-expanded="false"
+            aria-controls="collapse-{{ student.id }}">
+            <span class="more">
+              <span class="d-none d-sm-inline-block">More</span> <i class="icon-right-arrow"></i>
+            </span>
+            <span class="less d-none">
+              <span class="d-none d-sm-inline-block">Less</span> <i class="icon-up-arrow"></i>
+            </span>
+          </a>
+
+          <div class="collapse" id="collapse-{{ student.id }}">
+            <div class="py-3">
+              {% comment %}
+              FIXME: `student` can be a family acocunt, only showing birthday for actual students.
+              Code is super misleading though, and shouldn't have to know about this stuff.
+              {% endcomment %}
+              {% if student.studentprofile %}
+              <span class="student-inline-birthday">
+                <strong>Birthday:</strong>
+                {% if student.studentprofile.birthday %}
+                {{ student.studentprofile.birthday|date:"m/d/Y" }}
+                {% else %}
+                <em>No birthday provided</em>
+                {% endif %}
+              </span>
+              <br>
+              {% endif %}
+              <span class="student-inline-email">
+                <strong>Email:</strong>
+                {% if student.email %}
+                {{ student.email }}
+                {% else %}
+                <em>No email provided</em>
+                {% endif %}
+              </span>
+              <br>
+              {% url "educators:student_password_reset" student_id=student.id as button_url %}
+              <a class="btn btn-primary mt-3" href="{{ button_url }}" role="button">Reset Password</a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p>Your membership or group doesn't have any participants in it! Reach out to your membership coordinator to
+          get your student accounts connected to your membership or group.</p>
+        {% endfor %}
       </div>
     </div>
   </div>

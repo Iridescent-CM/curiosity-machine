@@ -4,35 +4,34 @@
 
 {% block content %}
 
-<div class="container-fluid py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8">
-        <h2 class="mb-3">
-          Welcome to Technovation Families!
-        </h2>
-        <p>
-          Technovation Families brings together families, schools, communities, and industry partners to play, learn,
-          and
-          create with artificial intelligence. We're happy you've joined us!
-        </p>
-        <p>
-          The below lessons will help you guide students and families to learn basic artificial intelligence concepts,
-          and
-          apply what they learn to solve problems in their community.
-        </p>
-        <p>
-          Having trouble getting started?<br />
-          <a class="font-weight-bold base-type"
-            href="https://iridescentlearning.org/resources-for-ai-family-challenge-mentors/">
-            Explore more materials in the resources tab.
-            <i class="icon-right-arrow"></i>
-          </a>
-        </p>
-      </div>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <h2 class="mb-3">
+        Welcome to Technovation Families!
+      </h2>
+      <p>
+        Technovation Families brings together families, schools, communities, and industry partners to play, learn,
+        and
+        create with artificial intelligence. We're happy you've joined us!
+      </p>
+      <p>
+        The below lessons will help you guide students and families to learn basic artificial intelligence concepts,
+        and
+        apply what they learn to solve problems in their community.
+      </p>
+      <p>
+        Having trouble getting started?<br />
+        <a class="font-weight-bold base-type"
+          href="https://iridescentlearning.org/resources-for-ai-family-challenge-mentors/">
+          Explore more materials in the resources tab.
+          <i class="icon-right-arrow"></i>
+        </a>
+      </p>
     </div>
   </div>
 </div>
+
 <div class="container-fluid bg-orange py-5">
   <div class="container">
     <div class="col-lg-8">
@@ -41,15 +40,13 @@
   </div>
 </div>
 
-<div class="container-fluid py-4">
-  <div class="container">
-    <div class="row">
-      {% for obj in lessons %}
-      <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-4 offset-md-0 offset-lg-0 col-xl-5ths">
-        {% include 'educators/dashboard/_challenge_or_lesson_card.html'%}
-      </div>
-      {% endfor %}
+<div class="container py-4">
+  <div class="row">
+    {% for obj in lessons %}
+    <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-4 offset-md-0 offset-lg-0 col-xl-5ths">
+      {% include 'educators/dashboard/_challenge_or_lesson_card.html'%}
     </div>
+    {% endfor %}
   </div>
 </div>
 
@@ -62,8 +59,6 @@
     </div>
   </div>
 </div>
-</div>
-
 
 {% endblock %}
 
