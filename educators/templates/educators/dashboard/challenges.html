@@ -3,24 +3,23 @@
 
 {% block content %}
 <div class="container py-5">
-  {% if membership_selection.count > 1 %}
-  <div class="dropdown">
-    <a class="dropdown-toggle a-borderless base-type" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-      aria-expanded="false">
-      {{ membership_selection.selected.display_name }}
-    </a>
-    <div class="dropdown-menu">
-      {% for membership in membership_selection.all %}
-      <a class="dropdown-item"
-        href="{{ membership_selection_base_url }}?m={{ membership.id }}">{{ membership.display_name }}</a>
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
-
-  <div class="row py-4">
+  <div class="row">
     <div class="col-md-12">
-      <h2>{{ membership.display_name }} Design Challenges</h2>
+      <h2 class="mb-3">{{ membership.display_name }} Design Challenges</h2>
+      {% if membership_selection.count > 1 %}
+      <div class="dropdown">
+        <a class="dropdown-toggle btn btn-outline-orange base-type mb-3" data-toggle="dropdown" href="#" role="button"
+          aria-haspopup="true" aria-expanded="false">
+          {{ membership_selection.selected.display_name }}
+        </a>
+        <div class="dropdown-menu">
+          {% for membership in membership_selection.all %}
+          <a class="dropdown-item"
+            href="{{ membership_selection_base_url }}?m={{ membership.id }}">{{ membership.display_name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
 

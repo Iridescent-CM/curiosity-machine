@@ -11,7 +11,7 @@
         {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
       </div>
       {% for day, activity in activity_by_day.items %}
-      <ul class="activity-list-group list-group">
+      <ul class="activity-list-group list-group mb-3">
         <li class="list-group-item bg-blue">{{ day|date:"DATE_FORMAT" }}</li>
         {% for notification in activity %}
         <li class="list-group-item">
@@ -20,7 +20,7 @@
         {% endfor %}
       </ul>
       {% empty %}
-      <ul class="list-group">
+      <ul class="list-group mb-3">
         <li class="list-group-item bg-blue">{% now "DATE_FORMAT" %}</li>
         <li class="list-group-item">No recent activity</li>
       </ul>
