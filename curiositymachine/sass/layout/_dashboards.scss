@@ -19,6 +19,10 @@
     margin-right: 10px;
   }
 
+  .nav {
+    flex-wrap: nowrap;
+  }
+
   .dashboard-tabs {
     text-align: center;
     font-weight: bold;
@@ -40,12 +44,26 @@
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(lg) {
     .dashboard-tabs {
-      flex-direction: column;
-      padding-bottom: 0.5em;
       .nav-item {
-        border-bottom: none;
+        margin: 0px;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .nav {
+      flex-direction: column;
+      &:last-child {
+        margin-bottom: 10px;
+      }
+    }
+    .dashboard-tabs {
+      .nav-item {
+        width: 100%;
+        padding: 0px;
+        border-radius: $base-border-radius;
       }
     }
   }
