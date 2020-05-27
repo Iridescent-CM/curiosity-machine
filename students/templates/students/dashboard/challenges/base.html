@@ -2,43 +2,42 @@
 {% load staticfiles %}
 
 {% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <h2 class="mb-3">{% block tabhead %}{% endblock %}</h2>
+  </div>
+</div>
 
-  <div class="row pb-2">
-    <div class="col-md-12">
-      <h2 class="mb-0">{% block tabhead %}{% endblock %}</h2>
-    </div>
+<div class="row text-center mb-4">
+  {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+</div>
+
+<div class="row mb-4">
+  {% for challenge in challenges %}
+  <div class="col-lg-4 col-md-6 mb-1">
+    {% include 'students/dashboard/_challenge_card.html' %}
   </div>
 
-  <div class="row text-center mb-4">
-    {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+  {% if forloop.counter|divisibleby:3 %}
+  <div class="clearfix d-none d-lg-block"></div>
+  {% endif %}
+
+  {% if forloop.counter|divisibleby:2 %}
+  <div class="clearfix d-lg-none"></div>
+  {% endif %}
+
+  {% empty %}
+  {% block emptycontent %}
+  <div class="col-sm-12 mb-1 text-center">
+    <p>No challenges</p>
   </div>
+  {% endblock %}
+  {% endfor %}
 
-  <div class="row mb-4">
-    {% for challenge in challenges %}
-    <div class="col-lg-4 col-md-6 mb-1">
-      {% include 'students/dashboard/_challenge_card.html' %}
-    </div>
+</div>
 
-    {% if forloop.counter|divisibleby:3 %}
-      <div class="clearfix d-none d-lg-block"></div>
-    {% endif %}
-
-    {% if forloop.counter|divisibleby:2 %}
-      <div class="clearfix d-lg-none"></div>
-    {% endif %}
-
-    {% empty %}
-    {% block emptycontent %}
-    <div class="col-sm-12 mb-1 text-center">
-      <p>No challenges</p>
-    </div>
-    {% endblock %}
-    {% endfor %}
-
-  </div>
-
-  <div class="row text-center mb-3">
-    {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
-  </div>
+<div class="row text-center mb-3">
+  {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+</div>
 
 {% endblock %}
