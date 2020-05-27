@@ -1,5 +1,6 @@
 {% extends "curiositymachine/layout/base.html" %}
 {% load staticfiles %}
+{% load impact_survey %}
 
 {% block title %}My Dashboard{% endblock %}
 
@@ -53,4 +54,20 @@
 <div id="content">
   {% block content %}{% endblock %}
 </div>
+
+<div class="container-fluid bg-darkblue py-5">
+  <div class="container">
+    <div class="row">
+      <div class="offset-lg-1 col-lg-10 base-type">
+        {% impact_survey %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+{% impact_survey_js %}
+
 {% endblock %}
