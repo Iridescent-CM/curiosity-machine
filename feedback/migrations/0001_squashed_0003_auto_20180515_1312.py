@@ -15,8 +15,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('challenges', '0059_auto_20180315_1519'),
-        ('challenges', '0060_challenge_feedback_question'),
     ]
 
     operations = [
@@ -40,14 +38,9 @@ class Migration(migrations.Migration):
                 ('answer', models.TextField(null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('challenge', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='challenges.Challenge')),
                 ('feedback_question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='feedback.FeedbackQuestion')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='feedback_question', to=settings.AUTH_USER_MODEL)),
             ],
-        ),
-        migrations.AlterUniqueTogether(
-            name='feedbackresult',
-            unique_together=set([('feedback_question', 'challenge', 'user')]),
         ),
         migrations.AlterModelOptions(
             name='feedbackquestion',
