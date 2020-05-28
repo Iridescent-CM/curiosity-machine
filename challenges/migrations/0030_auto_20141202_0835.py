@@ -16,5 +16,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(make_non_draft, noop)
+        migrations.RunPython(make_non_draft, noop, elidable=True)
     ]

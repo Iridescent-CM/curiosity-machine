@@ -21,5 +21,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(copy_themes, noop)
+        migrations.RunPython(copy_themes, noop, elidable=True)
     ]

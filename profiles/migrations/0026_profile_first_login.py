@@ -19,5 +19,5 @@ class Migration(migrations.Migration):
             field=models.BooleanField(default=False),
             preserve_default=False,
         ),
-        migrations.RunPython(set_first_login),
+        migrations.RunPython(set_first_login, elidable=True),
     ]

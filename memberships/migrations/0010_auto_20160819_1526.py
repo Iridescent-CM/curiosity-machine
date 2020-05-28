@@ -18,5 +18,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(copy_name, noop)
+        migrations.RunPython(copy_name, noop, elidable=True)
     ]

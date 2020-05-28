@@ -38,5 +38,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(set_role, set_flags)
+        migrations.RunPython(set_role, set_flags, elidable=True)
     ]

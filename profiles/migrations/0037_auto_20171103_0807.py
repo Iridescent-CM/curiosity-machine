@@ -26,5 +26,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(copy_to_extra, copy_from_extra)
+        migrations.RunPython(copy_to_extra, copy_from_extra, elidable=True)
     ]

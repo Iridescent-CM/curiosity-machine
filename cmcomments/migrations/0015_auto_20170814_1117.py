@@ -28,5 +28,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(make_notifications)
+        migrations.RunPython(make_notifications, elidable=True)
     ]
