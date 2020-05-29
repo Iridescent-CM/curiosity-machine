@@ -1,7 +1,7 @@
 <template>
   <div v-if="loaded">
 
-    <div class="m-2 ml-4">
+    <div class="mb-3">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_has_not_been_used }"></i>
       <span class="checkbox-label">Enter an email that has not been used to start a submission.</span>
       <div class="v-email-change-controls" v-if="!checklist.items.email_has_not_been_used">
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="m-2 ml-4">
+    <div class="mb-3">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.email_verified }"></i>
       <span class="checkbox-label">Verify your email address.</span>
       <div class="v-verified-email-controls" v-if="!checklist.items.email_verified">
@@ -46,7 +46,7 @@
         </div>
       </div>
     </div>
-    <div class="m-2 ml-4" v-if="!checklist.items.exempt_from_post_survey">
+    <div class="mb-3" v-if="!checklist.items.exempt_from_post_survey">
       <i class="checkbox" :class="{ 'checkbox-checked': checklist.items.post_survey_taken }"></i>
       <span class="checkbox-label">Complete the post-survey.</span>
       <div class="v-survey-controls" v-if="!checklist.items.post_survey_taken">
@@ -57,17 +57,15 @@
         </div>
       </div>
     </div>
-    <div class="m-2 ml-4">
+    <div class="mb-3">
       <i class="checkbox v-family-checkbox" :class="{ 'checkbox-checked': checklist.items.family_confirmed_all_listed }"></i>
       <span class="checkbox-label">List all of your family members.</span>
       <div class="v-family-controls" v-if="!checklist.items.family_confirmed_all_listed">
         <div class="card">
           <div class="card-body">
             <slot name="family_members"></slot>
-          </div>
-          <div class="card-body">
             <p>Are all your family members listed?</p>
-            <div class="mb-2">
+            <div class="mb-3">
               <button class="btn btn-primary v-confirm-family mr-2" @click="confirm_family">Yes</button>
               <a :href="change_family_members_url" class="btn btn-danger v-edit-family">No</a>
             </div>
@@ -77,9 +75,9 @@
       </div>
     </div>
 
-    <div class="my-5 d-flex justify-content-center">
-      <a v-if="checklist.complete" class="btn btn-primary v-create" :href="create_url" target="_blank">I'm ready to submit!</a>
-      <a v-else class="btn btn-primary disabled v-create" href="#">I'm ready to submit!</a>
+    <div class="my-5 d-flex">
+      <a v-if="checklist.complete" class="btn btn-orange v-create" :href="create_url" target="_blank">I'm ready to submit!</a>
+      <a v-else class="btn btn-orange disabled v-create" href="#">I'm ready to submit!</a>
     </div>
   </div>
 
