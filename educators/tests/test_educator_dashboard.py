@@ -6,7 +6,7 @@ from cmcomments.factories import *
 from curiositymachine import signals
 from datetime import timedelta
 from django.contrib.auth import authenticate
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.urls import reverse
 from django.utils.timezone import now
 from memberships.factories import *

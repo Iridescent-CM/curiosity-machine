@@ -4,7 +4,7 @@ from django.core.files.storage import default_storage
 import tempfile
 from django.core.mail import send_mail
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from .reports import MembershipReport
 from .models import Membership
 

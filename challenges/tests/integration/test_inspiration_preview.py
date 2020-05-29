@@ -1,6 +1,6 @@
 import pytest
 from challenges.factories import *
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from educators.factories import *
 from profiles.factories import *
 from students.factories import *
