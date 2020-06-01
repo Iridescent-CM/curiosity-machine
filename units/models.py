@@ -1,7 +1,7 @@
 import os
 
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from images.models import Image
 from challenges.models import Challenge
 from s3direct.fields import S3DirectField

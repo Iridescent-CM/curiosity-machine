@@ -1,6 +1,6 @@
 import pytest
 from challenges.factories import ChallengeFactory
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from educators.factories import EducatorFactory
 from memberships.factories import MembershipFactory
 from students.factories import StudentFactory

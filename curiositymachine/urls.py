@@ -9,7 +9,7 @@ from curiositymachine.export_users import export_users
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic.base import RedirectView, TemplateView
 from . import views
