@@ -27,7 +27,7 @@ class ImpactSurvey(models.Model):
     out_of_classroom = models.BooleanField(default=False)
     hours_per_challenge = models.PositiveIntegerField(null=True, blank=True)
     comment = models.TextField(blank=True, default="")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, related_name="+")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, related_name="+", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

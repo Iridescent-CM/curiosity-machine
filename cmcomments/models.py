@@ -6,8 +6,8 @@ from videos.models import Video
 from images.models import Image
 
 class Comment(models.Model):
-    challenge_progress = models.ForeignKey(Progress, related_name='comments')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    challenge_progress = models.ForeignKey(Progress, related_name='comments', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField()
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL, related_name="comments")
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL, related_name="comments")

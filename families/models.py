@@ -104,7 +104,7 @@ class AwardForceIntegration(models.Model):
 class PermissionSlip(models.Model):
     signature = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True)
-    account = models.ForeignKey(get_user_model())
+    account = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):
         return "PermissionSlip: id=%s account=%s" % (self.id, self.account)
