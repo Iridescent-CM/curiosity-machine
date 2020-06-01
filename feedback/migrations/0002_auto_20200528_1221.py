@@ -9,9 +9,11 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
+    replaces = [('feedback', '0001_initial'), ('feedback', '0002_auto_20180511_1356'), ('feedback', '0003_auto_20180515_1312')]
+
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('challenges', '0064_remove_progress_mentor'),
+        ('challenges', '0001_squashed_0064_remove_progress_mentor'),
         ('feedback', '0001_squashed_0003_auto_20180515_1312'),
     ]
 

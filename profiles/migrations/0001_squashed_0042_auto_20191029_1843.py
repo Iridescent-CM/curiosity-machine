@@ -24,22 +24,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Profile',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('birthday', models.DateField(blank=True, null=True)),
-                ('gender', models.CharField(blank=True, max_length=1)),
-                ('city', models.TextField(blank=True)),
-                ('parent_first_name', models.TextField(blank=True)),
-                ('parent_last_name', models.TextField(blank=True)),
-                ('title', models.TextField(blank=True, help_text='This is a mentor only field.')),
-                ('about_research', models.TextField(blank=True, default='', help_text='This is a mentor only field.')),
-                ('employer', models.TextField(blank=True, default='', help_text='This is a mentor only field.')),
-                ('about_me', models.TextField(blank=True, default='', help_text='This is a mentor only field.')),
-                ('expertise', models.TextField(blank=True, default='', help_text='This is a mentor only field.')),
-            ],
-        ),
-        migrations.CreateModel(
             name='ImpactSurvey',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -54,11 +38,6 @@ class Migration(migrations.Migration):
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
                 ('comment', models.TextField(blank=True, default='')),
             ],
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='organization',
-            field=models.CharField(blank=True, help_text='This is an educator field.', max_length=50, null=True),
         ),
         migrations.CreateModel(
             name='UserExtra',
