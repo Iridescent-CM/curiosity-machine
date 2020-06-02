@@ -69,7 +69,7 @@ class BaseProfile(models.Model):
     class Meta:
         abstract = True
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='%(class)s')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='%(class)s', on_delete=models.CASCADE)
 
 class NullProfile(object):
 
@@ -95,7 +95,7 @@ class UserExtraQuerySet(models.QuerySet):
 ACTIVE_ROLES = [UserRole.none, UserRole.student, UserRole.educator, UserRole.family]
 
 class UserExtra(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='extra')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='extra', on_delete=models.CASCADE)
     role = models.SmallIntegerField(choices=[(role.value, role.name) for role in ACTIVE_ROLES], default=UserRole.none.value)
     source = models.CharField(max_length=50, null=False, blank=True, default="")
     last_active_on = models.DateTimeField(default=now)
@@ -211,7 +211,7 @@ class ImpactSurvey(models.Model):
     out_of_classroom = models.BooleanField(default=False)
     hours_per_challenge = models.PositiveIntegerField(default=0, blank=True)
     comment = models.TextField(blank=True, default="")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

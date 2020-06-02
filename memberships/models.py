@@ -150,7 +150,7 @@ class Group(models.Model):
     class Meta:
         unique_together = ("membership", "name")
 
-    membership = models.ForeignKey(Membership, null=False, blank=False)
+    membership = models.ForeignKey(Membership, null=False, blank=False, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=False, blank=False)
     members = models.ManyToManyField('Member', blank=True, through='GroupMember')
 
@@ -158,8 +158,8 @@ class Group(models.Model):
         return "%s: %s" % (self.membership, self.name)
 
 class GroupMember(models.Model):
-    group = models.ForeignKey(Group, null=False, blank=False)
-    member = models.ForeignKey('Member', null=False, blank=False)
+    group = models.ForeignKey(Group, null=False, blank=False, on_delete=models.CASCADE)
+    member = models.ForeignKey('Member', null=False, blank=False, on_delete=models.CASCADE)
 
     def clean(self):
         if self.member.membership != self.group.membership:
@@ -174,8 +174,8 @@ class Member(models.Model):
     class Meta:
         unique_together = ("membership", "user")
 
-    membership = models.ForeignKey(Membership, null=False, blank=False)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
+    membership = models.ForeignKey(Membership, null=False, blank=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -14,7 +14,7 @@ class Quiz(models.Model):
     class Meta:
         verbose_name_plural = 'Quizzes'
 
-    challenge = models.ForeignKey(Challenge)
+    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=False, help_text="Enable this option to show this quiz to students")
 
     question_1 = models.TextField(null=True, blank=True)
@@ -81,8 +81,8 @@ class Quiz(models.Model):
 
 class Result(models.Model):
 
-    quiz = models.ForeignKey(Quiz)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     answer_1 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True)
     answer_2 = models.PositiveSmallIntegerField(choices=ANSWER_CHOICES, null=True)

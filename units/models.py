@@ -32,8 +32,8 @@ class Unit(models.Model):
         return "Unit: id={}, name={}".format(self.id, self.name)
 
 class UnitChallenge(models.Model):
-    unit = models.ForeignKey(Unit)
-    challenge = models.ForeignKey(Challenge)
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
+    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
     display_order = models.PositiveIntegerField()
 
 class Resource(models.Model):
