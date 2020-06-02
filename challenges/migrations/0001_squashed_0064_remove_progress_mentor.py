@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('videos', '__first__'),
-        ('feedback', '0001_initial'),
+        ('feedback', '__first__'),
         ('images', '__first__'),
         ('videos', '0001_initial'),
     ]
