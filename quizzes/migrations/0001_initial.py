@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                 ('correct_answer_4', models.PositiveSmallIntegerField(blank=True, null=True, choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)])),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('challenge', models.ForeignKey(to='challenges.Challenge')),
+                ('challenge', models.ForeignKey(to='challenges.Challenge', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'Quizzes',
@@ -68,8 +68,8 @@ class Migration(migrations.Migration):
                 ('answer_4', models.PositiveSmallIntegerField(null=True, choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)])),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('quiz', models.ForeignKey(to='quizzes.Quiz')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('quiz', models.ForeignKey(to='quizzes.Quiz', on_delete=models.PROTECT)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
     ]
