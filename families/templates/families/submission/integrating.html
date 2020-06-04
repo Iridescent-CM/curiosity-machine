@@ -3,58 +3,56 @@
 {% load render_bundle from webpack_loader %}
 
 {% block content %}
-<div class="container-fluid py-5">
-  <div class="container">
-    <div class="row mb-3">
-      <div class="col-lg-8">
-        <h2 class="mb-3">Share what you create with the world</h2>
-        <p>
-          Your family could win a trip to the Technovation World Summit, meet families like yours from around the world,
-          and have the chance to present your work to Al experts! To enter, make sure your account is set up and that
-          all pieces of your submission are complete.
-        </p>
+<div class="container py-5">
+  <div class="row mb-3">
+    <div class="col-lg-8">
+      <h2 class="mb-3">Share what you create with the world</h2>
+      <p>
+        Your family could win a trip to the Technovation World Summit, meet families like yours from around the world,
+        and have the chance to present your work to Al experts! To enter, make sure your account is set up and that
+        all pieces of your submission are complete.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <h2 class="mb-3">Set up your Account</h2>
+      <div class="awardforce-checklist-app">
+        <checklist create_url="{% url "families:awardforce" %}"
+          change_family_members_url="{% url "profiles:edit_profile" %}">
+          <div slot="loader" class="loader">Loading...</div>
+          <template slot="family_members">
+            <ul>
+              {% for member in request.user.familymember_set.all %}
+              <li class="mb-3 list-unstyled">
+                <span class="leaf-avatar">
+                  {% include "families/_avatar.html" with image=member.image width=50 height=50 %}
+                </span>
+                {{ member.first_name }} {{ member.last_name }}
+              </li>
+              {% endfor %}
+            </ul>
+          </template>
+        </checklist>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <h2 class="mb-3">Set up your Account</h2>
-        <div class="awardforce-checklist-app">
-          <checklist create_url="{% url "families:awardforce" %}"
-            change_family_members_url="{% url "profiles:edit_profile" %}">
-            <div slot="loader" class="loader">Loading...</div>
-            <template slot="family_members">
-              <ul>
-                {% for member in request.user.familymember_set.all %}
-                <li class="mb-3 list-unstyled">
-                  <span class="leaf-avatar">
-                    {% include "families/_avatar.html" with image=member.image width=50 height=50 %}
-                  </span>
-                  {{ member.first_name }} {{ member.last_name }}
-                </li>
-                {% endfor %}
-              </ul>
-            </template>
-          </checklist>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <h2 class="mb-3">Submit Your Project</h2>
-        <ol class="submission-list">
-          <li class="mb-3">
-            Ensure all steps are complete.
-          </li>
-          <li class="mb-3">
-            Click the "I'm ready to submit!" button.
-          </li>
-          <li class="mb-3">
-            Enter your 2 pictures, pitch video, invention descriptions, and optional materials.
-            <br />
-            <a class="font-weight-bold base-type"
-              href="https://iridescentsupport.zendesk.com/hc/en-us/articles/115004048694-What-do-families-submit-for-the-competition-">
-              Learn more <i class="icon-right-arrow"></i></a>
-          </li>
-        </ol>
-      </div>
+    <div class="col-lg-6">
+      <h2 class="mb-3">Submit Your Project</h2>
+      <ol class="submission-list">
+        <li class="mb-3">
+          Ensure all steps are complete.
+        </li>
+        <li class="mb-3">
+          Click the "I'm ready to submit!" button.
+        </li>
+        <li class="mb-3">
+          Enter your 2 pictures, pitch video, invention descriptions, and optional materials.
+          <br />
+          <a class="font-weight-bold base-type"
+            href="https://iridescentsupport.zendesk.com/hc/en-us/articles/115004048694-What-do-families-submit-for-the-competition-">
+            Learn more <i class="icon-right-arrow"></i></a>
+        </li>
+      </ol>
     </div>
   </div>
 </div>

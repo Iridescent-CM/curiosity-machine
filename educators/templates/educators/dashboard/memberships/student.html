@@ -5,101 +5,99 @@
 
 {% block content %}
 {% url "educators:students" as base_url %}
-<div class="container-fluid py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 mb-3">
-        <h2>{{ student.username }}'s Progress</h2>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h2>{{ student.username }}'s Progress</h2>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <div class="text-md-left text-center">
+        <div class="leaf-avatar mb-3">
+          {% include "_avatar.html" with user=student width=128 height=128 crop='thumb' gravity='faces' %}
+        </div>
+        <div class="mb-3">
+          {% if student.first_name or student.last_name %}
+          <strong class="mb-3">
+            {{ student.first_name }} {{ student.last_name }}
+          </strong>
+          {% else %}
+          <em>No name provided</em>
+          {% endif %}
+          <br>
+          <span>{{ student.username }}</span>
+        </div>
+        <div class="mb-3">
+          Started: {{ progresses|length }}
+          <br>
+          Completed: {{ completed_count }}
+        </div>
       </div>
     </div>
-    <div class="row mb-3">
-      <div class="col-md-3">
-        <div class="text-md-left text-center">
-          <div class="leaf-avatar mb-3">
-            {% include "_avatar.html" with user=student width=128 height=128 crop='thumb' gravity='faces' %}
-          </div>
-          <div class="mb-3">
-            {% if student.first_name or student.last_name %}
-            <strong class="mb-3">
-              {{ student.first_name }} {{ student.last_name }}
-            </strong>
-            {% else %}
-            <em>No name provided</em>
-            {% endif %}
-            <br>
-            <span>{{ student.username }}</span>
-          </div>
-          <div class="mb-3">
-            Started: {{ progresses|length }}
-            <br>
-            Completed: {{ completed_count }}
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-9">
-        <div class="dropdown mb-3 text-md-left text-center">
-          <a class="dropdown-toggle btn btn-outline-orange base-type" href="#" id="sortDropdown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Sort by {{ sorter.selected|lower }}
-          </a>
-          <div class="dropdown-menu" aria-labelledby="sortDropdown">
-            {% for strategy in sorter.strategies %}
-            <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
-            {% endfor %}
-          </div>
-        </div>
-        {% for progress in progresses %}
-        <div class="card cm-card-blue mb-3">
-          <div class="card-header text-center text-lg-left">
-            <h3 class="card-title d-block d-lg-inline">{{ progress.challenge.name }}</h3>
-            <a href="{% url "educators:challenge" challenge_id=progress.challenge.id %}"
-              class="a-secondary float-lg-right">
-              View all student progress &rarr;
-            </a>
-          </div>
-          <div class="card-body">
-            <div class="row progress-details">
-              <div class="col-md-4 mb-3">
-                <h4 class="data-label">latest post</h4>
-                {% if progress.latest_user_comment %}
-                <span class="mr-2">{{ progress.latest_user_comment.created|date:"l, M d" }}</span>
-                {% datepill progress.latest_user_comment.created %}
-                {% else %}
-                <em>No posts yet</em>
-                {% endif %}
-              </div>
-              <div class="col-md-4 mb-3">
-                <h4 class="data-label">total posts</h4>
-                {{ progress.total_user_comments }}
-              </div>
-            </div>
-
-            <div class="graph mb-3">
-              <img class="spinner" src="{% static "images/load-bot-gear.gif" %}" alt="Loading" />
-              <svg viewBox="0 0 700 205" preserveAspectRatio="xMinYMin meet" data-pid="{{ progress.id }}"></svg>
-              <div class="error-message">
-                <img src="{% static "images/worried-bot.svg" %}" alt="Error" />
-                <p>
-                  <strong>Oh no!</strong><br />
-                  We're having trouble displaying this student's progress. Try reloading the page.
-                </p>
-              </div>
-            </div>
-
-            <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}"
-              class="btn btn-orange">View</a>
-            {% if flags.enable_educator_feedback %}
-            <a href="{% url "educators:conversation" student_id=student.id challenge_id=progress.challenge_id %}"
-              class="btn btn-outline-primary">Give feedback</a>
-            {% endif %}
-          </div>
-          {% empty %}
-          <p>{{ student.username }} hasn't started any design challenges yet</p>
+    <div class="col-md-9">
+      <div class="dropdown mb-3 text-md-left text-center">
+        <a class="dropdown-toggle btn btn-outline-orange base-type" href="#" id="sortDropdown" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Sort by {{ sorter.selected|lower }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="sortDropdown">
+          {% for strategy in sorter.strategies %}
+          <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
           {% endfor %}
         </div>
       </div>
+      {% for progress in progresses %}
+      <div class="card cm-card-blue mb-3">
+        <div class="card-header text-center text-lg-left">
+          <h3 class="card-title d-block d-lg-inline">{{ progress.challenge.name }}</h3>
+          <a href="{% url "educators:challenge" challenge_id=progress.challenge.id %}"
+            class="a-secondary float-lg-right">
+            View all student progress &rarr;
+          </a>
+        </div>
+        <div class="card-body">
+          <div class="row progress-details">
+            <div class="col-md-4 mb-3">
+              <h4 class="data-label">latest post</h4>
+              {% if progress.latest_user_comment %}
+              <span class="mr-2">{{ progress.latest_user_comment.created|date:"l, M d" }}</span>
+              {% datepill progress.latest_user_comment.created %}
+              {% else %}
+              <em>No posts yet</em>
+              {% endif %}
+            </div>
+            <div class="col-md-4 mb-3">
+              <h4 class="data-label">total posts</h4>
+              {{ progress.total_user_comments }}
+            </div>
+          </div>
+
+          <div class="graph mb-3">
+            <img class="spinner" src="{% static "images/load-bot-gear.gif" %}" alt="Loading" />
+            <svg viewBox="0 0 700 205" preserveAspectRatio="xMinYMin meet" data-pid="{{ progress.id }}"></svg>
+            <div class="error-message">
+              <img src="{% static "images/worried-bot.svg" %}" alt="Error" />
+              <p>
+                <strong>Oh no!</strong><br />
+                We're having trouble displaying this student's progress. Try reloading the page.
+              </p>
+            </div>
+          </div>
+
+          <a href="{% url "challenges:challenge_progress" challenge_id=progress.challenge_id username=student.username %}"
+            class="btn btn-orange">View</a>
+          {% if flags.enable_educator_feedback %}
+          <a href="{% url "educators:conversation" student_id=student.id challenge_id=progress.challenge_id %}"
+            class="btn btn-outline-primary">Give feedback</a>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <p>{{ student.username }} hasn't started any design challenges yet</p>
     </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
