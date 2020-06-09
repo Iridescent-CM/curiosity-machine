@@ -1,6 +1,11 @@
 import pytest
+import mock
 from django.contrib.auth.models import AnonymousUser
+from educators.factories import *
+from families.factories import *
 from memberships.factories import *
+from memberships.models import *
+from profiles.factories import *
 from students.factories import *
 from ...context_processors import google_analytics
 from ...context_processors.google_analytics import add_event
@@ -99,3 +104,42 @@ class TestEvents:
         assert len(events) == 2
         assert {'category': 'cat', 'action':'act', 'label':'lab'} in events
         assert {'category': 'cat2', 'action':'act2', 'label':'lab2'} in events
+
+class TestUserType:
+    def test_anonymous_marked_as_anonymous(self, rf):
+        user = mock.Mock()
+        user.is_authenticated = False
+
+        request = rf.get('/')
+        request.user = user
+        request.session = {}
+
+        context = google_analytics(request)
+        assert context["ga_dimension_user_type"] == "Anonymous"
+
+    def test_staff_marked_as_staff(self, rf):
+        user = mock.Mock()
+        user.is_authenticated = True
+        user.is_staff = True
+        user.membership_set = Membership.objects.none()
+
+        request = rf.get('/')
+        request.user = user
+        request.session = {}
+
+        context = google_analytics(request)
+        assert context["ga_dimension_user_type"] == "Staff"
+
+    def test_other_roles_marked_as_capitalized_role(self, rf):
+        user = mock.Mock()
+        user.is_authenticated = True
+        user.is_staff = False
+        user.membership_set = Membership.objects.none()
+        user.extra.role_name = "whatever"
+
+        request = rf.get('/')
+        request.user = user
+        request.session = {}
+
+        context = google_analytics(request)
+        assert context["ga_dimension_user_type"] == "Whatever"
