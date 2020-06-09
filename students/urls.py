@@ -2,6 +2,8 @@ from curiositymachine.decorators import whitelist
 from django.conf.urls import url, include
 from .views import *
 
+app_name = "students"
+
 urlpatterns = [
     url(r'^profile/new/$', create, name="create_profile"),
     url(r'^profile/edit/$', edit, name="edit_profile"),

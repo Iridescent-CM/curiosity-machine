@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from units import views
 
+app_name = "units"
+
 urlpatterns = [
     url(r'^$', views.units, name='units'),
     url(r'^(?P<unit_id>\d+)/$', views.unit, name='unit'),

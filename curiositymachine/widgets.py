@@ -23,7 +23,7 @@ class FilePickerPickWidget(Widget):
             _attrs.update(attrs)
         super(FilePickerPickWidget, self).__init__(_attrs)
 
-    def render(self, name, value, attrs={}):
+    def render(self, name, value, attrs={}, renderer=None):
         id = attrs.pop('id', None)
         context = {
             "id": id,
