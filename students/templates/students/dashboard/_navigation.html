@@ -24,8 +24,9 @@
         <li class="nav-item {% ifactive "students:activity" "active" %}">
           <a class="nav-link" href="{% url "students:activity" %}">
             Recent Activity
+            {% notifications_unread as unread_count %}
             <span
-              class="badge {% if notifications_unread %} badge-orange {% else %} badge-purple {% endif %}">{% notifications_unread %}</span>
+              class="badge {% if unread_count %} badge-orange {% else %} badge-purple {% endif %}">{{ unread_count }}</span>
           </a>
         </li>
       </ul>
