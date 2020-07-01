@@ -1,5 +1,4 @@
 {% extends "educators/dashboard/base.html" %}
-{% load impact_survey %}
 {% load staticfiles %}
 
 {% block content %}
@@ -50,18 +49,4 @@
   </div>
 </div>
 
-<div class="container-fluid bg-darkblue py-5">
-  <div class="container">
-    <div class="row">
-      <div class="offset-lg-1 col-lg-10 base-type">
-        {% impact_survey %}
-      </div>
-    </div>
-  </div>
-</div>
-
-{% endblock %}
-
-{% block js %}
-{% impact_survey_js %}
 {% endblock %}

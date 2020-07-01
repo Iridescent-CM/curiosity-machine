@@ -1,14 +1,16 @@
 {% extends "students/dashboard/challenges/base.html" %}
 
-{% block tabhead %}My challenges{% endblock %}
+{% block tabhead %}My Challenges{% endblock %}
 
 {% block emptycontent %}
-<div class="col-sm-12 mb-1 text-center">
-  <p>
-    You haven't started any challenges yet.
-  </p>
-  <p>
-    Go <a href="{% url "challenges:challenges" %}">see the challenges</a> and pick one to start building!
-  </p>
-</div>
-{% endblock %}
+<div class="row">
+  <div class="col-sm-12 mb-1 text-center">
+    <p>
+      You haven't started any challenges yet.
+    </p>
+    <p>
+      Go <a href="{% url "challenges:challenges" %}">see the challenges</a> and pick one to start building!
+    </p>
+  </div>
+
+  {% endblock %}
