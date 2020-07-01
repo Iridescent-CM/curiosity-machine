@@ -4,6 +4,8 @@ from challenges import views
 
 public = whitelist('public')
 
+app_name = "challenges"
+
 urlpatterns = [
     url(r'^$', public(views.challenges), name='challenges'),
     url(r'^(?P<challenge_id>\d+)/$', public(views.InspirationPreviewDispatch.as_view()), name='preview_inspiration'),
@@ -16,9 +18,9 @@ urlpatterns = [
     url(r'^(?P<challenge_id>\d+)/(?P<username>[^/]+)/$', views.redirect_to_stage, name='challenge_progress'),
     url(r'^(?P<challenge_id>\d+)/(?P<username>[^/]+)/inspiration/$', views.InspirationProgressDispatch.as_view(), name='inspiration_progress'),
     url(r'^(?P<challenge_id>\d+)/(?P<username>[^/]+)/(?P<stage>plan|build|test|reflect)/$', views.challenge_progress, name='challenge_progress'),
-    url(r'^(?P<challenge_id>\d+)/(?P<username>[^/]+)/(?P<stage>plan|build|test|reflect)/comments/', include('cmcomments.urls', namespace='comments', app_name='comments')),
-    url(r'^(?P<challenge_id>\d+)/(?P<username>[^/]+)/(?P<stage>plan|build|test|reflect)/quiz/', include('quizzes.urls', namespace='quizzes', app_name='quizzes')),
-    url(r'^(?P<challenge_id>\d+)/(?P<username>[^/]+)/feedback/', include('feedback.urls', namespace='feedback', app_name='feedback')),
+    url(r'^(?P<challenge_id>\d+)/(?P<username>[^/]+)/(?P<stage>plan|build|test|reflect)/comments/', include('cmcomments.urls')),
+    url(r'^(?P<challenge_id>\d+)/(?P<username>[^/]+)/(?P<stage>plan|build|test|reflect)/quiz/', include('quizzes.urls')),
+    url(r'^(?P<challenge_id>\d+)/(?P<username>[^/]+)/feedback/', include('feedback.urls')),
     url(r'^(?P<challenge_id>\d+)/(?P<username>[^/]+)/materials/$', views.change_materials, name='change_materials'),
     url(r'^(?P<challenge_id>\d+)/(?P<mode>favorite|unfavorite)$', views.set_favorite, name='set_favorite'),
     url(r'^favorite_challenges$', views.favorite_challenges, name='favorite_challenges'),

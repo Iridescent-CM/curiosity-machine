@@ -44,7 +44,7 @@ class Video(models.Model):
         return "Video: id={}, url={}".format(self.id, self.url)
 
 class EncodedVideo(models.Model):
-    video = models.ForeignKey(Video, related_name="encoded_videos")
+    video = models.ForeignKey(Video, related_name="encoded_videos", on_delete=models.CASCADE)
     key = models.CharField(max_length=1024)
     width = models.IntegerField()
     height = models.IntegerField()

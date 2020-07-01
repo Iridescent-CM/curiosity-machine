@@ -9,7 +9,7 @@ from curiositymachine.export_users import export_users
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.functional import lazy
 from django.views.generic.base import RedirectView, TemplateView
 from . import views
@@ -41,7 +41,7 @@ def pages_urls():
 
 urlpatterns = [
     url(r'^$', public(views.root), name='root'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^admin/analytics/$', analytics, name="analytics"),
     url(r'^admin/export_users/$', export_users, name="export_users"),
     url(r'^accounts/signup/(?P<source>[^/]*)/?$', views.signup_with_source, name="account_signup"),
@@ -49,13 +49,13 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^login/$', public(login), name='login'),
     url(r'^logout/$', public(logout), name='logout'),
-    url(r'^', include('profiles.urls', namespace='profiles', app_name='profiles')),
-    url(r'^student/', include('students.urls', namespace='students', app_name='students')),
-    url(r'^educator/', include('educators.urls', namespace='educators', app_name='educators')),
-    url(r'^family/', include('families.urls', namespace='families', app_name='families')),
-    url(r'^challenges/', include('challenges.urls', namespace='challenges', app_name='challenges')),
-    url(r'^lessons/', include('lessons.urls', namespace='lessons', app_name='lessons')),
-    url(r'^surveys/', include('surveys.urls', namespace='surveys', app_name='surveys')),
+    url(r'^', include('profiles.urls')),
+    url(r'^student/', include('students.urls')),
+    url(r'^educator/', include('educators.urls')),
+    url(r'^family/', include('families.urls')),
+    url(r'^challenges/', include('challenges.urls')),
+    url(r'^lessons/', include('lessons.urls')),
+    url(r'^surveys/', include('surveys.urls')),
     url(r'^django-rq/', include('django_rq.urls')), # task queue manager (staff users only)
 ]
 
@@ -152,7 +152,7 @@ urlpatterns += [
     ),
 
     url(r'^summernote/', include('django_summernote.urls')),
-    url(r'^units/', include('units.urls', namespace='units', app_name='units'), name='units'),
+    url(r'^units/', include('units.urls'), name='units'),
     url(r'^s3direct/', include('s3direct.urls')),
     url('^notifications/', include(notifications.urls, namespace='notifications')),
     url(r'^health_check/', public(views.health_check)),

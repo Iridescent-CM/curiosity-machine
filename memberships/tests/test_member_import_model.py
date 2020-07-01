@@ -65,13 +65,16 @@ def test_member_import_deletion_deletes_files():
     get_worker().work(burst=True)
 
     saved = MemberImport.objects.all().first()
-    assert default_storage.exists(saved.input.name)
-    assert default_storage.exists(saved.output.name)
+    input_name = saved.input.name
+    output_name = saved.output.name
+
+    assert default_storage.exists(input_name)
+    assert default_storage.exists(output_name)
 
     saved.delete()
 
-    assert not default_storage.exists(saved.input.name)
-    assert not default_storage.exists(saved.output.name)
+    assert not default_storage.exists(input_name)
+    assert not default_storage.exists(output_name)
 
 @pytest.mark.django_db
 def test_stale_objects_manager():

@@ -23,8 +23,8 @@ class SeasonParticipation(models.Model):
     class Meta:
         unique_together = ("user", "season_marker")
 
-    user = models.ForeignKey(get_user_model(), null=False, blank=False)
-    season_marker = models.ForeignKey(SeasonMarker, null=False, blank=False)
+    user = models.ForeignKey(get_user_model(), null=False, blank=False, on_delete=models.CASCADE)
+    season_marker = models.ForeignKey(SeasonMarker, null=False, blank=False, on_delete=models.CASCADE)
 
     joined_season_at = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -12,6 +12,7 @@ def test_adds_event_on_create(rf):
 
     class TestCreateView(EditProfileMixin, CreateView):
         form_class = TestForm
+        success_url = '/yay'
 
     view = TestCreateView.as_view()
 
@@ -32,6 +33,7 @@ def test_no_event_on_update(rf):
     class TestEditView(EditProfileMixin, UpdateView):
         form_class = TestForm
         queryset = mock.MagicMock()
+        success_url = '/yay'
 
     view = TestEditView.as_view()
 

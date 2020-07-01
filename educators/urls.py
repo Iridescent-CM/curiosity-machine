@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from .views import *
 
+app_name = "educators"
+
 urlpatterns = [
     url(r'^profile/new/$', create, name="create_profile"),
     url(r'^profile/edit/$', edit, name="edit_profile"),
