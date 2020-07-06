@@ -60,35 +60,27 @@
       }
     }
 
-    @include page-colors(
-      'start',
-      theme-color('new-pink'),
-      theme-color('new-red')
-    );
+    @include page-colors('start', theme-color('pink'), theme-color('orange'));
     @include page-colors(
       'inspiration',
-      theme-color('new-red'),
-      theme-color('new-orange')
+      theme-color('orange'),
+      theme-color('green')
     );
     @include page-colors(
       'plan',
-      theme-color('new-orange'),
-      theme-color('new-green')
+      theme-color('green'),
+      theme-color('lightblue')
     );
     @include page-colors(
       'build',
-      theme-color('new-green'),
-      theme-color('new-turquoise')
+      theme-color('lightblue'),
+      theme-color('blue')
     );
-    @include page-colors(
-      'reflect',
-      theme-color('new-turquoise'),
-      theme-color('new-blue')
-    );
+    @include page-colors('reflect', theme-color('blue'), theme-color('purple'));
     @include page-colors(
       'further',
-      theme-color('new-blue'),
-      theme-color('new-purple')
+      theme-color('purple'),
+      theme-color('darkblue')
     );
   }
 
@@ -107,12 +99,12 @@
       }
     }
 
-    @include active-tab('start', theme-color('new-pink'));
-    @include active-tab('inspiration', theme-color('new-red'));
-    @include active-tab('plan', theme-color('new-orange'));
-    @include active-tab('build', theme-color('new-green'));
-    @include active-tab('reflect', theme-color('new-blue'));
-    @include active-tab('further', theme-color('new-purple'));
+    @include active-tab('start', theme-color('pink'));
+    @include active-tab('inspiration', theme-color('orange'));
+    @include active-tab('plan', theme-color('green'));
+    @include active-tab('build', theme-color('lightblue'));
+    @include active-tab('reflect', theme-color('blue'));
+    @include active-tab('further', theme-color('purple'));
   }
 
   .nav {
