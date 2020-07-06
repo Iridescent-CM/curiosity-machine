@@ -10630,107 +10630,107 @@ footer {
         padding-left: 80px;
         padding-right: 80px; } }
   .lesson-pages .lesson-container.start .bg-page-gradient, .lesson-pages .lesson-container.start .page-header {
-    background: #ff4980 linear-gradient(90deg, #ff4980, #ff5050) repeat-x;
+    background: #d0006f linear-gradient(90deg, #d0006f, #ff7500) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.start .bg-page-reverse-gradient {
-    background: #ff5050 linear-gradient(90deg, #ff5050, #ff4980) repeat-x;
+    background: #ff7500 linear-gradient(90deg, #ff7500, #d0006f) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.start .page-color {
-    color: #ff5050; }
+    color: #ff7500; }
   .lesson-pages .lesson-container.inspiration .bg-page-gradient, .lesson-pages .lesson-container.inspiration .page-header {
-    background: #ff5050 linear-gradient(90deg, #ff5050, #f7931e) repeat-x;
+    background: #ff7500 linear-gradient(90deg, #ff7500, #43b02a) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.inspiration .bg-page-reverse-gradient {
-    background: #f7931e linear-gradient(90deg, #f7931e, #ff5050) repeat-x;
+    background: #43b02a linear-gradient(90deg, #43b02a, #ff7500) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.inspiration .page-color {
-    color: #f7931e; }
+    color: #43b02a; }
   .lesson-pages .lesson-container.plan .bg-page-gradient, .lesson-pages .lesson-container.plan .page-header {
-    background: #f7931e linear-gradient(90deg, #f7931e, #39b54a) repeat-x;
+    background: #43b02a linear-gradient(90deg, #43b02a, #5bc2e7) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.plan .bg-page-reverse-gradient {
-    background: #39b54a linear-gradient(90deg, #39b54a, #f7931e) repeat-x;
+    background: #5bc2e7 linear-gradient(90deg, #5bc2e7, #43b02a) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.plan .page-color {
-    color: #39b54a; }
+    color: #5bc2e7; }
   .lesson-pages .lesson-container.build .bg-page-gradient, .lesson-pages .lesson-container.build .page-header {
-    background: #39b54a linear-gradient(90deg, #39b54a, #02b0c2) repeat-x;
+    background: #5bc2e7 linear-gradient(90deg, #5bc2e7, #0076cf) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.build .bg-page-reverse-gradient {
-    background: #02b0c2 linear-gradient(90deg, #02b0c2, #39b54a) repeat-x;
+    background: #0076cf linear-gradient(90deg, #0076cf, #5bc2e7) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.build .page-color {
-    color: #02b0c2; }
+    color: #0076cf; }
   .lesson-pages .lesson-container.reflect .bg-page-gradient, .lesson-pages .lesson-container.reflect .page-header {
-    background: #02b0c2 linear-gradient(90deg, #02b0c2, #0071bc) repeat-x;
+    background: #0076cf linear-gradient(90deg, #0076cf, #1d1349) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.reflect .bg-page-reverse-gradient {
-    background: #0071bc linear-gradient(90deg, #0071bc, #02b0c2) repeat-x;
+    background: #1d1349 linear-gradient(90deg, #1d1349, #0076cf) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.reflect .page-color {
-    color: #0071bc; }
+    color: #1d1349; }
   .lesson-pages .lesson-container.further .bg-page-gradient, .lesson-pages .lesson-container.further .page-header {
-    background: #0071bc linear-gradient(90deg, #0071bc, #6c6cb6) repeat-x;
+    background: #1d1349 linear-gradient(90deg, #1d1349, #041e42) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.further .bg-page-reverse-gradient {
-    background: #6c6cb6 linear-gradient(90deg, #6c6cb6, #0071bc) repeat-x;
+    background: #041e42 linear-gradient(90deg, #041e42, #1d1349) repeat-x;
     color: #ffffff; }
   .lesson-pages .lesson-container.further .page-color {
-    color: #6c6cb6; }
+    color: #041e42; }
 
 .lesson-pages .nav-item.active.start {
-  background-color: #ff4980; }
+  background-color: #d0006f; }
   .lesson-pages .nav-item.active.start .nav-link {
     color: #ffffff; }
   .lesson-pages .nav-item.active.start:after {
-    border-top-color: #ff4980;
-    border-bottom-color: #ff4980;
-    border-right-color: #ff4980; }
+    border-top-color: #d0006f;
+    border-bottom-color: #d0006f;
+    border-right-color: #d0006f; }
 
 .lesson-pages .nav-item.active.inspiration {
-  background-color: #ff5050; }
+  background-color: #ff7500; }
   .lesson-pages .nav-item.active.inspiration .nav-link {
     color: #ffffff; }
   .lesson-pages .nav-item.active.inspiration:after {
-    border-top-color: #ff5050;
-    border-bottom-color: #ff5050;
-    border-right-color: #ff5050; }
+    border-top-color: #ff7500;
+    border-bottom-color: #ff7500;
+    border-right-color: #ff7500; }
 
 .lesson-pages .nav-item.active.plan {
-  background-color: #f7931e; }
+  background-color: #43b02a; }
   .lesson-pages .nav-item.active.plan .nav-link {
     color: #ffffff; }
   .lesson-pages .nav-item.active.plan:after {
-    border-top-color: #f7931e;
-    border-bottom-color: #f7931e;
-    border-right-color: #f7931e; }
+    border-top-color: #43b02a;
+    border-bottom-color: #43b02a;
+    border-right-color: #43b02a; }
 
 .lesson-pages .nav-item.active.build {
-  background-color: #39b54a; }
+  background-color: #5bc2e7; }
   .lesson-pages .nav-item.active.build .nav-link {
     color: #ffffff; }
   .lesson-pages .nav-item.active.build:after {
-    border-top-color: #39b54a;
-    border-bottom-color: #39b54a;
-    border-right-color: #39b54a; }
+    border-top-color: #5bc2e7;
+    border-bottom-color: #5bc2e7;
+    border-right-color: #5bc2e7; }
 
 .lesson-pages .nav-item.active.reflect {
-  background-color: #0071bc; }
+  background-color: #0076cf; }
   .lesson-pages .nav-item.active.reflect .nav-link {
     color: #ffffff; }
   .lesson-pages .nav-item.active.reflect:after {
-    border-top-color: #0071bc;
-    border-bottom-color: #0071bc;
-    border-right-color: #0071bc; }
+    border-top-color: #0076cf;
+    border-bottom-color: #0076cf;
+    border-right-color: #0076cf; }
 
 .lesson-pages .nav-item.active.further {
-  background-color: #6c6cb6; }
+  background-color: #1d1349; }
   .lesson-pages .nav-item.active.further .nav-link {
     color: #ffffff; }
   .lesson-pages .nav-item.active.further:after {
-    border-top-color: #6c6cb6;
-    border-bottom-color: #6c6cb6;
-    border-right-color: #6c6cb6; }
+    border-top-color: #1d1349;
+    border-bottom-color: #1d1349;
+    border-right-color: #1d1349; }
 
 .lesson-pages .nav {
   overflow: hidden;
