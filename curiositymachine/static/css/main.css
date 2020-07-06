@@ -10750,18 +10750,18 @@ footer {
       content: ' ';
       display: block;
       position: absolute;
-      left: -22px;
+      left: -26px;
       top: 0;
-      border: 20px solid #e5e1d9;
+      border: 24px solid #e5e1d9;
       border-right-width: 2px;
       border-left-color: transparent; }
     .lesson-pages .nav .nav-item:after {
       content: ' ';
       display: block;
       position: absolute;
-      left: -20px;
+      left: -24px;
       top: 0;
-      border: 20px solid white;
+      border: 24px solid white;
       border-right-width: 2px;
       border-left-color: transparent; }
     .lesson-pages .nav .nav-item:first-child:before, .lesson-pages .nav .nav-item:first-child:after {
