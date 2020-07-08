@@ -94,7 +94,7 @@ class ChallengeView(TemplateView):
         membership = membership_selection.selected
         challenge = get_object_or_404(membership.challenges, pk=self.kwargs.get('challenge_id'))
 
-        sorter = StudentSorter(query=self.request.GET)
+        sorter = ParticipantSorter(query=self.request.GET)
         gs = GroupSelector(membership, query=self.request.GET)
         students = gs.selected.queryset
         students = sorter.sort(students)
@@ -147,13 +147,13 @@ class AIFCView(TemplateView):
 
 aifc = only_for_educator(AIFCView.as_view())
 
-class StudentsView(TemplateView):
+class ParticipantsView(TemplateView):
     template_name = "educators/dashboard/memberships/participants.html"
 
     def get_context_data(self, **kwargs):
         request = self.request
         membership = None
-        students = []
+        participants = []
         sorter = None
         gs = None
 
@@ -162,21 +162,21 @@ class StudentsView(TemplateView):
             raise PermissionDenied
 
         membership = membership_selection.selected
-        sorter = StudentSorter(query=request.GET)
+        sorter = ParticipantSorter(query=request.GET)
         gs = GroupSelector(membership, query=request.GET)
-        students = gs.selected.queryset
-        students = sorter.sort(students)
+        participants = gs.selected.queryset
+        participants = sorter.sort(participants)
 
         kwargs.update({
             "membership": membership,
-            "participants": students,
+            "participants": participants,
             "group_selector": gs,
             "membership_selection": membership_selection,
             "sorter": sorter,
         })
         return super().get_context_data(**kwargs)
 
-students = only_for_educator(StudentsView.as_view())
+students = only_for_educator(ParticipantsView.as_view())
 
 class StudentView(TemplateView):
     template_name = "educators/dashboard/memberships/student.html"
