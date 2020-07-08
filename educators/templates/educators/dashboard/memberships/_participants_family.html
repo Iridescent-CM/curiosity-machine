@@ -1,24 +1,20 @@
 <div class="list-group-item">
-  <span class="student-list-avatar">
+  <span class="participants-list-avatar">
     {% include "_avatar.html" with user=participant width=48 height=48 crop='thumb' gravity='faces' %}
   </span>
-  <span class="student-inline-name">
-    {% if participant.first_name or participant.last_name %}
-    {{ participant.first_name }} {{ participant.last_name }}
-    {% else %}
-    <em>No name provided</em>
-    {% endif %}
-  </span>
+  {% if participant.first_name or participant.last_name %}
+  {{ participant.first_name }} {{ participant.last_name }}
+  {% else %}
+  <em>No name provided</em>
+  {% endif %}
   <br>
-  <span class="student-inline-username">
-    <span>{{ participant.username }}</span>&middot;
-    {% if participant.extra.is_approved %}
-    <span class="green-type">approved</span>
-    {% else %}
-    <span class="orange-type">not approved</span>
-    {% endif %}
-  </span>
-  <a class="student-list-manage" data-toggle="collapse" href="#collapse-{{ participant.id }}" aria-expanded="false" aria-controls="collapse-{{ participant.id }}">
+  {{ participant.username }} &middot;
+  {% if participant.extra.is_approved %}
+  <span class="green-type">approved</span>
+  {% else %}
+  <span class="orange-type">not approved</span>
+  {% endif %}
+  <a class="participants-list-manage" data-toggle="collapse" href="#collapse-{{ participant.id }}" aria-expanded="false" aria-controls="collapse-{{ participant.id }}">
     <span class="more">
       <span class="d-none d-sm-inline-block">More</span> <i class="icon-right-arrow"></i>
     </span>
@@ -29,14 +25,12 @@
 
   <div class="collapse" id="collapse-{{ participant.id }}">
     <div class="py-3">
-      <span class="student-inline-email">
-        <strong>Email:</strong>
-        {% if participant.email %}
-        {{ participant.email }}
-        {% else %}
-        <em>No email provided</em>
-        {% endif %}
-      </span>
+      <strong>Email:</strong>
+      {% if participant.email %}
+      {{ participant.email }}
+      {% else %}
+      <em>No email provided</em>
+      {% endif %}
       <br>
       {% url "educators:student_password_reset" student_id=participant.id as button_url %}
       <a class="btn btn-primary mt-3" href="{{ button_url }}" role="button">Reset Password</a>
