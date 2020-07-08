@@ -1,0 +1,54 @@
+<div class="list-group-item">
+  <a href="{% url 'educators:student' student_id=participant.id %}" class="student-list-avatar">
+    {% include "_avatar.html" with user=participant width=48 height=48 crop='thumb' gravity='faces' %}
+  </a>
+  <span class="student-inline-name">
+    {% if participant.first_name or participant.last_name %}
+    {{ participant.first_name }} {{ participant.last_name }}
+    {% else %}
+    <em>No name provided</em>
+    {% endif %}
+  </span>
+  <br>
+  <span class="student-inline-username">
+    <a href="{% url 'educators:student' student_id=participant.id %}">{{ participant.username }}</a> &middot;
+    {% if participant.extra.is_approved %}
+    <span class="green-type">approved</span>
+    {% else %}
+    <span class="orange-type">not approved</span>
+    {% endif %}
+  </span>
+  <a class="student-list-manage" data-toggle="collapse" href="#collapse-{{ participant.id }}" aria-expanded="false" aria-controls="collapse-{{ participant.id }}">
+    <span class="more">
+      <span class="d-none d-sm-inline-block">More</span> <i class="icon-right-arrow"></i>
+    </span>
+    <span class="less d-none">
+      <span class="d-none d-sm-inline-block">Less</span> <i class="icon-up-arrow"></i>
+    </span>
+  </a>
+
+  <div class="collapse" id="collapse-{{ participant.id }}">
+    <div class="py-3">
+      <span class="student-inline-birthday">
+        <strong>Birthday:</strong>
+        {% if participant.studentprofile.birthday %}
+        {{ participant.studentprofile.birthday|date:"m/d/Y" }}
+        {% else %}
+        <em>No birthday provided</em>
+        {% endif %}
+      </span>
+      <br>
+      <span class="student-inline-email">
+        <strong>Email:</strong>
+        {% if participant.email %}
+        {{ participant.email }}
+        {% else %}
+        <em>No email provided</em>
+        {% endif %}
+      </span>
+      <br>
+      {% url "educators:student_password_reset" student_id=participant.id as button_url %}
+      <a class="btn btn-primary mt-3" href="{{ button_url }}" role="button">Reset Password</a>
+    </div>
+  </div>
+</div>

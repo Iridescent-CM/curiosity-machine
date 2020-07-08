@@ -148,7 +148,7 @@ class AIFCView(TemplateView):
 aifc = only_for_educator(AIFCView.as_view())
 
 class StudentsView(TemplateView):
-    template_name = "educators/dashboard/memberships/students.html"
+    template_name = "educators/dashboard/memberships/participants.html"
 
     def get_context_data(self, **kwargs):
         request = self.request
@@ -169,7 +169,7 @@ class StudentsView(TemplateView):
 
         kwargs.update({
             "membership": membership,
-            "students": students,
+            "participants": students,
             "group_selector": gs,
             "membership_selection": membership_selection,
             "sorter": sorter,
