@@ -208,7 +208,7 @@ $nav-purple-hover: shade($primary-purple, 10);
             justify-content: center;
             padding: 15px 0;
             margin: 5px 0;
-            border-radius: 4px;
+            border-radius: $base-border-radius;
 
             &:first-child {
               margin-top: 10px;

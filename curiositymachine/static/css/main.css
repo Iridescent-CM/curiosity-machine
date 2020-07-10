@@ -8253,6 +8253,8 @@ i {
     box-shadow: 0px 2px 4px 0px rgba(148, 148, 148, 0.5);
     float: left;
     margin-right: 10px; }
+  .dashboard .nav {
+    flex-wrap: nowrap; }
   .dashboard .dashboard-tabs {
     text-align: center;
     font-weight: bold; }
@@ -8266,12 +8268,18 @@ i {
         background-color: #ffffff; }
         .dashboard .dashboard-tabs .nav-item.active .nav-link {
           color: #0076cf; }
-  @media (max-width: 767.98px) {
-    .dashboard .dashboard-tabs {
-      flex-direction: column;
-      padding-bottom: 0.5em; }
-      .dashboard .dashboard-tabs .nav-item {
-        border-bottom: none; } }
+  @media (max-width: 1199.98px) {
+    .dashboard .dashboard-tabs .nav-item {
+      margin: 0px; } }
+  @media (max-width: 991.98px) {
+    .dashboard .nav {
+      flex-direction: column; }
+      .dashboard .nav:last-child {
+        margin-bottom: 10px; }
+    .dashboard .dashboard-tabs .nav-item {
+      width: 100%;
+      padding: 0px;
+      border-radius: 4px; } }
   .dashboard .nav-pills .nav-item .nav-link:not(.active) {
     color: #333333; }
   .dashboard .card.card-action-needed {
