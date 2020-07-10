@@ -1,6 +1,6 @@
 from django import forms
 from django.conf import settings
-from django.forms.extras.widgets import SelectDateWidget
+from django.forms.widgets import SelectDateWidget
 from curiositymachine.widgets import FilePickerPickWidget
 from django.utils.timezone import now
 from django.contrib.auth import get_user_model

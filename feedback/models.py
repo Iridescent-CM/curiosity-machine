@@ -15,9 +15,9 @@ class FeedbackQuestion(models.Model):
 
 class FeedbackResult(models.Model):
 
-    feedback_question = models.ForeignKey(FeedbackQuestion)
-    challenge = models.ForeignKey("challenges.Challenge")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='feedback_question')
+    feedback_question = models.ForeignKey(FeedbackQuestion, on_delete=models.PROTECT)
+    challenge = models.ForeignKey("challenges.Challenge", on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='feedback_question', on_delete=models.CASCADE)
     answer = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

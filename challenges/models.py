@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models, connection
 from django.db.models import Q
 from django.utils.safestring import mark_safe
@@ -91,8 +91,8 @@ class Challenge(models.Model):
         return "Challenge: id={}, name={}".format(self.id, self.name)
 
 class Progress(models.Model):
-    challenge = models.ForeignKey(Challenge)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='progresses')
+    challenge = models.ForeignKey(Challenge, on_delete=models.PROTECT)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='progresses', on_delete=models.CASCADE)
     started = models.DateTimeField(default=now)
     approved = models.DateTimeField(null=True, blank=True)
     _materials_list = models.TextField(help_text="HTML", blank=True, db_column="materials_list")
@@ -148,8 +148,8 @@ class Progress(models.Model):
         return "Progress: id={}".format(self.id)
 
 class Favorite(models.Model):
-    challenge = models.ForeignKey(Challenge)
-    student = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='favorites')
+    challenge = models.ForeignKey(Challenge, on_delete=models.PROTECT)
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='favorites', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Favorites"
@@ -256,6 +256,7 @@ class Resource(models.Model):
         Challenge,
         null=True,
         help_text="The challenge that this resource should be associated with.",
+        on_delete=models.SET_NULL
     )
 
     def __str__(self):
@@ -272,4 +273,4 @@ class ResourceFile(models.Model):
         null=True,
         help_text="Text that goes on a button. Keep it short (1 - 3 words).",
     )
-    resource = models.ForeignKey(Resource)
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE)

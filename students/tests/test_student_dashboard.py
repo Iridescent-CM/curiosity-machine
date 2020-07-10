@@ -1,7 +1,7 @@
 import pytest
 
 from challenges.factories import *
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from memberships.factories import *
 from students.factories import *
 

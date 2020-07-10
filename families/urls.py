@@ -2,6 +2,8 @@ from django.conf.urls import url
 from rest_framework.routers import SimpleRouter
 from .views import *
 
+app_name = "families"
+
 urlpatterns = [
     url(r'^profile/new/$', create, name="create_profile"),
     url(r'^profile/edit/$', edit, name="edit_profile"),

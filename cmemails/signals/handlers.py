@@ -1,7 +1,7 @@
 from curiositymachine import signals
 from django.conf import settings
 from django.dispatch import receiver
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from cmemails import send, subscribe
 from cmemails.mandrill import url_for_template
 from challenges.models import Stage

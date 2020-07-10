@@ -32,8 +32,8 @@ class Lesson(OrderedModel):
         return "Lesson: id={} title={}".format(self.id, self.title)
 
 class Progress(models.Model):
-    lesson = models.ForeignKey(Lesson)
-    owner = models.ForeignKey(get_user_model(), related_name='lesson_progresses')
+    lesson = models.ForeignKey(Lesson, on_delete=models.PROTECT)
+    owner = models.ForeignKey(get_user_model(), related_name='lesson_progresses', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -55,8 +55,8 @@ class Progress(models.Model):
             and self.lesson.quiz.quizresult_set.all().exists())
 
 class Comment(models.Model):
-    author = models.ForeignKey(get_user_model(), related_name='lesson_comments')
-    lesson_progress = models.ForeignKey(Progress)
+    author = models.ForeignKey(get_user_model(), related_name='lesson_comments', on_delete=models.CASCADE)
+    lesson_progress = models.ForeignKey(Progress, on_delete=models.CASCADE)
     role = models.CharField(max_length=50, default='comment')
 
     text = models.TextField(null=True, blank=True)
@@ -90,8 +90,8 @@ class Quiz(models.Model):
         return "Quiz: id={} question={}".format(self.id, self.question_1)
 
 class QuizResult(models.Model):
-    taker = models.ForeignKey(get_user_model())
-    quiz = models.ForeignKey(Quiz)
+    taker = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.PROTECT)
     answer_1 = models.PositiveSmallIntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)

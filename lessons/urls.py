@@ -5,6 +5,8 @@ from .views import *
 
 public = whitelist('public')
 
+app_name = "lessons"
+
 # rest_framework doesn't have a good affordance for decorators, so
 # for now we're routing the LessonViewSet list route with a whitelisted version
 # this way, which should eclipse the route the SimpleRouter sets up below (FIXME)

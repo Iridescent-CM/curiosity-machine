@@ -99,7 +99,7 @@ class Signature(models.Model):
     template_id = models.CharField(max_length=40, null=False, blank=False)
     signature_request_id = models.CharField(max_length=50, null=True, blank=True)
     signature_id = models.CharField(max_length=50, null=True, blank=True)
-    user = models.ForeignKey(get_user_model(), null=False, blank=False)
+    user = models.ForeignKey(get_user_model(), null=False, blank=False, on_delete=models.CASCADE)
     status = EnumIntegerField(SignatureStatus, default=SignatureStatus.UNSIGNED)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

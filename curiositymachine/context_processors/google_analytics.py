@@ -25,15 +25,7 @@ def google_analytics(request):
     elif request.user.is_staff:
         usertype = "Staff"
     else:
-        usertype = ""
-        if request.user.extra.is_student:
-            usertype += "Student"
-        if request.user.extra.is_educator:
-            usertype += "Educator"
-
-        if not usertype:
-            usertype = "Other"
-            logger.warning("User categorized as Other for Google Analytics: {}".format(request.user.username))
+        usertype = request.user.extra.role_name.capitalize()
 
     userid = None
     if request.user.is_authenticated:
