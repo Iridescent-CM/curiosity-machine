@@ -8323,10 +8323,11 @@ footer {
     height: 30px;
     margin: 10px 0; }
   .navbar-cm .avatar img {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin: 10px 0px;
     width: 35px;
     height: 35px; }
+  .navbar-cm .navbar-toggler {
+    border: 0; }
   .navbar-cm .dropdown-toggle:after {
     margin-left: 0.65em;
     margin-right: 0.4em; }

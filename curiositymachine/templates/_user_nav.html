@@ -4,10 +4,10 @@
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-        <a href="#" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav"
-          aria-expanded="false">
-          Menu
-        </a>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-nav"
+          aria-expanded="false" aria-lablel="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
         <a class="navbar-brand" href="/">
           <img src="{% static 'images/logo.svg' %}" class="logo-lg" alt="Technovation Families">
         </a>
@@ -56,8 +56,8 @@
 
           <li class="nav-item"><a href="{% url "lessons:lesson-list" %}" class="nav-link nav-aichallenge">AI Family
               Challenge</a></li>
-          <li class="nav-item"><a href="{% url "challenges:challenges" %}"
-              class="nav-link nav-challenges">Challenges</a></li>
+          <li class="nav-item"><a href="{% url "challenges:challenges" %}" class="nav-link nav-challenges">Design
+              Challenges</a></li>
           <li class="nav-item"><a href="{% url "get-started" %}" class="nav-link nav-about">Get Started</a></li>
 
           {% if request.user.is_authenticated %}
@@ -87,13 +87,18 @@
                 </form>
               </li>
             </ul>
+          <li class="nav-item">
+            <a class="btn btn-primary visible-md visible-lg" href="https://www.technovation.org/donate-today/"
+              %}">Donate</a>
+            <a class="nav-link nav-join hidden-md hidden-lg" href="https://www.technovation.org/donate-today/"
+              %}">Donate</a>
+          </li>
           </li>
           {% else %}
           <li class="nav-item"><a href="#" class="nav-link nav-login" data-toggle="modal" data-target="#login-modal">Log
               In</a></li>
           <li class="nav-item">
-            <a class="btn btn-primary visible-md visible-lg" href="{% url "account_signup" %}">Join</a>
-            <a class="nav-link nav-join hidden-md hidden-lg" href="{% url "account_signup" %}">Join</a>
+            <a class="nav-link nav-join" href="{% url "account_signup" %}">Join</a>
           </li>
           {% endif %}
         </ul>
