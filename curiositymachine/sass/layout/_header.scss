@@ -1,8 +1,6 @@
-// Local colors
-$theme-blue: #0076cf;
-$theme-blue-lt: #9fb3c2;
+// Local colors copied from technovation.org nav bar
 $font-body: #2a2a2a;
-$font-body-mobile: #1d1349;
+$font-body-mobile: $primary-purple;
 
 #login-modal {
   .modal-footer {
@@ -28,17 +26,10 @@ $font-body-mobile: #1d1349;
   }
 
   .avatar img {
-    width: 40px;
-    height: 40px;
-    border-radius: 2% 22%;
-  }
-
-  .navbar-toggler {
-    text-transform: uppercase;
-    font-weight: $heavy-font-weight;
-    font-size: 16px;
-    color: $primary-blue;
-    border: none;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 35px;
+    height: 35px;
   }
 
   .dropdown-toggle:after {
@@ -76,7 +67,7 @@ $font-body-mobile: #1d1349;
   }
 
   .list-group {
-    border: 4px solid $theme-blue;
+    border: 4px solid $primary-blue;
     border-radius: $border-radius;
 
     .list-group-item {
@@ -89,9 +80,9 @@ $font-body-mobile: #1d1349;
     }
 
     .list-group-header {
-      background: $theme-blue;
+      background: $primary-blue;
       color: $white;
-      border-color: $theme-blue;
+      border-color: $primary-blue;
       text-align: center;
       padding: 0.75rem 1.25rem;
       border-radius: 0px;
@@ -106,7 +97,7 @@ $font-body-mobile: #1d1349;
     }
     .list-group-item-action:hover,
     .list-group-item-action:focus {
-      color: $theme-blue;
+      color: $primary-blue;
       cursor: pointer;
     }
   }
@@ -161,19 +152,18 @@ $font-body-mobile: #1d1349;
           .nav-link:before {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: 10px;
             left: 0;
             right: 0;
-            height: 3em;
-            top: 100%;
             z-index: -1;
+            width: 95%;
+            margin: 0 auto;
           }
 
           .dropdown.show .nav-link,
           .nav-link:hover {
             &:before {
-              border-bottom: solid 4px $theme-blue;
-              top: 0;
+              border-bottom: solid 4px $primary-blue;
             }
           }
         }
@@ -195,7 +185,7 @@ $font-body-mobile: #1d1349;
           .navbar-nav {
             .nav-link {
               &:hover {
-                color: $theme-blue;
+                color: $primary-blue;
               }
             }
           }

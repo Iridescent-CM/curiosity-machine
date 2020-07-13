@@ -4,7 +4,8 @@
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-        <a href="#" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
+        <a href="#" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav"
+          aria-expanded="false">
           Menu
         </a>
         <a class="navbar-brand" href="/">
@@ -20,7 +21,9 @@
           <li class="nav-item hidden-md hidden-lg">
             <ul class="list-group nav-profile">
               <li class="list-group-item active">
-                <div class="avatar text-center">{% include "_avatar.html" with profile=request.user.profile width=40 height=40 crop='thumb' gravity='faces' %}</div>
+                <div class="avatar text-center">
+                  {% include "_avatar.html" with profile=request.user.profile width=40 height=40 crop='thumb' gravity='faces' %}
+                </div>
                 <span class="profile-name">{{ user.username }}</span>
               </li>
               <li class="list-group-item">
@@ -30,57 +33,64 @@
                 <a href="{% url 'profiles:edit_profile' %}">Account Settings</a>
               </li>
               {% if request.user.is_staff %}
-                <li class="list-group-item">
-                  <a href="{% url "admin:index" %}">View Admin</a>
-                </li>
-                <li class="list-group-item">
-                  <a href="{% url "admin:challenges_example_changelist" %}">
-                    Pending Examples
-                    {% if staff_alerts.pending_examples %}<span class="badge">{{staff_alerts.pending_examples}}</span>{% endif %}
-                  </a>
-                </li>
+              <li class="list-group-item">
+                <a href="{% url "admin:index" %}">View Admin</a>
+              </li>
+              <li class="list-group-item">
+                <a href="{% url "admin:challenges_example_changelist" %}">
+                  Pending Examples
+                  {% if staff_alerts.pending_examples %}<span
+                    class="badge">{{staff_alerts.pending_examples}}</span>{% endif %}
+                </a>
+              </li>
               {% endif %}
               <li class="list-group-item">
                 <form action="{% url 'logout' %}?next=/" method="POST">
                   {% csrf_token %}
-                  <input type=submit class="btn-link" value="Log Out"/>
+                  <input type=submit class="btn-link" value="Log Out" />
                 </form>
               </li>
             </ul>
           </li>
           {% endif %}
 
-          <li class="nav-item"><a href="{% url "lessons:lesson-list" %}" class="nav-link nav-aichallenge">AI Family Challenge</a></li>
-          <li class="nav-item"><a href="{% url "challenges:challenges" %}" class="nav-link nav-challenges">Challenges</a></li>
+          <li class="nav-item"><a href="{% url "lessons:lesson-list" %}" class="nav-link nav-aichallenge">AI Family
+              Challenge</a></li>
+          <li class="nav-item"><a href="{% url "challenges:challenges" %}"
+              class="nav-link nav-challenges">Challenges</a></li>
           <li class="nav-item"><a href="{% url "get-started" %}" class="nav-link nav-about">Get Started</a></li>
 
           {% if request.user.is_authenticated %}
           <li class="nav-item nav-profile visible-md visible-lg dropdown">
-            <a class="nav-link dropdown-toggle" id="usermenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" id="usermenu" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
               <span class="profile-name">{{ user.username }}</span>
-              <span class="avatar">{% include "_avatar.html" with profile=request.user.profile width=40 height=40 crop='thumb' gravity='faces' %}</span>
+              <span
+                class="avatar">{% include "_avatar.html" with profile=request.user.profile width=40 height=40 crop='thumb' gravity='faces' %}</span>
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="usermenu">
               <li><a class="dropdown-item" href="{% url 'profiles:home' %}">My Dashboard</a></li>
               <li><a class="dropdown-item" href="{% url 'profiles:edit_profile' %}">Account Settings</a></li>
               {% if request.user.is_staff %}
-                <li><a class="dropdown-item" href="{% url "admin:index" %}">View Admin</a></li>
-                <li><a class="dropdown-item" href="{% url "admin:challenges_example_changelist" %}">
+              <li><a class="dropdown-item" href="{% url "admin:index" %}">View Admin</a></li>
+              <li><a class="dropdown-item" href="{% url "admin:challenges_example_changelist" %}">
                   Pending Examples
-                  {% if staff_alerts.pending_examples %}<span class="badge">{{staff_alerts.pending_examples}}</span>{% endif %}
+                  {% if staff_alerts.pending_examples %}<span
+                    class="badge">{{staff_alerts.pending_examples}}</span>{% endif %}
                 </a></li>
               {% endif %}
               <li>
                 <form action="{% url 'logout' %}?next=/" method="POST">
                   {% csrf_token %}
-                  <input type=submit class="dropdown-item btn-link" value="Log Out"/>
+                  <input type=submit class="dropdown-item btn-link" value="Log Out" />
                 </form>
               </li>
             </ul>
           </li>
           {% else %}
-          <li class="nav-item"><a href="#" class="nav-link nav-login" data-toggle="modal" data-target="#login-modal">Log In</a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-login" data-toggle="modal" data-target="#login-modal">Log
+              In</a></li>
           <li class="nav-item">
             <a class="btn btn-primary visible-md visible-lg" href="{% url "account_signup" %}">Join</a>
             <a class="nav-link nav-join hidden-md hidden-lg" href="{% url "account_signup" %}">Join</a>
