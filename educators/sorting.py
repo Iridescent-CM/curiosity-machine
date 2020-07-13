@@ -73,7 +73,7 @@ class Sorter():
     def sort(self, *args):
         raise NotImplementedError('No sort strategy for %s' % self.strategy)
 
-class StudentSorter(Sorter):
+class ParticipantSorter(Sorter):
 
     class Strategy(Sorter.Strategy):
         first_name = 0

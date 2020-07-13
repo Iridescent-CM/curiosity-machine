@@ -1,0 +1,17 @@
+<div class="list-group-item">
+  {% block main_content %}{% endblock %}
+  <a class="participants-list-manage" data-toggle="collapse" href="#collapse-{{ participant.id }}" aria-expanded="false" aria-controls="collapse-{{ participant.id }}">
+    <span class="more">
+      <span class="d-none d-sm-inline-block">More</span> <i class="icon-right-arrow"></i>
+    </span>
+    <span class="less d-none">
+      <span class="d-none d-sm-inline-block">Less</span> <i class="icon-up-arrow"></i>
+    </span>
+  </a>
+
+  <div class="collapse" id="collapse-{{ participant.id }}">
+    <div class="py-3">
+      {% block expanded_content %}{% endblock %}
+    </div>
+  </div>
+</div>

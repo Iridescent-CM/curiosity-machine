@@ -38,11 +38,11 @@ def test_student_sorter_by_first_name():
         UserFactory(first_name='B_name'),
         UserFactory(first_name='a_name'),
     ]
-    default_sorted_ids = list(StudentSorter()
+    default_sorted_ids = list(ParticipantSorter()
         .sort(User.objects)
         .values_list('id', flat=True)
         .all())
-    named_sorted_ids = list(StudentSorter(StudentSorter.Strategy.first_name)
+    named_sorted_ids = list(ParticipantSorter(ParticipantSorter.Strategy.first_name)
         .sort(User.objects)
         .values_list('id', flat=True)
         .all())
@@ -59,7 +59,7 @@ def test_student_sorter_by_last_name():
         UserFactory(last_name='b_name'),
         UserFactory(last_name='A_name'),
     ]
-    sorted_ids = list(StudentSorter(StudentSorter.Strategy.last_name)
+    sorted_ids = list(ParticipantSorter(ParticipantSorter.Strategy.last_name)
         .sort(User.objects)
         .values_list('id', flat=True)
         .all())
@@ -72,7 +72,7 @@ def test_student_sorter_by_username():
         UserFactory(username='B_user'),
         UserFactory(username='a_user'),
     ]
-    sorted_ids = list(StudentSorter(StudentSorter.Strategy.username)
+    sorted_ids = list(ParticipantSorter(ParticipantSorter.Strategy.username)
         .sort(User.objects)
         .values_list('id', flat=True)
         .all())

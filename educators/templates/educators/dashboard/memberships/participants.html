@@ -1,0 +1,103 @@
+{% extends "educators/dashboard/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="aifc-pages-page-bg">
+  <div class="container pb-3">
+    <div class="row pb-1">
+      <div class="col-md-12">
+        <h2 class="aifc-pages-subtitle py-3">Participants</h2>
+
+        <div class="d-flex aifc-pages-rounded-box mb-4 p-3">
+
+          {% if membership_selection.count > 1 %}
+          <div class="dropdown">
+            <a class="dropdown-toggle a-borderless text-dark" 
+              data-toggle="dropdown" 
+              href="#" 
+              role="button" 
+              aria-haspopup="true" 
+              aria-expanded="false"
+            >
+              {{ membership_selection.selected.display_name }}
+            </a>
+            <div class="dropdown-menu">
+              {% for membership in membership_selection.all %}
+              <a class="dropdown-item" href="{{ membership_selection_base_url }}?m={{ membership.id }}">{{ membership.display_name }}</a>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+          
+          <div class="dropdown ml-auto">
+            <a class="dropdown-toggle a-borderless text-dark"
+              href="#"
+              id="sortDropdown"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Sort by {{ sorter.selected|lower }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="sortDropdown">
+              {% for strategy in sorter.strategies %}
+              <a class="dropdown-item" href="{{ strategy.url }}">{{ strategy.name }}</a>
+              {% endfor %}
+            </div>
+          </div>
+
+          {% if group_selector.has_groups %}
+          <div class="dropdown dropdown-design-challenge">
+            <a class="dropdown-toggle a-borderless"
+              href="#"
+              id="challengesDropdown"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Choose group
+            </a>
+            <div class="dropdown-menu text-capitalize" aria-labelledby="challengesDropdown">
+              {% for group in group_selector.options %}
+              <a class="dropdown-item" href="?{{ group.GET.urlencode }}">{{ group.text }}</a>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="list-group list-group-flush cm-list-group border aifc-pages-rounded-box px-4 py-2 mb-5">
+          {% for participant in participants %}
+            {% with "educators/dashboard/memberships/_participants_"|add:participant.extra.role_name|add:".html" as partial %}
+              {% include partial %}
+            {% endwith %}
+          {% empty %}
+          <p>Your membership or group doesn't have any participants in it! Reach out to your membership coordinator to get your participant's accounts connected to your membership or group.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+  <script>
+    $('.collapse').on('hidden.bs.collapse', function () {
+      var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
+      $trigger.find( ".more" ).removeClass( "d-none" );
+      $trigger.find( ".less" ).addClass( "d-none" );
+    })
+
+    $('.collapse').on('show.bs.collapse', function () {
+      var $trigger = $('[href="#' + this.id + '"], [data-target="#' + this.id + '"]')
+      $trigger.find( ".more" ).addClass( "d-none" );
+      $trigger.find( ".less" ).removeClass( "d-none" );
+    })
+  </script>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "educators/dashboard/memberships/_participants_base.html" %}
+
+{% block main_content %}
+  <span class="participants-list-avatar">
+    {% include "_avatar.html" with user=participant width=48 height=48 crop='thumb' gravity='faces' %}
+  </span>
+  {% if participant.first_name or participant.last_name %}
+  {{ participant.first_name }} {{ participant.last_name }}
+  {% else %}
+  <em>No name provided</em>
+  {% endif %}
+  <br>
+  {{ participant.username }} &middot;
+  {% if participant.extra.is_approved %}
+  <span class="green-type">approved</span>
+  {% else %}
+  <span class="orange-type">not approved</span>
+  {% endif %}
+{% endblock %}
+
+{% block expanded_content %}
+  <strong>Email:</strong>
+  {% if participant.email %}
+  {{ participant.email }}
+  {% else %}
+  <em>No email provided</em>
+  {% endif %}
+  <br>
+  {% url "educators:student_password_reset" student_id=participant.id as button_url %}
+  <a class="btn btn-primary mt-3" href="{{ button_url }}" role="button">Reset Password</a>
+{% endblock %}

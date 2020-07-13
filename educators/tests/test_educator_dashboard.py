@@ -243,7 +243,7 @@ def test_students_page_context_has_membership_students(client):
     client.login(username="edu", password="123123")
     response = client.get(reverse("educators:students"), follow=True)
     assert response.context["membership"] == membership
-    assert set(response.context["students"]) == set(students)
+    assert set(response.context["participants"]) == set(students)
 
 @pytest.mark.django_db
 def test_challenge_detail_page_403s_on_non_membership_educator(client):
