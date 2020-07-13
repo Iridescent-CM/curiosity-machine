@@ -1,6 +1,5 @@
 // Local colors copied from technovation.org nav bar
 $font-body: #2a2a2a;
-$font-body-mobile: $primary-purple;
 
 #login-modal {
   .modal-footer {
@@ -171,7 +170,7 @@ $font-body-mobile: $primary-purple;
         // .navbar-collapse collapsed
         @include media-breakpoint-down($breakpoint) {
           .nav-item {
-            color: $font-body-mobile;
+            color: $font-body;
             margin: 5px 0;
             border-radius: $base-border-radius;
 
