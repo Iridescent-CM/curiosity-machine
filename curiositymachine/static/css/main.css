@@ -8293,19 +8293,28 @@ i {
       background-color: #f2dede; }
 
 footer {
-  background-color: #333333;
-  padding: 0px 0px 60px 0px;
-  color: #fffcf7; }
+  background-color: #ffffff;
+  color: #000000; }
+
+@media (min-width: 1200px) {
+  .contact-title {
+    font-size: 2.5rem;
+    line-height: 2.5rem; } }
+
+.social-icon-container a:hover,
+.more-info-container a:hover {
+  text-decoration: none;
+  color: #0076cf; }
 
 .social-icons {
   margin: 0px 10px;
-  color: #5bc2e7;
+  color: #041e42;
   font-size: 18px;
-  background-color: white;
+  background-color: #cccccc;
   border-radius: 100%;
   padding: 8px; }
   .social-icons:hover {
-    color: #7cceec; }
+    color: #0076cf; }
 
 #login-modal .modal-footer {
   justify-content: flex-start; }
