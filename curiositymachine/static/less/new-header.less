@@ -2,13 +2,14 @@
 @primary-blue: #0076cf;
 @font-body: #2a2a2a;
 @white: #ffffff;
+@ivory: #fffcf7;
 @base-border-radius: 4px;
 @leaf-border-radius: 2% 22%;
 @heavy-font-weight: 700;
 
 * {
   font-size: 18px;
-  background-color: @white;
+  background-color: @ivory;
 }
 
 .navbar {
@@ -101,6 +102,7 @@
       border-radius: @base-border-radius;
       .list-group-item {
         border: 0;
+        background-color: @ivory;
         a,
         input {
           color: @font-body;
@@ -125,7 +127,7 @@
 
     li {
       a.nav-link {
-        background-color: @white;
+        background-color: @ivory;
         color: @font-body;
         &:hover {
           color: @primary-blue;
