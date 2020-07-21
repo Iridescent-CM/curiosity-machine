@@ -80,7 +80,7 @@ class NewMemberImportInline(InlineModelAdmin):
         url=lazy(static, str)('CM_Account_Creation_Template_Aug2016.csv')
     )
 
-    def has_change_permission(self, request):
+    def has_change_permission(self, request, obj=None):
         return False
 
 class MemberLimitInline(InlineModelAdmin):
