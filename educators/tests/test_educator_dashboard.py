@@ -234,7 +234,7 @@ def test_students_page_403s_on_non_membership_educator(client):
     assert response.status_code == 403
 
 @pytest.mark.django_db
-def test_students_page_context_has_membership_students(client):
+def test_participants_page_context_has_membership_participants(client):
     educator = EducatorFactory(username="edu", password="123123")
     other_educators = EducatorFactory.create_batch(4)
     students = StudentFactory.create_batch(10)
@@ -243,7 +243,7 @@ def test_students_page_context_has_membership_students(client):
     client.login(username="edu", password="123123")
     response = client.get(reverse("educators:students"), follow=True)
     assert response.context["membership"] == membership
-    assert set(response.context["participants"]) == set(students)
+    assert set(response.context["participants"]) == set(students + [educator] + other_educators)
 
 @pytest.mark.django_db
 def test_challenge_detail_page_403s_on_non_membership_educator(client):
