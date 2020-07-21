@@ -140,7 +140,7 @@ class Membership(models.Model):
 
     @property
     def listed_members(self):
-        listed = [UserRole.family.value, UserRole.student.value]
+        listed = [UserRole.family.value, UserRole.student.value, UserRole.educator.value]
         return self.members.filter(extra__role__in=listed)
 
     def __str__(self):
