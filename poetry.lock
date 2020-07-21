@@ -264,6 +264,7 @@ requests = "*"
 reference = "08b4f4f048e06fae174de532098a0452cd799b80"
 type = "git"
 url = "https://github.com/stenington/django-html-validator.git"
+
 [[package]]
 category = "main"
 description = "Django model mixins and utilities"
@@ -295,7 +296,7 @@ description = "Allows Django models to be ordered and provides a simple admin in
 name = "django-ordered-model"
 optional = false
 python-versions = "*"
-version = "2.0.0"
+version = "3.4.1"
 
 [[package]]
 category = "main"
@@ -974,7 +975,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "b1976db94e70e0ed5e39ca6ce0cd7cbce5fd404928a9c94f7951472c30143385"
+content-hash = "a1b97eb8089b8b34de901849d49dbb4aafda645e6afff55b41cc5abd9ae649b1"
 python-versions = "3.6.5"
 
 [metadata.files]
@@ -1114,7 +1115,8 @@ django-notifications-hq = [
     {file = "django-notifications-hq-1.4.0.tar.gz", hash = "sha256:bbf1fbc7c7accfe79c1cf2da5fde96cd3e27e22d27108e6f368a91b26ef75450"},
 ]
 django-ordered-model = [
-    {file = "django-ordered-model-2.0.0.tar.gz", hash = "sha256:05c3148731031647060bf02a2b5fe43165d370d629576ae755e3437617ea7f8c"},
+    {file = "django-ordered-model-3.4.1.tar.gz", hash = "sha256:d867166ed4dd12501139e119cbbc5b4d19798a3e72740aef0af4879ba97102cf"},
+    {file = "django_ordered_model-3.4.1-py3-none-any.whl", hash = "sha256:29af6624cf3505daaf0df00e2df1d0726dd777b95e08f304d5ad0264092aa934"},
 ]
 django-recaptcha = [
     {file = "django-recaptcha-1.4.0.tar.gz", hash = "sha256:88d477a24a87b2f4dbc5102df8b1d123ab027dc1f401e9055e2576fafa2984b2"},
