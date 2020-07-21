@@ -63,6 +63,19 @@ class FamilyProfile(BaseProfile):
             self.welcomed = now()
             self.save(update_fields=['welcomed'])
 
+    def family_size(self):
+        return self.user.familymember_set.count()
+
+    def parent_guardian_first_names(self):
+        parent_or_guardians = self.user.familymember_set.filter(family_role=FamilyRole.parent_or_guardian.value)
+        first_names = [pog.first_name for pog in parent_or_guardians]
+        return ", ".join(sorted(first_names))
+
+    def children_first_names(self):
+        children = self.user.familymember_set.filter(family_role=FamilyRole.child.value)
+        first_names = [child.first_name for child in children]
+        return ", ".join(sorted(first_names))
+
 class FamilyRole(Enum):
     parent_or_guardian = 0
     child = 1
