@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate
 from django.urls import reverse
 from django.urls import reverse
 from django.utils.timezone import now
+from families.factories import *
 from memberships.factories import *
 from profiles.factories import *
 from students.factories import *
@@ -69,11 +70,19 @@ def test_student_detail_page_404s_on_non_connected_student(client):
 def test_student_detail_page_404s_on_non_student_membership_member(client):
     educator = EducatorFactory(username="edu", password="123123")
     educator2 = EducatorFactory(username="educator2", password="123123")
-    membership = MembershipFactory(members=[educator, educator2])
+    family = FamilyFactory()
+    membership = MembershipFactory(members=[educator, educator2, family])
 
     client.login(username="edu", password="123123")
+
     response = client.get(
         reverse("educators:student", kwargs={"student_id": educator2.id}),
+        follow=True
+    )
+    assert response.status_code == 404
+
+    response = client.get(
+        reverse("educators:student", kwargs={"student_id": family.id}),
         follow=True
     )
     assert response.status_code == 404
@@ -238,12 +247,13 @@ def test_participants_page_context_has_membership_participants(client):
     educator = EducatorFactory(username="edu", password="123123")
     other_educators = EducatorFactory.create_batch(4)
     students = StudentFactory.create_batch(10)
-    membership = MembershipFactory(members=[educator] + other_educators + students)
+    families = FamilyFactory.create_batch(8)
+    membership = MembershipFactory(members=[educator] + other_educators + students + families)
 
     client.login(username="edu", password="123123")
     response = client.get(reverse("educators:students"), follow=True)
     assert response.context["membership"] == membership
-    assert set(response.context["participants"]) == set(students + [educator] + other_educators)
+    assert set(response.context["participants"]) == set(students + families + [educator] + other_educators)
 
 @pytest.mark.django_db
 def test_challenge_detail_page_403s_on_non_membership_educator(client):
@@ -470,11 +480,35 @@ def test_educator_changes_student_password(client):
     assert authenticate(username='ed', password='123123')
 
 @pytest.mark.django_db
+def test_educator_changes_family_password(client):
+    educator = EducatorFactory(username='ed', password='123123')
+    family = FamilyFactory(username='family', password='123123')
+    membership = MembershipFactory(members=[educator, family])
+
+    assert authenticate(username='family', password='123123')
+    assert authenticate(username='ed', password='123123')
+
+    client.login(username='ed', password='123123')
+    response = client.post(
+        reverse("educators:student_password_reset", kwargs={"student_id": family.id}),
+        {
+            "password1": '987987',
+            "password2": '987987',
+        }
+    )
+
+    assert response.status_code == 302
+    assert response.url.endswith('/home/students/')
+    assert authenticate(username='family', password='987987')
+    assert authenticate(username='ed', password='123123')
+
+@pytest.mark.django_db
 def test_educator_change_student_password_404s_for_bad_targets(client):
     educator = EducatorFactory(username='ed', password='123123')
     educator2 = EducatorFactory(username='ed2', password='123123')
     student = StudentFactory(username='student', password='123123')
-    membership = MembershipFactory(members=[educator, educator2, student])
+    family = FamilyFactory()
+    membership = MembershipFactory(members=[educator, educator2, student, family])
     student2 = StudentFactory(username='student2', password='123123')
 
     client.login(username='ed', password='123123')

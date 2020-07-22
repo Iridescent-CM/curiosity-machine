@@ -1,7 +1,6 @@
 import pytest
 from django.http import QueryDict, Http404
 from educators.factories import *
-from families.factories import *
 from memberships.factories import *
 from students.factories import *
 from ..helpers.selectors import SelectorOption, GroupSelector
@@ -53,12 +52,11 @@ def test_has_groups():
 @pytest.mark.django_db
 def test_all_participants_queryset_gets_all_participants():
     students = StudentFactory.create_batch(10)
-    families = FamilyFactory.create_batch(10)
     educators = EducatorFactory.create_batch(2)
-    membership = MembershipFactory(members=students + families + educators)
+    membership = MembershipFactory(members=students + educators)
 
     gs = GroupSelector(membership)
-    assert set(gs.options[0].queryset.all()) == set(students + families + educators)
+    assert set(gs.options[0].queryset.all()) == set(students + educators)
 
 @pytest.mark.django_db
 def test_ungrouped_queryset_gets_ungrouped_participants():
