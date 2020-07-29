@@ -1,14 +1,5 @@
-// Local colors
-$nav-blue: $primary-blue;
-$nav-blue-hover: shade($primary-blue, 10);
-$nav-yellow: $primary-yellow;
-$nav-yellow-hover: shade($primary-yellow, 10);
-$nav-orange: $primary-orange;
-$nav-orange-hover: shade($primary-orange, 10);
-$nav-green: $primary-green;
-$nav-green-hover: shade($primary-green, 10);
-$nav-purple: $primary-purple;
-$nav-purple-hover: shade($primary-purple, 10);
+// Local colors copied from technovation.org nav bar
+$font-body: #2a2a2a;
 
 #login-modal {
   .modal-footer {
@@ -17,14 +8,13 @@ $nav-purple-hover: shade($primary-purple, 10);
 }
 
 .navbar-cm {
-  background-color: $ivory;
-  font-family: $base-font-family;
+  background-color: $white;
+  color: $font-body;
 
   .navbar-brand {
     padding: 0;
     border: none;
   }
-
   .logo-large {
     height: 50px;
     margin: 5px 0;
@@ -35,17 +25,13 @@ $nav-purple-hover: shade($primary-purple, 10);
   }
 
   .avatar img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    margin: 10px 0px;
+    width: 35px;
+    height: 35px;
   }
 
   .navbar-toggler {
-    text-transform: uppercase;
-    font-weight: $heavy-font-weight;
-    font-size: 16px;
-    color: $primary-blue;
-    border: none;
+    border: 0;
   }
 
   .dropdown-toggle:after {
@@ -57,17 +43,18 @@ $nav-purple-hover: shade($primary-purple, 10);
     padding: 0;
     border: 0;
     margin-top: 10px;
+    min-width: 12rem;
 
     .dropdown-item {
       padding-top: 14px;
       padding-bottom: 14px;
-      color: $dark;
+      color: $font-body;
       border: none;
 
       &:hover,
       &:focus {
-        background-color: $primary-purple;
-        color: $ivory;
+        font-weight: $heavy-font-weight;
+        background-color: $white;
         cursor: pointer;
       }
       &:first-child {
@@ -82,6 +69,9 @@ $nav-purple-hover: shade($primary-purple, 10);
   }
 
   .list-group {
+    border: 4px solid $primary-blue;
+    border-radius: $border-radius;
+
     .list-group-item {
       text-align: center;
       padding: 0;
@@ -92,26 +82,24 @@ $nav-purple-hover: shade($primary-purple, 10);
     }
 
     .list-group-header {
-      background: $primary-purple-dark;
-      color: $ivory;
-      border-color: $primary-purple-dark;
+      background: $primary-blue;
+      color: $white;
+      border-color: $primary-blue;
       text-align: center;
       padding: 0.75rem 1.25rem;
+      border-radius: 0px;
     }
 
     .list-group-item-action {
-      color: $primary-purple;
       padding: 0.75rem 1.25rem;
-      border: none;
+      color: $font-body;
     }
     .list-group-item .list-group-item-action {
       border: none;
     }
     .list-group-item-action:hover,
     .list-group-item-action:focus {
-      background-color: $primary-purple;
-      border-color: $primary-purple;
-      color: $ivory;
+      color: $primary-blue;
       cursor: pointer;
     }
   }
@@ -136,6 +124,7 @@ $nav-purple-hover: shade($primary-purple, 10);
         }
 
         .nav-link {
+          color: $font-body;
           display: flex;
           align-items: center;
           border: none;
@@ -158,55 +147,33 @@ $nav-purple-hover: shade($primary-purple, 10);
 
           .nav-link {
             position: relative;
-            color: $gray;
-            transition: color 0.16s ease-in;
+            color: $font-body;
             z-index: 1;
           }
 
           .nav-link:before {
             content: '';
             position: absolute;
-            background: $nav-blue;
-            bottom: 0;
+            bottom: 10px;
             left: 0;
             right: 0;
-            top: 100%;
-            transition: top 0.16s ease-in;
             z-index: -1;
+            width: 95%;
+            margin: 0 auto;
           }
 
           .dropdown.show .nav-link,
-          .nav-link:hover,
-          .nav-link:focus {
-            color: $ivory;
-
+          .nav-link:hover {
             &:before {
-              top: 0;
+              border-bottom: solid 4px $primary-blue;
             }
-          }
-
-          .nav-link-blue:before {
-            background: $nav-blue;
-          }
-          .nav-link-yellow:before {
-            background: $nav-yellow;
-          }
-          .nav-link-orange:before {
-            background: $nav-orange;
-          }
-          .nav-link-green:before {
-            background: $nav-green;
-          }
-          .nav-link-purple:before {
-            background: $nav-purple;
           }
         }
 
         // .navbar-collapse collapsed
         @include media-breakpoint-down($breakpoint) {
           .nav-item {
-            justify-content: center;
-            padding: 15px 0;
+            color: $font-body;
             margin: 5px 0;
             border-radius: $base-border-radius;
 
@@ -216,41 +183,11 @@ $nav-purple-hover: shade($primary-purple, 10);
             &:last-child {
               margin-bottom: 10px;
             }
-
-            &,
-            &:hover,
-            &:focus {
-              color: $ivory;
-            }
-
-            &.nav-link-blue {
-              background: $nav-blue;
+          }
+          .navbar-nav {
+            .nav-link {
               &:hover {
-                background: $nav-blue-hover;
-              }
-            }
-            &.nav-link-yellow {
-              background: $nav-yellow;
-              &:hover {
-                background: $nav-yellow-hover;
-              }
-            }
-            &.nav-link-orange {
-              background: $nav-orange;
-              &:hover {
-                background: $nav-orange-hover;
-              }
-            }
-            &.nav-link-green {
-              background: $nav-green;
-              &:hover {
-                background: $nav-green-hover;
-              }
-            }
-            &.nav-link-purple {
-              background: $nav-purple;
-              &:hover {
-                background: $nav-purple-hover;
+                color: $primary-blue;
               }
             }
           }
