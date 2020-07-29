@@ -1,0 +1,26 @@
+{% extends "educators/dashboard/memberships/_participants_base.html" %}
+
+{% block main_content %}
+  <span class="participants-list-avatar">
+    {% include "_avatar.html" with user=participant width=48 height=48 crop='thumb' gravity='faces' %}
+  </span>
+  {% if participant.first_name or participant.last_name %}
+  {{ participant.first_name }} {{ participant.last_name }}
+  {% else %}
+  <em>No name provided</em>
+  {% endif %}
+  <br>
+  {{ participant.username }}
+{% endblock %}
+
+{% block expanded_content %}
+  <strong>Email:</strong>
+  {% if participant.email %}
+  {{ participant.email }}
+  {% else %}
+  <em>No email provided</em>
+  {% endif %}
+  <br>
+  <strong>Organization:</strong>
+  {{ participant.educatorprofile.organization|default:"-" }}
+{% endblock %}

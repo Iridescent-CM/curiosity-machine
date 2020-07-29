@@ -37,7 +37,7 @@ class GroupSelector():
 
         self._map = OrderedDict()
         self._map['all'] = SelectorOption(
-            text = "All Students",
+            text = "All Participants",
             query_param = self.query_param,
             query_value = 'all',
             queryset = listed_member_qs,

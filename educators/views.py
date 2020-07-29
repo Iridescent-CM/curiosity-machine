@@ -96,7 +96,7 @@ class ChallengeView(TemplateView):
 
         sorter = ParticipantSorter(query=self.request.GET)
         gs = GroupSelector(membership, query=self.request.GET)
-        students = gs.selected.queryset
+        students = gs.selected.queryset.filter(extra__role=UserRole.student.value)
         students = sorter.sort(students)
         students = students.all()
 
@@ -187,8 +187,8 @@ class StudentView(TemplateView):
             raise PermissionDenied
 
         membership = membership_selection.selected
-        listed_members = membership.listed_members
-        member = get_object_or_404(listed_members, pk=self.kwargs.get('student_id'))
+        student_members = membership.members.filter(extra__role=UserRole.student.value)
+        member = get_object_or_404(student_members, pk=self.kwargs.get('student_id'))
         progresses = (member.progresses
             .filter(comments__isnull=False, challenge__in=membership.challenges.all())
             .select_related('challenge')
@@ -226,8 +226,8 @@ class StudentPasswordResetView(FormView):
     def dispatch(self, request, *args, **kwargs):
         self.membership_selection = MembershipSelection(request)
         membership = self.membership_selection.selected
-        listed_members = membership.listed_members
-        self.member = get_object_or_404(listed_members, pk=self.kwargs.get('student_id'))
+        changeable_members = membership.listed_members.exclude(extra__role=UserRole.educator.value)
+        self.member = get_object_or_404(changeable_members, pk=self.kwargs.get('student_id'))
         return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):

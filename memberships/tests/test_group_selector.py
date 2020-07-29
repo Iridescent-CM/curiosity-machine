@@ -31,7 +31,7 @@ def test_default_selector_option_template_attrs():
     gs = GroupSelector(membership, query_param='x')
     assert len(gs.options) == 2
 
-    assert gs.options[0].text == "All Students"
+    assert gs.options[0].text == "All Participants"
     assert gs.options[0].query_param == "x"
     assert gs.options[0].query_value == "all"
     assert gs.options[0].GET == QueryDict('x=all')
@@ -50,26 +50,26 @@ def test_has_groups():
     assert GroupSelector(membership).has_groups
 
 @pytest.mark.django_db
-def test_all_students_queryset_gets_all_students():
+def test_all_participants_queryset_gets_all_participants():
     students = StudentFactory.create_batch(10)
     educators = EducatorFactory.create_batch(2)
     membership = MembershipFactory(members=students + educators)
 
     gs = GroupSelector(membership)
-    assert set(gs.options[0].queryset.all()) == set(students)
+    assert set(gs.options[0].queryset.all()) == set(students + educators)
 
 @pytest.mark.django_db
-def test_ungrouped_queryset_gets_ungrouped_students():
+def test_ungrouped_queryset_gets_ungrouped_participants():
     students = StudentFactory.create_batch(10)
     educators = EducatorFactory.create_batch(2)
     membership = MembershipFactory(members=students + educators)
 
     gs = GroupSelector(membership)
-    assert set(gs.options[1].queryset.all()) == set(students)
+    assert set(gs.options[1].queryset.all()) == set(students + educators)
 
     group = GroupFactory(membership=membership, members=students[0:5])
     gs = GroupSelector(membership)
-    assert set(gs.options[2].queryset.all()) == set(students[5:])
+    assert set(gs.options[2].queryset.all()) == set(students[5:] + educators)
 
 @pytest.mark.django_db
 def test_group_selector_option_template_attrs():
@@ -121,8 +121,8 @@ def test_passes_query_params_through():
 def test_selects_from_query_params():
     membership = MembershipFactory()
     group = GroupFactory(membership=membership)
-    assert GroupSelector(membership, query={}).selected.text == 'All Students'
-    assert GroupSelector(membership, query={'g': 'all'}).selected.text == 'All Students'
+    assert GroupSelector(membership, query={}).selected.text == 'All Participants'
+    assert GroupSelector(membership, query={'g': 'all'}).selected.text == 'All Participants'
     assert GroupSelector(membership, query={'g': 'none'}).selected.text == 'Ungrouped'
     assert GroupSelector(membership, query={'g': str(group.id)}).selected.text == group.name
 

@@ -1,5 +1,6 @@
 import pytest
 from ..factories import *
+from ..models import FamilyRole
 from surveys.factories import *
 from surveys.models import *
 from django.conf import settings
@@ -40,3 +41,65 @@ def test_full_access_granted_with_permission_slip():
     PermissionSlipFactory(account=account)
     assert account.familyprofile.check_full_access()
 
+@pytest.mark.django_db
+def test_family_size():
+    account = FamilyFactory()
+    assert account.familyprofile.family_size() == 0
+    FamilyMemberFactory(account=account, family_role=FamilyRole.parent_or_guardian.value)
+    assert account.familyprofile.family_size() == 1
+    FamilyMemberFactory(account=account, family_role=FamilyRole.child.value)
+    assert account.familyprofile.family_size() == 2
+
+@pytest.mark.django_db
+def test_parent_guardian_first_names():
+    account = FamilyFactory()
+    FamilyMemberFactory(
+        account=account,
+        family_role=FamilyRole.parent_or_guardian.value,
+        first_name="fname",
+        last_name="lname"
+    )
+    assert account.familyprofile.parent_guardian_first_names() == "fname"
+
+    FamilyMemberFactory(
+        account=account,
+        family_role=FamilyRole.parent_or_guardian.value,
+        first_name="fnametwo",
+        last_name="lname"
+    )
+    assert account.familyprofile.parent_guardian_first_names() == "fname, fnametwo"
+
+    FamilyMemberFactory(
+        account=account,
+        family_role=FamilyRole.child.value,
+        first_name="childfname",
+        last_name="lname"
+    )
+    assert account.familyprofile.parent_guardian_first_names() == "fname, fnametwo"
+
+@pytest.mark.django_db
+def test_children_first_names():
+    account = FamilyFactory()
+    FamilyMemberFactory(
+        account=account,
+        family_role=FamilyRole.child.value,
+        first_name="fname",
+        last_name="lname"
+    )
+    assert account.familyprofile.children_first_names() == "fname"
+
+    FamilyMemberFactory(
+        account=account,
+        family_role=FamilyRole.child.value,
+        first_name="fnametwo",
+        last_name="lname"
+    )
+    assert account.familyprofile.children_first_names() == "fname, fnametwo"
+
+    FamilyMemberFactory(
+        account=account,
+        family_role=FamilyRole.parent_or_guardian.value,
+        first_name="pogname",
+        last_name="lname"
+    )
+    assert account.familyprofile.children_first_names() == "fname, fnametwo"

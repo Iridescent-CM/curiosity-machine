@@ -26,6 +26,15 @@
   <em>No email provided</em>
   {% endif %}
   <br>
+  <strong>Family members:</strong>
+  {{ participant.familyprofile.family_size }}
+  <br>
+  <strong>Parent/guardians:</strong>
+  {{ participant.familyprofile.parent_guardian_first_names }}
+  <br>
+  <strong>Children:</strong>
+  {{ participant.familyprofile.children_first_names }}
+  <br>
   {% url "educators:student_password_reset" student_id=participant.id as button_url %}
   <a class="btn btn-primary mt-3" href="{{ button_url }}" role="button">Reset Password</a>
 {% endblock %}
