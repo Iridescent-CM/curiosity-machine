@@ -67,8 +67,8 @@ $primary-lightblue-lightest: tint($primary-lightblue, 40%);
 $primary-darkblue: #041e42;
 $primary-darkblue-darkest: shade($primary-darkblue, 40%);
 $primary-darkblue-dark: shade($primary-darkblue, 20%);
-$primary-darkblue-dark: tint($primary-darkblue, 20%);
-$primary-darkblue-darkest: tint($primary-darkblue, 40%);
+$primary-darkblue-light: tint($primary-darkblue, 20%);
+$primary-darkblue-lightest: tint($primary-darkblue, 40%);
 
 // Colors: Neutral Palette
 $dark: #333333;
