@@ -3,6 +3,7 @@
 
   .main-container {
     margin-top: 1.5em;
+    margin-bottom: 1.5em;
     padding: 40px 65px 100px 65px;
     background: #fffcf7;
     max-width: 1170px;
@@ -23,14 +24,29 @@
       }
     }
 
-    h1, .h1 { font-size: 42px; }
-    h2, .h2 { font-size: 30px; }
-    h3, .h3 { font-size: 24px; }
-    h4, .h4 { font-size: 18px; }
+    h1,
+    .h1 {
+      font-size: 42px;
+    }
+    h2,
+    .h2 {
+      font-size: 30px;
+    }
+    h3,
+    .h3 {
+      font-size: 24px;
+    }
+    h4,
+    .h4 {
+      font-size: 18px;
+    }
 
-    h1, .h1,
-    h2, .h2,
-    h3, .h3 {
+    h1,
+    .h1,
+    h2,
+    .h2,
+    h3,
+    .h3 {
       margin-top: 20px;
       margin-bottom: 10px;
 
@@ -50,11 +66,15 @@
       }
     }
 
-    h1, h2, h3, h4 {
-      font-family: "Raleway Light", "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Raleway Light', 'Raleway', 'Helvetica Neue', Helvetica,
+        Arial, sans-serif;
       font-weight: 300;
       line-height: 1.1;
-      color: #F16243;
+      color: #f16243;
 
       small {
         font-weight: normal;
