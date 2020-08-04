@@ -19,13 +19,6 @@
 {% endblock %}
 
 {% block expanded_content %}
-  <strong>Birthday:</strong>
-  {% if participant.studentprofile.birthday %}
-  {{ participant.studentprofile.birthday|date:"m/d/Y" }}
-  {% else %}
-  <em>No birthday provided</em>
-  {% endif %}
-  <br>
   <strong>Email:</strong>
   {% if participant.email %}
   {{ participant.email }}
