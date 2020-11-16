@@ -13,7 +13,7 @@
         </p>
       </div>
       <div class="col-6">
-        <a href="{% url "evolving" %}">
+        <a href="{% url "evolving"%}">
           Read more about our exciting transition here &gt;
         </a>
       </div>
@@ -32,8 +32,7 @@
     <div class="col-lg-8">
       <h1>Create a better world together</h1>
       <h3>
-        Develop curiosity, creativity, and confidence through family-friendly,
-        hands-on activities.
+        Develop curiosity, creativity and confidence through family-friendly, hands-on activities.
       </h3>
       <a class="btn btn-orange my-3" href="{% url 'account_signup' %}">
         Get started
@@ -47,29 +46,20 @@
     <div class="row">
       <div class="col-lg-6">
         <h2 class="mb-3 headings-font">
-          STEM activities for curious families and classrooms
+          Explore and create with new technology
         </h2>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-6 my-3">
         <p>
-          Parents and other role models play a critical role in building
-          children's confidence and a love for learning new things. Whether you
-          want quality learning challenges to do at home or curriculum for a
-          classroom of eager learners, Technovation Families fuels curiosity,
-          creativity, and confidence through hands-on challenges that teach
-          children and adults about technology and engineering that will drive
-          the future.
+          Parents and other role models play a critical role in building children's confidence and a love for learning new things. Whether you want quality learning experiences to do at home or curriculum for a classroom of eager learners, Technovation Families fuels curiosity, creativity, and confidence through hands-on challenges that teach children and adults about technology and engineering that will drive the future.
         </p>
         <p>
-          And, because we want every child to have the opportunity to create the
-          future, Technovation Families is 100% free.
+          And, because we want every child to have the opportunity to create the future, Technovation Families is 100% free.
         </p>
         <p>
-          Use our curriculum and take Technovation Families' Al challenge, or
-          explore our series of design challenges to find out what STEM topics
-          interest you.
+          Use our curriculum to learn how to use AI to solve a problem in your community, or explore our many design challenges to find out what STEM topics interest you. 
         </p>
       </div>
       <div class="col-lg-6 my-3 text-center">
@@ -88,28 +78,33 @@
     <div class="row">
       <div class="col-lg-6 my-3">
         <h2 class="mb-3">
-          Join Technovation Families' free AI family challenge.
+          Solve a problem with AI
         </h2>
         <p>
-          Bullying, climate change, health & hygiene - these are just a few
-          problems 7500 children and adults around the world tackled in 2019
-          using Al.
+          Through 10 lessons, learn what Al is, how it works, and how to use it to solve a problem you care about with support from educators, community leaders, and industry professionals. 
         </p>
-        <p class="font-weight-bold">You can join them.</p>
         <p>
-          Through 10 lessons, learn what Al is, how it works, and how to use it
-          to solve a problem you care about with support from educators,
-          community leaders, and industry professionals.
+          <a
+            class="font-weight-bold base-type"
+            href="{% url 'lessons:lesson-list' %}"
+          >
+            See AI Lessons
+            <i class="icon-right-arrow"></i>
+          </a>
         </p>
-        <a class="btn btn-primary" href="{% url 'lessons:lesson-list' %}">
-          See AI lessons
+        <p>
+          Stop bullies, address climate change, improve health & hygiene - these are just a few issues 10,000 children and adults around the world have used AI to tackle in our global challenge. 
+        </p>
+        <a class="font-weight-bold base-type" href="https://www.technovation.org/app-gallery/">
+          See what past participants have invented
+          <i class="icon-right-arrow"></i>
         </a>
       </div>
       <div class="col-lg-6 my-3">
         <div class="embed-responsive embed-responsive-16by9">
           <iframe
             class="embed-responsive-item"
-            src="https://www.youtube.com/embed/JVz8TGr33dI"
+            src="https://www.youtube.com/embed/IWF4LPeycL8"
             allowfullscreen
           >
           </iframe>
@@ -118,38 +113,35 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-6 my-3 text-center">
-        <img
-          class="portrait-img d-none d-lg-block leaf-border"
-          src="{% static 'images/pages/home/section-2.png' %}"
-          alt="Children building design challenges"
-        />
-      </div>
       <div class="col-lg-6 my-3">
         <h2 class="mb-3">
           Explore Technovation Families' free design challenges
         </h2>
         <p>
-          Great as weekly family learning activities or in-class projects, our
-          hands-on design challenges let you explore STEM topics ranging from
-          robotics, space exploration, biomechanics and more. All our lessons
-          can be completed using the online curriculum and common household
-          materials. Follow your curiosity wherever it leads!
+          Great as weekly family learning activities or in-class projects, our hands-on design challenges let you explore STEM topics ranging from robotics, space exploration, biomechanics and more.
         </p>
         <a
           class="font-weight-bold base-type"
           href="{% url 'challenges:challenges' %}"
         >
-          See design challenges
+          Build a design challenge
           <i class="icon-right-arrow"></i>
         </a>
       </div>
-      <div class="col-lg-6 my-3 text-center d-lg-none">
-        <img
-          class="portrait-img leaf-border"
-          src="{% static 'images/pages/home/section-2.png' %}"
-          alt="Children building design challenges"
-        />
+      <div class="col-lg-6 my-3">
+        <h2 class="mb-3">
+          Build apps and lead global change with Technovation Girls
+        </h2>
+        <p>
+         Explore Technovation’s other program where girls ages 10-18 work in teams to code mobile apps that address real-world problems.
+        </p>
+        <a
+          class="font-weight-bold base-type"
+          href="https://technovationchallenge.org/"
+        >
+          Learn more
+          <i class="icon-right-arrow"></i>
+        </a>
       </div>
     </div>
   </div>
@@ -160,12 +152,10 @@
     <div class="row">
       <div class="col-lg-12 my-3">
         <h2 class="mb-3">
-          Technovation change's families lives
+          Technovation changes families' lives 
         </h2>
         <p>
-          Learning together, parents and children build their creative
-          problem-solving and technology skills while increasing their
-          confidence as community changemakers.
+          Learning together, parents and children build their creative problem-solving and technology skills while increasing their confidence as community changemakers. 
         </p>
       </div>
     </div>
@@ -216,24 +206,23 @@
     <div class="row">
       <div class="col-lg-12 my-3">
         <h2 class="mb-3 headings-font">
-          Run our programs
+          Join our community of learners exploring and creating with AI
         </h2>
         <p>
-          Educators and community organizations all over the world lead and
-          mentor Technovation Families in their communities.
+          Curious educators, community organizations, families, and industry mentors from all over the world are exploring and using AI together to improve their communities through Technovation Families. Are you ready to change the world with them?
         </p>
         <a
           class="font-weight-bold base-type"
           href="https://www.technovation.org/community-partners/"
         >
-          Get involved today
+          Get Started Now
           <i class="icon-right-arrow"></i>
         </a>
-        <img
-          class="my-3"
-          src="{% static 'images/about/aifc-world.svg' %}"
-          alt="Map of Technovation Families locations"
-        />
+        <iframe         
+          id="chapter-map" 
+          class="my-3 d-block"
+          src="https://www.google.com/maps/d/u/1/embed?mid=1iNTtG9RMwX6S8qyQiWq27JYIIU6dYkd4" 
+          width="70%" height="500"></iframe>
       </div>
     </div>
   </div>
