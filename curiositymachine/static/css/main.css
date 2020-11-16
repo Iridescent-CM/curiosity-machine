@@ -10402,6 +10402,9 @@ footer {
 #index-page .portrait-img {
   width: 400px; }
 
+#index-page #chapter-map {
+  margin: 0 auto; }
+
 .lesson-pages .lesson-title {
   font-size: 2.5rem; }
 
