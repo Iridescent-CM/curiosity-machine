@@ -5,7 +5,7 @@
   {% if challenge.accessible %}
     <form name="Start Building" action='{% url "challenges:start_building" challenge_id=challenge.id %}' method='POST'>
       {% csrf_token %}
-      <input type="submit" value="Start Building" class="btn btn-secondary btn-lg" />
+      <input type="submit" value="Start Building" class="btn btn-primary btn-lg" />
     </form>
   {% else %}
     <div class="membership-only">

@@ -1,6 +1,8 @@
 .lesson-pages {
+  .lesson-title {
+    font-size: 2.5rem;
+  }
   .lesson-container {
-
     /* borrow Bootstrap variables */
     background-color: $nav-tabs-link-active-bg;
     border-left: $nav-tabs-border-width solid $nav-tabs-border-color;
@@ -45,11 +47,11 @@
       &.#{$class} {
         .bg-page-gradient {
           background: $color1 linear-gradient(90deg, $color1, $color2) repeat-x;
-          color: white;
+          color: $white;
         }
         .bg-page-reverse-gradient {
           background: $color2 linear-gradient(90deg, $color2, $color1) repeat-x;
-          color: white;
+          color: $white;
         }
 
         .page-color {
@@ -61,12 +63,28 @@
       }
     }
 
-    @include page-colors("start", theme-color("new-pink"), theme-color("new-red"));
-    @include page-colors("inspiration", theme-color("new-red"), theme-color("new-orange"));
-    @include page-colors("plan", theme-color("new-orange"), theme-color("new-green"));
-    @include page-colors("build", theme-color("new-green"), theme-color("new-turquoise"));
-    @include page-colors("reflect", theme-color("new-turquoise"), theme-color("new-blue"));
-    @include page-colors("further", theme-color("new-blue"), theme-color("new-purple"));
+    @include page-colors('start', theme-color('pink'), theme-color('orange'));
+    @include page-colors(
+      'inspiration',
+      theme-color('orange'),
+      theme-color('green')
+    );
+    @include page-colors(
+      'plan',
+      theme-color('green'),
+      theme-color('lightblue')
+    );
+    @include page-colors(
+      'build',
+      theme-color('lightblue'),
+      theme-color('blue')
+    );
+    @include page-colors('reflect', theme-color('blue'), theme-color('purple'));
+    @include page-colors(
+      'further',
+      theme-color('purple'),
+      theme-color('darkblue')
+    );
   }
 
   .nav-item.active {
@@ -74,7 +92,7 @@
       &.#{$class} {
         background-color: $color;
         .nav-link {
-          color: white;
+          color: $white;
         }
         &:after {
           border-top-color: $color;
@@ -84,12 +102,12 @@
       }
     }
 
-    @include active-tab("start", theme-color("new-pink"));
-    @include active-tab("inspiration", theme-color("new-red"));
-    @include active-tab("plan", theme-color("new-orange"));
-    @include active-tab("build", theme-color("new-green"));
-    @include active-tab("reflect", theme-color("new-blue"));
-    @include active-tab("further", theme-color("new-purple"));
+    @include active-tab('start', theme-color('pink'));
+    @include active-tab('inspiration', theme-color('orange'));
+    @include active-tab('plan', theme-color('green'));
+    @include active-tab('build', theme-color('lightblue'));
+    @include active-tab('reflect', theme-color('blue'));
+    @include active-tab('further', theme-color('purple'));
   }
 
   .nav {
@@ -107,9 +125,9 @@
       position: relative;
       border-bottom: 1px solid $sand;
 
-      $height: 20px;
+      $height: 24px;
       &:before {
-        content: " ";
+        content: ' ';
         display: block;
         position: absolute;
         left: -$height - 2px;
@@ -119,7 +137,7 @@
         border-left-color: transparent;
       }
       &:after {
-        content: " ";
+        content: ' ';
         display: block;
         position: absolute;
         left: -1 * $height;
@@ -130,7 +148,8 @@
       }
 
       &:first-child() {
-        &:before, &:after {
+        &:before,
+        &:after {
           display: none;
         }
       }

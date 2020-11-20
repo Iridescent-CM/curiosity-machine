@@ -3,152 +3,244 @@
 
 {% block body-id %}index-page{% endblock %}
 {% block content %}
-  {% if flags.enable_rebrand %}
-  <div class="rebrand-banner py-3">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <p class="text-center h3 font-weight-bold">
-            Curiosity Machine and AI Family Challenge are now Technovation Families
-          </p>
-        </div>
-        <div class="col-6">
-          <a href="{% url "evolving" %}">Read more about our exciting transition here &gt;</a>
-        </div>
-        <div class="col-6 text-right">
-          <a href="{% url "lessons:lesson-list" %}">Start Season 2 of our AI challenge here &gt;</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-  <div class="home-top-panel">
-    <div class="jumbotron jumbotron-fluid home-top-panel-gradient">
-      <div class="container text-center">
-        <h1 class="home-title">Imagine a better world</br>and build it together</h1>
-        <h3 class="home-subtitle">Learn, play, and create with artificial intelligence</h3>
-        <a href="{% url "account_signup" %}" class="btn btn-primary btn-lg text-uppercase">Get Started</a>
-        <h5 class="text-white"> or <a href="#" data-toggle="modal" data-target="#login-modal" class="a-borderless text-white">Log in</a></h5>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid sign-up-panel text-center py-3">
+{% if flags.enable_rebrand %}
+<div class="rebrand-banner py-3">
+  <div class="container">
     <div class="row">
-      <div class="col-lg-8 offset-lg-2 col-10 offset-1">
-        <h2 class= "mb-0">Start building with Technovation Families.</h2>
+      <div class="col-12">
+        <p class="text-center h3 font-weight-bold">
+          Curiosity Machine and AI Family Challenge are now Technovation Families
+        </p>
+      </div>
+      <div class="col-6">
+        <a href="{% url "evolving"%}">
+          Read more about our exciting transition here &gt;
+        </a>
+      </div>
+      <div class="col-6 text-right">
+        <a href="{% url 'lessons:lesson-list' %}">
+          Start Season 2 of our AI challenge here &gt;
+        </a>
       </div>
     </div>
   </div>
+</div>
+{% endif %}
 
-  <div class="container home-what-panel text-center">
-    <div class="row mt-5">
-      <div class="col-lg-4 offset-lg-2">
-        <img src="{% static 'images/home/who-parents.png' %}">
-        <h4>Families</h4>
-        <p>Learn the basics of how artificial intelligence works by building projects together</p>
-      </div>
-      <div class="col-lg-4">
-        <img src="{% static 'images/home/who-educators.png' %}">
-        <h4>Mentors</h4>
-        <p>Engage families with access to cutting-edge curriculum and support from our team</p>
-      </div>
-      <div class="col-md-8 offset-md-2 mt-5">
-        <h3>Children are the future. So is Artificial Intelligence.</h3>
-        <p>More than 80% of parents across the United States say that technology will play a greater role in their futures. However, they also recognize that there is a significant gap between their child’s interest in learning about future technologies – including artificial intelligence –and their preparedness for the jobs of the future (Veraquest, 2018).</p>
-        <p>Through Technovation Families, students and their families explore core concepts of Artificial Intelligence, apply AI tools to solve problems in their communities and have the opportunity to enter their ideas into a global competition.</p>
-      </div>
-      <div class="col-lg-8 offset-lg-2 text-center mt-5">
-        <a href="{% url "account_signup" %}" class="btn btn-primary text-uppercase mx-3" target="_blank">sign up now</a>
-        <a href="{% url "about" %}"
-        class="btn btn-primary text-uppercase mx-3"
-        target="_blank">learn more</a>
-      </div>
+<div class="jumbotron">
+  <div class="container text-light">
+    <div class="col-lg-8">
+      <h1>Create a better world together</h1>
+      <h3>
+        Develop curiosity, creativity and confidence through family-friendly, hands-on activities.
+      </h3>
+      <a class="btn btn-orange my-3" href="{% url 'account_signup' %}">
+        Get started
+      </a>
+    </div>
+  </div>
+</div>
 
-      <div class="col-lg-12 my-4">
-        <hr class="hr-red"/>
-        <h2 class="mt-5">We work with communities</h2>
-        <div class="logos">
-          <a href="https://aaai.org/" class="a-borderless">
-            <img src="{% static 'images/logos/aaai-logo.png' %}" alt="AAAI">
-          </a>
-          <a href="http://www.aguilayouth.org/" class="a-borderless">
-            <img src="{% static 'images/logos/aguila-logo.png' %}" alt="Aguila Youth">
-          </a>
-          <a href="https://www.cityyear.org/" class="a-borderless">
-            <img src="{% static 'images/logos/cityyear-logo.png' %}" alt="City Year">
-          </a>
-          <a href="http://www.bilimkahramanlari.org/tr/" class="a-borderless">
-            <img src="{% static 'images/logos/scienceheroes-logo.png' %}" alt="Science Heroes" height="50">
-          </a>
-          <a href="https://www.usc.edu/" class="a-borderless">
-            <img src="{% static 'images/logos/usc-logo.png' %}" alt="University of Southern California">
-          </a>
-          <a href="http://www.rpi.edu/" class="a-borderless">
-            <img src="{% static 'images/logos/rpi-logo.png' %}" alt="RPI" height="50">
-          </a>
-        </div>
-        <h2 class="mt-5">and leaders of innovative technology</h2>
-        <div class="logos">
-          <a href="https://www.google.com/" class="a-borderless">
-            <img src="{% static 'images/logos/google-logo.png' %}" alt="Google logo">
-          </a>
-          <a href="http://www.nvidia.com/page/home.html" class="a-borderless">
-            <img src="{% static 'images/logos/nvidia-logo.png' %}" alt="NVIDIA logo">
-          </a>
-          <a href="https://www.gm.com/" class="a-borderless">
-            <img src="{% static 'images/logos/gm-logo.jpg' %}" alt="General Motors logo">
-          </a>
-          <a href="http://www.boeing.com/" class="a-borderless">
-            <img src="{% static 'images/logos/boeing-logo.png' %}" alt="Boeing logo">
-          </a>
-          <a href="http://www.nsf.gov/" class="a-borderless">
-            <img src="{% static 'images/logos/nsf-logo.png' %}" alt="National Science Foundation logo">
-          </a>
-          <a href="http://www.cummins.com/" class="a-borderless">
-            <img src="{% static 'images/logos/cummins-logo.png' %}" alt="Cummins logo">
-          </a>
-          <a href="http://www.intel.com/" class="a-borderless">
-            <img src="{% static 'images/logos/intel-logo.png' %}" alt="Intel logo">
-          </a>
-          <a href="https://www.pinkerton.com/" class="a-borderless">
-            <img src="{% static 'images/logos/pinkerton-logo.png' %}" alt="Pinkerton logo">
-          </a>
-          <a href="https://www.laserfiche.com/" class="a-borderless">
-            <img src="{% static 'images/logos/laserfiche-logo.jpg' %}" alt="Laserfiche logo">
-          </a>
-          <a href="http://www.onr.navy.mil/" class="a-borderless">
-            <img src="{% static 'images/logos/ONR-logo.png' %}" alt="Office of Naval Research logo">
-          </a>
-          <a href="https://hivelearningnetworks.org/" class="a-borderless">
-            <img src="{% static 'images/logos/hive-logo.png' %}" alt="Hive Network logo">
-          </a>
-        </div>
-        <h2 class="mt-5">to empower students and their families</h2>
-        <div class="logos">
-          <a href="http://www.michigan.gov/mde/" class="a-borderless">
-            <img src="{% static 'images/logos/mde-logo.png' %}" alt="MDE">
-          </a>
-          <a href="http://schools.nyc.gov/" class="a-borderless">
-            <img src="{% static 'images/logos/nyc-logo.png' %}" alt="NYCDOE">
-          </a>
-          <a href="http://home.lausd.net/" class="a-borderless">
-            <img src="{% static 'images/logos/lausad-logo.png' %}" alt="LAUSD">
-          </a>
-          <a href="http://www.santaclarausd.org/" class="a-borderless">
-            <img src="{% static 'images/logos/santaclara-logo.png' %}" alt="Santa Clara Unified School District">
-          </a>
-          <a href="https://www.chipublib.org/" class="a-borderless">
-            <img src="{% static 'images/logos/cpl-logo.png' %}" alt="Chicago Public Library">
-          </a>
-          <a href="http://www.lapl.org/" class="a-borderless">
-            <img src="{% static 'images/logos/lapl-logo.png' %}" alt="LAPL">
-          </a>
-          <a href="https://nhm.org/site/" class="a-borderless">
-            <img src="{% static 'images/logos/nhm-logo 2.gif' %}" alt="Natural History Museum">
-          </a>
-        </div>
+<div class="container-fluid bg-pattern-dots-lightblue py-5">
+  <div class="container darkblue-type">
+    <div class="row">
+      <div class="col-lg-6">
+        <h2 class="mb-3 headings-font">
+          Explore and create with new technology
+        </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 my-3">
+        <p>
+          Parents and other role models play a critical role in building children's confidence and a love for learning new things. Whether you want quality learning experiences to do at home or curriculum for a classroom of eager learners, Technovation Families fuels curiosity, creativity, and confidence through hands-on challenges that teach children and adults about technology and engineering that will drive the future.
+        </p>
+        <p>
+          And, because we want every child to have the opportunity to create the future, Technovation Families is 100% free.
+        </p>
+        <p>
+          Use our curriculum to learn how to use AI to solve a problem in your community, or explore our many design challenges to find out what STEM topics interest you. 
+        </p>
+      </div>
+      <div class="col-lg-6 my-3 text-center">
+        <img
+          class="portrait-img leaf-border"
+          src="{% static 'images/pages/home/section-1.png' %}"
+          alt="Technovation Families participants"
+        />
       </div>
     </div>
   </div>
+</div>
+
+<div class="container-fluid py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 my-3">
+        <h2 class="mb-3">
+          Solve a problem with AI
+        </h2>
+        <p>
+          Through 10 lessons, learn what Al is, how it works, and how to use it to solve a problem you care about with support from educators, community leaders, and industry professionals. 
+        </p>
+        <p>
+          <a
+            class="font-weight-bold base-type"
+            href="{% url 'lessons:lesson-list' %}"
+          >
+            See AI Lessons
+            <i class="icon-right-arrow"></i>
+          </a>
+        </p>
+        <p>
+          Stop bullies, address climate change, improve health & hygiene - these are just a few issues 10,000 children and adults around the world have used AI to tackle in our global challenge. 
+        </p>
+        <a class="font-weight-bold base-type" href="https://www.technovation.org/app-gallery/">
+          See what past participants have invented
+          <i class="icon-right-arrow"></i>
+        </a>
+      </div>
+      <div class="col-lg-6 my-3">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe
+            class="embed-responsive-item"
+            src="https://www.youtube.com/embed/IWF4LPeycL8"
+            allowfullscreen
+          >
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 my-3">
+        <h2 class="mb-3">
+          Explore Technovation Families' free design challenges
+        </h2>
+        <p>
+          Great as weekly family learning activities or in-class projects, our hands-on design challenges let you explore STEM topics ranging from robotics, space exploration, biomechanics and more.
+        </p>
+        <a
+          class="font-weight-bold base-type"
+          href="{% url 'challenges:challenges' %}"
+        >
+          Build a design challenge
+          <i class="icon-right-arrow"></i>
+        </a>
+      </div>
+      <div class="col-lg-6 my-3">
+        <h2 class="mb-3">
+          Build apps and lead global change with Technovation Girls
+        </h2>
+        <p>
+         Explore Technovation’s other program where girls ages 10-18 work in teams to code mobile apps that address real-world problems.
+        </p>
+        <a
+          class="font-weight-bold base-type"
+          href="https://technovationchallenge.org/"
+        >
+          Learn more
+          <i class="icon-right-arrow"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid bg-orange light-type py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 my-3">
+        <h2 class="mb-3">
+          Technovation changes families' lives 
+        </h2>
+        <p>
+          Learning together, parents and children build their creative problem-solving and technology skills while increasing their confidence as community changemakers. 
+        </p>
+      </div>
+    </div>
+
+    <div class="row text-center impact-section">
+      <div class="col-lg-3 my-3">
+        <div class="headings-font mb-3 text-center" id="impact-1">
+          80k
+        </div>
+        <p>
+          families around the world have participated in Technovation Families'
+          challenges since 2006.
+        </p>
+      </div>
+      <div class="col-lg-3 my-3">
+        <div class="headings-font mb-3" id="impact-2">15k</div>
+        <p>
+          mentors have supported families to learn about science, technology,
+          and engineering through our challenges since 2006.
+        </p>
+      </div>
+      <div class="col-lg-3 my-3">
+        <div class="headings-font mb-3" id="impact-3">91%</div>
+        <p>
+          of parents believe their child has developed a sustained interest in
+          AI.
+        </p>
+      </div>
+      <div class="col-lg-3 my-3">
+        <div class="headings-font mb-3" id="impact-4">84%</div>
+        <p>
+          of parents said they were more likely to take action to improve their
+          community.
+        </p>
+      </div>
+      <a
+        class="btn btn-white-darkblue my-3"
+        href="https://www.technovation.org/impact/"
+      >
+        See our impact
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid bg-pattern-stripes-yellow py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 my-3">
+        <h2 class="mb-3 headings-font">
+          Join our community of learners exploring and creating with AI
+        </h2>
+        <p>
+          Curious educators, community organizations, families, and industry mentors from all over the world are exploring and using AI together to improve their communities through Technovation Families. Are you ready to change the world with them?
+        </p>
+        <a
+          class="font-weight-bold base-type"
+          href="https://www.technovation.org/community-partners/"
+        >
+          Get Started Now
+          <i class="icon-right-arrow"></i>
+        </a>
+        <iframe         
+          id="chapter-map" 
+          class="my-3 d-block"
+          src="https://www.google.com/maps/d/u/1/embed?mid=1iNTtG9RMwX6S8qyQiWq27JYIIU6dYkd4" 
+          width="70%" height="500"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid cta-banner-burst-orange py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2>
+          Are you ready to change the world?
+        </h2>
+        <a class="btn btn-white my-3" href="{% url 'account_signup' %}">
+          Start now
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

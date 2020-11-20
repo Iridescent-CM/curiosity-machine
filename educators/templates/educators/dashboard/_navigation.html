@@ -1,7 +1,7 @@
 {% load ifactive %}
 {% load notifications_tags %}
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 mt-3">
     <nav class="dashboard-tabs">
       <ul class="nav">
         <li class="nav-item {% ifactive "educators:home" "active" %}">
@@ -24,7 +24,8 @@
         </li>
         {% endif %}
         <li class="nav-item {% ifactive "educators:guides" "active" %}">
-          <a class="nav-link" href='https://iridescentlearning.org/resources-for-ai-family-challenge-mentors/' target='_blank'>
+          <a class="nav-link" href='https://iridescentlearning.org/resources-for-ai-family-challenge-mentors/'
+            target='_blank'>
             Resources
           </a>
         </li>
@@ -32,7 +33,9 @@
         <li class="nav-item {% ifactive "educators:activity" "active" %}">
           <a class="nav-link" href="{% url 'educators:activity' %}">
             Recent Activity
-            <span class="badge badge-purple">{% notifications_unread %}</span>
+            {% notifications_unread as unread_count %}
+            <span
+              class="badge {% if unread_count %} badge-orange {% else %} badge-purple {% endif %}">{{ unread_count }}</span>
           </a>
         </li>
         {% endif %}

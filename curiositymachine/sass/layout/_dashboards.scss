@@ -1,6 +1,16 @@
 .dashboard {
   font-family: 'Raleway', Helvetica, sans-serif;
 
+  .jumbotron {
+    @extend .bg-pattern-circles-blue;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 0;
+    margin: 0;
+  }
+
   .dashboard-avatar img {
     background-color: white;
     border-radius: 50%;
@@ -9,30 +19,51 @@
     margin-right: 10px;
   }
 
+  .nav {
+    flex-wrap: nowrap;
+  }
+
   .dashboard-tabs {
-    border-bottom: 2px $sand solid;
     text-align: center;
     font-weight: bold;
 
     .nav-item {
-      border-bottom: 5px solid transparent;
-      margin-right: 35px;
-
+      border-radius: 2% 30% 0px 0px / 5% 100% 0px 0px;
+      margin-right: 20px;
+      padding: 0px 10px 0px 0px;
       .nav-link {
         color: white;
       }
+
       &.active {
-        border-bottom-color: white;
+        background-color: $white;
+        .nav-link {
+          color: $primary-blue;
+        }
       }
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(lg) {
     .dashboard-tabs {
-      flex-direction: column;
-      padding-bottom: 0.5em;
       .nav-item {
-        border-bottom: none;
+        margin: 0px;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .nav {
+      flex-direction: column;
+      &:last-child {
+        margin-bottom: 10px;
+      }
+    }
+    .dashboard-tabs {
+      .nav-item {
+        width: 100%;
+        padding: 0px;
+        border-radius: $base-border-radius;
       }
     }
   }
@@ -45,7 +76,7 @@
     width: 94%;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 3px 3px 15px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
     font-size: 14px;
 
     .card-header {

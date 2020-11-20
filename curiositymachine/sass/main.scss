@@ -2,27 +2,31 @@
 @import 'utils/variables';
 
 $theme-colors: (
-  "primary": $primary-blue,
-  "secondary": #FFF,
-  "blue": $primary-blue,
-  "green": darken($primary-green, 4%), // to get color-yiq to give white text
-  "red": $primary-red,
-  "orange": $primary-orange,
-  "purple": $primary-purple,
-  "new-pink": #FF4980,
-  "new-red": #FF5050,
-  "new-orange": #F7931E,
-  "new-green": #39B54A,
-  "new-turquoise": #02B0C2,
-  "new-blue": #0071BC,
-  "new-purple": #6C6CB6
+  'primary': $primary-blue,
+  'secondary': #fff,
+  'blue': $primary-blue,
+  'orange': $primary-orange,
+  'purple': $primary-purple,
+  'green': $primary-green,
+  'pink': $primary-pink,
+  'lightblue': $primary-lightblue,
+  'darkblue': $primary-darkblue,
+  'white': $white,
+  //these colors are used in lessons save update for lates
+    'new-pink': #ff4980,
+  'new-red': #ff5050,
+  'new-orange': #f7931e,
+  'new-green': #39b54a,
+  'new-turquoise': #02b0c2,
+  'new-blue': #0071bc,
+  'new-purple': #6c6cb6
 );
+
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 @import 'base/fonts';
 @import 'base/typography';
 
-@import 'layout/about-pg-layout';
 @import 'layout/dashboards';
 @import 'layout/footer';
 @import 'layout/header';
@@ -34,6 +38,7 @@ $theme-colors: (
 @import 'components/challenge-status';
 @import 'components/dividers';
 @import 'components/favorites';
+@import 'components/forms';
 @import 'components/jumbotrons';
 @import 'components/list-group';
 @import 'components/lists';
@@ -43,18 +48,22 @@ $theme-colors: (
 @import 'components/tables';
 @import 'components/rebrand-banner';
 
-@import 'pages/about-educator';
-@import 'pages/about-aichallenge';
+@import 'pages/aifc-pages';
 @import 'pages/account-settings';
 @import 'pages/challenges';
 @import 'pages/edp-inspiration';
 @import 'pages/educator-dashboard';
 @import 'pages/examples';
 @import 'pages/family-dashboard';
+@import 'pages/family-profile';
+@import 'pages/get-started';
 @import 'pages/home';
 @import 'pages/lessons';
-@import 'pages/aifc-pages';
+@import 'pages/lesson-list';
+@import 'pages/password-reset';
 @import 'pages/rebrand';
 
 @import 'utils/backgrounds';
+@import 'utils/borders';
 @import 'utils/cloak';
+@import 'utils/spacing';

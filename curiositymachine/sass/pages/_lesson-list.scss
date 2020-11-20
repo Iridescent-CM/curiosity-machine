@@ -1,0 +1,14 @@
+#lesson-list {
+  .jumbotron {
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../images/pages/lesson-list/hero.png');
+    margin-bottom: 0;
+  }
+
+  .card {
+    min-height: 375px;
+  }
+}

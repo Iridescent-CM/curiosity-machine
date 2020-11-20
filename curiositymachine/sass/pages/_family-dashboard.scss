@@ -1,5 +1,5 @@
 .family-dashboard {
-  font-family: "Raleway", Helvetica, sans-serif;
+  font-family: $base-font-family;
 
   .checkbox {
     display: inline-block;
@@ -7,22 +7,17 @@
     height: 1em;
     background-size: cover;
     vertical-align: middle;
-    background-image: url("../images/checkbox-unchecked.svg");
+    background-image: url('../images/checkbox-unchecked-orange.svg');
     &.checkbox-checked {
-      background-image: url("../images/checkbox-checked.svg");
+      background-image: url('../images/checkbox-checked-orange.svg');
     }
   }
 
   .dashboard-section {
     border-radius: 15px;
     border-style: solid;
-    border-color: #E3E3DD;
+    border-color: #e3e3dd;
     border-width: 2px;
-  }
-  
-  .progress-title {
-    position: relative;
-    top: 10px;
   }
 
   .circliful {
@@ -34,23 +29,28 @@
     border-radius: 100%;
     padding: 5px 10px;
     line-height: 1;
-    color: #3498DB;
+    color: #3498db;
     font-size: 1.25em;
     font-weight: bold;
-    border: 2px solid #3498DB;
+    border: 2px solid #3498db;
     position: absolute;
     z-index: 1;
     right: 15px;
     top: 15px;
 
-    &:hover, &:active {
-      background-color: #3498DB66;
+    &:hover,
+    &:active {
+      background-color: #3498db66;
       cursor: pointer;
     }
   }
 
+  .lesson-card {
+    min-height: 375px;
+  }
+
   .modal-content {
-    border-color: #3498DB;
+    border-color: #3498db;
   }
 
   .members-list {
@@ -63,10 +63,10 @@
 
     .username {
       flex: auto;
-      font-family: "Raleway", Helvetica, sans-serif;
+      font-family: 'Raleway', Helvetica, sans-serif;
       font-size: 1em;
       border-radius: 15px 30px 30px;
-      background: #73AD21;
+      background: #73ad21;
       padding: 20px;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -76,26 +76,26 @@
     .avatar {
       flex: 0 60px;
       border-radius: 50%;
-      margin-right:10px;
+      margin-right: 10px;
     }
   }
 
-  .list-dots {
+  .submission-list {
     list-style: none;
-    padding-left: 2em;
-    position: relative;
+    padding:0;
 
     li {
-      @extend .my-2;
-    }
+      counter-increment: inst;
+      padding-left: 2em;
+      position: relative;
 
-    .dot {
-      @extend .badge;
-      @extend .badge-red;
-      @extend .rounded-circle;
-
-      position: absolute;
-      left: 0
+      &:before {
+        content: counter(inst);
+        color: $primary-orange;
+        font-family: $headings-font-family;
+        position: absolute;
+        left: 0;
+      }
     }
   }
 

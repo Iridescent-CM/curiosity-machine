@@ -6,52 +6,69 @@
 {% block pagehead %}Sign Up{% endblock %}
 
 {% block content %}
-  <div class="card mb-3">
-    <div class="card-body text-center text-md-left">
-      <h2>Create your Curiosity Machine Artificial Intelligence Family Challenge account!</h2>
-      <p>
-        You'll join a global community of families learning about artificial intelligence and apply what you learn to solve a real problem in your community. If you need more information, you can learn more <a href="{% url "about" %}" target="_blank">here</a>.
-      </p>
-      <div class="row mt-4">
-        <div class="col-8 offset-2 col-md-5 offset-md-0">
-          <a href="{% url "families:create_profile" %}">
-            <img src="{% static "images/parent.png" %}" alt="Family">
-          </a>
-        </div>
-        <div class="col-12 col-md-7 my-5">
-          <a class="btn btn-primary" href="{% url "families:create_profile" %}">Make a family account</a>
-          <p class="mt-2">
-            Family members don't have to be related, but must have 1-2 adults over 18 and at least 1 child 8-15 years old.
-          </p>
-        </div>
-      </div>
-      <div class="row mt-4">
-        <div class="col-8 offset-2 col-md-5 offset-md-0">
-          <a href="{% url "educators:create_profile" %}">
-            <img src="{% static "images/educator.png" %}" alt="Mentor">
-          </a>
-        </div>
-        <div class="col-12 col-md-7 my-5">
-          <a class="btn btn-primary" href="{% url "educators:create_profile" %}">Make a mentor account</a>
-          <p class="mt-2">
-            Mentors lead the challenge with students and families. Create this account if you plan to organize the challenge for groups.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="row mt-4">
+  <h2 class="mb-3">
+    Create a Technovation Families account and start the Al Challenge!
+  </h2>
+  <p>
+   You'll join a global community of families learning about artificial intelligence and apply what you learn to solve a real problem in your community!
+  </p>
+  <p>
+   <a
+     class="base-type font-weight-bold"
+     href="{% url "get-started" %}"
+    >
+        Learn more about the Al Challenge
+        <i class="icon-right-arrow"></i>
+    </a>
+  </p>
+</div>
 
-  <h2 class="my-5">Not interested? Choose one of the other ways to join Curiosity Machine:</h2>
+<div class="row mt-4 text-center text-md-left">
+  <div class="col-8 offset-2 col-md-5 offset-md-0">
+    <a href="{% url "families:create_profile" %}">
+      <img
+        class="leaf-border"
+        src="{% static 'images/pages/choose-profile/parent.png' %}"
+        alt="Family working together"
+      />
+    </a>
+  </div>
+  <div class="col-12 col-md-7 my-5">
+    <a class="btn btn-orange" href="{% url "families:create_profile" %}">Make a family account</a>
+    <p class="mt-2">
+      Family members don't have to be related, but must have 1-2 adults over 18 and at least 1 child 8-16 years old.
+    </p>
+  </div>
+</div>
+
+<div class="row mt-4 text-center text-md-left">
+  <div class="col-8 offset-2 col-md-5 offset-md-0">
+    <a href="{% url "educators:create_profile" %}">
+    <img
+      class="leaf-border"
+      src="{% static 'images/pages/choose-profile/educator.png' %}"
+      alt="Mentor"
+    />
+    </a>
+  </div>
+  <div class="col-12 col-md-7 my-5">
+    <a class="btn btn-orange" href="{% url "educators:create_profile" %}">Make a mentor account</a>
+    <p class="mt-2">
+      Mentors lead the challenge with students and families. Create this account if you plan to organize the challenge for groups.
+    </p>
+  </div>
+</div>
+
+<div class="row mt-4 text-center text-md-left">
+  <p>
+    Not interested in the Al Challenge? Create a student account and explore all Technovation Families' design challenges to learn about a range of science and engineering topics!
+  </p>
 
   {% url "students:create_profile" as student_url %}
-  <div class="card mb-4">
-    <div class="card-body text-center text-md-left">
-      <h4>Student</h4>
-      <p>
-        Build and document projects using the engineering design process.
-      </p>
-      <a class="btn btn-primary" href="{{ student_url }}">I am a student</a>
-    </div>
-  </div>
+  <a class="btn btn-orange" href="{{ student_url }}">
+    Create a student account
+  </a>
+</div>
 
 {% endblock %}

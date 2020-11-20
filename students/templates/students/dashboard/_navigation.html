@@ -1,7 +1,7 @@
 {% load ifactive %}
 {% load notifications_tags %}
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 mt-3">
     <nav class="dashboard-tabs">
       <ul class="nav">
         {% for membership in memberships %}
@@ -13,7 +13,7 @@
         {% endfor %}
         <li class="nav-item {% ifactive "students:my_challenges" "active" %}">
           <a class="nav-link" href="{% url "students:my_challenges" %}">
-            My challenges
+            My Challenges
           </a>
         </li>
         <li class="nav-item {% ifactive "students:favorites" "active" %}">
@@ -24,7 +24,9 @@
         <li class="nav-item {% ifactive "students:activity" "active" %}">
           <a class="nav-link" href="{% url "students:activity" %}">
             Recent Activity
-            <span class="badge badge-purple">{% notifications_unread %}</span>
+            {% notifications_unread as unread_count %}
+            <span
+              class="badge {% if unread_count %} badge-orange {% else %} badge-purple {% endif %}">{{ unread_count }}</span>
           </a>
         </li>
       </ul>

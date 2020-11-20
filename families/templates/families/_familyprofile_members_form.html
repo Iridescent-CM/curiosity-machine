@@ -1,8 +1,7 @@
-<div class="card cm-info-card">
-  <div class="card-header text-center p-3">
-    <h4 class="card-title">Family Members</h4>
-    <small class="text-muted">
-      * Please fill out all fields marked with an asterisk<br/>
+<div class="family-member-card card cm-card-lightblue">
+  <div class="card-header bg-lightblue p-3">
+    <h3 class="font-weight-bold card-title">Add Family Members</h3>
+    <small>
       One parent and one child required, six family members max
     </small>
   </div>
@@ -22,7 +21,13 @@
     <script data-formset="familymember_set" type="text/x-template">
       {% include "families/_familymember_inline.html" with form=formset.empty_form %}
     </script>
-    <button class="btn btn-secondary" data-formset-add="familymember_set">Add family member</button>
-    <input type="submit" class="btn btn-primary float-right" value="Save">
+    <input type="submit" class="btn btn-orange" value="Save">
+
+    <button
+      class="btn btn-outline-primary float-right"
+      data-formset-add="familymember_set"
+    >
+      Add family member
+    </button>
   </div>
 </div>

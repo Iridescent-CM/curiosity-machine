@@ -6,45 +6,46 @@
 
 {% block container %}
 
-  <div class="aifc-pages-header-bg text-light py-4 mb-2">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <img class="aifc-pages-white-logo" src="{% static 'images/aifc/aifc-white-logo.svg' %}">
-          {% if memberships %}
-          <br />
-          <strong>Memberships:</strong> {{ membership_names }}
-          {% endif %}
-        </div>
-      </div>
+<div class="jumbotron">
+  <div class="container text-light">
+    <div class="col-lg-8">
+      <h1 class="mb-3">Dashboard</h1>
+      {% if memberships %}
+      <h2 class="mb-3">
+        <strong>Memberships:</strong> {{ membership_names }}
+      </h2>
+      {% endif %}
 
       {% if messages %}{% for message in messages %}
-        <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {{ message }}
-        </div>
+      <div class="alert {{ message.tags }} alert-dismissable show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message }}
+      </div>
       {% endfor %}{% endif %}
+    </div>
+    {% include 'students/dashboard/_navigation.html' %}
+  </div>
+</div>
 
-      <div class="row mt-4">
-        {% include 'students/dashboard/_navigation.html' %}
+<div class="container py-5">
+  {% if request.user.extra.should_add_email %}
+  <div class="card cm-card-orange mb-5">
+    <div class="card-header font-weight-bold">
+      Account Action Needed
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        Please add an email address to your account. An email address is needed in case you forget your password.
       </div>
+      <a class="btn btn-orange" href="{% url "students:edit_profile" %}">Add your email</a>
     </div>
   </div>
+  {% endif %}
+  {% block content %}{% endblock %}
+</div>
+<div class="container-fluid bg-blue py-4">
+</div>
 
-  <div class="container mb-5" id="content">
-    {% if request.user.extra.should_add_email %}
-    <div class="card card-action-needed my-3">
-      <div class="card-header">
-        Account action needed
-      </div>
-      <div class="card-block">
-        Add an email address! If you forget your password, we'll use your email address to send you a new one.
-        Update your email in <a href="{% url "students:edit_profile" %}">account settings</a>.
-      </div>
-    </div>
-    {% endif %}
-    {% block content %}{% endblock %}
-  </div>
 {% endblock %}

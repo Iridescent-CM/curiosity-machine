@@ -1,6 +1,7 @@
 // .cm-card               - basic card style
-// .cm-fancy-card         - fancy card style, as seen on dashboards
-// .cm-info-card          - info card style as seen on inspiration pages
+// .cm-fancy-card         - fancy card style, as seen on dashboards, has
+                          // toggle to show more info
+// .cm-info-card          - info card style
 // .cm-profile-card       - card for displaying user profiles
 // .card-body >
 //   .card-body-toggle    - collapse toggle for .card-body
@@ -10,15 +11,13 @@
 .cm-fancy-card,
 .cm-profile-card,
 .cm-info-card {
-  border-radius: 4px;
+  border-radius: $base-border-radius;
 
   .card-body {
     padding: 0.75em;
     flex: none;
-
-    &.card-divider {
-      border-top: 2px solid $sand;
-    }
+    font-size: 0.875rem;
+    line-height: $medium-spacing;
   }
 
   .card-flags > * {
@@ -29,9 +28,12 @@
     padding: 5px 30px 5px 20px;
     position: absolute;
     left: -10px;
+    background-color: $primary-pink;
+    color: $white;
+    font-family: $headings-font-family;
 
     &:after {
-      content: "";
+      content: '';
       display: block;
       width: 0;
       height: 0;
@@ -44,7 +46,7 @@
     }
 
     &:before {
-      content: "";
+      content: '';
       display: block;
       width: 0;
       height: 0;
@@ -57,24 +59,7 @@
       left: 0;
       bottom: -10px;
       right: 100%;
-    }
-  }
-
-  .card-flag-purple {
-    background-color: $primary-purple;
-    color: $ivory;
-
-    &:before {
-      border-right-color: $primary-purple-dark;
-    }
-  }
-
-  .card-flag-green {
-    background-color: $primary-green;
-    color: $ivory;
-
-    &:before {
-      border-right-color: $primary-green-dark;
+      border-right-color: $primary-pink-dark;
     }
   }
 }
@@ -90,13 +75,13 @@
   .card-body {
     .card-title,
     .card-title a {
-      font-weight: 700;
-      color: $dark;
+      color: $base-font-color;
+      font-weight: bold;
       margin-bottom: 0;
 
       &:hover,
       &:focus {
-        color: tint($dark, 30%);
+        color: tint($black, 30%);
         text-decoration: none;
       }
     }
@@ -105,32 +90,28 @@
 
 .cm-fancy-card {
   .card-body {
-    background-color: $ivory;
-
     .dropdown-toggle {
-      border: 1px solid $light-gray;
+      color: $primary-lightblue;
     }
 
     .card-title {
-      color: $dark;
-      margin: 0.5em 0 1em 0;
-
+      color: $base-font-color;
+      font-weight: bold;
+      font-size: 0.875em;
       a {
-        color: $dark;
+        color: $base-font-color;
         &:hover,
         &:focus {
+          color: tint($black, 30%);
           text-decoration: none;
-          color: $primary-blue;
         }
       }
     }
 
     .card-section-title {
-      font-family: $headings-font-family;
+      color: $base-font-color;
+      font-weight: bold;
       font-size: 0.875em;
-      font-weight: normal;
-      text-transform: capitalize;
-      letter-spacing: 2px;
       margin-top: 0.75em;
     }
   }
@@ -146,7 +127,10 @@
   .card-header {
     background-color: $sand;
 
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
       margin-bottom: 0px;
     }
   }
@@ -165,7 +149,7 @@
   }
 
   .card-header a {
-    color: $primary-red;
+    color: $primary-orange;
     &:hover,
     &:focus {
       text-decoration: none;
@@ -190,19 +174,34 @@
   right: 0px;
   padding: 3px 7px;
   z-index: 100;
-  color: white;
-  background-color: darken($sand, 20%);
-  font-size: 0.875em;
+  color: $primary-blue;
+  font-size: 2em;
   letter-spacing: 2px;
   text-decoration: none;
   border-bottom-right-radius: 4px;
 
   &:hover {
-    background-color: darken($sand, 15%);
+    background-color: darken($white, 15%);
     text-decoration: none;
-    color: white;
+    color: $primary-blue;
   }
   &:focus {
-    background-color: $primary-red;
+    background-color: $primary-blue;
+    color: $white;
+
+  }
+}
+
+//color cards used in rebrand
+@each $color, $value in $theme-colors {
+  .cm-card-#{$color} {
+    @extend .cm-info-card, .border-4, .border-#{$color};
+
+    .card-header,
+    .card-footer {
+      @extend .border-0, .rounded-0;
+      background-color: $value;
+      color: color-yiq($value);
+    }
   }
 }

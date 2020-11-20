@@ -1,13 +1,8 @@
 {% load resized %}
 
 {% if image.url %}
-  <img
-    src={% resized image.url width=width|default:80 height=height|default:80 crop='thumb' gravity='faces' %}
-    class="rounded-circle"
-  >
+<img src={% resized image.url width=width|default:125 height=height|default:125 crop='thumb' gravity='faces' %}>
 {% else %}
-  <img
-    src={% resized MEDIA_URL|add:'images/placeholder.png' width=width|default:80 height=height|default:80 crop='thumb' gravity='faces' %}
-    class="rounded-circle"
-  >
+<img
+  src={% resized MEDIA_URL|add:'images/placeholder.png' width=width|default:125 height=height|default:125 crop='thumb' gravity='faces' %}>
 {% endif %}

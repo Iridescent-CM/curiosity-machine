@@ -1,26 +1,23 @@
 <div
-  class="card cm-info-card mb-3 {{comment.user.extra.get_role_display}}-comment stage-{{comment.get_stage_display}}-comment"
-  id="comment-{{comment.id}}"
->
+  class="mb-3 card comment-card  {{comment.user.extra.get_role_display}}-comment stage-{{comment.get_stage_display}}-comment {% if comment.user == user %} current-user {% else %} other-user {% endif %}"
+  id="comment-{{comment.id}}">
   <div class="card-header">
     <h3 class="card-title">
-      {% if comment.user == comment.challenge_progress.owner %}
-      {{ comment.get_stage_display|title }}
-      {% elif comment.user == user %}
-      Your feedback
-      {% else %}
-      Mentor feedback
+      {{ comment.user.username }}
+      <span class="badge badge-primary {{comment.get_stage_display}}-stage">
+        {{ comment.get_stage_display }}
+      </span>
+      {% if comment.question_text %}
+      <h6 class="card-subtitle my-2">
+        {{ comment.question_text }}
+      </h6>
       {% endif %}
-    </h3>
-    {% if comment.question_text %}
-    <h6 class="card-subtitle my-2">
-      {{ comment.question_text }}
-    </h6>
-    {% endif %}
-    <p><small>
-      {{ comment.user.username }} commented {{ comment.created|timesince }} ago
-    </small></p>
+      <br>
+      <small>
+        {{ comment.created|timesince }} ago
+      </small>
   </div>
+
   <div class="card-body">
 
     {% if comment.image %}
@@ -29,12 +26,7 @@
 
     {% if comment.video %}
     {% if comment.video.encoded_videos.exists %}
-    <video
-      class="img-fluid"
-      preload="none"
-      controls
-      poster='{{ comment.video.thumbnails.first.url }}'
-    >
+    <video class="img-fluid" preload="none" controls poster='{{ comment.video.thumbnails.first.url }}'>
       {% for v in comment.video.encoded_videos.all %}
       <source src="{{ v.url }}" type="{{ v.mime_type }}" />
       {% endfor %}

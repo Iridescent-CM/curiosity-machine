@@ -2,28 +2,33 @@
 {% load educator_notifications %}
 
 {% block content %}
-<div class="container mb-5 pb-5">
-  <h2 class="aifc-pages-subtitle mt-4">Recent Activity</h2>
-  <div class="row justify-content-center">
-    {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
-  </div>
-  {% for day, activity in activity_by_day.items %}
-  <ul class="activity-list-group list-group my-4">
-    <li class="list-group-item list-group-item-dark">{{ day|date:"DATE_FORMAT" }}</li>
-    {% for notification in activity %}
-    <li class="list-group-item">
-      {% educator_notification notification %}
-    </li>
-    {% endfor %}
-  </ul>
-  {% empty %}
-  <ul class="list-group my-4">
-    <li class="list-group-item list-group-item-dark">{% now "DATE_FORMAT" %}</li>
-    <li class="list-group-item">No recent activity</li>
-  <ul>
-  {% endfor %}
-  <div class="row justify-content-center">
-    {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="mb-3">Recent Activity</h2>
+      <div class="row justify-content-center">
+        {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+      </div>
+      {% for day, activity in activity_by_day.items %}
+      <ul class="activity-list-group list-group mb-3">
+        <li class="list-group-item bg-blue">{{ day|date:"DATE_FORMAT" }}</li>
+        {% for notification in activity %}
+        <li class="list-group-item">
+          {% educator_notification notification %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% empty %}
+      <ul class="list-group mb-3">
+        <li class="list-group-item bg-blue">{% now "DATE_FORMAT" %}</li>
+        <li class="list-group-item">No recent activity</li>
+      </ul>
+      {% endfor %}
+      <div class="row justify-content-center">
+        {% include "curiositymachine/_pagination_controls.html" with curr_page=page_obj %}
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

@@ -36,7 +36,7 @@
       background: transparent;
     }
     &.indicator-unread {
-      background: #0275d8;
+      background: $primary-blue;
     }
   }
 
@@ -50,16 +50,16 @@
     margin-right: 1em;
 
     &.plan-stage {
-      background-color: $primary-green;
+      background-color: $primary-yellow;
     }
     &.build-stage {
-      background-color: $primary-purple;
+      background-color: $primary-green;
     }
     &.test-stage {
-      background-color: $primary-red;
+      background-color: $primary-orange;
     }
     &.reflect-stage {
-      background-color: #1EB9C8;
+      background-color: $primary-pink;
     }
 
     @include media-breakpoint-up(md) {
