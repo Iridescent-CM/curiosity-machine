@@ -13,6 +13,7 @@ poetry install
 Get a .env from another developer and put it in your `curiosity-machine` directory, then
 
 ```sh
+createdb cm_local
 python manage.py migrate
 python manage.py runserver
 ```
