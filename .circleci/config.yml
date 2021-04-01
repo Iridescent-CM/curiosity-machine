@@ -18,6 +18,7 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - run: sudo chown -R circleci:circleci /usr/local/lib/node_modules
 
+      - run: pip install "cryptography<=3.3.2"
       - run: pip install poetry
 
       - restore_cache:
