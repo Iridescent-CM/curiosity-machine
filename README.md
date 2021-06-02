@@ -9,6 +9,7 @@ git clone git@github.com:Iridescent-CM/curiosity-machine.git
 cd curiosity-machine
 poetry install
 ```
+*Note requires python 3.6.5
 
 Get a .env from another developer and put it in your `curiosity-machine` directory, then
 
