@@ -37,9 +37,6 @@ jobs:
       - restore_cache:
           keys:
             - node-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run: rm -rf node_modules
-      - run: rm package-lock.json
-      - run: npm cache clean
       - run:
           command: npm install
       - save_cache:
