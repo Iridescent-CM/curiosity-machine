@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/build
     docker:
-      - image: circleci/python:3.7.10-stretch-node-browsers
+      - image: circleci/python:3.6.5-stretch-node-browsers
         environment:
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           REDIS_TEST_URL: redis://localhost:6379/1
