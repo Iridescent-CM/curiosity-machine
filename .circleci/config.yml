@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
-      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7.10/site-packages
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - run: sudo chown -R circleci:circleci /usr/local/lib/node_modules
 
       - run: pip install "cryptography<=3.3.2"
@@ -32,7 +32,7 @@ jobs:
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python3.7.10/site-packages"
+            - "/usr/local/lib/python3.6/site-packages"
 
       - restore_cache:
           keys:
