@@ -5,7 +5,7 @@ description = ""
 authors = ["Technovation <dev@technovation.org>"]
 
 [tool.poetry.dependencies]
-python = "3.6.5"
+python = "3.7.10"
 django = "^2.2.0"
 dj-database-url = "0.5.0"
 waitress = "1.1.0"
@@ -37,7 +37,7 @@ bleach = "2.1.4"
 "django-s3-storage" = "0.12.4"
 zencoder = "0.6.5"
 cloudinary = "1.12.0"
-mandrill = "1.0.57"
+mandrill = "1.0.59"
 hellosign-python-sdk = "3.8.7"
 newrelic = "3.2.2.94"
 rollbar = "0.14.7"
